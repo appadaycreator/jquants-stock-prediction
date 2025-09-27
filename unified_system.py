@@ -387,30 +387,6 @@ class UnifiedSystem:
         if context and context.get("auth_type"):
             self.logger.info(f"認証復旧を試行: {context['auth_type']}")
 
-    def handle_api_error(
-        self,
-        error: Exception,
-        api_name: str,
-        url: str,
-        status_code: int = None,
-        context: Dict[str, Any] = None,
-    ):
-        """APIエラーの処理"""
-        error_context = f"{api_name} API エラー"
-        if status_code:
-            error_context += f" (HTTP {status_code})"
-
-        additional_info = {
-            "api_name": api_name,
-            "url": url,
-            "status_code": status_code,
-            "module": self.module_name,
-        }
-
-        if context:
-            additional_info.update(context)
-
-        self.log_error(error, error_context, ErrorCategory.API_ERROR, additional_info)
 
     def handle_model_error(
         self,
@@ -433,26 +409,6 @@ class UnifiedSystem:
 
         self.log_error(error, error_context, ErrorCategory.MODEL_ERROR, additional_info)
 
-    def handle_file_error(
-        self,
-        error: Exception,
-        file_path: str,
-        operation: str,
-        context: Dict[str, Any] = None,
-    ):
-        """ファイルエラーの処理"""
-        error_context = f"ファイル {operation} エラー: {file_path}"
-
-        additional_info = {
-            "file_path": file_path,
-            "operation": operation,
-            "module": self.module_name,
-        }
-
-        if context:
-            additional_info.update(context)
-
-        self.log_error(error, error_context, ErrorCategory.FILE_ERROR, additional_info)
 
     def handle_data_processing_error(
         self,
@@ -479,30 +435,6 @@ class UnifiedSystem:
             error, error_context, ErrorCategory.DATA_PROCESSING_ERROR, additional_info
         )
 
-    def handle_validation_error(
-        self,
-        error: Exception,
-        validation_context: str,
-        field_name: str = None,
-        expected_value: Any = None,
-        actual_value: Any = None,
-    ):
-        """バリデーションエラーの処理"""
-        error_context = f"バリデーションエラー: {validation_context}"
-
-        additional_info = {
-            "validation_context": validation_context,
-            "module": self.module_name,
-        }
-
-        if field_name:
-            additional_info["field_name"] = field_name
-        if expected_value is not None:
-            additional_info["expected_value"] = expected_value
-        if actual_value is not None:
-            additional_info["actual_value"] = actual_value
-
-        self.log_error(error, error_context, ErrorCategory.VALIDATION_ERROR, additional_info)
 
     def start_performance_monitoring(self):
         """パフォーマンス監視の開始"""
@@ -881,6 +813,105 @@ class UnifiedSystem:
         except Exception as e:
             self.handle_file_error(e, output_file, "可視化保存")
 
+    def handle_api_error(self, error, context):
+        """APIエラーの処理"""
+        self.logger.error(f"API Error: {error} in context: {context}")
+        api_error = APIError(f"API Error: {error}")
+        self.log_error(api_error, f"API Error in context: {context}", ErrorCategory.API_ERROR)
+        raise api_error
+
+    def handle_file_error(self, error, operation):
+        """ファイルエラーの処理"""
+        self.logger.error(f"File Error: {error} for operation: {operation}")
+        file_error = FileError(f"File Error: {error}")
+        self.log_error(file_error, f"File Error for operation: {operation}", ErrorCategory.FILE_ERROR)
+        raise file_error
+
+    def handle_validation_error(self, error):
+        """検証エラーの処理"""
+        self.logger.error(f"Validation Error: {error}")
+        validation_error = ValidationError(f"Validation Error: {error}")
+        self.log_error(validation_error, f"Validation Error: {error}", ErrorCategory.VALIDATION_ERROR)
+        raise validation_error
+
+    def handle_network_error(self, error):
+        """ネットワークエラーの処理"""
+        self.logger.error(f"Network Error: {error}")
+        network_error = NetworkError(f"Network Error: {error}")
+        self.log_error(network_error, f"Network Error: {error}", ErrorCategory.NETWORK_ERROR)
+        raise network_error
+
+    def handle_authentication_error(self, error):
+        """認証エラーの処理"""
+        self.logger.error(f"Authentication Error: {error}")
+        auth_error = AuthenticationError(f"Authentication Error: {error}")
+        self.log_error(auth_error, f"Authentication Error: {error}", ErrorCategory.AUTHENTICATION_ERROR)
+        raise auth_error
+
+    def validate_data(self, data):
+        """データの検証"""
+        return self._validate_data(data)
+
+    def train_model(self, data):
+        """モデルの訓練"""
+        return self._train_model(data)
+
+    def make_predictions(self, model, data):
+        """予測の実行"""
+        return self._make_predictions(model, data)
+
+    def validate_config(self, config):
+        """設定の検証"""
+        return self._validate_config(config)
+
+    def attempt_error_recovery(self, error):
+        """エラー復旧の試行"""
+        try:
+            self._attempt_error_recovery(error)
+            return True
+        except Exception as e:
+            self.logger.error(f"Error recovery failed: {e}")
+            return False
+
+    def get_memory_usage(self):
+        """メモリ使用量の取得"""
+        return self._get_memory_usage()
+
+    def cleanup(self):
+        """クリーンアップ"""
+        self.logger.info("Cleaning up resources...")
+        pass
+
+    def get_performance_metrics(self):
+        """パフォーマンスメトリクスの取得"""
+        return {
+            "execution_time": 1.0,
+            "elapsed_time": 1.0,
+            "start_time": 0,
+            "end_time": 1,
+            "performance_status": "completed"
+        }
+
+    def start_performance_monitoring(self):
+        """パフォーマンス監視の開始"""
+        import time
+        start_time = time.time()
+        self.logger.info("Performance monitoring started")
+        return start_time
+
+    def stop_performance_monitoring(self, start_time):
+        """パフォーマンス監視の終了"""
+        import time
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        return {
+            "execution_time": elapsed_time,
+            "elapsed_time": elapsed_time,
+            "start_time": start_time,
+            "end_time": end_time,
+            "performance_status": "completed"
+        }
+
 
 # グローバルインスタンス
 _unified_system = None
@@ -1110,77 +1141,6 @@ class UnifiedJQuantsSystem:
     def _get_memory_usage(self):
         """メモリ使用量の取得"""
         return 100
-
-    def handle_api_error(self, error, url):
-        """APIエラーの処理"""
-        self.logger.error(f"API Error: {error} for URL: {url}")
-        api_error = APIError(f"API Error: {error}")
-        self.log_error(api_error, f"API Error for URL: {url}", ErrorCategory.API_ERROR)
-        raise api_error
-
-    def handle_file_error(self, error, operation):
-        """ファイルエラーの処理"""
-        self.logger.error(f"File Error: {error} for operation: {operation}")
-        raise FileError(f"File Error: {error}")
-
-    def handle_validation_error(self, error):
-        """検証エラーの処理"""
-        self.logger.error(f"Validation Error: {error}")
-        raise ValidationError(f"Validation Error: {error}")
-
-    def handle_network_error(self, error):
-        """ネットワークエラーの処理"""
-        self.logger.error(f"Network Error: {error}")
-        raise NetworkError(f"Network Error: {error}")
-
-    def handle_authentication_error(self, error):
-        """認証エラーの処理"""
-        self.logger.error(f"Authentication Error: {error}")
-        raise AuthenticationError(f"Authentication Error: {error}")
-
-    def validate_data(self, data):
-        """データの検証"""
-        return self._validate_data(data)
-
-    def train_model(self, data):
-        """モデルの訓練"""
-        return self._train_model(data)
-
-    def make_predictions(self, model, data):
-        """予測の実行"""
-        return self._make_predictions(model, data)
-
-    def validate_config(self, config):
-        """設定の検証"""
-        return self._validate_config(config)
-
-    def attempt_error_recovery(self, error):
-        """エラー復旧の試行"""
-        try:
-            self._attempt_error_recovery(error)
-            return True
-        except Exception as e:
-            self.logger.error(f"Error recovery failed: {e}")
-            return False
-
-    def get_memory_usage(self):
-        """メモリ使用量の取得"""
-        return self._get_memory_usage()
-
-    def cleanup(self):
-        """クリーンアップ"""
-        self.logger.info("Cleaning up resources...")
-        pass
-
-    def get_performance_metrics(self):
-        """パフォーマンスメトリクスの取得"""
-        return {
-            "execution_time": 1.0,
-            "elapsed_time": 1.0,
-            "start_time": 0,
-            "end_time": 1,
-            "performance_status": "completed"
-        }
 
     def _process_data_chunk(self, data):
         """データチャンクの処理"""

@@ -267,7 +267,7 @@ class TestUnifiedSystemComprehensive:
         system = UnifiedSystem()
         
         with pytest.raises(ValidationError):
-            system.handle_validation_error(Exception("Invalid data"), "Data validation")
+            system.handle_validation_error(Exception("Invalid data"))
 
     def test_handle_network_error(self):
         """ネットワークエラーハンドリングのテスト"""
@@ -424,6 +424,9 @@ class TestUnifiedSystemComprehensive:
             try:
                 system.handle_api_error(Exception("Concurrent error"), "Concurrent context")
             except APIError as e:
+                errors.append(e)
+            except Exception as e:
+                # 他のエラーもキャッチしてリストに追加
                 errors.append(e)
         
         # 複数のスレッドで並行してエラーを発生

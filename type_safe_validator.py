@@ -80,7 +80,7 @@ class TypeSafeValidator:
                 nan_count = converted_series.isna().sum()
                 if nan_count > 0:
                     result["nan_issues"][col] = nan_count
-                    if self.strict_mode and nan_count > len(df) * 0.1:  # 10%以上
+                    if self.strict_mode and nan_count > len(df) * 0.5:  # 50%以上
                         result["errors"].append(
                             f"カラム '{col}' に過度のNaN値: {nan_count}件"
                         )

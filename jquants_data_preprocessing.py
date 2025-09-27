@@ -49,7 +49,7 @@ def validate_input_file(input_file):
 
         file_size = os.path.getsize(input_file)
         if file_size == 0:
-            error_msg = "データファイルが空です"
+            error_msg = "入力ファイルが空です"
             error_handler.log_error(
                 ValueError(error_msg),
                 "入力ファイル検証エラー",

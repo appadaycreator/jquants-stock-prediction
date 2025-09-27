@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ main ]
 
+# GitHub Pagesのデプロイに必要な権限を設定
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -49,8 +55,9 @@ jobs:
         NODE_ENV=production npm run export
         
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./web-app/dist
+        cname: # カスタムドメインがある場合はここに設定
