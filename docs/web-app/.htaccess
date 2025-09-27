@@ -1,0 +1,14 @@
+# GitHub Pages用のリダイレクト設定
+# Next.jsの内部ファイル（.txt）の404エラーを回避
+
+# .txtファイルへのリクエストを無視
+RewriteEngine On
+RewriteRule ^.*\.txt$ - [L,R=404]
+
+# favicon.icoの相対パス化
+RewriteRule ^favicon\.ico$ ./favicon.ico [L]
+
+# その他の静的ファイルの相対パス化
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ ./index.html [L]
