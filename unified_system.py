@@ -474,6 +474,62 @@ class UnifiedSystem:
             error, error_context, ErrorCategory.DATA_PROCESSING_ERROR, additional_info
         )
 
+    def handle_validation_error(
+        self,
+        error: Exception,
+        validation_context: str,
+        field_name: str = None,
+        expected_value: Any = None,
+        actual_value: Any = None,
+    ):
+        """バリデーションエラーの処理"""
+        error_context = f"バリデーションエラー: {validation_context}"
+
+        additional_info = {
+            "validation_context": validation_context,
+            "module": self.module_name,
+        }
+
+        if field_name:
+            additional_info["field_name"] = field_name
+        if expected_value is not None:
+            additional_info["expected_value"] = expected_value
+        if actual_value is not None:
+            additional_info["actual_value"] = actual_value
+
+        self.log_error(error, error_context, ErrorCategory.VALIDATION_ERROR, additional_info)
+
+    def start_performance_monitoring(self):
+        """パフォーマンス監視の開始"""
+        import time
+        self.performance_start_time = time.time()
+        self.logger.info("📊 パフォーマンス監視を開始しました")
+        return self.performance_start_time
+
+    def stop_performance_monitoring(self):
+        """パフォーマンス監視の終了"""
+        if hasattr(self, 'performance_start_time'):
+            import time
+            elapsed_time = time.time() - self.performance_start_time
+            self.logger.info(f"⏱️ パフォーマンス監視終了: {elapsed_time:.2f}秒")
+            return elapsed_time
+        return None
+
+    def get_performance_results(self, start_time):
+        """パフォーマンス結果の取得"""
+        import time
+        if hasattr(self, 'performance_start_time'):
+            elapsed_time = time.time() - self.performance_start_time
+        else:
+            elapsed_time = time.time() - start_time
+        
+        return {
+            "elapsed_time": elapsed_time,
+            "start_time": start_time,
+            "end_time": time.time(),
+            "performance_status": "completed" if elapsed_time < 10.0 else "degraded"
+        }
+
     def log_info(
         self, message: str, category: LogCategory = LogCategory.SYSTEM, **kwargs
     ):

@@ -33,6 +33,7 @@ class ErrorCategory(Enum):
     CONFIG_ERROR = "config_error"
     NETWORK_ERROR = "network_error"
     AUTHENTICATION_ERROR = "authentication_error"
+    ERROR = "error"  # 汎用エラーカテゴリを追加
 
 
 class LogLevel(Enum):
