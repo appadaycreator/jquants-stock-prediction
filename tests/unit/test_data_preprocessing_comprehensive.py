@@ -448,7 +448,7 @@ class TestDataPreprocessingComprehensive:
         """メイン処理のファイル未発見エラー"""
         with patch("jquants_data_preprocessing.load_and_clean_data") as mock_load:
             mock_load.side_effect = FileNotFoundError("File not found")
-            
+
             # 実際のmain関数を呼び出してエラーを確認
             with pytest.raises(Exception):  # FileErrorが発生することを確認
                 main()
@@ -457,7 +457,7 @@ class TestDataPreprocessingComprehensive:
         """メイン処理の権限エラー"""
         with patch("jquants_data_preprocessing.load_and_clean_data") as mock_load:
             mock_load.side_effect = PermissionError("Permission denied")
-            
+
             # 実際のmain関数を呼び出してエラーを確認
             with pytest.raises(Exception):  # FileErrorが発生することを確認
                 main()

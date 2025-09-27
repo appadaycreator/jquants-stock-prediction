@@ -34,7 +34,11 @@ try:
         LogLevel,
         LogCategory,
     )
-    from unified_error_handling_system import get_unified_error_handler, ErrorCategory, ErrorSeverity
+    from unified_error_handling_system import (
+        get_unified_error_handler,
+        ErrorCategory,
+        ErrorSeverity,
+    )
     from technical_indicators import TechnicalIndicators
     from model_factory import ModelFactory
 except ImportError:
@@ -65,10 +69,17 @@ except ImportError:
         return True
 
     class UnifiedSystem:
-        def __init__(self, module_name="UnifiedSystem", config_file="config_final.yaml"):
+        def __init__(
+            self, module_name="UnifiedSystem", config_file="config_final.yaml"
+        ):
             self.module_name = module_name
             self.error_count = 0
-            self.error_stats = {"api_error": 0, "data_error": 0, "model_error": 0, "file_error": 0}
+            self.error_stats = {
+                "api_error": 0,
+                "data_error": 0,
+                "model_error": 0,
+                "file_error": 0,
+            }
             self.logger = MagicMock()
 
         def log_error(self, error, context="", category="api_error"):
@@ -84,7 +95,7 @@ except ImportError:
             return {
                 "processing_time": end_time - start_time,
                 "memory_usage": 100.0,
-                "cpu_usage": 50.0
+                "cpu_usage": 50.0,
             }
 
     class UnifiedJQuantsSystem:
@@ -472,9 +483,7 @@ class TestEdgeCasesComprehensive:
 
                 # 極端な値が適切に処理されていることを確認
                 assert (
-                    not np.isinf(result.select_dtypes(include=[np.number]))
-                    .any()
-                    .any()
+                    not np.isinf(result.select_dtypes(include=[np.number])).any().any()
                     or result.empty
                 )
 
@@ -583,7 +592,7 @@ class TestEdgeCasesComprehensive:
         # システムが正常に動作することを確認
         assert system.error_count == 100
         # error_stats属性は存在することを確認
-        assert hasattr(system, 'error_stats')
+        assert hasattr(system, "error_stats")
         assert isinstance(system.error_stats, dict)
 
     def test_resource_exhaustion_scenarios(self):
@@ -801,5 +810,5 @@ class TestEdgeCasesComprehensive:
         # システムが正常に動作することを確認
         assert system.error_count == 1000
         # error_stats属性は存在することを確認
-        assert hasattr(system, 'error_stats')
+        assert hasattr(system, "error_stats")
         assert isinstance(system.error_stats, dict)

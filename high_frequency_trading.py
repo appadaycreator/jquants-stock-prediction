@@ -96,9 +96,10 @@ class HighFrequencyTrading:
         # スレッドプール（設定ファイルからmax_workersを読み込み）
         try:
             import yaml
-            with open('config_final.yaml', 'r', encoding='utf-8') as f:
+
+            with open("config_final.yaml", "r", encoding="utf-8") as f:
                 config = yaml.safe_load(f)
-            max_workers = config.get('performance', {}).get('max_workers', 4)
+            max_workers = config.get("performance", {}).get("max_workers", 4)
         except Exception:
             max_workers = 4
         self.executor = ThreadPoolExecutor(max_workers=max_workers)

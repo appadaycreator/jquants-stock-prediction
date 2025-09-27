@@ -201,12 +201,12 @@ class UnifiedSystem:
             # ログファイルのディレクトリを作成
             log_dir = os.path.dirname(log_file) if os.path.dirname(log_file) else "."
             os.makedirs(log_dir, exist_ok=True)
-            
+
             # ログファイルが存在しない場合は作成
             if not os.path.exists(log_file):
-                with open(log_file, 'w', encoding='utf-8') as f:
+                with open(log_file, "w", encoding="utf-8") as f:
                     f.write("")
-            
+
             file_handler = logging.FileHandler(log_file, encoding="utf-8")
             file_handler.setLevel(logging.DEBUG)
             file_handler.setFormatter(detailed_formatter)
@@ -219,9 +219,9 @@ class UnifiedSystem:
         error_log_file = "errors.log"
         try:
             if not os.path.exists(error_log_file):
-                with open(error_log_file, 'w', encoding='utf-8') as f:
+                with open(error_log_file, "w", encoding="utf-8") as f:
                     f.write("")
-            
+
             error_handler = logging.FileHandler(error_log_file, encoding="utf-8")
             error_handler.setLevel(logging.ERROR)
             error_handler.setFormatter(detailed_formatter)
@@ -573,7 +573,9 @@ class UnifiedSystem:
         return {
             "total_errors": self.error_count,
             "error_by_category": {k: v for k, v in self.error_stats.items()},
-            "errors_by_category": {k: v for k, v in self.error_stats.items()},  # テスト用の別名
+            "errors_by_category": {
+                k: v for k, v in self.error_stats.items()
+            },  # テスト用の別名
             "module": self.module_name,
             "timestamp": datetime.now().isoformat(),
         }
@@ -619,7 +621,9 @@ class UnifiedSystem:
             self.logger.info("エラー復旧ワークフローを実行しました")
             return recovery_result
         except Exception as e:
-            self.log_error(e, "エラー復旧ワークフローエラー", ErrorCategory.DATA_PROCESSING_ERROR)
+            self.log_error(
+                e, "エラー復旧ワークフローエラー", ErrorCategory.DATA_PROCESSING_ERROR
+            )
             raise DataProcessingError(f"エラー復旧ワークフローエラー: {e}")
 
     def optimize_performance(self) -> Dict[str, Any]:
@@ -633,7 +637,9 @@ class UnifiedSystem:
             self.logger.info("パフォーマンス最適化を実行しました")
             return optimization_result
         except Exception as e:
-            self.log_error(e, "パフォーマンス最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR)
+            self.log_error(
+                e, "パフォーマンス最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR
+            )
             raise DataProcessingError(f"パフォーマンス最適化エラー: {e}")
 
     def save_config(self, file_path: str = None) -> None:
@@ -1077,35 +1083,26 @@ class UnifiedSystem:
         """設定の検証"""
         try:
             issues = []
-            
+
             # 設定が空の場合は有効とする（デフォルト設定を使用）
             if not config:
-                return {
-                    "is_valid": True,
-                    "issues": []
-                }
-            
+                return {"is_valid": True, "issues": []}
+
             # 必須キーのチェック（systemキーが存在する場合のみ）
             if "system" in config:
                 required_keys = ["system"]
                 for key in required_keys:
                     if key not in config:
                         issues.append(f"必須設定キー '{key}' が不足しています")
-            
+
             # APIキーのチェック（テスト環境では不要）
             if config.get("system", {}).get("environment") != "test":
                 if "api_key" not in config:
                     issues.append("必須設定キー 'api_key' が不足しています")
-            
-            return {
-                "is_valid": len(issues) == 0,
-                "issues": issues
-            }
+
+            return {"is_valid": len(issues) == 0, "issues": issues}
         except Exception as e:
-            return {
-                "is_valid": False,
-                "issues": [f"設定検証エラー: {str(e)}"]
-            }
+            return {"is_valid": False, "issues": [f"設定検証エラー: {str(e)}"]}
 
     def _get_memory_usage(self):
         """メモリ使用量取得（プライベートメソッド）"""
@@ -1180,6 +1177,7 @@ class UnifiedSystem:
     def _load_data(self, filepath):
         """データの読み込み（プライベートメソッド）"""
         import pandas as pd
+
         return pd.read_csv(filepath)
 
     def health_check(self):
@@ -1187,19 +1185,15 @@ class UnifiedSystem:
         try:
             return {
                 "status": "healthy",
-                "components": {
-                    "logging": "ok",
-                    "config": "ok",
-                    "error_handling": "ok"
-                },
+                "components": {"logging": "ok", "config": "ok", "error_handling": "ok"},
                 "timestamp": datetime.now().isoformat(),
-                "error_count": self.error_count
+                "error_count": self.error_count,
             }
         except Exception as e:
             return {
                 "status": "unhealthy",
                 "error": str(e),
-                "timestamp": datetime.now().isoformat()
+                "timestamp": datetime.now().isoformat(),
             }
 
     def get_error_statistics(self):
@@ -1209,7 +1203,7 @@ class UnifiedSystem:
             "errors_by_category": self.error_stats,
             "errors_by_level": {"ERROR": self.error_count, "WARNING": 0, "INFO": 0},
             "module": self.module_name,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
 
     def update_configuration(self, new_config):
@@ -1229,7 +1223,7 @@ class UnifiedSystem:
                 "config": self.config.copy(),
                 "error_stats": self.error_stats.copy(),
                 "timestamp": datetime.now().isoformat(),
-                "module_name": self.module_name
+                "module_name": self.module_name,
             }
             self.logger.info("バックアップが正常に作成されました")
             return backup_data
@@ -1256,54 +1250,55 @@ class UnifiedSystem:
         try:
             recovery_attempts = 0
             success_count = 0
-            
+
             # エラー統計のリセット
             if self.error_count > 0:
                 recovery_attempts += 1
                 self.error_count = 0
                 self.error_stats = {category.value: 0 for category in ErrorCategory}
                 success_count += 1
-            
+
             success_rate = success_count / max(recovery_attempts, 1)
-            
+
             return {
                 "recovery_attempts": recovery_attempts,
                 "success_rate": success_rate,
-                "timestamp": datetime.now().isoformat()
+                "timestamp": datetime.now().isoformat(),
             }
         except Exception as e:
-            self.log_error(e, "エラー復旧ワークフローエラー", ErrorCategory.DATA_PROCESSING_ERROR)
-            return {
-                "recovery_attempts": 0,
-                "success_rate": 0.0,
-                "error": str(e)
-            }
+            self.log_error(
+                e, "エラー復旧ワークフローエラー", ErrorCategory.DATA_PROCESSING_ERROR
+            )
+            return {"recovery_attempts": 0, "success_rate": 0.0, "error": str(e)}
 
     def optimize_performance(self):
         """パフォーマンス最適化"""
         try:
             # メモリ使用量の最適化
             import gc
+
             gc.collect()
-            
+
             # エラー統計の最適化
             if len(self.error_stats) > 10:
                 # 古いエラー統計をクリア
                 self.error_stats = {category.value: 0 for category in ErrorCategory}
-            
+
             return {
                 "memory_usage_reduction": 0.1,
                 "processing_time_reduction": 0.1,
                 "optimization_applied": True,
-                "timestamp": datetime.now().isoformat()
+                "timestamp": datetime.now().isoformat(),
             }
         except Exception as e:
-            self.log_error(e, "パフォーマンス最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR)
+            self.log_error(
+                e, "パフォーマンス最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR
+            )
             return {
                 "memory_usage_reduction": 0.0,
                 "processing_time_reduction": 0.0,
                 "optimization_applied": False,
-                "error": str(e)
+                "error": str(e),
             }
 
     def start_performance_monitoring(self):

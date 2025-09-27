@@ -54,11 +54,16 @@ jobs:
         npm run clean
         NODE_ENV=production npm run export
         
+    - name: Copy built files to docs directory
+      run: |
+        cp -r web-app/dist/* docs/
+        echo "Files copied to docs directory"
+        
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./web-app/dist
+        publish_dir: ./docs
         cname: # カスタムドメインがある場合はここに設定
         force_orphan: true
