@@ -67,6 +67,37 @@ cp .env.sample .env
 cp config.yaml.sample config.yaml
 ```
 
+## 設定のカスタマイズ
+
+`config.yaml`を編集することで、システムの動作を簡単にカスタマイズできます：
+
+### パラメータ調整例
+
+```yaml
+# 移動平均期間を変更
+preprocessing:
+  sma_windows:
+    - 5
+    - 10
+    - 25
+    - 50
+
+# モデルパラメータを調整
+prediction:
+  random_forest:
+    n_estimators: 200
+    max_depth: 10
+    random_state: 42
+  test_size: 0.3
+```
+
+### 設定ファイルのテスト
+
+```bash
+# 設定ファイルの妥当性をチェック
+python3 config_loader.py
+```
+
 ## 使用方法
 
 ### 仮想環境のアクティベート
@@ -96,7 +127,8 @@ python3 jquants_stock_prediction.py
 ✅ データ前処理パイプライン  
 ✅ 機械学習モデルの訓練と予測  
 ✅ 結果の可視化  
-✅ セキュリティ設定（認証情報の環境変数化）
+✅ セキュリティ設定（認証情報の環境変数化）  
+✅ 設定ファイル読み込み機能（YAMLベース）
 
 ## ファイル構成
 
@@ -104,9 +136,11 @@ python3 jquants_stock_prediction.py
 ├── jquants_data_fetch.py          # データ取得スクリプト
 ├── jquants_data_preprocessing.py  # データ前処理スクリプト
 ├── jquants_stock_prediction.py    # 株価予測スクリプト
+├── config_loader.py               # 設定ファイル読み込みモジュール
 ├── jquants_flowchart.mmd          # システムフローチャート
 ├── requirements.txt               # Python依存関係
 ├── config.yaml.sample             # 設定ファイルサンプル
+├── config.yaml                    # 設定ファイル（実際の設定）
 ├── .env.sample                     # 環境変数サンプル
 └── README.md                       # このファイル
 ```
@@ -129,6 +163,13 @@ python3 jquants_stock_prediction.py
 - ランダムフォレスト回帰モデルの構築
 - モデルのトレーニングと評価
 - 予測結果の可視化
+- 特徴量重要度の分析
+
+### config_loader.py
+- YAML設定ファイルの読み込み
+- 設定値の動的取得
+- 設定妥当性チェック
+- ログ設定の初期化
 
 ## データフロー
 

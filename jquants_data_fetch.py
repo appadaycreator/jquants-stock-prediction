@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 import os
 from dotenv import load_dotenv
+from config_loader import get_config
 
 # 環境変数から認証情報を読み込み
 load_dotenv()
@@ -47,10 +48,17 @@ if "idToken" not in id_token_data:
 id_token = id_token_data["idToken"]
 print("IDトークンを取得しました。")
 
+# 設定ファイルを読み込み
+config = get_config()
+jquants_config = config.get_jquants_config()
+data_fetch_config = config.get_data_fetch_config()
+
 # 3. 株価データの取得
 headers = {"Authorization": f"Bearer {id_token}"}
-price_url = "https://api.jquants.com/v1/prices/daily_quotes"
-params = {"date": "20240301"}  # 取得する日付
+price_url = f"{jquants_config.get('base_url', 'https://api.jquants.com/v1')}/prices/daily_quotes"
+params = {"date": data_fetch_config.get('target_date', '20240301')}
+
+print(f"データ取得を開始します: {params['date']}")
 response = requests.get(price_url, headers=headers, params=params)
 
 if response.status_code != 200:
@@ -59,5 +67,6 @@ if response.status_code != 200:
 
 data = response.json()
 df = pd.DataFrame(data["daily_quotes"])
-df.to_csv("stock_data.csv", index=False)
-print("データを 'stock_data.csv' に保存しました。")
+output_file = data_fetch_config.get('output_file', 'stock_data.csv')
+df.to_csv(output_file, index=False)
+print(f"データを '{output_file}' に保存しました。取得件数: {len(df)}件")
