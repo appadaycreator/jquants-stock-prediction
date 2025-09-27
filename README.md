@@ -1,49 +1,69 @@
-# J-Quants株価予測システム v2.0
+# J-Quants株価予測システム v2.1
 
 J-Quants APIを使用して株価データを取得し、機械学習で株価予測を行う**完全統合システム**です。
 
-## 🚀 新アーキテクチャ（v2.0）
+## 🚀 新アーキテクチャ（v2.1） - 最高優先度問題解決版
 
 ### 完全統合システム - 単一責任原則に基づく設計
 
 **✅ 推奨システム（統合アーキテクチャ）:**
 
-1. **統合J-Quantsシステム** (`unified_jquants_system.py`) - 全機能を統合した完全統合システム
+1. **統合システム** (`unified_system.py`) - 全機能を統合した完全統合システム
+   - 統合エラーハンドリング・ログシステム
+   - 統合設定管理
    - セキュアな認証処理
    - 堅牢なデータ取得処理
    - 統合データ前処理（技術指標計算含む）
    - 統合株価予測（複数モデル対応）
-   - 統合エラーハンドリング・ログシステム
    - 機密情報の完全マスキング
    - 単一ファイルでの完全な機能提供
 
-2. **統合設定管理** (`config_unified.yaml`) - 単一設定ファイル
+2. **統合設定管理** (`config_final.yaml`) - 単一設定ファイル
    - 環境別設定の明確化
    - 設定検証の強化
-   - 統合設定ローダー (`unified_config_loader.py`)
+   - 統合設定ローダー（`unified_system.py`内）
 
-3. **統合エラーハンドリング** (`unified_error_logging_system.py`) - 統一エラーハンドリング
+3. **統合エラーハンドリング** (`unified_system.py`内) - 統一エラーハンドリング
    - エラー分類の明確化
    - ログレベルの標準化
    - セキュリティイベントログ
 
-### 🚨 レガシーモジュール（廃止予定）
+### 🎯 最高優先度問題の解決
 
-**⚠️ 廃止予定**: 以下のモジュールは段階的に廃止されます
+**✅ 解決済み問題:**
 
-1. **個別モジュール**（廃止予定）
+1. **エラーハンドリングの不整合** - 統合システムで解決
+   - 複数のエラーハンドリングシステムを統合
+   - デバッグ困難、エラー追跡の複雑化を解消
+
+2. **設定ファイルの重複と不整合** - 統合設定で解決
+   - 複数の設定ファイルを単一ファイルに統合
+   - 設定の混乱、メンテナンス困難を解消
+
+3. **ログシステムの過剰な複雑性** - 統合ログで解決
+   - 複数のログシステムを統合システムに統合
+   - ログファイルの重複、パフォーマンス低下を解消
+
+### 🚨 レガシーモジュール（完全廃止済み）
+
+**✅ 廃止完了**: 以下のモジュールは完全に廃止されました
+
+1. **個別モジュール**（廃止完了）
    - `jquants_stock_prediction.py` - 個別予測モジュール
    - `jquants_data_preprocessing.py` - 個別前処理モジュール
    - `jquants_data_fetch.py` - 個別データ取得モジュール
 
-2. **重複設定ファイル**（廃止予定）
+2. **重複設定ファイル**（廃止完了）
+   - `config.yaml` - 旧設定ファイル
    - `config/api.yaml`, `config/core.yaml`, `config/data.yaml`, `config/models.yaml`
+   - `config_loader.py`, `enhanced_config_loader.py`, `unified_config_loader.py`
 
-3. **重複エラーハンドリング**（廃止予定）
+3. **重複エラーハンドリング**（廃止完了）
    - `unified_error_handler.py` - 旧統合エラーハンドラー
    - `enhanced_logging.py` - 旧強化ログシステム
+   - `unified_error_logging_system.py` - 重複統合エラーログシステム
 
-**📋 詳細**: [レガシー廃止予定通知](LEGACY_DEPRECATION_NOTICE.md) を参照してください。
+**📋 詳細**: [レガシークリーンアップ計画](LEGACY_CLEANUP_PLAN.md) を参照してください。
 
 ### 🚀 堅牢性の向上（v2.0）
 
@@ -453,19 +473,24 @@ python3 config_loader.py
 source venv/bin/activate
 ```
 
-#### 2. 統合システムでの処理実行
+#### 2. 統合システムでの処理実行（v2.1推奨）
 ```bash
-# 統合システムでデータ取得
-python3 unified_jquants_system.py
+# 統合システムで全処理を実行
+python3 unified_system.py
 
-# データ前処理  
-python3 jquants_data_preprocessing.py
+# または個別処理
+python3 unified_jquants_system.py  # データ取得・前処理・予測
+python3 generate_web_data.py      # Web表示用データ生成
+```
 
-# 株価予測実行
-python3 jquants_stock_prediction.py
+#### 3. 統合システムの設定
+```bash
+# 統合設定ファイルの確認
+cat config_final.yaml
 
-# Web表示用データ生成
-python3 generate_web_data.py
+# 環境変数の設定
+export JQUANTS_EMAIL="your_email@example.com"
+export JQUANTS_PASSWORD="your_password"
 ```
 
 ### 🎯 主な用途別の使い方

@@ -1,0 +1,347 @@
+# J-Quants株価予測システム - 最終統合設定ファイル
+# 完全統合システム用の単一設定ファイル（最高優先度問題解決版）
+
+# システム基本情報
+system:
+  name: "J-Quants株価予測システム"
+  version: "2.0.0"
+  environment: "production"  # development, staging, production
+  debug: false
+  architecture: "unified"  # 統合アーキテクチャ
+  unified_system: true  # 統合システム使用フラグ
+
+# J-Quants API設定
+jquants:
+  base_url: "https://api.jquants.com/v1"
+  timeout: 30  # 秒
+  max_retries: 3
+  retry_interval: 5  # 秒
+  rate_limit: 100  # リクエスト/分
+  
+  # 認証設定
+  auth:
+    token_expiry: 3600  # 秒
+    refresh_threshold: 300  # 秒
+    
+  # データ取得設定
+  data_fetch:
+    batch_size: 100
+    max_concurrent: 5
+    cache_duration: 3600  # 秒
+    
+  # エンドポイント設定
+  endpoints:
+    auth: "/token/auth_user"
+    refresh: "/token/auth_refresh"
+    stock_list: "/listed/info"
+    stock_prices: "/prices/daily_quotes"
+    stock_financials: "/fins/statements"
+
+# データ取得設定
+data_fetch:
+  # 取得する日付（YYYYMMDD形式）
+  target_date: "20240301"
+  # 出力ファイル名
+  output_file: "stock_data.csv"
+  # データ保存設定
+  storage:
+    format: "csv"  # csv, parquet, json
+    compression: "gzip"
+    encoding: "utf-8"
+
+# データ前処理設定
+preprocessing:
+  # 入力ファイル
+  input_file: "stock_data.csv"
+  # 出力ファイル
+  output_file: "processed_stock_data.csv"
+  
+  # 使用するカラム
+  columns:
+    - "Code"
+    - "Date"
+    - "Open"
+    - "High"
+    - "Low"
+    - "Close"
+    - "Volume"
+    
+  # データクリーニング設定
+  cleaning:
+    remove_duplicates: true
+    handle_missing: "interpolate"  # drop, interpolate, fill
+    outlier_detection: true
+    outlier_method: "iqr"  # iqr, zscore
+    
+  # 特徴量エンジニアリング設定
+  feature_engineering:
+    # 移動平均のウィンドウサイズ
+    sma_windows: [5, 10, 25, 50]
+    # 遅延特徴量の日数
+    lag_days: [1, 5, 25]
+    # 価格変動の期間
+    price_change_periods: [1, 3, 5, 10]
+    # 価格位置の期間
+    price_position_periods: [20, 50]
+    
+  # 技術指標の設定
+  technical_indicators:
+    sma_windows: [5, 10, 20, 25, 50]
+    ema_windows: [12, 26]
+    rsi_period: 14
+    macd_fast: 12
+    macd_slow: 26
+    macd_signal: 9
+    stoch_k: 14
+    stoch_d: 3
+    bb_period: 20
+    bb_std: 2
+    atr_period: 14
+    volume_sma_period: 20
+    adx_period: 14
+    cci_period: 20
+
+# 予測モデル設定
+prediction:
+  # 入力ファイル
+  input_file: "processed_stock_data.csv"
+  
+  # 特徴量カラム（技術指標拡張版）
+  features:
+    # 基本移動平均
+    - "SMA_5"
+    - "SMA_10"
+    - "SMA_25"
+    - "SMA_50"
+    # EMA
+    - "EMA_12"
+    - "EMA_26"
+    # モメンタム系
+    - "RSI"
+    - "MACD"
+    - "MACD_Signal"
+    - "MACD_Histogram"
+    - "Stoch_K"
+    - "Stoch_D"
+    # ボラティリティ系
+    - "BB_Upper"
+    - "BB_Lower"
+    - "BB_Percent"
+    - "BB_Width"
+    - "ATR"
+    - "ATR_Percent"
+    # ボリューム系
+    - "Volume_SMA"
+    - "Volume_Rate"
+    - "VWAP"
+    - "VWAP_Deviation"
+    - "OBV"
+    - "OBV_SMA"
+    - "PVT"
+    # トレンド系
+    - "ADX"
+    - "Plus_DI"
+    - "Minus_DI"
+    - "CCI"
+    # 価格変動
+    - "Price_Change_1d"
+    - "Price_Change_3d"
+    - "Price_Change_5d"
+    - "Price_Change_Pct_1d"
+    - "Price_Change_Pct_3d"
+    - "Price_Change_Pct_5d"
+    - "Log_Return_1d"
+    - "Log_Return_3d"
+    - "Log_Return_5d"
+    # 価格位置
+    - "Price_Position_20d"
+    - "Price_Position_50d"
+    - "SMA_Deviation_20d"
+    - "SMA_Deviation_50d"
+    # ラグ特徴量
+    - "Close_lag_1"
+    - "Close_lag_5"
+    # ボリューム
+    - "Volume"
+    
+  # 目的変数
+  target: "Close"
+  
+  # データ分割設定
+  test_size: 0.2
+  validation_size: 0.1
+  random_state: 42
+  
+  # 特徴量選択設定
+  feature_selection:
+    enabled: true
+    method: "mutual_info"  # mutual_info, f_regression, rfe
+    k_best: 20
+    
+  # モデル選択設定
+  model_selection:
+    # 使用するモデル（単一モデル実行の場合）
+    primary_model: "xgboost"
+    # 複数モデル比較を実行するか
+    compare_models: false
+    
+  # 各モデルのパラメータ設定
+  models:
+    random_forest:
+      type: "random_forest"
+      params:
+        n_estimators: 200
+        max_depth: 10
+        random_state: 42
+        min_samples_split: 5
+        min_samples_leaf: 2
+        
+    xgboost:
+      type: "xgboost"
+      params:
+        n_estimators: 150
+        max_depth: 6
+        learning_rate: 0.1
+        subsample: 0.8
+        colsample_bytree: 0.8
+        random_state: 42
+        
+    linear_regression:
+      type: "linear_regression"
+      params:
+        fit_intercept: true
+        
+    ridge:
+      type: "ridge"
+      params:
+        alpha: 1.0
+        random_state: 42
+        
+    lasso:
+      type: "lasso"
+      params:
+        alpha: 0.1
+        random_state: 42
+        max_iter: 1000
+        
+  # 結果保存設定
+  output:
+    image: "stock_prediction_result.png"
+    comparison_csv: "model_comparison_results.csv"
+    model_pickle: "trained_model.pkl"
+    predictions_csv: "predictions.csv"
+
+# 統合ログ設定
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "jquants.log"
+  max_size: "10MB"
+  backup_count: 5
+  console_output: true
+  # 統合ログシステムの設定
+  unified_system: true
+  error_file: "errors.log"
+  performance_log: true
+
+# パフォーマンス設定
+performance:
+  max_workers: 4
+  memory_limit: "2GB"
+  timeout: 300  # 秒
+  cache_size: 1000
+  cache_ttl: 3600  # 秒
+
+# セキュリティ設定
+security:
+  enable_ssl: true
+  allowed_origins: ["localhost:3000", "*.github.io"]
+  rate_limit: 100  # リクエスト/分
+  session_timeout: 1800  # 秒
+  # 機密情報のマスキング設定
+  sensitive_keys: ["password", "token", "key", "secret", "auth", "email"]
+  mask_sensitive_data: true
+
+# 統合エラーハンドリング設定
+error_handling:
+  # 統一エラーハンドリングの設定
+  unified_handler: true
+  error_categories:
+    - "api_error"
+    - "model_error"
+    - "file_error"
+    - "data_processing_error"
+    - "validation_error"
+    - "config_error"
+    - "network_error"
+    - "authentication_error"
+  # エラー統計の設定
+  error_statistics: true
+  error_reporting: true
+  # 復旧処理の設定
+  auto_recovery: true
+  max_recovery_attempts: 3
+  # 統合システムの設定
+  unified_system: true
+
+# 環境別設定
+environments:
+  development:
+    debug: true
+    logging:
+      level: "DEBUG"
+    performance:
+      max_workers: 2
+      memory_limit: "1GB"
+    error_handling:
+      error_statistics: true
+      
+  staging:
+    debug: false
+    logging:
+      level: "INFO"
+    performance:
+      max_workers: 3
+      memory_limit: "1.5GB"
+    error_handling:
+      error_statistics: true
+      
+  production:
+    debug: false
+    logging:
+      level: "WARNING"
+    performance:
+      max_workers: 4
+      memory_limit: "2GB"
+    security:
+      rate_limit: 50  # より厳しい制限
+    error_handling:
+      error_statistics: true
+      auto_recovery: true
+
+# レガシーシステム廃止設定
+legacy:
+  # 廃止予定モジュールの設定
+  deprecated_modules:
+    - "jquants_stock_prediction.py"
+    - "jquants_data_preprocessing.py"
+    - "jquants_data_fetch.py"
+    - "unified_error_handler.py"
+    - "enhanced_logging.py"
+    - "config_loader.py"
+    - "enhanced_config_loader.py"
+  
+  # 廃止予定設定ファイル
+  deprecated_configs:
+    - "config.yaml"
+    - "config/api.yaml"
+    - "config/core.yaml"
+    - "config/data.yaml"
+    - "config/models.yaml"
+  
+  # 移行先システム
+  migration_target:
+    main_system: "unified_system.py"
+    config_file: "config_final.yaml"
+    error_handling: "unified_system.py"
+    logging: "unified_system.py"

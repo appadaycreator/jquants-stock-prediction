@@ -17,6 +17,7 @@ from datetime import datetime, timedelta
 from typing import Dict, Any, Optional, List
 from dotenv import load_dotenv
 from unified_config_loader import get_unified_config
+from unified_error_handler import get_unified_error_handler
 from model_factory import ModelFactory, ModelEvaluator, ModelComparator
 from technical_indicators import TechnicalIndicators, get_enhanced_features_list
 from data_validator import DataValidator
