@@ -686,7 +686,7 @@ async def main():
 
     # 結果の表示
     print("=== 感情分析・ニュース統合システム ===")
-    print(f"実行時刻: {signals.get("timestamp", "N/A")}")
+    print(f"実行時刻: {signals.get('timestamp', 'N/A')}")
     print(
         f"統合感情スコア: {signals.get("overall_sentiment", {}).get("score", 0.0):.3f}"
     )

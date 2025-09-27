@@ -467,7 +467,7 @@ class IntegratedTradingSystem:
                         recommendations
                     )
                     logger.info(
-                        f"推奨事項実行完了: {len(execution_results["executed_actions"])}件"
+                        f"推奨事項実行完了: {len(execution_results['executed_actions'])}件"
                     )
 
                 # 待機
