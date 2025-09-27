@@ -141,6 +141,38 @@ class EnhancedLogger:
             LogLevel.ERROR, LogCategory.ERROR, f"Error: {str(error)}", **context
         )
 
+    def log_operation_start(self, operation: str, **kwargs):
+        """
+        操作開始ログ
+
+        Args:
+            operation: 操作名
+            **kwargs: 追加情報
+        """
+        self.log_with_category(
+            LogLevel.INFO,
+            LogCategory.SYSTEM,
+            f"Operation started: {operation}",
+            **kwargs,
+        )
+
+    def log_operation_end(self, operation: str, success: bool = True, **kwargs):
+        """
+        操作終了ログ
+
+        Args:
+            operation: 操作名
+            success: 成功フラグ
+            **kwargs: 追加情報
+        """
+        status = "completed successfully" if success else "failed"
+        self.log_with_category(
+            LogLevel.INFO,
+            LogCategory.SYSTEM,
+            f"Operation {status}: {operation}",
+            **kwargs,
+        )
+
     def log_data_info(self, message: str, **kwargs):
         """
         データ情報ログ

@@ -11,6 +11,7 @@ import os
 from technical_indicators import TechnicalIndicators, get_enhanced_features_list
 from data_validator import DataValidator
 from unified_error_handler import get_unified_error_handler
+from type_safe_validator import TypeSafeValidator
 
 # 設定を読み込み
 from config_loader import ConfigLoader
@@ -48,7 +49,7 @@ def validate_input_file(input_file):
 
         file_size = os.path.getsize(input_file)
         if file_size == 0:
-            error_msg = f"入力ファイルが空です: {input_file}"
+            error_msg = "データファイルが空です"
             error_handler.log_error(
                 ValueError(error_msg),
                 "入力ファイル検証エラー",
@@ -187,7 +188,8 @@ def load_and_clean_data(input_file):
             logger.error("❌ データ型検証に失敗しました")
             for error in validation_result["errors"]:
                 logger.error(f"  - {error}")
-            raise ValueError("データ型検証エラー")
+            error_details = "; ".join(validation_result["errors"])
+            raise ValueError(f"データ型検証エラー: {error_details}")
 
         # 安全な欠損値処理
         df = validator.safe_nan_handling(df, strategy="forward_fill")
@@ -269,8 +271,18 @@ def engineer_basic_features(df):
     """基本的な特徴量エンジニアリング（後方互換性のため）"""
     logger.info("🔧 基本特徴量エンジニアリングを開始")
 
+    # 空のDataFrameチェック
+    if df.empty:
+        raise KeyError("Empty dataframe")
+
     # 基本的な移動平均（技術指標と重複回避）
     basic_sma_windows = preprocessing_config.get("sma_windows", [5, 10, 25, 50])
+    
+    # 設定検証
+    for window in basic_sma_windows:
+        if not isinstance(window, int) or window < 0:
+            raise ValueError("window must be an integer 0 or greater")
+    
     for window in basic_sma_windows:
         if f"SMA_{window}" not in df.columns:
             df[f"SMA_{window}"] = df["Close"].rolling(window=window).mean()

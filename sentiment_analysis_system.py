@@ -702,10 +702,10 @@ async def main():
     # 感情分析サマリーの表示
     summary = sentiment_system.get_sentiment_summary()
     print("\n=== 感情分析サマリー ===")
-    print(f"24時間平均感情スコア: {summary.get("average_sentiment_24h", 0.0):.3f}")
-    print(f"感情トレンド: {summary.get("sentiment_trend", "N/A")}")
-    print(f"ポジティブ比率: {summary.get("positive_ratio", 0.0):.3f}")
-    print(f"ネガティブ比率: {summary.get("negative_ratio", 0.0):.3f}")
+    print(f"24時間平均感情スコア: {summary.get('average_sentiment_24h', 0.0):.3f}")
+    print(f"感情トレンド: {summary.get('sentiment_trend', 'N/A')}")
+    print(f"ポジティブ比率: {summary.get('positive_ratio', 0.0):.3f}")
+    print(f"ネガティブ比率: {summary.get('negative_ratio', 0.0):.3f}")
 
 
 if __name__ == "__main__":

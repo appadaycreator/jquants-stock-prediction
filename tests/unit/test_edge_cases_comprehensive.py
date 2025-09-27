@@ -529,7 +529,7 @@ class TestEdgeCasesComprehensive:
         # 連続したエラーの発生
         for i in range(100):
             try:
-                system.log_error(ValueError(f"Stress test error {i}"), f"Context {i}")
+                system.log_error(ValueError(f'Stress test error {i}'), f'Context {i}')
             except Exception:
                 # エラーが発生してもシステムが継続動作することを確認
                 pass
@@ -721,7 +721,7 @@ class TestEdgeCasesComprehensive:
         # 高負荷でのエラーハンドリング
         for i in range(1000):
             try:
-                system.log_error(ValueError(f"Load test error {i}"), f"Context {i}")
+                system.log_error(ValueError(f'Load test error {i}'), f'Context {i}')
             except Exception:
                 # 高負荷下でもエラーが適切に処理されることを確認
                 pass

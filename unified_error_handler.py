@@ -116,16 +116,18 @@ class UnifiedErrorHandler:
     def _update_error_stats(self, category: ErrorCategory, level: LogLevel) -> None:
         """エラー統計の更新"""
         self.error_stats["total_errors"] += 1
-
-        # カテゴリ別統計
-        if category.value not in self.error_stats["errors_by_category"]:
-            self.error_stats["errors_by_category"][category.value] = 0
-        self.error_stats["errors_by_category"][category.value] += 1
-
-        # レベル別統計
-        if level.value not in self.error_stats["errors_by_level"]:
-            self.error_stats["errors_by_level"][level.value] = 0
-        self.error_stats["errors_by_level"][level.value] += 1
+        
+        # カテゴリ別統計の更新
+        category_key = category.value
+        if category_key not in self.error_stats["errors_by_category"]:
+            self.error_stats["errors_by_category"][category_key] = 0
+        self.error_stats["errors_by_category"][category_key] += 1
+        
+        # レベル別統計の更新
+        level_key = level.value
+        if level_key not in self.error_stats["errors_by_level"]:
+            self.error_stats["errors_by_level"][level_key] = 0
+        self.error_stats["errors_by_level"][level_key] += 1
 
     def _prepare_context(
         self, error: Exception, context: Optional[Dict[str, Any]]
@@ -277,6 +279,23 @@ class UnifiedErrorHandler:
 
         except Exception as e:
             self.logger.critical(f"Failed to handle data error: {e}")
+
+    def handle_data_processing_error(
+        self, error: Exception, operation: str, data_info: Dict[str, Any] = None
+    ) -> None:
+        """データ処理エラーの処理"""
+        try:
+            context = {
+                "operation": operation,
+                "error_type": type(error).__name__,
+            }
+            if data_info:
+                context.update(data_info)
+
+            self.handle_error(error, ErrorCategory.DATA_PROCESSING_ERROR, context)
+
+        except Exception as e:
+            self.logger.critical(f"Failed to handle data processing error: {e}")
 
 
 # グローバルエラーハンドラーインスタンス

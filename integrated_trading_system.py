@@ -512,14 +512,14 @@ def main():
     print("=" * 80)
 
     system_status = results.get("system_status", {})
-    print(f"分析時刻: {results["timestamp"]}")
-    print(f"システムヘルス: {system_status.get("system_health", "UNKNOWN")}")
-    print(f"監視銘柄数: {system_status.get("total_symbols", 0)}")
-    print(f"アクティブポジション: {system_status.get("active_positions", 0)}")
-    print(f"総シグナル数: {system_status.get("total_signals", 0)}")
-    print(f"ポートフォリオ価値: ¥{system_status.get("portfolio_value", 0):,.0f}")
-    print(f"未実現損益: ¥{system_status.get("unrealized_pnl", 0):,.0f}")
-    print(f"リスクスコア: {system_status.get("risk_score", 0):.2f}")
+    print(f"分析時刻: {results['timestamp']}")
+    print(f"システムヘルス: {system_status.get('system_health', 'UNKNOWN')}")
+    print(f"監視銘柄数: {system_status.get('total_symbols', 0)}")
+    print(f"アクティブポジション: {system_status.get('active_positions', 0)}")
+    print(f"総シグナル数: {system_status.get('total_signals', 0)}")
+    print(f"ポートフォリオ価値: ¥{system_status.get('portfolio_value', 0):,.0f}")
+    print(f"未実現損益: ¥{system_status.get('unrealized_pnl', 0):,.0f}")
+    print(f"リスクスコア: {system_status.get('risk_score', 0):.2f}")
 
     print("\n💡 取引推奨事項:")
     recommendations = results.get("trading_recommendations", [])
@@ -529,29 +529,29 @@ def main():
             f"(信頼度: {rec["confidence"]:.2f}, 優先度: {rec["priority"]})"
         )
         print(
-            f"     価格: ¥{rec["entry_price"]:.0f}, ポジション: ¥{rec["position_size"]:,.0f}"
+            f"     価格: ¥{rec['entry_price']:.0f}, ポジション: ¥{rec['position_size']:,.0f}"
         )
-        print(f"     理由: {rec["reason"]}")
+        print(f"     理由: {rec['reason']}")
         print()
 
     print("📊 パフォーマンス指標:")
     metrics = results.get("performance_metrics", {})
-    print(f"  分析完了率: {metrics.get("analysis_completion_rate", 0):.1%}")
-    print(f"  シグナル品質: {metrics.get("signal_quality", 0):.2f}")
-    print(f"  リスク効率: {metrics.get("risk_efficiency", 0):.2f}")
-    print(f"  総合スコア: {metrics.get("overall_score", 0):.2f}")
+    print(f"  分析完了率: {metrics.get('analysis_completion_rate', 0):.1%}")
+    print(f"  シグナル品質: {metrics.get('signal_quality', 0):.2f}")
+    print(f"  リスク効率: {metrics.get('risk_efficiency', 0):.2f}")
+    print(f"  総合スコア: {metrics.get('overall_score', 0):.2f}")
 
     print("\n🛡️ リスク管理:")
     risk_analysis = results.get("risk_analysis", {})
     print(
-        f"  リスクスコア: {risk_analysis.get("risk_metrics", {}).get("risk_score", 0):.2f}"
+        f"  リスクスコア: {risk_analysis.get('risk_metrics', {}).get('risk_score', 0):.2f}"
     )
     print(
-        f"  リスク削減推奨: {"はい" if risk_analysis.get("should_reduce_risk", False) else "いいえ"}"
+        f"  リスク削減推奨: {'はい' if risk_analysis.get('should_reduce_risk', False) else 'いいえ'}"
     )
     high_risk = risk_analysis.get("high_risk_positions", [])
     if high_risk:
-        print(f"  高リスクポジション: {", ".join(high_risk)}")
+        print(f"  高リスクポジション: {', '.join(high_risk)}")
 
     print("\n" + "=" * 80)
     print("✅ 統合分析完了！")

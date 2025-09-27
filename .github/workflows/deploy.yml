@@ -39,11 +39,13 @@ jobs:
     - name: Install Node.js dependencies
       run: |
         cd web-app
-        npm install --legacy-peer-deps
+        npm ci --legacy-peer-deps
+        npm install react-is --save
         
     - name: Build web application
       run: |
         cd web-app
+        npm run clean
         NODE_ENV=production npm run export
         
     - name: Deploy to GitHub Pages

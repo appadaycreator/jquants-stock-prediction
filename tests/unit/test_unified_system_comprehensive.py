@@ -208,7 +208,7 @@ class TestUnifiedSystemComprehensive:
             system.log_error(ValueError("Test error"), "Test context")
             
             assert system.error_count == 1
-            assert system.error_stats[ErrorCategory.API_ERROR] == 1
+            assert system.error_stats[ErrorCategory.API_ERROR.value] == 1
             mock_logger.assert_called()
 
     def test_log_error_with_additional_info(self):
@@ -225,7 +225,7 @@ class TestUnifiedSystemComprehensive:
             )
             
             assert system.error_count == 1
-            assert system.error_stats[ErrorCategory.VALIDATION_ERROR] == 1
+            assert system.error_stats[ErrorCategory.VALIDATION_ERROR.value] == 1
             mock_logger.assert_called()
 
     def test_log_error_different_levels(self):
@@ -412,8 +412,8 @@ class TestUnifiedSystemComprehensive:
         system.log_error(ValueError("Test error 2"), "Context 2", ErrorCategory.MODEL_ERROR)
         
         assert system.error_count == 2
-        assert system.error_stats[ErrorCategory.API_ERROR] == 1
-        assert system.error_stats[ErrorCategory.MODEL_ERROR] == 1
+        assert system.error_stats[ErrorCategory.API_ERROR.value] == 1
+        assert system.error_stats[ErrorCategory.MODEL_ERROR.value] == 1
 
     def test_concurrent_error_handling(self):
         """並行エラーハンドリングのテスト"""
@@ -498,9 +498,9 @@ class TestUnifiedSystemComprehensive:
         
         # 統計の確認
         assert system.error_count == 3
-        assert system.error_stats[ErrorCategory.API_ERROR] == 1
-        assert system.error_stats[ErrorCategory.MODEL_ERROR] == 1
-        assert system.error_stats[ErrorCategory.FILE_ERROR] == 1
+        assert system.error_stats[ErrorCategory.API_ERROR.value] == 1
+        assert system.error_stats[ErrorCategory.MODEL_ERROR.value] == 1
+        assert system.error_stats[ErrorCategory.FILE_ERROR.value] == 1
 
     def test_system_configuration_update(self):
         """システム設定更新のテスト"""
