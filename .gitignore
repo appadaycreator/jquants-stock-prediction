@@ -1,0 +1,50 @@
+# 環境変数ファイル
+.env
+
+# データファイル
+*.csv
+*.png
+*.jpg
+*.jpeg
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 仮想環境
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ログファイル
+*.log
+
+# macOS
+.DS_Store
+
+# 設定ファイル（サンプルは除く）
+config.yaml

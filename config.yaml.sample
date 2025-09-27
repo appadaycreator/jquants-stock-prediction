@@ -1,0 +1,75 @@
+# J-Quants株価予測システム設定ファイル
+
+# J-Quants API設定
+jquants:
+  base_url: "https://api.jquants.com/v1"
+  # 認証情報は環境変数で設定してください
+  # JQUANTS_EMAIL, JQUANTS_PASSWORD
+
+# データ取得設定
+data_fetch:
+  # 取得する日付（YYYYMMDD形式）
+  target_date: "20240301"
+  # 出力ファイル名
+  output_file: "stock_data.csv"
+  # リトライ回数
+  max_retries: 3
+  # リトライ間隔（秒）
+  retry_interval: 5
+
+# データ前処理設定
+preprocessing:
+  # 入力ファイル
+  input_file: "stock_data.csv"
+  # 出力ファイル
+  output_file: "processed_stock_data.csv"
+  # 使用するカラム
+  columns:
+    - "Code"
+    - "Date"
+    - "Open"
+    - "High"
+    - "Low"
+    - "Close"
+    - "Volume"
+  # 移動平均のウィンドウサイズ
+  sma_windows:
+    - 5
+    - 25
+    - 50
+  # 遅延特徴量の日数
+  lag_days:
+    - 1
+    - 5
+    - 25
+
+# 予測モデル設定
+prediction:
+  # 入力ファイル
+  input_file: "processed_stock_data.csv"
+  # 特徴量カラム
+  features:
+    - "SMA_5"
+    - "SMA_25"
+    - "SMA_50"
+    - "Close_1d_ago"
+    - "Close_5d_ago"
+    - "Close_25d_ago"
+  # 目的変数
+  target: "Close"
+  # テストデータの割合
+  test_size: 0.2
+  # ランダムシード
+  random_state: 42
+  # ランダムフォレストのパラメータ
+  random_forest:
+    n_estimators: 100
+    random_state: 42
+  # 結果画像の保存先
+  output_image: "stock_prediction_result.png"
+
+# ログ設定
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "jquants.log"
