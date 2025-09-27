@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Navigation from "../components/Navigation";
+import SymbolSelector from "../components/SymbolSelector";
+import SymbolAnalysisResults from "../components/SymbolAnalysisResults";
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
@@ -73,6 +75,8 @@ export default function Dashboard() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [analysisStatus, setAnalysisStatus] = useState("");
+  const [selectedSymbols, setSelectedSymbols] = useState<string[]>([]);
+  const [showSymbolSelector, setShowSymbolSelector] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -144,7 +148,7 @@ export default function Dashboard() {
     }
   };
 
-  const runAnalysis = async () => {
+  const runAnalysis = async (symbols?: string[]) => {
     try {
       setIsAnalyzing(true);
       setAnalysisProgress(0);
@@ -177,6 +181,54 @@ export default function Dashboard() {
       
     } catch (error) {
       console.error("分析実行エラー:", error);
+      setAnalysisStatus("分析の実行に失敗しました");
+      setIsAnalyzing(false);
+    }
+  };
+
+  const handleSymbolAnalysis = async (symbols: string[]) => {
+    if (symbols.length === 0) {
+      alert("銘柄を選択してください");
+      return;
+    }
+    
+    setSelectedSymbols(symbols);
+    setShowSymbolSelector(false);
+    
+    try {
+      setIsAnalyzing(true);
+      setAnalysisProgress(0);
+      setAnalysisStatus("選択された銘柄の分析を開始しています...");
+      
+      // API呼び出し
+      const response = await fetch('/api/analyze-symbols', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ symbols }),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        setAnalysisStatus("分析が完了しました。データを更新しています...");
+        setAnalysisProgress(100);
+        
+        // データを再読み込み
+        await loadData();
+        
+        setTimeout(() => {
+          setIsAnalyzing(false);
+          setAnalysisProgress(0);
+          setAnalysisStatus("");
+        }, 1000);
+      } else {
+        throw new Error(result.error || '分析に失敗しました');
+      }
+      
+    } catch (error) {
+      console.error("銘柄分析エラー:", error);
       setAnalysisStatus("分析の実行に失敗しました");
       setIsAnalyzing(false);
     }
@@ -238,11 +290,18 @@ export default function Dashboard() {
               </div>
               <div className="flex space-x-2">
                 <button
-                  onClick={() => setShowAnalysisModal(true)}
+                  onClick={() => setShowSymbolSelector(true)}
                   className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <Play className="h-4 w-4 mr-2" />
-                  分析実行
+                  銘柄選択・分析
+                </button>
+                <button
+                  onClick={() => setShowAnalysisModal(true)}
+                  className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                >
+                  <Play className="h-4 w-4 mr-2" />
+                  全体分析
                 </button>
                 <button
                   onClick={() => setShowSettingsModal(true)}
@@ -469,6 +528,11 @@ export default function Dashboard() {
 
         {activeTab === "analysis" && (
           <div className="space-y-6">
+            {/* 選択された銘柄の分析結果 */}
+            {selectedSymbols.length > 0 && (
+              <SymbolAnalysisResults selectedSymbols={selectedSymbols} />
+            )}
+            
             {/* 特徴量重要度 */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-white rounded-lg shadow p-6">
@@ -525,12 +589,36 @@ export default function Dashboard() {
         )}
       </main>
 
+      {/* 銘柄選択モーダル */}
+      {showSymbolSelector && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-2xl mx-4 max-h-[80vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-medium text-gray-900">銘柄選択・分析</h3>
+              <button
+                onClick={() => setShowSymbolSelector(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            </div>
+            
+            <SymbolSelector
+              selectedSymbols={selectedSymbols}
+              onSymbolsChange={setSelectedSymbols}
+              onAnalysis={handleSymbolAnalysis}
+              isAnalyzing={isAnalyzing}
+            />
+          </div>
+        </div>
+      )}
+
       {/* 分析実行モーダル */}
       {showAnalysisModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900">分析実行</h3>
+              <h3 className="text-lg font-medium text-gray-900">全体分析実行</h3>
               <button
                 onClick={() => setShowAnalysisModal(false)}
                 className="text-gray-400 hover:text-gray-600"
@@ -542,7 +630,7 @@ export default function Dashboard() {
             {!isAnalyzing ? (
               <div className="space-y-4">
                 <p className="text-gray-600">
-                  新しい分析を実行しますか？この処理には数分かかる場合があります。
+                  全銘柄の分析を実行しますか？この処理には数分かかる場合があります。
                 </p>
                 <div className="flex justify-end space-x-3">
                   <button
@@ -552,7 +640,7 @@ export default function Dashboard() {
                     キャンセル
                   </button>
                   <button
-                    onClick={runAnalysis}
+                    onClick={() => runAnalysis()}
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                   >
                     実行
