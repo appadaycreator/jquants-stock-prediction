@@ -76,9 +76,12 @@ const nextConfig = {
     
     // モジュール解決の設定を追加
     config.resolve.modules = [
-      ...(config.resolve.modules || []),
       require('path').resolve(__dirname, 'src'),
+      'node_modules',
     ];
+    
+    // 拡張子の解決順序を設定
+    config.resolve.extensions = ['.tsx', '.ts', '.jsx', '.js', '.json'];
     
     // バンドルサイズの最適化
     if (!dev && !isServer) {
