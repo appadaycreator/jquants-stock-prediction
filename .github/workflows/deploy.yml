@@ -70,64 +70,77 @@ jobs:
         cp -r web-app/dist docs/web-app
         touch docs/.nojekyll
     
-    - name: Setup Pages (with auto-enablement)
+    - name: Try GitHub Pages deployment
+      id: pages-deployment
+      continue-on-error: true
+      run: |
+        echo "🚀 GitHub Pages デプロイを試行中..."
+        
+        # GitHub Pages が有効かチェック
+        if curl -s -f "https://api.github.com/repos/${{ github.repository }}/pages" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" > /dev/null; then
+          echo "✅ GitHub Pages が有効です"
+          echo "pages_enabled=true" >> $GITHUB_OUTPUT
+        else
+          echo "⚠️ GitHub Pages が無効です"
+          echo "pages_enabled=false" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Setup Pages (if enabled)
+      if: steps.pages-deployment.outputs.pages_enabled == 'true'
       id: setup-pages
       uses: actions/configure-pages@v4
-      with:
-        enablement: true
       continue-on-error: true
     
-    - name: Upload artifact
-      if: steps.setup-pages.outcome == 'success'
+    - name: Upload artifact (if Pages enabled)
+      if: steps.pages-deployment.outputs.pages_enabled == 'true' && steps.setup-pages.outcome == 'success'
       uses: actions/upload-pages-artifact@v3
       with:
         path: ./docs
     
-    - name: Deploy to GitHub Pages
-      if: steps.setup-pages.outcome == 'success'
+    - name: Deploy to GitHub Pages (if enabled)
+      if: steps.pages-deployment.outputs.pages_enabled == 'true' && steps.setup-pages.outcome == 'success'
       id: deployment
       uses: actions/deploy-pages@v4
     
-    - name: Fallback - Create deployment info
-      if: failure()
+    - name: Always show deployment status
+      if: always()
       run: |
-        echo "⚠️ GitHub Pages デプロイに失敗しました"
-        echo "📁 ビルド済みファイルは docs/ フォルダに準備されています"
-        echo "🔧 手動設定方法:"
-        echo "1. Settings → Pages"
-        echo "2. Source: Deploy from a branch"
-        echo "3. Branch: main, Folder: /docs"
-        echo "4. Save"
+        echo "📊 ===== デプロイ状況レポート ====="
+        echo "ビルド日時: $(date)"
+        echo "GitHub リポジトリ: ${{ github.repository }}"
+        echo ""
+        
+        # ファイル存在確認
+        if [ -f "docs/index.html" ]; then
+          echo "✅ ランディングページ: docs/index.html 存在"
+        else
+          echo "❌ ランディングページ: docs/index.html 不在"
+        fi
+        
+        if [ -f "docs/web-app/index.html" ]; then
+          echo "✅ Webアプリ: docs/web-app/index.html 存在"
+        else
+          echo "❌ Webアプリ: docs/web-app/index.html 不在"
+        fi
+        
+        if [ -d "docs/web-app/data" ]; then
+          echo "✅ JSONデータ: docs/web-app/data/ 存在"
+          echo "   📁 データファイル数: $(ls docs/web-app/data/*.json 2>/dev/null | wc -l)"
+        else
+          echo "❌ JSONデータ: docs/web-app/data/ 不在"
+        fi
+        
+        echo ""
+        echo "🎯 === 手動設定で即座に解決 ==="
+        echo "1. GitHub リポジトリページを開く"
+        echo "2. Settings → Pages をクリック"
+        echo "3. Source: 'Deploy from a branch' を選択"
+        echo "4. Branch: 'main' を選択"
+        echo "5. Folder: '/docs' を選択"
+        echo "6. Save をクリック"
         echo ""
         echo "🌐 設定後のアクセスURL:"
         echo "https://appadaycreator.github.io/jquants-stock-prediction/"
-        
-        # デプロイ情報をファイルに保存
-        cat > deployment-info.txt << EOF
-        GitHub Pages デプロイ情報
-        ========================
-        
-        ビルド日時: $(date)
-        ビルド状況: ✅ 成功 (ファイル準備完了)
-        デプロイ状況: ❌ 自動デプロイ失敗
-        
-        手動設定手順:
-        1. GitHub リポジトリ → Settings → Pages
-        2. Source: "Deploy from a branch"
-        3. Branch: "main"
-        4. Folder: "/docs"
-        5. Save をクリック
-        
-        期待されるURL:
-        https://appadaycreator.github.io/jquants-stock-prediction/
-        
-        ファイル構成:
-        - docs/index.html (ランディングページ)
-        - docs/web-app/ (React ダッシュボード)
-        - docs/.nojekyll (Jekyll 無効化)
-        
-        トラブルシューティング:
-        - 5-10分待ってからアクセス
-        - ブラウザキャッシュをクリア
-        - HTTPS でアクセス
-        EOF
+        echo ""
+        echo "⏰ 表示まで: 5-10分"
+        echo "🔄 トラブル時: ブラウザキャッシュクリア"
