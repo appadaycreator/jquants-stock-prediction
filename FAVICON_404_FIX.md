@@ -1,153 +1,41 @@
-# GitHub Pages 404エラー修正ガイド
+# GitHub Pages 404エラー修正レポート
 
-## 🚨 発生していた問題
+## 問題の概要
+GitHub Pagesで以下の404エラーが発生していました：
+- `favicon.ico` 404エラー
+- `reports.txt` 404エラー  
+- `settings.txt` 404エラー
 
-### 1. favicon.ico 404エラー
-```
-GET https://appadaycreator.github.io/favicon.ico?favicon.0b3bf435.ico 404 (Not Found)
-```
+## 原因分析
+1. **favicon.icoのパス問題**: HTMLファイル内で`/favicon.ico`として参照されていたが、GitHub Pagesでは`/jquants-stock-prediction/favicon.ico`である必要があった
+2. **txtファイルの配置問題**: `reports.txt`と`settings.txt`が`docs/web-app/`ディレクトリにのみ存在し、`docs/`ルートに配置されていなかった
 
-### 2. Next.js内部ファイル 404エラー
-```
-GET https://appadaycreator.github.io/index.txt?_rsc=3lb4g 404 (Not Found)
-GET https://appadaycreator.github.io/reports.txt?_rsc=3lb4g 404 (Not Found)
-GET https://appadaycreator.github.io/settings.txt?_rsc=3lb4g 404 (Not Found)
-```
+## 実施した修正
 
-## ✅ 実装した修正
+### 1. favicon.icoパスの修正
+以下のHTMLファイルでfavicon.icoのパスを修正：
+- `docs/index.html`
+- `docs/reports/index.html`
+- `docs/settings/index.html`
 
-### 1. favicon.ico パスの修正
+**修正前**: `<link rel="icon" href="/favicon.ico"/>`
+**修正後**: `<link rel="icon" href="/jquants-stock-prediction/favicon.ico"/>`
 
-**問題**: Next.jsが絶対パス（`/favicon.ico`）を生成
-**解決策**: 相対パス（`./favicon.ico`）に変更
+### 2. txtファイルの配置
+以下のファイルを`docs/`ディレクトリのルートに配置：
+- `docs/reports.txt`
+- `docs/settings.txt`
 
-```typescript
-// web-app/src/app/layout.tsx
-export const metadata: Metadata = {
-  title: 'J-Quants 株価予測システム',
-  description: '機械学習による株価予測ダッシュボード',
-  icons: {
-    icon: './favicon.ico',  // 相対パスに変更
-  },
-}
-```
+## 修正結果
+- favicon.icoの404エラーが解消される
+- reports.txtとsettings.txtの404エラーが解消される
+- GitHub Pagesでの正常な表示が可能になる
 
-### 2. Next.js設定の最適化
+## 今後の対応
+- 新しいHTMLファイルを生成する際は、GitHub Pagesのベースパス（`/jquants-stock-prediction/`）を考慮したパス設定を行う
+- 静的ファイルの配置時は、適切なディレクトリ構造を維持する
 
-```javascript
-// web-app/next.config.js
-const nextConfig = {
-  output: 'export',
-  trailingSlash: true,
-  skipTrailingSlashRedirect: true,
-  distDir: 'dist',
-  images: {
-    unoptimized: true
-  },
-  // GitHub Pages用の設定（相対パス使用）
-  assetPrefix: '.',
-  basePath: '',
-  // faviconとNext.js内部ファイルの相対パス化
-  experimental: {
-    optimizePackageImports: ['lucide-react']
-  },
-  // 静的エクスポート用の設定
-  generateBuildId: async () => {
-    return 'build'
-  }
-}
-```
-
-### 3. リダイレクト設定の追加
-
-**Apache用設定** (`.htaccess`)
-```apache
-# GitHub Pages用のリダイレクト設定
-# Next.jsの内部ファイル（.txt）の404エラーを回避
-
-# .txtファイルへのリクエストを無視
-RewriteEngine On
-RewriteRule ^.*\.txt$ - [L,R=404]
-
-# favicon.icoの相対パス化
-RewriteRule ^favicon\.ico$ ./favicon.ico [L]
-
-# その他の静的ファイルの相対パス化
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ ./index.html [L]
-```
-
-**Netlify/Vercel用設定** (`_redirects`)
-```
-# Netlify/Vercel用のリダイレクト設定
-# Next.jsの内部ファイル（.txt）の404エラーを回避
-
-# .txtファイルへのリクエストを無視
-/*.txt 404
-
-# favicon.icoの相対パス化
-/favicon.ico ./favicon.ico 200
-
-# SPA用のフォールバック
-/* ./index.html 200
-```
-
-## 🎯 修正結果
-
-### Before（修正前）
-- ❌ favicon.ico 404エラー
-- ❌ Next.js内部.txtファイル 404エラー
-- ❌ ブラウザコンソールにエラー表示
-
-### After（修正後）
-- ✅ favicon.ico正常読み込み
-- ✅ Next.js内部ファイル 404エラー解消
-- ✅ クリーンなブラウザコンソール
-
-## 📋 デプロイ手順
-
-1. **Webアプリのビルド**
-   ```bash
-   cd web-app
-   npm run build
-   ```
-
-2. **GitHub Pages用ファイルのコピー**
-   ```bash
-   rm -rf docs/web-app
-   cp -r web-app/dist docs/web-app
-   cp -r web-app/public/data docs/web-app/
-   cp docs/favicon.ico docs/web-app/
-   ```
-
-3. **GitHub Pagesへのデプロイ**
-   ```bash
-   git add .
-   git commit -m "Fix GitHub Pages 404 errors"
-   git push origin main
-   ```
-
-## 🔧 技術的詳細
-
-### 問題の根本原因
-1. **絶対パス問題**: Next.jsが生成するHTMLで絶対パス（`/favicon.ico`）を使用
-2. **GitHub Pages制限**: 静的サイトでは相対パスが必要
-3. **Next.js内部ファイル**: 開発時の内部ファイルが本番環境で404エラー
-
-### 解決アプローチ
-1. **相対パス化**: 全てのアセットを相対パスに変更
-2. **設定最適化**: Next.js設定でGitHub Pages対応
-3. **リダイレクト設定**: 不要なファイルアクセスを制御
-
-## 📚 参考情報
-
-- [Next.js Static Export](https://nextjs.org/docs/app/building-your-application/deploying/static-exports)
-- [GitHub Pages Configuration](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
-- [Next.js Asset Prefix](https://nextjs.org/docs/app/api-reference/next-config-js/assetPrefix)
-
----
-
-**修正完了日**: 2024年9月27日  
-**修正者**: AI Assistant  
-**ステータス**: ✅ 完了
+## 確認方法
+1. GitHub Pagesサイトにアクセス
+2. ブラウザの開発者ツールでネットワークタブを確認
+3. 404エラーが解消されていることを確認

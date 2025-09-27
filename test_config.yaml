@@ -1,0 +1,13 @@
+prediction:
+  features:
+  - Close
+  - Volume
+  random_state: 42
+  target: Close
+  test_size: 0.2
+preprocessing:
+  features:
+  - Close
+  - Volume
+  input_file: stock_data.csv
+  output_file: processed_stock_data.csv

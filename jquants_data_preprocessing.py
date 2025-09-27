@@ -8,14 +8,14 @@ import pandas as pd
 import numpy as np
 import logging
 import os
-from config_loader import get_config
 from technical_indicators import TechnicalIndicators, get_enhanced_features_list
 from data_validator import DataValidator
 from unified_error_handler import get_unified_error_handler
 
 # 設定を読み込み
-config = get_config()
-preprocessing_config = config.get_preprocessing_config()
+from config_loader import ConfigLoader
+config_loader = ConfigLoader()
+preprocessing_config = config_loader.get_preprocessing_config()
 
 # 強化されたログ設定
 from enhanced_logging import setup_enhanced_logging, LogLevel, LogCategory

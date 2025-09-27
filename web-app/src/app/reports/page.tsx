@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { FileText, Download, TrendingUp, BarChart, PieChart } from 'lucide-react'
+import Link from 'next/link'
+import { FileText, Download, TrendingUp, BarChart, PieChart, BookOpen } from 'lucide-react'
 
 // レポートデータの型定義
 interface ReportData {
@@ -154,6 +155,13 @@ export default function ReportsPage() {
               <p className="text-gray-600">詳細な分析結果とインサイト</p>
             </div>
             <div className="flex items-center space-x-4">
+              <Link
+                href="/usage"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700"
+              >
+                <BookOpen className="h-4 w-4 mr-2" />
+                使い方
+              </Link>
               <select 
                 value={selectedPeriod}
                 onChange={(e) => setSelectedPeriod(e.target.value)}

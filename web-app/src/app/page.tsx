@@ -1,11 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter
 } from 'recharts'
-import { TrendingUp, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw } from 'lucide-react'
+import { TrendingUp, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen } from 'lucide-react'
 
 // 型定義
 interface StockData {
@@ -197,6 +198,13 @@ export default function Dashboard() {
                 </span>
               </div>
               <div className="flex space-x-2">
+                <Link
+                  href="/usage"
+                  className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                >
+                  <BookOpen className="h-4 w-4 mr-2" />
+                  使い方
+                </Link>
                 <button
                   onClick={() => setShowAnalysisModal(true)}
                   className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"

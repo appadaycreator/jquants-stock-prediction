@@ -1,5 +1,5 @@
-# J-Quants株価予測システム - 最終統合設定ファイル
-# 完全統合システム用の単一設定ファイル（最高優先度問題解決版）
+# J-Quants株価予測システム - 完全統合設定ファイル
+# 最高優先度問題解決版 - 単一設定ファイルによる統合システム
 
 # システム基本情報
 system:
@@ -9,6 +9,9 @@ system:
   debug: false
   architecture: "unified"  # 統合アーキテクチャ
   unified_system: true  # 統合システム使用フラグ
+  # 統合システムの設定
+  main_system: "unified_system.py"
+  config_file: "config_final.yaml"
 
 # J-Quants API設定
 jquants:
