@@ -12,7 +12,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
 } from "recharts";
-import { TrendingUp, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield } from "lucide-react";
+import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X } from "lucide-react";
 
 // 型定義
 interface StockData {

@@ -87,7 +87,7 @@ export async function PUT(request: NextRequest) {
     
     switch (action) {
       case 'add':
-        if (stock && !stocks.find(s => s.code === stock.code)) {
+        if (stock && !stocks.find((s: any) => s.code === stock.code)) {
           stocks.push({
             ...stock,
             isMonitoring: true,
@@ -98,11 +98,11 @@ export async function PUT(request: NextRequest) {
         break;
         
       case 'remove':
-        stocks = stocks.filter(s => s.code !== symbol);
+        stocks = stocks.filter((s: any) => s.code !== symbol);
         break;
         
       case 'toggle':
-        stocks = stocks.map(s => 
+        stocks = stocks.map((s: any) => 
           s.code === symbol 
             ? { ...s, isMonitoring: !s.isMonitoring }
             : s
@@ -110,7 +110,7 @@ export async function PUT(request: NextRequest) {
         break;
         
       case 'update':
-        stocks = stocks.map(s => 
+        stocks = stocks.map((s: any) => 
           s.code === symbol 
             ? { ...s, ...stock }
             : s
@@ -146,7 +146,7 @@ export async function DELETE(request: NextRequest) {
     if (existsSync(STOCKS_FILE)) {
       const stocksData = await readFile(STOCKS_FILE, 'utf-8');
       const stocks = JSON.parse(stocksData);
-      const filteredStocks = stocks.filter(s => s.code !== symbol);
+      const filteredStocks = stocks.filter((s: any) => s.code !== symbol);
       
       await writeFile(STOCKS_FILE, JSON.stringify(filteredStocks, null, 2));
     }
