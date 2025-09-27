@@ -13,7 +13,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import xgboost as xgb
 import pandas as pd
 import numpy as np
-from unified_error_handler import get_unified_error_handler
+from unified_system import UnifiedSystem
 
 
 class ModelFactory:
@@ -21,7 +21,7 @@ class ModelFactory:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.error_handler = get_unified_error_handler("ModelFactory")
+        self.system = UnifiedSystem("ModelFactory")
         self.available_models = {
             "random_forest": self._create_random_forest,
             "xgboost": self._create_xgboost,
@@ -49,7 +49,7 @@ class ModelFactory:
         try:
             if model_type not in self.available_models:
                 error_msg = f"サポートされていないモデルタイプ: {model_type}"
-                self.error_handler.log_error(
+                self.system.log_error(
                     ValueError(error_msg),
                     "モデル作成エラー",
                     {
@@ -66,7 +66,7 @@ class ModelFactory:
             return self.available_models[model_type](params)
 
         except Exception as e:
-            self.error_handler.log_error(
+            self.system.log_error(
                 e,
                 f"モデル作成エラー ({model_type})",
                 {"model_type": model_type, "params": params},
@@ -86,7 +86,7 @@ class ModelFactory:
             default_params.update(params)
             return RandomForestRegressor(**default_params)
         except Exception as e:
-            self.error_handler.handle_model_error(e, "RandomForest", "create", params)
+            self.system.log_error(e, "RandomForest作成エラー", {"params": params})
             raise
 
     def _create_xgboost(self, params: Dict[str, Any]):
@@ -103,7 +103,7 @@ class ModelFactory:
             default_params.update(params)
             return xgb.XGBRegressor(**default_params)
         except Exception as e:
-            self.error_handler.handle_model_error(e, "XGBoost", "create", params)
+            self.system.log_error(e, "XGBoost作成エラー", {"params": params})
             raise
 
     def _create_linear_regression(self, params: Dict[str, Any]):
@@ -113,9 +113,7 @@ class ModelFactory:
             default_params.update(params)
             return LinearRegression(**default_params)
         except Exception as e:
-            self.error_handler.handle_model_error(
-                e, "LinearRegression", "create", params
-            )
+            self.system.log_error(e, "LinearRegression作成エラー", {"params": params})
             raise
 
     def _create_ridge(self, params: Dict[str, Any]):
@@ -125,7 +123,7 @@ class ModelFactory:
             default_params.update(params)
             return Ridge(**default_params)
         except Exception as e:
-            self.error_handler.handle_model_error(e, "Ridge", "create", params)
+            self.system.log_error(e, "Ridge作成エラー", {"params": params})
             raise
 
     def _create_lasso(self, params: Dict[str, Any]):
@@ -135,7 +133,7 @@ class ModelFactory:
             default_params.update(params)
             return Lasso(**default_params)
         except Exception as e:
-            self.error_handler.handle_model_error(e, "Lasso", "create", params)
+            self.system.log_error(e, "Lasso作成エラー", {"params": params})
             raise
 
     def _create_svr(self, params: Dict[str, Any]):
@@ -145,7 +143,7 @@ class ModelFactory:
             default_params.update(params)
             return SVR(**default_params)
         except Exception as e:
-            self.error_handler.handle_model_error(e, "SVR", "create", params)
+            self.system.log_error(e, "SVR作成エラー", {"params": params})
             raise
 
 
@@ -154,8 +152,7 @@ class ModelEvaluator:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.error_handler = get_unified_error_handler("ModelEvaluator")
-        # self.specific_error_handler = get_specific_error_handler("ModelEvaluator")  # 統合アーキテクチャでは不要
+        self.system = UnifiedSystem("ModelEvaluator")
 
     def evaluate_model(self, model, X_test, y_test, y_pred=None) -> Dict[str, float]:
         """
@@ -185,10 +182,9 @@ class ModelEvaluator:
             return metrics
 
         except Exception as e:
-            self.error_handler.handle_model_error(
+            self.system.log_error(
                 e,
-                type(model).__name__,
-                "evaluation",
+                f"{type(model).__name__}評価エラー",
                 {
                     "X_test_shape": X_test.shape if hasattr(X_test, "shape") else None,
                     "y_test_shape": y_test.shape if hasattr(y_test, "shape") else None,
@@ -227,10 +223,9 @@ class ModelEvaluator:
             return df
 
         except Exception as e:
-            self.error_handler.handle_model_error(
+            self.system.log_error(
                 e,
-                type(model).__name__,
-                "feature_importance",
+                f"{type(model).__name__}特徴量重要度取得エラー",
                 {
                     "feature_names_count": len(feature_names) if feature_names else 0,
                     "model_has_feature_importances": hasattr(
@@ -248,8 +243,7 @@ class ModelComparator:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.error_handler = get_unified_error_handler("ModelComparator")
-        # self.specific_error_handler = get_specific_error_handler("ModelComparator")  # 統合アーキテクチャでは不要
+        self.system = UnifiedSystem("ModelComparator")
         self.factory = ModelFactory()
         self.evaluator = ModelEvaluator()
 
@@ -308,10 +302,9 @@ class ModelComparator:
                 self.logger.info(f"モデル {model_name} 完了: MAE={metrics['mae']:.4f}")
 
             except Exception as e:
-                self.error_handler.handle_model_error(
+                self.system.log_error(
                     e,
-                    model_name,
-                    "training",
+                    f"{model_name}学習エラー",
                     {
                         "model_type": model_type,
                         "params": params,
@@ -403,11 +396,10 @@ if __name__ == "__main__":
             mae = mean_absolute_error(y_test, y_pred)
             print(f"  {model_type}: MAE = {mae:.4f}")
         except Exception as e:
-            error_handler = get_unified_error_handler("main_test")
-            error_handler.handle_model_error(
+            system = UnifiedSystem("main_test")
+            system.log_error(
                 e,
-                model_type,
-                "test",
+                f"{model_type}テストエラー",
                 {
                     "X_train_shape": (
                         X_train.shape if hasattr(X_train, "shape") else None

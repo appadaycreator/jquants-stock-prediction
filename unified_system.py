@@ -396,7 +396,7 @@ class UnifiedSystem:
             "total_errors": self.error_count,
             "error_by_category": self.error_stats,
             "module": self.module_name,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
     
     def reset_error_count(self) -> None:
@@ -404,12 +404,12 @@ class UnifiedSystem:
         self.error_count = 0
         self.error_stats = {category.value: 0 for category in ErrorCategory}
         self.logger.info("エラーカウントをリセットしました")
-    
+
     def save_config(self, file_path: str = None) -> None:
         """設定の保存"""
         if file_path is None:
             file_path = self.config_file
-        
+
         try:
             with open(file_path, "w", encoding="utf-8") as f:
                 yaml.dump(self.config, f, default_flow_style=False, allow_unicode=True)
@@ -476,20 +476,20 @@ def set_config(key: str, value: Any) -> None:
 if __name__ == "__main__":
     # テスト実行
     system = UnifiedSystem("TestModule")
-    
+
     # テストログ出力
     system.log_info("統合システムのテスト開始")
     system.log_warning("これは警告メッセージです")
     system.log_debug("これはデバッグメッセージです")
-    
+
     # テストエラー処理
     try:
         raise ValueError("テストエラー")
     except Exception as e:
         system.log_error(e, "テストエラーの処理")
-    
+
     # エラー統計の表示
     stats = system.get_error_statistics()
     print(f"エラー統計: {stats}")
-    
+
     system.log_info("統合システムのテスト完了")

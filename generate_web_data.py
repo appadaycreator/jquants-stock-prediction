@@ -13,7 +13,7 @@ import sys
 import logging
 import subprocess
 from pathlib import Path
-from config_loader import get_config
+from unified_system import UnifiedSystem
 from model_factory import ModelFactory, ModelEvaluator, ModelComparator
 from sklearn.model_selection import train_test_split
 
@@ -49,9 +49,10 @@ def validate_and_select_features(df, config_features, target):
 
 def generate_web_data():
     """Web表示用データ生成のメイン関数"""
-    config = get_config()
-    prediction_config = config.get_prediction_config()
-    preprocessing_config = config.get_preprocessing_config()
+    # 統合システムを使用
+    system = UnifiedSystem("generate_web_data", "config_final.yaml")
+    prediction_config = system.get_config("prediction", {})
+    preprocessing_config = system.get_config("preprocessing", {})
 
     output_dir = Path("web-app/public/data")
     output_dir.mkdir(parents=True, exist_ok=True)
