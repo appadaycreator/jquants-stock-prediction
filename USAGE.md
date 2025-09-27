@@ -87,7 +87,10 @@ cp config.yaml.sample config.yaml
 # 仮想環境をアクティベート
 source venv/bin/activate
 
-# 1. データ取得
+# 1. データ取得（リファクタリング版推奨）
+python3 jquants_data_fetch_refactored.py
+
+# または従来版
 python3 jquants_data_fetch.py
 
 # 2. データ前処理
@@ -105,6 +108,10 @@ python3 generate_web_data.py
 #### 1. データ取得
 
 ```bash
+# リファクタリング版（推奨）
+python3 jquants_data_fetch_refactored.py
+
+# または従来版
 python3 jquants_data_fetch.py
 ```
 

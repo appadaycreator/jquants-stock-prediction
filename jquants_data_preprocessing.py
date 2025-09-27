@@ -177,19 +177,22 @@ def load_and_clean_data(input_file):
 
         # 型安全な欠損値処理
         from type_safe_validator import TypeSafeValidator
+
         validator = TypeSafeValidator(strict_mode=True)
-        
+
         # データ型の検証
-        validation_result = validator.validate_numeric_columns(df, ["Open", "High", "Low", "Close", "Volume"])
+        validation_result = validator.validate_numeric_columns(
+            df, ["Open", "High", "Low", "Close", "Volume"]
+        )
         if not validation_result["is_valid"]:
             logger.error("❌ データ型検証に失敗しました")
             for error in validation_result["errors"]:
                 logger.error(f"  - {error}")
             raise ValueError("データ型検証エラー")
-        
+
         # 安全な欠損値処理
         df = validator.safe_nan_handling(df, strategy="forward_fill")
-        
+
         missing_count = df.isnull().sum().sum()
         if missing_count > 0:
             logger.warning(f"⚠️ {missing_count}件のNaN値が残っています")
@@ -376,18 +379,19 @@ def feature_selection_and_validation(df):
 
     # 型安全な無限値・異常値のチェック
     from type_safe_validator import TypeSafeValidator
+
     validator = TypeSafeValidator(strict_mode=True)
-    
+
     # 数値カラムの型安全性検証
     numeric_columns = df.select_dtypes(include=[np.number]).columns.tolist()
     validation_result = validator.validate_numeric_columns(df, numeric_columns)
-    
+
     if not validation_result["is_valid"]:
         logger.error("❌ 数値データの型安全性検証に失敗")
         for error in validation_result["errors"]:
             logger.error(f"  - {error}")
         raise ValueError("数値データの型安全性検証エラー")
-    
+
     # 無限値の安全な処理
     inf_count = np.isinf(df.select_dtypes(include=[np.number])).sum().sum()
     if inf_count > 0:

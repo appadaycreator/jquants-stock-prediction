@@ -1,20 +1,21 @@
-import requests
-import pandas as pd
+import logging
 import os
 import time
-import logging
+import requests
+import pandas as pd
 from datetime import datetime, timedelta
-from typing import Optional, Dict, Any, Tuple
-from dotenv import load_dotenv
-from config_loader import get_config
-from error_handler import get_error_handler, get_specific_error_handler
+from typing import Dict, Any
+
+from auth_manager import AuthManager
+from data_fetcher import DataFetcher
+from data_validator import DataValidator
+from simple_error_handler import get_simple_error_handler
 from security_config import SecurityConfig, validate_security_requirements
+from enhanced_logging import get_enhanced_logger
+from error_handler import get_error_handler, get_specific_error_handler
+from config_loader import get_config
 
-# 強化されたログ設定
-from enhanced_logging import setup_enhanced_logging, LogLevel, LogCategory
-
-enhanced_logger = setup_enhanced_logging("JQuantsDataFetch", LogLevel.INFO)
-logger = enhanced_logger.get_logger()
+logger = logging.getLogger(__name__)
 
 
 class JQuantsAPIClient:
@@ -24,7 +25,7 @@ class JQuantsAPIClient:
         # セキュリティ検証の実行
         if not validate_security_requirements():
             raise ValueError("セキュリティ要件を満たしていません")
-        
+
         self.security_config = SecurityConfig()
         self.email = os.getenv("JQUANTS_EMAIL")
         self.password = os.getenv("JQUANTS_PASSWORD")
@@ -36,6 +37,9 @@ class JQuantsAPIClient:
         # エラーハンドラーの初期化
         self.error_handler = get_error_handler("JQuantsAPIClient")
         self.specific_error_handler = get_specific_error_handler("JQuantsAPIClient")
+
+        # ロガーの初期化
+        self.enhanced_logger = get_enhanced_logger()
 
         try:
             # 設定を読み込み
@@ -50,11 +54,13 @@ class JQuantsAPIClient:
             if not self.email or not self.password:
                 error_msg = "認証情報が設定されていません"
                 # 機密情報をマスキングしてログ出力
-                masked_context = self.security_config.mask_sensitive_data({
-                    "email_set": bool(self.email),
-                    "password_set": bool(self.password),
-                    "env_file_exists": os.path.exists(".env"),
-                })
+                masked_context = self.security_config.mask_sensitive_data(
+                    {
+                        "email_set": bool(self.email),
+                        "password_set": bool(self.password),
+                        "env_file_exists": os.path.exists(".env"),
+                    }
+                )
                 self.error_handler.log_error(
                     ValueError(error_msg),
                     "認証情報検証エラー",
@@ -66,7 +72,9 @@ class JQuantsAPIClient:
                 logger.error("💡 .env ファイルを作成し、認証情報を設定してください。")
                 raise ValueError(error_msg)
 
-            enhanced_logger.log_operation_end("JQuantsAPIClient初期化", success=True)
+            self.enhanced_logger.log_operation_end(
+                "JQuantsAPIClient初期化", success=True
+            )
 
         except ValueError as e:
             # 認証エラーは再発生させる
@@ -84,7 +92,7 @@ class JQuantsAPIClient:
 
         for attempt in range(max_retries + 1):
             try:
-                enhanced_logger.log_operation_start(
+                self.enhanced_logger.log_operation_start(
                     f"APIリクエスト (試行 {attempt + 1}/{max_retries + 1})",
                     method=method,
                     url=url,
@@ -92,7 +100,7 @@ class JQuantsAPIClient:
                 response = self.session.request(method, url, **kwargs)
 
                 if response.status_code == 200:
-                    enhanced_logger.log_operation_end(
+                    self.enhanced_logger.log_operation_end(
                         "APIリクエスト", success=True, status_code=response.status_code
                     )
                     return response
@@ -394,7 +402,9 @@ class JQuantsAPIClient:
 
         # DataFrameに変換
         df = pd.DataFrame(data["daily_quotes"])
-        enhanced_logger.log_data_info("株価データ", shape=df.shape, records=len(df))
+        self.enhanced_logger.log_data_info(
+            "株価データ", shape=df.shape, records=len(df)
+        )
 
         return df
 
@@ -467,7 +477,7 @@ def main():
         # データ保存
         client.save_data(df, output_file)
 
-        enhanced_logger.log_operation_end(
+        client.enhanced_logger.log_operation_end(
             "データ取得処理",
             success=True,
             target_date=target_date,
