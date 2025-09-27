@@ -380,7 +380,7 @@ except Exception as e:
 
 #### 📈 従来の修正内容
 
-- **GitHub Actions修正**: Python 3.1の非対応エラーを修正、Python 3.9/3.11/3.12に統一
+- **GitHub Actions修正**: Python 3.12に統一、pandas-taの互換性問題を解決
 - **ワークフロー最適化**: 重複していたci.ymlを削除し、test.ymlに統合
 - **エラーハンドリング強化**: テスト実行時のエラー処理を改善し、詳細なログ出力を追加
 - **セキュリティチェック改善**: safetyとbanditのレポート出力を最適化
@@ -1208,7 +1208,7 @@ git push origin main
 
 ### v2.1.1 (2024-12-19)
 - **GitHub Actionsテストエラー修正**: `concurrent-futures`パッケージの依存関係問題を解決
-- **requirements.txt最適化**: Python 3.12対応の依存関係に更新
+- **requirements.txt最適化**: Python 3.12対応の依存関係に更新、pandas-ta>=0.4.67b0対応
 - **GitHub Actions設定改善**: キャッシュクリアと依存関係インストールの最適化
 - **セキュリティパッケージ追加**: `safety`と`bandit`をrequirements.txtに追加
 
