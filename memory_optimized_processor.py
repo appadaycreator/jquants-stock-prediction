@@ -10,7 +10,11 @@ import psutil
 import gc
 import logging
 from typing import Dict, List, Optional, Generator, Tuple, Any
-from unified_parallel_processing_system import
+from unified_parallel_processing_system import (
+    execute_parallel, 
+    get_parallel_config, 
+    set_parallel_config
+)
 import multiprocessing as mp
 from functools import lru_cache
 import tracemalloc

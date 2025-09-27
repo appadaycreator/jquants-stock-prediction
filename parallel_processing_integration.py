@@ -98,7 +98,11 @@ class ParallelProcessingIntegration:
         Returns:
             (Executor, max_workers)
         """
-        from unified_parallel_processing_system import
+        from unified_parallel_processing_system import (
+            execute_parallel,
+            get_parallel_config,
+            set_parallel_config
+        )
 
         optimal_workers = self.get_optimal_workers(task_type, data_size)
 

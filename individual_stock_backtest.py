@@ -18,10 +18,12 @@ import numpy as np
 import yfinance as yf
 import matplotlib.pyplot as plt
 import seaborn as sns
+from dataclasses import dataclass, asdict
 from datetime import datetime, timedelta
 from typing import Dict, List, Tuple, Optional, Any
 import json
 import warnings
+import talib
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 from scipy import stats

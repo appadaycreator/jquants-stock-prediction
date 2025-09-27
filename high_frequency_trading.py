@@ -14,6 +14,7 @@ import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 import threading
 from queue import Queue, Empty
+from unified_system import get_unified_system
 
 # ログ設定
 logging.basicConfig(level=logging.INFO)

@@ -25,6 +25,7 @@ import threading
 import time
 from collections import deque
 import pandas_ta as ta
+import talib
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # 統合ログシステムのインポート

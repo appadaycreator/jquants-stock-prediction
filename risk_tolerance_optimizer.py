@@ -9,6 +9,7 @@ Individual Stock Risk Tolerance Optimization System
 
 import numpy as np
 import pandas as pd
+import os
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
