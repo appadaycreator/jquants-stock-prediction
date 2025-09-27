@@ -111,11 +111,11 @@ export default function Dashboard() {
       };
       
       const [summaryRes, stockRes, modelRes, featureRes, predRes] = await Promise.all([
-        fetchWithRetry("./data/dashboard_summary.json"),
-        fetchWithRetry("./data/stock_data.json"),
-        fetchWithRetry("./data/model_comparison.json"),
-        fetchWithRetry("./data/feature_analysis.json"),
-        fetchWithRetry("./data/prediction_results.json"),
+        fetchWithRetry("/data/dashboard_summary.json"),
+        fetchWithRetry("/data/stock_data.json"),
+        fetchWithRetry("/data/model_comparison.json"),
+        fetchWithRetry("/data/feature_analysis.json"),
+        fetchWithRetry("/data/prediction_results.json"),
       ]);
 
       const summaryData = await summaryRes.json();
