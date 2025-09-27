@@ -49,10 +49,20 @@ def validate_and_select_features(df, config_features, target):
 
 def generate_web_data():
     """Web表示用データ生成のメイン関数"""
-    # 統合システムを使用
-    system = UnifiedSystem("generate_web_data", "config_final.yaml")
-    prediction_config = system.get_config("prediction", {})
-    preprocessing_config = system.get_config("preprocessing", {})
+    # 統合システムを使用（タイムアウト付き）
+    try:
+        system = UnifiedSystem("generate_web_data", "config_final.yaml")
+        prediction_config = system.get_config("prediction", {})
+        preprocessing_config = system.get_config("preprocessing", {})
+    except Exception as e:
+        logger.error(f"統合システム初期化エラー: {e}")
+        # フォールバック: 直接設定ファイルを読み込み
+        import yaml
+
+        with open("config_final.yaml", "r", encoding="utf-8") as f:
+            config = yaml.safe_load(f) or {}
+        prediction_config = config.get("prediction", {})
+        preprocessing_config = config.get("preprocessing", {})
 
     output_dir = Path("web-app/public/data")
     output_dir.mkdir(parents=True, exist_ok=True)

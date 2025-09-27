@@ -181,6 +181,7 @@ class UnifiedSystem:
             if os.path.exists(self.config_file):
                 with open(self.config_file, "r", encoding="utf-8") as f:
                     self.config = yaml.safe_load(f) or {}
+                # ログシステムが初期化される前にprint文を使用
                 print(f"✅ 統合設定ファイル読み込み完了: {self.config_file}")
             else:
                 # デフォルト設定の作成
