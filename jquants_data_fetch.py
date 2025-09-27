@@ -8,6 +8,7 @@ from typing import Optional, Dict, Any, Tuple
 from dotenv import load_dotenv
 from config_loader import get_config
 from error_handler import get_error_handler, get_specific_error_handler
+from security_config import SecurityConfig, validate_security_requirements
 
 # 強化されたログ設定
 from enhanced_logging import setup_enhanced_logging, LogLevel, LogCategory
@@ -20,6 +21,11 @@ class JQuantsAPIClient:
     """J-Quants API接続の堅牢なクライアント"""
 
     def __init__(self):
+        # セキュリティ検証の実行
+        if not validate_security_requirements():
+            raise ValueError("セキュリティ要件を満たしていません")
+        
+        self.security_config = SecurityConfig()
         self.email = os.getenv("JQUANTS_EMAIL")
         self.password = os.getenv("JQUANTS_PASSWORD")
         self.refresh_token = None
@@ -40,17 +46,19 @@ class JQuantsAPIClient:
             # セッション設定
             self.session.timeout = self.data_fetch_config.get("timeout", 30)
 
-            # 認証情報の検証
+            # 認証情報の検証（セキュアな方法）
             if not self.email or not self.password:
                 error_msg = "認証情報が設定されていません"
+                # 機密情報をマスキングしてログ出力
+                masked_context = self.security_config.mask_sensitive_data({
+                    "email_set": bool(self.email),
+                    "password_set": bool(self.password),
+                    "env_file_exists": os.path.exists(".env"),
+                })
                 self.error_handler.log_error(
                     ValueError(error_msg),
                     "認証情報検証エラー",
-                    {
-                        "email_set": bool(self.email),
-                        "password_set": bool(self.password),
-                        "env_file_exists": os.path.exists(".env"),
-                    },
+                    masked_context,
                 )
                 logger.error(
                     "❌ 環境変数 JQUANTS_EMAIL と JQUANTS_PASSWORD を設定してください。"
@@ -60,6 +68,9 @@ class JQuantsAPIClient:
 
             enhanced_logger.log_operation_end("JQuantsAPIClient初期化", success=True)
 
+        except ValueError as e:
+            # 認証エラーは再発生させる
+            raise
         except Exception as e:
             self.error_handler.log_error(e, "JQuantsAPIClient初期化エラー")
             raise
@@ -140,20 +151,57 @@ class JQuantsAPIClient:
                 else:
                     raise
 
-            except Exception as e:
+            except requests.exceptions.RequestException as e:
+                # ネットワーク関連エラーは具体的に処理
                 self.error_handler.log_error(
                     e,
-                    f"予期しないAPIエラー (試行 {attempt + 1}/{max_retries + 1})",
+                    f"ネットワークエラー (試行 {attempt + 1}/{max_retries + 1})",
                     {
                         "method": method,
                         "url": url,
                         "attempt": attempt + 1,
                         "max_retries": max_retries,
-                        "kwargs_keys": list(kwargs.keys()) if kwargs else [],
+                        "error_type": type(e).__name__,
                     },
                 )
                 logger.error(
-                    f"❌ 予期しないエラー (試行 {attempt + 1}/{max_retries + 1}): {e}"
+                    f"❌ ネットワークエラー (試行 {attempt + 1}/{max_retries + 1}): {type(e).__name__}"
+                )
+                if attempt < max_retries:
+                    logger.info(f"⏳ {retry_interval}秒後にリトライします...")
+                    time.sleep(retry_interval)
+                    continue
+                else:
+                    raise
+            except ValueError as e:
+                # データ関連エラーは即座に再発生
+                self.error_handler.log_error(
+                    e,
+                    f"データエラー (試行 {attempt + 1}/{max_retries + 1})",
+                    {
+                        "method": method,
+                        "url": url,
+                        "attempt": attempt + 1,
+                        "error_type": type(e).__name__,
+                    },
+                )
+                logger.error(f"❌ データエラー: {e}")
+                raise
+            except Exception as e:
+                # その他の予期しないエラー
+                self.error_handler.log_error(
+                    e,
+                    f"予期しないエラー (試行 {attempt + 1}/{max_retries + 1})",
+                    {
+                        "method": method,
+                        "url": url,
+                        "attempt": attempt + 1,
+                        "max_retries": max_retries,
+                        "error_type": type(e).__name__,
+                    },
+                )
+                logger.error(
+                    f"❌ 予期しないエラー (試行 {attempt + 1}/{max_retries + 1}): {type(e).__name__}"
                 )
                 if attempt < max_retries:
                     logger.info(f"⏳ {retry_interval}秒後にリトライします...")
