@@ -45,14 +45,14 @@ export default function RootLayout({
                   ダッシュボード
                 </Link>
                 <Link 
-                  href="/reports"
+                  href="/reports/"
                   className="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <FileText className="h-5 w-5 mr-3" />
                   レポート
                 </Link>
                 <Link 
-                  href="/settings"
+                  href="/settings/"
                   className="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <Settings className="h-5 w-5 mr-3" />

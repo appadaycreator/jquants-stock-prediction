@@ -16,6 +16,16 @@ data_fetch:
   max_retries: 3
   # リトライ間隔（秒）
   retry_interval: 5
+  # タイムアウト設定（秒）
+  timeout: 30
+  # データ検証設定
+  validation:
+    # 最小データ件数
+    min_records: 1
+    # 必須フィールド
+    required_fields: ["Code", "Date", "Open", "High", "Low", "Close", "Volume"]
+    # データ型チェック
+    type_check: true
 
 # データ前処理設定
 preprocessing:
