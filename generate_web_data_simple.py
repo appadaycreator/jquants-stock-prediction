@@ -50,6 +50,7 @@ def generate_web_data():
     """Web表示用データ生成のメイン関数"""
     # 直接設定ファイルを読み込み（UnifiedSystemの無限ループを回避）
     import yaml
+
     try:
         with open("config_final.yaml", "r", encoding="utf-8") as f:
             config = yaml.safe_load(f) or {}
@@ -63,11 +64,9 @@ def generate_web_data():
             "features": ["Close", "Volume", "Open", "High", "Low"],
             "target": "Close",
             "test_size": 0.2,
-            "random_state": 42
+            "random_state": 42,
         }
-        preprocessing_config = {
-            "output_file": "processed_stock_data.csv"
-        }
+        preprocessing_config = {"output_file": "processed_stock_data.csv"}
 
     output_dir = Path("web-app/public/data")
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -114,11 +113,7 @@ def generate_web_data():
     rmse = np.sqrt(mean_squared_error(y_test, y_pred))
     r2 = r2_score(y_test, y_pred)
 
-    metrics = {
-        "mae": mae,
-        "rmse": rmse,
-        "r2": r2
-    }
+    metrics = {"mae": mae, "rmse": rmse, "r2": r2}
 
     # 6. Web用データ生成
 
@@ -155,10 +150,9 @@ def generate_web_data():
 
     # 特徴量重要度
     try:
-        feature_importance = pd.DataFrame({
-            "feature": features,
-            "importance": model.feature_importances_
-        }).sort_values("importance", ascending=False)
+        feature_importance = pd.DataFrame(
+            {"feature": features, "importance": model.feature_importances_}
+        ).sort_values("importance", ascending=False)
 
         if not feature_importance.empty:
             total_importance = feature_importance["importance"].sum()
