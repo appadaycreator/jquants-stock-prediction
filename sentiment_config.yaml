@@ -1,0 +1,125 @@
+# 感情分析・ニュース統合システム設定ファイル
+# 月間5-15%利益向上を目指す設定
+
+# API設定
+api_keys:
+  news_api_key: "your_news_api_key_here"
+  twitter_api_key: "your_twitter_api_key"
+  twitter_api_secret: "your_twitter_api_secret"
+  twitter_access_token: "your_twitter_access_token"
+  twitter_access_token_secret: "your_twitter_access_token_secret"
+
+# 感情分析設定
+sentiment_analysis:
+  # ニュース分析設定
+  news:
+    language: "en"
+    lookback_days: 7
+    max_articles: 100
+    relevance_threshold: 0.3
+  
+  # SNS分析設定
+  social_media:
+    max_tweets: 100
+    hashtag_trends: true
+    mention_analysis: true
+    sentiment_threshold: 0.1
+  
+  # 感情分析エンジン設定
+  engines:
+    vader_weight: 0.7
+    textblob_weight: 0.3
+    confidence_threshold: 0.6
+
+# トレーディング設定
+trading:
+  # 監視対象株式
+  symbols:
+    - "AAPL"
+    - "GOOGL"
+    - "MSFT"
+    - "TSLA"
+    - "AMZN"
+    - "NVDA"
+    - "META"
+    - "NFLX"
+    - "AMD"
+    - "INTC"
+  
+  # シグナル統合設定
+  signal_integration:
+    technical_weight: 0.6
+    sentiment_weight: 0.4
+    minimum_confidence: 0.6
+    signal_threshold: 0.3
+  
+  # リスク管理設定
+  risk_management:
+    max_position_size: 0.1
+    stop_loss_pct: 0.02
+    take_profit_pct: 0.04
+    max_daily_trades: 5
+    volatility_threshold: 0.3
+
+# パフォーマンス目標設定
+performance_targets:
+  monthly_return_min: 0.05  # 5%
+  monthly_return_max: 0.15  # 15%
+  max_drawdown: 0.1  # 10%
+  target_sharpe_ratio: 1.5
+  sentiment_accuracy_target: 0.7
+
+# 最適化設定
+optimization:
+  # 感情分析の重み調整
+  sentiment_weights:
+    news_weight: 0.7
+    social_weight: 0.3
+  
+  # 時間窓設定
+  time_windows:
+    short_term: 1  # 1日
+    medium_term: 7  # 7日
+    long_term: 30  # 30日
+  
+  # 動的調整設定
+  dynamic_adjustment:
+    enabled: true
+    adjustment_frequency: "daily"
+    performance_threshold: 0.02
+
+# ログ設定
+logging:
+  level: "INFO"
+  file: "sentiment_trading.log"
+  max_size: "10MB"
+  backup_count: 5
+
+# 通知設定
+notifications:
+  email:
+    enabled: false
+    smtp_server: ""
+    smtp_port: 587
+    username: ""
+    password: ""
+    recipients: []
+  
+  webhook:
+    enabled: false
+    url: ""
+    secret: ""
+
+# データベース設定
+database:
+  type: "sqlite"
+  path: "sentiment_trading.db"
+  backup_frequency: "daily"
+  retention_days: 90
+
+# 監視設定
+monitoring:
+  health_check_interval: 300  # 5分
+  performance_alert_threshold: 0.05
+  error_alert_threshold: 10
+  api_rate_limit_buffer: 0.8

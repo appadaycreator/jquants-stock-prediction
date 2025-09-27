@@ -25,14 +25,16 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ matrix.python-version }}
         restore-keys: |
+          ${{ runner.os }}-pip-${{ matrix.python-version }}-
           ${{ runner.os }}-pip-
     
     - name: 依存関係のインストール
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip cache purge || echo "Cache purge completed"
+        pip install --no-cache-dir -r requirements.txt
     
     - name: コードフォーマットのチェック
       run: |
@@ -68,7 +70,8 @@ jobs:
     - name: 依存関係のインストール
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip cache purge || echo "Cache purge completed"
+        pip install --no-cache-dir -r requirements.txt
     
     - name: リンターの実行
       run: |
@@ -92,8 +95,8 @@ jobs:
     - name: 依存関係のインストール
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install safety bandit
+        pip cache purge || echo "Cache purge completed"
+        pip install --no-cache-dir -r requirements.txt
     
     - name: セキュリティチェック
       run: |

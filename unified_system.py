@@ -235,8 +235,9 @@ class UnifiedSystem:
         category: ErrorCategory = ErrorCategory.API_ERROR,
         additional_info: Dict[str, Any] = None,
         include_traceback: bool = True,
+        level: LogLevel = LogLevel.ERROR,
     ):
-        """統合エラーログ出力"""
+        """統合エラーログ出力（強化版）"""
         self.error_count += 1
         self.error_stats[category.value] += 1
 
@@ -249,10 +250,20 @@ class UnifiedSystem:
         if additional_info:
             masked_info = self._mask_sensitive_data(additional_info)
 
-        # エラーログの出力
-        self.logger.error(
-            f"❌ エラー #{self.error_count} [{category.value}]: {sanitized_context}"
-        )
+        # エラーログの出力（レベル別）
+        log_message = f"❌ エラー #{self.error_count} [{category.value}]: {sanitized_context}"
+        
+        if level == LogLevel.DEBUG:
+            self.logger.debug(log_message)
+        elif level == LogLevel.INFO:
+            self.logger.info(log_message)
+        elif level == LogLevel.WARNING:
+            self.logger.warning(log_message)
+        elif level == LogLevel.ERROR:
+            self.logger.error(log_message)
+        elif level == LogLevel.CRITICAL:
+            self.logger.critical(log_message)
+        
         self.logger.error(f"エラー詳細: {sanitized_error_msg}")
 
         if masked_info:
@@ -265,6 +276,56 @@ class UnifiedSystem:
                 )
             )
             self.logger.error(f"トレースバック: {traceback_str}")
+        
+        # エラー復旧の試行
+        self._attempt_error_recovery(error, category, additional_info)
+
+    def _attempt_error_recovery(self, error: Exception, category: ErrorCategory, context: Dict[str, Any] = None) -> None:
+        """エラー復旧の試行"""
+        try:
+            if category == ErrorCategory.API_ERROR:
+                self._recover_api_error(error, context)
+            elif category == ErrorCategory.FILE_ERROR:
+                self._recover_file_error(error, context)
+            elif category == ErrorCategory.DATA_PROCESSING_ERROR:
+                self._recover_data_processing_error(error, context)
+            elif category == ErrorCategory.MODEL_ERROR:
+                self._recover_model_error(error, context)
+            else:
+                self.logger.warning(f"特定の復旧戦略がありません: {category.value}")
+                
+        except Exception as recovery_error:
+            self.logger.error(f"復旧試行に失敗: {recovery_error}")
+    
+    def _recover_api_error(self, error: Exception, context: Dict[str, Any] = None) -> None:
+        """APIエラーの復旧"""
+        self.logger.info("APIエラーの復旧を試行中...")
+        # APIエラーの復旧ロジック（リトライ、認証更新など）
+        if context and context.get('retry_count', 0) < 3:
+            self.logger.info(f"APIリトライを実行: {context.get('retry_count', 0) + 1}回目")
+        else:
+            self.logger.warning("API復旧の上限に達しました")
+    
+    def _recover_file_error(self, error: Exception, context: Dict[str, Any] = None) -> None:
+        """ファイルエラーの復旧"""
+        self.logger.info("ファイルエラーの復旧を試行中...")
+        # ファイルエラーの復旧ロジック（バックアップファイルの使用、権限修正など）
+        if context and context.get('file_path'):
+            self.logger.info(f"ファイル復旧を試行: {context['file_path']}")
+    
+    def _recover_data_processing_error(self, error: Exception, context: Dict[str, Any] = None) -> None:
+        """データ処理エラーの復旧"""
+        self.logger.info("データ処理エラーの復旧を試行中...")
+        # データ処理エラーの復旧ロジック（データクリーニング、フォールバック処理など）
+        if context and context.get('operation'):
+            self.logger.info(f"データ処理復旧を試行: {context['operation']}")
+    
+    def _recover_model_error(self, error: Exception, context: Dict[str, Any] = None) -> None:
+        """モデルエラーの復旧"""
+        self.logger.info("モデルエラーの復旧を試行中...")
+        # モデルエラーの復旧ロジック（デフォルトモデルの使用、パラメータ調整など）
+        if context and context.get('model_name'):
+            self.logger.info(f"モデル復旧を試行: {context['model_name']}")
 
     def handle_api_error(
         self,

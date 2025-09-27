@@ -1,23 +1,78 @@
+#!/usr/bin/env python3
+"""
+J-Quants株価予測システム - レガシーモジュール
+⚠️ このモジュールは廃止予定です。unified_system.pyを使用してください。
+
+このファイルは後方互換性のために残されていますが、
+新規開発では unified_system.py を使用してください。
+"""
+
+import warnings
+warnings.warn(
+    "jquants_stock_prediction.py は廃止予定です。unified_system.py を使用してください。",
+    DeprecationWarning,
+    stacklevel=2
+)
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
 from font_config import setup_japanese_font
 from sklearn.metrics import mean_absolute_error
-from config_loader import get_config
-from model_factory import ModelFactory, ModelEvaluator, ModelComparator
+
+# 統合システムの使用を推奨
+try:
+    from unified_system import get_unified_system, ErrorCategory, LogCategory
+    unified_system = get_unified_system("LegacyStockPrediction")
+    unified_system.log_warning("レガシーモジュールが使用されています。unified_system.pyへの移行を推奨します。")
+except ImportError:
+    print("⚠️ 統合システムが見つかりません。unified_system.pyを確認してください。")
 
 # 日本語フォント設定
 setup_japanese_font()
 
-# 設定ファイルを読み込み
-config = get_config()
-prediction_config = config.get_prediction_config()
+# レガシー設定の読み込み（統合システムへの移行を推奨）
+try:
+    from config_loader import get_config
+    config = get_config()
+    prediction_config = config.get_prediction_config()
+except ImportError:
+    # フォールバック設定
+    prediction_config = {
+        "input_file": "processed_stock_data.csv",
+        "features": ["SMA_5", "SMA_25", "SMA_50", "Close_1d_ago", "Close_5d_ago", "Close_25d_ago"],
+        "target": "Close",
+        "test_size": 0.2,
+        "random_state": 42,
+        "output_image": "stock_prediction_result.png"
+    }
 
-# データを読み込む
-input_file = prediction_config.get("input_file", "processed_stock_data.csv")
-print(f"データを読み込み中: {input_file}")
-df = pd.read_csv(input_file)
+# レガシー実行（統合システムへの移行を推奨）
+def run_legacy_prediction():
+    """レガシー予測実行（統合システムへの移行を推奨）"""
+    try:
+        # 統合システムの使用を推奨
+        if 'unified_system' in globals():
+            unified_system.log_info("レガシー予測を実行中...")
+            # 統合システムを使用した予測実行
+            return unified_system.run_stock_prediction()
+        else:
+            # フォールバック実行
+            return _run_legacy_fallback()
+    except Exception as e:
+        print(f"❌ レガシー予測エラー: {e}")
+        print("💡 統合システム (unified_system.py) の使用を推奨します")
+        raise
+
+def _run_legacy_fallback():
+    """レガシーフォールバック実行"""
+    print("⚠️ レガシーモードで実行中...")
+    
+    # データを読み込む
+    input_file = prediction_config.get("input_file", "processed_stock_data.csv")
+    print(f"データを読み込み中: {input_file}")
+    df = pd.read_csv(input_file)
 
 # 説明変数と目的変数
 features = prediction_config.get(
@@ -184,12 +239,35 @@ plt.tight_layout()
 plt.savefig(output_image, dpi=300, bbox_inches="tight")
 plt.show()
 
-print(f"\n✅ 予測完了!")
-print(f"   モデル: {best_model_name}")
-print(f"   MAE: {metrics['mae']:.4f}")
-print(f"   R²: {metrics['r2']:.4f}")
-print(f"   出力画像: {output_image}")
-if compare_models:
-    print(
-        f"   比較結果: {prediction_config.get('comparison_csv', 'model_comparison_results.csv')}"
-    )
+    print(f"\n✅ レガシー予測完了!")
+    print(f"   モデル: {best_model_name}")
+    print(f"   MAE: {metrics['mae']:.4f}")
+    print(f"   R²: {metrics['r2']:.4f}")
+    print(f"   出力画像: {output_image}")
+    if compare_models:
+        print(
+            f"   比較結果: {prediction_config.get('comparison_csv', 'model_comparison_results.csv')}"
+        )
+    
+    print("\n💡 統合システム (unified_system.py) の使用を推奨します")
+    return {
+        "model_name": best_model_name,
+        "mae": metrics['mae'],
+        "rmse": metrics['rmse'],
+        "r2": metrics['r2'],
+        "output_image": output_image
+    }
+
+# メイン実行（統合システムへの移行を推奨）
+if __name__ == "__main__":
+    print("🚨 レガシーモジュール実行警告")
+    print("⚠️ このモジュールは廃止予定です")
+    print("💡 統合システム (unified_system.py) の使用を推奨します")
+    print("=" * 60)
+    
+    try:
+        result = run_legacy_prediction()
+        print(f"\n📊 実行結果: {result}")
+    except Exception as e:
+        print(f"\n❌ 実行エラー: {e}")
+        print("💡 統合システム (unified_system.py) の使用を推奨します")

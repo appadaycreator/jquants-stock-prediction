@@ -528,7 +528,7 @@ class TestEnhancedDataPipeline:
         validation_result = custom_validator.validate_data_quality(processed_data)
 
         # 検証結果の確認
-        assert isinstance(validation_result.is_valid, bool)
+        assert isinstance(validation_result.is_valid, (bool, np.bool_))
         assert isinstance(validation_result.score, float)
         assert 0.0 <= validation_result.score <= 1.0
 

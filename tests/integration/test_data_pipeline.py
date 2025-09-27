@@ -310,7 +310,7 @@ class TestDataPipeline:
 
     def test_pipeline_with_enhanced_data_generator(self):
         """強化されたデータジェネレーターを使用したパイプラインテスト"""
-        from fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
+        from tests.fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
 
         generator = EnhancedTestDataGenerator(seed=42)
 
@@ -332,7 +332,7 @@ class TestDataPipeline:
 
     def test_pipeline_with_corrupted_data(self):
         """破損データでのパイプラインテスト"""
-        from fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
+        from tests.fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
 
         generator = EnhancedTestDataGenerator(seed=42)
 
@@ -359,7 +359,7 @@ class TestDataPipeline:
 
     def test_pipeline_with_edge_cases(self):
         """エッジケースでのパイプラインテスト"""
-        from fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
+        from tests.fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
 
         generator = EnhancedTestDataGenerator(seed=42)
         edge_cases = generator.generate_edge_case_data()
@@ -378,7 +378,7 @@ class TestDataPipeline:
 
     def test_pipeline_with_market_scenarios(self):
         """市場シナリオでのパイプラインテスト"""
-        from fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
+        from tests.fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
 
         generator = EnhancedTestDataGenerator(seed=42)
         scenarios = generator.generate_market_scenarios()
@@ -412,7 +412,7 @@ class TestDataPipeline:
 
     def test_pipeline_stress_test(self):
         """ストレステスト"""
-        from fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
+        from tests.fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
 
         generator = EnhancedTestDataGenerator(seed=42)
 
@@ -437,7 +437,7 @@ class TestDataPipeline:
 
     def test_pipeline_with_anomaly_detection(self):
         """異常値検出でのパイプラインテスト"""
-        from fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
+        from tests.fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
 
         generator = EnhancedTestDataGenerator(seed=42)
 

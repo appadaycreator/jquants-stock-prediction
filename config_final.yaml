@@ -322,6 +322,113 @@ environments:
       error_statistics: true
       auto_recovery: true
 
+# トレーディングシステム設定（統合）
+trading:
+  # 監視対象銘柄設定
+  symbols:
+    # 主要日本株
+    - "7203.T"  # トヨタ自動車
+    - "6758.T"  # ソニーグループ
+    - "9984.T"  # ソフトバンクグループ
+    - "9432.T"  # 日本電信電話
+    - "6861.T"  # キーエンス
+    - "4063.T"  # 信越化学工業
+    - "8035.T"  # 東京エレクトロン
+    - "8306.T"  # 三菱UFJフィナンシャル・グループ
+    - "4503.T"  # アステラス製薬
+    - "4519.T"  # 中外製薬
+  
+  # アカウント設定
+  account:
+    initial_value: 1000000  # 初期資金（円）
+    max_position_size: 0.1  # 単一ポジションの最大サイズ（ポートフォリオの割合）
+    max_portfolio_risk: 0.05  # ポートフォリオ全体の最大リスク
+  
+  # リアルタイムシグナル設定
+  signals:
+    # 技術指標パラメータ
+    rsi:
+      overbought: 70
+      oversold: 30
+      window: 14
+    
+    macd:
+      fast_period: 12
+      slow_period: 26
+      signal_period: 9
+    
+    bollinger_bands:
+      window: 20
+      std_dev: 2
+    
+    # シグナル生成設定
+    min_confidence: 0.6  # 最小信頼度
+    max_signals: 10  # 最大シグナル数
+    signal_strength_threshold: 0.7  # シグナル強度閾値
+  
+  # リスク管理設定
+  risk_management:
+    # 損切り設定
+    stop_loss:
+      base_percent: 5.0  # 基本損切り率（%）
+      trailing_stop: true  # トレーリングストップ有効
+      trailing_percent: 2.0  # トレーリングストップ率（%）
+    
+    # 利確設定
+    take_profit:
+      base_percent: 10.0  # 基本利確率（%）
+      dynamic: true  # 動的利確有効
+    
+    # ポジションサイズ管理
+    position_sizing:
+      risk_per_trade: 0.02  # 1取引あたりのリスク（ポートフォリオの割合）
+      max_correlation: 0.7  # 最大相関係数
+    
+    # リスク閾値
+    risk_thresholds:
+      high_risk: 0.7  # 高リスク閾値
+      medium_risk: 0.5  # 中リスク閾値
+      low_risk: 0.3  # 低リスク閾値
+  
+  # 複数銘柄監視設定
+  monitoring:
+    # データ取得設定
+    data_fetch:
+      period: "6mo"  # データ取得期間
+      interval: "1d"  # データ間隔
+      max_workers: 5  # 並列処理数
+    
+    # 分析設定
+    analysis:
+      technical_weight: 0.4  # 技術分析の重み
+      fundamental_weight: 0.3  # ファンダメンタル分析の重み
+      momentum_weight: 0.3  # モメンタム分析の重み
+    
+    # 比較分析設定
+    comparison:
+      correlation_threshold: 0.8  # 相関閾値
+      diversification_target: 0.7  # 分散投資目標スコア
+  
+  # 統合システム設定
+  integration:
+    # 分析間隔
+    analysis_interval: 300  # 分析間隔（秒）
+    
+    # 自動実行設定
+    auto_execution:
+      enabled: false  # 自動実行有効/無効
+      min_confidence: 0.8  # 自動実行最小信頼度
+      max_positions: 5  # 最大同時ポジション数
+    
+    # 通知設定
+    notifications:
+      email_enabled: false  # メール通知有効/無効
+      email_address: ""  # メールアドレス
+      alert_thresholds:
+        high_risk: 0.8  # 高リスクアラート閾値
+        profit_target: 0.15  # 利益目標アラート閾値
+        loss_limit: -0.1  # 損失限界アラート閾値
+
 # レガシーシステム廃止設定
 legacy:
   # 廃止予定モジュールの設定
@@ -337,6 +444,8 @@ legacy:
   # 廃止予定設定ファイル
   deprecated_configs:
     - "config.yaml"
+    - "config_unified.yaml"
+    - "trading_config.yaml"
     - "config/api.yaml"
     - "config/core.yaml"
     - "config/data.yaml"
