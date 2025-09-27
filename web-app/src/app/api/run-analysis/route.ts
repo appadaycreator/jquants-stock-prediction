@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { spawn } from 'child_process';
 import path from 'path';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const { analysisType = 'comprehensive', symbols = [] } = await request.json();
@@ -120,7 +122,7 @@ export async function POST(request: NextRequest) {
               progress: 100,
               output: stdout,
               webDataGenerated: false,
-              webError: webError.toString()
+              webError: webError instanceof Error ? webError.message : String(webError)
             }));
           }
         } else {

@@ -55,18 +55,55 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
   const [showConfig, setShowConfig] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [analysisId, setAnalysisId] = useState<string | null>(null);
+  const [elapsedTime, setElapsedTime] = useState<string>('00:00');
 
   const selectedConfig = analysisConfigs.find(config => config.type === selectedType);
 
   const startAnalysis = async () => {
     try {
+      const newAnalysisId = `analysis_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      setAnalysisId(newAnalysisId);
       setIsAnalyzing(true);
       setProgress(0);
       setStatus('分析を開始しています...');
       setError(null);
       setAnalysisResult(null);
+      setElapsedTime('00:00');
       
       onAnalysisStart?.();
+
+      // 進捗追跡の開始
+      const progressInterval = setInterval(async () => {
+        try {
+          const progressResponse = await fetch(`/api/analysis-progress?id=${newAnalysisId}`);
+          const progressData = await progressResponse.json();
+          
+          if (progressData.progress !== undefined) {
+            setProgress(progressData.progress);
+          }
+          if (progressData.status) {
+            setStatus(progressData.status);
+          }
+          if (progressData.elapsed) {
+            setElapsedTime(progressData.elapsed);
+          }
+          
+          if (progressData.completed) {
+            clearInterval(progressInterval);
+            if (progressData.result) {
+              setAnalysisResult(progressData.result);
+              onAnalysisComplete?.(progressData.result);
+            }
+            if (progressData.error) {
+              setError(progressData.error);
+            }
+            setIsAnalyzing(false);
+          }
+        } catch (progressError) {
+          console.error('進捗取得エラー:', progressError);
+        }
+      }, 2000); // 2秒ごとに進捗をチェック
 
       const response = await fetch('/api/run-analysis', {
         method: 'POST',
@@ -75,7 +112,8 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
         },
         body: JSON.stringify({
           analysisType: selectedType,
-          symbols: [] // 必要に応じて銘柄を指定
+          symbols: [], // 必要に応じて銘柄を指定
+          analysisId: newAnalysisId
         }),
       });
 
@@ -86,9 +124,11 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
         setProgress(100);
         setAnalysisResult(result);
         onAnalysisComplete?.(result);
+        clearInterval(progressInterval);
       } else {
         setError(result.error || '分析に失敗しました');
         setStatus('分析に失敗しました');
+        clearInterval(progressInterval);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : '不明なエラーが発生しました');
@@ -186,18 +226,32 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
 
         {/* 進捗表示 */}
         {isAnalyzing && (
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-600">進捗</span>
-              <span className="text-gray-800 font-medium">{progress}%</span>
+          <div className="space-y-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="flex justify-between items-center">
+              <span className="text-sm font-medium text-blue-800">分析実行中</span>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-blue-600">経過時間: {elapsedTime}</span>
+                <span className="text-sm font-medium text-blue-800">{progress}%</span>
+              </div>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            
+            <div className="w-full bg-blue-100 rounded-full h-3">
               <div
-                className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                className="bg-blue-600 h-3 rounded-full transition-all duration-500 ease-out"
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <p className="text-sm text-gray-600">{status}</p>
+            
+            <div className="flex items-center gap-2">
+              <RefreshCw className="w-4 h-4 animate-spin text-blue-600" />
+              <p className="text-sm text-blue-700">{status}</p>
+            </div>
+            
+            {analysisId && (
+              <p className="text-xs text-blue-500">
+                分析ID: {analysisId}
+              </p>
+            )}
           </div>
         )}
 

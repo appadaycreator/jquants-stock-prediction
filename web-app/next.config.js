@@ -1,7 +1,7 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-  // 基本設定
-  output: process.env.NODE_ENV === "production" ? "export" : undefined,
+  // 基本設定 - 開発用に静的エクスポートを無効化
+  // output: process.env.NODE_ENV === "production" ? "export" : undefined,
   distDir: "dist",
   
   // 画像最適化設定
