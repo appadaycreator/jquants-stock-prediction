@@ -20,7 +20,11 @@ import logging
 from dataclasses import dataclass, asdict
 from enum import Enum
 import warnings
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, VotingRegressor
+from sklearn.ensemble import (
+    RandomForestRegressor,
+    GradientBoostingRegressor,
+    VotingRegressor,
+)
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from sklearn.svm import SVR
 from sklearn.neural_network import MLPRegressor
@@ -43,6 +47,7 @@ warnings.filterwarnings("ignore")
 
 class ModelType(Enum):
     """予測モデルタイプ"""
+
     RANDOM_FOREST = "random_forest"
     GRADIENT_BOOSTING = "gradient_boosting"
     LINEAR_REGRESSION = "linear_regression"
@@ -55,6 +60,7 @@ class ModelType(Enum):
 
 class PredictionConfidence(Enum):
     """予測信頼度レベル"""
+
     VERY_LOW = "very_low"
     LOW = "low"
     MEDIUM = "medium"
@@ -65,6 +71,7 @@ class PredictionConfidence(Enum):
 @dataclass
 class PredictionResult:
     """予測結果データクラス"""
+
     symbol: str
     predicted_price: float
     confidence: PredictionConfidence
@@ -86,6 +93,7 @@ class PredictionResult:
 @dataclass
 class ModelPerformance:
     """モデル性能データクラス"""
+
     model_name: str
     accuracy: float
     precision: float
@@ -117,34 +125,36 @@ class EnhancedAIPredictionSystem:
         self.model_cache = {}
         self.is_training = False
         self.training_lock = threading.Lock()
-        
+
         # 設定
         self.config = {
-            'max_models': 10,
-            'retrain_interval_hours': 24,
-            'min_confidence_threshold': 0.6,
-            'ensemble_weight_threshold': 0.1,
-            'feature_importance_threshold': 0.05,
-            'prediction_cache_size': 1000,
-            'model_save_path': 'models/',
-            'performance_log_path': 'logs/ai_prediction_performance.log'
+            "max_models": 10,
+            "retrain_interval_hours": 24,
+            "min_confidence_threshold": 0.6,
+            "ensemble_weight_threshold": 0.1,
+            "feature_importance_threshold": 0.05,
+            "prediction_cache_size": 1000,
+            "model_save_path": "models/",
+            "performance_log_path": "logs/ai_prediction_performance.log",
         }
-        
+
         # ディレクトリの作成
-        os.makedirs(self.config['model_save_path'], exist_ok=True)
-        os.makedirs('logs', exist_ok=True)
-        
+        os.makedirs(self.config["model_save_path"], exist_ok=True)
+        os.makedirs("logs", exist_ok=True)
+
         # ログ設定
         self.logger = logging.getLogger(f"{self.__class__.__name__}")
         self.logger.setLevel(logging.INFO)
-        
+
         # ファイルハンドラーの追加
-        file_handler = logging.FileHandler(self.config['performance_log_path'])
+        file_handler = logging.FileHandler(self.config["performance_log_path"])
         file_handler.setLevel(logging.INFO)
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
         file_handler.setFormatter(formatter)
         self.logger.addHandler(file_handler)
-        
+
         self.logger.info("🚀 強化AI予測システム初期化完了")
 
     def create_model(self, model_type: ModelType, **kwargs) -> object:
@@ -152,201 +162,230 @@ class EnhancedAIPredictionSystem:
         try:
             if model_type == ModelType.RANDOM_FOREST:
                 return RandomForestRegressor(
-                    n_estimators=kwargs.get('n_estimators', 100),
-                    max_depth=kwargs.get('max_depth', 10),
-                    random_state=42
+                    n_estimators=kwargs.get("n_estimators", 100),
+                    max_depth=kwargs.get("max_depth", 10),
+                    random_state=42,
                 )
             elif model_type == ModelType.GRADIENT_BOOSTING:
                 return GradientBoostingRegressor(
-                    n_estimators=kwargs.get('n_estimators', 100),
-                    learning_rate=kwargs.get('learning_rate', 0.1),
-                    random_state=42
+                    n_estimators=kwargs.get("n_estimators", 100),
+                    learning_rate=kwargs.get("learning_rate", 0.1),
+                    random_state=42,
                 )
             elif model_type == ModelType.LINEAR_REGRESSION:
                 return LinearRegression()
             elif model_type == ModelType.RIDGE_REGRESSION:
-                return Ridge(alpha=kwargs.get('alpha', 1.0))
+                return Ridge(alpha=kwargs.get("alpha", 1.0))
             elif model_type == ModelType.LASSO_REGRESSION:
-                return Lasso(alpha=kwargs.get('alpha', 1.0))
+                return Lasso(alpha=kwargs.get("alpha", 1.0))
             elif model_type == ModelType.SVM_REGRESSION:
                 return SVR(
-                    kernel=kwargs.get('kernel', 'rbf'),
-                    C=kwargs.get('C', 1.0),
-                    gamma=kwargs.get('gamma', 'scale')
+                    kernel=kwargs.get("kernel", "rbf"),
+                    C=kwargs.get("C", 1.0),
+                    gamma=kwargs.get("gamma", "scale"),
                 )
             elif model_type == ModelType.NEURAL_NETWORK:
                 return MLPRegressor(
-                    hidden_layer_sizes=kwargs.get('hidden_layer_sizes', (100, 50)),
-                    max_iter=kwargs.get('max_iter', 1000),
-                    random_state=42
+                    hidden_layer_sizes=kwargs.get("hidden_layer_sizes", (100, 50)),
+                    max_iter=kwargs.get("max_iter", 1000),
+                    random_state=42,
                 )
             else:
                 raise ValueError(f"未対応のモデルタイプ: {model_type}")
-                
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.MODEL_ERROR,
-                context=f"モデル作成エラー: {model_type.value}"
+                context=f"モデル作成エラー: {model_type.value}",
             )
             raise
 
-    def prepare_features(self, data: pd.DataFrame, target_column: str = 'price', feature_columns: List[str] = None) -> Tuple[np.ndarray, np.ndarray, List[str]]:
+    def prepare_features(
+        self,
+        data: pd.DataFrame,
+        target_column: str = "price",
+        feature_columns: List[str] = None,
+    ) -> Tuple[np.ndarray, np.ndarray, List[str]]:
         """特徴量の準備"""
         try:
             # 基本特徴量
             if feature_columns is None:
                 features = []
-                
+
                 # 価格関連特徴量
-                if 'price' in data.columns:
-                    features.extend([
-                        'price', 'volume', 'high', 'low', 'open', 'close'
-                    ])
-                
+                if "price" in data.columns:
+                    features.extend(["price", "volume", "high", "low", "open", "close"])
+
                 # 技術指標
                 if len(data) > 20:
                     # 移動平均
-                    data['ma_5'] = data['price'].rolling(window=5).mean()
-                    data['ma_10'] = data['price'].rolling(window=10).mean()
-                    data['ma_20'] = data['price'].rolling(window=20).mean()
-                    
+                    data["ma_5"] = data["price"].rolling(window=5).mean()
+                    data["ma_10"] = data["price"].rolling(window=10).mean()
+                    data["ma_20"] = data["price"].rolling(window=20).mean()
+
                     # RSI
-                    delta = data['price'].diff()
+                    delta = data["price"].diff()
                     gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
                     loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
                     rs = gain / loss
-                    data['rsi'] = 100 - (100 / (1 + rs))
-                    
+                    data["rsi"] = 100 - (100 / (1 + rs))
+
                     # MACD
-                    exp1 = data['price'].ewm(span=12).mean()
-                    exp2 = data['price'].ewm(span=26).mean()
-                    data['macd'] = exp1 - exp2
-                    data['macd_signal'] = data['macd'].ewm(span=9).mean()
-                    
-                    features.extend(['ma_5', 'ma_10', 'ma_20', 'rsi', 'macd', 'macd_signal'])
-                
+                    exp1 = data["price"].ewm(span=12).mean()
+                    exp2 = data["price"].ewm(span=26).mean()
+                    data["macd"] = exp1 - exp2
+                    data["macd_signal"] = data["macd"].ewm(span=9).mean()
+
+                    features.extend(
+                        ["ma_5", "ma_10", "ma_20", "rsi", "macd", "macd_signal"]
+                    )
+
                 # 特徴量の選択
                 feature_columns = [col for col in features if col in data.columns]
-            
+
             # 特徴量の取得と欠損値の処理
             X = data[feature_columns].fillna(0).values
-            y = data[target_column].values if target_column in data.columns else np.zeros(len(data))
-            
+            y = (
+                data[target_column].values
+                if target_column in data.columns
+                else np.zeros(len(data))
+            )
+
             return X, y, feature_columns
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.DATA_PROCESSING_ERROR,
-                context="特徴量準備エラー"
+                context="特徴量準備エラー",
             )
             raise
 
-    def train_model(self, model_type: ModelType, data: pd.DataFrame, 
-                   target_column: str = 'price', model_name: str = None) -> str:
+    def train_model(
+        self,
+        model_type: ModelType,
+        data: pd.DataFrame,
+        target_column: str = "price",
+        model_name: str = None,
+    ) -> str:
         """モデルの学習"""
         try:
             with self.training_lock:
                 self.is_training = True
-                
+
                 # 特徴量の準備
                 X, y, feature_columns = self.prepare_features(data, target_column)
-                
+
                 # データの分割
                 split_idx = int(len(X) * 0.8)
                 X_train, X_test = X[:split_idx], X[split_idx:]
                 y_train, y_test = y[:split_idx], y[split_idx:]
-                
+
                 # スケーリング
                 scaler = StandardScaler()
                 X_train_scaled = scaler.fit_transform(X_train)
                 X_test_scaled = scaler.transform(X_test)
-                
+
                 # モデルの作成と学習
                 model = self.create_model(model_type)
                 model.fit(X_train_scaled, y_train)
-                
+
                 # 予測と評価
                 y_pred = model.predict(X_test_scaled)
                 mse = mean_squared_error(y_test, y_pred)
                 r2 = r2_score(y_test, y_pred)
                 mae = mean_absolute_error(y_test, y_pred)
-                
+
                 # モデル名の生成
                 if model_name is None:
-                    model_name = f"{model_type.value}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-                
+                    model_name = (
+                        f"{model_type.value}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+                    )
+
                 # モデルの保存（特徴量カラムも保存）
                 model.feature_columns = feature_columns
                 self.models[model_name] = model
                 self.scalers[model_name] = scaler
-                
+
                 # 性能メトリクスの記録
                 self.performance_metrics[model_name] = ModelPerformance(
                     model_name=model_name,
                     accuracy=r2,
                     precision=0.0,  # 回帰では使用しない
-                    recall=0.0,     # 回帰では使用しない
-                    f1_score=0.0,   # 回帰では使用しない
+                    recall=0.0,  # 回帰では使用しない
+                    f1_score=0.0,  # 回帰では使用しない
                     mse=mse,
                     rmse=np.sqrt(mse),
                     mae=mae,
                     r2_score=r2,
                     last_updated=datetime.now(),
                     prediction_count=0,
-                    success_rate=0.0
+                    success_rate=0.0,
                 )
-                
+
                 # モデルの保存
                 self.save_model(model_name)
-                
-                self.logger.info(f"✅ モデル学習完了: {model_name} (R²={r2:.4f}, MSE={mse:.4f})")
-                
+
+                self.logger.info(
+                    f"✅ モデル学習完了: {model_name} (R²={r2:.4f}, MSE={mse:.4f})"
+                )
+
                 return model_name
-                
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.MODEL_ERROR,
-                context=f"モデル学習エラー: {model_type.value}"
+                context=f"モデル学習エラー: {model_type.value}",
             )
             raise
         finally:
             self.is_training = False
 
-    def predict(self, model_name: str, data: pd.DataFrame, 
-               confidence_threshold: float = None) -> PredictionResult:
+    def predict(
+        self, model_name: str, data: pd.DataFrame, confidence_threshold: float = None
+    ) -> PredictionResult:
         """予測の実行"""
         try:
             if model_name not in self.models:
                 raise ValueError(f"モデルが見つかりません: {model_name}")
-            
+
             # モデルに保存された特徴量カラムを取得
-            model_feature_columns = getattr(self.models[model_name], 'feature_columns', None)
-            
+            model_feature_columns = getattr(
+                self.models[model_name], "feature_columns", None
+            )
+
             # 特徴量の準備（学習時と同じ特徴量を使用）
-            X, _, feature_columns = self.prepare_features(data, feature_columns=model_feature_columns)
-            
+            X, _, feature_columns = self.prepare_features(
+                data, feature_columns=model_feature_columns
+            )
+
             # スケーリング
             scaler = self.scalers[model_name]
             X_scaled = scaler.transform(X)
-            
+
             # 予測
             model = self.models[model_name]
             prediction = model.predict(X_scaled[-1:])[0]
-            
+
             # 信頼度の計算
             confidence_score = self.calculate_confidence(model, X_scaled[-1:])
             confidence = self.get_confidence_level(confidence_score)
-            
+
             # 信頼度閾値のチェック
             if confidence_threshold and confidence_score < confidence_threshold:
-                self.logger.warning(f"予測信頼度が閾値を下回っています: {confidence_score:.4f} < {confidence_threshold:.4f}")
-            
+                self.logger.warning(
+                    f"予測信頼度が閾値を下回っています: {confidence_score:.4f} < {confidence_threshold:.4f}"
+                )
+
             # 予測結果の作成
             result = PredictionResult(
-                symbol=data.get('symbol', 'UNKNOWN').iloc[-1] if 'symbol' in data.columns else 'UNKNOWN',
+                symbol=(
+                    data.get("symbol", "UNKNOWN").iloc[-1]
+                    if "symbol" in data.columns
+                    else "UNKNOWN"
+                ),
                 predicted_price=float(prediction),
                 confidence=confidence,
                 confidence_score=confidence_score,
@@ -354,29 +393,35 @@ class EnhancedAIPredictionSystem:
                 prediction_time=datetime.now(),
                 features_used=feature_columns,
                 additional_info={
-                    'model_performance': self.performance_metrics[model_name].to_dict(),
-                    'feature_importance': self.get_feature_importance(model, feature_columns),
-                    'prediction_interval': self.calculate_prediction_interval(model, X_scaled[-1:])
-                }
+                    "model_performance": self.performance_metrics[model_name].to_dict(),
+                    "feature_importance": self.get_feature_importance(
+                        model, feature_columns
+                    ),
+                    "prediction_interval": self.calculate_prediction_interval(
+                        model, X_scaled[-1:]
+                    ),
+                },
             )
-            
+
             # 予測履歴の記録
             self.prediction_history.append(result)
-            if len(self.prediction_history) > self.config['prediction_cache_size']:
+            if len(self.prediction_history) > self.config["prediction_cache_size"]:
                 self.prediction_history.pop(0)
-            
+
             # 性能メトリクスの更新
             self.performance_metrics[model_name].prediction_count += 1
-            
-            self.logger.info(f"🔮 予測完了: {model_name} - 価格: {prediction:.2f}, 信頼度: {confidence_score:.4f}")
-            
+
+            self.logger.info(
+                f"🔮 予測完了: {model_name} - 価格: {prediction:.2f}, 信頼度: {confidence_score:.4f}"
+            )
+
             return result
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.MODEL_ERROR,
-                context=f"予測実行エラー: {model_name}"
+                context=f"予測実行エラー: {model_name}",
             )
             raise
 
@@ -385,23 +430,23 @@ class EnhancedAIPredictionSystem:
         try:
             # 複数の方法で信頼度を計算
             confidence_scores = []
-            
+
             # 1. モデルの性能ベース
-            if hasattr(model, 'score'):
+            if hasattr(model, "score"):
                 confidence_scores.append(max(0, min(1, model.score(X, X))))
-            
+
             # 2. 特徴量の分散ベース
             feature_variance = np.var(X)
             confidence_scores.append(max(0, min(1, 1 - feature_variance)))
-            
+
             # 3. モデルの不確実性ベース（可能な場合）
-            if hasattr(model, 'predict_proba'):
+            if hasattr(model, "predict_proba"):
                 proba = model.predict_proba(X)
                 confidence_scores.append(np.max(proba))
-            
+
             # 平均信頼度
             return np.mean(confidence_scores) if confidence_scores else 0.5
-            
+
         except Exception:
             return 0.5  # デフォルト値
 
@@ -418,103 +463,118 @@ class EnhancedAIPredictionSystem:
         else:
             return PredictionConfidence.VERY_LOW
 
-    def get_feature_importance(self, model, feature_columns: List[str]) -> Dict[str, float]:
+    def get_feature_importance(
+        self, model, feature_columns: List[str]
+    ) -> Dict[str, float]:
         """特徴量重要度の取得"""
         try:
-            if hasattr(model, 'feature_importances_'):
+            if hasattr(model, "feature_importances_"):
                 importance_dict = dict(zip(feature_columns, model.feature_importances_))
-                return {k: v for k, v in importance_dict.items() 
-                       if v >= self.config['feature_importance_threshold']}
+                return {
+                    k: v
+                    for k, v in importance_dict.items()
+                    if v >= self.config["feature_importance_threshold"]
+                }
             else:
                 return {}
         except Exception:
             return {}
 
-    def calculate_prediction_interval(self, model, X: np.ndarray, confidence: float = 0.95) -> Dict[str, float]:
+    def calculate_prediction_interval(
+        self, model, X: np.ndarray, confidence: float = 0.95
+    ) -> Dict[str, float]:
         """予測区間の計算"""
         try:
             # 簡易的な予測区間の計算
             prediction = model.predict(X)[0]
-            
+
             # モデルの性能に基づく区間
             if model in self.performance_metrics:
                 rmse = self.performance_metrics[model].rmse
                 interval = 1.96 * rmse  # 95%信頼区間
-                
+
                 return {
-                    'lower_bound': prediction - interval,
-                    'upper_bound': prediction + interval,
-                    'confidence_level': confidence
+                    "lower_bound": prediction - interval,
+                    "upper_bound": prediction + interval,
+                    "confidence_level": confidence,
                 }
             else:
                 return {
-                    'lower_bound': prediction * 0.95,
-                    'upper_bound': prediction * 1.05,
-                    'confidence_level': confidence
+                    "lower_bound": prediction * 0.95,
+                    "upper_bound": prediction * 1.05,
+                    "confidence_level": confidence,
                 }
         except Exception:
-            return {
-                'lower_bound': 0,
-                'upper_bound': 0,
-                'confidence_level': confidence
-            }
+            return {"lower_bound": 0, "upper_bound": 0, "confidence_level": confidence}
 
-    def create_ensemble_model(self, model_names: List[str], weights: List[float] = None) -> str:
+    def create_ensemble_model(
+        self, model_names: List[str], weights: List[float] = None
+    ) -> str:
         """アンサンブルモデルの作成"""
         try:
             if len(model_names) < 2:
                 raise ValueError("アンサンブルには2つ以上のモデルが必要です")
-            
+
             # 重みの正規化
             if weights is None:
                 weights = [1.0 / len(model_names)] * len(model_names)
             else:
                 weights = np.array(weights)
                 weights = weights / np.sum(weights)
-            
+
             # モデルの取得
             models = [self.models[name] for name in model_names if name in self.models]
-            
+
             if len(models) != len(model_names):
                 raise ValueError("一部のモデルが見つかりません")
-            
+
             # アンサンブルモデルの作成
             ensemble_name = f"ensemble_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-            
+
             # 重み付き平均による予測
             def ensemble_predict(X):
                 predictions = np.array([model.predict(X) for model in models])
                 return np.average(predictions, axis=0, weights=weights)
-            
+
             # アンサンブルモデルの保存
-            self.models[ensemble_name] = type('EnsembleModel', (), {
-                'predict': ensemble_predict,
-                'feature_importances_': np.zeros(len(models[0].feature_importances_)),
-                'score': lambda X, y: np.mean([model.score(X, y) for model in models])
-            })()
-            
+            self.models[ensemble_name] = type(
+                "EnsembleModel",
+                (),
+                {
+                    "predict": ensemble_predict,
+                    "feature_importances_": np.zeros(
+                        len(models[0].feature_importances_)
+                    ),
+                    "score": lambda X, y: np.mean(
+                        [model.score(X, y) for model in models]
+                    ),
+                },
+            )()
+
             self.logger.info(f"✅ アンサンブルモデル作成完了: {ensemble_name}")
             return ensemble_name
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.MODEL_ERROR,
-                context="アンサンブルモデル作成エラー"
+                context="アンサンブルモデル作成エラー",
             )
             raise
 
-    def batch_predict(self, model_name: str, data_list: List[pd.DataFrame]) -> List[PredictionResult]:
+    def batch_predict(
+        self, model_name: str, data_list: List[pd.DataFrame]
+    ) -> List[PredictionResult]:
         """バッチ予測の実行"""
         try:
             results = []
-            
+
             with ThreadPoolExecutor(max_workers=4) as executor:
                 future_to_data = {
-                    executor.submit(self.predict, model_name, data): data 
+                    executor.submit(self.predict, model_name, data): data
                     for data in data_list
                 }
-                
+
                 for future in as_completed(future_to_data):
                     try:
                         result = future.result()
@@ -523,16 +583,16 @@ class EnhancedAIPredictionSystem:
                         self.unified_system.log_error(
                             error=e,
                             category=ErrorCategory.MODEL_ERROR,
-                            context="バッチ予測エラー"
+                            context="バッチ予測エラー",
                         )
-            
+
             return results
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.MODEL_ERROR,
-                context="バッチ予測実行エラー"
+                context="バッチ予測実行エラー",
             )
             raise
 
@@ -541,50 +601,60 @@ class EnhancedAIPredictionSystem:
         try:
             if model_name not in self.models:
                 return False
-            
-            model_path = os.path.join(self.config['model_save_path'], f"{model_name}.joblib")
-            scaler_path = os.path.join(self.config['model_save_path'], f"{model_name}_scaler.joblib")
-            
+
+            model_path = os.path.join(
+                self.config["model_save_path"], f"{model_name}.joblib"
+            )
+            scaler_path = os.path.join(
+                self.config["model_save_path"], f"{model_name}_scaler.joblib"
+            )
+
             # モデルの保存
             joblib.dump(self.models[model_name], model_path)
             joblib.dump(self.scalers[model_name], scaler_path)
-            
+
             self.logger.info(f"💾 モデル保存完了: {model_name}")
             return True
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.FILE_ERROR,
-                context=f"モデル保存エラー: {model_name}"
+                context=f"モデル保存エラー: {model_name}",
             )
             return False
 
     def load_model(self, model_name: str) -> bool:
         """モデルの読み込み"""
         try:
-            model_path = os.path.join(self.config['model_save_path'], f"{model_name}.joblib")
-            scaler_path = os.path.join(self.config['model_save_path'], f"{model_name}_scaler.joblib")
-            
+            model_path = os.path.join(
+                self.config["model_save_path"], f"{model_name}.joblib"
+            )
+            scaler_path = os.path.join(
+                self.config["model_save_path"], f"{model_name}_scaler.joblib"
+            )
+
             if not os.path.exists(model_path) or not os.path.exists(scaler_path):
                 return False
-            
+
             # モデルの読み込み
             self.models[model_name] = joblib.load(model_path)
             self.scalers[model_name] = joblib.load(scaler_path)
-            
+
             self.logger.info(f"📂 モデル読み込み完了: {model_name}")
             return True
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.FILE_ERROR,
-                context=f"モデル読み込みエラー: {model_name}"
+                context=f"モデル読み込みエラー: {model_name}",
             )
             return False
 
-    def get_model_performance(self, model_name: str = None) -> Union[ModelPerformance, Dict[str, ModelPerformance]]:
+    def get_model_performance(
+        self, model_name: str = None
+    ) -> Union[ModelPerformance, Dict[str, ModelPerformance]]:
         """モデル性能の取得"""
         try:
             if model_name:
@@ -593,66 +663,68 @@ class EnhancedAIPredictionSystem:
                 return self.performance_metrics
         except Exception as e:
             self.unified_system.log_error(
-                error=e,
-                category=ErrorCategory.MODEL_ERROR,
-                context="性能取得エラー"
+                error=e, category=ErrorCategory.MODEL_ERROR, context="性能取得エラー"
             )
             return {}
 
-    def retrain_models(self, data: pd.DataFrame, target_column: str = 'price') -> Dict[str, str]:
+    def retrain_models(
+        self, data: pd.DataFrame, target_column: str = "price"
+    ) -> Dict[str, str]:
         """モデルの再学習"""
         try:
             retrained_models = {}
-            
+
             for model_name in list(self.models.keys()):
                 try:
                     # モデルタイプの推定
                     model = self.models[model_name]
                     model_type = self.infer_model_type(model)
-                    
+
                     # 再学習
                     new_model_name = self.train_model(
-                        model_type, data, target_column, 
-                        f"{model_name}_retrained_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+                        model_type,
+                        data,
+                        target_column,
+                        f"{model_name}_retrained_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
                     )
-                    
+
                     retrained_models[model_name] = new_model_name
-                    
+
                 except Exception as e:
                     self.unified_system.log_error(
                         error=e,
                         category=ErrorCategory.MODEL_ERROR,
-                        context=f"モデル再学習エラー: {model_name}"
+                        context=f"モデル再学習エラー: {model_name}",
                     )
-            
+
             self.logger.info(f"🔄 モデル再学習完了: {len(retrained_models)}個のモデル")
             return retrained_models
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.MODEL_ERROR,
-                context="モデル再学習実行エラー"
+                context="モデル再学習実行エラー",
             )
             raise
 
     def infer_model_type(self, model) -> ModelType:
         """モデルタイプの推定"""
         model_class = type(model).__name__
-        
-        if 'RandomForest' in model_class:
+
+        if "RandomForest" in model_class:
             return ModelType.RANDOM_FOREST
-        elif 'GradientBoosting' in model_class:
+        elif "GradientBoosting" in model_class:
             return ModelType.GRADIENT_BOOSTING
-        elif 'LinearRegression' in model_class:
+        elif "LinearRegression" in model_class:
             return ModelType.LINEAR_REGRESSION
-        elif 'Ridge' in model_class:
+        elif "Ridge" in model_class:
             return ModelType.RIDGE_REGRESSION
-        elif 'Lasso' in model_class:
+        elif "Lasso" in model_class:
             return ModelType.LASSO_REGRESSION
-        elif 'SVR' in model_class:
+        elif "SVR" in model_class:
             return ModelType.SVM_REGRESSION
-        elif 'MLPRegressor' in model_class:
+        elif "MLPRegressor" in model_class:
             return ModelType.NEURAL_NETWORK
         else:
             return ModelType.LINEAR_REGRESSION  # デフォルト
@@ -662,34 +734,34 @@ class EnhancedAIPredictionSystem:
         try:
             if len(self.models) <= keep_count:
                 return 0
-            
+
             # 性能の悪いモデルを特定
             model_scores = []
             for name, perf in self.performance_metrics.items():
                 model_scores.append((name, perf.r2_score))
-            
+
             # スコア順でソート
             model_scores.sort(key=lambda x: x[1], reverse=True)
-            
+
             # 古いモデルを削除
             models_to_remove = model_scores[keep_count:]
             removed_count = 0
-            
+
             for model_name, _ in models_to_remove:
                 if model_name in self.models:
                     del self.models[model_name]
                     del self.scalers[model_name]
                     del self.performance_metrics[model_name]
                     removed_count += 1
-            
+
             self.logger.info(f"🗑️ 古いモデルクリーンアップ完了: {removed_count}個削除")
             return removed_count
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.MODEL_ERROR,
-                context="モデルクリーンアップエラー"
+                context="モデルクリーンアップエラー",
             )
             return 0
 
@@ -698,77 +770,102 @@ class EnhancedAIPredictionSystem:
         try:
             if not self.prediction_history:
                 return {}
-            
+
             recent_predictions = self.prediction_history[-100:]  # 最新100件
-            
+
             summary = {
-                'total_predictions': len(self.prediction_history),
-                'recent_predictions': len(recent_predictions),
-                'average_confidence': np.mean([p.confidence_score for p in recent_predictions]),
-                'high_confidence_predictions': len([p for p in recent_predictions if p.confidence in [PredictionConfidence.HIGH, PredictionConfidence.VERY_HIGH]]),
-                'model_usage': {},
-                'symbol_distribution': {},
-                'prediction_trends': self.analyze_prediction_trends(recent_predictions)
+                "total_predictions": len(self.prediction_history),
+                "recent_predictions": len(recent_predictions),
+                "average_confidence": np.mean(
+                    [p.confidence_score for p in recent_predictions]
+                ),
+                "high_confidence_predictions": len(
+                    [
+                        p
+                        for p in recent_predictions
+                        if p.confidence
+                        in [PredictionConfidence.HIGH, PredictionConfidence.VERY_HIGH]
+                    ]
+                ),
+                "model_usage": {},
+                "symbol_distribution": {},
+                "prediction_trends": self.analyze_prediction_trends(recent_predictions),
             }
-            
+
             # モデル使用状況
             for pred in recent_predictions:
                 model_name = pred.model_name
-                summary['model_usage'][model_name] = summary['model_usage'].get(model_name, 0) + 1
-                
+                summary["model_usage"][model_name] = (
+                    summary["model_usage"].get(model_name, 0) + 1
+                )
+
                 symbol = pred.symbol
-                summary['symbol_distribution'][symbol] = summary['symbol_distribution'].get(symbol, 0) + 1
-            
+                summary["symbol_distribution"][symbol] = (
+                    summary["symbol_distribution"].get(symbol, 0) + 1
+                )
+
             return summary
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.MODEL_ERROR,
-                context="予測サマリー取得エラー"
+                context="予測サマリー取得エラー",
             )
             return {}
 
-    def analyze_prediction_trends(self, predictions: List[PredictionResult]) -> Dict[str, any]:
+    def analyze_prediction_trends(
+        self, predictions: List[PredictionResult]
+    ) -> Dict[str, any]:
         """予測トレンドの分析"""
         try:
             if len(predictions) < 2:
                 return {}
-            
+
             prices = [p.predicted_price for p in predictions]
             confidences = [p.confidence_score for p in predictions]
-            
+
             return {
-                'price_trend': 'up' if prices[-1] > prices[0] else 'down',
-                'confidence_trend': 'up' if confidences[-1] > confidences[0] else 'down',
-                'price_volatility': np.std(prices),
-                'confidence_volatility': np.std(confidences),
-                'trend_strength': abs(prices[-1] - prices[0]) / prices[0] if prices[0] != 0 else 0
+                "price_trend": "up" if prices[-1] > prices[0] else "down",
+                "confidence_trend": (
+                    "up" if confidences[-1] > confidences[0] else "down"
+                ),
+                "price_volatility": np.std(prices),
+                "confidence_volatility": np.std(confidences),
+                "trend_strength": (
+                    abs(prices[-1] - prices[0]) / prices[0] if prices[0] != 0 else 0
+                ),
             }
-            
+
         except Exception:
             return {}
 
-    def export_predictions(self, file_path: str, format: str = 'json') -> bool:
+    def export_predictions(self, file_path: str, format: str = "json") -> bool:
         """予測結果のエクスポート"""
         try:
-            if format.lower() == 'json':
-                with open(file_path, 'w', encoding='utf-8') as f:
-                    json.dump([pred.to_dict() for pred in self.prediction_history], f, default=str, ensure_ascii=False, indent=2)
-            elif format.lower() == 'csv':
+            if format.lower() == "json":
+                with open(file_path, "w", encoding="utf-8") as f:
+                    json.dump(
+                        [pred.to_dict() for pred in self.prediction_history],
+                        f,
+                        default=str,
+                        ensure_ascii=False,
+                        indent=2,
+                    )
+            elif format.lower() == "csv":
                 df = pd.DataFrame([pred.to_dict() for pred in self.prediction_history])
-                df.to_csv(file_path, index=False, encoding='utf-8')
+                df.to_csv(file_path, index=False, encoding="utf-8")
             else:
                 raise ValueError(f"未対応のフォーマット: {format}")
-            
+
             self.logger.info(f"📊 予測結果エクスポート完了: {file_path}")
             return True
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.FILE_ERROR,
-                context=f"予測結果エクスポートエラー: {file_path}"
+                context=f"予測結果エクスポートエラー: {file_path}",
             )
             return False
 
@@ -778,41 +875,48 @@ def main():
     try:
         # 統合システムの初期化
         unified_system = UnifiedSystem()
-        
+
         # AI予測システムの初期化
         ai_system = EnhancedAIPredictionSystem(unified_system)
-        
+
         # サンプルデータの作成
         np.random.seed(42)
-        dates = pd.date_range(start='2024-01-01', end='2024-01-31', freq='D')
-        data = pd.DataFrame({
-            'date': dates,
-            'price': 100 + np.cumsum(np.random.randn(len(dates)) * 0.5),
-            'volume': np.random.randint(1000, 10000, len(dates)),
-            'high': 100 + np.cumsum(np.random.randn(len(dates)) * 0.5) + np.random.randn(len(dates)) * 0.1,
-            'low': 100 + np.cumsum(np.random.randn(len(dates)) * 0.5) - np.random.randn(len(dates)) * 0.1,
-            'open': 100 + np.cumsum(np.random.randn(len(dates)) * 0.5),
-            'close': 100 + np.cumsum(np.random.randn(len(dates)) * 0.5),
-            'symbol': 'TEST'
-        })
-        
+        dates = pd.date_range(start="2024-01-01", end="2024-01-31", freq="D")
+        data = pd.DataFrame(
+            {
+                "date": dates,
+                "price": 100 + np.cumsum(np.random.randn(len(dates)) * 0.5),
+                "volume": np.random.randint(1000, 10000, len(dates)),
+                "high": 100
+                + np.cumsum(np.random.randn(len(dates)) * 0.5)
+                + np.random.randn(len(dates)) * 0.1,
+                "low": 100
+                + np.cumsum(np.random.randn(len(dates)) * 0.5)
+                - np.random.randn(len(dates)) * 0.1,
+                "open": 100 + np.cumsum(np.random.randn(len(dates)) * 0.5),
+                "close": 100 + np.cumsum(np.random.randn(len(dates)) * 0.5),
+                "symbol": "TEST",
+            }
+        )
+
         # モデルの学習
         model_name = ai_system.train_model(ModelType.RANDOM_FOREST, data)
-        
+
         # 予測の実行
         prediction = ai_system.predict(model_name, data.tail(10))
-        
+
         print(f"予測結果: {prediction.predicted_price:.2f}")
         print(f"信頼度: {prediction.confidence_score:.4f}")
         print(f"信頼度レベル: {prediction.confidence.value}")
-        
+
         # 予測サマリーの表示
         summary = ai_system.get_prediction_summary()
         print(f"\n予測サマリー: {summary}")
-        
+
     except Exception as e:
         print(f"エラー: {e}")
         import traceback
+
         traceback.print_exc()
 
 

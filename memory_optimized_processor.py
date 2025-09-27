@@ -11,9 +11,9 @@ import gc
 import logging
 from typing import Dict, List, Optional, Generator, Tuple, Any
 from unified_parallel_processing_system import (
-    execute_parallel, 
-    get_parallel_config, 
-    set_parallel_config
+    execute_parallel,
+    get_parallel_config,
+    set_parallel_config,
 )
 from unified_system import get_unified_system
 import multiprocessing as mp

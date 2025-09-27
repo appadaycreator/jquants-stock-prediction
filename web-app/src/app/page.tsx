@@ -6,6 +6,7 @@ import Navigation from "../components/Navigation";
 import SymbolSelector from "../components/SymbolSelector";
 import SymbolAnalysisResults from "../components/SymbolAnalysisResults";
 import OneClickAnalysis from "../components/OneClickAnalysis";
+import StockMonitoringManager from "../components/StockMonitoringManager";
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
@@ -78,6 +79,9 @@ export default function Dashboard() {
   const [analysisStatus, setAnalysisStatus] = useState("");
   const [selectedSymbols, setSelectedSymbols] = useState<string[]>([]);
   const [showSymbolSelector, setShowSymbolSelector] = useState(false);
+  const [showStockMonitoring, setShowStockMonitoring] = useState(false);
+  const [monitoredStocks, setMonitoredStocks] = useState<any[]>([]);
+  const [monitoringConfig, setMonitoringConfig] = useState<any>(null);
 
   useEffect(() => {
     loadData();
@@ -233,6 +237,14 @@ export default function Dashboard() {
       setAnalysisStatus("分析の実行に失敗しました");
       setIsAnalyzing(false);
     }
+  };
+
+  const handleMonitoringChange = (stocks: any[]) => {
+    setMonitoredStocks(stocks);
+  };
+
+  const handleConfigChange = (config: any) => {
+    setMonitoringConfig(config);
   };
 
   if (loading) {

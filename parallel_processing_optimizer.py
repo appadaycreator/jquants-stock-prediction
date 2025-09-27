@@ -13,7 +13,7 @@ from typing import Dict, Any, Optional, List, Callable
 from unified_parallel_processing_system import (
     execute_parallel,
     get_parallel_config,
-    set_parallel_config
+    set_parallel_config,
 )
 from unified_system import get_unified_system
 from concurrent.futures import as_completed, ProcessPoolExecutor, ThreadPoolExecutor

@@ -24,7 +24,7 @@ class UnifiedLoggingConfig:
 
     # ログディレクトリ
     LOG_DIR = Path("logs")
-    
+
     # ログローテーション設定
     MAX_BYTES = 10 * 1024 * 1024  # 10MB
     BACKUP_COUNT = 5
@@ -80,10 +80,10 @@ class UnifiedLoggingConfig:
             file_path = cls.LOG_DIR / log_file
             # ローテーティングファイルハンドラーを使用
             file_handler = logging.handlers.RotatingFileHandler(
-                file_path, 
-                maxBytes=cls.MAX_BYTES, 
+                file_path,
+                maxBytes=cls.MAX_BYTES,
                 backupCount=cls.BACKUP_COUNT,
-                encoding="utf-8"
+                encoding="utf-8",
             )
             file_handler.setFormatter(formatter)
             logger.addHandler(file_handler)

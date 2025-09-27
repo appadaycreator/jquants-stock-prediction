@@ -117,22 +117,38 @@ class UnifiedSystem:
             use_parallel = perf_config.get("use_parallel", True)
 
             # 高度なメモリ最適化システム
-            from advanced_performance_optimizer import AdvancedMemoryOptimizer, AdvancedCacheManager
+            from advanced_performance_optimizer import (
+                AdvancedMemoryOptimizer,
+                AdvancedCacheManager,
+            )
+
             self.memory_optimizer = AdvancedMemoryOptimizer(memory_limit_mb, chunk_size)
             self.cache_manager = AdvancedCacheManager()
 
             # 超効率データフレーム処理システム
-            from ultra_efficient_dataframe_processor import UltraEfficientDataFrameProcessor, MemoryEfficientDataFrameProcessor
+            from ultra_efficient_dataframe_processor import (
+                UltraEfficientDataFrameProcessor,
+                MemoryEfficientDataFrameProcessor,
+            )
+
             self.ultra_processor = UltraEfficientDataFrameProcessor()
-            self.dataframe_processor = MemoryEfficientDataFrameProcessor(chunk_size, memory_limit_mb)
+            self.dataframe_processor = MemoryEfficientDataFrameProcessor(
+                chunk_size, memory_limit_mb
+            )
 
             # 並列処理システム
             from enhanced_model_comparator import EnhancedModelComparator
-            self.parallel_processor = EnhancedModelComparator(max_workers, use_cache, use_parallel)
+
+            self.parallel_processor = EnhancedModelComparator(
+                max_workers, use_cache, use_parallel
+            )
 
             # 統合パフォーマンス最適化システム
             from advanced_performance_optimizer import UnifiedPerformanceOptimizer
-            self.unified_optimizer = UnifiedPerformanceOptimizer(memory_limit_mb, chunk_size)
+
+            self.unified_optimizer = UnifiedPerformanceOptimizer(
+                memory_limit_mb, chunk_size
+            )
 
             self.logger.info("🚀 パフォーマンス最適化システム初期化完了")
             self.logger.info(f"  💾 メモリ制限: {memory_limit_mb}MB")
@@ -141,7 +157,9 @@ class UnifiedSystem:
             self.logger.info(f"  📋 キャッシュ: {'有効' if use_cache else '無効'}")
 
         except ImportError as e:
-            self.log_warning(f"パフォーマンス最適化システムの一部をインポートできませんでした: {e}")
+            self.log_warning(
+                f"パフォーマンス最適化システムの一部をインポートできませんでした: {e}"
+            )
             # フォールバック設定
             self.memory_optimizer = None
             self.cache_manager = None
@@ -150,7 +168,11 @@ class UnifiedSystem:
             self.parallel_processor = None
             self.unified_optimizer = None
         except Exception as e:
-            self.log_error(e, "パフォーマンス最適化システム初期化エラー", ErrorCategory.CONFIG_ERROR)
+            self.log_error(
+                e,
+                "パフォーマンス最適化システム初期化エラー",
+                ErrorCategory.CONFIG_ERROR,
+            )
 
     def _load_config(self) -> None:
         """統合設定の読み込み"""
@@ -680,7 +702,7 @@ class UnifiedSystem:
         """パフォーマンス最適化の実行（統合版）"""
         try:
             self.log_info("🚀 統合パフォーマンス最適化開始")
-            
+
             optimization_result = {
                 "status": "optimized",
                 "optimization_time": time.time(),
@@ -695,44 +717,56 @@ class UnifiedSystem:
             if self.memory_optimizer:
                 try:
                     self.log_info("💾 メモリ最適化を実行中...")
-                    
+
                     # 現在のメモリ使用量を取得
                     current_memory = self.memory_optimizer.get_memory_usage()
                     memory_limit = self.memory_optimizer.memory_limit_mb
                     memory_usage_percent = (current_memory / memory_limit) * 100
-                    
-                    self.log_info(f"📊 現在のメモリ使用量: {current_memory:.1f}MB ({memory_usage_percent:.1f}%)")
-                    
+
+                    self.log_info(
+                        f"📊 現在のメモリ使用量: {current_memory:.1f}MB ({memory_usage_percent:.1f}%)"
+                    )
+
                     # メモリ使用量が80%を超えている場合は強制最適化
                     if memory_usage_percent > 80:
-                        self.log_warning(f"⚠️ メモリ使用量が高すぎます ({memory_usage_percent:.1f}%)。強制最適化を実行します。")
+                        self.log_warning(
+                            f"⚠️ メモリ使用量が高すぎます ({memory_usage_percent:.1f}%)。強制最適化を実行します。"
+                        )
                         # 強制ガベージコレクション
                         import gc
+
                         gc.collect()
-                        
+
                         # メモリ制限チェック
                         if not self.memory_optimizer.check_memory_limit():
-                            self.log_warning("⚠️ メモリ制限に達しました。追加の最適化を実行します。")
+                            self.log_warning(
+                                "⚠️ メモリ制限に達しました。追加の最適化を実行します。"
+                            )
                             # 追加の最適化処理
                             gc.collect()
-                    
+
                     # 通常のガベージコレクション
                     import gc
+
                     gc.collect()
-                    
+
                     # 最適化後のメモリ使用量
                     final_memory = self.memory_optimizer.get_memory_usage()
                     memory_saved = current_memory - final_memory
-                    
+
                     optimization_result["memory_optimization"] = True
                     optimization_result["memory_saved_mb"] = memory_saved
-                    optimization_result["memory_usage_percent"] = (final_memory / memory_limit) * 100
-                    
+                    optimization_result["memory_usage_percent"] = (
+                        final_memory / memory_limit
+                    ) * 100
+
                     if memory_saved > 0:
                         self.log_info(f"✅ メモリ最適化完了: {memory_saved:.1f}MB節約")
                     else:
-                        self.log_info(f"✅ メモリ最適化完了: 現在のメモリ使用量 {final_memory:.1f}MB")
-                        
+                        self.log_info(
+                            f"✅ メモリ最適化完了: 現在のメモリ使用量 {final_memory:.1f}MB"
+                        )
+
                 except Exception as e:
                     self.log_warning(f"メモリ最適化エラー: {e}")
 
@@ -743,7 +777,9 @@ class UnifiedSystem:
                     # 最適化統計の取得
                     stats = self.ultra_processor.get_optimization_stats()
                     optimization_result["dataframe_optimization"] = True
-                    optimization_result["copy_operations_saved"] = stats.copy_operations_saved
+                    optimization_result["copy_operations_saved"] = (
+                        stats.copy_operations_saved
+                    )
                     optimization_result["inplace_operations"] = stats.inplace_operations
                     self.log_info("✅ データフレーム最適化完了")
                 except Exception as e:
@@ -764,7 +800,9 @@ class UnifiedSystem:
                     self.log_info("📋 キャッシュ最適化を実行中...")
                     cache_stats = self.cache_manager.get_cache_stats()
                     optimization_result["cache_optimization"] = True
-                    optimization_result["cache_hit_rate"] = cache_stats.get("hit_rate", 0)
+                    optimization_result["cache_hit_rate"] = cache_stats.get(
+                        "hit_rate", 0
+                    )
                     self.log_info("✅ キャッシュ最適化完了")
                 except Exception as e:
                     self.log_warning(f"キャッシュ最適化エラー: {e}")
@@ -794,50 +832,58 @@ class UnifiedSystem:
             if not self.memory_optimizer:
                 self.log_warning("⚠️ メモリ最適化システムが利用できません")
                 return df
-            
+
             # 現在のメモリ使用量をチェック
             current_memory = self.memory_optimizer.get_memory_usage()
             memory_limit = self.memory_optimizer.memory_limit_mb
             memory_usage_percent = (current_memory / memory_limit) * 100
-            
-            self.log_info(f"🔍 メモリ使用量チェック: {current_memory:.1f}MB ({memory_usage_percent:.1f}%)")
-            
+
+            self.log_info(
+                f"🔍 メモリ使用量チェック: {current_memory:.1f}MB ({memory_usage_percent:.1f}%)"
+            )
+
             # メモリ使用量が70%を超えている場合は自動最適化を適用
             if memory_usage_percent > 70:
                 self.log_info("🚀 自動メモリ最適化を適用します")
-                
+
                 # データフレームのメモリ最適化
                 optimized_df = self.memory_optimizer.optimize_dataframe_memory(df)
-                
+
                 # 最適化後のメモリ使用量をチェック
                 final_memory = self.memory_optimizer.get_memory_usage()
                 memory_saved = current_memory - final_memory
-                
+
                 if memory_saved > 0:
                     self.log_info(f"✅ 自動最適化完了: {memory_saved:.1f}MB節約")
                 else:
-                    self.log_info(f"✅ 自動最適化完了: 現在のメモリ使用量 {final_memory:.1f}MB")
-                
+                    self.log_info(
+                        f"✅ 自動最適化完了: 現在のメモリ使用量 {final_memory:.1f}MB"
+                    )
+
                 return optimized_df
             else:
                 self.log_info("✅ メモリ使用量は正常範囲内です")
                 return df
-                
+
         except Exception as e:
-            self.log_error(e, "自動メモリ最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR)
+            self.log_error(
+                e, "自動メモリ最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR
+            )
             return df
 
-    def optimize_data_processing(self, df: pd.DataFrame, operations: List[Dict] = None) -> pd.DataFrame:
+    def optimize_data_processing(
+        self, df: pd.DataFrame, operations: List[Dict] = None
+    ) -> pd.DataFrame:
         """データ処理の最適化（統合版）"""
         try:
             self.log_info("🚀 統合データ処理最適化開始")
-            
+
             # メモリ使用量の事前測定
             initial_memory = 0
             if self.memory_optimizer:
                 initial_memory = self.memory_optimizer.get_memory_usage()
                 self.log_info(f"📊 初期メモリ使用量: {initial_memory:.1f}MB")
-            
+
             if operations is None:
                 operations = [
                     {"type": "memory_optimization"},
@@ -847,9 +893,11 @@ class UnifiedSystem:
 
             # 統合最適化システムを使用
             if self.unified_optimizer:
-                result_df = self.unified_optimizer.optimize_data_processing(df, operations)
+                result_df = self.unified_optimizer.optimize_data_processing(
+                    df, operations
+                )
                 self.log_info("✅ 統合最適化システムによる処理完了")
-                
+
                 # メモリ最適化効果の測定
                 if self.memory_optimizer:
                     final_memory = self.memory_optimizer.get_memory_usage()
@@ -858,20 +906,24 @@ class UnifiedSystem:
                         self.log_info(f"💾 メモリ節約: {memory_saved:.1f}MB")
                     else:
                         self.log_info(f"📈 メモリ使用量: {abs(memory_saved):.1f}MB増加")
-                
+
                 return result_df
 
             # フォールバック処理
             result_df = df
             for operation in operations:
                 op_type = operation.get("type")
-                
+
                 if op_type == "memory_optimization" and self.memory_optimizer:
-                    result_df = self.memory_optimizer.optimize_dataframe_memory(result_df)
+                    result_df = self.memory_optimizer.optimize_dataframe_memory(
+                        result_df
+                    )
                 elif op_type == "dtype_optimization" and self.ultra_processor:
                     result_df = self.ultra_processor.optimize_dtypes_ultra(result_df)
                 elif op_type == "inplace_operations" and self.ultra_processor:
-                    result_df = self.ultra_processor.process_inplace(result_df, [operation])
+                    result_df = self.ultra_processor.process_inplace(
+                        result_df, [operation]
+                    )
 
             # メモリ最適化効果の測定
             if self.memory_optimizer:
@@ -886,7 +938,9 @@ class UnifiedSystem:
             return result_df
 
         except Exception as e:
-            self.log_error(e, "データ処理最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR)
+            self.log_error(
+                e, "データ処理最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR
+            )
             return df
 
     def get_performance_metrics(self) -> Dict[str, Any]:
@@ -906,11 +960,15 @@ class UnifiedSystem:
                 current_memory = self.memory_optimizer.get_memory_usage()
                 memory_limit = self.memory_optimizer.memory_limit_mb
                 memory_usage_percent = (current_memory / memory_limit) * 100
-                
+
                 metrics["current_memory_mb"] = current_memory
                 metrics["memory_limit_mb"] = memory_limit
                 metrics["memory_usage_percent"] = memory_usage_percent
-                metrics["memory_status"] = "healthy" if memory_usage_percent < 80 else "warning" if memory_usage_percent < 95 else "critical"
+                metrics["memory_status"] = (
+                    "healthy"
+                    if memory_usage_percent < 80
+                    else "warning" if memory_usage_percent < 95 else "critical"
+                )
 
             # キャッシュ統計の取得
             if self.cache_manager:
@@ -929,7 +987,11 @@ class UnifiedSystem:
             return metrics
 
         except Exception as e:
-            self.log_error(e, "パフォーマンスメトリクス取得エラー", ErrorCategory.DATA_PROCESSING_ERROR)
+            self.log_error(
+                e,
+                "パフォーマンスメトリクス取得エラー",
+                ErrorCategory.DATA_PROCESSING_ERROR,
+            )
             return {"error": str(e), "status": "error"}
 
     def save_config(self, file_path: str = None) -> None:
@@ -978,7 +1040,7 @@ class UnifiedSystem:
             # データの読み込み
             self.log_info(f"データを読み込み中: {input_file}")
             df = pd.read_csv(input_file)
-            
+
             # パフォーマンス最適化の適用
             self.log_info("🚀 データ処理最適化を適用中...")
             df = self.optimize_data_processing(df)
@@ -1049,14 +1111,22 @@ class UnifiedSystem:
                 f"✅ 予測完了! モデル: {best_model_name}, "
                 f"MAE: {mae:.4f}, R²: {r2:.4f}"
             )
-            
+
             # パフォーマンスメトリクスの表示
             perf_metrics = self.get_performance_metrics()
             self.log_info("📊 パフォーマンス最適化結果:")
-            self.log_info(f"  💾 メモリ最適化: {'有効' if perf_metrics.get('memory_optimizer_available') else '無効'}")
-            self.log_info(f"  📊 データフレーム最適化: {'有効' if perf_metrics.get('dataframe_processor_available') else '無効'}")
-            self.log_info(f"  🔄 並列処理: {'有効' if perf_metrics.get('parallel_processor_available') else '無効'}")
-            self.log_info(f"  🎯 統合最適化: {'有効' if perf_metrics.get('unified_optimizer_available') else '無効'}")
+            self.log_info(
+                f"  💾 メモリ最適化: {'有効' if perf_metrics.get('memory_optimizer_available') else '無効'}"
+            )
+            self.log_info(
+                f"  📊 データフレーム最適化: {'有効' if perf_metrics.get('dataframe_processor_available') else '無効'}"
+            )
+            self.log_info(
+                f"  🔄 並列処理: {'有効' if perf_metrics.get('parallel_processor_available') else '無効'}"
+            )
+            self.log_info(
+                f"  🎯 統合最適化: {'有効' if perf_metrics.get('unified_optimizer_available') else '無効'}"
+            )
 
             return results
 

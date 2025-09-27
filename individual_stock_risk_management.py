@@ -40,6 +40,7 @@ enhanced_logger = get_enhanced_logger()
 
 class RiskLevel(Enum):
     """リスクレベル"""
+
     VERY_LOW = "VERY_LOW"
     LOW = "LOW"
     MEDIUM = "MEDIUM"
@@ -50,6 +51,7 @@ class RiskLevel(Enum):
 
 class PositionType(Enum):
     """ポジションタイプ"""
+
     LONG = "LONG"
     SHORT = "SHORT"
 
@@ -57,6 +59,7 @@ class PositionType(Enum):
 @dataclass
 class IndividualStockRiskProfile:
     """個別銘柄リスクプロファイル"""
+
     symbol: str
     current_price: float
     volatility: float
@@ -76,6 +79,7 @@ class IndividualStockRiskProfile:
 @dataclass
 class VolatilityMetrics:
     """ボラティリティ指標"""
+
     symbol: str
     historical_volatility: float
     implied_volatility: float
@@ -87,6 +91,7 @@ class VolatilityMetrics:
 @dataclass
 class CorrelationAnalysis:
     """相関分析結果"""
+
     symbol: str
     correlated_stocks: List[Tuple[str, float]]  # (symbol, correlation)
     portfolio_correlation: float
@@ -98,6 +103,7 @@ class CorrelationAnalysis:
 @dataclass
 class DynamicStopLossSettings:
     """動的損切り設定"""
+
     symbol: str
     base_stop_loss: float
     volatility_adjustment: float
@@ -117,7 +123,7 @@ class IndividualStockRiskManager:
         self.volatility_history = defaultdict(list)
         self.correlation_matrix = {}
         self.risk_adjustments = {}
-        
+
         # リスク管理パラメータ
         self.risk_params = {
             "max_individual_loss": 0.05,  # 個別銘柄最大損失5%
@@ -136,28 +142,28 @@ class IndividualStockRiskManager:
 
             # ボラティリティ分析
             volatility_metrics = await self._analyze_volatility(symbol)
-            
+
             # 相関分析
             correlation_analysis = await self._analyze_correlation(symbol)
-            
+
             # 動的損切り設定
             stop_loss_settings = await self._calculate_dynamic_stop_loss(
                 symbol, current_price, volatility_metrics
             )
-            
+
             # リスクスコア計算
             total_risk_score = self._calculate_total_risk_score(
                 volatility_metrics, correlation_analysis, position_size
             )
-            
+
             # リスクレベル判定
             risk_level = self._determine_risk_level(total_risk_score)
-            
+
             # 推奨ポジションサイズ計算
             recommended_size = self._calculate_recommended_position_size(
                 symbol, current_price, total_risk_score, volatility_metrics
             )
-            
+
             # 最大損失額設定
             max_loss_amount = self._calculate_max_loss_amount(
                 symbol, current_price, recommended_size
@@ -183,8 +189,10 @@ class IndividualStockRiskManager:
 
             # プロファイル保存
             self.stock_profiles[symbol] = risk_profile
-            
-            logger.info(f"個別銘柄リスク分析完了: {symbol} - リスクレベル: {risk_level.value}")
+
+            logger.info(
+                f"個別銘柄リスク分析完了: {symbol} - リスクレベル: {risk_level.value}"
+            )
             return risk_profile
 
         except Exception as e:
@@ -197,7 +205,7 @@ class IndividualStockRiskManager:
             # 株価データ取得
             stock = yf.Ticker(symbol)
             hist = stock.history(period="1y")
-            
+
             if len(hist) < 30:
                 return VolatilityMetrics(
                     symbol=symbol,
@@ -209,28 +217,30 @@ class IndividualStockRiskManager:
                 )
 
             # 日次リターン計算
-            returns = hist['Close'].pct_change().dropna()
-            
+            returns = hist["Close"].pct_change().dropna()
+
             # ヒストリカルボラティリティ（年率）
             historical_vol = returns.std() * np.sqrt(252)
-            
+
             # ボラティリティのパーセンタイル
-            vol_percentile = stats.percentileofscore(returns.std() * np.sqrt(252), historical_vol)
-            
+            vol_percentile = stats.percentileofscore(
+                returns.std() * np.sqrt(252), historical_vol
+            )
+
             # ボラティリティトレンド分析
             recent_vol = returns.tail(20).std() * np.sqrt(252)
             older_vol = returns.head(-20).std() * np.sqrt(252)
-            
+
             if recent_vol > older_vol * 1.1:
                 trend = "increasing"
             elif recent_vol < older_vol * 0.9:
                 trend = "decreasing"
             else:
                 trend = "stable"
-            
+
             # ボラティリティリスクスコア（0-1）
             vol_risk_score = min(historical_vol / 0.5, 1.0)  # 50%を最大リスクとする
-            
+
             return VolatilityMetrics(
                 symbol=symbol,
                 historical_volatility=historical_vol,
@@ -257,31 +267,35 @@ class IndividualStockRiskManager:
             # ポートフォリオ内の他の銘柄との相関分析
             correlated_stocks = []
             portfolio_correlation = 0.0
-            
+
             if len(self.stock_profiles) > 1:
                 # 既存の銘柄との相関計算
                 for other_symbol in self.stock_profiles.keys():
                     if other_symbol != symbol:
-                        correlation = await self._calculate_correlation(symbol, other_symbol)
+                        correlation = await self._calculate_correlation(
+                            symbol, other_symbol
+                        )
                         if correlation is not None:
                             correlated_stocks.append((other_symbol, correlation))
                             portfolio_correlation += abs(correlation)
-                
+
                 # ポートフォリオ相関の平均
                 if correlated_stocks:
-                    portfolio_correlation = portfolio_correlation / len(correlated_stocks)
-            
+                    portfolio_correlation = portfolio_correlation / len(
+                        correlated_stocks
+                    )
+
             # 分散投資スコア計算
             diversification_score = max(0, 1 - portfolio_correlation)
-            
+
             # 集中リスク計算
             concentration_risk = min(portfolio_correlation, 1.0)
-            
+
             # 分散投資推奨銘柄
             recommended_diversification = self._get_diversification_recommendations(
                 symbol, correlated_stocks
             )
-            
+
             return CorrelationAnalysis(
                 symbol=symbol,
                 correlated_stocks=correlated_stocks,
@@ -302,27 +316,29 @@ class IndividualStockRiskManager:
                 recommended_diversification=[],
             )
 
-    async def _calculate_correlation(self, symbol1: str, symbol2: str) -> Optional[float]:
+    async def _calculate_correlation(
+        self, symbol1: str, symbol2: str
+    ) -> Optional[float]:
         """2銘柄間の相関計算"""
         try:
             # 株価データ取得
             stock1 = yf.Ticker(symbol1)
             stock2 = yf.Ticker(symbol2)
-            
+
             hist1 = stock1.history(period="6mo")
             hist2 = stock2.history(period="6mo")
-            
+
             if len(hist1) < 30 or len(hist2) < 30:
                 return None
-            
+
             # 共通期間のデータを取得
             common_dates = hist1.index.intersection(hist2.index)
             if len(common_dates) < 30:
                 return None
-            
-            returns1 = hist1.loc[common_dates, 'Close'].pct_change().dropna()
-            returns2 = hist2.loc[common_dates, 'Close'].pct_change().dropna()
-            
+
+            returns1 = hist1.loc[common_dates, "Close"].pct_change().dropna()
+            returns2 = hist2.loc[common_dates, "Close"].pct_change().dropna()
+
             # 相関計算
             correlation, _ = pearsonr(returns1, returns2)
             return correlation
@@ -338,26 +354,33 @@ class IndividualStockRiskManager:
         try:
             # ベース損切り（2%）
             base_stop_loss = 0.02
-            
+
             # ボラティリティ調整
-            volatility_adjustment = 1 + (volatility_metrics.historical_volatility - 0.2) * 2
-            
+            volatility_adjustment = (
+                1 + (volatility_metrics.historical_volatility - 0.2) * 2
+            )
+
             # トレンド調整（簡易実装）
             trend_adjustment = 1.0
             if volatility_metrics.volatility_trend == "increasing":
                 trend_adjustment = 1.2
             elif volatility_metrics.volatility_trend == "decreasing":
                 trend_adjustment = 0.8
-            
+
             # ボリューム調整（簡易実装）
             volume_adjustment = 1.0
-            
+
             # 最終損切り計算
-            final_stop_loss = base_stop_loss * volatility_adjustment * trend_adjustment * volume_adjustment
-            
+            final_stop_loss = (
+                base_stop_loss
+                * volatility_adjustment
+                * trend_adjustment
+                * volume_adjustment
+            )
+
             # 最小・最大制限
             final_stop_loss = max(0.01, min(0.1, final_stop_loss))  # 1%-10%の範囲
-            
+
             return DynamicStopLossSettings(
                 symbol=symbol,
                 base_stop_loss=base_stop_loss,
@@ -383,25 +406,25 @@ class IndividualStockRiskManager:
             )
 
     def _calculate_total_risk_score(
-        self, 
-        volatility_metrics: VolatilityMetrics, 
+        self,
+        volatility_metrics: VolatilityMetrics,
         correlation_analysis: CorrelationAnalysis,
-        position_size: float
+        position_size: float,
     ) -> float:
         """総合リスクスコア計算"""
         try:
             # ボラティリティリスク（40%の重み）
             vol_risk = volatility_metrics.volatility_risk_score * 0.4
-            
+
             # 相関リスク（30%の重み）
             corr_risk = correlation_analysis.concentration_risk * 0.3
-            
+
             # ポジションサイズリスク（30%の重み）
             position_risk = min(position_size / self.account_value * 10, 1.0) * 0.3
-            
+
             # 総合リスクスコア
             total_risk = vol_risk + corr_risk + position_risk
-            
+
             return min(total_risk, 1.0)
 
         except Exception as e:
@@ -424,26 +447,32 @@ class IndividualStockRiskManager:
             return RiskLevel.CRITICAL
 
     def _calculate_recommended_position_size(
-        self, symbol: str, current_price: float, risk_score: float, volatility_metrics: VolatilityMetrics
+        self,
+        symbol: str,
+        current_price: float,
+        risk_score: float,
+        volatility_metrics: VolatilityMetrics,
     ) -> float:
         """推奨ポジションサイズ計算"""
         try:
             # ベースポジションサイズ（口座の5%）
             base_position_size = self.account_value * 0.05
-            
+
             # リスクスコアによる調整
-            risk_adjustment = 1 - (risk_score * 0.5)  # リスクが高いほどポジションサイズを縮小
-            
+            risk_adjustment = 1 - (
+                risk_score * 0.5
+            )  # リスクが高いほどポジションサイズを縮小
+
             # ボラティリティによる調整
             vol_adjustment = 1 - (volatility_metrics.volatility_risk_score * 0.3)
-            
+
             # 最終ポジションサイズ
             recommended_size = base_position_size * risk_adjustment * vol_adjustment
-            
+
             # 最小・最大制限
             min_size = self.account_value * 0.01  # 最小1%
-            max_size = self.account_value * 0.1   # 最大10%
-            
+            max_size = self.account_value * 0.1  # 最大10%
+
             return max(min_size, min(max_size, recommended_size))
 
         except Exception as e:
@@ -457,10 +486,10 @@ class IndividualStockRiskManager:
         try:
             # 個別銘柄最大損失率
             max_loss_percent = self.risk_params["max_individual_loss"]
-            
+
             # 最大損失額
             max_loss_amount = position_size * max_loss_percent
-            
+
             return max_loss_amount
 
         except Exception as e:
@@ -474,28 +503,33 @@ class IndividualStockRiskManager:
         try:
             # 高相関銘柄を特定
             high_correlation_stocks = [
-                stock for stock, corr in correlated_stocks 
+                stock
+                for stock, corr in correlated_stocks
                 if abs(corr) > self.risk_params["correlation_threshold"]
             ]
-            
+
             # 分散投資推奨（簡易実装）
             recommendations = []
-            
+
             # セクター分散推奨
             if len(high_correlation_stocks) > 2:
                 recommendations.append("異なるセクターへの分散投資を検討してください")
-            
+
             # 銘柄数推奨
             if len(self.stock_profiles) < self.risk_params["min_diversification"]:
-                recommendations.append(f"最低{self.risk_params['min_diversification']}銘柄への分散投資を推奨します")
-            
+                recommendations.append(
+                    f"最低{self.risk_params['min_diversification']}銘柄への分散投資を推奨します"
+                )
+
             return recommendations
 
         except Exception as e:
             logger.error(f"分散投資推奨取得エラー: {e}")
             return []
 
-    def _create_default_risk_profile(self, symbol: str, current_price: float) -> IndividualStockRiskProfile:
+    def _create_default_risk_profile(
+        self, symbol: str, current_price: float
+    ) -> IndividualStockRiskProfile:
         """デフォルトリスクプロファイル作成"""
         return IndividualStockRiskProfile(
             symbol=symbol,
@@ -521,15 +555,19 @@ class IndividualStockRiskManager:
                 return {"message": "リスクプロファイルがありません"}
 
             # 全体統計
-            total_risk_score = np.mean([profile.total_risk_score for profile in self.stock_profiles.values()])
+            total_risk_score = np.mean(
+                [profile.total_risk_score for profile in self.stock_profiles.values()]
+            )
             high_risk_stocks = [
-                symbol for symbol, profile in self.stock_profiles.items()
-                if profile.risk_level in [RiskLevel.HIGH, RiskLevel.VERY_HIGH, RiskLevel.CRITICAL]
+                symbol
+                for symbol, profile in self.stock_profiles.items()
+                if profile.risk_level
+                in [RiskLevel.HIGH, RiskLevel.VERY_HIGH, RiskLevel.CRITICAL]
             ]
-            
+
             # ポートフォリオ集中度
             portfolio_concentration = len(self.stock_profiles)
-            
+
             # 推奨事項
             recommendations = self._generate_portfolio_recommendations()
 
@@ -541,8 +579,9 @@ class IndividualStockRiskManager:
                 "portfolio_concentration": portfolio_concentration,
                 "recommendations": recommendations,
                 "individual_profiles": {
-                    symbol: asdict(profile) for symbol, profile in self.stock_profiles.items()
-                }
+                    symbol: asdict(profile)
+                    for symbol, profile in self.stock_profiles.items()
+                },
             }
 
         except Exception as e:
@@ -552,33 +591,42 @@ class IndividualStockRiskManager:
     def _generate_portfolio_recommendations(self) -> List[str]:
         """ポートフォリオ推奨事項生成"""
         recommendations = []
-        
+
         try:
             # 高リスク銘柄の推奨
             high_risk_count = sum(
-                1 for profile in self.stock_profiles.values()
-                if profile.risk_level in [RiskLevel.HIGH, RiskLevel.VERY_HIGH, RiskLevel.CRITICAL]
+                1
+                for profile in self.stock_profiles.values()
+                if profile.risk_level
+                in [RiskLevel.HIGH, RiskLevel.VERY_HIGH, RiskLevel.CRITICAL]
             )
-            
+
             if high_risk_count > len(self.stock_profiles) * 0.3:
-                recommendations.append("高リスク銘柄の割合が高すぎます。リスク分散を検討してください。")
-            
+                recommendations.append(
+                    "高リスク銘柄の割合が高すぎます。リスク分散を検討してください。"
+                )
+
             # 分散投資の推奨
             if len(self.stock_profiles) < self.risk_params["min_diversification"]:
-                recommendations.append(f"銘柄数を{self.risk_params['min_diversification']}以上に増やすことを推奨します。")
-            
+                recommendations.append(
+                    f"銘柄数を{self.risk_params['min_diversification']}以上に増やすことを推奨します。"
+                )
+
             # 相関リスクの推奨
             high_correlation_count = sum(
-                1 for profile in self.stock_profiles.values()
+                1
+                for profile in self.stock_profiles.values()
                 if profile.correlation_risk > 0.7
             )
-            
+
             if high_correlation_count > 0:
-                recommendations.append("高相関銘柄が存在します。異なるセクターへの分散投資を検討してください。")
-            
+                recommendations.append(
+                    "高相関銘柄が存在します。異なるセクターへの分散投資を検討してください。"
+                )
+
             if not recommendations:
                 recommendations.append("現在のポートフォリオ構成は適切です。")
-            
+
             return recommendations
 
         except Exception as e:
@@ -600,41 +648,43 @@ async def main():
     """メイン実行関数"""
     # 個別銘柄リスク管理システム初期化
     risk_manager = IndividualStockRiskManager(account_value=1000000)
-    
+
     # テスト銘柄
     test_symbols = ["7203.T", "6758.T", "9984.T", "7974.T", "4063.T"]
-    
+
     logger.info("個別銘柄リスク管理システム テスト開始")
-    
+
     # 各銘柄のリスク分析
     for symbol in test_symbols:
         try:
             logger.info(f"銘柄分析開始: {symbol}")
-            
+
             # 現在価格取得
             stock = yf.Ticker(symbol)
             hist = stock.history(period="1d")
-            current_price = hist['Close'].iloc[-1] if not hist.empty else 1000.0
-            
+            current_price = hist["Close"].iloc[-1] if not hist.empty else 1000.0
+
             # リスク分析実行
             risk_profile = await risk_manager.analyze_individual_stock_risk(
                 symbol, current_price
             )
-            
+
             logger.info(f"分析完了: {symbol}")
             logger.info(f"  リスクレベル: {risk_profile.risk_level.value}")
             logger.info(f"  総合リスクスコア: {risk_profile.total_risk_score:.3f}")
-            logger.info(f"  推奨ポジションサイズ: ¥{risk_profile.recommended_position_size:,.0f}")
+            logger.info(
+                f"  推奨ポジションサイズ: ¥{risk_profile.recommended_position_size:,.0f}"
+            )
             logger.info(f"  動的損切り: {risk_profile.dynamic_stop_loss:.0f}")
             logger.info(f"  最大損失額: ¥{risk_profile.max_loss_amount:,.0f}")
-            
+
         except Exception as e:
             logger.error(f"銘柄分析エラー: {symbol} - {e}")
-    
+
     # リスクサマリー生成
     summary = risk_manager.get_risk_summary()
     risk_manager.save_risk_report()
-    
+
     # 結果表示
     print("\n" + "=" * 80)
     print("🛡️ 個別銘柄リスク管理システム レポート")
@@ -642,22 +692,30 @@ async def main():
     print(f"分析時刻: {summary['timestamp']}")
     print(f"分析銘柄数: {summary['total_stocks']}")
     print(f"平均リスクスコア: {summary['average_risk_score']:.3f}")
-    print(f"高リスク銘柄: {', '.join(summary['high_risk_stocks']) if summary['high_risk_stocks'] else 'なし'}")
-    
+    print(
+        f"高リスク銘柄: {', '.join(summary['high_risk_stocks']) if summary['high_risk_stocks'] else 'なし'}"
+    )
+
     print("\n💡 推奨事項:")
-    for rec in summary['recommendations']:
+    for rec in summary["recommendations"]:
         print(f"  • {rec}")
-    
+
     print("\n📊 個別銘柄詳細:")
-    for symbol, profile in summary['individual_profiles'].items():
+    for symbol, profile in summary["individual_profiles"].items():
         risk_emoji = {
-            "VERY_LOW": "🟢", "LOW": "🟡", "MEDIUM": "🟠", 
-            "HIGH": "🔴", "VERY_HIGH": "🔴", "CRITICAL": "⚫"
-        }.get(profile['risk_level'], "⚪")
-        
-        print(f"  {risk_emoji} {symbol}: リスク{profile['risk_level']} "
-              f"(スコア: {profile['total_risk_score']:.3f}) "
-              f"推奨サイズ: ¥{profile['recommended_position_size']:,.0f}")
+            "VERY_LOW": "🟢",
+            "LOW": "🟡",
+            "MEDIUM": "🟠",
+            "HIGH": "🔴",
+            "VERY_HIGH": "🔴",
+            "CRITICAL": "⚫",
+        }.get(profile["risk_level"], "⚪")
+
+        print(
+            f"  {risk_emoji} {symbol}: リスク{profile['risk_level']} "
+            f"(スコア: {profile['total_risk_score']:.3f}) "
+            f"推奨サイズ: ¥{profile['recommended_position_size']:,.0f}"
+        )
 
 
 if __name__ == "__main__":

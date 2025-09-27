@@ -44,16 +44,18 @@ logger = logging.getLogger(__name__)
 
 class LossLevel(Enum):
     """損失レベル"""
-    NONE = "NONE"           # 損失なし
-    MINOR = "MINOR"         # 軽微な損失（1%未満）
-    MODERATE = "MODERATE"   # 中程度の損失（1-3%）
+
+    NONE = "NONE"  # 損失なし
+    MINOR = "MINOR"  # 軽微な損失（1%未満）
+    MODERATE = "MODERATE"  # 中程度の損失（1-3%）
     SIGNIFICANT = "SIGNIFICANT"  # 重要な損失（3-5%）
-    SEVERE = "SEVERE"       # 深刻な損失（5-10%）
-    CRITICAL = "CRITICAL"   # 致命的な損失（10%以上）
+    SEVERE = "SEVERE"  # 深刻な損失（5-10%）
+    CRITICAL = "CRITICAL"  # 致命的な損失（10%以上）
 
 
 class AlertType(Enum):
     """アラートタイプ"""
+
     INFO = "INFO"
     WARNING = "WARNING"
     CRITICAL = "CRITICAL"
@@ -63,6 +65,7 @@ class AlertType(Enum):
 @dataclass
 class MaxLossSettings:
     """最大損失設定"""
+
     symbol: str
     max_loss_amount: float
     max_loss_percent: float
@@ -76,6 +79,7 @@ class MaxLossSettings:
 @dataclass
 class LossAlert:
     """損失アラート"""
+
     symbol: str
     timestamp: datetime
     alert_type: AlertType
@@ -90,6 +94,7 @@ class LossAlert:
 @dataclass
 class LossHistory:
     """損失履歴"""
+
     symbol: str
     timestamp: datetime
     entry_price: float
@@ -105,6 +110,7 @@ class LossHistory:
 @dataclass
 class PositionLossStatus:
     """ポジション損失状況"""
+
     symbol: str
     current_price: float
     entry_price: float
@@ -127,15 +133,15 @@ class MaxLossManagementSystem:
         self.loss_history = defaultdict(list)
         self.active_alerts = defaultdict(list)
         self.positions = {}
-        
+
         # 損失管理パラメータ
         self.loss_params = {
             "default_max_loss_percent": 0.05,  # デフォルト最大損失5%
-            "critical_loss_threshold": 0.10,   # 致命的損失閾値10%
-            "alert_frequency_minutes": 15,     # アラート頻度（分）
+            "critical_loss_threshold": 0.10,  # 致命的損失閾値10%
+            "alert_frequency_minutes": 15,  # アラート頻度（分）
             "auto_stop_loss_threshold": 0.08,  # 自動損切り閾値8%
         }
-        
+
         # 損失レベル閾値
         self.loss_thresholds = {
             LossLevel.NONE: 0.0,
@@ -147,35 +153,35 @@ class MaxLossManagementSystem:
         }
 
     def set_max_loss_for_stock(
-        self, 
-        symbol: str, 
+        self,
+        symbol: str,
         max_loss_percent: float = None,
         max_loss_amount: float = None,
         auto_stop_loss: bool = True,
-        trailing_stop: bool = True
+        trailing_stop: bool = True,
     ) -> MaxLossSettings:
         """個別銘柄の最大損失設定"""
         try:
             logger.info(f"最大損失設定開始: {symbol}")
-            
+
             # デフォルト値の設定
             if max_loss_percent is None:
                 max_loss_percent = self.loss_params["default_max_loss_percent"]
-            
+
             if max_loss_amount is None:
                 max_loss_amount = self.account_value * max_loss_percent
-            
+
             # 現在価格取得
             current_price = self._get_current_price(symbol)
             if current_price is None:
                 current_price = 1000.0  # デフォルト価格
-            
+
             # 最大損失価格計算
             max_loss_price = current_price * (1 - max_loss_percent)
-            
+
             # アラート閾値設定
             alert_thresholds = self._calculate_alert_thresholds(max_loss_percent)
-            
+
             # 最大損失設定作成
             settings = MaxLossSettings(
                 symbol=symbol,
@@ -187,11 +193,13 @@ class MaxLossManagementSystem:
                 trailing_stop_enabled=trailing_stop,
                 last_updated=datetime.now(),
             )
-            
+
             # 設定保存
             self.max_loss_settings[symbol] = settings
-            
-            logger.info(f"最大損失設定完了: {symbol} - 最大損失額: ¥{max_loss_amount:,.0f}")
+
+            logger.info(
+                f"最大損失設定完了: {symbol} - 最大損失額: ¥{max_loss_amount:,.0f}"
+            )
             return settings
 
         except Exception as e:
@@ -204,17 +212,19 @@ class MaxLossManagementSystem:
             stock = yf.Ticker(symbol)
             hist = stock.history(period="1d")
             if not hist.empty:
-                return hist['Close'].iloc[-1]
+                return hist["Close"].iloc[-1]
             return None
         except Exception as e:
             logger.error(f"価格取得エラー: {symbol} - {e}")
             return None
 
-    def _calculate_alert_thresholds(self, max_loss_percent: float) -> Dict[LossLevel, float]:
+    def _calculate_alert_thresholds(
+        self, max_loss_percent: float
+    ) -> Dict[LossLevel, float]:
         """アラート閾値計算"""
         try:
             thresholds = {}
-            
+
             # 各損失レベルに対する閾値設定
             for level, threshold in self.loss_thresholds.items():
                 if level == LossLevel.NONE:
@@ -223,28 +233,32 @@ class MaxLossManagementSystem:
                     thresholds[level] = max_loss_percent
                 else:
                     # 最大損失の割合で設定
-                    thresholds[level] = max_loss_percent * threshold / self.loss_thresholds[LossLevel.CRITICAL]
-            
+                    thresholds[level] = (
+                        max_loss_percent
+                        * threshold
+                        / self.loss_thresholds[LossLevel.CRITICAL]
+                    )
+
             return thresholds
         except Exception as e:
             logger.error(f"アラート閾値計算エラー: {e}")
             return {level: 0.0 for level in LossLevel}
 
     def add_position(
-        self, 
-        symbol: str, 
-        entry_price: float, 
+        self,
+        symbol: str,
+        entry_price: float,
         position_size: float,
-        quantity: int = None
+        quantity: int = None,
     ) -> bool:
         """ポジション追加"""
         try:
             logger.info(f"ポジション追加: {symbol} @ ¥{entry_price:,.0f}")
-            
+
             # 数量計算
             if quantity is None:
                 quantity = int(position_size / entry_price)
-            
+
             # ポジション情報保存
             self.positions[symbol] = {
                 "entry_price": entry_price,
@@ -254,86 +268,92 @@ class MaxLossManagementSystem:
                 "current_price": entry_price,
                 "unrealized_pnl": 0.0,
             }
-            
+
             # 最大損失設定が存在しない場合は作成
             if symbol not in self.max_loss_settings:
                 self.set_max_loss_for_stock(symbol)
-            
+
             return True
         except Exception as e:
             logger.error(f"ポジション追加エラー: {symbol} - {e}")
             return False
 
-    def update_position_price(self, symbol: str, current_price: float) -> PositionLossStatus:
+    def update_position_price(
+        self, symbol: str, current_price: float
+    ) -> PositionLossStatus:
         """ポジション価格更新と損失状況確認"""
         try:
             if symbol not in self.positions:
                 logger.warning(f"ポジションが見つかりません: {symbol}")
                 return self._create_default_loss_status(symbol, current_price)
-            
+
             # ポジション情報更新
             position = self.positions[symbol]
             position["current_price"] = current_price
-            
+
             # 未実現損益計算
             entry_price = position["entry_price"]
             quantity = position["quantity"]
             unrealized_pnl = (current_price - entry_price) * quantity
             position["unrealized_pnl"] = unrealized_pnl
-            
+
             # 損失状況分析
             loss_status = self._analyze_loss_status(symbol, current_price)
-            
+
             # アラート生成
             if loss_status.loss_level != LossLevel.NONE:
                 self._generate_loss_alert(symbol, loss_status)
-            
+
             # 履歴記録
             self._record_loss_history(symbol, loss_status)
-            
+
             # 自動損切り判定
             if self._should_auto_stop_loss(symbol, loss_status):
                 self._execute_auto_stop_loss(symbol, loss_status)
-            
+
             return loss_status
 
         except Exception as e:
             logger.error(f"ポジション価格更新エラー: {symbol} - {e}")
             return self._create_default_loss_status(symbol, current_price)
 
-    def _analyze_loss_status(self, symbol: str, current_price: float) -> PositionLossStatus:
+    def _analyze_loss_status(
+        self, symbol: str, current_price: float
+    ) -> PositionLossStatus:
         """損失状況分析"""
         try:
             if symbol not in self.positions or symbol not in self.max_loss_settings:
                 return self._create_default_loss_status(symbol, current_price)
-            
+
             position = self.positions[symbol]
             max_loss_settings = self.max_loss_settings[symbol]
-            
+
             # 基本情報
             entry_price = position["entry_price"]
             position_size = position["position_size"]
             quantity = position["quantity"]
-            
+
             # 損失計算
             current_loss = (entry_price - current_price) * quantity
             loss_percent = current_loss / position_size if position_size > 0 else 0.0
-            
+
             # 最大損失額
             max_loss_amount = max_loss_settings.max_loss_amount
-            
+
             # 残りバッファ
             remaining_buffer = max_loss_amount - abs(current_loss)
-            
+
             # 損失レベル判定
             loss_level = self._determine_loss_level(loss_percent)
-            
+
             # アラート状況
             alert_status = self._determine_alert_status(loss_level, remaining_buffer)
-            
+
             # 推奨アクション
-            recommended_action = self._get_recommended_action(loss_level, remaining_buffer)
-            
+            recommended_action = self._get_recommended_action(
+                loss_level, remaining_buffer
+            )
+
             return PositionLossStatus(
                 symbol=symbol,
                 current_price=current_price,
@@ -347,7 +367,7 @@ class MaxLossManagementSystem:
                 alert_status=alert_status,
                 recommended_action=recommended_action,
             )
-            
+
         except Exception as e:
             logger.error(f"損失状況分析エラー: {symbol} - {e}")
             return self._create_default_loss_status(symbol, current_price)
@@ -356,7 +376,7 @@ class MaxLossManagementSystem:
         """損失レベル判定"""
         try:
             abs_loss_percent = abs(loss_percent)
-            
+
             if abs_loss_percent < self.loss_thresholds[LossLevel.MINOR]:
                 return LossLevel.NONE
             elif abs_loss_percent < self.loss_thresholds[LossLevel.MODERATE]:
@@ -373,7 +393,9 @@ class MaxLossManagementSystem:
             logger.error(f"損失レベル判定エラー: {e}")
             return LossLevel.NONE
 
-    def _determine_alert_status(self, loss_level: LossLevel, remaining_buffer: float) -> str:
+    def _determine_alert_status(
+        self, loss_level: LossLevel, remaining_buffer: float
+    ) -> str:
         """アラート状況判定"""
         try:
             if loss_level == LossLevel.CRITICAL:
@@ -392,7 +414,9 @@ class MaxLossManagementSystem:
             logger.error(f"アラート状況判定エラー: {e}")
             return "NORMAL"
 
-    def _get_recommended_action(self, loss_level: LossLevel, remaining_buffer: float) -> str:
+    def _get_recommended_action(
+        self, loss_level: LossLevel, remaining_buffer: float
+    ) -> str:
         """推奨アクション取得"""
         try:
             if loss_level == LossLevel.CRITICAL:
@@ -411,7 +435,9 @@ class MaxLossManagementSystem:
             logger.error(f"推奨アクション取得エラー: {e}")
             return "損失状況を確認してください"
 
-    def _generate_loss_alert(self, symbol: str, loss_status: PositionLossStatus) -> LossAlert:
+    def _generate_loss_alert(
+        self, symbol: str, loss_status: PositionLossStatus
+    ) -> LossAlert:
         """損失アラート生成"""
         try:
             # アラートタイプ判定
@@ -422,13 +448,16 @@ class MaxLossManagementSystem:
                 alert_type = AlertType.CRITICAL
             elif loss_status.loss_level == LossLevel.SIGNIFICANT:
                 alert_type = AlertType.WARNING
-            
+
             # アラートメッセージ生成
             message = self._generate_alert_message(symbol, loss_status)
-            
+
             # アクション必要判定
-            action_required = loss_status.loss_level in [LossLevel.SEVERE, LossLevel.CRITICAL]
-            
+            action_required = loss_status.loss_level in [
+                LossLevel.SEVERE,
+                LossLevel.CRITICAL,
+            ]
+
             # アラート作成
             alert = LossAlert(
                 symbol=symbol,
@@ -441,15 +470,15 @@ class MaxLossManagementSystem:
                 message=message,
                 action_required=action_required,
             )
-            
+
             # アラート保存
             self.active_alerts[symbol].append(alert)
-            
+
             # ログ出力
             logger.warning(f"損失アラート: {symbol} - {alert_type.value} - {message}")
-            
+
             return alert
-            
+
         except Exception as e:
             logger.error(f"損失アラート生成エラー: {symbol} - {e}")
             return LossAlert(
@@ -464,12 +493,14 @@ class MaxLossManagementSystem:
                 action_required=False,
             )
 
-    def _generate_alert_message(self, symbol: str, loss_status: PositionLossStatus) -> str:
+    def _generate_alert_message(
+        self, symbol: str, loss_status: PositionLossStatus
+    ) -> str:
         """アラートメッセージ生成"""
         try:
             loss_amount = abs(loss_status.current_loss)
             loss_percent = abs(loss_status.loss_percent) * 100
-            
+
             if loss_status.loss_level == LossLevel.CRITICAL:
                 return f"{symbol}: 致命的な損失発生！損失額: ¥{loss_amount:,.0f} ({loss_percent:.1f}%)"
             elif loss_status.loss_level == LossLevel.SEVERE:
@@ -489,14 +520,14 @@ class MaxLossManagementSystem:
         try:
             # アラート送信状況
             alert_sent = len(self.active_alerts[symbol]) > 0
-            
+
             # アクション実行状況
             action_taken = "監視中"
             if loss_status.loss_level == LossLevel.CRITICAL:
                 action_taken = "緊急対応必要"
             elif loss_status.loss_level == LossLevel.SEVERE:
                 action_taken = "損切り検討"
-            
+
             # 履歴記録
             history_entry = LossHistory(
                 symbol=symbol,
@@ -510,32 +541,37 @@ class MaxLossManagementSystem:
                 alert_sent=alert_sent,
                 action_taken=action_taken,
             )
-            
+
             self.loss_history[symbol].append(history_entry)
-            
+
         except Exception as e:
             logger.error(f"損失履歴記録エラー: {symbol} - {e}")
 
-    def _should_auto_stop_loss(self, symbol: str, loss_status: PositionLossStatus) -> bool:
+    def _should_auto_stop_loss(
+        self, symbol: str, loss_status: PositionLossStatus
+    ) -> bool:
         """自動損切り判定"""
         try:
             if symbol not in self.max_loss_settings:
                 return False
-            
+
             max_loss_settings = self.max_loss_settings[symbol]
-            
+
             # 自動損切りが無効の場合は実行しない
             if not max_loss_settings.auto_stop_loss:
                 return False
-            
+
             # 損失額が最大損失額を超過した場合
             if abs(loss_status.current_loss) >= loss_status.max_loss_amount:
                 return True
-            
+
             # 損失率が自動損切り閾値を超過した場合
-            if abs(loss_status.loss_percent) >= self.loss_params["auto_stop_loss_threshold"]:
+            if (
+                abs(loss_status.loss_percent)
+                >= self.loss_params["auto_stop_loss_threshold"]
+            ):
                 return True
-            
+
             return False
         except Exception as e:
             logger.error(f"自動損切り判定エラー: {symbol} - {e}")
@@ -544,8 +580,10 @@ class MaxLossManagementSystem:
     def _execute_auto_stop_loss(self, symbol: str, loss_status: PositionLossStatus):
         """自動損切り実行"""
         try:
-            logger.critical(f"自動損切り実行: {symbol} @ ¥{loss_status.current_price:,.0f}")
-            
+            logger.critical(
+                f"自動損切り実行: {symbol} @ ¥{loss_status.current_price:,.0f}"
+            )
+
             # ポジションクローズ（実際の実装ではブローカーAPIを呼び出し）
             if symbol in self.positions:
                 position = self.positions[symbol]
@@ -553,7 +591,7 @@ class MaxLossManagementSystem:
                 position["close_time"] = datetime.now()
                 position["close_price"] = loss_status.current_price
                 position["realized_pnl"] = loss_status.current_loss
-            
+
             # アラート生成
             alert = LossAlert(
                 symbol=symbol,
@@ -566,9 +604,9 @@ class MaxLossManagementSystem:
                 message=f"{symbol}: 自動損切りが実行されました",
                 action_required=True,
             )
-            
+
             self.active_alerts[symbol].append(alert)
-            
+
         except Exception as e:
             logger.error(f"自動損切り実行エラー: {symbol} - {e}")
 
@@ -584,24 +622,26 @@ class MaxLossManagementSystem:
                 "active_alerts": {},
                 "loss_history_summary": {},
             }
-            
+
             # ポジション分析
             for symbol, position in self.positions.items():
                 if position.get("unrealized_pnl", 0) < 0:
                     summary["positions_with_loss"] += 1
                     summary["total_loss_amount"] += abs(position["unrealized_pnl"])
-                    
+
                     # 損失レベル判定
-                    loss_percent = abs(position["unrealized_pnl"]) / position["position_size"]
+                    loss_percent = (
+                        abs(position["unrealized_pnl"]) / position["position_size"]
+                    )
                     if loss_percent >= self.loss_thresholds[LossLevel.CRITICAL]:
                         summary["critical_positions"].append(symbol)
-            
+
             # アクティブアラート
             for symbol, alerts in self.active_alerts.items():
                 if alerts:
                     latest_alert = alerts[-1]
                     summary["active_alerts"][symbol] = asdict(latest_alert)
-            
+
             # 損失履歴サマリー
             for symbol, history in self.loss_history.items():
                 if history:
@@ -611,7 +651,7 @@ class MaxLossManagementSystem:
                         "max_loss": max([h.loss_amount for h in history]),
                         "avg_loss": np.mean([h.loss_amount for h in history]),
                     }
-            
+
             return summary
         except Exception as e:
             logger.error(f"損失サマリー取得エラー: {e}")
@@ -621,7 +661,8 @@ class MaxLossManagementSystem:
         """デフォルト最大損失設定作成"""
         return MaxLossSettings(
             symbol=symbol,
-            max_loss_amount=self.account_value * self.loss_params["default_max_loss_percent"],
+            max_loss_amount=self.account_value
+            * self.loss_params["default_max_loss_percent"],
             max_loss_percent=self.loss_params["default_max_loss_percent"],
             max_loss_price=0.0,
             alert_thresholds={level: 0.0 for level in LossLevel},
@@ -630,7 +671,9 @@ class MaxLossManagementSystem:
             last_updated=datetime.now(),
         )
 
-    def _create_default_loss_status(self, symbol: str, current_price: float) -> PositionLossStatus:
+    def _create_default_loss_status(
+        self, symbol: str, current_price: float
+    ) -> PositionLossStatus:
         """デフォルト損失状況作成"""
         return PositionLossStatus(
             symbol=symbol,
@@ -661,72 +704,80 @@ async def main():
     """メイン実行関数"""
     # 最大損失管理システム初期化
     loss_system = MaxLossManagementSystem(account_value=1000000)
-    
+
     # テスト銘柄
     test_symbols = ["7203.T", "6758.T", "9984.T", "7974.T", "4063.T"]
-    
+
     logger.info("最大損失管理システム テスト開始")
-    
+
     # 各銘柄の最大損失設定
     for symbol in test_symbols:
         try:
             logger.info(f"最大損失設定開始: {symbol}")
-            
+
             # 最大損失設定
             max_loss_settings = loss_system.set_max_loss_for_stock(
-                symbol, 
+                symbol,
                 max_loss_percent=0.05,  # 5%
                 auto_stop_loss=True,
-                trailing_stop=True
+                trailing_stop=True,
             )
-            
+
             logger.info(f"最大損失設定完了: {symbol}")
             logger.info(f"  最大損失額: ¥{max_loss_settings.max_loss_amount:,.0f}")
             logger.info(f"  最大損失率: {max_loss_settings.max_loss_percent:.1%}")
             logger.info(f"  自動損切り: {max_loss_settings.auto_stop_loss}")
-            
+
         except Exception as e:
             logger.error(f"最大損失設定エラー: {symbol} - {e}")
-    
+
     # ポジション追加と価格更新シミュレーション
     for symbol in test_symbols:
         try:
             # ポジション追加
             entry_price = 1000.0  # 仮のエントリー価格
             position_size = 100000  # 10万円
-            
+
             success = loss_system.add_position(symbol, entry_price, position_size)
             if success:
                 logger.info(f"ポジション追加完了: {symbol}")
-                
+
                 # 価格更新シミュレーション（損失シナリオ）
-                loss_scenarios = [0.02, 0.03, 0.05, 0.08, 0.12]  # 2%, 3%, 5%, 8%, 12%の損失
-                
+                loss_scenarios = [
+                    0.02,
+                    0.03,
+                    0.05,
+                    0.08,
+                    0.12,
+                ]  # 2%, 3%, 5%, 8%, 12%の損失
+
                 for loss_percent in loss_scenarios:
                     current_price = entry_price * (1 - loss_percent)
-                    
+
                     # 損失状況確認
-                    loss_status = loss_system.update_position_price(symbol, current_price)
-                    
+                    loss_status = loss_system.update_position_price(
+                        symbol, current_price
+                    )
+
                     logger.info(f"価格更新: {symbol} @ ¥{current_price:,.0f}")
                     logger.info(f"  損失額: ¥{loss_status.current_loss:,.0f}")
                     logger.info(f"  損失率: {loss_status.loss_percent:.1%}")
                     logger.info(f"  損失レベル: {loss_status.loss_level.value}")
                     logger.info(f"  アラート状況: {loss_status.alert_status}")
                     logger.info(f"  推奨アクション: {loss_status.recommended_action}")
-                    
+
                     # 自動損切りが実行された場合は終了
                     if loss_status.loss_level == LossLevel.CRITICAL:
                         logger.critical(f"自動損切り実行: {symbol}")
                         break
-            
+
         except Exception as e:
             logger.error(f"ポジション処理エラー: {symbol} - {e}")
-    
+
     # 損失サマリー生成
     summary = loss_system.get_loss_summary()
     loss_system.save_loss_report()
-    
+
     # 結果表示
     print("\n" + "=" * 80)
     print("🛡️ 最大損失管理システム レポート")
@@ -735,21 +786,28 @@ async def main():
     print(f"総ポジション数: {summary['total_positions']}")
     print(f"損失ポジション数: {summary['positions_with_loss']}")
     print(f"総損失額: ¥{summary['total_loss_amount']:,.0f}")
-    print(f"緊急ポジション: {', '.join(summary['critical_positions']) if summary['critical_positions'] else 'なし'}")
-    
+    print(
+        f"緊急ポジション: {', '.join(summary['critical_positions']) if summary['critical_positions'] else 'なし'}"
+    )
+
     print("\n🚨 アクティブアラート:")
-    for symbol, alert in summary['active_alerts'].items():
+    for symbol, alert in summary["active_alerts"].items():
         alert_emoji = {
-            "INFO": "ℹ️", "WARNING": "⚠️", "CRITICAL": "🔴", "EMERGENCY": "🚨"
-        }.get(alert['alert_type'], "⚪")
-        
+            "INFO": "ℹ️",
+            "WARNING": "⚠️",
+            "CRITICAL": "🔴",
+            "EMERGENCY": "🚨",
+        }.get(alert["alert_type"], "⚪")
+
         print(f"  {alert_emoji} {symbol}: {alert['message']}")
-    
+
     print("\n📊 損失履歴サマリー:")
-    for symbol, history_summary in summary['loss_history_summary'].items():
-        print(f"  {symbol}: {history_summary['total_entries']}件の記録, "
-              f"最大損失: ¥{history_summary['max_loss']:,.0f}, "
-              f"平均損失: ¥{history_summary['avg_loss']:,.0f}")
+    for symbol, history_summary in summary["loss_history_summary"].items():
+        print(
+            f"  {symbol}: {history_summary['total_entries']}件の記録, "
+            f"最大損失: ¥{history_summary['max_loss']:,.0f}, "
+            f"平均損失: ¥{history_summary['avg_loss']:,.0f}"
+        )
 
 
 if __name__ == "__main__":
