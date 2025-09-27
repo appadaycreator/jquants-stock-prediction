@@ -18,7 +18,7 @@ const nextConfig = {
     basePath: "/jquants-stock-prediction",
     generateBuildId: async () => "build",
     // RSCエラーを解決するための設定
-    outputFileTracing: true,
+    // outputFileTracing: true, // 非推奨の設定をコメントアウト
     // 静的エクスポート用の設定
     trailingSlash: true,
     skipTrailingSlashRedirect: true,
@@ -31,8 +31,6 @@ const nextConfig = {
   // 実験的機能の設定
   experimental: {
     optimizePackageImports: ["lucide-react", "recharts"],
-    // RSC payloadエラーを解決するための設定
-    serverComponentsExternalPackages: [],
     // GitHub PagesでのRSC動作を改善
     staticGenerationRetryCount: 3,
     // RSCエラーを解決するための設定
@@ -41,7 +39,7 @@ const nextConfig = {
     },
   },
   
-  // サーバー外部パッケージの設定（experimentalから移動）
+  // サーバー外部パッケージの設定
   serverExternalPackages: [],
   
   // Webpack設定の最適化
