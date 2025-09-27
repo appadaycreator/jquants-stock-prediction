@@ -21,8 +21,6 @@ import seaborn as sns
 from datetime import datetime, timedelta
 from typing import Dict, List, Tuple, Optional, Any
 import json
-import logging
-from dataclasses import dataclass, asdict
 import warnings
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
@@ -43,15 +41,14 @@ from advanced_backtest_system import (
 )
 from advanced_performance_metrics import AdvancedPerformanceAnalyzer
 
+# 統合ログシステムのインポート
+from unified_logging_config import get_system_logger, get_enhanced_logger
+
 warnings.filterwarnings("ignore")
 
-# ログ設定
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("individual_backtest.log"), logging.StreamHandler()],
-)
-logger = logging.getLogger(__name__)
+# 統合ログシステムを使用
+logger = get_system_logger()
+enhanced_logger = get_enhanced_logger()
 
 
 @dataclass

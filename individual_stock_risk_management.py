@@ -18,7 +18,6 @@ import numpy as np
 from datetime import datetime, timedelta
 from typing import Dict, List, Tuple, Optional, Any
 import json
-import logging
 from dataclasses import dataclass, asdict
 from enum import Enum
 import warnings
@@ -29,18 +28,14 @@ from scipy.stats import pearsonr
 import asyncio
 import aiohttp
 
+# 統合ログシステムのインポート
+from unified_logging_config import get_system_logger, get_enhanced_logger
+
 warnings.filterwarnings("ignore")
 
-# ログ設定
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.FileHandler("individual_stock_risk_management.log"),
-        logging.StreamHandler(),
-    ],
-)
-logger = logging.getLogger(__name__)
+# 統合ログシステムを使用
+logger = get_system_logger()
+enhanced_logger = get_enhanced_logger()
 
 
 class RiskLevel(Enum):
