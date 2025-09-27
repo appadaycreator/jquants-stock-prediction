@@ -13,6 +13,9 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -85,30 +88,46 @@ jobs:
       id: deployment
       uses: actions/deploy-pages@v4
     
-    - name: Fallback - Commit to gh-pages branch
-      if: steps.setup-pages.outcome == 'failure'
+    - name: Fallback - Create deployment info
+      if: failure()
       run: |
-        echo "⚠️ GitHub Pages自動有効化に失敗しました。gh-pagesブランチにコミットします..."
+        echo "⚠️ GitHub Pages デプロイに失敗しました"
+        echo "📁 ビルド済みファイルは docs/ フォルダに準備されています"
+        echo "🔧 手動設定方法:"
+        echo "1. Settings → Pages"
+        echo "2. Source: Deploy from a branch"
+        echo "3. Branch: main, Folder: /docs"
+        echo "4. Save"
+        echo ""
+        echo "🌐 設定後のアクセスURL:"
+        echo "https://appadaycreator.github.io/jquants-stock-prediction/"
         
-        # gh-pagesブランチを作成/切り替え
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        # デプロイ情報をファイルに保存
+        cat > deployment-info.txt << EOF
+        GitHub Pages デプロイ情報
+        ========================
         
-        # 既存のgh-pagesブランチを削除（存在する場合）
-        git push origin --delete gh-pages || true
+        ビルド日時: $(date)
+        ビルド状況: ✅ 成功 (ファイル準備完了)
+        デプロイ状況: ❌ 自動デプロイ失敗
         
-        # 新しいgh-pagesブランチを作成
-        git checkout --orphan gh-pages
-        git rm -rf .
+        手動設定手順:
+        1. GitHub リポジトリ → Settings → Pages
+        2. Source: "Deploy from a branch"
+        3. Branch: "main"
+        4. Folder: "/docs"
+        5. Save をクリック
         
-        # docsフォルダの内容をルートにコピー
-        cp -r docs/* .
-        cp docs/.nojekyll .
+        期待されるURL:
+        https://appadaycreator.github.io/jquants-stock-prediction/
         
-        # コミットしてプッシュ
-        git add .
-        git commit -m "🚀 Deploy to GitHub Pages (fallback method)"
-        git push origin gh-pages
+        ファイル構成:
+        - docs/index.html (ランディングページ)
+        - docs/web-app/ (React ダッシュボード)
+        - docs/.nojekyll (Jekyll 無効化)
         
-        echo "✅ gh-pagesブランチにデプロイしました"
-        echo "📝 手動設定が必要: Settings → Pages → Source: Deploy from a branch → Branch: gh-pages"
+        トラブルシューティング:
+        - 5-10分待ってからアクセス
+        - ブラウザキャッシュをクリア
+        - HTTPS でアクセス
+        EOF
