@@ -1,10 +1,17 @@
 import requests
 import pandas as pd
+import os
+from dotenv import load_dotenv
 
+# 環境変数から認証情報を読み込み
+load_dotenv()
+EMAIL = os.getenv("JQUANTS_EMAIL")
+PASSWORD = os.getenv("JQUANTS_PASSWORD")
 
-# J-Quants APIの認証情報（メールアドレスとパスワードを入力）
-EMAIL = "tokunaga.g@gmail.com"
-PASSWORD = "52791097gAAA"
+if not EMAIL or not PASSWORD:
+    print("エラー: 環境変数 JQUANTS_EMAIL と JQUANTS_PASSWORD を設定してください。")
+    print(".env ファイルを作成し、認証情報を設定してください。")
+    exit(1)
 
 # 1. リフレッシュトークンの取得
 auth_url = "https://api.jquants.com/v1/token/auth_user"

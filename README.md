@@ -33,9 +33,16 @@ graph TD
 
 ## セットアップ
 
-### 1. 依存関係のインストール
+### 1. 仮想環境の作成と依存関係のインストール
 
 ```bash
+# 仮想環境を作成
+python3 -m venv venv
+
+# 仮想環境をアクティベート
+source venv/bin/activate
+
+# 依存関係をインストール
 pip install -r requirements.txt
 ```
 
@@ -43,31 +50,53 @@ pip install -r requirements.txt
 
 `.env`ファイルを作成し、J-Quants APIの認証情報を設定してください：
 
-```
-JQUANTS_EMAIL=your_email@example.com
-JQUANTS_PASSWORD=your_password
+```bash
+# .env.sampleをコピーして.envファイルを作成
+cp .env.sample .env
+
+# .envファイルを編集して実際の認証情報を設定
+# JQUANTS_EMAIL=your_email@example.com
+# JQUANTS_PASSWORD=your_password
 ```
 
 ### 3. 設定ファイルの準備
 
 `config.yaml`ファイルを作成し、必要な設定を行ってください。`config.yaml.sample`を参考にしてください。
 
+```bash
+cp config.yaml.sample config.yaml
+```
+
 ## 使用方法
+
+### 仮想環境のアクティベート
+```bash
+source venv/bin/activate
+```
 
 ### データ取得
 ```bash
-python jquants_data_fetch.py
+python3 jquants_data_fetch.py
 ```
 
 ### データ前処理
 ```bash
-python jquants_data_preprocessing.py
+python3 jquants_data_preprocessing.py
 ```
 
 ### 株価予測
 ```bash
-python jquants_stock_prediction.py
+python3 jquants_stock_prediction.py
 ```
+
+## 動作確認済み
+
+✅ 依存関係のインストール  
+✅ サンプルデータでの動作確認  
+✅ データ前処理パイプライン  
+✅ 機械学習モデルの訓練と予測  
+✅ 結果の可視化  
+✅ セキュリティ設定（認証情報の環境変数化）
 
 ## ファイル構成
 
