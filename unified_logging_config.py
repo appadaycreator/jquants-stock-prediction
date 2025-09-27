@@ -4,6 +4,7 @@
 """
 
 import logging
+import logging.handlers
 import os
 import sys
 from datetime import datetime
@@ -23,6 +24,10 @@ class UnifiedLoggingConfig:
 
     # ログディレクトリ
     LOG_DIR = Path("logs")
+    
+    # ログローテーション設定
+    MAX_BYTES = 10 * 1024 * 1024  # 10MB
+    BACKUP_COUNT = 5
 
     @classmethod
     def setup_logging(
@@ -31,6 +36,7 @@ class UnifiedLoggingConfig:
         level: int = None,
         log_file: Optional[str] = None,
         detailed: bool = False,
+        async_logging: bool = False,
     ) -> logging.Logger:
         """
         統一されたログ設定を適用
@@ -40,6 +46,7 @@ class UnifiedLoggingConfig:
             level: ログレベル
             log_file: ログファイル名（オプション）
             detailed: 詳細ログフォーマットを使用するか
+            async_logging: 非同期ログを使用するか
 
         Returns:
             設定済みのロガー
@@ -71,7 +78,13 @@ class UnifiedLoggingConfig:
         # ファイルハンドラー（指定された場合）
         if log_file:
             file_path = cls.LOG_DIR / log_file
-            file_handler = logging.FileHandler(file_path, encoding="utf-8")
+            # ローテーティングファイルハンドラーを使用
+            file_handler = logging.handlers.RotatingFileHandler(
+                file_path, 
+                maxBytes=cls.MAX_BYTES, 
+                backupCount=cls.BACKUP_COUNT,
+                encoding="utf-8"
+            )
             file_handler.setFormatter(formatter)
             logger.addHandler(file_handler)
 

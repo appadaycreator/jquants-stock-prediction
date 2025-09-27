@@ -12,7 +12,6 @@
 """
 
 import asyncio
-import logging
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
@@ -27,7 +26,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+# 統合ログシステムのインポート
+from unified_logging_config import get_system_logger, get_enhanced_logger
+
 warnings.filterwarnings("ignore")
+
+# 統合ログシステムを使用
+logger = get_system_logger()
+enhanced_logger = get_enhanced_logger()
 
 # 既存システムのインポート
 try:
@@ -37,18 +43,7 @@ try:
     from multi_stock_monitor import InvestmentOpportunity, PortfolioComparison
     from realtime_trading_signals import SignalType, SignalStrength
 except ImportError as e:
-    logging.warning(f"既存システムのインポートに失敗: {e}")
-
-# ログ設定
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.FileHandler("enhanced_portfolio_monitoring.log"),
-        logging.StreamHandler(),
-    ],
-)
-logger = logging.getLogger(__name__)
+    logger.warning(f"既存システムのインポートに失敗: {e}")
 
 
 class PortfolioRiskLevel(Enum):

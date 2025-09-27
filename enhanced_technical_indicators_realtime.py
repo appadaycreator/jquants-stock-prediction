@@ -12,7 +12,6 @@
 """
 
 import asyncio
-import logging
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
@@ -28,25 +27,21 @@ from collections import deque
 import talib
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+# 統合ログシステムのインポート
+from unified_logging_config import get_system_logger, get_enhanced_logger
+
 warnings.filterwarnings("ignore")
+
+# 統合ログシステムを使用
+logger = get_system_logger()
+enhanced_logger = get_enhanced_logger()
 
 # 既存システムのインポート
 try:
     from realtime_trading_signals import SignalType, SignalStrength, TechnicalIndicators
     from multi_stock_monitor import InvestmentOpportunity
 except ImportError as e:
-    logging.warning(f"既存システムのインポートに失敗: {e}")
-
-# ログ設定
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.FileHandler("enhanced_technical_indicators.log"),
-        logging.StreamHandler(),
-    ],
-)
-logger = logging.getLogger(__name__)
+    logger.warning(f"既存システムのインポートに失敗: {e}")
 
 
 class IndicatorType(Enum):

@@ -69,7 +69,7 @@ class UnifiedSystem:
     def __init__(
         self,
         module_name: str = "UnifiedSystem",
-        config_file: str = "config_unified.yaml",
+        config_file: str = "config_final.yaml",
         config: Dict[str, Any] = None,
     ):
         """初期化"""
