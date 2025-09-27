@@ -16,6 +16,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
     
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -64,14 +67,48 @@ jobs:
         cp -r web-app/dist docs/web-app
         touch docs/.nojekyll
     
-    - name: Setup Pages
+    - name: Setup Pages (with auto-enablement)
+      id: setup-pages
       uses: actions/configure-pages@v4
+      with:
+        enablement: true
+      continue-on-error: true
     
     - name: Upload artifact
+      if: steps.setup-pages.outcome == 'success'
       uses: actions/upload-pages-artifact@v3
       with:
         path: ./docs
     
     - name: Deploy to GitHub Pages
+      if: steps.setup-pages.outcome == 'success'
       id: deployment
       uses: actions/deploy-pages@v4
+    
+    - name: Fallback - Commit to gh-pages branch
+      if: steps.setup-pages.outcome == 'failure'
+      run: |
+        echo "⚠️ GitHub Pages自動有効化に失敗しました。gh-pagesブランチにコミットします..."
+        
+        # gh-pagesブランチを作成/切り替え
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # 既存のgh-pagesブランチを削除（存在する場合）
+        git push origin --delete gh-pages || true
+        
+        # 新しいgh-pagesブランチを作成
+        git checkout --orphan gh-pages
+        git rm -rf .
+        
+        # docsフォルダの内容をルートにコピー
+        cp -r docs/* .
+        cp docs/.nojekyll .
+        
+        # コミットしてプッシュ
+        git add .
+        git commit -m "🚀 Deploy to GitHub Pages (fallback method)"
+        git push origin gh-pages
+        
+        echo "✅ gh-pagesブランチにデプロイしました"
+        echo "📝 手動設定が必要: Settings → Pages → Source: Deploy from a branch → Branch: gh-pages"

@@ -150,6 +150,17 @@ npm run dev  # 開発サーバー起動（http://localhost:3000）
 
 #### GitHub Pagesデプロイ
 
+**🚨 緊急: GitHub Pages有効化が必要**
+
+現在GitHub Actionsで以下のエラーが発生中：
+```
+Get Pages site failed. Please verify that the repository has Pages enabled
+```
+
+**即座の解決法**:
+1. **Settings** → **Pages** → Source: **"GitHub Actions"** を選択 → **Save**
+2. **Actions** → **"Update GitHub Pages"** → **"Re-run all jobs"**
+
 **手順 1: GitHub Pages有効化**
 1. GitHubリポジトリページ → Settings → Pages
 2. **GitHub Pagesが無効の場合**: "Select a source below to enable GitHub Pages" から選択
@@ -157,7 +168,7 @@ npm run dev  # 開発サーバー起動（http://localhost:3000）
 4. Save をクリック
 
 **手順 2: 初回デプロイ**
-- Actions → "Update GitHub Pages" → "Run workflow" で手動実行
+- Actions → "Update GitHub Pages" → "Re-run all jobs" で再実行
 - または何らかの変更をプッシュして自動実行
 
 **従来の方法 (非推奨)**
