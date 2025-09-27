@@ -7,6 +7,7 @@ import SymbolSelector from "../components/SymbolSelector";
 import SymbolAnalysisResults from "../components/SymbolAnalysisResults";
 import OneClickAnalysis from "../components/OneClickAnalysis";
 import StockMonitoringManager from "../components/StockMonitoringManager";
+import RealtimeSignalDisplay from "../components/RealtimeSignalDisplay";
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
@@ -82,6 +83,7 @@ export default function Dashboard() {
   const [showStockMonitoring, setShowStockMonitoring] = useState(false);
   const [monitoredStocks, setMonitoredStocks] = useState<any[]>([]);
   const [monitoringConfig, setMonitoringConfig] = useState<any>(null);
+  const [showRealtimeSignals, setShowRealtimeSignals] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -351,6 +353,7 @@ export default function Dashboard() {
               { id: "predictions", label: "予測結果", icon: TrendingUp },
               { id: "models", label: "モデル比較", icon: Target },
               { id: "analysis", label: "分析", icon: Database },
+              { id: "signals", label: "シグナル", icon: TrendingUp },
             ].map((tab) => {
               const Icon = tab.icon;
               return (
@@ -616,6 +619,16 @@ export default function Dashboard() {
                 </ScatterChart>
               </ResponsiveContainer>
             </div>
+          </div>
+        )}
+
+        {activeTab === "signals" && (
+          <div className="space-y-6">
+            <RealtimeSignalDisplay 
+              symbols={selectedSymbols}
+              autoRefresh={true}
+              refreshInterval={30000}
+            />
           </div>
         )}
       </main>
