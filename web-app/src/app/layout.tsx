@@ -38,21 +38,21 @@ export default function RootLayout({
               {/* ナビゲーション */}
               <nav className="flex-1 px-4 py-6 space-y-2">
                 <Link 
-                  href="/"
+                  href="https://appadaycreator.github.io/jquants-stock-prediction"
                   className="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <Home className="h-5 w-5 mr-3" />
                   ダッシュボード
                 </Link>
                 <Link 
-                  href="/reports/"
+                  href="https://appadaycreator.github.io/jquants-stock-prediction/reports/"
                   className="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <FileText className="h-5 w-5 mr-3" />
                   レポート
                 </Link>
                 <Link 
-                  href="/settings/"
+                  href="https://appadaycreator.github.io/jquants-stock-prediction/settings/"
                   className="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <Settings className="h-5 w-5 mr-3" />
