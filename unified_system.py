@@ -875,6 +875,11 @@ class UnifiedSystem:
             # データの読み込み
             self.log_info(f"データを読み込み中: {input_file}")
             df = pd.read_csv(input_file)
+            
+            # パフォーマンス最適化の適用
+            self.log_info("🚀 データ処理最適化を適用中...")
+            df = self.optimize_data_processing(df)
+            self.log_info("✅ データ処理最適化完了")
 
             # 特徴量と目的変数の準備
             X = df[features]
@@ -919,6 +924,11 @@ class UnifiedSystem:
                 y_test, model_results["predictions"], best_model_name, output_image
             )
 
+            # パフォーマンス最適化の実行
+            self.log_info("🎯 最終パフォーマンス最適化を実行中...")
+            optimization_result = self.optimize_performance()
+            self.log_info("✅ 最終パフォーマンス最適化完了")
+
             # 結果の保存
             results = {
                 "model_name": best_model_name,
@@ -927,6 +937,7 @@ class UnifiedSystem:
                 "r2": model_results["r2"],
                 "output_image": output_image,
                 "predictions_count": len(model_results["predictions"]),
+                "performance_optimization": optimization_result,
             }
 
             mae = model_results["mae"]
@@ -935,6 +946,14 @@ class UnifiedSystem:
                 f"✅ 予測完了! モデル: {best_model_name}, "
                 f"MAE: {mae:.4f}, R²: {r2:.4f}"
             )
+            
+            # パフォーマンスメトリクスの表示
+            perf_metrics = self.get_performance_metrics()
+            self.log_info("📊 パフォーマンス最適化結果:")
+            self.log_info(f"  💾 メモリ最適化: {'有効' if perf_metrics.get('memory_optimizer_available') else '無効'}")
+            self.log_info(f"  📊 データフレーム最適化: {'有効' if perf_metrics.get('dataframe_processor_available') else '無効'}")
+            self.log_info(f"  🔄 並列処理: {'有効' if perf_metrics.get('parallel_processor_available') else '無効'}")
+            self.log_info(f"  🎯 統合最適化: {'有効' if perf_metrics.get('unified_optimizer_available') else '無効'}")
 
             return results
 
