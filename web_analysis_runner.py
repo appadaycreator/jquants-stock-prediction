@@ -50,10 +50,10 @@ class WebAnalysisRunner:
             if cache_file.exists():
                 logger.info("キャッシュされたデータを使用")
                 import pickle
-                with open(cache_file, 'rb') as f:
+                with open(cache_file, "rb") as f:
                     cached_data = pickle.load(f)
-                if cached_data.get('date') == today:
-                    raw_data = cached_data.get('data')
+                if cached_data.get("date") == today:
+                    raw_data = cached_data.get("data")
                 else:
                     raw_data = system.fetch_stock_data(today)
             else:
@@ -282,7 +282,7 @@ class WebAnalysisRunner:
                 "r2": f"{prediction_result.get('metrics', {}).get('r2', 0):.4f}",
                 "last_updated": datetime.now().isoformat(),
                 "analysis_mode": "ultra_fast",
-                "execution_time": "< 2分"
+                "execution_time": "< 2分",
             }
 
             # 結果保存
@@ -296,7 +296,7 @@ class WebAnalysisRunner:
                 "dashboard_summary": dashboard_summary,
                 "prediction_result": prediction_result,
                 "timestamp": datetime.now().isoformat(),
-                "analysis_mode": "ultra_fast"
+                "analysis_mode": "ultra_fast",
             }
 
         except Exception as e:
