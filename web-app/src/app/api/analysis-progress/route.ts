@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
 
 // メモリ内での進捗管理（本番環境ではRedis等を使用）
 const progressStore = new Map<string, {

@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { spawn } from 'child_process';
 import path from 'path';
 
+// 静的エクスポート用の設定
+export const dynamic = 'force-static';
+
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const { symbols } = await request.json();

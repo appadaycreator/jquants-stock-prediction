@@ -3,6 +3,9 @@ import { writeFile, readFile, mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
 
+// 静的エクスポート用の設定
+export const dynamic = 'force-static';
+
 // 監視設定の保存先
 const MONITORING_DIR = path.join(process.cwd(), 'data', 'monitoring');
 const STOCKS_FILE = path.join(MONITORING_DIR, 'monitored_stocks.json');

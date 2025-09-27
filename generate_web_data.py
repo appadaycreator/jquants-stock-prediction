@@ -112,11 +112,7 @@ def generate_web_data():
     rmse = np.sqrt(mean_squared_error(y_test, y_pred))
     r2 = r2_score(y_test, y_pred)
 
-    metrics = {
-        "mae": mae,
-        "rmse": rmse,
-        "r2": r2
-    }
+    metrics = {"mae": mae, "rmse": rmse, "r2": r2}
 
     # 6. Web用データ生成
 
@@ -153,10 +149,9 @@ def generate_web_data():
 
     # 特徴量重要度
     try:
-        feature_importance = pd.DataFrame({
-            "feature": features,
-            "importance": model.feature_importances_
-        }).sort_values("importance", ascending=False)
+        feature_importance = pd.DataFrame(
+            {"feature": features, "importance": model.feature_importances_}
+        ).sort_values("importance", ascending=False)
 
         if not feature_importance.empty:
             total_importance = feature_importance["importance"].sum()

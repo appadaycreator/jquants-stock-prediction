@@ -1,0 +1,523 @@
+/* モバイル専用CSS最適化 */
+
+/* タッチ操作の最適化 */
+@media (max-width: 768px) {
+  /* タッチターゲットの最小サイズ確保 */
+  button, 
+  [role="button"], 
+  input[type="button"], 
+  input[type="submit"], 
+  input[type="reset"],
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 16px;
+  }
+
+  /* タッチフィードバック */
+  .touch-feedback {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    transition: transform 0.1s ease, background-color 0.1s ease;
+  }
+
+  .touch-feedback:active {
+    transform: scale(0.98);
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  /* スワイプ操作の最適化 */
+  .swipe-container {
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* スクロールの最適化 */
+  .scroll-optimized {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* モバイル専用レイアウト */
+  .mobile-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .mobile-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .mobile-content {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* モバイル専用グリッド */
+  .mobile-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .mobile-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  /* モバイル専用カード */
+  .mobile-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  /* モバイル専用ボタン */
+  .mobile-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    min-height: 44px;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .mobile-button-primary {
+    background: #2563eb;
+    color: white;
+  }
+
+  .mobile-button-primary:active {
+    background: #1d4ed8;
+    transform: scale(0.98);
+  }
+
+  .mobile-button-secondary {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+  }
+
+  .mobile-button-secondary:active {
+    background: #e5e7eb;
+    transform: scale(0.98);
+  }
+
+  /* モバイル専用フォーム */
+  .mobile-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px; /* iOS zoom防止 */
+    background: white;
+    transition: border-color 0.2s ease;
+  }
+
+  .mobile-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+
+  /* モバイル専用モーダル */
+  .mobile-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .mobile-modal-content {
+    background: white;
+    border-radius: 16px 16px 0 0;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    animation: slideUp 0.3s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  /* モバイル専用ナビゲーション */
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    padding: 8px 0;
+    z-index: 30;
+  }
+
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #6b7280;
+    font-size: 12px;
+    transition: color 0.2s ease;
+  }
+
+  .mobile-nav-item.active {
+    color: #2563eb;
+  }
+
+  .mobile-nav-item svg {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 4px;
+  }
+
+  /* モバイル専用チャート */
+  .mobile-chart {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+  }
+
+  .mobile-chart-header {
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: between;
+  }
+
+  .mobile-chart-content {
+    padding: 16px;
+    height: 250px;
+  }
+
+  /* モバイル専用テーブル */
+  .mobile-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .mobile-table th,
+  .mobile-table td {
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+  }
+
+  .mobile-table th {
+    background: #f9fafb;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  /* モバイル専用リスト */
+  .mobile-list {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+  }
+
+  .mobile-list-item {
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobile-list-item:last-child {
+    border-bottom: none;
+  }
+
+  /* モバイル専用アラート */
+  .mobile-alert {
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .mobile-alert-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+  }
+
+  .mobile-alert-warning {
+    background: #fffbeb;
+    border: 1px solid #fed7aa;
+    color: #92400e;
+  }
+
+  .mobile-alert-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+  }
+
+  .mobile-alert-info {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+  }
+
+  /* モバイル専用ローディング */
+  .mobile-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    color: #6b7280;
+  }
+
+  .mobile-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #e5e7eb;
+    border-top: 3px solid #2563eb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* モバイル専用ツールチップ */
+  .mobile-tooltip {
+    position: relative;
+    display: inline-block;
+  }
+
+  .mobile-tooltip-content {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+    margin-bottom: 8px;
+  }
+
+  .mobile-tooltip-content::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.8);
+  }
+
+  /* モバイル専用アニメーション */
+  .mobile-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .mobile-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  /* モバイル専用レスポンシブ画像 */
+  .mobile-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  /* モバイル専用テキスト */
+  .mobile-text-xs {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .mobile-text-sm {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .mobile-text-base {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .mobile-text-lg {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .mobile-text-xl {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  /* モバイル専用スペーシング */
+  .mobile-p-2 { padding: 8px; }
+  .mobile-p-3 { padding: 12px; }
+  .mobile-p-4 { padding: 16px; }
+  .mobile-p-6 { padding: 24px; }
+
+  .mobile-m-2 { margin: 8px; }
+  .mobile-m-3 { margin: 12px; }
+  .mobile-m-4 { margin: 16px; }
+  .mobile-m-6 { margin: 24px; }
+
+  .mobile-mb-2 { margin-bottom: 8px; }
+  .mobile-mb-3 { margin-bottom: 12px; }
+  .mobile-mb-4 { margin-bottom: 16px; }
+  .mobile-mb-6 { margin-bottom: 24px; }
+
+  .mobile-mt-2 { margin-top: 8px; }
+  .mobile-mt-3 { margin-top: 12px; }
+  .mobile-mt-4 { margin-top: 16px; }
+  .mobile-mt-6 { margin-top: 24px; }
+
+  /* モバイル専用ユーティリティ */
+  .mobile-hidden {
+    display: none !important;
+  }
+
+  .mobile-block {
+    display: block !important;
+  }
+
+  .mobile-flex {
+    display: flex !important;
+  }
+
+  .mobile-grid {
+    display: grid !important;
+  }
+
+  .mobile-text-center {
+    text-align: center !important;
+  }
+
+  .mobile-text-left {
+    text-align: left !important;
+  }
+
+  .mobile-text-right {
+    text-align: right !important;
+  }
+
+  .mobile-justify-center {
+    justify-content: center !important;
+  }
+
+  .mobile-justify-between {
+    justify-content: space-between !important;
+  }
+
+  .mobile-items-center {
+    align-items: center !important;
+  }
+
+  .mobile-items-start {
+    align-items: flex-start !important;
+  }
+
+  .mobile-items-end {
+    align-items: flex-end !important;
+  }
+
+  /* モバイル専用スクロール */
+  .mobile-scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-scroll-y {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-scroll-smooth {
+    scroll-behavior: smooth;
+  }
+
+  /* モバイル専用ポジション */
+  .mobile-sticky {
+    position: sticky !important;
+  }
+
+  .mobile-fixed {
+    position: fixed !important;
+  }
+
+  .mobile-absolute {
+    position: absolute !important;
+  }
+
+  .mobile-relative {
+    position: relative !important;
+  }
+
+  /* モバイル専用z-index */
+  .mobile-z-10 { z-index: 10; }
+  .mobile-z-20 { z-index: 20; }
+  .mobile-z-30 { z-index: 30; }
+  .mobile-z-40 { z-index: 40; }
+  .mobile-z-50 { z-index: 50; }
+}

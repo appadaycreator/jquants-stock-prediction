@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Navigation from "../components/Navigation";
+import MobileNavigation from "../components/MobileNavigation";
+import MobileDashboard from "../components/MobileDashboard";
+import PullToRefresh from "../components/PullToRefresh";
 import SymbolSelector from "../components/SymbolSelector";
 import SymbolAnalysisResults from "../components/SymbolAnalysisResults";
 import OneClickAnalysis from "../components/OneClickAnalysis";
@@ -84,9 +87,21 @@ export default function Dashboard() {
   const [monitoredStocks, setMonitoredStocks] = useState<any[]>([]);
   const [monitoringConfig, setMonitoringConfig] = useState<any>(null);
   const [showRealtimeSignals, setShowRealtimeSignals] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     loadData();
+  }, []);
+
+  // モバイル判定
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const loadData = async () => {
@@ -282,8 +297,8 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* ナビゲーション */}
-      <Navigation 
+      {/* モバイルナビゲーション */}
+      <MobileNavigation 
         activeTab={activeTab} 
         onTabChange={setActiveTab}
         onAnalysisClick={() => setShowAnalysisModal(true)}
@@ -291,8 +306,19 @@ export default function Dashboard() {
         onMonitoringClick={() => setShowStockMonitoring(true)}
       />
 
-      {/* ヘッダー */}
-      <header className="bg-white shadow-sm border-b">
+      {/* デスクトップナビゲーション */}
+      <div className="hidden lg:block">
+        <Navigation 
+          activeTab={activeTab} 
+          onTabChange={setActiveTab}
+          onAnalysisClick={() => setShowAnalysisModal(true)}
+          onSettingsClick={() => setShowSettingsModal(true)}
+          onMonitoringClick={() => setShowStockMonitoring(true)}
+        />
+      </div>
+
+      {/* デスクトップヘッダー */}
+      <header className="hidden lg:block bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
@@ -344,8 +370,8 @@ export default function Dashboard() {
         </div>
       </header>
 
-      {/* タブナビゲーション */}
-      <nav className="bg-white border-b">
+      {/* デスクトップタブナビゲーション */}
+      <nav className="hidden lg:block bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-8">
             {[
@@ -376,8 +402,22 @@ export default function Dashboard() {
         </div>
       </nav>
 
-      {/* メインコンテンツ */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* モバイルダッシュボード */}
+      <PullToRefresh onRefresh={loadData}>
+        <MobileDashboard
+          stockData={stockData}
+          modelComparison={modelComparison}
+          featureAnalysis={featureAnalysis}
+          predictions={predictions}
+          summary={summary}
+          onRefresh={loadData}
+          onAnalysis={() => setShowAnalysisModal(true)}
+          onSettings={() => setShowSettingsModal(true)}
+        />
+      </PullToRefresh>
+
+      {/* デスクトップメインコンテンツ */}
+      <main className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === "overview" && (
           <div className="space-y-6">
             {/* ワンクリック分析実行 */}
