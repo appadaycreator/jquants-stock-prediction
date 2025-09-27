@@ -131,7 +131,7 @@ class ConfigValidator:
                     key="logging.level",
                     current_value=log_level,
                     expected_value=valid_levels,
-                    suggestion=f"有効なログレベルを設定してください: {', '.join(valid_levels)}",
+                    suggestion=f"有効なログレベルを設定してください: {", ".join(valid_levels)}",
                 )
             )
 
@@ -354,7 +354,7 @@ class ConfigValidator:
                         key=f"prediction.models.{model_name}.type",
                         current_value=model_type,
                         expected_value=valid_model_types,
-                        suggestion=f"有効なモデルタイプを設定してください: {', '.join(valid_model_types)}",
+                        suggestion=f"有効なモデルタイプを設定してください: {", ".join(valid_model_types)}",
                     )
                 )
 

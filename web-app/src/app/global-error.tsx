@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
+import { useEffect } from "react";
 
 export default function GlobalError({
   error,
@@ -11,16 +11,16 @@ export default function GlobalError({
 }) {
   useEffect(() => {
     // グローバルエラーログをコンソールに出力
-    console.error('Global Error:', error)
+    console.error("Global Error:", error);
     
     // RSC payloadエラーの場合、自動的にリトライ
-    if (error.message.includes('RSC payload') || error.message.includes('Connection closed')) {
-      console.log('RSC payload error detected, attempting recovery...')
+    if (error.message.includes("RSC payload") || error.message.includes("Connection closed")) {
+      console.log("RSC payload error detected, attempting recovery...");
       setTimeout(() => {
-        window.location.reload()
-      }, 2000)
+        window.location.reload();
+      }, 2000);
     }
-  }, [error])
+  }, [error]);
 
   return (
     <html>
@@ -47,7 +47,7 @@ export default function GlobalError({
                   手動で再試行
                 </button>
                 <button
-                  onClick={() => window.location.href = '/'}
+                  onClick={() => window.location.href = "/"}
                   className="w-full bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors"
                 >
                   ホームに戻る
@@ -58,5 +58,5 @@ export default function GlobalError({
         </div>
       </body>
     </html>
-  )
+  );
 }

@@ -1,134 +1,134 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import Navigation from '../../components/Navigation'
-import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen } from 'lucide-react'
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Navigation from "../../components/Navigation";
+import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen } from "lucide-react";
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState({
     prediction: {
-      days: 30
+      days: 30,
     },
     model: {
-      type: 'all',
-      primary_model: 'xgboost',
+      type: "all",
+      primary_model: "xgboost",
       compare_models: true,
       auto_retrain: false,
-      retrain_frequency: 'weekly'
+      retrain_frequency: "weekly",
     },
     data: {
-      refresh_interval: 'daily',
+      refresh_interval: "daily",
       max_data_points: 1000,
-      include_technical_indicators: true
+      include_technical_indicators: true,
     },
     features: {
-      selected: ['sma_5', 'sma_10', 'sma_25', 'sma_50', 'rsi', 'macd']
+      selected: ["sma_5", "sma_10", "sma_25", "sma_50", "rsi", "macd"],
     },
     ui: {
-      theme: 'light',
+      theme: "light",
       refresh_rate: 30,
-      show_tooltips: true
-    }
-  })
+      show_tooltips: true,
+    },
+  });
 
-  const [saving, setSaving] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [message, setMessage] = useState('')
-  const [messageType, setMessageType] = useState<'success' | 'error' | ''>('')
+  const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<"success" | "error" | "">("");
 
   useEffect(() => {
-    loadSettings()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    loadSettings();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadSettings = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       // ローカルストレージから設定を読み込み
-      const savedSettings = localStorage.getItem('jquants-settings')
+      const savedSettings = localStorage.getItem("jquants-settings");
       if (savedSettings) {
-        const parsedSettings = JSON.parse(savedSettings)
+        const parsedSettings = JSON.parse(savedSettings);
         setSettings(prev => ({
           ...prev,
-          ...parsedSettings
-        }))
+          ...parsedSettings,
+        }));
       }
     } catch (error) {
-      console.error('設定の読み込みに失敗:', error)
-      showMessage('設定の読み込みに失敗しました', 'error')
+      console.error("設定の読み込みに失敗:", error);
+      showMessage("設定の読み込みに失敗しました", "error");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
-  const showMessage = (text: string, type: 'success' | 'error') => {
-    setMessage(text)
-    setMessageType(type)
+  const showMessage = (text: string, type: "success" | "error") => {
+    setMessage(text);
+    setMessageType(type);
     setTimeout(() => {
-      setMessage('')
-      setMessageType('')
-    }, 3000)
-  }
+      setMessage("");
+      setMessageType("");
+    }, 3000);
+  };
 
   const handleSave = async () => {
     try {
-      setSaving(true)
+      setSaving(true);
       // ローカルストレージに設定を保存
-      localStorage.setItem('jquants-settings', JSON.stringify(settings))
-      showMessage('設定が正常に保存されました', 'success')
+      localStorage.setItem("jquants-settings", JSON.stringify(settings));
+      showMessage("設定が正常に保存されました", "success");
     } catch (error) {
-      console.error('設定保存エラー:', error)
-      showMessage('設定の保存に失敗しました', 'error')
+      console.error("設定保存エラー:", error);
+      showMessage("設定の保存に失敗しました", "error");
     } finally {
-      setSaving(false)
+      setSaving(false);
     }
-  }
+  };
 
   const handleReset = () => {
-    if (confirm('設定をリセットしますか？')) {
+    if (confirm("設定をリセットしますか？")) {
       setSettings({
         prediction: {
-          days: 30
+          days: 30,
         },
         model: {
-          type: 'all',
-          primary_model: 'xgboost',
+          type: "all",
+          primary_model: "xgboost",
           compare_models: true,
           auto_retrain: false,
-          retrain_frequency: 'weekly'
+          retrain_frequency: "weekly",
         },
         data: {
-          refresh_interval: 'daily',
+          refresh_interval: "daily",
           max_data_points: 1000,
-          include_technical_indicators: true
+          include_technical_indicators: true,
         },
         features: {
-          selected: ['sma_5', 'sma_10', 'sma_25', 'sma_50', 'rsi', 'macd']
+          selected: ["sma_5", "sma_10", "sma_25", "sma_50", "rsi", "macd"],
         },
         ui: {
-          theme: 'light',
+          theme: "light",
           refresh_rate: 30,
-          show_tooltips: true
-        }
-      })
+          show_tooltips: true,
+        },
+      });
     }
-  }
+  };
 
   const runAnalysis = async () => {
     try {
       // 分析実行のシミュレーション
-      showMessage('分析を実行しています...', 'success')
+      showMessage("分析を実行しています...", "success");
       
       // 実際の実装では、ここでPythonスクリプトを実行するか、
       // サーバーサイドのAPIエンドポイントを呼び出す
       setTimeout(() => {
-        showMessage('分析が完了しました（シミュレーション）', 'success')
-      }, 2000)
+        showMessage("分析が完了しました（シミュレーション）", "success");
+      }, 2000);
     } catch (error) {
-      console.error('分析実行エラー:', error)
-      showMessage('分析の実行に失敗しました', 'error')
+      console.error("分析実行エラー:", error);
+      showMessage("分析の実行に失敗しました", "error");
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -138,7 +138,7 @@ export default function SettingsPage() {
           <p className="mt-4 text-gray-600">設定を読み込み中...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -175,7 +175,7 @@ export default function SettingsPage() {
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
               >
                 <Save className="h-4 w-4 mr-2" />
-                {saving ? '保存中...' : '保存'}
+                {saving ? "保存中..." : "保存"}
               </button>
             </div>
           </div>
@@ -185,10 +185,10 @@ export default function SettingsPage() {
       {/* メッセージ表示 */}
       {message && (
         <div className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg ${
-          messageType === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+          messageType === "success" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
         }`}>
           <div className="flex items-center">
-            {messageType === 'success' ? (
+            {messageType === "success" ? (
               <CheckCircle className="h-5 w-5 mr-2" />
             ) : (
               <AlertCircle className="h-5 w-5 mr-2" />
@@ -218,7 +218,7 @@ export default function SettingsPage() {
                   value={settings.prediction.days}
                   onChange={(e) => setSettings({
                     ...settings,
-                    prediction: { ...settings.prediction, days: parseInt(e.target.value) }
+                    prediction: { ...settings.prediction, days: parseInt(e.target.value) },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 />
@@ -232,7 +232,7 @@ export default function SettingsPage() {
                   value={settings.model.type}
                   onChange={(e) => setSettings({
                     ...settings,
-                    model: { ...settings.model, type: e.target.value }
+                    model: { ...settings.model, type: e.target.value },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 >
@@ -254,14 +254,14 @@ export default function SettingsPage() {
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {[
-                { key: 'sma_5', label: 'SMA_5' },
-                { key: 'sma_10', label: 'SMA_10' },
-                { key: 'sma_25', label: 'SMA_25' },
-                { key: 'sma_50', label: 'SMA_50' },
-                { key: 'rsi', label: 'RSI' },
-                { key: 'macd', label: 'MACD' },
-                { key: 'bollinger_upper', label: 'ボリンジャー上' },
-                { key: 'bollinger_lower', label: 'ボリンジャー下' }
+                { key: "sma_5", label: "SMA_5" },
+                { key: "sma_10", label: "SMA_10" },
+                { key: "sma_25", label: "SMA_25" },
+                { key: "sma_50", label: "SMA_50" },
+                { key: "rsi", label: "RSI" },
+                { key: "macd", label: "MACD" },
+                { key: "bollinger_upper", label: "ボリンジャー上" },
+                { key: "bollinger_lower", label: "ボリンジャー下" },
               ].map(feature => (
                 <label key={feature.key} className="flex items-center">
                   <input
@@ -270,11 +270,11 @@ export default function SettingsPage() {
                     onChange={(e) => {
                       const newSelected = e.target.checked
                         ? [...settings.features.selected, feature.key]
-                        : settings.features.selected.filter(f => f !== feature.key)
+                        : settings.features.selected.filter(f => f !== feature.key);
                       setSettings({
                         ...settings,
-                        features: { ...settings.features, selected: newSelected }
-                      })
+                        features: { ...settings.features, selected: newSelected },
+                      });
                     }}
                     className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                   />
@@ -300,7 +300,7 @@ export default function SettingsPage() {
                   value={settings.model.primary_model}
                   onChange={(e) => setSettings({
                     ...settings,
-                    model: { ...settings.model, primary_model: e.target.value }
+                    model: { ...settings.model, primary_model: e.target.value },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 >
@@ -319,7 +319,7 @@ export default function SettingsPage() {
                   value={settings.model.retrain_frequency}
                   onChange={(e) => setSettings({
                     ...settings,
-                    model: { ...settings.model, retrain_frequency: e.target.value }
+                    model: { ...settings.model, retrain_frequency: e.target.value },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 >
@@ -336,7 +336,7 @@ export default function SettingsPage() {
                   checked={settings.model.compare_models}
                   onChange={(e) => setSettings({
                     ...settings,
-                    model: { ...settings.model, compare_models: e.target.checked }
+                    model: { ...settings.model, compare_models: e.target.checked },
                   })}
                   className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 />
@@ -351,7 +351,7 @@ export default function SettingsPage() {
                   checked={settings.model.auto_retrain}
                   onChange={(e) => setSettings({
                     ...settings,
-                    model: { ...settings.model, auto_retrain: e.target.checked }
+                    model: { ...settings.model, auto_retrain: e.target.checked },
                   })}
                   className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 />
@@ -378,7 +378,7 @@ export default function SettingsPage() {
                   value={settings.data.refresh_interval}
                   onChange={(e) => setSettings({
                     ...settings,
-                    data: { ...settings.data, refresh_interval: e.target.value }
+                    data: { ...settings.data, refresh_interval: e.target.value },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 >
@@ -398,7 +398,7 @@ export default function SettingsPage() {
                   value={settings.data.max_data_points}
                   onChange={(e) => setSettings({
                     ...settings,
-                    data: { ...settings.data, max_data_points: parseInt(e.target.value) }
+                    data: { ...settings.data, max_data_points: parseInt(e.target.value) },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 />
@@ -410,7 +410,7 @@ export default function SettingsPage() {
                   checked={settings.data.include_technical_indicators}
                   onChange={(e) => setSettings({
                     ...settings,
-                    data: { ...settings.data, include_technical_indicators: e.target.checked }
+                    data: { ...settings.data, include_technical_indicators: e.target.checked },
                   })}
                   className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 />
@@ -437,7 +437,7 @@ export default function SettingsPage() {
                   value={settings.ui.theme}
                   onChange={(e) => setSettings({
                     ...settings,
-                    ui: { ...settings.ui, theme: e.target.value }
+                    ui: { ...settings.ui, theme: e.target.value },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 >
@@ -456,7 +456,7 @@ export default function SettingsPage() {
                   value={settings.ui.refresh_rate}
                   onChange={(e) => setSettings({
                     ...settings,
-                    ui: { ...settings.ui, refresh_rate: parseInt(e.target.value) }
+                    ui: { ...settings.ui, refresh_rate: parseInt(e.target.value) },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 />
@@ -468,7 +468,7 @@ export default function SettingsPage() {
                   checked={settings.ui.show_tooltips}
                   onChange={(e) => setSettings({
                     ...settings,
-                    ui: { ...settings.ui, show_tooltips: e.target.checked }
+                    ui: { ...settings.ui, show_tooltips: e.target.checked },
                   })}
                   className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 />
@@ -504,5 +504,5 @@ export default function SettingsPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }

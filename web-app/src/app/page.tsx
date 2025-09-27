@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import Navigation from '../components/Navigation'
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Navigation from "../components/Navigation";
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter
-} from 'recharts'
-import { TrendingUp, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen } from 'lucide-react'
+  BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
+} from "recharts";
+import { TrendingUp, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen } from "lucide-react";
 
 // 型定義
 interface StockData {
@@ -58,129 +58,129 @@ interface DashboardSummary {
 }
 
 // カラーパレット
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D']
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8", "#82CA9D"];
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState('overview')
-  const [stockData, setStockData] = useState<StockData[]>([])
-  const [modelComparison, setModelComparison] = useState<ModelComparison[]>([])
-  const [featureAnalysis, setFeatureAnalysis] = useState<FeatureAnalysis[]>([])
-  const [predictions, setPredictions] = useState<PredictionData[]>([])
-  const [summary, setSummary] = useState<DashboardSummary | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [showAnalysisModal, setShowAnalysisModal] = useState(false)
-  const [showSettingsModal, setShowSettingsModal] = useState(false)
-  const [isAnalyzing, setIsAnalyzing] = useState(false)
-  const [analysisProgress, setAnalysisProgress] = useState(0)
-  const [analysisStatus, setAnalysisStatus] = useState('')
+  const [activeTab, setActiveTab] = useState("overview");
+  const [stockData, setStockData] = useState<StockData[]>([]);
+  const [modelComparison, setModelComparison] = useState<ModelComparison[]>([]);
+  const [featureAnalysis, setFeatureAnalysis] = useState<FeatureAnalysis[]>([]);
+  const [predictions, setPredictions] = useState<PredictionData[]>([]);
+  const [summary, setSummary] = useState<DashboardSummary | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [showAnalysisModal, setShowAnalysisModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisProgress, setAnalysisProgress] = useState(0);
+  const [analysisStatus, setAnalysisStatus] = useState("");
 
   useEffect(() => {
-    loadData()
-  }, [])
+    loadData();
+  }, []);
 
   const loadData = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       
       // RSC payloadエラーを防ぐためのリトライ機能付きfetch
       const fetchWithRetry = async (url: string, retries = 3): Promise<Response> => {
         for (let i = 0; i < retries; i++) {
           try {
             const response = await fetch(url, {
-              cache: 'no-cache',
+              cache: "no-cache",
               headers: {
-                'Cache-Control': 'no-cache',
-                'Pragma': 'no-cache'
-              }
-            })
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache",
+              },
+            });
             if (response.ok) {
-              return response
+              return response;
             }
-            throw new Error(`HTTP ${response.status}`)
+            throw new Error(`HTTP ${response.status}`);
           } catch (error) {
-            console.warn(`Fetch attempt ${i + 1} failed for ${url}:`, error)
-            if (i === retries - 1) throw error
-            await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)))
+            console.warn(`Fetch attempt ${i + 1} failed for ${url}:`, error);
+            if (i === retries - 1) throw error;
+            await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
           }
         }
-        throw new Error('All retry attempts failed')
-      }
+        throw new Error("All retry attempts failed");
+      };
       
       const [summaryRes, stockRes, modelRes, featureRes, predRes] = await Promise.all([
-        fetchWithRetry('./data/dashboard_summary.json'),
-        fetchWithRetry('./data/stock_data.json'),
-        fetchWithRetry('./data/model_comparison.json'),
-        fetchWithRetry('./data/feature_analysis.json'),
-        fetchWithRetry('./data/prediction_results.json')
-      ])
+        fetchWithRetry("./data/dashboard_summary.json"),
+        fetchWithRetry("./data/stock_data.json"),
+        fetchWithRetry("./data/model_comparison.json"),
+        fetchWithRetry("./data/feature_analysis.json"),
+        fetchWithRetry("./data/prediction_results.json"),
+      ]);
 
-      const summaryData = await summaryRes.json()
-      const stockDataRes = await stockRes.json()
-      const modelDataRes = await modelRes.json()
-      const featureDataRes = await featureRes.json()
-      const predDataRes = await predRes.json()
+      const summaryData = await summaryRes.json();
+      const stockDataRes = await stockRes.json();
+      const modelDataRes = await modelRes.json();
+      const featureDataRes = await featureRes.json();
+      const predDataRes = await predRes.json();
 
-      setSummary(summaryData)
-      setStockData(stockDataRes.slice(0, 100)) // 最初の100件のみ表示
-      setModelComparison(modelDataRes)
-      setFeatureAnalysis(featureDataRes)
-      setPredictions(predDataRes)
+      setSummary(summaryData);
+      setStockData(stockDataRes.slice(0, 100)); // 最初の100件のみ表示
+      setModelComparison(modelDataRes);
+      setFeatureAnalysis(featureDataRes);
+      setPredictions(predDataRes);
       
     } catch (error) {
-      console.error('データの読み込みに失敗:', error)
+      console.error("データの読み込みに失敗:", error);
       // RSC payloadエラーの場合、自動的にリトライ
       if (error instanceof Error && (
-        error.message.includes('RSC payload') || 
-        error.message.includes('Connection closed') ||
-        error.message.includes('Failed to fetch')
+        error.message.includes("RSC payload") || 
+        error.message.includes("Connection closed") ||
+        error.message.includes("Failed to fetch")
       )) {
-        console.log('RSC payload error detected, retrying in 3 seconds...')
+        console.log("RSC payload error detected, retrying in 3 seconds...");
         setTimeout(() => {
-          loadData()
-        }, 3000)
+          loadData();
+        }, 3000);
       }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const runAnalysis = async () => {
     try {
-      setIsAnalyzing(true)
-      setAnalysisProgress(0)
-      setAnalysisStatus('分析を開始しています...')
+      setIsAnalyzing(true);
+      setAnalysisProgress(0);
+      setAnalysisStatus("分析を開始しています...");
       
       // プログレスバーのシミュレーション
       const progressInterval = setInterval(() => {
         setAnalysisProgress(prev => {
           if (prev >= 90) {
-            clearInterval(progressInterval)
-            return prev
+            clearInterval(progressInterval);
+            return prev;
           }
-          return prev + Math.random() * 10
-        })
-      }, 500)
+          return prev + Math.random() * 10;
+        });
+      }, 500);
 
       // 分析実行のシミュレーション
-      setAnalysisStatus('分析が完了しました。データを更新しています...')
-      setAnalysisProgress(100)
+      setAnalysisStatus("分析が完了しました。データを更新しています...");
+      setAnalysisProgress(100);
       
       // データを再読み込み
-      await loadData()
+      await loadData();
       
       setTimeout(() => {
-        setShowAnalysisModal(false)
-        setIsAnalyzing(false)
-        setAnalysisProgress(0)
-        setAnalysisStatus('')
-      }, 1000)
+        setShowAnalysisModal(false);
+        setIsAnalyzing(false);
+        setAnalysisProgress(0);
+        setAnalysisStatus("");
+      }, 1000);
       
     } catch (error) {
-      console.error('分析実行エラー:', error)
-      setAnalysisStatus('分析の実行に失敗しました')
-      setIsAnalyzing(false)
+      console.error("分析実行エラー:", error);
+      setAnalysisStatus("分析の実行に失敗しました");
+      setIsAnalyzing(false);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -190,12 +190,12 @@ export default function Dashboard() {
           <p className="mt-4 text-gray-600">データを読み込み中...</p>
         </div>
       </div>
-    )
+    );
   }
 
   const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('ja-JP')
-  }
+    return new Date(dateStr).toLocaleDateString("ja-JP");
+  };
 
   const chartData = stockData.map(item => ({
     date: formatDate(item.date),
@@ -204,14 +204,14 @@ export default function Dashboard() {
     SMA_10: item.sma_10,
     SMA_25: item.sma_25,
     SMA_50: item.sma_50,
-    出来高: item.volume / 1000000 // 百万単位
-  }))
+    出来高: item.volume / 1000000, // 百万単位
+  }));
 
   const predictionChartData = predictions.slice(0, 50).map(item => ({
     index: item.index,
     実際値: item.actual,
-    予測値: item.predicted
-  }))
+    予測値: item.predicted,
+  }));
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -233,7 +233,7 @@ export default function Dashboard() {
                   システム: 正常稼働中
                 </span>
                 <span className="text-sm text-gray-600">
-                  最終更新: {summary ? summary.last_updated : '-'}
+                  最終更新: {summary ? summary.last_updated : "-"}
                 </span>
               </div>
               <div className="flex space-x-2">
@@ -269,26 +269,26 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-8">
             {[
-              { id: 'overview', label: '概要', icon: BarChart3 },
-              { id: 'predictions', label: '予測結果', icon: TrendingUp },
-              { id: 'models', label: 'モデル比較', icon: Target },
-              { id: 'analysis', label: '分析', icon: Database }
+              { id: "overview", label: "概要", icon: BarChart3 },
+              { id: "predictions", label: "予測結果", icon: TrendingUp },
+              { id: "models", label: "モデル比較", icon: Target },
+              { id: "analysis", label: "分析", icon: Database },
             ].map((tab) => {
-              const Icon = tab.icon
+              const Icon = tab.icon;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm ${
                     activeTab === tab.id
-                      ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      ? "border-blue-500 text-blue-600"
+                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                   }`}
                 >
                   <Icon className="h-4 w-4" />
                   <span>{tab.label}</span>
                 </button>
-              )
+              );
             })}
           </div>
         </div>
@@ -296,7 +296,7 @@ export default function Dashboard() {
 
       {/* メインコンテンツ */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {activeTab === 'overview' && (
+        {activeTab === "overview" && (
           <div className="space-y-6">
             {/* サマリーカード */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -308,7 +308,7 @@ export default function Dashboard() {
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-500">最優秀モデル</p>
                     <p className="text-2xl font-semibold text-gray-900">
-                      {summary?.best_model?.toUpperCase() || '-'}
+                      {summary?.best_model?.toUpperCase() || "-"}
                     </p>
                   </div>
                 </div>
@@ -322,7 +322,7 @@ export default function Dashboard() {
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-500">予測精度 (R²)</p>
                     <p className="text-2xl font-semibold text-gray-900">
-                      {summary?.r2 || '-'}
+                      {summary?.r2 || "-"}
                     </p>
                   </div>
                 </div>
@@ -336,7 +336,7 @@ export default function Dashboard() {
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-500">MAE</p>
                     <p className="text-2xl font-semibold text-gray-900">
-                      {summary?.mae || '-'}
+                      {summary?.mae || "-"}
                     </p>
                   </div>
                 </div>
@@ -350,7 +350,7 @@ export default function Dashboard() {
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-500">データ数</p>
                     <p className="text-2xl font-semibold text-gray-900">
-                      {summary?.total_data_points || '-'}
+                      {summary?.total_data_points || "-"}
                     </p>
                   </div>
                 </div>
@@ -378,7 +378,7 @@ export default function Dashboard() {
           </div>
         )}
 
-        {activeTab === 'predictions' && (
+        {activeTab === "predictions" && (
           <div className="space-y-6">
             {/* 予測結果チャート */}
             <div className="bg-white rounded-lg shadow p-6">
@@ -402,7 +402,7 @@ export default function Dashboard() {
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={predictions.slice(0, 20).map(p => ({ 
                   index: p.index, 
-                  誤差: p.error.toFixed(2) 
+                  誤差: p.error.toFixed(2), 
                 }))}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="index" />
@@ -415,7 +415,7 @@ export default function Dashboard() {
           </div>
         )}
 
-        {activeTab === 'models' && (
+        {activeTab === "models" && (
           <div className="space-y-6">
             {/* モデル比較表 */}
             <div className="bg-white rounded-lg shadow overflow-hidden">
@@ -435,7 +435,7 @@ export default function Dashboard() {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {modelComparison.map((model, index) => (
-                      <tr key={model.name} className={index === 0 ? 'bg-green-50' : ''}>
+                      <tr key={model.name} className={index === 0 ? "bg-green-50" : ""}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {index + 1}
                           {index === 0 && <span className="ml-2 text-green-600">🏆</span>}
@@ -467,7 +467,7 @@ export default function Dashboard() {
           </div>
         )}
 
-        {activeTab === 'analysis' && (
+        {activeTab === "analysis" && (
           <div className="space-y-6">
             {/* 特徴量重要度 */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -516,7 +516,7 @@ export default function Dashboard() {
                   <CartesianGrid />
                   <XAxis dataKey="actual" name="実際値" />
                   <YAxis dataKey="predicted" name="予測値" />
-                  <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                  <Tooltip cursor={{ strokeDasharray: "3 3" }} />
                   <Scatter name="予測ポイント" data={predictions.slice(0, 50)} fill="#8884d8" />
                 </ScatterChart>
               </ResponsiveContainer>
@@ -624,7 +624,7 @@ export default function Dashboard() {
                   特徴量選択
                 </label>
                 <div className="space-y-2">
-                  {['SMA_5', 'SMA_10', 'SMA_25', 'SMA_50', 'RSI', 'MACD', 'ボリンジャーバンド'].map(feature => (
+                  {["SMA_5", "SMA_10", "SMA_25", "SMA_50", "RSI", "MACD", "ボリンジャーバンド"].map(feature => (
                     <label key={feature} className="flex items-center">
                       <input
                         type="checkbox"
@@ -647,7 +647,7 @@ export default function Dashboard() {
                 <button
                   onClick={() => {
                     // 設定保存のロジック
-                    setShowSettingsModal(false)
+                    setShowSettingsModal(false);
                   }}
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                 >
@@ -659,5 +659,5 @@ export default function Dashboard() {
         </div>
       )}
     </div>
-  )
+  );
 }

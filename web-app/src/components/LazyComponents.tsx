@@ -1,5 +1,5 @@
 // 動的インポートは必要に応じて追加
-// import dynamic from 'next/dynamic'
+// import dynamic from "next/dynamic"
 
 // ローディングコンポーネント
 export const LoadingSpinner = () => (
@@ -7,7 +7,7 @@ export const LoadingSpinner = () => (
     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
     <span className="ml-2 text-gray-600">読み込み中...</span>
   </div>
-)
+);
 
 // エラーフォールバックコンポーネント
 export const ErrorFallback = ({ error, resetError }: { error: Error; resetError: () => void }) => (
@@ -21,4 +21,4 @@ export const ErrorFallback = ({ error, resetError }: { error: Error; resetError:
       再試行
     </button>
   </div>
-)
+);

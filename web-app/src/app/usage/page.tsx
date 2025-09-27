@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Link from 'next/link'
-import Navigation from '../../components/Navigation'
+import { useState } from "react";
+import Link from "next/link";
+import Navigation from "../../components/Navigation";
 import { 
   BookOpen, 
   Play, 
@@ -14,20 +14,20 @@ import {
   CheckCircle, 
   AlertCircle, 
   Info,
-  RefreshCw
-} from 'lucide-react'
+  RefreshCw,
+} from "lucide-react";
 
 export default function UsagePage() {
-  const [activeSection, setActiveSection] = useState('overview')
+  const [activeSection, setActiveSection] = useState("overview");
 
   const sections = [
-    { id: 'overview', label: '概要', icon: BookOpen },
-    { id: 'getting-started', label: 'はじめに', icon: Play },
-    { id: 'dashboard', label: 'ダッシュボード', icon: BarChart3 },
-    { id: 'analysis', label: '分析機能', icon: TrendingUp },
-    { id: 'settings', label: '設定', icon: Settings },
-    { id: 'troubleshooting', label: 'トラブルシューティング', icon: AlertCircle }
-  ]
+    { id: "overview", label: "概要", icon: BookOpen },
+    { id: "getting-started", label: "はじめに", icon: Play },
+    { id: "dashboard", label: "ダッシュボード", icon: BarChart3 },
+    { id: "analysis", label: "分析機能", icon: TrendingUp },
+    { id: "settings", label: "設定", icon: Settings },
+    { id: "troubleshooting", label: "トラブルシューティング", icon: AlertCircle },
+  ];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -60,21 +60,21 @@ export default function UsagePage() {
               <h3 className="text-lg font-medium text-gray-900 mb-4">目次</h3>
               <div className="space-y-2">
                 {sections.map((section) => {
-                  const Icon = section.icon
+                  const Icon = section.icon;
                   return (
                     <button
                       key={section.id}
                       onClick={() => setActiveSection(section.id)}
                       className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
                         activeSection === section.id
-                          ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-500'
-                          : 'text-gray-600 hover:bg-gray-50'
+                          ? "bg-blue-50 text-blue-700 border-l-4 border-blue-500"
+                          : "text-gray-600 hover:bg-gray-50"
                       }`}
                     >
                       <Icon className="h-4 w-4" />
                       <span className="text-sm font-medium">{section.label}</span>
                     </button>
-                  )
+                  );
                 })}
               </div>
             </nav>
@@ -84,7 +84,7 @@ export default function UsagePage() {
           <div className="lg:w-3/4">
             <div className="bg-white rounded-lg shadow">
               {/* 概要セクション */}
-              {activeSection === 'overview' && (
+              {activeSection === "overview" && (
                 <div className="p-8">
                   <div className="mb-8">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">システム概要</h2>
@@ -165,7 +165,7 @@ export default function UsagePage() {
               )}
 
               {/* はじめにセクション */}
-              {activeSection === 'getting-started' && (
+              {activeSection === "getting-started" && (
                 <div className="p-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">はじめに</h2>
                   
@@ -229,7 +229,7 @@ export default function UsagePage() {
               )}
 
               {/* ダッシュボードセクション */}
-              {activeSection === 'dashboard' && (
+              {activeSection === "dashboard" && (
                 <div className="p-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">ダッシュボードの使い方</h2>
                   
@@ -342,7 +342,7 @@ export default function UsagePage() {
               )}
 
               {/* 分析機能セクション */}
-              {activeSection === 'analysis' && (
+              {activeSection === "analysis" && (
                 <div className="p-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">分析機能の詳細</h2>
                   
@@ -438,7 +438,7 @@ export default function UsagePage() {
               )}
 
               {/* 設定セクション */}
-              {activeSection === 'settings' && (
+              {activeSection === "settings" && (
                 <div className="p-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">設定の使い方</h2>
                   
@@ -560,7 +560,7 @@ export default function UsagePage() {
               )}
 
               {/* トラブルシューティングセクション */}
-              {activeSection === 'troubleshooting' && (
+              {activeSection === "troubleshooting" && (
                 <div className="p-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">トラブルシューティング</h2>
                   
@@ -687,5 +687,5 @@ export default function UsagePage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

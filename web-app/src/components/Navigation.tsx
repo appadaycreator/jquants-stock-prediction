@@ -1,45 +1,45 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { 
   BarChart3, 
   TrendingUp, 
   Settings, 
   BookOpen, 
   FileText,
-  Home
-} from 'lucide-react'
+  Home,
+} from "lucide-react";
 
 export default function Navigation() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   const navigationItems = [
     { 
-      href: '/', 
-      label: 'ダッシュボード', 
+      href: "/", 
+      label: "ダッシュボード", 
       icon: Home,
-      description: 'メインダッシュボード'
+      description: "メインダッシュボード",
     },
     { 
-      href: '/reports', 
-      label: 'レポート', 
+      href: "/reports", 
+      label: "レポート", 
       icon: FileText,
-      description: '詳細レポート'
+      description: "詳細レポート",
     },
     { 
-      href: '/settings', 
-      label: '設定', 
+      href: "/settings", 
+      label: "設定", 
       icon: Settings,
-      description: 'システム設定'
+      description: "システム設定",
     },
     { 
-      href: '/usage', 
-      label: '使い方', 
+      href: "/usage", 
+      label: "使い方", 
       icon: BookOpen,
-      description: '使用方法ガイド'
-    }
-  ]
+      description: "使用方法ガイド",
+    },
+  ];
 
   return (
     <nav className="bg-white shadow-sm border-b">
@@ -59,8 +59,8 @@ export default function Navigation() {
           {/* ナビゲーションメニュー */}
           <div className="flex space-x-1">
             {navigationItems.map((item) => {
-              const Icon = item.icon
-              const isActive = pathname === item.href
+              const Icon = item.icon;
+              const isActive = pathname === item.href;
               
               return (
                 <Link
@@ -68,19 +68,19 @@ export default function Navigation() {
                   href={item.href}
                   className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive
-                      ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                      ? "bg-blue-50 text-blue-700 border border-blue-200"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   }`}
                   title={item.description}
                 >
                   <Icon className="h-4 w-4" />
                   <span>{item.label}</span>
                 </Link>
-              )
+              );
             })}
           </div>
         </div>
       </div>
     </nav>
-  )
+  );
 }

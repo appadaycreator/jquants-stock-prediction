@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import Navigation from '../../components/Navigation'
-import { FileText, Download, TrendingUp, BarChart, PieChart, BookOpen } from 'lucide-react'
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Navigation from "../../components/Navigation";
+import { FileText, Download, TrendingUp, BarChart, PieChart, BookOpen } from "lucide-react";
 
 // レポートデータの型定義
 interface ReportData {
@@ -34,23 +34,23 @@ interface ReportData {
     recommendation: string
   }
   risk_assessment: {
-    risk_level: 'Low' | 'Medium' | 'High'
+    risk_level: "Low" | "Medium" | "High"
     factors: string[]
     mitigation: string[]
   }
 }
 
 export default function ReportsPage() {
-  const [reportData, setReportData] = useState<ReportData | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [selectedPeriod, setSelectedPeriod] = useState('2024-Q1')
+  const [reportData, setReportData] = useState<ReportData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedPeriod, setSelectedPeriod] = useState("2024-Q1");
 
   useEffect(() => {
-    generateReport()
-  }, [selectedPeriod]) // eslint-disable-line react-hooks/exhaustive-deps
+    generateReport();
+  }, [selectedPeriod]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const generateReport = async () => {
-    setLoading(true)
+    setLoading(true);
     
     // 模擬レポートデータ生成
     const mockReport: ReportData = {
@@ -58,81 +58,81 @@ export default function ReportsPage() {
         period: selectedPeriod,
         total_predictions: 91,
         accuracy: 98.76,
-        best_model: 'XGBoost',
-        roi_estimate: 15.3
+        best_model: "XGBoost",
+        roi_estimate: 15.3,
       },
       model_performance: [
         {
-          model_name: 'XGBoost',
+          model_name: "XGBoost",
           metrics: {
             mae: 72.49,
             rmse: 100.80,
             r2: 0.9876,
-            mape: 2.1
+            mape: 2.1,
           },
           feature_importance: [
-            { feature: 'Close_1d_ago', importance: 47.59 },
-            { feature: 'SMA_10', importance: 24.72 },
-            { feature: 'SMA_5', importance: 22.93 },
-            { feature: 'Close_5d_ago', importance: 1.98 }
-          ]
+            { feature: "Close_1d_ago", importance: 47.59 },
+            { feature: "SMA_10", importance: 24.72 },
+            { feature: "SMA_5", importance: 22.93 },
+            { feature: "Close_5d_ago", importance: 1.98 },
+          ],
         },
         {
-          model_name: 'Random Forest',
+          model_name: "Random Forest",
           metrics: {
             mae: 76.61,
             rmse: 101.76,
             r2: 0.9873,
-            mape: 2.4
+            mape: 2.4,
           },
           feature_importance: [
-            { feature: 'Close_1d_ago', importance: 84.09 },
-            { feature: 'SMA_5', importance: 13.48 },
-            { feature: 'Close_5d_ago', importance: 1.28 },
-            { feature: 'SMA_50', importance: 0.55 }
-          ]
-        }
+            { feature: "Close_1d_ago", importance: 84.09 },
+            { feature: "SMA_5", importance: 13.48 },
+            { feature: "Close_5d_ago", importance: 1.28 },
+            { feature: "SMA_50", importance: 0.55 },
+          ],
+        },
       ],
       market_insights: {
-        trend_analysis: 'データ期間中、全体的に上昇トレンドを示しており、特に2024年2月以降に顕著な成長が見られました。',
-        volatility_analysis: 'ボラティリティは比較的安定しており、標準偏差は約15%で推移しています。',
-        volume_analysis: '取引量は平均的な水準を維持しており、特異な急騰や急落は観測されていません。',
-        recommendation: '現在の予測モデルは高い精度を示しており、継続的な監視の下での投資判断に活用可能です。'
+        trend_analysis: "データ期間中、全体的に上昇トレンドを示しており、特に2024年2月以降に顕著な成長が見られました。",
+        volatility_analysis: "ボラティリティは比較的安定しており、標準偏差は約15%で推移しています。",
+        volume_analysis: "取引量は平均的な水準を維持しており、特異な急騰や急落は観測されていません。",
+        recommendation: "現在の予測モデルは高い精度を示しており、継続的な監視の下での投資判断に活用可能です。",
       },
       risk_assessment: {
-        risk_level: 'Medium',
+        risk_level: "Medium",
         factors: [
-          '市場の外的要因（政治・経済情勢）',
-          'モデルの過学習リスク',
-          '予期しない市場変動'
+          "市場の外的要因（政治・経済情勢）",
+          "モデルの過学習リスク",
+          "予期しない市場変動",
         ],
         mitigation: [
-          '複数モデルによるアンサンブル予測',
-          '定期的なモデル再トレーニング',
-          'リスク管理指標の監視'
-        ]
-      }
-    }
+          "複数モデルによるアンサンブル予測",
+          "定期的なモデル再トレーニング",
+          "リスク管理指標の監視",
+        ],
+      },
+    };
 
     setTimeout(() => {
-      setReportData(mockReport)
-      setLoading(false)
-    }, 1000)
-  }
+      setReportData(mockReport);
+      setLoading(false);
+    }, 1000);
+  };
 
   const exportReport = () => {
     // 実際の実装では、レポートをPDFやExcelとしてエクスポートする機能
-    const data = JSON.stringify(reportData, null, 2)
-    const blob = new Blob([data], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `stock_prediction_report_${selectedPeriod}.json`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-  }
+    const data = JSON.stringify(reportData, null, 2);
+    const blob = new Blob([data], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `stock_prediction_report_${selectedPeriod}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   if (loading) {
     return (
@@ -142,7 +142,7 @@ export default function ReportsPage() {
           <p className="mt-4 text-gray-600">レポートを生成中...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -301,9 +301,9 @@ export default function ReportsPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="text-center">
                   <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                    reportData.risk_assessment.risk_level === 'Low' ? 'bg-green-100 text-green-800' :
-                    reportData.risk_assessment.risk_level === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-red-100 text-red-800'
+                    reportData.risk_assessment.risk_level === "Low" ? "bg-green-100 text-green-800" :
+                    reportData.risk_assessment.risk_level === "Medium" ? "bg-yellow-100 text-yellow-800" :
+                    "bg-red-100 text-red-800"
                   }`}>
                     リスクレベル: {reportData.risk_assessment.risk_level}
                   </div>
@@ -348,5 +348,5 @@ export default function ReportsPage() {
         )}
       </main>
     </div>
-  )
+  );
 }

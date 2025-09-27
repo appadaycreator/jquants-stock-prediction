@@ -237,8 +237,8 @@ def _run_legacy_fallback():
 
     print("\n✅ レガシー予測完了!")
     print(f"   モデル: {best_model_name}")
-    print(f"   MAE: {metrics['mae']:.4f}")
-    print(f"   R²: {metrics['r2']:.4f}")
+    print(f"   MAE: {metrics["mae"]:.4f}")
+    print(f"   R²: {metrics["r2"]:.4f}")
     print(f"   出力画像: {output_image}")
     if compare_models:
         comparison_csv = prediction_config.get(

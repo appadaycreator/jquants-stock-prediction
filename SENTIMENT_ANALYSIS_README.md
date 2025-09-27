@@ -16,6 +16,12 @@
 4. **自動リスク管理**: 感情分析に基づく動的リスク管理
 5. **パフォーマンス最適化**: 月間5-15%利益向上のための最適化
 
+### 🆕 新機能（拡張版）
+6. **リアルタイム感情指標**: リアルタイム感情スコアの生成と監視
+7. **動的リスク調整**: 感情分析に基づく動的リスクパラメータ調整
+8. **感情トレンド予測**: 機械学習による感情トレンドの予測
+9. **統合監視システム**: 全機能を統合した監視・分析システム
+
 ## 📁 ファイル構成
 
 ### コアシステム
@@ -23,6 +29,12 @@
 - `enhanced_sentiment_trading.py` - 拡張感情分析トレーディングシステム
 - `integrated_sentiment_system.py` - 統合感情分析システム
 - `sentiment_config.yaml` - 感情分析専用設定ファイル
+
+### 🆕 新機能システム
+- `realtime_sentiment_metrics.py` - リアルタイム感情指標生成システム
+- `dynamic_risk_adjustment.py` - 動的リスク調整システム
+- `sentiment_trend_prediction.py` - 感情トレンド予測システム
+- `integrated_sentiment_enhancement.py` - 統合拡張システム
 
 ### 依存関係
 - `requirements_sentiment.txt` - 感情分析用追加依存関係

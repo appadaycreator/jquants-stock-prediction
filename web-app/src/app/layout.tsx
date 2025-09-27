@@ -1,28 +1,28 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'J-Quants株価予測システム',
-  description: 'J-Quants APIを使用した株価予測システム',
-  keywords: ['株価', '予測', 'J-Quants', '機械学習', 'データ分析'],
-  authors: [{ name: 'J-Quants Stock Prediction Team' }],
-  viewport: 'width=device-width, initial-scale=1',
-  robots: 'index, follow',
+  title: "J-Quants株価予測システム",
+  description: "J-Quants APIを使用した株価予測システム",
+  keywords: ["株価", "予測", "J-Quants", "機械学習", "データ分析"],
+  authors: [{ name: "J-Quants Stock Prediction Team" }],
+  viewport: "width=device-width, initial-scale=1",
+  robots: "index, follow",
   openGraph: {
-    title: 'J-Quants株価予測システム',
-    description: 'J-Quants APIを使用した株価予測システム',
-    type: 'website',
-    locale: 'ja_JP',
+    title: "J-Quants株価予測システム",
+    description: "J-Quants APIを使用した株価予測システム",
+    type: "website",
+    locale: "ja_JP",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'J-Quants株価予測システム',
-    description: 'J-Quants APIを使用した株価予測システム',
+    card: "summary_large_image",
+    title: "J-Quants株価予測システム",
+    description: "J-Quants APIを使用した株価予測システム",
   },
-}
+};
 
 export default function RootLayout({
   children,
@@ -44,5 +44,5 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-  )
+  );
 }

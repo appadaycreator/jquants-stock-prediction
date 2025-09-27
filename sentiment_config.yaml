@@ -1,5 +1,6 @@
-# 感情分析・ニュース統合システム設定ファイル
+# 感情分析・ニュース統合システム設定ファイル（拡張版）
 # 月間5-15%利益向上を目指す設定
+# 新機能: リアルタイム感情指標、動的リスク調整、感情トレンド予測
 
 # API設定
 api_keys:
@@ -123,3 +124,82 @@ monitoring:
   performance_alert_threshold: 0.05
   error_alert_threshold: 10
   api_rate_limit_buffer: 0.8
+
+# 新機能設定
+# リアルタイム感情指標設定
+realtime_metrics:
+  enabled: true
+  update_interval: 60  # 秒
+  metrics_window: 1000  # 保持する指標数
+  alert_thresholds:
+    critical: 0.9
+    high: 0.7
+    medium: 0.5
+    low: 0.3
+  visualization:
+    enabled: true
+    save_path: "realtime_metrics_charts"
+    update_frequency: 300  # 5分
+
+# 動的リスク調整設定
+dynamic_risk_adjustment:
+  enabled: true
+  adjustment_frequency: 300  # 5分
+  sentiment_weights:
+    news: 0.4
+    social: 0.3
+    technical: 0.2
+    market: 0.1
+  adjustment_factors:
+    positive_sentiment:
+      position_size: 1.2
+      stop_loss: 0.8
+      take_profit: 1.3
+      leverage: 1.1
+    negative_sentiment:
+      position_size: 0.6
+      stop_loss: 1.3
+      take_profit: 0.7
+      leverage: 0.8
+    neutral_sentiment:
+      position_size: 1.0
+      stop_loss: 1.0
+      take_profit: 1.0
+      leverage: 1.0
+
+# 感情トレンド予測設定
+sentiment_trend_prediction:
+  enabled: true
+  prediction_horizons: [5, 15, 30, 60]  # 分
+  feature_window: 20
+  min_history_length: 50
+  models:
+    linear_regression:
+      enabled: true
+      retrain_frequency: 1440  # 24時間
+    random_forest:
+      enabled: true
+      n_estimators: 100
+      max_depth: 10
+      retrain_frequency: 1440
+  pattern_detection:
+    enabled: true
+    uptrend_threshold: 0.01
+    downtrend_threshold: -0.01
+    sideways_threshold: 0.1
+    volatility_increase_threshold: 1.5
+
+# 統合システム設定
+integrated_system:
+  enabled: true
+  analysis_frequency: 300  # 5分
+  continuous_monitoring: true
+  performance_tracking: true
+  report_generation:
+    enabled: true
+    frequency: 3600  # 1時間
+    save_path: "system_reports"
+  system_health:
+    max_processing_time: 30  # 秒
+    min_accuracy_threshold: 0.6
+    min_reliability_threshold: 0.7

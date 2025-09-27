@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
+import { useEffect } from "react";
 
 export default function Error({
   error,
@@ -11,8 +11,8 @@ export default function Error({
 }) {
   useEffect(() => {
     // エラーログをコンソールに出力
-    console.error('RSC Error:', error)
-  }, [error])
+    console.error("RSC Error:", error);
+  }, [error]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -37,7 +37,7 @@ export default function Error({
               再試行
             </button>
             <button
-              onClick={() => window.location.href = '/'}
+              onClick={() => window.location.href = "/"}
               className="w-full bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors"
             >
               ホームに戻る
@@ -46,5 +46,5 @@ export default function Error({
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -336,7 +336,7 @@ class NewsAnalyzer:
         for article in articles:
             try:
                 # 記事の内容を結合
-                content = f"{article.get('title', '')} {article.get('description', '')}"
+                content = f"{article.get("title", "")} {article.get("description", "")}"
 
                 if not content.strip():
                     continue
@@ -686,26 +686,26 @@ async def main():
 
     # 結果の表示
     print("=== 感情分析・ニュース統合システム ===")
-    print(f"実行時刻: {signals.get('timestamp', 'N/A')}")
+    print(f"実行時刻: {signals.get("timestamp", "N/A")}")
     print(
-        f"統合感情スコア: {signals.get('overall_sentiment', {}).get('score', 0.0):.3f}"
+        f"統合感情スコア: {signals.get("overall_sentiment", {}).get("score", 0.0):.3f}"
     )
-    print(f"感情タイプ: {signals.get('overall_sentiment', {}).get('type', 'N/A')}")
-    print(f"信頼度: {signals.get('overall_sentiment', {}).get('confidence', 0.0):.3f}")
+    print(f"感情タイプ: {signals.get("overall_sentiment", {}).get("type", "N/A")}")
+    print(f"信頼度: {signals.get("overall_sentiment", {}).get("confidence", 0.0):.3f}")
 
     print("\n=== トレーディングシグナル ===")
     for symbol, signal_data in signals.get("trading_signals", {}).items():
         print(
-            f"{symbol}: {signal_data['signal']} (強度: {signal_data['strength']:.3f})"
+            f"{symbol}: {signal_data["signal"]} (強度: {signal_data["strength"]:.3f})"
         )
 
     # 感情分析サマリーの表示
     summary = sentiment_system.get_sentiment_summary()
     print("\n=== 感情分析サマリー ===")
-    print(f"24時間平均感情スコア: {summary.get('average_sentiment_24h', 0.0):.3f}")
-    print(f"感情トレンド: {summary.get('sentiment_trend', 'N/A')}")
-    print(f"ポジティブ比率: {summary.get('positive_ratio', 0.0):.3f}")
-    print(f"ネガティブ比率: {summary.get('negative_ratio', 0.0):.3f}")
+    print(f"24時間平均感情スコア: {summary.get("average_sentiment_24h", 0.0):.3f}")
+    print(f"感情トレンド: {summary.get("sentiment_trend", "N/A")}")
+    print(f"ポジティブ比率: {summary.get("positive_ratio", 0.0):.3f}")
+    print(f"ネガティブ比率: {summary.get("negative_ratio", 0.0):.3f}")
 
 
 if __name__ == "__main__":

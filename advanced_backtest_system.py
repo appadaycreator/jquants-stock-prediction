@@ -68,7 +68,7 @@ class Trade:
     entry_price: float
     exit_price: Optional[float]
     quantity: int
-    side: str  # 'long' or 'short'
+    side: str  # "long" or "short"
     pnl: Optional[float] = None
     commission: float = 0.0
     strategy_name: str = ""

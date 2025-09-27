@@ -1,0 +1,154 @@
+# 高頻度取引システム設定ファイル
+# High Frequency Trading System Configuration
+
+# 基本設定
+general:
+  name: "J-Quants HFT System"
+  version: "1.0.0"
+  environment: "production"  # development, staging, production
+
+# レイテンシー設定
+latency:
+  threshold: 0.001  # 1ms (秒)
+  max_execution_time: 0.005  # 5ms (秒)
+  network_timeout: 0.1  # 100ms (秒)
+  heartbeat_interval: 0.01  # 10ms (秒)
+
+# 利益設定
+profit:
+  threshold: 0.001  # 0.1% (最小利益率)
+  target_spread: 0.002  # 0.2% (目標スプレッド)
+  max_profit_per_trade: 1000.0  # 最大利益（ドル）
+  min_volume: 100  # 最小取引量
+
+# リスク管理
+risk:
+  max_position_size: 1000000  # 最大ポジションサイズ（ドル）
+  risk_limit: 0.02  # 2% (リスク制限)
+  max_daily_loss: 10000.0  # 最大日次損失（ドル）
+  stop_loss_percentage: 0.05  # 5% (ストップロス)
+  max_concurrent_trades: 10  # 最大同時取引数
+
+# 取引所設定
+exchanges:
+  primary:
+    - name: "Binance"
+      api_key: "${BINANCE_API_KEY}"
+      secret_key: "${BINANCE_SECRET_KEY}"
+      base_url: "https://api.binance.com"
+      rate_limit: 1200  # リクエスト/分
+      enabled: true
+    
+    - name: "Coinbase"
+      api_key: "${COINBASE_API_KEY}"
+      secret_key: "${COINBASE_SECRET_KEY}"
+      base_url: "https://api.coinbase.com"
+      rate_limit: 1000  # リクエスト/分
+      enabled: true
+    
+    - name: "Kraken"
+      api_key: "${KRAKEN_API_KEY}"
+      secret_key: "${KRAKEN_SECRET_KEY}"
+      base_url: "https://api.kraken.com"
+      rate_limit: 1000  # リクエスト/分
+      enabled: true
+
+# 監視対象シンボル
+symbols:
+  crypto:
+    - "BTC/USDT"
+    - "ETH/USDT"
+    - "XRP/USDT"
+    - "ADA/USDT"
+    - "DOT/USDT"
+  
+  stocks:
+    - "AAPL"
+    - "GOOGL"
+    - "MSFT"
+    - "TSLA"
+    - "AMZN"
+
+# データソース設定
+data_sources:
+  market_data:
+    type: "websocket"  # websocket, rest_api, file
+    url: "wss://stream.binance.com:9443/ws/btcusdt@ticker"
+    reconnect_interval: 5  # 秒
+    buffer_size: 1000
+  
+  price_feeds:
+    - provider: "Binance"
+      symbols: ["BTC/USDT", "ETH/USDT"]
+      update_frequency: 0.001  # 1ms
+    
+    - provider: "Coinbase"
+      symbols: ["BTC/USD", "ETH/USD"]
+      update_frequency: 0.001  # 1ms
+
+# ログ設定
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "logs/hft.log"
+  max_size: "10MB"
+  backup_count: 5
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# 監視・アラート設定
+monitoring:
+  health_check_interval: 1.0  # 秒
+  performance_metrics:
+    - "execution_time"
+    - "profit_loss"
+    - "trade_count"
+    - "error_rate"
+  
+  alerts:
+    - type: "email"
+      recipients: ["admin@example.com"]
+      conditions:
+        - "execution_time > 0.01"  # 10ms
+        - "profit_loss < -1000"  # 損失1000ドル
+        - "error_rate > 0.05"  # エラー率5%
+    
+    - type: "slack"
+      webhook_url: "${SLACK_WEBHOOK_URL}"
+      channel: "#trading-alerts"
+
+# データベース設定
+database:
+  type: "sqlite"  # sqlite, postgresql, mysql
+  path: "data/hft.db"
+  backup_interval: 3600  # 秒
+  max_connections: 10
+
+# セキュリティ設定
+security:
+  api_key_rotation_days: 30
+  max_failed_attempts: 5
+  lockout_duration: 300  # 秒
+  encryption_key: "${ENCRYPTION_KEY}"
+
+# パフォーマンス設定
+performance:
+  max_workers: 4
+  queue_size: 1000
+  batch_size: 100
+  cache_ttl: 60  # 秒
+  memory_limit: "1GB"
+
+# バックテスト設定
+backtest:
+  enabled: true
+  start_date: "2024-01-01"
+  end_date: "2024-12-31"
+  initial_capital: 100000.0
+  commission: 0.001  # 0.1%
+  slippage: 0.0005  # 0.05%
+
+# 開発・デバッグ設定
+development:
+  debug_mode: false
+  mock_data: false
+  simulation_mode: false
+  test_symbols: ["BTC/USDT", "ETH/USDT"]
