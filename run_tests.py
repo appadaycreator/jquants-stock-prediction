@@ -44,6 +44,7 @@ def main():
     test_types = {
         "unit": "ユニットテスト",
         "integration": "統合テスト",
+        "enhanced": "強化されたテスト（データ前処理・統合テスト）",
         "all": "全テスト",
         "coverage": "カバレッジ付きテスト",
         "lint": "リンターチェック",
@@ -73,6 +74,12 @@ def main():
 
     elif test_type == "integration":
         success = run_command("pytest tests/integration/ -v", "統合テスト実行")
+
+    elif test_type == "enhanced":
+        success = run_command(
+            "pytest tests/unit/test_enhanced_data_preprocessing.py tests/integration/test_enhanced_data_pipeline.py -v",
+            "強化されたテスト実行",
+        )
 
     elif test_type == "all":
         success = run_command(

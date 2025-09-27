@@ -143,9 +143,7 @@ def load_and_clean_data(input_file):
             df["Date"] = pd.to_datetime(df["Date"])
             logger.info("✅ 日付カラムの変換完了")
         except Exception as e:
-            error_handler.handle_data_processing_error(
-                e, "日付カラム変換", df.shape, "Date"
-            )
+            error_handler.handle_data_error(e, "日付カラム変換", df.shape, "Date")
             logger.error(f"❌ 日付カラムの変換エラー: {e}")
             raise
 
@@ -170,7 +168,7 @@ def load_and_clean_data(input_file):
                 try:
                     df[col] = pd.to_numeric(df[col], errors="coerce")
                 except Exception as e:
-                    error_handler.handle_data_processing_error(
+                    error_handler.handle_data_error(
                         e, f"数値カラム変換 ({col})", df.shape, col
                     )
                     logger.warning(f"⚠️ {col}カラムの数値変換でエラー: {e}")

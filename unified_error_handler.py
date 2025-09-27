@@ -148,9 +148,7 @@ class UnifiedErrorHandler:
 
         sanitized = message
         for pattern in sensitive_patterns:
-            sanitized = re.sub(
-                pattern, r"\1***MASKED***", sanitized, flags=re.IGNORECASE
-            )
+            sanitized = re.sub(pattern, "***MASKED***", sanitized, flags=re.IGNORECASE)
         return sanitized
 
     def _mask_sensitive_data(self, data: Dict[str, Any]) -> Dict[str, Any]:
