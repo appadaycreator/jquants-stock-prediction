@@ -239,24 +239,24 @@ plt.tight_layout()
 plt.savefig(output_image, dpi=300, bbox_inches="tight")
 plt.show()
 
-    print(f"\n✅ レガシー予測完了!")
-    print(f"   モデル: {best_model_name}")
-    print(f"   MAE: {metrics['mae']:.4f}")
-    print(f"   R²: {metrics['r2']:.4f}")
-    print(f"   出力画像: {output_image}")
-    if compare_models:
-        print(
-            f"   比較結果: {prediction_config.get('comparison_csv', 'model_comparison_results.csv')}"
-        )
-    
-    print("\n💡 統合システム (unified_system.py) の使用を推奨します")
-    return {
-        "model_name": best_model_name,
-        "mae": metrics['mae'],
-        "rmse": metrics['rmse'],
-        "r2": metrics['r2'],
-        "output_image": output_image
-    }
+print(f"\n✅ レガシー予測完了!")
+print(f"   モデル: {best_model_name}")
+print(f"   MAE: {metrics['mae']:.4f}")
+print(f"   R²: {metrics['r2']:.4f}")
+print(f"   出力画像: {output_image}")
+if compare_models:
+    print(
+        f"   比較結果: {prediction_config.get('comparison_csv', 'model_comparison_results.csv')}"
+    )
+
+print("\n💡 統合システム (unified_system.py) の使用を推奨します")
+return {
+    "model_name": best_model_name,
+    "mae": metrics['mae'],
+    "rmse": metrics['rmse'],
+    "r2": metrics['r2'],
+    "output_image": output_image
+}
 
 # メイン実行（統合システムへの移行を推奨）
 if __name__ == "__main__":
