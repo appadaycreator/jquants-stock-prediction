@@ -710,7 +710,9 @@ class TestUnifiedSystemAdvanced:
         system = UnifiedSystem()
 
         # エラー復旧の試行
-        system._attempt_error_recovery(Exception("Recovery test"), ErrorCategory.DATA_PROCESSING_ERROR)
+        system._attempt_error_recovery(
+            Exception("Recovery test"), ErrorCategory.DATA_PROCESSING_ERROR
+        )
 
         # 例外が発生しないことを確認
         assert True
