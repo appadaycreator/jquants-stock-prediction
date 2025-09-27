@@ -28,7 +28,7 @@ from scipy import stats
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import ParameterGrid
-import talib
+import pandas_ta as ta
 
 # 既存システムのインポート
 from advanced_backtest_system import (
@@ -465,11 +465,11 @@ class TechnicalOptimizer:
         indicators = {}
         
         # SMA
-        indicators['sma_short'] = talib.SMA(data['Close'], timeperiod=params['sma_short'])
-        indicators['sma_long'] = talib.SMA(data['Close'], timeperiod=params['sma_long'])
+        indicators['sma_short'] = ta.sma(data['Close'], length=params['sma_short'])
+        indicators['sma_long'] = ta.sma(data['Close'], length=params['sma_long'])
         
         # RSI
-        indicators['rsi'] = talib.RSI(data['Close'], timeperiod=params['rsi_period'])
+        indicators['rsi'] = ta.rsi(data['Close'], length=params['rsi_period'])
         
         # MACD
         macd, macd_signal, macd_hist = talib.MACD(
