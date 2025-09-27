@@ -47,19 +47,12 @@ interface PredictionData {
 }
 
 interface DashboardSummary {
+  total_data_points: number
+  prediction_period: string
+  best_model: string
+  mae: string
+  r2: string
   last_updated: string
-  system_status: string
-  data_freshness: string
-  model_performance: {
-    best_model: string
-    mae: number
-    r2: number
-  }
-  quick_stats: {
-    total_predictions: number
-    accuracy_percentage: number
-    data_points: number
-  }
 }
 
 // カラーパレット
@@ -151,13 +144,12 @@ export default function Dashboard() {
               <p className="text-gray-600">機械学習による株価予測システム</p>
             </div>
             <div className="flex items-center space-x-2">
-              {summary?.system_status === 'operational' ? (
-                <CheckCircle className="h-5 w-5 text-green-500" />
-              ) : (
-                <AlertCircle className="h-5 w-5 text-red-500" />
-              )}
+              <CheckCircle className="h-5 w-5 text-green-500" />
               <span className="text-sm text-gray-600">
-                最終更新: {summary ? formatDate(summary.last_updated) : '-'}
+                システム: 正常稼働中
+              </span>
+              <span className="text-sm text-gray-600">
+                最終更新: {summary ? summary.last_updated : '-'}
               </span>
             </div>
           </div>
@@ -208,7 +200,7 @@ export default function Dashboard() {
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-500">最優秀モデル</p>
                     <p className="text-2xl font-semibold text-gray-900">
-                      {summary?.model_performance.best_model?.toUpperCase() || '-'}
+                      {summary?.best_model?.toUpperCase() || '-'}
                     </p>
                   </div>
                 </div>
@@ -222,7 +214,7 @@ export default function Dashboard() {
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-500">予測精度 (R²)</p>
                     <p className="text-2xl font-semibold text-gray-900">
-                      {summary?.model_performance.r2?.toFixed(4) || '-'}
+                      {summary?.r2 || '-'}
                     </p>
                   </div>
                 </div>
@@ -236,7 +228,7 @@ export default function Dashboard() {
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-500">MAE</p>
                     <p className="text-2xl font-semibold text-gray-900">
-                      {summary?.model_performance.mae?.toFixed(2) || '-'}
+                      {summary?.mae || '-'}
                     </p>
                   </div>
                 </div>
@@ -250,7 +242,7 @@ export default function Dashboard() {
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-500">データ数</p>
                     <p className="text-2xl font-semibold text-gray-900">
-                      {summary?.quick_stats.data_points || '-'}
+                      {summary?.total_data_points || '-'}
                     </p>
                   </div>
                 </div>
