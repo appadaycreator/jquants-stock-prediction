@@ -21,14 +21,15 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     
-    - name: キャッシュの設定
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ matrix.python-version }}
-        restore-keys: |
-          ${{ runner.os }}-pip-${{ matrix.python-version }}-
-          ${{ runner.os }}-pip-
+    # キャッシュを一時的に無効化（Python 3.12移行のため）
+    # - name: キャッシュの設定
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: ~/.cache/pip
+    #     key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-${{ matrix.python-version }}-v2
+    #     restore-keys: |
+    #       ${{ runner.os }}-pip-${{ matrix.python-version }}-
+    #       ${{ runner.os }}-pip-
     
     - name: 依存関係のインストール
       run: |
