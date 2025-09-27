@@ -15,7 +15,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
 } from "recharts";
-import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X } from "lucide-react";
+import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User } from "lucide-react";
 
 // 型定義
 interface StockData {
@@ -381,6 +381,7 @@ export default function Dashboard() {
               { id: "analysis", label: "分析", icon: Database },
               { id: "signals", label: "シグナル", icon: TrendingUp },
               { id: "risk", label: "リスク管理", icon: Shield },
+              { id: "personal", label: "個人投資", icon: User },
             ].map((tab) => {
               const Icon = tab.icon;
               return (
@@ -670,6 +671,111 @@ export default function Dashboard() {
               autoRefresh={true}
               refreshInterval={30000}
             />
+          </div>
+        )}
+
+        {activeTab === "personal" && (
+          <div className="space-y-6">
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">💰 個人投資ダッシュボード</h2>
+                  <p className="text-gray-600 mt-2">投資判断に直結する情報の優先表示、損益状況の一目瞭然な表示</p>
+                </div>
+                <Link
+                  href="/personal-investment"
+                  className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  <User className="h-4 w-4 mr-2" />
+                  詳細ダッシュボード
+                </Link>
+              </div>
+              
+              {/* 個人投資概要カード */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                <div className="bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-green-800">総投資額</h3>
+                      <p className="text-2xl font-bold text-green-600">¥1,000,000</p>
+                    </div>
+                    <DollarSign className="h-8 w-8 text-green-500" />
+                  </div>
+                  <p className="text-sm text-green-600 mt-2">現在価値: ¥1,050,000</p>
+                </div>
+                
+                <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-blue-800">未実現損益</h3>
+                      <p className="text-2xl font-bold text-blue-600">+¥50,000</p>
+                    </div>
+                    <TrendingUp className="h-8 w-8 text-blue-500" />
+                  </div>
+                  <p className="text-sm text-blue-600 mt-2">+5.0%</p>
+                </div>
+                
+                <div className="bg-gradient-to-r from-purple-50 to-purple-100 border border-purple-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-purple-800">推奨アクション</h3>
+                      <p className="text-lg font-bold text-purple-600">BUY</p>
+                    </div>
+                    <Target className="h-8 w-8 text-purple-500" />
+                  </div>
+                  <p className="text-sm text-purple-600 mt-2">信頼度: 85%</p>
+                </div>
+                
+                <div className="bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-orange-800">リスクレベル</h3>
+                      <p className="text-lg font-bold text-orange-600">MEDIUM</p>
+                    </div>
+                    <Shield className="h-8 w-8 text-orange-500" />
+                  </div>
+                  <p className="text-sm text-orange-600 mt-2">リスク調整後リターン: 0.75</p>
+                </div>
+              </div>
+              
+              {/* ポジション一覧 */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-gray-900">主要ポジション</h3>
+                <div className="grid gap-4">
+                  {[
+                    { symbol: "7203.T", name: "トヨタ自動車", price: 2500, change: 2.5, action: "BUY", confidence: 85 },
+                    { symbol: "6758.T", name: "ソニーグループ", price: 12000, change: -1.2, action: "HOLD", confidence: 70 },
+                    { symbol: "6861.T", name: "キーエンス", price: 5000, change: 3.8, action: "STRONG_BUY", confidence: 90 }
+                  ].map((stock) => (
+                    <div key={stock.symbol} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                      <div className="flex items-center space-x-4">
+                        <div>
+                          <h4 className="font-semibold text-gray-900">{stock.symbol}</h4>
+                          <p className="text-sm text-gray-600">{stock.name}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold">¥{stock.price.toLocaleString()}</p>
+                          <p className={`text-sm ${stock.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                            {stock.change >= 0 ? '+' : ''}{stock.change}%
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className={`px-2 py-1 rounded text-xs font-medium ${
+                          stock.action === 'STRONG_BUY' ? 'bg-green-100 text-green-800' :
+                          stock.action === 'BUY' ? 'bg-blue-100 text-blue-800' :
+                          stock.action === 'HOLD' ? 'bg-gray-100 text-gray-800' :
+                          'bg-red-100 text-red-800'
+                        }`}>
+                          {stock.action}
+                        </span>
+                        <span className="text-sm text-gray-600">{stock.confidence}%</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         )}
 

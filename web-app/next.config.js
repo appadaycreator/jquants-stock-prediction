@@ -74,6 +74,12 @@ const nextConfig = {
       '@/components': require('path').resolve(__dirname, 'src/components'),
     };
     
+    // モジュール解決の設定を追加
+    config.resolve.modules = [
+      ...(config.resolve.modules || []),
+      require('path').resolve(__dirname, 'src'),
+    ];
+    
     // バンドルサイズの最適化
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
