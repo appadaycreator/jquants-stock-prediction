@@ -42,13 +42,16 @@ class UnifiedJQuantsSystem:
         # 環境変数の読み込み
         load_dotenv()
 
-        # 設定の読み込み
+        # 統合設定の読み込み
         try:
-            config = get_config()
-            self.jquants_config = config.get_jquants_config()
-            self.data_fetch_config = config.get_data_fetch_config()
-            self.preprocessing_config = config.get_preprocessing_config()
-            self.prediction_config = config.get_prediction_config()
+            self.config_loader = get_unified_config()
+            self.jquants_config = self.config_loader.get_jquants_config()
+            self.data_fetch_config = self.config_loader.get_data_fetch_config()
+            self.preprocessing_config = self.config_loader.get_preprocessing_config()
+            self.prediction_config = self.config_loader.get_prediction_config()
+
+            # グローバルログ設定の適用
+            configure_global_logging(self.config_loader.config)
         except Exception as e:
             self.logger.error(f"設定読み込みエラー: {e}")
             raise
@@ -82,9 +85,9 @@ class UnifiedJQuantsSystem:
         # 日本語フォント設定
         setup_japanese_font()
 
-        # 強化されたログ設定
-        self.enhanced_logger = setup_enhanced_logging(
-            "UnifiedJQuantsSystem", LogLevel.INFO
+        # 統合エラーハンドリング・ログシステムの初期化
+        self.error_logger = get_unified_error_logging_system(
+            "UnifiedJQuantsSystem", self.config_loader.config
         )
 
         self.logger.info("✅ 統合J-Quantsシステム初期化完了")
@@ -196,18 +199,8 @@ class UnifiedJQuantsSystem:
         url: str,
         status_code: int = None,
     ):
-        """APIエラーの処理"""
-        error_context = f"{api_name} API エラー"
-        if status_code:
-            error_context += f" (HTTP {status_code})"
-
-        additional_info = {
-            "api_name": api_name,
-            "url": url,
-            "status_code": status_code,
-        }
-
-        self._log_error(error, error_context, additional_info)
+        """APIエラーの処理（統合システム使用）"""
+        self.error_logger.handle_api_error(error, api_name, url, status_code)
 
     def _handle_file_error(
         self,
@@ -215,14 +208,8 @@ class UnifiedJQuantsSystem:
         file_path: str,
         operation: str,
     ):
-        """ファイルエラーの処理"""
-        error_context = f"ファイル{operation}エラー"
-        additional_info = {
-            "file_path": file_path,
-            "operation": operation,
-        }
-
-        self._log_error(error, error_context, additional_info)
+        """ファイルエラーの処理（統合システム使用）"""
+        self.error_logger.handle_file_error(error, file_path, operation)
 
     def get_refresh_token(self) -> str:
         """リフレッシュトークンの取得"""

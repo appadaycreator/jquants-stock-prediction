@@ -27,9 +27,7 @@ const nextConfig = {
   
   // 実験的機能の設定
   experimental: {
-    optimizePackageImports: ['lucide-react', 'recharts'],
-    // バンドルサイズの最適化
-    optimizeCss: true
+    optimizePackageImports: ['lucide-react', 'recharts']
   },
   
   // サーバー外部パッケージの設定（experimentalから移動）
@@ -60,28 +58,28 @@ const nextConfig = {
     return config
   },
   
-  // ヘッダー設定
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY'
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block'
-          }
-        ]
-      }
-    ]
-  }
+  // ヘッダー設定（output: exportでは使用不可）
+  // async headers() {
+  //   return [
+  //     {
+  //       source: '/(.*)',
+  //       headers: [
+  //         {
+  //           key: 'X-Content-Type-Options',
+  //           value: 'nosniff'
+  //         },
+  //         {
+  //           key: 'X-Frame-Options',
+  //           value: 'DENY'
+  //         },
+  //         {
+  //           key: 'X-XSS-Protection',
+  //           value: '1; mode=block'
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // }
 }
 
 module.exports = nextConfig

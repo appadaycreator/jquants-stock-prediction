@@ -1,34 +1,5 @@
-import dynamic from 'next/dynamic'
-
-// チャートコンポーネントの動的インポート（存在しないため削除）
-// export const LazyChart = dynamic(() => import('./Chart'), {
-//   loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded"></div>,
-//   ssr: false
-// })
-
-// データテーブルの動的インポート
-export const LazyDataTable = dynamic(() => import('./DataTable'), {
-  loading: () => <div className="animate-pulse bg-gray-200 h-32 rounded"></div>,
-  ssr: false
-})
-
-// 予測結果の動的インポート
-export const LazyPredictionResults = dynamic(() => import('./PredictionResults'), {
-  loading: () => <div className="animate-pulse bg-gray-200 h-48 rounded"></div>,
-  ssr: false
-})
-
-// 設定パネルの動的インポート
-export const LazySettingsPanel = dynamic(() => import('./SettingsPanel'), {
-  loading: () => <div className="animate-pulse bg-gray-200 h-32 rounded"></div>,
-  ssr: false
-})
-
-// エラーハンドリングコンポーネント
-export const LazyErrorBoundary = dynamic(() => import('./ErrorBoundary'), {
-  loading: () => <div className="text-red-500">エラーが発生しました</div>,
-  ssr: false
-})
+// 動的インポートは必要に応じて追加
+// import dynamic from 'next/dynamic'
 
 // ローディングコンポーネント
 export const LoadingSpinner = () => (
