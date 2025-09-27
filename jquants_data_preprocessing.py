@@ -11,34 +11,62 @@ import os
 from config_loader import get_config
 from technical_indicators import TechnicalIndicators, get_enhanced_features_list
 from data_validator import DataValidator
+from error_handler import get_error_handler, get_specific_error_handler
 
 # 設定を読み込み
 config = get_config()
 preprocessing_config = config.get_preprocessing_config()
 
-# ログ設定
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+# 強化されたログ設定
+from enhanced_logging import setup_enhanced_logging, LogLevel, LogCategory
+
+enhanced_logger = setup_enhanced_logging("DataPreprocessing", LogLevel.INFO)
+logger = enhanced_logger.get_logger()
 
 def validate_input_file(input_file):
     """入力ファイルの存在とアクセス可能性を検証"""
+    error_handler = get_error_handler("validate_input_file")
+    
     logger.info(f"🔍 入力ファイルの検証: {input_file}")
     
-    if not os.path.exists(input_file):
-        raise FileNotFoundError(f"入力ファイルが見つかりません: {input_file}")
-    
-    if not os.access(input_file, os.R_OK):
-        raise PermissionError(f"入力ファイルの読み取り権限がありません: {input_file}")
-    
-    file_size = os.path.getsize(input_file)
-    if file_size == 0:
-        raise ValueError(f"入力ファイルが空です: {input_file}")
-    
-    logger.info(f"✅ 入力ファイル検証完了: {file_size} bytes")
-    return True
+    try:
+        if not os.path.exists(input_file):
+            error_msg = f"入力ファイルが見つかりません: {input_file}"
+            error_handler.handle_file_error(FileNotFoundError(error_msg), input_file, "read")
+            raise FileNotFoundError(error_msg)
+        
+        if not os.access(input_file, os.R_OK):
+            error_msg = f"入力ファイルの読み取り権限がありません: {input_file}"
+            error_handler.handle_file_error(PermissionError(error_msg), input_file, "read")
+            raise PermissionError(error_msg)
+        
+        file_size = os.path.getsize(input_file)
+        if file_size == 0:
+            error_msg = f"入力ファイルが空です: {input_file}"
+            error_handler.log_error(ValueError(error_msg), "入力ファイル検証エラー", {
+                'file_path': input_file,
+                'file_size': file_size,
+                'file_exists': True,
+                'file_readable': True
+            })
+            raise ValueError(error_msg)
+        
+        logger.info(f"✅ 入力ファイル検証完了: {file_size} bytes")
+        return True
+        
+    except Exception as e:
+        error_handler.log_error(e, "入力ファイル検証エラー", {
+            'file_path': input_file,
+            'file_exists': os.path.exists(input_file) if input_file else False,
+            'file_readable': os.access(input_file, os.R_OK) if input_file and os.path.exists(input_file) else False
+        })
+        raise
 
 def load_and_clean_data(input_file):
     """データの読み込みとクリーニング（堅牢性強化版）"""
+    error_handler = get_error_handler("load_and_clean_data")
+    specific_error_handler = get_specific_error_handler("load_and_clean_data")
+    
     logger.info(f"📁 データを読み込み中: {input_file}")
     
     # 入力ファイルの検証
@@ -48,29 +76,50 @@ def load_and_clean_data(input_file):
         # データの読み込み（エンコーディング自動検出）
         encodings = ['utf-8', 'shift_jis', 'cp932', 'utf-8-sig']
         df = None
+        successful_encoding = None
         
         for encoding in encodings:
             try:
                 df = pd.read_csv(input_file, encoding=encoding)
+                successful_encoding = encoding
                 logger.info(f"✅ データ読み込み成功 (エンコーディング: {encoding})")
                 break
-            except UnicodeDecodeError:
+            except UnicodeDecodeError as e:
+                logger.debug(f"エンコーディング {encoding} でデコード失敗: {e}")
+                continue
+            except Exception as e:
+                error_handler.log_error(e, f"データ読み込みエラー (エンコーディング: {encoding})", {
+                    'encoding': encoding,
+                    'file_path': input_file
+                })
                 continue
         
         if df is None:
-            raise ValueError("ファイルのエンコーディングを特定できませんでした")
+            error_msg = "ファイルのエンコーディングを特定できませんでした"
+            error_handler.log_error(ValueError(error_msg), "エンコーディング検出エラー", {
+                'file_path': input_file,
+                'tried_encodings': encodings
+            })
+            raise ValueError(error_msg)
         
         # データの基本検証
         if df.empty:
-            raise ValueError("データファイルが空です")
+            error_msg = "データファイルが空です"
+            error_handler.log_error(ValueError(error_msg), "データ検証エラー", {
+                'file_path': input_file,
+                'encoding': successful_encoding,
+                'data_shape': df.shape
+            })
+            raise ValueError(error_msg)
         
-        logger.info(f"📊 読み込みデータ形状: {df.shape}")
+        enhanced_logger.log_data_info("読み込みデータ", shape=df.shape)
         
         # データ型の変換（エラーハンドリング付き）
         try:
             df['Date'] = pd.to_datetime(df['Date'])
             logger.info("✅ 日付カラムの変換完了")
         except Exception as e:
+            error_handler.handle_data_processing_error(e, "日付カラム変換", df.shape, "Date")
             logger.error(f"❌ 日付カラムの変換エラー: {e}")
             raise
         
@@ -92,6 +141,7 @@ def load_and_clean_data(input_file):
                 try:
                     df[col] = pd.to_numeric(df[col], errors='coerce')
                 except Exception as e:
+                    error_handler.handle_data_processing_error(e, f"数値カラム変換 ({col})", df.shape, col)
                     logger.warning(f"⚠️ {col}カラムの数値変換でエラー: {e}")
         
         # 欠損値の確認と処理
@@ -141,7 +191,30 @@ def load_and_clean_data(input_file):
         
         return df
         
+    except FileNotFoundError as e:
+        error_handler.handle_file_error(e, input_file, "read")
+        logger.error(f"❌ ファイルが見つかりません: {e}")
+        raise
+        
+    except PermissionError as e:
+        error_handler.handle_file_error(e, input_file, "read")
+        logger.error(f"❌ ファイルアクセス権限エラー: {e}")
+        raise
+        
+    except ValueError as e:
+        error_handler.log_error(e, "データ値エラー", {
+            'file_path': input_file,
+            'data_shape': df.shape if 'df' in locals() and df is not None else None
+        })
+        logger.error(f"❌ データ値エラー: {e}")
+        raise
+        
     except Exception as e:
+        error_handler.log_error(e, "データ読み込みエラー", {
+            'file_path': input_file,
+            'data_shape': df.shape if 'df' in locals() and df is not None else None,
+            'successful_encoding': successful_encoding if 'successful_encoding' in locals() else None
+        })
         logger.error(f"❌ データ読み込みエラー: {e}")
         raise
 
@@ -209,6 +282,8 @@ def engineer_advanced_features(df):
         return enhanced_df
         
     except Exception as e:
+        error_handler = get_error_handler("engineer_advanced_features")
+        error_handler.handle_data_processing_error(e, "技術指標計算", df.shape)
         logger.error(f"❌ 技術指標計算中にエラー: {e}")
         logger.warning("🔄 基本特徴量のみで続行します")
         return df
@@ -267,11 +342,26 @@ def validate_processed_data(df: pd.DataFrame) -> bool:
         
         # 検証レポートをファイルに保存
         report_file = "data_validation_report.txt"
-        with open(report_file, 'w', encoding='utf-8') as f:
-            f.write(report)
-        logger.info(f"📄 検証レポートを保存: {report_file}")
+        try:
+            with open(report_file, 'w', encoding='utf-8') as f:
+                f.write(report)
+            logger.info(f"📄 検証レポートを保存: {report_file}")
+        except Exception as e:
+            error_handler = get_error_handler("validate_processed_data")
+            error_handler.handle_file_error(e, report_file, "write")
+            logger.warning(f"⚠️ 検証レポートの保存に失敗: {e}")
         
         if not validation_results['is_valid']:
+            error_handler = get_error_handler("validate_processed_data")
+            error_handler.log_error(
+                ValueError("データ検証に失敗"),
+                "データ検証エラー",
+                {
+                    'data_shape': df.shape,
+                    'validation_results': validation_results,
+                    'quality_score': validation_results.get('quality_score', 0)
+                }
+            )
             logger.error("❌ データ検証に失敗しました")
             return False
         
@@ -279,16 +369,26 @@ def validate_processed_data(df: pd.DataFrame) -> bool:
         return True
         
     except Exception as e:
+        error_handler = get_error_handler("validate_processed_data")
+        error_handler.log_error(e, "データ検証エラー", {
+            'data_shape': df.shape if df is not None else None,
+            'data_empty': df.empty if df is not None else None
+        })
         logger.error(f"❌ データ検証中にエラー: {e}")
         return False
 
 def main():
     """メイン処理（堅牢性強化版）"""
+    error_handler = get_error_handler("main_preprocessing")
+    specific_error_handler = get_specific_error_handler("main_preprocessing")
+    
     input_file = preprocessing_config.get('input_file', 'stock_data.csv')
     output_file = preprocessing_config.get('output_file', 'processed_stock_data.csv')
     
     try:
-        logger.info("🚀 データ前処理を開始（堅牢性強化版）")
+        enhanced_logger.log_operation_start("データ前処理", input_file=input_file, output_file=output_file)
+        logger.info(f"📁 入力ファイル: {input_file}")
+        logger.info(f"📁 出力ファイル: {output_file}")
         
         # 1. データの読み込みとクリーニング
         logger.info("📁 ステップ1: データ読み込みとクリーニング")
@@ -323,8 +423,12 @@ def main():
         
         # 7. データの保存
         logger.info("💾 ステップ7: データ保存")
-        df.to_csv(output_file, index=False)
-        logger.info(f"✅ 前処理済みデータを保存: {output_file}")
+        try:
+            df.to_csv(output_file, index=False)
+            logger.info(f"✅ 前処理済みデータを保存: {output_file}")
+        except Exception as e:
+            error_handler.handle_file_error(e, output_file, "write")
+            raise
         
         # 8. 最終統計情報の表示
         logger.info("📊 最終データ統計:")
@@ -335,29 +439,51 @@ def main():
         
         # 特徴量リストを保存（参考用）
         feature_list_file = output_file.replace('.csv', '_features.txt')
-        with open(feature_list_file, 'w', encoding='utf-8') as f:
-            f.write("# 利用可能な特徴量リスト\n")
-            f.write(f"# 生成日時: {pd.Timestamp.now()}\n")
-            f.write(f"# 総特徴量数: {len(available_features)}\n\n")
-            for i, feature in enumerate(available_features, 1):
-                f.write(f"{i:3d}. {feature}\n")
+        try:
+            with open(feature_list_file, 'w', encoding='utf-8') as f:
+                f.write("# 利用可能な特徴量リスト\n")
+                f.write(f"# 生成日時: {pd.Timestamp.now()}\n")
+                f.write(f"# 総特徴量数: {len(available_features)}\n\n")
+                for i, feature in enumerate(available_features, 1):
+                    f.write(f"{i:3d}. {feature}\n")
+            
+            logger.info(f"📝 特徴量リストを保存: {feature_list_file}")
+        except Exception as e:
+            error_handler.handle_file_error(e, feature_list_file, "write")
+            logger.warning(f"⚠️ 特徴量リストの保存に失敗: {e}")
         
-        logger.info(f"📝 特徴量リストを保存: {feature_list_file}")
-        logger.info("🎉 データ前処理が正常に完了しました（堅牢性強化版）")
+        enhanced_logger.log_operation_end("データ前処理", success=True, 
+                                         final_shape=df.shape, features_count=len(df.columns))
         
     except FileNotFoundError as e:
+        error_handler.handle_file_error(e, input_file, "read")
         logger.error(f"❌ ファイルが見つかりません: {e}")
         logger.error("💡 入力ファイルのパスを確認してください")
         raise
+        
     except PermissionError as e:
+        error_handler.handle_file_error(e, input_file, "read")
         logger.error(f"❌ ファイルアクセス権限エラー: {e}")
         logger.error("💡 ファイルの読み取り権限を確認してください")
         raise
+        
     except ValueError as e:
+        error_handler.log_error(e, "データ値エラー", {
+            'input_file': input_file,
+            'output_file': output_file,
+            'data_shape': df.shape if 'df' in locals() and df is not None else None
+        })
         logger.error(f"❌ データ値エラー: {e}")
         logger.error("💡 入力データの形式を確認してください")
         raise
+        
     except Exception as e:
+        error_handler.log_error(e, "前処理予期しないエラー", {
+            'input_file': input_file,
+            'output_file': output_file,
+            'data_shape': df.shape if 'df' in locals() and df is not None else None,
+            'available_features_count': len(available_features) if 'available_features' in locals() else None
+        })
         logger.error(f"❌ 前処理中に予期しないエラーが発生: {e}")
         logger.error("💡 ログファイルを確認して詳細なエラー情報を確認してください")
         raise

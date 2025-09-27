@@ -13,6 +13,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import xgboost as xgb
 import pandas as pd
 import numpy as np
+from error_handler import get_error_handler, get_specific_error_handler
 
 
 class ModelFactory:
@@ -20,6 +21,8 @@ class ModelFactory:
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
+        self.error_handler = get_error_handler("ModelFactory")
+        self.specific_error_handler = get_specific_error_handler("ModelFactory")
         self.available_models = {
             'random_forest': self._create_random_forest,
             'xgboost': self._create_xgboost,
@@ -44,75 +47,117 @@ class ModelFactory:
         Returns:
             機械学習モデルインスタンス
         """
-        if model_type not in self.available_models:
-            raise ValueError(f"サポートされていないモデルタイプ: {model_type}")
-        
-        params = params or {}
-        self.logger.info(f"モデル作成: {model_type}, パラメータ: {params}")
-        
-        return self.available_models[model_type](params)
+        try:
+            if model_type not in self.available_models:
+                error_msg = f"サポートされていないモデルタイプ: {model_type}"
+                self.error_handler.log_error(
+                    ValueError(error_msg),
+                    "モデル作成エラー",
+                    {
+                        'model_type': model_type,
+                        'available_models': list(self.available_models.keys()),
+                        'params': params
+                    }
+                )
+                raise ValueError(error_msg)
+            
+            params = params or {}
+            self.logger.info(f"モデル作成: {model_type}, パラメータ: {params}")
+            
+            return self.available_models[model_type](params)
+            
+        except Exception as e:
+            self.error_handler.log_error(e, f"モデル作成エラー ({model_type})", {
+                'model_type': model_type,
+                'params': params
+            })
+            raise
     
     def _create_random_forest(self, params: Dict[str, Any]):
         """ランダムフォレスト回帰モデルを作成"""
-        default_params = {
-            'n_estimators': 100,
-            'random_state': 42,
-            'max_depth': None,
-            'min_samples_split': 2,
-            'min_samples_leaf': 1
-        }
-        default_params.update(params)
-        return RandomForestRegressor(**default_params)
+        try:
+            default_params = {
+                'n_estimators': 100,
+                'random_state': 42,
+                'max_depth': None,
+                'min_samples_split': 2,
+                'min_samples_leaf': 1
+            }
+            default_params.update(params)
+            return RandomForestRegressor(**default_params)
+        except Exception as e:
+            self.error_handler.handle_model_error(e, "RandomForest", "create", params)
+            raise
     
     def _create_xgboost(self, params: Dict[str, Any]):
         """XGBoost回帰モデルを作成"""
-        default_params = {
-            'n_estimators': 100,
-            'random_state': 42,
-            'max_depth': 6,
-            'learning_rate': 0.1,
-            'subsample': 1.0,
-            'colsample_bytree': 1.0
-        }
-        default_params.update(params)
-        return xgb.XGBRegressor(**default_params)
+        try:
+            default_params = {
+                'n_estimators': 100,
+                'random_state': 42,
+                'max_depth': 6,
+                'learning_rate': 0.1,
+                'subsample': 1.0,
+                'colsample_bytree': 1.0
+            }
+            default_params.update(params)
+            return xgb.XGBRegressor(**default_params)
+        except Exception as e:
+            self.error_handler.handle_model_error(e, "XGBoost", "create", params)
+            raise
     
     def _create_linear_regression(self, params: Dict[str, Any]):
         """線形回帰モデルを作成"""
-        default_params = {
-            'fit_intercept': True
-        }
-        default_params.update(params)
-        return LinearRegression(**default_params)
+        try:
+            default_params = {
+                'fit_intercept': True
+            }
+            default_params.update(params)
+            return LinearRegression(**default_params)
+        except Exception as e:
+            self.error_handler.handle_model_error(e, "LinearRegression", "create", params)
+            raise
     
     def _create_ridge(self, params: Dict[str, Any]):
         """Ridge回帰モデルを作成"""
-        default_params = {
-            'alpha': 1.0,
-            'random_state': 42
-        }
-        default_params.update(params)
-        return Ridge(**default_params)
+        try:
+            default_params = {
+                'alpha': 1.0,
+                'random_state': 42
+            }
+            default_params.update(params)
+            return Ridge(**default_params)
+        except Exception as e:
+            self.error_handler.handle_model_error(e, "Ridge", "create", params)
+            raise
     
     def _create_lasso(self, params: Dict[str, Any]):
         """Lasso回帰モデルを作成"""
-        default_params = {
-            'alpha': 1.0,
-            'random_state': 42,
-            'max_iter': 1000
-        }
-        default_params.update(params)
-        return Lasso(**default_params)
+        try:
+            default_params = {
+                'alpha': 1.0,
+                'random_state': 42,
+                'max_iter': 1000
+            }
+            default_params.update(params)
+            return Lasso(**default_params)
+        except Exception as e:
+            self.error_handler.handle_model_error(e, "Lasso", "create", params)
+            raise
     
     def _create_svr(self, params: Dict[str, Any]):
         """サポートベクター回帰モデルを作成"""
-        default_params = {
-            'kernel': 'rbf',
-            'C': 1.0,
-            'gamma': 'scale'
-        }
-        default_params.update(params)
-        return SVR(**default_params)
+        try:
+            default_params = {
+                'kernel': 'rbf',
+                'C': 1.0,
+                'gamma': 'scale'
+            }
+            default_params.update(params)
+            return SVR(**default_params)
+        except Exception as e:
+            self.error_handler.handle_model_error(e, "SVR", "create", params)
+            raise
 
 
 class ModelEvaluator:
@@ -120,6 +165,8 @@ class ModelEvaluator:
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
+        self.error_handler = get_error_handler("ModelEvaluator")
+        self.specific_error_handler = get_specific_error_handler("ModelEvaluator")
     
     def evaluate_model(self, model, X_test, y_test, y_pred=None) -> Dict[str, float]:
         """
@@ -134,18 +181,27 @@ class ModelEvaluator:
         Returns:
             Dict[str, float]: 評価指標辞書
         """
-        if y_pred is None:
-            y_pred = model.predict(X_test)
-        
-        metrics = {
-            'mae': mean_absolute_error(y_test, y_pred),
-            'mse': mean_squared_error(y_test, y_pred),
-            'rmse': np.sqrt(mean_squared_error(y_test, y_pred)),
-            'r2': r2_score(y_test, y_pred)
-        }
-        
-        self.logger.info(f"モデル評価結果: {metrics}")
-        return metrics
+        try:
+            if y_pred is None:
+                y_pred = model.predict(X_test)
+            
+            metrics = {
+                'mae': mean_absolute_error(y_test, y_pred),
+                'mse': mean_squared_error(y_test, y_pred),
+                'rmse': np.sqrt(mean_squared_error(y_test, y_pred)),
+                'r2': r2_score(y_test, y_pred)
+            }
+            
+            self.logger.info(f"モデル評価結果: {metrics}")
+            return metrics
+            
+        except Exception as e:
+            self.error_handler.handle_model_error(e, type(model).__name__, "evaluation", {
+                'X_test_shape': X_test.shape if hasattr(X_test, 'shape') else None,
+                'y_test_shape': y_test.shape if hasattr(y_test, 'shape') else None,
+                'y_pred_provided': y_pred is not None
+            })
+            raise
     
     def get_feature_importance(self, model, feature_names: List[str]) -> pd.DataFrame:
         """
@@ -176,6 +232,11 @@ class ModelEvaluator:
             return df
             
         except Exception as e:
+            self.error_handler.handle_model_error(e, type(model).__name__, "feature_importance", {
+                'feature_names_count': len(feature_names) if feature_names else 0,
+                'model_has_feature_importances': hasattr(model, 'feature_importances_'),
+                'model_has_coef': hasattr(model, 'coef_')
+            })
             self.logger.error(f"特徴量重要度の取得に失敗: {e}")
             return pd.DataFrame()
 
@@ -185,6 +246,8 @@ class ModelComparator:
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
+        self.error_handler = get_error_handler("ModelComparator")
+        self.specific_error_handler = get_specific_error_handler("ModelComparator")
         self.factory = ModelFactory()
         self.evaluator = ModelEvaluator()
     
@@ -211,7 +274,7 @@ class ModelComparator:
             X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         else:
             # 既に分割済みの場合、X_train, X_testをそのまま使用
-            pass
+            X_train, X_test = X, X
         
         for model_name, config in models_config.items():
             try:
@@ -239,6 +302,12 @@ class ModelComparator:
                 self.logger.info(f"モデル {model_name} 完了: MAE={metrics['mae']:.4f}")
                 
             except Exception as e:
+                self.error_handler.handle_model_error(e, model_name, "training", {
+                    'model_type': model_type,
+                    'params': params,
+                    'X_train_shape': X_train.shape if hasattr(X_train, 'shape') else None,
+                    'y_train_shape': y_train.shape if hasattr(y_train, 'shape') else None
+                })
                 self.logger.error(f"モデル {model_name} でエラー: {e}")
                 continue
         
@@ -330,4 +399,11 @@ if __name__ == "__main__":
             mae = mean_absolute_error(y_test, y_pred)
             print(f"  {model_type}: MAE = {mae:.4f}")
         except Exception as e:
+            error_handler = get_error_handler("main_test")
+            error_handler.handle_model_error(e, model_type, "test", {
+                'X_train_shape': X_train.shape if hasattr(X_train, 'shape') else None,
+                'y_train_shape': y_train.shape if hasattr(y_train, 'shape') else None,
+                'X_test_shape': X_test.shape if hasattr(X_test, 'shape') else None,
+                'y_test_shape': y_test.shape if hasattr(y_test, 'shape') else None
+            })
             print(f"  {model_type}: エラー - {e}")

@@ -8,7 +8,6 @@ import yaml
 import os
 import logging
 from typing import Dict, Any
-from pathlib import Path
 
 
 class ConfigLoader:
@@ -17,7 +16,7 @@ class ConfigLoader:
     def __init__(self, config_path: str = "config.yaml"):
         """
         初期化
-        
+
         Args:
             config_path (str): 設定ファイルのパス
         """
@@ -77,7 +76,8 @@ class ConfigLoader:
             },
             'prediction': {
                 'input_file': 'processed_stock_data.csv',
-                'features': ['Close_lag_1', 'Close_lag_3', 'Close_lag_5', 'SMA_5', 'SMA_10', 'SMA_25', 'SMA_50', 'Volume'],
+                'features': ['Close_lag_1', 'Close_lag_3', 'Close_lag_5', 'SMA_5',
+                            'SMA_10', 'SMA_25', 'SMA_50', 'Volume'],
                 'target': 'Close',
                 'test_size': 0.2,
                 'random_state': 42,
@@ -113,7 +113,8 @@ class ConfigLoader:
         
         logging.basicConfig(
             level=getattr(logging, log_config.get('level', 'INFO')),
-            format=log_config.get('format', '%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
+            format=log_config.get('format',
+                                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
             handlers=[
                 logging.FileHandler(log_config.get('file', 'jquants.log')),
                 logging.StreamHandler()
@@ -218,11 +219,11 @@ class ConfigLoader:
     def get_config_section(self, section: str, default: Dict[str, Any] = None) -> Dict[str, Any]:
         """
         設定セクションを取得
-        
+
         Args:
             section (str): セクション名
             default (Dict[str, Any]): デフォルト値
-            
+
         Returns:
             Dict[str, Any]: 設定セクション
         """
@@ -234,11 +235,11 @@ class ConfigLoader:
     def get_config_value(self, key_path: str, default: Any = None) -> Any:
         """
         設定値を取得（getメソッドのエイリアス）
-        
+
         Args:
             key_path (str): 取得するキーのパス
             default (Any): デフォルト値
-            
+
         Returns:
             Any: 設定値
         """
@@ -247,17 +248,18 @@ class ConfigLoader:
     def create_default_config(self) -> Dict[str, Any]:
         """
         デフォルト設定を作成して返す
-        
+
         Returns:
             Dict[str, Any]: デフォルト設定辞書
         """
-        self._create_default_config()
+        if self.config is None:
+            self._create_default_config()
         return self.config
     
     def save_config(self, output_path: str = None) -> None:
         """
         設定をファイルに保存
-        
+
         Args:
             output_path (str): 出力ファイルパス（Noneの場合は元のファイルを上書き）
         """
@@ -265,7 +267,7 @@ class ConfigLoader:
         
         try:
             with open(output_file, 'w', encoding='utf-8') as file:
-                yaml.dump(self.config, file, default_flow_style=False, 
+                yaml.dump(self.config, file, default_flow_style=False,
                          allow_unicode=True, indent=2)
             
             self.logger.info(f"設定ファイルを保存しました: {output_file}")
@@ -281,10 +283,10 @@ _config_instance = None
 def get_config(config_path: str = "config.yaml") -> ConfigLoader:
     """
     設定インスタンスを取得（シングルトンパターン）
-    
+
     Args:
         config_path (str): 設定ファイルのパス
-        
+
     Returns:
         ConfigLoader: 設定ローダーインスタンス
     """
@@ -306,10 +308,10 @@ if __name__ == "__main__":
     # テスト実行
     try:
         config = get_config()
-        
+
         if config.validate_config():
             print("✅ 設定ファイルは正常です")
-            
+
             # 設定例の表示
             print(f"取得日付: {config.get('data_fetch.target_date')}")
             print(f"移動平均期間: {config.get('preprocessing.sma_windows')}")
@@ -317,6 +319,6 @@ if __name__ == "__main__":
             print(f"モデルパラメータ: {config.get('prediction.random_forest')}")
         else:
             print("❌ 設定ファイルにエラーがあります")
-            
+
     except Exception as e:
         print(f"❌ エラー: {e}")
