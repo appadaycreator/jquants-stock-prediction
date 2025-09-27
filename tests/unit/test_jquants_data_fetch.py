@@ -8,15 +8,15 @@ import numpy as np
 from unittest.mock import patch, MagicMock, mock_open
 import os
 import tempfile
-from jquants_data_fetch import JQuantsDataFetcher
+from jquants_data_fetch import JQuantsAPIClient
 
 
-class TestJQuantsDataFetcher:
-    """JQuantsDataFetcherクラスのテスト"""
+class TestJQuantsAPIClient:
+    """JQuantsAPIClientクラスのテスト"""
 
     def test_init(self):
         """初期化テスト"""
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         assert fetcher is not None
         assert hasattr(fetcher, "base_url")
         assert hasattr(fetcher, "logger")
@@ -45,7 +45,7 @@ class TestJQuantsDataFetcher:
         }
         mock_get.return_value = mock_response
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         result = fetcher.authenticate("test@example.com", "password")
 
         assert result is True
@@ -61,7 +61,7 @@ class TestJQuantsDataFetcher:
         mock_response.json.return_value = {"error": "Invalid credentials"}
         mock_get.return_value = mock_response
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         result = fetcher.authenticate("invalid@example.com", "wrong_password")
 
         assert result is False
@@ -72,7 +72,7 @@ class TestJQuantsDataFetcher:
         """ネットワークエラーテスト"""
         mock_get.side_effect = Exception("Network error")
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         result = fetcher.authenticate("test@example.com", "password")
 
         assert result is False
@@ -89,7 +89,7 @@ class TestJQuantsDataFetcher:
         }
         mock_get.return_value = mock_response
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         fetcher.refresh_token = "old_refresh_token"
         result = fetcher.refresh_access_token()
 
@@ -104,7 +104,7 @@ class TestJQuantsDataFetcher:
         mock_response.status_code = 401
         mock_get.return_value = mock_response
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         fetcher.refresh_token = "invalid_refresh_token"
         result = fetcher.refresh_access_token()
 
@@ -131,7 +131,7 @@ class TestJQuantsDataFetcher:
         }
         mock_get.return_value = mock_response
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         fetcher.access_token = "test_token"
         
         result = fetcher.fetch_stock_data("20240301")
@@ -148,7 +148,7 @@ class TestJQuantsDataFetcher:
         mock_response.status_code = 401
         mock_get.return_value = mock_response
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         fetcher.access_token = "invalid_token"
         
         result = fetcher.fetch_stock_data("20240301")
@@ -163,7 +163,7 @@ class TestJQuantsDataFetcher:
         mock_response.json.return_value = {"data": []}
         mock_get.return_value = mock_response
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         fetcher.access_token = "test_token"
         
         result = fetcher.fetch_stock_data("20240301")
@@ -173,7 +173,7 @@ class TestJQuantsDataFetcher:
 
     def test_save_data_to_csv(self, tmp_path):
         """CSV保存テスト"""
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         
         # テストデータの作成
         test_data = pd.DataFrame({
@@ -195,7 +195,7 @@ class TestJQuantsDataFetcher:
 
     def test_save_data_to_csv_error(self):
         """CSV保存エラーテスト"""
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         
         # 無効なパスでの保存
         test_data = pd.DataFrame({"test": [1, 2, 3]})
@@ -216,7 +216,7 @@ class TestJQuantsDataFetcher:
         
         mock_get.side_effect = [mock_response_fail, mock_response_success]
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         fetcher.access_token = "test_token"
         fetcher.max_retries = 3
         fetcher.retry_interval = 0.1  # テスト用に短縮
@@ -233,7 +233,7 @@ class TestJQuantsDataFetcher:
         mock_response.status_code = 500
         mock_get.return_value = mock_response
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         fetcher.access_token = "test_token"
         fetcher.max_retries = 2
         fetcher.retry_interval = 0.1
@@ -245,7 +245,7 @@ class TestJQuantsDataFetcher:
 
     def test_validate_date_format(self):
         """日付フォーマット検証テスト"""
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         
         # 有効な日付
         assert fetcher._validate_date_format("20240301") is True
@@ -259,7 +259,7 @@ class TestJQuantsDataFetcher:
 
     def test_validate_data_structure(self):
         """データ構造検証テスト"""
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         
         # 有効なデータ
         valid_data = pd.DataFrame({
@@ -314,7 +314,7 @@ class TestJQuantsDataFetcher:
         
         mock_get.side_effect = [auth_response, data_response]
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         
         # 認証
         auth_result = fetcher.authenticate("test@example.com", "password")
@@ -327,7 +327,7 @@ class TestJQuantsDataFetcher:
 
     def test_error_handling_invalid_input(self):
         """無効な入力のエラーハンドリングテスト"""
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         
         # 無効な日付形式
         result = fetcher.fetch_stock_data("invalid_date")
@@ -347,7 +347,7 @@ class TestJQuantsDataFetcher:
         import requests
         mock_get.side_effect = requests.exceptions.Timeout("Request timeout")
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         fetcher.access_token = "test_token"
         
         result = fetcher.fetch_stock_data("20240301")
@@ -359,7 +359,7 @@ class TestJQuantsDataFetcher:
         import requests
         mock_get.side_effect = requests.exceptions.ConnectionError("Connection failed")
 
-        fetcher = JQuantsDataFetcher()
+        fetcher = JQuantsAPIClient()
         fetcher.access_token = "test_token"
         
         result = fetcher.fetch_stock_data("20240301")

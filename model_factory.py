@@ -13,7 +13,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import xgboost as xgb
 import pandas as pd
 import numpy as np
-from error_handler import get_error_handler, get_specific_error_handler
+from unified_error_handler import get_unified_error_handler
 
 
 class ModelFactory:
@@ -21,8 +21,7 @@ class ModelFactory:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.error_handler = get_error_handler("ModelFactory")
-        self.specific_error_handler = get_specific_error_handler("ModelFactory")
+        self.error_handler = get_unified_error_handler("ModelFactory")
         self.available_models = {
             "random_forest": self._create_random_forest,
             "xgboost": self._create_xgboost,
@@ -155,8 +154,8 @@ class ModelEvaluator:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.error_handler = get_error_handler("ModelEvaluator")
-        self.specific_error_handler = get_specific_error_handler("ModelEvaluator")
+        self.error_handler = get_unified_error_handler("ModelEvaluator")
+        # self.specific_error_handler = get_specific_error_handler("ModelEvaluator")  # 統合アーキテクチャでは不要
 
     def evaluate_model(self, model, X_test, y_test, y_pred=None) -> Dict[str, float]:
         """
@@ -249,8 +248,8 @@ class ModelComparator:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.error_handler = get_error_handler("ModelComparator")
-        self.specific_error_handler = get_specific_error_handler("ModelComparator")
+        self.error_handler = get_unified_error_handler("ModelComparator")
+        # self.specific_error_handler = get_specific_error_handler("ModelComparator")  # 統合アーキテクチャでは不要
         self.factory = ModelFactory()
         self.evaluator = ModelEvaluator()
 
@@ -404,7 +403,7 @@ if __name__ == "__main__":
             mae = mean_absolute_error(y_test, y_pred)
             print(f"  {model_type}: MAE = {mae:.4f}")
         except Exception as e:
-            error_handler = get_error_handler("main_test")
+            error_handler = get_unified_error_handler("main_test")
             error_handler.handle_model_error(
                 e,
                 model_type,
