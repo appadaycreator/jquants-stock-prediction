@@ -42,10 +42,10 @@ docs/
 # 1. データ生成
 python3 generate_web_data.py
 
-# 2. Webアプリビルド
+# 2. Webアプリビルド（修正版）
 cd web-app
 npm install
-npm run build
+NODE_ENV=production npm run build
 
 # 3. docsフォルダ更新
 cd ..

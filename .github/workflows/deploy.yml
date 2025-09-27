@@ -44,7 +44,7 @@ jobs:
     - name: Build web application
       run: |
         cd web-app
-        npm run build
+        NODE_ENV=production npm run build
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
