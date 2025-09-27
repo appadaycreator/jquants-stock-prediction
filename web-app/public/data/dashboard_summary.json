@@ -1,8 +1,8 @@
 {
-  "total_data_points": 300,
-  "prediction_period": "1年",
-  "best_model": "株価チャート表示",
-  "mae": "N/A",
-  "r2": "N/A",
-  "last_updated": "2025-09-28 02:25:10"
+  "total_data_points": 276,
+  "prediction_period": "0 - 275",
+  "best_model": "Random Forest",
+  "mae": "21.36",
+  "r2": "1.00",
+  "last_updated": "2025-09-28 08:05:24"
 }

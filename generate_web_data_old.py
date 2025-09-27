@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Web表示用のデータ生成スクリプト（簡易版）
-UnifiedSystemの循環参照を回避した独立スクリプト
+Web表示用のデータ生成スクリプト（修正版）
+予測結果、モデル比較、統計情報をJSON形式で出力
+特徴量の互換性チェック機能付き
 """
 
 import json
@@ -12,9 +13,9 @@ import sys
 import logging
 import subprocess
 from pathlib import Path
+# UnifiedSystemのインポートを削除（無限ループ回避）
+from model_factory import ModelFactory, ModelEvaluator, ModelComparator
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 # ログ設定
 logging.basicConfig(level=logging.INFO)
@@ -104,21 +105,26 @@ def generate_web_data():
         X, y, test_size=test_size, random_state=random_state
     )
 
-    # 4. モデル実行（Random Forestを使用）
-    model = RandomForestRegressor(n_estimators=100, random_state=42)
+    # 4. モデル実行
+    factory = ModelFactory()
+    evaluator = ModelEvaluator()
+
+    # デフォルトでXGBoostを使用
+    try:
+        from xgboost import XGBRegressor
+
+        model = XGBRegressor(n_estimators=100, random_state=42)
+    except ImportError:
+        from sklearn.ensemble import RandomForestRegressor
+
+        model = RandomForestRegressor(n_estimators=100, random_state=42)
+        logger.info("XGBoostが利用できないため、Random Forestを使用します")
+
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
 
     # 5. 評価指標計算
-    mae = mean_absolute_error(y_test, y_pred)
-    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-    r2 = r2_score(y_test, y_pred)
-
-    metrics = {
-        "mae": mae,
-        "rmse": rmse,
-        "r2": r2
-    }
+    metrics = evaluator.evaluate_model(model, X_test, y_test, y_pred)
 
     # 6. Web用データ生成
 
@@ -155,11 +161,7 @@ def generate_web_data():
 
     # 特徴量重要度
     try:
-        feature_importance = pd.DataFrame({
-            "feature": features,
-            "importance": model.feature_importances_
-        }).sort_values("importance", ascending=False)
-
+        feature_importance = evaluator.get_feature_importance(model, features)
         if not feature_importance.empty:
             total_importance = feature_importance["importance"].sum()
             feature_analysis = []
@@ -185,7 +187,9 @@ def generate_web_data():
     # パフォーマンス指標
     try:
         performance_metrics = {
-            "model_name": "Random Forest",
+            "model_name": (
+                "XGBoost" if "XGBRegressor" in str(type(model)) else "Random Forest"
+            ),
             "mae": float(metrics.get("mae", 0)),
             "rmse": float(metrics.get("rmse", 0)),
             "r2": float(metrics.get("r2", 0)),
@@ -223,7 +227,9 @@ def generate_web_data():
         model_comparison = [
             {
                 "model_name": "primary_model",
-                "model_type": "Random Forest",
+                "model_type": (
+                    "XGBoost" if "XGBRegressor" in str(type(model)) else "Random Forest"
+                ),
                 "mae": float(metrics.get("mae", 0)),
                 "rmse": float(metrics.get("rmse", 0)),
                 "r2": float(metrics.get("r2", 0)),
@@ -243,7 +249,9 @@ def generate_web_data():
             "prediction_period": (
                 f"{df.index[0]} - {df.index[-1]}" if len(df) > 0 else "N/A"
             ),
-            "best_model": "Random Forest",
+            "best_model": (
+                "XGBoost" if "XGBRegressor" in str(type(model)) else "Random Forest"
+            ),
             "mae": f"{metrics.get('mae', 0):.2f}",
             "r2": f"{metrics.get('r2', 0):.2f}",
             "last_updated": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S"),

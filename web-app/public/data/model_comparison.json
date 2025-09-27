@@ -1,38 +1,9 @@
 [
   {
-    "name": "XGBoost",
-    "type": "Gradient Boosting",
-    "mae": 15.2,
-    "mse": 350.5,
-    "rmse": 18.7,
-    "r2": 0.95,
-    "rank": 1
-  },
-  {
-    "name": "Random Forest",
-    "type": "Ensemble",
-    "mae": 18.3,
-    "mse": 420.8,
-    "rmse": 20.5,
-    "r2": 0.92,
-    "rank": 2
-  },
-  {
-    "name": "Linear Regression",
-    "type": "Linear",
-    "mae": 25.1,
-    "mse": 680.2,
-    "rmse": 26.1,
-    "r2": 0.85,
-    "rank": 3
-  },
-  {
-    "name": "SVM",
-    "type": "Support Vector",
-    "mae": 22.4,
-    "mse": 580.3,
-    "rmse": 24.1,
-    "r2": 0.88,
-    "rank": 4
+    "model_name": "primary_model",
+    "model_type": "Random Forest",
+    "mae": 21.36381250000039,
+    "rmse": 31.12826261772495,
+    "r2": 0.9994275441935184
   }
 ]
