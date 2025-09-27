@@ -27,7 +27,11 @@ const nextConfig = {
   
   // 実験的機能の設定
   experimental: {
-    optimizePackageImports: ['lucide-react', 'recharts']
+    optimizePackageImports: ['lucide-react', 'recharts'],
+    // RSC payloadエラーを解決するための設定
+    serverComponentsExternalPackages: [],
+    // GitHub PagesでのRSC動作を改善
+    staticGenerationRetryCount: 3
   },
   
   // サーバー外部パッケージの設定（experimentalから移動）

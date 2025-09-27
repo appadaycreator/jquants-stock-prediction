@@ -66,7 +66,21 @@ except ImportError:
     def handle_missing_values(data):
         if data.isnull().all().all():
             raise ValueError("All data is missing")
-        return data.fillna(method='ffill').fillna(method='bfill')
+        return data.ffill().bfill()
+    
+    def convert_data_types(data):
+        """データ型の変換"""
+        # 数値列をfloat64に変換
+        numeric_columns = ['Open', 'High', 'Low', 'Close', 'Volume']
+        for col in numeric_columns:
+            if col in data.columns:
+                data[col] = pd.to_numeric(data[col], errors='coerce')
+        
+        # 日付列をdatetimeに変換
+        if 'Date' in data.columns:
+            data['Date'] = pd.to_datetime(data['Date'], errors='coerce')
+        
+        return data
     
     def detect_outliers(data):
         outliers = []

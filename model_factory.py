@@ -52,7 +52,7 @@ class ModelFactory:
                 self.system.log_error(
                     ValueError(error_msg),
                     "モデル作成エラー",
-                    {
+                    additional_info={
                         "model_type": model_type,
                         "available_models": list(self.available_models.keys()),
                         "params": params,
@@ -69,7 +69,7 @@ class ModelFactory:
             self.system.log_error(
                 e,
                 f"モデル作成エラー ({model_type})",
-                {"model_type": model_type, "params": params},
+                additional_info={"model_type": model_type, "params": params},
             )
             raise
 
@@ -86,7 +86,7 @@ class ModelFactory:
             default_params.update(params)
             return RandomForestRegressor(**default_params)
         except Exception as e:
-            self.system.log_error(e, "RandomForest作成エラー", {"params": params})
+            self.system.log_error(e, "RandomForest作成エラー", additional_info={"params": params})
             raise
 
     def _create_xgboost(self, params: Dict[str, Any]):
@@ -103,7 +103,7 @@ class ModelFactory:
             default_params.update(params)
             return xgb.XGBRegressor(**default_params)
         except Exception as e:
-            self.system.log_error(e, "XGBoost作成エラー", {"params": params})
+            self.system.log_error(e, "XGBoost作成エラー", additional_info={"params": params})
             raise
 
     def _create_linear_regression(self, params: Dict[str, Any]):
@@ -113,7 +113,7 @@ class ModelFactory:
             default_params.update(params)
             return LinearRegression(**default_params)
         except Exception as e:
-            self.system.log_error(e, "LinearRegression作成エラー", {"params": params})
+            self.system.log_error(e, "LinearRegression作成エラー", additional_info={"params": params})
             raise
 
     def _create_ridge(self, params: Dict[str, Any]):
@@ -123,7 +123,7 @@ class ModelFactory:
             default_params.update(params)
             return Ridge(**default_params)
         except Exception as e:
-            self.system.log_error(e, "Ridge作成エラー", {"params": params})
+            self.system.log_error(e, "Ridge作成エラー", additional_info={"params": params})
             raise
 
     def _create_lasso(self, params: Dict[str, Any]):
@@ -133,7 +133,7 @@ class ModelFactory:
             default_params.update(params)
             return Lasso(**default_params)
         except Exception as e:
-            self.system.log_error(e, "Lasso作成エラー", {"params": params})
+            self.system.log_error(e, "Lasso作成エラー", additional_info={"params": params})
             raise
 
     def _create_svr(self, params: Dict[str, Any]):
@@ -143,7 +143,7 @@ class ModelFactory:
             default_params.update(params)
             return SVR(**default_params)
         except Exception as e:
-            self.system.log_error(e, "SVR作成エラー", {"params": params})
+            self.system.log_error(e, "SVR作成エラー", additional_info={"params": params})
             raise
 
 
@@ -185,7 +185,7 @@ class ModelEvaluator:
             self.system.log_error(
                 e,
                 f"{type(model).__name__}評価エラー",
-                {
+                additional_info={
                     "X_test_shape": X_test.shape if hasattr(X_test, "shape") else None,
                     "y_test_shape": y_test.shape if hasattr(y_test, "shape") else None,
                     "y_pred_provided": y_pred is not None,
@@ -226,7 +226,7 @@ class ModelEvaluator:
             self.system.log_error(
                 e,
                 f"{type(model).__name__}特徴量重要度取得エラー",
-                {
+                additional_info={
                     "feature_names_count": len(feature_names) if feature_names else 0,
                     "model_has_feature_importances": hasattr(
                         model, "feature_importances_"
@@ -305,7 +305,7 @@ class ModelComparator:
                 self.system.log_error(
                     e,
                     f"{model_name}学習エラー",
-                    {
+                    additional_info={
                         "model_type": model_type,
                         "params": params,
                         "X_train_shape": (
@@ -400,7 +400,7 @@ if __name__ == "__main__":
             system.log_error(
                 e,
                 f"{model_type}テストエラー",
-                {
+                additional_info={
                     "X_train_shape": (
                         X_train.shape if hasattr(X_train, "shape") else None
                     ),

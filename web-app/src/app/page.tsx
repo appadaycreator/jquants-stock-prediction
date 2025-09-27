@@ -81,12 +81,36 @@ export default function Dashboard() {
     try {
       setLoading(true)
       
+      // RSC payloadエラーを防ぐためのリトライ機能付きfetch
+      const fetchWithRetry = async (url: string, retries = 3): Promise<Response> => {
+        for (let i = 0; i < retries; i++) {
+          try {
+            const response = await fetch(url, {
+              cache: 'no-cache',
+              headers: {
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache'
+              }
+            })
+            if (response.ok) {
+              return response
+            }
+            throw new Error(`HTTP ${response.status}`)
+          } catch (error) {
+            console.warn(`Fetch attempt ${i + 1} failed for ${url}:`, error)
+            if (i === retries - 1) throw error
+            await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)))
+          }
+        }
+        throw new Error('All retry attempts failed')
+      }
+      
       const [summaryRes, stockRes, modelRes, featureRes, predRes] = await Promise.all([
-        fetch('./data/dashboard_summary.json'),
-        fetch('./data/stock_data.json'),
-        fetch('./data/model_comparison.json'),
-        fetch('./data/feature_analysis.json'),
-        fetch('./data/prediction_results.json')
+        fetchWithRetry('./data/dashboard_summary.json'),
+        fetchWithRetry('./data/stock_data.json'),
+        fetchWithRetry('./data/model_comparison.json'),
+        fetchWithRetry('./data/feature_analysis.json'),
+        fetchWithRetry('./data/prediction_results.json')
       ])
 
       const summaryData = await summaryRes.json()
@@ -103,6 +127,17 @@ export default function Dashboard() {
       
     } catch (error) {
       console.error('データの読み込みに失敗:', error)
+      // RSC payloadエラーの場合、自動的にリトライ
+      if (error instanceof Error && (
+        error.message.includes('RSC payload') || 
+        error.message.includes('Connection closed') ||
+        error.message.includes('Failed to fetch')
+      )) {
+        console.log('RSC payload error detected, retrying in 3 seconds...')
+        setTimeout(() => {
+          loadData()
+        }, 3000)
+      }
     } finally {
       setLoading(false)
     }
