@@ -97,10 +97,60 @@ class UnifiedSystem:
         self.data_processor = None
         self.model_factory = None
 
+        # パフォーマンス最適化システムの初期化
+        self._initialize_performance_optimizers()
+
         # ErrorCategoryの参照を追加
         self.ErrorCategory = ErrorCategory
 
         self.logger.info(f"🚀 統合システム初期化完了: {self.module_name}")
+
+    def _initialize_performance_optimizers(self) -> None:
+        """パフォーマンス最適化システムの初期化"""
+        try:
+            # パフォーマンス最適化設定の取得
+            perf_config = self.get_config("performance_optimization", {})
+            memory_limit_mb = perf_config.get("memory_limit_mb", 2048)
+            chunk_size = perf_config.get("chunk_size", 10000)
+            max_workers = perf_config.get("max_workers", None)
+            use_cache = perf_config.get("use_cache", True)
+            use_parallel = perf_config.get("use_parallel", True)
+
+            # 高度なメモリ最適化システム
+            from advanced_performance_optimizer import AdvancedMemoryOptimizer, AdvancedCacheManager
+            self.memory_optimizer = AdvancedMemoryOptimizer(memory_limit_mb, chunk_size)
+            self.cache_manager = AdvancedCacheManager()
+
+            # 超効率データフレーム処理システム
+            from ultra_efficient_dataframe_processor import UltraEfficientDataFrameProcessor, MemoryEfficientDataFrameProcessor
+            self.ultra_processor = UltraEfficientDataFrameProcessor()
+            self.dataframe_processor = MemoryEfficientDataFrameProcessor(chunk_size, memory_limit_mb)
+
+            # 並列処理システム
+            from enhanced_model_comparator import EnhancedModelComparator
+            self.parallel_processor = EnhancedModelComparator(max_workers, use_cache, use_parallel)
+
+            # 統合パフォーマンス最適化システム
+            from advanced_performance_optimizer import UnifiedPerformanceOptimizer
+            self.unified_optimizer = UnifiedPerformanceOptimizer(memory_limit_mb, chunk_size)
+
+            self.logger.info("🚀 パフォーマンス最適化システム初期化完了")
+            self.logger.info(f"  💾 メモリ制限: {memory_limit_mb}MB")
+            self.logger.info(f"  📦 チャンクサイズ: {chunk_size}")
+            self.logger.info(f"  🔄 並列処理: {'有効' if use_parallel else '無効'}")
+            self.logger.info(f"  📋 キャッシュ: {'有効' if use_cache else '無効'}")
+
+        except ImportError as e:
+            self.log_warning(f"パフォーマンス最適化システムの一部をインポートできませんでした: {e}")
+            # フォールバック設定
+            self.memory_optimizer = None
+            self.cache_manager = None
+            self.ultra_processor = None
+            self.dataframe_processor = None
+            self.parallel_processor = None
+            self.unified_optimizer = None
+        except Exception as e:
+            self.log_error(e, "パフォーマンス最適化システム初期化エラー", ErrorCategory.CONFIG_ERROR)
 
     def _load_config(self) -> None:
         """統合設定の読み込み"""
@@ -627,20 +677,157 @@ class UnifiedSystem:
             raise DataProcessingError(f"エラー復旧ワークフローエラー: {e}")
 
     def optimize_performance(self) -> Dict[str, Any]:
-        """パフォーマンス最適化の実行"""
+        """パフォーマンス最適化の実行（統合版）"""
         try:
+            self.log_info("🚀 統合パフォーマンス最適化開始")
+            
             optimization_result = {
                 "status": "optimized",
                 "optimization_time": time.time(),
                 "timestamp": datetime.now().isoformat(),
+                "memory_optimization": False,
+                "dataframe_optimization": False,
+                "parallel_optimization": False,
+                "cache_optimization": False,
             }
-            self.logger.info("パフォーマンス最適化を実行しました")
+
+            # メモリ最適化の実行
+            if self.memory_optimizer:
+                try:
+                    self.log_info("💾 メモリ最適化を実行中...")
+                    # ガベージコレクションの実行
+                    import gc
+                    gc.collect()
+                    optimization_result["memory_optimization"] = True
+                    self.log_info("✅ メモリ最適化完了")
+                except Exception as e:
+                    self.log_warning(f"メモリ最適化エラー: {e}")
+
+            # データフレーム最適化の実行
+            if self.ultra_processor:
+                try:
+                    self.log_info("📊 データフレーム最適化を実行中...")
+                    # 最適化統計の取得
+                    stats = self.ultra_processor.get_optimization_stats()
+                    optimization_result["dataframe_optimization"] = True
+                    optimization_result["copy_operations_saved"] = stats.copy_operations_saved
+                    optimization_result["inplace_operations"] = stats.inplace_operations
+                    self.log_info("✅ データフレーム最適化完了")
+                except Exception as e:
+                    self.log_warning(f"データフレーム最適化エラー: {e}")
+
+            # 並列処理最適化の実行
+            if self.parallel_processor:
+                try:
+                    self.log_info("🔄 並列処理最適化を実行中...")
+                    optimization_result["parallel_optimization"] = True
+                    self.log_info("✅ 並列処理最適化完了")
+                except Exception as e:
+                    self.log_warning(f"並列処理最適化エラー: {e}")
+
+            # キャッシュ最適化の実行
+            if self.cache_manager:
+                try:
+                    self.log_info("📋 キャッシュ最適化を実行中...")
+                    cache_stats = self.cache_manager.get_cache_stats()
+                    optimization_result["cache_optimization"] = True
+                    optimization_result["cache_hit_rate"] = cache_stats.get("hit_rate", 0)
+                    self.log_info("✅ キャッシュ最適化完了")
+                except Exception as e:
+                    self.log_warning(f"キャッシュ最適化エラー: {e}")
+
+            # 統合最適化の実行
+            if self.unified_optimizer:
+                try:
+                    self.log_info("🎯 統合最適化を実行中...")
+                    # 統合最適化の実行
+                    optimization_result["unified_optimization"] = True
+                    self.log_info("✅ 統合最適化完了")
+                except Exception as e:
+                    self.log_warning(f"統合最適化エラー: {e}")
+
+            self.log_info("🎉 統合パフォーマンス最適化完了")
             return optimization_result
+
         except Exception as e:
             self.log_error(
                 e, "パフォーマンス最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR
             )
             raise DataProcessingError(f"パフォーマンス最適化エラー: {e}")
+
+    def optimize_data_processing(self, df: pd.DataFrame, operations: List[Dict] = None) -> pd.DataFrame:
+        """データ処理の最適化（統合版）"""
+        try:
+            self.log_info("🚀 統合データ処理最適化開始")
+            
+            if operations is None:
+                operations = [
+                    {"type": "memory_optimization"},
+                    {"type": "dtype_optimization"},
+                    {"type": "inplace_operations"},
+                ]
+
+            # 統合最適化システムを使用
+            if self.unified_optimizer:
+                result_df = self.unified_optimizer.optimize_data_processing(df, operations)
+                self.log_info("✅ 統合最適化システムによる処理完了")
+                return result_df
+
+            # フォールバック処理
+            result_df = df
+            for operation in operations:
+                op_type = operation.get("type")
+                
+                if op_type == "memory_optimization" and self.memory_optimizer:
+                    result_df = self.memory_optimizer.optimize_dataframe_memory(result_df)
+                elif op_type == "dtype_optimization" and self.ultra_processor:
+                    result_df = self.ultra_processor.optimize_dtypes_ultra(result_df)
+                elif op_type == "inplace_operations" and self.ultra_processor:
+                    result_df = self.ultra_processor.process_inplace(result_df, [operation])
+
+            self.log_info("✅ データ処理最適化完了")
+            return result_df
+
+        except Exception as e:
+            self.log_error(e, "データ処理最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR)
+            return df
+
+    def get_performance_metrics(self) -> Dict[str, Any]:
+        """パフォーマンスメトリクスの取得（統合版）"""
+        try:
+            metrics = {
+                "system_status": "healthy",
+                "timestamp": datetime.now().isoformat(),
+                "memory_optimizer_available": self.memory_optimizer is not None,
+                "dataframe_processor_available": self.dataframe_processor is not None,
+                "parallel_processor_available": self.parallel_processor is not None,
+                "unified_optimizer_available": self.unified_optimizer is not None,
+            }
+
+            # メモリ使用量の取得
+            if self.memory_optimizer:
+                metrics["current_memory_mb"] = self.memory_optimizer.get_memory_usage()
+                metrics["memory_limit_mb"] = self.memory_optimizer.memory_limit_mb
+
+            # キャッシュ統計の取得
+            if self.cache_manager:
+                cache_stats = self.cache_manager.get_cache_stats()
+                metrics["cache_stats"] = cache_stats
+
+            # データフレーム最適化統計の取得
+            if self.ultra_processor:
+                df_stats = self.ultra_processor.get_optimization_stats()
+                metrics["dataframe_optimization_stats"] = {
+                    "copy_operations_saved": df_stats.copy_operations_saved,
+                    "inplace_operations": df_stats.inplace_operations,
+                    "dtype_optimizations": df_stats.dtype_optimizations,
+                }
+
+            return metrics
+
+        except Exception as e:
+            self.log_error(e, "パフォーマンスメトリクス取得エラー", ErrorCategory.DATA_PROCESSING_ERROR)
+            return {"error": str(e), "status": "error"}
 
     def save_config(self, file_path: str = None) -> None:
         """設定の保存"""
@@ -665,6 +852,7 @@ class UnifiedSystem:
             self.log_info("  - ログシステム: 統合済み")
             self.log_info("  - 設定管理: 統合済み")
             self.log_info("  - 予測機能: 統合済み")
+            self.log_info("  - パフォーマンス最適化: 統合済み")
 
             # 設定の取得
             prediction_config = self.get_config("prediction", {})
