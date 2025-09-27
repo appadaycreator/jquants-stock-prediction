@@ -1,0 +1,19 @@
+{
+  "total_records": 451,
+  "date_range": {
+    "start": "2024-01-01",
+    "end": "2024-04-09"
+  },
+  "unique_stocks": 5,
+  "price_statistics": {
+    "min_price": 1403.72,
+    "max_price": 5210.64,
+    "avg_price": 3060.1554323725054,
+    "volatility": 950.7752762260102
+  },
+  "volume_statistics": {
+    "total_volume": 248114491,
+    "avg_volume": 550142.9955654102,
+    "max_volume": 997767
+  }
+}

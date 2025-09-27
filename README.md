@@ -132,6 +132,33 @@ python3 jquants_data_preprocessing.py
 python3 jquants_stock_prediction.py
 ```
 
+### Webダッシュボード
+
+#### データ生成とビルド
+```bash
+# 1. Web表示用データを生成
+python3 generate_web_data.py
+
+# 2. Webアプリケーションをビルド
+cd web-app
+npm install
+npm run build
+
+# 3. ローカルで確認
+npm run dev  # 開発サーバー起動（http://localhost:3000）
+```
+
+#### GitHub Pagesデプロイ
+```bash
+# GitHub リポジトリにプッシュすると自動デプロイ
+git add .
+git commit -m "Deploy web dashboard"
+git push origin main
+
+# デプロイ後のURL例
+# https://[ユーザー名].github.io/jquants-stock-prediction
+```
+
 ## 動作確認済み
 
 ✅ 依存関係のインストール  
@@ -141,7 +168,10 @@ python3 jquants_stock_prediction.py
 ✅ 結果の可視化  
 ✅ セキュリティ設定（認証情報の環境変数化）  
 ✅ 設定ファイル読み込み機能（YAMLベース）  
-✅ 複数モデル対応（Random Forest、XGBoost、線形回帰等）
+✅ 複数モデル対応（Random Forest、XGBoost、線形回帰等）  
+✅ Webダッシュボード（Next.js + React）  
+✅ GitHub Pages静的ホスティング対応  
+✅ 包括的レポート機能
 
 ## ファイル構成
 
@@ -151,6 +181,12 @@ python3 jquants_stock_prediction.py
 ├── jquants_stock_prediction.py    # 株価予測スクリプト
 ├── config_loader.py               # 設定ファイル読み込みモジュール
 ├── model_factory.py               # 機械学習モデルファクトリー
+├── generate_web_data.py           # Web表示用データ生成スクリプト
+├── web-app/                       # Next.js Webアプリケーション
+│   ├── src/app/                   # Reactコンポーネント
+│   ├── public/data/               # 動的生成データ
+│   └── dist/                      # ビルド済み静的ファイル
+├── .github/workflows/deploy.yml   # GitHub Actions CI/CD
 ├── jquants_flowchart.mmd          # システムフローチャート
 ├── requirements.txt               # Python依存関係
 ├── config.yaml.sample             # 設定ファイルサンプル
@@ -190,6 +226,19 @@ python3 jquants_stock_prediction.py
 - モデルの自動選択・比較機能
 - 特徴量重要度分析
 - 包括的な評価指標（MAE、RMSE、R²）
+
+### generate_web_data.py
+- Web表示用JSONデータ生成
+- 株価データ、モデル比較、特徴量分析の構造化
+- ダッシュボード用サマリー情報作成
+
+### Web Dashboard (web-app/)
+- **React/Next.js**ベースのモダンUI
+- **レスポンシブデザイン**（デスクトップ・モバイル対応）
+- **インタラクティブチャート**（Recharts使用）
+- **リアルタイムデータ表示**
+- **包括的レポート機能**
+- **GitHub Pages**静的ホスティング対応
 
 ## データフロー
 
