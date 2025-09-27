@@ -281,7 +281,13 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* ナビゲーション */}
-      <Navigation />
+      <Navigation 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab}
+        onAnalysisClick={() => setShowAnalysisModal(true)}
+        onSettingsClick={() => setShowSettingsModal(true)}
+        onMonitoringClick={() => setShowStockMonitoring(true)}
+      />
 
       {/* ヘッダー */}
       <header className="bg-white shadow-sm border-b">
@@ -767,6 +773,30 @@ export default function Dashboard() {
                   保存
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 銘柄監視管理モーダル */}
+      {showStockMonitoring && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">銘柄監視管理</h2>
+                <button
+                  onClick={() => setShowStockMonitoring(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+              
+              <StockMonitoringManager
+                onMonitoringChange={handleMonitoringChange}
+                onConfigChange={handleConfigChange}
+              />
             </div>
           </div>
         </div>

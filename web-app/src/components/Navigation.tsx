@@ -9,9 +9,24 @@ import {
   BookOpen, 
   FileText,
   Home,
+  Eye,
 } from "lucide-react";
 
-export default function Navigation() {
+interface NavigationProps {
+  activeTab?: string;
+  onTabChange?: (tab: string) => void;
+  onAnalysisClick?: () => void;
+  onSettingsClick?: () => void;
+  onMonitoringClick?: () => void;
+}
+
+export default function Navigation({
+  activeTab,
+  onTabChange,
+  onAnalysisClick,
+  onSettingsClick,
+  onMonitoringClick,
+}: NavigationProps) {
   const pathname = usePathname();
 
   const navigationItems = [
@@ -79,6 +94,18 @@ export default function Navigation() {
                 </Link>
               );
             })}
+            
+            {/* 銘柄監視管理ボタン */}
+            {onMonitoringClick && (
+              <button
+                onClick={onMonitoringClick}
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                title="銘柄監視管理"
+              >
+                <Eye className="h-4 w-4" />
+                <span>銘柄監視</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

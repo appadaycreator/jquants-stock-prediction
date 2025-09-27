@@ -91,18 +91,37 @@ export default function StockMonitoringManager({
     alertEmail: "",
   });
 
-  // ローカルストレージから監視設定を読み込み
+  // サーバーから監視設定を読み込み
   useEffect(() => {
-    const savedStocks = localStorage.getItem("monitoredStocks");
-    const savedConfig = localStorage.getItem("monitoringConfig");
+    const loadMonitoringData = async () => {
+      try {
+        const response = await fetch('/api/monitoring');
+        const data = await response.json();
+        
+        if (data.stocks) {
+          setMonitoredStocks(data.stocks);
+        }
+        
+        if (data.config) {
+          setConfig(data.config);
+        }
+      } catch (error) {
+        console.error('監視データ読み込みエラー:', error);
+        // フォールバック: ローカルストレージから読み込み
+        const savedStocks = localStorage.getItem("monitoredStocks");
+        const savedConfig = localStorage.getItem("monitoringConfig");
+        
+        if (savedStocks) {
+          setMonitoredStocks(JSON.parse(savedStocks));
+        }
+        
+        if (savedConfig) {
+          setConfig(JSON.parse(savedConfig));
+        }
+      }
+    };
     
-    if (savedStocks) {
-      setMonitoredStocks(JSON.parse(savedStocks));
-    }
-    
-    if (savedConfig) {
-      setConfig(JSON.parse(savedConfig));
-    }
+    loadMonitoringData();
   }, []);
 
   // 監視設定の変更を親コンポーネントに通知
@@ -111,10 +130,29 @@ export default function StockMonitoringManager({
     onConfigChange?.(config);
   }, [monitoredStocks, config, onMonitoringChange, onConfigChange]);
 
-  // ローカルストレージに保存
+  // サーバーに保存
   useEffect(() => {
-    localStorage.setItem("monitoredStocks", JSON.stringify(monitoredStocks));
-    localStorage.setItem("monitoringConfig", JSON.stringify(config));
+    const saveMonitoringData = async () => {
+      try {
+        await fetch('/api/monitoring', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            stocks: monitoredStocks,
+            config: config,
+          }),
+        });
+      } catch (error) {
+        console.error('監視データ保存エラー:', error);
+        // フォールバック: ローカルストレージに保存
+        localStorage.setItem("monitoredStocks", JSON.stringify(monitoredStocks));
+        localStorage.setItem("monitoringConfig", JSON.stringify(config));
+      }
+    };
+    
+    saveMonitoringData();
   }, [monitoredStocks, config]);
 
   // 検索フィルタリング
