@@ -1,0 +1,132 @@
+# モデル設定ファイル
+# 機械学習モデルに関する設定
+
+# 予測モデル設定
+prediction:
+  # 入力ファイル
+  input_file: "processed_stock_data.csv"
+  
+  # 特徴量カラム（技術指標拡張版）
+  features:
+    # 基本移動平均
+    - "SMA_5"
+    - "SMA_10"
+    - "SMA_25"
+    - "SMA_50"
+    # EMA
+    - "EMA_12"
+    - "EMA_26"
+    # モメンタム系
+    - "RSI"
+    - "MACD"
+    - "MACD_Signal"
+    - "MACD_Histogram"
+    - "Stoch_K"
+    - "Stoch_D"
+    # ボラティリティ系
+    - "BB_Upper"
+    - "BB_Lower"
+    - "BB_Percent"
+    - "BB_Width"
+    - "ATR"
+    - "ATR_Percent"
+    # ボリューム系
+    - "Volume_SMA"
+    - "Volume_Rate"
+    - "VWAP"
+    - "VWAP_Deviation"
+    - "OBV"
+    - "OBV_SMA"
+    - "PVT"
+    # トレンド系
+    - "ADX"
+    - "Plus_DI"
+    - "Minus_DI"
+    - "CCI"
+    # 価格変動
+    - "Price_Change_1d"
+    - "Price_Change_3d"
+    - "Price_Change_5d"
+    - "Price_Change_Pct_1d"
+    - "Price_Change_Pct_3d"
+    - "Price_Change_Pct_5d"
+    - "Log_Return_1d"
+    - "Log_Return_3d"
+    - "Log_Return_5d"
+    # 価格位置
+    - "Price_Position_20d"
+    - "Price_Position_50d"
+    - "SMA_Deviation_20d"
+    - "SMA_Deviation_50d"
+    # ラグ特徴量
+    - "Close_lag_1"
+    - "Close_lag_5"
+    # ボリューム
+    - "Volume"
+    
+  # 目的変数
+  target: "Close"
+  
+  # データ分割設定
+  test_size: 0.2
+  validation_size: 0.1
+  random_state: 42
+  
+  # 特徴量選択設定
+  feature_selection:
+    enabled: true
+    method: "mutual_info"  # mutual_info, f_regression, rfe
+    k_best: 20
+    
+  # モデル選択設定
+  model_selection:
+    # 使用するモデル（単一モデル実行の場合）
+    primary_model: "xgboost"
+    # 複数モデル比較を実行するか
+    compare_models: false
+    
+  # 各モデルのパラメータ設定
+  models:
+    random_forest:
+      type: "random_forest"
+      params:
+        n_estimators: 200
+        max_depth: 10
+        random_state: 42
+        min_samples_split: 5
+        min_samples_leaf: 2
+        
+    xgboost:
+      type: "xgboost"
+      params:
+        n_estimators: 150
+        max_depth: 6
+        learning_rate: 0.1
+        subsample: 0.8
+        colsample_bytree: 0.8
+        random_state: 42
+        
+    linear_regression:
+      type: "linear_regression"
+      params:
+        fit_intercept: true
+        
+    ridge:
+      type: "ridge"
+      params:
+        alpha: 1.0
+        random_state: 42
+        
+    lasso:
+      type: "lasso"
+      params:
+        alpha: 0.1
+        random_state: 42
+        max_iter: 1000
+        
+  # 結果保存設定
+  output:
+    image: "stock_prediction_result.png"
+    comparison_csv: "model_comparison_results.csv"
+    model_pickle: "trained_model.pkl"
+    predictions_csv: "predictions.csv"

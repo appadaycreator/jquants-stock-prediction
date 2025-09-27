@@ -1,40 +1,91 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 開発環境では通常のNext.js設定を使用
+  // 基本設定
+  output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
+  distDir: 'dist',
+  
+  // 画像最適化設定
+  images: {
+    unoptimized: process.env.NODE_ENV === 'production',
+    formats: ['image/webp', 'image/avif'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
+  },
+  
+  // GitHub Pages用の設定
   ...(process.env.NODE_ENV === 'production' && {
-    output: 'export',
-    trailingSlash: true,
-    skipTrailingSlashRedirect: true,
-    distDir: 'dist',
-    images: {
-      unoptimized: true
-    },
-    // GitHub Pages用の設定（相対パス使用）
-    assetPrefix: process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '',
-    basePath: process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '',
-    // 静的エクスポート用の設定
-    generateBuildId: async () => {
-      return 'build'
-    },
-    // GitHub Pagesでの配信最適化
-    compress: false,
-    poweredByHeader: false,
-    // RSCファイルの配信設定
-    experimental: {
-      optimizePackageImports: ['lucide-react'],
-      // RSCファイルの配信を無効化（GitHub Pagesで問題を回避）
-      serverComponentsExternalPackages: [],
-      // 静的エクスポート時のRSCファイル生成を無効化
-      staticGeneration: {
-        revalidate: false
-      }
-    },
-    // GitHub Pages用の追加設定
-    trailingSlash: true
+    assetPrefix: '/jquants-stock-prediction',
+    basePath: '/jquants-stock-prediction',
+    generateBuildId: async () => 'build'
   }),
-  // 開発環境での設定
+  
+  // パフォーマンス最適化
+  compress: true,
+  poweredByHeader: false,
+  
+  // 実験的機能の設定
   experimental: {
-    optimizePackageImports: ['lucide-react']
+    optimizePackageImports: ['lucide-react', 'recharts'],
+    serverComponentsExternalPackages: [],
+    staticGeneration: {
+      revalidate: false
+    },
+    // バンドルサイズの最適化
+    optimizeCss: true,
+    // RSCファイルの配信問題を解決
+    serverActions: {
+      allowedOrigins: ['localhost:3000', '*.vercel.app', '*.github.io']
+    }
+  },
+  
+  // Webpack設定の最適化
+  webpack: (config, { dev, isServer }) => {
+    // バンドルサイズの最適化
+    if (!dev && !isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+          common: {
+            name: 'common',
+            minChunks: 2,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    }
+    
+    return config
+  },
+  
+  // ヘッダー設定
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY'
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block'
+          }
+        ]
+      }
+    ]
   }
 }
 

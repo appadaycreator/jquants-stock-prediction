@@ -1,0 +1,33 @@
+# コア設定ファイル
+# 基本的なシステム設定
+
+# システム基本情報
+system:
+  name: "J-Quants株価予測システム"
+  version: "1.0.0"
+  environment: "production"  # development, staging, production
+  debug: false
+
+# ログ設定
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "jquants.log"
+  max_size: "10MB"
+  backup_count: 5
+  console_output: true
+
+# パフォーマンス設定
+performance:
+  max_workers: 4
+  memory_limit: "2GB"
+  timeout: 300  # 秒
+  cache_size: 1000
+  cache_ttl: 3600  # 秒
+
+# セキュリティ設定
+security:
+  enable_ssl: true
+  allowed_origins: ["localhost:3000", "*.github.io"]
+  rate_limit: 100  # リクエスト/分
+  session_timeout: 1800  # 秒

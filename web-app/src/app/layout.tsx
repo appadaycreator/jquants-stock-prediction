@@ -1,16 +1,26 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Link from 'next/link'
-import { BarChart3, FileText, Home, Settings } from 'lucide-react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'J-Quants 株価予測システム',
-  description: '機械学習による株価予測ダッシュボード',
-  icons: {
-    icon: '/favicon.ico',
+  title: 'J-Quants株価予測システム',
+  description: 'J-Quants APIを使用した株価予測システム',
+  keywords: ['株価', '予測', 'J-Quants', '機械学習', 'データ分析'],
+  authors: [{ name: 'J-Quants Stock Prediction Team' }],
+  viewport: 'width=device-width, initial-scale=1',
+  robots: 'index, follow',
+  openGraph: {
+    title: 'J-Quants株価予測システム',
+    description: 'J-Quants APIを使用した株価予測システム',
+    type: 'website',
+    locale: 'ja_JP',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'J-Quants株価予測システム',
+    description: 'J-Quants APIを使用した株価予測システム',
   },
 }
 
@@ -21,58 +31,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="J-Quants株価予測" />
+      </head>
       <body className={inter.className}>
-        <div className="min-h-screen bg-gray-50">
-          {/* サイドバー */}
-          <div className="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg">
-            <div className="flex flex-col h-full">
-              {/* ロゴ */}
-              <div className="flex items-center px-6 py-6 border-b">
-                <BarChart3 className="h-8 w-8 text-blue-600 mr-3" />
-                <div>
-                  <h1 className="text-lg font-bold text-gray-900">J-Quants</h1>
-                  <p className="text-sm text-gray-600">株価予測システム</p>
-                </div>
-              </div>
-
-              {/* ナビゲーション */}
-              <nav className="flex-1 px-4 py-6 space-y-2">
-                <Link 
-                  href="/"
-                  className="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                  <Home className="h-5 w-5 mr-3" />
-                  ダッシュボード
-                </Link>
-                <Link 
-                  href="/reports"
-                  className="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                  <FileText className="h-5 w-5 mr-3" />
-                  レポート
-                </Link>
-                <Link 
-                  href="/settings"
-                  className="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                  <Settings className="h-5 w-5 mr-3" />
-                  設定
-                </Link>
-              </nav>
-
-              {/* フッター */}
-              <div className="px-6 py-4 border-t">
-                <p className="text-xs text-gray-500">
-                  © 2024 J-Quants Stock Prediction
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* メインコンテンツ */}
-          <div className="pl-64">
-            {children}
-          </div>
+        <div id="root">
+          {children}
         </div>
       </body>
     </html>

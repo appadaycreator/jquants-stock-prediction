@@ -1,0 +1,66 @@
+# データ処理設定ファイル
+# データ取得、前処理、保存に関する設定
+
+# データ取得設定
+data_fetch:
+  # 取得する日付（YYYYMMDD形式）
+  target_date: "20240301"
+  # 出力ファイル名
+  output_file: "stock_data.csv"
+  # データ保存設定
+  storage:
+    format: "csv"  # csv, parquet, json
+    compression: "gzip"
+    encoding: "utf-8"
+    
+# データ前処理設定
+preprocessing:
+  # 入力ファイル
+  input_file: "stock_data.csv"
+  # 出力ファイル
+  output_file: "processed_stock_data.csv"
+  
+  # 使用するカラム
+  columns:
+    - "Code"
+    - "Date"
+    - "Open"
+    - "High"
+    - "Low"
+    - "Close"
+    - "Volume"
+    
+  # データクリーニング設定
+  cleaning:
+    remove_duplicates: true
+    handle_missing: "interpolate"  # drop, interpolate, fill
+    outlier_detection: true
+    outlier_method: "iqr"  # iqr, zscore
+    
+  # 特徴量エンジニアリング設定
+  feature_engineering:
+    # 移動平均のウィンドウサイズ
+    sma_windows: [5, 10, 25, 50]
+    # 遅延特徴量の日数
+    lag_days: [1, 5, 25]
+    # 価格変動の期間
+    price_change_periods: [1, 3, 5, 10]
+    # 価格位置の期間
+    price_position_periods: [20, 50]
+    
+  # 技術指標の設定
+  technical_indicators:
+    sma_windows: [5, 10, 20, 25, 50]
+    ema_windows: [12, 26]
+    rsi_period: 14
+    macd_fast: 12
+    macd_slow: 26
+    macd_signal: 9
+    stoch_k: 14
+    stoch_d: 3
+    bb_period: 20
+    bb_std: 2
+    atr_period: 14
+    volume_sma_period: 20
+    adx_period: 14
+    cci_period: 20
