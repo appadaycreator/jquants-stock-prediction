@@ -188,20 +188,30 @@ class ModelComparator:
         self.factory = ModelFactory()
         self.evaluator = ModelEvaluator()
     
-    def compare_models(self, models_config: Dict[str, Dict], X_train, X_test, y_train, y_test, 
-                      feature_names: List[str]) -> pd.DataFrame:
+    def compare_models(self, models_config: Dict[str, Dict], X, y, y_train=None, y_test=None, 
+                      feature_names: List[str] = None) -> pd.DataFrame:
         """
         複数モデルの性能比較
         
         Args:
             models_config: モデル設定辞書
-            X_train, X_test, y_train, y_test: 学習・テストデータ
+            X: 特徴量データ
+            y: ターゲットデータ
+            y_train, y_test: 学習・テストデータ（後方互換性のため）
             feature_names: 特徴量名リスト
             
         Returns:
             pd.DataFrame: 比較結果DataFrame
         """
         results = []
+        
+        # 後方互換性のため、X, yが単一の場合は分割
+        if y_train is None or y_test is None:
+            from sklearn.model_selection import train_test_split
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        else:
+            # 既に分割済みの場合、X_train, X_testをそのまま使用
+            pass
         
         for model_name, config in models_config.items():
             try:
@@ -238,6 +248,27 @@ class ModelComparator:
         
         df_results = pd.DataFrame(results).sort_values('mae')
         return df_results
+    
+    def get_best_model(self, results_df: pd.DataFrame, metric: str = 'mae') -> str:
+        """
+        最良のモデル名を取得
+        
+        Args:
+            results_df: 比較結果DataFrame
+            metric: 評価指標名
+            
+        Returns:
+            str: 最良のモデル名
+        """
+        if results_df.empty:
+            return None
+        
+        if metric not in results_df.columns:
+            self.logger.warning(f"指定された指標 {metric} が見つかりません")
+            metric = 'mae'  # デフォルトにフォールバック
+        
+        best_model = results_df.loc[results_df[metric].idxmin(), 'model_name']
+        return best_model
 
 
 def get_default_models_config() -> Dict[str, Dict]:

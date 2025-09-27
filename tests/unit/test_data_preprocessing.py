@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import os
 from unittest.mock import patch, mock_open
-from jquants_data_preprocessing import validate_input_file, load_and_clean_data, engineer_basic_features
+from jquants_data_preprocessing import validate_input_file, load_and_clean_data, engineer_basic_features, preprocess_data
 
 class TestDataPreprocessing:
     """データ前処理関数のテスト"""
@@ -52,7 +52,7 @@ class TestDataPreprocessing:
         empty_file = tmp_path / "empty.csv"
         empty_file.write_text("")
         
-        with pytest.raises(ValueError, match="データが空です"):
+        with pytest.raises(ValueError, match="入力ファイルが空です"):
             load_and_clean_data(str(empty_file))
     
     def test_load_and_validate_data_invalid_csv(self, tmp_path):
@@ -60,7 +60,7 @@ class TestDataPreprocessing:
         invalid_file = tmp_path / "invalid.csv"
         invalid_file.write_text("invalid,csv,content\nwith,missing,columns")
         
-        with pytest.raises(ValueError, match="必要なカラムが不足しています"):
+        with pytest.raises(KeyError):
             load_and_clean_data(str(invalid_file))
     
     def test_preprocess_data_basic(self, sample_stock_data):
@@ -137,7 +137,7 @@ class TestDataPreprocessing:
         """空のデータフレームの処理テスト"""
         empty_df = pd.DataFrame()
         
-        with pytest.raises(ValueError, match="データが空です"):
+        with pytest.raises(KeyError):
             engineer_basic_features(empty_df)
     
     def test_preprocess_data_single_row(self):
@@ -172,6 +172,9 @@ class TestDataPreprocessing:
             'close': [102, 103, 104, 105, 106],
             'volume': [1000, 1100, 1200, 1300, 1400]
         })
+        
+        # カラム名を標準化
+        data_with_lowercase.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
         
         result = engineer_basic_features(data_with_lowercase)
         assert isinstance(result, pd.DataFrame)

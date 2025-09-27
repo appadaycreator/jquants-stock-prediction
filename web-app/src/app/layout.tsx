@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'J-Quants 株価予測システム',
   description: '機械学習による株価予測ダッシュボード',
   icons: {
-    icon: './favicon.ico',
+    icon: '/favicon.ico',
   },
 }
 

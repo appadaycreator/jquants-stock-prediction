@@ -163,6 +163,18 @@ def engineer_basic_features(df):
     logger.info("✅ 基本特徴量エンジニアリング完了")
     return df
 
+def preprocess_data(df):
+    """データの前処理（テスト用の関数）"""
+    logger.info("🔧 データ前処理を開始")
+    
+    # 基本的な前処理
+    df = engineer_basic_features(df)
+    
+    # 高度な特徴量エンジニアリング
+    df = engineer_advanced_features(df)
+    
+    return df
+
 def engineer_advanced_features(df):
     """高度な技術指標による特徴量エンジニアリング"""
     logger.info("🚀 高度な技術指標計算を開始")

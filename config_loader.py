@@ -48,6 +48,10 @@ class ConfigLoader:
             
             print(f"✅ 設定ファイルを読み込みました: {self.config_path}")
             
+        except yaml.YAMLError as e:
+            print(f"❌ 設定ファイルの読み込みに失敗しました: {e}")
+            print("デフォルト設定を使用します...")
+            self._create_default_config()
         except Exception as e:
             print(f"❌ 設定ファイルの読み込みに失敗しました: {e}")
             print("デフォルト設定を使用します...")
@@ -210,6 +214,45 @@ class ConfigLoader:
         
         current[keys[-1]] = value
         self.logger.info(f"設定を更新しました: {key_path} = {value}")
+    
+    def get_config_section(self, section: str, default: Dict[str, Any] = None) -> Dict[str, Any]:
+        """
+        設定セクションを取得
+        
+        Args:
+            section (str): セクション名
+            default (Dict[str, Any]): デフォルト値
+            
+        Returns:
+            Dict[str, Any]: 設定セクション
+        """
+        if not self.config:
+            return default or {}
+        
+        return self.config.get(section, default or {})
+    
+    def get_config_value(self, key_path: str, default: Any = None) -> Any:
+        """
+        設定値を取得（getメソッドのエイリアス）
+        
+        Args:
+            key_path (str): 取得するキーのパス
+            default (Any): デフォルト値
+            
+        Returns:
+            Any: 設定値
+        """
+        return self.get(key_path, default)
+    
+    def create_default_config(self) -> Dict[str, Any]:
+        """
+        デフォルト設定を作成して返す
+        
+        Returns:
+            Dict[str, Any]: デフォルト設定辞書
+        """
+        self._create_default_config()
+        return self.config
     
     def save_config(self, output_path: str = None) -> None:
         """

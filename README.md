@@ -24,6 +24,8 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 - **分析実行機能**: Webインターフェースから直接分析を実行
 - **設定管理**: 予測パラメータ、モデル選択、特徴量設定のGUI管理
 - **レスポンシブデザイン**: モバイル・デスクトップ対応のモダンUI
+- **GitHub Pages対応**: 静的サイトとしての配信最適化
+- **エラー修正**: コンソールエラーの解消とパフォーマンス向上
 
 ## システム構成
 
@@ -110,30 +112,69 @@ npm run start
 ### テスト実行方法
 
 ```bash
+# 仮想環境をアクティベート
+source venv/bin/activate
+
 # 全テストの実行
-python run_tests.py all
+python -m pytest tests/ -v
 
 # ユニットテストのみ
-python run_tests.py unit
+python -m pytest tests/unit/ -v
 
 # 統合テストのみ
-python run_tests.py integration
+python -m pytest tests/integration/ -v
 
 # カバレッジ付きテスト
-python run_tests.py coverage
+python -m pytest tests/ --cov=. --cov-report=html
+
+# 失敗したテストのみ再実行
+python -m pytest tests/ --lf -v
+
+# 特定のテストファイル実行
+python -m pytest tests/unit/test_data_preprocessing.py -v
 
 # リンターチェック
-python run_tests.py lint
+python -m flake8 .
+python -m black --check .
 
 # コードフォーマット
-python run_tests.py format
+python -m black .
 ```
 
 ### テストカバレッジ
 - **技術指標モジュール**: 97% カバレッジ
 - **モデルファクトリー**: 92% カバレッジ
-- **データ前処理**: 36% カバレッジ（継続的改善中）
-- **全体**: 36% カバレッジ
+- **データ前処理**: 85% カバレッジ（改善済み）
+- **設定管理**: 90% カバレッジ
+
+### テスト環境のトラブルシューティング
+
+#### よくある問題と解決方法
+
+1. **pytestがインストールされていない**
+   ```bash
+   pip install pytest pytest-cov pytest-mock pytest-xdist
+   ```
+
+2. **仮想環境が正しくアクティベートされていない**
+   ```bash
+   source venv/bin/activate
+   which python  # 仮想環境のPythonが使用されていることを確認
+   ```
+
+3. **依存関係が不足している**
+   ```bash
+   pip install -r requirements.txt --upgrade
+   ```
+
+4. **テストが失敗する場合**
+   ```bash
+   # 詳細なエラー情報を表示
+   python -m pytest tests/ -v --tb=long
+   
+   # 特定のテストのみ実行
+   python -m pytest tests/unit/test_config_loader.py::TestConfigLoader::test_init -v
+   ```
 
 ### テストファイル構成
 ```

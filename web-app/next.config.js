@@ -26,31 +26,7 @@ const nextConfig = {
       serverComponentsExternalPackages: []
     },
     // GitHub Pages用の追加設定
-    trailingSlash: true,
-    // 静的ファイルの配信設定
-    async rewrites() {
-      return [
-        // .txtファイルへのリクエストを適切に処理
-        {
-          source: '/:path*.txt',
-          destination: '/:path*'
-        }
-      ]
-    },
-    // GitHub Pages用の追加ヘッダー設定
-    async headers() {
-      return [
-        {
-          source: '/:path*.txt',
-          headers: [
-            {
-              key: 'Content-Type',
-              value: 'text/html; charset=utf-8',
-            },
-          ],
-        },
-      ]
-    }
+    trailingSlash: true
   }),
   // 開発環境での設定
   experimental: {
