@@ -7,8 +7,8 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  // GitHub Pages用の設定を簡素化
-  assetPrefix: '',
+  // GitHub Pages用の設定（相対パス使用）
+  assetPrefix: '.',
   basePath: '',
 }
 

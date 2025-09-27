@@ -83,11 +83,11 @@ export default function Dashboard() {
       setLoading(true)
       
       const [summaryRes, stockRes, modelRes, featureRes, predRes] = await Promise.all([
-        fetch('/data/dashboard_summary.json'),
-        fetch('/data/stock_data.json'),
-        fetch('/data/model_comparison.json'),
-        fetch('/data/feature_analysis.json'),
-        fetch('/data/predictions.json')
+        fetch('./data/dashboard_summary.json'),
+        fetch('./data/stock_data.json'),
+        fetch('./data/model_comparison.json'),
+        fetch('./data/feature_analysis.json'),
+        fetch('./data/prediction_results.json')
       ])
 
       const summaryData = await summaryRes.json()
