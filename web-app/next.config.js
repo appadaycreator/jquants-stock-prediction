@@ -8,7 +8,7 @@ const nextConfig = {
     unoptimized: true
   },
   // GitHub Pages用の設定（相対パス使用）
-  assetPrefix: '.',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '.' : '',
   basePath: '',
   // faviconとNext.js内部ファイルの相対パス化
   experimental: {

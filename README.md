@@ -391,6 +391,53 @@ git push origin main
 
 このプロジェクトはMITライセンスの下で公開されています。
 
+## トラブルシューティング
+
+### GitHub Pages 404エラーの解決
+
+Webアプリケーションで以下の404エラーが発生した場合の解決方法：
+
+**エラー例:**
+```
+favicon.ico:1  GET https://appadaycreator.github.io/favicon.ico?favicon.0b3bf435.ico 404 (Not Found)
+GET https://appadaycreator.github.io/index.txt?_rsc=3lb4g 404 (Not Found)
+GET https://appadaycreator.github.io/reports.txt?_rsc=3lb4g 404 (Not Found)
+GET https://appadaycreator.github.io/settings.txt?_rsc=3lb4g 404 (Not Found)
+```
+
+**解決方法:**
+
+1. **不足ファイルの追加**
+   ```bash
+   # favicon.icoファイルをコピー
+   cp web-app/dist/favicon.ico docs/web-app/favicon.ico
+   
+   # 不足しているtxtファイルを作成
+   echo "J-Quants 株価予測システム - ダッシュボード" > docs/web-app/index.txt
+   echo "J-Quants 株価予測システム - レポート" > docs/web-app/reports.txt
+   echo "J-Quants 株価予測システム - 設定" > docs/web-app/settings.txt
+   ```
+
+2. **Next.js設定の修正**
+   `web-app/next.config.js`で相対パス設定を確認：
+   ```javascript
+   assetPrefix: process.env.NODE_ENV === 'production' ? '.' : '',
+   ```
+
+3. **HTMLファイルの修正**
+   favicon.icoのパスを絶対パスから相対パスに変更：
+   ```html
+   <!-- 修正前 -->
+   <link rel="icon" href="/favicon.ico?favicon.0b3bf435.ico" />
+   
+   <!-- 修正後 -->
+   <link rel="icon" href="./favicon.ico" />
+   ```
+
+4. **GitHub Pages設定の確認**
+   - Settings → Pages → Source: "Deploy from a branch"
+   - Branch: "main", Folder: "/docs"
+
 ## 貢献
 
 バグ報告や機能要求は、GitHubのIssueでお知らせください。
