@@ -82,13 +82,25 @@ preprocessing:
     - 25
     - 50
 
-# モデルパラメータを調整
+# モデル選択と比較設定
 prediction:
-  random_forest:
-    n_estimators: 200
-    max_depth: 10
-    random_state: 42
-  test_size: 0.3
+  model_selection:
+    primary_model: "xgboost"
+    compare_models: true
+  
+  # 各モデルのパラメータ
+  models:
+    xgboost:
+      type: "xgboost"
+      params:
+        n_estimators: 150
+        max_depth: 6
+        learning_rate: 0.1
+    random_forest:
+      type: "random_forest"
+      params:
+        n_estimators: 200
+        max_depth: 10
 ```
 
 ### 設定ファイルのテスト
@@ -128,7 +140,8 @@ python3 jquants_stock_prediction.py
 ✅ 機械学習モデルの訓練と予測  
 ✅ 結果の可視化  
 ✅ セキュリティ設定（認証情報の環境変数化）  
-✅ 設定ファイル読み込み機能（YAMLベース）
+✅ 設定ファイル読み込み機能（YAMLベース）  
+✅ 複数モデル対応（Random Forest、XGBoost、線形回帰等）
 
 ## ファイル構成
 
@@ -137,6 +150,7 @@ python3 jquants_stock_prediction.py
 ├── jquants_data_preprocessing.py  # データ前処理スクリプト
 ├── jquants_stock_prediction.py    # 株価予測スクリプト
 ├── config_loader.py               # 設定ファイル読み込みモジュール
+├── model_factory.py               # 機械学習モデルファクトリー
 ├── jquants_flowchart.mmd          # システムフローチャート
 ├── requirements.txt               # Python依存関係
 ├── config.yaml.sample             # 設定ファイルサンプル
@@ -170,6 +184,12 @@ python3 jquants_stock_prediction.py
 - 設定値の動的取得
 - 設定妥当性チェック
 - ログ設定の初期化
+
+### model_factory.py
+- 複数の機械学習モデル対応（Random Forest、XGBoost、線形回帰等）
+- モデルの自動選択・比較機能
+- 特徴量重要度分析
+- 包括的な評価指標（MAE、RMSE、R²）
 
 ## データフロー
 
