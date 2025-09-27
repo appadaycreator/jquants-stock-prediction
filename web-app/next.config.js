@@ -10,8 +10,8 @@ const nextConfig = {
       unoptimized: true
     },
     // GitHub Pages用の設定（相対パス使用）
-    assetPrefix: '.',
-    basePath: '',
+    assetPrefix: process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '',
+    basePath: process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '',
     // 静的エクスポート用の設定
     generateBuildId: async () => {
       return 'build'
@@ -23,7 +23,11 @@ const nextConfig = {
     experimental: {
       optimizePackageImports: ['lucide-react'],
       // RSCファイルの配信を無効化（GitHub Pagesで問題を回避）
-      serverComponentsExternalPackages: []
+      serverComponentsExternalPackages: [],
+      // 静的エクスポート時のRSCファイル生成を無効化
+      staticGeneration: {
+        revalidate: false
+      }
     },
     // GitHub Pages用の追加設定
     trailingSlash: true

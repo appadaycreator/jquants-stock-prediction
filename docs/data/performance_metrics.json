@@ -1,0 +1,9 @@
+{
+  "model_name": "XGBoost",
+  "mae": 24.92929251534597,
+  "rmse": 51.79023026672093,
+  "r2": 0.9984153699581191,
+  "data_points": 56,
+  "train_size": 220,
+  "test_size": 56
+}
