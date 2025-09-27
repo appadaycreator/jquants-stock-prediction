@@ -11,6 +11,7 @@ import os
 import sys
 import logging
 import subprocess
+import yaml
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
@@ -49,7 +50,6 @@ def validate_and_select_features(df, config_features, target):
 def generate_web_data():
     """Web表示用データ生成のメイン関数"""
     # 直接設定ファイルを読み込み（UnifiedSystemの無限ループを回避）
-    import yaml
     try:
         with open("config_final.yaml", "r", encoding="utf-8") as f:
             config = yaml.safe_load(f) or {}
@@ -63,11 +63,9 @@ def generate_web_data():
             "features": ["Close", "Volume", "Open", "High", "Low"],
             "target": "Close",
             "test_size": 0.2,
-            "random_state": 42
+            "random_state": 42,
         }
-        preprocessing_config = {
-            "output_file": "processed_stock_data.csv"
-        }
+        preprocessing_config = {"output_file": "processed_stock_data.csv"}
 
     output_dir = Path("web-app/public/data")
     output_dir.mkdir(parents=True, exist_ok=True)
