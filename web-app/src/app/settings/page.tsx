@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Navigation from '../../components/Navigation'
 import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen } from 'lucide-react'
 
 export default function SettingsPage() {
@@ -142,6 +143,9 @@ export default function SettingsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* ナビゲーション */}
+      <Navigation />
+
       {/* ヘッダー */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -151,13 +155,6 @@ export default function SettingsPage() {
               <p className="text-gray-600">予測システムの動作を設定</p>
             </div>
             <div className="flex items-center space-x-4">
-              <Link
-                href="/usage"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700"
-              >
-                <BookOpen className="h-4 w-4 mr-2" />
-                使い方
-              </Link>
               <button
                 onClick={runAnalysis}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700"

@@ -36,7 +36,7 @@ class ConfigLoader:
         if not self.logger.handlers:
             handler = logging.StreamHandler()
             formatter = logging.Formatter(
-                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+                "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
             )
             handler.setFormatter(formatter)
             self.logger.addHandler(handler)
@@ -46,7 +46,7 @@ class ConfigLoader:
         """設定ファイルの読み込み"""
         try:
             if os.path.exists(self.config_path):
-                with open(self.config_path, 'r', encoding='utf-8') as f:
+                with open(self.config_path, "r", encoding="utf-8") as f:
                     self.config = yaml.safe_load(f)
                 self.logger.info(f"設定ファイルを読み込みました: {self.config_path}")
             else:
@@ -54,8 +54,10 @@ class ConfigLoader:
                 sample_path = f"{self.config_path}.sample"
                 if os.path.exists(sample_path):
                     shutil.copy(sample_path, self.config_path)
-                    self.logger.info(f"サンプルファイルから設定ファイルを作成しました: {sample_path} -> {self.config_path}")
-                    with open(self.config_path, 'r', encoding='utf-8') as f:
+                    self.logger.info(
+                        f"サンプルファイルから設定ファイルを作成しました: {sample_path} -> {self.config_path}"
+                    )
+                    with open(self.config_path, "r", encoding="utf-8") as f:
                         self.config = yaml.safe_load(f)
                 else:
                     # デフォルト設定を作成

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Navigation from '../../components/Navigation'
 import { 
   BookOpen, 
   Play, 
@@ -30,6 +31,9 @@ export default function UsagePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* ナビゲーション */}
+      <Navigation />
+
       {/* ヘッダー */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,29 +46,6 @@ export default function UsagePage() {
               <div className="flex items-center space-x-2">
                 <CheckCircle className="h-5 w-5 text-green-500" />
                 <span className="text-sm text-gray-600">システム稼働中</span>
-              </div>
-              <div className="flex space-x-2">
-                <Link
-                  href="/"
-                  className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  <BarChart3 className="h-4 w-4 mr-2" />
-                  ダッシュボード
-                </Link>
-                <Link
-                  href="/reports"
-                  className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  <TrendingUp className="h-4 w-4 mr-2" />
-                  レポート
-                </Link>
-                <Link
-                  href="/settings"
-                  className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-                >
-                  <Settings className="h-4 w-4 mr-2" />
-                  設定
-                </Link>
               </div>
             </div>
           </div>

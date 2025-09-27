@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Navigation from '../components/Navigation'
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter
@@ -214,6 +215,9 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* ナビゲーション */}
+      <Navigation />
+
       {/* ヘッダー */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -233,13 +237,6 @@ export default function Dashboard() {
                 </span>
               </div>
               <div className="flex space-x-2">
-                <Link
-                  href="/usage"
-                  className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-                >
-                  <BookOpen className="h-4 w-4 mr-2" />
-                  使い方
-                </Link>
                 <button
                   onClick={() => setShowAnalysisModal(true)}
                   className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
