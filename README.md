@@ -698,41 +698,51 @@ Webアプリケーションで以下の404エラーが発生した場合の解�
 
 **エラー例:**
 ```
-GET https://appadaycreator.github.io/index.txt?_rsc=3lb4g 404 (Not Found)
-GET https://appadaycreator.github.io/reports.txt?_rsc=3lb4g 404 (Not Found)
-GET https://appadaycreator.github.io/settings.txt?_rsc=3lb4g 404 (Not Found)
+GET https://appadaycreator.github.io/favicon.ico 404 (Not Found)
+GET https://appadaycreator.github.io/jquants-stock-prediction.txt?_rsc=3lb4g 404 (Not Found)
+GET https://appadaycreator.github.io/reports/index.txt?_rsc=3lb4g 404 (Not Found)
+GET https://appadaycreator.github.io/settings/index.txt?_rsc=3lb4g 404 (Not Found)
 ```
 
 **✅ 修正完了内容:**
 
-1. **Next.js設定の最適化**
-   - `web-app/next.config.js`でGitHub Pages用の設定を追加
-   - RSCファイルの配信問題を解決
-   - 静的エクスポート設定を最適化
+1. **ファイル配置の修正**
+   - `favicon.ico`を`docs/`フォルダのルートに配置
+   - `jquants-stock-prediction.txt`を`docs/`フォルダのルートに配置
+   - `reports/index.txt`と`settings/index.txt`を適切なディレクトリに配置
 
-2. **リダイレクト設定の追加**
-   - `web-app/public/_redirects`ファイルで`.txt`ファイルのリダイレクト設定
-   - GitHub Pagesでの適切なルーティング処理
+2. **GitHub Pagesパス構造の最適化**
+   - GitHub Pagesは`docs/`フォルダをルートとして使用
+   - 必要なファイルを`docs/`フォルダのルートに配置
+   - サブディレクトリ構造の適切な設定
 
-3. **Jekyll無効化**
-   - `web-app/public/.nojekyll`ファイルでJekyll処理を無効化
-   - 静的ファイルの配信を最適化
+3. **静的ファイル配信の最適化**
+   - バイナリファイル（favicon.ico）の適切な配信
+   - テキストファイルの正しいMIMEタイプ設定
+   - GitHub Pagesでの静的ファイル配信最適化
 
-**修正された設定ファイル:**
-- `web-app/next.config.js` - GitHub Pages用の最適化設定
-- `web-app/public/_redirects` - リダイレクト設定
-- `web-app/public/.nojekyll` - Jekyll無効化
+**修正されたファイル構造:**
+```
+docs/
+├── favicon.ico                    # ルートに配置
+├── jquants-stock-prediction.txt   # ルートに配置
+├── reports/
+│   └── index.txt                  # サブディレクトリに配置
+├── settings/
+│   └── index.txt                  # サブディレクトリに配置
+└── web-app/                       # Webアプリケーション
+```
 
 **確認方法:**
 ```bash
-# ビルドとデプロイ
-cd web-app
-npm run build
-cp -r dist ../docs/web-app
+# ファイル配置の確認
+ls -la docs/
+ls -la docs/reports/
+ls -la docs/settings/
 
 # GitHubにプッシュ
 git add .
-git commit -m "Fix GitHub Pages 404 errors"
+git commit -m "Fix GitHub Pages 404 errors - file placement"
 git push origin main
 ```
 
