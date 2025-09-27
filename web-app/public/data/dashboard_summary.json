@@ -1,8 +1,8 @@
 {
-  "total_data_points": 16,
-  "prediction_period": "0 - 15",
+  "total_data_points": 276,
+  "prediction_period": "0 - 275",
   "best_model": "XGBoost",
-  "mae": "52.85",
-  "r2": "0.81",
-  "last_updated": "2025-09-27 11:16:08"
+  "mae": "24.93",
+  "r2": "1.00",
+  "last_updated": "2025-09-27 17:33:50"
 }
