@@ -8,13 +8,22 @@ import os
 import logging
 import requests
 import pandas as pd
+import numpy as np
 import time
 import re
 import traceback
+import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from typing import Dict, Any, Optional, List
 from dotenv import load_dotenv
 from config_loader import get_config
+from model_factory import ModelFactory, ModelEvaluator, ModelComparator
+from technical_indicators import TechnicalIndicators, get_enhanced_features_list
+from data_validator import DataValidator
+from unified_error_handler import get_unified_error_handler
+from enhanced_logging import setup_enhanced_logging, LogLevel, LogCategory
+from type_safe_validator import TypeSafeValidator
+from font_config import setup_japanese_font
 
 
 class UnifiedJQuantsSystem:
@@ -34,6 +43,8 @@ class UnifiedJQuantsSystem:
             config = get_config()
             self.jquants_config = config.get_jquants_config()
             self.data_fetch_config = config.get_data_fetch_config()
+            self.preprocessing_config = config.get_preprocessing_config()
+            self.prediction_config = config.get_prediction_config()
         except Exception as e:
             self.logger.error(f"設定読み込みエラー: {e}")
             raise
@@ -49,6 +60,26 @@ class UnifiedJQuantsSystem:
         self.refresh_token = None
         self.id_token = None
         self.token_expires_at = None
+        
+        # 機械学習コンポーネントの初期化
+        self.model_factory = ModelFactory()
+        self.model_evaluator = ModelEvaluator()
+        self.model_comparator = ModelComparator()
+        
+        # 技術指標計算器の初期化
+        self.technical_indicators = TechnicalIndicators()
+        
+        # データ検証器の初期化
+        self.data_validator = DataValidator()
+        
+        # 型安全バリデーターの初期化
+        self.type_safe_validator = TypeSafeValidator(strict_mode=True)
+        
+        # 日本語フォント設定
+        setup_japanese_font()
+        
+        # 強化されたログ設定
+        self.enhanced_logger = setup_enhanced_logging("UnifiedJQuantsSystem", LogLevel.INFO)
         
         self.logger.info("✅ 統合J-Quantsシステム初期化完了")
     
@@ -440,22 +471,415 @@ class UnifiedJQuantsSystem:
             self._handle_file_error(e, output_file, "write")
             raise
 
+    def preprocess_data(self, input_file: str, output_file: str = None) -> pd.DataFrame:
+        """データの前処理（統合版）"""
+        self.logger.info("🔧 データ前処理を開始")
+        
+        if output_file is None:
+            output_file = self.preprocessing_config.get("output_file", "processed_stock_data.csv")
+        
+        try:
+            # 1. データの読み込みとクリーニング
+            self.logger.info("📁 ステップ1: データ読み込みとクリーニング")
+            df = self._load_and_clean_data(input_file)
+            
+            # 2. 基本的な特徴量エンジニアリング
+            self.logger.info("🔧 ステップ2: 基本特徴量エンジニアリング")
+            df = self._engineer_basic_features(df)
+            
+            # 3. 高度な技術指標による特徴量エンジニアリング
+            self.logger.info("🚀 ステップ3: 高度な技術指標計算")
+            df = self._engineer_advanced_features(df)
+            
+            # 4. 特徴量選択と検証
+            self.logger.info("🎯 ステップ4: 特徴量選択と検証")
+            df, available_features = self._feature_selection_and_validation(df)
+            
+            # 5. 欠損値の最終処理
+            self.logger.info("🧹 ステップ5: 欠損値の最終処理")
+            initial_rows = len(df)
+            df = df.dropna()
+            final_rows = len(df)
+            dropped_rows = initial_rows - final_rows
+            
+            if dropped_rows > 0:
+                self.logger.info(f"🗑️ 欠損値を含む行を削除: {initial_rows} -> {final_rows} 行 ({dropped_rows} 行削除)")
+            
+            # 6. データ検証の実行
+            self.logger.info("🔍 ステップ6: データ品質検証")
+            if not self._validate_processed_data(df):
+                self.logger.warning("⚠️ データ検証で問題が検出されましたが、処理を続行します")
+            
+            # 7. データの保存
+            self.logger.info("💾 ステップ7: データ保存")
+            df.to_csv(output_file, index=False)
+            self.logger.info(f"✅ 前処理済みデータを保存: {output_file}")
+            
+            # 8. 最終統計情報の表示
+            self.logger.info("📊 最終データ統計:")
+            self.logger.info(f"  📏 データ形状: {df.shape}")
+            self.logger.info(f"  📅 データ期間: {df['Date'].min()} ～ {df['Date'].max()}")
+            self.logger.info(f"  📈 特徴量数: {len(df.columns)}個")
+            self.logger.info(f"  🎯 推奨特徴量: {len(available_features)}個")
+            
+            return df
+            
+        except Exception as e:
+            error_handler = get_unified_error_handler("preprocess_data")
+            error_handler.log_error(e, "データ前処理エラー", {
+                "input_file": input_file,
+                "output_file": output_file,
+                "data_shape": df.shape if 'df' in locals() and df is not None else None
+            })
+            self.logger.error(f"❌ データ前処理中にエラー: {e}")
+            raise
+
+    def predict_stock_prices(self, input_file: str, output_image: str = None) -> Dict[str, Any]:
+        """株価予測の実行（統合版）"""
+        self.logger.info("🎯 株価予測を開始")
+        
+        if output_image is None:
+            output_image = self.prediction_config.get("output_image", "stock_prediction_result.png")
+        
+        try:
+            # データの読み込み
+            self.logger.info(f"📁 データを読み込み中: {input_file}")
+            df = pd.read_csv(input_file)
+            
+            # 特徴量と目的変数の設定
+            features = self.prediction_config.get("features", [
+                "SMA_5", "SMA_25", "SMA_50", "Close_lag_1", "Close_lag_5", "Close_lag_25"
+            ])
+            target = self.prediction_config.get("target", "Close")
+            
+            # 利用可能な特徴量のみを選択
+            available_features = [col for col in features if col in df.columns]
+            missing_features = [col for col in features if col not in df.columns]
+            
+            if missing_features:
+                self.logger.warning(f"⚠️ 不足している特徴量: {missing_features}")
+            
+            X = df[available_features]
+            y = df[target]
+            
+            # 訓練データとテストデータに分割
+            from sklearn.model_selection import train_test_split
+            test_size = self.prediction_config.get("test_size", 0.2)
+            random_state = self.prediction_config.get("random_state", 42)
+            
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=test_size, random_state=random_state
+            )
+            
+            self.logger.info(f"訓練データ: {len(X_train)}行, テストデータ: {len(X_test)}行")
+            
+            # モデル設定の取得
+            model_selection = self.prediction_config.get("model_selection", {})
+            compare_models = model_selection.get("compare_models", False)
+            primary_model = model_selection.get("primary_model", "random_forest")
+            
+            if compare_models:
+                self.logger.info("🔄 複数モデル比較を実行中...")
+                models_config = self.prediction_config.get("models", {})
+                
+                if not models_config:
+                    self.logger.warning("警告: モデル設定が見つかりません。デフォルト設定を使用します。")
+                    from model_factory import get_default_models_config
+                    models_config = get_default_models_config()
+                
+                # 複数モデルの比較実行
+                comparison_results = self.model_comparator.compare_models(
+                    models_config, X_train, X_test, y_train, y_test, available_features
+                )
+                
+                if not comparison_results.empty:
+                    self.logger.info("📊 モデル比較結果:")
+                    for idx, row in comparison_results.iterrows():
+                        self.logger.info(f"{row['model_name']:<15} | MAE: {row['mae']:.4f} | RMSE: {row['rmse']:.4f} | R²: {row['r2']:.4f}")
+                    
+                    # 最優秀モデルを選択
+                    best_model_name = comparison_results.iloc[0]["model_name"]
+                    self.logger.info(f"🏆 最優秀モデル: {best_model_name}")
+                    
+                    # 比較結果をCSVに保存
+                    comparison_csv = self.prediction_config.get("comparison_csv", "model_comparison_results.csv")
+                    comparison_results.to_csv(comparison_csv, index=False)
+                    self.logger.info(f"📁 比較結果を '{comparison_csv}' に保存しました")
+                    
+                    # 最優秀モデルで再学習
+                    best_config = models_config[best_model_name]
+                    model = self.model_factory.create_model(best_config["type"], best_config.get("params", {}))
+                else:
+                    self.logger.error("❌ モデル比較で有効な結果が得られませんでした。デフォルトモデルを使用します。")
+                    model = self.model_factory.create_model("random_forest")
+                    best_model_name = "random_forest"
+            else:
+                self.logger.info(f"🎯 単一モデル実行: {primary_model}")
+                models_config = self.prediction_config.get("models", {})
+                if primary_model in models_config:
+                    model_config = models_config[primary_model]
+                    model = self.model_factory.create_model(
+                        model_config["type"], model_config.get("params", {})
+                    )
+                else:
+                    self.logger.warning(f"警告: モデル '{primary_model}' の設定が見つかりません。デフォルト設定を使用します。")
+                    model = self.model_factory.create_model(primary_model)
+                
+                best_model_name = primary_model
+            
+            # モデル学習
+            self.logger.info(f"📚 モデル学習中: {best_model_name}")
+            model.fit(X_train, y_train)
+            
+            # 予測と評価
+            y_pred = model.predict(X_test)
+            metrics = self.model_evaluator.evaluate_model(model, X_test, y_test, y_pred)
+            
+            self.logger.info(f"📊 最終評価結果:")
+            self.logger.info(f"  MAE (平均絶対誤差): {metrics['mae']:.4f}")
+            self.logger.info(f"  RMSE (平均平方根誤差): {metrics['rmse']:.4f}")
+            self.logger.info(f"  R² (決定係数): {metrics['r2']:.4f}")
+            
+            # 特徴量重要度を取得
+            feature_importance_df = self.model_evaluator.get_feature_importance(model, available_features)
+            if not feature_importance_df.empty:
+                self.logger.info("🎯 特徴量重要度:")
+                for idx, row in feature_importance_df.iterrows():
+                    self.logger.info(f"  {row['feature']}: {row['importance']:.4f}")
+            
+            # 結果の可視化
+            self.logger.info(f"🎨 結果を '{output_image}' に保存中...")
+            self._create_prediction_visualization(y_test, y_pred, feature_importance_df, best_model_name, output_image)
+            
+            return {
+                "model_name": best_model_name,
+                "metrics": metrics,
+                "feature_importance": feature_importance_df,
+                "output_image": output_image
+            }
+            
+        except Exception as e:
+            error_handler = get_unified_error_handler("predict_stock_prices")
+            error_handler.log_error(e, "株価予測エラー", {
+                "input_file": input_file,
+                "output_image": output_image
+            })
+            self.logger.error(f"❌ 株価予測中にエラー: {e}")
+            raise
+
     def get_system_status(self) -> Dict[str, Any]:
         """システム状態の取得"""
         return {
             "system_name": "統合J-Quantsシステム",
-            "version": "1.0.0",
+            "version": "2.0.0",
             "error_count": self.error_count,
             "has_valid_token": self.id_token is not None and (
                 self.token_expires_at is None or datetime.now() < self.token_expires_at
             ),
             "token_expires_at": self.token_expires_at.isoformat() if self.token_expires_at else None,
             "config_loaded": bool(self.jquants_config and self.data_fetch_config),
+            "features": ["データ取得", "データ前処理", "株価予測", "統合エラーハンドリング"]
         }
+
+    def _load_and_clean_data(self, input_file: str) -> pd.DataFrame:
+        """データの読み込みとクリーニング（統合版）"""
+        self.logger.info(f"📁 データを読み込み中: {input_file}")
+        
+        # 入力ファイルの検証
+        if not os.path.exists(input_file):
+            raise FileNotFoundError(f"入力ファイルが見つかりません: {input_file}")
+        
+        # データの読み込み（エンコーディング自動検出）
+        encodings = ["utf-8", "shift_jis", "cp932", "utf-8-sig"]
+        df = None
+        successful_encoding = None
+        
+        for encoding in encodings:
+            try:
+                df = pd.read_csv(input_file, encoding=encoding)
+                successful_encoding = encoding
+                self.logger.info(f"✅ データ読み込み成功 (エンコーディング: {encoding})")
+                break
+            except UnicodeDecodeError:
+                continue
+        
+        if df is None:
+            raise ValueError("ファイルのエンコーディングを特定できませんでした")
+        
+        if df.empty:
+            raise ValueError("データファイルが空です")
+        
+        # 日付カラムの変換
+        if "Date" in df.columns:
+            df["Date"] = pd.to_datetime(df["Date"])
+        
+        # 数値カラムの型変換
+        numeric_columns = ["Open", "High", "Low", "Close", "Volume"]
+        for col in numeric_columns:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], errors="coerce")
+        
+        # 欠損値の処理
+        df = self.type_safe_validator.safe_nan_handling(df, strategy="forward_fill")
+        df = df.dropna()
+        
+        # 重複行の削除
+        df = df.drop_duplicates()
+        
+        self.logger.info(f"📊 クリーニング後のデータ形状: {df.shape}")
+        return df
+
+    def _engineer_basic_features(self, df: pd.DataFrame) -> pd.DataFrame:
+        """基本的な特徴量エンジニアリング（統合版）"""
+        self.logger.info("🔧 基本特徴量エンジニアリングを開始")
+        
+        # 基本的な移動平均
+        basic_sma_windows = self.preprocessing_config.get("sma_windows", [5, 10, 25, 50])
+        for window in basic_sma_windows:
+            if f"SMA_{window}" not in df.columns:
+                df[f"SMA_{window}"] = df["Close"].rolling(window=window).mean()
+        
+        # 基本的なラグ特徴量
+        lag_days = self.preprocessing_config.get("lag_days", [1, 3, 5])
+        for lag in lag_days:
+            df[f"Close_lag_{lag}"] = df["Close"].shift(lag)
+        
+        self.logger.info("✅ 基本特徴量エンジニアリング完了")
+        return df
+
+    def _engineer_advanced_features(self, df: pd.DataFrame) -> pd.DataFrame:
+        """高度な技術指標による特徴量エンジニアリング（統合版）"""
+        self.logger.info("🚀 高度な技術指標計算を開始")
+        
+        try:
+            # 技術指標設定を取得
+            technical_config = self.preprocessing_config.get(
+                "technical_indicators", self.technical_indicators._get_default_config()
+            )
+            
+            # 全ての技術指標を計算
+            enhanced_df = self.technical_indicators.calculate_all_indicators(df, technical_config)
+            
+            # 新しく追加された指標をログ出力
+            original_columns = set(df.columns)
+            new_columns = [col for col in enhanced_df.columns if col not in original_columns]
+            
+            self.logger.info(f"📈 追加された技術指標: {len(new_columns)}個")
+            return enhanced_df
+            
+        except Exception as e:
+            self.logger.error(f"❌ 技術指標計算中にエラー: {e}")
+            self.logger.warning("🔄 基本特徴量のみで続行します")
+            return df
+
+    def _feature_selection_and_validation(self, df: pd.DataFrame) -> tuple:
+        """特徴量選択と検証（統合版）"""
+        self.logger.info("🎯 特徴量選択と検証を開始")
+        
+        # 利用可能な拡張特徴量リスト
+        enhanced_features = get_enhanced_features_list()
+        
+        # 実際に存在する特徴量のみを選択
+        available_features = [col for col in enhanced_features if col in df.columns]
+        missing_features = [col for col in enhanced_features if col not in df.columns]
+        
+        self.logger.info(f"✅ 利用可能な特徴量: {len(available_features)}/{len(enhanced_features)}")
+        
+        if missing_features:
+            self.logger.warning(f"⚠️ 不足している特徴量: {len(missing_features)}個")
+        
+        # 型安全な無限値・異常値のチェック
+        numeric_columns = df.select_dtypes(include=[np.number]).columns.tolist()
+        validation_result = self.type_safe_validator.validate_numeric_columns(df, numeric_columns)
+        
+        if not validation_result["is_valid"]:
+            self.logger.error("❌ 数値データの型安全性検証に失敗")
+            for error in validation_result["errors"]:
+                self.logger.error(f"  - {error}")
+            raise ValueError("数値データの型安全性検証エラー")
+        
+        # 無限値の安全な処理
+        inf_count = np.isinf(df.select_dtypes(include=[np.number])).sum().sum()
+        if inf_count > 0:
+            self.logger.warning(f"⚠️ 無限値を検出: {inf_count}個")
+            df = df.replace([np.inf, -np.inf], np.nan)
+            df = self.type_safe_validator.safe_nan_handling(df, strategy="forward_fill")
+        
+        return df, available_features
+
+    def _validate_processed_data(self, df: pd.DataFrame) -> bool:
+        """前処理済みデータの検証（統合版）"""
+        self.logger.info("🔍 前処理済みデータの検証を開始")
+        
+        try:
+            # データ検証の実行
+            validation_results = self.data_validator.validate_stock_data(df)
+            
+            # 検証レポートの生成と表示
+            report = self.data_validator.generate_validation_report(validation_results)
+            self.logger.info(f"\n{report}")
+            
+            if not validation_results["is_valid"]:
+                self.logger.error("❌ データ検証に失敗しました")
+                return False
+            
+            self.logger.info("✅ データ検証が正常に完了しました")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"❌ データ検証中にエラー: {e}")
+            return False
+
+    def _create_prediction_visualization(self, y_test, y_pred, feature_importance_df, model_name: str, output_image: str):
+        """予測結果の可視化（統合版）"""
+        plt.figure(figsize=(15, 8))
+        
+        # メインプロット
+        plt.subplot(2, 2, 1)
+        plt.plot(y_test.values, label="実際の株価", color="blue", alpha=0.7, linewidth=2)
+        plt.plot(y_pred, label="予測株価", color="red", alpha=0.7, linewidth=2)
+        plt.legend()
+        plt.title(f"株価予測結果 ({model_name})")
+        plt.xlabel("データポイント")
+        plt.ylabel("株価")
+        plt.grid(True, alpha=0.3)
+        
+        # 散布図
+        plt.subplot(2, 2, 2)
+        plt.scatter(y_test, y_pred, alpha=0.6, color="green")
+        plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], "r--", lw=2)
+        plt.xlabel("実際の株価")
+        plt.ylabel("予測株価")
+        plt.title("実測値 vs 予測値")
+        plt.grid(True, alpha=0.3)
+        
+        # 残差プロット
+        plt.subplot(2, 2, 3)
+        residuals = y_test - y_pred
+        plt.scatter(y_pred, residuals, alpha=0.6, color="orange")
+        plt.axhline(y=0, color="r", linestyle="--")
+        plt.xlabel("予測株価")
+        plt.ylabel("残差")
+        plt.title("残差プロット")
+        plt.grid(True, alpha=0.3)
+        
+        # 特徴量重要度（上位10個）
+        if not feature_importance_df.empty:
+            plt.subplot(2, 2, 4)
+            top_features = feature_importance_df.head(10)
+            plt.barh(range(len(top_features)), top_features["importance"], color="skyblue")
+            plt.yticks(range(len(top_features)), top_features["feature"])
+            plt.xlabel("重要度")
+            plt.title("特徴量重要度 (Top 10)")
+            plt.grid(True, alpha=0.3)
+        
+        plt.tight_layout()
+        plt.savefig(output_image, dpi=300, bbox_inches="tight")
+        plt.close()  # メモリリークを防ぐ
 
 
 def main():
-    """メイン処理"""
+    """メイン処理 - 完全統合システム"""
     # ログ設定
     logging.basicConfig(
         level=logging.INFO,
@@ -470,18 +894,37 @@ def main():
         status = system.get_system_status()
         print(f"🚀 システム状態: {status}")
         
-        # サンプルデータ取得（今日の日付）
+        # 完全統合パイプラインの実行
         from datetime import datetime
         today = datetime.now().strftime("%Y%m%d")
         
-        print(f"📊 株価データ取得テスト: {today}")
-        df = system.fetch_stock_data(today)
+        print(f"\n🔄 完全統合パイプラインを開始...")
         
-        # データ保存
-        output_file = f"stock_data_{today}.csv"
-        system.save_data(df, output_file)
+        # ステップ1: データ取得
+        print(f"\n📊 ステップ1: 株価データ取得 ({today})")
+        raw_data = system.fetch_stock_data(today)
+        raw_output_file = f"stock_data_{today}.csv"
+        system.save_data(raw_data, raw_output_file)
+        print(f"✅ 生データ保存完了: {raw_output_file}")
         
-        print(f"✅ 処理完了: {output_file}")
+        # ステップ2: データ前処理
+        print(f"\n🔧 ステップ2: データ前処理")
+        processed_data = system.preprocess_data(raw_output_file)
+        processed_output_file = f"processed_stock_data_{today}.csv"
+        processed_data.to_csv(processed_output_file, index=False)
+        print(f"✅ 前処理完了: {processed_output_file}")
+        
+        # ステップ3: 株価予測
+        print(f"\n🎯 ステップ3: 株価予測")
+        prediction_result = system.predict_stock_prices(processed_output_file)
+        print(f"✅ 予測完了: {prediction_result['output_image']}")
+        print(f"📊 予測精度: MAE={prediction_result['metrics']['mae']:.4f}, R²={prediction_result['metrics']['r2']:.4f}")
+        
+        print(f"\n🎉 完全統合パイプライン完了!")
+        print(f"📁 出力ファイル:")
+        print(f"  - 生データ: {raw_output_file}")
+        print(f"  - 前処理済み: {processed_output_file}")
+        print(f"  - 予測結果: {prediction_result['output_image']}")
         
     except Exception as e:
         print(f"❌ エラー: {e}")

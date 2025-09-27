@@ -81,17 +81,21 @@ cp config.yaml.sample config.yaml
 
 ### 完全自動実行（推奨）
 
-すべてのステップを自動で実行する場合：
+**🚀 統合システムを使用した完全自動実行:**
 
 ```bash
 # 仮想環境をアクティベート
 source venv/bin/activate
 
-# 1. データ取得（リファクタリング版推奨）
-python3 jquants_data_fetch_refactored.py
+# 統合システムで全工程を自動実行
+python3 unified_jquants_system.py
+```
 
-# または従来版
-python3 jquants_data_fetch.py
+**従来の個別実行（互換性維持）:**
+
+```bash
+# 1. データ取得
+python3 jquants_data_preprocessing.py
 
 # 2. データ前処理
 python3 jquants_data_preprocessing.py
@@ -107,15 +111,18 @@ python3 generate_web_data.py
 
 #### 1. データ取得
 
+**統合システム（推奨）:**
 ```bash
-# リファクタリング版（推奨）
-python3 jquants_data_fetch_refactored.py
-
-# または従来版
-python3 jquants_data_fetch.py
+python3 unified_jquants_system.py
 ```
 
-**出力**: `stock_data.csv` に生の株価データが保存されます。
+**従来の個別実行:**
+```bash
+# データ前処理スクリプトでデータ取得も実行
+python3 jquants_data_preprocessing.py
+```
+
+**出力**: `stock_data_YYYYMMDD.csv` に生の株価データが保存されます。
 
 **設定可能項目**:
 - 取得対象日付（`config.yaml`の`data_fetch.target_date`）

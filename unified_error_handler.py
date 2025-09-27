@@ -181,7 +181,6 @@ def get_unified_error_handler(module_name: str) -> UnifiedErrorHandler:
 
 def reset_error_handlers():
     """エラーハンドラーをリセット"""
-    global _error_handlers
     _error_handlers.clear()
 
 

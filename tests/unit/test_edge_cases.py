@@ -8,6 +8,7 @@ import numpy as np
 from unittest.mock import patch, MagicMock
 import os
 import tempfile
+import yaml
 from technical_indicators import TechnicalIndicators
 from model_factory import ModelFactory, ModelEvaluator
 from data_validator import DataValidator

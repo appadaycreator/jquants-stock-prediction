@@ -28,7 +28,7 @@ class TestJQuantsAPIClient:
             "max_retries": 5,
             "retry_interval": 10
         }
-        fetcher = JQuantsDataFetcher(config)
+        fetcher = JQuantsAPIClient(config)
         assert fetcher.base_url == "https://test.api.com"
         assert fetcher.max_retries == 5
         assert fetcher.retry_interval == 10
