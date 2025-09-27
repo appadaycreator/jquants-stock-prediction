@@ -269,7 +269,7 @@ class TestEnhancedConfigLoader:
             loader = EnhancedConfigLoader(config_dir=str(config_dir))
 
             # 設定をエクスポート
-            export_file = os.path.join(temp_dir, "exported_config.yaml")
+            export_file = os.path.join(temp_dir, "exported_config_final.yaml")
             loader.export_config(export_file)
 
             assert os.path.exists(export_file)

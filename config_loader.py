@@ -14,7 +14,7 @@ from typing import Dict, Any, Optional, Union
 class ConfigLoader:
     """設定ローダークラス"""
 
-    def __init__(self, config_path: str = "config.yaml"):
+    def __init__(self, config_path: str = "config_final.yaml"):
         """
         初期化
 

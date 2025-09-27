@@ -637,8 +637,9 @@ integration:
   
   # レガシー設定ファイル廃止予定
   deprecated_configs:
-    - "config.yaml"
-    - "sentiment_config.yaml"
-    - "hft_config.yaml"
-    - "test_config.yaml"
+    files:
+      - "config.yaml"
+      - "sentiment_config.yaml"
+      - "hft_config.yaml"
+      - "test_config.yaml"
     migration_date: "2024-12-31"

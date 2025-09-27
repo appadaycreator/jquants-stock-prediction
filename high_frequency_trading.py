@@ -93,8 +93,15 @@ class HighFrequencyTrading:
         self.profit_loss: float = 0.0
         self.total_trades: int = 0
 
-        # スレッドプール
-        self.executor = ThreadPoolExecutor(max_workers=4)
+        # スレッドプール（設定ファイルからmax_workersを読み込み）
+        try:
+            import yaml
+            with open('config_final.yaml', 'r', encoding='utf-8') as f:
+                config = yaml.safe_load(f)
+            max_workers = config.get('performance', {}).get('max_workers', 4)
+        except Exception:
+            max_workers = 4
+        self.executor = ThreadPoolExecutor(max_workers=max_workers)
 
         logger.info("高頻度取引システムを初期化しました")
 

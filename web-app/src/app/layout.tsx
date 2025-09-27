@@ -12,8 +12,8 @@ export const metadata: Metadata = {
   viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
   icons: {
-    icon: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: "/jquants-stock-prediction/favicon.ico",
+    apple: "/jquants-stock-prediction/favicon.ico",
   },
   themeColor: "#000000",
   appleWebApp: {

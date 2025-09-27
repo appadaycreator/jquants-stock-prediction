@@ -1,62 +1,18 @@
 ==================================================
 データ検証レポート
 ==================================================
-検証日時: 2025-09-28 01:26:07
-品質スコア: 20.0/100
+検証日時: 2025-09-28 01:50:22
+品質スコア: 80.0/100
 検証結果: ❌ 不合格
 
 ❌ エラー:
-  - High < Low の異常データが50件あります
-  - High < Low の異常データが50件あります
-  - High < Low の異常データが50件あります
-  - High < Low の異常データが50件あります
+  - 必須フィールドが不足: ['Code', 'Open', 'High', 'Low', 'Volume']
 
 📊 統計情報:
-  - 総レコード数: 100
-  - 総カラム数: 57
-  - データ期間: 2023-01-01 00:00:00 ～ 2023-04-10 00:00:00
-  - 期間日数: 99日
+  - 総レコード数: 10
+  - 総カラム数: 2
+  - データ期間: 2023-01-01 00:00:00 ～ 2023-01-10 00:00:00
+  - 期間日数: 9日
   - 欠損値:
-    * SMA_5: 4件
-    * SMA_25: 24件
-    * SMA_50: 49件
-    * Close_lag_1: 1件
-    * Close_lag_5: 5件
-    * Close_lag_25: 25件
-    * SMA_10: 9件
-    * SMA_20: 19件
-    * RSI: 13件
-    * Stoch_K: 13件
-    * Stoch_D: 15件
-    * BB_Middle: 19件
-    * BB_Upper: 19件
-    * BB_Lower: 19件
-    * BB_Percent: 19件
-    * BB_Width: 19件
-    * ATR: 14件
-    * ATR_Percent: 14件
-    * Volume_SMA: 19件
-    * Volume_Rate: 19件
-    * PVT: 1件
-    * OBV_SMA: 19件
-    * ADX: 27件
-    * Plus_DI: 14件
-    * Minus_DI: 14件
-    * CCI: 19件
-    * Price_Change_1d: 1件
-    * Price_Change_Pct_1d: 1件
-    * Log_Return_1d: 1件
-    * Price_Change_3d: 3件
-    * Price_Change_Pct_3d: 3件
-    * Log_Return_3d: 3件
-    * Price_Change_5d: 5件
-    * Price_Change_Pct_5d: 5件
-    * Log_Return_5d: 5件
-    * Price_Change_10d: 10件
-    * Price_Change_Pct_10d: 10件
-    * Log_Return_10d: 10件
-    * Price_Position_20d: 19件
-    * SMA_Deviation_20d: 19件
-    * Price_Position_50d: 49件
-    * SMA_Deviation_50d: 49件
+    * Close: 10件
 ==================================================

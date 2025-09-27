@@ -159,7 +159,7 @@ class ErrorHandlingMigration:
 ```python
 from unified_error_handler import get_unified_error_handler
 from unified_error_logging_system import get_unified_error_logging_system
-from enhanced_logging import EnhancedLogger
+from unified_logging_config import get_system_logger
 ```
 
 #### 新形式:

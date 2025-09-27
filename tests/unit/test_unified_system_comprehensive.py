@@ -211,10 +211,10 @@ class TestUnifiedSystemComprehensive:
         with patch("unified_system.yaml.safe_load") as mock_yaml:
             mock_yaml.return_value = sample_config
 
-            system = UnifiedSystem("TestSystem", "test_config.yaml")
+            system = UnifiedSystem("TestSystem", "config_final.yaml")
 
             assert system.module_name == "TestSystem"
-            assert system.config_file == "test_config.yaml"
+            assert system.config_file == "config_final.yaml"
 
     def test_log_error_basic(self):
         """基本エラーログのテスト"""

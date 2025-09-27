@@ -134,3 +134,38 @@ def get_api_logger() -> logging.Logger:
 def get_error_logger() -> logging.Logger:
     """エラーログ用のロガーを取得"""
     return UnifiedLoggingConfig.get_error_logger()
+
+
+def get_enhanced_logger() -> logging.Logger:
+    """拡張ログ用のロガーを取得（データ情報ログ用）"""
+    logger = UnifiedLoggingConfig.setup_logging("enhanced", log_file="enhanced.log", detailed=True)
+    
+    # 拡張メソッドを追加
+    def log_data_info(message: str, **kwargs):
+        """データ情報をログに記録"""
+        info_parts = [message]
+        for key, value in kwargs.items():
+            info_parts.append(f"{key}={value}")
+        logger.info(" | ".join(info_parts))
+    
+    def log_operation_start(operation: str, **kwargs):
+        """操作開始をログに記録"""
+        info_parts = [f"🚀 {operation}開始"]
+        for key, value in kwargs.items():
+            info_parts.append(f"{key}={value}")
+        logger.info(" | ".join(info_parts))
+    
+    def log_operation_end(operation: str, success: bool = True, **kwargs):
+        """操作終了をログに記録"""
+        status = "✅ 成功" if success else "❌ 失敗"
+        info_parts = [f"🏁 {operation}終了", status]
+        for key, value in kwargs.items():
+            info_parts.append(f"{key}={value}")
+        logger.info(" | ".join(info_parts))
+    
+    # メソッドをロガーに追加
+    logger.log_data_info = log_data_info
+    logger.log_operation_start = log_operation_start
+    logger.log_operation_end = log_operation_end
+    
+    return logger

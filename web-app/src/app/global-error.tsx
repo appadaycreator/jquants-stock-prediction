@@ -14,11 +14,30 @@ export default function GlobalError({
     console.error("Global Error:", error);
     
     // RSC payloadエラーの場合、自動的にリトライ
-    if (error.message.includes("RSC payload") || error.message.includes("Connection closed")) {
+    if (error.message.includes("RSC payload") || 
+        error.message.includes("Connection closed") ||
+        error.message.includes("Failed to fetch RSC payload") ||
+        error.message.includes("settings.txt") ||
+        error.message.includes("reports.txt")) {
       console.log("RSC payload error detected, attempting recovery...");
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      
+      // 複数回のリトライを試行
+      let retryCount = 0;
+      const maxRetries = 3;
+      
+      const retry = () => {
+        if (retryCount < maxRetries) {
+          retryCount++;
+          console.log(`Retry attempt ${retryCount}/${maxRetries}`);
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000 * retryCount);
+        } else {
+          console.error("Max retries reached, showing error page");
+        }
+      };
+      
+      retry();
     }
   }, [error]);
 

@@ -1,21 +1,13 @@
 # GitHub Pages用のリダイレクト設定
 # RSCファイル（React Server Components）の404エラーを解決
 
-# favicon.icoの直接配信（ルートディレクトリから）
-/favicon.ico /jquants-stock-prediction/favicon.ico 200
-
 # RSCファイルのリダイレクト（Next.js App Router用）
-/index.txt /jquants-stock-prediction/index.html 200
-/reports.txt /jquants-stock-prediction/reports 200
-/settings.txt /jquants-stock-prediction/settings 200
+/index.txt /index.html 200
+/reports.txt /reports 200
+/settings.txt /settings 200
 
 # RSCパラメータ付きファイルの処理
-/*.txt /jquants-stock-prediction/index.html 200
-
-# Next.js RSC payload用の設定
-/_next/static/* /jquants-stock-prediction/_next/static/* 200
-/_next/static/chunks/* /jquants-stock-prediction/_next/static/chunks/* 200
-/_next/static/media/* /jquants-stock-prediction/_next/static/media/* 200
+/*.txt /index.html 200
 
 # SPA用のフォールバック
-/* /jquants-stock-prediction/index.html 200
+/* /index.html 200

@@ -65,7 +65,7 @@ except ImportError:
         return True
 
     class UnifiedSystem:
-        def __init__(self, module_name="UnifiedSystem", config_file="config.yaml"):
+        def __init__(self, module_name="UnifiedSystem", config_file="config_final.yaml"):
             self.module_name = module_name
             self.error_count = 0
             self.error_stats = {"api_error": 0, "data_error": 0, "model_error": 0, "file_error": 0}

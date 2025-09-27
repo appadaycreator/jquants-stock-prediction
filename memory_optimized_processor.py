@@ -179,7 +179,14 @@ class ParallelProcessor:
     """並列処理クラス"""
 
     def __init__(self, max_workers: int = None):
-        self.max_workers = max_workers or min(4, mp.cpu_count())
+        # 設定ファイルからmax_workersを読み込み
+        try:
+            import yaml
+            with open('config_final.yaml', 'r', encoding='utf-8') as f:
+                config = yaml.safe_load(f)
+            self.max_workers = max_workers or config.get('performance', {}).get('max_workers', 4)
+        except Exception:
+            self.max_workers = max_workers or min(4, mp.cpu_count())
         self.logger = logging.getLogger(__name__)
 
     def process_indicators_parallel(

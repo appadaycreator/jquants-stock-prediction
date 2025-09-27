@@ -200,9 +200,68 @@ export default function SettingsPage() {
 
       {/* メインコンテンツ */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="space-y-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* サイドバー */}
+          <div className="w-full lg:w-1/4">
+            <nav className="bg-white rounded-lg shadow p-4 sticky top-8">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">設定メニュー</h3>
+              <div className="space-y-2">
+                <a
+                  href="#prediction"
+                  className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                >
+                  予測設定
+                </a>
+                <a
+                  href="#features"
+                  className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                >
+                  特徴量設定
+                </a>
+                <a
+                  href="#model"
+                  className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                >
+                  モデル設定
+                </a>
+                <a
+                  href="#data"
+                  className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                >
+                  データ設定
+                </a>
+                <a
+                  href="#ui"
+                  className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                >
+                  UI設定
+                </a>
+                <a
+                  href="#system"
+                  className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                >
+                  システム情報
+                </a>
+                
+                {/* 使い方リンク */}
+                <div className="border-t pt-4 mt-4">
+                  <Link
+                    href="/usage"
+                    className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-blue-600 hover:bg-blue-50 hover:text-blue-700"
+                  >
+                    <BookOpen className="h-4 w-4" />
+                    <span>使い方ガイド</span>
+                  </Link>
+                </div>
+              </div>
+            </nav>
+          </div>
+
+          {/* メインコンテンツエリア */}
+          <div className="w-full lg:w-3/4">
+            <div className="space-y-8">
           {/* 予測設定 */}
-          <div className="bg-white rounded-lg shadow p-8">
+          <div id="prediction" className="bg-white rounded-lg shadow p-8">
             <div className="flex items-center mb-6">
               <BarChart className="h-6 w-6 text-purple-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">予測設定</h2>
@@ -246,7 +305,7 @@ export default function SettingsPage() {
           </div>
 
           {/* 特徴量設定 */}
-          <div className="bg-white rounded-lg shadow p-8">
+          <div id="features" className="bg-white rounded-lg shadow p-8">
             <div className="flex items-center mb-6">
               <Database className="h-6 w-6 text-green-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">特徴量設定</h2>
@@ -285,7 +344,7 @@ export default function SettingsPage() {
           </div>
 
           {/* モデル設定 */}
-          <div className="bg-white rounded-lg shadow p-8">
+          <div id="model" className="bg-white rounded-lg shadow p-8">
             <div className="flex items-center mb-6">
               <Cpu className="h-6 w-6 text-blue-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">モデル設定</h2>
@@ -363,7 +422,7 @@ export default function SettingsPage() {
           </div>
 
           {/* データ設定 */}
-          <div className="bg-white rounded-lg shadow p-8">
+          <div id="data" className="bg-white rounded-lg shadow p-8">
             <div className="flex items-center mb-6">
               <Database className="h-6 w-6 text-green-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">データ設定</h2>
@@ -422,7 +481,7 @@ export default function SettingsPage() {
           </div>
 
           {/* UI設定 */}
-          <div className="bg-white rounded-lg shadow p-8">
+          <div id="ui" className="bg-white rounded-lg shadow p-8">
             <div className="flex items-center mb-6">
               <BarChart className="h-6 w-6 text-purple-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">UI設定</h2>
@@ -480,7 +539,7 @@ export default function SettingsPage() {
           </div>
 
           {/* システム情報 */}
-          <div className="bg-white rounded-lg shadow p-8">
+          <div id="system" className="bg-white rounded-lg shadow p-8">
             <div className="flex items-center mb-6">
               <Settings className="h-6 w-6 text-gray-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">システム情報</h2>
@@ -499,6 +558,8 @@ export default function SettingsPage() {
                 <p className="text-sm text-gray-600">データソース</p>
                 <p className="text-lg font-semibold">J-Quants API</p>
               </div>
+            </div>
+          </div>
             </div>
           </div>
         </div>

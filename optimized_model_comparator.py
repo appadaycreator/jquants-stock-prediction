@@ -136,7 +136,14 @@ class OptimizedModelComparator:
     """最適化されたモデル比較クラス"""
     
     def __init__(self, max_workers: int = None, use_cache: bool = True):
-        self.max_workers = max_workers or min(4, mp.cpu_count())
+        # 設定ファイルからmax_workersを読み込み
+        try:
+            import yaml
+            with open('config_final.yaml', 'r', encoding='utf-8') as f:
+                config = yaml.safe_load(f)
+            self.max_workers = max_workers or config.get('performance', {}).get('max_workers', 4)
+        except Exception:
+            self.max_workers = max_workers or min(4, mp.cpu_count())
         self.use_cache = use_cache
         self.model_cache = ModelCache() if use_cache else None
         self.feature_cache = FeatureCache()
@@ -279,7 +286,6 @@ class OptimizedModelComparator:
                 # モデルをキャッシュに保存
                 if self.model_cache:
                     self.model_cache.save_model(model, model_name, X_train, y_train, params)
-            else:
                 training_time = 0.0  # キャッシュから取得した場合
             
             # 予測時間を測定

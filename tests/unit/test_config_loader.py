@@ -242,7 +242,7 @@ class TestConfigLoader:
 
     def test_config_path_property(self):
         """設定パスのプロパティテスト"""
-        config_path = "test_config.yaml"
+        config_path = "config_final.yaml"
         loader = ConfigLoader(config_path)
         assert loader.config_path == config_path
 

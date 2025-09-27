@@ -150,16 +150,15 @@ except ConnectionError as e:
 
 #### 強化ログの使用
 ```python
-from enhanced_logging import setup_enhanced_logging, LogLevel
+from unified_logging_config import get_system_logger
 
 # ログ設定
-enhanced_logger = setup_enhanced_logging("MyModule", LogLevel.INFO)
-logger = enhanced_logger.get_logger()
+logger = get_system_logger()
 
 # 操作ログ
-enhanced_logger.log_operation_start("データ処理", input_file="data.csv")
-enhanced_logger.log_data_info("処理データ", shape=(1000, 10), dtype="float64")
-enhanced_logger.log_operation_end("データ処理", success=True, records=1000)
+logger.info("データ処理開始", extra={"input_file": "data.csv"})
+logger.info("処理データ", extra={"shape": (1000, 10), "dtype": "float64"})
+logger.info("データ処理完了", extra={"success": True, "records": 1000})
 ```
 
 ### 7. デバッグ支援

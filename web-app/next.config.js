@@ -17,8 +17,6 @@ const nextConfig = {
     assetPrefix: "/jquants-stock-prediction",
     basePath: "/jquants-stock-prediction",
     generateBuildId: async () => "build",
-    // RSCエラーを解決するための設定
-    // outputFileTracing: true, // 非推奨の設定をコメントアウト
     // 静的エクスポート用の設定
     trailingSlash: true,
     skipTrailingSlashRedirect: true,
@@ -28,6 +26,8 @@ const nextConfig = {
       '/reports': ['./src/app/reports/**/*'],
       '/settings': ['./src/app/settings/**/*'],
     },
+    // RSC payload エラーを根本的に解決
+    generateStaticParams: false
   }),
   
   // パフォーマンス最適化
@@ -52,12 +52,8 @@ const nextConfig = {
     serverActions: {
       allowedOrigins: ["appadaycreator.github.io"],
     },
-    // RSCペイロードエラーを解決するための設定
-    serverComponentsExternalPackages: [],
     // プリフェッチの無効化（GitHub Pagesでの問題を回避）
     disableOptimizedLoading: true,
-    // プリフェッチを完全に無効化
-    prefetch: false,
   },
   
   // サーバー外部パッケージの設定

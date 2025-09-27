@@ -19,11 +19,11 @@ from config_loader import ConfigLoader
 config_loader = ConfigLoader()
 preprocessing_config = config_loader.get_preprocessing_config()
 
-# 強化されたログ設定
-from enhanced_logging import setup_enhanced_logging, LogLevel, LogCategory
+# 統一されたログ設定
+from unified_logging_config import get_data_logger, get_enhanced_logger
 
-enhanced_logger = setup_enhanced_logging("DataPreprocessing", LogLevel.INFO)
-logger = enhanced_logger.get_logger()
+logger = get_data_logger()
+enhanced_logger = get_enhanced_logger()
 
 
 def validate_input_file(input_file):
