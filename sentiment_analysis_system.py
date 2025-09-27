@@ -688,15 +688,15 @@ async def main():
     print("=== 感情分析・ニュース統合システム ===")
     print(f"実行時刻: {signals.get('timestamp', 'N/A')}")
     print(
-        f"統合感情スコア: {signals.get("overall_sentiment", {}).get("score", 0.0):.3f}"
+        f"統合感情スコア: {signals.get('overall_sentiment', {}).get('score', 0.0):.3f}"
     )
-    print(f"感情タイプ: {signals.get("overall_sentiment", {}).get("type", "N/A")}")
-    print(f"信頼度: {signals.get("overall_sentiment", {}).get("confidence", 0.0):.3f}")
+    print(f"感情タイプ: {signals.get('overall_sentiment', {}).get('type', 'N/A')}")
+    print(f"信頼度: {signals.get('overall_sentiment', {}).get('confidence', 0.0):.3f}")
 
     print("\n=== トレーディングシグナル ===")
-    for symbol, signal_data in signals.get("trading_signals", {}).items():
+    for symbol, signal_data in signals.get('trading_signals', {}).items():
         print(
-            f"{symbol}: {signal_data["signal"]} (強度: {signal_data["strength"]:.3f})"
+            f"{symbol}: {signal_data['signal']} (強度: {signal_data['strength']:.3f})"
         )
 
     # 感情分析サマリーの表示
