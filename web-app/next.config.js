@@ -7,8 +7,9 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '',
-  basePath: process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '',
+  // GitHub Pages用の設定を簡素化
+  assetPrefix: '',
+  basePath: '',
 }
 
 module.exports = nextConfig

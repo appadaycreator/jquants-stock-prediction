@@ -149,15 +149,33 @@ npm run dev  # 開発サーバー起動（http://localhost:3000）
 ```
 
 #### GitHub Pagesデプロイ
+
+**手順 1: GitHub Pages設定**
+1. GitHubリポジトリページ → Settings → Pages
+2. Source: "Deploy from a branch" を選択
+3. Branch: "main" を選択  
+4. Folder: "/docs" を選択
+5. Save をクリック
+
+**手順 2: デプロイ実行**
 ```bash
-# GitHub リポジトリにプッシュすると自動デプロイ
+# 1. ビルド済みファイルを更新
+python3 generate_web_data.py
+cd web-app && npm run build
+cp -r dist ../docs/web-app
+
+# 2. GitHubにプッシュ（自動デプロイ）
 git add .
-git commit -m "Deploy web dashboard"
+git commit -m "🚀 Deploy web dashboard"
 git push origin main
 
-# デプロイ後のURL例
+# 3. アクセス（5-10分後に有効）
 # https://[ユーザー名].github.io/jquants-stock-prediction
 ```
+
+**トラブルシューティング**
+- 404エラーの場合: GitHub Pages設定で"/docs"フォルダを選択しているか確認
+- ビルドエラーの場合: `./deploy.sh`スクリプトを実行してローカルテスト
 
 ## 動作確認済み
 

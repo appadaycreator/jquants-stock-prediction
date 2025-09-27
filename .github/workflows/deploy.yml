@@ -1,26 +1,16 @@
-name: Deploy to GitHub Pages
+name: Update GitHub Pages
 
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  workflow_dispatch:  # 手動実行可能
 
 jobs:
-  # Pythonデータ生成ジョブ
-  generate-data:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
     
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -36,25 +26,6 @@ jobs:
       run: |
         python generate_web_data.py
     
-    - name: Upload data artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: web-data
-        path: web-app/public/data/
-
-  # Next.jsビルド・デプロイジョブ
-  build-and-deploy:
-    needs: generate-data
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Download data artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: web-data
-        path: web-app/public/data/
-    
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
@@ -62,24 +33,22 @@ jobs:
         cache: 'npm'
         cache-dependency-path: web-app/package-lock.json
     
-    - name: Install dependencies
-      working-directory: web-app
-      run: npm ci
-    
-    - name: Build
+    - name: Install and build
       working-directory: web-app
       run: |
+        npm ci
         npm run build
-        touch dist/.nojekyll
     
-    - name: Setup Pages
-      uses: actions/configure-pages@v3
+    - name: Copy to docs
+      run: |
+        rm -rf docs/web-app
+        cp -r web-app/dist docs/web-app
+        touch docs/.nojekyll
     
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v2
-      with:
-        path: ./web-app/dist
-    
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v2
+    - name: Commit and push
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add docs/
+        git diff --staged --quiet || git commit -m "🚀 Auto-update GitHub Pages [skip ci]"
+        git push

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J-Quants 株価予測システム</title>
+    <meta http-equiv="refresh" content="0; url=./web-app/dist/index.html">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            padding: 2rem;
+        }
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        .loading {
+            margin-top: 2rem;
+            opacity: 0.8;
+        }
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">📊</div>
+        <h1>J-Quants 株価予測システム</h1>
+        <p class="subtitle">機械学習による高精度な株価予測ダッシュボード</p>
+        
+        <div class="loading">
+            <div class="spinner"></div>
+            ダッシュボードを読み込み中...
+        </div>
+        
+        <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.8;">
+            自動的にリダイレクトされない場合は、下のボタンをクリックしてください
+        </p>
+        <a href="./web-app/dist/index.html" class="button">ダッシュボードを開く</a>
+        
+        <div style="margin-top: 3rem; font-size: 0.8rem; opacity: 0.7;">
+            <p>✨ 主要機能</p>
+            <p>• インタラクティブ株価チャート</p>
+            <p>• 複数モデル性能比較</p>
+            <p>• 詳細分析レポート</p>
+            <p>• リアルタイム予測結果</p>
+        </div>
+    </div>
+
+    <script>
+        // フォールバック: 5秒後に手動リダイレクト
+        setTimeout(function() {
+            if (window.location.pathname.includes('index.html')) {
+                window.location.href = './web-app/dist/index.html';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
