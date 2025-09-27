@@ -86,7 +86,9 @@ class ModelFactory:
             default_params.update(params)
             return RandomForestRegressor(**default_params)
         except Exception as e:
-            self.system.log_error(e, "RandomForest作成エラー", additional_info={"params": params})
+            self.system.log_error(
+                e, "RandomForest作成エラー", additional_info={"params": params}
+            )
             raise
 
     def _create_xgboost(self, params: Dict[str, Any]):
@@ -103,7 +105,9 @@ class ModelFactory:
             default_params.update(params)
             return xgb.XGBRegressor(**default_params)
         except Exception as e:
-            self.system.log_error(e, "XGBoost作成エラー", additional_info={"params": params})
+            self.system.log_error(
+                e, "XGBoost作成エラー", additional_info={"params": params}
+            )
             raise
 
     def _create_linear_regression(self, params: Dict[str, Any]):
@@ -113,7 +117,9 @@ class ModelFactory:
             default_params.update(params)
             return LinearRegression(**default_params)
         except Exception as e:
-            self.system.log_error(e, "LinearRegression作成エラー", additional_info={"params": params})
+            self.system.log_error(
+                e, "LinearRegression作成エラー", additional_info={"params": params}
+            )
             raise
 
     def _create_ridge(self, params: Dict[str, Any]):
@@ -123,7 +129,9 @@ class ModelFactory:
             default_params.update(params)
             return Ridge(**default_params)
         except Exception as e:
-            self.system.log_error(e, "Ridge作成エラー", additional_info={"params": params})
+            self.system.log_error(
+                e, "Ridge作成エラー", additional_info={"params": params}
+            )
             raise
 
     def _create_lasso(self, params: Dict[str, Any]):
@@ -133,7 +141,9 @@ class ModelFactory:
             default_params.update(params)
             return Lasso(**default_params)
         except Exception as e:
-            self.system.log_error(e, "Lasso作成エラー", additional_info={"params": params})
+            self.system.log_error(
+                e, "Lasso作成エラー", additional_info={"params": params}
+            )
             raise
 
     def _create_svr(self, params: Dict[str, Any]):
@@ -143,7 +153,9 @@ class ModelFactory:
             default_params.update(params)
             return SVR(**default_params)
         except Exception as e:
-            self.system.log_error(e, "SVR作成エラー", additional_info={"params": params})
+            self.system.log_error(
+                e, "SVR作成エラー", additional_info={"params": params}
+            )
             raise
 
 

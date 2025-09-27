@@ -14,6 +14,7 @@ from unified_error_handler import get_unified_error_handler
 
 # 設定を読み込み
 from config_loader import ConfigLoader
+
 config_loader = ConfigLoader()
 preprocessing_config = config_loader.get_preprocessing_config()
 

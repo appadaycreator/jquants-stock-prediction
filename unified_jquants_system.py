@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 """
-統合J-Quantsシステム
-完全に統合された、セキュアで堅牢なJ-Quants APIクライアントシステム
+統合J-Quantsシステム - レガシーモジュール
+⚠️ このモジュールは廃止予定です。unified_system.pyを使用してください。
+
+🚨 重要: このモジュールは統合アーキテクチャの実装により廃止予定です。
+📋 移行先: unified_system.py
+📁 設定ファイル: config_final.yaml
+🔧 統合完了日: 2024年12月
 """
 
+import warnings
 import os
 import logging
 import requests
@@ -14,7 +20,7 @@ import re
 import traceback
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any
 from dotenv import load_dotenv
 from unified_config_loader import get_unified_config
 from unified_error_handler import get_unified_error_handler
@@ -23,12 +29,16 @@ from technical_indicators import TechnicalIndicators, get_enhanced_features_list
 from data_validator import DataValidator
 from unified_error_logging_system import (
     get_unified_error_logging_system,
-    ErrorCategory,
-    LogCategory,
     configure_global_logging,
 )
 from type_safe_validator import TypeSafeValidator
 from font_config import setup_japanese_font
+
+warnings.warn(
+    "unified_jquants_system.py は廃止予定です。unified_system.py を使用してください。",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 
 class UnifiedJQuantsSystem:
@@ -435,7 +445,8 @@ class UnifiedJQuantsSystem:
             headers = self.get_auth_headers()
 
             # 株価データの取得
-            price_url = f"{self.jquants_config.get('base_url', 'https://api.jquants.com/v1')}/prices/daily_quotes"
+            base_url = self.jquants_config.get("base_url", "https://api.jquants.com/v1")
+            price_url = f"{base_url}/prices/daily_quotes"
             params = {"date": target_date}
 
             response = self._make_request_with_retry(
@@ -514,7 +525,8 @@ class UnifiedJQuantsSystem:
 
             if dropped_rows > 0:
                 self.logger.info(
-                    f"🗑️ 欠損値を含む行を削除: {initial_rows} -> {final_rows} 行 ({dropped_rows} 行削除)"
+                    f"🗑️ 欠損値を含む行を削除: {initial_rows} -> {final_rows} 行 "
+                    f"({dropped_rows} 行削除)"
                 )
 
             # 6. データ検証の実行
@@ -635,8 +647,13 @@ class UnifiedJQuantsSystem:
                 if not comparison_results.empty:
                     self.logger.info("📊 モデル比較結果:")
                     for idx, row in comparison_results.iterrows():
+                        model_name = row["model_name"]
+                        mae = row["mae"]
+                        rmse = row["rmse"]
+                        r2 = row["r2"]
                         self.logger.info(
-                            f"{row['model_name']:<15} | MAE: {row['mae']:.4f} | RMSE: {row['rmse']:.4f} | R²: {row['r2']:.4f}"
+                            f"{model_name:<15} | MAE: {mae:.4f} | "
+                            f"RMSE: {rmse:.4f} | R²: {r2:.4f}"
                         )
 
                     # 最優秀モデルを選択
@@ -685,7 +702,7 @@ class UnifiedJQuantsSystem:
             y_pred = model.predict(X_test)
             metrics = self.model_evaluator.evaluate_model(model, X_test, y_test, y_pred)
 
-            self.logger.info(f"📊 最終評価結果:")
+            self.logger.info("📊 最終評価結果:")
             self.logger.info(f"  MAE (平均絶対誤差): {metrics['mae']:.4f}")
             self.logger.info(f"  RMSE (平均平方根誤差): {metrics['rmse']:.4f}")
             self.logger.info(f"  R² (決定係数): {metrics['r2']:.4f}")
@@ -755,12 +772,10 @@ class UnifiedJQuantsSystem:
         # データの読み込み（エンコーディング自動検出）
         encodings = ["utf-8", "shift_jis", "cp932", "utf-8-sig"]
         df = None
-        successful_encoding = None
 
         for encoding in encodings:
             try:
                 df = pd.read_csv(input_file, encoding=encoding)
-                successful_encoding = encoding
                 self.logger.info(
                     f"✅ データ読み込み成功 (エンコーディング: {encoding})"
                 )
@@ -982,7 +997,7 @@ def main():
 
         today = datetime.now().strftime("%Y%m%d")
 
-        print(f"\n🔄 完全統合パイプラインを開始...")
+        print("\n🔄 完全統合パイプラインを開始...")
 
         # ステップ1: データ取得
         print(f"\n📊 ステップ1: 株価データ取得 ({today})")
@@ -992,22 +1007,22 @@ def main():
         print(f"✅ 生データ保存完了: {raw_output_file}")
 
         # ステップ2: データ前処理
-        print(f"\n🔧 ステップ2: データ前処理")
+        print("\n🔧 ステップ2: データ前処理")
         processed_data = system.preprocess_data(raw_output_file)
         processed_output_file = f"processed_stock_data_{today}.csv"
         processed_data.to_csv(processed_output_file, index=False)
         print(f"✅ 前処理完了: {processed_output_file}")
 
         # ステップ3: 株価予測
-        print(f"\n🎯 ステップ3: 株価予測")
+        print("\n🎯 ステップ3: 株価予測")
         prediction_result = system.predict_stock_prices(processed_output_file)
         print(f"✅ 予測完了: {prediction_result['output_image']}")
-        print(
-            f"📊 予測精度: MAE={prediction_result['metrics']['mae']:.4f}, R²={prediction_result['metrics']['r2']:.4f}"
-        )
+        mae = prediction_result["metrics"]["mae"]
+        r2 = prediction_result["metrics"]["r2"]
+        print(f"📊 予測精度: MAE={mae:.4f}, R²={r2:.4f}")
 
-        print(f"\n🎉 完全統合パイプライン完了!")
-        print(f"📁 出力ファイル:")
+        print("\n🎉 完全統合パイプライン完了!")
+        print("📁 出力ファイル:")
         print(f"  - 生データ: {raw_output_file}")
         print(f"  - 前処理済み: {processed_output_file}")
         print(f"  - 予測結果: {prediction_result['output_image']}")

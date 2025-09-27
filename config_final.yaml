@@ -440,6 +440,7 @@ legacy:
     - "enhanced_logging.py"
     - "config_loader.py"
     - "enhanced_config_loader.py"
+    - "unified_jquants_system.py"  # 追加
   
   # 廃止予定設定ファイル
   deprecated_configs:
@@ -457,3 +458,8 @@ legacy:
     config_file: "config_final.yaml"
     error_handling: "unified_system.py"
     logging: "unified_system.py"
+  
+  # 統合完了フラグ
+  consolidation_completed: true
+  unified_architecture: true
+  single_config_file: true

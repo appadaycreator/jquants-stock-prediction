@@ -14,6 +14,7 @@ from pathlib import Path
 
 class LogLevel(Enum):
     """ログレベル"""
+
     DEBUG = "DEBUG"
     INFO = "INFO"
     WARNING = "WARNING"
@@ -23,6 +24,7 @@ class LogLevel(Enum):
 
 class LogCategory(Enum):
     """ログカテゴリ"""
+
     SYSTEM = "SYSTEM"
     DATA = "DATA"
     MODEL = "MODEL"
@@ -47,7 +49,7 @@ class EnhancedLogger:
         self.level = level
         self.logger = logging.getLogger(name)
         self.logger.setLevel(getattr(logging, level.value))
-        
+
         # ハンドラーの設定
         self._setup_handlers()
 
@@ -56,23 +58,22 @@ class EnhancedLogger:
         # コンソールハンドラー
         console_handler = logging.StreamHandler(sys.stdout)
         console_formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
         console_handler.setFormatter(console_formatter)
-        
+
         # ファイルハンドラー
         log_dir = Path("logs")
         log_dir.mkdir(exist_ok=True)
-        
+
         file_handler = logging.FileHandler(
-            log_dir / f"{self.name.lower()}.log",
-            encoding='utf-8'
+            log_dir / f"{self.name.lower()}.log", encoding="utf-8"
         )
         file_formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
         file_handler.setFormatter(file_formatter)
-        
+
         # ハンドラーの追加
         if not self.logger.handlers:
             self.logger.addHandler(console_handler)
@@ -82,7 +83,9 @@ class EnhancedLogger:
         """ロガーの取得"""
         return self.logger
 
-    def log_with_category(self, level: LogLevel, category: LogCategory, message: str, **kwargs):
+    def log_with_category(
+        self, level: LogLevel, category: LogCategory, message: str, **kwargs
+    ):
         """
         カテゴリ付きログ
 
@@ -95,7 +98,7 @@ class EnhancedLogger:
         formatted_message = f"[{category.value}] {message}"
         if kwargs:
             formatted_message += f" | {kwargs}"
-        
+
         getattr(self.logger, level.value.lower())(formatted_message)
 
     def log_performance(self, operation: str, duration: float, **kwargs):
@@ -111,7 +114,7 @@ class EnhancedLogger:
             LogLevel.INFO,
             LogCategory.PERFORMANCE,
             f"Operation: {operation}, Duration: {duration:.3f}s",
-            **kwargs
+            **kwargs,
         )
 
     def log_data_operation(self, operation: str, data_info: Dict[str, Any]):
@@ -123,10 +126,7 @@ class EnhancedLogger:
             data_info: データ情報
         """
         self.log_with_category(
-            LogLevel.INFO,
-            LogCategory.DATA,
-            f"Data operation: {operation}",
-            **data_info
+            LogLevel.INFO, LogCategory.DATA, f"Data operation: {operation}", **data_info
         )
 
     def log_error_with_context(self, error: Exception, context: Dict[str, Any]):
@@ -138,10 +138,7 @@ class EnhancedLogger:
             context: コンテキスト情報
         """
         self.log_with_category(
-            LogLevel.ERROR,
-            LogCategory.ERROR,
-            f"Error: {str(error)}",
-            **context
+            LogLevel.ERROR, LogCategory.ERROR, f"Error: {str(error)}", **context
         )
 
     def log_data_info(self, message: str, **kwargs):
@@ -152,15 +149,12 @@ class EnhancedLogger:
             message: メッセージ
             **kwargs: 追加情報
         """
-        self.log_with_category(
-            LogLevel.INFO,
-            LogCategory.DATA,
-            message,
-            **kwargs
-        )
+        self.log_with_category(LogLevel.INFO, LogCategory.DATA, message, **kwargs)
 
 
-def setup_enhanced_logging(name: str, level: LogLevel = LogLevel.INFO) -> EnhancedLogger:
+def setup_enhanced_logging(
+    name: str, level: LogLevel = LogLevel.INFO
+) -> EnhancedLogger:
     """
     強化されたログシステムのセットアップ
 
@@ -198,11 +192,11 @@ def configure_global_logging(level: LogLevel = LogLevel.INFO):
     """
     logging.basicConfig(
         level=getattr(logging, level.value),
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         handlers=[
             logging.StreamHandler(sys.stdout),
-            logging.FileHandler('logs/global.log', encoding='utf-8')
-        ]
+            logging.FileHandler("logs/global.log", encoding="utf-8"),
+        ],
     )
 
 

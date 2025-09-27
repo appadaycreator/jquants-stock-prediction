@@ -62,7 +62,9 @@ class ConfigLoader:
                 else:
                     # デフォルト設定を作成
                     self._create_default_config()
-                    self.logger.info(f"デフォルト設定ファイルを作成しました: {self.config_path}")
+                    self.logger.info(
+                        f"デフォルト設定ファイルを作成しました: {self.config_path}"
+                    )
         except yaml.YAMLError as e:
             self.logger.error(f"YAMLファイルの解析に失敗しました: {e}")
             self._create_default_config()
@@ -87,8 +89,10 @@ class ConfigLoader:
         }
 
         try:
-            with open(self.config_path, 'w', encoding='utf-8') as f:
-                yaml.dump(default_config, f, default_flow_style=False, allow_unicode=True)
+            with open(self.config_path, "w", encoding="utf-8") as f:
+                yaml.dump(
+                    default_config, f, default_flow_style=False, allow_unicode=True
+                )
             self.config = default_config
             self.logger.info("デフォルト設定を作成しました")
         except Exception as e:
@@ -103,7 +107,9 @@ class ConfigLoader:
         """予測設定の取得"""
         return self.get_config_section("prediction", {})
 
-    def get_config_section(self, section: str, default: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    def get_config_section(
+        self, section: str, default: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
         """
         設定セクションの取得
 
@@ -133,7 +139,7 @@ class ConfigLoader:
         if self.config is None:
             return default
 
-        keys = key.split('.')
+        keys = key.split(".")
         value = self.config
 
         try:
@@ -171,7 +177,7 @@ class ConfigLoader:
         save_path = path or self.config_path
 
         try:
-            with open(save_path, 'w', encoding='utf-8') as f:
+            with open(save_path, "w", encoding="utf-8") as f:
                 yaml.dump(self.config, f, default_flow_style=False, allow_unicode=True)
             self.logger.info(f"設定を保存しました: {save_path}")
         except Exception as e:
@@ -212,8 +218,8 @@ class ConfigLoader:
 
     def __setitem__(self, key: str, value: Any):
         """辞書風の設定"""
-        if '.' in key:
-            section, sub_key = key.split('.', 1)
+        if "." in key:
+            section, sub_key = key.split(".", 1)
             self.update_config(section, sub_key, value)
         else:
             if self.config is None:
@@ -225,8 +231,8 @@ class ConfigLoader:
         if self.config is None:
             return False
 
-        if '.' in key:
-            keys = key.split('.')
+        if "." in key:
+            keys = key.split(".")
             value = self.config
             try:
                 for k in keys:

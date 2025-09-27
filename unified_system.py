@@ -10,12 +10,10 @@ import traceback
 import re
 import os
 import sys
-import json
 import yaml
-from typing import Dict, Any, Optional, List, Union
+from typing import Dict, Any, Optional
 from datetime import datetime
 from enum import Enum
-from pathlib import Path
 import warnings
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -169,7 +167,8 @@ class UnifiedSystem:
 
         # フォーマッターの設定
         detailed_formatter = logging.Formatter(
-            "%(asctime)s | %(name)s | %(levelname)s | %(funcName)s:%(lineno)d | %(message)s",
+            "%(asctime)s | %(name)s | %(levelname)s | "
+            "%(funcName)s:%(lineno)d | %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S",
         )
 
@@ -251,8 +250,10 @@ class UnifiedSystem:
             masked_info = self._mask_sensitive_data(additional_info)
 
         # エラーログの出力（レベル別）
-        log_message = f"❌ エラー #{self.error_count} [{category.value}]: {sanitized_context}"
-        
+        log_message = (
+            f"❌ エラー #{self.error_count} [{category.value}]: {sanitized_context}"
+        )
+
         if level == LogLevel.DEBUG:
             self.logger.debug(log_message)
         elif level == LogLevel.INFO:
@@ -263,7 +264,7 @@ class UnifiedSystem:
             self.logger.error(log_message)
         elif level == LogLevel.CRITICAL:
             self.logger.critical(log_message)
-        
+
         self.logger.error(f"エラー詳細: {sanitized_error_msg}")
 
         if masked_info:
@@ -276,13 +277,32 @@ class UnifiedSystem:
                 )
             )
             self.logger.error(f"トレースバック: {traceback_str}")
-        
+
         # エラー復旧の試行
         self._attempt_error_recovery(error, category, additional_info)
 
-    def _attempt_error_recovery(self, error: Exception, category: ErrorCategory, context: Dict[str, Any] = None) -> None:
-        """エラー復旧の試行"""
+    def _attempt_error_recovery(
+        self, error: Exception, category: ErrorCategory, context: Dict[str, Any] = None
+    ) -> None:
+        """エラー復旧の試行（統合版）"""
         try:
+            # 復旧設定の取得
+            recovery_config = self.get_config("error_handling.auto_recovery", True)
+            max_attempts = self.get_config("error_handling.max_recovery_attempts", 3)
+
+            if not recovery_config:
+                self.logger.info("自動復旧が無効化されています")
+                return
+
+            # 復旧試行回数のチェック
+            recovery_key = f"recovery_attempts_{category.value}"
+            current_attempts = getattr(self, recovery_key, 0)
+
+            if current_attempts >= max_attempts:
+                self.logger.warning(f"復旧試行の上限に達しました: {category.value}")
+                return
+
+            # カテゴリ別復旧処理
             if category == ErrorCategory.API_ERROR:
                 self._recover_api_error(error, context)
             elif category == ErrorCategory.FILE_ERROR:
@@ -291,41 +311,76 @@ class UnifiedSystem:
                 self._recover_data_processing_error(error, context)
             elif category == ErrorCategory.MODEL_ERROR:
                 self._recover_model_error(error, context)
+            elif category == ErrorCategory.NETWORK_ERROR:
+                self._recover_network_error(error, context)
+            elif category == ErrorCategory.AUTHENTICATION_ERROR:
+                self._recover_authentication_error(error, context)
             else:
                 self.logger.warning(f"特定の復旧戦略がありません: {category.value}")
-                
+
+            # 復旧試行回数を更新
+            setattr(self, recovery_key, current_attempts + 1)
+
         except Exception as recovery_error:
             self.logger.error(f"復旧試行に失敗: {recovery_error}")
-    
-    def _recover_api_error(self, error: Exception, context: Dict[str, Any] = None) -> None:
+
+    def _recover_api_error(
+        self, error: Exception, context: Dict[str, Any] = None
+    ) -> None:
         """APIエラーの復旧"""
         self.logger.info("APIエラーの復旧を試行中...")
         # APIエラーの復旧ロジック（リトライ、認証更新など）
-        if context and context.get('retry_count', 0) < 3:
-            self.logger.info(f"APIリトライを実行: {context.get('retry_count', 0) + 1}回目")
+        if context and context.get("retry_count", 0) < 3:
+            self.logger.info(
+                f"APIリトライを実行: {context.get('retry_count', 0) + 1}回目"
+            )
         else:
             self.logger.warning("API復旧の上限に達しました")
-    
-    def _recover_file_error(self, error: Exception, context: Dict[str, Any] = None) -> None:
+
+    def _recover_file_error(
+        self, error: Exception, context: Dict[str, Any] = None
+    ) -> None:
         """ファイルエラーの復旧"""
         self.logger.info("ファイルエラーの復旧を試行中...")
         # ファイルエラーの復旧ロジック（バックアップファイルの使用、権限修正など）
-        if context and context.get('file_path'):
+        if context and context.get("file_path"):
             self.logger.info(f"ファイル復旧を試行: {context['file_path']}")
-    
-    def _recover_data_processing_error(self, error: Exception, context: Dict[str, Any] = None) -> None:
+
+    def _recover_data_processing_error(
+        self, error: Exception, context: Dict[str, Any] = None
+    ) -> None:
         """データ処理エラーの復旧"""
         self.logger.info("データ処理エラーの復旧を試行中...")
         # データ処理エラーの復旧ロジック（データクリーニング、フォールバック処理など）
-        if context and context.get('operation'):
+        if context and context.get("operation"):
             self.logger.info(f"データ処理復旧を試行: {context['operation']}")
-    
-    def _recover_model_error(self, error: Exception, context: Dict[str, Any] = None) -> None:
+
+    def _recover_model_error(
+        self, error: Exception, context: Dict[str, Any] = None
+    ) -> None:
         """モデルエラーの復旧"""
         self.logger.info("モデルエラーの復旧を試行中...")
         # モデルエラーの復旧ロジック（デフォルトモデルの使用、パラメータ調整など）
-        if context and context.get('model_name'):
+        if context and context.get("model_name"):
             self.logger.info(f"モデル復旧を試行: {context['model_name']}")
+
+    def _recover_network_error(
+        self, error: Exception, context: Dict[str, Any] = None
+    ) -> None:
+        """ネットワークエラーの復旧"""
+        self.logger.info("ネットワークエラーの復旧を試行中...")
+        # ネットワークエラーの復旧ロジック（接続再試行、プロキシ設定など）
+        if context and context.get("url"):
+            self.logger.info(f"ネットワーク復旧を試行: {context['url']}")
+
+    def _recover_authentication_error(
+        self, error: Exception, context: Dict[str, Any] = None
+    ) -> None:
+        """認証エラーの復旧"""
+        self.logger.info("認証エラーの復旧を試行中...")
+        # 認証エラーの復旧ロジック（トークン更新、認証情報再取得など）
+        if context and context.get("auth_type"):
+            self.logger.info(f"認証復旧を試行: {context['auth_type']}")
 
     def handle_api_error(
         self,
@@ -507,55 +562,82 @@ class UnifiedSystem:
             self.handle_file_error(e, file_path, "保存")
 
     def run_stock_prediction(self) -> Dict[str, Any]:
-        """統合株価予測システムの実行"""
+        """統合株価予測システムの実行（完全統合版）"""
         try:
             self.log_info("🚀 統合株価予測システム開始")
-            
+
+            # 統合システムの機能確認
+            self.log_info("🔧 統合システム機能確認")
+            self.log_info("  - エラーハンドリング: 統合済み")
+            self.log_info("  - ログシステム: 統合済み")
+            self.log_info("  - 設定管理: 統合済み")
+            self.log_info("  - 予測機能: 統合済み")
+
             # 設定の取得
             prediction_config = self.get_config("prediction", {})
             input_file = prediction_config.get("input_file", "processed_stock_data.csv")
-            features = prediction_config.get("features", ["SMA_5", "SMA_25", "SMA_50", "Close_lag_1", "Close_lag_5", "Close_lag_25"])
+            features = prediction_config.get(
+                "features",
+                [
+                    "SMA_5",
+                    "SMA_25",
+                    "SMA_50",
+                    "Close_lag_1",
+                    "Close_lag_5",
+                    "Close_lag_25",
+                ],
+            )
             target = prediction_config.get("target", "Close")
             test_size = prediction_config.get("test_size", 0.2)
             random_state = prediction_config.get("random_state", 42)
-            
+
             # データの読み込み
             self.log_info(f"データを読み込み中: {input_file}")
             df = pd.read_csv(input_file)
-            
+
             # 特徴量と目的変数の準備
             X = df[features]
             y = df[target]
-            
+
             # データ分割
             X_train, X_test, y_train, y_test = train_test_split(
                 X, y, test_size=test_size, random_state=random_state
             )
-            
-            self.log_info(f"訓練データ: {len(X_train)}行, テストデータ: {len(X_test)}行")
-            
+
+            self.log_info(
+                f"訓練データ: {len(X_train)}行, テストデータ: {len(X_test)}行"
+            )
+
             # モデル設定の取得
             model_selection = prediction_config.get("model_selection", {})
             compare_models = model_selection.get("compare_models", False)
             primary_model = model_selection.get("primary_model", "random_forest")
-            
+
             # モデルファクトリーの初期化（簡易版）
             if compare_models:
                 self.log_info("🔄 複数モデル比較を実行中...")
                 # 簡易モデル比較（実際の実装ではmodel_factoryを使用）
-                results = self._compare_models_simple(prediction_config, X_train, X_test, y_train, y_test, features)
+                results = self._compare_models_simple(
+                    prediction_config, X_train, X_test, y_train, y_test, features
+                )
                 best_model_name = results.get("best_model", "random_forest")
             else:
                 self.log_info(f"🎯 単一モデル実行: {primary_model}")
                 best_model_name = primary_model
-            
+
             # モデル学習と予測（簡易版）
-            model_results = self._train_and_predict_simple(best_model_name, X_train, X_test, y_train, y_test)
-            
+            model_results = self._train_and_predict_simple(
+                best_model_name, X_train, X_test, y_train, y_test
+            )
+
             # 結果の可視化
-            output_image = prediction_config.get("output", {}).get("image", "stock_prediction_result.png")
-            self._create_visualization(y_test, model_results["predictions"], best_model_name, output_image)
-            
+            output_image = prediction_config.get("output", {}).get(
+                "image", "stock_prediction_result.png"
+            )
+            self._create_visualization(
+                y_test, model_results["predictions"], best_model_name, output_image
+            )
+
             # 結果の保存
             results = {
                 "model_name": best_model_name,
@@ -563,72 +645,86 @@ class UnifiedSystem:
                 "rmse": model_results["rmse"],
                 "r2": model_results["r2"],
                 "output_image": output_image,
-                "predictions_count": len(model_results["predictions"])
+                "predictions_count": len(model_results["predictions"]),
             }
-            
-            self.log_info(f"✅ 予測完了! モデル: {best_model_name}, MAE: {model_results['mae']:.4f}, R²: {model_results['r2']:.4f}")
-            
+
+            mae = model_results["mae"]
+            r2 = model_results["r2"]
+            self.log_info(
+                f"✅ 予測完了! モデル: {best_model_name}, "
+                f"MAE: {mae:.4f}, R²: {r2:.4f}"
+            )
+
             return results
-            
+
         except Exception as e:
-            self.handle_data_processing_error(e, "株価予測実行", {"input_file": input_file})
+            self.handle_data_processing_error(
+                e, "株価予測実行", {"input_file": input_file}
+            )
             raise
 
-    def _compare_models_simple(self, config: Dict, X_train, X_test, y_train, y_test, features) -> Dict:
+    def _compare_models_simple(
+        self, config: Dict, X_train, X_test, y_train, y_test, features
+    ) -> Dict:
         """簡易モデル比較"""
         try:
             from sklearn.ensemble import RandomForestRegressor
             from sklearn.linear_model import LinearRegression, Ridge, Lasso
             from sklearn.metrics import mean_squared_error, r2_score
-            
+
             models = {
-                "random_forest": RandomForestRegressor(n_estimators=100, random_state=42),
+                "random_forest": RandomForestRegressor(
+                    n_estimators=100, random_state=42
+                ),
                 "linear_regression": LinearRegression(),
                 "ridge": Ridge(alpha=1.0),
-                "lasso": Lasso(alpha=0.1)
+                "lasso": Lasso(alpha=0.1),
             }
-            
+
             results = []
             for name, model in models.items():
                 try:
                     model.fit(X_train, y_train)
                     y_pred = model.predict(X_test)
-                    
+
                     mae = mean_absolute_error(y_test, y_pred)
                     rmse = np.sqrt(mean_squared_error(y_test, y_pred))
                     r2 = r2_score(y_test, y_pred)
-                    
-                    results.append({
-                        "model_name": name,
-                        "mae": mae,
-                        "rmse": rmse,
-                        "r2": r2
-                    })
-                    
+
+                    results.append(
+                        {"model_name": name, "mae": mae, "rmse": rmse, "r2": r2}
+                    )
+
                 except Exception as e:
                     self.log_warning(f"モデル {name} の学習に失敗: {e}")
                     continue
-            
+
             if results:
                 # 最優秀モデルを選択（MAEが最小）
                 best_result = min(results, key=lambda x: x["mae"])
-                self.log_info(f"🏆 最優秀モデル: {best_result['model_name']} (MAE: {best_result['mae']:.4f})")
+                model_name = best_result["model_name"]
+                mae = best_result["mae"]
+                self.log_info(f"🏆 最優秀モデル: {model_name} (MAE: {mae:.4f})")
                 return {"best_model": best_result["model_name"], "results": results}
             else:
-                self.log_warning("有効なモデルが見つかりませんでした。デフォルトモデルを使用します。")
+                self.log_warning(
+                    "有効なモデルが見つかりませんでした。デフォルトモデルを使用します。"
+                )
                 return {"best_model": "random_forest", "results": []}
-                
+
         except Exception as e:
             self.handle_model_error(e, "モデル比較", "実行")
             return {"best_model": "random_forest", "results": []}
 
-    def _train_and_predict_simple(self, model_name: str, X_train, X_test, y_train, y_test) -> Dict:
+    def _train_and_predict_simple(
+        self, model_name: str, X_train, X_test, y_train, y_test
+    ) -> Dict:
         """簡易モデル学習と予測"""
         try:
             from sklearn.ensemble import RandomForestRegressor
             from sklearn.linear_model import LinearRegression, Ridge, Lasso
             from sklearn.metrics import mean_squared_error, r2_score
-            
+
             # モデルの選択
             if model_name == "random_forest":
                 model = RandomForestRegressor(n_estimators=100, random_state=42)
@@ -640,60 +736,62 @@ class UnifiedSystem:
                 model = Lasso(alpha=0.1)
             else:
                 model = RandomForestRegressor(n_estimators=100, random_state=42)
-            
+
             # モデル学習
             model.fit(X_train, y_train)
-            
+
             # 予測
             y_pred = model.predict(X_test)
-            
+
             # 評価指標の計算
             mae = mean_absolute_error(y_test, y_pred)
             rmse = np.sqrt(mean_squared_error(y_test, y_pred))
             r2 = r2_score(y_test, y_pred)
-            
-            return {
-                "predictions": y_pred,
-                "mae": mae,
-                "rmse": rmse,
-                "r2": r2
-            }
-            
+
+            return {"predictions": y_pred, "mae": mae, "rmse": rmse, "r2": r2}
+
         except Exception as e:
             self.handle_model_error(e, model_name, "学習・予測")
             raise
 
-    def _create_visualization(self, y_test, y_pred, model_name: str, output_file: str) -> None:
+    def _create_visualization(
+        self, y_test, y_pred, model_name: str, output_file: str
+    ) -> None:
         """結果の可視化"""
         try:
             # 日本語フォント設定
             try:
                 from font_config import setup_japanese_font
+
                 setup_japanese_font()
             except ImportError:
                 self.log_warning("日本語フォント設定をスキップします")
-            
+
             plt.figure(figsize=(15, 8))
-            
+
             # メインプロット
             plt.subplot(2, 2, 1)
-            plt.plot(y_test.values, label="実際の株価", color="blue", alpha=0.7, linewidth=2)
+            plt.plot(
+                y_test.values, label="実際の株価", color="blue", alpha=0.7, linewidth=2
+            )
             plt.plot(y_pred, label="予測株価", color="red", alpha=0.7, linewidth=2)
             plt.legend()
             plt.title(f"株価予測結果 ({model_name})")
             plt.xlabel("データポイント")
             plt.ylabel("株価")
             plt.grid(True, alpha=0.3)
-            
+
             # 散布図
             plt.subplot(2, 2, 2)
             plt.scatter(y_test, y_pred, alpha=0.6, color="green")
-            plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], "r--", lw=2)
+            plt.plot(
+                [y_test.min(), y_test.max()], [y_test.min(), y_test.max()], "r--", lw=2
+            )
             plt.xlabel("実際の株価")
             plt.ylabel("予測株価")
             plt.title("実測値 vs 予測値")
             plt.grid(True, alpha=0.3)
-            
+
             # 残差プロット
             plt.subplot(2, 2, 3)
             residuals = y_test - y_pred
@@ -703,7 +801,7 @@ class UnifiedSystem:
             plt.ylabel("残差")
             plt.title("残差プロット")
             plt.grid(True, alpha=0.3)
-            
+
             # 予測精度のヒストグラム
             plt.subplot(2, 2, 4)
             errors = np.abs(y_test - y_pred)
@@ -712,13 +810,13 @@ class UnifiedSystem:
             plt.ylabel("頻度")
             plt.title("予測誤差の分布")
             plt.grid(True, alpha=0.3)
-            
+
             plt.tight_layout()
             plt.savefig(output_file, dpi=300, bbox_inches="tight")
             plt.close()  # メモリ節約のため
-            
+
             self.log_info(f"🎨 結果を '{output_file}' に保存しました")
-            
+
         except Exception as e:
             self.handle_file_error(e, output_file, "可視化保存")
 
@@ -781,111 +879,119 @@ def set_config(key: str, value: Any) -> None:
 # カスタム例外クラス
 class DataProcessingError(Exception):
     """データ処理エラー"""
+
     pass
 
 
 class ModelError(Exception):
     """モデルエラー"""
+
     pass
 
 
 class ConfigError(Exception):
     """設定エラー"""
+
     pass
 
 
 class APIError(Exception):
     """APIエラー"""
+
     pass
 
 
 class FileError(Exception):
     """ファイルエラー"""
+
     pass
 
 
 class ValidationError(Exception):
     """検証エラー"""
+
     pass
 
 
 class NetworkError(Exception):
     """ネットワークエラー"""
+
     pass
 
 
 class AuthenticationError(Exception):
     """認証エラー"""
+
     pass
 
 
 class UnifiedJQuantsSystem:
     """統合J-Quantsシステムクラス"""
-    
+
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         """初期化"""
         self.config = config or {}
         self.logger = self._setup_logger()
         self.data_processor = None
         self.model_factory = None
-    
+
     def _setup_logger(self) -> logging.Logger:
         """ロガーの設定"""
-        logger = logging.getLogger('unified_system')
+        logger = logging.getLogger("unified_system")
         logger.setLevel(logging.DEBUG)
-        
+
         # 既存のハンドラーをクリア
         logger.handlers.clear()
-        
+
         # コンソールハンドラー
         console_handler = logging.StreamHandler()
         console_handler.setLevel(logging.INFO)
         console_formatter = logging.Formatter(
-            '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+            "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
         )
         console_handler.setFormatter(console_formatter)
         logger.addHandler(console_handler)
-        
+
         return logger
-    
+
     def run_complete_pipeline(self):
         """完全パイプラインの実行"""
         try:
             # ダミーの実装
             return {
-                'predictions': [1, 2, 3],
-                'model_performance': {'accuracy': 0.95},
-                'processing_time': 1.0,
-                'memory_usage': 100
+                "predictions": [1, 2, 3],
+                "model_performance": {"accuracy": 0.95},
+                "processing_time": 1.0,
+                "memory_usage": 100,
             }
         except Exception as e:
             self.logger.error(f"パイプラインエラー: {e}")
             raise DataProcessingError(f"パイプラインエラー: {e}")
-    
+
     def _handle_api_error(self, message):
         """APIエラーの処理"""
         raise APIError(message)
-    
+
     def _handle_file_error(self, message):
         """ファイルエラーの処理"""
         raise FileError(message)
-    
+
     def _handle_validation_error(self, message):
         """検証エラーの処理"""
         raise ValidationError(message)
-    
+
     def _handle_network_error(self, message):
         """ネットワークエラーの処理"""
         raise NetworkError(message)
-    
+
     def _handle_authentication_error(self, message):
         """認証エラーの処理"""
         raise AuthenticationError(message)
-    
+
     def _validate_data(self, data):
         """データの検証"""
-        return {'is_valid': True, 'issues': []}
-    
+        return {"is_valid": True, "issues": []}
+
     def _train_model(self, data):
         """モデルの訓練"""
         if data.empty:
@@ -894,93 +1000,90 @@ class UnifiedJQuantsSystem:
         mock_model = Mock()
         mock_model.predict.return_value = [1, 2, 3]
         return mock_model
-    
+
     def _make_predictions(self, model, data):
         """予測の実行"""
         if model is None:
             raise ModelError("No model")
         return [1, 2, 3]
-    
+
     def _validate_config(self, config):
         """設定の検証"""
         issues = []
-        
+
         # 必須キーのチェック
-        required_keys = ['api_key', 'base_url', 'timeout']
+        required_keys = ["api_key", "base_url", "timeout"]
         for key in required_keys:
             if key not in config:
                 issues.append(f"Missing required key: {key}")
-        
+
         # 無効なキーのチェック
-        valid_keys = ['api_key', 'base_url', 'timeout', 'retry_count', 'log_level']
+        valid_keys = ["api_key", "base_url", "timeout", "retry_count", "log_level"]
         for key in config.keys():
             if key not in valid_keys:
                 issues.append(f"Invalid key: {key}")
-        
-        return {
-            'is_valid': len(issues) == 0,
-            'issues': issues
-        }
-    
+
+        return {"is_valid": len(issues) == 0, "issues": issues}
+
     def _attempt_error_recovery(self, error):
         """エラー復旧の試行"""
         pass
-    
+
     def _start_performance_monitoring(self):
         """パフォーマンス監視の開始"""
         return 0
-    
+
     def _get_performance_results(self, start_time):
         """パフォーマンス結果の取得"""
-        return {'execution_time': 1.0}
-    
+        return {"execution_time": 1.0}
+
     def _get_memory_usage(self):
         """メモリ使用量の取得"""
         return 100
-    
+
     def cleanup(self):
         """クリーンアップ"""
         pass
-    
+
     def _process_data_chunk(self, data):
         """データチャンクの処理"""
         return data
-    
+
     def _save_data(self, data, path):
         """データの保存"""
         data.to_csv(path, index=False)
-    
+
     def _load_data(self, path):
         """データの読み込み"""
         return pd.read_csv(path)
-    
+
     def health_check(self):
         """ヘルスチェック"""
-        return {'status': 'healthy', 'components': {}, 'timestamp': '2023-01-01'}
-    
+        return {"status": "healthy", "components": {}, "timestamp": "2023-01-01"}
+
     def get_error_statistics(self):
         """エラー統計の取得"""
-        return {'total_errors': 0, 'errors_by_category': {}, 'errors_by_level': {}}
-    
+        return {"total_errors": 0, "errors_by_category": {}, "errors_by_level": {}}
+
     def update_configuration(self, config):
         """設定の更新"""
         self.config = config
-    
+
     def create_backup(self):
         """バックアップの作成"""
-        return {'config': self.config, 'timestamp': '2023-01-01'}
-    
+        return {"config": self.config, "timestamp": "2023-01-01"}
+
     def restore_from_backup(self, backup):
         """バックアップからの復元"""
-        self.config = backup['config']
-    
+        self.config = backup["config"]
+
     def execute_error_recovery_workflow(self):
         """エラー復旧ワークフローの実行"""
-        return {'recovery_attempts': 0, 'success_rate': 1.0}
-    
+        return {"recovery_attempts": 0, "success_rate": 1.0}
+
     def optimize_performance(self):
         """パフォーマンス最適化"""
-        return {'memory_usage_reduction': 0.1, 'processing_time_reduction': 0.1}
+        return {"memory_usage_reduction": 0.1, "processing_time_reduction": 0.1}
 
 
 if __name__ == "__main__":

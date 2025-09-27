@@ -16,6 +16,7 @@ from config_validator import ConfigValidator, ValidationResult
 
 class Environment(Enum):
     """環境タイプ"""
+
     DEVELOPMENT = "development"
     STAGING = "staging"
     PRODUCTION = "production"
@@ -24,6 +25,7 @@ class Environment(Enum):
 @dataclass
 class ValidationSummary:
     """検証結果のサマリー"""
+
     is_valid: bool
     errors: List[str]
     warnings: List[str]
@@ -57,7 +59,7 @@ class EnhancedConfigLoader:
         if not self.logger.handlers:
             handler = logging.StreamHandler()
             formatter = logging.Formatter(
-                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+                "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
             )
             handler.setFormatter(formatter)
             self.logger.addHandler(handler)
@@ -65,52 +67,50 @@ class EnhancedConfigLoader:
 
     def _load_config_files(self):
         """設定ファイルの読み込み"""
-        config_files = [
-            "core.yaml",
-            "api.yaml", 
-            "data.yaml",
-            "models.yaml"
-        ]
+        config_files = ["core.yaml", "api.yaml", "data.yaml", "models.yaml"]
 
         for config_file in config_files:
             file_path = self.config_dir / config_file
             if file_path.exists():
                 try:
-                    with open(file_path, 'r', encoding='utf-8') as f:
+                    with open(file_path, "r", encoding="utf-8") as f:
                         config_data = yaml.safe_load(f) or {}
-                    
+
                     # 環境変数でのオーバーライド
                     config_data = self._apply_environment_overrides(config_data)
-                    
+
                     # 設定名（ファイル名から拡張子を除く）
-                    config_name = config_file.replace('.yaml', '')
+                    config_name = config_file.replace(".yaml", "")
                     self._config[config_name] = config_data
-                    
+
                     self.logger.info(f"設定ファイルを読み込みました: {file_path}")
                 except Exception as e:
-                    self.logger.error(f"設定ファイルの読み込みに失敗しました: {file_path} - {e}")
+                    self.logger.error(
+                        f"設定ファイルの読み込みに失敗しました: {file_path} - {e}"
+                    )
             else:
                 self.logger.warning(f"設定ファイルが見つかりません: {file_path}")
 
     def _apply_environment_overrides(self, config: Dict[str, Any]) -> Dict[str, Any]:
         """環境変数での設定オーバーライド"""
+
         def override_nested_dict(d: Dict[str, Any], prefix: str = "") -> Dict[str, Any]:
             result = {}
             for key, value in d.items():
                 full_key = f"{prefix}.{key}" if prefix else key
-                
+
                 if isinstance(value, dict):
                     result[key] = override_nested_dict(value, full_key)
                 else:
                     # 環境変数名のマッピング
-                    env_key = full_key.upper().replace('.', '_')
-                    
+                    env_key = full_key.upper().replace(".", "_")
+
                     # 特別なマッピング
                     if full_key == "logging.level":
                         env_key = "LOG_LEVEL"
                     elif full_key == "system.debug":
                         env_key = "DEBUG"
-                    
+
                     env_value = os.getenv(env_key)
                     if env_value is not None:
                         result[key] = self._convert_env_value(env_value)
@@ -123,18 +123,18 @@ class EnhancedConfigLoader:
     def _convert_env_value(self, value: str) -> Union[str, int, float, bool]:
         """環境変数値の型変換"""
         # ブール値の変換
-        if value.lower() in ('true', 'false'):
-            return value.lower() == 'true'
-        
+        if value.lower() in ("true", "false"):
+            return value.lower() == "true"
+
         # 数値の変換
         try:
-            if '.' in value:
+            if "." in value:
                 return float(value)
             else:
                 return int(value)
         except ValueError:
             pass
-        
+
         # 文字列として返す
         return value
 
@@ -149,8 +149,8 @@ class EnhancedConfigLoader:
         Returns:
             設定値
         """
-        keys = key.split('.')
-        
+        keys = key.split(".")
+
         # セクション名が指定されていない場合、すべてのセクションを検索
         if len(keys) == 1:
             # 単一キーの場合、すべてのセクションから検索
@@ -158,7 +158,7 @@ class EnhancedConfigLoader:
                 if keys[0] in section_data:
                     return section_data[keys[0]]
             return default
-        
+
         # セクション名が指定されている場合
         if len(keys) >= 2:
             section_name = keys[0]
@@ -170,7 +170,7 @@ class EnhancedConfigLoader:
                     return value
                 except (KeyError, TypeError):
                     pass
-        
+
         # セクション名が指定されていない場合、すべてのセクションから検索
         for section_name, section_data in self._config.items():
             try:
@@ -180,7 +180,7 @@ class EnhancedConfigLoader:
                 return value
             except (KeyError, TypeError):
                 continue
-        
+
         return default
 
     def get_section(self, section: str) -> Dict[str, Any]:
@@ -207,7 +207,7 @@ class EnhancedConfigLoader:
         if section not in self._config:
             self._config[section] = {}
 
-        keys = key.split('.')
+        keys = key.split(".")
         current = self._config[section]
 
         # ネストした辞書の作成
@@ -237,7 +237,7 @@ class EnhancedConfigLoader:
             output_file: 出力ファイルパス
         """
         try:
-            with open(output_file, 'w', encoding='utf-8') as f:
+            with open(output_file, "w", encoding="utf-8") as f:
                 yaml.dump(self._config, f, default_flow_style=False, allow_unicode=True)
             self.logger.info(f"設定をエクスポートしました: {output_file}")
         except Exception as e:
@@ -253,7 +253,7 @@ class EnhancedConfigLoader:
         """
         validator = ConfigValidator(str(self.config_dir))
         results = validator.validate_all()
-        
+
         errors = []
         warnings = []
         info = []
@@ -267,10 +267,7 @@ class EnhancedConfigLoader:
                 info.append(result.message)
 
         return ValidationSummary(
-            is_valid=len(errors) == 0,
-            errors=errors,
-            warnings=warnings,
-            info=info
+            is_valid=len(errors) == 0, errors=errors, warnings=warnings, info=info
         )
 
     def get_environment_info(self) -> Dict[str, Any]:
@@ -279,7 +276,7 @@ class EnhancedConfigLoader:
             "environment": self.environment,
             "config_dir": str(self.config_dir),
             "config_files": list(self._config.keys()),
-            "loaded_sections": list(self._config.keys())
+            "loaded_sections": list(self._config.keys()),
         }
 
     def __getitem__(self, key: str) -> Any:
@@ -288,8 +285,8 @@ class EnhancedConfigLoader:
 
     def __setitem__(self, key: str, value: Any):
         """辞書風の設定"""
-        if '.' in key:
-            section, sub_key = key.split('.', 1)
+        if "." in key:
+            section, sub_key = key.split(".", 1)
             self.update_config(section, sub_key, value)
         else:
             self._config[key] = value
