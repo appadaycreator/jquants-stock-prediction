@@ -10,7 +10,7 @@ import logging
 import os
 from technical_indicators import TechnicalIndicators, get_enhanced_features_list
 from data_validator import DataValidator
-from unified_system import get_unified_system
+from unified_system import get_unified_system, ErrorCategory
 from type_safe_validator import TypeSafeValidator
 
 # 設定を読み込み
@@ -53,7 +53,7 @@ def validate_input_file(input_file):
             error_handler.log_error(
                 ValueError(error_msg),
                 "入力ファイル検証エラー",
-                error_handler.ErrorCategory.FILE_ERROR,
+                ErrorCategory.FILE_ERROR,
             )
             raise ValueError(error_msg)
 
@@ -64,15 +64,7 @@ def validate_input_file(input_file):
         error_handler.log_error(
             e,
             "入力ファイル検証エラー",
-            {
-                "file_path": input_file,
-                "file_exists": os.path.exists(input_file) if input_file else False,
-                "file_readable": (
-                    os.access(input_file, os.R_OK)
-                    if input_file and os.path.exists(input_file)
-                    else False
-                ),
-            },
+            ErrorCategory.FILE_ERROR,
         )
         raise
 

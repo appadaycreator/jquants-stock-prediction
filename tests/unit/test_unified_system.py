@@ -361,16 +361,15 @@ class TestUnifiedSystem:
 
         # 設定の検証
         result = system._validate_config(self.test_config)
-        # 設定が有効な場合、is_validはTrueまたは警告が含まれる
-        # 現在の実装では設定検証でエラーが発生する可能性があるため、より柔軟な検証を行う
-        assert isinstance(result["is_valid"], bool)
-        assert isinstance(result["issues"], list)
+        # テスト環境ではapi_keyが不要なので、検証は成功するはず
+        assert result["is_valid"] is True
+        assert len(result["issues"]) == 0
 
     def test_config_validation_failure(self):
         """設定検証の失敗テスト"""
         system = UnifiedJQuantsSystem()
 
-        # 無効な設定の検証
+        # 無効な設定の検証（必須キーが不足）
         invalid_config = {"invalid_key": "invalid_value"}
 
         # 設定検証メソッドが存在するかチェック

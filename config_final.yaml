@@ -430,6 +430,189 @@ trading:
         profit_target: 0.15  # 利益目標アラート閾値
         loss_limit: -0.1  # 損失限界アラート閾値
 
+# 感情分析システム設定（統合版）
+sentiment_analysis:
+  # API設定
+  api_keys:
+    news_api_key: "your_news_api_key_here"
+    twitter_api_key: "your_twitter_api_key"
+    twitter_api_secret: "your_twitter_api_secret"
+    twitter_access_token: "your_twitter_access_token"
+    twitter_access_token_secret: "your_twitter_access_token_secret"
+  
+  # ニュース分析設定
+  news:
+    language: "en"
+    lookback_days: 7
+    max_articles: 100
+    relevance_threshold: 0.3
+  
+  # SNS分析設定
+  social_media:
+    max_tweets: 100
+    hashtag_trends: true
+    mention_analysis: true
+    sentiment_threshold: 0.1
+  
+  # 感情分析エンジン設定
+  engines:
+    vader_weight: 0.7
+    textblob_weight: 0.3
+    confidence_threshold: 0.6
+  
+  # リアルタイム感情指標設定
+  realtime_metrics:
+    enabled: true
+    update_interval: 60  # 秒
+    metrics_window: 1000  # 保持する指標数
+    alert_thresholds:
+      critical: 0.9
+      high: 0.7
+      medium: 0.5
+      low: 0.3
+    visualization:
+      enabled: true
+      save_path: "realtime_metrics_charts"
+      update_frequency: 300  # 5分
+  
+  # 動的リスク調整設定
+  dynamic_risk_adjustment:
+    enabled: true
+    adjustment_frequency: 300  # 5分
+    sentiment_weights:
+      news: 0.4
+      social: 0.3
+      technical: 0.2
+      market: 0.1
+    adjustment_factors:
+      positive_sentiment:
+        position_size: 1.2
+        stop_loss: 0.8
+        take_profit: 1.3
+        leverage: 1.1
+      negative_sentiment:
+        position_size: 0.6
+        stop_loss: 1.3
+        take_profit: 0.7
+        leverage: 0.8
+      neutral_sentiment:
+        position_size: 1.0
+        stop_loss: 1.0
+        take_profit: 1.0
+        leverage: 1.0
+  
+  # 感情トレンド予測設定
+  sentiment_trend_prediction:
+    enabled: true
+    prediction_horizons: [5, 15, 30, 60]  # 分
+    feature_window: 20
+    min_history_length: 50
+    models:
+      linear_regression:
+        enabled: true
+        retrain_frequency: 1440  # 24時間
+      random_forest:
+        enabled: true
+        n_estimators: 100
+        max_depth: 10
+        retrain_frequency: 1440
+    pattern_detection:
+      enabled: true
+      uptrend_threshold: 0.01
+      downtrend_threshold: -0.01
+      sideways_threshold: 0.1
+      volatility_increase_threshold: 1.5
+
+# 高頻度取引システム設定（統合版）
+hft:
+  # レイテンシー設定
+  latency:
+    threshold: 0.001  # 1ms (秒)
+    max_execution_time: 0.005  # 5ms (秒)
+    network_timeout: 0.1  # 100ms (秒)
+    heartbeat_interval: 0.01  # 10ms (秒)
+  
+  # 利益設定
+  profit:
+    threshold: 0.001  # 0.1% (最小利益率)
+    target_spread: 0.002  # 0.2% (目標スプレッド)
+    max_profit_per_trade: 1000.0  # 最大利益（ドル）
+    min_volume: 100  # 最小取引量
+  
+  # リスク管理
+  risk:
+    max_position_size: 1000000  # 最大ポジションサイズ（ドル）
+    risk_limit: 0.02  # 2% (リスク制限)
+    max_daily_loss: 10000.0  # 最大日次損失（ドル）
+    stop_loss_percentage: 0.05  # 5% (ストップロス)
+    max_concurrent_trades: 10  # 最大同時取引数
+  
+  # 取引所設定
+  exchanges:
+    primary:
+      - name: "Binance"
+        api_key: "${BINANCE_API_KEY}"
+        secret_key: "${BINANCE_SECRET_KEY}"
+        base_url: "https://api.binance.com"
+        rate_limit: 1200  # リクエスト/分
+        enabled: true
+      
+      - name: "Coinbase"
+        api_key: "${COINBASE_API_KEY}"
+        secret_key: "${COINBASE_SECRET_KEY}"
+        base_url: "https://api.coinbase.com"
+        rate_limit: 1000  # リクエスト/分
+        enabled: true
+      
+      - name: "Kraken"
+        api_key: "${KRAKEN_API_KEY}"
+        secret_key: "${KRAKEN_SECRET_KEY}"
+        base_url: "https://api.kraken.com"
+        rate_limit: 1000  # リクエスト/分
+        enabled: true
+  
+  # 監視対象シンボル
+  symbols:
+    crypto:
+      - "BTC/USDT"
+      - "ETH/USDT"
+      - "XRP/USDT"
+      - "ADA/USDT"
+      - "DOT/USDT"
+    
+    stocks:
+      - "AAPL"
+      - "GOOGL"
+      - "MSFT"
+      - "TSLA"
+      - "AMZN"
+  
+  # データソース設定
+  data_sources:
+    market_data:
+      type: "websocket"  # websocket, rest_api, file
+      url: "wss://stream.binance.com:9443/ws/btcusdt@ticker"
+      reconnect_interval: 5  # 秒
+      buffer_size: 1000
+    
+    price_feeds:
+      - provider: "Binance"
+        symbols: ["BTC/USDT", "ETH/USDT"]
+        update_frequency: 0.001  # 1ms
+      
+      - provider: "Coinbase"
+        symbols: ["BTC/USD", "ETH/USD"]
+        update_frequency: 0.001  # 1ms
+  
+  # バックテスト設定
+  backtest:
+    enabled: true
+    start_date: "2024-01-01"
+    end_date: "2024-12-31"
+    initial_capital: 100000.0
+    commission: 0.001  # 0.1%
+    slippage: 0.0005  # 0.05%
+
 # 統合システム設定（最適化版）
 integration:
   # 統合完了フラグ
@@ -451,3 +634,11 @@ integration:
     error_handling: "integrated"
     logging: "integrated"
     performance_monitoring: "integrated"
+  
+  # レガシー設定ファイル廃止予定
+  deprecated_configs:
+    - "config.yaml"
+    - "sentiment_config.yaml"
+    - "hft_config.yaml"
+    - "test_config.yaml"
+    migration_date: "2024-12-31"

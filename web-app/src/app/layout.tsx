@@ -11,6 +11,16 @@ export const metadata: Metadata = {
   authors: [{ name: "J-Quants Stock Prediction Team" }],
   viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
+  themeColor: "#000000",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "J-Quants株価予測",
+  },
   openGraph: {
     title: "J-Quants株価予測システム",
     description: "J-Quants APIを使用した株価予測システム",
@@ -31,13 +41,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="theme-color" content="#000000" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="J-Quants株価予測" />
-      </head>
       <body className={inter.className}>
         <div id="root">
           {children}

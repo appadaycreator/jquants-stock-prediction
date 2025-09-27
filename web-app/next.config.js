@@ -22,21 +22,42 @@ const nextConfig = {
     // 静的エクスポート用の設定
     trailingSlash: true,
     skipTrailingSlashRedirect: true,
+    // RSCペイロードエラーを解決するための設定
+    outputFileTracingRoot: process.cwd(),
+    outputFileTracingIncludes: {
+      '/reports': ['./src/app/reports/**/*'],
+      '/settings': ['./src/app/settings/**/*'],
+    },
   }),
   
   // パフォーマンス最適化
   compress: true,
   poweredByHeader: false,
   
+  // RSCペイロードエラーを解決するための設定
+  // プリフェッチを無効化
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
+  },
+  
+  
+  
   // 実験的機能の設定
   experimental: {
     optimizePackageImports: ["lucide-react", "recharts"],
     // GitHub PagesでのRSC動作を改善
-    staticGenerationRetryCount: 3,
+    staticGenerationRetryCount: 5,
     // RSCエラーを解決するための設定
     serverActions: {
       allowedOrigins: ["appadaycreator.github.io"],
     },
+    // RSCペイロードエラーを解決するための設定
+    serverComponentsExternalPackages: [],
+    // プリフェッチの無効化（GitHub Pagesでの問題を回避）
+    disableOptimizedLoading: true,
+    // プリフェッチを完全に無効化
+    prefetch: false,
   },
   
   // サーバー外部パッケージの設定

@@ -1,116 +1,121 @@
-# 🚨 レガシーモジュール廃止予定通知
+# 🚨 レガシーファイル廃止予定通知
 
 ## 概要
 
-J-Quants株価予測システムのアーキテクチャ改善により、以下のモジュールは**廃止予定**となりました。
+J-Quants株価予測システムの最高優先度問題（アーキテクチャの複雑性と重複コード）を解決するため、以下のレガシーファイルを廃止予定とします。
 
-## 廃止予定モジュール
+## 📋 廃止予定ファイル一覧
 
-### 1. 個別モジュール（廃止予定）
-- `jquants_stock_prediction.py` - 個別予測モジュール
-- `jquants_data_preprocessing.py` - 個別前処理モジュール
-- `jquants_data_fetch.py` - 個別データ取得モジュール
+### 設定ファイル
+- `config.yaml` → `config_final.yaml`に統合済み
+- `sentiment_config.yaml` → `config_final.yaml`に統合済み  
+- `hft_config.yaml` → `config_final.yaml`に統合済み
+- `test_config.yaml` → `config_final.yaml`に統合済み
 
-### 2. 重複設定ファイル（廃止予定）
-- `config/api.yaml` - API設定
-- `config/core.yaml` - コア設定
-- `config/data.yaml` - データ設定
-- `config/models.yaml` - モデル設定
+### システムファイル
+- `unified_jquants_system.py` → `unified_system.py`に統合済み
+- `integrated_sentiment_system.py` → `unified_system.py`に統合済み
+- `jquants_stock_prediction.py` → `unified_system.py`に統合済み
 
-### 3. 重複エラーハンドリング（廃止予定）
-- `unified_error_handler.py` - 旧統合エラーハンドラー
-- `enhanced_logging.py` - 旧強化ログシステム
+### エラーハンドリングファイル
+- `unified_error_handler.py` → `unified_system.py`に統合済み
+- `enhanced_logging.py` → `unified_system.py`に統合済み
+- `unified_error_logging_system.py` → `unified_system.py`に統合済み
 
-## 移行先
+## 🎯 統合後のアーキテクチャ
 
-### ✅ 推奨システム（統合システム）
-- **メインシステム**: `unified_jquants_system.py` - 完全統合システム
-- **統合設定**: `config_unified.yaml` - 単一設定ファイル
-- **統合エラーハンドリング**: `unified_error_logging_system.py` - 統一エラーハンドリング
-- **統合設定ローダー**: `unified_config_loader.py` - 統一設定管理
+### 統合システム (`unified_system.py`)
+- **単一責任原則**: すべての機能を統合
+- **統合エラーハンドリング**: 8つのエラーカテゴリで分類
+- **統合ログシステム**: 機密情報マスキング機能付き
+- **統合設定管理**: 単一設定ファイル (`config_final.yaml`)
 
-## 移行スケジュール
+### 統合設定ファイル (`config_final.yaml`)
+- **システム設定**: 基本情報、環境設定
+- **J-Quants API設定**: API設定、認証、エンドポイント
+- **データ処理設定**: 取得、前処理、特徴量エンジニアリング
+- **予測モデル設定**: モデル選択、パラメータ、評価
+- **感情分析設定**: ニュース分析、SNS分析、リアルタイム指標
+- **高頻度取引設定**: レイテンシー、利益、リスク管理
+- **トレーディング設定**: 監視対象、シグナル、リスク管理
+- **統合システム設定**: 最適化、レガシー廃止予定
 
-### Phase 1: 即座に実行（完了済み）
-- ✅ 統合システムの実装
-- ✅ 統合設定ファイルの作成
-- ✅ 統合エラーハンドリングの実装
+## 📅 廃止スケジュール
 
-### Phase 2: 段階的移行（進行中）
-- 🔄 既存コードの統合システムへの移行
-- 🔄 レガシーモジュールの使用停止
-- 🔄 テストの更新
+- **2024年12月31日**: レガシーファイルの完全廃止
+- **移行期間**: 2024年12月1日 - 2024年12月31日
+- **サポート終了**: 2024年12月31日以降、レガシーファイルのサポートは行いません
 
-### Phase 3: 完全廃止（予定）
-- ⏳ レガシーモジュールの削除
-- ⏳ 重複ファイルの削除
-- ⏳ ドキュメントの更新
+## 🔄 移行ガイド
 
-## 移行方法
+### 1. 設定ファイルの移行
+```yaml
+# 旧設定 (config.yaml)
+jquants:
+  base_url: "https://api.jquants.com/v1"
 
-### 1. コードの移行
-```python
-# 旧方式（廃止予定）
-from jquants_stock_prediction import predict_stock_prices
-from jquants_data_preprocessing import preprocess_data
-from config_loader import get_config
-
-# 新方式（推奨）
-from unified_jquants_system import UnifiedJQuantsSystem
-from unified_config_loader import get_unified_config
-
-# 統合システムの使用
-system = UnifiedJQuantsSystem()
-result = system.predict_stock_prices(input_file)
+# 新設定 (config_final.yaml)
+jquants:
+  base_url: "https://api.jquants.com/v1"
+  timeout: 30
+  max_retries: 3
+  # 追加の統合設定...
 ```
 
-### 2. 設定の移行
-```yaml
-# 旧方式（廃止予定）
-# config/api.yaml, config/core.yaml, config/data.yaml, config/models.yaml
+### 2. システムファイルの移行
+```python
+# 旧システム
+from jquants_stock_prediction import JQuantsStockPrediction
+system = JQuantsStockPrediction()
 
-# 新方式（推奨）
-# config_unified.yaml - 単一設定ファイル
+# 新統合システム
+from unified_system import get_unified_system
+system = get_unified_system("MainSystem")
 ```
 
 ### 3. エラーハンドリングの移行
 ```python
-# 旧方式（廃止予定）
-from unified_error_handler import get_unified_error_handler
-from enhanced_logging import setup_enhanced_logging
+# 旧エラーハンドリング
+try:
+    # 処理
+except Exception as e:
+    logger.error(f"エラー: {e}")
 
-# 新方式（推奨）
-from unified_error_logging_system import get_unified_error_logging_system
+# 新統合エラーハンドリング
+try:
+    # 処理
+except Exception as e:
+    system.log_error(e, "処理エラー", ErrorCategory.DATA_PROCESSING_ERROR)
 ```
 
-## 利点
+## ✅ 統合の利点
 
-### 1. アーキテクチャの簡素化
-- 単一責任原則の徹底
+### 1. **メンテナンス性の向上**
+- 単一ファイルでの管理
 - 重複コードの削除
-- メンテナンス性の向上
+- 一貫したエラーハンドリング
 
-### 2. 設定管理の統一
-- 単一設定ファイル
-- 環境別設定の明確化
-- 設定検証の強化
+### 2. **パフォーマンスの向上**
+- メモリ使用量の削減
+- 処理速度の向上
+- ログファイルの統合
 
-### 3. エラーハンドリングの統一
-- 統一エラーハンドリング
-- ログレベルの標準化
-- エラー分類の明確化
+### 3. **開発効率の向上**
+- 設定の一元管理
+- デバッグの簡素化
+- テストの統合
 
-## 注意事項
+## 🚀 推奨アクション
 
-1. **即座に移行を開始してください**
-2. **新しいコードでは統合システムのみを使用してください**
-3. **レガシーモジュールの使用は避けてください**
-4. **移行期間中は両システムが並行稼働します**
+1. **即座に実行**: 新統合システム (`unified_system.py`) への移行
+2. **設定更新**: `config_final.yaml` の使用開始
+3. **テスト実行**: 統合システムの動作確認
+4. **レガシー削除**: 廃止予定ファイルの削除準備
 
-## サポート
+## 📞 サポート
 
-移行に関する質問や問題がある場合は、統合システムのドキュメントを参照するか、開発チームにご連絡ください。
+移行に関する質問や問題がございましたら、統合システムのドキュメントを参照してください。
 
 ---
-
-**重要**: この廃止予定通知は、システムの品質向上とメンテナンス性の改善を目的としています。早期の移行をお願いします。
+**最終更新**: 2024年12月
+**廃止予定日**: 2024年12月31日

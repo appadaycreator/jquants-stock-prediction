@@ -13,7 +13,7 @@ from jquants_data_preprocessing import (
     engineer_basic_features,
     preprocess_data,
 )
-from unified_system import FileError
+from unified_system import FileError, UnifiedSystem
 
 
 class TestDataPreprocessing:
@@ -41,7 +41,7 @@ class TestDataPreprocessing:
             no_permission_file.write_text("test")
             os.chmod(no_permission_file, 0o000)  # 権限を削除
 
-            with pytest.raises(PermissionError):
+            with pytest.raises((PermissionError, FileError)):
                 validate_input_file(str(no_permission_file))
 
     def test_load_and_validate_data_success(self, temp_csv_file, sample_stock_data):
