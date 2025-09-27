@@ -150,10 +150,15 @@ npm run dev  # 開発サーバー起動（http://localhost:3000）
 
 #### GitHub Pagesデプロイ
 
-**手順 1: GitHub Pages設定**
+**手順 1: GitHub Pages有効化**
 1. GitHubリポジトリページ → Settings → Pages
-2. Source: "GitHub Actions" を選択 ⚠️ **重要: これに変更！**
-3. Save をクリック
+2. **GitHub Pagesが無効の場合**: "Select a source below to enable GitHub Pages" から選択
+3. Source: "GitHub Actions" を選択 ⚠️ **重要**
+4. Save をクリック
+
+**手順 2: 初回デプロイ**
+- Actions → "Update GitHub Pages" → "Run workflow" で手動実行
+- または何らかの変更をプッシュして自動実行
 
 **従来の方法 (非推奨)**
 - Source: "Deploy from a branch" + "/docs" フォルダは権限エラーの原因
