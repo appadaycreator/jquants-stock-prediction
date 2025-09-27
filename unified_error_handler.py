@@ -159,7 +159,7 @@ class UnifiedErrorHandler:
 
         # コンテキスト情報を追加
         if context_info.get("function_name"):
-            log_message += f" in {context_info["function_name"]}"
+            log_message += f" in {context_info['function_name']}"
 
         # ログレベルに応じて出力
         if level == LogLevel.DEBUG:

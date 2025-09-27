@@ -131,7 +131,7 @@ class ConfigValidator:
                     key="logging.level",
                     current_value=log_level,
                     expected_value=valid_levels,
-                    suggestion=f"有効なログレベルを設定してください: {", ".join(valid_levels)}",
+                    suggestion=f"有効なログレベルを設定してください: {', '.join(valid_levels)}",
                 )
             )
 

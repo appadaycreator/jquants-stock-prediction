@@ -34,6 +34,7 @@ try:
         LogLevel,
         LogCategory,
     )
+    from unified_error_handler import ValidationError
     from technical_indicators import TechnicalIndicators
     from model_factory import ModelFactory
 except ImportError:

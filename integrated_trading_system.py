@@ -194,7 +194,7 @@ class IntegratedTradingSystem:
                 )
 
                 # 推奨理由
-                reason = f"シグナル: {signal_data["reason"]}; 分析: {analysis.recommendation_reason}"
+                reason = f"シグナル: {signal_data['reason']}; 分析: {analysis.recommendation_reason}"
 
                 recommendation = TradingRecommendation(
                     symbol=symbol,

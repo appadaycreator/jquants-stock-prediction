@@ -336,7 +336,7 @@ class NewsAnalyzer:
         for article in articles:
             try:
                 # 記事の内容を結合
-                content = f"{article.get("title", "")} {article.get("description", "")}"
+                content = f"{article.get('title', '')} {article.get('description', '')}"
 
                 if not content.strip():
                     continue
