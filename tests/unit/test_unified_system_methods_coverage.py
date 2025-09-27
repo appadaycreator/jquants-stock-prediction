@@ -27,7 +27,9 @@ try:
         DataProcessingError,
         ModelError,
         ConfigError,
-        APIError,
+        APIError
+    )
+    from unified_system import (
         get_unified_system,
         reset_unified_system,
         log_error,
@@ -35,7 +37,9 @@ try:
         log_warning,
         log_debug,
         get_config,
-        set_config,
+        set_config
+    )
+    from unified_system import (
         FileError,
         ValidationError,
         NetworkError,
