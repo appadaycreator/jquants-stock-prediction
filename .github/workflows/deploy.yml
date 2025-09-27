@@ -22,6 +22,20 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
+    - name: Setup config and data
+      run: |
+        # config.yamlが存在しない場合、サンプルファイルからコピー
+        if [ ! -f "config.yaml" ]; then
+          cp config.yaml.sample config.yaml
+          echo "✅ config.yaml をサンプルから作成しました"
+        fi
+        
+        # サンプルデータを生成（実データがない場合）
+        if [ ! -f "processed_stock_data.csv" ]; then
+          python create_sample_data.py
+          echo "✅ サンプルデータを生成しました"
+        fi
+    
     - name: Generate web data
       run: |
         python generate_web_data.py

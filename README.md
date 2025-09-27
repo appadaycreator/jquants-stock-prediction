@@ -175,7 +175,15 @@ git push origin main
 
 **トラブルシューティング**
 - 404エラーの場合: GitHub Pages設定で"/docs"フォルダを選択しているか確認
+- GitHub Actionsエラーの場合: Actions → Update GitHub Pages で実行ログを確認
+- データ生成エラーの場合: `python3 create_sample_data.py` でサンプルデータを生成
 - ビルドエラーの場合: `./deploy.sh`スクリプトを実行してローカルテスト
+
+**自動化機能**
+- GitHub Actionsでmainブランチプッシュ時に自動デプロイ
+- サンプルデータ自動生成（実データがない場合）
+- 設定ファイル自動作成（config.yamlがない場合）
+- 特徴量自動選択（設定の特徴量が利用できない場合）
 
 ## 動作確認済み
 

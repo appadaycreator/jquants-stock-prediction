@@ -1,15 +1,8 @@
 {
-  "last_updated": "2025-09-27T10:50:25.359453",
-  "system_status": "operational",
-  "data_freshness": "2024-04-09",
-  "model_performance": {
-    "best_model": "xgboost",
-    "mae": 72.49,
-    "r2": 0.9876
-  },
-  "quick_stats": {
-    "total_predictions": 91,
-    "accuracy_percentage": 98.76,
-    "data_points": 451
-  }
+  "total_data_points": 16,
+  "prediction_period": "0 - 15",
+  "best_model": "XGBoost",
+  "mae": "52.85",
+  "r2": "0.81",
+  "last_updated": "2025-09-27 11:05:30"
 }

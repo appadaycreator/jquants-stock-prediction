@@ -1,37 +1,22 @@
 [
   {
-    "feature": "Close_1d_ago",
-    "importance": 0.46569496393203735,
-    "percentage": 46.569496393203735
-  },
-  {
     "feature": "SMA_5",
-    "importance": 0.24862654507160187,
-    "percentage": 24.862654507160187
+    "importance": 1.0,
+    "percentage": 100.0
   },
   {
     "feature": "SMA_10",
-    "importance": 0.2364061176776886,
-    "percentage": 23.64061176776886
-  },
-  {
-    "feature": "Close_5d_ago",
-    "importance": 0.023617329075932503,
-    "percentage": 2.3617329075932503
+    "importance": 0.0,
+    "percentage": 0.0
   },
   {
     "feature": "SMA_25",
-    "importance": 0.016888106241822243,
-    "percentage": 1.6888106241822243
+    "importance": 0.0,
+    "percentage": 0.0
   },
   {
     "feature": "SMA_50",
-    "importance": 0.005907596554607153,
-    "percentage": 0.5907596554607153
-  },
-  {
-    "feature": "Close_25d_ago",
-    "importance": 0.002859308384358883,
-    "percentage": 0.2859308384358883
+    "importance": 0.0,
+    "percentage": 0.0
   }
 ]

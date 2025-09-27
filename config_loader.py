@@ -29,17 +29,76 @@ class ConfigLoader:
     def _load_config(self) -> None:
         """設定ファイルを読み込む"""
         try:
+            # config.yamlが存在しない場合、サンプルファイルを確認
             if not os.path.exists(self.config_path):
-                raise FileNotFoundError(f"設定ファイルが見つかりません: {self.config_path}")
+                sample_path = self.config_path + '.sample'
+                if os.path.exists(sample_path):
+                    print(f"⚠️ {self.config_path}が見つかりません。{sample_path}をコピーします...")
+                    import shutil
+                    shutil.copy(sample_path, self.config_path)
+                    print(f"✅ {self.config_path}を作成しました")
+                else:
+                    # デフォルト設定を作成
+                    print(f"⚠️ 設定ファイルが見つかりません。デフォルト設定を使用します: {self.config_path}")
+                    self._create_default_config()
+                    return
             
             with open(self.config_path, 'r', encoding='utf-8') as file:
                 self.config = yaml.safe_load(file)
             
-            print(f"設定ファイルを読み込みました: {self.config_path}")
+            print(f"✅ 設定ファイルを読み込みました: {self.config_path}")
             
         except Exception as e:
-            print(f"設定ファイルの読み込みに失敗しました: {e}")
-            raise
+            print(f"❌ 設定ファイルの読み込みに失敗しました: {e}")
+            print("デフォルト設定を使用します...")
+            self._create_default_config()
+    
+    def _create_default_config(self) -> None:
+        """デフォルト設定を作成"""
+        self.config = {
+            'jquants': {
+                'api_base_url': 'https://api.jquants.com',
+                'timeout': 30
+            },
+            'data_fetch': {
+                'target_date': '2024-09-26',
+                'output_file': 'stock_data.csv'
+            },
+            'preprocessing': {
+                'input_file': 'stock_data.csv',
+                'output_file': 'processed_stock_data.csv',
+                'columns': ['Date', 'Code', 'CompanyName', 'High', 'Low', 'Open', 'Close', 'Volume'],
+                'sma_windows': [5, 10, 25, 50],
+                'lag_days': [1, 3, 5]
+            },
+            'prediction': {
+                'input_file': 'processed_stock_data.csv',
+                'features': ['Close_lag_1', 'Close_lag_3', 'Close_lag_5', 'SMA_5', 'SMA_10', 'SMA_25', 'SMA_50', 'Volume'],
+                'target': 'Close',
+                'test_size': 0.2,
+                'random_state': 42,
+                'output_image': 'prediction_result.png',
+                'model_selection': {
+                    'primary_model': 'xgboost',
+                    'compare_models': False
+                },
+                'models': {
+                    'xgboost': {
+                        'type': 'xgboost',
+                        'params': {'n_estimators': 100, 'random_state': 42}
+                    },
+                    'random_forest': {
+                        'type': 'random_forest',
+                        'params': {'n_estimators': 100, 'random_state': 42}
+                    }
+                }
+            },
+            'logging': {
+                'level': 'INFO',
+                'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            }
+        }
+        print("📝 デフォルト設定を作成しました")
     
     def _setup_logging(self) -> None:
         """ログ設定をセットアップ"""
