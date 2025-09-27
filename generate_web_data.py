@@ -13,7 +13,7 @@ import sys
 import logging
 import subprocess
 from pathlib import Path
-from unified_system import UnifiedSystem
+# UnifiedSystemのインポートを削除（無限ループ回避）
 from model_factory import ModelFactory, ModelEvaluator, ModelComparator
 from sklearn.model_selection import train_test_split
 
@@ -49,20 +49,26 @@ def validate_and_select_features(df, config_features, target):
 
 def generate_web_data():
     """Web表示用データ生成のメイン関数"""
-    # 統合システムを使用（タイムアウト付き）
+    # 直接設定ファイルを読み込み（UnifiedSystemの無限ループを回避）
+    import yaml
     try:
-        system = UnifiedSystem("generate_web_data", "config_final.yaml")
-        prediction_config = system.get_config("prediction", {})
-        preprocessing_config = system.get_config("preprocessing", {})
-    except Exception as e:
-        logger.error(f"統合システム初期化エラー: {e}")
-        # フォールバック: 直接設定ファイルを読み込み
-        import yaml
-
         with open("config_final.yaml", "r", encoding="utf-8") as f:
             config = yaml.safe_load(f) or {}
         prediction_config = config.get("prediction", {})
         preprocessing_config = config.get("preprocessing", {})
+        logger.info("✅ 設定ファイル読み込み完了")
+    except Exception as e:
+        logger.error(f"設定ファイル読み込みエラー: {e}")
+        # デフォルト設定を使用
+        prediction_config = {
+            "features": ["Close", "Volume", "Open", "High", "Low"],
+            "target": "Close",
+            "test_size": 0.2,
+            "random_state": 42
+        }
+        preprocessing_config = {
+            "output_file": "processed_stock_data.csv"
+        }
 
     output_dir = Path("web-app/public/data")
     output_dir.mkdir(parents=True, exist_ok=True)

@@ -979,16 +979,18 @@ git push origin main
 ## ファイル構成
 
 ```
-├── advanced_backtest_system.py    # 高度なバックテストシステム
-├── advanced_strategy_framework.py # 戦略最適化フレームワーク
-├── advanced_performance_metrics.py # 高度なパフォーマンス分析
-├── integrated_backtest_system.py  # 統合バックテストシステム
-├── unified_jquants_system.py      # 統合J-Quantsシステム（完全統合版）
-├── jquants_data_preprocessing.py  # データ前処理スクリプト
-├── jquants_stock_prediction.py    # 株価予測スクリプト
-├── config_loader.py               # 設定ファイル読み込みモジュール
-├── model_factory.py               # 機械学習モデルファクトリー
-├── generate_web_data.py           # Web表示用データ生成スクリプト
+├── automated_strategy_recommendation_system.py # 投資戦略自動提案システム
+├── integrated_strategy_automation.py          # 統合投資戦略自動化システム
+├── advanced_backtest_system.py                # 高度なバックテストシステム
+├── advanced_strategy_framework.py             # 戦略最適化フレームワーク
+├── advanced_performance_metrics.py            # 高度なパフォーマンス分析
+├── integrated_backtest_system.py               # 統合バックテストシステム
+├── unified_jquants_system.py                  # 統合J-Quantsシステム（完全統合版）
+├── jquants_data_preprocessing.py              # データ前処理スクリプト
+├── jquants_stock_prediction.py                # 株価予測スクリプト
+├── config_loader.py                           # 設定ファイル読み込みモジュール
+├── model_factory.py                            # 機械学習モデルファクトリー
+├── generate_web_data.py                       # Web表示用データ生成スクリプト
 ├── web-app/                       # Next.js Webアプリケーション
 │   ├── src/app/                   # Reactコンポーネント
 │   ├── public/data/               # 動的生成データ
@@ -1002,6 +1004,21 @@ git push origin main
 ```
 
 ## 主要機能
+
+### 投資戦略の自動実行システム
+- **automated_strategy_recommendation_system.py**: 投資戦略自動提案システム
+  - 過去の分析結果からパターンを抽出する機械学習エンジン
+  - 市場環境と銘柄特性に基づく最適投資戦略の自動提案
+  - 推奨戦略の自動実行とリアルタイムモニタリング
+  - パフォーマンス追跡と継続的な改善提案
+  - 既存システムとの完全統合
+
+- **integrated_strategy_automation.py**: 統合投資戦略自動化システム
+  - 既存のバックテスト・AI予測・自動取引システムとの完全統合
+  - リアルタイム市場分析と戦略提案
+  - 自動実行とモニタリング機能
+  - パフォーマンス追跡と改善提案
+  - 統合システム管理
 
 ### 個別銘柄リスク管理の精密化システム
 - **individual_stock_risk_management.py**: 個別銘柄リスク管理システム
