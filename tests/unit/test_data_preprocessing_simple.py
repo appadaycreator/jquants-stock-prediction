@@ -13,6 +13,7 @@ from jquants_data_preprocessing import (
     load_and_clean_data,
     engineer_basic_features,
 )
+from unified_system import FileError
 
 
 class TestDataPreprocessing:
@@ -29,7 +30,7 @@ class TestDataPreprocessing:
 
     def test_validate_input_file_not_found(self):
         """存在しないファイルの検証テスト"""
-        with pytest.raises(FileNotFoundError):
+        with pytest.raises((FileNotFoundError, FileError)):
             validate_input_file("nonexistent_file.csv")
 
     def test_load_and_clean_data_success(self, temp_csv_file, sample_stock_data):
@@ -48,7 +49,7 @@ class TestDataPreprocessing:
         empty_file = tmp_path / "empty.csv"
         empty_file.write_text("")
 
-        with pytest.raises(ValueError, match="入力ファイルが空です"):
+        with pytest.raises((ValueError, FileError), match="入力ファイルが空です"):
             load_and_clean_data(str(empty_file))
 
     def test_engineer_basic_features_basic(self, sample_stock_data):

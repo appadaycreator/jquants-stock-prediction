@@ -694,7 +694,7 @@ async def main():
     print(f"信頼度: {signals.get('overall_sentiment', {}).get('confidence', 0.0):.3f}")
 
     print("\n=== トレーディングシグナル ===")
-    for symbol, signal_data in signals.get('trading_signals', {}).items():
+    for symbol, signal_data in signals.get("trading_signals", {}).items():
         print(
             f"{symbol}: {signal_data['signal']} (強度: {signal_data['strength']:.3f})"
         )

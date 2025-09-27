@@ -3,8 +3,8 @@
 
 # RSCファイルのリダイレクト（Next.js App Router用）
 /index.txt /index.html 200
-/reports.txt /reports/index.html 200
-/settings.txt /settings/index.html 200
+/reports.txt /reports 200
+/settings.txt /settings 200
 
 # RSCパラメータ付きファイルの処理
 /*.txt /index.html 200

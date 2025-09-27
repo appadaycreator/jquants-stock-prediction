@@ -53,12 +53,7 @@ def validate_input_file(input_file):
             error_handler.log_error(
                 ValueError(error_msg),
                 "入力ファイル検証エラー",
-                {
-                    "file_path": input_file,
-                    "file_size": file_size,
-                    "file_exists": True,
-                    "file_readable": True,
-                },
+                error_handler.ErrorCategory.FILE_ERROR,
             )
             raise ValueError(error_msg)
 
@@ -170,7 +165,9 @@ def load_and_clean_data(input_file):
                 try:
                     df[col] = pd.to_numeric(df[col], errors="coerce")
                 except Exception as e:
-                    error_handler.handle_data_processing_error(e, f"数値カラム変換 ({col})")
+                    error_handler.handle_data_processing_error(
+                        e, f"数値カラム変換 ({col})"
+                    )
                     logger.warning(f"⚠️ {col}カラムの数値変換でエラー: {e}")
 
         # 型安全な欠損値処理
@@ -275,12 +272,12 @@ def engineer_basic_features(df):
 
     # 基本的な移動平均（技術指標と重複回避）
     basic_sma_windows = preprocessing_config.get("sma_windows", [5, 10, 25, 50])
-    
+
     # 設定検証
     for window in basic_sma_windows:
         if not isinstance(window, int) or window < 0:
             raise ValueError("window must be an integer 0 or greater")
-    
+
     for window in basic_sma_windows:
         if f"SMA_{window}" not in df.columns:
             df[f"SMA_{window}"] = df["Close"].rolling(window=window).mean()

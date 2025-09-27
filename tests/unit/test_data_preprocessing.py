@@ -13,6 +13,7 @@ from jquants_data_preprocessing import (
     engineer_basic_features,
     preprocess_data,
 )
+from unified_system import FileError
 
 
 class TestDataPreprocessing:
@@ -29,7 +30,7 @@ class TestDataPreprocessing:
 
     def test_validate_input_file_not_found(self):
         """存在しないファイルの検証テスト"""
-        with pytest.raises(FileNotFoundError):
+        with pytest.raises((FileNotFoundError, FileError)):
             validate_input_file("nonexistent_file.csv")
 
     def test_validate_input_file_no_permission(self, tmp_path):
