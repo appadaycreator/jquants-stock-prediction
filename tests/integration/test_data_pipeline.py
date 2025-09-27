@@ -311,23 +311,21 @@ class TestDataPipeline:
     def test_pipeline_with_enhanced_data_generator(self):
         """強化されたデータジェネレーターを使用したパイプラインテスト"""
         from fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
-        
+
         generator = EnhancedTestDataGenerator(seed=42)
-        
+
         # 通常のデータ
         normal_data = generator.generate_stock_data(
-            start_date="2023-01-01",
-            end_date="2023-03-31",
-            num_stocks=3
+            start_date="2023-01-01", end_date="2023-03-31", num_stocks=3
         )
-        
+
         # パイプラインの実行
         ti = TechnicalIndicators()
         processed_data = ti.calculate_all_indicators(normal_data)
-        
+
         assert processed_data is not None
         assert len(processed_data) > 0
-        
+
         # データ検証
         validation_results = generator.validate_generated_data(processed_data)
         assert validation_results["has_required_columns"] is True
@@ -335,25 +333,22 @@ class TestDataPipeline:
     def test_pipeline_with_corrupted_data(self):
         """破損データでのパイプラインテスト"""
         from fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
-        
+
         generator = EnhancedTestDataGenerator(seed=42)
-        
+
         # 正常なデータを生成
         normal_data = generator.generate_stock_data(
-            start_date="2023-01-01",
-            end_date="2023-03-31",
-            num_stocks=2
+            start_date="2023-01-01", end_date="2023-03-31", num_stocks=2
         )
-        
+
         # 破損データを生成
         corrupted_data = generator.generate_corrupted_data(
-            normal_data,
-            corruption_types=["missing_values", "outliers"]
+            normal_data, corruption_types=["missing_values", "outliers"]
         )
-        
+
         # パイプラインの実行（エラーハンドリングをテスト）
         ti = TechnicalIndicators()
-        
+
         try:
             processed_data = ti.calculate_all_indicators(corrupted_data)
             # 破損データでも処理が継続されることを確認
@@ -365,12 +360,12 @@ class TestDataPipeline:
     def test_pipeline_with_edge_cases(self):
         """エッジケースでのパイプラインテスト"""
         from fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
-        
+
         generator = EnhancedTestDataGenerator(seed=42)
         edge_cases = generator.generate_edge_case_data()
-        
+
         ti = TechnicalIndicators()
-        
+
         for case_name, data in edge_cases.items():
             if len(data) > 0:  # 空でないデータのみテスト
                 try:
@@ -384,56 +379,57 @@ class TestDataPipeline:
     def test_pipeline_with_market_scenarios(self):
         """市場シナリオでのパイプラインテスト"""
         from fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
-        
+
         generator = EnhancedTestDataGenerator(seed=42)
         scenarios = generator.generate_market_scenarios()
-        
+
         ti = TechnicalIndicators()
         factory = ModelFactory()
-        
+
         for scenario_name, data in scenarios.items():
             # 技術指標の計算
             processed_data = ti.calculate_all_indicators(data)
             assert processed_data is not None
-            
+
             # 十分なデータがある場合はモデル訓練もテスト
             if len(processed_data) > 20:
                 features = ["Open", "High", "Low", "Volume"]
                 target = "Close"
-                
+
                 X = processed_data[features].dropna()
                 y = processed_data[target].dropna()
-                
+
                 min_len = min(len(X), len(y))
                 if min_len > 10:
                     X = X.iloc[:min_len]
                     y = y.iloc[:min_len]
-                    
+
                     model = factory.create_model("linear_regression")
                     model.fit(X, y)
                     predictions = model.predict(X)
-                    
+
                     assert len(predictions) == len(y)
 
     def test_pipeline_stress_test(self):
         """ストレステスト"""
         from fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
-        
+
         generator = EnhancedTestDataGenerator(seed=42)
-        
+
         # 大きなデータセットを生成
         large_data = generator.generate_stress_test_data(size=5000)
-        
+
         import time
+
         start_time = time.time()
-        
+
         # パイプラインの実行
         ti = TechnicalIndicators()
         processed_data = ti.calculate_all_indicators(large_data)
-        
+
         end_time = time.time()
         execution_time = end_time - start_time
-        
+
         # 実行時間が妥当な範囲内であることを確認（30秒以内）
         assert execution_time < 30.0
         assert processed_data is not None
@@ -442,24 +438,22 @@ class TestDataPipeline:
     def test_pipeline_with_anomaly_detection(self):
         """異常値検出でのパイプラインテスト"""
         from fixtures.enhanced_test_data_generator import EnhancedTestDataGenerator
-        
+
         generator = EnhancedTestDataGenerator(seed=42)
-        
+
         # 正常なデータを生成
         normal_data = generator.generate_stock_data(
-            start_date="2023-01-01",
-            end_date="2023-03-31",
-            num_stocks=2
+            start_date="2023-01-01", end_date="2023-03-31", num_stocks=2
         )
-        
+
         # 異常値データを生成
         anomaly_data = generator.generate_anomaly_data(normal_data)
-        
+
         # パイプラインの実行
         ti = TechnicalIndicators()
         processed_data = ti.calculate_all_indicators(anomaly_data)
-        
+
         assert processed_data is not None
-        
+
         # 異常値が適切に処理されることを確認
         assert len(processed_data) > 0

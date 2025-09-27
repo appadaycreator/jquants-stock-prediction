@@ -1,11 +1,10 @@
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
 
-// チャートコンポーネントの動的インポート
-export const LazyChart = dynamic(() => import('./Chart'), {
-  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded"></div>,
-  ssr: false
-})
+// チャートコンポーネントの動的インポート（存在しないため削除）
+// export const LazyChart = dynamic(() => import('./Chart'), {
+//   loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded"></div>,
+//   ssr: false
+// })
 
 // データテーブルの動的インポート
 export const LazyDataTable = dynamic(() => import('./DataTable'), {

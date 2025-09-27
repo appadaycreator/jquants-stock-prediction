@@ -28,17 +28,12 @@ const nextConfig = {
   // 実験的機能の設定
   experimental: {
     optimizePackageImports: ['lucide-react', 'recharts'],
-    serverComponentsExternalPackages: [],
-    staticGeneration: {
-      revalidate: false
-    },
     // バンドルサイズの最適化
-    optimizeCss: true,
-    // RSCファイルの配信問題を解決
-    serverActions: {
-      allowedOrigins: ['localhost:3000', '*.vercel.app', '*.github.io']
-    }
+    optimizeCss: true
   },
+  
+  // サーバー外部パッケージの設定（experimentalから移動）
+  serverExternalPackages: [],
   
   // Webpack設定の最適化
   webpack: (config, { dev, isServer }) => {
