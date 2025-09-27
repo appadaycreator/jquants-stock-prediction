@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { Play, CheckCircle, AlertCircle, RefreshCw, Settings, BarChart3, TrendingUp, Brain, Zap } from "lucide-react";
+import React, { useState } from "react";
+import { Play, CheckCircle, AlertCircle, RefreshCw, Settings, BarChart3, TrendingUp, Brain, Zap, History, Clock } from "lucide-react";
 
 interface AnalysisConfig {
-  type: 'comprehensive' | 'symbols' | 'trading' | 'sentiment';
+  type: 'ultra_fast' | 'comprehensive' | 'symbols' | 'trading' | 'sentiment';
   name: string;
   description: string;
   icon: React.ReactNode;
@@ -12,6 +12,13 @@ interface AnalysisConfig {
 }
 
 const analysisConfigs: AnalysisConfig[] = [
+  {
+    type: 'ultra_fast',
+    name: '超高速分析',
+    description: '1日5分で完結する最適化された分析',
+    icon: <Zap className="w-5 h-5" />,
+    estimatedTime: '1-2分'
+  },
   {
     type: 'comprehensive',
     name: '包括的分析',
@@ -42,6 +49,16 @@ const analysisConfigs: AnalysisConfig[] = [
   }
 ];
 
+interface AnalysisHistory {
+  id: string;
+  type: string;
+  timestamp: string;
+  duration: string;
+  status: 'success' | 'error';
+  result?: any;
+  error?: string;
+}
+
 interface OneClickAnalysisProps {
   onAnalysisComplete?: (result: any) => void;
   onAnalysisStart?: () => void;
@@ -49,7 +66,7 @@ interface OneClickAnalysisProps {
 
 export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }: OneClickAnalysisProps) {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [selectedType, setSelectedType] = useState<AnalysisConfig['type']>('comprehensive');
+  const [selectedType, setSelectedType] = useState<AnalysisConfig['type']>('ultra_fast');
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState('');
   const [showConfig, setShowConfig] = useState(false);
@@ -57,8 +74,39 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
   const [error, setError] = useState<string | null>(null);
   const [analysisId, setAnalysisId] = useState<string | null>(null);
   const [elapsedTime, setElapsedTime] = useState<string>('00:00');
+  const [analysisHistory, setAnalysisHistory] = useState<AnalysisHistory[]>([]);
+  const [showHistory, setShowHistory] = useState(false);
+  const [previousResult, setPreviousResult] = useState<any>(null);
 
   const selectedConfig = analysisConfigs.find(config => config.type === selectedType);
+
+  // 履歴の保存
+  const saveAnalysisHistory = (history: AnalysisHistory) => {
+    const newHistory = [history, ...analysisHistory.slice(0, 9)]; // 最新10件を保持
+    setAnalysisHistory(newHistory);
+    localStorage.setItem('analysisHistory', JSON.stringify(newHistory));
+  };
+
+  // 履歴の読み込み
+  const loadAnalysisHistory = () => {
+    const saved = localStorage.getItem('analysisHistory');
+    if (saved) {
+      try {
+        const history = JSON.parse(saved);
+        setAnalysisHistory(history);
+        if (history.length > 0) {
+          setPreviousResult(history[0].result);
+        }
+      } catch (error) {
+        console.error('履歴読み込みエラー:', error);
+      }
+    }
+  };
+
+  // コンポーネントマウント時に履歴を読み込み
+  React.useEffect(() => {
+    loadAnalysisHistory();
+  }, []);
 
   const startAnalysis = async () => {
     try {
@@ -94,9 +142,31 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
             if (progressData.result) {
               setAnalysisResult(progressData.result);
               onAnalysisComplete?.(progressData.result);
+              
+              // 履歴に保存
+              const historyEntry: AnalysisHistory = {
+                id: newAnalysisId,
+                type: selectedType,
+                timestamp: new Date().toISOString(),
+                duration: elapsedTime,
+                status: 'success',
+                result: progressData.result
+              };
+              saveAnalysisHistory(historyEntry);
             }
             if (progressData.error) {
               setError(progressData.error);
+              
+              // エラーも履歴に保存
+              const historyEntry: AnalysisHistory = {
+                id: newAnalysisId,
+                type: selectedType,
+                timestamp: new Date().toISOString(),
+                duration: elapsedTime,
+                status: 'error',
+                error: progressData.error
+              };
+              saveAnalysisHistory(historyEntry);
             }
             setIsAnalyzing(false);
           }
@@ -153,12 +223,22 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
           <Play className="w-6 h-6 text-blue-600" />
           ワンクリック分析実行
         </h2>
-        <button
-          onClick={() => setShowConfig(!showConfig)}
-          className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
-        >
-          <Settings className="w-5 h-5" />
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowHistory(!showHistory)}
+            className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+            title="分析履歴"
+          >
+            <History className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => setShowConfig(!showConfig)}
+            className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+            title="設定"
+          >
+            <Settings className="w-5 h-5" />
+          </button>
+        </div>
       </div>
 
       {showConfig && (
@@ -183,6 +263,87 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
                 <p className="text-xs text-gray-500 mt-1">予想時間: {config.estimatedTime}</p>
               </button>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* 履歴表示パネル */}
+      {showHistory && (
+        <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+          <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+            <History className="w-5 h-5" />
+            分析履歴
+          </h3>
+          {analysisHistory.length === 0 ? (
+            <p className="text-gray-500 text-sm">分析履歴がありません</p>
+          ) : (
+            <div className="space-y-2 max-h-60 overflow-y-auto">
+              {analysisHistory.map((history, index) => (
+                <div
+                  key={history.id}
+                  className={`p-3 rounded-lg border ${
+                    history.status === 'success'
+                      ? 'border-green-200 bg-green-50'
+                      : 'border-red-200 bg-red-50'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {history.status === 'success' ? (
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                      ) : (
+                        <AlertCircle className="w-4 h-4 text-red-600" />
+                      )}
+                      <span className="font-medium text-sm">
+                        {analysisConfigs.find(c => c.type === history.type)?.name || history.type}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <Clock className="w-3 h-3" />
+                      {new Date(history.timestamp).toLocaleString('ja-JP')}
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between mt-1">
+                    <span className="text-xs text-gray-600">
+                      実行時間: {history.duration}
+                    </span>
+                    {index === 0 && history.status === 'success' && (
+                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                        最新結果
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* 前回結果との比較表示 */}
+      {previousResult && analysisResult && (
+        <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+          <h3 className="font-semibold text-blue-800 mb-3 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5" />
+            前回結果との比較
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <h4 className="font-medium text-blue-700 mb-2">前回の結果</h4>
+              <div className="text-sm text-blue-600">
+                <p>実行日時: {new Date(analysisHistory[0]?.timestamp).toLocaleString('ja-JP')}</p>
+                <p>実行時間: {analysisHistory[0]?.duration}</p>
+                <p>分析タイプ: {analysisConfigs.find(c => c.type === analysisHistory[0]?.type)?.name}</p>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-medium text-green-700 mb-2">今回の結果</h4>
+              <div className="text-sm text-green-600">
+                <p>実行日時: {new Date().toLocaleString('ja-JP')}</p>
+                <p>実行時間: {elapsedTime}</p>
+                <p>分析タイプ: {selectedConfig?.name}</p>
+              </div>
+            </div>
           </div>
         </div>
       )}

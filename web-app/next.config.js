@@ -66,6 +66,14 @@ const nextConfig = {
   
   // Webpack設定の最適化
   webpack: (config, { dev, isServer }) => {
+    // パス解決の設定を追加
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname, 'src'),
+      '@/lib': require('path').resolve(__dirname, 'src/lib'),
+      '@/components': require('path').resolve(__dirname, 'src/components'),
+    };
+    
     // バンドルサイズの最適化
     if (!dev && !isServer) {
       config.optimization.splitChunks = {

@@ -3,6 +3,7 @@
 """
 
 import pytest
+pytestmark = pytest.mark.unit
 import pandas as pd
 import numpy as np
 import os

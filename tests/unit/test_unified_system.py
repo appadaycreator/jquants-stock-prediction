@@ -5,6 +5,7 @@
 """
 
 import pytest
+pytestmark = pytest.mark.unit
 import pandas as pd
 import numpy as np
 from unittest.mock import Mock, patch, MagicMock
@@ -835,7 +836,7 @@ class TestUnifiedSystemAdvanced:
         # 時間のかかる操作のシミュレーション
         import time
 
-        time.sleep(0.1)  # 100ms待機
+        time.sleep(0.01)  # 10ms待機
 
         result = system._get_performance_results(start_time)
         assert result is not None

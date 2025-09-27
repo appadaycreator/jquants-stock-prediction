@@ -15,6 +15,11 @@ export async function POST(request: NextRequest) {
     let scriptArgs: string[] = [];
     
     switch (analysisType) {
+      case 'ultra_fast':
+        // 超高速分析モード - 最適化された統合システム
+        pythonScript = path.join(process.cwd(), '..', 'web_analysis_runner.py');
+        scriptArgs = ['ultra_fast'];
+        break;
       case 'comprehensive':
         // 統合システムを使用
         pythonScript = path.join(process.cwd(), '..', 'unified_jquants_system.py');
