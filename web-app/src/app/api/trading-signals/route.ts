@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { spawn } from 'child_process';
 import path from 'path';
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const { symbols } = await request.json();
     
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     // リアルタイムシグナル生成システムを実行
     const scriptPath = path.join(process.cwd(), '..', 'realtime_trading_signals.py');
     
-    return new Promise((resolve, reject) => {
+    return new Promise<NextResponse>((resolve, reject) => {
       const python = spawn('python3', [scriptPath], {
         cwd: path.join(process.cwd(), '..'),
         env: { ...process.env, PYTHONPATH: path.join(process.cwd(), '..') }
