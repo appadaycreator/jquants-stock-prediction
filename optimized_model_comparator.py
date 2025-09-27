@@ -17,6 +17,7 @@ from unified_parallel_processing_system import (
     get_parallel_config,
     set_parallel_config
 )
+from unified_system import get_unified_system
 import multiprocessing as mp
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score

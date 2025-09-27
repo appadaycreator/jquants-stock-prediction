@@ -9,7 +9,12 @@ import sys
 import time
 import logging
 from typing import Dict, Any, List, Callable, Optional
-from unified_parallel_processing_system import, as_completed
+from unified_parallel_processing_system import (
+    execute_parallel,
+    get_parallel_config,
+    set_parallel_config
+)
+from concurrent.futures import as_completed
 import multiprocessing as mp
 import threading
 import yaml

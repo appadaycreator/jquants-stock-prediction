@@ -21,7 +21,7 @@ import json
 from dataclasses import dataclass, asdict
 from enum import Enum
 import warnings
-from collections import deque
+from collections import deque, defaultdict
 import yfinance as yf
 from scipy import stats
 from scipy.stats import norm

@@ -15,7 +15,8 @@ from unified_parallel_processing_system import (
     get_parallel_config,
     set_parallel_config
 )
-from concurrent.futures import as_completed
+from unified_system import get_unified_system
+from concurrent.futures import as_completed, ProcessPoolExecutor, ThreadPoolExecutor
 from functools import wraps
 import multiprocessing as mp
 import threading

@@ -35,11 +35,11 @@ try:
         log_warning,
         log_debug,
         get_config,
-        set_config
+        set_config,
         FileError,
         ValidationError,
         NetworkError,
-        AuthenticationError,
+        AuthenticationError
     )
 except ImportError as e:
     print(f"Import error: {e}")
