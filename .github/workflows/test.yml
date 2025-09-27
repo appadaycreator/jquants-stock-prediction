@@ -93,10 +93,20 @@ jobs:
       with:
         python-version: 3.12
     
+    - name: Python バージョン確認
+      run: |
+        python --version
+        which python
+    
+    - name: キャッシュ完全クリア
+      run: |
+        pip cache purge || echo "Cache purge completed"
+        rm -rf ~/.cache/pip || echo "Cache directory removed"
+        rm -rf ~/.local/lib/python* || echo "Local Python cache removed"
+    
     - name: 依存関係のインストール
       run: |
         python -m pip install --upgrade pip
-        pip cache purge || echo "Cache purge completed"
         pip install --no-cache-dir -r requirements.txt
     
     - name: セキュリティチェック
