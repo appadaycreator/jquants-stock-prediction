@@ -2,8 +2,6 @@
 const nextConfig = {
   // 基本設定
   output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
-  trailingSlash: true,
-  skipTrailingSlashRedirect: true,
   distDir: 'dist',
   
   // 画像最適化設定
@@ -18,7 +16,12 @@ const nextConfig = {
   ...(process.env.NODE_ENV === 'production' && {
     assetPrefix: '/jquants-stock-prediction',
     basePath: '/jquants-stock-prediction',
-    generateBuildId: async () => 'build'
+    generateBuildId: async () => 'build',
+    // RSCエラーを解決するための設定
+    outputFileTracing: true,
+    // 静的エクスポート用の設定
+    trailingSlash: true,
+    skipTrailingSlashRedirect: true
   }),
   
   // パフォーマンス最適化
@@ -31,7 +34,11 @@ const nextConfig = {
     // RSC payloadエラーを解決するための設定
     serverComponentsExternalPackages: [],
     // GitHub PagesでのRSC動作を改善
-    staticGenerationRetryCount: 3
+    staticGenerationRetryCount: 3,
+    // RSCエラーを解決するための設定
+    serverActions: {
+      allowedOrigins: ['appadaycreator.github.io']
+    }
   },
   
   // サーバー外部パッケージの設定（experimentalから移動）
