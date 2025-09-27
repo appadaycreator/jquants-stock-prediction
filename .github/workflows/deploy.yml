@@ -3,18 +3,18 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 # GitHub Pagesのデプロイに必要な権限を設定
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: github-pages
     
     steps:
     - name: Checkout
@@ -56,8 +56,9 @@ jobs:
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./web-app/dist
         cname: # カスタムドメインがある場合はここに設定
+        force_orphan: true

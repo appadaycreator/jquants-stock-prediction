@@ -525,8 +525,8 @@ def main():
     recommendations = results.get("trading_recommendations", [])
     for i, rec in enumerate(recommendations[:5], 1):
         print(
-            f"  {i}. {rec["symbol"]} - {rec["action"]} "
-            f"(信頼度: {rec["confidence"]:.2f}, 優先度: {rec["priority"]})"
+            f"  {i}. {rec['symbol']} - {rec['action']} "
+            f"(信頼度: {rec['confidence']:.2f}, 優先度: {rec['priority']})"
         )
         print(
             f"     価格: ¥{rec['entry_price']:.0f}, ポジション: ¥{rec['position_size']:,.0f}"

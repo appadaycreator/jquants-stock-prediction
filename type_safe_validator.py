@@ -182,15 +182,11 @@ class TypeSafeValidator:
 
         try:
             if strategy == "forward_fill":
-                df_processed = df_processed.fillna(method="ffill")
-                df_processed = df_processed.fillna(
-                    method="bfill"
-                )  # 前方補完で処理できない場合
+                df_processed = df_processed.ffill()
+                df_processed = df_processed.bfill()  # 前方補完で処理できない場合
             elif strategy == "backward_fill":
-                df_processed = df_processed.fillna(method="bfill")
-                df_processed = df_processed.fillna(
-                    method="ffill"
-                )  # 後方補完で処理できない場合
+                df_processed = df_processed.bfill()
+                df_processed = df_processed.ffill()  # 後方補完で処理できない場合
             elif strategy == "mean":
                 numeric_columns = df_processed.select_dtypes(
                     include=[np.number]

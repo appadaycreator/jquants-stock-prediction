@@ -75,6 +75,8 @@ preprocessing:
     handle_missing: "interpolate"  # drop, interpolate, fill
     outlier_detection: true
     outlier_method: "iqr"  # iqr, zscore
+    # NaN値の閾値設定
+    nan_threshold: 0.5  # 50%のNaN値を許可
     
   # 特徴量エンジニアリング設定
   feature_engineering:
@@ -89,7 +91,6 @@ preprocessing:
     
   # 技術指標の設定
   technical_indicators:
-    sma_windows: [5, 10, 20, 25, 50]
     ema_windows: [12, 26]
     rsi_period: 14
     macd_fast: 12
@@ -429,37 +430,24 @@ trading:
         profit_target: 0.15  # 利益目標アラート閾値
         loss_limit: -0.1  # 損失限界アラート閾値
 
-# レガシーシステム廃止設定
-legacy:
-  # 廃止予定モジュールの設定
-  deprecated_modules:
-    - "jquants_stock_prediction.py"
-    - "jquants_data_preprocessing.py"
-    - "jquants_data_fetch.py"
-    - "unified_error_handler.py"
-    - "enhanced_logging.py"
-    - "config_loader.py"
-    - "enhanced_config_loader.py"
-    - "unified_jquants_system.py"  # 追加
-  
-  # 廃止予定設定ファイル
-  deprecated_configs:
-    - "config.yaml"
-    - "config_unified.yaml"
-    - "trading_config.yaml"
-    - "config/api.yaml"
-    - "config/core.yaml"
-    - "config/data.yaml"
-    - "config/models.yaml"
-  
-  # 移行先システム
-  migration_target:
-    main_system: "unified_system.py"
-    config_file: "config_final.yaml"
-    error_handling: "unified_system.py"
-    logging: "unified_system.py"
-  
+# 統合システム設定（最適化版）
+integration:
   # 統合完了フラグ
   consolidation_completed: true
   unified_architecture: true
   single_config_file: true
+  
+  # 最適化設定
+  optimization:
+    legacy_files_removed: true
+    duplicate_code_removed: true
+    single_system_architecture: true
+    performance_optimized: true
+  
+  # 統合システム情報
+  unified_system:
+    main_file: "unified_system.py"
+    config_file: "config_final.yaml"
+    error_handling: "integrated"
+    logging: "integrated"
+    performance_monitoring: "integrated"

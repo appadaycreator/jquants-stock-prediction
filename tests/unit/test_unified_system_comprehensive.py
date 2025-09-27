@@ -20,7 +20,6 @@ import time
 try:
     from unified_system import (
         UnifiedSystem,
-        UnifiedJQuantsSystem,
         ErrorCategory,
         LogLevel,
         LogCategory,
@@ -145,7 +144,7 @@ except ImportError:
         def cleanup(self):
             pass
 
-    class UnifiedJQuantsSystem:
+    class UnifiedSystem:
         def __init__(self, config=None):
             self.config = config or {}
             self.logger = MagicMock()
@@ -539,8 +538,8 @@ class TestUnifiedSystemComprehensive:
         assert system.error_count == 0
 
 
-class TestUnifiedJQuantsSystemComprehensive:
-    """統合J-Quantsシステムの包括的テストクラス"""
+class TestUnifiedSystemAdvanced:
+    """統合J-Quantsシステムの高度なテストクラス"""
 
     @pytest.fixture
     def sample_config(self):
@@ -562,21 +561,21 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_system_initialization(self):
         """システム初期化のテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         assert system.config == {}
         assert system.logger is not None
 
     def test_system_initialization_with_config(self, sample_config):
         """設定付きシステム初期化のテスト"""
-        system = UnifiedJQuantsSystem(sample_config)
+        system = UnifiedSystem()
         
         assert system.config == sample_config
         assert system.logger is not None
 
     def test_complete_pipeline_success(self):
         """完全パイプラインの成功ケース"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         result = system.run_complete_pipeline()
         
@@ -590,7 +589,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_complete_pipeline_error_handling(self):
         """完全パイプラインのエラーハンドリング"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         with patch.object(system, 'run_complete_pipeline') as mock_pipeline:
             mock_pipeline.side_effect = Exception("Pipeline error")
@@ -600,7 +599,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_data_validation_success(self, sample_data):
         """データ検証の成功ケース"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         result = system._validate_data(sample_data)
         
@@ -609,7 +608,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_data_validation_failure(self):
         """データ検証の失敗ケース"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # 無効なデータでの検証
         invalid_data = pd.DataFrame({'invalid_column': [1, 2, 3]})
@@ -619,7 +618,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_model_training_success(self, sample_data):
         """モデル訓練の成功ケース"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         model = system._train_model(sample_data)
         
@@ -628,7 +627,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_model_training_failure(self):
         """モデル訓練の失敗ケース"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         empty_data = pd.DataFrame()
         with pytest.raises(ModelError, match="Empty data"):
@@ -636,7 +635,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_prediction_success(self, sample_data):
         """予測の成功ケース"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         model = MagicMock()
         predictions = system._make_predictions(model, sample_data)
@@ -645,14 +644,14 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_prediction_failure(self, sample_data):
         """予測の失敗ケース"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         with pytest.raises(ModelError, match="No model"):
             system._make_predictions(None, sample_data)
 
     def test_config_validation_success(self, sample_config):
         """設定検証の成功ケース"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         result = system._validate_config(sample_config)
         
@@ -661,7 +660,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_config_validation_failure(self):
         """設定検証の失敗ケース"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         invalid_config = {"invalid_key": "value"}
         result = system._validate_config(invalid_config)
@@ -671,7 +670,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_logging_functionality(self):
         """ログ機能のテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         with patch.object(system.logger, 'info') as mock_logger:
             system.logger.info("Test log message")
@@ -679,7 +678,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_error_recovery_mechanism(self):
         """エラー復旧メカニズムのテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # エラー復旧の試行
         system._attempt_error_recovery(Exception("Recovery test"))
@@ -689,7 +688,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_performance_monitoring(self):
         """パフォーマンス監視のテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         start_time = system._start_performance_monitoring()
         assert isinstance(start_time, (int, float))
@@ -700,7 +699,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_memory_usage_monitoring(self):
         """メモリ使用量監視のテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         memory_usage = system._get_memory_usage()
         assert isinstance(memory_usage, (int, float))
@@ -708,7 +707,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_system_cleanup(self):
         """システムクリーンアップのテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # クリーンアップの実行
         system.cleanup()
@@ -718,7 +717,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_concurrent_operations(self):
         """並行操作のテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         results = []
         
         def run_pipeline():
@@ -745,7 +744,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_data_persistence(self, sample_data):
         """データ永続化のテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         with tempfile.NamedTemporaryFile(delete=False, suffix='.csv') as f:
             temp_file = f.name
@@ -764,7 +763,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_system_health_check(self):
         """システムヘルスチェックのテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # システムの状態確認
         assert system.config is not None
@@ -772,14 +771,14 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_error_statistics(self):
         """エラー統計のテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # エラー統計の初期状態
         assert system.config is not None
 
     def test_system_configuration_update(self, sample_config):
         """システム設定更新のテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # 設定の更新
         system.config.update(sample_config)
@@ -788,7 +787,7 @@ class TestUnifiedJQuantsSystemComprehensive:
 
     def test_system_backup_and_restore(self):
         """システムバックアップとリストアのテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # バックアップの作成
         backup_config = system.config.copy()
@@ -808,7 +807,7 @@ class TestUnifiedSystemIntegration:
 
     def test_end_to_end_pipeline(self):
         """エンドツーエンドパイプラインのテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # 完全なパイプラインの実行
         result = system.run_complete_pipeline()
@@ -822,7 +821,7 @@ class TestUnifiedSystemIntegration:
 
     def test_error_recovery_workflow(self):
         """エラー復旧ワークフローのテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # エラー復旧の試行
         system._attempt_error_recovery(Exception("Test error"))
@@ -833,7 +832,7 @@ class TestUnifiedSystemIntegration:
 
     def test_performance_optimization(self):
         """パフォーマンス最適化のテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # パフォーマンス監視の開始
         start_time = system._start_performance_monitoring()
@@ -851,7 +850,7 @@ class TestUnifiedSystemIntegration:
 
     def test_memory_optimization(self):
         """メモリ最適化のテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # メモリ使用量の監視
         initial_memory = system._get_memory_usage()
@@ -870,7 +869,7 @@ class TestUnifiedSystemIntegration:
 
     def test_concurrent_processing(self):
         """並行処理のテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         results = []
         
         def process_data():
@@ -894,7 +893,7 @@ class TestUnifiedSystemIntegration:
 
     def test_error_handling_comprehensive(self):
         """包括的なエラーハンドリングのテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # 様々なエラータイプのテスト
         error_types = [
@@ -926,7 +925,7 @@ class TestUnifiedSystemIntegration:
 
     def test_system_resilience(self):
         """システムの堅牢性テスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # 連続したエラーに対するシステムの堅牢性
         for _ in range(10):
@@ -942,7 +941,7 @@ class TestUnifiedSystemIntegration:
 
     def test_performance_under_load(self):
         """負荷下でのパフォーマンステスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # 高負荷でのパフォーマンステスト
         start_time = time.time()
@@ -959,7 +958,7 @@ class TestUnifiedSystemIntegration:
 
     def test_memory_efficiency(self):
         """メモリ効率のテスト"""
-        system = UnifiedJQuantsSystem()
+        system = UnifiedSystem()
         
         # メモリ使用量の監視
         initial_memory = system._get_memory_usage()

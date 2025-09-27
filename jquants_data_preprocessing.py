@@ -10,7 +10,7 @@ import logging
 import os
 from technical_indicators import TechnicalIndicators, get_enhanced_features_list
 from data_validator import DataValidator
-from unified_error_handler import get_unified_error_handler
+from unified_system import get_unified_system
 from type_safe_validator import TypeSafeValidator
 
 # 設定を読み込み
@@ -28,7 +28,7 @@ logger = enhanced_logger.get_logger()
 
 def validate_input_file(input_file):
     """入力ファイルの存在とアクセス可能性を検証"""
-    error_handler = get_unified_error_handler("validate_input_file")
+    error_handler = get_unified_system("validate_input_file")
 
     logger.info(f"🔍 入力ファイルの検証: {input_file}")
 
@@ -84,7 +84,7 @@ def validate_input_file(input_file):
 
 def load_and_clean_data(input_file):
     """データの読み込みとクリーニング（堅牢性強化版）"""
-    error_handler = get_unified_error_handler("load_and_clean_data")
+    error_handler = get_unified_system("load_and_clean_data")
     # specific_error_handler = get_specific_error_handler("load_and_clean_data")  # 統合アーキテクチャでは不要
 
     logger.info(f"📁 データを読み込み中: {input_file}")
@@ -126,7 +126,7 @@ def load_and_clean_data(input_file):
 
         # データの基本検証
         if df.empty:
-            error_msg = "データファイルが空です"
+            error_msg = "入力ファイルが空です"
             error_handler.log_error(
                 ValueError(error_msg),
                 "データ検証エラー",
@@ -145,7 +145,7 @@ def load_and_clean_data(input_file):
             df["Date"] = pd.to_datetime(df["Date"])
             logger.info("✅ 日付カラムの変換完了")
         except Exception as e:
-            error_handler.handle_data_error(e, "日付カラム変換", df.shape, "Date")
+            error_handler.handle_data_processing_error(e, "日付カラム変換")
             logger.error(f"❌ 日付カラムの変換エラー: {e}")
             raise
 
@@ -170,9 +170,7 @@ def load_and_clean_data(input_file):
                 try:
                     df[col] = pd.to_numeric(df[col], errors="coerce")
                 except Exception as e:
-                    error_handler.handle_data_error(
-                        e, f"数値カラム変換 ({col})", df.shape, col
-                    )
+                    error_handler.handle_data_processing_error(e, f"数値カラム変換 ({col})")
                     logger.warning(f"⚠️ {col}カラムの数値変換でエラー: {e}")
 
         # 型安全な欠損値処理
@@ -359,8 +357,8 @@ def engineer_advanced_features(df):
         return enhanced_df
 
     except Exception as e:
-        error_handler = get_unified_error_handler("engineer_advanced_features")
-        error_handler.handle_data_processing_error(e, "技術指標計算", df.shape)
+        error_handler = get_unified_system("engineer_advanced_features")
+        error_handler.handle_data_processing_error(e, "技術指標計算")
         logger.error(f"❌ 技術指標計算中にエラー: {e}")
         logger.warning("🔄 基本特徴量のみで続行します")
         return df
@@ -447,12 +445,12 @@ def validate_processed_data(df: pd.DataFrame) -> bool:
                 f.write(report)
             logger.info(f"📄 検証レポートを保存: {report_file}")
         except Exception as e:
-            error_handler = get_unified_error_handler("validate_processed_data")
+            error_handler = get_unified_system("validate_processed_data")
             error_handler.handle_file_error(e, report_file, "write")
             logger.warning(f"⚠️ 検証レポートの保存に失敗: {e}")
 
         if not validation_results["is_valid"]:
-            error_handler = get_unified_error_handler("validate_processed_data")
+            error_handler = get_unified_system("validate_processed_data")
             error_handler.log_error(
                 ValueError("データ検証に失敗"),
                 "データ検証エラー",
@@ -469,7 +467,7 @@ def validate_processed_data(df: pd.DataFrame) -> bool:
         return True
 
     except Exception as e:
-        error_handler = get_unified_error_handler("validate_processed_data")
+        error_handler = get_unified_system("validate_processed_data")
         error_handler.log_error(
             e,
             "データ検証エラー",
@@ -484,7 +482,7 @@ def validate_processed_data(df: pd.DataFrame) -> bool:
 
 def main():
     """メイン処理（堅牢性強化版）"""
-    error_handler = get_unified_error_handler("main_preprocessing")
+    error_handler = get_unified_system("main_preprocessing")
     # specific_error_handler = get_specific_error_handler("main_preprocessing")  # 統合アーキテクチャでは不要
 
     input_file = preprocessing_config.get("input_file", "stock_data.csv")
