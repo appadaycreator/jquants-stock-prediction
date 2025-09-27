@@ -152,10 +152,11 @@ npm run dev  # 開発サーバー起動（http://localhost:3000）
 
 **手順 1: GitHub Pages設定**
 1. GitHubリポジトリページ → Settings → Pages
-2. Source: "Deploy from a branch" を選択
-3. Branch: "main" を選択  
-4. Folder: "/docs" を選択
-5. Save をクリック
+2. Source: "GitHub Actions" を選択 ⚠️ **重要: これに変更！**
+3. Save をクリック
+
+**従来の方法 (非推奨)**
+- Source: "Deploy from a branch" + "/docs" フォルダは権限エラーの原因
 
 **手順 2: デプロイ実行**
 ```bash

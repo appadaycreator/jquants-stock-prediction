@@ -5,6 +5,11 @@ on:
     branches: [ main ]
   workflow_dispatch:  # 手動実行可能
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -59,10 +64,14 @@ jobs:
         cp -r web-app/dist docs/web-app
         touch docs/.nojekyll
     
-    - name: Commit and push
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add docs/
-        git diff --staged --quiet || git commit -m "🚀 Auto-update GitHub Pages [skip ci]"
-        git push
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+    
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./docs
+    
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
