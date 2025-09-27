@@ -1,0 +1,11 @@
+# GitHub Pages用のリダイレクト設定
+# .txtファイルへのリクエストを適切に処理
+/index.txt /index.html 200
+/reports.txt /reports/index.html 200
+/settings.txt /settings/index.html 200
+
+# RSCファイルのリダイレクト（Next.js App Router用）
+/*.txt /index.html 200
+
+# SPA用のフォールバック
+/* /index.html 200

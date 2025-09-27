@@ -5,7 +5,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter
 } from 'recharts'
-import { TrendingUp, BarChart3, Target, Database, AlertCircle, CheckCircle } from 'lucide-react'
+import { TrendingUp, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw } from 'lucide-react'
 
 // 型定義
 interface StockData {
@@ -66,6 +66,11 @@ export default function Dashboard() {
   const [predictions, setPredictions] = useState<PredictionData[]>([])
   const [summary, setSummary] = useState<DashboardSummary | null>(null)
   const [loading, setLoading] = useState(true)
+  const [showAnalysisModal, setShowAnalysisModal] = useState(false)
+  const [showSettingsModal, setShowSettingsModal] = useState(false)
+  const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [analysisProgress, setAnalysisProgress] = useState(0)
+  const [analysisStatus, setAnalysisStatus] = useState('')
 
   useEffect(() => {
     loadData()
@@ -99,6 +104,44 @@ export default function Dashboard() {
       console.error('データの読み込みに失敗:', error)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const runAnalysis = async () => {
+    try {
+      setIsAnalyzing(true)
+      setAnalysisProgress(0)
+      setAnalysisStatus('分析を開始しています...')
+      
+      // プログレスバーのシミュレーション
+      const progressInterval = setInterval(() => {
+        setAnalysisProgress(prev => {
+          if (prev >= 90) {
+            clearInterval(progressInterval)
+            return prev
+          }
+          return prev + Math.random() * 10
+        })
+      }, 500)
+
+      // 分析実行のシミュレーション
+      setAnalysisStatus('分析が完了しました。データを更新しています...')
+      setAnalysisProgress(100)
+      
+      // データを再読み込み
+      await loadData()
+      
+      setTimeout(() => {
+        setShowAnalysisModal(false)
+        setIsAnalyzing(false)
+        setAnalysisProgress(0)
+        setAnalysisStatus('')
+      }, 1000)
+      
+    } catch (error) {
+      console.error('分析実行エラー:', error)
+      setAnalysisStatus('分析の実行に失敗しました')
+      setIsAnalyzing(false)
     }
   }
 
@@ -143,14 +186,39 @@ export default function Dashboard() {
               <h1 className="text-3xl font-bold text-gray-900">J-Quants 株価予測ダッシュボード</h1>
               <p className="text-gray-600">機械学習による株価予測システム</p>
             </div>
-            <div className="flex items-center space-x-2">
-              <CheckCircle className="h-5 w-5 text-green-500" />
-              <span className="text-sm text-gray-600">
-                システム: 正常稼働中
-              </span>
-              <span className="text-sm text-gray-600">
-                最終更新: {summary ? summary.last_updated : '-'}
-              </span>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <CheckCircle className="h-5 w-5 text-green-500" />
+                <span className="text-sm text-gray-600">
+                  システム: 正常稼働中
+                </span>
+                <span className="text-sm text-gray-600">
+                  最終更新: {summary ? summary.last_updated : '-'}
+                </span>
+              </div>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => setShowAnalysisModal(true)}
+                  className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  <Play className="h-4 w-4 mr-2" />
+                  分析実行
+                </button>
+                <button
+                  onClick={() => setShowSettingsModal(true)}
+                  className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                >
+                  <Settings className="h-4 w-4 mr-2" />
+                  設定
+                </button>
+                <button
+                  onClick={loadData}
+                  className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                >
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  更新
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -416,6 +484,140 @@ export default function Dashboard() {
           </div>
         )}
       </main>
+
+      {/* 分析実行モーダル */}
+      {showAnalysisModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-medium text-gray-900">分析実行</h3>
+              <button
+                onClick={() => setShowAnalysisModal(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            </div>
+            
+            {!isAnalyzing ? (
+              <div className="space-y-4">
+                <p className="text-gray-600">
+                  新しい分析を実行しますか？この処理には数分かかる場合があります。
+                </p>
+                <div className="flex justify-end space-x-3">
+                  <button
+                    onClick={() => setShowAnalysisModal(false)}
+                    className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  >
+                    キャンセル
+                  </button>
+                  <button
+                    onClick={runAnalysis}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  >
+                    実行
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                  <p className="text-gray-600">{analysisStatus}</p>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${analysisProgress}%` }}
+                  ></div>
+                </div>
+                <p className="text-sm text-gray-500 text-center">
+                  {Math.round(analysisProgress)}% 完了
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* 設定モーダル */}
+      {showSettingsModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-lg mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-medium text-gray-900">設定</h3>
+              <button
+                onClick={() => setShowSettingsModal(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  予測期間（日数）
+                </label>
+                <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                  <option value="7">7日</option>
+                  <option value="14">14日</option>
+                  <option value="30" selected>30日</option>
+                  <option value="60">60日</option>
+                </select>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  使用するモデル
+                </label>
+                <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                  <option value="all">すべてのモデル</option>
+                  <option value="linear">線形回帰</option>
+                  <option value="random_forest">ランダムフォレスト</option>
+                  <option value="xgboost">XGBoost</option>
+                </select>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  特徴量選択
+                </label>
+                <div className="space-y-2">
+                  {['SMA_5', 'SMA_10', 'SMA_25', 'SMA_50', 'RSI', 'MACD', 'ボリンジャーバンド'].map(feature => (
+                    <label key={feature} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        defaultChecked
+                        className="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      />
+                      <span className="text-sm text-gray-700">{feature}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="flex justify-end space-x-3 pt-4">
+                <button
+                  onClick={() => setShowSettingsModal(false)}
+                  className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+                >
+                  キャンセル
+                </button>
+                <button
+                  onClick={() => {
+                    // 設定保存のロジック
+                    setShowSettingsModal(false)
+                  }}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
+                  保存
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

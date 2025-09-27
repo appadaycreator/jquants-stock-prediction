@@ -1,0 +1,57 @@
+# テスト用設定ファイル
+preprocessing:
+  input_file: "test_stock_data.csv"
+  output_file: "processed_test_data.csv"
+  features:
+    - "SMA_5"
+    - "SMA_25"
+    - "Close_1d_ago"
+    - "Close_5d_ago"
+  technical_indicators:
+    sma_windows: [5, 10, 25]
+    rsi_period: 14
+    macd_fast: 12
+    macd_slow: 26
+    macd_signal: 9
+
+prediction:
+  features:
+    - "SMA_5"
+    - "SMA_25"
+    - "Close_1d_ago"
+    - "Close_5d_ago"
+  target: "Close"
+  test_size: 0.2
+  random_state: 42
+  model_selection:
+    compare_models: true
+    primary_model: "random_forest"
+  models:
+    random_forest:
+      n_estimators: 100
+      max_depth: 10
+      random_state: 42
+    linear_regression:
+      fit_intercept: true
+    ridge:
+      alpha: 1.0
+    lasso:
+      alpha: 0.1
+    xgboost:
+      n_estimators: 100
+      max_depth: 6
+      learning_rate: 0.1
+    svr:
+      kernel: "rbf"
+      C: 1.0
+      gamma: "scale"
+
+api:
+  base_url: "https://api.jquants.com"
+  timeout: 30
+  retry_count: 3
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "test.log"

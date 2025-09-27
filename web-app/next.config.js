@@ -15,9 +15,44 @@ const nextConfig = {
     // 静的エクスポート用の設定
     generateBuildId: async () => {
       return 'build'
+    },
+    // GitHub Pagesでの配信最適化
+    compress: false,
+    poweredByHeader: false,
+    // RSCファイルの配信設定
+    experimental: {
+      optimizePackageImports: ['lucide-react'],
+      // RSCファイルの配信を無効化（GitHub Pagesで問題を回避）
+      serverComponentsExternalPackages: []
+    },
+    // GitHub Pages用の追加設定
+    trailingSlash: true,
+    // 静的ファイルの配信設定
+    async rewrites() {
+      return [
+        // .txtファイルへのリクエストを適切に処理
+        {
+          source: '/:path*.txt',
+          destination: '/:path*'
+        }
+      ]
+    },
+    // GitHub Pages用の追加ヘッダー設定
+    async headers() {
+      return [
+        {
+          source: '/:path*.txt',
+          headers: [
+            {
+              key: 'Content-Type',
+              value: 'text/html; charset=utf-8',
+            },
+          ],
+        },
+      ]
     }
   }),
-  // faviconとNext.js内部ファイルの相対パス化
+  // 開発環境での設定
   experimental: {
     optimizePackageImports: ['lucide-react']
   }

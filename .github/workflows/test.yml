@@ -1,0 +1,108 @@
+name: テスト実行
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9, 3.10, 3.11]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Python ${{ matrix.python-version }} のセットアップ
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: キャッシュの設定
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: 依存関係のインストール
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: コードフォーマットのチェック
+      run: |
+        black --check --diff .
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+    
+    - name: ユニットテストの実行
+      run: |
+        pytest tests/unit/ -v --cov=. --cov-report=xml --cov-report=html
+    
+    - name: 統合テストの実行
+      run: |
+        pytest tests/integration/ -v
+    
+    - name: テストカバレッジのアップロード
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Python 3.11 のセットアップ
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+    
+    - name: 依存関係のインストール
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: リンターの実行
+      run: |
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        black --check --diff .
+    
+    - name: 型チェック（将来の拡張用）
+      run: |
+        echo "型チェックは将来実装予定"
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Python 3.11 のセットアップ
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+    
+    - name: 依存関係のインストール
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install safety bandit
+    
+    - name: セキュリティチェック
+      run: |
+        safety check
+        bandit -r . -f json -o bandit-report.json || true
+    
+    - name: セキュリティレポートのアップロード
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-report
+        path: bandit-report.json
