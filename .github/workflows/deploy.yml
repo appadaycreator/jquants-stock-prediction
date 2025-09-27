@@ -13,9 +13,6 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -70,35 +67,16 @@ jobs:
         cp -r web-app/dist docs/web-app
         touch docs/.nojekyll
     
-    - name: Try GitHub Pages deployment
-      id: pages-deployment
-      continue-on-error: true
-      run: |
-        echo "🚀 GitHub Pages デプロイを試行中..."
-        
-        # GitHub Pages が有効かチェック
-        if curl -s -f "https://api.github.com/repos/${{ github.repository }}/pages" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" > /dev/null; then
-          echo "✅ GitHub Pages が有効です"
-          echo "pages_enabled=true" >> $GITHUB_OUTPUT
-        else
-          echo "⚠️ GitHub Pages が無効です"
-          echo "pages_enabled=false" >> $GITHUB_OUTPUT
-        fi
-    
-    - name: Setup Pages (if enabled)
-      if: steps.pages-deployment.outputs.pages_enabled == 'true'
+    - name: Setup Pages
       id: setup-pages
       uses: actions/configure-pages@v4
-      continue-on-error: true
     
-    - name: Upload artifact (if Pages enabled)
-      if: steps.pages-deployment.outputs.pages_enabled == 'true' && steps.setup-pages.outcome == 'success'
+    - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
         path: ./docs
     
-    - name: Deploy to GitHub Pages (if enabled)
-      if: steps.pages-deployment.outputs.pages_enabled == 'true' && steps.setup-pages.outcome == 'success'
+    - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
     
@@ -131,15 +109,10 @@ jobs:
         fi
         
         echo ""
-        echo "🎯 === 手動設定で即座に解決 ==="
-        echo "1. GitHub リポジトリページを開く"
-        echo "2. Settings → Pages をクリック"
-        echo "3. Source: 'Deploy from a branch' を選択"
-        echo "4. Branch: 'main' を選択"
-        echo "5. Folder: '/docs' を選択"
-        echo "6. Save をクリック"
+        echo "🎯 === デプロイ完了 ==="
+        echo "✅ GitHub Actions による自動デプロイが完了しました"
         echo ""
-        echo "🌐 設定後のアクセスURL:"
+        echo "🌐 アクセスURL:"
         echo "https://appadaycreator.github.io/jquants-stock-prediction/"
         echo ""
         echo "⏰ 表示まで: 5-10分"
