@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navigation from "../components/Navigation";
 import SymbolSelector from "../components/SymbolSelector";
 import SymbolAnalysisResults from "../components/SymbolAnalysisResults";
+import OneClickAnalysis from "../components/OneClickAnalysis";
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
@@ -357,6 +358,18 @@ export default function Dashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === "overview" && (
           <div className="space-y-6">
+            {/* ワンクリック分析実行 */}
+            <OneClickAnalysis 
+              onAnalysisComplete={(result) => {
+                console.log('分析完了:', result);
+                // データを再読み込み
+                loadData();
+              }}
+              onAnalysisStart={() => {
+                console.log('分析開始');
+              }}
+            />
+            
             {/* サマリーカード */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="bg-white rounded-lg shadow p-6">
