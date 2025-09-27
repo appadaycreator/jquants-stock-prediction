@@ -1,29 +1,26 @@
 #!/usr/bin/env python3
 """
-J-Quants API接続クライアント（リファクタリング版）
-単一責任原則に基づいて設計されたクリーンなアーキテクチャ
+統合J-Quantsクライアント
+シンプルで堅牢なメインクライアント
 """
 
 import logging
-from auth_manager import AuthManager
-from data_fetcher import DataFetcher
-from data_validator import DataValidator
-from simple_error_handler import get_simple_error_handler
+from unified_data_fetcher import UnifiedDataFetcher
+from unified_error_handler import get_unified_error_handler
+from config_loader import get_config
 
 logger = logging.getLogger(__name__)
 
 
-class JQuantsAPIClient:
-    """J-Quants API接続の堅牢なクライアント（リファクタリング版）"""
+class UnifiedJQuantsClient:
+    """統合J-Quantsクライアント"""
 
     def __init__(self):
         """初期化"""
-        self.auth_manager = AuthManager()
-        self.data_fetcher = DataFetcher()
-        self.data_validator = DataValidator()
-        self.error_handler = get_simple_error_handler("JQuantsAPIClient")
-
-        logger.info("✅ JQuantsAPIClient初期化完了")
+        self.error_handler = get_unified_error_handler("UnifiedJQuantsClient")
+        self.data_fetcher = UnifiedDataFetcher()
+        
+        logger.info("✅ UnifiedJQuantsClient初期化完了")
 
     def fetch_stock_data(self, target_date: str):
         """株価データの取得（メイン処理）"""
@@ -32,15 +29,6 @@ class JQuantsAPIClient:
         try:
             # データ取得
             df = self.data_fetcher.fetch_stock_data(target_date)
-
-            # データ検証
-            validation_results = self.data_validator.validate_stock_data(df)
-
-            if not validation_results["is_valid"]:
-                logger.warning("⚠️ データ検証で問題が発見されました")
-                logger.warning(f"エラー: {validation_results['errors']}")
-                logger.warning(f"警告: {validation_results['warnings']}")
-
             logger.info(f"✅ データ取得完了: {len(df)}件")
             return df
 
@@ -63,15 +51,13 @@ class JQuantsAPIClient:
 
 def main():
     """メイン処理"""
-    error_handler = get_simple_error_handler("main")
+    error_handler = get_unified_error_handler("main")
 
     try:
         # クライアントの初期化
-        client = JQuantsAPIClient()
+        client = UnifiedJQuantsClient()
 
         # 設定の取得
-        from config_loader import get_config
-
         config = get_config()
         data_fetch_config = config.get_data_fetch_config()
 
