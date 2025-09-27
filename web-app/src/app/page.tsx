@@ -12,7 +12,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
 } from "recharts";
-import { TrendingUp, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen } from "lucide-react";
+import { TrendingUp, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield } from "lucide-react";
 
 // 型定義
 interface StockData {
@@ -354,6 +354,7 @@ export default function Dashboard() {
               { id: "models", label: "モデル比較", icon: Target },
               { id: "analysis", label: "分析", icon: Database },
               { id: "signals", label: "シグナル", icon: TrendingUp },
+              { id: "risk", label: "リスク管理", icon: Shield },
             ].map((tab) => {
               const Icon = tab.icon;
               return (
@@ -629,6 +630,115 @@ export default function Dashboard() {
               autoRefresh={true}
               refreshInterval={30000}
             />
+          </div>
+        )}
+
+        {activeTab === "risk" && (
+          <div className="space-y-6">
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">🛡️ リスク管理ダッシュボード</h2>
+                  <p className="text-gray-600 mt-2">現在のポジション状況、損切りライン、リスクレベルを可視化</p>
+                </div>
+                <Link
+                  href="/risk"
+                  className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  <Shield className="h-4 w-4 mr-2" />
+                  詳細ダッシュボード
+                </Link>
+              </div>
+              
+              {/* リスク管理概要カード */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div className="bg-gradient-to-r from-red-50 to-red-100 border border-red-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-red-800">リスクレベル</h3>
+                      <p className="text-2xl font-bold text-red-600">HIGH</p>
+                    </div>
+                    <Shield className="h-8 w-8 text-red-500" />
+                  </div>
+                  <p className="text-sm text-red-600 mt-2">リスクスコア: 0.75</p>
+                </div>
+                
+                <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-blue-800">ポートフォリオ価値</h3>
+                      <p className="text-2xl font-bold text-blue-600">¥1,250,000</p>
+                    </div>
+                    <TrendingUp className="h-8 w-8 text-blue-500" />
+                  </div>
+                  <p className="text-sm text-blue-600 mt-2">未実現損益: +¥50,000</p>
+                </div>
+                
+                <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 border border-yellow-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-yellow-800">最大ドローダウン</h3>
+                      <p className="text-2xl font-bold text-yellow-600">8.5%</p>
+                    </div>
+                    <TrendingDown className="h-8 w-8 text-yellow-500" />
+                  </div>
+                  <p className="text-sm text-yellow-600 mt-2">VaR (95%): ¥125,000</p>
+                </div>
+              </div>
+              
+              {/* ポジション一覧 */}
+              <div className="bg-white border border-gray-200 rounded-lg">
+                <div className="px-6 py-4 border-b border-gray-200">
+                  <h3 className="text-lg font-semibold text-gray-900">現在のポジション</h3>
+                </div>
+                <div className="divide-y divide-gray-200">
+                  {[
+                    { symbol: "7203.T", name: "トヨタ自動車", pnl: -10000, pnlPercent: -4.0, risk: "HIGH" },
+                    { symbol: "6758.T", name: "ソニーグループ", pnl: 25000, pnlPercent: 4.2, risk: "MEDIUM" },
+                    { symbol: "9984.T", name: "ソフトバンクグループ", pnl: -37500, pnlPercent: -6.25, risk: "HIGH" },
+                  ].map((position) => (
+                    <div key={position.symbol} className="px-6 py-4 flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <div>
+                          <h4 className="font-semibold text-gray-900">{position.symbol}</h4>
+                          <p className="text-sm text-gray-600">{position.name}</p>
+                        </div>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          position.risk === 'HIGH' ? 'bg-red-100 text-red-800' :
+                          position.risk === 'MEDIUM' ? 'bg-yellow-100 text-yellow-800' :
+                          'bg-green-100 text-green-800'
+                        }`}>
+                          {position.risk}
+                        </span>
+                      </div>
+                      <div className="text-right">
+                        <div className={`font-semibold ${position.pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {position.pnl >= 0 ? '+' : ''}¥{position.pnl.toLocaleString()}
+                        </div>
+                        <div className={`text-sm ${position.pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {position.pnl >= 0 ? '+' : ''}{position.pnlPercent}%
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* 推奨事項 */}
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <div className="flex items-start">
+                  <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5 mr-3" />
+                  <div>
+                    <h4 className="font-semibold text-yellow-800">リスク管理推奨事項</h4>
+                    <ul className="text-sm text-yellow-700 mt-2 space-y-1">
+                      <li>• ポートフォリオリスクが高すぎます。ポジションサイズを縮小してください。</li>
+                      <li>• 9984.T（ソフトバンクグループ）の損切りを検討してください。</li>
+                      <li>• 損切りラインを現在の80%に設定することを推奨します。</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </main>
