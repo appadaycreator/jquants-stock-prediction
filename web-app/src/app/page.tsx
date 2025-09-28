@@ -21,22 +21,11 @@ import PeriodSelector from "../components/PeriodSelector";
 import ParallelUpdateManager from "../components/ParallelUpdateManager";
 import { SettingsProvider } from "../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
-// Rechartsコンポーネントを動的インポートでクライアントサイドのみレンダリング
-const LineChart = dynamic(() => import("recharts").then(mod => ({ default: mod.LineChart })), { ssr: false });
-const Line = dynamic(() => import("recharts").then(mod => ({ default: mod.Line })), { ssr: false });
-const XAxis = dynamic(() => import("recharts").then(mod => ({ default: mod.XAxis })), { ssr: false });
-const YAxis = dynamic(() => import("recharts").then(mod => ({ default: mod.YAxis })), { ssr: false });
-const CartesianGrid = dynamic(() => import("recharts").then(mod => ({ default: mod.CartesianGrid })), { ssr: false });
-const Tooltip = dynamic(() => import("recharts").then(mod => ({ default: mod.Tooltip })), { ssr: false });
-const Legend = dynamic(() => import("recharts").then(mod => ({ default: mod.Legend })), { ssr: false });
-const ResponsiveContainer = dynamic(() => import("recharts").then(mod => ({ default: mod.ResponsiveContainer })), { ssr: false });
-const BarChart = dynamic(() => import("recharts").then(mod => ({ default: mod.BarChart })), { ssr: false });
-const Bar = dynamic(() => import("recharts").then(mod => ({ default: mod.Bar })), { ssr: false });
-const PieChart = dynamic(() => import("recharts").then(mod => ({ default: mod.PieChart })), { ssr: false });
-const Pie = dynamic(() => import("recharts").then(mod => ({ default: mod.Pie })), { ssr: false });
-const Cell = dynamic(() => import("recharts").then(mod => ({ default: mod.Cell })), { ssr: false });
-const ScatterChart = dynamic(() => import("recharts").then(mod => ({ default: mod.ScatterChart })), { ssr: false });
-const Scatter = dynamic(() => import("recharts").then(mod => ({ default: mod.Scatter })), { ssr: false });
+// Rechartsコンポーネントを通常のインポート（SSRエラーを回避するため）
+import { 
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
+} from "recharts";
 import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock } from "lucide-react";
 import EnhancedErrorHandler from "../components/EnhancedErrorHandler";
 import ChartErrorBoundary from "../components/ChartErrorBoundary";
@@ -47,11 +36,11 @@ import { MetricTooltip, SimpleTooltip } from "../components/guide/Tooltip";
 import Checklist, { ChecklistBadge, DEFAULT_CHECKLIST_ITEMS } from "../components/guide/Checklist";
 import GlossaryModal from "../components/guide/GlossaryModal";
 import HelpModal from "../components/guide/HelpModal";
-import { useGuideShortcuts } from "@/lib/guide/shortcut";
-import { guideStore } from "@/lib/guide/guideStore";
-import { parseToJst } from "@/lib/datetime";
+import { useGuideShortcuts } from "../lib/guide/shortcut";
+import { guideStore } from "../lib/guide/guideStore";
+import { parseToJst } from "../lib/datetime";
 import JQuantsTokenSetup from "../components/JQuantsTokenSetup";
-import JQuantsAdapter from "@/lib/jquants-adapter";
+import JQuantsAdapter from "../lib/jquants-adapter";
 
 // 型定義
 interface StockData {
