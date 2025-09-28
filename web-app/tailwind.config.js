@@ -5,6 +5,14 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  // 本番とローカル環境での一貫性を確保
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
+  // CSSの一貫性を確保
+  corePlugins: {
+    preflight: true,
+  },
   theme: {
     extend: {
       colors: {

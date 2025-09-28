@@ -4,6 +4,12 @@ const nextConfig = {
   output: process.env.NODE_ENV === "production" ? "export" : undefined,
   distDir: process.env.NODE_ENV === "production" ? "out" : ".next",
   
+  // 環境に応じた動的設定
+  env: {
+    NEXT_PUBLIC_BASE_PATH: process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "",
+    NEXT_PUBLIC_ASSET_PREFIX: process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "",
+  },
+  
   // 画像最適化設定
   images: {
     unoptimized: process.env.NODE_ENV === "production",
@@ -29,6 +35,13 @@ const nextConfig = {
     },
     // RSC payload エラーを根本的に解決
     // generateStaticParams: false // このオプションは無効
+  }),
+  
+  // ローカル開発環境での一貫性を確保
+  ...(process.env.NODE_ENV === "development" && {
+    // ローカル開発時も本番と同じパス構造を使用
+    assetPrefix: "",
+    basePath: "",
   }),
   
   // パフォーマンス最適化
