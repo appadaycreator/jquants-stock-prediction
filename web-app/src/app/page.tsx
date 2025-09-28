@@ -27,6 +27,7 @@ import {
 import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock } from "lucide-react";
 import EnhancedErrorHandler from "../components/EnhancedErrorHandler";
 import ChartErrorBoundary from "../components/ChartErrorBoundary";
+import SafeRecharts from "../components/SafeRecharts";
 import { ButtonTooltip, HelpTooltip } from "../components/Tooltip";
 import UserGuide from "../components/UserGuide";
 import { TourProvider, useGuide } from "../components/guide/TourProvider";
@@ -1008,20 +1009,22 @@ function DashboardContent() {
             {/* 株価チャート */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">株価推移と移動平均</h3>
-              <ResponsiveContainer width="100%" height={400}>
-                <LineChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="実際価格" stroke="#2563eb" strokeWidth={2} />
-                  <Line type="monotone" dataKey="SMA_5" stroke="#dc2626" strokeWidth={1} />
-                  <Line type="monotone" dataKey="SMA_10" stroke="#059669" strokeWidth={1} />
-                  <Line type="monotone" dataKey="SMA_25" stroke="#d97706" strokeWidth={1} />
-                  <Line type="monotone" dataKey="SMA_50" stroke="#7c3aed" strokeWidth={1} />
-                </LineChart>
-              </ResponsiveContainer>
+              <SafeRecharts>
+                <ResponsiveContainer width="100%" height={400}>
+                  <LineChart data={chartData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="date" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey="実際価格" stroke="#2563eb" strokeWidth={2} />
+                    <Line type="monotone" dataKey="SMA_5" stroke="#dc2626" strokeWidth={1} />
+                    <Line type="monotone" dataKey="SMA_10" stroke="#059669" strokeWidth={1} />
+                    <Line type="monotone" dataKey="SMA_25" stroke="#d97706" strokeWidth={1} />
+                    <Line type="monotone" dataKey="SMA_50" stroke="#7c3aed" strokeWidth={1} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </SafeRecharts>
             </div>
           </div>
         )}
@@ -1031,7 +1034,7 @@ function DashboardContent() {
             {/* 予測結果チャート */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">予測 vs 実際値</h3>
-              <ChartErrorBoundary>
+              <SafeRecharts>
                 <ResponsiveContainer width="100%" height={400}>
                   <LineChart data={predictionChartData}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -1043,13 +1046,13 @@ function DashboardContent() {
                     <Line type="monotone" dataKey="予測値" stroke="#dc2626" strokeWidth={2} />
                   </LineChart>
                 </ResponsiveContainer>
-              </ChartErrorBoundary>
+              </SafeRecharts>
             </div>
 
             {/* 予測精度分布 */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">予測誤差分布</h3>
-              <ChartErrorBoundary>
+              <SafeRecharts>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={predictions.slice(0, 20).map(p => ({ 
                     index: p.index, 
@@ -1062,7 +1065,7 @@ function DashboardContent() {
                     <Bar dataKey="誤差" fill="#8884d8" />
                   </BarChart>
                 </ResponsiveContainer>
-              </ChartErrorBoundary>
+              </SafeRecharts>
             </div>
           </div>
         )}
@@ -1107,15 +1110,17 @@ function DashboardContent() {
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">MAE比較</h3>
               {modelComparison.length > 0 ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={modelComparison}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="mae" fill="#8884d8" />
-                  </BarChart>
-                </ResponsiveContainer>
+                <SafeRecharts>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={modelComparison}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="mae" fill="#8884d8" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </SafeRecharts>
               ) : (
                 <div className="flex items-center justify-center h-64 text-gray-500">
                   <div className="text-center">
@@ -1141,15 +1146,17 @@ function DashboardContent() {
               <div className="bg-white rounded-lg shadow p-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">特徴量重要度</h3>
                 {featureAnalysis.length > 0 ? (
-                  <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={featureAnalysis} layout="horizontal">
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis type="number" />
-                      <YAxis dataKey="feature" type="category" width={100} />
-                      <Tooltip />
-                      <Bar dataKey="percentage" fill="#82ca9d" />
-                    </BarChart>
-                  </ResponsiveContainer>
+                  <SafeRecharts>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={featureAnalysis} layout="horizontal">
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis type="number" />
+                        <YAxis dataKey="feature" type="category" width={100} />
+                        <Tooltip />
+                        <Bar dataKey="percentage" fill="#82ca9d" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </SafeRecharts>
                 ) : (
                   <div className="flex items-center justify-center h-64 text-gray-500">
                     <div className="text-center">
@@ -1164,25 +1171,27 @@ function DashboardContent() {
               <div className="bg-white rounded-lg shadow p-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">特徴量重要度分布</h3>
                 {featureAnalysis.length > 0 ? (
-                  <ResponsiveContainer width="100%" height={300}>
-                    <PieChart>
-                      <Pie
-                        data={featureAnalysis.map(item => ({ ...item, name: item.feature }))}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={false}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="percentage"
-                      >
-                        {featureAnalysis.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                    </PieChart>
-                  </ResponsiveContainer>
+                  <SafeRecharts>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <PieChart>
+                        <Pie
+                          data={featureAnalysis.map(item => ({ ...item, name: item.feature }))}
+                          cx="50%"
+                          cy="50%"
+                          labelLine={false}
+                          label={false}
+                          outerRadius={80}
+                          fill="#8884d8"
+                          dataKey="percentage"
+                        >
+                          {featureAnalysis.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </SafeRecharts>
                 ) : (
                   <div className="flex items-center justify-center h-64 text-gray-500">
                     <div className="text-center">
@@ -1199,15 +1208,17 @@ function DashboardContent() {
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">実際値 vs 予測値散布図</h3>
               {predictions.length > 0 ? (
-                <ResponsiveContainer width="100%" height={400}>
-                  <ScatterChart data={predictions.slice(0, 50)}>
-                    <CartesianGrid />
-                    <XAxis dataKey="actual" name="実際値" />
-                    <YAxis dataKey="predicted" name="予測値" />
-                    <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                    <Scatter name="予測ポイント" data={predictions.slice(0, 50)} fill="#8884d8" />
-                  </ScatterChart>
-                </ResponsiveContainer>
+                <SafeRecharts>
+                  <ResponsiveContainer width="100%" height={400}>
+                    <ScatterChart data={predictions.slice(0, 50)}>
+                      <CartesianGrid />
+                      <XAxis dataKey="actual" name="実際値" />
+                      <YAxis dataKey="predicted" name="予測値" />
+                      <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                      <Scatter name="予測ポイント" data={predictions.slice(0, 50)} fill="#8884d8" />
+                    </ScatterChart>
+                  </ResponsiveContainer>
+                </SafeRecharts>
               ) : (
                 <div className="flex items-center justify-center h-64 text-gray-500">
                   <div className="text-center">
