@@ -158,7 +158,7 @@ class RiskProfileAnalyzer:
             experience_level = self._estimate_experience_level(
                 age, income, investment_amount
             )
-            
+
             return RiskProfile(
                 risk_level=risk_level,
                 risk_tolerance=risk_tolerance,
@@ -179,7 +179,7 @@ class RiskProfileAnalyzer:
                 context="リスクプロファイル分析エラー",
             )
             return self._get_default_risk_profile()
-    
+
     def _calculate_age_factor(self, age: int) -> float:
         """年齢要因の計算"""
         if age < 30:
@@ -192,12 +192,14 @@ class RiskProfileAnalyzer:
             return 0.6
         else:
             return 0.4  # 低いリスク許容度
-    
-    def _calculate_income_factor(self, income: float, investment_amount: float) -> float:
+
+    def _calculate_income_factor(
+        self, income: float, investment_amount: float
+    ) -> float:
         """収入要因の計算"""
         if investment_amount == 0:
             return 0.5
-        
+
         investment_ratio = investment_amount / income
         if investment_ratio < 0.1:
             return 1.0  # 低い投資比率
@@ -207,7 +209,7 @@ class RiskProfileAnalyzer:
             return 0.6
         else:
             return 0.4  # 高い投資比率
-    
+
     def _calculate_horizon_factor(self, investment_horizon: int) -> float:
         """投資期間要因の計算"""
         if investment_horizon >= 10:
@@ -218,23 +220,23 @@ class RiskProfileAnalyzer:
             return 0.6
         else:
             return 0.4  # 短期投資
-    
+
     def _calculate_risk_tolerance(
-        self, 
-        age_factor: float, 
-        income_factor: float, 
+        self,
+        age_factor: float,
+        income_factor: float,
         horizon_factor: float,
-        questionnaire: Dict[str, Any] = None
+        questionnaire: Dict[str, Any] = None,
     ) -> RiskTolerance:
         """リスク許容度の計算"""
         # 基本スコア
         base_score = (age_factor + income_factor + horizon_factor) / 3
-        
+
         # アンケート結果の反映
         if questionnaire:
             questionnaire_score = self._process_risk_questionnaire(questionnaire)
             base_score = (base_score + questionnaire_score) / 2
-        
+
         # リスク許容度の決定
         if base_score >= 0.8:
             return RiskTolerance.VERY_HIGH
@@ -246,11 +248,11 @@ class RiskProfileAnalyzer:
             return RiskTolerance.LOW
         else:
             return RiskTolerance.VERY_LOW
-    
+
     def _process_risk_questionnaire(self, questionnaire: Dict[str, Any]) -> float:
         """リスクアンケートの処理"""
         score = 0.5  # デフォルトスコア
-        
+
         # 損失許容度
         if "loss_tolerance" in questionnaire:
             loss_tolerance = questionnaire["loss_tolerance"]
@@ -260,7 +262,7 @@ class RiskProfileAnalyzer:
                 score += 0.1
             else:
                 score -= 0.1
-        
+
         # 投資経験
         if "investment_experience" in questionnaire:
             experience = questionnaire["investment_experience"]
@@ -270,14 +272,11 @@ class RiskProfileAnalyzer:
                 score += 0.1
             else:
                 score -= 0.1
-        
+
         return max(0.0, min(1.0, score))
-    
+
     def _determine_risk_level(
-        self, 
-        risk_tolerance: RiskTolerance, 
-        age_factor: float, 
-        horizon_factor: float
+        self, risk_tolerance: RiskTolerance, age_factor: float, horizon_factor: float
     ) -> RiskLevel:
         """リスクレベルの決定"""
         # リスク許容度と年齢・期間要因の組み合わせ
@@ -289,36 +288,40 @@ class RiskProfileAnalyzer:
             return RiskLevel.MODERATE
         else:
             return RiskLevel.CONSERVATIVE
-    
-    def _calculate_max_drawdown(self, risk_level: RiskLevel, age_factor: float) -> float:
+
+    def _calculate_max_drawdown(
+        self, risk_level: RiskLevel, age_factor: float
+    ) -> float:
         """最大ドローダウンの計算"""
         base_drawdowns = {
             RiskLevel.CONSERVATIVE: 0.05,
             RiskLevel.MODERATE: 0.10,
             RiskLevel.AGGRESSIVE: 0.15,
-            RiskLevel.VERY_AGGRESSIVE: 0.20
+            RiskLevel.VERY_AGGRESSIVE: 0.20,
         }
-        
+
         base_drawdown = base_drawdowns[risk_level]
-        
+
         # 年齢要因による調整
         if age_factor < 0.5:  # 高齢者
             base_drawdown *= 0.7
-        
+
         return base_drawdown
-    
+
     def _calculate_volatility_tolerance(self, risk_level: RiskLevel) -> float:
         """ボラティリティ許容度の計算"""
         volatility_tolerances = {
             RiskLevel.CONSERVATIVE: 0.10,
             RiskLevel.MODERATE: 0.15,
             RiskLevel.AGGRESSIVE: 0.25,
-            RiskLevel.VERY_AGGRESSIVE: 0.35
+            RiskLevel.VERY_AGGRESSIVE: 0.35,
         }
-        
+
         return volatility_tolerances[risk_level]
-    
-    def _assess_liquidity_needs(self, age: int, income: float, investment_amount: float) -> str:
+
+    def _assess_liquidity_needs(
+        self, age: int, income: float, investment_amount: float
+    ) -> str:
         """流動性ニーズの評価"""
         if age > 60:
             return "high"  # 高齢者は高い流動性ニーズ
@@ -326,12 +329,9 @@ class RiskProfileAnalyzer:
             return "medium"  # 投資比率が高い場合
         else:
             return "low"
-    
+
     def _calculate_income_requirements(
-        self, 
-        investment_amount: float, 
-        investment_horizon: int, 
-        risk_level: RiskLevel
+        self, investment_amount: float, investment_horizon: int, risk_level: RiskLevel
     ) -> float:
         """収入要件の計算"""
         # 年率リターンの期待値
@@ -339,18 +339,20 @@ class RiskProfileAnalyzer:
             RiskLevel.CONSERVATIVE: 0.04,
             RiskLevel.MODERATE: 0.06,
             RiskLevel.AGGRESSIVE: 0.08,
-            RiskLevel.VERY_AGGRESSIVE: 0.10
+            RiskLevel.VERY_AGGRESSIVE: 0.10,
         }
-        
+
         expected_return = expected_returns[risk_level]
-        
+
         # 複利計算による収入要件
         if investment_horizon > 0:
             return investment_amount * (expected_return / 12)  # 月次収入
         else:
             return 0.0
-    
-    def _estimate_experience_level(self, age: int, income: float, investment_amount: float) -> str:
+
+    def _estimate_experience_level(
+        self, age: int, income: float, investment_amount: float
+    ) -> str:
         """経験レベルの推定"""
         # 年齢と収入による経験レベルの推定
         if age > 50 and income > 1000000:
@@ -359,7 +361,7 @@ class RiskProfileAnalyzer:
             return "intermediate"
         else:
             return "beginner"
-    
+
     def _get_default_risk_profile(self) -> RiskProfile:
         """デフォルトリスクプロファイルの取得"""
         return RiskProfile(
@@ -372,7 +374,7 @@ class RiskProfileAnalyzer:
             income_requirements=0.0,
             age_factor=0.7,
             experience_level="intermediate",
-            created_at=datetime.now()
+            created_at=datetime.now(),
         )
 
 
@@ -427,7 +429,11 @@ class RiskBasedStrategyGenerator:
             expected_volatility=0.05,
             max_drawdown=0.03,
             sharpe_ratio=0.8,
-            asset_allocation={"government_bonds": 0.60, "corporate_bonds": 0.25, "cash": 0.15},
+            asset_allocation={
+                "government_bonds": 0.60,
+                "corporate_bonds": 0.25,
+                "cash": 0.15,
+            },
             rebalancing_frequency="quarterly",
             risk_management_rules=[
                 "最大ドローダウン3%でリスク管理",
@@ -460,7 +466,11 @@ class RiskBasedStrategyGenerator:
             expected_volatility=0.08,
             max_drawdown=0.05,
             sharpe_ratio=0.6,
-            asset_allocation={"dividend_stocks": 0.70, "government_bonds": 0.20, "cash": 0.10},
+            asset_allocation={
+                "dividend_stocks": 0.70,
+                "government_bonds": 0.20,
+                "cash": 0.10,
+            },
             rebalancing_frequency="semi-annually",
             risk_management_rules=[
                 "配当利回り3%以上を維持",
@@ -487,7 +497,9 @@ class RiskBasedStrategyGenerator:
 
         return strategies
 
-    def _generate_moderate_strategies(self, risk_profile: RiskProfile) -> List[RiskBasedStrategy]:
+    def _generate_moderate_strategies(
+        self, risk_profile: RiskProfile
+    ) -> List[RiskBasedStrategy]:
         """中程度戦略の生成"""
         strategies = []
 
@@ -526,7 +538,9 @@ class RiskBasedStrategyGenerator:
 
         return strategies
 
-    def _generate_aggressive_strategies(self, risk_profile: RiskProfile) -> List[RiskBasedStrategy]:
+    def _generate_aggressive_strategies(
+        self, risk_profile: RiskProfile
+    ) -> List[RiskBasedStrategy]:
         """積極的戦略の生成"""
         strategies = []
 
@@ -565,7 +579,9 @@ class RiskBasedStrategyGenerator:
 
         return strategies
 
-    def _generate_very_aggressive_strategies(self, risk_profile: RiskProfile) -> List[RiskBasedStrategy]:
+    def _generate_very_aggressive_strategies(
+        self, risk_profile: RiskProfile
+    ) -> List[RiskBasedStrategy]:
         """非常に積極的戦略の生成"""
         strategies = []
 
@@ -577,7 +593,11 @@ class RiskBasedStrategyGenerator:
             expected_volatility=0.30,
             max_drawdown=0.25,
             sharpe_ratio=0.5,
-            asset_allocation={"high_risk_stocks": 0.70, "emerging_markets": 0.20, "cash": 0.10},
+            asset_allocation={
+                "high_risk_stocks": 0.70,
+                "emerging_markets": 0.20,
+                "cash": 0.10,
+            },
             rebalancing_frequency="weekly",
             risk_management_rules=[
                 "最大ドローダウン25%でリスク管理",
@@ -607,7 +627,7 @@ class RiskBasedStrategyGenerator:
 
 class RiskLevelStrategySystem:
     """リスクレベル戦略システム"""
-    
+
     def __init__(self, unified_system: UnifiedSystem = None):
         self.unified_system = unified_system or UnifiedSystem()
         self.risk_analyzer = RiskProfileAnalyzer(self.unified_system)
@@ -626,7 +646,7 @@ class RiskLevelStrategySystem:
         income: float,
         investment_amount: float,
         investment_horizon: int,
-        risk_questionnaire: Dict[str, Any] = None
+        risk_questionnaire: Dict[str, Any] = None,
     ) -> PortfolioRecommendation:
         """ポートフォリオ推奨の作成"""
         try:
@@ -635,25 +655,29 @@ class RiskLevelStrategySystem:
                 age, income, investment_amount, investment_horizon, risk_questionnaire
             )
             self.risk_profiles.append(risk_profile)
-            
+
             # リスクレベル別戦略の生成
-            strategies = self.strategy_generator.generate_strategies_for_risk_level(risk_profile)
-            
+            strategies = self.strategy_generator.generate_strategies_for_risk_level(
+                risk_profile
+            )
+
             # ポートフォリオ推奨の作成
-            recommendation = self._create_portfolio_recommendation(risk_profile, strategies)
+            recommendation = self._create_portfolio_recommendation(
+                risk_profile, strategies
+            )
             self.strategy_recommendations.append(recommendation)
-            
+
             self.logger.info(
                 f"📊 ポートフォリオ推奨作成完了: {risk_profile.risk_level.value}"
             )
-            
+
             return recommendation
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.MODEL_ERROR,
-                context="ポートフォリオ推奨作成エラー"
+                context="ポートフォリオ推奨作成エラー",
             )
             return self._get_default_recommendation()
 
@@ -689,7 +713,9 @@ class RiskLevelStrategySystem:
             created_at=datetime.now(),
         )
 
-    def _calculate_total_allocation(self, strategies: List[RiskBasedStrategy]) -> Dict[str, float]:
+    def _calculate_total_allocation(
+        self, strategies: List[RiskBasedStrategy]
+    ) -> Dict[str, float]:
         """総合資産配分の計算"""
         total_allocation = {}
 
@@ -699,7 +725,7 @@ class RiskLevelStrategySystem:
                     total_allocation[asset_class] += allocation
                 else:
                     total_allocation[asset_class] = allocation
-        
+
         # 正規化
         total = sum(total_allocation.values())
         if total > 0:
@@ -708,7 +734,9 @@ class RiskLevelStrategySystem:
 
         return total_allocation
 
-    def _calculate_expected_performance(self, strategies: List[RiskBasedStrategy]) -> Dict[str, float]:
+    def _calculate_expected_performance(
+        self, strategies: List[RiskBasedStrategy]
+    ) -> Dict[str, float]:
         """期待パフォーマンスの計算"""
         if not strategies:
             return {}
@@ -717,7 +745,9 @@ class RiskLevelStrategySystem:
         total_weight = len(strategies)
 
         expected_return = sum(s.expected_return for s in strategies) / total_weight
-        expected_volatility = sum(s.expected_volatility for s in strategies) / total_weight
+        expected_volatility = (
+            sum(s.expected_volatility for s in strategies) / total_weight
+        )
         max_drawdown = max(s.max_drawdown for s in strategies)
         sharpe_ratio = sum(s.sharpe_ratio for s in strategies) / total_weight
 
@@ -759,7 +789,7 @@ class RiskLevelStrategySystem:
 
         # 投資期間による調整
         horizon_adjustment = min(1.0, risk_profile.investment_horizon / 120) * 0.2
-        
+
         return min(1.0, base_score + age_adjustment + horizon_adjustment)
 
     def _create_rebalancing_schedule(self, risk_profile: RiskProfile) -> Dict[str, Any]:
@@ -772,7 +802,7 @@ class RiskLevelStrategySystem:
             frequency = "monthly"
         else:
             frequency = "weekly"
-        
+
         return {
             "frequency": frequency,
             "threshold": 0.05,  # 5%の乖離でリバランス
@@ -803,7 +833,9 @@ class RiskLevelStrategySystem:
     def _get_default_recommendation(self) -> PortfolioRecommendation:
         """デフォルト推奨の取得"""
         default_profile = self.risk_analyzer._get_default_risk_profile()
-        default_strategies = self.strategy_generator._generate_moderate_strategies(default_profile)
+        default_strategies = self.strategy_generator._generate_moderate_strategies(
+            default_profile
+        )
 
         return PortfolioRecommendation(
             risk_profile=default_profile,
