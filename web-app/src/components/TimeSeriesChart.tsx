@@ -16,6 +16,7 @@ import {
 } from 'recharts';
 import { parseToJst, jstLabel, createChartDateArray } from '../lib/datetime';
 import { chartLogger } from '../lib/logger';
+import { logDateConversionError, logDateConversionSuccess, logSchemaValidationError, logSchemaValidationSuccess } from '../lib/observability';
 
 interface TimeSeriesChartProps {
   data: Array<{
@@ -47,22 +48,40 @@ export default function TimeSeriesChart({
     }
 
     try {
+      // スキーマ検証
+      data.forEach((item, index) => {
+        if (!item.date) {
+          logSchemaValidationError('date', item.date, 'string', `TimeSeriesChart item ${index}`);
+        } else {
+          logSchemaValidationSuccess('date', `TimeSeriesChart item ${index}`);
+        }
+      });
+
       // 日付を正規化してチャート用データを生成
-      const normalizedData = data.map(item => {
-        const normalizedDate = parseToJst(item.date);
-        
-        if (!normalizedDate.isValid) {
-          chartLogger.error('無効な日付を検出:', item.date);
+      const normalizedData = data.map((item, index) => {
+        try {
+          const normalizedDate = parseToJst(item.date);
+          
+          if (!normalizedDate.isValid) {
+            logDateConversionError(item.date, new Error('Invalid date format'), `TimeSeriesChart item ${index}`);
+            chartLogger.error('無効な日付を検出:', item.date);
+            return null;
+          }
+
+          const jstLabelResult = jstLabel(normalizedDate);
+          logDateConversionSuccess(item.date, jstLabelResult, `TimeSeriesChart item ${index}`);
+
+          return {
+            ...item,
+            date: jstLabelResult,
+            timestamp: normalizedDate.toMillis(),
+            // 元の日付文字列も保持（デバッグ用）
+            originalDate: item.date
+          };
+        } catch (error) {
+          logDateConversionError(item.date, error as Error, `TimeSeriesChart item ${index}`);
           return null;
         }
-
-        return {
-          ...item,
-          date: jstLabel(normalizedDate),
-          timestamp: normalizedDate.toMillis(),
-          // 元の日付文字列も保持（デバッグ用）
-          originalDate: item.date
-        };
       }).filter(item => item !== null);
 
       chartLogger.info('チャートデータの正規化完了', {

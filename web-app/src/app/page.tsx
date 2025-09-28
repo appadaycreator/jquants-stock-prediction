@@ -37,6 +37,8 @@ import HelpModal from "../components/guide/HelpModal";
 import { useGuideShortcuts } from "../lib/guide/shortcut";
 import { guideStore } from "../lib/guide/guideStore";
 import { parseToJst } from "../lib/datetime";
+import JQuantsTokenSetup from "../components/JQuantsTokenSetup";
+import JQuantsAdapter from "../lib/jquants-adapter";
 
 // 型定義
 interface StockData {
@@ -121,6 +123,8 @@ function DashboardContent() {
   const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
   const [selectedPeriod, setSelectedPeriod] = useState('1m');
   const [watchlists, setWatchlists] = useState<any[]>([]);
+  const [jquantsAdapter, setJquantsAdapter] = useState<JQuantsAdapter | null>(null);
+  const [showJQuantsSetup, setShowJQuantsSetup] = useState(false);
 
   // ガイド機能の状態
   const [showGlossary, setShowGlossary] = useState(false);
@@ -604,6 +608,16 @@ function DashboardContent() {
                   >
                     <Settings className="h-4 w-4 mr-2" />
                     設定
+                  </button>
+                </ButtonTooltip>
+
+                <ButtonTooltip content="J-Quants APIトークンを設定してリアルタイムデータを取得">
+                  <button
+                    onClick={() => setShowJQuantsSetup(true)}
+                    className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                  >
+                    <Database className="h-4 w-4 mr-2" />
+                    J-Quants設定
                   </button>
                 </ButtonTooltip>
                 
@@ -1674,6 +1688,35 @@ function DashboardContent() {
             totalCount={guideStore.checklistProgress.totalItems}
             onClick={() => setShowChecklist(true)}
           />
+        </div>
+      )}
+
+      {/* J-Quants設定モーダル */}
+      {showJQuantsSetup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">J-Quants API設定</h2>
+                <button
+                  onClick={() => setShowJQuantsSetup(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+              
+              <JQuantsTokenSetup
+                onTokenConfigured={(adapter) => {
+                  setJquantsAdapter(adapter);
+                  setShowJQuantsSetup(false);
+                }}
+                onTokenRemoved={() => {
+                  setJquantsAdapter(null);
+                }}
+              />
+            </div>
+          </div>
         </div>
       )}
     </div>
