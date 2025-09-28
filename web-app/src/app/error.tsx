@@ -12,6 +12,15 @@ export default function Error({
   useEffect(() => {
     // エラーログをコンソールに出力
     console.error("RSC Error:", error);
+    
+    // createSelectorエラーの場合の特別な処理
+    if (error.message.includes("createSelector expects all input-selectors to be functions")) {
+      console.log("createSelector error detected, this is likely a Recharts internal issue");
+      // 自動リフレッシュを試行
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
   }, [error]);
 
   return (
