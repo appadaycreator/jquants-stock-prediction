@@ -5,12 +5,14 @@ import Link from "next/link";
 import Navigation from "../components/Navigation";
 import MobileNavigation from "../components/MobileNavigation";
 import MobileDashboard from "../components/MobileDashboard";
+import MobileOptimizedDashboard from "../components/MobileOptimizedDashboard";
 import PullToRefresh from "../components/PullToRefresh";
 import SymbolSelector from "../components/SymbolSelector";
 import SymbolAnalysisResults from "../components/SymbolAnalysisResults";
 import OneClickAnalysis from "../components/OneClickAnalysis";
 import StockMonitoringManager from "../components/StockMonitoringManager";
 import RealtimeSignalDisplay from "../components/RealtimeSignalDisplay";
+import NotificationSettings from "../components/NotificationSettings";
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
@@ -88,6 +90,8 @@ export default function Dashboard() {
   const [monitoringConfig, setMonitoringConfig] = useState<any>(null);
   const [showRealtimeSignals, setShowRealtimeSignals] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [showNotificationSettings, setShowNotificationSettings] = useState(false);
+  const [showMobileOptimized, setShowMobileOptimized] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -96,7 +100,9 @@ export default function Dashboard() {
   // モバイル判定
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setShowMobileOptimized(mobile);
     };
     
     checkMobile();
@@ -403,19 +409,31 @@ export default function Dashboard() {
         </div>
       </nav>
 
-      {/* モバイルダッシュボード */}
-      <PullToRefresh onRefresh={loadData}>
-        <MobileDashboard
-          stockData={stockData}
-          modelComparison={modelComparison}
-          featureAnalysis={featureAnalysis}
-          predictions={predictions}
-          summary={summary}
-          onRefresh={loadData}
-          onAnalysis={() => setShowAnalysisModal(true)}
-          onSettings={() => setShowSettingsModal(true)}
+      {/* モバイル最適化ダッシュボード */}
+      {showMobileOptimized ? (
+        <MobileOptimizedDashboard 
+          onAnalysisComplete={(result) => {
+            console.log('分析完了:', result);
+            loadData();
+          }}
+          onAnalysisStart={() => {
+            console.log('分析開始');
+          }}
         />
-      </PullToRefresh>
+      ) : (
+        <PullToRefresh onRefresh={loadData}>
+          <MobileDashboard
+            stockData={stockData}
+            modelComparison={modelComparison}
+            featureAnalysis={featureAnalysis}
+            predictions={predictions}
+            summary={summary}
+            onRefresh={loadData}
+            onAnalysis={() => setShowAnalysisModal(true)}
+            onSettings={() => setShowSettingsModal(true)}
+          />
+        </PullToRefresh>
+      )}
 
       {/* デスクトップメインコンテンツ */}
       <main className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
