@@ -30,7 +30,12 @@
       "@/app/*": ["./src/app/*"],
       "@/styles/*": ["./src/styles/*"],
       "@/lib/guide/*": ["./src/lib/guide/*"],
-      "@/lib/today/*": ["./src/lib/today/*"]
+      "@/lib/today/*": ["./src/lib/today/*"],
+      "@/lib/guide/shortcut": ["./src/lib/guide/shortcut"],
+      "@/lib/guide/guideStore": ["./src/lib/guide/guideStore"],
+      "@/lib/datetime": ["./src/lib/datetime"],
+      "@/lib/jquants-adapter": ["./src/lib/jquants-adapter"],
+      "@/lib/today/fetchTodaySummary": ["./src/lib/today/fetchTodaySummary"]
     }
   },
   "include": [

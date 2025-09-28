@@ -38,21 +38,31 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
         cache: 'npm'
         cache-dependency-path: web-app/package-lock.json
         
     - name: Install Node.js dependencies
       run: |
         cd web-app
-        npm ci --legacy-peer-deps
+        # キャッシュを完全にクリア
+        rm -rf node_modules package-lock.json
+        npm cache clean --force
+        # 依存関係を再インストール
+        npm install --legacy-peer-deps
         npm install react-is --save
         
     - name: Build web application
       run: |
         cd web-app
+        # ビルド前の完全なクリーンアップ
         npm run clean
-        NODE_ENV=production npm run build
+        rm -rf .next dist out
+        # 環境変数を明示的に設定
+        export NODE_ENV=production
+        export NEXT_TELEMETRY_DISABLED=1
+        # ビルド実行
+        npm run build
         
     - name: Copy built files to docs directory
       run: |
