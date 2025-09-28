@@ -1,32 +1,227 @@
 [
   {
-    "feature": "価格変動率",
-    "importance": 0.35,
-    "percentage": 35
+    "feature": "ATR_Percent",
+    "importance": 0.3710957723884912,
+    "percentage": 37.10957723884911
   },
   {
-    "feature": "ボリューム",
-    "importance": 0.25,
-    "percentage": 25
+    "feature": "Close_lag_5",
+    "importance": 0.07990517773409447,
+    "percentage": 7.990517773409446
   },
   {
-    "feature": "RSI",
-    "importance": 0.15,
-    "percentage": 15
+    "feature": "Price_Change_3d",
+    "importance": 0.07316747554395214,
+    "percentage": 7.316747554395213
   },
   {
-    "feature": "移動平均",
-    "importance": 0.12,
-    "percentage": 12
+    "feature": "MACD_Histogram",
+    "importance": 0.07275901815515384,
+    "percentage": 7.2759018155153825
   },
   {
-    "feature": "ボリンジャーバンド",
-    "importance": 0.08,
-    "percentage": 8
+    "feature": "VWAP_Deviation",
+    "importance": 0.06830559001877531,
+    "percentage": 6.83055900187753
+  },
+  {
+    "feature": "Price_Position_20d",
+    "importance": 0.0642803085727025,
+    "percentage": 6.428030857270249
+  },
+  {
+    "feature": "SMA_Deviation_20d",
+    "importance": 0.047057670200572756,
+    "percentage": 4.705767020057274
+  },
+  {
+    "feature": "Log_Return_3d",
+    "importance": 0.045483083762368155,
+    "percentage": 4.548308376236815
+  },
+  {
+    "feature": "Price_Change_Pct_3d",
+    "importance": 0.03682776699715716,
+    "percentage": 3.682776699715715
+  },
+  {
+    "feature": "BB_Percent",
+    "importance": 0.03629151363621179,
+    "percentage": 3.6291513636211783
   },
   {
     "feature": "MACD",
-    "importance": 0.05,
-    "percentage": 5
+    "importance": 0.028169923940055783,
+    "percentage": 2.8169923940055774
+  },
+  {
+    "feature": "Price_Position_50d",
+    "importance": 0.027728007492710607,
+    "percentage": 2.77280074927106
+  },
+  {
+    "feature": "Stoch_K",
+    "importance": 0.02712765991190531,
+    "percentage": 2.71276599119053
+  },
+  {
+    "feature": "CCI",
+    "importance": 0.010895683717617297,
+    "percentage": 1.0895683717617295
+  },
+  {
+    "feature": "SMA_Deviation_50d",
+    "importance": 0.0024406370381434856,
+    "percentage": 0.24406370381434853
+  },
+  {
+    "feature": "Minus_DI",
+    "importance": 0.0020471687179627164,
+    "percentage": 0.2047168717962716
+  },
+  {
+    "feature": "Price_Change_1d",
+    "importance": 0.0012304553726808366,
+    "percentage": 0.12304553726808364
+  },
+  {
+    "feature": "Close_lag_1",
+    "importance": 0.0011748885592545407,
+    "percentage": 0.11748885592545405
+  },
+  {
+    "feature": "Log_Return_1d",
+    "importance": 0.0010900481643521347,
+    "percentage": 0.10900481643521345
+  },
+  {
+    "feature": "Plus_DI",
+    "importance": 0.0007537910541938946,
+    "percentage": 0.07537910541938944
+  },
+  {
+    "feature": "Stoch_D",
+    "importance": 0.0005494678874470901,
+    "percentage": 0.054946788744709
+  },
+  {
+    "feature": "RSI",
+    "importance": 0.0003996820372329011,
+    "percentage": 0.0399682037232901
+  },
+  {
+    "feature": "Price_Change_Pct_1d",
+    "importance": 0.0003671031388730345,
+    "percentage": 0.03671031388730344
+  },
+  {
+    "feature": "EMA_26",
+    "importance": 0.00015194986220310562,
+    "percentage": 0.015194986220310559
+  },
+  {
+    "feature": "EMA_12",
+    "importance": 0.00013188133927010767,
+    "percentage": 0.013188133927010764
+  },
+  {
+    "feature": "SMA_25",
+    "importance": 0.00011367833653863109,
+    "percentage": 0.011367833653863107
+  },
+  {
+    "feature": "SMA_10",
+    "importance": 5.857744178684268e-05,
+    "percentage": 0.005857744178684267
+  },
+  {
+    "feature": "BB_Upper",
+    "importance": 4.896488382101423e-05,
+    "percentage": 0.004896488382101422
+  },
+  {
+    "feature": "OBV_SMA",
+    "importance": 4.184757888225567e-05,
+    "percentage": 0.004184757888225566
+  },
+  {
+    "feature": "Volume_SMA",
+    "importance": 3.8799667553598336e-05,
+    "percentage": 0.0038799667553598327
+  },
+  {
+    "feature": "VWAP",
+    "importance": 2.938219983788039e-05,
+    "percentage": 0.002938219983788038
+  },
+  {
+    "feature": "OBV",
+    "importance": 2.71253263503397e-05,
+    "percentage": 0.002712532635033969
+  },
+  {
+    "feature": "BB_Width",
+    "importance": 2.6753102980166356e-05,
+    "percentage": 0.002675310298016635
+  },
+  {
+    "feature": "SMA_50",
+    "importance": 2.6594799193838474e-05,
+    "percentage": 0.0026594799193838466
+  },
+  {
+    "feature": "PVT",
+    "importance": 2.1009695429835542e-05,
+    "percentage": 0.002100969542983554
+  },
+  {
+    "feature": "BB_Lower",
+    "importance": 2.0591711076399094e-05,
+    "percentage": 0.002059171107639909
+  },
+  {
+    "feature": "ADX",
+    "importance": 1.9224841610338082e-05,
+    "percentage": 0.001922484161033808
+  },
+  {
+    "feature": "Volume_Rate",
+    "importance": 1.7731979716113334e-05,
+    "percentage": 0.001773197971611333
+  },
+  {
+    "feature": "SMA_5",
+    "importance": 1.532919376744076e-05,
+    "percentage": 0.0015329193767440758
+  },
+  {
+    "feature": "ATR",
+    "importance": 1.3729887367479803e-05,
+    "percentage": 0.00137298873674798
+  },
+  {
+    "feature": "MACD_Signal",
+    "importance": 1.2786332529674336e-05,
+    "percentage": 0.0012786332529674332
+  },
+  {
+    "feature": "Price_Change_5d",
+    "importance": 9.518214323784e-06,
+    "percentage": 0.0009518214323783998
+  },
+  {
+    "feature": "Price_Change_Pct_5d",
+    "importance": 9.469853279024742e-06,
+    "percentage": 0.0009469853279024741
+  },
+  {
+    "feature": "Log_Return_5d",
+    "importance": 8.672586120158573e-06,
+    "percentage": 0.0008672586120158571
+  },
+  {
+    "feature": "Volume",
+    "importance": 8.487124453134164e-06,
+    "percentage": 0.0008487124453134163
   }
 ]

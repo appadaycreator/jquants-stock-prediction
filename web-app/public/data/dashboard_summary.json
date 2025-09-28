@@ -1,8 +1,8 @@
 {
-  "total_data_points": 494,
-  "prediction_period": "2025-06-21 から 2025-09-27",
+  "total_data_points": 276,
+  "prediction_period": "0 - 275",
   "best_model": "Random Forest",
-  "mae": "664.08",
-  "r2": "0.866",
-  "last_updated": "2025-09-28 12:48:44"
+  "mae": "21.36",
+  "r2": "1.00",
+  "last_updated": "2025-09-28 15:53:57"
 }
