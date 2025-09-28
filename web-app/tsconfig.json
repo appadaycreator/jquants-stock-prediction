@@ -28,7 +28,9 @@
       "@/lib/*": ["./src/lib/*"],
       "@/components/*": ["./src/components/*"],
       "@/app/*": ["./src/app/*"],
-      "@/styles/*": ["./src/styles/*"]
+      "@/styles/*": ["./src/styles/*"],
+      "@/lib/guide/*": ["./src/lib/guide/*"],
+      "@/lib/today/*": ["./src/lib/today/*"]
     }
   },
   "include": [

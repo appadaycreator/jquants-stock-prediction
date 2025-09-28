@@ -82,6 +82,8 @@ const nextConfig = {
       '@/components': path.resolve(srcPath, 'components'),
       '@/app': path.resolve(srcPath, 'app'),
       '@/styles': path.resolve(srcPath, 'styles'),
+      '@/lib/guide': path.resolve(srcPath, 'lib/guide'),
+      '@/lib/today': path.resolve(srcPath, 'lib/today'),
     };
     
     // モジュール解決の設定を追加
@@ -90,13 +92,12 @@ const nextConfig = {
       'node_modules',
     ];
     
+    // モジュール解決の確実性を向上
+    config.resolve.symlinks = false;
+    config.resolve.cacheWithContext = false;
+    
     // 拡張子の解決順序を設定
     config.resolve.extensions = ['.tsx', '.ts', '.jsx', '.js', '.json'];
-    
-    // パス解決のデバッグ情報を追加（開発時のみ）
-    if (dev) {
-      config.resolve.symlinks = false;
-    }
     
     // パス解決の確実性を向上
     config.resolve.fallback = {
@@ -107,9 +108,6 @@ const nextConfig = {
     
     // モジュール解決の確実性を向上
     config.resolve.fullySpecified = false;
-    
-    // パス解決の確実性をさらに向上
-    config.resolve.cacheWithContext = false;
     
     // バンドルサイズの最適化
     if (!dev && !isServer) {

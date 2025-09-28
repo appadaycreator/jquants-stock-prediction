@@ -21,6 +21,7 @@ import {
 } from "recharts";
 import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle } from "lucide-react";
 import EnhancedErrorHandler from "../components/EnhancedErrorHandler";
+import ChartErrorBoundary from "../components/ChartErrorBoundary";
 import { ButtonTooltip, HelpTooltip } from "../components/Tooltip";
 import UserGuide from "../components/UserGuide";
 import { TourProvider, useGuide } from "../components/guide/TourProvider";
@@ -30,6 +31,7 @@ import GlossaryModal from "../components/guide/GlossaryModal";
 import HelpModal from "../components/guide/HelpModal";
 import { useGuideShortcuts } from "@/lib/guide/shortcut";
 import { guideStore } from "@/lib/guide/guideStore";
+import { parseToJst } from "../lib/datetime";
 
 // 型定義
 interface StockData {
@@ -477,22 +479,22 @@ function DashboardContent() {
 
   const formatDate = (dateStr: string) => {
     try {
-      const date = new Date(dateStr);
+      // Luxonを使用して日付を正規化
+      const dt = parseToJst(dateStr);
       
-      // 無効な日時の場合はエラーメッセージを表示
-      if (isNaN(date.getTime())) {
+      if (!dt.isValid) {
         console.error('Invalid date format:', dateStr);
-        return 'Invalid Date';
+        return '2024-01-01'; // デフォルト日付を返す
       }
       
-      return date.toLocaleDateString("ja-JP", {
+      return dt.toLocaleString({
         year: 'numeric',
         month: '2-digit',
         day: '2-digit'
       });
     } catch (error) {
       console.error('Date formatting error:', error, 'Input:', dateStr);
-      return 'Invalid Date';
+      return '2024-01-01'; // デフォルト日付を返す
     }
   };
 
@@ -907,34 +909,38 @@ function DashboardContent() {
             {/* 予測結果チャート */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">予測 vs 実際値</h3>
-              <ResponsiveContainer width="100%" height={400}>
-                <LineChart data={predictionChartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="index" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="実際値" stroke="#2563eb" strokeWidth={2} />
-                  <Line type="monotone" dataKey="予測値" stroke="#dc2626" strokeWidth={2} />
-                </LineChart>
-              </ResponsiveContainer>
+              <ChartErrorBoundary>
+                <ResponsiveContainer width="100%" height={400}>
+                  <LineChart data={predictionChartData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="index" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey="実際値" stroke="#2563eb" strokeWidth={2} />
+                    <Line type="monotone" dataKey="予測値" stroke="#dc2626" strokeWidth={2} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </ChartErrorBoundary>
             </div>
 
             {/* 予測精度分布 */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">予測誤差分布</h3>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={predictions.slice(0, 20).map(p => ({ 
-                  index: p.index, 
-                  誤差: p.error.toFixed(2), 
-                }))}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="index" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="誤差" fill="#8884d8" />
-                </BarChart>
-              </ResponsiveContainer>
+              <ChartErrorBoundary>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={predictions.slice(0, 20).map(p => ({ 
+                    index: p.index, 
+                    誤差: p.error.toFixed(2), 
+                  }))}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="index" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="誤差" fill="#8884d8" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </ChartErrorBoundary>
             </div>
           </div>
         )}

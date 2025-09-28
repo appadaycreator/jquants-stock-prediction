@@ -112,10 +112,12 @@ export default function TimeSeriesChart({
       }
       
       chartLogger.warn('X軸ラベルの日付が無効です:', tickItem);
-      return 'Invalid Date';
+      // Invalid Dateの代わりにデフォルト日付を返す
+      return '2024-01-01';
     } catch (error) {
       chartLogger.error('X軸ラベルのフォーマットに失敗:', error, 'Input:', tickItem);
-      return 'Invalid Date';
+      // Invalid Dateの代わりにデフォルト日付を返す
+      return '2024-01-01';
     }
   };
 

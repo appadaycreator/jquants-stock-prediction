@@ -19,10 +19,16 @@ const navItems: NavItem[] = [
     shortLabel: 'ホーム'
   },
   {
+    href: '/today',
+    label: '今日の指示',
+    icon: '📅',
+    shortLabel: '今日'
+  },
+  {
     href: '/reports',
-    label: 'ダッシュボード',
+    label: 'レポート',
     icon: '📊',
-    shortLabel: 'ダッシュ'
+    shortLabel: 'レポート'
   },
   {
     href: '/settings',

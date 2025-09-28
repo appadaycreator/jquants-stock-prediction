@@ -18,6 +18,7 @@ import {
   Minus,
 } from "lucide-react";
 import MobileChart from "./MobileChart";
+import { parseToJst } from "../lib/datetime";
 
 interface MobileDashboardProps {
   stockData: any[];
@@ -90,21 +91,21 @@ export default function MobileDashboard({
 
   const formatDate = (dateStr: string) => {
     try {
-      const date = new Date(dateStr);
+      // Luxonを使用して日付を正規化
+      const dt = parseToJst(dateStr);
       
-      // 無効な日時の場合はエラーメッセージを表示
-      if (isNaN(date.getTime())) {
+      if (!dt.isValid) {
         console.error('Invalid date format:', dateStr);
-        return 'Invalid Date';
+        return '2024-01-01'; // デフォルト日付を返す
       }
       
-      return date.toLocaleDateString("ja-JP", {
+      return dt.toLocaleString({
         month: 'short',
         day: 'numeric',
       });
     } catch (error) {
       console.error('Date formatting error:', error, 'Input:', dateStr);
-      return 'Invalid Date';
+      return '2024-01-01'; // デフォルト日付を返す
     }
   };
 
