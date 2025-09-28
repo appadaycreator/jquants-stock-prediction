@@ -98,6 +98,9 @@ export default function Dashboard() {
   const [error, setError] = useState<Error | null>(null);
   const [showUserGuide, setShowUserGuide] = useState(false);
   const [isFirstVisit, setIsFirstVisit] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
+  const [refreshStatus, setRefreshStatus] = useState<string>('');
 
   useEffect(() => {
     loadData();
@@ -124,9 +127,14 @@ export default function Dashboard() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const loadData = async () => {
+  const loadData = async (isRefresh = false) => {
     try {
-      setLoading(true);
+      if (isRefresh) {
+        setIsRefreshing(true);
+        setRefreshStatus('データを更新しています...');
+      } else {
+        setLoading(true);
+      }
       
       // RSC payloadエラーを防ぐためのリトライ機能付きfetch
       const fetchWithRetry = async (url: string, retries = 3): Promise<Response> => {
@@ -167,6 +175,10 @@ export default function Dashboard() {
       const predDataRes = await predRes.json();
 
       setSummary(summaryData);
+      
+      // 更新日時を設定
+      const now = new Date();
+      setLastUpdateTime(now.toLocaleString('ja-JP'));
       
       // 日時データを正規化してから設定
       const normalizedStockData = stockDataRes.slice(0, 100).map((item: StockData) => ({
@@ -234,6 +246,14 @@ export default function Dashboard() {
       }
     } finally {
       setLoading(false);
+      if (isRefresh) {
+        setIsRefreshing(false);
+        setRefreshStatus('更新完了');
+        // 3秒後にステータスをクリア
+        setTimeout(() => {
+          setRefreshStatus('');
+        }, 3000);
+      }
     }
   };
 
@@ -462,8 +482,13 @@ export default function Dashboard() {
                   システム: 正常稼働中
                 </span>
                 <span className="text-sm text-gray-600">
-                  最終更新: {summary ? summary.last_updated : "-"}
+                  最終更新: {lastUpdateTime || summary?.last_updated || "-"}
                 </span>
+                {refreshStatus && (
+                  <span className="text-sm text-green-600 ml-2">
+                    {refreshStatus}
+                  </span>
+                )}
               </div>
               <div className="flex space-x-2">
                 <ButtonTooltip content="特定の銘柄を選択して詳細分析を実行します">
@@ -479,10 +504,15 @@ export default function Dashboard() {
                 <ButtonTooltip content="全銘柄の包括的な分析を実行します（3-5分程度かかります）">
                   <button
                     onClick={() => setShowAnalysisModal(true)}
-                    className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                    disabled={isAnalyzing}
+                    className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+                      isAnalyzing 
+                        ? 'bg-gray-400 cursor-not-allowed' 
+                        : 'bg-purple-600 hover:bg-purple-700'
+                    } text-white`}
                   >
-                    <Play className="h-4 w-4 mr-2" />
-                    全体分析
+                    <Play className={`h-4 w-4 mr-2 ${isAnalyzing ? 'animate-pulse' : ''}`} />
+                    {isAnalyzing ? '分析中...' : '全体分析'}
                   </button>
                 </ButtonTooltip>
                 
@@ -498,11 +528,16 @@ export default function Dashboard() {
                 
                 <ButtonTooltip content="最新のデータを取得してダッシュボードを更新します">
                   <button
-                    onClick={loadData}
-                    className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                    onClick={() => loadData(true)}
+                    disabled={isRefreshing}
+                    className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+                      isRefreshing 
+                        ? 'bg-gray-400 cursor-not-allowed' 
+                        : 'bg-green-600 hover:bg-green-700'
+                    } text-white`}
                   >
-                    <RefreshCw className="h-4 w-4 mr-2" />
-                    更新
+                    <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+                    {isRefreshing ? '更新中...' : '更新'}
                   </button>
                 </ButtonTooltip>
                 

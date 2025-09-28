@@ -42,11 +42,23 @@ export default function MobileDashboard({
 }: MobileDashboardProps) {
   const [activeTab, setActiveTab] = useState("overview");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
+  const [refreshStatus, setRefreshStatus] = useState<string>('');
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
+    setRefreshStatus('データを更新しています...');
     await onRefresh();
-    setTimeout(() => setIsRefreshing(false), 1000);
+    
+    // 更新日時を設定
+    const now = new Date();
+    setLastUpdateTime(now.toLocaleString('ja-JP'));
+    setRefreshStatus('更新完了');
+    
+    setTimeout(() => {
+      setIsRefreshing(false);
+      setRefreshStatus('');
+    }, 2000);
   };
 
   // 日時文字列を正規化する関数
@@ -139,18 +151,21 @@ export default function MobileDashboard({
                 onClick={handleRefresh}
                 disabled={isRefreshing}
                 className="p-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                title={isRefreshing ? '更新中...' : 'データを更新'}
               >
                 <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
               </button>
               <button
                 onClick={onAnalysis}
                 className="p-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors"
+                title="分析を実行"
               >
                 <Play className="h-4 w-4" />
               </button>
               <button
                 onClick={onSettings}
                 className="p-2 rounded-lg bg-gray-600 text-white hover:bg-gray-700 transition-colors"
+                title="設定を開く"
               >
                 <Settings className="h-4 w-4" />
               </button>
@@ -163,9 +178,16 @@ export default function MobileDashboard({
               <CheckCircle className="h-4 w-4 text-green-500" />
               <span className="text-gray-600">システム: 正常稼働中</span>
             </div>
-            <span className="text-gray-500">
-              最終更新: {summary ? summary.last_updated : "-"}
-            </span>
+            <div className="text-right">
+              <span className="text-gray-500">
+                最終更新: {lastUpdateTime || summary?.last_updated || "-"}
+              </span>
+              {refreshStatus && (
+                <div className="text-green-600 font-medium">
+                  {refreshStatus}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

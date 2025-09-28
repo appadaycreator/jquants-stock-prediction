@@ -31,41 +31,49 @@ const guideSteps: GuideStep[] = [
   {
     id: 'overview',
     title: 'ダッシュボードの概要',
-    description: '株価予測システムの主要機能と指標を確認できます。',
+    description: '株価予測システムの主要機能と指標を確認できます。システムの稼働状況、最新の更新日時、主要な指標（最優秀モデル、予測精度、MAE、データ数）を確認できます。',
     icon: <BarChart3 className="w-6 h-6" />,
-    action: '概要タブをクリック',
+    action: '概要タブをクリックして、システムの現在の状況を確認してください',
     target: 'overview'
   },
   {
     id: 'analysis',
     title: '分析の実行',
-    description: 'ワンクリックで株価分析を実行し、予測結果を取得できます。',
+    description: 'ワンクリックで株価分析を実行し、予測結果を取得できます。ボタンを押すとローディング状態が表示され、処理の進捗が確認できます。',
     icon: <Play className="w-6 h-6" />,
-    action: '分析実行ボタンをクリック',
+    action: '「分析実行」ボタンをクリックして、ローディング状態と進捗表示を確認してください',
     target: 'analysis'
+  },
+  {
+    id: 'refresh',
+    title: 'データの更新',
+    description: '最新のデータを取得してダッシュボードを更新します。更新ボタンを押すとローディング状態が表示され、完了後に更新日時が表示されます。',
+    icon: <RefreshCw className="w-6 h-6" />,
+    action: '「更新」ボタンをクリックして、ローディング状態と完了通知を確認してください',
+    target: 'refresh'
   },
   {
     id: 'predictions',
     title: '予測結果の確認',
-    description: '実際の株価と予測値の比較、精度の評価を行います。',
+    description: '実際の株価と予測値の比較、精度の評価を行います。予測vs実際値のチャートと誤差分布を確認できます。',
     icon: <TrendingUp className="w-6 h-6" />,
-    action: '予測結果タブをクリック',
+    action: '予測結果タブをクリックして、予測精度を確認してください',
     target: 'predictions'
   },
   {
     id: 'models',
     title: 'モデル比較',
-    description: '複数の機械学習モデルの性能を比較し、最適なモデルを選択できます。',
+    description: '複数の機械学習モデルの性能を比較し、最適なモデルを選択できます。MAE、RMSE、R²の比較表とチャートを確認できます。',
     icon: <Target className="w-6 h-6" />,
-    action: 'モデル比較タブをクリック',
+    action: 'モデル比較タブをクリックして、各モデルの性能を比較してください',
     target: 'models'
   },
   {
     id: 'settings',
     title: '設定の調整',
-    description: '分析期間、モデル選択、表示オプションなどをカスタマイズできます。',
+    description: '分析期間、モデル選択、表示オプションなどをカスタマイズできます。設定ボタンをクリックして詳細なオプションを調整できます。',
     icon: <Settings className="w-6 h-6" />,
-    action: '設定ボタンをクリック',
+    action: '設定ボタンをクリックして、分析設定をカスタマイズしてください',
     target: 'settings'
   }
 ];
