@@ -902,8 +902,8 @@ def main():
                 "investment_horizon": 5,
                 "risk_questionnaire": {
                     "loss_tolerance": "low",
-                    "investment_experience": "moderate"
-                }
+                    "investment_experience": "moderate",
+                },
             },
             {
                 "name": "中程度投資家",
@@ -913,8 +913,8 @@ def main():
                 "investment_horizon": 10,
                 "risk_questionnaire": {
                     "loss_tolerance": "medium",
-                    "investment_experience": "moderate"
-                }
+                    "investment_experience": "moderate",
+                },
             },
             {
                 "name": "積極的投資家",
@@ -924,11 +924,11 @@ def main():
                 "investment_horizon": 15,
                 "risk_questionnaire": {
                     "loss_tolerance": "high",
-                    "investment_experience": "extensive"
-                }
-            }
+                    "investment_experience": "extensive",
+                },
+            },
         ]
-        
+
         # 各投資家プロファイルの分析
         for profile in investor_profiles:
             print(f"\n📊 {profile['name']}の分析:")
@@ -936,23 +936,23 @@ def main():
             print(f"  年収: ¥{profile['income']:,}")
             print(f"  投資金額: ¥{profile['investment_amount']:,}")
             print(f"  投資期間: {profile['investment_horizon']}年")
-            
+
             # ポートフォリオ推奨の作成
             recommendation = risk_strategy_system.create_portfolio_recommendation(
-                profile['age'],
-                profile['income'],
-                profile['investment_amount'],
-                profile['investment_horizon'],
-                profile['risk_questionnaire']
+                profile["age"],
+                profile["income"],
+                profile["investment_amount"],
+                profile["investment_horizon"],
+                profile["risk_questionnaire"],
             )
-            
+
             # 結果の表示
             risk_profile = recommendation.risk_profile
             print(f"  リスクレベル: {risk_profile.risk_level.value}")
             print(f"  リスク許容度: {risk_profile.risk_tolerance.value}")
             print(f"  最大ドローダウン: {risk_profile.max_drawdown:.1%}")
             print(f"  ボラティリティ許容度: {risk_profile.volatility_tolerance:.1%}")
-            
+
             # 推奨戦略
             print(f"  推奨戦略数: {len(recommendation.recommended_strategies)}")
             for strategy in recommendation.recommended_strategies:
@@ -960,32 +960,33 @@ def main():
                 print(f"      期待リターン: {strategy.expected_return:.1%}")
                 print(f"      期待ボラティリティ: {strategy.expected_volatility:.1%}")
                 print(f"      最大ドローダウン: {strategy.max_drawdown:.1%}")
-            
+
             # 資産配分
             print(f"  資産配分:")
             for asset_class, allocation in recommendation.total_allocation.items():
                 print(f"    {asset_class}: {allocation:.1%}")
-            
+
             # 期待パフォーマンス
             perf = recommendation.expected_performance
             print(f"  期待パフォーマンス:")
             print(f"    期待リターン: {perf.get('expected_return', 0):.1%}")
             print(f"    期待ボラティリティ: {perf.get('expected_volatility', 0):.1%}")
             print(f"    シャープレシオ: {perf.get('sharpe_ratio', 0):.2f}")
-        
+
         # システムサマリー
         summary = risk_strategy_system.get_system_summary()
         print(f"\n📈 システムサマリー:")
         for key, value in summary.items():
             print(f"  {key}: {value}")
-        
+
         # データエクスポート
         risk_strategy_system.export_recommendations("risk_level_recommendations.json")
         print(f"\n推奨データをエクスポートしました: risk_level_recommendations.json")
-        
+
     except Exception as e:
         print(f"エラー: {e}")
         import traceback
+
         traceback.print_exc()
 
 
