@@ -32,31 +32,31 @@ export default function Navigation({
 
   const navigationItems = [
     { 
-      href: "./", 
+      href: "/", 
       label: "ダッシュボード", 
       icon: Home,
       description: "メインダッシュボード",
     },
     { 
-      href: "./today", 
+      href: "/today", 
       label: "今日の投資指示", 
       icon: Calendar,
       description: "本日の売買候補と指示",
     },
     { 
-      href: "./reports", 
+      href: "/reports", 
       label: "レポート", 
       icon: FileText,
       description: "詳細レポート",
     },
     { 
-      href: "./settings", 
+      href: "/settings", 
       label: "設定", 
       icon: Settings,
       description: "システム設定",
     },
     { 
-      href: "./usage", 
+      href: "/usage", 
       label: "使い方", 
       icon: BookOpen,
       description: "使用方法ガイド",

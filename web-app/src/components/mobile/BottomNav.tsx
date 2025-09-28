@@ -13,13 +13,13 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    href: '/today',
+    href: '/',
     label: 'ホーム',
     icon: '🏠',
     shortLabel: 'ホーム'
   },
   {
-    href: '/risk',
+    href: '/reports',
     label: 'ダッシュボード',
     icon: '📊',
     shortLabel: 'ダッシュ'
@@ -43,8 +43,8 @@ export default function BottomNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isActive = (href: string) => {
-    if (href === '/today') {
-      return pathname === '/today';
+    if (href === '/') {
+      return pathname === '/';
     }
     return pathname.startsWith(href);
   };
