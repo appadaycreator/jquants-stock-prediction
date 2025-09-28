@@ -13,8 +13,8 @@ export const metadata: Metadata = {
   authors: [{ name: "J-Quants Stock Prediction Team" }],
   robots: "index, follow",
   icons: {
-    icon: "/jquants-stock-prediction/favicon.ico",
-    apple: "/jquants-stock-prediction/favicon.ico",
+    icon: "/favicon.ico",
+    apple: "/favicon.ico",
   },
   appleWebApp: {
     capable: true,
