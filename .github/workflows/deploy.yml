@@ -39,7 +39,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: false
         
     - name: Clear all caches
       run: |
@@ -56,10 +55,11 @@ jobs:
         # 強制的にファイルシステムを同期
         sync
         # 追加のキャッシュクリア
-        rm -rf ~/.npm ~/.cache/npm
+        rm -rf ~/.npm ~/.cache/npm ~/.cache/node
         # 環境変数でキャッシュを無効化
         export NPM_CONFIG_CACHE=false
         export NEXT_BUILD_CACHE=false
+        export NPM_CONFIG_UPDATE_NOTIFIER=false
         
     - name: Install Node.js dependencies
       run: |
