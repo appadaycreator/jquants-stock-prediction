@@ -850,7 +850,7 @@ class RiskLevelStrategySystem:
                         "max_drawdown": profile.max_drawdown,
                         "volatility_tolerance": profile.volatility_tolerance,
                         "investment_horizon": profile.investment_horizon,
-                        "created_at": profile.created_at.isoformat()
+                        "created_at": profile.created_at.isoformat(),
                     }
                     for profile in self.risk_profiles
                 ],
@@ -858,25 +858,29 @@ class RiskLevelStrategySystem:
                     {
                         "risk_level": rec.risk_profile.risk_level.value,
                         "strategy_count": len(rec.recommended_strategies),
-                        "expected_return": rec.expected_performance.get("expected_return", 0),
-                        "expected_volatility": rec.expected_performance.get("expected_volatility", 0),
-                        "created_at": rec.created_at.isoformat()
+                        "expected_return": rec.expected_performance.get(
+                            "expected_return", 0
+                        ),
+                        "expected_volatility": rec.expected_performance.get(
+                            "expected_volatility", 0
+                        ),
+                        "created_at": rec.created_at.isoformat(),
                     }
                     for rec in self.strategy_recommendations
-                ]
+                ],
             }
-            
+
             with open(file_path, "w", encoding="utf-8") as f:
                 json.dump(export_data, f, default=str, ensure_ascii=False, indent=2)
-            
+
             self.logger.info(f"📊 推奨データエクスポート完了: {file_path}")
             return True
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.FILE_ERROR,
-                context=f"推奨データエクスポートエラー: {file_path}"
+                context=f"推奨データエクスポートエラー: {file_path}",
             )
             return False
 
@@ -886,12 +890,12 @@ def main():
     try:
         # 統合システムの初期化
         unified_system = UnifiedSystem()
-        
+
         # リスクレベル戦略システムの初期化
         risk_strategy_system = RiskLevelStrategySystem(unified_system)
-        
+
         print("=== リスクレベル別投資戦略提案システム ===")
-        
+
         # サンプル投資家プロファイル
         investor_profiles = [
             {

@@ -1,0 +1,44 @@
+# 通知設定ファイル
+# 1日5分ルーティン作業の完全自動化 - 通知設定
+
+notification:
+  # メール通知設定
+  email:
+    enabled: false  # メール通知を有効にする場合はtrue
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    email_user: ""  # 送信者メールアドレス
+    email_password: ""  # アプリパスワード（Gmailの場合）
+    email_to: ""  # 受信者メールアドレス
+    
+  # Slack通知設定
+  slack:
+    enabled: false  # Slack通知を有効にする場合はtrue
+    webhook_url: ""  # Slack Webhook URL
+    channel: "#stock-analysis"  # 通知先チャンネル
+    username: "株価分析Bot"
+    icon_emoji: ":chart_with_upwards_trend:"
+    
+  # 通知タイミング設定
+  schedule:
+    morning_analysis: "09:00"  # 朝の分析実行時間
+    evening_analysis: "15:00"  # 夕方の分析実行時間
+    timezone: "Asia/Tokyo"  # タイムゾーン
+    
+  # 通知内容設定
+  content:
+    include_analysis_summary: true  # 分析サマリーを含める
+    include_performance_metrics: true  # パフォーマンス指標を含める
+    include_recommendations: true  # 推奨事項を含める
+    include_risk_alerts: true  # リスクアラートを含める
+    
+  # 通知フィルタリング
+  filters:
+    min_confidence_threshold: 0.7  # 最小信頼度閾値
+    include_errors: true  # エラー通知を含める
+    include_success: true  # 成功通知を含める
+    
+  # 通知頻度制限
+  rate_limiting:
+    max_notifications_per_hour: 5  # 1時間あたりの最大通知数
+    cooldown_minutes: 30  # 連続通知のクールダウン時間（分）
