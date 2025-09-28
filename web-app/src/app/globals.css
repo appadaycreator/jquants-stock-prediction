@@ -1,9 +1,9 @@
+/* モバイル最適化CSS */
+@import '../styles/mobile.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* モバイル最適化CSS */
-@import '../styles/mobile.css';
 
 @layer base {
   :root {
