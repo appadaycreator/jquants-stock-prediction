@@ -276,16 +276,21 @@ function DashboardContent() {
         throw new Error("All retry attempts failed");
       };
       
-      // 本番環境でのパス修正
+      // 環境に応じたパス設定
       const basePath = process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '';
+      const dataPath = `${basePath}/data`;
+      
+      console.log('データパス:', dataPath);
+      console.log('環境:', process.env.NODE_ENV);
+      
       const [summaryRes, stockRes, modelRes, featureRes, predRes, marketInsightsRes, riskAssessmentRes] = await Promise.all([
-        fetchWithRetry(`${basePath}/data/dashboard_summary.json`),
-        fetchWithRetry(`${basePath}/data/stock_data.json`),
-        fetchWithRetry(`${basePath}/data/unified_model_comparison.json`),
-        fetchWithRetry(`${basePath}/data/feature_analysis.json`),
-        fetchWithRetry(`${basePath}/data/prediction_results.json`),
-        fetchWithRetry(`${basePath}/data/market_insights.json`),
-        fetchWithRetry(`${basePath}/data/risk_assessment.json`),
+        fetchWithRetry(`${dataPath}/dashboard_summary.json`),
+        fetchWithRetry(`${dataPath}/stock_data.json`),
+        fetchWithRetry(`${dataPath}/unified_model_comparison.json`),
+        fetchWithRetry(`${dataPath}/feature_analysis.json`),
+        fetchWithRetry(`${dataPath}/prediction_results.json`),
+        fetchWithRetry(`${dataPath}/market_insights.json`),
+        fetchWithRetry(`${dataPath}/risk_assessment.json`),
       ]);
 
       const summaryData = await summaryRes.json();
