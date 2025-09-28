@@ -1,0 +1,168 @@
+# ワンクリック分析の完全自動化設定ファイル
+
+automation:
+  # 基本設定
+  enabled: true
+  max_concurrent_analyses: 3
+  analysis_timeout: 300.0  # 5分
+  
+  # 通知設定
+  notification_enabled: true
+  notification_priority_threshold: 0.7
+  
+  # アクション提案設定
+  action_proposal_enabled: true
+  max_proposals_per_analysis: 5
+  
+  # リトライ設定
+  retry_enabled: true
+  max_retry_attempts: 3
+  retry_base_delay: 2.0
+  
+  # スケジューリング設定
+  auto_schedule_enabled: true
+  morning_analysis_time: "09:00"
+  evening_analysis_time: "15:00"
+  timezone: "Asia/Tokyo"
+  
+  # パフォーマンス設定
+  cache_enabled: true
+  cache_duration_hours: 24
+  parallel_processing: true
+
+# 通知設定
+notification:
+  email:
+    enabled: true
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    email_user: ""  # 環境変数から設定
+    email_password: ""  # 環境変数から設定
+    email_to: []  # 受信者リスト
+    
+  slack:
+    enabled: true
+    webhook_url: ""  # 環境変数から設定
+    channel: "#stock-analysis"
+    username: "株価分析Bot"
+    icon_emoji: ":chart_with_upwards_trend:"
+    
+  # 通知フィルタリング
+  filters:
+    min_confidence_threshold: 0.7
+    include_errors: true
+    include_success: true
+    
+  # レート制限
+  rate_limiting:
+    max_notifications_per_hour: 10
+    cooldown_minutes: 30
+
+# アクション提案設定
+action_proposal:
+  enabled: true
+  max_proposals_per_analysis: 5
+  min_confidence_threshold: 0.6
+  risk_tolerance: "medium"
+  
+  user_preferences:
+    preferred_actions: ["buy", "sell", "monitor"]
+    avoid_actions: ["high_risk_trades"]
+    max_risk_level: 0.7
+    
+  market_conditions:
+    bull_market:
+      aggressive_actions: true
+      risk_multiplier: 1.2
+    bear_market:
+      defensive_actions: true
+      risk_multiplier: 0.8
+    volatile_market:
+      cautious_actions: true
+      risk_multiplier: 0.6
+
+# リトライ設定
+retry_system:
+  enabled: true
+  default_max_attempts: 3
+  default_base_delay: 1.0
+  default_max_delay: 60.0
+  default_strategy: "exponential"
+  global_timeout: 300.0  # 5分
+  
+  circuit_breaker:
+    enabled: true
+    failure_threshold: 5
+    recovery_timeout: 60.0
+    
+  adaptive_retry:
+    enabled: true
+    success_rate_threshold: 0.8
+    adjustment_factor: 0.1
+
+# 操作別リトライ設定
+operation_configs:
+  data_fetch:
+    max_attempts: 5
+    base_delay: 2.0
+    strategy: "exponential"
+    condition: "network_errors"
+    
+  model_prediction:
+    max_attempts: 3
+    base_delay: 1.0
+    strategy: "fixed"
+    condition: "all_errors"
+    
+  notification_send:
+    max_attempts: 2
+    base_delay: 5.0
+    strategy: "linear"
+    condition: "network_errors"
+    
+  analysis_execution:
+    max_attempts: 3
+    base_delay: 3.0
+    strategy: "exponential"
+    condition: "all_errors"
+
+# 分析タイプ別設定
+analysis_types:
+  ultra_fast:
+    enabled: true
+    timeout: 120.0  # 2分
+    priority: "high"
+    
+  comprehensive:
+    enabled: true
+    timeout: 300.0  # 5分
+    priority: "normal"
+    
+  sentiment:
+    enabled: true
+    timeout: 180.0  # 3分
+    priority: "normal"
+    
+  trading:
+    enabled: true
+    timeout: 240.0  # 4分
+    priority: "high"
+
+# パフォーマンス最適化設定
+performance:
+  cache:
+    enabled: true
+    duration_hours: 24
+    max_size_mb: 1000
+    
+  parallel_processing:
+    enabled: true
+    max_workers: 4
+    
+  memory_optimization:
+    enabled: true
+    max_memory_mb: 2048
+    
+  database:
+    connection_pool_size: 10
+    query_timeout: 30.0

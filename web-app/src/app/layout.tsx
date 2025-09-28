@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SettingsProvider } from "../contexts/SettingsContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,13 +10,11 @@ export const metadata: Metadata = {
   description: "J-Quants APIを使用した株価予測システム",
   keywords: ["株価", "予測", "J-Quants", "機械学習", "データ分析"],
   authors: [{ name: "J-Quants Stock Prediction Team" }],
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
   icons: {
     icon: "/jquants-stock-prediction/favicon.ico",
     apple: "/jquants-stock-prediction/favicon.ico",
   },
-  themeColor: "#000000",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -34,6 +33,12 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#000000",
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -42,9 +47,11 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={inter.className}>
-        <div id="root">
-          {children}
-        </div>
+        <SettingsProvider>
+          <div id="root">
+            {children}
+          </div>
+        </SettingsProvider>
       </body>
     </html>
   );

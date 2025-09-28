@@ -5,36 +5,10 @@ import Link from "next/link";
 import Navigation from "../../components/Navigation";
 import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen } from "lucide-react";
 import { useAnalysisWithSettings } from "../../hooks/useAnalysisWithSettings";
+import { useSettings } from "../../contexts/SettingsContext";
 
 export default function SettingsPage() {
-  const [settings, setSettings] = useState({
-    prediction: {
-      days: 30,
-    },
-    model: {
-      type: "all",
-      primary_model: "xgboost",
-      compare_models: true,
-      auto_retrain: false,
-      retrain_frequency: "weekly",
-    },
-    data: {
-      refresh_interval: "daily",
-      max_data_points: 1000,
-      include_technical_indicators: true,
-    },
-    features: {
-      selected: ["sma_5", "sma_10", "sma_25", "sma_50", "rsi", "macd"],
-    },
-    ui: {
-      theme: "light",
-      refresh_rate: 30,
-      show_tooltips: true,
-    },
-  });
-
-  const [saving, setSaving] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const { settings, updateSettings, saveSettings, resetSettings, isLoading, isSaving } = useSettings();
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
 
@@ -47,29 +21,7 @@ export default function SettingsPage() {
     getAnalysisDescription 
   } = useAnalysisWithSettings();
 
-  useEffect(() => {
-    loadSettings();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const loadSettings = async () => {
-    try {
-      setLoading(true);
-      // ローカルストレージから設定を読み込み
-      const savedSettings = localStorage.getItem("jquants-settings");
-      if (savedSettings) {
-        const parsedSettings = JSON.parse(savedSettings);
-        setSettings(prev => ({
-          ...prev,
-          ...parsedSettings,
-        }));
-      }
-    } catch (error) {
-      console.error("設定の読み込みに失敗:", error);
-      showMessage("設定の読み込みに失敗しました", "error");
-    } finally {
-      setLoading(false);
-    }
-  };
+  // useEffectは不要（SettingsContextで自動的に読み込まれる）
 
   const showMessage = (text: string, type: "success" | "error") => {
     setMessage(text);
@@ -82,45 +34,18 @@ export default function SettingsPage() {
 
   const handleSave = async () => {
     try {
-      setSaving(true);
-      // ローカルストレージに設定を保存
-      localStorage.setItem("jquants-settings", JSON.stringify(settings));
+      await saveSettings();
       showMessage("設定が正常に保存されました", "success");
     } catch (error) {
       console.error("設定保存エラー:", error);
       showMessage("設定の保存に失敗しました", "error");
-    } finally {
-      setSaving(false);
     }
   };
 
   const handleReset = () => {
     if (confirm("設定をリセットしますか？")) {
-      setSettings({
-        prediction: {
-          days: 30,
-        },
-        model: {
-          type: "all",
-          primary_model: "xgboost",
-          compare_models: true,
-          auto_retrain: false,
-          retrain_frequency: "weekly",
-        },
-        data: {
-          refresh_interval: "daily",
-          max_data_points: 1000,
-          include_technical_indicators: true,
-        },
-        features: {
-          selected: ["sma_5", "sma_10", "sma_25", "sma_50", "rsi", "macd"],
-        },
-        ui: {
-          theme: "light",
-          refresh_rate: 30,
-          show_tooltips: true,
-        },
-      });
+      resetSettings();
+      showMessage("設定がリセットされました", "success");
     }
   };
 
@@ -145,7 +70,7 @@ export default function SettingsPage() {
     }
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -196,11 +121,11 @@ export default function SettingsPage() {
               </button>
               <button
                 onClick={handleSave}
-                disabled={saving}
+                disabled={isSaving}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
               >
                 <Save className="h-4 w-4 mr-2" />
-                {saving ? "保存中..." : "保存"}
+                {isSaving ? "保存中..." : "保存"}
               </button>
             </div>
           </div>
@@ -356,8 +281,7 @@ export default function SettingsPage() {
                 <input
                   type="number"
                   value={settings.prediction.days}
-                  onChange={(e) => setSettings({
-                    ...settings,
+                  onChange={(e) => updateSettings({
                     prediction: { ...settings.prediction, days: parseInt(e.target.value) },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -370,8 +294,7 @@ export default function SettingsPage() {
                 </label>
                 <select 
                   value={settings.model.type}
-                  onChange={(e) => setSettings({
-                    ...settings,
+                  onChange={(e) => updateSettings({
                     model: { ...settings.model, type: e.target.value },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -411,8 +334,7 @@ export default function SettingsPage() {
                       const newSelected = e.target.checked
                         ? [...settings.features.selected, feature.key]
                         : settings.features.selected.filter(f => f !== feature.key);
-                      setSettings({
-                        ...settings,
+                      updateSettings({
                         features: { ...settings.features, selected: newSelected },
                       });
                     }}
@@ -438,8 +360,7 @@ export default function SettingsPage() {
                 </label>
                 <select 
                   value={settings.model.primary_model}
-                  onChange={(e) => setSettings({
-                    ...settings,
+                  onChange={(e) => updateSettings({
                     model: { ...settings.model, primary_model: e.target.value },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -457,8 +378,7 @@ export default function SettingsPage() {
                 </label>
                 <select 
                   value={settings.model.retrain_frequency}
-                  onChange={(e) => setSettings({
-                    ...settings,
+                  onChange={(e) => updateSettings({
                     model: { ...settings.model, retrain_frequency: e.target.value },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -475,8 +395,7 @@ export default function SettingsPage() {
                   <input
                     type="checkbox"
                     checked={settings.model.compare_models}
-                    onChange={(e) => setSettings({
-                      ...settings,
+                    onChange={(e) => updateSettings({
                       model: { ...settings.model, compare_models: e.target.checked },
                     })}
                     className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -497,8 +416,7 @@ export default function SettingsPage() {
                   <input
                     type="checkbox"
                     checked={settings.model.auto_retrain}
-                    onChange={(e) => setSettings({
-                      ...settings,
+                    onChange={(e) => updateSettings({
                       model: { ...settings.model, auto_retrain: e.target.checked },
                     })}
                     className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -531,8 +449,7 @@ export default function SettingsPage() {
                 </label>
                 <select 
                   value={settings.data.refresh_interval}
-                  onChange={(e) => setSettings({
-                    ...settings,
+                  onChange={(e) => updateSettings({
                     data: { ...settings.data, refresh_interval: e.target.value },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -551,8 +468,7 @@ export default function SettingsPage() {
                 <input
                   type="number"
                   value={settings.data.max_data_points}
-                  onChange={(e) => setSettings({
-                    ...settings,
+                  onChange={(e) => updateSettings({
                     data: { ...settings.data, max_data_points: parseInt(e.target.value) },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -563,8 +479,7 @@ export default function SettingsPage() {
                 <input
                   type="checkbox"
                   checked={settings.data.include_technical_indicators}
-                  onChange={(e) => setSettings({
-                    ...settings,
+                  onChange={(e) => updateSettings({
                     data: { ...settings.data, include_technical_indicators: e.target.checked },
                   })}
                   className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -590,8 +505,7 @@ export default function SettingsPage() {
                 </label>
                 <select 
                   value={settings.ui.theme}
-                  onChange={(e) => setSettings({
-                    ...settings,
+                  onChange={(e) => updateSettings({
                     ui: { ...settings.ui, theme: e.target.value },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -609,8 +523,7 @@ export default function SettingsPage() {
                 <input
                   type="number"
                   value={settings.ui.refresh_rate}
-                  onChange={(e) => setSettings({
-                    ...settings,
+                  onChange={(e) => updateSettings({
                     ui: { ...settings.ui, refresh_rate: parseInt(e.target.value) },
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -621,8 +534,7 @@ export default function SettingsPage() {
                 <input
                   type="checkbox"
                   checked={settings.ui.show_tooltips}
-                  onChange={(e) => setSettings({
-                    ...settings,
+                  onChange={(e) => updateSettings({
                     ui: { ...settings.ui, show_tooltips: e.target.checked },
                   })}
                   className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
