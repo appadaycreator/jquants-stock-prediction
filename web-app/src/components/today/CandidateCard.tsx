@@ -1,6 +1,6 @@
 'use client';
 
-import { Candidate } from '../../types/today';
+import { Candidate } from '@/types/today';
 import { useState } from 'react';
 
 interface CandidateCardProps {

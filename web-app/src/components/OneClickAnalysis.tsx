@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Play, CheckCircle, AlertCircle, RefreshCw, Settings, BarChart3, TrendingUp, Brain, Zap, History, Clock } from "lucide-react";
-import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
+import { useAnalysisWithSettings } from "@/hooks/useAnalysisWithSettings";
 
 interface AnalysisConfig {
   type: 'ultra_fast' | 'comprehensive' | 'symbols' | 'trading' | 'sentiment';

@@ -1,6 +1,6 @@
 'use client';
 
-import { Todo } from '../../types/today';
+import { Todo } from '@/types/today';
 import { useState } from 'react';
 
 interface TodoCardProps {

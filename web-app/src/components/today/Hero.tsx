@@ -1,6 +1,6 @@
 'use client';
 
-import { TodaySummary } from '../../types/today';
+import { TodaySummary } from '@/types/today';
 
 interface HeroProps {
   summary: TodaySummary;

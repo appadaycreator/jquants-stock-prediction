@@ -17,7 +17,7 @@ import {
   History,
   Smartphone
 } from "lucide-react";
-import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
+import { useAnalysisWithSettings } from "@/hooks/useAnalysisWithSettings";
 
 interface MobileOptimizedDashboardProps {
   onAnalysisComplete?: (result: any) => void;

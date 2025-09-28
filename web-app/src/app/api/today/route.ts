@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import { TodaySummary } from '../../../types/today';
+import { TodaySummary } from '@/types/today';
 
 export const dynamic = 'force-static';
 

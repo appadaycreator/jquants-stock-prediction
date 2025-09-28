@@ -1,6 +1,6 @@
 'use client';
 
-import { Warning } from '../../types/today';
+import { Warning } from '@/types/today';
 
 interface RiskCardProps {
   warning: Warning;

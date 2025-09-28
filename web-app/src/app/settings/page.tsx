@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Navigation from "../../components/Navigation";
+import Navigation from "@/components/Navigation";
 import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen } from "lucide-react";
-import { useAnalysisWithSettings } from "../../hooks/useAnalysisWithSettings";
-import { useSettings } from "../../contexts/SettingsContext";
+import { useAnalysisWithSettings } from "@/hooks/useAnalysisWithSettings";
+import { useSettings } from "@/contexts/SettingsContext";
 
 export default function SettingsPage() {
   const { settings, updateSettings, saveSettings, resetSettings, isLoading, isSaving } = useSettings();

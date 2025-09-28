@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SettingsProvider } from "../contexts/SettingsContext";
-import BottomNav from "../components/mobile/BottomNav";
+import { SettingsProvider } from "@/contexts/SettingsContext";
+import BottomNav from "@/components/mobile/BottomNav";
 
 const inter = Inter({ subsets: ["latin"] });
 
