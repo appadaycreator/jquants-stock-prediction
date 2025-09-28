@@ -282,7 +282,28 @@ export default function Dashboard() {
   }
 
   const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString("ja-JP");
+    try {
+      // 日時形式を正規化（YYYY-MM-DD形式に統一）
+      const normalizedDate = dateStr.includes('-') ? dateStr : 
+        dateStr.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+      
+      const date = new Date(normalizedDate);
+      
+      // 無効な日時の場合はエラーメッセージを表示
+      if (isNaN(date.getTime())) {
+        console.error('Invalid date format:', dateStr);
+        return 'Invalid Date';
+      }
+      
+      return date.toLocaleDateString("ja-JP", {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+    } catch (error) {
+      console.error('Date formatting error:', error, 'Input:', dateStr);
+      return 'Invalid Date';
+    }
   };
 
   const chartData = stockData.map(item => ({

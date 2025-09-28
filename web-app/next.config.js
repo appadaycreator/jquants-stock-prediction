@@ -14,8 +14,9 @@ const nextConfig = {
   
   // GitHub Pages用の設定
   ...(process.env.NODE_ENV === "production" && {
-    assetPrefix: "/jquants-stock-prediction",
-    basePath: "/jquants-stock-prediction",
+    // 相対パスを使用してサブパスでも動作するように修正
+    assetPrefix: process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "",
+    basePath: process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "",
     generateBuildId: async () => "build",
     // 静的エクスポート用の設定
     trailingSlash: true,

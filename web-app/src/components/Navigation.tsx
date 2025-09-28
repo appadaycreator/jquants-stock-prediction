@@ -31,25 +31,25 @@ export default function Navigation({
 
   const navigationItems = [
     { 
-      href: "/", 
+      href: "./", 
       label: "ダッシュボード", 
       icon: Home,
       description: "メインダッシュボード",
     },
     { 
-      href: "/reports", 
+      href: "./reports", 
       label: "レポート", 
       icon: FileText,
       description: "詳細レポート",
     },
     { 
-      href: "/settings", 
+      href: "./settings", 
       label: "設定", 
       icon: Settings,
       description: "システム設定",
     },
     { 
-      href: "/usage", 
+      href: "./usage", 
       label: "使い方", 
       icon: BookOpen,
       description: "使用方法ガイド",
