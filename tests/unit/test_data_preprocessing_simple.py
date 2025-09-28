@@ -10,7 +10,8 @@ import os
 from unittest.mock import patch, mock_open
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from test_jquants_data_preprocessing import (
     validate_input_file,
