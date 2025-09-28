@@ -10,6 +10,7 @@ import {
   FileText,
   Home,
   Eye,
+  Calendar,
 } from "lucide-react";
 
 interface NavigationProps {
@@ -35,6 +36,12 @@ export default function Navigation({
       label: "ダッシュボード", 
       icon: Home,
       description: "メインダッシュボード",
+    },
+    { 
+      href: "./today", 
+      label: "今日の投資指示", 
+      icon: Calendar,
+      description: "本日の売買候補と指示",
     },
     { 
       href: "./reports", 
