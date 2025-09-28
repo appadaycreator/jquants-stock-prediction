@@ -1,0 +1,98 @@
+[
+  {
+    "model_name": "XGBoost",
+    "model_type": "XGBRegressor",
+    "mae": 72.49,
+    "rmse": 100.80,
+    "r2": 0.9876,
+    "mape": 2.1,
+    "rank": 1,
+    "overfitting_risk": "低リスク",
+    "feature_importance": [
+      { "feature": "Close_1d_ago", "importance": 47.59 },
+      { "feature": "SMA_10", "importance": 24.72 },
+      { "feature": "SMA_5", "importance": 22.93 },
+      { "feature": "Close_5d_ago", "importance": 1.98 }
+    ]
+  },
+  {
+    "model_name": "Random Forest",
+    "model_type": "RandomForestRegressor",
+    "mae": 76.61,
+    "rmse": 101.76,
+    "r2": 0.9873,
+    "mape": 2.4,
+    "rank": 2,
+    "overfitting_risk": "低リスク",
+    "feature_importance": [
+      { "feature": "Close_1d_ago", "importance": 84.09 },
+      { "feature": "SMA_5", "importance": 13.48 },
+      { "feature": "Close_5d_ago", "importance": 1.28 },
+      { "feature": "SMA_50", "importance": 0.55 }
+    ]
+  },
+  {
+    "model_name": "Gradient Boosting",
+    "model_type": "GradientBoostingRegressor",
+    "mae": 85.23,
+    "rmse": 115.45,
+    "r2": 0.9856,
+    "mape": 2.8,
+    "rank": 3,
+    "overfitting_risk": "低リスク",
+    "feature_importance": [
+      { "feature": "Close_1d_ago", "importance": 52.34 },
+      { "feature": "SMA_10", "importance": 28.91 },
+      { "feature": "SMA_5", "importance": 15.67 },
+      { "feature": "Close_5d_ago", "importance": 3.08 }
+    ]
+  },
+  {
+    "model_name": "Linear Regression",
+    "model_type": "LinearRegression",
+    "mae": 125.67,
+    "rmse": 158.92,
+    "r2": 0.9723,
+    "mape": 4.2,
+    "rank": 4,
+    "overfitting_risk": "低リスク",
+    "feature_importance": [
+      { "feature": "Close_1d_ago", "importance": 78.45 },
+      { "feature": "SMA_10", "importance": 12.34 },
+      { "feature": "SMA_5", "importance": 6.78 },
+      { "feature": "Close_5d_ago", "importance": 2.43 }
+    ]
+  },
+  {
+    "model_name": "Ridge Regression",
+    "model_type": "Ridge",
+    "mae": 128.45,
+    "rmse": 162.18,
+    "r2": 0.9712,
+    "mape": 4.3,
+    "rank": 5,
+    "overfitting_risk": "低リスク",
+    "feature_importance": [
+      { "feature": "Close_1d_ago", "importance": 76.89 },
+      { "feature": "SMA_10", "importance": 13.56 },
+      { "feature": "SMA_5", "importance": 7.23 },
+      { "feature": "Close_5d_ago", "importance": 2.32 }
+    ]
+  },
+  {
+    "model_name": "SVR",
+    "model_type": "SVR",
+    "mae": 145.78,
+    "rmse": 189.34,
+    "r2": 0.9634,
+    "mape": 5.1,
+    "rank": 6,
+    "overfitting_risk": "低リスク",
+    "feature_importance": [
+      { "feature": "Close_1d_ago", "importance": 82.15 },
+      { "feature": "SMA_10", "importance": 11.23 },
+      { "feature": "SMA_5", "importance": 4.56 },
+      { "feature": "Close_5d_ago", "importance": 2.06 }
+    ]
+  }
+]

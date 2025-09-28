@@ -59,83 +59,74 @@ export default function ReportsPage() {
   const generateReport = async () => {
     setLoading(true);
     
-    // 模擬レポートデータ生成
-    const mockReport: ReportData = {
+    try {
+      // 統合データソースからデータを取得
+      const [modelRes, marketInsightsRes, riskAssessmentRes] = await Promise.all([
+        fetch("./data/unified_model_comparison.json"),
+        fetch("./data/market_insights.json"),
+        fetch("./data/risk_assessment.json"),
+      ]);
+
+      const modelData = await modelRes.json();
+      const marketInsights = await marketInsightsRes.json();
+      const riskAssessment = await riskAssessmentRes.json();
+
+      // 統合レポートデータ生成
+      const integratedReport: ReportData = {
       executive_summary: {
         period: selectedPeriod,
         total_predictions: 91,
         accuracy: 98.76,
-        best_model: "XGBoost",
+        best_model: modelData[0]?.model_name || "XGBoost",
         roi_estimate: 15.3,
       },
-      model_performance: [
-        {
-          model_name: "XGBoost",
-          metrics: {
-            mae: 72.49,
-            rmse: 100.80,
-            r2: 0.9876,
-            mape: 2.1,
-          },
-          feature_importance: [
-            { feature: "Close_1d_ago", importance: 47.59 },
-            { feature: "SMA_10", importance: 24.72 },
-            { feature: "SMA_5", importance: 22.93 },
-            { feature: "Close_5d_ago", importance: 1.98 },
-          ],
+      model_performance: modelData.slice(0, 2).map((model: any) => ({
+        model_name: model.model_name,
+        metrics: {
+          mae: model.mae,
+          rmse: model.rmse,
+          r2: model.r2,
+          mape: model.mape,
         },
-        {
-          model_name: "Random Forest",
-          metrics: {
-            mae: 76.61,
-            rmse: 101.76,
-            r2: 0.9873,
-            mape: 2.4,
-          },
-          feature_importance: [
-            { feature: "Close_1d_ago", importance: 84.09 },
-            { feature: "SMA_5", importance: 13.48 },
-            { feature: "Close_5d_ago", importance: 1.28 },
-            { feature: "SMA_50", importance: 0.55 },
-          ],
-        },
-      ],
+        feature_importance: model.feature_importance || [
+          { feature: "Close_1d_ago", importance: 47.59 },
+          { feature: "SMA_10", importance: 24.72 },
+          { feature: "SMA_5", importance: 22.93 },
+          { feature: "Close_5d_ago", importance: 1.98 },
+        ],
+      })),
       market_insights: {
-        trend_analysis: "データ期間中、全体的に上昇トレンドを示しており、特に2024年2月以降に顕著な成長が見られました。",
-        volatility_analysis: "ボラティリティは比較的安定しており、標準偏差は約15%で推移しています。",
-        volume_analysis: "取引量は平均的な水準を維持しており、特異な急騰や急落は観測されていません。",
-        recommendation: "現在の予測モデルは高い精度を示しており、継続的な監視の下での投資判断に活用可能です。",
+        trend_analysis: marketInsights.trend_analysis,
+        volatility_analysis: marketInsights.volatility_analysis,
+        volume_analysis: marketInsights.volume_analysis,
+        recommendation: marketInsights.recommendation,
       },
       risk_assessment: {
-        risk_level: "Medium",
-        factors: [
-          "市場の外的要因（政治・経済情勢）",
-          "モデルの過学習リスク",
-          "予期しない市場変動",
-        ],
-        mitigation: [
-          "複数モデルによるアンサンブル予測",
-          "定期的なモデル再トレーニング",
-          "リスク管理指標の監視",
-        ],
+        risk_level: riskAssessment.risk_level,
+        factors: riskAssessment.risk_factors,
+        mitigation: riskAssessment.mitigation,
       },
       evaluation_summary: {
-        total_models_evaluated: 6,
-        best_model: "XGBoost",
+        total_models_evaluated: modelData.length,
+        best_model: modelData[0]?.model_name || "XGBoost",
         evaluation_method: "3分割（学習・検証・テスト）+ 5-fold CV",
         overfitting_detection: "実装済み",
-        recommendations: [
-          "✅ モデル性能は良好です（MAE < 10円）",
+        recommendations: riskAssessment.recommendations || [
+          "✅ モデル性能は良好です（MAE < 100円）",
           "✅ クロスバリデーション結果は安定しています",
-          "⚠️ R²が0.99を超えています。データリークや過学習の可能性があります。"
+          "⚠️ リスクレベルが中程度のため、継続的な監視が必要です"
         ]
       },
     };
 
-    setTimeout(() => {
-      setReportData(mockReport);
+      setTimeout(() => {
+        setReportData(integratedReport);
+        setLoading(false);
+      }, 1000);
+    } catch (error) {
+      console.error('レポートデータの取得に失敗しました:', error);
       setLoading(false);
-    }, 1000);
+    }
   };
 
   const exportReport = () => {

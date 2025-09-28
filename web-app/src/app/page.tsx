@@ -80,6 +80,8 @@ export default function Dashboard() {
   const [featureAnalysis, setFeatureAnalysis] = useState<FeatureAnalysis[]>([]);
   const [predictions, setPredictions] = useState<PredictionData[]>([]);
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
+  const [marketInsights, setMarketInsights] = useState<any>(null);
+  const [riskAssessment, setRiskAssessment] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [showAnalysisModal, setShowAnalysisModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -160,12 +162,14 @@ export default function Dashboard() {
         throw new Error("All retry attempts failed");
       };
       
-      const [summaryRes, stockRes, modelRes, featureRes, predRes] = await Promise.all([
+      const [summaryRes, stockRes, modelRes, featureRes, predRes, marketInsightsRes, riskAssessmentRes] = await Promise.all([
         fetchWithRetry("./data/dashboard_summary.json"),
         fetchWithRetry("./data/stock_data.json"),
-        fetchWithRetry("./data/model_comparison.json"),
+        fetchWithRetry("./data/unified_model_comparison.json"),
         fetchWithRetry("./data/feature_analysis.json"),
         fetchWithRetry("./data/prediction_results.json"),
+        fetchWithRetry("./data/market_insights.json"),
+        fetchWithRetry("./data/risk_assessment.json"),
       ]);
 
       const summaryData = await summaryRes.json();
@@ -173,8 +177,12 @@ export default function Dashboard() {
       const modelDataRes = await modelRes.json();
       const featureDataRes = await featureRes.json();
       const predDataRes = await predRes.json();
+      const marketInsightsData = await marketInsightsRes.json();
+      const riskAssessmentData = await riskAssessmentRes.json();
 
       setSummary(summaryData);
+      setMarketInsights(marketInsightsData);
+      setRiskAssessment(riskAssessmentData);
       
       // 更新日時を設定
       const now = new Date();
@@ -686,6 +694,99 @@ export default function Dashboard() {
                       {summary?.total_data_points || "-"}
                     </p>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 市場インサイトとリスク評価サマリー */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* 市場インサイト */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex items-center mb-4">
+                  <TrendingUp className="h-6 w-6 text-blue-600 mr-3" />
+                  <h3 className="text-lg font-semibold text-gray-900">市場インサイト</h3>
+                </div>
+                <div className="space-y-3">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">トレンド分析</p>
+                    <p className="text-sm text-gray-900">{marketInsights?.trend_analysis || "データを読み込み中..."}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">ボラティリティ分析</p>
+                    <p className="text-sm text-gray-900">{marketInsights?.volatility_analysis || "データを読み込み中..."}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">推奨事項</p>
+                    <p className="text-sm text-gray-900">{marketInsights?.recommendation || "データを読み込み中..."}</p>
+                  </div>
+                  {marketInsights?.key_indicators && (
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      <p className="text-sm font-medium text-gray-700 mb-2">主要指標</p>
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">トレンド強度:</span>
+                          <span className="font-medium">{(marketInsights.key_indicators.trend_strength * 100).toFixed(0)}%</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">ボラティリティ:</span>
+                          <span className="font-medium">{(marketInsights.key_indicators.volatility_level * 100).toFixed(0)}%</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* リスク評価 */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex items-center mb-4">
+                  <Shield className="h-6 w-6 text-red-600 mr-3" />
+                  <h3 className="text-lg font-semibold text-gray-900">リスク評価</h3>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">リスクレベル</span>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      riskAssessment?.risk_level === 'Low' ? 'bg-green-100 text-green-800' :
+                      riskAssessment?.risk_level === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-red-100 text-red-800'
+                    }`}>
+                      {riskAssessment?.risk_level || "読み込み中"}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">リスクスコア</span>
+                    <span className="text-sm font-medium text-gray-900">
+                      {riskAssessment?.risk_score ? (riskAssessment.risk_score * 100).toFixed(0) + '%' : "-"}
+                    </span>
+                  </div>
+                  {riskAssessment?.portfolio_metrics && (
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      <p className="text-sm font-medium text-gray-700 mb-2">ポートフォリオ指標</p>
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">未実現損益:</span>
+                          <span className={`font-medium ${riskAssessment.portfolio_metrics.unrealized_pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                            {riskAssessment.portfolio_metrics.unrealized_pnl >= 0 ? '+' : ''}{riskAssessment.portfolio_metrics.unrealized_pnl.toLocaleString()}円
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">シャープレシオ:</span>
+                          <span className="font-medium">{riskAssessment.portfolio_metrics.sharpe_ratio.toFixed(2)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {riskAssessment?.recommendations && (
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      <p className="text-sm font-medium text-gray-700 mb-2">推奨事項</p>
+                      <ul className="space-y-1">
+                        {riskAssessment.recommendations.slice(0, 2).map((rec: string, index: number) => (
+                          <li key={index} className="text-xs text-gray-600">{rec}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
