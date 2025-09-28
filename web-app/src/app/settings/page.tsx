@@ -246,7 +246,7 @@ export default function SettingsPage() {
                 {/* 使い方リンク */}
                 <div className="border-t pt-4 mt-4">
                   <Link
-                    href="/usage"
+                    href="./usage"
                     className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-blue-600 hover:bg-blue-50 hover:text-blue-700"
                   >
                     <BookOpen className="h-4 w-4" />
