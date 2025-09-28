@@ -3,6 +3,8 @@ import { readFile } from 'fs/promises';
 import { join } from 'path';
 import { TodaySummary } from '../../../types/today';
 
+export const dynamic = 'force-static';
+
 export async function GET(request: NextRequest) {
   try {
     // 静的ファイルからデータを読み込み

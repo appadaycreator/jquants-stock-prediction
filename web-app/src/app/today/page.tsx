@@ -1,12 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TodaySummary, TodayPageState } from '../../types/today';
-import { fetchTodaySummary, saveTodaySummaryToCache, getCachedTodaySummary } from '../../lib/today/fetchTodaySummary';
-import Hero from '../../components/today/Hero';
-import CandidateCard from '../../components/today/CandidateCard';
-import RiskCard from '../../components/today/RiskCard';
-import TodoCard from '../../components/today/TodoCard';
+import { TodaySummary, TodayPageState } from '@/types/today';
+import { fetchTodaySummary, saveTodaySummaryToCache, getCachedTodaySummary } from '@/lib/today/fetchTodaySummary';
+import Hero from '@/components/today/Hero';
+import CandidateCard from '@/components/today/CandidateCard';
+import RiskCard from '@/components/today/RiskCard';
+import TodoCard from '@/components/today/TodoCard';
 
 export default function TodayPage() {
   const [state, setState] = useState<TodayPageState>({

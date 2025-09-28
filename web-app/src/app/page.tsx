@@ -23,6 +23,13 @@ import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Pla
 import EnhancedErrorHandler from "../components/EnhancedErrorHandler";
 import { ButtonTooltip, HelpTooltip } from "../components/Tooltip";
 import UserGuide from "../components/UserGuide";
+import { TourProvider, useGuide } from "../components/guide/TourProvider";
+import { MetricTooltip, SimpleTooltip } from "../components/guide/Tooltip";
+import Checklist, { ChecklistBadge, DEFAULT_CHECKLIST_ITEMS } from "../components/guide/Checklist";
+import GlossaryModal from "../components/guide/GlossaryModal";
+import HelpModal from "../components/guide/HelpModal";
+import { useGuideShortcuts } from "../lib/guide/shortcut";
+import { guideStore } from "../lib/guide/guideStore";
 
 // 型定義
 interface StockData {
@@ -105,6 +112,12 @@ function DashboardContent() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
 
+  // ガイド機能の状態
+  const [showGlossary, setShowGlossary] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
+  const [checklistItems, setChecklistItems] = useState(DEFAULT_CHECKLIST_ITEMS);
+  const [showChecklist, setShowChecklist] = useState(false);
+
   // 設定連携フック
   const { 
     runAnalysisWithSettings, 
@@ -114,6 +127,56 @@ function DashboardContent() {
     getAnalysisDescription 
   } = useAnalysisWithSettings();
   const [refreshStatus, setRefreshStatus] = useState<string>('');
+
+  // ガイド機能のハンドラー
+  const handleChecklistItemComplete = (itemId: string) => {
+    setChecklistItems(prev => 
+      prev.map(item => 
+        item.id === itemId 
+          ? { ...item, completed: true }
+          : item
+      )
+    );
+    guideStore.addChecklistItem(itemId);
+  };
+
+  const handleChecklistItemReset = (itemId: string) => {
+    setChecklistItems(prev => 
+      prev.map(item => 
+        item.id === itemId 
+          ? { ...item, completed: false }
+          : item
+      )
+    );
+    guideStore.removeChecklistItem(itemId);
+  };
+
+  const handleChecklistComplete = () => {
+    setShowChecklist(false);
+    guideStore.isTourCompleted = true;
+  };
+
+  // ショートカット設定
+  useGuideShortcuts(
+    () => setShowHelp(true),
+    () => setShowGlossary(true),
+    () => {
+      const { startTour } = useGuide();
+      startTour();
+    },
+    () => {
+      const { nextStep } = useGuide();
+      nextStep();
+    },
+    () => {
+      const { prevStep } = useGuide();
+      prevStep();
+    },
+    () => {
+      const { skipTour } = useGuide();
+      skipTour();
+    }
+  );
 
   useEffect(() => {
     loadData();
@@ -461,7 +524,7 @@ function DashboardContent() {
       />
 
       {/* デスクトップナビゲーション */}
-      <div className="hidden lg:block">
+      <div className="hidden lg:block" data-guide-target="navigation">
         <Navigation 
           activeTab={activeTab} 
           onTabChange={setActiveTab}
@@ -475,7 +538,7 @@ function DashboardContent() {
       <header className="hidden lg:block bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
-            <div>
+            <div data-guide-target="welcome">
               <h1 className="text-3xl font-bold text-gray-900">J-Quants 株価予測ダッシュボード</h1>
               <p className="text-gray-600">機械学習による株価予測システム</p>
             </div>
@@ -524,6 +587,7 @@ function DashboardContent() {
                   <button
                     onClick={() => setShowSettingsModal(true)}
                     className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                    data-guide-target="settings-config"
                   >
                     <Settings className="h-4 w-4 mr-2" />
                     設定
@@ -544,6 +608,30 @@ function DashboardContent() {
                     {isRefreshing ? '更新中...' : '更新'}
                   </button>
                 </ButtonTooltip>
+
+                {/* ガイド機能ボタン */}
+                <div className="flex items-center space-x-2">
+                  <ButtonTooltip content="クイックヘルプを表示（F1キー）">
+                    <button
+                      onClick={() => setShowHelp(true)}
+                      className="flex items-center px-3 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
+                      data-guide-target="help-support"
+                    >
+                      <HelpCircle className="h-4 w-4 mr-1" />
+                      ヘルプ
+                    </button>
+                  </ButtonTooltip>
+
+                  <ButtonTooltip content="用語集を表示（Gキー）">
+                    <button
+                      onClick={() => setShowGlossary(true)}
+                      className="flex items-center px-3 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-colors"
+                    >
+                      <BookOpen className="h-4 w-4 mr-1" />
+                      用語集
+                    </button>
+                  </ButtonTooltip>
+                </div>
                 
                 <ButtonTooltip content="初回利用者向けの操作ガイドを表示します">
                   <button
@@ -620,7 +708,7 @@ function DashboardContent() {
       )}
 
       {/* デスクトップメインコンテンツ */}
-      <main className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-guide-target="dashboard-overview">
         {activeTab === "overview" && (
           <div className="space-y-6">
             {/* ワンクリック分析実行 */}
@@ -666,12 +754,18 @@ function DashboardContent() {
               </div>
               
               <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center">
+                <div className="flex items-center" data-guide-target="kpi-metrics">
                   <div className="flex-shrink-0">
                     <BarChart3 className="h-6 w-6 text-yellow-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">MAE</p>
+                    <MetricTooltip 
+                      metric="MAE" 
+                      value={summary?.mae || "-"} 
+                      description="平均絶対誤差。予測値と実際値の差の絶対値の平均。値が小さいほど予測精度が高い。"
+                    >
+                      <p className="text-sm font-medium text-gray-500">MAE</p>
+                    </MetricTooltip>
                     <p className="text-2xl font-semibold text-gray-900">
                       {summary?.mae || "-"}
                     </p>
@@ -846,7 +940,7 @@ function DashboardContent() {
         )}
 
         {activeTab === "models" && (
-          <div className="space-y-6">
+          <div className="space-y-6" data-guide-target="model-comparison">
             {/* モデル比較表 */}
             <div className="bg-white rounded-lg shadow overflow-hidden">
               <div className="px-6 py-4 border-b border-gray-200">
@@ -908,7 +1002,7 @@ function DashboardContent() {
         )}
 
         {activeTab === "analysis" && (
-          <div className="space-y-6">
+          <div className="space-y-6" data-guide-target="analysis-features">
             {/* 選択された銘柄の分析結果 */}
             {selectedSymbols.length > 0 && (
               <SymbolAnalysisResults selectedSymbols={selectedSymbols} />
@@ -1433,6 +1527,41 @@ function DashboardContent() {
         }}
         currentTab={activeTab}
       />
+
+      {/* ガイド機能モーダル */}
+      <GlossaryModal 
+        isOpen={showGlossary} 
+        onClose={() => setShowGlossary(false)} 
+      />
+      
+      <HelpModal 
+        isOpen={showHelp} 
+        onClose={() => setShowHelp(false)} 
+        currentPage="/"
+      />
+
+      {/* チェックリスト */}
+      {showChecklist && (
+        <div className="fixed top-4 right-4 z-40">
+          <Checklist
+            items={checklistItems}
+            onItemComplete={handleChecklistItemComplete}
+            onItemReset={handleChecklistItemReset}
+            onComplete={handleChecklistComplete}
+          />
+        </div>
+      )}
+
+      {/* チェックリスト進捗バッジ */}
+      {!showChecklist && !guideStore.checklistProgress.isCompleted && (
+        <div className="fixed top-4 right-4 z-40">
+          <ChecklistBadge
+            completedCount={guideStore.checklistProgress.completedItems.length}
+            totalCount={guideStore.checklistProgress.totalItems}
+            onClick={() => setShowChecklist(true)}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -1440,7 +1569,9 @@ function DashboardContent() {
 export default function Dashboard() {
   return (
     <SettingsProvider>
-      <DashboardContent />
+      <TourProvider>
+        <DashboardContent />
+      </TourProvider>
     </SettingsProvider>
   );
 }
