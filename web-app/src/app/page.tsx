@@ -886,7 +886,7 @@ export default function Dashboard() {
                   <p className="text-gray-600 mt-2">投資判断に直結する情報の優先表示、損益状況の一目瞭然な表示</p>
                 </div>
                 <Link
-                  href="/personal-investment"
+                  href="./personal-investment"
                   className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <User className="h-4 w-4 mr-2" />
@@ -991,7 +991,7 @@ export default function Dashboard() {
                   <p className="text-gray-600 mt-2">現在のポジション状況、損切りライン、リスクレベルを可視化</p>
                 </div>
                 <Link
-                  href="/risk"
+                  href="./risk"
                   className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <Shield className="h-4 w-4 mr-2" />
