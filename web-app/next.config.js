@@ -78,6 +78,7 @@ const nextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': srcPath,
+      'src': srcPath,
       '@/lib': path.resolve(srcPath, 'lib'),
       '@/components': path.resolve(srcPath, 'components'),
       '@/app': path.resolve(srcPath, 'app'),

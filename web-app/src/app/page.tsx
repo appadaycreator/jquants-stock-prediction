@@ -32,11 +32,11 @@ import { MetricTooltip, SimpleTooltip } from "../components/guide/Tooltip";
 import Checklist, { ChecklistBadge, DEFAULT_CHECKLIST_ITEMS } from "../components/guide/Checklist";
 import GlossaryModal from "../components/guide/GlossaryModal";
 import HelpModal from "../components/guide/HelpModal";
-import { useGuideShortcuts } from "../lib/guide/shortcut";
-import { guideStore } from "../lib/guide/guideStore";
-import { parseToJst } from "../lib/datetime";
-import JQuantsTokenSetup from "../components/JQuantsTokenSetup";
-import JQuantsAdapter from "../lib/jquants-adapter";
+import { useGuideShortcuts } from "src/lib/guide/shortcut";
+import { guideStore } from "src/lib/guide/guideStore";
+import { parseToJst } from "src/lib/datetime";
+import JQuantsTokenSetup from "src/components/JQuantsTokenSetup";
+import JQuantsAdapter from "src/lib/jquants-adapter";
 
 // 型定義
 interface StockData {

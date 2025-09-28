@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { CheckCircle, AlertTriangle, Key, Database, RefreshCw, Trash2 } from 'lucide-react';
-import JQuantsAdapter, { JQuantsConfig } from '../lib/jquants-adapter';
+import JQuantsAdapter, { JQuantsConfig } from 'src/lib/jquants-adapter';
 
 interface JQuantsTokenSetupProps {
   onTokenConfigured: (adapter: JQuantsAdapter) => void;
