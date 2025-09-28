@@ -110,18 +110,18 @@ class PortfolioRecommendation:
 
 class RiskProfileAnalyzer:
     """リスクプロファイル分析クラス"""
-    
+
     def __init__(self, unified_system: UnifiedSystem):
         self.unified_system = unified_system
         self.logger = logging.getLogger(f"{self.__class__.__name__}")
-        
+
     def analyze_risk_profile(
-        self, 
+        self,
         age: int,
         income: float,
         investment_amount: float,
         investment_horizon: int,
-        risk_questionnaire: Dict[str, Any] = None
+        risk_questionnaire: Dict[str, Any] = None,
     ) -> RiskProfile:
         """リスクプロファイルの分析"""
         try:
@@ -372,16 +372,18 @@ class RiskProfileAnalyzer:
 
 class RiskBasedStrategyGenerator:
     """リスクベース戦略生成クラス"""
-    
+
     def __init__(self, unified_system: UnifiedSystem):
         self.unified_system = unified_system
         self.logger = logging.getLogger(f"{self.__class__.__name__}")
-        
-    def generate_strategies_for_risk_level(self, risk_profile: RiskProfile) -> List[RiskBasedStrategy]:
+
+    def generate_strategies_for_risk_level(
+        self, risk_profile: RiskProfile
+    ) -> List[RiskBasedStrategy]:
         """リスクレベル別戦略の生成"""
         try:
             strategies = []
-            
+
             if risk_profile.risk_level == RiskLevel.CONSERVATIVE:
                 strategies = self._generate_conservative_strategies(risk_profile)
             elif risk_profile.risk_level == RiskLevel.MODERATE:
@@ -390,25 +392,27 @@ class RiskBasedStrategyGenerator:
                 strategies = self._generate_aggressive_strategies(risk_profile)
             elif risk_profile.risk_level == RiskLevel.VERY_AGGRESSIVE:
                 strategies = self._generate_very_aggressive_strategies(risk_profile)
-            
+
             self.logger.info(
                 f"📊 リスクベース戦略生成完了: {risk_profile.risk_level.value} - {len(strategies)}戦略"
             )
-            
+
             return strategies
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.MODEL_ERROR,
-                context="リスクベース戦略生成エラー"
+                context="リスクベース戦略生成エラー",
             )
             return []
-    
-    def _generate_conservative_strategies(self, risk_profile: RiskProfile) -> List[RiskBasedStrategy]:
+
+    def _generate_conservative_strategies(
+        self, risk_profile: RiskProfile
+    ) -> List[RiskBasedStrategy]:
         """保守的戦略の生成"""
         strategies = []
-        
+
         # 債券中心戦略
         bond_strategy = RiskBasedStrategy(
             strategy_name="Conservative Bond Strategy",

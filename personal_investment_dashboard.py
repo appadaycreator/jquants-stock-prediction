@@ -66,6 +66,7 @@ class PnLSummary:
 @dataclass
 class PositionSummary:
     """ポジションサマリー"""
+
     symbol: str
     company_name: str
     current_price: float
@@ -86,6 +87,7 @@ class PositionSummary:
 @dataclass
 class InvestmentRecommendation:
     """投資推奨事項"""
+
     symbol: str
     action: InvestmentAction
     confidence: float
@@ -102,6 +104,7 @@ class InvestmentRecommendation:
 @dataclass
 class MarketOverview:
     """市場概況"""
+
     market_trend: str
     volatility_level: str
     sentiment_score: float
@@ -112,7 +115,7 @@ class MarketOverview:
 
 class PersonalInvestmentDashboard:
     """個人投資特化ダッシュボードシステム"""
-    
+
     def __init__(self, config_path: str = "config_final.yaml"):
         self.config = self._load_config(config_path)
         self.monitor = EnhancedIndividualStockMonitor()

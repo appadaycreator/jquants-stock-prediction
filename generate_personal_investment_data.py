@@ -158,7 +158,7 @@ def generate_personal_investment_data():
         "market_overview": market_overview,
         "last_update": datetime.now().isoformat(),
     }
-    
+
     return dashboard_data
 
 def save_dashboard_data(
@@ -180,6 +180,7 @@ def save_dashboard_data(
         logger.error(f"データ保存エラー: {e}")
         return False
 
+
 def main():
     """メイン実行関数"""
     # ログ設定
@@ -187,11 +188,11 @@ def main():
         level=logging.INFO,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
-    
+
     try:
         # データ生成
         data = generate_personal_investment_data()
-        
+
         # データ保存
         success = save_dashboard_data(data)
 

@@ -629,44 +629,50 @@ class StrategyEnvironmentAdjuster:
             base_stop *= 1.5
         
         return base_stop, base_take
-    
-    def _generate_adjustment_reason(self, environment: MarketEnvironment, rules: Dict[str, Any]) -> str:
+
+    def _generate_adjustment_reason(
+        self, environment: MarketEnvironment, rules: Dict[str, Any]
+    ) -> str:
         """調整理由の生成"""
         reasons = []
-        
+
         reasons.append(f"市場レジーム: {environment.regime.value}")
         reasons.append(f"市場フェーズ: {environment.phase.value}")
         reasons.append(f"リスクレベル: {environment.risk_level}")
-        
+
         if environment.volatility_level == "extreme":
             reasons.append("極端なボラティリティ環境のため保守的調整")
         elif environment.volatility_level == "high":
             reasons.append("高ボラティリティ環境のためリスク軽減")
-        
+
         if environment.regime == MarketRegime.CRISIS:
             reasons.append("危機的状況のため最小限のリスク設定")
         elif environment.regime == MarketRegime.BULL:
             reasons.append("強気市場のため積極的設定")
-        
+
         return "; ".join(reasons)
-    
-    def _calculate_adjustment_confidence(self, environment: MarketEnvironment, rules: Dict[str, Any]) -> float:
+
+    def _calculate_adjustment_confidence(
+        self, environment: MarketEnvironment, rules: Dict[str, Any]
+    ) -> float:
         """調整信頼度の計算"""
         confidence = 0.7  # ベース信頼度
-        
+
         # 環境の明確性による調整
         if environment.regime in [MarketRegime.BULL, MarketRegime.BEAR]:
             confidence += 0.1
         elif environment.regime == MarketRegime.CRISIS:
             confidence += 0.2
-        
+
         # リスクレベルの明確性
         if environment.risk_level in ["low", "extreme"]:
             confidence += 0.1
-        
+
         return min(1.0, confidence)
-    
-    def _assess_expected_impact(self, environment: MarketEnvironment, adjusted_parameters: Dict[str, Any]) -> str:
+
+    def _assess_expected_impact(
+        self, environment: MarketEnvironment, adjusted_parameters: Dict[str, Any]
+    ) -> str:
         """期待インパクトの評価"""
         if environment.regime == MarketRegime.CRISIS:
             return "リスク大幅軽減、リターン低下"
@@ -676,8 +682,10 @@ class StrategyEnvironmentAdjuster:
             return "リスク軽減、リターン安定化"
         else:
             return "バランス調整、リスク・リターン最適化"
-    
-    def _get_default_adjustment(self, strategy_name: str, original_parameters: Dict[str, Any]) -> StrategyAdjustment:
+
+    def _get_default_adjustment(
+        self, strategy_name: str, original_parameters: Dict[str, Any]
+    ) -> StrategyAdjustment:
         """デフォルト調整の取得"""
         return StrategyAdjustment(
             strategy_name=strategy_name,
