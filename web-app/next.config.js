@@ -119,6 +119,10 @@ const nextConfig = {
       config.resolve.logging = 'verbose';
     }
     
+    // ビルド環境でのパス解決を確実にする
+    config.resolve.unsafeCache = false;
+    config.resolve.cacheWithContext = false;
+    
     // バンドルサイズの最適化
     if (!dev && !isServer) {
       config.optimization.splitChunks = {

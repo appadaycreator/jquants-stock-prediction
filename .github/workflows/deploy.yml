@@ -50,6 +50,10 @@ jobs:
         # システムキャッシュもクリア
         sudo apt-get clean
         sudo apt-get autoclean
+        # ファイルのタイムスタンプを更新して変更を確実に反映
+        find src -name "*.tsx" -o -name "*.ts" | xargs touch
+        # 強制的にファイルシステムを同期
+        sync
         
     - name: Install Node.js dependencies
       run: |
@@ -64,10 +68,14 @@ jobs:
         # ビルド前の完全なクリーンアップ
         npm run clean
         rm -rf .next dist out
+        # ファイルのタイムスタンプを更新
+        find src -name "*.tsx" -o -name "*.ts" | xargs touch
         # 環境変数を明示的に設定
         export NODE_ENV=production
         export NEXT_TELEMETRY_DISABLED=1
         export NEXT_BUILD_CACHE=false
+        # 強制的にファイルシステムを同期
+        sync
         # ビルド実行
         npm run build
         
