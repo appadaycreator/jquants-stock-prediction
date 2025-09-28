@@ -455,12 +455,13 @@ class TestUnifiedSystemComprehensive:
         threads = []
         for _ in range(2):
             thread = threading.Thread(target=raise_error)
+            thread.daemon = True  # デーモンスレッドに設定
             threads.append(thread)
             thread.start()
 
-        # 全スレッドの完了を待機
+        # 全スレッドの完了を待機（タイムアウト付き）
         for thread in threads:
-            thread.join()
+            thread.join(timeout=5.0)  # 5秒でタイムアウト
 
         # エラーが適切に処理されたことを確認
         assert len(errors) == 2
@@ -765,12 +766,13 @@ class TestUnifiedSystemAdvanced:
         threads = []
         for _ in range(2):
             thread = threading.Thread(target=run_pipeline)
+            thread.daemon = True  # デーモンスレッドに設定
             threads.append(thread)
             thread.start()
 
-        # 全スレッドの完了を待機
+        # 全スレッドの完了を待機（タイムアウト付き）
         for thread in threads:
-            thread.join()
+            thread.join(timeout=5.0)  # 5秒でタイムアウト
 
         # 結果の確認
         assert len(results) == 2
@@ -917,12 +919,13 @@ class TestUnifiedSystemIntegration:
         threads = []
         for _ in range(2):
             thread = threading.Thread(target=process_data)
+            thread.daemon = True  # デーモンスレッドに設定
             threads.append(thread)
             thread.start()
 
-        # 全スレッドの完了を待機
+        # 全スレッドの完了を待機（タイムアウト付き）
         for thread in threads:
-            thread.join()
+            thread.join(timeout=5.0)  # 5秒でタイムアウト
 
         # 結果の検証
         assert len(results) == 2
@@ -976,7 +979,7 @@ class TestUnifiedSystemIntegration:
         result = system.run_complete_pipeline()
         assert isinstance(result, dict)
 
-    @pytest.mark.skip(reason="重いテストのため一時的にスキップ")
+    @pytest.mark.slow
     def test_performance_under_load(self):
         """負荷下でのパフォーマンステスト"""
         system = UnifiedSystem()
@@ -994,7 +997,7 @@ class TestUnifiedSystemIntegration:
         # 処理時間が合理的であることを確認（10秒以内）
         assert total_time < 10.0
 
-    @pytest.mark.skip(reason="重いテストのため一時的にスキップ")
+    @pytest.mark.slow
     def test_memory_efficiency(self):
         """メモリ効率のテスト"""
         system = UnifiedSystem()

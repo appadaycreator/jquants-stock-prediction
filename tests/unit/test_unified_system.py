@@ -460,12 +460,13 @@ class TestUnifiedSystem:
         threads = []
         for i in range(3):
             thread = threading.Thread(target=worker)
+            thread.daemon = True  # デーモンスレッドに設定
             threads.append(thread)
             thread.start()
 
-        # スレッドの完了を待機
+        # スレッドの完了を待機（タイムアウト付き）
         for thread in threads:
-            thread.join()
+            thread.join(timeout=5.0)  # 5秒でタイムアウト
 
         # 結果の検証
         assert len(results) == 3
@@ -894,12 +895,13 @@ class TestUnifiedSystemAdvanced:
         threads = []
         for i, chunk in enumerate(chunks):
             thread = threading.Thread(target=process_data_chunk, args=(chunk, i))
+            thread.daemon = True  # デーモンスレッドに設定
             threads.append(thread)
             thread.start()
 
-        # スレッドの完了を待機
+        # スレッドの完了を待機（タイムアウト付き）
         for thread in threads:
-            thread.join()
+            thread.join(timeout=5.0)  # 5秒でタイムアウト
 
         # 結果の検証
         assert len(results) > 0
