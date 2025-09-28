@@ -13,6 +13,8 @@ import OneClickAnalysis from "../components/OneClickAnalysis";
 import StockMonitoringManager from "../components/StockMonitoringManager";
 import RealtimeSignalDisplay from "../components/RealtimeSignalDisplay";
 import NotificationSettings from "../components/NotificationSettings";
+import { SettingsProvider } from "../contexts/SettingsContext";
+import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
@@ -73,7 +75,7 @@ interface DashboardSummary {
 // カラーパレット
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8", "#82CA9D"];
 
-export default function Dashboard() {
+function DashboardContent() {
   const [activeTab, setActiveTab] = useState("overview");
   const [stockData, setStockData] = useState<StockData[]>([]);
   const [modelComparison, setModelComparison] = useState<ModelComparison[]>([]);
@@ -102,6 +104,15 @@ export default function Dashboard() {
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
+
+  // 設定連携フック
+  const { 
+    runAnalysisWithSettings, 
+    isAnalyzing: settingsAnalyzing, 
+    analysisProgress: settingsProgress, 
+    analysisStatus: settingsStatus,
+    getAnalysisDescription 
+  } = useAnalysisWithSettings();
   const [refreshStatus, setRefreshStatus] = useState<string>('');
 
   useEffect(() => {
@@ -267,39 +278,24 @@ export default function Dashboard() {
 
   const runAnalysis = async (symbols?: string[]) => {
     try {
-      setIsAnalyzing(true);
-      setAnalysisProgress(0);
-      setAnalysisStatus("分析を開始しています...");
-      
-      // プログレスバーのシミュレーション
-      const progressInterval = setInterval(() => {
-        setAnalysisProgress(prev => {
-          if (prev >= 90) {
-            clearInterval(progressInterval);
-            return prev;
-          }
-          return prev + Math.random() * 10;
-        });
-      }, 500);
+      // 設定連携版の分析実行
+      const result = await runAnalysisWithSettings({
+        symbols,
+        analysisType: 'comprehensive',
+        useSettings: true
+      });
 
-      // 分析実行のシミュレーション
-      setAnalysisStatus("分析が完了しました。データを更新しています...");
-      setAnalysisProgress(100);
-      
-      // データを再読み込み
-      await loadData();
-      
-      setTimeout(() => {
+      if (result.success) {
+        // データを再読み込み
+        await loadData();
         setShowAnalysisModal(false);
-        setIsAnalyzing(false);
-        setAnalysisProgress(0);
-        setAnalysisStatus("");
-      }, 1000);
+      } else {
+        setAnalysisStatus(`分析エラー: ${result.error}`);
+      }
       
     } catch (error) {
       console.error("分析実行エラー:", error);
       setAnalysisStatus("分析の実行に失敗しました");
-      setIsAnalyzing(false);
     }
   };
 
@@ -1255,9 +1251,9 @@ export default function Dashboard() {
       {/* 分析実行モーダル */}
       {showAnalysisModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+          <div className="bg-white rounded-lg p-6 w-full max-w-lg mx-4">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium text-gray-900">全体分析実行</h3>
+              <h3 className="text-lg font-medium text-gray-900">設定連携分析実行</h3>
               <button
                 onClick={() => setShowAnalysisModal(false)}
                 className="text-gray-400 hover:text-gray-600"
@@ -1266,11 +1262,29 @@ export default function Dashboard() {
               </button>
             </div>
             
-            {!isAnalyzing ? (
+            {!settingsAnalyzing ? (
               <div className="space-y-4">
                 <p className="text-gray-600">
-                  全銘柄の分析を実行しますか？この処理には数分かかる場合があります。
+                  設定に基づいて全銘柄の分析を実行します。この処理には数分かかる場合があります。
                 </p>
+                
+                {/* 設定情報表示 */}
+                <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+                  <h4 className="font-medium text-gray-900">実行設定</h4>
+                  {(() => {
+                    const desc = getAnalysisDescription();
+                    return (
+                      <div className="text-sm text-gray-600 space-y-1">
+                        <div>• {desc.prediction}</div>
+                        <div>• {desc.model}</div>
+                        <div>• {desc.retrain}</div>
+                        <div>• {desc.features}</div>
+                        <div>• {desc.data}</div>
+                      </div>
+                    );
+                  })()}
+                </div>
+                
                 <div className="flex justify-end space-x-3">
                   <button
                     onClick={() => setShowAnalysisModal(false)}
@@ -1282,7 +1296,7 @@ export default function Dashboard() {
                     onClick={() => runAnalysis()}
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                   >
-                    実行
+                    設定で実行
                   </button>
                 </div>
               </div>
@@ -1290,16 +1304,16 @@ export default function Dashboard() {
               <div className="space-y-4">
                 <div className="text-center">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                  <p className="text-gray-600">{analysisStatus}</p>
+                  <p className="text-gray-600">{settingsStatus}</p>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
                     className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                    style={{ width: `${analysisProgress}%` }}
+                    style={{ width: `${settingsProgress}%` }}
                   ></div>
                 </div>
                 <p className="text-sm text-gray-500 text-center">
-                  {Math.round(analysisProgress)}% 完了
+                  {Math.round(settingsProgress)}% 完了
                 </p>
               </div>
             )}
@@ -1420,5 +1434,13 @@ export default function Dashboard() {
         currentTab={activeTab}
       />
     </div>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <SettingsProvider>
+      <DashboardContent />
+    </SettingsProvider>
   );
 }

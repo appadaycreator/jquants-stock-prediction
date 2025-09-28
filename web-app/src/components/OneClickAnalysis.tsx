@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Play, CheckCircle, AlertCircle, RefreshCw, Settings, BarChart3, TrendingUp, Brain, Zap, History, Clock } from "lucide-react";
+import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
 
 interface AnalysisConfig {
   type: 'ultra_fast' | 'comprehensive' | 'symbols' | 'trading' | 'sentiment';
@@ -78,6 +79,15 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
   const [showHistory, setShowHistory] = useState(false);
   const [previousResult, setPreviousResult] = useState<any>(null);
 
+  // 設定連携フック
+  const { 
+    runAnalysisWithSettings, 
+    isAnalyzing: settingsAnalyzing, 
+    analysisProgress: settingsProgress, 
+    analysisStatus: settingsStatus,
+    getAnalysisDescription 
+  } = useAnalysisWithSettings();
+
   const selectedConfig = analysisConfigs.find(config => config.type === selectedType);
 
   // 履歴の保存
@@ -114,91 +124,49 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
       setAnalysisId(newAnalysisId);
       setIsAnalyzing(true);
       setProgress(0);
-      setStatus('分析を開始しています...');
+      setStatus('設定に基づく分析を開始しています...');
       setError(null);
       setAnalysisResult(null);
       setElapsedTime('00:00');
       
       onAnalysisStart?.();
 
-      // 進捗追跡の開始
-      const progressInterval = setInterval(async () => {
-        try {
-          const progressResponse = await fetch(`/api/analysis-progress?id=${newAnalysisId}`);
-          const progressData = await progressResponse.json();
-          
-          if (progressData.progress !== undefined) {
-            setProgress(progressData.progress);
-          }
-          if (progressData.status) {
-            setStatus(progressData.status);
-          }
-          if (progressData.elapsed) {
-            setElapsedTime(progressData.elapsed);
-          }
-          
-          if (progressData.completed) {
-            clearInterval(progressInterval);
-            if (progressData.result) {
-              setAnalysisResult(progressData.result);
-              onAnalysisComplete?.(progressData.result);
-              
-              // 履歴に保存
-              const historyEntry: AnalysisHistory = {
-                id: newAnalysisId,
-                type: selectedType,
-                timestamp: new Date().toISOString(),
-                duration: elapsedTime,
-                status: 'success',
-                result: progressData.result
-              };
-              saveAnalysisHistory(historyEntry);
-            }
-            if (progressData.error) {
-              setError(progressData.error);
-              
-              // エラーも履歴に保存
-              const historyEntry: AnalysisHistory = {
-                id: newAnalysisId,
-                type: selectedType,
-                timestamp: new Date().toISOString(),
-                duration: elapsedTime,
-                status: 'error',
-                error: progressData.error
-              };
-              saveAnalysisHistory(historyEntry);
-            }
-            setIsAnalyzing(false);
-          }
-        } catch (progressError) {
-          console.error('進捗取得エラー:', progressError);
-        }
-      }, 2000); // 2秒ごとに進捗をチェック
-
-      const response = await fetch('/api/run-analysis', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          analysisType: selectedType,
-          symbols: [], // 必要に応じて銘柄を指定
-          analysisId: newAnalysisId
-        }),
+      // 設定連携版の分析実行
+      const result = await runAnalysisWithSettings({
+        analysisType: selectedType,
+        useSettings: true
       });
-
-      const result = await response.json();
 
       if (result.success) {
         setStatus('分析が完了しました！');
         setProgress(100);
-        setAnalysisResult(result);
-        onAnalysisComplete?.(result);
-        clearInterval(progressInterval);
+        setAnalysisResult(result.result);
+        onAnalysisComplete?.(result.result);
+        
+        // 履歴に保存
+        const historyEntry: AnalysisHistory = {
+          id: newAnalysisId,
+          type: selectedType,
+          timestamp: new Date().toISOString(),
+          duration: elapsedTime,
+          status: 'success',
+          result: result.result
+        };
+        saveAnalysisHistory(historyEntry);
       } else {
         setError(result.error || '分析に失敗しました');
         setStatus('分析に失敗しました');
-        clearInterval(progressInterval);
+        
+        // エラーも履歴に保存
+        const historyEntry: AnalysisHistory = {
+          id: newAnalysisId,
+          type: selectedType,
+          timestamp: new Date().toISOString(),
+          duration: elapsedTime,
+          status: 'error',
+          error: result.error
+        };
+        saveAnalysisHistory(historyEntry);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : '不明なエラーが発生しました');
@@ -349,6 +317,26 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
       )}
 
       <div className="space-y-4">
+        {/* 設定情報表示 */}
+        <div className="bg-gray-50 rounded-lg p-4 mb-4">
+          <div className="flex items-center mb-2">
+            <Settings className="w-4 h-4 text-gray-600 mr-2" />
+            <h4 className="font-medium text-gray-800">実行設定</h4>
+          </div>
+          {(() => {
+            const desc = getAnalysisDescription();
+            return (
+              <div className="text-sm text-gray-600 space-y-1">
+                <div>• {desc.prediction}</div>
+                <div>• {desc.model}</div>
+                <div>• {desc.retrain}</div>
+                <div>• {desc.features}</div>
+                <div>• {desc.data}</div>
+              </div>
+            );
+          })()}
+        </div>
+
         {/* 分析実行ボタン */}
         <div className="flex items-center justify-between">
           <div>

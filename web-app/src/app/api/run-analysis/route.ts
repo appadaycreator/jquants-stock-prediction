@@ -6,13 +6,59 @@ export const dynamic = 'force-static';
 
 export async function POST(request: NextRequest) {
   try {
-    const { analysisType = 'comprehensive', symbols = [] } = await request.json();
+    const { 
+      analysisType = 'comprehensive', 
+      symbols = [],
+      // 設定パラメータを追加
+      prediction_days,
+      primary_model,
+      compare_models,
+      auto_retrain,
+      retrain_frequency,
+      max_data_points,
+      include_technical_indicators,
+      selected_features,
+      use_settings = false
+    } = await request.json();
     
     console.log(`分析実行開始: ${analysisType}, 銘柄: ${symbols.join(', ')}`);
+    if (use_settings) {
+      console.log(`設定使用: 予測期間=${prediction_days}日, モデル=${primary_model}, 比較=${compare_models}, 再訓練=${auto_retrain}`);
+    }
     
     // 分析タイプに応じてスクリプトを選択
     let pythonScript: string;
     let scriptArgs: string[] = [];
+    
+    // 設定が有効な場合は設定ファイルを生成
+    if (use_settings) {
+      const configData = {
+        prediction: {
+          days: prediction_days || 30
+        },
+        model: {
+          type: "all",
+          primary_model: primary_model || "xgboost",
+          compare_models: compare_models || false,
+          auto_retrain: auto_retrain || false,
+          retrain_frequency: retrain_frequency || "weekly"
+        },
+        data: {
+          refresh_interval: "daily",
+          max_data_points: max_data_points || 1000,
+          include_technical_indicators: include_technical_indicators !== false
+        },
+        features: {
+          selected: selected_features || ["sma_5", "sma_10", "sma_25", "sma_50", "rsi", "macd"]
+        }
+      };
+      
+      // 設定ファイルを一時的に保存
+      const fs = require('fs');
+      const configPath = path.join(process.cwd(), '..', 'temp_analysis_config.json');
+      fs.writeFileSync(configPath, JSON.stringify(configData, null, 2));
+      console.log(`設定ファイル生成: ${configPath}`);
+    }
     
     switch (analysisType) {
       case 'ultra_fast':

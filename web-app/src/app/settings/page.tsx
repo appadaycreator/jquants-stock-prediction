@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Navigation from "../../components/Navigation";
 import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen } from "lucide-react";
+import { useAnalysisWithSettings } from "../../hooks/useAnalysisWithSettings";
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState({
@@ -36,6 +37,15 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
+
+  // 設定連携フック
+  const { 
+    runAnalysisWithSettings, 
+    isAnalyzing, 
+    analysisProgress, 
+    analysisStatus,
+    getAnalysisDescription 
+  } = useAnalysisWithSettings();
 
   useEffect(() => {
     loadSettings();
@@ -116,14 +126,19 @@ export default function SettingsPage() {
 
   const runAnalysis = async () => {
     try {
-      // 分析実行のシミュレーション
-      showMessage("分析を実行しています...", "success");
+      showMessage("設定に基づく分析を実行しています...", "success");
       
-      // 実際の実装では、ここでPythonスクリプトを実行するか、
-      // サーバーサイドのAPIエンドポイントを呼び出す
-      setTimeout(() => {
-        showMessage("分析が完了しました（シミュレーション）", "success");
-      }, 2000);
+      // 設定連携版の分析実行
+      const result = await runAnalysisWithSettings({
+        analysisType: 'comprehensive',
+        useSettings: true
+      });
+
+      if (result.success) {
+        showMessage("分析が完了しました", "success");
+      } else {
+        showMessage(`分析エラー: ${result.error}`, "error");
+      }
     } catch (error) {
       console.error("分析実行エラー:", error);
       showMessage("分析の実行に失敗しました", "error");
@@ -157,10 +172,20 @@ export default function SettingsPage() {
             <div className="flex items-center space-x-4">
               <button
                 onClick={runAnalysis}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
+                disabled={isAnalyzing}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 disabled:opacity-50"
               >
-                <Play className="h-4 w-4 mr-2" />
-                分析実行
+                {isAnalyzing ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    実行中...
+                  </>
+                ) : (
+                  <>
+                    <Play className="h-4 w-4 mr-2" />
+                    設定で分析実行
+                  </>
+                )}
               </button>
               <button
                 onClick={handleReset}
@@ -260,6 +285,62 @@ export default function SettingsPage() {
           {/* メインコンテンツエリア */}
           <div className="w-full lg:w-3/4">
             <div className="space-y-8">
+            
+            {/* 現在の設定情報 */}
+            <div className="bg-blue-50 rounded-lg shadow p-6">
+              <div className="flex items-center mb-4">
+                <Settings className="h-6 w-6 text-blue-600 mr-3" />
+                <h2 className="text-xl font-bold text-gray-900">現在の設定</h2>
+              </div>
+              
+              {(() => {
+                const desc = getAnalysisDescription();
+                return (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">予測期間:</span>
+                        <span className="font-medium">{desc.prediction}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">モデル設定:</span>
+                        <span className="font-medium">{desc.model}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">再訓練:</span>
+                        <span className="font-medium">{desc.retrain}</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">特徴量:</span>
+                        <span className="font-medium">{desc.features}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">データ量:</span>
+                        <span className="font-medium">{desc.data}</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+              
+              {isAnalyzing && (
+                <div className="mt-4 p-4 bg-white rounded-lg border">
+                  <div className="flex items-center mb-2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>
+                    <span className="text-sm font-medium text-gray-700">分析実行中...</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div 
+                      className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${analysisProgress}%` }}
+                    ></div>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">{analysisStatus}</p>
+                </div>
+              )}
+            </div>
           {/* 予測設定 */}
           <div id="prediction" className="bg-white rounded-lg shadow p-8">
             <div className="flex items-center mb-6">
@@ -389,34 +470,49 @@ export default function SettingsPage() {
                 </select>
               </div>
               
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={settings.model.compare_models}
-                  onChange={(e) => setSettings({
-                    ...settings,
-                    model: { ...settings.model, compare_models: e.target.checked },
-                  })}
-                  className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
-                <label className="ml-2 text-sm text-gray-700">
-                  モデル比較を有効にする
-                </label>
+              <div className="space-y-2">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={settings.model.compare_models}
+                    onChange={(e) => setSettings({
+                      ...settings,
+                      model: { ...settings.model, compare_models: e.target.checked },
+                    })}
+                    className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                  <label className="ml-2 text-sm text-gray-700">
+                    モデル比較を有効にする
+                  </label>
+                </div>
+                <div className="ml-6 text-xs text-gray-500">
+                  <p>• 複数の機械学習モデル（XGBoost、ランダムフォレスト、線形回帰など）を同時に実行し、性能を比較します</p>
+                  <p>• より正確な予測が可能ですが、実行時間が長くなります</p>
+                  <p>• 最適なモデルが自動的に選択され、結果に表示されます</p>
+                </div>
               </div>
               
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={settings.model.auto_retrain}
-                  onChange={(e) => setSettings({
-                    ...settings,
-                    model: { ...settings.model, auto_retrain: e.target.checked },
-                  })}
-                  className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
-                <label className="ml-2 text-sm text-gray-700">
-                  自動再訓練を有効にする
-                </label>
+              <div className="space-y-2">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={settings.model.auto_retrain}
+                    onChange={(e) => setSettings({
+                      ...settings,
+                      model: { ...settings.model, auto_retrain: e.target.checked },
+                    })}
+                    className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                  <label className="ml-2 text-sm text-gray-700">
+                    自動再訓練を有効にする
+                  </label>
+                </div>
+                <div className="ml-6 text-xs text-gray-500">
+                  <p>• 設定した頻度（週次/月次）でモデルを自動的に再訓練します</p>
+                  <p>• 新しいデータに基づいてモデルの精度を向上させます</p>
+                  <p>• 再訓練はバックグラウンドで実行され、完了時に通知されます</p>
+                  <p>• 注意: 再訓練中は一時的に分析機能が制限される場合があります</p>
+                </div>
               </div>
             </div>
           </div>

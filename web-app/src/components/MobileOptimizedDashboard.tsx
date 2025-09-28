@@ -17,6 +17,7 @@ import {
   History,
   Smartphone
 } from "lucide-react";
+import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
 
 interface MobileOptimizedDashboardProps {
   onAnalysisComplete?: (result: any) => void;
@@ -43,6 +44,15 @@ export default function MobileOptimizedDashboard({
   ]);
   const [selectedAction, setSelectedAction] = useState('ultra_fast');
 
+  // 設定連携フック
+  const { 
+    runAnalysisWithSettings, 
+    isAnalyzing: settingsAnalyzing, 
+    analysisProgress: settingsProgress, 
+    analysisStatus: settingsStatus,
+    getAnalysisDescription 
+  } = useAnalysisWithSettings();
+
   // 履歴の読み込み
   useEffect(() => {
     const saved = localStorage.getItem('mobileAnalysisHistory');
@@ -63,90 +73,48 @@ export default function MobileOptimizedDashboard({
     localStorage.setItem('mobileAnalysisHistory', JSON.stringify(newHistory));
   };
 
-  // 超高速分析の実行
+  // 設定連携分析の実行
   const startUltraFastAnalysis = async () => {
     try {
       setIsAnalyzing(true);
       setProgress(0);
-      setStatus('超高速分析を開始しています...');
+      setStatus('設定に基づく分析を開始しています...');
       setError(null);
       setAnalysisResult(null);
       setElapsedTime('00:00');
       
       onAnalysisStart?.();
 
-      const startTime = Date.now();
-      const progressInterval = setInterval(async () => {
-        try {
-          const response = await fetch('/api/run-analysis', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              analysisType: 'ultra_fast',
-              symbols: [],
-              analysisId: `mobile_${Date.now()}`
-            }),
-          });
+      // 設定連携版の分析実行
+      const result = await runAnalysisWithSettings({
+        analysisType: selectedAction as any,
+        useSettings: true
+      });
 
-          const result = await response.json();
-          
-          if (result.success) {
-            setProgress(100);
-            setStatus('分析完了！');
-            setAnalysisResult(result);
-            onAnalysisComplete?.(result);
-            
-            // 履歴に保存
-            const historyEntry = {
-              id: `mobile_${Date.now()}`,
-              type: 'ultra_fast',
-              timestamp: new Date().toISOString(),
-              duration: elapsedTime,
-              status: 'success',
-              result: result
-            };
-            saveAnalysisHistory(historyEntry);
-            
-            clearInterval(progressInterval);
-          } else {
-            setError(result.error || '分析に失敗しました');
-            setStatus('分析に失敗しました');
-            clearInterval(progressInterval);
-          }
-        } catch (progressError) {
-          console.error('進捗取得エラー:', progressError);
-        }
-      }, 1000);
-
-      // 経過時間の更新
-      const timeInterval = setInterval(() => {
-        const elapsed = Math.floor((Date.now() - startTime) / 1000);
-        const minutes = Math.floor(elapsed / 60);
-        const seconds = elapsed % 60;
-        setElapsedTime(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-      }, 1000);
-
-      // 進捗のシミュレーション
-      const progressInterval2 = setInterval(() => {
-        setProgress(prev => {
-          if (prev >= 90) return prev;
-          return prev + Math.random() * 10;
-        });
-      }, 2000);
-
-      // クリーンアップ
-      setTimeout(() => {
-        clearInterval(progressInterval);
-        clearInterval(timeInterval);
-        clearInterval(progressInterval2);
-        setIsAnalyzing(false);
-      }, 120000); // 2分でタイムアウト
-
+      if (result.success) {
+        setProgress(100);
+        setStatus('分析完了！');
+        setAnalysisResult(result.result);
+        onAnalysisComplete?.(result.result);
+        
+        // 履歴に保存
+        const historyEntry = {
+          id: `mobile_${Date.now()}`,
+          type: selectedAction,
+          timestamp: new Date().toISOString(),
+          duration: elapsedTime,
+          status: 'success',
+          result: result.result
+        };
+        saveAnalysisHistory(historyEntry);
+      } else {
+        setError(result.error || '分析に失敗しました');
+        setStatus('分析に失敗しました');
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : '不明なエラーが発生しました');
       setStatus('分析に失敗しました');
+    } finally {
       setIsAnalyzing(false);
     }
   };
