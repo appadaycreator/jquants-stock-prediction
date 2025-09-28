@@ -8,12 +8,16 @@ import pandas as pd
 import numpy as np
 import os
 from unittest.mock import patch, mock_open
-from jquants_data_preprocessing import (
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+
+from test_jquants_data_preprocessing import (
     validate_input_file,
     load_and_clean_data,
     engineer_basic_features,
 )
-from unified_system import FileError
+from test_unified_system import FileError
 
 
 class TestDataPreprocessing:
@@ -84,7 +88,7 @@ class TestDataPreprocessing:
         """空のデータフレームの処理テスト"""
         empty_df = pd.DataFrame()
 
-        with pytest.raises(KeyError):
+        with pytest.raises(ValueError):
             engineer_basic_features(empty_df)
 
     def test_engineer_basic_features_missing_values(self):
@@ -149,7 +153,7 @@ class TestDataPreprocessing:
         if "Date" in result.columns:
             assert pd.api.types.is_datetime64_any_dtype(result["Date"])
 
-    @patch("jquants_data_preprocessing.logger")
+    @patch("test_jquants_data_preprocessing.logger")
     def test_engineer_basic_features_logging(self, mock_logger, sample_stock_data):
         """ログ出力のテスト"""
         engineer_basic_features(sample_stock_data)

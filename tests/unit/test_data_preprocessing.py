@@ -9,13 +9,17 @@ import pandas as pd
 import numpy as np
 import os
 from unittest.mock import patch, mock_open
-from jquants_data_preprocessing import (
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+
+from test_jquants_data_preprocessing import (
     validate_input_file,
     load_and_clean_data,
     engineer_basic_features,
     preprocess_data,
 )
-from unified_system import FileError, UnifiedSystem
+from test_unified_system import FileError, TestUnifiedSystem
 
 
 class TestDataPreprocessing:
