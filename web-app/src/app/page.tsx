@@ -17,7 +17,10 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
 } from "recharts";
-import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User } from "lucide-react";
+import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle } from "lucide-react";
+import EnhancedErrorHandler from "../components/EnhancedErrorHandler";
+import { ButtonTooltip, HelpTooltip } from "../components/Tooltip";
+import UserGuide from "../components/UserGuide";
 
 // 型定義
 interface StockData {
@@ -92,9 +95,20 @@ export default function Dashboard() {
   const [isMobile, setIsMobile] = useState(false);
   const [showNotificationSettings, setShowNotificationSettings] = useState(false);
   const [showMobileOptimized, setShowMobileOptimized] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [showUserGuide, setShowUserGuide] = useState(false);
+  const [isFirstVisit, setIsFirstVisit] = useState(false);
 
   useEffect(() => {
     loadData();
+    
+    // 初回訪問チェック
+    const hasVisited = localStorage.getItem('hasVisited');
+    if (!hasVisited) {
+      setIsFirstVisit(true);
+      setShowUserGuide(true);
+      localStorage.setItem('hasVisited', 'true');
+    }
   }, []);
 
   // モバイル判定
@@ -167,6 +181,8 @@ export default function Dashboard() {
       
     } catch (error) {
       console.error("データの読み込みに失敗:", error);
+      setError(error instanceof Error ? error : new Error('データの読み込みに失敗しました'));
+      
       // RSC payloadエラーの場合、自動的にリトライ
       if (error instanceof Error && (
         error.message.includes("RSC payload") || 
@@ -276,6 +292,25 @@ export default function Dashboard() {
   const handleConfigChange = (config: any) => {
     setMonitoringConfig(config);
   };
+
+  // エラーが発生した場合
+  if (error) {
+    return (
+      <EnhancedErrorHandler
+        error={error}
+        onRetry={() => {
+          setError(null);
+          loadData();
+        }}
+        onGoHome={() => {
+          setError(null);
+          window.location.href = '/';
+        }}
+        onGetHelp={() => setShowUserGuide(true)}
+        showDetails={process.env.NODE_ENV === 'development'}
+      />
+    );
+  }
 
   if (loading) {
     return (
@@ -393,34 +428,55 @@ export default function Dashboard() {
                 </span>
               </div>
               <div className="flex space-x-2">
-                <button
-                  onClick={() => setShowSymbolSelector(true)}
-                  className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  <Play className="h-4 w-4 mr-2" />
-                  銘柄選択・分析
-                </button>
-                <button
-                  onClick={() => setShowAnalysisModal(true)}
-                  className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-                >
-                  <Play className="h-4 w-4 mr-2" />
-                  全体分析
-                </button>
-                <button
-                  onClick={() => setShowSettingsModal(true)}
-                  className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-                >
-                  <Settings className="h-4 w-4 mr-2" />
-                  設定
-                </button>
-                <button
-                  onClick={loadData}
-                  className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  <RefreshCw className="h-4 w-4 mr-2" />
-                  更新
-                </button>
+                <ButtonTooltip content="特定の銘柄を選択して詳細分析を実行します">
+                  <button
+                    onClick={() => setShowSymbolSelector(true)}
+                    className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    <Play className="h-4 w-4 mr-2" />
+                    銘柄選択・分析
+                  </button>
+                </ButtonTooltip>
+                
+                <ButtonTooltip content="全銘柄の包括的な分析を実行します（3-5分程度かかります）">
+                  <button
+                    onClick={() => setShowAnalysisModal(true)}
+                    className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                  >
+                    <Play className="h-4 w-4 mr-2" />
+                    全体分析
+                  </button>
+                </ButtonTooltip>
+                
+                <ButtonTooltip content="分析設定、モデル選択、表示オプションを調整できます">
+                  <button
+                    onClick={() => setShowSettingsModal(true)}
+                    className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                  >
+                    <Settings className="h-4 w-4 mr-2" />
+                    設定
+                  </button>
+                </ButtonTooltip>
+                
+                <ButtonTooltip content="最新のデータを取得してダッシュボードを更新します">
+                  <button
+                    onClick={loadData}
+                    className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                  >
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                    更新
+                  </button>
+                </ButtonTooltip>
+                
+                <ButtonTooltip content="初回利用者向けの操作ガイドを表示します">
+                  <button
+                    onClick={() => setShowUserGuide(true)}
+                    className="flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
+                  >
+                    <HelpCircle className="h-4 w-4 mr-2" />
+                    ガイド
+                  </button>
+                </ButtonTooltip>
               </div>
             </div>
           </div>
@@ -1139,6 +1195,16 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+
+      {/* ユーザーガイドモーダル */}
+      <UserGuide
+        isVisible={showUserGuide}
+        onClose={() => setShowUserGuide(false)}
+        onStepComplete={(stepId) => {
+          console.log('ガイドステップ完了:', stepId);
+        }}
+        currentTab={activeTab}
+      />
     </div>
   );
 }

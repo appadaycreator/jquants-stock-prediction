@@ -3,6 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 
+export const dynamic = 'force-static';
+
 const CONFIG_PATH = path.join(process.cwd(), '..', 'notification_config.yaml');
 
 export async function GET() {

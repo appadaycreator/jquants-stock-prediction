@@ -31,7 +31,7 @@ def generate_personal_investment_data():
         "worst_performer": "6758.T",
         "risk_adjusted_return": 0.75,
     }
-    
+
     # ポジションサマリー
     positions = [
         {
@@ -54,36 +54,36 @@ def generate_personal_investment_data():
         {
             "symbol": "6758.T",
             "company_name": "ソニーグループ",
-            "current_price": 12000.0,
+            "current_price": 4500.0,
             "quantity": 50,
-            "total_value": 600000,
-            "cost_basis": 12500.0,
-            "unrealized_pnl": -25000,
-            "pnl_percentage": -4.0,
+            "total_value": 225000,
+            "cost_basis": 4800.0,
+            "unrealized_pnl": -15000,
+            "pnl_percentage": -6.25,
             "action_recommendation": "HOLD",
             "confidence": 0.70,
             "priority": "MEDIUM",
             "risk_level": "HIGH",
             "next_action": "現状維持",
-            "target_price": 13000.0,
-            "stop_loss": 11000.0,
+            "target_price": 5000.0,
+            "stop_loss": 4000.0,
         },
         {
             "symbol": "6861.T",
             "company_name": "キーエンス",
-            "current_price": 5000.0,
+            "current_price": 5200.0,
             "quantity": 200,
-            "total_value": 1000000,
-            "cost_basis": 4800.0,
+            "total_value": 1040000,
+            "cost_basis": 5000.0,
             "unrealized_pnl": 40000,
-            "pnl_percentage": 4.17,
-            "action_recommendation": "STRONG_BUY",
+            "pnl_percentage": 4.0,
+            "action_recommendation": "SELL",
             "confidence": 0.90,
             "priority": "HIGH",
             "risk_level": "LOW",
-            "next_action": "積極的に買い増しを検討",
+            "next_action": "利確を検討",
             "target_price": 5500.0,
-            "stop_loss": 4500.0,
+            "stop_loss": 4800.0,
         },
         {
             "symbol": "9984.T",
@@ -94,46 +94,59 @@ def generate_personal_investment_data():
             "cost_basis": 8200.0,
             "unrealized_pnl": -6000,
             "pnl_percentage": -2.44,
-            "action_recommendation": "SELL",
-            "confidence": 0.75,
-            "priority": "MEDIUM",
+            "action_recommendation": "HOLD",
+            "confidence": 0.60,
+            "priority": "LOW",
             "risk_level": "MEDIUM",
-            "next_action": "利確を検討",
+            "next_action": "現状維持",
             "target_price": 8500.0,
             "stop_loss": 7500.0,
         },
     ]
-    
+
     # 投資推奨事項
     recommendations = [
         {
             "symbol": "9432.T",
             "action": "BUY",
             "confidence": 0.80,
-            "priority": "MEDIUM",
+            "priority": "HIGH",
             "reason": "技術指標が良好で、上昇トレンドが継続",
-            "target_price": 1500.0,
-            "stop_loss": 1200.0,
-            "position_size": 100,
+            "target_price": 12000.0,
+            "stop_loss": 10000.0,
+            "position_size": 50,
             "expected_return": 0.15,
             "risk_level": "MEDIUM",
-            "timeframe": "1-3ヶ月",
+            "timeframe": "2-4週間",
         },
         {
-            "symbol": "7203.T",
-            "action": "BUY",
+            "symbol": "6758.T",
+            "action": "SELL",
+            "confidence": 0.75,
+            "priority": "MEDIUM",
+            "reason": "損切りの必要性が高い",
+            "target_price": None,
+            "stop_loss": 4000.0,
+            "position_size": None,
+            "expected_return": -0.05,
+            "risk_level": "HIGH",
+            "timeframe": "1-2週間",
+        },
+        {
+            "symbol": "6861.T",
+            "action": "HOLD",
             "confidence": 0.85,
-            "priority": "HIGH",
-            "reason": "技術指標が非常に良好で、買い場の可能性が高い",
-            "target_price": 2800.0,
-            "stop_loss": 2200.0,
-            "position_size": 50,
+            "priority": "LOW",
+            "reason": "現状維持が最適",
+            "target_price": 5500.0,
+            "stop_loss": 4800.0,
+            "position_size": None,
             "expected_return": 0.12,
             "risk_level": "MEDIUM",
             "timeframe": "2-4週間",
         },
     ]
-    
+
     # 市場概況
     market_overview = {
         "market_trend": "上昇",
@@ -148,7 +161,7 @@ def generate_personal_investment_data():
         },
         "market_alert": "高ボラティリティ環境のため注意が必要",
     }
-    
+
     # ダッシュボードデータの統合
     dashboard_data = {
         "timestamp": datetime.now().isoformat(),
@@ -161,6 +174,7 @@ def generate_personal_investment_data():
 
     return dashboard_data
 
+
 def save_dashboard_data(
     data: Dict[str, Any], output_path: str = "data/personal_investment_dashboard.json"
 ):
@@ -168,12 +182,14 @@ def save_dashboard_data(
     try:
         import os
 
+        # ディレクトリの作成
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
+        # データの保存
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
-        logger.info(f"個人投資ダッシュボードデータを保存: {output_path}")
+        logger.info(f"ダッシュボードデータを保存しました: {output_path}")
         return True
 
     except Exception as e:
@@ -189,22 +205,23 @@ def main():
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
-    try:
-        # データ生成
-        data = generate_personal_investment_data()
+    print("個人投資ダッシュボード用データを生成中...")
 
-        # データ保存
-        success = save_dashboard_data(data)
+    # データの生成
+    dashboard_data = generate_personal_investment_data()
 
-        if success:
-            print("個人投資ダッシュボードのデータ生成が完了しました。")
-            print(f"データファイル: data/personal_investment_dashboard.json")
-        else:
-            print("データ生成に失敗しました。")
+    # データの保存
+    success = save_dashboard_data(dashboard_data)
 
-    except Exception as e:
-        logger.error(f"メイン実行エラー: {e}")
-        print(f"エラー: {e}")
+    if success:
+        print("✅ 個人投資ダッシュボード用データの生成が完了しました")
+        print(f"📊 データファイル: data/personal_investment_dashboard.json")
+        print(f"💰 総投資額: {dashboard_data['pnl_summary']['total_investment']:,}円")
+        print(f"📈 現在価値: {dashboard_data['pnl_summary']['current_value']:,}円")
+        print(f"💵 未実現損益: {dashboard_data['pnl_summary']['unrealized_pnl']:,}円")
+        print(f"📊 損益率: {dashboard_data['pnl_summary']['pnl_percentage']:.2f}%")
+    else:
+        print("❌ データ生成に失敗しました")
 
 
 if __name__ == "__main__":

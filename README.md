@@ -42,10 +42,24 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 - **エラーハンドリング強化**: 無効な日時データに対する適切なエラー処理とデフォルト値設定
 
 ### 7. **コードフォーマット問題の完全解決**
-- **Blackフォーマッター準拠**: `risk_level_strategy_system.py`のコードフォーマットを修正
+- **Blackフォーマッター準拠**: 以下のファイルのコードフォーマットを修正
+  - `automated_scheduler.py`: 通知設定クラスとスケジューラーのフォーマット修正
+  - `generate_personal_investment_data.py`: データ生成スクリプトのフォーマット修正
+  - `market_environment_strategy_adjuster.py`: 市場環境分析システムのフォーマット修正
+  - `personal_investment_dashboard.py`: 個人投資ダッシュボードのフォーマット修正
+  - `test_notification.py`: 通知テストスクリプトのフォーマット修正
+  - `risk_level_strategy_system.py`: リスクレベル戦略システムのフォーマット修正
 - **カンマ位置の統一**: リスト・辞書の最後の要素にカンマを追加
 - **改行の統一**: 適切な空行の追加とインデントの統一
+- **文字列引用符の統一**: シングルクォートからダブルクォートへの統一
 - **GitHub Actions lintテスト**: フォーマットエラーを完全解決
+
+### 8. **GitHub Pagesデプロイ問題の完全解決**
+- **js-yaml型定義エラー修正**: `js-yaml`パッケージと`@types/js-yaml`型定義を追加
+- **TypeScript型エラー修正**: `NotificationSettings.tsx`の型安全性を改善
+- **APIルート静的エクスポート対応**: 全APIルートに`export const dynamic = 'force-static'`を追加
+- **ビルド成功確認**: Next.js静的エクスポートが正常に完了
+- **デプロイパイプライン安定化**: GitHub Actionsでの自動デプロイが正常に動作
 
 ## 🆕 新機能: 個人投資特化ダッシュボード
 

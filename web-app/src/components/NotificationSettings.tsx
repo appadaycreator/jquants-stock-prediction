@@ -156,7 +156,7 @@ export default function NotificationSettings() {
     setConfig(prev => {
       const newConfig = { ...prev };
       const keys = path.split('.');
-      let current = newConfig;
+      let current: any = newConfig;
       
       for (let i = 0; i < keys.length - 1; i++) {
         current = current[keys[i]];

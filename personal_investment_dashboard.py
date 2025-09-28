@@ -123,7 +123,7 @@ class PersonalInvestmentDashboard:
         self.risk_manager = RiskManager()
         self.portfolio_monitor = PortfolioRiskMonitor()
         self.sentiment_system = EnhancedSentimentTradingSystem()
-        
+
         # ダッシュボードデータ
         self.positions: Dict[str, Position] = {}
         self.watchlist: List[str] = []

@@ -102,24 +102,26 @@ class StrategyAdjustment:
 
 class MarketRegimeDetector:
     """市場レジーム検出クラス"""
-    
+
     def __init__(self, unified_system: UnifiedSystem):
         self.unified_system = unified_system
         self.logger = logging.getLogger(f"{self.__class__.__name__}")
         self.historical_regimes = []
-        
-    def detect_market_regime(self, data: pd.DataFrame, market_data: Dict[str, Any] = None) -> MarketRegime:
+
+    def detect_market_regime(
+        self, data: pd.DataFrame, market_data: Dict[str, Any] = None
+    ) -> MarketRegime:
         """市場レジームの検出"""
         try:
             if data.empty or len(data) < 50:
                 return MarketRegime.SIDEWAYS
                 
             # 基本指標の計算
-            returns = data['Close'].pct_change().dropna()
+            returns = data["Close"].pct_change().dropna()
             volatility = returns.std() * np.sqrt(252)
             trend_strength = self._calculate_trend_strength(data)
             momentum = self._calculate_momentum(data)
-            
+
             # レジーム判定ロジック
             if volatility > 0.4:  # 極端なボラティリティ
                 return MarketRegime.CRISIS
@@ -133,12 +135,12 @@ class MarketRegimeDetector:
                 return MarketRegime.SIDEWAYS
             else:
                 return MarketRegime.TRENDING
-                
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.MODEL_ERROR,
-                context="市場レジーム検出エラー"
+                context="市場レジーム検出エラー",
             )
             return MarketRegime.SIDEWAYS
     

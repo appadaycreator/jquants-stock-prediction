@@ -129,29 +129,35 @@ class RiskProfileAnalyzer:
             age_factor = self._calculate_age_factor(age)
             income_factor = self._calculate_income_factor(income, investment_amount)
             horizon_factor = self._calculate_horizon_factor(investment_horizon)
-            
+
             # リスク許容度の計算
             risk_tolerance = self._calculate_risk_tolerance(
                 age_factor, income_factor, horizon_factor, risk_questionnaire
             )
-            
+
             # リスクレベルの決定
-            risk_level = self._determine_risk_level(risk_tolerance, age_factor, horizon_factor)
-            
+            risk_level = self._determine_risk_level(
+                risk_tolerance, age_factor, horizon_factor
+            )
+
             # リスク制限の設定
             max_drawdown = self._calculate_max_drawdown(risk_level, age_factor)
             volatility_tolerance = self._calculate_volatility_tolerance(risk_level)
-            
+
             # 流動性ニーズの評価
-            liquidity_needs = self._assess_liquidity_needs(age, income, investment_amount)
-            
+            liquidity_needs = self._assess_liquidity_needs(
+                age, income, investment_amount
+            )
+
             # 収入要件の計算
             income_requirements = self._calculate_income_requirements(
                 investment_amount, investment_horizon, risk_level
             )
-            
+
             # 経験レベルの推定
-            experience_level = self._estimate_experience_level(age, income, investment_amount)
+            experience_level = self._estimate_experience_level(
+                age, income, investment_amount
+            )
             
             return RiskProfile(
                 risk_level=risk_level,
@@ -163,14 +169,14 @@ class RiskProfileAnalyzer:
                 income_requirements=income_requirements,
                 age_factor=age_factor,
                 experience_level=experience_level,
-                created_at=datetime.now()
+                created_at=datetime.now(),
             )
-            
+
         except Exception as e:
             self.unified_system.log_error(
                 error=e,
                 category=ErrorCategory.MODEL_ERROR,
-                context="リスクプロファイル分析エラー"
+                context="リスクプロファイル分析エラー",
             )
             return self._get_default_risk_profile()
     
