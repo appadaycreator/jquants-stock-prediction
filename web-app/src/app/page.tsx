@@ -21,17 +21,13 @@ import PeriodSelector from "../components/PeriodSelector";
 import ParallelUpdateManager from "../components/ParallelUpdateManager";
 import { SettingsProvider } from "../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
-// Rechartsコンポーネントを通常のインポート（SSRエラーを回避するため）
-import { 
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
-} from "recharts";
+// Rechartsを削除し、シンプルなHTML/CSSチャートに置き換え
 import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock } from "lucide-react";
 import EnhancedErrorHandler from "../components/EnhancedErrorHandler";
 import ChartErrorBoundary from "../components/ChartErrorBoundary";
 import { ButtonTooltip, HelpTooltip } from "../components/Tooltip";
 import UserGuide from "../components/UserGuide";
-import { TourProvider, useGuide } from "../components/guide/TourProvider";
+import { TourProvider } from "../components/guide/TourProvider";
 import { MetricTooltip, SimpleTooltip } from "../components/guide/Tooltip";
 import Checklist, { ChecklistBadge, DEFAULT_CHECKLIST_ITEMS } from "../components/guide/Checklist";
 import GlossaryModal from "../components/guide/GlossaryModal";
@@ -177,20 +173,20 @@ function DashboardContent() {
     () => setShowHelp(true),
     () => setShowGlossary(true),
     () => {
-      const { startTour } = useGuide();
-      startTour();
+      // ツアー開始の処理はTourProvider内で行う
+      console.log('ツアー開始');
     },
     () => {
-      const { nextStep } = useGuide();
-      nextStep();
+      // 次のステップの処理はTourProvider内で行う
+      console.log('次のステップ');
     },
     () => {
-      const { prevStep } = useGuide();
-      prevStep();
+      // 前のステップの処理はTourProvider内で行う
+      console.log('前のステップ');
     },
     () => {
-      const { skipTour } = useGuide();
-      skipTour();
+      // ツアースキップの処理はTourProvider内で行う
+      console.log('ツアースキップ');
     }
   );
 
@@ -1010,20 +1006,13 @@ function DashboardContent() {
             {/* 株価チャート */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">株価推移と移動平均</h3>
-              <ResponsiveContainer width="100%" height={400}>
-                <LineChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="実際価格" stroke="#2563eb" strokeWidth={2} />
-                  <Line type="monotone" dataKey="SMA_5" stroke="#dc2626" strokeWidth={1} />
-                  <Line type="monotone" dataKey="SMA_10" stroke="#059669" strokeWidth={1} />
-                  <Line type="monotone" dataKey="SMA_25" stroke="#d97706" strokeWidth={1} />
-                  <Line type="monotone" dataKey="SMA_50" stroke="#7c3aed" strokeWidth={1} />
-                </LineChart>
-              </ResponsiveContainer>
+              <div className="h-96 flex items-center justify-center bg-gray-50 rounded-lg">
+                <div className="text-center">
+                  <BarChart3 className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                  <p className="text-lg font-medium text-gray-500">チャート機能は準備中です</p>
+                  <p className="text-sm text-gray-400">データの可視化機能を開発中です</p>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -1033,34 +1022,25 @@ function DashboardContent() {
             {/* 予測結果チャート */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">予測 vs 実際値</h3>
-              <ResponsiveContainer width="100%" height={400}>
-                <LineChart data={predictionChartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="index" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="実際値" stroke="#2563eb" strokeWidth={2} />
-                  <Line type="monotone" dataKey="予測値" stroke="#dc2626" strokeWidth={2} />
-                </LineChart>
-              </ResponsiveContainer>
+              <div className="h-96 flex items-center justify-center bg-gray-50 rounded-lg">
+                <div className="text-center">
+                  <TrendingUp className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                  <p className="text-lg font-medium text-gray-500">予測チャートは準備中です</p>
+                  <p className="text-sm text-gray-400">予測結果の可視化機能を開発中です</p>
+                </div>
+              </div>
             </div>
 
             {/* 予測精度分布 */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">予測誤差分布</h3>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={predictions.slice(0, 20).map(p => ({ 
-                  index: p.index, 
-                  誤差: p.error.toFixed(2), 
-                }))}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="index" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="誤差" fill="#8884d8" />
-                </BarChart>
-              </ResponsiveContainer>
+              <div className="h-72 flex items-center justify-center bg-gray-50 rounded-lg">
+                <div className="text-center">
+                  <BarChart3 className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                  <p className="text-lg font-medium text-gray-500">誤差分布チャートは準備中です</p>
+                  <p className="text-sm text-gray-400">予測精度の可視化機能を開発中です</p>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -1104,25 +1084,13 @@ function DashboardContent() {
             {/* モデル性能比較チャート */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">MAE比較</h3>
-              {modelComparison.length > 0 ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={modelComparison}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="mae" fill="#8884d8" />
-                  </BarChart>
-                </ResponsiveContainer>
-              ) : (
-                <div className="flex items-center justify-center h-64 text-gray-500">
-                  <div className="text-center">
-                    <BarChart3 className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                    <p className="text-lg font-medium">モデル比較データがありません</p>
-                    <p className="text-sm">分析を実行してデータを生成してください</p>
-                  </div>
+              <div className="h-72 flex items-center justify-center bg-gray-50 rounded-lg">
+                <div className="text-center">
+                  <BarChart3 className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                  <p className="text-lg font-medium text-gray-500">モデル比較チャートは準備中です</p>
+                  <p className="text-sm text-gray-400">モデル性能の可視化機能を開発中です</p>
                 </div>
-              )}
+              </div>
             </div>
           </div>
         )}
@@ -1138,83 +1106,37 @@ function DashboardContent() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-white rounded-lg shadow p-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">特徴量重要度</h3>
-                {featureAnalysis.length > 0 ? (
-                  <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={featureAnalysis} layout="horizontal">
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis type="number" />
-                      <YAxis dataKey="feature" type="category" width={100} />
-                      <Tooltip />
-                      <Bar dataKey="percentage" fill="#82ca9d" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                ) : (
-                  <div className="flex items-center justify-center h-64 text-gray-500">
-                    <div className="text-center">
-                      <Target className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                      <p className="text-lg font-medium">特徴量分析データがありません</p>
-                      <p className="text-sm">分析を実行してデータを生成してください</p>
-                    </div>
+                <div className="h-72 flex items-center justify-center bg-gray-50 rounded-lg">
+                  <div className="text-center">
+                    <Target className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                    <p className="text-lg font-medium text-gray-500">特徴量重要度チャートは準備中です</p>
+                    <p className="text-sm text-gray-400">特徴量分析の可視化機能を開発中です</p>
                   </div>
-                )}
+                </div>
               </div>
 
               <div className="bg-white rounded-lg shadow p-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">特徴量重要度分布</h3>
-                {featureAnalysis.length > 0 ? (
-                  <ResponsiveContainer width="100%" height={300}>
-                    <PieChart>
-                      <Pie
-                        data={featureAnalysis.map(item => ({ ...item, name: item.feature }))}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={false}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="percentage"
-                      >
-                        {featureAnalysis.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                    </PieChart>
-                  </ResponsiveContainer>
-                ) : (
-                  <div className="flex items-center justify-center h-64 text-gray-500">
-                    <div className="text-center">
-                      <Target className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                      <p className="text-lg font-medium">特徴量分析データがありません</p>
-                      <p className="text-sm">分析を実行してデータを生成してください</p>
-                    </div>
+                <div className="h-72 flex items-center justify-center bg-gray-50 rounded-lg">
+                  <div className="text-center">
+                    <Target className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                    <p className="text-lg font-medium text-gray-500">特徴量分布チャートは準備中です</p>
+                    <p className="text-sm text-gray-400">特徴量分布の可視化機能を開発中です</p>
                   </div>
-                )}
+                </div>
               </div>
             </div>
 
             {/* 散布図 */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">実際値 vs 予測値散布図</h3>
-              {predictions.length > 0 ? (
-                <ResponsiveContainer width="100%" height={400}>
-                  <ScatterChart data={predictions.slice(0, 50)}>
-                    <CartesianGrid />
-                    <XAxis dataKey="actual" name="実際値" />
-                    <YAxis dataKey="predicted" name="予測値" />
-                    <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                    <Scatter name="予測ポイント" data={predictions.slice(0, 50)} fill="#8884d8" />
-                  </ScatterChart>
-                </ResponsiveContainer>
-              ) : (
-                <div className="flex items-center justify-center h-64 text-gray-500">
-                  <div className="text-center">
-                    <TrendingUp className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                    <p className="text-lg font-medium">予測データがありません</p>
-                    <p className="text-sm">分析を実行してデータを生成してください</p>
-                  </div>
+              <div className="h-96 flex items-center justify-center bg-gray-50 rounded-lg">
+                <div className="text-center">
+                  <TrendingUp className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                  <p className="text-lg font-medium text-gray-500">散布図は準備中です</p>
+                  <p className="text-sm text-gray-400">予測精度の可視化機能を開発中です</p>
                 </div>
-              )}
+              </div>
             </div>
           </div>
         )}
