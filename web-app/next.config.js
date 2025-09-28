@@ -127,9 +127,15 @@ const nextConfig = {
       config.resolve.logging = 'verbose';
     }
     
-    // ビルド環境でのパス解決を確実にする
+    // ビルド環境でのパス解決を確実にする（キャッシュ完全無効化）
     config.resolve.unsafeCache = false;
     config.resolve.cacheWithContext = false;
+    config.cache = false;
+    config.optimization = {
+      ...config.optimization,
+      moduleIds: 'deterministic',
+      chunkIds: 'deterministic',
+    };
     
     // バンドルサイズの最適化
     if (!dev && !isServer) {

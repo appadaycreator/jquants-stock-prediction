@@ -39,8 +39,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'npm'
-        cache-dependency-path: web-app/package-lock.json
+        cache: false
         
     - name: Clear all caches
       run: |
@@ -51,17 +50,23 @@ jobs:
         # システムキャッシュもクリア
         sudo apt-get clean
         sudo apt-get autoclean
+        sudo apt-get autoremove -y
         # ファイルのタイムスタンプを更新して変更を確実に反映
         find src -name "*.tsx" -o -name "*.ts" | xargs touch
         # 強制的にファイルシステムを同期
         sync
+        # 追加のキャッシュクリア
+        rm -rf ~/.npm ~/.cache/npm
+        # 環境変数でキャッシュを無効化
+        export NPM_CONFIG_CACHE=false
+        export NEXT_BUILD_CACHE=false
         
     - name: Install Node.js dependencies
       run: |
         cd web-app
-        # 依存関係を再インストール
-        npm install --legacy-peer-deps --no-cache
-        npm install react-is --save --no-cache
+        # 依存関係を再インストール（キャッシュ完全無効化）
+        npm install --legacy-peer-deps --no-cache --no-optional --no-audit --no-fund
+        npm install react-is --save --no-cache --no-optional
         
     - name: Build web application
       run: |
@@ -71,13 +76,15 @@ jobs:
         rm -rf .next dist out
         # ファイルのタイムスタンプを更新
         find src -name "*.tsx" -o -name "*.ts" | xargs touch
-        # 環境変数を明示的に設定
+        # 環境変数を明示的に設定（キャッシュ完全無効化）
         export NODE_ENV=production
         export NEXT_TELEMETRY_DISABLED=1
         export NEXT_BUILD_CACHE=false
+        export NPM_CONFIG_CACHE=false
+        export NPM_CONFIG_UPDATE_NOTIFIER=false
         # 強制的にファイルシステムを同期
         sync
-        # ビルド実行
+        # ビルド実行（キャッシュ無効化）
         npm run build
         
     - name: Copy built files to docs directory
