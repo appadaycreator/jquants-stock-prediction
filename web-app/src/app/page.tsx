@@ -153,7 +153,14 @@ export default function Dashboard() {
       const predDataRes = await predRes.json();
 
       setSummary(summaryData);
-      setStockData(stockDataRes.slice(0, 100)); // 最初の100件のみ表示
+      
+      // 日時データを正規化してから設定
+      const normalizedStockData = stockDataRes.slice(0, 100).map((item: StockData) => ({
+        ...item,
+        date: normalizeDateString(item.date)
+      }));
+      setStockData(normalizedStockData);
+      
       setModelComparison(modelDataRes);
       setFeatureAnalysis(featureDataRes);
       setPredictions(predDataRes);
@@ -281,13 +288,36 @@ export default function Dashboard() {
     );
   }
 
+  // 日時文字列を正規化する関数
+  const normalizeDateString = (dateStr: string): string => {
+    try {
+      // 既にYYYY-MM-DD形式の場合はそのまま返す
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+        return dateStr;
+      }
+      
+      // YYYYMMDD形式をYYYY-MM-DD形式に変換
+      if (/^\d{8}$/.test(dateStr)) {
+        return dateStr.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+      }
+      
+      // その他の形式の場合はDateオブジェクトで解析
+      const date = new Date(dateStr);
+      if (isNaN(date.getTime())) {
+        console.error('Invalid date format:', dateStr);
+        return '2024-01-01'; // デフォルト日付
+      }
+      
+      return date.toISOString().split('T')[0];
+    } catch (error) {
+      console.error('Date normalization error:', error, 'Input:', dateStr);
+      return '2024-01-01'; // デフォルト日付
+    }
+  };
+
   const formatDate = (dateStr: string) => {
     try {
-      // 日時形式を正規化（YYYY-MM-DD形式に統一）
-      const normalizedDate = dateStr.includes('-') ? dateStr : 
-        dateStr.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
-      
-      const date = new Date(normalizedDate);
+      const date = new Date(dateStr);
       
       // 無効な日時の場合はエラーメッセージを表示
       if (isNaN(date.getTime())) {
