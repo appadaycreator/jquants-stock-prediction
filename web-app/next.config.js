@@ -84,6 +84,11 @@ const nextConfig = {
       '@/styles': path.resolve(srcPath, 'styles'),
       '@/lib/guide': path.resolve(srcPath, 'lib/guide'),
       '@/lib/today': path.resolve(srcPath, 'lib/today'),
+      '@/lib/guide/shortcut': path.resolve(srcPath, 'lib/guide/shortcut'),
+      '@/lib/guide/guideStore': path.resolve(srcPath, 'lib/guide/guideStore'),
+      '@/lib/datetime': path.resolve(srcPath, 'lib/datetime'),
+      '@/lib/jquants-adapter': path.resolve(srcPath, 'lib/jquants-adapter'),
+      '@/lib/today/fetchTodaySummary': path.resolve(srcPath, 'lib/today/fetchTodaySummary'),
     };
     
     // モジュール解決の設定を追加

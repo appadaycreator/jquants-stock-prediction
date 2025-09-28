@@ -39,18 +39,24 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'npm'
-        cache-dependency-path: web-app/package-lock.json
+        cache: false  # キャッシュを無効化
+        
+    - name: Clear all caches
+      run: |
+        cd web-app
+        # すべてのキャッシュとビルドファイルを完全にクリア
+        rm -rf node_modules package-lock.json .next dist out
+        npm cache clean --force
+        # システムキャッシュもクリア
+        sudo apt-get clean
+        sudo apt-get autoclean
         
     - name: Install Node.js dependencies
       run: |
         cd web-app
-        # キャッシュを完全にクリア
-        rm -rf node_modules package-lock.json
-        npm cache clean --force
         # 依存関係を再インストール
-        npm install --legacy-peer-deps
-        npm install react-is --save
+        npm install --legacy-peer-deps --no-cache
+        npm install react-is --save --no-cache
         
     - name: Build web application
       run: |
@@ -61,6 +67,7 @@ jobs:
         # 環境変数を明示的に設定
         export NODE_ENV=production
         export NEXT_TELEMETRY_DISABLED=1
+        export NEXT_BUILD_CACHE=false
         # ビルド実行
         npm run build
         

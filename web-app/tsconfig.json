@@ -35,7 +35,10 @@
       "@/lib/guide/guideStore": ["./src/lib/guide/guideStore"],
       "@/lib/datetime": ["./src/lib/datetime"],
       "@/lib/jquants-adapter": ["./src/lib/jquants-adapter"],
-      "@/lib/today/fetchTodaySummary": ["./src/lib/today/fetchTodaySummary"]
+      "@/lib/today/fetchTodaySummary": ["./src/lib/today/fetchTodaySummary"],
+      "@/types/*": ["./src/types/*"],
+      "@/contexts/*": ["./src/contexts/*"],
+      "@/hooks/*": ["./src/hooks/*"]
     }
   },
   "include": [
