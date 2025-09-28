@@ -28,6 +28,7 @@ logger = logging.getLogger(__name__)
 
 class InvestmentAction(Enum):
     """投資アクション"""
+
     STRONG_BUY = "STRONG_BUY"
     BUY = "BUY"
     HOLD = "HOLD"
@@ -37,15 +38,17 @@ class InvestmentAction(Enum):
 
 class PriorityLevel(Enum):
     """優先度レベル"""
+
     CRITICAL = "CRITICAL"  # 即座に対応が必要
-    HIGH = "HIGH"          # 高優先度
-    MEDIUM = "MEDIUM"      # 中優先度
-    LOW = "LOW"            # 低優先度
+    HIGH = "HIGH"  # 高優先度
+    MEDIUM = "MEDIUM"  # 中優先度
+    LOW = "LOW"  # 低優先度
 
 
 @dataclass
 class PnLSummary:
     """損益サマリー"""
+
     total_investment: float
     current_value: float
     unrealized_pnl: float

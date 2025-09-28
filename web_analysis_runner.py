@@ -50,6 +50,7 @@ class WebAnalysisRunner:
             if cache_file.exists():
                 logger.info("キャッシュされたデータを使用")
                 import pickle
+
                 with open(cache_file, "rb") as f:
                     cached_data = pickle.load(f)
                 if cached_data.get("date") == today:

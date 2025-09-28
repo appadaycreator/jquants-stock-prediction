@@ -12,9 +12,10 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def generate_personal_investment_data():
     """個人投資ダッシュボード用データの生成"""
-    
+
     # サンプルデータの生成
     pnl_summary = {
         "total_investment": 1000000,
@@ -28,7 +29,7 @@ def generate_personal_investment_data():
         "monthly_pnl": 50000,
         "best_performer": "6861.T",
         "worst_performer": "6758.T",
-        "risk_adjusted_return": 0.75
+        "risk_adjusted_return": 0.75,
     }
     
     # ポジションサマリー
@@ -48,7 +49,7 @@ def generate_personal_investment_data():
             "risk_level": "MEDIUM",
             "next_action": "買い増しを検討",
             "target_price": 2800.0,
-            "stop_loss": 2200.0
+            "stop_loss": 2200.0,
         },
         {
             "symbol": "6758.T",
@@ -65,7 +66,7 @@ def generate_personal_investment_data():
             "risk_level": "HIGH",
             "next_action": "現状維持",
             "target_price": 13000.0,
-            "stop_loss": 11000.0
+            "stop_loss": 11000.0,
         },
         {
             "symbol": "6861.T",
@@ -82,7 +83,7 @@ def generate_personal_investment_data():
             "risk_level": "LOW",
             "next_action": "積極的に買い増しを検討",
             "target_price": 5500.0,
-            "stop_loss": 4500.0
+            "stop_loss": 4500.0,
         },
         {
             "symbol": "9984.T",
@@ -99,8 +100,8 @@ def generate_personal_investment_data():
             "risk_level": "MEDIUM",
             "next_action": "利確を検討",
             "target_price": 8500.0,
-            "stop_loss": 7500.0
-        }
+            "stop_loss": 7500.0,
+        },
     ]
     
     # 投資推奨事項
@@ -116,7 +117,7 @@ def generate_personal_investment_data():
             "position_size": 100,
             "expected_return": 0.15,
             "risk_level": "MEDIUM",
-            "timeframe": "1-3ヶ月"
+            "timeframe": "1-3ヶ月",
         },
         {
             "symbol": "7203.T",
@@ -129,8 +130,8 @@ def generate_personal_investment_data():
             "position_size": 50,
             "expected_return": 0.12,
             "risk_level": "MEDIUM",
-            "timeframe": "2-4週間"
-        }
+            "timeframe": "2-4週間",
+        },
     ]
     
     # 市場概況
@@ -138,18 +139,14 @@ def generate_personal_investment_data():
         "market_trend": "上昇",
         "volatility_level": "MEDIUM",
         "sentiment_score": 0.3,
-        "key_events": [
-            "日銀金融政策決定会合",
-            "米国雇用統計発表",
-            "企業業績発表期"
-        ],
+        "key_events": ["日銀金融政策決定会合", "米国雇用統計発表", "企業業績発表期"],
         "sector_performance": {
             "テクノロジー": 0.05,
             "金融": 0.02,
             "製造業": 0.03,
-            "小売": 0.01
+            "小売": 0.01,
         },
-        "market_alert": "高ボラティリティ環境のため注意が必要"
+        "market_alert": "高ボラティリティ環境のため注意が必要",
     }
     
     # ダッシュボードデータの統合
@@ -159,23 +156,26 @@ def generate_personal_investment_data():
         "positions": positions,
         "recommendations": recommendations,
         "market_overview": market_overview,
-        "last_update": datetime.now().isoformat()
+        "last_update": datetime.now().isoformat(),
     }
     
     return dashboard_data
 
-def save_dashboard_data(data: Dict[str, Any], output_path: str = "data/personal_investment_dashboard.json"):
+def save_dashboard_data(
+    data: Dict[str, Any], output_path: str = "data/personal_investment_dashboard.json"
+):
     """ダッシュボードデータの保存"""
     try:
         import os
+
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        
-        with open(output_path, 'w', encoding='utf-8') as f:
+
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-        
+
         logger.info(f"個人投資ダッシュボードデータを保存: {output_path}")
         return True
-        
+
     except Exception as e:
         logger.error(f"データ保存エラー: {e}")
         return False
@@ -185,7 +185,7 @@ def main():
     # ログ設定
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
     
     try:
@@ -194,16 +194,17 @@ def main():
         
         # データ保存
         success = save_dashboard_data(data)
-        
+
         if success:
             print("個人投資ダッシュボードのデータ生成が完了しました。")
             print(f"データファイル: data/personal_investment_dashboard.json")
         else:
             print("データ生成に失敗しました。")
-            
+
     except Exception as e:
         logger.error(f"メイン実行エラー: {e}")
         print(f"エラー: {e}")
+
 
 if __name__ == "__main__":
     main()

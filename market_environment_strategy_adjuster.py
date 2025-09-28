@@ -42,38 +42,41 @@ warnings.filterwarnings("ignore")
 
 class MarketRegime(Enum):
     """市場レジーム"""
-    BULL = "bull"           # 強気市場
-    BEAR = "bear"           # 弱気市場
-    SIDEWAYS = "sideways"   # 横ばい市場
-    VOLATILE = "volatile"   # 高ボラティリティ市場
-    TRENDING = "trending"   # トレンド市場
-    CRISIS = "crisis"       # 危機的状況
-    RECOVERY = "recovery"   # 回復期
+
+    BULL = "bull"  # 強気市場
+    BEAR = "bear"  # 弱気市場
+    SIDEWAYS = "sideways"  # 横ばい市場
+    VOLATILE = "volatile"  # 高ボラティリティ市場
+    TRENDING = "trending"  # トレンド市場
+    CRISIS = "crisis"  # 危機的状況
+    RECOVERY = "recovery"  # 回復期
 
 
 class MarketPhase(Enum):
     """市場フェーズ"""
-    EARLY_BULL = "early_bull"       # 強気初期
-    MID_BULL = "mid_bull"           # 強気中期
-    LATE_BULL = "late_bull"         # 強気後期
-    EARLY_BEAR = "early_bear"       # 弱気初期
-    MID_BEAR = "mid_bear"           # 弱気中期
-    LATE_BEAR = "late_bear"         # 弱気後期
-    CONSOLIDATION = "consolidation" # 調整期
-    BREAKOUT = "breakout"           # ブレイクアウト期
+
+    EARLY_BULL = "early_bull"  # 強気初期
+    MID_BULL = "mid_bull"  # 強気中期
+    LATE_BULL = "late_bull"  # 強気後期
+    EARLY_BEAR = "early_bear"  # 弱気初期
+    MID_BEAR = "mid_bear"  # 弱気中期
+    LATE_BEAR = "late_bear"  # 弱気後期
+    CONSOLIDATION = "consolidation"  # 調整期
+    BREAKOUT = "breakout"  # ブレイクアウト期
 
 
 @dataclass
 class MarketEnvironment:
     """市場環境"""
+
     regime: MarketRegime
     phase: MarketPhase
     volatility_level: str  # low, medium, high, extreme
     trend_strength: float
     momentum: float
-    volume_profile: str    # low, normal, high, extreme
+    volume_profile: str  # low, normal, high, extreme
     sentiment_score: float
-    risk_level: str       # low, medium, high, extreme
+    risk_level: str  # low, medium, high, extreme
     market_cap_dominance: Dict[str, float]  # セクター別時価総額比率
     correlation_structure: Dict[str, float]  # 相関構造
     liquidity_conditions: str  # tight, normal, abundant
@@ -83,6 +86,7 @@ class MarketEnvironment:
 @dataclass
 class StrategyAdjustment:
     """戦略調整"""
+
     strategy_name: str
     original_parameters: Dict[str, Any]
     adjusted_parameters: Dict[str, Any]

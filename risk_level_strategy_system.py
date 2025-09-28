@@ -42,39 +42,43 @@ warnings.filterwarnings("ignore")
 
 class RiskLevel(Enum):
     """リスクレベル"""
+
     CONSERVATIVE = "conservative"  # 保守的
-    MODERATE = "moderate"          # 中程度
-    AGGRESSIVE = "aggressive"      # 積極的
+    MODERATE = "moderate"  # 中程度
+    AGGRESSIVE = "aggressive"  # 積極的
     VERY_AGGRESSIVE = "very_aggressive"  # 非常に積極的
 
 
 class RiskTolerance(Enum):
     """リスク許容度"""
-    VERY_LOW = "very_low"      # 非常に低い
-    LOW = "low"                 # 低い
-    MEDIUM = "medium"           # 中程度
-    HIGH = "high"               # 高い
-    VERY_HIGH = "very_high"     # 非常に高い
+
+    VERY_LOW = "very_low"  # 非常に低い
+    LOW = "low"  # 低い
+    MEDIUM = "medium"  # 中程度
+    HIGH = "high"  # 高い
+    VERY_HIGH = "very_high"  # 非常に高い
 
 
 @dataclass
 class RiskProfile:
     """リスクプロファイル"""
+
     risk_level: RiskLevel
     risk_tolerance: RiskTolerance
     max_drawdown: float
     volatility_tolerance: float
     investment_horizon: int  # 投資期間（月）
-    liquidity_needs: str    # 流動性ニーズ
+    liquidity_needs: str  # 流動性ニーズ
     income_requirements: float  # 収入要件
-    age_factor: float       # 年齢要因
-    experience_level: str   # 経験レベル
+    age_factor: float  # 年齢要因
+    experience_level: str  # 経験レベル
     created_at: datetime
 
 
 @dataclass
 class RiskBasedStrategy:
     """リスクベース戦略"""
+
     strategy_name: str
     risk_level: RiskLevel
     expected_return: float
@@ -93,6 +97,7 @@ class RiskBasedStrategy:
 @dataclass
 class PortfolioRecommendation:
     """ポートフォリオ推奨"""
+
     risk_profile: RiskProfile
     recommended_strategies: List[RiskBasedStrategy]
     total_allocation: Dict[str, float]
