@@ -19,7 +19,8 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# lib/ (Python用のlibディレクトリのみ無視)
+# web-app/src/lib/ は追跡する
 lib64/
 parts/
 sdist/
