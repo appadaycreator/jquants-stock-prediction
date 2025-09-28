@@ -14,9 +14,9 @@ import {
   Legend,
   ResponsiveContainer
 } from 'recharts';
-import { parseToJst, jstLabel } from '../lib/datetime';
-import { performanceOptimizer } from '../lib/performance-optimizer';
-import { logDateConversionError, logDateConversionSuccess } from '../lib/observability';
+import { parseToJst, jstLabel } from '@/lib/datetime';
+import { performanceOptimizer } from '@/lib/performance-optimizer';
+import { logDateConversionError, logDateConversionSuccess } from '@/lib/observability';
 
 interface OptimizedTimeSeriesChartProps {
   data: Array<{

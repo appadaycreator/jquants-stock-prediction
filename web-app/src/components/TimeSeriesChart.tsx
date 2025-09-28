@@ -14,9 +14,9 @@ import {
   Legend,
   ResponsiveContainer
 } from 'recharts';
-import { parseToJst, jstLabel, createChartDateArray } from '../lib/datetime';
-import { chartLogger } from '../lib/logger';
-import { logDateConversionError, logDateConversionSuccess, logSchemaValidationError, logSchemaValidationSuccess } from '../lib/observability';
+import { parseToJst, jstLabel, createChartDateArray } from '@/lib/datetime';
+import { chartLogger } from '@/lib/logger';
+import { logDateConversionError, logDateConversionSuccess, logSchemaValidationError, logSchemaValidationSuccess } from '@/lib/observability';
 
 interface TimeSeriesChartProps {
   data: Array<{

@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { AppError } from '../lib/fetcher';
+import { AppError } from '@/lib/fetcher';
 
 interface ErrorPanelProps {
   error: AppError | Error;

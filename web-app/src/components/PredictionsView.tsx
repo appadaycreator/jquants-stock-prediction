@@ -4,11 +4,11 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { fetchJson, fetchMultiple, AppError } from '../lib/fetcher';
-import { PredictionResponse, StockData, ModelComparison } from '../lib/schema';
-import { parseToJst, jstLabel } from '../lib/datetime';
-import { mae, rmse, r2, detectOverfitting, evaluateBaseline, compareModels, timeSeriesSplitEvaluation, walkForwardEvaluation } from '../lib/metrics';
-import { fetcherLogger, metricsLogger } from '../lib/logger';
+import { fetchJson, fetchMultiple, AppError } from '@/lib/fetcher';
+import { PredictionResponse, StockData, ModelComparison } from '@/lib/schema';
+import { parseToJst, jstLabel } from '@/lib/datetime';
+import { mae, rmse, r2, detectOverfitting, evaluateBaseline, compareModels, timeSeriesSplitEvaluation, walkForwardEvaluation } from '@/lib/metrics';
+import { fetcherLogger, metricsLogger } from '@/lib/logger';
 import ErrorPanel from './ErrorPanel';
 import { PredictionsViewSkeleton } from './Skeletons/LoadingSkeleton';
 

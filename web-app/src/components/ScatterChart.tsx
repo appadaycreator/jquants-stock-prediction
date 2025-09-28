@@ -13,7 +13,7 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts';
-import { chartLogger } from '../lib/logger';
+import { chartLogger } from '@/lib/logger';
 
 interface ScatterChartProps {
   data: Array<{
