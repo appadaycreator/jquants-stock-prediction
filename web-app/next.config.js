@@ -89,6 +89,9 @@ const nextConfig = {
       '@/lib/datetime': path.resolve(srcPath, 'lib/datetime'),
       '@/lib/jquants-adapter': path.resolve(srcPath, 'lib/jquants-adapter'),
       '@/lib/today/fetchTodaySummary': path.resolve(srcPath, 'lib/today/fetchTodaySummary'),
+      '@/types': path.resolve(srcPath, 'types'),
+      '@/contexts': path.resolve(srcPath, 'contexts'),
+      '@/hooks': path.resolve(srcPath, 'hooks'),
     };
     
     // モジュール解決の設定を追加
@@ -100,6 +103,10 @@ const nextConfig = {
     // モジュール解決の確実性を向上
     config.resolve.symlinks = false;
     config.resolve.cacheWithContext = false;
+    
+    // パス解決の確実性を向上
+    config.resolve.mainFields = ['browser', 'module', 'main'];
+    config.resolve.conditionNames = ['import', 'require', 'node'];
     
     // 拡張子の解決順序を設定
     config.resolve.extensions = ['.tsx', '.ts', '.jsx', '.js', '.json'];
