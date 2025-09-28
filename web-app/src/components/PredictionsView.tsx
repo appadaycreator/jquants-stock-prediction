@@ -210,10 +210,10 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
       setKpiData(kpi);
 
       metricsLogger.info('KPI計算完了', {
-        mae: maeValue,
-        rmse: rmseValue,
-        r2: r2Value,
-        isBetterThanBaseline: baselineComparison.isBetter
+        mae: kpi.mae,
+        rmse: kpi.rmse,
+        r2: kpi.r2,
+        isBetterThanBaseline: kpi.baselineComparison?.isBetter || false
       });
 
       setRetryCount(0);

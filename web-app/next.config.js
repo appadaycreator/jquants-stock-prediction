@@ -2,7 +2,7 @@
 const nextConfig = {
   // 基本設定 - GitHub Pages用に静的エクスポートを有効化
   output: process.env.NODE_ENV === "production" ? "export" : undefined,
-  distDir: "dist",
+  distDir: process.env.NODE_ENV === "production" ? "out" : ".next",
   
   // 画像最適化設定
   images: {
@@ -14,9 +14,9 @@ const nextConfig = {
   
   // GitHub Pages用の設定
   ...(process.env.NODE_ENV === "production" && {
-    // 相対パスを使用してサブパスでも動作するように修正
-    assetPrefix: "",
-    basePath: "",
+    // GitHub Pagesのサブパスに対応
+    assetPrefix: "/jquants-stock-prediction",
+    basePath: "/jquants-stock-prediction",
     generateBuildId: async () => "build",
     // 静的エクスポート用の設定
     trailingSlash: true,
@@ -108,6 +108,11 @@ const nextConfig = {
     
     // モジュール解決の確実性を向上
     config.resolve.fullySpecified = false;
+    
+    // パス解決のデバッグ情報を追加
+    if (dev) {
+      config.resolve.logging = 'verbose';
+    }
     
     // バンドルサイズの最適化
     if (!dev && !isServer) {

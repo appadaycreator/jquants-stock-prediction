@@ -52,11 +52,11 @@ jobs:
       run: |
         cd web-app
         npm run clean
-        NODE_ENV=production npm run export
+        NODE_ENV=production npm run build
         
     - name: Copy built files to docs directory
       run: |
-        cp -r web-app/dist/* docs/
+        cp -r web-app/out/* docs/
         echo "Files copied to docs directory"
         
     - name: Deploy to GitHub Pages

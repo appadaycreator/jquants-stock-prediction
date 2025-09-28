@@ -13,13 +13,18 @@ import OneClickAnalysis from "../components/OneClickAnalysis";
 import StockMonitoringManager from "../components/StockMonitoringManager";
 import RealtimeSignalDisplay from "../components/RealtimeSignalDisplay";
 import NotificationSettings from "../components/NotificationSettings";
+import MobileFirstDashboard from "../components/MobileFirstDashboard";
+import WatchlistManager from "../components/WatchlistManager";
+import JudgmentPanel from "../components/JudgmentPanel";
+import PeriodSelector from "../components/PeriodSelector";
+import ParallelUpdateManager from "../components/ParallelUpdateManager";
 import { SettingsProvider } from "../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
 } from "recharts";
-import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle } from "lucide-react";
+import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock } from "lucide-react";
 import EnhancedErrorHandler from "../components/EnhancedErrorHandler";
 import ChartErrorBoundary from "../components/ChartErrorBoundary";
 import { ButtonTooltip, HelpTooltip } from "../components/Tooltip";
@@ -29,8 +34,8 @@ import { MetricTooltip, SimpleTooltip } from "../components/guide/Tooltip";
 import Checklist, { ChecklistBadge, DEFAULT_CHECKLIST_ITEMS } from "../components/guide/Checklist";
 import GlossaryModal from "../components/guide/GlossaryModal";
 import HelpModal from "../components/guide/HelpModal";
-import { useGuideShortcuts } from "@/lib/guide/shortcut";
-import { guideStore } from "@/lib/guide/guideStore";
+import { useGuideShortcuts } from "../lib/guide/shortcut";
+import { guideStore } from "../lib/guide/guideStore";
 import { parseToJst } from "../lib/datetime";
 
 // 型定義
@@ -108,11 +113,14 @@ function DashboardContent() {
   const [isMobile, setIsMobile] = useState(false);
   const [showNotificationSettings, setShowNotificationSettings] = useState(false);
   const [showMobileOptimized, setShowMobileOptimized] = useState(false);
+  const [showMobileFirst, setShowMobileFirst] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [showUserGuide, setShowUserGuide] = useState(false);
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
+  const [selectedPeriod, setSelectedPeriod] = useState('1m');
+  const [watchlists, setWatchlists] = useState<any[]>([]);
 
   // ガイド機能の状態
   const [showGlossary, setShowGlossary] = useState(false);
@@ -198,6 +206,7 @@ function DashboardContent() {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
       setShowMobileOptimized(mobile);
+      setShowMobileFirst(mobile); // P1のモバイルファースト機能を有効化
     };
     
     checkMobile();
@@ -238,14 +247,16 @@ function DashboardContent() {
         throw new Error("All retry attempts failed");
       };
       
+      // 本番環境でのパス修正
+      const basePath = process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '';
       const [summaryRes, stockRes, modelRes, featureRes, predRes, marketInsightsRes, riskAssessmentRes] = await Promise.all([
-        fetchWithRetry("./data/dashboard_summary.json"),
-        fetchWithRetry("./data/stock_data.json"),
-        fetchWithRetry("./data/unified_model_comparison.json"),
-        fetchWithRetry("./data/feature_analysis.json"),
-        fetchWithRetry("./data/prediction_results.json"),
-        fetchWithRetry("./data/market_insights.json"),
-        fetchWithRetry("./data/risk_assessment.json"),
+        fetchWithRetry(`${basePath}/data/dashboard_summary.json`),
+        fetchWithRetry(`${basePath}/data/stock_data.json`),
+        fetchWithRetry(`${basePath}/data/unified_model_comparison.json`),
+        fetchWithRetry(`${basePath}/data/feature_analysis.json`),
+        fetchWithRetry(`${basePath}/data/prediction_results.json`),
+        fetchWithRetry(`${basePath}/data/market_insights.json`),
+        fetchWithRetry(`${basePath}/data/risk_assessment.json`),
       ]);
 
       const summaryData = await summaryRes.json();
@@ -656,6 +667,7 @@ function DashboardContent() {
           <div className="flex space-x-8">
             {[
               { id: "overview", label: "概要", icon: BarChart3 },
+              { id: "p1", label: "5分ルーティン", icon: Clock },
               { id: "predictions", label: "予測結果", icon: TrendingUp },
               { id: "models", label: "モデル比較", icon: Target },
               { id: "analysis", label: "分析", icon: Database },
@@ -684,7 +696,9 @@ function DashboardContent() {
       </nav>
 
       {/* モバイル最適化ダッシュボード */}
-      {showMobileOptimized ? (
+      {showMobileFirst ? (
+        <MobileFirstDashboard />
+      ) : showMobileOptimized ? (
         <MobileOptimizedDashboard 
           onAnalysisComplete={(result) => {
             console.log('分析完了:', result);
@@ -711,6 +725,82 @@ function DashboardContent() {
 
       {/* デスクトップメインコンテンツ */}
       <main className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-guide-target="dashboard-overview">
+        {activeTab === "p1" && (
+          <div className="space-y-6">
+            {/* P1: 5分ルーティン機能 */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">5分ルーティン</h2>
+                  <p className="text-gray-600">体験の骨格：5分で完結する投資判断システム</p>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Clock className="h-6 w-6 text-blue-600" />
+                  <span className="text-sm font-medium text-blue-600">5分以内</span>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-white rounded-lg p-4 border border-blue-200">
+                  <h3 className="font-semibold text-gray-900 mb-2">ウォッチリスト</h3>
+                  <p className="text-sm text-gray-600">銘柄の管理・検索・追加</p>
+                </div>
+                <div className="bg-white rounded-lg p-4 border border-blue-200">
+                  <h3 className="font-semibold text-gray-900 mb-2">期間選択</h3>
+                  <p className="text-sm text-gray-600">1日〜1年の期間設定</p>
+                </div>
+                <div className="bg-white rounded-lg p-4 border border-blue-200">
+                  <h3 className="font-semibold text-gray-900 mb-2">一括更新</h3>
+                  <p className="text-sm text-gray-600">並列取得・進捗表示</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 期間選択 */}
+            <div className="bg-white rounded-lg shadow border p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">期間選択</h3>
+              <PeriodSelector
+                selectedPeriod={selectedPeriod}
+                onPeriodChange={setSelectedPeriod}
+                onCustomDateChange={(start, end) => {
+                  console.log('カスタム期間:', start, end);
+                }}
+              />
+            </div>
+
+            {/* 判断パネル */}
+            <JudgmentPanel
+              onStockSelect={(symbol) => {
+                console.log('銘柄選択:', symbol);
+              }}
+              onActionClick={(action, symbol) => {
+                console.log('アクション実行:', action, symbol);
+              }}
+            />
+
+            {/* ウォッチリスト管理 */}
+            <WatchlistManager
+              onStockSelect={(symbol) => {
+                console.log('銘柄選択:', symbol);
+              }}
+              onWatchlistChange={setWatchlists}
+            />
+
+            {/* 一括更新 */}
+            <ParallelUpdateManager
+              symbols={selectedSymbols.length > 0 ? selectedSymbols : ['7203.T', '6758.T', '6861.T']}
+              onUpdateComplete={(results) => {
+                console.log('更新完了:', results);
+              }}
+              onProgressChange={(progress) => {
+                console.log('進捗:', progress);
+              }}
+              maxConcurrent={4}
+              timeout={30000}
+            />
+          </div>
+        )}
+
         {activeTab === "overview" && (
           <div className="space-y-6">
             {/* ワンクリック分析実行 */}

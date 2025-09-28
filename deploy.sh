@@ -1,44 +1,39 @@
 #!/bin/bash
 
-# J-Quants株価予測システム GitHub Pages デプロイスクリプト
+# J-Quants株価予測システム デプロイメントスクリプト
+# GitHub Pages用の静的サイト生成
 
-echo "🚀 GitHub Pages デプロイを開始します..."
+set -e
 
-# 1. Pythonデータ生成
-echo "📊 Web表示用データを生成中..."
-python3 generate_web_data.py
+echo "🚀 J-Quants株価予測システム デプロイメント開始"
 
-# 2. Web-appディレクトリに移動
+# 1. Python環境のセットアップとデータ生成
+echo "📊 データ生成中..."
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+python generate_web_data.py
+
+# 2. Webアプリケーションのビルド
+echo "🏗️ Webアプリケーションをビルド中..."
 cd web-app
 
-# 3. 依存関係インストール（初回のみ必要）
-if [ ! -d "node_modules" ]; then
-    echo "📦 依存関係をインストール中..."
-    npm install
-fi
+# 依存関係のインストール
+npm ci --legacy-peer-deps
+npm install react-is --save
 
-# 4. Next.jsビルド
-echo "🔨 Webアプリケーションをビルド中..."
-npm run build
+# クリーンアップ
+npm run clean
 
-# 5. .nojekyllファイルを追加（GitHub Pagesで_から始まるファイルを有効化）
-touch dist/.nojekyll
+# 本番ビルド
+NODE_ENV=production npm run build
 
-# 6. GitHub PagesのためのCNAMEファイル（カスタムドメインがある場合）
-# echo "your-domain.com" > dist/CNAME
+# 3. ビルド成果物をdocsディレクトリにコピー
+echo "📁 ビルド成果物をコピー中..."
+cd ..
+cp -r web-app/out/* docs/
 
-echo "✅ ビルド完了！"
-echo ""
-echo "📁 デプロイ用ファイルは web-app/dist/ にあります"
-echo "🌐 GitHub リポジトリにプッシュしてGitHub Pagesを有効化してください"
-echo ""
-echo "GitHub Pages設定手順："
-echo "1. GitHubリポジトリ → Settings → Pages"
-echo "2. Source: Deploy from a branch"
-echo "3. Branch: main"
-echo "4. Folder: / (root)"
-echo "5. Save"
-echo ""
-echo "または GitHub Actions を使用する場合："
-echo "1. GitHubリポジトリ → Settings → Pages" 
-echo "2. Source: GitHub Actions"
+echo "✅ デプロイメント完了"
+echo "📝 変更をコミットしてプッシュしてください:"
+echo "   git add ."
+echo "   git commit -m 'Update deployment'"
+echo "   git push origin main"
