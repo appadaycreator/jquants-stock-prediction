@@ -421,35 +421,31 @@ class RiskBasedStrategyGenerator:
             expected_volatility=0.05,
             max_drawdown=0.03,
             sharpe_ratio=0.8,
-            asset_allocation={
-                "government_bonds": 0.60,
-                "corporate_bonds": 0.25,
-                "cash": 0.15
-            },
+            asset_allocation={"government_bonds": 0.60, "corporate_bonds": 0.25, "cash": 0.15},
             rebalancing_frequency="quarterly",
             risk_management_rules=[
                 "最大ドローダウン3%でリスク管理",
                 "債券の信用格付けを監視",
-                "金利変動リスクをヘッジ"
+                "金利変動リスクをヘッジ",
             ],
             position_sizing_rules=[
                 "単一債券への投資は5%以下",
                 "セクター分散を実施",
-                "満期分散を実施"
+                "満期分散を実施",
             ],
             stop_loss_rules=[
                 "個別債券で-2%で損切り",
-                "ポートフォリオ全体で-3%で損切り"
+                "ポートフォリオ全体で-3%で損切り",
             ],
             diversification_rules=[
                 "最低10銘柄以上に分散",
                 "複数セクターに分散",
-                "満期の分散化"
+                "満期の分散化",
             ],
-            created_at=datetime.now()
+            created_at=datetime.now(),
         )
         strategies.append(bond_strategy)
-        
+
         # 配当重視戦略
         dividend_strategy = RiskBasedStrategy(
             strategy_name="Conservative Dividend Strategy",
@@ -458,41 +454,37 @@ class RiskBasedStrategyGenerator:
             expected_volatility=0.08,
             max_drawdown=0.05,
             sharpe_ratio=0.6,
-            asset_allocation={
-                "dividend_stocks": 0.70,
-                "government_bonds": 0.20,
-                "cash": 0.10
-            },
+            asset_allocation={"dividend_stocks": 0.70, "government_bonds": 0.20, "cash": 0.10},
             rebalancing_frequency="semi-annually",
             risk_management_rules=[
                 "配当利回り3%以上を維持",
                 "配当カバレッジ比率を監視",
-                "業績悪化銘柄を除外"
+                "業績悪化銘柄を除外",
             ],
             position_sizing_rules=[
                 "単一銘柄への投資は3%以下",
                 "セクター分散を実施",
-                "時価総額分散を実施"
+                "時価総額分散を実施",
             ],
             stop_loss_rules=[
                 "個別銘柄で-5%で損切り",
-                "配当カット銘柄は即座に売却"
+                "配当カット銘柄は即座に売却",
             ],
             diversification_rules=[
                 "最低20銘柄以上に分散",
                 "複数セクターに分散",
-                "時価総額分散を実施"
+                "時価総額分散を実施",
             ],
-            created_at=datetime.now()
+            created_at=datetime.now(),
         )
         strategies.append(dividend_strategy)
-        
+
         return strategies
-    
+
     def _generate_moderate_strategies(self, risk_profile: RiskProfile) -> List[RiskBasedStrategy]:
         """中程度戦略の生成"""
         strategies = []
-        
+
         # バランス戦略
         balanced_strategy = RiskBasedStrategy(
             strategy_name="Balanced Strategy",
@@ -501,41 +493,37 @@ class RiskBasedStrategyGenerator:
             expected_volatility=0.12,
             max_drawdown=0.08,
             sharpe_ratio=0.6,
-            asset_allocation={
-                "stocks": 0.60,
-                "bonds": 0.30,
-                "cash": 0.10
-            },
+            asset_allocation={"stocks": 0.60, "bonds": 0.30, "cash": 0.10},
             rebalancing_frequency="quarterly",
             risk_management_rules=[
                 "最大ドローダウン8%でリスク管理",
                 "バランス比率の維持",
-                "市場環境に応じた調整"
+                "市場環境に応じた調整",
             ],
             position_sizing_rules=[
                 "単一銘柄への投資は5%以下",
                 "セクター分散を実施",
-                "時価総額分散を実施"
+                "時価総額分散を実施",
             ],
             stop_loss_rules=[
                 "個別銘柄で-8%で損切り",
-                "ポートフォリオ全体で-8%で損切り"
+                "ポートフォリオ全体で-8%で損切り",
             ],
             diversification_rules=[
                 "最低15銘柄以上に分散",
                 "複数セクターに分散",
-                "資産クラス分散を実施"
+                "資産クラス分散を実施",
             ],
-            created_at=datetime.now()
+            created_at=datetime.now(),
         )
         strategies.append(balanced_strategy)
-        
+
         return strategies
-    
+
     def _generate_aggressive_strategies(self, risk_profile: RiskProfile) -> List[RiskBasedStrategy]:
         """積極的戦略の生成"""
         strategies = []
-        
+
         # 成長株戦略
         growth_strategy = RiskBasedStrategy(
             strategy_name="Growth Stock Strategy",
@@ -544,41 +532,37 @@ class RiskBasedStrategyGenerator:
             expected_volatility=0.20,
             max_drawdown=0.15,
             sharpe_ratio=0.5,
-            asset_allocation={
-                "growth_stocks": 0.80,
-                "bonds": 0.15,
-                "cash": 0.05
-            },
+            asset_allocation={"growth_stocks": 0.80, "bonds": 0.15, "cash": 0.05},
             rebalancing_frequency="monthly",
             risk_management_rules=[
                 "最大ドローダウン15%でリスク管理",
                 "成長性指標を監視",
-                "市場環境に応じた調整"
+                "市場環境に応じた調整",
             ],
             position_sizing_rules=[
                 "単一銘柄への投資は8%以下",
                 "セクター分散を実施",
-                "時価総額分散を実施"
+                "時価総額分散を実施",
             ],
             stop_loss_rules=[
                 "個別銘柄で-12%で損切り",
-                "ポートフォリオ全体で-15%で損切り"
+                "ポートフォリオ全体で-15%で損切り",
             ],
             diversification_rules=[
                 "最低12銘柄以上に分散",
                 "複数セクターに分散",
-                "成長段階分散を実施"
+                "成長段階分散を実施",
             ],
-            created_at=datetime.now()
+            created_at=datetime.now(),
         )
         strategies.append(growth_strategy)
-        
+
         return strategies
-    
+
     def _generate_very_aggressive_strategies(self, risk_profile: RiskProfile) -> List[RiskBasedStrategy]:
         """非常に積極的戦略の生成"""
         strategies = []
-        
+
         # ハイリスク・ハイリターン戦略
         high_risk_strategy = RiskBasedStrategy(
             strategy_name="High Risk High Return Strategy",
@@ -587,35 +571,31 @@ class RiskBasedStrategyGenerator:
             expected_volatility=0.30,
             max_drawdown=0.25,
             sharpe_ratio=0.5,
-            asset_allocation={
-                "high_risk_stocks": 0.70,
-                "emerging_markets": 0.20,
-                "cash": 0.10
-            },
+            asset_allocation={"high_risk_stocks": 0.70, "emerging_markets": 0.20, "cash": 0.10},
             rebalancing_frequency="weekly",
             risk_management_rules=[
                 "最大ドローダウン25%でリスク管理",
                 "高ボラティリティ銘柄を活用",
-                "市場環境に応じた積極的調整"
+                "市場環境に応じた積極的調整",
             ],
             position_sizing_rules=[
                 "単一銘柄への投資は10%以下",
                 "セクター分散を実施",
-                "リスク分散を実施"
+                "リスク分散を実施",
             ],
             stop_loss_rules=[
                 "個別銘柄で-15%で損切り",
-                "ポートフォリオ全体で-25%で損切り"
+                "ポートフォリオ全体で-25%で損切り",
             ],
             diversification_rules=[
                 "最低8銘柄以上に分散",
                 "複数セクターに分散",
-                "リスク分散を実施"
+                "リスク分散を実施",
             ],
-            created_at=datetime.now()
+            created_at=datetime.now(),
         )
         strategies.append(high_risk_strategy)
-        
+
         return strategies
 
 
@@ -627,13 +607,13 @@ class RiskLevelStrategySystem:
         self.risk_analyzer = RiskProfileAnalyzer(self.unified_system)
         self.strategy_generator = RiskBasedStrategyGenerator(self.unified_system)
         self.logger = logging.getLogger(f"{self.__class__.__name__}")
-        
+
         # 履歴データ
         self.risk_profiles = []
         self.strategy_recommendations = []
-        
+
         self.logger.info("🎯 リスクレベル戦略システム初期化完了")
-    
+
     def create_portfolio_recommendation(
         self,
         age: int,
@@ -670,28 +650,28 @@ class RiskLevelStrategySystem:
                 context="ポートフォリオ推奨作成エラー"
             )
             return self._get_default_recommendation()
-    
+
     def _create_portfolio_recommendation(
-        self, 
-        risk_profile: RiskProfile, 
-        strategies: List[RiskBasedStrategy]
+        self,
+        risk_profile: RiskProfile,
+        strategies: List[RiskBasedStrategy],
     ) -> PortfolioRecommendation:
         """ポートフォリオ推奨の作成"""
         # 総合資産配分の計算
         total_allocation = self._calculate_total_allocation(strategies)
-        
+
         # 期待パフォーマンスの計算
         expected_performance = self._calculate_expected_performance(strategies)
-        
+
         # リスク指標の計算
         risk_metrics = self._calculate_risk_metrics(strategies, risk_profile)
-        
+
         # リバランススケジュールの設定
         rebalancing_schedule = self._create_rebalancing_schedule(risk_profile)
-        
+
         # モニタリングルールの設定
         monitoring_rules = self._create_monitoring_rules(risk_profile)
-        
+
         return PortfolioRecommendation(
             risk_profile=risk_profile,
             recommended_strategies=strategies,
@@ -700,13 +680,13 @@ class RiskLevelStrategySystem:
             risk_metrics=risk_metrics,
             rebalancing_schedule=rebalancing_schedule,
             monitoring_rules=monitoring_rules,
-            created_at=datetime.now()
+            created_at=datetime.now(),
         )
-    
+
     def _calculate_total_allocation(self, strategies: List[RiskBasedStrategy]) -> Dict[str, float]:
         """総合資産配分の計算"""
         total_allocation = {}
-        
+
         for strategy in strategies:
             for asset_class, allocation in strategy.asset_allocation.items():
                 if asset_class in total_allocation:
@@ -719,33 +699,33 @@ class RiskLevelStrategySystem:
         if total > 0:
             for asset_class in total_allocation:
                 total_allocation[asset_class] /= total
-        
+
         return total_allocation
-    
+
     def _calculate_expected_performance(self, strategies: List[RiskBasedStrategy]) -> Dict[str, float]:
         """期待パフォーマンスの計算"""
         if not strategies:
             return {}
-        
+
         # 重み付き平均の計算
         total_weight = len(strategies)
-        
+
         expected_return = sum(s.expected_return for s in strategies) / total_weight
         expected_volatility = sum(s.expected_volatility for s in strategies) / total_weight
         max_drawdown = max(s.max_drawdown for s in strategies)
         sharpe_ratio = sum(s.sharpe_ratio for s in strategies) / total_weight
-        
+
         return {
             "expected_return": expected_return,
             "expected_volatility": expected_volatility,
             "max_drawdown": max_drawdown,
-            "sharpe_ratio": sharpe_ratio
+            "sharpe_ratio": sharpe_ratio,
         }
-    
+
     def _calculate_risk_metrics(
-        self, 
-        strategies: List[RiskBasedStrategy], 
-        risk_profile: RiskProfile
+        self,
+        strategies: List[RiskBasedStrategy],
+        risk_profile: RiskProfile,
     ) -> Dict[str, float]:
         """リスク指標の計算"""
         return {
@@ -753,9 +733,9 @@ class RiskLevelStrategySystem:
             "volatility_limit": risk_profile.volatility_tolerance,
             "var_95": risk_profile.max_drawdown * 0.8,
             "expected_shortfall": risk_profile.max_drawdown * 0.6,
-            "risk_score": self._calculate_risk_score(risk_profile)
+            "risk_score": self._calculate_risk_score(risk_profile),
         }
-    
+
     def _calculate_risk_score(self, risk_profile: RiskProfile) -> float:
         """リスクスコアの計算"""
         # リスクレベルによる基本スコア
@@ -763,19 +743,19 @@ class RiskLevelStrategySystem:
             RiskLevel.CONSERVATIVE: 0.2,
             RiskLevel.MODERATE: 0.5,
             RiskLevel.AGGRESSIVE: 0.8,
-            RiskLevel.VERY_AGGRESSIVE: 1.0
+            RiskLevel.VERY_AGGRESSIVE: 1.0,
         }
-        
+
         base_score = risk_scores[risk_profile.risk_level]
-        
+
         # 年齢要因による調整
         age_adjustment = risk_profile.age_factor * 0.3
-        
+
         # 投資期間による調整
         horizon_adjustment = min(1.0, risk_profile.investment_horizon / 120) * 0.2
         
         return min(1.0, base_score + age_adjustment + horizon_adjustment)
-    
+
     def _create_rebalancing_schedule(self, risk_profile: RiskProfile) -> Dict[str, Any]:
         """リバランススケジュールの作成"""
         if risk_profile.risk_level == RiskLevel.CONSERVATIVE:
@@ -791,34 +771,34 @@ class RiskLevelStrategySystem:
             "frequency": frequency,
             "threshold": 0.05,  # 5%の乖離でリバランス
             "max_deviation": 0.10,  # 最大10%の乖離まで許容
-            "rebalancing_method": "threshold_based"
+            "rebalancing_method": "threshold_based",
         }
-    
+
     def _create_monitoring_rules(self, risk_profile: RiskProfile) -> List[str]:
         """モニタリングルールの作成"""
         rules = []
-        
+
         # 基本モニタリングルール
         rules.append("日次パフォーマンス監視")
         rules.append("週次リスク指標監視")
         rules.append("月次リバランスチェック")
-        
+
         # リスクレベル別ルール
         if risk_profile.risk_level in [RiskLevel.AGGRESSIVE, RiskLevel.VERY_AGGRESSIVE]:
             rules.append("日次ボラティリティ監視")
             rules.append("リアルタイムリスク監視")
-        
+
         if risk_profile.risk_level == RiskLevel.CONSERVATIVE:
             rules.append("月次収益性監視")
             rules.append("四半期リスク評価")
-        
+
         return rules
-    
+
     def _get_default_recommendation(self) -> PortfolioRecommendation:
         """デフォルト推奨の取得"""
         default_profile = self.risk_analyzer._get_default_risk_profile()
         default_strategies = self.strategy_generator._generate_moderate_strategies(default_profile)
-        
+
         return PortfolioRecommendation(
             risk_profile=default_profile,
             recommended_strategies=default_strategies,
@@ -827,18 +807,18 @@ class RiskLevelStrategySystem:
             risk_metrics={"max_drawdown_limit": 0.10},
             rebalancing_schedule={"frequency": "quarterly"},
             monitoring_rules=["月次監視"],
-            created_at=datetime.now()
+            created_at=datetime.now(),
         )
-    
+
     def get_system_summary(self) -> Dict[str, Any]:
         """システムサマリーの取得"""
         return {
             "total_risk_profiles": len(self.risk_profiles),
             "total_recommendations": len(self.strategy_recommendations),
             "system_status": "active",
-            "last_analysis": datetime.now().isoformat()
+            "last_analysis": datetime.now().isoformat(),
         }
-    
+
     def export_recommendations(self, file_path: str) -> bool:
         """推奨データのエクスポート"""
         try:

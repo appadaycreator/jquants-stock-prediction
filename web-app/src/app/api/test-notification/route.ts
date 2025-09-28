@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       stderr += data.toString();
     });
 
-    return new Promise((resolve) => {
+    return new Promise<Response>((resolve) => {
       pythonProcess.on('close', (code) => {
         if (code === 0) {
           resolve(NextResponse.json({ 
