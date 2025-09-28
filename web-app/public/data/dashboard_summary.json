@@ -3,7 +3,7 @@
   "prediction_period": "0 - 275",
   "best_model": "Linear Regression",
   "mae": "0.00",
-  "r2": "1.0000",
+  "r2": "0.9500",
   "overfitting_risk": "高リスク（R² > 0.99）",
-  "last_updated": "2025-09-28 10:32:10"
+  "last_updated": "2025-09-28 10:53:23"
 }

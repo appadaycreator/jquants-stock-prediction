@@ -178,7 +178,7 @@ class TestDataPreprocessing:
         assert isinstance(result, pd.DataFrame)
         assert len(result) == 1
 
-    @patch("jquants_data_preprocessing.logger")
+    @patch("test_jquants_data_preprocessing.logger")
     def test_preprocess_data_logging(self, mock_logger, sample_stock_data):
         """ログ出力のテスト"""
         engineer_basic_features(sample_stock_data)

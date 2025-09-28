@@ -372,7 +372,7 @@ export default function Dashboard() {
   };
 
   const chartData = stockData.map(item => ({
-    date: formatDate(item.date),
+    date: normalizeDateString(item.date), // 正規化された日時を使用
     実際価格: item.close,
     SMA_5: item.sma_5,
     SMA_10: item.sma_10,

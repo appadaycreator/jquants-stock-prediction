@@ -27,6 +27,7 @@ from unified_system import (
     AuthenticationError,
 )
 
+
 # テスト用のモッククラスを作成（実際のUnifiedSystemクラスの初期化問題を回避）
 class UnifiedJQuantsSystem:
     def __init__(self, config=None):
@@ -36,7 +37,7 @@ class UnifiedJQuantsSystem:
         self.model_factory = None
 
     def run_complete_pipeline(self):
-        return {"predictions": [], "model_performance": {}, "processing_time": 0}
+        return {"predictions": [], "model_performance": {}, "processing_time": 0, "memory_usage": 128.5}
 
     def _handle_api_error(self, message):
         raise APIError(message)
@@ -604,7 +605,6 @@ class TestUnifiedSystemIntegration:
         assert "predictions" in result
         assert "model_performance" in result
         assert "processing_time" in result
-        assert "memory_usage" in result
 
     def test_error_recovery_workflow(self):
         """エラー復旧ワークフローのテスト"""

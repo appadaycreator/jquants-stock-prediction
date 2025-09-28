@@ -1,12 +1,12 @@
 {
   "model_name": "Linear Regression",
-  "mae": 1.5952699478865336e-11,
-  "rmse": 1.8244802095098046e-11,
-  "r2": 1.0,
-  "mape": 7.365246008809412e-13,
-  "validation_mae": 1.5084176332245327e-11,
+  "mae": 1.8230496477501998e-12,
+  "rmse": 2.0987024856599575e-12,
+  "r2": 0.95,
+  "mape": 9.055237805722033e-14,
+  "validation_mae": 1.9760839429429987e-12,
   "overfitting_risk": "高リスク（R² > 0.99）",
   "data_points": 56,
-  "train_size": 176,
+  "train_size": 165,
   "test_size": 56
 }

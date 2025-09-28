@@ -225,8 +225,12 @@ class ModelEvaluator:
                     e,
                     f"{type(model).__name__}評価エラー",
                     additional_info={
-                        "X_test_shape": X_test.shape if hasattr(X_test, "shape") else None,
-                        "y_test_shape": y_test.shape if hasattr(y_test, "shape") else None,
+                        "X_test_shape": (
+                            X_test.shape if hasattr(X_test, "shape") else None
+                        ),
+                        "y_test_shape": (
+                            y_test.shape if hasattr(y_test, "shape") else None
+                        ),
                         "y_pred_provided": y_pred is not None,
                     },
                 )
@@ -269,7 +273,9 @@ class ModelEvaluator:
                     e,
                     f"{type(model).__name__}特徴量重要度取得エラー",
                     additional_info={
-                        "feature_names_count": len(feature_names) if feature_names else 0,
+                        "feature_names_count": (
+                            len(feature_names) if feature_names else 0
+                        ),
                         "model_has_feature_importances": hasattr(
                             model, "feature_importances_"
                         ),
@@ -455,8 +461,12 @@ if __name__ == "__main__":
                         "y_train_shape": (
                             y_train.shape if hasattr(y_train, "shape") else None
                         ),
-                        "X_test_shape": X_test.shape if hasattr(X_test, "shape") else None,
-                        "y_test_shape": y_test.shape if hasattr(y_test, "shape") else None,
+                        "X_test_shape": (
+                            X_test.shape if hasattr(X_test, "shape") else None
+                        ),
+                        "y_test_shape": (
+                            y_test.shape if hasattr(y_test, "shape") else None
+                        ),
                     },
                 )
             except Exception:
