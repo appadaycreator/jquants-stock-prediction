@@ -153,11 +153,11 @@ export default function Dashboard() {
       };
       
       const [summaryRes, stockRes, modelRes, featureRes, predRes] = await Promise.all([
-        fetchWithRetry("/data/dashboard_summary.json"),
-        fetchWithRetry("/data/stock_data.json"),
-        fetchWithRetry("/data/model_comparison.json"),
-        fetchWithRetry("/data/feature_analysis.json"),
-        fetchWithRetry("/data/prediction_results.json"),
+        fetchWithRetry("./data/dashboard_summary.json"),
+        fetchWithRetry("./data/stock_data.json"),
+        fetchWithRetry("./data/model_comparison.json"),
+        fetchWithRetry("./data/feature_analysis.json"),
+        fetchWithRetry("./data/prediction_results.json"),
       ]);
 
       const summaryData = await summaryRes.json();
@@ -181,7 +181,22 @@ export default function Dashboard() {
       
     } catch (error) {
       console.error("データの読み込みに失敗:", error);
-      setError(error instanceof Error ? error : new Error('データの読み込みに失敗しました'));
+      
+      // より詳細なエラーメッセージを提供
+      let errorMessage = 'データの読み込みに失敗しました';
+      if (error instanceof Error) {
+        if (error.message.includes("Failed to fetch")) {
+          errorMessage = 'ネットワーク接続に問題があります。インターネット接続を確認してください。';
+        } else if (error.message.includes("404")) {
+          errorMessage = 'データファイルが見つかりません。管理者にお問い合わせください。';
+        } else if (error.message.includes("RSC payload")) {
+          errorMessage = 'サーバーとの通信に問題があります。しばらく待ってから再試行してください。';
+        } else {
+          errorMessage = `エラー: ${error.message}`;
+        }
+      }
+      
+      setError(new Error(errorMessage));
       
       // RSC payloadエラーの場合、自動的にリトライ
       if (error instanceof Error && (
