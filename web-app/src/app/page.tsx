@@ -21,7 +21,7 @@ import PeriodSelector from "../components/PeriodSelector";
 import ParallelUpdateManager from "../components/ParallelUpdateManager";
 import { SettingsProvider } from "../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
-// Rechartsを削除し、シンプルなHTML/CSSチャートに置き換え
+// Rechartsを完全に削除し、シンプルなHTML/CSSチャートに置き換え
 import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock } from "lucide-react";
 import EnhancedErrorHandler from "../components/EnhancedErrorHandler";
 import ChartErrorBoundary from "../components/ChartErrorBoundary";
@@ -1006,11 +1006,22 @@ function DashboardContent() {
             {/* 株価チャート */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">株価推移と移動平均</h3>
-              <div className="h-96 flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <BarChart3 className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-                  <p className="text-lg font-medium text-gray-500">チャート機能は準備中です</p>
-                  <p className="text-sm text-gray-400">データの可視化機能を開発中です</p>
+              <div className="h-96 bg-gray-50 rounded-lg p-4">
+                <div className="h-full flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="grid grid-cols-5 gap-4 mb-4">
+                      {chartData.slice(0, 5).map((item, index) => (
+                        <div key={index} className="bg-white rounded p-2 shadow-sm">
+                          <div className="text-xs text-gray-500 mb-1">{item.date}</div>
+                          <div className="text-sm font-semibold text-blue-600">¥{item.実際価格?.toFixed(0) || 'N/A'}</div>
+                          <div className="text-xs text-gray-400">SMA5: {item.SMA_5?.toFixed(0) || 'N/A'}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      最新データ: {chartData.length > 0 ? chartData[chartData.length - 1].date : 'N/A'}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1022,11 +1033,28 @@ function DashboardContent() {
             {/* 予測結果チャート */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">予測 vs 実際値</h3>
-              <div className="h-96 flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <TrendingUp className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-                  <p className="text-lg font-medium text-gray-500">予測チャートは準備中です</p>
-                  <p className="text-sm text-gray-400">予測結果の可視化機能を開発中です</p>
+              <div className="h-96 bg-gray-50 rounded-lg p-4">
+                <div className="h-full flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="grid grid-cols-3 gap-4 mb-4">
+                      {predictionChartData.slice(0, 6).map((item, index) => (
+                        <div key={index} className="bg-white rounded p-3 shadow-sm">
+                          <div className="text-xs text-gray-500 mb-2">#{item.index}</div>
+                          <div className="space-y-1">
+                            <div className="text-sm font-semibold text-blue-600">
+                              実際: ¥{item.実際値?.toFixed(0) || 'N/A'}
+                            </div>
+                            <div className="text-sm font-semibold text-red-600">
+                              予測: ¥{item.予測値?.toFixed(0) || 'N/A'}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      予測データ数: {predictionChartData.length}件
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1034,11 +1062,23 @@ function DashboardContent() {
             {/* 予測精度分布 */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">予測誤差分布</h3>
-              <div className="h-72 flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <BarChart3 className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-                  <p className="text-lg font-medium text-gray-500">誤差分布チャートは準備中です</p>
-                  <p className="text-sm text-gray-400">予測精度の可視化機能を開発中です</p>
+              <div className="h-72 bg-gray-50 rounded-lg p-4">
+                <div className="h-full flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="grid grid-cols-4 gap-3 mb-4">
+                      {predictions.slice(0, 8).map((item, index) => (
+                        <div key={index} className="bg-white rounded p-2 shadow-sm">
+                          <div className="text-xs text-gray-500 mb-1">#{item.index}</div>
+                          <div className="text-sm font-semibold text-purple-600">
+                            誤差: {item.error?.toFixed(2) || 'N/A'}%
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      平均誤差: {predictions.length > 0 ? (predictions.reduce((sum, p) => sum + p.error, 0) / predictions.length).toFixed(2) : 'N/A'}%
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1084,11 +1124,23 @@ function DashboardContent() {
             {/* モデル性能比較チャート */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">MAE比較</h3>
-              <div className="h-72 flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <BarChart3 className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-                  <p className="text-lg font-medium text-gray-500">モデル比較チャートは準備中です</p>
-                  <p className="text-sm text-gray-400">モデル性能の可視化機能を開発中です</p>
+              <div className="h-72 bg-gray-50 rounded-lg p-4">
+                <div className="h-full flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                      {modelComparison.slice(0, 4).map((model, index) => (
+                        <div key={index} className="bg-white rounded p-3 shadow-sm">
+                          <div className="text-sm font-semibold text-gray-800 mb-1">{model.name}</div>
+                          <div className="text-xs text-gray-500 mb-1">MAE: {model.mae?.toFixed(4) || 'N/A'}</div>
+                          <div className="text-xs text-gray-500 mb-1">RMSE: {model.rmse?.toFixed(4) || 'N/A'}</div>
+                          <div className="text-xs text-gray-500">R²: {model.r2?.toFixed(4) || 'N/A'}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      最優秀モデル: {modelComparison.length > 0 ? modelComparison[0].name : 'N/A'}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1106,22 +1158,58 @@ function DashboardContent() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-white rounded-lg shadow p-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">特徴量重要度</h3>
-                <div className="h-72 flex items-center justify-center bg-gray-50 rounded-lg">
-                  <div className="text-center">
-                    <Target className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-                    <p className="text-lg font-medium text-gray-500">特徴量重要度チャートは準備中です</p>
-                    <p className="text-sm text-gray-400">特徴量分析の可視化機能を開発中です</p>
+                <div className="h-72 bg-gray-50 rounded-lg p-4">
+                  <div className="h-full flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="grid grid-cols-2 gap-3 mb-4">
+                        {featureAnalysis.slice(0, 6).map((feature, index) => (
+                          <div key={index} className="bg-white rounded p-3 shadow-sm">
+                            <div className="text-sm font-semibold text-gray-800 mb-1">{feature.feature}</div>
+                            <div className="text-xs text-green-600 mb-1">
+                              重要度: {(feature.importance * 100)?.toFixed(1) || 'N/A'}%
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2">
+                              <div 
+                                className="bg-green-500 h-2 rounded-full" 
+                                style={{ width: `${feature.percentage || 0}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        最重要特徴量: {featureAnalysis.length > 0 ? featureAnalysis[0].feature : 'N/A'}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div className="bg-white rounded-lg shadow p-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">特徴量重要度分布</h3>
-                <div className="h-72 flex items-center justify-center bg-gray-50 rounded-lg">
-                  <div className="text-center">
-                    <Target className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-                    <p className="text-lg font-medium text-gray-500">特徴量分布チャートは準備中です</p>
-                    <p className="text-sm text-gray-400">特徴量分布の可視化機能を開発中です</p>
+                <div className="h-72 bg-gray-50 rounded-lg p-4">
+                  <div className="h-full flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="space-y-2 mb-4">
+                        {featureAnalysis.slice(0, 4).map((feature, index) => (
+                          <div key={index} className="bg-white rounded p-2 shadow-sm">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm font-medium text-gray-800">{feature.feature}</span>
+                              <span className="text-xs text-gray-500">{feature.percentage}%</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-1 mt-1">
+                              <div 
+                                className="bg-blue-500 h-1 rounded-full" 
+                                style={{ width: `${feature.percentage || 0}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        合計重要度: {featureAnalysis.reduce((sum, f) => sum + (f.percentage || 0), 0).toFixed(1)}%
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1130,11 +1218,31 @@ function DashboardContent() {
             {/* 散布図 */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">実際値 vs 予測値散布図</h3>
-              <div className="h-96 flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <TrendingUp className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-                  <p className="text-lg font-medium text-gray-500">散布図は準備中です</p>
-                  <p className="text-sm text-gray-400">予測精度の可視化機能を開発中です</p>
+              <div className="h-96 bg-gray-50 rounded-lg p-4">
+                <div className="h-full flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="grid grid-cols-4 gap-3 mb-4">
+                      {predictions.slice(0, 8).map((item, index) => (
+                        <div key={index} className="bg-white rounded p-2 shadow-sm">
+                          <div className="text-xs text-gray-500 mb-1">#{item.index}</div>
+                          <div className="space-y-1">
+                            <div className="text-xs text-blue-600">
+                              実際: {item.actual?.toFixed(0) || 'N/A'}
+                            </div>
+                            <div className="text-xs text-red-600">
+                              予測: {item.predicted?.toFixed(0) || 'N/A'}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              誤差: {item.error?.toFixed(1) || 'N/A'}%
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      予測精度: {predictions.length > 0 ? (100 - (predictions.reduce((sum, p) => sum + p.error, 0) / predictions.length)).toFixed(1) : 'N/A'}%
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
