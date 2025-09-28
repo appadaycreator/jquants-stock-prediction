@@ -24,18 +24,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/lib/*": [
-        "./src/lib/*"
-      ],
-      "@/components/*": [
-        "./src/components/*"
-      ],
-      "@/lib/utils": [
-        "./src/lib/utils"
-      ]
+      "@/*": ["./src/*"]
     }
   },
   "include": [
