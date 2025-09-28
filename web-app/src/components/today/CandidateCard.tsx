@@ -58,13 +58,13 @@ export default function CandidateCard({ candidate, index }: CandidateCardProps) 
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-2xl border border-gray-200 shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.98]">
       <div className="p-4">
         <div className="flex items-start justify-between mb-3">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
               <span className="text-sm font-medium text-gray-500">#{index + 1}</span>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-base font-semibold text-gray-900">
                 {candidate.name}
               </h3>
               <span className="text-sm text-gray-500">({candidate.symbol})</span>
@@ -86,22 +86,22 @@ export default function CandidateCard({ candidate, index }: CandidateCardProps) 
           </button>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
-          <div>
-            <span className="text-gray-500">エントリー:</span>
-            <span className="ml-2 font-medium">¥{candidate.entry.toLocaleString()}</span>
+        <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
+          <div className="bg-gray-50 rounded-lg p-2">
+            <span className="text-gray-500 text-xs">エントリー</span>
+            <div className="font-medium text-base">¥{candidate.entry.toLocaleString()}</div>
           </div>
-          <div>
-            <span className="text-gray-500">利確:</span>
-            <span className="ml-2 font-medium text-green-600">¥{candidate.take_profit.toLocaleString()}</span>
+          <div className="bg-green-50 rounded-lg p-2">
+            <span className="text-gray-500 text-xs">利確</span>
+            <div className="font-medium text-base text-green-600">¥{candidate.take_profit.toLocaleString()}</div>
           </div>
-          <div>
-            <span className="text-gray-500">損切り:</span>
-            <span className="ml-2 font-medium text-red-600">¥{candidate.stop_loss.toLocaleString()}</span>
+          <div className="bg-red-50 rounded-lg p-2">
+            <span className="text-gray-500 text-xs">損切り</span>
+            <div className="font-medium text-base text-red-600">¥{candidate.stop_loss.toLocaleString()}</div>
           </div>
-          <div>
-            <span className="text-gray-500">期間:</span>
-            <span className="ml-2 font-medium">{candidate.time_horizon}</span>
+          <div className="bg-blue-50 rounded-lg p-2">
+            <span className="text-gray-500 text-xs">期間</span>
+            <div className="font-medium text-base">{candidate.time_horizon}</div>
           </div>
         </div>
 
@@ -139,19 +139,19 @@ export default function CandidateCard({ candidate, index }: CandidateCardProps) 
             <>
               <button
                 onClick={() => handleAction('order')}
-                className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+                className="flex-1 bg-blue-600 text-white px-4 py-3 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors active:scale-95 min-h-[44px]"
               >
                 発注へ
               </button>
               <button
                 onClick={() => handleAction('skip')}
-                className="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-200 transition-colors"
+                className="flex-1 bg-gray-100 text-gray-700 px-4 py-3 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors active:scale-95 min-h-[44px]"
               >
                 見送り
               </button>
               <button
                 onClick={() => handleAction('monitor')}
-                className="flex-1 bg-yellow-100 text-yellow-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-200 transition-colors"
+                className="flex-1 bg-yellow-100 text-yellow-700 px-4 py-3 rounded-full text-sm font-medium hover:bg-yellow-200 transition-colors active:scale-95 min-h-[44px]"
               >
                 監視
               </button>
@@ -159,7 +159,7 @@ export default function CandidateCard({ candidate, index }: CandidateCardProps) 
           )}
           {actionTaken !== 'none' && (
             <div className="flex-1 flex items-center justify-center">
-              <span className={`px-3 py-2 rounded-md text-sm font-medium ${
+              <span className={`px-4 py-3 rounded-full text-sm font-medium ${
                 actionTaken === 'order' ? 'bg-green-100 text-green-700' :
                 actionTaken === 'skip' ? 'bg-gray-100 text-gray-700' :
                 'bg-yellow-100 text-yellow-700'

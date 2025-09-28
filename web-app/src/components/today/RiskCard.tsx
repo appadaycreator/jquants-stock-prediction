@@ -47,26 +47,28 @@ export default function RiskCard({ warning }: RiskCardProps) {
   };
 
   return (
-    <div className={`rounded-lg border p-4 ${getWarningColor(warning.type)}`}>
+    <div className={`rounded-2xl border p-4 shadow-md ${getWarningColor(warning.type)}`}>
       <div className="flex items-start gap-3">
-        <div className="text-2xl">
+        <div className="text-2xl flex-shrink-0">
           {getWarningIcon(warning.type)}
         </div>
-        <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <h4 className="font-semibold">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-2">
+            <h4 className="font-semibold text-sm">
               {getWarningTitle(warning.type)}
             </h4>
-            <span className="text-sm font-medium">
-              ({warning.symbol})
+            <span className="text-xs font-medium bg-white/50 px-2 py-1 rounded-full">
+              {warning.symbol}
             </span>
           </div>
-          <p className="text-sm mb-2">
+          <p className="text-sm mb-3 leading-relaxed">
             {warning.message}
           </p>
-          <p className="text-sm font-medium">
-            推奨アクション: {warning.action}
-          </p>
+          <div className="bg-white/30 rounded-lg p-2">
+            <p className="text-xs font-medium">
+              推奨アクション: {warning.action}
+            </p>
+          </div>
         </div>
       </div>
     </div>

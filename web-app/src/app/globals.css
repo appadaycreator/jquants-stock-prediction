@@ -60,3 +60,44 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* パフォーマンス最適化 */
+@layer utilities {
+  /* モバイル用フォント最適化 */
+  .mobile-font-optimized {
+    font-display: swap;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* タッチ操作最適化 */
+  .touch-optimized {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* スクロール最適化 */
+  .scroll-optimized {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+  }
+
+  /* レンダリング最適化 */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  /* 画像最適化 */
+  .image-optimized {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+
+  /* アニメーション最適化 */
+  .animation-optimized {
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}

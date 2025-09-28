@@ -7,6 +7,7 @@ import Hero from '@/components/today/Hero';
 import CandidateCard from '@/components/today/CandidateCard';
 import RiskCard from '@/components/today/RiskCard';
 import TodoCard from '@/components/today/TodoCard';
+import FabReload from '@/components/mobile/FabReload';
 
 export default function TodayPage() {
   const [state, setState] = useState<TodayPageState>({
@@ -49,6 +50,29 @@ export default function TodayPage() {
   useEffect(() => {
     loadData();
   }, []);
+
+  // 通知リンクからの遷移処理
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get("from");
+    if (from === "notification") {
+      // 通知からの遷移の場合、少し遅延してからスクロール
+      setTimeout(() => {
+        const targetCard = document.querySelector('[data-highlight="true"]');
+        if (targetCard) {
+          targetCard.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+          });
+          // ハイライト効果
+          targetCard.classList.add('ring-2', 'ring-blue-500', 'ring-opacity-50');
+          setTimeout(() => {
+            targetCard.classList.remove('ring-2', 'ring-blue-500', 'ring-opacity-50');
+          }, 3000);
+        }
+      }, 1000);
+    }
+  }, [state.summary]);
 
   const handleRefresh = () => {
     loadData();
@@ -136,8 +160,8 @@ export default function TodayPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-4xl mx-auto px-4">
+    <div className="min-h-screen bg-gray-50">
+      <div className="w-full max-w-md mx-auto px-4 py-4 md:max-w-4xl">
         {/* エラーメッセージ（警告レベル） */}
         {state.error && (
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
@@ -153,17 +177,18 @@ export default function TodayPage() {
 
         {/* 候補カード */}
         {state.summary.candidates.length > 0 && (
-          <section className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">
+          <section className="mb-6">
+            <h2 className="text-lg font-bold text-gray-900 mb-3">
               売買候補 ({state.summary.candidates.length}件)
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {state.summary.candidates.map((candidate, index) => (
-                <CandidateCard
-                  key={candidate.symbol}
-                  candidate={candidate}
-                  index={index}
-                />
+                <div key={candidate.symbol} data-highlight={index === 0 ? "true" : "false"}>
+                  <CandidateCard
+                    candidate={candidate}
+                    index={index}
+                  />
+                </div>
               ))}
             </div>
           </section>
@@ -171,11 +196,11 @@ export default function TodayPage() {
 
         {/* リスク警告 */}
         {state.summary.warnings.length > 0 && (
-          <section className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">
+          <section className="mb-6">
+            <h2 className="text-lg font-bold text-gray-900 mb-3">
               リスク警告 ({state.summary.warnings.length}件)
             </h2>
-            <div className="space-y-3">
+            <div className="space-y-2">
               {state.summary.warnings.map((warning, index) => (
                 <RiskCard
                   key={`${warning.symbol}-${index}`}
@@ -188,11 +213,11 @@ export default function TodayPage() {
 
         {/* 次のアクション */}
         {state.summary.todos.length > 0 && (
-          <section className="mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">
+          <section className="mb-6">
+            <h2 className="text-lg font-bold text-gray-900 mb-3">
               本日の To-Do ({state.summary.todos.length}件)
             </h2>
-            <div className="space-y-3">
+            <div className="space-y-2">
               {state.summary.todos.map((todo, index) => (
                 <TodoCard
                   key={index}
@@ -227,13 +252,13 @@ export default function TodayPage() {
         )}
 
         {/* フッター */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
+        <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="text-center text-sm text-gray-500">
             <p>最終更新: {new Date(state.summary.generated_at).toLocaleString('ja-JP')}</p>
-            <p className="mt-1">
+            <p className="mt-2">
               <button
                 onClick={handleRefresh}
-                className="text-blue-600 hover:text-blue-800 underline"
+                className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors active:scale-95"
               >
                 手動更新
               </button>
@@ -241,6 +266,9 @@ export default function TodayPage() {
           </div>
         </div>
       </div>
+      
+      {/* FABリロードボタン */}
+      <FabReload onRefresh={handleRefresh} isLoading={state.isLoading} />
     </div>
   );
 }
