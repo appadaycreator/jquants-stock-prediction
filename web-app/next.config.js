@@ -43,6 +43,9 @@ const nextConfig = {
   
   
   
+  // パッケージのトランスパイル設定（Next.js 15対応）
+  transpilePackages: ["clsx", "tailwind-merge", "class-variance-authority"],
+  
   // 実験的機能の設定
   experimental: {
     optimizePackageImports: ["lucide-react", "recharts"],
@@ -54,8 +57,6 @@ const nextConfig = {
     },
     // プリフェッチの無効化（GitHub Pagesでの問題を回避）
     disableOptimizedLoading: true,
-    // パス解決の改善
-    transpilePackages: ["clsx", "tailwind-merge", "class-variance-authority"],
   },
   
   // ESLint設定を無効化（ビルドエラーを回避）
@@ -72,6 +73,7 @@ const nextConfig = {
     const path = require('path');
     const srcPath = path.resolve(__dirname, 'src');
     
+    // より確実なパス解決の設定
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': srcPath,
@@ -104,6 +106,9 @@ const nextConfig = {
     
     // モジュール解決の確実性を向上
     config.resolve.fullySpecified = false;
+    
+    // パス解決の確実性をさらに向上
+    config.resolve.cacheWithContext = false;
     
     // バンドルサイズの最適化
     if (!dev && !isServer) {
