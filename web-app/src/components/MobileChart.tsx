@@ -13,6 +13,9 @@ import {
   ZoomOut,
   Download,
   Share2,
+  BarChart3,
+  Target,
+  TrendingUp,
 } from "lucide-react";
 
 interface MobileChartProps {
@@ -149,7 +152,37 @@ export default function MobileChart({
     }
   };
 
+  const renderEmptyState = () => {
+    const getIcon = () => {
+      switch (type) {
+        case 'bar':
+          return <BarChart3 className="h-12 w-12 mx-auto mb-4 text-gray-400" />;
+        case 'pie':
+          return <Target className="h-12 w-12 mx-auto mb-4 text-gray-400" />;
+        case 'scatter':
+          return <TrendingUp className="h-12 w-12 mx-auto mb-4 text-gray-400" />;
+        default:
+          return <BarChart3 className="h-12 w-12 mx-auto mb-4 text-gray-400" />;
+      }
+    };
+
+    return (
+      <div className="flex items-center justify-center h-64 text-gray-500">
+        <div className="text-center">
+          {getIcon()}
+          <p className="text-lg font-medium">データがありません</p>
+          <p className="text-sm">分析を実行してデータを生成してください</p>
+        </div>
+      </div>
+    );
+  };
+
   const renderChart = () => {
+    // データが空の場合は空の状態を表示
+    if (!data || data.length === 0) {
+      return renderEmptyState();
+    }
+
     const commonProps = {
       data: data,
       margin: { top: 20, right: 30, left: 20, bottom: 5 },

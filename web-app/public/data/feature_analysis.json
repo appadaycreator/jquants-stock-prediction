@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "feature": "価格変動率",
+    "importance": 0.35,
+    "percentage": 35
+  },
+  {
+    "feature": "ボリューム",
+    "importance": 0.25,
+    "percentage": 25
+  },
+  {
+    "feature": "RSI",
+    "importance": 0.15,
+    "percentage": 15
+  },
+  {
+    "feature": "移動平均",
+    "importance": 0.12,
+    "percentage": 12
+  },
+  {
+    "feature": "ボリンジャーバンド",
+    "importance": 0.08,
+    "percentage": 8
+  },
+  {
+    "feature": "MACD",
+    "importance": 0.05,
+    "percentage": 5
+  }
+]

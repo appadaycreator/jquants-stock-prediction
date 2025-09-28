@@ -37,7 +37,12 @@ class UnifiedJQuantsSystem:
         self.model_factory = None
 
     def run_complete_pipeline(self):
-        return {"predictions": [], "model_performance": {}, "processing_time": 0, "memory_usage": 128.5}
+        return {
+            "predictions": [],
+            "model_performance": {},
+            "processing_time": 0,
+            "memory_usage": 128.5,
+        }
 
     def _handle_api_error(self, message):
         raise APIError(message)

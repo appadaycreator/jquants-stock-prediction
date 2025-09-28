@@ -109,7 +109,7 @@ def engineer_basic_features(df):
 
     try:
         if df.empty:
-            raise KeyError("データフレームが空です")
+            raise ValueError("データフレームが空です")
 
         # 日付カラムの処理
         if "Date" in df.columns:
