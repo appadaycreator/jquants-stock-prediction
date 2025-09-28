@@ -167,10 +167,6 @@ export default function Coachmark({
           left: tooltipPosition.left,
           zIndex: 1001
         }}
-        role="dialog"
-        aria-labelledby="coachmark-title"
-        aria-describedby="coachmark-description"
-        tabIndex={-1}
         {...accessibilityUtils.generateAriaAttributes('tour')}
       >
         {/* ヘッダー */}

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, Circle, X } from 'lucide-react';
-import { accessibilityUtils } from '../../lib/guide/accessibility';
+import { accessibilityUtils } from '@/lib/guide/accessibility';
 
 interface ChecklistItem {
   id: string;
@@ -57,8 +57,6 @@ export default function Checklist({
   return (
     <div 
       className={`bg-white rounded-lg shadow-lg border border-gray-200 p-4 ${className}`}
-      role="list"
-      aria-label="初回チェックリスト"
       {...accessibilityUtils.generateAriaAttributes('checklist')}
     >
       <div className="flex items-center justify-between mb-3">
