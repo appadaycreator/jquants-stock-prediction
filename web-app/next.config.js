@@ -54,6 +54,8 @@ const nextConfig = {
     },
     // プリフェッチの無効化（GitHub Pagesでの問題を回避）
     disableOptimizedLoading: true,
+    // パス解決の改善
+    transpilePackages: ["clsx", "tailwind-merge", "class-variance-authority"],
   },
   
   // ESLint設定を無効化（ビルドエラーを回避）
@@ -66,22 +68,42 @@ const nextConfig = {
   
   // Webpack設定の最適化
   webpack: (config, { dev, isServer }) => {
-    // パス解決の設定を追加
+    // パス解決の設定を追加（絶対パスを使用）
+    const path = require('path');
+    const srcPath = path.resolve(__dirname, 'src');
+    
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': require('path').resolve(__dirname, 'src'),
-      '@/lib': require('path').resolve(__dirname, 'src/lib'),
-      '@/components': require('path').resolve(__dirname, 'src/components'),
+      '@': srcPath,
+      '@/lib': path.resolve(srcPath, 'lib'),
+      '@/components': path.resolve(srcPath, 'components'),
+      '@/app': path.resolve(srcPath, 'app'),
+      '@/styles': path.resolve(srcPath, 'styles'),
     };
     
     // モジュール解決の設定を追加
     config.resolve.modules = [
-      require('path').resolve(__dirname, 'src'),
+      srcPath,
       'node_modules',
     ];
     
     // 拡張子の解決順序を設定
     config.resolve.extensions = ['.tsx', '.ts', '.jsx', '.js', '.json'];
+    
+    // パス解決のデバッグ情報を追加（開発時のみ）
+    if (dev) {
+      config.resolve.symlinks = false;
+    }
+    
+    // パス解決の確実性を向上
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      path: false,
+    };
+    
+    // モジュール解決の確実性を向上
+    config.resolve.fullySpecified = false;
     
     // バンドルサイズの最適化
     if (!dev && !isServer) {

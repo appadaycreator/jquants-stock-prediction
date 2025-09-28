@@ -10,7 +10,7 @@
     "lint:fix": "eslint . --fix",
     "type-check": "tsc --noEmit",
     "analyze": "cross-env ANALYZE=true next build",
-    "export": "next build",
+    "export": "NODE_ENV=production next build",
     "clean": "rm -rf .next dist out",
     "test": "jest",
     "test:watch": "jest --watch",
