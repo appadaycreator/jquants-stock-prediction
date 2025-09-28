@@ -229,43 +229,46 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
   }, [steps, saveState]);
 
   const nextStep = useCallback(() => {
-    setState(prev => {
-      if (!prev.currentStep) return prev;
+    // 状態更新を次のレンダリングサイクルに遅延
+    setTimeout(() => {
+      setState(prev => {
+        if (!prev.currentStep) return prev;
 
-      const currentStepData = steps.find(step => step.id === prev.currentStep);
-      if (!currentStepData?.next) {
-        // 最後のステップ
-        return {
-          ...prev,
-          isActive: false,
-          currentStep: null,
-          isTourCompleted: true,
-          completedSteps: [...prev.completedSteps, prev.currentStep]
-        };
-      }
+        const currentStepData = steps.find(step => step.id === prev.currentStep);
+        if (!currentStepData?.next) {
+          // 最後のステップ
+          return {
+            ...prev,
+            isActive: false,
+            currentStep: null,
+            isTourCompleted: true,
+            completedSteps: [...prev.completedSteps, prev.currentStep]
+          };
+        }
 
-      const nextStepData = steps.find(step => step.id === currentStepData.next);
-      if (!nextStepData) return prev;
+        const nextStepData = steps.find(step => step.id === currentStepData.next);
+        if (!nextStepData) return prev;
 
-      // アクション実行
-      if (nextStepData.action) {
-        if (nextStepData.action.type === 'nav') {
-          // ページ遷移は親コンポーネントで処理
-          window.location.href = nextStepData.action.to;
-        } else if (nextStepData.action.type === 'click') {
-          const element = document.querySelector(nextStepData.action.target);
-          if (element) {
-            (element as HTMLElement).click();
+        // アクション実行
+        if (nextStepData.action) {
+          if (nextStepData.action.type === 'nav') {
+            // ページ遷移は親コンポーネントで処理
+            window.location.href = nextStepData.action.to;
+          } else if (nextStepData.action.type === 'click') {
+            const element = document.querySelector(nextStepData.action.target);
+            if (element) {
+              (element as HTMLElement).click();
+            }
           }
         }
-      }
 
-      return {
-        ...prev,
-        currentStep: nextStepData.id,
-        completedSteps: [...prev.completedSteps, prev.currentStep]
-      };
-    });
+        return {
+          ...prev,
+          currentStep: nextStepData.id,
+          completedSteps: [...prev.completedSteps, prev.currentStep]
+        };
+      });
+    }, 0);
   }, [steps]);
 
   const prevStep = useCallback(() => {
@@ -432,9 +435,17 @@ function Coachmark({ step, onNext, onPrev, onSkip, onComplete, isFirst, isLast }
     }
   }, [step.target]);
 
+  useEffect(() => {
+    if (!targetElement) {
+      // ターゲットが見つからない場合は次のステップへ
+      const timer = setTimeout(() => {
+        onNext();
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+  }, [targetElement, onNext]);
+
   if (!targetElement) {
-    // ターゲットが見つからない場合は次のステップへ
-    onNext();
     return null;
   }
 
