@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight, SkipForward } from 'lucide-react';
-import { accessibilityUtils } from '../../lib/guide/accessibility.ts';
+import { accessibilityUtils } from '../../lib/guide/accessibility';
 
 interface CoachmarkProps {
   step: {

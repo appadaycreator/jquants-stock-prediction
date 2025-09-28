@@ -14,8 +14,8 @@ import {
   Legend,
   ResponsiveContainer
 } from 'recharts';
-import { parseToJst, jstLabel, createChartDateArray } from '../lib/datetime.ts';
-import { chartLogger } from '../lib/logger.ts';
+import { parseToJst, jstLabel, createChartDateArray } from '../lib/datetime';
+import { chartLogger } from '../lib/logger';
 
 interface TimeSeriesChartProps {
   data: Array<{

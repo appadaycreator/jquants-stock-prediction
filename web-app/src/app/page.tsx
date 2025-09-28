@@ -34,9 +34,9 @@ import { MetricTooltip, SimpleTooltip } from "../components/guide/Tooltip";
 import Checklist, { ChecklistBadge, DEFAULT_CHECKLIST_ITEMS } from "../components/guide/Checklist";
 import GlossaryModal from "../components/guide/GlossaryModal";
 import HelpModal from "../components/guide/HelpModal";
-import { useGuideShortcuts } from "../lib/guide/shortcut.ts";
-import { guideStore } from "../lib/guide/guideStore.ts";
-import { parseToJst } from "../lib/datetime.ts";
+import { useGuideShortcuts } from "../lib/guide/shortcut";
+import { guideStore } from "../lib/guide/guideStore";
+import { parseToJst } from "../lib/datetime";
 
 // 型定義
 interface StockData {
@@ -709,18 +709,36 @@ function DashboardContent() {
           }}
         />
       ) : (
-        <PullToRefresh onRefresh={loadData}>
-          <MobileDashboard
-            stockData={stockData}
-            modelComparison={modelComparison}
-            featureAnalysis={featureAnalysis}
-            predictions={predictions}
-            summary={summary}
-            onRefresh={loadData}
-            onAnalysis={() => setShowAnalysisModal(true)}
-            onSettings={() => setShowSettingsModal(true)}
-          />
-        </PullToRefresh>
+        <div className="lg:hidden p-4">
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">J-Quants株価予測システム</h2>
+            <p className="text-gray-600 mb-4">モバイル表示を準備中です...</p>
+            <div className="space-y-4">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <h3 className="font-semibold text-blue-800">システム情報</h3>
+                <p className="text-sm text-blue-700 mt-1">
+                  最優秀モデル: {summary?.best_model || "-"}<br/>
+                  予測精度: {summary?.r2 || "-"}<br/>
+                  データ数: {summary?.total_data_points || "-"}
+                </p>
+              </div>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => setShowAnalysisModal(true)}
+                  className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                >
+                  分析実行
+                </button>
+                <button
+                  onClick={() => setShowSettingsModal(true)}
+                  className="flex-1 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700"
+                >
+                  設定
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* デスクトップメインコンテンツ */}

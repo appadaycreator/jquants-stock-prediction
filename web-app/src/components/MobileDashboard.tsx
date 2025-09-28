@@ -18,7 +18,7 @@ import {
   Minus,
 } from "lucide-react";
 import MobileChart from "./MobileChart";
-import { parseToJst } from "../lib/datetime.ts";
+import { parseToJst } from "../lib/datetime";
 
 interface MobileDashboardProps {
   stockData: any[];
