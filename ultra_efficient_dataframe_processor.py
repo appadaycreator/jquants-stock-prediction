@@ -46,7 +46,8 @@ class UltraEfficientDataFrameProcessor:
         self.memory_saved = 0.0
         self.processing_time_saved = 0.0
         self.dtype_optimizations = 0
-        self.system = UnifiedSystem("UltraEfficientDataFrameProcessor")
+        # 循環参照を回避するため、UnifiedSystemの初期化を無効化
+        self.system = None
         self.logger = logging.getLogger(__name__)
 
         # データフレームの参照を追跡
@@ -329,7 +330,8 @@ class ViewBasedProcessor:
     """ビューベース処理クラス"""
 
     def __init__(self):
-        self.system = UnifiedSystem("ViewBasedProcessor")
+        # 循環参照を回避するため、UnifiedSystemの初期化を無効化
+        self.system = None
         self.logger = logging.getLogger(__name__)
 
     def create_view(
@@ -365,7 +367,8 @@ class MemoryEfficientDataFrameProcessor:
         self.memory_limit_mb = memory_limit_mb
         self.ultra_processor = UltraEfficientDataFrameProcessor()
         self.view_processor = ViewBasedProcessor()
-        self.system = UnifiedSystem("MemoryEfficientDataFrameProcessor")
+        # 循環参照を回避するため、UnifiedSystemの初期化を無効化
+        self.system = None
         self.logger = logging.getLogger(__name__)
 
     def process_dataframe_ultra_efficient(

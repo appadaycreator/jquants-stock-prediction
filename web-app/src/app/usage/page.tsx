@@ -391,15 +391,27 @@ export default function UsagePage() {
                             <tbody className="bg-white">
                               <tr>
                                 <td className="px-3 py-2 font-medium">MAE</td>
-                                <td className="px-3 py-2">平均絶対誤差（小さいほど良い）</td>
+                                <td className="px-3 py-2">平均絶対誤差（小さいほど良い）<br/>
+                                  <span className="text-xs text-gray-500">予測値と実際の値の差の絶対値の平均。単位：円</span>
+                                </td>
                               </tr>
                               <tr>
                                 <td className="px-3 py-2 font-medium">RMSE</td>
-                                <td className="px-3 py-2">平均平方根誤差（小さいほど良い）</td>
+                                <td className="px-3 py-2">平均平方根誤差（小さいほど良い）<br/>
+                                  <span className="text-xs text-gray-500">大きな誤差を重く評価する指標。単位：円</span>
+                                </td>
                               </tr>
                               <tr>
                                 <td className="px-3 py-2 font-medium">R²</td>
-                                <td className="px-3 py-2">決定係数（1に近いほど良い）</td>
+                                <td className="px-3 py-2">決定係数（0-1の範囲）<br/>
+                                  <span className="text-xs text-gray-500">モデルが説明できる分散の割合。0.99以上は過学習の可能性</span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td className="px-3 py-2 font-medium">MAPE</td>
+                                <td className="px-3 py-2">平均絶対パーセント誤差（小さいほど良い）<br/>
+                                  <span className="text-xs text-gray-500">予測誤差の相対的な大きさを示す。単位：%</span>
+                                </td>
                               </tr>
                             </tbody>
                           </table>

@@ -1,9 +1,62 @@
 [
   {
-    "model_name": "primary_model",
-    "model_type": "Random Forest",
-    "mae": 21.36381250000039,
-    "rmse": 31.12826261772495,
-    "r2": 0.9994275441935184
+    "model_name": "Linear Regression",
+    "model_type": "LinearRegression",
+    "mae": 1.5084176332245327e-11,
+    "rmse": 1.69768230207898e-11,
+    "r2": 1.0,
+    "mape": 5.796232016610749e-13,
+    "rank": 1,
+    "overfitting_risk": "高リスク（R² > 0.99）"
+  },
+  {
+    "model_name": "Lasso Regression",
+    "model_type": "Lasso",
+    "mae": 7.90262569590926e-05,
+    "rmse": 8.639343687822177e-05,
+    "r2": 0.9999999999999951,
+    "mape": 3.5706055554059965e-06,
+    "rank": 2,
+    "overfitting_risk": "高リスク（R² > 0.99）"
+  },
+  {
+    "model_name": "Ridge Regression",
+    "model_type": "Ridge",
+    "mae": 0.00042593187502730376,
+    "rmse": 0.0005378525621576644,
+    "r2": 0.9999999999998105,
+    "mape": 1.41014736364466e-05,
+    "rank": 3,
+    "overfitting_risk": "高リスク（R² > 0.99）"
+  },
+  {
+    "model_name": "Gradient Boosting",
+    "model_type": "GradientBoostingRegressor",
+    "mae": 11.168096228431574,
+    "rmse": 16.90845258866781,
+    "r2": 0.9998127345117874,
+    "mape": 0.3794721215677844,
+    "rank": 4,
+    "overfitting_risk": "高リスク（R² > 0.99）"
+  },
+  {
+    "model_name": "Random Forest",
+    "model_type": "RandomForestRegressor",
+    "mae": 13.20651136363631,
+    "rmse": 19.233197356671624,
+    "r2": 0.9997577002338061,
+    "mape": 0.45200236541331096,
+    "rank": 5,
+    "overfitting_risk": "高リスク（R² > 0.99）"
+  },
+  {
+    "model_name": "SVR",
+    "model_type": "SVR",
+    "mae": 1096.118032257853,
+    "rmse": 1385.7116330094902,
+    "r2": -0.25775410881447813,
+    "mape": 57.94960576307906,
+    "rank": 6,
+    "overfitting_risk": "低リスク"
   }
 ]

@@ -54,7 +54,8 @@ class IntelligentCacheManager:
         self.max_cache_size_mb = max_cache_size_mb
         self.cache_stats = {"hits": 0, "misses": 0, "evictions": 0}
         self.cache_metadata = {}
-        self.system = UnifiedSystem("IntelligentCacheManager")
+        # 循環参照を回避するため、UnifiedSystemの初期化を無効化
+        self.system = None
         self.logger = logging.getLogger(__name__)
 
         os.makedirs(cache_dir, exist_ok=True)
@@ -211,7 +212,8 @@ class ParallelModelProcessor:
     def __init__(self, max_workers: int = None, use_processes: bool = True):
         self.max_workers = max_workers or min(4, mp.cpu_count())
         self.use_processes = use_processes
-        self.system = UnifiedSystem("ParallelModelProcessor")
+        # 循環参照を回避するため、UnifiedSystemの初期化を無効化
+        self.system = None
         self.logger = logging.getLogger(__name__)
 
     def process_models_parallel(
@@ -510,7 +512,8 @@ class EnhancedModelComparator:
         self.parallel_processor = (
             ParallelModelProcessor(self.max_workers) if use_parallel else None
         )
-        self.system = UnifiedSystem("EnhancedModelComparator")
+        # 循環参照を回避するため、UnifiedSystemの初期化を無効化
+        self.system = None
         self.logger = logging.getLogger(__name__)
 
     def compare_models_enhanced(

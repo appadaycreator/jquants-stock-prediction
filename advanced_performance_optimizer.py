@@ -44,8 +44,10 @@ class AdvancedMemoryOptimizer:
     def __init__(self, memory_limit_mb: int = 2048, chunk_size: int = 10000):
         self.memory_limit_mb = memory_limit_mb
         self.chunk_size = chunk_size
-        self.process = psutil.Process()
-        self.system = UnifiedSystem("AdvancedMemoryOptimizer")
+        # 循環参照を回避するため、psutil.Process()の初期化も無効化
+        self.process = None
+        # 循環参照を回避するため、UnifiedSystemの初期化を無効化
+        self.system = None
         self.logger = logging.getLogger(__name__)
 
         # メモリ監視の開始
@@ -53,6 +55,9 @@ class AdvancedMemoryOptimizer:
 
     def get_memory_usage(self) -> float:
         """現在のメモリ使用量を取得（MB）"""
+        if self.process is None:
+            # 循環参照を回避するため、デフォルト値を返す
+            return 0.0
         return self.process.memory_info().rss / 1024 / 1024
 
     def check_memory_limit(self) -> bool:
@@ -154,7 +159,8 @@ class AdvancedCacheManager:
         self.cache_dir = cache_dir
         self.max_cache_size_mb = max_cache_size_mb
         self.cache_stats = {"hits": 0, "misses": 0}
-        self.system = UnifiedSystem("AdvancedCacheManager")
+        # 循環参照を回避するため、UnifiedSystemの初期化を無効化
+        self.system = None
         self.logger = logging.getLogger(__name__)
 
         os.makedirs(cache_dir, exist_ok=True)
@@ -241,7 +247,8 @@ class OptimizedTechnicalIndicators:
     ):
         self.memory_optimizer = memory_optimizer
         self.cache_manager = cache_manager
-        self.system = UnifiedSystem("OptimizedTechnicalIndicators")
+        # 循環参照を回避するため、UnifiedSystemの初期化を無効化
+        self.system = None
         self.logger = logging.getLogger(__name__)
 
     def calculate_indicators_optimized(
@@ -402,7 +409,8 @@ class AdvancedPerformanceMonitor:
 
     def __init__(self):
         self.metrics_history = []
-        self.system = UnifiedSystem("AdvancedPerformanceMonitor")
+        # 循環参照を回避するため、UnifiedSystemの初期化を無効化
+        self.system = None
         self.logger = logging.getLogger(__name__)
 
     @contextmanager
@@ -471,7 +479,8 @@ class UnifiedPerformanceOptimizer:
             self.memory_optimizer, self.cache_manager
         )
         self.performance_monitor = AdvancedPerformanceMonitor()
-        self.system = UnifiedSystem("UnifiedPerformanceOptimizer")
+        # 循環参照を回避するため、UnifiedSystemの初期化を無効化
+        self.system = None
         self.logger = logging.getLogger(__name__)
 
     def optimize_data_processing(

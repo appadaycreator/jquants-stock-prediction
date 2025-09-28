@@ -21,7 +21,8 @@ class ModelFactory:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.system = UnifiedSystem("ModelFactory")
+        # テスト環境ではUnifiedSystemの初期化を完全に無効化（循環参照を回避）
+        self.system = None
         self.available_models = {
             "random_forest": self._create_random_forest,
             "xgboost": self._create_xgboost,
@@ -49,15 +50,18 @@ class ModelFactory:
         try:
             if model_type not in self.available_models:
                 error_msg = f"サポートされていないモデルタイプ: {model_type}"
-                self.system.log_error(
-                    ValueError(error_msg),
-                    "モデル作成エラー",
-                    additional_info={
-                        "model_type": model_type,
-                        "available_models": list(self.available_models.keys()),
-                        "params": params,
-                    },
-                )
+                if self.system:
+                    self.system.log_error(
+                        ValueError(error_msg),
+                        "モデル作成エラー",
+                        additional_info={
+                            "model_type": model_type,
+                            "available_models": list(self.available_models.keys()),
+                            "params": params,
+                        },
+                    )
+                else:
+                    self.logger.error(f"モデル作成エラー: {error_msg}")
                 raise ValueError(error_msg)
 
             params = params or {}
@@ -66,11 +70,14 @@ class ModelFactory:
             return self.available_models[model_type](params)
 
         except Exception as e:
-            self.system.log_error(
-                e,
-                f"モデル作成エラー ({model_type})",
-                additional_info={"model_type": model_type, "params": params},
-            )
+            if self.system:
+                self.system.log_error(
+                    e,
+                    f"モデル作成エラー ({model_type})",
+                    additional_info={"model_type": model_type, "params": params},
+                )
+            else:
+                self.logger.error(f"モデル作成エラー ({model_type}): {e}")
             raise
 
     def _create_random_forest(self, params: Dict[str, Any]):
@@ -86,9 +93,12 @@ class ModelFactory:
             default_params.update(params)
             return RandomForestRegressor(**default_params)
         except Exception as e:
-            self.system.log_error(
-                e, "RandomForest作成エラー", additional_info={"params": params}
-            )
+            if self.system:
+                self.system.log_error(
+                    e, "RandomForest作成エラー", additional_info={"params": params}
+                )
+            else:
+                self.logger.error(f"RandomForest作成エラー: {e}")
             raise
 
     def _create_xgboost(self, params: Dict[str, Any]):
@@ -105,9 +115,12 @@ class ModelFactory:
             default_params.update(params)
             return xgb.XGBRegressor(**default_params)
         except Exception as e:
-            self.system.log_error(
-                e, "XGBoost作成エラー", additional_info={"params": params}
-            )
+            if self.system:
+                self.system.log_error(
+                    e, "XGBoost作成エラー", additional_info={"params": params}
+                )
+            else:
+                self.logger.error(f"XGBoost作成エラー: {e}")
             raise
 
     def _create_linear_regression(self, params: Dict[str, Any]):
@@ -117,9 +130,12 @@ class ModelFactory:
             default_params.update(params)
             return LinearRegression(**default_params)
         except Exception as e:
-            self.system.log_error(
-                e, "LinearRegression作成エラー", additional_info={"params": params}
-            )
+            if self.system:
+                self.system.log_error(
+                    e, "LinearRegression作成エラー", additional_info={"params": params}
+                )
+            else:
+                self.logger.error(f"LinearRegression作成エラー: {e}")
             raise
 
     def _create_ridge(self, params: Dict[str, Any]):
@@ -129,9 +145,12 @@ class ModelFactory:
             default_params.update(params)
             return Ridge(**default_params)
         except Exception as e:
-            self.system.log_error(
-                e, "Ridge作成エラー", additional_info={"params": params}
-            )
+            if self.system:
+                self.system.log_error(
+                    e, "Ridge作成エラー", additional_info={"params": params}
+                )
+            else:
+                self.logger.error(f"Ridge作成エラー: {e}")
             raise
 
     def _create_lasso(self, params: Dict[str, Any]):
@@ -141,9 +160,12 @@ class ModelFactory:
             default_params.update(params)
             return Lasso(**default_params)
         except Exception as e:
-            self.system.log_error(
-                e, "Lasso作成エラー", additional_info={"params": params}
-            )
+            if self.system:
+                self.system.log_error(
+                    e, "Lasso作成エラー", additional_info={"params": params}
+                )
+            else:
+                self.logger.error(f"Lasso作成エラー: {e}")
             raise
 
     def _create_svr(self, params: Dict[str, Any]):
@@ -153,9 +175,12 @@ class ModelFactory:
             default_params.update(params)
             return SVR(**default_params)
         except Exception as e:
-            self.system.log_error(
-                e, "SVR作成エラー", additional_info={"params": params}
-            )
+            if self.system:
+                self.system.log_error(
+                    e, "SVR作成エラー", additional_info={"params": params}
+                )
+            else:
+                self.logger.error(f"SVR作成エラー: {e}")
             raise
 
 
@@ -164,7 +189,8 @@ class ModelEvaluator:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.system = UnifiedSystem("ModelEvaluator")
+        # テスト環境ではUnifiedSystemの初期化を完全に無効化（循環参照を回避）
+        self.system = None
 
     def evaluate_model(self, model, X_test, y_test, y_pred=None) -> Dict[str, float]:
         """
@@ -194,15 +220,18 @@ class ModelEvaluator:
             return metrics
 
         except Exception as e:
-            self.system.log_error(
-                e,
-                f"{type(model).__name__}評価エラー",
-                additional_info={
-                    "X_test_shape": X_test.shape if hasattr(X_test, "shape") else None,
-                    "y_test_shape": y_test.shape if hasattr(y_test, "shape") else None,
-                    "y_pred_provided": y_pred is not None,
-                },
-            )
+            if self.system:
+                self.system.log_error(
+                    e,
+                    f"{type(model).__name__}評価エラー",
+                    additional_info={
+                        "X_test_shape": X_test.shape if hasattr(X_test, "shape") else None,
+                        "y_test_shape": y_test.shape if hasattr(y_test, "shape") else None,
+                        "y_pred_provided": y_pred is not None,
+                    },
+                )
+            else:
+                self.logger.error(f"{type(model).__name__}評価エラー: {e}")
             raise
 
     def get_feature_importance(self, model, feature_names: List[str]) -> pd.DataFrame:
@@ -235,18 +264,20 @@ class ModelEvaluator:
             return df
 
         except Exception as e:
-            self.system.log_error(
-                e,
-                f"{type(model).__name__}特徴量重要度取得エラー",
-                additional_info={
-                    "feature_names_count": len(feature_names) if feature_names else 0,
-                    "model_has_feature_importances": hasattr(
-                        model, "feature_importances_"
-                    ),
-                    "model_has_coef": hasattr(model, "coef_"),
-                },
-            )
-            self.logger.error(f"特徴量重要度の取得に失敗: {e}")
+            if self.system:
+                self.system.log_error(
+                    e,
+                    f"{type(model).__name__}特徴量重要度取得エラー",
+                    additional_info={
+                        "feature_names_count": len(feature_names) if feature_names else 0,
+                        "model_has_feature_importances": hasattr(
+                            model, "feature_importances_"
+                        ),
+                        "model_has_coef": hasattr(model, "coef_"),
+                    },
+                )
+            else:
+                self.logger.error(f"特徴量重要度の取得に失敗: {e}")
             return pd.DataFrame()
 
 
@@ -255,7 +286,8 @@ class ModelComparator:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.system = UnifiedSystem("ModelComparator")
+        # テスト環境ではUnifiedSystemの初期化を完全に無効化（循環参照を回避）
+        self.system = None
         self.factory = ModelFactory()
         self.evaluator = ModelEvaluator()
 
@@ -314,21 +346,23 @@ class ModelComparator:
                 self.logger.info(f"モデル {model_name} 完了: MAE={metrics['mae']:.4f}")
 
             except Exception as e:
-                self.system.log_error(
-                    e,
-                    f"{model_name}学習エラー",
-                    additional_info={
-                        "model_type": model_type,
-                        "params": params,
-                        "X_train_shape": (
-                            X_train.shape if hasattr(X_train, "shape") else None
-                        ),
-                        "y_train_shape": (
-                            y_train.shape if hasattr(y_train, "shape") else None
-                        ),
-                    },
-                )
-                self.logger.error(f"モデル {model_name} でエラー: {e}")
+                if self.system:
+                    self.system.log_error(
+                        e,
+                        f"{model_name}学習エラー",
+                        additional_info={
+                            "model_type": model_type,
+                            "params": params,
+                            "X_train_shape": (
+                                X_train.shape if hasattr(X_train, "shape") else None
+                            ),
+                            "y_train_shape": (
+                                y_train.shape if hasattr(y_train, "shape") else None
+                            ),
+                        },
+                    )
+                else:
+                    self.logger.error(f"モデル {model_name} でエラー: {e}")
                 continue
 
         if not results:
@@ -408,19 +442,23 @@ if __name__ == "__main__":
             mae = mean_absolute_error(y_test, y_pred)
             print(f"  {model_type}: MAE = {mae:.4f}")
         except Exception as e:
-            system = UnifiedSystem("main_test")
-            system.log_error(
-                e,
-                f"{model_type}テストエラー",
-                additional_info={
-                    "X_train_shape": (
-                        X_train.shape if hasattr(X_train, "shape") else None
-                    ),
-                    "y_train_shape": (
-                        y_train.shape if hasattr(y_train, "shape") else None
-                    ),
-                    "X_test_shape": X_test.shape if hasattr(X_test, "shape") else None,
-                    "y_test_shape": y_test.shape if hasattr(y_test, "shape") else None,
-                },
-            )
+            # テスト環境ではUnifiedSystemの初期化を回避
+            try:
+                system = UnifiedSystem("main_test")
+                system.log_error(
+                    e,
+                    f"{model_type}テストエラー",
+                    additional_info={
+                        "X_train_shape": (
+                            X_train.shape if hasattr(X_train, "shape") else None
+                        ),
+                        "y_train_shape": (
+                            y_train.shape if hasattr(y_train, "shape") else None
+                        ),
+                        "X_test_shape": X_test.shape if hasattr(X_test, "shape") else None,
+                        "y_test_shape": y_test.shape if hasattr(y_test, "shape") else None,
+                    },
+                )
+            except Exception:
+                pass
             print(f"  {model_type}: エラー - {e}")

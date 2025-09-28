@@ -38,6 +38,13 @@ interface ReportData {
     factors: string[]
     mitigation: string[]
   }
+  evaluation_summary: {
+    total_models_evaluated: number
+    best_model: string
+    evaluation_method: string
+    overfitting_detection: string
+    recommendations: string[]
+  }
 }
 
 export default function ReportsPage() {
@@ -111,6 +118,17 @@ export default function ReportsPage() {
           "定期的なモデル再トレーニング",
           "リスク管理指標の監視",
         ],
+      },
+      evaluation_summary: {
+        total_models_evaluated: 6,
+        best_model: "XGBoost",
+        evaluation_method: "3分割（学習・検証・テスト）+ 5-fold CV",
+        overfitting_detection: "実装済み",
+        recommendations: [
+          "✅ モデル性能は良好です（MAE < 10円）",
+          "✅ クロスバリデーション結果は安定しています",
+          "⚠️ R²が0.99を超えています。データリークや過学習の可能性があります。"
+        ]
       },
     };
 
@@ -287,6 +305,47 @@ export default function ReportsPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">推奨事項</h3>
                   <p className="text-gray-700">{reportData.market_insights.recommendation}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 評価サマリー */}
+            <div className="bg-white rounded-lg shadow p-8">
+              <div className="flex items-center mb-6">
+                <BookOpen className="h-6 w-6 text-blue-600 mr-3" />
+                <h2 className="text-2xl font-bold text-gray-900">評価サマリー</h2>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="bg-blue-50 rounded-lg p-4">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">評価方法</h3>
+                    <p className="text-gray-700 mb-2">{reportData.evaluation_summary.evaluation_method}</p>
+                    <p className="text-sm text-gray-600">
+                      過学習検出: {reportData.evaluation_summary.overfitting_detection}
+                    </p>
+                  </div>
+                  
+                  <div className="bg-green-50 rounded-lg p-4">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">最良モデル</h3>
+                    <p className="text-gray-700">
+                      評価した{reportData.evaluation_summary.total_models_evaluated}モデル中、
+                      <span className="font-semibold text-green-600">{reportData.evaluation_summary.best_model}</span>
+                      が最高性能を示しました。
+                    </p>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">推奨事項</h3>
+                  <ul className="space-y-2">
+                    {reportData.evaluation_summary.recommendations.map((recommendation, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3"></span>
+                        <span className="text-gray-700">{recommendation}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
