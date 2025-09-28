@@ -28,8 +28,8 @@ import { MetricTooltip, SimpleTooltip } from "../components/guide/Tooltip";
 import Checklist, { ChecklistBadge, DEFAULT_CHECKLIST_ITEMS } from "../components/guide/Checklist";
 import GlossaryModal from "../components/guide/GlossaryModal";
 import HelpModal from "../components/guide/HelpModal";
-import { useGuideShortcuts } from "@/lib/guide/shortcut";
-import { guideStore } from "@/lib/guide/guideStore";
+import { useGuideShortcuts } from "../lib/guide/shortcut";
+import { guideStore } from "../lib/guide/guideStore";
 
 // 型定義
 interface StockData {

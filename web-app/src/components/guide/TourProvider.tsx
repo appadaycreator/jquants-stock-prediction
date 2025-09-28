@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { accessibilityUtils } from '@/lib/guide/accessibility';
+import { accessibilityUtils } from '../../lib/guide/accessibility';
 
 // 型定義
 export interface GuideStep {

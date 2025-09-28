@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, Circle, X } from 'lucide-react';
-import { accessibilityUtils } from '@/lib/guide/accessibility';
+import { accessibilityUtils } from '../../lib/guide/accessibility';
 
 interface ChecklistItem {
   id: string;
