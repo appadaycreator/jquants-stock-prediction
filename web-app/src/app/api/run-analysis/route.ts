@@ -67,8 +67,8 @@ export async function POST(request: NextRequest) {
         scriptArgs = ['ultra_fast'];
         break;
       case 'comprehensive':
-        // 統合システムを使用
-        pythonScript = path.join(process.cwd(), '..', 'unified_jquants_system.py');
+        // 統合システムを使用（新しいシステムに変更）
+        pythonScript = path.join(process.cwd(), '..', 'unified_system.py');
         break;
       case 'symbols':
         // 銘柄分析システムを使用
@@ -84,17 +84,17 @@ export async function POST(request: NextRequest) {
         pythonScript = path.join(process.cwd(), '..', 'integrated_sentiment_enhancement.py');
         break;
       default:
-        pythonScript = path.join(process.cwd(), '..', 'unified_jquants_system.py');
+        pythonScript = path.join(process.cwd(), '..', 'unified_system.py');
     }
 
     console.log(`実行スクリプト: ${pythonScript}`);
     console.log(`引数: ${scriptArgs.join(' ')}`);
 
-    // Pythonスクリプトの実行
-    const pythonProcess = spawn('python3', [pythonScript, ...scriptArgs], {
-      cwd: process.cwd(),
+    // Pythonスクリプトの実行（仮想環境のPythonを使用）
+    const pythonProcess = spawn('/Users/masayukitokunaga/workspace/jquants-stock-prediction/venv/bin/python3', [pythonScript, ...scriptArgs], {
+      cwd: path.join(process.cwd(), '..'), // プロジェクトルートに移動
       stdio: 'pipe',
-      env: { ...process.env, PYTHONPATH: process.cwd() }
+      env: { ...process.env, PYTHONPATH: path.join(process.cwd(), '..') }
     });
 
     let stdout = '';

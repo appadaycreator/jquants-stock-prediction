@@ -78,6 +78,15 @@ const nextConfig = {
     },
     // プリフェッチの無効化（GitHub Pagesでの問題を回避）
     disableOptimizedLoading: true,
+    // Turbopackの設定を追加
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
   
   // ESLint設定を無効化（ビルドエラーを回避）
