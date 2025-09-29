@@ -23,6 +23,7 @@ interface WatchlistItem {
   sector?: string;
   addedAt: string;
   isFavorite?: boolean;
+  tags?: string[];
 }
 
 interface Watchlist {
@@ -48,11 +49,15 @@ export default function WatchlistManager({
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingWatchlist, setEditingWatchlist] = useState<Watchlist | null>(null);
   const [newWatchlistName, setNewWatchlistName] = useState("");
+  const [renamingWatchlistId, setRenamingWatchlistId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [showStockSearch, setShowStockSearch] = useState(false);
   const [stockSearchResults, setStockSearchResults] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
+  const [newTagInput, setNewTagInput] = useState<{ [itemId: string]: string }>({});
+  const [activeSectorFilter, setActiveSectorFilter] = useState<string | null>(null);
+  const [activeTagFilter, setActiveTagFilter] = useState<string | null>(null);
 
   // サンプルデータの初期化
   useEffect(() => {
@@ -61,9 +66,9 @@ export default function WatchlistManager({
         id: "1",
         name: "主要銘柄",
         items: [
-          { id: "1-1", symbol: "7203.T", name: "トヨタ自動車", sector: "自動車", addedAt: "2024-01-01", isFavorite: true },
-          { id: "1-2", symbol: "6758.T", name: "ソニーグループ", sector: "エンターテインメント", addedAt: "2024-01-02", isFavorite: false },
-          { id: "1-3", symbol: "6861.T", name: "キーエンス", sector: "電子部品", addedAt: "2024-01-03", isFavorite: true },
+          { id: "1-1", symbol: "7203.T", name: "トヨタ自動車", sector: "自動車", addedAt: "2024-01-01", isFavorite: true, tags: ["大型株", "自動車"] },
+          { id: "1-2", symbol: "6758.T", name: "ソニーグループ", sector: "エンターテインメント", addedAt: "2024-01-02", isFavorite: false, tags: ["エレクトロニクス"] },
+          { id: "1-3", symbol: "6861.T", name: "キーエンス", sector: "電子部品", addedAt: "2024-01-03", isFavorite: true, tags: ["計測機器"] },
         ],
         createdAt: "2024-01-01",
         updatedAt: "2024-01-15"
@@ -72,8 +77,8 @@ export default function WatchlistManager({
         id: "2",
         name: "成長株",
         items: [
-          { id: "2-1", symbol: "9984.T", name: "ソフトバンクグループ", sector: "通信", addedAt: "2024-01-05", isFavorite: false },
-          { id: "2-2", symbol: "4063.T", name: "信越化学工業", sector: "化学", addedAt: "2024-01-06", isFavorite: true },
+          { id: "2-1", symbol: "9984.T", name: "ソフトバンクグループ", sector: "通信", addedAt: "2024-01-05", isFavorite: false, tags: ["投資持株"] },
+          { id: "2-2", symbol: "4063.T", name: "信越化学工業", sector: "化学", addedAt: "2024-01-06", isFavorite: true, tags: ["半導体材料"] },
         ],
         createdAt: "2024-01-05",
         updatedAt: "2024-01-10"
@@ -143,7 +148,7 @@ export default function WatchlistManager({
   const editWatchlist = (watchlist: Watchlist) => {
     setEditingWatchlist(watchlist);
     setNewWatchlistName(watchlist.name);
-    setShowEditModal(true);
+    setRenamingWatchlistId(watchlist.id);
   };
 
   // ウォッチリスト更新
@@ -158,7 +163,23 @@ export default function WatchlistManager({
     
     setEditingWatchlist(null);
     setNewWatchlistName("");
-    setShowEditModal(false);
+    setRenamingWatchlistId(null);
+  };
+
+  // インライン編集保存（Enter/blur）
+  const handleInlineRenameCommit = () => {
+    if (!renamingWatchlistId) return;
+    const wl = watchlists.find(w => w.id === renamingWatchlistId);
+    if (!wl) return;
+    if (!newWatchlistName.trim() || newWatchlistName === wl.name) {
+      setRenamingWatchlistId(null);
+      return;
+    }
+    setWatchlists(prev => prev.map(w =>
+      w.id === renamingWatchlistId ? { ...w, name: newWatchlistName.trim(), updatedAt: new Date().toISOString() } : w
+    ));
+    setRenamingWatchlistId(null);
+    setNewWatchlistName("");
   };
 
   // ウォッチリスト削除
@@ -182,7 +203,8 @@ export default function WatchlistManager({
       name: stock.name,
       sector: stock.sector,
       addedAt: new Date().toISOString(),
-      isFavorite: false
+      isFavorite: false,
+      tags: []
     };
 
     setWatchlists(prev => prev.map(wl => 
@@ -214,6 +236,43 @@ export default function WatchlistManager({
             items: wl.items.map(item => 
               item.id === itemId 
                 ? { ...item, isFavorite: !item.isFavorite }
+                : item
+            ),
+            updatedAt: new Date().toISOString()
+          }
+        : wl
+    ));
+  };
+
+  // タグの追加
+  const addTagToItem = (watchlistId: string, itemId: string, tag: string) => {
+    const trimmed = tag.trim();
+    if (!trimmed) return;
+    setWatchlists(prev => prev.map(wl =>
+      wl.id === watchlistId
+        ? {
+            ...wl,
+            items: wl.items.map(item =>
+              item.id === itemId
+                ? { ...item, tags: Array.from(new Set([...(item.tags || []), trimmed])) }
+                : item
+            ),
+            updatedAt: new Date().toISOString()
+          }
+        : wl
+    ));
+    setNewTagInput(prev => ({ ...prev, [itemId]: "" }));
+  };
+
+  // タグの削除
+  const removeTagFromItem = (watchlistId: string, itemId: string, tag: string) => {
+    setWatchlists(prev => prev.map(wl =>
+      wl.id === watchlistId
+        ? {
+            ...wl,
+            items: wl.items.map(item =>
+              item.id === itemId
+                ? { ...item, tags: (item.tags || []).filter(t => t !== tag) }
                 : item
             ),
             updatedAt: new Date().toISOString()
@@ -341,7 +400,25 @@ export default function WatchlistManager({
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium text-gray-900">{watchlist.name}</h4>
+                      {renamingWatchlistId === watchlist.id ? (
+                        <input
+                          autoFocus
+                          type="text"
+                          value={newWatchlistName}
+                          onChange={(e) => setNewWatchlistName(e.target.value)}
+                          onBlur={handleInlineRenameCommit}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') handleInlineRenameCommit();
+                            if (e.key === 'Escape') {
+                              setRenamingWatchlistId(null);
+                              setNewWatchlistName("");
+                            }
+                          }}
+                          className="px-2 py-1 border border-blue-300 rounded w-full"
+                        />
+                      ) : (
+                        <h4 className="font-medium text-gray-900">{watchlist.name}</h4>
+                      )}
                       <p className="text-sm text-gray-500">{watchlist.items.length}銘柄</p>
                     </div>
                     <div className="flex items-center space-x-1">
@@ -387,10 +464,46 @@ export default function WatchlistManager({
                   </button>
                 </div>
               </div>
+              {/* フィルタ行 */}
+              <div className="px-4 pt-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <select
+                    className="px-2 py-1 border border-gray-300 rounded"
+                    value={activeSectorFilter || ""}
+                    onChange={e => setActiveSectorFilter(e.target.value || null)}
+                  >
+                    <option value="">すべてのセクター</option>
+                    {Array.from(new Set(currentWatchlist.items.map(i => i.sector).filter(Boolean))).map(sec => (
+                      <option key={sec as string} value={sec as string}>{sec as string}</option>
+                    ))}
+                  </select>
+                  <select
+                    className="px-2 py-1 border border-gray-300 rounded"
+                    value={activeTagFilter || ""}
+                    onChange={e => setActiveTagFilter(e.target.value || null)}
+                  >
+                    <option value="">すべてのタグ</option>
+                    {Array.from(new Set(currentWatchlist.items.flatMap(i => i.tags || []))).map(tag => (
+                      <option key={tag} value={tag}>{tag}</option>
+                    ))}
+                  </select>
+                  {(activeSectorFilter || activeTagFilter) && (
+                    <button
+                      onClick={() => { setActiveSectorFilter(null); setActiveTagFilter(null); }}
+                      className="text-xs px-2 py-1 border border-gray-300 rounded text-gray-600 hover:bg-gray-50"
+                    >
+                      フィルタ解除
+                    </button>
+                  )}
+                </div>
+              </div>
               
               {currentWatchlist.items.length > 0 ? (
                 <div className="p-4 space-y-2">
-                  {currentWatchlist.items.map((item, index) => (
+                  {currentWatchlist.items
+                    .filter(item => !activeSectorFilter || item.sector === activeSectorFilter)
+                    .filter(item => !activeTagFilter || (item.tags || []).includes(activeTagFilter))
+                    .map((item, index) => (
                     <div
                       key={item.id}
                       draggable
@@ -410,6 +523,37 @@ export default function WatchlistManager({
                           {item.sector && (
                             <p className="text-xs text-gray-500">{item.sector}</p>
                           )}
+                            {/* タグ群 */}
+                            <div className="flex flex-wrap items-center gap-1 mt-1">
+                              {(item.tags || []).map(tag => (
+                                <span key={tag} className="inline-flex items-center text-xs px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 rounded">
+                                  {tag}
+                                  <button
+                                    onClick={() => removeTagFromItem(currentWatchlist.id, item.id, tag)}
+                                    className="ml-1 text-blue-500 hover:text-blue-700"
+                                    aria-label="remove-tag"
+                                  >
+                                    ×
+                                  </button>
+                                </span>
+                              ))}
+                              <input
+                                type="text"
+                                value={newTagInput[item.id] || ""}
+                                onChange={e => setNewTagInput(prev => ({ ...prev, [item.id]: e.target.value }))}
+                                onKeyDown={e => {
+                                  if (e.key === 'Enter') {
+                                    addTagToItem(currentWatchlist.id, item.id, newTagInput[item.id] || "");
+                                  }
+                                }}
+                                placeholder="タグ追加"
+                                className="text-xs px-2 py-1 border border-gray-300 rounded"
+                              />
+                              <button
+                                onClick={() => addTagToItem(currentWatchlist.id, item.id, newTagInput[item.id] || "")}
+                                className="text-xs px-2 py-1 border border-gray-300 rounded text-gray-600 hover:bg-gray-50"
+                              >追加</button>
+                            </div>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
@@ -502,49 +646,7 @@ export default function WatchlistManager({
         </div>
       )}
 
-      {/* 編集モーダル */}
-      {showEditModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-medium text-gray-900">ウォッチリスト編集</h3>
-              <button
-                onClick={() => setShowEditModal(false)}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  ウォッチリスト名
-                </label>
-                <input
-                  type="text"
-                  value={newWatchlistName}
-                  onChange={(e) => setNewWatchlistName(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-              <div className="flex justify-end space-x-3">
-                <button
-                  onClick={() => setShowEditModal(false)}
-                  className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
-                >
-                  キャンセル
-                </button>
-                <button
-                  onClick={updateWatchlist}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                >
-                  更新
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* 編集モーダルは廃止（インライン編集に置換） */}
 
       {/* 銘柄検索モーダル */}
       {showStockSearch && (
