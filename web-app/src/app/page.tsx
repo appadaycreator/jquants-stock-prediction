@@ -41,12 +41,12 @@ import JQuantsAdapter from "@/lib/jquants-adapter";
 // 型定義
 interface StockData {
   date: string
-  code: string
-  open: number
-  high: number
-  low: number
-  close: number
-  volume: number
+  code?: string
+  open?: number
+  high?: number
+  low?: number
+  close?: number
+  volume?: number
   sma_5?: number
   sma_10?: number
   sma_25?: number
@@ -191,8 +191,12 @@ function DashboardContent() {
   );
 
   // 日時文字列を正規化する関数
-  const normalizeDateString = (dateStr: string): string => {
+  const normalizeDateString = (dateStr: string | undefined): string => {
     try {
+      if (!dateStr || dateStr === 'undefined' || dateStr === 'null') {
+        return '2024-01-01'; // デフォルト日付
+      }
+      
       // 既にYYYY-MM-DD形式の場合はそのまま返す
       if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
         return dateStr;
@@ -312,7 +316,7 @@ function DashboardContent() {
       // 日時データを正規化してから設定
       const normalizedStockData = stockDataRes.slice(0, 100).map((item: StockData) => ({
         ...item,
-        date: normalizeDateString(item.date)
+        date: normalizeDateString(item.date || undefined)
       }));
       setStockData(normalizedStockData);
       
