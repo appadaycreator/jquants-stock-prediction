@@ -95,6 +95,20 @@ npm run build
 npm run dev  # ローカル確認
 ```
 
+## ⚠️ GitHub Pages の制約（重要）
+
+- GitHub Pages は静的ホスティングのため、Next.js の `/api/*` や SSR/Edge 機能は動作しません。
+- 本リポジトリでは、静的エクスポート可能な API ルートには `export const dynamic = 'force-static'` を設定しています。
+- `Service Worker` の background-sync は静的環境では無効化しています（`web-app/public/sw.js`）。
+- API が必要な機能（例: Python スクリプト実行、サーバー状態取得など）は、別ホスティングを利用してください。
+  - 推奨: Vercel（Serverless Functions/Edge Functions）、Cloudflare Pages Functions、Render、Fly.io など
+
+### 代替構成例
+
+1. Web: GitHub Pages（`docs/` 配信）
+2. API: Vercel（`/api/*` を同一パスで提供）
+3. フロントの API 呼び出し: `NEXT_PUBLIC_API_BASE` などの環境変数でベースURLを切り替え
+
 ### データが表示されない場合
 ```bash
 # データファイルの存在確認

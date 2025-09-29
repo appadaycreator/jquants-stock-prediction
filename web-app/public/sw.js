@@ -92,8 +92,21 @@ self.addEventListener('notificationclick', (event) => {
 });
 
 // バックグラウンド同期
+// GitHub Pages 等の静的ホスティングでは /api は存在しないため無効化
+const isStaticHosting = (() => {
+  try {
+    return /github\.io$/i.test(self.location.hostname);
+  } catch (_) {
+    return false;
+  }
+})();
+
 self.addEventListener('sync', (event) => {
   if (event.tag === 'background-sync') {
+    if (isStaticHosting) {
+      // 静的ホスティングでは何もしない
+      return;
+    }
     event.waitUntil(
       fetch('/api/background-sync')
         .then((response) => {
