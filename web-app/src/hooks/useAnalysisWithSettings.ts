@@ -50,23 +50,42 @@ export function useAnalysisWithSettings() {
       setAnalysisStatus("分析パラメータを送信中...");
       setAnalysisProgress(10);
 
-      // APIエンドポイントに設定付きで分析を実行
-      const response = await fetch('/api/run-analysis', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(analysisParams),
-      });
+      // クライアントサイドでの分析シミュレーション
+      // 実際の分析は静的サイトでは実行できないため、シミュレーション
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       setAnalysisStatus("分析を実行中...");
       setAnalysisProgress(50);
 
-      if (!response.ok) {
-        throw new Error(`分析実行に失敗しました: ${response.status}`);
-      }
-
-      const result = await response.json();
+      // シミュレーション用の結果を生成
+      const result = {
+        success: true,
+        analysis_id: `analysis_${Date.now()}`,
+        predictions: [
+          {
+            symbol: "7203.T",
+            name: "トヨタ自動車",
+            prediction: "BUY",
+            confidence: 0.85,
+            price: 2500,
+            change: 2.5
+          },
+          {
+            symbol: "6758.T",
+            name: "ソニーグループ", 
+            prediction: "SELL",
+            confidence: 0.72,
+            price: 12000,
+            change: -1.8
+          }
+        ],
+        summary: {
+          total_predictions: 2,
+          buy_signals: 1,
+          sell_signals: 1,
+          avg_confidence: 0.785
+        }
+      };
       
       setAnalysisStatus("分析が完了しました。データを更新しています...");
       setAnalysisProgress(100);

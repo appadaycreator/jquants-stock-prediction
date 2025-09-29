@@ -91,23 +91,11 @@ export default function StockMonitoringManager({
     alertEmail: "",
   });
 
-  // サーバーから監視設定を読み込み
+  // ローカルストレージから監視設定を読み込み
   useEffect(() => {
     const loadMonitoringData = async () => {
       try {
-        const response = await fetch('/api/monitoring');
-        const data = await response.json();
-        
-        if (data.stocks) {
-          setMonitoredStocks(data.stocks);
-        }
-        
-        if (data.config) {
-          setConfig(data.config);
-        }
-      } catch (error) {
-        console.error('監視データ読み込みエラー:', error);
-        // フォールバック: ローカルストレージから読み込み
+        // ローカルストレージから読み込み
         const savedStocks = localStorage.getItem("monitoredStocks");
         const savedConfig = localStorage.getItem("monitoringConfig");
         
@@ -118,6 +106,8 @@ export default function StockMonitoringManager({
         if (savedConfig) {
           setConfig(JSON.parse(savedConfig));
         }
+      } catch (error) {
+        console.error('監視データ読み込みエラー:', error);
       }
     };
     
@@ -130,25 +120,15 @@ export default function StockMonitoringManager({
     onConfigChange?.(config);
   }, [monitoredStocks, config, onMonitoringChange, onConfigChange]);
 
-  // サーバーに保存
+  // ローカルストレージに保存
   useEffect(() => {
     const saveMonitoringData = async () => {
       try {
-        await fetch('/api/monitoring', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            stocks: monitoredStocks,
-            config: config,
-          }),
-        });
-      } catch (error) {
-        console.error('監視データ保存エラー:', error);
-        // フォールバック: ローカルストレージに保存
+        // ローカルストレージに保存
         localStorage.setItem("monitoredStocks", JSON.stringify(monitoredStocks));
         localStorage.setItem("monitoringConfig", JSON.stringify(config));
+      } catch (error) {
+        console.error('監視データ保存エラー:', error);
       }
     };
     

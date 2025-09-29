@@ -32,11 +32,9 @@ export default function AutoUpdateSettings() {
 
   const checkAutoUpdateStatus = async () => {
     try {
-      const response = await fetch('/api/auto-update-status');
-      if (response.ok) {
-        const data = await response.json();
-        setAutoUpdateStatus(data.status);
-      }
+      // ローカルストレージから自動更新ステータスを確認
+      const autoUpdateEnabled = localStorage.getItem('auto-update-enabled');
+      setAutoUpdateStatus(autoUpdateEnabled === 'true' ? 'running' : 'stopped');
     } catch (error) {
       console.error('自動更新ステータス確認エラー:', error);
     }

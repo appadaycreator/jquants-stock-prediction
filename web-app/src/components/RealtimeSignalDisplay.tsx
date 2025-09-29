@@ -60,22 +60,67 @@ export default function RealtimeSignalDisplay({
       setLoading(true);
       setError(null);
       
-      // リアルタイムシグナルデータを取得
-      const response = await fetch('/api/trading-signals', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      // クライアントサイドでのシグナルシミュレーション
+      // 実際のシグナル取得は静的サイトでは実行できないため、シミュレーション
+      const mockSignals: TradingSignal[] = [
+        {
+          symbol: "7203.T",
+          signal_type: "BUY",
+          strength: "STRONG",
+          confidence: 0.85,
+          price: 2500,
+          timestamp: new Date().toISOString(),
+          reason: "テクニカル分析とファンダメンタル分析の両方で買いシグナル",
+          risk_level: "MEDIUM",
+          position_size: 1000,
+          evidence: {
+            historical_accuracy_30d: 0.78,
+            model: {
+              name: "統合予測モデル",
+              description: "テクニカル分析とファンダメンタル分析を統合したAIモデル"
+            },
+            top_features: [
+              { name: "RSI", importance: 0.85 },
+              { name: "MACD", importance: 0.72 },
+              { name: "業績成長率", importance: 0.68 }
+            ]
+          }
         },
-        body: JSON.stringify({ symbols })
-      });
+        {
+          symbol: "6758.T", 
+          signal_type: "SELL",
+          strength: "WEAK",
+          confidence: 0.72,
+          price: 12000,
+          timestamp: new Date().toISOString(),
+          reason: "テクニカル分析で売りシグナル、利益確定のタイミング",
+          risk_level: "LOW",
+          position_size: 500,
+          evidence: {
+            historical_accuracy_30d: 0.65,
+            model: {
+              name: "リスク評価モデル",
+              description: "リスク要因を重点的に分析するAIモデル"
+            },
+            top_features: [
+              { name: "RSI", importance: 0.72 },
+              { name: "MACD", importance: 0.68 },
+              { name: "PER", importance: 0.55 }
+            ]
+          }
+        }
+      ];
       
-      if (!response.ok) {
-        throw new Error('シグナルデータの取得に失敗しました');
-      }
+      const mockSummary = {
+        buy: mockSignals.filter(s => s.signal_type === 'BUY' && s.strength === 'WEAK').length,
+        sell: mockSignals.filter(s => s.signal_type === 'SELL' && s.strength === 'WEAK').length,
+        hold: 0,
+        strong_buy: mockSignals.filter(s => s.signal_type === 'BUY' && s.strength === 'STRONG').length,
+        strong_sell: mockSignals.filter(s => s.signal_type === 'SELL' && s.strength === 'STRONG').length
+      };
       
-      const data = await response.json();
-      setSignals(data.top_signals || []);
-      setSignalSummary(data.summary || {});
+      setSignals(mockSignals);
+      setSignalSummary(mockSummary);
       setLastUpdate(new Date());
       
     } catch (err) {

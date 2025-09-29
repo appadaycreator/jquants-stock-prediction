@@ -92,9 +92,10 @@ export default function NotificationSettings() {
 
   const loadConfig = async () => {
     try {
-      const response = await fetch('/api/notification-config');
-      if (response.ok) {
-        const data = await response.json();
+      // ローカルストレージから設定を読み込み
+      const savedConfig = localStorage.getItem('notification-config');
+      if (savedConfig) {
+        const data = JSON.parse(savedConfig);
         setConfig(data);
       }
     } catch (error) {
@@ -106,20 +107,10 @@ export default function NotificationSettings() {
   const saveConfig = async () => {
     setIsSaving(true);
     try {
-      const response = await fetch('/api/notification-config', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(config),
-      });
-
-      if (response.ok) {
-        setTestResult('設定を保存しました');
-        setTimeout(() => setTestResult(null), 3000);
-      } else {
-        setTestResult('設定の保存に失敗しました');
-      }
+      // ローカルストレージに設定を保存
+      localStorage.setItem('notification-config', JSON.stringify(config));
+      setTestResult('設定を保存しました');
+      setTimeout(() => setTestResult(null), 3000);
     } catch (error) {
       setTestResult('設定の保存に失敗しました');
     } finally {
@@ -131,20 +122,8 @@ export default function NotificationSettings() {
   const testNotification = async (type: 'email' | 'slack') => {
     setIsLoading(true);
     try {
-      const response = await fetch('/api/test-notification', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ type }),
-      });
-
-      const result = await response.json();
-      if (result.success) {
-        setTestResult(`${type === 'email' ? 'メール' : 'Slack'}通知のテストが成功しました`);
-      } else {
-        setTestResult(`${type === 'email' ? 'メール' : 'Slack'}通知のテストに失敗しました: ${result.error}`);
-      }
+      // クライアントサイドでのテスト（実際の送信は行わない）
+      setTestResult(`${type === 'email' ? 'メール' : 'Slack'}通知の設定が保存されました（テスト機能は静的サイトでは利用できません）`);
     } catch (error) {
       setTestResult(`${type === 'email' ? 'メール' : 'Slack'}通知のテストに失敗しました`);
     } finally {

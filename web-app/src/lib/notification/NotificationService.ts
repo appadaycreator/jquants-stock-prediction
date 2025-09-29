@@ -59,12 +59,13 @@ export class NotificationService {
   // 設定の読み込み
   public async loadConfig(): Promise<NotificationConfig> {
     try {
-      const response = await fetch('/api/notification-config');
-      if (response.ok) {
-        this.config = await response.json();
+      // ローカルストレージから設定を読み込み
+      const savedConfig = localStorage.getItem('notification-config');
+      if (savedConfig) {
+        this.config = JSON.parse(savedConfig);
         return this.config!;
       }
-      throw new Error('設定の読み込みに失敗しました');
+      throw new Error('設定が見つかりません');
     } catch (error) {
       console.error('設定読み込みエラー:', error);
       throw error;
@@ -74,18 +75,8 @@ export class NotificationService {
   // 設定の保存
   public async saveConfig(config: NotificationConfig): Promise<void> {
     try {
-      const response = await fetch('/api/notification-config', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(config),
-      });
-
-      if (!response.ok) {
-        throw new Error('設定の保存に失敗しました');
-      }
-
+      // ローカルストレージに設定を保存
+      localStorage.setItem('notification-config', JSON.stringify(config));
       this.config = config;
     } catch (error) {
       console.error('設定保存エラー:', error);
@@ -133,14 +124,8 @@ export class NotificationService {
         applicationServerKey: this.config.push.vapid_public_key,
       });
 
-      // サーバーに購読情報を送信
-      await fetch('/api/push-subscription', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(subscription),
-      });
+      // ローカルストレージに購読情報を保存
+      localStorage.setItem('push-subscription', JSON.stringify(subscription));
     } catch (error) {
       console.error('プッシュ通知の購読エラー:', error);
     }
@@ -243,18 +228,9 @@ export class NotificationService {
   // 自動更新の停止
   public async stopAutoUpdate(): Promise<void> {
     try {
-      const response = await fetch('/api/stop-auto-update', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('自動更新の停止に失敗しました');
-      }
-
-      console.log('自動更新を停止しました');
+      // 静的サイトでは自動更新は実行できないため、ローカルストレージから設定を削除
+      localStorage.removeItem('auto-update-enabled');
+      console.log('自動更新設定を削除しました（静的サイトでは実際の自動更新は実行されません）');
     } catch (error) {
       console.error('自動更新停止エラー:', error);
       throw error;
@@ -264,9 +240,10 @@ export class NotificationService {
   // 通知履歴の取得
   public async getNotificationHistory(): Promise<NotificationData[]> {
     try {
-      const response = await fetch('/api/notification-history');
-      if (response.ok) {
-        return await response.json();
+      // ローカルストレージから通知履歴を取得
+      const savedHistory = localStorage.getItem('notification-history');
+      if (savedHistory) {
+        return JSON.parse(savedHistory);
       }
       return [];
     } catch (error) {

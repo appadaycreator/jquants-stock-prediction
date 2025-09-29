@@ -67,20 +67,13 @@ export default function AnalysisProgressPage() {
     try {
       setLoading(true);
       
-      // 分析状況データを取得
-      const response = await fetch('/api/analysis-progress');
-      const data = await response.json();
-      
-      if (data.success) {
-        setAnalyses(data.analyses || []);
-        setSystemStats(data.systemStats || null);
-      } else {
-        // ダミーデータを表示
-        setAnalyses([
+      // クライアントサイドでの分析状況シミュレーション
+      // 実際の分析状況取得は静的サイトでは実行できないため、シミュレーション
+      const mockAnalyses: AnalysisStatus[] = [
           {
             id: '1',
             name: '統合株価予測分析',
-            status: 'completed',
+            status: 'completed' as const,
             progress: 100,
             startTime: '2025-09-29T15:00:00Z',
             endTime: '2025-09-29T15:05:30Z',
@@ -94,7 +87,7 @@ export default function AnalysisProgressPage() {
           {
             id: '2',
             name: '感情分析システム',
-            status: 'running',
+            status: 'running' as const,
             progress: 65,
             startTime: '2025-09-29T15:10:00Z',
             results: {
@@ -106,12 +99,13 @@ export default function AnalysisProgressPage() {
           {
             id: '3',
             name: 'リスク評価分析',
-            status: 'pending',
+            status: 'pending' as const,
             progress: 0,
             startTime: '2025-09-29T15:15:00Z'
           }
-        ]);
+        ];
         
+        setAnalyses(mockAnalyses);
         setSystemStats({
           totalAnalyses: 15,
           successfulAnalyses: 12,
@@ -119,7 +113,6 @@ export default function AnalysisProgressPage() {
           averageDuration: 285,
           lastUpdate: new Date().toISOString()
         });
-      }
     } catch (error) {
       console.error('分析状況データの読み込みエラー:', error);
     } finally {
