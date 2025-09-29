@@ -1,55 +1,24 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   // 基本設定 - GitHub Pages用に静的エクスポートを有効化
-  output: process.env.NODE_ENV === "production" ? "export" : undefined,
-  distDir: process.env.NODE_ENV === "production" ? "out" : ".next",
+  output: "export",
+  distDir: "out",
   
-  // 環境に応じた動的設定
-  env: {
-    NEXT_PUBLIC_BASE_PATH: process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "",
-    NEXT_PUBLIC_ASSET_PREFIX: process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "",
-  },
+  // GitHub Pages用の設定
+  basePath: "/jquants-stock-prediction",
+  assetPrefix: "/jquants-stock-prediction",
   
   // 画像最適化設定
   images: {
-    unoptimized: process.env.NODE_ENV === "production",
+    unoptimized: true,
     formats: ["image/webp", "image/avif"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   
-  // GitHub Pages用の設定
-  ...(process.env.NODE_ENV === "production" && {
-    // GitHub Pagesのサブパスに対応
-    assetPrefix: "/jquants-stock-prediction",
-    basePath: "/jquants-stock-prediction",
-    generateBuildId: async () => "build",
-    // 静的エクスポート用の設定
-    trailingSlash: true,
-    skipTrailingSlashRedirect: true,
-    // RSCペイロードエラーを解決するための設定
-    outputFileTracingRoot: process.cwd(),
-    outputFileTracingIncludes: {
-      '/reports': ['./src/app/reports/**/*'],
-      '/settings': ['./src/app/settings/**/*'],
-    },
-    // 本番環境でのパス設定を統一
-    env: {
-      NEXT_PUBLIC_BASE_PATH: "/jquants-stock-prediction",
-      NEXT_PUBLIC_ASSET_PREFIX: "/jquants-stock-prediction",
-    },
-    // 静的エクスポート時のパス設定
-    experimental: {
-      outputFileTracingRoot: process.cwd(),
-    },
-  }),
-  
-  // ローカル開発環境での一貫性を確保
-  ...(process.env.NODE_ENV === "development" && {
-    // ローカル開発時も本番と同じパス構造を使用
-    assetPrefix: "",
-    basePath: "",
-  }),
+  // 静的エクスポート用の設定
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
   
   // パフォーマンス最適化
   compress: true,
@@ -70,23 +39,10 @@ const nextConfig = {
   // 実験的機能の設定
   experimental: {
     optimizePackageImports: ["lucide-react", "recharts"],
-    // GitHub PagesでのRSC動作を改善
+    // 静的エクスポート用の設定
     staticGenerationRetryCount: 5,
-    // RSCエラーを解決するための設定
-    serverActions: {
-      allowedOrigins: ["appadaycreator.github.io"],
-    },
     // プリフェッチの無効化（GitHub Pagesでの問題を回避）
     disableOptimizedLoading: true,
-    // Turbopackの設定を追加
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
   },
   
   // ESLint設定を無効化（ビルドエラーを回避）

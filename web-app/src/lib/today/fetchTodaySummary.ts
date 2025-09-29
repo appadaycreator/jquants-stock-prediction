@@ -1,26 +1,11 @@
 import { TodaySummary } from '../../types/today';
 
-const API_ENDPOINT = '/api/today';
-const FALLBACK_ENDPOINT = '/data/today_summary.json';
+const DATA_ENDPOINT = '/data/today_summary.json';
 
 export async function fetchTodaySummary(): Promise<TodaySummary> {
   try {
-    // まずAPIエンドポイントを試行
-    const response = await fetch(API_ENDPOINT, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      cache: 'no-store', // 常に最新データを取得
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    }
-
-    // APIが失敗した場合は静的ファイルを試行
-    const fallbackResponse = await fetch(FALLBACK_ENDPOINT, {
+    // 静的ファイルから直接データを取得
+    const response = await fetch(DATA_ENDPOINT, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -28,8 +13,8 @@ export async function fetchTodaySummary(): Promise<TodaySummary> {
       cache: 'no-store',
     });
 
-    if (fallbackResponse.ok) {
-      const data = await fallbackResponse.json();
+    if (response.ok) {
+      const data = await response.json();
       return data;
     }
 
@@ -43,7 +28,7 @@ export async function fetchTodaySummary(): Promise<TodaySummary> {
       }
     }
 
-    throw new Error('データの取得に失敗しました。APIとフォールバックファイルの両方が利用できません。');
+    throw new Error('データの取得に失敗しました。静的データファイルが利用できません。');
   } catch (error) {
     console.error('fetchTodaySummary error:', error);
     throw error;
