@@ -1,0 +1,7 @@
+{
+  "interval": 30,
+  "priceChangeThreshold": 3,
+  "volumeSpikeThreshold": 200,
+  "enableAlerts": true,
+  "alertEmail": ""
+}
