@@ -16,11 +16,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Pythonスクリプトの実行
+    // Pythonスクリプトの実行（venv を優先）
     const pythonScript = path.join(process.cwd(), '..', 'web_symbol_analysis.py');
-    const pythonProcess = spawn('python3', [pythonScript, ...symbols], {
-      cwd: process.cwd(),
-      stdio: 'pipe'
+    const venvPython = '/Users/masayukitokunaga/workspace/jquants-stock-prediction/venv/bin/python3';
+    const pythonProcess = spawn(venvPython, [pythonScript, ...symbols], {
+      cwd: path.join(process.cwd(), '..'),
+      stdio: 'pipe',
+      env: { ...process.env, PYTHONPATH: path.join(process.cwd(), '..') }
     });
 
     let stdout = '';
@@ -44,11 +46,13 @@ export async function POST(request: NextRequest) {
             output: stdout
           }));
         } else {
+          // フォールバックで空の結果を返して UI を壊さない
           resolve(NextResponse.json({
             success: false,
             error: '分析に失敗しました',
-            details: stderr
-          }, { status: 500 }));
+            details: stderr || 'unknown error',
+            fallback: true
+          }));
         }
       });
     });

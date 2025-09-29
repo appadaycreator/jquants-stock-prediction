@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-09-29T16:08:09.761940",
+  "account_value": 1000000,
+  "total_symbols": 10,
+  "signals_generated": 0,
+  "top_signals": [],
+  "summary": {
+    "buy_signals": 0,
+    "sell_signals": 0,
+    "hold_signals": 0,
+    "strong_buy_signals": 0,
+    "strong_sell_signals": 0
+  }
+}

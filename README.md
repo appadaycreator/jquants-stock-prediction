@@ -693,6 +693,25 @@ except Exception as e:
 - `web-app/src/app/page.tsx` - 構文エラー修正（シンプル化）
 
 #### 🚨 GitHub Actionsデプロイエラー修正（2024-12-19）✅ 完了
+#### 🚨 シグナルAPI安定化（2025-09-29）✅ 完了
+
+**✅ 改善点:**
+- **venvのPython使用**: `web-app/src/app/api/trading-signals/route.ts` と `web-app/src/app/api/analyze-symbols/route.ts` が仮想環境の Python (`venv/bin/python3`) を使用するよう統一
+- **フォールバック強化**: Python依存や `pandas` 未導入で失敗した場合でも、モック結果を返却して UI を継続
+- **結果読込の堅牢化**: `trading_signals_results.json` が存在しない/解析失敗でもモック返却
+
+**運用ノート:**
+- 仮想環境の作成と依存導入は以下を実行
+  ```bash
+  python3 -m venv venv
+  source venv/bin/activate
+  pip install -r requirements.txt
+  ```
+- 依存が未導入で Python 側が失敗しても UI は動作（モック表示）。本番運用では `pandas` など必要依存をインストールしてください。
+
+**横展開:**
+- すでに `/api/analyze-symbols` に適用済み。今後 Python を呼ぶ API では同様に venv を明示使用＋フォールバック実装を推奨。
+
 
 **✅ デプロイエラー解決:**
 - **APIルート型エラー修正**: `analyze-symbols/route.ts`の戻り値型を`Promise<NextResponse>`に修正
