@@ -149,6 +149,7 @@ web-app/public/data/
 ├── feature_analysis.json     # 特徴量重要度分析
 ├── performance_metrics.json  # 性能指標
 └── dashboard_summary.json    # ダッシュボードサマリー
+└── today_summary.json        # 今日のタスクページ用サマリー
 ```
 
 ### 3. Frontend処理
@@ -156,6 +157,13 @@ web-app/public/data/
 - **React コンポーネント** → インタラクティブUI
 - **Recharts** → チャート描画とアニメーション
 - **Tailwind CSS** → レスポンシブスタイリング
+
+### 5. Todayページ（/today）のデータ取得について
+- 開発環境: `GET /api/today` がローカルの `public/data/today_summary.json` を返します。
+- 本番（GitHub Pages, 静的エクスポート）: クライアントから `public/data/today_summary.json` を直接取得するフォールバックが働きます。
+- 実装参照:
+  - ルート: `src/app/api/today/route.ts`
+  - フロント: `src/lib/today/fetchTodaySummary.ts`, `src/app/today/page.tsx`
 
 ### 4. CI/CD パイプライン
 - **GitHub Actions** → Python処理 + Next.jsビルド自動実行
