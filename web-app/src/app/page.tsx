@@ -527,7 +527,7 @@ function DashboardContent() {
     SMA_10: item.sma_10,
     SMA_25: item.sma_25,
     SMA_50: item.sma_50,
-    出来高: item.volume / 1000000, // 百万単位
+    出来高: (item.volume ?? 0) / 1000000, // 百万単位（undefined対策）
   }));
 
   const predictionChartData = predictions.slice(0, 50).map(item => ({
