@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { TodaySummary, TodayPageState } from '@/types/today';
 import { fetchTodaySummary, saveTodaySummaryToCache, getCachedTodaySummary } from '@/lib/today/fetchTodaySummary';
 import Hero from '@/components/today/Hero';
+import TaskRecommendations from '@/components/today/TaskRecommendations';
 import CandidateCard from '@/components/today/CandidateCard';
 import RiskCard from '@/components/today/RiskCard';
 import TodoCard from '@/components/today/TodoCard';
@@ -175,11 +176,16 @@ export default function TodayPage() {
         {/* ヒーローセクション */}
         <Hero summary={state.summary} />
 
-        {/* 候補カード */}
+        {/* 今日の推奨タスク - 最優先表示 */}
+        <section className="mb-8">
+          <TaskRecommendations summary={state.summary} />
+        </section>
+
+        {/* 候補カード - 詳細表示 */}
         {state.summary.candidates.length > 0 && (
           <section className="mb-6">
             <h2 className="text-lg font-bold text-gray-900 mb-3">
-              売買候補 ({state.summary.candidates.length}件)
+              詳細な売買候補 ({state.summary.candidates.length}件)
             </h2>
             <div className="space-y-3">
               {state.summary.candidates.map((candidate, index) => (
