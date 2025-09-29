@@ -1,0 +1,33 @@
+{
+  "risk_level": "Medium",
+  "risk_score": 0.65,
+  "risk_factors": [
+    "市場の外的要因（政治・経済情勢）",
+    "モデルの過学習リスク",
+    "予期しない市場変動"
+  ],
+  "mitigation": [
+    "複数モデルによるアンサンブル予測",
+    "定期的なモデル再トレーニング",
+    "リスク管理指標の監視"
+  ],
+  "portfolio_metrics": {
+    "total_value": 1000000,
+    "unrealized_pnl": 15300,
+    "max_drawdown": -0.08,
+    "sharpe_ratio": 1.45,
+    "var_95": -0.05
+  },
+  "position_analysis": {
+    "total_positions": 12,
+    "high_risk_positions": 2,
+    "medium_risk_positions": 6,
+    "low_risk_positions": 4
+  },
+  "recommendations": [
+    "✅ モデル性能は良好です（MAE < 100円）",
+    "✅ クロスバリデーション結果は安定しています",
+    "⚠️ リスクレベルが中程度のため、継続的な監視が必要です"
+  ],
+  "last_updated": "2024-01-15T10:30:00Z"
+}
