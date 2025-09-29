@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
-import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen } from "lucide-react";
+import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen, Bell } from "lucide-react";
 import { useAnalysisWithSettings } from "@/hooks/useAnalysisWithSettings";
 import { useSettings } from "@/contexts/SettingsContext";
+import AutoUpdateSettings from "@/components/notification/AutoUpdateSettings";
 
 export default function SettingsPage() {
   const { settings, updateSettings, saveSettings, resetSettings, isLoading, isSaving } = useSettings();
@@ -191,6 +192,12 @@ export default function SettingsPage() {
                   className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                 >
                   システム情報
+                </a>
+                <a
+                  href="#notifications"
+                  className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                >
+                  自動更新・通知
                 </a>
                 
                 {/* 使い方リンク */}
@@ -544,6 +551,16 @@ export default function SettingsPage() {
                 </label>
               </div>
             </div>
+          </div>
+
+          {/* 自動更新・通知設定 */}
+          <div id="notifications" className="bg-white rounded-lg shadow p-8">
+            <div className="flex items-center mb-6">
+              <Bell className="h-6 w-6 text-blue-600 mr-3" />
+              <h2 className="text-2xl font-bold text-gray-900">自動更新・通知設定</h2>
+            </div>
+            
+            <AutoUpdateSettings />
           </div>
 
           {/* システム情報 */}
