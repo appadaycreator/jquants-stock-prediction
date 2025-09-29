@@ -227,6 +227,18 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 - **推奨アクション**: 買い/売り/様子見
 - **受け入れ基準**: ホーム→上位3カードを見れば「今日はどれを見るか」が決まる
 
+##### シグナルの精度評価と根拠の可視化（追加）
+- 判断パネルとシグナル一覧で、以下の根拠を表示します。
+  - 過去30日の的中率（0-100%）
+  - 使用モデルの簡潔説明（例: XGBoost/RandomForest/LightGBM/Linear）
+  - 主要特徴量トップ3（重要度ゲージ）
+- API拡張: `web-app/src/app/api/trading-signals/route.ts` で `evidence` を付加
+  - `historical_accuracy_30d`、`model { name, description }`、`top_features [{ name, importance }]`
+- UI反映:
+  - `web-app/src/components/RealtimeSignalDisplay.tsx` に「根拠を表示」展開パネルを追加
+  - `web-app/src/components/JudgmentPanel.tsx` に簡易根拠（的中率・モデルメモ）を表示
+  - `trading_signals_results.json` は後方互換（`evidence` がなくても安全に表示）
+
 #### 4. モバイルファースト
 - **1カラム/カードUI**: モバイル最適化されたレイアウト
 - **タップ領域44px**: 指で操作しやすいサイズ

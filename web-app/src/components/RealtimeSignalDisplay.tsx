@@ -13,6 +13,11 @@ interface TradingSignal {
   reason: string;
   risk_level: string;
   position_size: number;
+  evidence?: {
+    historical_accuracy_30d: number; // 0-1
+    model: { name: string; description: string };
+    top_features: { name: string; importance: number }[];
+  };
 }
 
 interface RealtimeSignalDisplayProps {
@@ -27,6 +32,7 @@ export default function RealtimeSignalDisplay({
   refreshInterval = 30000 
 }: RealtimeSignalDisplayProps) {
   const [signals, setSignals] = useState<TradingSignal[]>([]);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
@@ -299,6 +305,12 @@ export default function RealtimeSignalDisplay({
                       <Shield className="h-3 w-3 inline mr-1" />
                       {signal.risk_level}
                     </div>
+                    <button
+                      onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
+                      className="ml-2 text-sm text-blue-600 hover:underline"
+                    >
+                      {expandedIndex === index ? '根拠を閉じる' : '根拠を表示'}
+                    </button>
                   </div>
                 </div>
                 
@@ -311,6 +323,38 @@ export default function RealtimeSignalDisplay({
                     更新時刻: {new Date(signal.timestamp).toLocaleString()}
                   </p>
                 </div>
+
+                {expandedIndex === index && signal.evidence && (
+                  <div className="mt-4 p-4 bg-gray-50 rounded border border-gray-200">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <p className="text-xs text-gray-600">過去30日的中率</p>
+                        <p className="text-xl font-semibold text-gray-900">{(signal.evidence.historical_accuracy_30d * 100).toFixed(0)}%</p>
+                      </div>
+                      <div className="md:col-span-2">
+                        <p className="text-xs text-gray-600">モデル</p>
+                        <p className="text-sm font-medium text-gray-900">{signal.evidence.model.name}</p>
+                        <p className="text-xs text-gray-600">{signal.evidence.model.description}</p>
+                      </div>
+                    </div>
+                    <div className="mt-3">
+                      <p className="text-xs text-gray-600 mb-1">主要特徴量（重要度上位）</p>
+                      <div className="space-y-1">
+                        {signal.evidence.top_features.map((f, i) => (
+                          <div key={i} className="flex items-center justify-between text-xs text-gray-700">
+                            <span>{f.name}</span>
+                            <div className="flex items-center w-40">
+                              <div className="w-full bg-gray-200 rounded h-1 mr-2">
+                                <div className="bg-blue-500 h-1 rounded" style={{ width: `${Math.min(100, Math.round(f.importance * 100))}%` }} />
+                              </div>
+                              <span className="w-10 text-right">{Math.round(f.importance * 100)}%</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

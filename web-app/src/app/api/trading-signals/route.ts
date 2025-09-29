@@ -115,6 +115,26 @@ function generateMockSignals(symbols: string[]) {
     const confidence = 0.3 + Math.random() * 0.6;
     const price = 1000 + Math.random() * 9000;
     const positionSize = price * (100 + Math.random() * 900);
+    const modelPool = [
+      { name: 'XGBoost v2', desc: '勾配ブースティングによる非線形回帰モデル' },
+      { name: 'RandomForest v1', desc: '決定木アンサンブルで過学習に強い' },
+      { name: 'LightGBM v1', desc: '高速学習と精度のバランスが良い' },
+      { name: 'LinearReg v3', desc: '解釈性の高い線形回帰ベース' },
+    ];
+    const modelInfo = modelPool[index % modelPool.length];
+    const featurePool = [
+      { feature: '価格変動率', base: 0.35 },
+      { feature: '出来高', base: 0.25 },
+      { feature: 'RSI', base: 0.15 },
+      { feature: '移動平均(25)', base: 0.12 },
+      { feature: 'ボリンジャーバンド幅', base: 0.08 },
+      { feature: 'MACD', base: 0.05 },
+    ];
+    const topFeatures = featurePool
+      .map((f) => ({ name: f.feature, importance: Math.max(0.03, f.base + (Math.random() - 0.5) * 0.08) }))
+      .sort((a, b) => b.importance - a.importance)
+      .slice(0, 3);
+    const historicalAccuracy = Math.round((0.55 + Math.random() * 0.35) * 100) / 100; // 0.55-0.90
     
     return {
       symbol,
@@ -125,7 +145,15 @@ function generateMockSignals(symbols: string[]) {
       timestamp: new Date().toISOString(),
       reason: `${signalType}シグナル: 技術指標分析による推奨`,
       risk_level: riskLevels[index % riskLevels.length],
-      position_size: Math.round(positionSize)
+      position_size: Math.round(positionSize),
+      evidence: {
+        historical_accuracy_30d: historicalAccuracy, // 30日的中率
+        model: {
+          name: modelInfo.name,
+          description: modelInfo.desc,
+        },
+        top_features: topFeatures,
+      }
     };
   });
   

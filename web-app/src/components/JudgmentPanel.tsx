@@ -31,6 +31,10 @@ interface JudgmentCard {
   symbol?: string;
   name?: string;
   timestamp: string;
+  evidence?: {
+    historical_accuracy_30d?: number; // 0-1
+    short_model_note?: string;
+  };
 }
 
 interface JudgmentPanelProps {
@@ -64,7 +68,8 @@ export default function JudgmentPanel({
         change: 3.2,
         symbol: "7203.T",
         name: "トヨタ自動車",
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        evidence: { historical_accuracy_30d: 0.82, short_model_note: 'XGBoost v2（非線形）' }
       },
       {
         id: "2",
@@ -78,7 +83,8 @@ export default function JudgmentPanel({
         change: -2.1,
         symbol: "6758.T",
         name: "ソニーグループ",
-        timestamp: new Date(Date.now() - 300000).toISOString()
+        timestamp: new Date(Date.now() - 300000).toISOString(),
+        evidence: { historical_accuracy_30d: 0.73, short_model_note: 'RF v1（安定）' }
       },
       {
         id: "3",
@@ -92,7 +98,8 @@ export default function JudgmentPanel({
         change: 15.2,
         symbol: "6861.T",
         name: "キーエンス",
-        timestamp: new Date(Date.now() - 600000).toISOString()
+        timestamp: new Date(Date.now() - 600000).toISOString(),
+        evidence: { historical_accuracy_30d: 0.69, short_model_note: 'Linear v3（解釈性）' }
       },
       {
         id: "4",
@@ -106,7 +113,8 @@ export default function JudgmentPanel({
         change: 0,
         symbol: "9984.T",
         name: "ソフトバンクグループ",
-        timestamp: new Date(Date.now() - 900000).toISOString()
+        timestamp: new Date(Date.now() - 900000).toISOString(),
+        evidence: { historical_accuracy_30d: 0.77, short_model_note: 'LightGBM v1（高速）' }
       },
       {
         id: "5",
@@ -120,7 +128,8 @@ export default function JudgmentPanel({
         change: 1.8,
         symbol: "4063.T",
         name: "信越化学工業",
-        timestamp: new Date(Date.now() - 1200000).toISOString()
+        timestamp: new Date(Date.now() - 1200000).toISOString(),
+        evidence: { historical_accuracy_30d: 0.71, short_model_note: 'RF v1（安定）' }
       }
     ];
 
@@ -334,6 +343,16 @@ export default function JudgmentPanel({
                     {formatTime(card.timestamp)}
                   </span>
                 </div>
+                {card.evidence && (
+                  <div className="mt-2 flex items-center justify-between text-xs text-gray-600">
+                    <div>
+                      的中率(30日): {Math.round((card.evidence.historical_accuracy_30d || 0) * 100)}%
+                    </div>
+                    <div>
+                      モデル: {card.evidence.short_model_note}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
