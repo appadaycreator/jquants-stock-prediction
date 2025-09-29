@@ -33,8 +33,15 @@ const nextConfig = {
       '/reports': ['./src/app/reports/**/*'],
       '/settings': ['./src/app/settings/**/*'],
     },
-    // RSC payload エラーを根本的に解決
-    // generateStaticParams: false // このオプションは無効
+    // 本番環境でのパス設定を統一
+    env: {
+      NEXT_PUBLIC_BASE_PATH: "/jquants-stock-prediction",
+      NEXT_PUBLIC_ASSET_PREFIX: "/jquants-stock-prediction",
+    },
+    // 静的エクスポート時のパス設定
+    experimental: {
+      outputFileTracingRoot: process.cwd(),
+    },
   }),
   
   // ローカル開発環境での一貫性を確保

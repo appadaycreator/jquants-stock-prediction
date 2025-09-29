@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SettingsProvider } from "@/contexts/SettingsContext";
 import BottomNav from "@/components/mobile/BottomNav";
+import Sidebar from "@/components/desktop/Sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -62,6 +63,7 @@ export default function RootLayout({
             <div className="pb-20 md:pb-0 md:pl-64">
               {children}
             </div>
+            <Sidebar />
             <BottomNav />
           </div>
         </SettingsProvider>
