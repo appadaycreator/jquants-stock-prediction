@@ -5,7 +5,7 @@
   "model": {
     "type": "all",
     "primary_model": "xgboost",
-    "compare_models": false,
+    "compare_models": true,
     "auto_retrain": false,
     "retrain_frequency": "weekly"
   },

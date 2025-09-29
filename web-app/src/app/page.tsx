@@ -1599,10 +1599,10 @@ function DashboardContent() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   予測期間（日数）
                 </label>
-                <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" defaultValue="30">
                   <option value="7">7日</option>
                   <option value="14">14日</option>
-                  <option value="30" selected>30日</option>
+                  <option value="30">30日</option>
                   <option value="60">60日</option>
                 </select>
               </div>
@@ -1611,7 +1611,7 @@ function DashboardContent() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   使用するモデル
                 </label>
-                <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" defaultValue="all">
                   <option value="all">すべてのモデル</option>
                   <option value="linear">線形回帰</option>
                   <option value="random_forest">ランダムフォレスト</option>
