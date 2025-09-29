@@ -10,12 +10,12 @@ GitHub Pagesの404エラーは以下の原因で発生していました：
 
 ### 🔧 解決策
 
-#### 1. GitHub Pages設定 (最重要)
+#### 1. GitHub Pages設定 (最重要・推奨: GitHub Actions)
 1. **GitHubリポジトリページ** → **Settings** → **Pages**
-2. **Source**: "Deploy from a branch" を選択
-3. **Branch**: "main" を選択  
-4. **Folder**: "/docs" を選択 ⚠️ (ここが重要!)
-5. **Save** をクリック
+2. **Source**: "GitHub Actions" を選択（推奨）
+3. **Save** をクリック
+
+> 代替（フォールバック）: Branch配信を使う場合は、Source: "Deploy from a branch" → Branch: "main" → Folder: "/docs" を選択
 
 #### 2. ファイル構成
 ```

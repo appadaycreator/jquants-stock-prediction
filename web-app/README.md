@@ -165,6 +165,19 @@ web-app/public/data/
   - ルート: `src/app/api/today/route.ts`
   - フロント: `src/lib/today/fetchTodaySummary.ts`, `src/app/today/page.tsx`
 
+### 6. パーソナライズ機能（個別投資家向け）
+- ユーザー入力: 資金量、リスク許容度、興味セクター、ESG志向、目標銘柄数、除外銘柄
+- 保存: ローカルストレージ（ブラウザ）に自動保存され、再訪時に復元
+- 配分エンジン: リスクに応じた現金比率を確保しつつ、候補銘柄へ均等配分をベースにスコアで±20%微調整
+- 候補ソース: `personal_investment_dashboard.json` のポジション/推奨から重複排除した簡易候補を生成
+- UI: `個人投資` ページの「パーソナライズ」タブから編集・配分結果を確認
+
+実装参照:
+- コンテキスト: `src/contexts/UserProfileContext.tsx`
+- 入力フォーム: `src/components/personalization/UserProfileForm.tsx`
+- 配分ロジック: `src/lib/personalization/allocation.ts`
+- 統合: `src/app/personal-investment/page.tsx`（Tabs → personalize）
+
 ### 4. CI/CD パイプライン
 - **GitHub Actions** → Python処理 + Next.jsビルド自動実行
 - **GitHub Pages** → 静的ファイル自動デプロイ

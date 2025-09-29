@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import UserProfileForm from '@/components/personalization/UserProfileForm';
+import { useUserProfile } from '@/contexts/UserProfileContext';
+import { allocateEqualRiskBudget, AllocationResult, Candidate } from '@/lib/personalization/allocation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -107,10 +110,12 @@ interface DashboardData {
 }
 
 export default function PersonalInvestmentDashboard() {
+  const { profile } = useUserProfile();
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const [autoRefresh, setAutoRefresh] = useState(true);
+  const [allocation, setAllocation] = useState<AllocationResult | null>(null);
 
   useEffect(() => {
     loadDashboardData();
@@ -128,6 +133,21 @@ export default function PersonalInvestmentDashboard() {
       const response = await fetch('/data/personal_investment_dashboard.json');
       const data = await response.json();
       setDashboardData(data);
+      const candidates: Candidate[] = [
+        ...data.positions.map((p: any) => ({ symbol: p.symbol, sector: 'Unknown', score: Math.max(0.1, p.confidence || 0.5) })),
+        ...data.recommendations.map((r: any) => ({ symbol: r.symbol, sector: 'Unknown', score: Math.max(0.1, r.confidence || 0.6) }))
+      ].filter((v, i, arr) => arr.findIndex(x => x.symbol === v.symbol) === i);
+
+      const alloc = allocateEqualRiskBudget({
+        capitalAmount: profile.capitalAmount,
+        riskTolerance: profile.riskTolerance,
+        preferredSectors: profile.preferredSectors,
+        esgPreference: profile.esgPreference,
+        maxPositions: profile.maxPositions || 8,
+        excludeSymbols: (profile.excludeSymbols || []),
+        candidates,
+      });
+      setAllocation(alloc);
     } catch (error) {
       console.error('ダッシュボードデータの読み込みエラー:', error);
     } finally {
@@ -237,6 +257,7 @@ export default function PersonalInvestmentDashboard() {
             variant="outline"
             onClick={loadDashboardData}
             disabled={loading}
+            title="最新のダッシュボードデータを取得します"
           >
             <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             更新
@@ -244,6 +265,7 @@ export default function PersonalInvestmentDashboard() {
           <Button
             variant={autoRefresh ? "default" : "outline"}
             onClick={() => setAutoRefresh(!autoRefresh)}
+            title="30秒ごとに自動更新。再クリックで切替"
           >
             <Activity className="h-4 w-4 mr-2" />
             自動更新
@@ -320,9 +342,10 @@ export default function PersonalInvestmentDashboard() {
 
       <Tabs defaultValue="positions" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="positions">ポジション一覧</TabsTrigger>
-          <TabsTrigger value="recommendations">投資推奨</TabsTrigger>
-          <TabsTrigger value="market">市場概況</TabsTrigger>
+          <TabsTrigger value="positions" title="保有銘柄の損益・推奨アクションを確認">ポジション一覧</TabsTrigger>
+          <TabsTrigger value="recommendations" title="AI/ルールベースによる投資提案">投資推奨</TabsTrigger>
+          <TabsTrigger value="market" title="市場全体のトレンドやボラティリティを確認">市場概況</TabsTrigger>
+          <TabsTrigger value="personalize" title="プロフィールに応じた推奨配分を作成">パーソナライズ</TabsTrigger>
         </TabsList>
 
         {/* ポジション一覧 */}
@@ -551,6 +574,42 @@ export default function PersonalInvestmentDashboard() {
               </CardContent>
             </Card>
           )}
+        </TabsContent>
+
+        {/* パーソナライズ */}
+        <TabsContent value="personalize" className="space-y-4">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold mb-4">ユーザープロファイル</h3>
+              <UserProfileForm />
+            </div>
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold mb-4">推奨配分</h3>
+              {!allocation || allocation.items.length === 0 ? (
+                <p className="text-sm text-gray-600">条件に合致する候補がありません</p>
+              ) : (
+                <div className="space-y-3">
+                  <div className="text-sm text-gray-600">配分合計: ¥{allocation.totalAllocated.toLocaleString()}</div>
+                  <div className="space-y-2">
+                    {allocation.items.map(item => (
+                      <div key={item.symbol} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                        <div className="font-medium">{item.symbol}</div>
+                        <div className="text-sm text-gray-700">{(item.weight * 100).toFixed(1)}%</div>
+                        <div className="text-sm font-semibold">¥{item.amount.toLocaleString()}</div>
+                      </div>
+                    ))}
+                  </div>
+                  {allocation.guidance.length > 0 && (
+                    <div className="pt-2 border-t">
+                      <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                        {allocation.guidance.map((g, idx) => <li key={idx}>{g}</li>)}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
     </div>

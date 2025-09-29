@@ -109,10 +109,10 @@ JQUANTS_PASSWORD=あなたのパスワード
 ### ステップ 5: 設定ファイルの準備
 
 ```bash
-# サンプル設定ファイルをコピー
-cp config.yaml.sample config.yaml
+# 統合設定ファイル（config_final.yaml）を使用
+cat config_final.yaml
 
-# 必要に応じて config.yaml を編集
+# 必要に応じて config_final.yaml を編集
 ```
 
 ## 📖 基本的な使い方
@@ -132,16 +132,13 @@ python3 unified_jquants_system.py
 **従来の個別実行（互換性維持）:**
 
 ```bash
-# 1. データ取得
+# 1. データ取得・前処理（取得を内包）
 python3 jquants_data_preprocessing.py
 
-# 2. データ前処理
-python3 jquants_data_preprocessing.py
-
-# 3. 株価予測実行
+# 2. 株価予測実行
 python3 jquants_stock_prediction.py
 
-# 4. Webダッシュボード用データ生成
+# 3. Webダッシュボード用データ生成
 python3 generate_web_data.py
 ```
 
@@ -192,7 +189,7 @@ python3 jquants_data_preprocessing.py
 **出力**: `stock_data_YYYYMMDD.csv` に生の株価データが保存されます。
 
 **設定可能項目**:
-- 取得対象日付（`config.yaml`の`data_fetch.target_date`）
+- 取得対象日付（`config_final.yaml`の`data_fetch.target_date`）
 - 出力ファイル名（`data_fetch.output_file`）
 
 #### 2. データ前処理
@@ -379,9 +376,9 @@ python3 web_monitoring_integration.py
 
 ## ⚙️ 詳細設定
 
-### config.yamlの主要設定項目
+### config_final.yamlの主要設定項目
 
-#### データ取得設定
+#### データ取得設定（config_final.yaml）
 
 ```yaml
 data_fetch:
@@ -391,7 +388,7 @@ data_fetch:
   retry_interval: 5            # リトライ間隔（秒）
 ```
 
-#### データ前処理設定
+#### データ前処理設定（config_final.yaml）
 
 ```yaml
 preprocessing:
@@ -407,7 +404,7 @@ preprocessing:
     - "Volume"
 ```
 
-#### 予測モデル設定
+#### 予測モデル設定（config_final.yaml）
 
 ```yaml
 prediction:
@@ -622,8 +619,11 @@ FileNotFoundError: 'stock_data.csv' not found
 # サンプルデータで動作確認
 python3 create_sample_data.py
 
-# または データ取得から再実行
-python3 jquants_data_fetch.py
+# または 統合実行で再生成（取得→前処理→予測）
+python3 unified_jquants_system.py
+
+# 取得と前処理のみ再実行
+python3 jquants_data_preprocessing.py
 ```
 
 #### 3. 特徴量エラー
@@ -806,10 +806,10 @@ if __name__ == '__main__':
 
 ## 📊 パフォーマンス最適化
 
-### 大量データの処理
+### 大量データの処理（config_final.yaml）
 
 ```yaml
-# config.yaml での最適化設定
+# config_final.yaml での最適化設定
 prediction:
   # データサンプリング
   sample_size: 10000

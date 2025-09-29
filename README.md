@@ -1070,7 +1070,7 @@ cat config_final.yaml
 
 ## 設定のカスタマイズ
 
-`config.yaml`を編集することで、システムの動作を簡単にカスタマイズできます：
+`config_final.yaml`を編集することで、システムの動作を簡単にカスタマイズできます：
 
 ### パラメータ調整例
 
@@ -1161,7 +1161,7 @@ python3 jquants_stock_prediction.py
 
 #### 🔬 複数モデル比較
 ```yaml
-# config.yaml で設定
+# config_final.yaml で設定
 prediction:
   model_selection:
     compare_models: true
@@ -1745,3 +1745,16 @@ git push origin main
 ## 貢献
 
 バグ報告や機能要求は、GitHubのIssueでお知らせください。
+
+## 機能説明のホバー表示（ツールチップ/タイトル）
+- 目的: ユーザーがカーソルを当てるだけで機能の簡易説明を確認できるようにする。
+- 実装方針:
+  - シンプルな箇所は`title`属性を付与（例: ボタン、タブなどのテキスト要素）。
+  - リッチな説明が必要な場合は`web-app/src/components/Tooltip.tsx`のコンポーネントを利用。
+- 既存の適用例:
+  - `web-app/src/app/personal-investment/page.tsx`
+    - 更新ボタン（title）: 最新データ取得の説明
+    - 自動更新ボタン（title）: 30秒ごと更新の説明
+    - タブ（title）: 各タブの用途説明
+- アクセシビリティ:
+  - `title`はスクリーンリーダーで十分に読まれない場合があります。重要な説明は`aria-label`や`Tooltip`の利用を検討してください。
