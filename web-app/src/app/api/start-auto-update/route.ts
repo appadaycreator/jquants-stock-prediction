@@ -2,8 +2,18 @@ import { NextRequest, NextResponse } from 'next/server';
 import { spawn } from 'child_process';
 import path from 'path';
 
+export const dynamic = 'force-static';
+
 export async function POST(request: NextRequest) {
   try {
+    // 静的ホスティング環境ではサーバープロセス起動は不可
+    if (process.env.NEXT_RUNTIME === 'edge' || process.env.NODE_ENV === 'production') {
+      return NextResponse.json({
+        success: false,
+        error: '静的ホスティング環境では自動更新の開始はサポートされていません'
+      }, { status: 400 });
+    }
+
     const { schedule } = await request.json();
     
     // 自動更新スクリプトの実行

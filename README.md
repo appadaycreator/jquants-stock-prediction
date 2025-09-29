@@ -142,9 +142,11 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 - **js-yaml型定義エラー修正**: `js-yaml`パッケージと`@types/js-yaml`型定義を追加
 - **TypeScript型エラー修正**: `NotificationSettings.tsx`の型安全性を改善
 - **APIルート静的エクスポート対応**: 必要なAPIルートに`export const dynamic = 'force-static'`を追加
-- **静的ホスティングでのAPI制約**: GitHub Pages では `/api/*` は動作しません（SSR/Edge不可）
-  - Service Worker の background-sync は静的環境では無効化（`web-app/public/sw.js`）。
-  - API が必要な機能は Vercel/Cloudflare Pages Functions/Render など別ホスティングで提供してください。
+- **静的ホスティングでのAPI制約（重要）**: GitHub Pages では `/api/*` は動作しません（SSR/Edge不可）
+  - `web-app/src/app/api/auto-update-status/route.ts` は本番（静的環境）では固定レスポンス（unsupported）を返します
+  - `start-auto-update`/`stop-auto-update` も本番では 400 を返す安全なフォールバックを実装
+  - Service Worker の background-sync は静的環境では無効化（`web-app/public/sw.js`）
+  - 実サーバーが必要なAPIは Vercel/Cloudflare Pages Functions/Render 等で提供し、`NEXT_PUBLIC_API_BASE`で切替推奨
 - **ビルド成功確認**: Next.js静的エクスポートが正常に完了
 - **デプロイパイプライン安定化**: GitHub Actionsでの自動デプロイが正常に動作
 
