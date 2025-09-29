@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { TodaySummary, TodayPageState } from '@/types/today';
 import { fetchTodaySummary, saveTodaySummaryToCache, getCachedTodaySummary } from '@/lib/today/fetchTodaySummary';
+import { fetchJsonWithCache } from '@/lib/fetcher';
 import Hero from '@/components/today/Hero';
 import TaskRecommendations from '@/components/today/TaskRecommendations';
 import CandidateCard from '@/components/today/CandidateCard';
@@ -21,7 +22,14 @@ export default function TodayPage() {
     try {
       setState(prev => ({ ...prev, isLoading: true, error: null }));
       
-      const summary = await fetchTodaySummary();
+      // まずAPI/フォールバック/ローカルキャッシュの多段取得
+      let summary = await fetchTodaySummary();
+      
+      // 追加でダッシュボード共通JSONが必要な場合にもセーフフェッチを利用可能
+      // 例: today_summary.jsonの静的フォールバックをキャッシュ付きで取得
+      // const { data: fallbackSummary } = await fetchJsonWithCache<any>(
+      //   '/data/today_summary.json', { cacheKey: 'today:fallback', cacheTtlMs: 1000 * 60 * 60 }
+      // );
       setState(prev => ({ ...prev, summary, isLoading: false }));
       
       // データをキャッシュに保存
@@ -42,7 +50,7 @@ export default function TodayPage() {
         setState(prev => ({ 
           ...prev, 
           isLoading: false, 
-          error: 'データの取得に失敗しました。しばらくしてから再試行してください。'
+          error: 'データの取得に失敗しました。API/フォールバック/キャッシュが全て利用不可でした。ネットワークやトークン設定を確認し、必要なら「前回結果の表示」やダウンロードデータの利用をご検討ください。'
         }));
       }
     }

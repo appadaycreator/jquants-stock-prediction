@@ -287,23 +287,38 @@ function DashboardContent() {
       console.log('データパス:', dataPath);
       console.log('環境:', process.env.NODE_ENV);
       
-      const [summaryRes, stockRes, modelRes, featureRes, predRes, marketInsightsRes, riskAssessmentRes] = await Promise.all([
-        fetchWithRetry(`${dataPath}/dashboard_summary.json`),
-        fetchWithRetry(`${dataPath}/stock_data.json`),
-        fetchWithRetry(`${dataPath}/unified_model_comparison.json`),
-        fetchWithRetry(`${dataPath}/feature_analysis.json`),
-        fetchWithRetry(`${dataPath}/prediction_results.json`),
-        fetchWithRetry(`${dataPath}/market_insights.json`),
-        fetchWithRetry(`${dataPath}/risk_assessment.json`),
-      ]);
+      // キャッシュ対応の安全取得（失敗時はキャッシュから復旧）
+      const { fetchManyWithCache } = await import('@/lib/fetcher');
+      const { results, cacheFlags } = await fetchManyWithCache<{
+        summary: any;
+        stock: any[];
+        model: any[];
+        feature: any[];
+        pred: any[];
+        marketInsights: any;
+        riskAssessment: any;
+      }>({
+        summary: { url: `${dataPath}/dashboard_summary.json`, cacheKey: 'dash:summary', ttlMs: 1000 * 60 * 30 },
+        stock: { url: `${dataPath}/stock_data.json`, cacheKey: 'dash:stock', ttlMs: 1000 * 60 * 30 },
+        model: { url: `${dataPath}/unified_model_comparison.json`, cacheKey: 'dash:model', ttlMs: 1000 * 60 * 30 },
+        feature: { url: `${dataPath}/feature_analysis.json`, cacheKey: 'dash:feature', ttlMs: 1000 * 60 * 30 },
+        pred: { url: `${dataPath}/prediction_results.json`, cacheKey: 'dash:pred', ttlMs: 1000 * 60 * 30 },
+        marketInsights: { url: `${dataPath}/market_insights.json`, cacheKey: 'dash:marketInsights', ttlMs: 1000 * 60 * 30 },
+        riskAssessment: { url: `${dataPath}/risk_assessment.json`, cacheKey: 'dash:riskAssessment', ttlMs: 1000 * 60 * 30 },
+      }, { retries: 2, retryDelay: 800 });
 
-      const summaryData = await summaryRes.json();
-      const stockDataRes = await stockRes.json();
-      const modelDataRes = await modelRes.json();
-      const featureDataRes = await featureRes.json();
-      const predDataRes = await predRes.json();
-      const marketInsightsData = await marketInsightsRes.json();
-      const riskAssessmentData = await riskAssessmentRes.json();
+      const summaryData = results.summary;
+      const stockDataRes = results.stock || [];
+      const modelDataRes = results.model || [];
+      const featureDataRes = results.feature || [];
+      const predDataRes = results.pred || [];
+      const marketInsightsData = results.marketInsights || {};
+      const riskAssessmentData = results.riskAssessment || {};
+
+      // 一部でもキャッシュ復旧が発生した場合は警告を表示
+      if (Object.values(cacheFlags).some(Boolean)) {
+        setError(new Error('最新の一部データ取得に失敗したため、キャッシュから復旧しました。'));
+      }
 
       setSummary(summaryData);
       setMarketInsights(marketInsightsData);

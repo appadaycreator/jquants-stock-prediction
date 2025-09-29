@@ -28,6 +28,19 @@ export async function fetchJson<T>(
   url: string,
   options: FetchOptions = {}
 ): Promise<T> {
+  const resolveUrl = (input: string) => {
+    try {
+      // 絶対URLまたはhttp(s)はそのまま
+      if (/^https?:\/\//i.test(input)) return input;
+      const basePath = process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '';
+      // 先頭が/の場合はベースパス連結
+      if (input.startsWith('/')) return `${basePath}${input}`;
+      return input;
+    } catch {
+      return input;
+    }
+  };
+
   const {
     signal,
     timeout = 10000,
@@ -47,7 +60,7 @@ export async function fetchJson<T>(
 
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
-      const response = await fetch(url, {
+      const response = await fetch(resolveUrl(url), {
         signal: controller.signal,
         cache: "no-cache",
         headers: {
@@ -160,3 +173,77 @@ export function validateDataStructure<T>(
   }
   return data;
 }
+
+// =========================
+// 追加: キャッシュ対応ユーティリティ
+// =========================
+
+const CACHE_PREFIX = 'app_cache:';
+
+function setCache(key: string, value: unknown): void {
+  try {
+    const payload = { v: value, t: Date.now() };
+    localStorage.setItem(CACHE_PREFIX + key, JSON.stringify(payload));
+  } catch {}
+}
+
+export function getCache<T>(key: string, maxAgeMs?: number): T | null {
+  try {
+    const raw = localStorage.getItem(CACHE_PREFIX + key);
+    if (!raw) return null;
+    const payload = JSON.parse(raw) as { v: T; t: number };
+    if (maxAgeMs && Date.now() - payload.t > maxAgeMs) return null;
+    return payload.v;
+  } catch {
+    return null;
+  }
+}
+
+export async function fetchJsonWithCache<T>(
+  url: string,
+  options: FetchOptions & { cacheKey?: string; cacheTtlMs?: number } = {}
+): Promise<{ data: T; fromCache: boolean }>
+{
+  const { cacheKey, cacheTtlMs } = options;
+  try {
+    const data = await fetchJson<T>(url, options);
+    if (cacheKey) setCache(cacheKey, data);
+    return { data, fromCache: false };
+  } catch (e) {
+    if (cacheKey) {
+      const cached = getCache<T>(cacheKey, cacheTtlMs);
+      if (cached) {
+        return { data: cached, fromCache: true };
+      }
+    }
+    throw e;
+  }
+}
+
+export async function fetchManyWithCache<T extends Record<string, any>>(
+  map: Record<keyof T, { url: string; cacheKey: string; ttlMs?: number }>,
+  options: FetchOptions = {}
+): Promise<{ results: Partial<T>; cacheFlags: Record<string, boolean> }>
+{
+  const entries = Object.entries(map) as [string, { url: string; cacheKey: string; ttlMs?: number }][];
+  const results: Partial<T> = {};
+  const cacheFlags: Record<string, boolean> = {};
+
+  await Promise.all(entries.map(async ([k, { url, cacheKey, ttlMs }]) => {
+    try {
+      const { data, fromCache } = await fetchJsonWithCache<any>(url, { ...options, cacheKey, cacheTtlMs: ttlMs });
+      (results as any)[k] = data;
+      cacheFlags[k] = fromCache;
+    } catch (err) {
+      // 最後の手段: キャッシュのみ（TTL無視）
+      const cached = getCache<any>(cacheKey);
+      if (cached) {
+        (results as any)[k] = cached;
+        cacheFlags[k] = true;
+      }
+    }
+  }));
+
+  return { results, cacheFlags };
+}
+
