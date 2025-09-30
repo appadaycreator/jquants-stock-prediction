@@ -65,7 +65,7 @@ class WebAnalysisRunner:
 
             logger.info("ステップ1完了: データ取得")
 
-            # ステップ2: 高速前処理
+            # ステップ2: 高速前処理（プリフライト必須化は内部で実施）
             logger.info("ステップ2: 高速前処理中...")
             processed_data = system.preprocess_data(raw_data)
             if processed_data is None or processed_data.empty:
@@ -119,7 +119,7 @@ class WebAnalysisRunner:
             if raw_data is None or raw_data.empty:
                 raise Exception("データ取得に失敗しました")
 
-            # データ前処理
+            # データ前処理（プリフライト必須化は内部で実施）
             processed_data = system.preprocess_data(raw_data)
             if processed_data is None or processed_data.empty:
                 raise Exception("データ前処理に失敗しました")

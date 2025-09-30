@@ -31,6 +31,7 @@ from unified_error_handling_system import (
 from model_factory import ModelFactory, ModelEvaluator, ModelComparator
 from technical_indicators import TechnicalIndicators, get_enhanced_features_list
 from data_validator import DataValidator
+from preflight_check import run_preflight
 from unified_error_handling_system import (
     get_unified_error_handler,
     ErrorCategory,
@@ -510,6 +511,24 @@ class UnifiedJQuantsSystem:
             # 1. データの読み込みとクリーニング
             self.logger.info("📁 ステップ1: データ読み込みとクリーニング")
             df = self._load_and_clean_data(input_file)
+
+            # 1.5 プリフライト（必須）: 欠損・外れ値・重複の自動補修 + ステータス出力
+            self.logger.info("🛫 ステップ1.5: プリフライト（データ完全性チェック）")
+            try:
+                preflight = run_preflight(df, auto_repair=True)
+                df = preflight["df"]
+                status = preflight["summary"].get("status")
+                if status == "要修正":
+                    # 自動補修後も要修正なら停止
+                    self.logger.error("❌ プリフライトNG（自動補修後も要修正）。処理を停止します")
+                    raise ValueError("プリフライトNG: 自動補修後も要修正")
+                elif status == "注意":
+                    self.logger.warning("⚠️ プリフライトに警告があります（処理は継続）")
+                else:
+                    self.logger.info("✅ プリフライトOK")
+            except Exception as e:
+                self.logger.error(f"❌ プリフライト実行時エラー: {e}")
+                raise
 
             # 2. 基本的な特徴量エンジニアリング
             self.logger.info("🔧 ステップ2: 基本特徴量エンジニアリング")
