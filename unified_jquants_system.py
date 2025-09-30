@@ -520,7 +520,9 @@ class UnifiedJQuantsSystem:
                 status = preflight["summary"].get("status")
                 if status == "要修正":
                     # 自動補修後も要修正なら停止
-                    self.logger.error("❌ プリフライトNG（自動補修後も要修正）。処理を停止します")
+                    self.logger.error(
+                        "❌ プリフライトNG（自動補修後も要修正）。処理を停止します"
+                    )
                     raise ValueError("プリフライトNG: 自動補修後も要修正")
                 elif status == "注意":
                     self.logger.warning("⚠️ プリフライトに警告があります（処理は継続）")

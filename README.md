@@ -1961,20 +1961,21 @@ git push origin main
 - フロント接続: `web-app/src/app/page.tsx` （5年・1年・3ヶ月・1ヶ月のクイック範囲ボタン）
 - N/A の扱い: チャートは `null` を許容して崩さず、ツールチップで `N/A` 注記
 
-#### Next.js 15 のルートハンドラ `params` 型について（重要・互換）
+#### Next.js 15 のルートハンドラ `params` 型について（重要）
 
-- Next.js 15 では App Router のルートハンドラ第2引数の `params` はジェネリックな `Record<string, string>` 互換として扱われます。
-- 以前の書き方（例: `{ params: { code: string } }` や `{ params: { job_id: string } }`）は型エラーになる場合があります。
-- 本リポジトリでは以下のように記述を統一しました（旧記法からの移行時の参考にしてください）。
+- Next.js 15 の App Router では、ルートハンドラの第2引数は「実際のパラメータ形状」を持つ型で宣言する必要があります。
+- `Record<string, string>` のような汎用型は無効です（ビルド時に型エラー）。
+- 正しい例（動的セグメント `[job_id]` の場合）:
 
 ```
-export async function GET(request: NextRequest, { params }: { params: Record<string, string> }) {
-  const id = params.job_id as string; // 旧: { params: { job_id: string } }
+export async function GET(_req: NextRequest, context: { params: { job_id: string } }) {
+  const jobId = context.params.job_id;
   // ...
 }
 ```
 
-- 互換対応の横展開: `web-app/src/app/api/jobs/[job_id]/route.ts` と `web-app/src/app/api/stocks/[code]/route.ts` に適用済み。その他のルートで旧記法が残っていないかを追加ページ実装時にご確認ください。
+- 横展開ガイド: 動的パラメータごとにキーを明示してください（例: `[code]` → `{ params: { code: string } }`）。
+- リポジトリ適用状況: `web-app/src/app/api/routine/jobs/[job_id]/route.ts` を修正済み。他の API ルートで `Record<string, string>` を使用していないことを確認済みです。
 
 ### パスエイリアス（Next.js/TypeScript）
 

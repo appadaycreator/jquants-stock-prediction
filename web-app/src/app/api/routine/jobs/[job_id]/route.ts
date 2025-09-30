@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-static';
 
-export async function GET(_req: NextRequest, context: { params: Record<string, string> }) {
+export async function GET(_req: NextRequest, context: { params: { job_id: string } }) {
   try {
     const jobId = context.params.job_id;
     // 既存のジョブAPIに委譲

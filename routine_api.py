@@ -100,7 +100,12 @@ def _run_today_pipeline(job_id: str) -> None:
         with _lock:
             job = _jobs.get(job_id)
             if job:
-                _update(job, status="succeeded", progress=100, result_url=f"/data/{date_str}/dashboard_summary.json")
+                _update(
+                    job,
+                    status="succeeded",
+                    progress=100,
+                    result_url=f"/data/{date_str}/dashboard_summary.json",
+                )
     except Exception as e:
         with _lock:
             job = _jobs.get(job_id)
@@ -164,5 +169,3 @@ def get_job(job_id: str):
 if __name__ == "__main__":
     port = int(os.getenv("ROUTINE_API_PORT", "5057"))
     app.run(host="0.0.0.0", port=port)
-
-
