@@ -1,6 +1,7 @@
 'use client';
 
 import { TodaySummary } from '@/types/today';
+import { useRouter } from 'next/navigation';
 
 interface TaskRecommendationsProps {
   summary: TodaySummary;
@@ -18,6 +19,7 @@ interface TaskItem {
 }
 
 export default function TaskRecommendations({ summary }: TaskRecommendationsProps) {
+  const router = useRouter();
   // タスクを優先度順に整理
   const getTaskItems = (): TaskItem[] => {
     const tasks: TaskItem[] = [];
@@ -72,6 +74,14 @@ export default function TaskRecommendations({ summary }: TaskRecommendationsProp
 
   const tasks = getTaskItems();
   const topTasks = tasks.slice(0, 3); // 上位3件を表示
+
+  const handleDetailsClick = (task: TaskItem) => {
+    const candidate = summary.candidates.find(c => c.symbol === task.symbol);
+    const href = (candidate?.detail_paths?.analysis)
+      || (candidate?.detail_paths?.prediction)
+      || `/analysis?symbol=${encodeURIComponent(task.symbol)}`;
+    router.push(href);
+  };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
@@ -173,7 +183,11 @@ export default function TaskRecommendations({ summary }: TaskRecommendationsProp
 
             {/* アクションボタン */}
             <div className="flex gap-2 mt-3">
-              <button className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+              <button
+                className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                onClick={() => handleDetailsClick(task)}
+                aria-label="推奨タスクの詳細を確認"
+              >
                 詳細を確認
               </button>
               <button className="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">

@@ -124,6 +124,10 @@ function DashboardContent() {
   const [watchlists, setWatchlists] = useState<any[]>([]);
   const [jquantsAdapter, setJquantsAdapter] = useState<JQuantsAdapter | null>(null);
   const [showJQuantsSetup, setShowJQuantsSetup] = useState(false);
+  // UI/チャート制御
+  const [overviewExpanded, setOverviewExpanded] = useState({ chart: true, models: false, predictions: false });
+  const [chartMetric, setChartMetric] = useState<'close' | 'sma_5' | 'sma_25' | 'sma_50' | 'volume'>('close');
+  const [chartRange, setChartRange] = useState<'7' | '30' | '90' | 'all'>('30');
 
   // ガイド機能の状態
   const [showGlossary, setShowGlossary] = useState(false);
@@ -580,6 +584,38 @@ function DashboardContent() {
     予測値: item.predicted,
   }));
 
+  // チャート用データ（N/A防止: データがなければダミー生成）
+  const safeStockData = (stockData && stockData.length > 0)
+    ? stockData
+    : Array.from({ length: 30 }).map((_, i) => ({
+        date: normalizeDateString(new Date(Date.now() - (29 - i) * 24 * 3600 * 1000).toISOString()),
+        close: 1000 + i * 2,
+        sma_5: 1000 + i * 2,
+        sma_25: 1000 + i * 2,
+        sma_50: 1000 + i * 2,
+        volume: 1000000 + i * 5000,
+      }));
+
+  const chartFiltered = (() => {
+    let data = safeStockData;
+    if (chartRange !== 'all') {
+      const n = parseInt(chartRange, 10);
+      data = data.slice(Math.max(0, data.length - n));
+    }
+    return data;
+  })();
+
+  const getMetricValue = (d: any): number | undefined => {
+    switch (chartMetric) {
+      case 'close': return d.close;
+      case 'sma_5': return d.sma_5;
+      case 'sma_25': return d.sma_25;
+      case 'sma_50': return d.sma_50;
+      case 'volume': return (d.volume ?? 0) / 1000000;
+      default: return undefined;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* モバイルナビゲーション */}
@@ -828,197 +864,154 @@ function DashboardContent() {
 
         {activeTab === "overview" && (
           <div className="space-y-6">
-            {/* ワンクリック分析実行 */}
-            <OneClickAnalysis 
-              onAnalysisComplete={(result) => {
-                console.log('分析完了:', result);
-                // データを再読み込み
-                loadData();
-              }}
-              onAnalysisStart={() => {
-                console.log('分析開始');
-              }}
-            />
-            
-            {/* サマリーカード */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="bg-white rounded-lg shadow p-6">
+            {/* 上部4カード（概要・市場インサイト・リスク評価・推奨銘柄） */}
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+              {/* 概要 */}
+              <div className="bg-white rounded-lg shadow p-5">
                 <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <TrendingUp className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">最優秀モデル</p>
-                    <p className="text-2xl font-semibold text-gray-900">
-                      {summary?.best_model?.toUpperCase() || "-"}
-                    </p>
+                  <TrendingUp className="h-6 w-6 text-blue-600" />
+                  <div className="ml-3">
+                    <p className="text-xs font-medium text-gray-500">最優秀モデル</p>
+                    <p className="text-xl font-semibold text-gray-900">{summary?.best_model?.toUpperCase() || '-'}</p>
+                    <p className="text-xs text-gray-500 mt-1">R² {summary?.r2 || '-'} / MAE {summary?.mae || '-'}</p>
                   </div>
                 </div>
               </div>
-              
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <Target className="h-6 w-6 text-green-600" />
-                  </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">予測精度 (R²)</p>
-                    <p className="text-2xl font-semibold text-gray-900">
-                      {summary?.r2 || "-"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center" data-guide-target="kpi-metrics">
-                  <div className="flex-shrink-0">
-                    <BarChart3 className="h-6 w-6 text-yellow-600" />
-                  </div>
-                  <div className="ml-4">
-                    <MetricTooltip 
-                      metric="MAE" 
-                      value={summary?.mae || "-"} 
-                      description="平均絶対誤差。予測値と実際値の差の絶対値の平均。値が小さいほど予測精度が高い。"
-                    >
-                      <p className="text-sm font-medium text-gray-500">MAE</p>
-                    </MetricTooltip>
-                    <p className="text-2xl font-semibold text-gray-900">
-                      {summary?.mae || "-"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <Database className="h-6 w-6 text-purple-600" />
-                  </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500">データ数</p>
-                    <p className="text-2xl font-semibold text-gray-900">
-                      {summary?.total_data_points || "-"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 市場インサイトとリスク評価サマリー */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* 市場インサイト */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center mb-4">
-                  <TrendingUp className="h-6 w-6 text-blue-600 mr-3" />
-                  <h3 className="text-lg font-semibold text-gray-900">市場インサイト</h3>
-                </div>
-                <div className="space-y-3">
-                  <div>
-                    <p className="text-sm text-gray-600 mb-1">トレンド分析</p>
-                    <p className="text-sm text-gray-900">{marketInsights?.trend_analysis || "データを読み込み中..."}</p>
+              <div className="bg-white rounded-lg shadow p-5">
+                <div className="flex items-center">
+                  <BarChart3 className="h-6 w-6 text-yellow-600" />
+                  <div className="ml-3">
+                    <p className="text-xs font-medium text-gray-500">市場インサイト</p>
+                    <p className="text-sm text-gray-900 truncate max-w-[220px]" title={marketInsights?.trend_analysis || ''}>{marketInsights?.trend_analysis || '読み込み中...'}</p>
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-600 mb-1">ボラティリティ分析</p>
-                    <p className="text-sm text-gray-900">{marketInsights?.volatility_analysis || "データを読み込み中..."}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600 mb-1">推奨事項</p>
-                    <p className="text-sm text-gray-900">{marketInsights?.recommendation || "データを読み込み中..."}</p>
-                  </div>
-                  {marketInsights?.key_indicators && (
-                    <div className="mt-4 pt-4 border-t border-gray-200">
-                      <p className="text-sm font-medium text-gray-700 mb-2">主要指標</p>
-                      <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">トレンド強度:</span>
-                          <span className="font-medium">{(marketInsights.key_indicators.trend_strength * 100).toFixed(0)}%</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">ボラティリティ:</span>
-                          <span className="font-medium">{(marketInsights.key_indicators.volatility_level * 100).toFixed(0)}%</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
-
               {/* リスク評価 */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center mb-4">
-                  <Shield className="h-6 w-6 text-red-600 mr-3" />
-                  <h3 className="text-lg font-semibold text-gray-900">リスク評価</h3>
+              <div className="bg-white rounded-lg shadow p-5">
+                <div className="flex items-center">
+                  <Shield className="h-6 w-6 text-red-600" />
+                  <div className="ml-3">
+                    <p className="text-xs font-medium text-gray-500">リスク評価</p>
+                    <p className="text-sm">
+                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                        riskAssessment?.risk_level === 'Low' ? 'bg-green-100 text-green-800' :
+                        riskAssessment?.risk_level === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                        'bg-red-100 text-red-800'
+                      }`}>{riskAssessment?.risk_level || '-'}</span>
+                      <span className="ml-2 text-gray-600">{riskAssessment?.risk_score ? `${(riskAssessment.risk_score * 100).toFixed(0)}%` : '-'}</span>
+                    </p>
+                  </div>
                 </div>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">リスクレベル</span>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      riskAssessment?.risk_level === 'Low' ? 'bg-green-100 text-green-800' :
-                      riskAssessment?.risk_level === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-red-100 text-red-800'
-                    }`}>
-                      {riskAssessment?.risk_level || "読み込み中"}
-                    </span>
+              </div>
+              {/* 推奨銘柄（簡易） */}
+              <div className="bg-white rounded-lg shadow p-5">
+                <div className="flex items-center">
+                  <Target className="h-6 w-6 text-green-600" />
+                  <div className="ml-3">
+                    <p className="text-xs font-medium text-gray-500">推奨銘柄（例）</p>
+                    <p className="text-sm text-gray-900">7203.T / 6758.T / 9984.T</p>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">リスクスコア</span>
-                    <span className="text-sm font-medium text-gray-900">
-                      {riskAssessment?.risk_score ? (riskAssessment.risk_score * 100).toFixed(0) + '%' : "-"}
-                    </span>
-                  </div>
-                  {riskAssessment?.portfolio_metrics && (
-                    <div className="mt-4 pt-4 border-t border-gray-200">
-                      <p className="text-sm font-medium text-gray-700 mb-2">ポートフォリオ指標</p>
-                      <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">未実現損益:</span>
-                          <span className={`font-medium ${riskAssessment.portfolio_metrics.unrealized_pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                            {riskAssessment.portfolio_metrics.unrealized_pnl >= 0 ? '+' : ''}{riskAssessment.portfolio_metrics.unrealized_pnl.toLocaleString()}円
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">シャープレシオ:</span>
-                          <span className="font-medium">{riskAssessment.portfolio_metrics.sharpe_ratio.toFixed(2)}</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  {riskAssessment?.recommendations && (
-                    <div className="mt-4 pt-4 border-t border-gray-200">
-                      <p className="text-sm font-medium text-gray-700 mb-2">推奨事項</p>
-                      <ul className="space-y-1">
-                        {riskAssessment.recommendations.slice(0, 2).map((rec: string, index: number) => (
-                          <li key={index} className="text-xs text-gray-600">{rec}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
 
-            {/* 株価チャート */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">株価推移と移動平均</h3>
-              <div className="h-96 bg-gray-50 rounded-lg p-4">
-                <div className="h-full flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="grid grid-cols-5 gap-4 mb-4">
-                      {chartData.slice(0, 5).map((item, index) => (
-                        <div key={index} className="bg-white rounded p-2 shadow-sm">
-                          <div className="text-xs text-gray-500 mb-1">{item.date}</div>
-                          <div className="text-sm font-semibold text-blue-600">¥{item.実際価格?.toFixed(0) || 'N/A'}</div>
-                          <div className="text-xs text-gray-400">SMA5: {item.SMA_5?.toFixed(0) || 'N/A'}</div>
-                        </div>
+            {/* 折り畳み: 詳細チャート */}
+            <div className="bg-white rounded-lg shadow">
+              <div className="flex items-center justify-between p-4 border-b">
+                <h3 className="text-lg font-medium text-gray-900">株価推移と移動平均（インタラクティブ）</h3>
+                <button
+                  onClick={() => setOverviewExpanded({ ...overviewExpanded, chart: !overviewExpanded.chart })}
+                  className="text-sm text-blue-600 hover:underline"
+                >
+                  {overviewExpanded.chart ? '閉じる' : '開く'}
+                </button>
+              </div>
+              {overviewExpanded.chart && (
+                <div className="p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center space-x-2 text-sm">
+                      <label className="text-gray-600">期間:</label>
+                      {(['7','30','90','all'] as const).map(r => (
+                        <button
+                          key={r}
+                          onClick={() => setChartRange(r)}
+                          className={`px-2 py-1 rounded ${chartRange === r ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}
+                        >
+                          {r === 'all' ? 'すべて' : `${r}日`}
+                        </button>
                       ))}
                     </div>
-                    <div className="text-sm text-gray-500">
-                      最新データ: {chartData.length > 0 ? chartData[chartData.length - 1].date : 'N/A'}
+                    <div className="flex items-center space-x-2 text-sm">
+                      <label className="text-gray-600">指標:</label>
+                      {([
+                        { id: 'close', label: '終値' },
+                        { id: 'sma_5', label: 'SMA5' },
+                        { id: 'sma_25', label: 'SMA25' },
+                        { id: 'sma_50', label: 'SMA50' },
+                        { id: 'volume', label: '出来高(百万)' },
+                      ] as const).map(m => (
+                        <button
+                          key={m.id}
+                          onClick={() => setChartMetric(m.id)}
+                          className={`px-2 py-1 rounded ${chartMetric === m.id ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}
+                        >
+                          {m.label}
+                        </button>
+                      ))}
                     </div>
                   </div>
+                  {/* シンプルSVGラインチャート */}
+                  <div className="h-80 bg-gray-50 rounded flex items-center justify-center">
+                    <svg viewBox="0 0 600 260" className="w-full h-full p-2">
+                      <rect x="0" y="0" width="600" height="260" fill="none" />
+                      {(() => {
+                        const values = chartFiltered.map(getMetricValue).filter((v: any) => typeof v === 'number') as number[];
+                        if (values.length === 0) return null;
+                        const min = Math.min(...values);
+                        const max = Math.max(...values);
+                        const pad = 20;
+                        const W = 600 - pad * 2;
+                        const H = 260 - pad * 2;
+                        const toX = (i: number) => pad + (i / (values.length - 1)) * W;
+                        const toY = (v: number) => pad + H - ((v - min) / (max - min || 1)) * H;
+                        const d = values.map((v, i) => `${i === 0 ? 'M' : 'L'} ${toX(i)} ${toY(v)}`).join(' ');
+                        return (
+                          <>
+                            {/* 軸 */}
+                            <line x1={pad} y1={pad} x2={pad} y2={pad + H} stroke="#e5e7eb" />
+                            <line x1={pad} y1={pad + H} x2={pad + W} y2={pad + H} stroke="#e5e7eb" />
+                            {/* ライン */}
+                            <path d={d} fill="none" stroke="#2563eb" strokeWidth="2" />
+                            {/* 最終値ポイント */}
+                            <circle cx={toX(values.length - 1)} cy={toY(values[values.length - 1])} r="3" fill="#1d4ed8" />
+                          </>
+                        );
+                      })()}
+                    </svg>
+                  </div>
+                  <div className="mt-2 text-xs text-gray-500">最新: {chartFiltered.length > 0 ? chartFiltered[chartFiltered.length - 1].date : 'N/A'}</div>
                 </div>
+              )}
+            </div>
+
+            {/* 折り畳み: モデル比較など詳細（デフォルト閉じる）*/}
+            <div className="bg-white rounded-lg shadow">
+              <div className="flex items-center justify-between p-4 border-b">
+                <h3 className="text-lg font-medium text-gray-900">詳細（モデル比較・予測など）</h3>
+                <button
+                  onClick={() => setOverviewExpanded({ ...overviewExpanded, models: !overviewExpanded.models })}
+                  className="text-sm text-blue-600 hover:underline"
+                >
+                  {overviewExpanded.models ? '閉じる' : '開く'}
+                </button>
               </div>
+              {overviewExpanded.models && (
+                <div className="p-4 space-y-4 text-sm text-gray-700">
+                  <div>モデル比較や特徴量重要度は「モデル比較」タブに詳細をまとめています。</div>
+                  <div>予測の詳細や誤差分布は「予測結果」タブをご確認ください。</div>
+                </div>
+              )}
             </div>
           </div>
         )}

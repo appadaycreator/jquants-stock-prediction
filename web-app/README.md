@@ -165,6 +165,10 @@ web-app/public/data/
   - ルート: `src/app/api/today/route.ts`
   - フロント: `src/lib/today/fetchTodaySummary.ts`, `src/app/today/page.tsx`
 
+#### インタラクション
+- 「今日の推奨タスク」内の「詳細を確認」ボタンを押すと、該当銘柄の詳細分析ページ（`candidate.detail_paths.analysis` もしくは `candidate.detail_paths.prediction`、いずれも無い場合は `/analysis?symbol=...`）に遷移します。
+- 実装箇所: `src/components/today/TaskRecommendations.tsx`
+
 ### 6. パーソナライズ機能（個別投資家向け）
 - ユーザー入力: 資金量、リスク許容度、興味セクター、ESG志向、目標銘柄数、除外銘柄
 - 保存: ローカルストレージ（ブラウザ）に自動保存され、再訪時に復元
