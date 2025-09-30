@@ -1139,6 +1139,124 @@ function DashboardContent() {
                 </div>
               </div>
             </div>
+
+            {/* モデルの長所・短所（参考情報） */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-lg font-medium text-gray-900">モデルの長所・短所（参考）</h3>
+                <span className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">参考情報</span>
+              </div>
+              <p className="text-sm text-gray-500 mb-4">各モデルの一般的な特性です。銘柄・期間により当てはまらない場合があります。</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {modelComparison.slice(0, 6).map((model) => {
+                  const name = model.name?.toLowerCase() || '';
+                  const meta = (() => {
+                    if (name.includes('random') || name.includes('forest')) {
+                      return {
+                        display: 'Random Forest',
+                        pros: ['非線形捕捉に強い', '外れ値に比較的頑健', '特徴量スケールに鈍感'],
+                        cons: ['説明性がやや低い', '高次元で計算コスト増', '外挿が苦手'],
+                      };
+                    }
+                    if (name.includes('xgb') || name.includes('xgboost')) {
+                      return {
+                        display: 'XGBoost',
+                        pros: ['高精度になりやすい', '欠損や非線形に強い', '特徴量重要度が解釈しやすい'],
+                        cons: ['パラメータ調整が複雑', '過学習のリスク', '学習時間が長い場合あり'],
+                      };
+                    }
+                    if (name.includes('linear') || name.includes('ridge') || name.includes('lasso')) {
+                      return {
+                        display: '線形/正則化モデル',
+                        pros: ['解釈容易', '計算が軽い', '外挿に比較的強い'],
+                        cons: ['非線形関係を捉えにくい', '特徴量設計に依存', '外れ値影響を受けやすい'],
+                      };
+                    }
+                    return {
+                      display: model.name,
+                      pros: ['実装が安定', '汎用的'],
+                      cons: ['特性はデータ依存'],
+                    };
+                  })();
+                  return (
+                    <div key={model.name} className="border rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-gray-900">{meta.display}</span>
+                        <span className="text-xs text-gray-500">R²: {model.r2?.toFixed(3)}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-3 text-xs">
+                        <div>
+                          <div className="text-green-700 font-semibold mb-1">長所</div>
+                          <ul className="space-y-1">
+                            {meta.pros.map((p) => (
+                              <li key={p} className="text-green-700">• {p}</li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <div className="text-red-700 font-semibold mb-1">短所</div>
+                          <ul className="space-y-1">
+                            {meta.cons.map((c) => (
+                              <li key={c} className="text-red-700">• {c}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 特徴量重要度（参考・モデル共通表示） */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-lg font-medium text-gray-900">特徴量重要度（参考）</h3>
+                <span className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">参考情報</span>
+              </div>
+              <p className="text-sm text-gray-500 mb-4">サンプルの特徴量重要度です。実際の学習構成と一致しない場合があります。</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                {featureAnalysis.slice(0, 9).map((f, idx) => (
+                  <div key={`${f.feature}-${idx}`} className="border rounded p-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-gray-900">{f.feature}</span>
+                      <span className="text-xs text-gray-600">{(f.importance * 100).toFixed(1)}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                      <div className="bg-blue-500 h-2 rounded-full" style={{ width: `${Math.min(100, (f.percentage ?? f.importance * 100))}%` }}></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 予測が外れた期間（参考） */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-lg font-medium text-gray-900">予測が外れた期間（参考）</h3>
+                <span className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">参考情報</span>
+              </div>
+              <p className="text-sm text-gray-500 mb-4">誤差が大きいポイント上位をハイライトします（閾値: 誤差>5%）。</p>
+              {predictions && predictions.length > 0 ? (
+                <div className="space-y-3">
+                  {predictions
+                    .filter(p => (p.error_percentage ?? p.error ?? 0) > 5)
+                    .sort((a, b) => (b.error_percentage ?? b.error ?? 0) - (a.error_percentage ?? a.error ?? 0))
+                    .slice(0, 10)
+                    .map((p) => (
+                      <div key={p.index} className="flex items-center justify-between text-sm border rounded p-2">
+                        <div className="text-gray-800"># {p.index}</div>
+                        <div className="text-gray-600">実際: {p.actual?.toFixed?.(2) ?? p.actual}</div>
+                        <div className="text-gray-600">予測: {p.predicted?.toFixed?.(2) ?? p.predicted}</div>
+                        <div className="font-medium text-red-700">誤差: {(p.error_percentage ?? p.error ?? 0).toFixed ? (p.error_percentage ?? p.error ?? 0).toFixed(2) : (p.error_percentage ?? p.error ?? 0)}%</div>
+                      </div>
+                    ))}
+                  <div className="text-xs text-gray-500">注: 外れた期間は銘柄・期間依存であり、モデルの優劣を断定するものではありません。</div>
+                </div>
+              ) : (
+                <div className="text-sm text-gray-500">予測データがありません。</div>
+              )}
+            </div>
           </div>
         )}
 
