@@ -221,9 +221,7 @@ def save_to_web_public(data: Dict[str, Any]) -> bool:
         with open(dated_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
-        logger.info(
-            "ダッシュボードデータを保存しました: %s, %s", main_path, dated_path
-        )
+        logger.info("ダッシュボードデータを保存しました: %s, %s", main_path, dated_path)
         return True
     except Exception as e:
         logger.error(f"web public への保存エラー: {e}")
