@@ -1,0 +1,63 @@
+[tool.black]
+line-length = 88
+target-version = ['py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | venv
+  | venv_fix
+  | test_env
+  | _build
+  | buck-out
+  | build
+  | dist
+  | htmlcov
+  | model_cache
+  | enhanced_model_cache
+  | advanced_cache
+  | logs
+  | data
+  | web-app
+)/
+'''
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "venv",
+    "venv_fix", 
+    "test_env",
+    ".venv",
+    "build",
+    "dist",
+    "htmlcov",
+    "model_cache",
+    "enhanced_model_cache", 
+    "advanced_cache",
+    "logs",
+    "data",
+    "web-app"
+]
+select = ["E9", "F63", "F7", "F82"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests", 
+    "e2e: End-to-end tests"
+]

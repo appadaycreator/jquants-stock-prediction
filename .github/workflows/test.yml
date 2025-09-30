@@ -36,6 +36,7 @@ jobs:
         python -m pip install --upgrade pip
         pip cache purge || echo "Cache purge completed"
         pip install --no-cache-dir -r requirements.txt
+        pip install black==23.12.1 flake8==6.1.0
     
     - name: コードフォーマットのチェック
       run: |
@@ -75,6 +76,7 @@ jobs:
         python -m pip install --upgrade pip
         pip cache purge || echo "Cache purge completed"
         pip install --no-cache-dir -r requirements.txt
+        pip install black==23.12.1 flake8==6.1.0
     
     - name: リンターの実行
       run: |
