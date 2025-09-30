@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+export const dynamic = 'force-static';
+
 export async function GET(request: NextRequest) {
   try {
     const today = new Date();
@@ -67,12 +69,7 @@ export async function GET(request: NextRequest) {
         ]
       };
       
-      // 今日のアクションファイルを保存
-      try {
-        fs.writeFileSync(todayActionsFile, JSON.stringify(todayActions, null, 2));
-      } catch (writeError) {
-        console.warn('今日のアクションファイル保存に失敗:', writeError);
-      }
+      // 静的エクスポート互換性のためビルド時の書き込みは行わない
     }
 
     return NextResponse.json(todayActions);

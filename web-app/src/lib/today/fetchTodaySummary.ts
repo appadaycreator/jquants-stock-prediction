@@ -1,36 +1,38 @@
 import { TodaySummary } from '../../types/today';
+import { fetchJsonWithCache } from '@/lib/fetcher';
 
 const DATA_ENDPOINT = '/data/today_summary.json';
 
 export async function fetchTodaySummary(): Promise<TodaySummary> {
   try {
-    // 静的ファイルから直接データを取得
-    const response = await fetch(DATA_ENDPOINT, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      cache: 'no-store',
+    // ベースパス解決＋キャッシュフォールバック対応の安全フェッチ
+    const { data, fromCache } = await fetchJsonWithCache<TodaySummary>(DATA_ENDPOINT, {
+      cacheKey: 'today:summary',
+      cacheTtlMs: 1000 * 60 * 60, // 1時間
+      retries: 2,
+      retryDelay: 800,
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      return data;
+    // 新規取得の場合はローカルキャッシュも更新
+    if (!fromCache) {
+      try {
+        localStorage.setItem('today_summary', JSON.stringify(data));
+        localStorage.setItem('today_summary_timestamp', new Date().toISOString());
+      } catch (_) {}
     }
 
-    // 両方失敗した場合はローカルストレージから前回のデータを取得
+    return data;
+  } catch (error) {
+    console.error('fetchTodaySummary error:', error);
+    // 最後の手段: ローカルキャッシュを返す
     const cachedData = localStorage.getItem('today_summary');
     if (cachedData) {
       try {
         return JSON.parse(cachedData);
-      } catch (error) {
-        console.warn('Failed to parse cached data:', error);
+      } catch (e) {
+        console.warn('Failed to parse cached data:', e);
       }
     }
-
-    throw new Error('データの取得に失敗しました。静的データファイルが利用できません。');
-  } catch (error) {
-    console.error('fetchTodaySummary error:', error);
     throw error;
   }
 }

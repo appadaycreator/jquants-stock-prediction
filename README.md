@@ -1403,6 +1403,46 @@ git push origin main
 - **UIエラーハンドリングの強化**: ユーザーフレンドリーなエラー表示と自動リトライ機能
 - **包括的なテスト整備**: 単体・結合・E2Eテストによる品質保証
 
+### 🛡️ データ取得エラー時の挙動とキャッシュ（重要・本番運用向け）
+
+静的ホスティング（GitHub Pages）上でAPIやJSON取得に失敗した場合でも、過去の結果を継続表示できるように以下の対策を実装しました。
+
+- 重要: フロントの共通フェッチ層を統一し、ベースパス解決＋キャッシュフォールバックを標準化
+  - 実装: `web-app/src/lib/fetcher.ts`
+  - 関数: `fetchJsonWithCache`, `fetchManyWithCache`
+  - 仕様: 取得失敗時は `localStorage` に保存してある直近の結果（TTL考慮）で自動復旧
+
+- GitHub Pages配下のベースパス解決（404/取得失敗を防ぐ）
+  - ベースパス: `/jquants-stock-prediction`
+  - 先頭スラッシュのURL（例: `/data/xxx.json`）は環境に応じて共通フェッチ層がベースパスに解決
+  - 参考: `fetcher.ts` の `resolveUrl()` 内部ロジック
+
+- ページ別の具体的動作
+  - 今日の指示（`/today`）
+    - 取得: `fetchTodaySummary()` → `fetchJsonWithCache` 経由に更新
+    - 失敗時: 自動で前回結果（`localStorage: today_summary`）にフォールバックし、「キャッシュ表示」の注意文を表示
+    - 実装: `web-app/src/lib/today/fetchTodaySummary.ts`, `web-app/src/app/today/page.tsx`
+  - 個人投資（`/personal-investment`）
+    - 取得: `/data/personal_investment_dashboard.json` を `fetchJsonWithCache` で取得
+    - 失敗時: `app_cache:personal:dashboard`（内部キー）から前回結果を読み出し表示
+    - 実装: `web-app/src/app/personal-investment/page.tsx`
+  - ダッシュボード（トップ `/`）
+    - 取得: `fetchManyWithCache` でサマリ・株価・モデル比較などを並列取得
+    - 失敗時: 個別にキャッシュへ自動復旧し、ページは崩さず表示（必要に応じて警告）
+    - 実装: `web-app/src/app/page.tsx`
+
+- 運用ガイド（障害発生時の確認ポイント）
+  - ネットワーク/JSON配置を確認（`docs/web-app/data/*.json`）
+  - ブラウザの「再読み込み」ではなく「再試行」→ 数秒待ち
+  - それでも失敗する場合、キャッシュ表示に自動移行（前回の結果で閲覧継続可）
+  - データ生成の再実行: `python3 generate_web_data.py` → 再デプロイ
+
+横展開の注意（新規ページ/データ追加時）
+- 先頭スラッシュのパスで記述（例: `/data/new_metrics.json`）
+- 取得は `fetchJsonWithCache` または `fetchManyWithCache` を使用
+- キャッシュキー（`cacheKey`）とTTL（`cacheTtlMs`）を設定
+- 画面側では「エラー時にキャッシュ表示」のUI導線（注意文＋手動更新ボタン）を用意
+
 ### 投資戦略の自動実行システム
 - **automated_strategy_recommendation_system.py**: 投資戦略自動提案システム
   - 過去の分析結果からパターンを抽出する機械学習エンジン

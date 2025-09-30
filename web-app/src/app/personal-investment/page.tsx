@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { fetchJsonWithCache } from '@/lib/fetcher';
 import UserProfileForm from '@/components/personalization/UserProfileForm';
 import { useUserProfile } from '@/contexts/UserProfileContext';
 import { allocateEqualRiskBudget, AllocationResult, Candidate } from '@/lib/personalization/allocation';
@@ -130,8 +131,11 @@ export default function PersonalInvestmentDashboard() {
   const loadDashboardData = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/data/personal_investment_dashboard.json');
-      const data = await response.json();
+      // ベースパス解決＋キャッシュフォールバック
+      const { data } = await fetchJsonWithCache<DashboardData>(
+        '/data/personal_investment_dashboard.json',
+        { cacheKey: 'personal:dashboard', cacheTtlMs: 1000 * 60 * 10, retries: 2, retryDelay: 800 }
+      );
       setDashboardData(data);
       const candidates: Candidate[] = [
         ...data.positions.map((p: any) => ({ symbol: p.symbol, sector: 'Unknown', score: Math.max(0.1, p.confidence || 0.5) })),
@@ -150,6 +154,14 @@ export default function PersonalInvestmentDashboard() {
       setAllocation(alloc);
     } catch (error) {
       console.error('ダッシュボードデータの読み込みエラー:', error);
+      // 最後の手段: ローカルキャッシュのキー互換確保
+      try {
+        const cached = localStorage.getItem('app_cache:personal:dashboard');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (parsed && parsed.v) setDashboardData(parsed.v as DashboardData);
+        }
+      } catch (_) {}
     } finally {
       setLoading(false);
     }

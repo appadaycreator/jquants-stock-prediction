@@ -62,9 +62,58 @@ export class NotificationService {
       // ローカルストレージから設定を読み込み
       const savedConfig = localStorage.getItem('notification-config');
       if (savedConfig) {
-        this.config = JSON.parse(savedConfig);
-        return this.config!;
+        try {
+          this.config = JSON.parse(savedConfig);
+          return this.config!;
+        } catch (e) {
+          console.warn('通知設定のJSON解析に失敗しました。デフォルトにフォールバックします。');
+        }
       }
+
+      // 開発環境ではデフォルト設定を自動生成して保存
+      const isDev = typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development';
+      const defaultConfig: NotificationConfig = {
+        email: {
+          enabled: false,
+          smtp_server: 'smtp.gmail.com',
+          smtp_port: 587,
+          email_user: '',
+          email_password: '',
+          email_to: ''
+        },
+        push: {
+          enabled: false,
+          vapid_public_key: '',
+          vapid_private_key: '',
+          vapid_subject: 'mailto:example@example.com'
+        },
+        schedule: {
+          morning_analysis: '09:00',
+          evening_analysis: '15:00',
+          timezone: 'Asia/Tokyo'
+        },
+        content: {
+          include_analysis_summary: true,
+          include_performance_metrics: true,
+          include_recommendations: true,
+          include_risk_alerts: true
+        },
+        filters: {
+          min_confidence_threshold: 0.7,
+          include_errors: true,
+          include_success: true
+        }
+      };
+
+      if (isDev) {
+        try {
+          localStorage.setItem('notification-config', JSON.stringify(defaultConfig));
+        } catch (_) {}
+        this.config = defaultConfig;
+        return defaultConfig;
+      }
+
+      // 本番では明示的に未設定エラーとする
       throw new Error('設定が見つかりません');
     } catch (error) {
       console.error('設定読み込みエラー:', error);

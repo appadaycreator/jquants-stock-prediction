@@ -296,8 +296,8 @@ function DashboardContent() {
         throw new Error("All retry attempts failed");
       };
       
-      // 環境に応じたパス設定
-      const dataPath = process.env.NODE_ENV === 'production' ? './data' : '/data';
+      // ベースパス解決（fetcher側）が効くように先頭スラッシュで固定
+      const dataPath = '/data';
       
       console.log('データパス:', dataPath);
       console.log('環境:', process.env.NODE_ENV);
