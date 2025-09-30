@@ -2,6 +2,13 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-static';
 
+export async function generateStaticParams() {
+  // 静的エクスポート用のダミーパラメータを生成
+  return [
+    { job_id: 'dummy' }
+  ];
+}
+
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
