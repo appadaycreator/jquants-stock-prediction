@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Search, X, Check, TrendingUp } from "lucide-react";
+import JQuantsAdapter from "@/lib/jquants-adapter";
 
 // 主要日本株の銘柄データ
 const JAPANESE_STOCKS = [
@@ -32,6 +33,7 @@ interface SymbolSelectorProps {
   onSymbolsChange: (symbols: string[]) => void;
   onAnalysis: (symbols: string[]) => void;
   isAnalyzing?: boolean;
+  adapter?: JQuantsAdapter | null;
 }
 
 export default function SymbolSelector({
@@ -39,24 +41,59 @@ export default function SymbolSelector({
   onSymbolsChange,
   onAnalysis,
   isAnalyzing = false,
+  adapter = null,
 }: SymbolSelectorProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
+  const [allStocks, setAllStocks] = useState(JAPANESE_STOCKS);
   const [filteredStocks, setFilteredStocks] = useState(JAPANESE_STOCKS);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  // 起動時にJ-Quantsから動的取得
+  useEffect(() => {
+    const fetchSymbols = async () => {
+      if (!adapter) return;
+      setIsLoading(true);
+      setLoadError(null);
+      try {
+        const list = await adapter.getAllSymbols();
+        // APIからの戻り値をUI用に整形
+        const mapped = list.map((s) => ({
+          code: s.code,
+          name: s.name || s.code,
+          sector: s.sector || "-",
+        }));
+        // 有効データのみ
+        const valid = mapped.filter((s) => s.code && s.name);
+        if (valid.length > 0) {
+          setAllStocks(valid);
+          setFilteredStocks(valid);
+        }
+      } catch (e) {
+        setLoadError("銘柄一覧の取得に失敗しました");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchSymbols();
+  }, [adapter]);
 
   useEffect(() => {
+    const base = allStocks;
     if (searchTerm) {
-      const filtered = JAPANESE_STOCKS.filter(
+      const term = searchTerm.toLowerCase();
+      const filtered = base.filter(
         (stock) =>
-          stock.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          stock.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          stock.sector.toLowerCase().includes(searchTerm.toLowerCase())
+          stock.name.toLowerCase().includes(term) ||
+          stock.code.toLowerCase().includes(term) ||
+          stock.sector.toLowerCase().includes(term)
       );
       setFilteredStocks(filtered);
     } else {
-      setFilteredStocks(JAPANESE_STOCKS);
+      setFilteredStocks(base);
     }
-  }, [searchTerm]);
+  }, [searchTerm, allStocks]);
 
   const handleSymbolToggle = (symbol: string) => {
     if (selectedSymbols.includes(symbol)) {
@@ -71,7 +108,7 @@ export default function SymbolSelector({
   };
 
   const getStockInfo = (code: string) => {
-    return JAPANESE_STOCKS.find((stock) => stock.code === code);
+    return allStocks.find((stock) => stock.code === code);
   };
 
   return (
@@ -103,7 +140,13 @@ export default function SymbolSelector({
         {/* ドロップダウン */}
         {showDropdown && (
           <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-            {filteredStocks.map((stock) => (
+            {isLoading && (
+              <div className="p-3 text-sm text-gray-500">読み込み中...</div>
+            )}
+            {loadError && (
+              <div className="p-3 text-sm text-red-600">{loadError}</div>
+            )}
+            {!isLoading && !loadError && filteredStocks.map((stock) => (
               <div
                 key={stock.code}
                 onClick={() => {
@@ -176,7 +219,7 @@ export default function SymbolSelector({
             主要5銘柄
           </button>
           <button
-            onClick={() => onSymbolsChange(JAPANESE_STOCKS.slice(0, 10).map(s => s.code))}
+            onClick={() => onSymbolsChange(allStocks.slice(0, 10).map(s => s.code))}
             className="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200"
           >
             主要10銘柄

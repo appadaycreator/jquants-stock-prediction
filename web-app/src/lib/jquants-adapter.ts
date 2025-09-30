@@ -83,6 +83,39 @@ class JQuantsAdapter {
   }
 
   /**
+   * 全銘柄一覧の取得（コード・名称・セクター）
+   * 失敗時は空配列を返す
+   */
+  async getAllSymbols(): Promise<Array<{ code: string; name: string; sector?: string }>> {
+    try {
+      const response = await fetch(`${this.config.baseUrl}/markets/stock/list`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${this.config.token}`,
+          'Content-Type': 'application/json',
+        },
+        signal: AbortSignal.timeout(this.config.timeout),
+      });
+
+      if (!response.ok) {
+        console.error('全銘柄一覧取得失敗', response.status, response.statusText);
+        return [];
+      }
+
+      const data = await response.json();
+      const list: any[] = data?.data || [];
+      return list.map((item: any) => ({
+        code: item?.Code || item?.code,
+        name: item?.CompanyName || item?.name || item?.CompanyNameJa || item?.CompanyNameJp || item?.CompanyNameJPN,
+        sector: item?.Sector33 || item?.SectorName || item?.sector,
+      })).filter((s: any) => !!s.code && !!s.name);
+    } catch (error) {
+      console.error('全銘柄一覧取得エラー:', error);
+      return [];
+    }
+  }
+
+  /**
    * トークン接続テスト
    */
   async testConnection(): Promise<{ success: boolean; message: string }> {

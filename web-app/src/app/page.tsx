@@ -1638,6 +1638,7 @@ function DashboardContent() {
               onSymbolsChange={setSelectedSymbols}
               onAnalysis={handleSymbolAnalysis}
               isAnalyzing={isAnalyzing}
+              adapter={jquantsAdapter}
             />
           </div>
         </div>

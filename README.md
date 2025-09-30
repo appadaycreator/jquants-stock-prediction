@@ -368,6 +368,19 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 
 **投資対象の明確化と効率的な監視を実現する個別銘柄選択・監視機能**を追加しました。
 
+### 🔄 銘柄一覧の動的取得（J-Quants全銘柄対応）
+- フロントの銘柄選択は固定配列から「J-Quants APIの全銘柄リスト」動的取得に変更
+- トークン設定後、`/markets/stock/list` を呼び出し、全銘柄（コード・社名・セクター）をリスト化
+- 取得失敗時は既存の主要銘柄リストにフォールバックして継続表示
+- 実装ポイント:
+  - `web-app/src/lib/jquants-adapter.ts`: `getAllSymbols()` を追加
+  - `web-app/src/components/SymbolSelector.tsx`: `adapter` 経由で全銘柄を取得して検索・選択
+  - `web-app/src/app/page.tsx`: `JQuantsTokenSetup` で初期化した `JQuantsAdapter` を `SymbolSelector` に渡す
+
+注意:
+- GitHub Pages等の静的環境ではAPIコールはクライアント側実行（ユーザーのトークン前提）
+- 未設定時は主要銘柄（フォールバック）で利用可能
+
 ### 🎯 個別銘柄選択・監視機能（強化）
 
 - **Web上での銘柄選択**: 監視したい銘柄をWeb上で簡単に選択・追加・削除
