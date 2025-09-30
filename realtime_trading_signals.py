@@ -152,7 +152,9 @@ class SignalGenerator:
         self.indicators = TechnicalIndicators()
         # 根拠用
         self.sentiment_integration = (
-            EnhancedNewsSentimentIntegration() if EnhancedNewsSentimentIntegration else None
+            EnhancedNewsSentimentIntegration()
+            if EnhancedNewsSentimentIntegration
+            else None
         )
 
     def generate_signals(self, data: pd.DataFrame, symbol: str) -> List[TradingSignal]:
@@ -301,9 +303,13 @@ class SignalGenerator:
                 # dataに追加指標を計算してから根拠抽出
                 if len(data.columns) >= 5:
                     calc = TIDataframeCalc()
-                    enriched = calc.calculate_all_indicators(data.reset_index(drop=True))
+                    enriched = calc.calculate_all_indicators(
+                        data.reset_index(drop=True)
+                    )
                     tech_evidence = get_unified_technical_evidence(enriched)
-                    top3_tech = tech_evidence.get("technical", {}).get("key_indicators", [])
+                    top3_tech = tech_evidence.get("technical", {}).get(
+                        "key_indicators", []
+                    )
                     evidence_blocks["technical"] = top3_tech
                     if len(top3_tech) < 1:
                         evidence_ok = False
@@ -318,8 +324,12 @@ class SignalGenerator:
         try:
             news_headlines = []
             if self.sentiment_integration:
-                news_block = self.sentiment_integration.get_unified_sentiment_evidence(symbol)
-                headlines = news_block.get("news_sentiment", {}).get("top_headlines", [])
+                news_block = self.sentiment_integration.get_unified_sentiment_evidence(
+                    symbol
+                )
+                headlines = news_block.get("news_sentiment", {}).get(
+                    "top_headlines", []
+                )
                 evidence_blocks["news"] = headlines
                 news_headlines = headlines
             # 判定: 少なくとも1件の直近ヘッドライン
@@ -385,20 +395,34 @@ class RiskManager:
         try:
             # Next.js が public/data に保存する設定を参照
             base = os.path.dirname(__file__)
-            settings_path = os.path.join(base, 'web-app', 'public', 'data', 'risk_settings.json')
+            settings_path = os.path.join(
+                base, "web-app", "public", "data", "risk_settings.json"
+            )
             if not os.path.exists(settings_path):
                 # リポジトリ直下からの相対も試行
-                settings_path = os.path.join(os.getcwd(), 'web-app', 'public', 'data', 'risk_settings.json')
+                settings_path = os.path.join(
+                    os.getcwd(), "web-app", "public", "data", "risk_settings.json"
+                )
             if os.path.exists(settings_path):
-                with open(settings_path, 'r', encoding='utf-8') as f:
+                with open(settings_path, "r", encoding="utf-8") as f:
                     return json.load(f)
         except Exception as e:
             logger.warning(f"リスク設定読み込みエラー: {e}")
         # デフォルト
         return {
             "enabled": True,
-            "maxLoss": {"enabled": True, "max_loss_percent": 0.05, "auto_stop_loss_threshold": 0.08},
-            "volatility": {"enabled": True, "high_vol_threshold": 0.4, "extreme_vol_threshold": 0.6, "high_vol_multiplier": 0.7, "extreme_vol_multiplier": 0.4},
+            "maxLoss": {
+                "enabled": True,
+                "max_loss_percent": 0.05,
+                "auto_stop_loss_threshold": 0.08,
+            },
+            "volatility": {
+                "enabled": True,
+                "high_vol_threshold": 0.4,
+                "extreme_vol_threshold": 0.6,
+                "high_vol_multiplier": 0.7,
+                "extreme_vol_multiplier": 0.4,
+            },
             "enforcement": {"block_violation_signals": True},
         }
 
@@ -406,7 +430,9 @@ class RiskManager:
         """最大損失ガードに違反する場合は True（提案ブロック）"""
         try:
             cfg = self.risk_settings
-            if not cfg.get("enabled", True) or not cfg.get("maxLoss", {}).get("enabled", True):
+            if not cfg.get("enabled", True) or not cfg.get("maxLoss", {}).get(
+                "enabled", True
+            ):
                 return False
             # 現時点ではエントリー前の提案段階のため、単純に想定損失幅をリスク係数で評価
             # RSI過熱や強シグナルでも、max_loss_percent を超える想定変動が暗示される場合は抑制
@@ -425,7 +451,9 @@ class RiskManager:
         """ボラティリティに基づくポジション倍率（簡易）"""
         try:
             cfg = self.risk_settings
-            if not cfg.get("enabled", True) or not cfg.get("volatility", {}).get("enabled", True):
+            if not cfg.get("enabled", True) or not cfg.get("volatility", {}).get(
+                "enabled", True
+            ):
                 return 1.0
             # 簡易な年率ボラ推定: ボリンジャーバンド幅/価格を年率相当にスケーリング
             bb_upper = signal.indicators.get("bb_upper")
@@ -467,7 +495,9 @@ class RiskManager:
         vol_mult = self._volatility_multiplier(signal)
         position_size = base_size * confidence_multiplier * risk_multiplier * vol_mult
         # 最大損失ガードに違反する場合は提案を無効化（ブロック設定が有効なとき）
-        if self.risk_settings.get("enforcement", {}).get("block_violation_signals", True):
+        if self.risk_settings.get("enforcement", {}).get(
+            "block_violation_signals", True
+        ):
             if self._apply_max_loss_guard(signal):
                 return 0.0
         return min(position_size, account_value * 0.2)  # 最大20%まで

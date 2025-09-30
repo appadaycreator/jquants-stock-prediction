@@ -163,6 +163,11 @@ python3 generate_web_data.py
 - Python API: `routine_api.py`（Flask）。`POST /routine/run-today`, `GET /routine/jobs/:id`
 - Next.js ルート: `web-app/src/app/api/routine/run-today/route.ts`（内部委譲で起動）、`web-app/src/app/api/routine/jobs/[job_id]/route.ts`
 
+冪等ヘッダと委譲（重要）:
+- フロントは `fetchJson(..., { idempotencyKey: true })` で `Idempotency-Key` を自動付与します。
+- ルーティンAPIは内部で `/api/analyze` に委譲しますが、`Idempotency-Key` をヘッダ転送するよう統一しました。
+- 下流がスキーマ付きエラー（`error_code`, `user_message`, `retry_hint`）を返す場合、そのまま透過します。
+
 **利用可能な分析タイプ:**
 - **超高速分析**: 1-2分で完結する最適化された分析
 - **包括的分析**: データ取得から予測まで全工程を自動実行（3-5分）

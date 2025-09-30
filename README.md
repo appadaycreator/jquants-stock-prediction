@@ -199,6 +199,12 @@ GET /api/jobs/:job_id => {
 - 冪等性: `client_token` により二重クリック時は同一 `job_id` を返却（クライアント→JSON Body で送信）
 - モバイル復帰: `job_id` に再アタッチして進捗を継続
 
+冪等ヘッダ（重要・横展開済み）:
+- クライアントは実行系のPOSTに `Idempotency-Key` を付与（`fetcher.ts` が自動生成可）
+- サーバの `withIdempotency` がレスポンスを最大10分保持し、同一キーは前回結果を返却
+- ルーティン委譲（`/api/routine/run-today` → `/api/analyze`）では `Idempotency-Key` をヘッダ転送するよう統一
+- 下流エラーはJSONスキーマのまま透過（`error_code`, `user_message`, `retry_hint`）
+
 停止条件（重要・UIの挙動）:
 - 「実行中」は以下の場合にのみ解除されます（finallyでは解除しません）
   - 成功: サーバー結果取得（`status: succeeded`）またはローカルフォールバック成功時

@@ -266,9 +266,15 @@ class IntegratedBacktestSystem:
                     d = data[mask]
                     if not d.empty:
                         buyhold_return = (d["Close"].iloc[-1] / d["Close"].iloc[0]) - 1
-                        equity = (d["Close"] / d["Close"].iloc[0]) * self.initial_capital
+                        equity = (
+                            d["Close"] / d["Close"].iloc[0]
+                        ) * self.initial_capital
                         dd_peak = equity.expanding().max()
-                        buyhold_dd = ((equity - dd_peak) / dd_peak).min() if len(equity) > 0 else 0
+                        buyhold_dd = (
+                            ((equity - dd_peak) / dd_peak).min()
+                            if len(equity) > 0
+                            else 0
+                        )
                         symbol_results["Baseline_BuyHold"] = {
                             "total_return": float(buyhold_return),
                             "sharpe_ratio": 0.0,

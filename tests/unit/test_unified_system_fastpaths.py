@@ -23,4 +23,3 @@ def test_error_recovery_workflow_succeeds_when_errors_present():
     result = us.execute_error_recovery_workflow()
     assert result["recovery_attempts"] >= 1
     assert result["success_rate"] >= 0
-

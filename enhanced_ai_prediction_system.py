@@ -414,17 +414,13 @@ class EnhancedAIPredictionSystem:
                 pass
 
             if health.status == ModelHealthStatus.STOP:
-                self.logger.error(
-                    f"🛑 健全性ゲート: 停止判定 - 理由: {', '.join(health.reasons)}"
-                )
+                self.logger.error(f"🛑 健全性ゲート: 停止判定 - 理由: {', '.join(health.reasons)}")
                 self._notify_health(health, severity="critical")
                 raise EnhancedAIPredictionSystem.ModelHealthException(
                     f"健全性ゲートにより推論停止: {health.reasons}"
                 )
             elif health.status == ModelHealthStatus.WARNING:
-                self.logger.warning(
-                    f"⚠️ 健全性ゲート: 警告 - 理由: {', '.join(health.reasons)}"
-                )
+                self.logger.warning(f"⚠️ 健全性ゲート: 警告 - 理由: {', '.join(health.reasons)}")
                 self._notify_health(health, severity="warning")
 
             # 予測
@@ -548,7 +544,12 @@ class EnhancedAIPredictionSystem:
                 reasons.append("特徴量が空")
                 detail["missing_ratio"] = 1.0
                 status = ModelHealthStatus.STOP
-                return ModelHealthReport(status=status, detail=detail, reasons=reasons, checked_at=datetime.now())
+                return ModelHealthReport(
+                    status=status,
+                    detail=detail,
+                    reasons=reasons,
+                    checked_at=datetime.now(),
+                )
 
             # 欠損率
             missing_ratio = float(np.isnan(X_raw).sum()) / float(X_raw.size)
@@ -621,20 +622,26 @@ class EnhancedAIPredictionSystem:
     def export_model_health(self, report: ModelHealthReport) -> bool:
         """健全性レポートをJSONとして書き出し（Web UI参照用）"""
         try:
-            os.makedirs(os.path.dirname(self.health_config["health_output_path"]), exist_ok=True)
+            os.makedirs(
+                os.path.dirname(self.health_config["health_output_path"]), exist_ok=True
+            )
             payload = {
                 "status": report.status.value,
                 "detail": report.detail,
                 "reasons": report.reasons,
                 "checked_at": report.checked_at.isoformat(),
             }
-            with open(self.health_config["health_output_path"], "w", encoding="utf-8") as f:
+            with open(
+                self.health_config["health_output_path"], "w", encoding="utf-8"
+            ) as f:
                 json.dump(payload, f, ensure_ascii=False, indent=2)
             return True
         except Exception:
             return False
 
-    def _notify_health(self, report: ModelHealthReport, severity: str = "warning") -> None:
+    def _notify_health(
+        self, report: ModelHealthReport, severity: str = "warning"
+    ) -> None:
         """健全性アラートをWebhookへ通知（存在すれば）。失敗しても処理継続。"""
         try:
             webhook = os.getenv("HEALTH_WEBHOOK_URL") or os.getenv("SLACK_WEBHOOK_URL")
@@ -644,7 +651,9 @@ class EnhancedAIPredictionSystem:
                 "text": f"[ModelHealth] status={report.status.value} severity={severity} reasons={', '.join(report.reasons)}",
                 "attachments": [
                     {
-                        "color": "#ff0000" if report.status == ModelHealthStatus.STOP else "#ffcc00",
+                        "color": "#ff0000"
+                        if report.status == ModelHealthStatus.STOP
+                        else "#ffcc00",
                         "fields": [
                             {"title": k, "value": str(v), "short": True}
                             for k, v in report.detail.items()

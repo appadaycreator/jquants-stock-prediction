@@ -98,5 +98,3 @@ def test_routine_recovery_after_error_succeeds(routine_client, monkeypatch):
     )
     assert succeeded["status"] == "succeeded"
     assert succeeded.get("resultUrl")
-
-

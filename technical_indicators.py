@@ -484,28 +484,48 @@ def get_unified_technical_evidence(df: pd.DataFrame) -> Dict[str, object]:
         # RSI
         if "RSI" in df.columns:
             rsi_val = float(latest.get("RSI"))
-            rsi_signal = "oversold" if rsi_val < 30 else ("overbought" if rsi_val > 70 else "neutral")
+            rsi_signal = (
+                "oversold"
+                if rsi_val < 30
+                else ("overbought" if rsi_val > 70 else "neutral")
+            )
             key_items.append({"name": "RSI", "value": rsi_val, "signal": rsi_signal})
 
         # MACD
-        if "MACD" in df.columns and "MACD_Signal" in df.columns and "MACD_Histogram" in df.columns:
+        if (
+            "MACD" in df.columns
+            and "MACD_Signal" in df.columns
+            and "MACD_Histogram" in df.columns
+        ):
             macd_val = float(latest.get("MACD"))
             macd_sig = float(latest.get("MACD_Signal"))
             macd_hist = float(latest.get("MACD_Histogram"))
-            macd_signal = "bullish" if macd_val > macd_sig and macd_hist > 0 else ("bearish" if macd_val < macd_sig and macd_hist < 0 else "neutral")
+            macd_signal = (
+                "bullish"
+                if macd_val > macd_sig and macd_hist > 0
+                else ("bearish" if macd_val < macd_sig and macd_hist < 0 else "neutral")
+            )
             key_items.append({"name": "MACD", "value": macd_val, "signal": macd_signal})
 
         # ボリンジャー %B
         if "BB_Percent" in df.columns:
             bbp = float(latest.get("BB_Percent"))
-            bb_signal = "lower_band" if bbp <= 0 else ("upper_band" if bbp >= 1 else "middle")
+            bb_signal = (
+                "lower_band" if bbp <= 0 else ("upper_band" if bbp >= 1 else "middle")
+            )
             key_items.append({"name": "BB_%B", "value": bbp, "signal": bb_signal})
 
         # 価格位置 20d
         if "Price_Position_20d" in df.columns:
             pos20 = float(latest.get("Price_Position_20d"))
-            pos_signal = "low_zone" if pos20 <= 20 else ("high_zone" if pos20 >= 80 else "mid_zone")
-            key_items.append({"name": "PricePos20d", "value": pos20, "signal": pos_signal})
+            pos_signal = (
+                "low_zone"
+                if pos20 <= 20
+                else ("high_zone" if pos20 >= 80 else "mid_zone")
+            )
+            key_items.append(
+                {"name": "PricePos20d", "value": pos20, "signal": pos_signal}
+            )
 
         # ADX（トレンド強度）
         if "ADX" in df.columns:
@@ -515,7 +535,12 @@ def get_unified_technical_evidence(df: pd.DataFrame) -> Dict[str, object]:
 
         # 代表3点を抽出（重要度の簡易ルール: RSI, MACD, BB_%B を優先）
         priority_order = ["RSI", "MACD", "BB_%B", "PricePos20d", "ADX"]
-        ordered = sorted(key_items, key=lambda x: priority_order.index(x["name"]) if x["name"] in priority_order else 999)
+        ordered = sorted(
+            key_items,
+            key=lambda x: priority_order.index(x["name"])
+            if x["name"] in priority_order
+            else 999,
+        )
         top3 = ordered[:3]
 
         return {"technical": {"key_indicators": top3}}

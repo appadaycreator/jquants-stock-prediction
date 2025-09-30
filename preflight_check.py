@@ -39,7 +39,9 @@ class PreflightRunner:
         self.logger = logging.getLogger("PreflightRunner")
         if not self.logger.handlers:
             self.logger.setLevel(logging.INFO)
-            fh = logging.FileHandler(self.logs_dir / f"preflight_{self.timestamp}.log", encoding="utf-8")
+            fh = logging.FileHandler(
+                self.logs_dir / f"preflight_{self.timestamp}.log", encoding="utf-8"
+            )
             sh = logging.StreamHandler()
             fmt = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
             fh.setFormatter(fmt)
@@ -79,7 +81,9 @@ class PreflightRunner:
         if before_missing > 0:
             repaired[numeric_cols] = repaired[numeric_cols].ffill().bfill()
             # まだ残る欠損に対して中央値
-            remaining_missing_cols = [c for c in numeric_cols if repaired[c].isna().any()]
+            remaining_missing_cols = [
+                c for c in numeric_cols if repaired[c].isna().any()
+            ]
             for c in remaining_missing_cols:
                 median_val = repaired[c].median()
                 repaired[c] = repaired[c].fillna(median_val)
@@ -102,9 +106,14 @@ class PreflightRunner:
                 lo = float(np.nanpercentile(s, 1))
                 hi = float(np.nanpercentile(s, 99))
                 repaired[c] = s.clip(lo, hi)
-                outlier_cols.append({"column": c, "trimmed": int(outliers), "clip": [lo, hi]})
+                outlier_cols.append(
+                    {"column": c, "trimmed": int(outliers), "clip": [lo, hi]}
+                )
         if outlier_cols:
-            actions["outliers"] = {"columns": outlier_cols, "method": "z>5 -> clip to [p1,p99]"}
+            actions["outliers"] = {
+                "columns": outlier_cols,
+                "method": "z>5 -> clip to [p1,p99]",
+            }
 
         # 3) 重複: 完全重複行の削除
         before_rows = len(repaired)
@@ -169,7 +178,9 @@ class PreflightRunner:
         }
 
         try:
-            with open(self.output_dir / "preflight_status.json", "w", encoding="utf-8") as f:
+            with open(
+                self.output_dir / "preflight_status.json", "w", encoding="utf-8"
+            ) as f:
                 json.dump(summary, f, ensure_ascii=False, indent=2, default=str)
         except Exception as e:
             self.logger.warning(f"サマリーJSON書き込みに失敗: {e}")
@@ -193,5 +204,3 @@ def run_preflight(df: pd.DataFrame, auto_repair: bool = True) -> Dict[str, Any]:
 
 
 __all__ = ["PreflightRunner", "run_preflight"]
-
-

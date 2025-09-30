@@ -276,10 +276,12 @@ class EnhancedNewsSentimentIntegration:
                 # 感情分析
                 analyzed_news = []
                 for item in news_items:
-                    sentiment_score, sentiment_type, confidence = (
-                        self.sentiment_analyzer.analyze_text_sentiment(
-                            f"{item.get('title', '')} {item.get('description', '')}"
-                        )
+                    (
+                        sentiment_score,
+                        sentiment_type,
+                        confidence,
+                    ) = self.sentiment_analyzer.analyze_text_sentiment(
+                        f"{item.get('title', '')} {item.get('description', '')}"
                     )
 
                     relevance_score = self._calculate_news_relevance(
@@ -329,10 +331,12 @@ class EnhancedNewsSentimentIntegration:
                 # 感情分析
                 analyzed_posts = []
                 for post in social_posts:
-                    sentiment_score, sentiment_type, confidence = (
-                        self.sentiment_analyzer.analyze_text_sentiment(
-                            post.get("content", "")
-                        )
+                    (
+                        sentiment_score,
+                        sentiment_type,
+                        confidence,
+                    ) = self.sentiment_analyzer.analyze_text_sentiment(
+                        post.get("content", "")
                     )
 
                     relevance_score = self._calculate_social_relevance(
@@ -544,9 +548,7 @@ class EnhancedNewsSentimentIntegration:
                         }
                     )
 
-                logger.info(
-                    f"感情分析完了: {symbol} - スコア: {overall_sentiment['score']:.3f}"
-                )
+                logger.info(f"感情分析完了: {symbol} - スコア: {overall_sentiment['score']:.3f}")
 
             except Exception as e:
                 logger.error(f"個別感情分析エラー {symbol}: {e}")
@@ -756,14 +758,17 @@ class EnhancedNewsSentimentIntegration:
             # 直近のニュース上位3件を抽出（関連度×信頼度の降順）
             sorted_news = sorted(
                 sentiment.news_items,
-                key=lambda n: getattr(n, "relevance_score", 0.0) * getattr(n, "confidence", 0.0),
+                key=lambda n: getattr(n, "relevance_score", 0.0)
+                * getattr(n, "confidence", 0.0),
                 reverse=True,
             )
             top_headlines = [
                 {
                     "title": n.title,
                     "url": n.url,
-                    "published_at": n.published_at.isoformat() if hasattr(n, "published_at") else "",
+                    "published_at": n.published_at.isoformat()
+                    if hasattr(n, "published_at")
+                    else "",
                 }
                 for n in sorted_news[:3]
             ]
@@ -771,7 +776,11 @@ class EnhancedNewsSentimentIntegration:
             return {
                 "news_sentiment": {
                     "score": sentiment.overall_sentiment_score,
-                    "type": getattr(sentiment.overall_sentiment_type, "value", str(sentiment.overall_sentiment_type)),
+                    "type": getattr(
+                        sentiment.overall_sentiment_type,
+                        "value",
+                        str(sentiment.overall_sentiment_type),
+                    ),
                     "confidence": sentiment.confidence,
                     "top_headlines": top_headlines,
                 }
