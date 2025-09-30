@@ -174,27 +174,27 @@ export function ChecklistBadge({
 // デフォルトチェックリスト項目
 export const DEFAULT_CHECKLIST_ITEMS: ChecklistItem[] = [
   {
-    id: 'dashboard-overview',
-    title: 'ダッシュボードを1分で把握する',
-    description: '今日の投資指示と主要KPIを確認',
+    id: 'update-check',
+    title: 'データ更新（Fresh/Stale）を確認',
+    description: '最終更新と鮮度バッジで状態を判断',
     completed: false
   },
   {
-    id: 'kpi-understanding',
-    title: 'KPIの意味を理解する',
-    description: 'MAE、R²、予測精度の解釈を習得',
+    id: 'top5-candidates',
+    title: '上位5銘柄を確認',
+    description: 'シグナル・予測上位・リスク下位の根拠を確認',
     completed: false
   },
   {
-    id: 'candidate-exploration',
-    title: '銘柄カードから詳細に入る',
-    description: '推奨銘柄の詳細分析を実行',
+    id: 'holding-action',
+    title: '保有の継続/利確/損切りを選択',
+    description: '数量候補（25%/50%）から選ぶ',
     completed: false
   },
   {
-    id: 'settings-configuration',
-    title: '通知先を設定する',
-    description: '分析結果の通知設定を完了',
+    id: 'daily-memo',
+    title: '本日のメモを保存',
+    description: '1行メモをローカルに保存',
     completed: false
   }
 ];

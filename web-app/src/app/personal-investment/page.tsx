@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { fetchJsonWithCache } from '@/lib/fetcher';
+import { getLatestIndex, resolveBusinessDate, swrJson } from '@/lib/dataClient';
 import UserProfileForm from '@/components/personalization/UserProfileForm';
 import { useUserProfile } from '@/contexts/UserProfileContext';
 import { allocateEqualRiskBudget, AllocationResult, Candidate } from '@/lib/personalization/allocation';
@@ -131,11 +131,14 @@ export default function PersonalInvestmentDashboard() {
   const loadDashboardData = async () => {
     try {
       setLoading(true);
-      // ベースパス解決＋キャッシュフォールバック
-      const { data } = await fetchJsonWithCache<DashboardData>(
-        '/data/personal_investment_dashboard.json',
-        { cacheKey: 'personal:dashboard', cacheTtlMs: 1000 * 60 * 10, retries: 2, retryDelay: 800 }
+      const latestIndex = await getLatestIndex();
+      const ymd = resolveBusinessDate(null, latestIndex);
+      const { data } = await swrJson<DashboardData>(
+        'personal:dashboard',
+        `/data/${ymd}/personal_investment_dashboard.json`,
+        { ttlMs: 1000 * 60 * 10, timeoutMs: 6000, retries: 3, retryDelay: 800 }
       );
+      if (!data) throw new Error('ダッシュボードデータが空です');
       setDashboardData(data);
       const candidates: Candidate[] = [
         ...data.positions.map((p: any) => ({ symbol: p.symbol, sector: 'Unknown', score: Math.max(0.1, p.confidence || 0.5) })),

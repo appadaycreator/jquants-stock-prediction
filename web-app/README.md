@@ -181,16 +181,24 @@ web-app/public/data/
 - **Recharts** → チャート描画とアニメーション
 - **Tailwind CSS** → レスポンシブスタイリング
 
-### 5. Todayページ（/today）のデータ取得について
-- 開発環境: `GET /api/today` がローカルの `public/data/today_summary.json` を返します。
-- 本番（GitHub Pages, 静的エクスポート）: クライアントから `public/data/today_summary.json` を直接取得するフォールバックが働きます。
-- 実装参照:
-  - ルート: `src/app/api/today/route.ts`
-  - フロント: `src/lib/today/fetchTodaySummary.ts`, `src/app/today/page.tsx`
+### 5. 今日の5分ルーチン（/today）
+- 目的: 毎日やることを3クリック以内で完了
+- UI構成（縦スクロールのみ）
+  1) チェック：データ更新状況（最終更新・鮮度バッジ Fresh/Stale）
+  2) 候補：上位5銘柄（根拠＝シグナル＋予測上位＋リスク下位）
+  3) アクション：保有中銘柄の「継続/利確/損切り」提案（数量 25%/50%）
+  4) メモ：その日の決定を1行メモ（ローカル保存）
 
-#### インタラクション
-- 「今日の推奨タスク」内の「詳細を確認」ボタンを押すと、該当銘柄の詳細分析ページ（`candidate.detail_paths.analysis` もしくは `candidate.detail_paths.prediction`、いずれも無い場合は `/analysis?symbol=...`）に遷移します。
-- 実装箇所: `src/components/today/TaskRecommendations.tsx`
+- データ取得:
+  - 開発環境/本番共通: `src/lib/today/fetchTodaySummary.ts` が `public/data/today_summary.json` を安全取得（キャッシュ・フォールバック）
+
+- 実装参照:
+  - フック: `src/hooks/useFiveMinRoutine.ts`（候補選定ロジック＋UI状態）
+  - ページ: `src/app/today/page.tsx`（旧カードを「詳細へ」リンク化して集約表示）
+
+- DoD:
+  - 新規ユーザーでも1分で結果に到達
+  - 各ステップが上下方向スクロールだけで完結
 
 ### 6. パーソナライズ機能（個別投資家向け）
 - ユーザー入力: 資金量、リスク許容度、興味セクター、ESG志向、目標銘柄数、除外銘柄

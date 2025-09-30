@@ -1,30 +1,28 @@
 import { TodaySummary } from '../../types/today';
-import { fetchJsonWithCache } from '@/lib/fetcher';
+import { getLatestIndex, resolveBusinessDate, swrJson } from '@/lib/dataClient';
 
-const DATA_ENDPOINT = '/data/today_summary.json';
-
-export async function fetchTodaySummary(): Promise<TodaySummary> {
+export async function fetchTodaySummary(targetYmd?: string): Promise<TodaySummary> {
   try {
-    // ベースパス解決＋キャッシュフォールバック対応の安全フェッチ
-    const { data, fromCache } = await fetchJsonWithCache<TodaySummary>(DATA_ENDPOINT, {
-      cacheKey: 'today:summary',
-      cacheTtlMs: 1000 * 60 * 60, // 1時間
-      retries: 2,
-      retryDelay: 800,
-    });
+    // latest/index.json を参照して対象営業日を決定
+    const latestIndex = await getLatestIndex();
+    const date = resolveBusinessDate(targetYmd || null, latestIndex);
 
-    // 新規取得の場合はローカルキャッシュも更新
+    // SWR: まず直近成功データを即時、同日のCDN JSONを6s/指数バックオフで裏更新
+    const { data, fromCache } = await swrJson<TodaySummary>(
+      'today:summary',
+      `/data/${date}/summary.json`,
+      { ttlMs: 1000 * 60 * 60, timeoutMs: 6000, retries: 3, retryDelay: 800 }
+    );
+
     if (!fromCache) {
       try {
         localStorage.setItem('today_summary', JSON.stringify(data));
         localStorage.setItem('today_summary_timestamp', new Date().toISOString());
       } catch (_) {}
     }
-
     return data;
   } catch (error) {
     console.error('fetchTodaySummary error:', error);
-    // 最後の手段: ローカルキャッシュを返す
     const cachedData = localStorage.getItem('today_summary');
     if (cachedData) {
       try {

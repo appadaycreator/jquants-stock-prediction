@@ -150,6 +150,31 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 - **ビルド成功確認**: Next.js静的エクスポートが正常に完了
 - **デプロイパイプライン安定化**: GitHub Actionsでの自動デプロイが正常に動作
 
+#### ワンクリック分析（非同期ジョブ）API/UI 仕様（新）
+
+```
+POST /api/analyze => { job_id: string }
+  - 分析を非同期ジョブとして投入（GETは405で明示拒否）
+
+GET /api/jobs/:job_id => {
+  status: "queued"|"running"|"succeeded"|"failed",
+  progress?: number,
+  result_url?: string,
+  error?: string
+}
+```
+
+- UI: 「分析実行」押下→トースト＋プログレス（0→100%）、キャンセル不可、成功で「最新結果を表示」に変化
+- 失敗時: 前回結果へのリンクと簡潔なエラー要約を表示
+- ポーリング: 1.5秒間隔、最大3分
+- 冪等性: `client_token` により二重クリック時は同一 `job_id` を返却
+- モバイル復帰: `job_id` に再アタッチして進捗を継続
+
+実装:
+- API: `web-app/src/app/api/analyze/route.ts`, `web-app/src/app/api/jobs/[job_id]/route.ts`
+- ジョブ管理: `web-app/src/app/api/_jobStore.ts`（開発用のインメモリ。実運用はWorkers KV/Queues等に置換）
+- UI: `web-app/src/components/OneClickAnalysis.tsx` が新APIで起動・ポーリング実装済み。静的環境では自動でローカルシミュレーションへフォールバック。
+
 ## 🆕 新機能: 個人投資特化ダッシュボード
 
 **投資判断に直結する情報の優先表示**、**損益状況の一目瞭然な表示**、**次のアクション（買い・売り・ホールド）の明確な提示**を実現する個人投資特化ダッシュボードを追加しました。
@@ -187,6 +212,10 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 ### 🔧 技術実装
 
 #### バックエンドシステム
+- **CDN配信データ生成（新）**: 毎営業日 06:00 JST に事前集計→JSON生成→CDN配置
+  - 生成スクリプト: `generate_daily_cdn_data.py`
+  - 出力: `web-app/public/data/{yyyymmdd}/summary.json`, `web-app/public/data/{yyyymmdd}/stocks/{code}.json`
+  - 目次: `web-app/public/data/latest/index.json`（最新日付と一覧、降順）
 - **`personal_investment_dashboard.py`**: 個人投資特化ダッシュボードのコアシステム
 - **`generate_personal_investment_data.py`**: ダッシュボード用データ生成スクリプト
 - **既存システムとの統合**: リアルタイム売買シグナル、リスク管理システムとの連携
@@ -1892,3 +1921,32 @@ git push origin main
 - **指標切替**: 終値、SMA5、SMA25、SMA50、出来高(百万)の切替
 - **N/A対策**: データ未取得時は安全なダミーデータで表示し崩れを回避
 - **場所**: `overview` タブ → 「株価推移と移動平均（インタラクティブ）」
+
+## サーバーサイド指標前処理（P0-3 チャート N/A 対策）
+
+- タイムゾーン: Asia/Tokyo 固定
+- 最新バー: 確定足のみ採用（当日途中は前日終値まで）
+- 欠損日の穴埋め: 前回値フォワードで連続性を担保
+- 指標: SMA(5/25/75), EMA(12/26), MACD(ライン/シグナル/ヒスト), RSI(14)
+
+### API
+
+- `GET /api/stocks/[code]?range=5y|1y|3m|1m`
+  - 返却 JSON 構造:
+    - `code`: 銘柄コード
+    - `prices[]`: `{ date, open, high, low, close, volume }`
+    - `indicators[]`: `{ date, sma_5, sma_25, sma_75, ema_12, ema_26, macd, macd_signal, macd_hist, rsi_14 }`
+    - `meta`: `{ timezone: 'Asia/Tokyo', latestBarPolicy: 'finalized_only', filledGaps: true, range }`
+  - データ不足（直近3本未満）の場合は価格のみで返却（前処理は維持）。
+
+### 実装
+
+- サーバー計算: `web-app/src/lib/indicators.ts`
+- API ルート: `web-app/src/app/api/stocks/[code]/route.ts`
+- フロント接続: `web-app/src/app/page.tsx` （5年・1年・3ヶ月・1ヶ月のクイック範囲ボタン）
+- N/A の扱い: チャートは `null` を許容して崩さず、ツールチップで `N/A` 注記
+
+### 互換性/横展開
+
+- 既存の `public/data/stock_data.json` は後方互換でフォールバック読み込みされます。
+- 個別ファイルを置く場合は `public/data/prices/{code}.json` に `{ date, open, high, low, close, volume, code }[]` を配置してください。

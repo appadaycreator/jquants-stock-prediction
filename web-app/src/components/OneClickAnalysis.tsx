@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Play, CheckCircle, AlertCircle, RefreshCw, Settings, BarChart3, TrendingUp, Brain, Zap, History, Clock } from "lucide-react";
 import { useAnalysisWithSettings } from "@/hooks/useAnalysisWithSettings";
+import { fetchJson } from "@/lib/fetcher";
 
 interface AnalysisConfig {
   type: 'ultra_fast' | 'comprehensive' | 'symbols' | 'trading' | 'sentiment';
@@ -120,54 +121,94 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
 
   const startAnalysis = async () => {
     try {
-      const newAnalysisId = `analysis_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      setAnalysisId(newAnalysisId);
       setIsAnalyzing(true);
       setProgress(0);
-      setStatus('設定に基づく分析を開始しています...');
+      setStatus('ジョブを作成しています...');
       setError(null);
       setAnalysisResult(null);
       setElapsedTime('00:00');
-      
+
       onAnalysisStart?.();
 
-      // 設定連携版の分析実行
-      const result = await runAnalysisWithSettings({
-        analysisType: selectedType,
-        useSettings: true
-      });
-
-      if (result.success) {
-        setStatus('分析が完了しました！');
-        setProgress(100);
-        setAnalysisResult(result.result);
-        onAnalysisComplete?.(result.result);
-        
-        // 履歴に保存
-        const historyEntry: AnalysisHistory = {
-          id: newAnalysisId,
-          type: selectedType,
-          timestamp: new Date().toISOString(),
-          duration: elapsedTime,
-          status: 'success',
-          result: result.result
-        };
-        saveAnalysisHistory(historyEntry);
-      } else {
-        setError(result.error || '分析に失敗しました');
-        setStatus('分析に失敗しました');
-        
-        // エラーも履歴に保存
-        const historyEntry: AnalysisHistory = {
-          id: newAnalysisId,
-          type: selectedType,
-          timestamp: new Date().toISOString(),
-          duration: elapsedTime,
-          status: 'error',
-          error: result.error
-        };
-        saveAnalysisHistory(historyEntry);
+      // 冪等化用トークン（セッションに一意）
+      const clientTokenKey = 'analysis:client_token';
+      let clientToken = localStorage.getItem(clientTokenKey);
+      if (!clientToken) {
+        clientToken = `client_${crypto.randomUUID?.() || Math.random().toString(36).slice(2)}`;
+        localStorage.setItem(clientTokenKey, clientToken);
       }
+
+      // 1) ジョブ作成
+      const { job_id } = await fetchJson<{ job_id: string }>(
+        '/api/analyze',
+        { timeout: 10000 }
+      ).catch(async (e) => {
+        // 静的環境フォールバック: 旧クライアントシミュレーションに切替
+        setStatus('静的環境のためローカルシミュレーションに切り替えます...');
+        const sim = await runAnalysisWithSettings({ analysisType: selectedType, useSettings: true });
+        if (!sim.success) throw e;
+        setStatus('分析が完了しました！（ローカル）');
+        setProgress(100);
+        setAnalysisResult(sim.result);
+        onAnalysisComplete?.(sim.result);
+        const localId = `local_${Date.now()}`;
+        setAnalysisId(localId);
+        saveAnalysisHistory({ id: localId, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: 'success', result: sim.result });
+        throw null; // 以降の処理をスキップ
+      });
+      if (!job_id) return; // フォールバックで既に完了
+
+      setAnalysisId(job_id);
+      setStatus('キューに投入しました。進捗を監視します...');
+
+      // 2) ポーリング: 1.5s間隔 最大3分
+      const startedAt = Date.now();
+      const pollInterval = 1500;
+      const timeoutMs = 3 * 60 * 1000;
+
+      const poll = async (): Promise<void> => {
+        try {
+          const res = await fetchJson<{ status: string; progress?: number; result_url?: string; error?: string }>(
+            `/api/jobs/${job_id}`,
+            { timeout: 8000 }
+          );
+          const prog = Math.min(99, Math.max(0, Math.floor(res.progress ?? 0)));
+          setProgress(prog);
+          setStatus(res.status === 'running' ? '分析を実行中...' : res.status === 'queued' ? '待機中...' : status);
+
+          if (res.status === 'succeeded') {
+            setProgress(100);
+            setStatus('分析が完了しました！');
+            const resultPayload = { message: '分析が完了しました', resultUrl: res.result_url, webDataGenerated: true };
+            setAnalysisResult(resultPayload);
+            onAnalysisComplete?.(resultPayload);
+            saveAnalysisHistory({ id: job_id, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: 'success', result: resultPayload });
+            return;
+          }
+          if (res.status === 'failed') {
+            const errMsg = res.error || 'サーバー側でエラーが発生しました';
+            throw new Error(errMsg);
+          }
+
+          if (Date.now() - startedAt > timeoutMs) {
+            throw new Error('タイムアウトしました（3分）');
+          }
+
+          setTimeout(poll, pollInterval);
+        } catch (err) {
+          // フェールオーバー: 前回結果
+          const last = analysisHistory[0]?.result;
+          setError(err instanceof Error ? err.message : '不明なエラー');
+          setStatus('失敗しました。前回結果にフォールバックできます');
+          if (last) {
+            setAnalysisResult(last);
+          }
+          // 履歴保存
+          saveAnalysisHistory({ id: job_id, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: 'error', error: err instanceof Error ? err.message : 'Unknown' });
+        }
+      };
+
+      setTimeout(poll, pollInterval);
     } catch (err) {
       setError(err instanceof Error ? err.message : '不明なエラーが発生しました');
       setStatus('分析に失敗しました');

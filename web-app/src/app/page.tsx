@@ -121,6 +121,9 @@ function DashboardContent() {
   const [showUserGuide, setShowUserGuide] = useState(false);
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [selectedCode, setSelectedCode] = useState<string>('7203.T');
+  const [range, setRange] = useState<'5y' | '1y' | '3m' | '1m'>('1y');
+  const [primaryStock, setPrimaryStock] = useState<any[]>([]);
   const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
   const [selectedPeriod, setSelectedPeriod] = useState('1m');
   const [watchlists, setWatchlists] = useState<any[]>([]);
@@ -376,7 +379,25 @@ function DashboardContent() {
       setMarketInsights(marketInsightsData);
       setRiskAssessment(riskAssessmentData);
       
-      // 更新日時を設定
+      // 主要チャートデータを API から取得（SMA/EMA/MACD/RSI 含む、JST固定・前処理済）
+      try {
+        const res = await fetch(`/api/stocks/${encodeURIComponent(selectedCode)}?range=${range}`, { cache: 'no-cache' });
+        if (res.ok) {
+          const json = await res.json();
+          // prices と indicators を結合
+          const merged = json.prices.map((p: any, i: number) => ({
+            ...p,
+            ...(json.indicators?.[i] || {}),
+          }));
+          setPrimaryStock(merged);
+        } else {
+          console.warn('stocks api error', res.status);
+          setPrimaryStock([]);
+        }
+      } catch (e) {
+        console.warn('stocks api fetch failed', e);
+        setPrimaryStock([]);
+      }
       const now = new Date();
       setLastUpdateTime(now.toLocaleString('ja-JP'));
       
@@ -573,6 +594,20 @@ function DashboardContent() {
     );
   }
 
+  const RangeSelector = () => (
+    <div className="flex gap-2 items-center">
+      {(['5y','1y','3m','1m'] as const).map(r => (
+        <button
+          key={r}
+          onClick={() => { setRange(r); loadData(true); }}
+          className={`px-3 py-1 rounded ${range === r ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}
+        >
+          {r}
+        </button>
+      ))}
+    </div>
+  );
+
   const formatDate = (dateStr: string) => {
     try {
       // Luxonを使用して日付を正規化
@@ -594,14 +629,19 @@ function DashboardContent() {
     }
   };
 
-  const chartData = stockData.map(item => ({
-    date: normalizeDateString(item.date), // 正規化された日時を使用
+  const chartData = (primaryStock.length ? primaryStock : stockData).map(item => ({
+    date: normalizeDateString(item.date),
     実際価格: item.close,
-    SMA_5: item.sma_5,
-    SMA_10: item.sma_10,
-    SMA_25: item.sma_25,
-    SMA_50: item.sma_50,
-    出来高: (item.volume ?? 0) / 1000000, // 百万単位（undefined対策）
+    SMA_5: item.sma_5 ?? null,
+    SMA_25: item.sma_25 ?? null,
+    SMA_75: item.sma_75 ?? item.sma_50 ?? null,
+    EMA_12: item.ema_12 ?? null,
+    EMA_26: item.ema_26 ?? null,
+    MACD: item.macd ?? null,
+    MACD_Signal: item.macd_signal ?? null,
+    MACD_Hist: item.macd_hist ?? null,
+    RSI_14: item.rsi_14 ?? null,
+    出来高: (item.volume ?? 0) / 1000000,
   }));
 
   const predictionChartData = predictions.slice(0, 50).map(item => ({
