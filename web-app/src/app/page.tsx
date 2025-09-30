@@ -38,6 +38,8 @@ import { guideStore } from "@/lib/guide/guideStore";
 import { parseToJst } from "@/lib/datetime";
 import JQuantsTokenSetup from "@/components/JQuantsTokenSetup";
 import JQuantsAdapter from "@/lib/jquants-adapter";
+import NextUpdateIndicator from "@/components/NextUpdateIndicator";
+import { NotificationService } from "@/lib/notification/NotificationService";
 
 // 型定義
 interface StockData {
@@ -441,6 +443,17 @@ function DashboardContent() {
       if (isRefresh) {
         setIsRefreshing(false);
         setRefreshStatus('更新完了');
+        try {
+          const notifier = NotificationService.getInstance();
+          await notifier.initializePushNotifications();
+          await notifier.notifyAnalysisComplete({
+            title: 'データ更新完了',
+            message: '最新のダッシュボードデータに更新されました',
+            timestamp: new Date().toISOString()
+          } as any);
+        } catch (e) {
+          console.debug('ローカル通知は無効（静的サイト/権限未許可など）');
+        }
         // 3秒後にステータスをクリア
         setTimeout(() => {
           setRefreshStatus('');
@@ -665,6 +678,7 @@ function DashboardContent() {
                   </span>
                 )}
               </div>
+                <NextUpdateIndicator />
               <div className="flex space-x-2">
                 <ButtonTooltip content="特定の銘柄を選択して詳細分析を実行します">
                   <button

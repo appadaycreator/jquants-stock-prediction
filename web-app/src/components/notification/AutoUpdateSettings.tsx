@@ -94,16 +94,27 @@ export default function AutoUpdateSettings() {
     try {
       await notificationService.initializePushNotifications();
       await notificationService.notifyAnalysisComplete({
-        buy_candidates: 3,
-        sell_candidates: 1,
-        warnings: 0
-      });
+        title: '通知テスト',
+        message: '通知設定は正常です',
+        timestamp: new Date().toISOString()
+      } as any);
       setTestResult('通知テストを送信しました');
       setTimeout(() => setTestResult(null), 3000);
     } catch (error) {
       setTestResult('通知テストに失敗しました');
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const requestPushPermission = async () => {
+    if (!notificationService) return;
+    try {
+      await notificationService.initializePushNotifications();
+      setTestResult('ブラウザ通知を有効化しました');
+      setTimeout(() => setTestResult(null), 3000);
+    } catch (e) {
+      setTestResult('通知の有効化に失敗しました（サポート外または権限未許可）');
     }
   };
 
@@ -178,6 +189,14 @@ export default function AutoUpdateSettings() {
             className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
           >
             自動更新停止
+          </button>
+          <button
+            onClick={requestPushPermission}
+            disabled={isLoading}
+            className="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-100 transition-colors"
+            title="ブラウザ通知の権限をリクエストし、次回更新完了時に通知を受け取れるようにします"
+          >
+            ブラウザ通知を有効化
           </button>
         </div>
       </div>

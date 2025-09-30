@@ -1026,6 +1026,25 @@ flake8 *.py
 pip freeze > requirements.txt
 ```
 
+## データ更新頻度と通知
+
+このシステムで扱うデータの更新頻度と通知の流れは以下の通りです。
+
+- 株価データ: 毎営業日の日次更新（UIは30分TTLのキャッシュ＋手動「更新」即時反映）
+- 財務データ: 月次〜四半期更新（公開タイミング依存、遅延あり得る）
+- ニュース/センチメント: 任意更新（必要時再生成、直近フォールバックあり）
+
+UIでの可視化/通知:
+- ヘッダーに「次回更新」表示（時刻と残り時間）。`設定 → 自動更新・通知`のスケジュール（例: 09:00/15:00）に基づく。
+- 手動「更新」完了時はブラウザ通知を送信（通知権限が必要）。設定ページに「ブラウザ通知を有効化」ボタンあり。
+- メール/Slack通知は`notification_config.yaml`で管理。バックエンド運用時に有効化。
+
+関連ファイル:
+- `web-app/src/components/NextUpdateIndicator.tsx`
+- `web-app/src/app/page.tsx`
+- `web-app/src/components/notification/AutoUpdateSettings.tsx`
+- `web-app/src/lib/notification/NotificationService.ts`
+
 ### 運用
 
 1. **監視**:
