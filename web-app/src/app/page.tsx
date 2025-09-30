@@ -315,19 +315,19 @@ function DashboardContent() {
     
     const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
       console.error('Unhandled promise rejection:', event.reason);
-      const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
-      const errorInfo = getErrorInfo(error);
-      logError(error);
+      const rejectionError = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
+      const errorInfo = getErrorInfo(rejectionError);
+      logError(rejectionError);
       
       // 詳細なエラーログを記録
-      errorLogger.logError(error, {
+      errorLogger.logError(rejectionError, {
         component: 'Dashboard',
         action: 'UnhandledRejection',
         state: { isClient, loading, activeTab }
       });
       
       if (errorInfo.severity === 'critical' || errorInfo.severity === 'high') {
-        setError(error);
+        setError(rejectionError);
       }
     };
     

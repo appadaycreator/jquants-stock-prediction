@@ -37,15 +37,6 @@ const nextConfig = {
   
   // RSCエラーを完全に無効化する設定
   reactStrictMode: false,
-  swcMinify: true,
-  
-  // 静的ホスティング環境でのRSCエラーを完全に無効化
-  ...(process.env.NODE_ENV === 'production' && {
-    // サーバーサイドレンダリングを完全に無効化
-    ssr: false,
-    // プリレンダリングを無効化
-    prerender: false,
-  }),
   
   
   
