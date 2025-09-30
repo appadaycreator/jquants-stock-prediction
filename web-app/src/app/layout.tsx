@@ -47,7 +47,7 @@ const setMetadata = () => {
         meta = document.createElement('meta');
         if (property) {
           meta.setAttribute('property', property);
-        } else {
+        } else if (name) {
           meta.setAttribute('name', name);
         }
         document.head.appendChild(meta);
