@@ -62,10 +62,10 @@ function collectLogs(params: {
       let content: string;
       if (stat.size > maxBytes) {
         const fd = fs.openSync(file, 'r');
-        const buf = Buffer.allocUnsafe(maxBytes);
-        fs.readSync(fd, buf, 0, maxBytes, stat.size - maxBytes);
+        const buf = new Uint8Array(maxBytes);
+        const bytesRead = fs.readSync(fd, buf, 0, maxBytes, stat.size - maxBytes);
         fs.closeSync(fd);
-        content = buf.toString('utf-8');
+        content = Buffer.from(buf.subarray(0, bytesRead)).toString('utf-8');
       } else {
         content = fs.readFileSync(file, 'utf-8');
       }
