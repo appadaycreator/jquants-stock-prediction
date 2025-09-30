@@ -64,6 +64,47 @@
 - **削除後**: 統合ログシステムによる管理
 - **削減率**: 約70%のログファイル削減
 
+---
+
+## 追加: ログ/監視の人間向け整形と高速フィルタ（2025-09-30）
+
+### 目的
+- 重大インシデント発生時の原因特定を1分以内に短縮
+
+### 実装
+1. UI「ログビューア」新設（`/logs`）
+   - 最新100件の即時表示、自動更新（5秒間隔）
+   - 重大のみ（ERROR/CRITICAL）切替
+   - 処理別フィルタ（`source` 部分一致）
+   - フリーテキスト検索、request_id フィルタ、表示内容コピー
+   - 原本ログダウンロードリンク（`logs/`）をUIと分離
+
+2. 軽量ログAPI
+   - `GET /api/logs?level&source&request_id&limit`
+   - 末尾優先読み取り＋最大3MBに制限で高速化
+   - 返却: 整形済み項目（`ts, level, source, message, request_id, file`）
+
+3. 原本ログダウンロードAPI
+   - `GET /api/logs/download?file=<name.log>`
+   - ディレクトリトラバーサル防止、`text/plain` ダウンロード
+
+### ログフォーマット既定
+- `%(asctime)s - %(name)s - %(levelname)s - %(message)s`
+- 例: `2025-09-30 12:34:56,789 - system - ERROR - failed ... request_id=abc`
+
+### DoD（完了条件）
+- UI上で「重大のみ」→該当ログの抽出と原因箇所の当たり付けが1分以内
+- 原本ログ（`logs/`）はダウンロードAPI経由で参照、UI表示データと分離
+
+### 影響範囲（横展開）
+- 小（観測系）。既存のログ出力コードへの変更は不要。
+
+### ファイル一覧（追加）
+- `web-app/src/app/api/logs/route.ts`
+- `web-app/src/app/api/logs/download/route.ts`
+- `web-app/src/app/logs/page.tsx`
+
+
 ### 2. パフォーマンス向上
 - ログファイルの重複によるI/O負荷の削減
 - 統一されたログフォーマットによる処理効率の向上

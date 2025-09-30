@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { withIdempotency } from '../_idempotency';
 
 function getSettingsPath() {
   // public/data に保存（静的配信も可能に）
@@ -49,7 +50,7 @@ export async function GET() {
   }
 }
 
-export async function POST(req: NextRequest) {
+export const POST = withIdempotency(async function POST(req: NextRequest) {
   const payload = await req.json().catch(() => ({}));
 
   // 簡易検証
@@ -86,6 +87,6 @@ export async function POST(req: NextRequest) {
 
   fs.writeFileSync(settingsPath, JSON.stringify(next, null, 2));
   return NextResponse.json({ ok: true, settings: next });
-}
+});
 
 

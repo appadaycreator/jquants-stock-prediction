@@ -11,6 +11,7 @@ export interface FetchOptions {
   method?: string;
   headers?: Record<string, string>;
   json?: unknown;
+  idempotencyKey?: string | true;
 }
 
 export class AppError extends Error {
@@ -23,6 +24,16 @@ export class AppError extends Error {
     super(message);
     this.name = 'AppError';
   }
+}
+
+export function createIdempotencyKey(): string {
+  try {
+    // @ts-ignore
+    const uuid = (globalThis.crypto && (globalThis.crypto as any).randomUUID?.()) || undefined;
+    if (uuid) return `idem_${uuid}`;
+  } catch {}
+  const rand = Math.random().toString(36).slice(2);
+  return `idem_${Date.now()}_${rand}`;
 }
 
 /**
@@ -52,7 +63,8 @@ export async function fetchJson<T>(
     retryDelay = 1000,
     method,
     headers,
-    json
+    json,
+    idempotencyKey
   } = options;
 
   const controller = new AbortController();
@@ -77,10 +89,18 @@ export async function fetchJson<T>(
         baseHeaders['Content-Type'] = 'application/json';
       }
 
+      // 冪等キーを必要に応じて付与
+      const finalMethod = method || (hasJsonBody ? 'POST' : 'GET');
+      const shouldAttachIdem = /^(POST|PUT|PATCH|DELETE)$/i.test(finalMethod);
+      const keyValue = idempotencyKey === true ? createIdempotencyKey() : (typeof idempotencyKey === 'string' ? idempotencyKey : undefined);
+      if (shouldAttachIdem && keyValue) {
+        baseHeaders['Idempotency-Key'] = keyValue;
+      }
+
       const response = await fetch(resolveUrl(url), {
         signal: controller.signal,
         cache: "no-cache",
-        method: method || (hasJsonBody ? 'POST' : 'GET'),
+        method: finalMethod,
         headers: { ...baseHeaders, ...(headers || {}) },
         body: hasJsonBody ? JSON.stringify(json) : undefined,
       });
@@ -216,6 +236,27 @@ export function validateDataStructure<T>(
 // =========================
 
 const CACHE_PREFIX = 'app_cache:';
+
+export function getCacheTimestamp(key: string): number | null {
+  try {
+    const raw = localStorage.getItem(CACHE_PREFIX + key);
+    if (!raw) return null;
+    const payload = JSON.parse(raw) as { v: unknown; t: number };
+    return typeof payload.t === 'number' ? payload.t : null;
+  } catch {
+    return null;
+  }
+}
+
+export function getCacheMeta(key: string): { exists: boolean; timestamp: number | null; ageMs: number | null } {
+  try {
+    const ts = getCacheTimestamp(key);
+    if (!ts) return { exists: false, timestamp: null, ageMs: null };
+    return { exists: true, timestamp: ts, ageMs: Date.now() - ts };
+  } catch {
+    return { exists: false, timestamp: null, ageMs: null };
+  }
+}
 
 function setCache(key: string, value: unknown): void {
   try {

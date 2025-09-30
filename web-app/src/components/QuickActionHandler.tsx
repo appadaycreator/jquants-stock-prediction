@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { fetchJson } from '../lib/fetcher';
 import { 
   BarChart3, 
   FileText, 
@@ -33,25 +34,16 @@ export default function QuickActionHandler({
     
     try {
       // 分析実行APIを呼び出し
-      const response = await fetch('/api/execute-analysis', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const result = await fetchJson<any>('/api/execute-analysis', {
+        json: {
           type: 'full_analysis',
           symbols: ['7203.T', '6758.T', '6861.T'],
           timeframe: '1d'
-        })
+        },
+        idempotencyKey: true
       });
-
-      if (response.ok) {
-        const result = await response.json();
-        onAnalysisComplete?.(result);
-        
-        // 成功通知
-        showNotification('分析が完了しました', 'success');
-      } else {
-        throw new Error('分析実行に失敗しました');
-      }
+      onAnalysisComplete?.(result);
+      showNotification('分析が完了しました', 'success');
     } catch (error) {
       console.error('分析実行エラー:', error);
       showNotification('分析実行に失敗しました', 'error');
@@ -67,26 +59,17 @@ export default function QuickActionHandler({
     
     try {
       // レポート生成APIを呼び出し
-      const response = await fetch('/api/generate-report', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const report = await fetchJson<any>('/api/generate-report', {
+        json: {
           type: 'daily_summary',
           includeCharts: true,
           includeRecommendations: true
-        })
+        },
+        idempotencyKey: true
       });
-
-      if (response.ok) {
-        const report = await response.json();
-        onReportGenerated?.(report);
-        
-        // レポートページを開く
-        window.open('/reports', '_blank');
-        showNotification('レポートが生成されました', 'success');
-      } else {
-        throw new Error('レポート生成に失敗しました');
-      }
+      onReportGenerated?.(report);
+      window.open('/reports', '_blank');
+      showNotification('レポートが生成されました', 'success');
     } catch (error) {
       console.error('レポート生成エラー:', error);
       showNotification('レポート生成に失敗しました', 'error');
@@ -102,23 +85,15 @@ export default function QuickActionHandler({
     
     try {
       // 売買指示APIを呼び出し
-      const response = await fetch('/api/execute-trade', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const trade = await fetchJson<any>('/api/execute-trade', {
+        json: {
           type: 'recommended_actions',
           confirmBeforeExecute: true
-        })
+        },
+        idempotencyKey: true
       });
-
-      if (response.ok) {
-        const trade = await response.json();
-        onTradeExecuted?.(trade);
-        
-        showNotification('売買指示が実行されました', 'success');
-      } else {
-        throw new Error('売買指示実行に失敗しました');
-      }
+      onTradeExecuted?.(trade);
+      showNotification('売買指示が実行されました', 'success');
     } catch (error) {
       console.error('売買指示実行エラー:', error);
       showNotification('売買指示実行に失敗しました', 'error');

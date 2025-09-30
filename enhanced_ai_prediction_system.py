@@ -38,6 +38,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import asyncio
 import os
 import sys
+import requests
 
 # 統合システムのインポート
 from unified_system import UnifiedSystem, ErrorCategory, LogLevel, LogCategory
@@ -66,6 +67,24 @@ class PredictionConfidence(Enum):
     MEDIUM = "medium"
     HIGH = "high"
     VERY_HIGH = "very_high"
+
+
+class ModelHealthStatus(Enum):
+    """モデル健全性ステータス"""
+
+    OK = "ok"
+    WARNING = "warning"
+    STOP = "stop"
+
+
+@dataclass
+class ModelHealthReport:
+    """健全性ゲートの評価レポート"""
+
+    status: ModelHealthStatus
+    detail: Dict[str, float]
+    reasons: List[str]
+    checked_at: datetime
 
 
 @dataclass
@@ -156,6 +175,21 @@ class EnhancedAIPredictionSystem:
         self.logger.addHandler(file_handler)
 
         self.logger.info("🚀 強化AI予測システム初期化完了")
+
+        # 健全性ゲート設定（閾値）
+        self.health_config = {
+            "max_missing_ratio": 0.1,  # 特徴量欠損率の上限（10%）
+            "max_feature_z_abs": 5.0,  # 特徴量z値の絶対最大許容（5σ）
+            "max_mahalanobis": 25.0,  # マハラノビス近似（z^2合計）の上限
+            "warning_mahalanobis": 16.0,  # 警告域（約4σ相当）
+            "min_confidence_threshold": 0.6,  # 内部信頼度下限
+            "health_output_path": os.path.join(
+                "web-app", "public", "data", "model_health.json"
+            ),
+        }
+
+    class ModelHealthException(Exception):
+        pass
 
     def create_model(self, model_type: ModelType, **kwargs) -> object:
         """モデルの作成"""
@@ -365,6 +399,34 @@ class EnhancedAIPredictionSystem:
             scaler = self.scalers[model_name]
             X_scaled = scaler.transform(X)
 
+            # 推論直前の健全性ゲート
+            health = self.check_model_health(
+                model_name=model_name,
+                X_raw=X,
+                X_scaled=X_scaled,
+                feature_columns=feature_columns,
+                data_frame=data,
+            )
+            # 健全性結果を出力（UI参照用）
+            try:
+                self.export_model_health(health)
+            except Exception:
+                pass
+
+            if health.status == ModelHealthStatus.STOP:
+                self.logger.error(
+                    f"🛑 健全性ゲート: 停止判定 - 理由: {', '.join(health.reasons)}"
+                )
+                self._notify_health(health, severity="critical")
+                raise EnhancedAIPredictionSystem.ModelHealthException(
+                    f"健全性ゲートにより推論停止: {health.reasons}"
+                )
+            elif health.status == ModelHealthStatus.WARNING:
+                self.logger.warning(
+                    f"⚠️ 健全性ゲート: 警告 - 理由: {', '.join(health.reasons)}"
+                )
+                self._notify_health(health, severity="warning")
+
             # 予測
             model = self.models[model_name]
             prediction = model.predict(X_scaled[-1:])[0]
@@ -400,6 +462,11 @@ class EnhancedAIPredictionSystem:
                     "prediction_interval": self.calculate_prediction_interval(
                         model, X_scaled[-1:]
                     ),
+                    "model_health": {
+                        "status": health.status.value,
+                        "detail": health.detail,
+                        "reasons": health.reasons,
+                    },
                 },
             )
 
@@ -462,6 +529,135 @@ class EnhancedAIPredictionSystem:
             return PredictionConfidence.LOW
         else:
             return PredictionConfidence.VERY_LOW
+
+    def check_model_health(
+        self,
+        model_name: str,
+        X_raw: np.ndarray,
+        X_scaled: np.ndarray,
+        feature_columns: List[str],
+        data_frame: pd.DataFrame,
+    ) -> ModelHealthReport:
+        """分布逸脱・データ欠如・異常スコアを判定する健全性ゲート"""
+        reasons: List[str] = []
+        detail: Dict[str, float] = {}
+
+        try:
+            # 1) データ欠如チェック
+            if len(feature_columns) == 0 or X_raw.size == 0:
+                reasons.append("特徴量が空")
+                detail["missing_ratio"] = 1.0
+                status = ModelHealthStatus.STOP
+                return ModelHealthReport(status=status, detail=detail, reasons=reasons, checked_at=datetime.now())
+
+            # 欠損率
+            missing_ratio = float(np.isnan(X_raw).sum()) / float(X_raw.size)
+            detail["missing_ratio"] = missing_ratio
+            if missing_ratio > self.health_config["max_missing_ratio"]:
+                reasons.append(f"欠損率が閾値超過: {missing_ratio:.3f}")
+
+            # 2) 分布逸脱（簡易Zスコアと疑似マハラノビス）
+            # スケール済最終サンプルでのチェック
+            x = X_scaled[-1:].astype(float)
+            z_abs_max = float(np.max(np.abs(x))) if x.size > 0 else 0.0
+            detail["z_abs_max"] = z_abs_max
+            if z_abs_max > self.health_config["max_feature_z_abs"]:
+                reasons.append(f"|z|max 超過: {z_abs_max:.2f}")
+
+            mahalanobis_approx = float(np.sum(np.square(x)))  # 共分散=Iの近似
+            detail["mahalanobis_approx"] = mahalanobis_approx
+            if mahalanobis_approx > self.health_config["max_mahalanobis"]:
+                reasons.append(f"分布逸脱が大（近似D^2={mahalanobis_approx:.1f}）")
+            elif mahalanobis_approx > self.health_config["warning_mahalanobis"]:
+                reasons.append(f"分布逸脱が中（近似D^2={mahalanobis_approx:.1f}）")
+
+            # 3) 異常スコア（内部信頼度の下限チェック）
+            # ここではスケール済み1点に対する簡易信頼度を再評価
+            try:
+                model = self.models[model_name]
+                conf = float(self.calculate_confidence(model, x))
+            except Exception:
+                conf = 0.5
+            detail["confidence_estimate"] = conf
+            if conf < self.health_config["min_confidence_threshold"]:
+                reasons.append(f"内部信頼度が低い: {conf:.2f}")
+
+            # ステータス決定
+            stop_conditions = (
+                missing_ratio > self.health_config["max_missing_ratio"]
+                or z_abs_max > self.health_config["max_feature_z_abs"]
+                or mahalanobis_approx > self.health_config["max_mahalanobis"]
+            )
+            warn_conditions = (
+                mahalanobis_approx > self.health_config["warning_mahalanobis"]
+                or conf < self.health_config["min_confidence_threshold"]
+            )
+
+            if stop_conditions:
+                status = ModelHealthStatus.STOP
+            elif warn_conditions:
+                status = ModelHealthStatus.WARNING
+            else:
+                status = ModelHealthStatus.OK
+
+            return ModelHealthReport(
+                status=status, detail=detail, reasons=reasons, checked_at=datetime.now()
+            )
+
+        except Exception as e:
+            # フェイルオープンではなくフェイルセーフ（STOP）
+            self.unified_system.log_error(
+                error=e,
+                category=ErrorCategory.MODEL_ERROR,
+                context="健全性ゲート評価エラー",
+            )
+            return ModelHealthReport(
+                status=ModelHealthStatus.STOP,
+                detail={"error": 1.0},
+                reasons=["健全性評価エラー"],
+                checked_at=datetime.now(),
+            )
+
+    def export_model_health(self, report: ModelHealthReport) -> bool:
+        """健全性レポートをJSONとして書き出し（Web UI参照用）"""
+        try:
+            os.makedirs(os.path.dirname(self.health_config["health_output_path"]), exist_ok=True)
+            payload = {
+                "status": report.status.value,
+                "detail": report.detail,
+                "reasons": report.reasons,
+                "checked_at": report.checked_at.isoformat(),
+            }
+            with open(self.health_config["health_output_path"], "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False, indent=2)
+            return True
+        except Exception:
+            return False
+
+    def _notify_health(self, report: ModelHealthReport, severity: str = "warning") -> None:
+        """健全性アラートをWebhookへ通知（存在すれば）。失敗しても処理継続。"""
+        try:
+            webhook = os.getenv("HEALTH_WEBHOOK_URL") or os.getenv("SLACK_WEBHOOK_URL")
+            if not webhook:
+                return
+            payload = {
+                "text": f"[ModelHealth] status={report.status.value} severity={severity} reasons={', '.join(report.reasons)}",
+                "attachments": [
+                    {
+                        "color": "#ff0000" if report.status == ModelHealthStatus.STOP else "#ffcc00",
+                        "fields": [
+                            {"title": k, "value": str(v), "short": True}
+                            for k, v in report.detail.items()
+                        ],
+                        "ts": int(report.checked_at.timestamp()),
+                    }
+                ],
+            }
+            headers = {"Content-Type": "application/json"}
+            requests.post(webhook, data=json.dumps(payload), headers=headers, timeout=3)
+        except Exception:
+            # 通知失敗は致命ではない
+            return
 
     def get_feature_importance(
         self, model, feature_columns: List[str]

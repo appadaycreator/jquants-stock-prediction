@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
-import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen, Bell, Shield } from "lucide-react";
+import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen, Bell, Shield, Upload, Download, Eye } from "lucide-react";
 import { useAnalysisWithSettings } from "@/hooks/useAnalysisWithSettings";
 import { useSettings } from "@/contexts/SettingsContext";
 import AutoUpdateSettings from "@/components/notification/AutoUpdateSettings";
@@ -15,6 +15,10 @@ export default function SettingsPage() {
   const [riskSettings, setRiskSettings] = useState<any | null>(null);
   const [riskLoading, setRiskLoading] = useState(false);
   const [riskSaving, setRiskSaving] = useState(false);
+  const [configPreview, setConfigPreview] = useState<string>("");
+  const [envPreview, setEnvPreview] = useState<string>("");
+  const [validationResult, setValidationResult] = useState<any | null>(null);
+  const [isValidating, setIsValidating] = useState(false);
 
   // 設定連携フック
   const { 
@@ -43,6 +47,73 @@ export default function SettingsPage() {
     } catch (error) {
       console.error("設定保存エラー:", error);
       showMessage("設定の保存に失敗しました", "error");
+    }
+  };
+
+  // Config export
+  const exportConfig = async () => {
+    try {
+      const res = await fetch('/api/config/export', { cache: 'no-store' });
+      const json = await res.json();
+      if (!json?.ok) throw new Error('エクスポート失敗');
+
+      // JSONファイルとしてダウンロード
+      const blob = new Blob([JSON.stringify(json, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'config_export.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showMessage('設定をエクスポートしました', 'success');
+    } catch (e) {
+      console.error(e);
+      showMessage('エクスポートに失敗しました', 'error');
+    }
+  };
+
+  // Config import (with validate before save)
+  const importConfigFile = async (file: File) => {
+    const text = await file.text();
+    // プレビュー用に保持
+    setConfigPreview(text);
+    try {
+      const parsed = JSON.parse(text);
+      const res = await fetch('/api/config/import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(parsed),
+      });
+      const json = await res.json();
+      if (!res.ok || !json?.ok) {
+        setValidationResult(json?.validation || null);
+        showMessage('インポート検証に失敗しました（保存されていません）', 'error');
+        return;
+      }
+      setValidationResult(json.validation);
+      showMessage('インポートと保存が完了しました', 'success');
+    } catch (e) {
+      console.error(e);
+      showMessage('インポートに失敗しました（ファイル形式を確認）', 'error');
+    }
+  };
+
+  const validateCurrentConfig = async () => {
+    try {
+      setIsValidating(true);
+      const res = await fetch('/api/config/validate', { method: 'GET', cache: 'no-store' });
+      const json = await res.json();
+      setValidationResult(json?.result || null);
+      if (json?.result?.summary?.is_valid) {
+        showMessage('検証成功：エラーはありません', 'success');
+      } else {
+        showMessage('検証完了：修正が必要です', 'error');
+      }
+    } catch (e) {
+      console.error(e);
+      showMessage('検証に失敗しました', 'error');
+    } finally {
+      setIsValidating(false);
     }
   };
 
@@ -191,6 +262,29 @@ export default function SettingsPage() {
                 <Save className="h-4 w-4 mr-2" />
                 {isSaving ? "保存中..." : "保存"}
               </button>
+              <button
+                onClick={exportConfig}
+                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+              >
+                <Download className="h-4 w-4 mr-2" />
+                エクスポート
+              </button>
+              <label className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 cursor-pointer">
+                <Upload className="h-4 w-4 mr-2" />
+                インポート
+                <input type="file" accept="application/json" className="hidden" onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) importConfigFile(f);
+                }} />
+              </label>
+              <button
+                onClick={validateCurrentConfig}
+                disabled={isValidating}
+                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+              >
+                <Eye className="h-4 w-4 mr-2" />
+                {isValidating ? '検証中...' : '検証'}
+              </button>
             </div>
           </div>
         </div>
@@ -280,6 +374,44 @@ export default function SettingsPage() {
           {/* メインコンテンツエリア */}
           <div className="w-full lg:w-3/4">
             <div className="space-y-8">
+            {/* 設定プレビュー/検証結果 */}
+            {(configPreview || validationResult) && (
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex items-center mb-4">
+                  <Settings className="h-6 w-6 text-gray-600 mr-3" />
+                  <h2 className="text-xl font-bold text-gray-900">設定プレビュー / 検証結果</h2>
+                </div>
+                {configPreview && (
+                  <div className="mb-4">
+                    <p className="text-sm text-gray-600 mb-2">インポートファイルの内容（JSON）</p>
+                    <pre className="p-3 bg-gray-50 rounded overflow-auto text-xs max-h-64 whitespace-pre-wrap">{configPreview}</pre>
+                  </div>
+                )}
+                {validationResult && (
+                  <div>
+                    <p className="text-sm text-gray-600 mb-2">検証結果サマリー</p>
+                    <div className="text-sm grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div>Issues: <span className="font-semibold">{validationResult?.summary?.total_issues ?? '-'}</span></div>
+                      <div>Errors: <span className="font-semibold text-red-600">{validationResult?.summary?.errors ?? '-'}</span></div>
+                      <div>Warnings: <span className="font-semibold text-yellow-600">{validationResult?.summary?.warnings ?? '-'}</span></div>
+                      <div>Valid: <span className="font-semibold {validationResult?.summary?.is_valid ? 'text-green-600' : 'text-red-600'}">{String(validationResult?.summary?.is_valid)}</span></div>
+                    </div>
+                    <div className="mt-3">
+                      <p className="text-sm text-gray-600 mb-2">詳細</p>
+                      <div className="max-h-64 overflow-auto text-xs">
+                        <ul className="list-disc list-inside space-y-1">
+                          {(validationResult?.results || []).map((r: any, idx: number) => (
+                            <li key={idx} className={r.level === 'error' || r.level === 'critical' ? 'text-red-700' : r.level === 'warning' ? 'text-yellow-700' : 'text-gray-700'}>
+                              [{r.level}] {r.section}.{r.key}: {r.message}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
             
             {/* 現在の設定情報 */}
             <div className="bg-blue-50 rounded-lg shadow p-6">

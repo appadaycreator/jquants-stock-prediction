@@ -51,6 +51,33 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 **✅ 設定連携機能の実装完了:**
 **✅ 使い方リンクの404エラー問題を完全解決:**
 
+## MODEL
+
+### 健全性ゲート（動的フェイルセーフ）
+運用前にモデルの異常を自動遮断する仕組みを実装。推論直前に以下を評価し、閾値超過は安全停止＋通知します。
+
+- 分布逸脱: スケール済み特徴量での |z| 最大、疑似マハラノビス距離 D^2 を評価
+- データ欠如: 特徴量全体の欠損率を評価
+- 異常スコア: 内部信頼度（簡易）を評価
+
+実装:
+- Python: `enhanced_ai_prediction_system.py` の `check_model_health` が評価、`predict` 内で実行。`ModelHealthStatus` が `stop` の場合は例外で推論停止。
+- 出力: `web-app/public/data/model_health.json` に最新の健全性をJSON出力（UI参照）。
+- Web API: `web-app/src/app/api/model-health/route.ts` が JSON を返却。
+- UI: `web-app/src/app/page.tsx` ヘッダーに「本日のモデル健全性」バッジ（OK/警告/停止）。停止時は推奨カードが「一時停止」に切替、再実行ボタン提示。
+
+閾値（デフォルト）:
+- 欠損率: 0.10 以上で停止候補
+- |z|max: 5.0 超で停止候補
+- 疑似 D^2: 16.0 超で警告、25.0 超で停止候補
+- 内部信頼度: 0.6 未満で警告
+
+通知:
+- 環境変数 `HEALTH_WEBHOOK_URL` または `SLACK_WEBHOOK_URL` が設定されていれば、警告/停止時にWebhook通知（失敗は処理継続）。
+
+DoD（受け入れ基準）:
+- 異常時は自動で提案が停止され、UIで停止表示と「再実行」誘導が出ます。
+
 ### 1. **統合システムアーキテクチャ**
 - **単一システム**: `unified_system.py` (1210行) で全機能を統合
 - **重複コード削除**: 複数の類似機能モジュールを統合
@@ -1007,8 +1034,8 @@ npm run start
 # 仮想環境をアクティベート
 source venv/bin/activate
 
-# 全テストの実行
-python -m pytest tests/ -v
+# 全テスト（デフォルト: slow 除外、E2Eスモーク含む）
+python -m pytest tests/ -v  # pytest.ini の -m "not slow" が適用
 
 # ユニットテストのみ
 python -m pytest tests/unit/ -v
@@ -1016,7 +1043,10 @@ python -m pytest tests/unit/ -v
 # 統合テストのみ
 python -m pytest tests/integration/ -v
 
-# カバレッジ付きテスト
+# E2Eスモークのみ（3本: 成功/途中エラー/復旧）
+python -m pytest tests/e2e/test_routine_e2e.py -v
+
+# カバレッジ付き（デフォルトスイート）
 python -m pytest tests/ --cov=. --cov-report=html
 
 # 失敗したテストのみ再実行
@@ -1033,57 +1063,29 @@ python -m black --check .
 python -m black .
 ```
 
-### テストカバレッジ
-- **技術指標モジュール**: 97% カバレッジ
-- **モデルファクトリー**: 92% カバレッジ
-- **データ前処理**: 85% カバレッジ（改善済み）
-- **設定管理**: 90% カバレッジ
-
-### テスト環境のトラブルシューティング
-
-#### よくある問題と解決方法
-
-1. **pytestがインストールされていない**
-   ```bash
-   pip install pytest pytest-cov pytest-mock pytest-xdist
-   ```
-
-2. **仮想環境が正しくアクティベートされていない**
-   ```bash
-   source venv/bin/activate
-   which python  # 仮想環境のPythonが使用されていることを確認
-   ```
-
-3. **依存関係が不足している**
-   ```bash
-   pip install -r requirements.txt --upgrade
-   ```
-
-4. **テストが失敗する場合**
-   ```bash
-   # 詳細なエラー情報を表示
-   python -m pytest tests/ -v --tb=long
-   
-   # 特定のテストのみ実行
-   python -m pytest tests/unit/test_config_loader.py::TestConfigLoader::test_init -v
-   ```
-
 ### テストファイル構成
 ```
 tests/
-├── unit/                          # ユニットテスト
+├── e2e/                          # E2Eスモーク（最小・高速・安定）
+│   └── test_routine_e2e.py
+├── unit/                         # ユニットテスト
 │   ├── test_technical_indicators.py
 │   ├── test_model_factory_simple.py
-│   └── test_data_preprocessing_simple.py
-├── integration/                   # 統合テスト
+│   ├── test_data_preprocessing_simple.py
+│   └── test_unified_system_fastpaths.py
+├── integration/                  # 統合テスト
 │   └── test_data_pipeline.py
-├── fixtures/                      # テスト用データ
+├── test_high_frequency_trading.py # 重い経路は @pytest.mark.slow で除外
+├── fixtures/                     # テスト用データ
 │   ├── test_data_generator.py
 │   └── test_config.yaml
-└── conftest.py                    # 共通フィクスチャ
-
-**注意**: 存在しないモジュール（`jquants_data_fetch`）を参照していたテストファイル（`test_jquants_data_fetch.py`）は削除されました。
+└── conftest.py                   # 共通フィクスチャ
 ```
+
+ポリシー:
+- デフォルト実行は5分以内を目標（-m "not slow"）
+- 主要回帰の検出はユニット/統合で担保、E2Eはスモーク3本のみ
+- 重い/外部依存の経路は `@pytest.mark.slow` を付与し、必要に応じて明示実行
 
 ## セットアップ
 
@@ -1994,3 +1996,32 @@ export async function GET(_req: NextRequest, context: { params: { job_id: string
 
 - 既存の `public/data/stock_data.json` は後方互換でフォールバック読み込みされます。
 - 個別ファイルを置く場合は `public/data/prices/{code}.json` に `{ date, open, high, low, close, volume, code }[]` を配置してください。
+
+## CONFIG（設定のインポート/エクスポートと検証）
+
+UI から `config/*.yaml` および `.env` 相当を安全に編集・保存・エクスポート/インポートできます。保存前に Python の `config_validator.py` による検証を必須化しています。
+
+- 設定の場所: `config/core.yaml`, `config/api.yaml`, `config/data.yaml`, `config/models.yaml`
+- 環境変数: プロジェクトルートの `.env` / `.env.local`
+
+### 手順（UI）
+
+1. `設定` 画面を開く（サイドバーの Settings）
+2. 右上ボタンから次を利用できます:
+   - 検証: 現在の `config/*.yaml` と環境整合性を検証
+   - エクスポート: `config` と `.env` を JSON (`config_export.json`) でダウンロード
+   - インポート: `config_export.json` を選択してアップロード（検証に合格すると保存）
+
+### API エンドポイント
+
+- `GET /api/config/validate` 現行設定を検証（`config_validator.py` を内部実行）
+- `GET /api/config/export` 設定と環境を JSON で返却
+- `POST /api/config/import` エクスポート JSON を受け取り、検証後に保存
+
+検証は `tools/validate_config_dir.py` 経由で `config_validator.ConfigValidator` を呼び出し、要約と詳細を JSON で返します。エラーがある場合は保存されません。
+
+### 留意事項（横展開）
+
+- 検証対象を追加する場合は `config_validator.py` を更新してください（例: 新規 YAML 追加）。
+- サーバ環境での Python 実行パスは自動検出（`$VIRTUAL_ENV/bin/python` があれば優先）。
+- `.env` には秘匿情報が含まれる可能性があります。エクスポートした JSON の保管に注意してください。

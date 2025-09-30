@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import Navigation from "../components/Navigation";
 import MobileNavigation from "../components/MobileNavigation";
+import BottomNav from "../components/mobile/BottomNav";
 import MobileDashboard from "../components/MobileDashboard";
 import MobileOptimizedDashboard from "../components/MobileOptimizedDashboard";
 import PullToRefresh from "../components/PullToRefresh";
@@ -22,8 +23,10 @@ import ParallelUpdateManager from "../components/ParallelUpdateManager";
 import RoutineDashboard from "../components/RoutineDashboard";
 import { SettingsProvider } from "../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
+import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
 // Rechartsを完全に削除し、シンプルなHTML/CSSチャートに置き換え
-import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock } from "lucide-react";
+import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock, Cpu } from "lucide-react";
+import SideDetailPanel from "@/components/SideDetailPanel";
 import EnhancedErrorHandler from "../components/EnhancedErrorHandler";
 import ChartErrorBoundary from "../components/ChartErrorBoundary";
 import { ButtonTooltip, HelpTooltip } from "../components/Tooltip";
@@ -40,6 +43,7 @@ import { parseToJst } from "@/lib/datetime";
 import JQuantsTokenSetup from "@/components/JQuantsTokenSetup";
 import JQuantsAdapter from "@/lib/jquants-adapter";
 import NextUpdateIndicator from "@/components/NextUpdateIndicator";
+import { getCacheMeta } from "@/lib/fetcher";
 import { NotificationService } from "@/lib/notification/NotificationService";
 
 // 型定義
@@ -115,6 +119,18 @@ function DashboardContent() {
   const [monitoringConfig, setMonitoringConfig] = useState<any>(null);
   const [showRealtimeSignals, setShowRealtimeSignals] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  // サイド詳細パネルの状態
+  const [sidePanelOpen, setSidePanelOpen] = useState(false);
+  const [sidePanelTitle, setSidePanelTitle] = useState<string>("");
+  const [sidePanelContent, setSidePanelContent] = useState<React.ReactNode>(null);
+
+  const openSide = (title: string, content: React.ReactNode) => {
+    setSidePanelTitle(title);
+    setSidePanelContent(content);
+    setSidePanelOpen(true);
+  };
+  const closeSide = () => setSidePanelOpen(false);
+
   const [showNotificationSettings, setShowNotificationSettings] = useState(false);
   const [showMobileOptimized, setShowMobileOptimized] = useState(false);
   const [showMobileFirst, setShowMobileFirst] = useState(false);
@@ -126,6 +142,8 @@ function DashboardContent() {
   const [range, setRange] = useState<'5y' | '1y' | '3m' | '1m'>('1y');
   const [primaryStock, setPrimaryStock] = useState<any[]>([]);
   const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
+  const [modelHealth, setModelHealth] = useState<{ status: 'ok' | 'warning' | 'stop'; reasons?: string[] } | null>(null);
+  const [cacheMeta, setCacheMeta] = useState<Record<string, { exists: boolean; timestamp: number | null; ageMs: number | null }>>({});
   const [selectedPeriod, setSelectedPeriod] = useState('1m');
   const [watchlists, setWatchlists] = useState<any[]>([]);
   const [jquantsAdapter, setJquantsAdapter] = useState<JQuantsAdapter | null>(null);
@@ -134,6 +152,8 @@ function DashboardContent() {
   const [overviewExpanded, setOverviewExpanded] = useState({ chart: true, models: false, predictions: false });
   const [chartMetric, setChartMetric] = useState<'close' | 'sma_5' | 'sma_25' | 'sma_50' | 'volume'>('close');
   const [chartRange, setChartRange] = useState<'7' | '30' | '90' | 'all'>('30');
+  // 5分ルーティン
+  const routine = useFiveMinRoutine();
 
   // ガイド機能の状態
   const [showGlossary, setShowGlossary] = useState(false);
@@ -234,6 +254,11 @@ function DashboardContent() {
 
   useEffect(() => {
     loadData();
+    // 健全性取得
+    fetch('/api/model-health', { cache: 'no-cache' })
+      .then(r => r.json())
+      .then(setModelHealth)
+      .catch(() => setModelHealth({ status: 'ok' }));
     
     // ガイド再表示ロジック
     // ツアー（TourProvider）未完了 かつ 当該セッションで未クローズなら自動表示
@@ -251,6 +276,18 @@ function DashboardContent() {
       setIsFirstVisit(true);
       setShowUserGuide(true);
     }
+    // 初期キャッシュメタ情報の収集
+    try {
+      setCacheMeta({
+        summary: getCacheMeta('dash:summary'),
+        stock: getCacheMeta('dash:stock'),
+        model: getCacheMeta('dash:model'),
+        feature: getCacheMeta('dash:feature'),
+        pred: getCacheMeta('dash:pred'),
+        marketInsights: getCacheMeta('dash:marketInsights'),
+        riskAssessment: getCacheMeta('dash:riskAssessment'),
+      });
+    } catch {}
   }, []);
 
   // モバイル判定
@@ -397,6 +434,17 @@ function DashboardContent() {
       }
       const now = new Date();
       setLastUpdateTime(now.toLocaleString('ja-JP'));
+      try {
+        setCacheMeta({
+          summary: getCacheMeta('dash:summary'),
+          stock: getCacheMeta('dash:stock'),
+          model: getCacheMeta('dash:model'),
+          feature: getCacheMeta('dash:feature'),
+          pred: getCacheMeta('dash:pred'),
+          marketInsights: getCacheMeta('dash:marketInsights'),
+          riskAssessment: getCacheMeta('dash:riskAssessment'),
+        });
+      } catch {}
       
       // 日時データを正規化してから設定
       const normalizedStockData = stockDataRes.slice(0, 100).map((item: StockData) => ({
@@ -680,7 +728,7 @@ function DashboardContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">
       {/* モバイルナビゲーション */}
       <MobileNavigation 
         activeTab={activeTab} 
@@ -724,6 +772,19 @@ function DashboardContent() {
                   </span>
                 )}
               </div>
+              <span className="text-xs px-2 py-0.5 rounded bg-gray-100 text-gray-700" title={`summary:${cacheMeta.summary?.timestamp ? new Date(cacheMeta.summary.timestamp).toLocaleString('ja-JP') : 'N/A'}\nstock:${cacheMeta.stock?.timestamp ? new Date(cacheMeta.stock.timestamp).toLocaleString('ja-JP') : 'N/A'}\nmodel:${cacheMeta.model?.timestamp ? new Date(cacheMeta.model.timestamp).toLocaleString('ja-JP') : 'N/A'}\nfeature:${cacheMeta.feature?.timestamp ? new Date(cacheMeta.feature.timestamp).toLocaleString('ja-JP') : 'N/A'}\npred:${cacheMeta.pred?.timestamp ? new Date(cacheMeta.pred.timestamp).toLocaleString('ja-JP') : 'N/A'}\nmarket:${cacheMeta.marketInsights?.timestamp ? new Date(cacheMeta.marketInsights.timestamp).toLocaleString('ja-JP') : 'N/A'}\nrisk:${cacheMeta.riskAssessment?.timestamp ? new Date(cacheMeta.riskAssessment.timestamp).toLocaleString('ja-JP') : 'N/A'}`}>
+                {Object.values(cacheMeta).some(m => m?.exists) ? 'キャッシュ使用中' : 'キャッシュなし'}
+              </span>
+              {/* 本日のモデル健全性バッジ */}
+              {modelHealth && (
+                <div className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  modelHealth.status === 'ok' ? 'bg-green-100 text-green-800' :
+                  modelHealth.status === 'warning' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-red-100 text-red-800'
+                }`} title={(modelHealth.reasons||[]).join('\n')}>
+                  本日のモデル健全性: {modelHealth.status === 'ok' ? 'OK' : modelHealth.status === 'warning' ? '警告' : '停止'}
+                </div>
+              )}
                 <NextUpdateIndicator />
               <div className="flex space-x-2">
                 <ButtonTooltip content="特定の銘柄を選択して詳細分析を実行します">
@@ -772,7 +833,7 @@ function DashboardContent() {
                   </button>
                 </ButtonTooltip>
                 
-                <ButtonTooltip content="最新のデータを取得してダッシュボードを更新します">
+                <ButtonTooltip content="最新のデータを取得（キャッシュ無視）">
                   <button
                     onClick={() => loadData(true)}
                     disabled={isRefreshing}
@@ -783,7 +844,17 @@ function DashboardContent() {
                     } text-white`}
                   >
                     <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-                    {isRefreshing ? '更新中...' : '更新'}
+                    {isRefreshing ? '更新中...' : '再取得'}
+                  </button>
+                </ButtonTooltip>
+
+                <ButtonTooltip content="キャッシュを無視し、分析の再計算を実行します">
+                  <button
+                    onClick={() => setShowAnalysisModal(true)}
+                    className="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                  >
+                    <Cpu className="h-4 w-4 mr-2" />
+                    再計算
                   </button>
                 </ButtonTooltip>
 
@@ -826,39 +897,7 @@ function DashboardContent() {
         </div>
       </header>
 
-      {/* デスクトップタブナビゲーション */}
-      <nav className="hidden lg:block bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-8">
-            {[
-              { id: "overview", label: "概要", icon: BarChart3 },
-              { id: "p1", label: "5分ルーティン", icon: Clock },
-              { id: "predictions", label: "予測結果", icon: TrendingUp },
-              { id: "models", label: "モデル比較", icon: Target },
-              { id: "analysis", label: "分析", icon: Database },
-              { id: "signals", label: "シグナル", icon: TrendingUp },
-              { id: "risk", label: "リスク管理", icon: Shield },
-              { id: "personal", label: "個人投資", icon: User },
-            ].map((tab) => {
-              const Icon = tab.icon;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm ${
-                    activeTab === tab.id
-                      ? "border-blue-500 text-blue-600"
-                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  <span>{tab.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </nav>
+      {/* 1画面主義: タブナビゲーションを撤廃し、ホームで完結 */}
 
       {/* モバイル最適化ダッシュボード */}
       {showMobileFirst ? (
@@ -906,57 +945,71 @@ function DashboardContent() {
         </div>
       )}
 
-      {/* デスクトップメインコンテンツ */}
-      <main className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-guide-target="dashboard-overview">
-        {activeTab === "p1" && (
-          <RoutineDashboard
-            onAnalysisClick={() => {
-              console.log('分析実行');
-              // 分析実行のロジック
-            }}
-            onReportClick={() => {
-              console.log('レポート確認');
-              // レポートページへの遷移
-              window.open('/reports', '_blank');
-            }}
-            onTradeClick={() => {
-              console.log('売買指示');
-              // 売買指示のロジック
-            }}
-          />
-        )}
+      {/* モバイル下部固定ナビ（親指圏の主要操作） */}
+      <BottomNav />
 
-        {activeTab === "overview" && (
-          <div className="space-y-6">
-            {/* 上部4カード（概要・市場インサイト・リスク評価・推奨銘柄） */}
+      {/* デスクトップメインコンテンツ（4カード＋サイド詳細） */}
+      <main className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-guide-target="dashboard-overview">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* 左: 4カード */}
+          <div className="lg:col-span-8 space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-              {/* 概要 */}
-              <div className="bg-white rounded-lg shadow p-5">
-                <div className="flex items-center">
-                  <TrendingUp className="h-6 w-6 text-blue-600" />
-                  <div className="ml-3">
-                    <p className="text-xs font-medium text-gray-500">最優秀モデル</p>
-                    <p className="text-xl font-semibold text-gray-900">{summary?.best_model?.toUpperCase() || '-'}</p>
-                    <p className="text-xs text-gray-500 mt-1">R² {summary?.r2 || '-'} / MAE {summary?.mae || '-'}</p>
+              {/* 今日のルーティン */}
+              <button onClick={() => openSide('今日のルーティン', (
+                <div className="space-y-3 text-sm">
+                  <div className="text-gray-700">最終更新: {routine.lastUpdated || 'N/A'}（{routine.freshnessLabel}）</div>
+                  <div className="space-y-2">
+                    <div className="font-medium text-gray-900">上位候補</div>
+                    <ul className="list-disc pl-4">
+                      {(routine.topCandidates || []).slice(0,5).map(c => (
+                        <li key={c.symbol}>{c.symbol} {c.recommendation} ({Math.round((c.confidence ?? 0.5)*100)}%)</li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              </div>
-              {/* 市場インサイト */}
-              <div className="bg-white rounded-lg shadow p-5">
+              ))} className="bg-white rounded-lg shadow p-5 text-left w-full">
                 <div className="flex items-center">
-                  <BarChart3 className="h-6 w-6 text-yellow-600" />
+                  <Clock className="h-6 w-6 text-blue-600" />
                   <div className="ml-3">
-                    <p className="text-xs font-medium text-gray-500">市場インサイト</p>
-                    <p className="text-sm text-gray-900 truncate max-w-[220px]" title={marketInsights?.trend_analysis || ''}>{marketInsights?.trend_analysis || '読み込み中...'}</p>
+                    <p className="text-xs font-medium text-gray-500">今日のルーティン</p>
+                    <p className="text-xl font-semibold text-gray-900">{routine.freshnessLabel}</p>
+                    <p className="text-xs text-gray-500 mt-1">最終更新: {routine.lastUpdated || '-'}</p>
                   </div>
                 </div>
-              </div>
-              {/* リスク評価 */}
-              <div className="bg-white rounded-lg shadow p-5">
+              </button>
+              {/* 重要アラート */}
+              <button onClick={() => openSide('重要アラート', (
+                <div className="space-y-2 text-sm">
+                  {(routine.summary?.warnings || []).length > 0 ? (
+                    <ul className="list-disc pl-4">
+                      {routine.summary?.warnings?.slice(0,10).map((w, i) => (
+                        <li key={i}>{w.symbol}: {w.message || 'アラート'}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <div>重要アラートはありません。</div>
+                  )}
+                </div>
+              ))} className="bg-white rounded-lg shadow p-5 text-left w-full">
+                <div className="flex items-center">
+                  <AlertTriangle className="h-6 w-6 text-yellow-600" />
+                  <div className="ml-3">
+                    <p className="text-xs font-medium text-gray-500">重要アラート</p>
+                    <p className="text-xl font-semibold text-gray-900">{(routine.summary?.warnings || []).length}</p>
+                    <p className="text-xs text-gray-500 mt-1">件数</p>
+                  </div>
+                </div>
+              </button>
+              {/* リスク状態 */}
+              <button onClick={() => openSide('リスク評価', (
+                <div className="space-y-3 text-sm">
+                  <div>詳細なリスク内訳、スコア根拠、推奨アクションを表示。</div>
+                </div>
+              ))} className="bg-white rounded-lg shadow p-5 text-left w-full">
                 <div className="flex items-center">
                   <Shield className="h-6 w-6 text-red-600" />
                   <div className="ml-3">
-                    <p className="text-xs font-medium text-gray-500">リスク評価</p>
+                    <p className="text-xs font-medium text-gray-500">リスク状態</p>
                     <p className="text-sm">
                       <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                         riskAssessment?.risk_level === 'Low' ? 'bg-green-100 text-green-800' :
@@ -967,120 +1020,71 @@ function DashboardContent() {
                     </p>
                   </div>
                 </div>
-              </div>
-              {/* 推奨銘柄（簡易） */}
-              <div className="bg-white rounded-lg shadow p-5">
+              </button>
+              {/* 今日の推奨（STOP時は停止案内に切替） */}
+              <button onClick={() => openSide('今日の推奨', (
+                <div className="space-y-2 text-sm">
+                  {modelHealth?.status === 'stop' ? (
+                    <div className="space-y-2">
+                      <div className="text-red-700 font-semibold">健全性ゲートにより提案を一時停止中</div>
+                      <div className="text-gray-700">原因: {(modelHealth?.reasons || []).join('、') || '要確認'}</div>
+                      <button
+                        onClick={() => loadData(true)}
+                        className="mt-2 px-3 py-1.5 bg-blue-600 text-white rounded"
+                      >再実行</button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="font-medium text-gray-900">上位候補</div>
+                      <ul className="list-disc pl-4">
+                        {(routine.topCandidates || []).slice(0,5).map(c => (
+                          <li key={c.symbol}>{c.symbol} {c.recommendation} ({Math.round((c.confidence ?? 0.5)*100)}%)</li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                </div>
+              ))} className="bg-white rounded-lg shadow p-5 text-left w-full">
                 <div className="flex items-center">
                   <Target className="h-6 w-6 text-green-600" />
                   <div className="ml-3">
-                    <p className="text-xs font-medium text-gray-500">推奨銘柄（例）</p>
-                    <p className="text-sm text-gray-900">7203.T / 6758.T / 9984.T</p>
+                    <p className="text-xs font-medium text-gray-500">今日の推奨</p>
+                    {modelHealth?.status === 'stop' ? (
+                      <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">一時停止</span>
+                    ) : (
+                      <p className="text-sm text-gray-900 truncate max-w-[220px]">
+                        {(routine.topCandidates || []).slice(0,3).map(c => c.symbol).join(' / ') || '-'}
+                      </p>
+                    )}
                   </div>
                 </div>
-              </div>
+              </button>
             </div>
-
-            {/* 折り畳み: 詳細チャート */}
-            <div className="bg-white rounded-lg shadow">
-              <div className="flex items-center justify-between p-4 border-b">
-                <h3 className="text-lg font-medium text-gray-900">株価推移と移動平均（インタラクティブ）</h3>
-                <button
-                  onClick={() => setOverviewExpanded({ ...overviewExpanded, chart: !overviewExpanded.chart })}
-                  className="text-sm text-blue-600 hover:underline"
-                >
-                  {overviewExpanded.chart ? '閉じる' : '開く'}
-                </button>
-              </div>
-              {overviewExpanded.chart && (
-                <div className="p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-2 text-sm">
-                      <label className="text-gray-600">期間:</label>
-                      {(['7','30','90','all'] as const).map(r => (
-                        <button
-                          key={r}
-                          onClick={() => setChartRange(r)}
-                          className={`px-2 py-1 rounded ${chartRange === r ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}
-                        >
-                          {r === 'all' ? 'すべて' : `${r}日`}
-                        </button>
-                      ))}
-                    </div>
-                    <div className="flex items-center space-x-2 text-sm">
-                      <label className="text-gray-600">指標:</label>
-                      {([
-                        { id: 'close', label: '終値' },
-                        { id: 'sma_5', label: 'SMA5' },
-                        { id: 'sma_25', label: 'SMA25' },
-                        { id: 'sma_50', label: 'SMA50' },
-                        { id: 'volume', label: '出来高(百万)' },
-                      ] as const).map(m => (
-                        <button
-                          key={m.id}
-                          onClick={() => setChartMetric(m.id)}
-                          className={`px-2 py-1 rounded ${chartMetric === m.id ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}
-                        >
-                          {m.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  {/* シンプルSVGラインチャート */}
-                  <div className="h-80 bg-gray-50 rounded flex items-center justify-center">
-                    <svg viewBox="0 0 600 260" className="w-full h-full p-2">
-                      <rect x="0" y="0" width="600" height="260" fill="none" />
-                      {(() => {
-                        const values = chartFiltered.map(getMetricValue).filter((v: any) => typeof v === 'number') as number[];
-                        if (values.length === 0) return null;
-                        const min = Math.min(...values);
-                        const max = Math.max(...values);
-                        const pad = 20;
-                        const W = 600 - pad * 2;
-                        const H = 260 - pad * 2;
-                        const toX = (i: number) => pad + (i / (values.length - 1)) * W;
-                        const toY = (v: number) => pad + H - ((v - min) / (max - min || 1)) * H;
-                        const d = values.map((v, i) => `${i === 0 ? 'M' : 'L'} ${toX(i)} ${toY(v)}`).join(' ');
-                        return (
-                          <>
-                            {/* 軸 */}
-                            <line x1={pad} y1={pad} x2={pad} y2={pad + H} stroke="#e5e7eb" />
-                            <line x1={pad} y1={pad + H} x2={pad + W} y2={pad + H} stroke="#e5e7eb" />
-                            {/* ライン */}
-                            <path d={d} fill="none" stroke="#2563eb" strokeWidth="2" />
-                            {/* 最終値ポイント */}
-                            <circle cx={toX(values.length - 1)} cy={toY(values[values.length - 1])} r="3" fill="#1d4ed8" />
-                          </>
-                        );
-                      })()}
-                    </svg>
-                  </div>
-                  <div className="mt-2 text-xs text-gray-500">最新: {chartFiltered.length > 0 ? chartFiltered[chartFiltered.length - 1].date : 'N/A'}</div>
-                </div>
-              )}
-            </div>
-
-            {/* 折り畳み: モデル比較など詳細（デフォルト閉じる）*/}
-            <div className="bg-white rounded-lg shadow">
-              <div className="flex items-center justify-between p-4 border-b">
-                <h3 className="text-lg font-medium text-gray-900">詳細（モデル比較・予測など）</h3>
-                <button
-                  onClick={() => setOverviewExpanded({ ...overviewExpanded, models: !overviewExpanded.models })}
-                  className="text-sm text-blue-600 hover:underline"
-                >
-                  {overviewExpanded.models ? '閉じる' : '開く'}
-                </button>
-              </div>
-              {overviewExpanded.models && (
-                <div className="p-4 space-y-4 text-sm text-gray-700">
-                  <div>モデル比較や特徴量重要度は「モデル比較」タブに詳細をまとめています。</div>
-                  <div>予測の詳細や誤差分布は「予測結果」タブをご確認ください。</div>
-                </div>
-              )}
+            {/* 5分ルーティン（ホーム内完結） */}
+            <div className="bg-white rounded-lg shadow p-4">
+              <h3 className="text-lg font-medium text-gray-900 mb-2">今日のルーティン（5分）</h3>
+              <RoutineDashboard
+                onAnalysisClick={() => setShowAnalysisModal(true)}
+                onReportClick={() => openSide('レポート要約', (<div>今日のダイジェストを表示</div>))}
+                onTradeClick={() => openSide('売買案内', (<div>候補別の売買案内を表示</div>))}
+              />
             </div>
           </div>
-        )}
 
-        {activeTab === "predictions" && (
+          {/* 右: サイド詳細パネル呼び出し用の固定コンテナ */}
+          <div className="lg:col-span-4">
+            <SideDetailPanel
+              open={sidePanelOpen}
+              title={sidePanelTitle}
+              onClose={closeSide}
+            >
+              {sidePanelContent}
+            </SideDetailPanel>
+          </div>
+        </div>
+
+        {/* 以下の詳細セクションはホーム内サイドパネルへ集約するため段階廃止 */}
+        {false && activeTab === "predictions" && (
           <div className="space-y-6">
             {/* 予測結果チャート */}
             <div className="bg-white rounded-lg shadow p-6">
@@ -1137,7 +1141,7 @@ function DashboardContent() {
           </div>
         )}
 
-        {activeTab === "models" && (
+        {false && activeTab === "models" && (
           <div className="space-y-6" data-guide-target="model-comparison">
             {/* モデル比較表 */}
             <div className="bg-white rounded-lg shadow overflow-hidden">
@@ -1317,7 +1321,7 @@ function DashboardContent() {
           </div>
         )}
 
-        {activeTab === "analysis" && (
+        {false && activeTab === "analysis" && (
           <div className="space-y-6" data-guide-target="analysis-features">
             {/* 選択された銘柄の分析結果 */}
             {selectedSymbols.length > 0 && (
@@ -1419,7 +1423,7 @@ function DashboardContent() {
           </div>
         )}
 
-        {activeTab === "signals" && (
+        {false && activeTab === "signals" && (
           <div className="space-y-6">
             <RealtimeSignalDisplay 
               symbols={selectedSymbols}
@@ -1429,7 +1433,7 @@ function DashboardContent() {
           </div>
         )}
 
-        {activeTab === "personal" && (
+        {false && activeTab === "personal" && (
           <div className="space-y-6">
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center justify-between mb-6">
@@ -1534,7 +1538,7 @@ function DashboardContent() {
           </div>
         )}
 
-        {activeTab === "risk" && (
+        {false && activeTab === "risk" && (
           <div className="space-y-6">
             <div className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center justify-between mb-6">

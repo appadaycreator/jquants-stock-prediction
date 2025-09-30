@@ -22,6 +22,10 @@ from high_frequency_trading import (
 )
 
 
+import pytest
+
+
+@pytest.mark.slow
 class TestHighFrequencyTrading:
     """高頻度取引システムのテストクラス"""
 
@@ -242,6 +246,7 @@ class TestTrade:
         assert trade.order_id == "BTC_buy_1234567890"
 
 
+@pytest.mark.slow
 def test_integration():
     """統合テスト"""
     # 設定

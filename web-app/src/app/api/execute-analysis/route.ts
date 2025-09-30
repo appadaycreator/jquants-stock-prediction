@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { wrapHandler, jsonError } from '../_error';
+import { withIdempotency } from '../_idempotency';
 import fs from 'fs';
 import path from 'path';
 
-export const POST = wrapHandler(async function POST(request: NextRequest) {
+export const POST = withIdempotency(wrapHandler(async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { type, symbols, timeframe } = body;
@@ -53,4 +54,4 @@ export const POST = wrapHandler(async function POST(request: NextRequest) {
       retry_hint: '数十秒後に再実行してください',
     }, { status: 500 });
   }
-});
+}));

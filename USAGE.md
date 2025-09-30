@@ -1124,3 +1124,40 @@ DoD（完了の定義）:
 このガイドを参考に、J-Quants株価予測システムを効果的に活用してください。質問や問題がある場合は、遠慮なくGitHub Issuesでお知らせください。
 
 **⚠️ 免責事項**: このシステムは教育・研究目的で開発されています。実際の投資判断には十分な検証と専門家への相談をお勧めします。
+
+## 冪等化（Idempotency-Key）
+
+- 目的: 実行系APIのダブル実行・重複書き込みを回避し、安全な再送を可能にする。
+- 対象: `web-app/src/app/api` の実行系エンドポイント（例: `execute-analysis`, `generate-report`, `execute-trade`, `risk-settings` の POST、`analyze` の POST、`routine/run-today` の POST）。
+
+### クライアント仕様
+- リクエストメソッドが POST/PUT/PATCH/DELETE の場合、ヘッダ `Idempotency-Key` を付与してください。
+- 同一操作の再送時は同じキーを再利用します。キーはクライアントで一意に生成します。
+- 本プロジェクトのフロントは `fetchJson` オプション `idempotencyKey: true` を指定すると自動でキーを付与します。
+- 自前でキーを生成する場合は `createIdempotencyKey()` を利用可能です。
+
+```ts
+import { fetchJson, createIdempotencyKey } from './src/lib/fetcher';
+
+// 自動付与（推奨）
+await fetchJson('/api/execute-analysis', { json: {...}, idempotencyKey: true });
+
+// 手動付与
+await fetchJson('/api/execute-analysis', {
+  json: {...},
+  idempotencyKey: createIdempotencyKey()
+});
+```
+
+### サーバー仕様
+- ミドルウェア: `withIdempotency`（`web-app/src/app/api/_idempotency.ts`）
+- 動作: 同一 `Idempotency-Key` かつ有効TTL（デフォルト10分）内に同一メソッドで到来した再送は、前回レスポンスをそのまま返却します。レスポンスヘッダに `Idempotency-Reused: true` を付与します。
+- キー未指定時: 400 `IDEMPOTENCY_KEY_REQUIRED`
+- 保存方式: 開発用途としてインメモリ。必要に応じて永続ストアへ置換してください。
+
+### UIの再押下抑制
+- 実行ボタンは押下後にローディング状態になり、完了まで再押下不可にしています（`RoutineDashboard.tsx`, `QuickActionHandler.tsx`）。
+
+### DoD（完了の定義）
+- 連打・再送しても処理が多重化せず、前回の結果が返ること
+- UI上の実行ボタンがローディング状態で再押下できないこと

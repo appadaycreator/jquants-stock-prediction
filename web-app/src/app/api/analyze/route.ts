@@ -1,12 +1,13 @@
 export const dynamic = 'force-static';
 import { NextRequest, NextResponse } from 'next/server';
 import { createJob, getJobIdByClientToken, simulateProgress, updateJob } from '../_jobStore';
+import { withIdempotency } from '../_idempotency';
 
 export async function GET() {
   return NextResponse.json({ error: 'Method Not Allowed' }, { status: 405 });
 }
 
-export async function POST(request: NextRequest) {
+export const POST = withIdempotency(async function POST(request: NextRequest) {
   try {
     const body = await request.json().catch(() => ({}));
     const clientToken = body?.client_token as string | undefined;
@@ -46,6 +47,6 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
-}
+});
 
 

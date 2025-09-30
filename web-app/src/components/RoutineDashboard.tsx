@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
+import { fetchJson, createIdempotencyKey } from '../lib/fetcher';
 import { 
   Clock, 
   TrendingUp, 
@@ -219,65 +220,47 @@ export default function RoutineDashboard({
     try {
       switch (action) {
         case 'analyze':
-          const analysisResponse = await fetch('/api/execute-analysis', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
+          const result = await fetchJson<any>('/api/execute-analysis', {
+            json: {
               type: 'full_analysis',
               symbols: ['7203.T', '6758.T', '6861.T'],
               timeframe: '1d'
-            })
+            },
+            idempotencyKey: true
           });
-          
-          if (analysisResponse.ok) {
-            const result = await analysisResponse.json();
             console.log('分析完了:', result);
             onAnalysisClick?.();
             showNotification('分析が完了しました', 'success');
-          } else {
-            throw new Error('分析実行に失敗しました');
-          }
+          
           break;
           
         case 'report':
-          const reportResponse = await fetch('/api/generate-report', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
+          const report = await fetchJson<any>('/api/generate-report', {
+            json: {
               type: 'daily_summary',
               includeCharts: true,
               includeRecommendations: true
-            })
+            },
+            idempotencyKey: true
           });
-          
-          if (reportResponse.ok) {
-            const report = await reportResponse.json();
             console.log('レポート生成完了:', report);
             onReportClick?.();
             showNotification('レポートが生成されました', 'success');
-          } else {
-            throw new Error('レポート生成に失敗しました');
-          }
+          
           break;
           
         case 'trade':
-          const tradeResponse = await fetch('/api/execute-trade', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
+          const trade = await fetchJson<any>('/api/execute-trade', {
+            json: {
               type: 'recommended_actions',
               confirmBeforeExecute: true
-            })
+            },
+            idempotencyKey: true
           });
-          
-          if (tradeResponse.ok) {
-            const trade = await tradeResponse.json();
             console.log('売買指示完了:', trade);
             onTradeClick?.();
             showNotification('売買指示が実行されました', 'success');
-          } else {
-            throw new Error('売買指示実行に失敗しました');
-          }
+          
           break;
       }
     } catch (error) {
@@ -302,13 +285,10 @@ export default function RoutineDashboard({
         localStorage.setItem(clientTokenKey, clientToken);
       }
 
-      const res = await fetch('/api/routine/run-today', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ client_token: clientToken })
+      const data = await fetchJson<any>('/api/routine/run-today', {
+        json: { client_token: clientToken },
+        idempotencyKey: true
       });
-      if (!res.ok) throw new Error('ルーティン起動に失敗しました');
-      const data = await res.json();
       const jobId = data.job_id as string;
       setRoutineJobId(jobId);
 

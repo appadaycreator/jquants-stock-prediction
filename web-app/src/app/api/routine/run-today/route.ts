@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { withIdempotency } from '../../_idempotency';
 
 export const dynamic = 'force-static';
 
-export async function POST(request: NextRequest) {
+export const POST = withIdempotency(async function POST(request: NextRequest) {
   try {
     const body = await request.json().catch(() => ({}));
     const clientToken = body?.client_token as string | undefined;
@@ -21,7 +22,7 @@ export async function POST(request: NextRequest) {
   } catch (e) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
-}
+});
 
 export async function GET() {
   return NextResponse.json({ error: 'Method Not Allowed' }, { status: 405 });

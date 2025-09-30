@@ -9,9 +9,9 @@
   input[type="submit"], 
   input[type="reset"],
   .touch-target {
-    min-height: 44px;
-    min-width: 44px;
-    padding: 12px 16px;
+    min-height: 48px;
+    min-width: 48px;
+    padding: 14px 18px;
   }
 
   /* タッチフィードバック */
@@ -86,11 +86,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 16px;
+    padding: 14px 18px;
     border-radius: 8px;
     font-weight: 600;
-    font-size: 14px;
-    min-height: 44px;
+    font-size: 16px;
+    min-height: 48px;
     transition: all 0.2s ease;
     border: none;
     cursor: pointer;

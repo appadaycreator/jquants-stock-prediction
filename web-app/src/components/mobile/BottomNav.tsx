@@ -59,19 +59,19 @@ export default function BottomNav() {
     <>
       {/* モバイル用固定ボトムナビゲーション */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 md:hidden">
-        <div className="flex items-center justify-around px-2 py-2">
+        <div className="flex items-center justify-around px-3 py-3">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center justify-center min-h-[44px] min-w-[44px] px-2 py-1 rounded-lg transition-colors ${
+              className={`flex flex-col items-center justify-center min-h-[48px] min-w-[48px] px-3 py-2 rounded-lg transition-colors touch-target ${
                 isActive(item.href)
                   ? 'text-blue-600 bg-blue-50'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
               }`}
             >
-              <span className="text-lg mb-1">{item.icon}</span>
-              <span className="text-xs font-medium leading-tight text-center">
+              <span className="text-xl mb-1 leading-none">{item.icon}</span>
+              <span className="text-[13px] font-medium leading-tight text-center">
                 {item.shortLabel}
               </span>
             </Link>
@@ -83,7 +83,7 @@ export default function BottomNav() {
       <div className="fixed top-4 right-4 z-50 md:hidden">
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="bg-white shadow-lg rounded-full p-3 border border-gray-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
+          className="bg-white shadow-lg rounded-full p-3 border border-gray-200 min-h-[48px] min-w-[48px] flex items-center justify-center touch-target"
           aria-label="メニューを開く"
         >
           <span className="text-lg">☰</span>
