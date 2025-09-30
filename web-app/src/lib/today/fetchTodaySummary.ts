@@ -8,7 +8,7 @@ export async function fetchTodaySummary(targetYmd?: string): Promise<TodaySummar
     const date = resolveBusinessDate(targetYmd || null, latestIndex);
 
     // SWR: まず直近成功データを即時、同日のCDN JSONを6s/指数バックオフで裏更新
-    const { data, fromCache } = await swrJson<TodaySummary>(
+    const { data, fromCache } = await swrJson<TodaySummary | null>(
       'today:summary',
       `/data/${date}/summary.json`,
       { ttlMs: 1000 * 60 * 60, timeoutMs: 6000, retries: 3, retryDelay: 800 }
@@ -20,7 +20,8 @@ export async function fetchTodaySummary(targetYmd?: string): Promise<TodaySummar
         localStorage.setItem('today_summary_timestamp', new Date().toISOString());
       } catch (_) {}
     }
-    return data;
+    if (!data) throw new Error('today_summary_missing');
+    return data as TodaySummary;
   } catch (error) {
     console.error('fetchTodaySummary error:', error);
     const cachedData = localStorage.getItem('today_summary');

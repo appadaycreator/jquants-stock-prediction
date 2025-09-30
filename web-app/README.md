@@ -70,6 +70,8 @@ cd web-app
 
 # 依存関係インストール
 npm install
+# 追加で必要な依存関係（エラーバウンダリ）
+npm install react-error-boundary
 ```
 
 #### 2. ローカル開発
@@ -148,9 +150,8 @@ Next.js設定で自動的にGitHub Pages用のパスが設定されます：
 
 ### 静的エクスポート時の注意（GitHub Pages）
 - 本プロジェクトは `next.config.js` で `output: "export"` を有効化しています（静的ホスティング向け）。
-- `app/api/*` のルートを利用する場合、静的エクスポート互換のために以下いずれかが必要です：
-  - `export const dynamic = 'force-static'`
-  - `export const revalidate = <秒数>`
+- `app/api/*` のルートは極力使用せず、静的JSON（`public/data/*.json`）を直接取得してください。
+- やむを得ず `app/api/*` を使う場合は、静的互換のために `export const dynamic = 'force-static'` を宣言し、動的パラメータを持つルートは基本的に避けてください（静的エクスポート非対応）。
 - 静的ホスティングではサーバー実行がないため、API ルート内でのファイル書き込み（`fs.writeFileSync` 等）は行わないでください。必要なデータは `public/data/*.json` に事前生成してください。
 - クライアントからの取得は `/data/xxx.json` へ直接フェッチするフォールバックを用意しています（例: `src/lib/today/fetchTodaySummary.ts`）。
 
@@ -333,6 +334,24 @@ Tailwind CSSクラスを使用してスタイリング
 ## ライセンス
 
 MIT License
+## トラブルシューティング
+
+### ビルド時に `Module not found: Can't resolve 'react-error-boundary'`
+- 対応: `npm i react-error-boundary` を実行してください。
+- 使用箇所: `src/components/GlobalErrorBoundary.tsx`
+
+### `output: "export"` 使用時に API ルートでビルドが失敗する
+- 症状: `Page "/api/..." is missing "generateStaticParams()"` や `export const dynamic = "force-static"/export const revalidate not configured` など。
+- 原因: 動的パラメータ付きの API ルートは静的エクスポート非対応です。
+- 対応:
+  - 動的 API ルートを削除し、クライアント側で `public/data/*.json` を読み込みます。
+  - 指標計算などは `src/lib/indicators.ts` を用いてクライアント側で実行します（例: `enrichWithIndicators` + `sliceByRange`）。
+  - どうしても API を使う場合は、動的パラメータを持たないルートに限定し、`export const dynamic = 'force-static'` を宣言してください。
+
+### Next.js 15 の Route Handler 型エラー
+- 症状: `invalid "GET" export: Type "{ params: Record<string,string> }" is not a valid type`。
+- 対応: 2引数目の型を厳密にせず `{ params }: any` を受ける、または `export async function GET(request: Request, { params }: { params: { id: string } })` など Next.js 仕様に整合する形へ更新してください。
+
 
 ### 学習コンテンツへの導線
 - 使い方ガイド（Web）: `/usage`（サイドバーに「機械学習モデルの仕組み」「予測指標の読み方」「J‑Quants API 概要」「FAQ/動画」）

@@ -1,3 +1,4 @@
+export const dynamic = 'force-static';
 import { NextRequest, NextResponse } from 'next/server';
 import { createJob, getJobIdByClientToken, simulateProgress, updateJob } from '../_jobStore';
 

@@ -49,7 +49,7 @@ export function forwardFillMissingDays(bars: PriceBar[]): PriceBar[] {
   for (let i = 0; i < sorted.length; i++) {
     const cur = sorted[i];
     if (i === 0) {
-      filled.push({ ...cur, date: cur._dt.toISODate() });
+      filled.push({ ...cur, date: cur._dt.toISODate() ?? cur._dt.toFormat('yyyy-LL-dd') });
       continue;
     }
     const prev = sorted[i - 1];
@@ -58,7 +58,7 @@ export function forwardFillMissingDays(bars: PriceBar[]): PriceBar[] {
       // 前回値フォワード
       const prevBar = filled[filled.length - 1];
       filled.push({
-        date: d.toISODate(),
+        date: d.toISODate() ?? d.toFormat('yyyy-LL-dd'),
         open: prevBar.open,
         high: prevBar.high,
         low: prevBar.low,
@@ -68,7 +68,7 @@ export function forwardFillMissingDays(bars: PriceBar[]): PriceBar[] {
       });
       d = d.plus({ days: 1 });
     }
-    filled.push({ ...cur, date: cur._dt.toISODate() });
+    filled.push({ ...cur, date: cur._dt.toISODate() ?? cur._dt.toFormat('yyyy-LL-dd') });
   }
   return filled;
 }

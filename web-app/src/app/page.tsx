@@ -34,6 +34,7 @@ import Checklist, { ChecklistBadge, DEFAULT_CHECKLIST_ITEMS } from "../component
 import GlossaryModal from "../components/guide/GlossaryModal";
 import HelpModal from "../components/guide/HelpModal";
 import { useGuideShortcuts } from "@/lib/guide/shortcut";
+import { enrichWithIndicators, sliceByRange } from "@/lib/indicators";
 import { guideStore } from "@/lib/guide/guideStore";
 import { parseToJst } from "@/lib/datetime";
 import JQuantsTokenSetup from "@/components/JQuantsTokenSetup";
@@ -379,23 +380,19 @@ function DashboardContent() {
       setMarketInsights(marketInsightsData);
       setRiskAssessment(riskAssessmentData);
       
-      // 主要チャートデータを API から取得（SMA/EMA/MACD/RSI 含む、JST固定・前処理済）
+      // 主要チャートデータを公開JSONから取得し、クライアント側で指標を付与
       try {
-        const res = await fetch(`/api/stocks/${encodeURIComponent(selectedCode)}?range=${range}`, { cache: 'no-cache' });
-        if (res.ok) {
-          const json = await res.json();
-          // prices と indicators を結合
-          const merged = json.prices.map((p: any, i: number) => ({
-            ...p,
-            ...(json.indicators?.[i] || {}),
-          }));
-          setPrimaryStock(merged);
+        const normalizedCode = selectedCode.replace(/\..*$/, '');
+        const raw = (stockDataRes || []).filter((r: any) => r && (r.code === selectedCode || r.code === normalizedCode));
+        if (raw.length > 0) {
+          const enriched = enrichWithIndicators(raw, { todayFinalOnly: true });
+          const ranged = sliceByRange(enriched as any, range as any);
+          setPrimaryStock(ranged);
         } else {
-          console.warn('stocks api error', res.status);
           setPrimaryStock([]);
         }
       } catch (e) {
-        console.warn('stocks api fetch failed', e);
+        console.warn('client-side indicators failed', e);
         setPrimaryStock([]);
       }
       const now = new Date();
