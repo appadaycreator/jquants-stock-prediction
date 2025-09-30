@@ -231,12 +231,21 @@ function DashboardContent() {
   useEffect(() => {
     loadData();
     
-    // 初回訪問チェック
-    const hasVisited = localStorage.getItem('hasVisited');
-    if (!hasVisited) {
+    // ガイド再表示ロジック
+    // ツアー（TourProvider）未完了 かつ 当該セッションで未クローズなら自動表示
+    try {
+      const tourCompleted = localStorage.getItem('guide_tour_completed') === 'true';
+      const guideDisabled = localStorage.getItem('guide_disabled') === 'true';
+      const closedThisSession = sessionStorage.getItem('userGuideClosedThisSession') === 'true';
+
+      if (!tourCompleted && !guideDisabled && !closedThisSession) {
+        setIsFirstVisit(true);
+        setShowUserGuide(true);
+      }
+    } catch (e) {
+      // ストレージ未許可などでも致命的ではないため握りつぶす
       setIsFirstVisit(true);
       setShowUserGuide(true);
-      localStorage.setItem('hasVisited', 'true');
     }
   }, []);
 
@@ -1837,7 +1846,12 @@ function DashboardContent() {
       {/* ユーザーガイドモーダル */}
       <UserGuide
         isVisible={showUserGuide}
-        onClose={() => setShowUserGuide(false)}
+        onClose={() => {
+          try {
+            sessionStorage.setItem('userGuideClosedThisSession', 'true');
+          } catch (_) {}
+          setShowUserGuide(false);
+        }}
         onStepComplete={(stepId) => {
           console.log('ガイドステップ完了:', stepId);
         }}

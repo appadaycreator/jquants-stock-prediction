@@ -23,6 +23,10 @@ export default function UsagePage() {
   const sections = [
     { id: "overview", label: "概要", icon: BookOpen },
     { id: "getting-started", label: "はじめに", icon: Play },
+    { id: "ml-basics", label: "機械学習モデルの仕組み", icon: Target },
+    { id: "metrics", label: "予測指標の読み方", icon: BarChart3 },
+    { id: "jquants", label: "J‑Quants API 概要", icon: Database },
+    { id: "faq-videos", label: "FAQ / 動画", icon: Info },
     { id: "dashboard", label: "ダッシュボード", icon: BarChart3 },
     { id: "analysis", label: "分析機能", icon: TrendingUp },
     { id: "settings", label: "設定", icon: Settings },
@@ -336,6 +340,142 @@ export default function UsagePage() {
                           </p>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 機械学習モデルの仕組み */}
+              {activeSection === "ml-basics" && (
+                <div className="p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">機械学習モデルの仕組み（概要）</h2>
+                  <div className="space-y-6">
+                    <div className="bg-white rounded-lg border p-6">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">学習と推論の流れ</h3>
+                      <ol className="list-decimal pl-5 space-y-2 text-gray-700">
+                        <li>データ前処理（欠損補完・特徴量作成）</li>
+                        <li>学習データと検証データに分割</li>
+                        <li>モデル学習（例: 線形回帰、ランダムフォレスト、XGBoost）</li>
+                        <li>検証指標で性能評価し、最適モデルを選択</li>
+                        <li>新しいデータに対して予測を出力（推論）</li>
+                      </ol>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="bg-blue-50 rounded-lg p-4">
+                        <h4 className="font-medium text-gray-900 mb-1">線形/正則化モデル</h4>
+                        <p className="text-sm text-gray-700">解釈容易・高速。ただし非線形は苦手。</p>
+                      </div>
+                      <div className="bg-green-50 rounded-lg p-4">
+                        <h4 className="font-medium text-gray-900 mb-1">ランダムフォレスト</h4>
+                        <p className="text-sm text-gray-700">非線形に強くロバスト。外挿は苦手。</p>
+                      </div>
+                      <div className="bg-purple-50 rounded-lg p-4">
+                        <h4 className="font-medium text-gray-900 mb-1">XGBoost</h4>
+                        <p className="text-sm text-gray-700">高精度になりやすいが調整が複雑。</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 予測指標の読み方 */}
+              {activeSection === "metrics" && (
+                <div className="p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">予測指標の読み方</h2>
+                  <div className="bg-white rounded-lg border p-6">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="bg-gray-50">
+                          <th className="px-3 py-2 text-left">指標</th>
+                          <th className="px-3 py-2 text-left">解釈</th>
+                          <th className="px-3 py-2 text-left">目安</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-3 py-2 font-medium">MAE</td>
+                          <td className="px-3 py-2">平均絶対誤差。小さいほど良い（単位: 円）。</td>
+                          <td className="px-3 py-2">他モデルと相対比較</td>
+                        </tr>
+                        <tr>
+                          <td className="px-3 py-2 font-medium">RMSE</td>
+                          <td className="px-3 py-2">大きな誤差をより重く評価。小さいほど良い。</td>
+                          <td className="px-3 py-2">他モデルと相対比較</td>
+                        </tr>
+                        <tr>
+                          <td className="px-3 py-2 font-medium">R²</td>
+                          <td className="px-3 py-2">0〜1。1に近いほど説明力が高い。</td>
+                          <td className="px-3 py-2">0.6〜0.9程度を目安（用途依存）</td>
+                        </tr>
+                        <tr>
+                          <td className="px-3 py-2 font-medium">MAPE</td>
+                          <td className="px-3 py-2">平均絶対パーセント誤差。相対誤差（%）。</td>
+                          <td className="px-3 py-2">他モデルと相対比較</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {/* J-Quants API 概要 */}
+              {activeSection === "jquants" && (
+                <div className="p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">J‑Quants API 概要</h2>
+                  <div className="space-y-6">
+                    <div className="bg-white rounded-lg border p-6">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">主要エンドポイント（概要）</h3>
+                      <ul className="space-y-2 text-gray-700">
+                        <li>• 時系列株価（OHLCV）</li>
+                        <li>• 財務・決算情報</li>
+                        <li>• 指数・先物などの関連データ</li>
+                      </ul>
+                      <p className="text-sm text-gray-600 mt-3">本アプリではトークン設定後にクライアントから安全に取得できるデータのみを使用します。</p>
+                    </div>
+                    <div className="bg-blue-50 rounded-lg p-6">
+                      <h4 className="font-medium text-gray-900 mb-2">トークン設定</h4>
+                      <p className="text-gray-700 text-sm">ヘッダーの「J‑Quants設定」からトークンを登録してください。</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* FAQ / 動画 */}
+              {activeSection === "faq-videos" && (
+                <div className="p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">FAQ / 動画</h2>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg border p-6">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">FAQ</h3>
+                      <ul className="space-y-3 text-sm text-gray-700">
+                        <li>
+                          <p className="font-medium">Q. MAEとR²の違いは？</p>
+                          <p className="text-gray-700">A. MAEは誤差の平均（絶対値）。R²は説明力（0〜1）。</p>
+                        </li>
+                        <li>
+                          <p className="font-medium">Q. どのモデルを選べばいい？</p>
+                          <p className="text-gray-700">A. まずは「すべてのモデル」で比較し、上位モデルを検討。</p>
+                        </li>
+                        <li>
+                          <p className="font-medium">Q. 予測が外れる時の見方は？</p>
+                          <p className="text-gray-700">A. 誤差分布や外れた期間の傾向を確認し特徴量や期間を調整。</p>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="bg-white rounded-lg border p-6">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">学習動画（外部リンク）</h3>
+                      <ul className="space-y-2 text-sm text-blue-700">
+                        <li>
+                          <a href="https://www.youtube.com" target="_blank" rel="noreferrer" className="hover:underline">J‑Quants入門（外部）</a>
+                        </li>
+                        <li>
+                          <a href="https://www.youtube.com" target="_blank" rel="noreferrer" className="hover:underline">機械学習モデル比較（外部）</a>
+                        </li>
+                        <li>
+                          <a href="https://www.youtube.com" target="_blank" rel="noreferrer" className="hover:underline">指標の読み方（外部）</a>
+                        </li>
+                      </ul>
+                      <p className="text-xs text-gray-500 mt-3">注意: 外部サイトの内容は本ツールの保証対象外です。</p>
                     </div>
                   </div>
                 </div>
