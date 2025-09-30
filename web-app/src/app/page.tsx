@@ -14,6 +14,12 @@ import UnifiedErrorHandler from "@/components/UnifiedErrorHandler";
 import { getErrorInfo, logError } from "@/lib/error-handler";
 import { errorLogger, setupGlobalErrorHandling } from "@/lib/error-logger";
 import { performanceMonitor, usePerformanceMonitor } from "@/lib/performance-monitor";
+import { useGuideShortcuts } from "@/lib/guide/shortcut";
+import { enrichWithIndicators, sliceByRange } from "@/lib/indicators";
+import { guideStore } from "@/lib/guide/guideStore";
+import { parseToJst } from "@/lib/datetime";
+import JQuantsAdapter from "@/lib/jquants-adapter";
+import { DEFAULT_CHECKLIST_ITEMS } from "@/components/guide/Checklist";
 
 // 動的インポートでコンポーネントを遅延読み込み
 const Navigation = dynamic(() => import("../components/Navigation"), { ssr: false });
@@ -73,6 +79,20 @@ interface ModelComparison {
   rmse: number
   r2: number
   rank: number
+}
+
+interface ChecklistItem {
+  id: string
+  title: string
+  description: string
+  completed: boolean
+}
+
+interface ChecklistProps {
+  items: ChecklistItem[]
+  onItemComplete: (id: string) => void
+  onItemReset: (id: string) => void
+  onComplete: () => void
 }
 
 interface FeatureAnalysis {
@@ -145,7 +165,6 @@ function DashboardContent() {
   const [showNotificationSettings, setShowNotificationSettings] = useState(false);
   const [showMobileOptimized, setShowMobileOptimized] = useState(false);
   const [showMobileFirst, setShowMobileFirst] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
   const [showUserGuide, setShowUserGuide] = useState(false);
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -169,7 +188,7 @@ function DashboardContent() {
   // ガイド機能の状態
   const [showGlossary, setShowGlossary] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
-  const [checklistItems, setChecklistItems] = useState(DEFAULT_CHECKLIST_ITEMS);
+  const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>(DEFAULT_CHECKLIST_ITEMS);
   const [showChecklist, setShowChecklist] = useState(false);
 
   // 設定連携フック
@@ -184,8 +203,8 @@ function DashboardContent() {
 
   // ガイド機能のハンドラー
   const handleChecklistItemComplete = (itemId: string) => {
-    setChecklistItems(prev => 
-      prev.map(item => 
+    setChecklistItems((prev: ChecklistItem[]) => 
+      prev.map((item: ChecklistItem) => 
         item.id === itemId 
           ? { ...item, completed: true }
           : item
@@ -195,8 +214,8 @@ function DashboardContent() {
   };
 
   const handleChecklistItemReset = (itemId: string) => {
-    setChecklistItems(prev => 
-      prev.map(item => 
+    setChecklistItems((prev: ChecklistItem[]) => 
+      prev.map((item: ChecklistItem) => 
         item.id === itemId 
           ? { ...item, completed: false }
           : item
@@ -2049,7 +2068,7 @@ function DashboardContent() {
 export default function Dashboard() {
   return (
     <ErrorBoundary
-      fallback={({ error, resetErrorBoundary }) => (
+      fallbackRender={({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) => (
         <UnifiedErrorHandler
           error={error}
           onRetry={resetErrorBoundary}
