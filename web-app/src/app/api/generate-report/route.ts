@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { wrapHandler, jsonError } from '../_error';
 import fs from 'fs';
 import path from 'path';
 
-export async function POST(request: NextRequest) {
+export const POST = wrapHandler(async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { type, includeCharts, includeRecommendations } = body;
@@ -80,11 +81,12 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(report);
-  } catch (error) {
+  } catch (error: any) {
     console.error('レポート生成エラー:', error);
-    return NextResponse.json(
-      { error: 'レポート生成に失敗しました' },
-      { status: 500 }
-    );
+    return jsonError({
+      error_code: 'REPORT_GENERATION_FAILED',
+      user_message: 'レポート生成に失敗しました',
+      retry_hint: '少し時間をおいてから再実行してください',
+    }, { status: 500 });
   }
-}
+});

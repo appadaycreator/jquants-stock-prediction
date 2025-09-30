@@ -101,6 +101,9 @@ cd ../
 python3 jquants_stock_prediction.py
 python3 generate_web_data.py
 
+# 個人投資ダッシュボード用データ（/personal-investment）も生成（通常版+日付別）
+python3 generate_personal_investment_data.py
+
 # 2. Webアプリを開発モードで起動
 cd web-app
 npm run dev
@@ -117,6 +120,15 @@ npm run dev
 Next.js設定で自動的にGitHub Pages用のパスが設定されます：
 - 本番環境: `/jquants-stock-prediction`
 - 開発環境: `/`
+
+#### 個人投資ダッシュボードデータの配置仕様（重要）
+- 優先: `/data/{YYYYMMDD}/personal_investment_dashboard.json`
+- フォールバック: `/data/personal_investment_dashboard.json`
+- 生成手順: リポジトリルートで `python3 generate_personal_investment_data.py`
+  - 出力先:
+    - `web-app/public/data/personal_investment_dashboard.json`
+    - `web-app/public/data/{YYYYMMDD}/personal_investment_dashboard.json`
+  - 開発サーバー起動中（`npm run dev`）はホットリロードで即時反映されます
 
 ### 通知設定の保存場所とデフォルト
 - 保存先: ブラウザのローカルストレージ `notification-config`

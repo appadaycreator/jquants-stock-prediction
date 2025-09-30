@@ -5,9 +5,9 @@ import { DateTime } from 'luxon';
 import { enrichWithIndicators, toStocksApiResponse, sliceByRange, PriceBar } from '@/lib/indicators';
 
 // stocks/{code}.json を返す API。JST 固定、未確定足除外、前回値フォワード、指標を同梱
-export async function GET(request: NextRequest, { params }: { params: { code: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Record<string, string> }) {
   try {
-    const code = decodeURIComponent(params.code);
+    const code = decodeURIComponent(params.code as string);
     // 証券所サフィックス（例: .T, .JP, .XS）を除去してローカル価格ファイルに合わせる
     const normalizedCode = code.replace(/\..*$/, '');
     const { searchParams } = new URL(request.url);

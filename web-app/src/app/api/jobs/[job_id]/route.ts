@@ -3,9 +3,9 @@ import { getJob } from '../../_jobStore';
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: { job_id: string } }
+  { params }: { params: Record<string, string> }
 ) {
-  const job = getJob(params.job_id);
+  const job = getJob(params.job_id as string);
   if (!job) {
     return NextResponse.json({ error: 'Not Found' }, { status: 404 });
   }

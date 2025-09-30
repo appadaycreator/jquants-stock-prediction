@@ -178,22 +178,55 @@ def generate_personal_investment_data():
 def save_dashboard_data(
     data: Dict[str, Any], output_path: str = "data/personal_investment_dashboard.json"
 ):
-    """ダッシュボードデータの保存"""
+    """ダッシュボードデータの保存（後方互換：未使用）
+
+    既存呼び出し互換のため残します。新規保存は `save_to_web_public` を使用します。
+    """
     try:
         import os
 
-        # ディレクトリの作成
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
-        # データの保存
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-
         logger.info(f"ダッシュボードデータを保存しました: {output_path}")
         return True
-
     except Exception as e:
         logger.error(f"データ保存エラー: {e}")
+        return False
+
+
+def save_to_web_public(data: Dict[str, Any]) -> bool:
+    """Next.jsの公開ディレクトリに通常版＋日付別で保存します。
+
+    - web-app/public/data/personal_investment_dashboard.json
+    - web-app/public/data/{YYYYMMDD}/personal_investment_dashboard.json
+    """
+    try:
+        import os
+        from datetime import datetime
+
+        base_dir = os.path.join("web-app", "public", "data")
+        ymd = datetime.now().strftime("%Y%m%d")
+
+        # 1) 通常版
+        os.makedirs(base_dir, exist_ok=True)
+        main_path = os.path.join(base_dir, "personal_investment_dashboard.json")
+        with open(main_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+        # 2) 日付別
+        dated_dir = os.path.join(base_dir, ymd)
+        os.makedirs(dated_dir, exist_ok=True)
+        dated_path = os.path.join(dated_dir, "personal_investment_dashboard.json")
+        with open(dated_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+        logger.info(
+            "ダッシュボードデータを保存しました: %s, %s", main_path, dated_path
+        )
+        return True
+    except Exception as e:
+        logger.error(f"web public への保存エラー: {e}")
         return False
 
 
@@ -210,12 +243,14 @@ def main():
     # データの生成
     dashboard_data = generate_personal_investment_data()
 
-    # データの保存
-    success = save_dashboard_data(dashboard_data)
+    # データの保存（Next.js公開ディレクトリに通常版＋日付別で保存）
+    success = save_to_web_public(dashboard_data)
 
     if success:
         print("✅ 個人投資ダッシュボード用データの生成が完了しました")
-        print(f"📊 データファイル: data/personal_investment_dashboard.json")
+        print(
+            "📊 データファイル: web-app/public/data/personal_investment_dashboard.json と 日付別"
+        )
         print(f"💰 総投資額: {dashboard_data['pnl_summary']['total_investment']:,}円")
         print(f"📈 現在価値: {dashboard_data['pnl_summary']['current_value']:,}円")
         print(f"💵 未実現損益: {dashboard_data['pnl_summary']['unrealized_pnl']:,}円")

@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { wrapHandler, jsonError } from '../_error';
 import fs from 'fs';
 import path from 'path';
 
-export async function POST(request: NextRequest) {
+export const POST = wrapHandler(async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { type, symbols, timeframe } = body;
@@ -44,11 +45,12 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(analysisResult);
-  } catch (error) {
+  } catch (error: any) {
     console.error('分析実行エラー:', error);
-    return NextResponse.json(
-      { error: '分析実行に失敗しました' },
-      { status: 500 }
-    );
+    return jsonError({
+      error_code: 'ANALYSIS_EXECUTION_FAILED',
+      user_message: '分析の実行に失敗しました',
+      retry_hint: '数十秒後に再実行してください',
+    }, { status: 500 });
   }
-}
+});

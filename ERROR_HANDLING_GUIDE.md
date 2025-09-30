@@ -212,3 +212,37 @@ grep "データ情報" enhanced.log
 - **エラー予測**: 過去のエラーパターンから将来のエラーを予測
 - **自動チューニング**: パフォーマンスに基づく自動パラメータ調整
 - **異常検知**: システムの異常な動作パターンの検出
+
+## UI/API契約（統一エラーフロー）
+
+### UI契約（重大エラーの可視化と即時復旧動線）
+- グローバルエラーバウンダリ: `web-app/src/components/GlobalErrorBoundary.tsx` を `web-app/src/app/layout.tsx` に組み込み。
+  - 重大エラー発生時に、下部へ「重大エラー」トースト、中央へ詳細モーダルを表示。
+  - モーダル内に「1クリック再実行」ボタンを標準搭載（`POST /api/retry` を呼び出し、完了後にエラーバウンダリをリセット）。
+  - 詳細は開発モードでスタック表示（`EnhancedErrorHandler`）。
+- 既存 `global-error.tsx` はRSC系の復旧補助として併用。
+
+### API契約（共通エラースキーマ）
+- 異常時レスポンス（application/json）:
+  - `error_code`: 機械可読コード（例: `ANALYSIS_EXECUTION_FAILED`）
+  - `user_message`: UI表示用メッセージ（日本語）
+  - `retry_hint`(任意): 再実行ヒント
+- 実装:
+  - 共通: `web-app/src/app/api/_error.ts`（`jsonError`, `wrapHandler`）
+  - 適用例: `web-app/src/app/api/execute-analysis/route.ts`, `web-app/src/app/api/generate-report/route.ts`
+- フロント: `web-app/src/lib/fetcher.ts` が共通スキーマを解釈し、`AppError` に `retryHint` を保持。
+
+### 再実行API（安全なリトライ、冪等性）
+- エンドポイント: `POST /api/retry`
+  - ヘッダ `Idempotency-Key` 必須。既出キーは同一ジョブID返却。
+  - レスポンス: `{ jobId: string, status: 'queued' | 'accepted' }`（202）
+- 実装: `web-app/src/app/api/retry/route.ts`、インメモリ `clientToken` で冪等性（`_jobStore.ts`）。
+
+### 横展開手順（全API統一）
+1. 各 `route.ts` を `wrapHandler` でラップ。
+2. 例外時は `jsonError({ error_code, user_message, retry_hint }, { status })` を返却。
+3. UIは自動的にトースト＋詳細モーダルを表示し、1クリック再実行を提示。
+
+### DoD
+- UIは異常時に統一見た目で通知、1クリックで安全に再実行できる。
+- データ更新・予測・指標更新・シグナル生成の主要フローで共通エラーフローを確認済み。

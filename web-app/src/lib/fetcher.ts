@@ -17,7 +17,8 @@ export class AppError extends Error {
   constructor(
     message: string,
     public code: string,
-    public status?: number
+    public status?: number,
+    public retryHint?: string
   ) {
     super(message);
     this.name = 'AppError';
@@ -88,11 +89,32 @@ export async function fetchJson<T>(
 
       // ステータス検査
       if (!response.ok) {
-        throw new AppError(
-          `HTTP ${response.status}: ${response.statusText}`,
-          `HTTP_${response.status}`,
-          response.status
-        );
+        // 共通エラースキーマを優先して解釈
+        try {
+          const text = await response.text();
+          const json = JSON.parse(text);
+          if (json && typeof json === 'object' && json.error_code && json.user_message) {
+            throw new AppError(
+              json.user_message,
+              String(json.error_code),
+              response.status,
+              json.retry_hint
+            );
+          }
+          // JSONでない/スキーマ外の場合は従来のHTTPエラー
+          throw new AppError(
+            `HTTP ${response.status}: ${response.statusText}`,
+            `HTTP_${response.status}`,
+            response.status
+          );
+        } catch (parseErr) {
+          if (parseErr instanceof AppError) throw parseErr;
+          throw new AppError(
+            `HTTP ${response.status}: ${response.statusText}`,
+            `HTTP_${response.status}`,
+            response.status
+          );
+        }
       }
 
       // コンテンツタイプ検査

@@ -5,6 +5,7 @@ import { SettingsProvider } from "@/contexts/SettingsContext";
 import BottomNav from "@/components/mobile/BottomNav";
 import Sidebar from "@/components/desktop/Sidebar";
 import { UserProfileProvider } from "@/contexts/UserProfileContext";
+import GlobalErrorBoundary from "@/components/GlobalErrorBoundary";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -60,14 +61,16 @@ export default function RootLayout({
       <body className={inter.className}>
         <SettingsProvider>
           <UserProfileProvider>
-          <div id="root">
-            {/* モバイル用のパディング調整 */}
-            <div className="pb-20 md:pb-0 md:pl-64">
-              {children}
+          <GlobalErrorBoundary>
+            <div id="root">
+              {/* モバイル用のパディング調整 */}
+              <div className="pb-20 md:pb-0 md:pl-64">
+                {children}
+              </div>
+              <Sidebar />
+              <BottomNav />
             </div>
-            <Sidebar />
-            <BottomNav />
-          </div>
+          </GlobalErrorBoundary>
           </UserProfileProvider>
         </SettingsProvider>
       </body>

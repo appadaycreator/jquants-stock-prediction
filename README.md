@@ -1464,6 +1464,10 @@ git push origin main
     - 取得: 優先 `/data/{YYYYMMDD}/personal_investment_dashboard.json`、失敗時 `/data/personal_investment_dashboard.json` にフォールバック
     - 失敗時: `app_cache:personal:dashboard`（内部キー）から前回結果を読み出し表示
     - 実装: `web-app/src/app/personal-investment/page.tsx`
+    - データ生成: `python3 generate_personal_investment_data.py` を実行すると、
+      - `web-app/public/data/personal_investment_dashboard.json`
+      - `web-app/public/data/{YYYYMMDD}/personal_investment_dashboard.json`
+      に自動保存され、ローカル開発では404を解消します（ホットリロード対象）。
   - ダッシュボード（トップ `/`）
     - 取得: `fetchManyWithCache` でサマリ・株価・モデル比較などを並列取得
     - 失敗時: 個別にキャッシュへ自動復旧し、ページは崩さず表示（必要に応じて警告）
@@ -1954,6 +1958,21 @@ git push origin main
 - API ルート: `web-app/src/app/api/stocks/[code]/route.ts`
 - フロント接続: `web-app/src/app/page.tsx` （5年・1年・3ヶ月・1ヶ月のクイック範囲ボタン）
 - N/A の扱い: チャートは `null` を許容して崩さず、ツールチップで `N/A` 注記
+
+#### Next.js 15 のルートハンドラ `params` 型について（重要・互換）
+
+- Next.js 15 では App Router のルートハンドラ第2引数の `params` はジェネリックな `Record<string, string>` 互換として扱われます。
+- 以前の書き方（例: `{ params: { code: string } }` や `{ params: { job_id: string } }`）は型エラーになる場合があります。
+- 本リポジトリでは以下のように記述を統一しました（旧記法からの移行時の参考にしてください）。
+
+```
+export async function GET(request: NextRequest, { params }: { params: Record<string, string> }) {
+  const id = params.job_id as string; // 旧: { params: { job_id: string } }
+  // ...
+}
+```
+
+- 互換対応の横展開: `web-app/src/app/api/jobs/[job_id]/route.ts` と `web-app/src/app/api/stocks/[code]/route.ts` に適用済み。その他のルートで旧記法が残っていないかを追加ページ実装時にご確認ください。
 
 ### パスエイリアス（Next.js/TypeScript）
 
