@@ -20,6 +20,16 @@ export interface ErrorInfo {
   technicalDetails?: string;
 }
 
+export interface ErrorLog {
+  id: string;
+  timestamp: number;
+  category: ErrorCategory;
+  severity: ErrorSeverity;
+  message: string;
+  stack?: string;
+  context?: Record<string, any>;
+}
+
 export class UnifiedError extends Error {
   constructor(
     message: string,
@@ -272,7 +282,7 @@ export function getErrorStats(): {
       recentErrors: logs.slice(0, 5)
     };
     
-    logs.forEach((log: any) => {
+    logs.forEach((log: ErrorLog) => {
       stats.errorsByCategory[log.category] = (stats.errorsByCategory[log.category] || 0) + 1;
       stats.errorsBySeverity[log.severity] = (stats.errorsBySeverity[log.severity] || 0) + 1;
     });
