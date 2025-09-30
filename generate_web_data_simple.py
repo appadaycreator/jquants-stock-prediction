@@ -38,9 +38,7 @@ def validate_and_select_features(df, config_features, target):
             for col in numeric_cols
             if col != target and col not in ["Date", "Code", "CompanyName"]
         ]
-        logger.warning(
-            f"🔄 設定の特徴量が見つからないため、自動選択しました: {valid_features}"
-        )
+        logger.warning(f"🔄 設定の特徴量が見つからないため、自動選択しました: {valid_features}")
 
     logger.info(f"✅ 使用する特徴量: {valid_features}")
     return valid_features

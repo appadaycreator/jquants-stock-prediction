@@ -342,9 +342,11 @@ class NewsAnalyzer:
                     continue
 
                 # 感情分析実行
-                sentiment_score, sentiment_type, confidence = (
-                    self.sentiment_analyzer.analyze_text_sentiment(content)
-                )
+                (
+                    sentiment_score,
+                    sentiment_type,
+                    confidence,
+                ) = self.sentiment_analyzer.analyze_text_sentiment(content)
 
                 # 関連性スコア計算
                 relevance_score = self.sentiment_analyzer.calculate_relevance_score(
@@ -423,9 +425,11 @@ class SNSTrendAnalyzer:
 
                 # 感情分析
                 combined_text = " ".join(tweet_texts)
-                sentiment_score, sentiment_type, confidence = (
-                    self.sentiment_analyzer.analyze_text_sentiment(combined_text)
-                )
+                (
+                    sentiment_score,
+                    sentiment_type,
+                    confidence,
+                ) = self.sentiment_analyzer.analyze_text_sentiment(combined_text)
 
                 # トレンドスコアの計算
                 trend_score = min(mention_count / 100, 1.0) * confidence
@@ -687,17 +691,13 @@ async def main():
     # 結果の表示
     print("=== 感情分析・ニュース統合システム ===")
     print(f"実行時刻: {signals.get('timestamp', 'N/A')}")
-    print(
-        f"統合感情スコア: {signals.get('overall_sentiment', {}).get('score', 0.0):.3f}"
-    )
+    print(f"統合感情スコア: {signals.get('overall_sentiment', {}).get('score', 0.0):.3f}")
     print(f"感情タイプ: {signals.get('overall_sentiment', {}).get('type', 'N/A')}")
     print(f"信頼度: {signals.get('overall_sentiment', {}).get('confidence', 0.0):.3f}")
 
     print("\n=== トレーディングシグナル ===")
     for symbol, signal_data in signals.get("trading_signals", {}).items():
-        print(
-            f"{symbol}: {signal_data['signal']} (強度: {signal_data['strength']:.3f})"
-        )
+        print(f"{symbol}: {signal_data['signal']} (強度: {signal_data['strength']:.3f})")
 
     # 感情分析サマリーの表示
     summary = sentiment_system.get_sentiment_summary()

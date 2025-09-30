@@ -62,9 +62,7 @@ class ConfigLoader:
                 else:
                     # デフォルト設定を作成
                     self._create_default_config()
-                    self.logger.info(
-                        f"デフォルト設定ファイルを作成しました: {self.config_path}"
-                    )
+                    self.logger.info(f"デフォルト設定ファイルを作成しました: {self.config_path}")
         except yaml.YAMLError as e:
             self.logger.error(f"YAMLファイルの解析に失敗しました: {e}")
             self._create_default_config()

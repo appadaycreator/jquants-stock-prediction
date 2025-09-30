@@ -469,9 +469,7 @@ def generate_recommendations(model_results):
 
     # R²が高すぎる場合
     if best_model["validation_metrics"]["r2"] > 0.99:
-        recommendations.append(
-            "⚠️ R²が0.99を超えています。データリークや過学習の可能性があります。"
-        )
+        recommendations.append("⚠️ R²が0.99を超えています。データリークや過学習の可能性があります。")
 
     # モデル性能の評価
     mae = best_model["validation_metrics"]["mae"]
@@ -484,9 +482,7 @@ def generate_recommendations(model_results):
 
     # 複数モデルの比較
     if len(model_results) > 1:
-        recommendations.append(
-            f"✅ {len(model_results)}個のモデルを比較し、最適なモデルを選択しました"
-        )
+        recommendations.append(f"✅ {len(model_results)}個のモデルを比較し、最適なモデルを選択しました")
 
     return recommendations
 

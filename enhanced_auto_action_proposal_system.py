@@ -679,17 +679,11 @@ class EnhancedAutoActionProposalSystem:
         prerequisites = []
 
         if action_type == ActionType.BUY:
-            prerequisites.extend(
-                ["十分な資金の確保", "リスク許容度の確認", "投資目標との整合性確認"]
-            )
+            prerequisites.extend(["十分な資金の確保", "リスク許容度の確認", "投資目標との整合性確認"])
         elif action_type == ActionType.SELL:
-            prerequisites.extend(
-                ["税務影響の確認", "代替投資先の検討", "損失確定の覚悟"]
-            )
+            prerequisites.extend(["税務影響の確認", "代替投資先の検討", "損失確定の覚悟"])
         elif action_type == ActionType.REBALANCE:
-            prerequisites.extend(
-                ["現在のポートフォリオ構成の確認", "目標配分の設定", "取引コストの計算"]
-            )
+            prerequisites.extend(["現在のポートフォリオ構成の確認", "目標配分の設定", "取引コストの計算"])
 
         return prerequisites
 
@@ -700,17 +694,11 @@ class EnhancedAutoActionProposalSystem:
         follow_ups = []
 
         if action_type == ActionType.BUY:
-            follow_ups.extend(
-                ["価格監視の継続", "ストップロスの設定", "利益確定ポイントの設定"]
-            )
+            follow_ups.extend(["価格監視の継続", "ストップロスの設定", "利益確定ポイントの設定"])
         elif action_type == ActionType.SELL:
-            follow_ups.extend(
-                ["資金の再投資検討", "ポートフォリオの再評価", "次の投資機会の探索"]
-            )
+            follow_ups.extend(["資金の再投資検討", "ポートフォリオの再評価", "次の投資機会の探索"])
         elif action_type == ActionType.MONITOR:
-            follow_ups.extend(
-                ["定期的な価格チェック", "重要指標の監視", "市場ニュースの確認"]
-            )
+            follow_ups.extend(["定期的な価格チェック", "重要指標の監視", "市場ニュースの確認"])
 
         return follow_ups
 

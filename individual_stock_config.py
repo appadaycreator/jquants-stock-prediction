@@ -463,19 +463,13 @@ class IndividualStockConfigManager:
 
         # 推奨事項の生成
         if diversification_score < 0.3:
-            suggestions["recommendations"].append(
-                "投資スタイルの分散を増やしてください（短期・中期・長期のバランス）"
-            )
+            suggestions["recommendations"].append("投資スタイルの分散を増やしてください（短期・中期・長期のバランス）")
 
         if risk_balance < 0.5:
-            suggestions["recommendations"].append(
-                "リスク許容度のバランスを調整してください"
-            )
+            suggestions["recommendations"].append("リスク許容度のバランスを調整してください")
 
         if total_stocks < 5:
-            suggestions["recommendations"].append(
-                "監視銘柄数を5銘柄以上に増やすことを推奨します"
-            )
+            suggestions["recommendations"].append("監視銘柄数を5銘柄以上に増やすことを推奨します")
 
         return suggestions
 

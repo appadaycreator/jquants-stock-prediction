@@ -262,7 +262,6 @@ class IntegratedStrategyAutomation:
                         >= self.config["min_confidence_threshold"]
                         and recommendation.risk_level != "high"
                     ):
-
                         # 自動実行が有効な場合
                         if self.config["auto_execution_enabled"]:
                             execution = self.strategy_recommendation_system.execute_recommendation(

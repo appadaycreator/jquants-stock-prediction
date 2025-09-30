@@ -427,8 +427,7 @@ class ModelPerformanceMonitor:
                         for p in self.prediction_engine.prediction_history
                         if p.symbol == symbol
                         and p.model_type == model_type
-                        and (datetime.now() - p.prediction_time).seconds
-                        < 3600  # 1時間以内
+                        and (datetime.now() - p.prediction_time).seconds < 3600  # 1時間以内
                     ]
 
                     if recent_predictions:

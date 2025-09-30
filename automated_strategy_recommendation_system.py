@@ -870,8 +870,7 @@ class AutomatedStrategyExecution:
             del self.active_executions[execution_id]
 
             self.logger.info(
-                f"📊 戦略実行終了: {execution_id} - {reason} "
-                f"(損益: {execution.pnl:.2f})"
+                f"📊 戦略実行終了: {execution_id} - {reason} " f"(損益: {execution.pnl:.2f})"
             )
 
     def _get_current_price(self, symbol: str) -> float:

@@ -210,9 +210,7 @@ class IntegratedIndividualRiskManagement:
             # 履歴に保存
             self.integrated_risk_history[symbol] = integrated_profile
 
-            logger.info(
-                f"統合リスク分析完了: {symbol} - リスクレベル: {risk_level.value}"
-            )
+            logger.info(f"統合リスク分析完了: {symbol} - リスクレベル: {risk_level.value}")
             return integrated_profile
 
         except Exception as e:
@@ -351,9 +349,7 @@ class IntegratedIndividualRiskManagement:
 
             # リスク要因に応じた推奨事項
             if "高ボラティリティ" in risk_factors:
-                actions.append(
-                    "ボラティリティが高いため、ポジションサイズを削減してください"
-                )
+                actions.append("ボラティリティが高いため、ポジションサイズを削減してください")
 
             if "高相関リスク" in risk_factors:
                 actions.append("相関リスクが高いため、分散投資を検討してください")
@@ -376,9 +372,7 @@ class IntegratedIndividualRiskManagement:
         try:
             # リスクスコアに基づくポジションサイズ調整
             base_position_size = individual_risk_profile.recommended_position_size
-            risk_adjustment = 1 - (
-                integrated_risk_score * 0.5
-            )  # リスクが高いほどポジションサイズを削減
+            risk_adjustment = 1 - (integrated_risk_score * 0.5)  # リスクが高いほどポジションサイズを削減
             adjusted_position_size = base_position_size * risk_adjustment
 
             # ストップロス推奨
@@ -389,9 +383,7 @@ class IntegratedIndividualRiskManagement:
             adjusted_stop_loss = base_stop_loss * stop_loss_adjustment
 
             # 最大損失推奨
-            max_loss_adjustment = 1 - (
-                integrated_risk_score * 0.4
-            )  # リスクが高いほど最大損失を削減
+            max_loss_adjustment = 1 - (integrated_risk_score * 0.4)  # リスクが高いほど最大損失を削減
             adjusted_max_loss = (
                 individual_risk_profile.max_loss_amount * max_loss_adjustment
             )
@@ -399,13 +391,9 @@ class IntegratedIndividualRiskManagement:
             # 分散投資推奨
             diversification_recommendations = []
             if integrated_risk_score > 0.7:
-                diversification_recommendations.append(
-                    "異なるセクターへの分散投資を強く推奨します"
-                )
+                diversification_recommendations.append("異なるセクターへの分散投資を強く推奨します")
             elif integrated_risk_score > 0.5:
-                diversification_recommendations.append(
-                    "分散投資の改善を検討してください"
-                )
+                diversification_recommendations.append("分散投資の改善を検討してください")
 
             return {
                 "position_size": adjusted_position_size,
@@ -499,9 +487,7 @@ class IntegratedIndividualRiskManagement:
             # 履歴に保存
             self.portfolio_risk_history.append(summary)
 
-            logger.info(
-                f"ポートフォリオリスク分析完了: 平均リスクスコア {average_risk_score:.3f}"
-            )
+            logger.info(f"ポートフォリオリスク分析完了: 平均リスクスコア {average_risk_score:.3f}")
             return summary
 
         except Exception as e:
@@ -637,19 +623,13 @@ class IntegratedIndividualRiskManagement:
                 )
 
             if high_risk_stocks:
-                actions.append(
-                    f"高リスク銘柄: {', '.join(high_risk_stocks)} の見直しを推奨します"
-                )
+                actions.append(f"高リスク銘柄: {', '.join(high_risk_stocks)} の見直しを推奨します")
 
             # 分散投資レベルに応じた推奨事項
             if diversification_level == DiversificationLevel.CRITICAL:
-                actions.append(
-                    "分散投資が極めて不十分です。銘柄数を大幅に増やしてください"
-                )
+                actions.append("分散投資が極めて不十分です。銘柄数を大幅に増やしてください")
             elif diversification_level == DiversificationLevel.POOR:
-                actions.append(
-                    "分散投資が不十分です。異なるセクターへの投資を検討してください"
-                )
+                actions.append("分散投資が不十分です。異なるセクターへの投資を検討してください")
             elif diversification_level == DiversificationLevel.FAIR:
                 actions.append("分散投資の改善を検討してください")
             else:
@@ -758,9 +738,7 @@ async def main():
             )
 
             logger.info(f"統合リスク分析完了: {symbol}")
-            logger.info(
-                f"  統合リスクスコア: {integrated_profile.integrated_risk_score:.3f}"
-            )
+            logger.info(f"  統合リスクスコア: {integrated_profile.integrated_risk_score:.3f}")
             logger.info(f"  リスクレベル: {integrated_profile.risk_level.value}")
             logger.info(f"  リスク要因: {', '.join(integrated_profile.risk_factors)}")
             logger.info(
@@ -769,9 +747,7 @@ async def main():
             logger.info(
                 f"  推奨ストップロス: ¥{integrated_profile.stop_loss_recommendation:,.0f}"
             )
-            logger.info(
-                f"  推奨最大損失: ¥{integrated_profile.max_loss_recommendation:,.0f}"
-            )
+            logger.info(f"  推奨最大損失: ¥{integrated_profile.max_loss_recommendation:,.0f}")
 
         except Exception as e:
             logger.error(f"統合リスク分析エラー: {symbol} - {e}")
@@ -788,9 +764,7 @@ async def main():
         logger.info(f"  平均リスクスコア: {portfolio_summary.average_risk_score:.3f}")
         logger.info(f"  統合リスクレベル: {portfolio_summary.overall_risk_level.value}")
         logger.info(f"  高リスク銘柄: {', '.join(portfolio_summary.high_risk_stocks)}")
-        logger.info(
-            f"  致命的リスク銘柄: {', '.join(portfolio_summary.critical_risk_stocks)}"
-        )
+        logger.info(f"  致命的リスク銘柄: {', '.join(portfolio_summary.critical_risk_stocks)}")
         logger.info(
             f"  分散投資レベル: {portfolio_summary.portfolio_diversification_level.value}"
         )
@@ -832,17 +806,13 @@ async def main():
         print(f"  総銘柄数: {latest_portfolio.total_stocks}")
         print(f"  平均リスクスコア: {latest_portfolio.average_risk_score:.3f}")
         print(f"  統合リスクレベル: {latest_portfolio.overall_risk_level.value}")
-        print(
-            f"  分散投資レベル: {latest_portfolio.portfolio_diversification_level.value}"
-        )
+        print(f"  分散投資レベル: {latest_portfolio.portfolio_diversification_level.value}")
 
         if latest_portfolio.high_risk_stocks:
             print(f"  高リスク銘柄: {', '.join(latest_portfolio.high_risk_stocks)}")
 
         if latest_portfolio.critical_risk_stocks:
-            print(
-                f"  致命的リスク銘柄: {', '.join(latest_portfolio.critical_risk_stocks)}"
-            )
+            print(f"  致命的リスク銘柄: {', '.join(latest_portfolio.critical_risk_stocks)}")
 
         print(f"\n💡 ポートフォリオ推奨事項:")
         for action in latest_portfolio.recommended_portfolio_actions:

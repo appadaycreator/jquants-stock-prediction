@@ -190,9 +190,7 @@ class IndividualStockRiskManager:
             # プロファイル保存
             self.stock_profiles[symbol] = risk_profile
 
-            logger.info(
-                f"個別銘柄リスク分析完了: {symbol} - リスクレベル: {risk_level.value}"
-            )
+            logger.info(f"個別銘柄リスク分析完了: {symbol} - リスクレベル: {risk_level.value}")
             return risk_profile
 
         except Exception as e:
@@ -459,9 +457,7 @@ class IndividualStockRiskManager:
             base_position_size = self.account_value * 0.05
 
             # リスクスコアによる調整
-            risk_adjustment = 1 - (
-                risk_score * 0.5
-            )  # リスクが高いほどポジションサイズを縮小
+            risk_adjustment = 1 - (risk_score * 0.5)  # リスクが高いほどポジションサイズを縮小
 
             # ボラティリティによる調整
             vol_adjustment = 1 - (volatility_metrics.volatility_risk_score * 0.3)
@@ -602,9 +598,7 @@ class IndividualStockRiskManager:
             )
 
             if high_risk_count > len(self.stock_profiles) * 0.3:
-                recommendations.append(
-                    "高リスク銘柄の割合が高すぎます。リスク分散を検討してください。"
-                )
+                recommendations.append("高リスク銘柄の割合が高すぎます。リスク分散を検討してください。")
 
             # 分散投資の推奨
             if len(self.stock_profiles) < self.risk_params["min_diversification"]:
@@ -620,9 +614,7 @@ class IndividualStockRiskManager:
             )
 
             if high_correlation_count > 0:
-                recommendations.append(
-                    "高相関銘柄が存在します。異なるセクターへの分散投資を検討してください。"
-                )
+                recommendations.append("高相関銘柄が存在します。異なるセクターへの分散投資を検討してください。")
 
             if not recommendations:
                 recommendations.append("現在のポートフォリオ構成は適切です。")
@@ -672,9 +664,7 @@ async def main():
             logger.info(f"分析完了: {symbol}")
             logger.info(f"  リスクレベル: {risk_profile.risk_level.value}")
             logger.info(f"  総合リスクスコア: {risk_profile.total_risk_score:.3f}")
-            logger.info(
-                f"  推奨ポジションサイズ: ¥{risk_profile.recommended_position_size:,.0f}"
-            )
+            logger.info(f"  推奨ポジションサイズ: ¥{risk_profile.recommended_position_size:,.0f}")
             logger.info(f"  動的損切り: {risk_profile.dynamic_stop_loss:.0f}")
             logger.info(f"  最大損失額: ¥{risk_profile.max_loss_amount:,.0f}")
 

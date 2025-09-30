@@ -181,9 +181,7 @@ class AdvancedStrategyOptimizer:
                     population, scores, mutation_rate, crossover_rate, parameter_ranges
                 )
 
-        logger.info(
-            f"遺伝的アルゴリズム最適化完了: {strategy.name}, スコア: {best_score:.4f}"
-        )
+        logger.info(f"遺伝的アルゴリズム最適化完了: {strategy.name}, スコア: {best_score:.4f}")
         return {
             "best_parameters": best_individual or {},
             "best_score": best_score,
@@ -228,9 +226,7 @@ class AdvancedStrategyOptimizer:
                 logger.warning(f"ランダムパラメータエラー: {params}, {e}")
                 continue
 
-        logger.info(
-            f"ランダムサーチ最適化完了: {strategy.name}, スコア: {best_score:.4f}"
-        )
+        logger.info(f"ランダムサーチ最適化完了: {strategy.name}, スコア: {best_score:.4f}")
         return {
             "best_parameters": best_params,
             "best_score": best_score,
@@ -701,18 +697,12 @@ class MultiStrategyManager:
             portfolio_perf = self.calculate_portfolio_performance()
             if portfolio_perf:
                 report.append(f"\n📈 ポートフォリオパフォーマンス:")
-                report.append(
-                    f"  年率リターン: {portfolio_perf['portfolio_return']:.2%}"
-                )
+                report.append(f"  年率リターン: {portfolio_perf['portfolio_return']:.2%}")
                 report.append(
                     f"  ボラティリティ: {portfolio_perf['portfolio_volatility']:.2%}"
                 )
-                report.append(
-                    f"  シャープレシオ: {portfolio_perf['portfolio_sharpe']:.2f}"
-                )
-                report.append(
-                    f"  分散化比率: {portfolio_perf['diversification_ratio']:.2f}"
-                )
+                report.append(f"  シャープレシオ: {portfolio_perf['portfolio_sharpe']:.2f}")
+                report.append(f"  分散化比率: {portfolio_perf['diversification_ratio']:.2f}")
 
         return "\n".join(report)
 

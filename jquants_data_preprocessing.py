@@ -157,9 +157,7 @@ def load_and_clean_data(input_file):
                 try:
                     df[col] = pd.to_numeric(df[col], errors="coerce")
                 except Exception as e:
-                    error_handler.handle_data_processing_error(
-                        e, f"数値カラム変換 ({col})"
-                    )
+                    error_handler.handle_data_processing_error(e, f"数値カラム変換 ({col})")
                     logger.warning(f"⚠️ {col}カラムの数値変換でエラー: {e}")
 
         # 型安全な欠損値処理
@@ -364,9 +362,7 @@ def feature_selection_and_validation(df):
     available_features = [col for col in enhanced_features if col in df.columns]
     missing_features = [col for col in enhanced_features if col not in df.columns]
 
-    logger.info(
-        f"✅ 利用可能な特徴量: {len(available_features)}/{len(enhanced_features)}"
-    )
+    logger.info(f"✅ 利用可能な特徴量: {len(available_features)}/{len(enhanced_features)}")
 
     if missing_features:
         logger.warning(f"⚠️ 不足している特徴量: {len(missing_features)}個")

@@ -76,12 +76,8 @@ class MemoryOptimizationTester:
 
         # 最適化前のメモリ使用量測定
         before_metrics = self.measure_memory_usage(test_df, "before_optimization")
-        logger.info(
-            f"📊 最適化前メモリ使用量: {before_metrics['total_memory_mb']:.1f}MB"
-        )
-        logger.info(
-            f"📊 データフレームメモリ使用量: {before_metrics['dataframe_memory_mb']:.1f}MB"
-        )
+        logger.info(f"📊 最適化前メモリ使用量: {before_metrics['total_memory_mb']:.1f}MB")
+        logger.info(f"📊 データフレームメモリ使用量: {before_metrics['dataframe_memory_mb']:.1f}MB")
 
         # 統合システムによるメモリ最適化
         logger.info("🔧 統合システムによるメモリ最適化実行")
@@ -89,12 +85,8 @@ class MemoryOptimizationTester:
 
         # 最適化後のメモリ使用量測定
         after_metrics = self.measure_memory_usage(optimized_df, "after_optimization")
-        logger.info(
-            f"📊 最適化後メモリ使用量: {after_metrics['total_memory_mb']:.1f}MB"
-        )
-        logger.info(
-            f"📊 データフレームメモリ使用量: {after_metrics['dataframe_memory_mb']:.1f}MB"
-        )
+        logger.info(f"📊 最適化後メモリ使用量: {after_metrics['total_memory_mb']:.1f}MB")
+        logger.info(f"📊 データフレームメモリ使用量: {after_metrics['dataframe_memory_mb']:.1f}MB")
 
         # 効果の計算
         total_memory_saved = (
@@ -195,18 +187,14 @@ class MemoryOptimizationTester:
 
                 # メモリ制限チェック
                 is_within_limit = self.system.memory_optimizer.check_memory_limit()
-                logger.info(
-                    f"📊 メモリ制限チェック: {'✅ 制限内' if is_within_limit else '⚠️ 制限超過'}"
-                )
+                logger.info(f"📊 メモリ制限チェック: {'✅ 制限内' if is_within_limit else '⚠️ 制限超過'}")
 
                 # 自動最適化の適用
                 optimized_df = self.system.auto_apply_memory_optimization(test_df)
 
                 # 最適化後の制限チェック
                 final_check = self.system.memory_optimizer.check_memory_limit()
-                logger.info(
-                    f"📊 最適化後メモリ制限チェック: {'✅ 制限内' if final_check else '⚠️ 制限超過'}"
-                )
+                logger.info(f"📊 最適化後メモリ制限チェック: {'✅ 制限内' if final_check else '⚠️ 制限超過'}")
 
                 # 結果の記録
                 self.results["memory_limit_handling"] = {

@@ -52,9 +52,7 @@ class RefactoredUnifiedSystem:
         )
 
         # 統合システムの初期化完了
-        self.logger.log_info(
-            f"🚀 リファクタリング済み統合システム初期化完了: {self.module_name}"
-        )
+        self.logger.log_info(f"🚀 リファクタリング済み統合システム初期化完了: {self.module_name}")
 
     # ==================== 設定管理機能 ====================
 
@@ -289,9 +287,7 @@ class RefactoredUnifiedSystem:
                 "data_size": len(sample_data),
             }
         except Exception as e:
-            self.log_error(
-                e, "パイプライン実行エラー", ErrorCategory.DATA_PROCESSING_ERROR
-            )
+            self.log_error(e, "パイプライン実行エラー", ErrorCategory.DATA_PROCESSING_ERROR)
             return {"error": str(e), "status": "error"}
 
     def cleanup(self):

@@ -197,9 +197,7 @@ class MaxLossManagementSystem:
             # 設定保存
             self.max_loss_settings[symbol] = settings
 
-            logger.info(
-                f"最大損失設定完了: {symbol} - 最大損失額: ¥{max_loss_amount:,.0f}"
-            )
+            logger.info(f"最大損失設定完了: {symbol} - 最大損失額: ¥{max_loss_amount:,.0f}")
             return settings
 
         except Exception as e:
@@ -502,15 +500,25 @@ class MaxLossManagementSystem:
             loss_percent = abs(loss_status.loss_percent) * 100
 
             if loss_status.loss_level == LossLevel.CRITICAL:
-                return f"{symbol}: 致命的な損失発生！損失額: ¥{loss_amount:,.0f} ({loss_percent:.1f}%)"
+                return (
+                    f"{symbol}: 致命的な損失発生！損失額: ¥{loss_amount:,.0f} ({loss_percent:.1f}%)"
+                )
             elif loss_status.loss_level == LossLevel.SEVERE:
-                return f"{symbol}: 深刻な損失発生。損失額: ¥{loss_amount:,.0f} ({loss_percent:.1f}%)"
+                return (
+                    f"{symbol}: 深刻な損失発生。損失額: ¥{loss_amount:,.0f} ({loss_percent:.1f}%)"
+                )
             elif loss_status.loss_level == LossLevel.SIGNIFICANT:
-                return f"{symbol}: 重要な損失発生。損失額: ¥{loss_amount:,.0f} ({loss_percent:.1f}%)"
+                return (
+                    f"{symbol}: 重要な損失発生。損失額: ¥{loss_amount:,.0f} ({loss_percent:.1f}%)"
+                )
             elif loss_status.loss_level == LossLevel.MODERATE:
-                return f"{symbol}: 中程度の損失発生。損失額: ¥{loss_amount:,.0f} ({loss_percent:.1f}%)"
+                return (
+                    f"{symbol}: 中程度の損失発生。損失額: ¥{loss_amount:,.0f} ({loss_percent:.1f}%)"
+                )
             else:
-                return f"{symbol}: 軽微な損失発生。損失額: ¥{loss_amount:,.0f} ({loss_percent:.1f}%)"
+                return (
+                    f"{symbol}: 軽微な損失発生。損失額: ¥{loss_amount:,.0f} ({loss_percent:.1f}%)"
+                )
         except Exception as e:
             logger.error(f"アラートメッセージ生成エラー: {e}")
             return f"{symbol}: 損失状況の分析中にエラーが発生しました"
@@ -580,9 +588,7 @@ class MaxLossManagementSystem:
     def _execute_auto_stop_loss(self, symbol: str, loss_status: PositionLossStatus):
         """自動損切り実行"""
         try:
-            logger.critical(
-                f"自動損切り実行: {symbol} @ ¥{loss_status.current_price:,.0f}"
-            )
+            logger.critical(f"自動損切り実行: {symbol} @ ¥{loss_status.current_price:,.0f}")
 
             # ポジションクローズ（実際の実装ではブローカーAPIを呼び出し）
             if symbol in self.positions:

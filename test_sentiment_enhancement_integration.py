@@ -422,18 +422,14 @@ async def run_performance_test():
                 f"  平均処理時間（統計）: {performance_stats['avg_processing_time']:.2f}秒"
             )
             logger.info(f"  平均精度: {performance_stats.get('avg_accuracy', 0):.2f}")
-            logger.info(
-                f"  平均信頼性: {performance_stats.get('avg_reliability', 0):.2f}"
-            )
+            logger.info(f"  平均信頼性: {performance_stats.get('avg_reliability', 0):.2f}")
 
         # 性能要件の確認
         max_acceptable_time = 30.0  # 30秒
         if execution_time <= max_acceptable_time:
             logger.info("✅ 性能要件を満たしています")
         else:
-            logger.warning(
-                f"⚠️ 性能要件を超過しています (許容値: {max_acceptable_time}秒)"
-            )
+            logger.warning(f"⚠️ 性能要件を超過しています (許容値: {max_acceptable_time}秒)")
 
         return True
 
@@ -463,9 +459,7 @@ async def main():
     # 結果の表示
     logger.info(f"📋 テスト結果:")
     logger.info(f"  実行テスト数: {result.testsRun}")
-    logger.info(
-        f"  成功: {result.testsRun - len(result.failures) - len(result.errors)}"
-    )
+    logger.info(f"  成功: {result.testsRun - len(result.failures) - len(result.errors)}")
     logger.info(f"  失敗: {len(result.failures)}")
     logger.info(f"  エラー: {len(result.errors)}")
 

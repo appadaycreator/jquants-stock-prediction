@@ -246,9 +246,7 @@ def main():
 
     if success:
         print("✅ 個人投資ダッシュボード用データの生成が完了しました")
-        print(
-            "📊 データファイル: web-app/public/data/personal_investment_dashboard.json と 日付別"
-        )
+        print("📊 データファイル: web-app/public/data/personal_investment_dashboard.json と 日付別")
         print(f"💰 総投資額: {dashboard_data['pnl_summary']['total_investment']:,}円")
         print(f"📈 現在価値: {dashboard_data['pnl_summary']['current_value']:,}円")
         print(f"💵 未実現損益: {dashboard_data['pnl_summary']['unrealized_pnl']:,}円")

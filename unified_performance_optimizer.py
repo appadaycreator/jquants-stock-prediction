@@ -357,7 +357,5 @@ if __name__ == "__main__":
     optimizer.log_optimization_summary()
 
     print("📊 統合パフォーマンス最適化テスト完了")
-    print(
-        f"📈 最適化されたデータ: {len(optimized_df)}行, {len(optimized_df.columns)}列"
-    )
+    print(f"📈 最適化されたデータ: {len(optimized_df)}行, {len(optimized_df.columns)}列")
     print(f"🤖 モデル比較結果: {len(model_results)}モデル")

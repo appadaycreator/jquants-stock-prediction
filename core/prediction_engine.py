@@ -67,9 +67,7 @@ class PredictionEngine:
             )
 
             if self.logger:
-                self.logger.log_info(
-                    f"訓練データ: {len(X_train)}行, テストデータ: {len(X_test)}行"
-                )
+                self.logger.log_info(f"訓練データ: {len(X_train)}行, テストデータ: {len(X_test)}行")
 
             # モデル設定の取得
             model_selection = self.prediction_config.get("model_selection", {})
@@ -116,8 +114,7 @@ class PredictionEngine:
             r2 = model_results["r2"]
             if self.logger:
                 self.logger.log_info(
-                    f"✅ 予測完了! モデル: {best_model_name}, "
-                    f"MAE: {mae:.4f}, R²: {r2:.4f}"
+                    f"✅ 予測完了! モデル: {best_model_name}, " f"MAE: {mae:.4f}, R²: {r2:.4f}"
                 )
 
             return results
@@ -168,15 +165,11 @@ class PredictionEngine:
                 model_name = best_result["model_name"]
                 mae = best_result["mae"]
                 if self.logger:
-                    self.logger.log_info(
-                        f"🏆 最優秀モデル: {model_name} (MAE: {mae:.4f})"
-                    )
+                    self.logger.log_info(f"🏆 最優秀モデル: {model_name} (MAE: {mae:.4f})")
                 return {"best_model": best_result["model_name"], "results": results}
             else:
                 if self.logger:
-                    self.logger.log_warning(
-                        "有効なモデルが見つかりませんでした。デフォルトモデルを使用します。"
-                    )
+                    self.logger.log_warning("有効なモデルが見つかりませんでした。デフォルトモデルを使用します。")
                 return {"best_model": "random_forest", "results": []}
 
         except Exception as e:
@@ -237,9 +230,7 @@ class PredictionEngine:
 
             # メインプロット
             plt.subplot(2, 2, 1)
-            plt.plot(
-                y_test.values, label="実際の株価", color="blue", alpha=0.7, linewidth=2
-            )
+            plt.plot(y_test.values, label="実際の株価", color="blue", alpha=0.7, linewidth=2)
             plt.plot(y_pred, label="予測株価", color="red", alpha=0.7, linewidth=2)
             plt.legend()
             plt.title(f"株価予測結果 ({model_name})")
@@ -310,9 +301,7 @@ class PredictionEngine:
             return {
                 "is_valid": len(issues) == 0,
                 "issues": issues,
-                "message": (
-                    "データ検証成功" if len(issues) == 0 else "データ検証で問題を発見"
-                ),
+                "message": ("データ検証成功" if len(issues) == 0 else "データ検証で問題を発見"),
             }
 
         except Exception as e:
@@ -349,9 +338,7 @@ class PredictionEngine:
             # データが空の場合はサンプル予測値を返す
             if len(data) == 0:
                 if self.logger:
-                    self.logger.log_warning(
-                        "予測データが空です。サンプル予測値を返します。"
-                    )
+                    self.logger.log_warning("予測データが空です。サンプル予測値を返します。")
                 return [1, 2, 3]  # サンプル予測値
 
             return model.predict(data)

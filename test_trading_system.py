@@ -205,9 +205,7 @@ def run_simple_analysis():
         sample_data["Return"] = sample_data["Close"].pct_change()
 
         print("  ✅ サンプルデータ生成成功")
-        print(
-            f"  📈 データ期間: {sample_data['Date'].min()} ～ {sample_data['Date'].max()}"
-        )
+        print(f"  📈 データ期間: {sample_data['Date'].min()} ～ {sample_data['Date'].max()}")
         print(f"  📊 データ件数: {len(sample_data)}件")
         print(
             f"  💰 価格範囲: ¥{sample_data['Close'].min():.2f} ～ ¥{sample_data['Close'].max():.2f}"

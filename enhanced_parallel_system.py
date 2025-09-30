@@ -30,9 +30,7 @@ try:
         parallel_map_unified,
     )
 except ImportError:
-    print(
-        "並列処理最適化システムが見つかりません。parallel_processing_optimizer.pyを確認してください。"
-    )
+    print("並列処理最適化システムが見つかりません。parallel_processing_optimizer.pyを確認してください。")
     sys.exit(1)
 
 # ログ設定

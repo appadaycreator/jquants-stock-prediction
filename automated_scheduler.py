@@ -119,9 +119,7 @@ class AutomatedScheduler:
             msg = MIMEMultipart()
             msg["From"] = self.config.email_user
             msg["To"] = self.config.email_to
-            msg["Subject"] = (
-                f"株価分析結果 - {datetime.now().strftime('%Y-%m-%d %H:%M')}"
-            )
+            msg["Subject"] = f"株価分析結果 - {datetime.now().strftime('%Y-%m-%d %H:%M')}"
 
             # メール本文の作成
             if result["status"] == "success":

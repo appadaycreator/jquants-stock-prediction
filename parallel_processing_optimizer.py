@@ -162,9 +162,7 @@ class ParallelProcessingOptimizer:
                 self.current_workers = max(self.min_workers, self.current_workers - 1)
 
             if old_workers != self.current_workers:
-                logger.info(
-                    f"🔄 ワーカー数調整: {old_workers} → {self.current_workers}"
-                )
+                logger.info(f"🔄 ワーカー数調整: {old_workers} → {self.current_workers}")
                 logger.info(f"   - CPU使用率: {avg_cpu:.1f}%")
                 logger.info(f"   - メモリ使用率: {avg_memory:.1f}%")
 

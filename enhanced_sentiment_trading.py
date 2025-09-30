@@ -349,9 +349,7 @@ class EnhancedSentimentTradingSystem:
                 }
 
             current_price = hist["Close"].iloc[-1]
-            volatility = hist["Close"].pct_change().std() * np.sqrt(
-                252
-            )  # 年率ボラティリティ
+            volatility = hist["Close"].pct_change().std() * np.sqrt(252)  # 年率ボラティリティ
 
             # リスクレベルの決定
             confidence = combined_signal.get("confidence", 0.0)
@@ -420,9 +418,9 @@ class EnhancedSentimentTradingSystem:
                     if (h["score"] > 0 and h.get("actual_return", 0) > 0)
                     or (h["score"] < 0 and h.get("actual_return", 0) < 0)
                 )
-                self.performance_metrics["sentiment_accuracy"] = (
-                    correct_predictions / len(self.sentiment_history[-20:])
-                )
+                self.performance_metrics[
+                    "sentiment_accuracy"
+                ] = correct_predictions / len(self.sentiment_history[-20:])
 
         except Exception as e:
             logger.error(f"パフォーマンス指標更新エラー: {e}")
@@ -513,12 +511,8 @@ async def main():
     for signal in enhanced_signals:
         print(f"\n{signal.symbol}:")
         print(f"  統合シグナル: {signal.combined_signal}")
-        print(
-            f"  技術分析: {signal.technical_signal} (スコア: {signal.technical_score:.3f})"
-        )
-        print(
-            f"  感情分析: {signal.sentiment_signal} (スコア: {signal.sentiment_score:.3f})"
-        )
+        print(f"  技術分析: {signal.technical_signal} (スコア: {signal.technical_score:.3f})")
+        print(f"  感情分析: {signal.sentiment_signal} (スコア: {signal.sentiment_score:.3f})")
         print(f"  信頼度: {signal.confidence:.3f}")
         print(f"  リスクレベル: {signal.risk_level}")
         print(f"  ポジションサイズ: {signal.position_size:.1%}")

@@ -224,9 +224,7 @@ class HighFrequencyTrading:
             try:
                 # リスクチェック
                 if not self._check_risk_limits(opportunity):
-                    logger.warning(
-                        f"リスク制限により取引をスキップ: {opportunity.symbol}"
-                    )
+                    logger.warning(f"リスク制限により取引をスキップ: {opportunity.symbol}")
                     continue
 
                 # 買い注文
@@ -259,9 +257,7 @@ class HighFrequencyTrading:
                     self.profit_loss += profit
                     self.total_trades += 2
 
-                    logger.info(
-                        f"裁定取引を実行: {opportunity.symbol}, 利益: {profit:.2f}"
-                    )
+                    logger.info(f"裁定取引を実行: {opportunity.symbol}, 利益: {profit:.2f}")
 
             except Exception as e:
                 logger.error(f"取引実行中にエラー: {e}")
@@ -295,9 +291,7 @@ class HighFrequencyTrading:
         """
         # 実際の実装では取引所APIを呼び出し
         # ここではモックとして常に成功を返す
-        logger.debug(
-            f"注文を送信: {trade.symbol} {trade.side} {trade.volume}@{trade.price}"
-        )
+        logger.debug(f"注文を送信: {trade.symbol} {trade.side} {trade.volume}@{trade.price}")
         return True
 
     def _check_risk_limits(self, opportunity: ArbitrageOpportunity) -> bool:

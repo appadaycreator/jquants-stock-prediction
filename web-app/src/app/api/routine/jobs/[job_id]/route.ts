@@ -2,9 +2,14 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-static';
 
-export async function GET(_req: Request, { params }: { params: { job_id: string } }) {
+export async function GET(req: Request) {
   try {
-    const jobId = params.job_id;
+    const url = new URL(req.url);
+    const match = url.pathname.match(/\/api\/routine\/jobs\/([^/]+)/);
+    const jobId = match?.[1] || url.searchParams.get('job_id') || '';
+    if (!jobId) {
+      return NextResponse.json({ error: 'Bad Request' }, { status: 400 });
+    }
     // 既存のジョブAPIに委譲
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/jobs/${jobId}`, { cache: 'no-store' });
     if (!res.ok) {

@@ -84,9 +84,7 @@ class ErrorHandler:
 
             if current_attempts >= max_attempts:
                 if self.logger:
-                    self.logger.log_warning(
-                        f"復旧試行の上限に達しました: {category.value}"
-                    )
+                    self.logger.log_warning(f"復旧試行の上限に達しました: {category.value}")
                 return
 
             # カテゴリ別復旧処理
@@ -104,9 +102,7 @@ class ErrorHandler:
                 self._recover_authentication_error(error, context)
             else:
                 if self.logger:
-                    self.logger.log_warning(
-                        f"特定の復旧戦略がありません: {category.value}"
-                    )
+                    self.logger.log_warning(f"特定の復旧戦略がありません: {category.value}")
 
             # 復旧試行回数を更新
             self.recovery_attempts[recovery_key] = current_attempts + 1
@@ -307,9 +303,7 @@ class ErrorHandler:
                 self.logger.log_info("エラー復旧ワークフローを実行しました")
             return recovery_result
         except Exception as e:
-            self.log_error(
-                e, "エラー復旧ワークフローエラー", ErrorCategory.DATA_PROCESSING_ERROR
-            )
+            self.log_error(e, "エラー復旧ワークフローエラー", ErrorCategory.DATA_PROCESSING_ERROR)
             raise
 
     def attempt_error_recovery(self, error: Exception) -> bool:

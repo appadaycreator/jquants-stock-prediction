@@ -226,9 +226,7 @@ class AutoRecoverySystem:
         try:
             data = context.get("data")
             if data is None:
-                return RecoveryResult(
-                    success=False, error_message="データが指定されていません"
-                )
+                return RecoveryResult(success=False, error_message="データが指定されていません")
 
             # データの自動修正
             fixed_data = self._fix_data_issues(data)
@@ -245,9 +243,7 @@ class AutoRecoverySystem:
             # フォールバック用の簡易処理
             data = context.get("data")
             if data is None:
-                return RecoveryResult(
-                    success=False, error_message="データが指定されていません"
-                )
+                return RecoveryResult(success=False, error_message="データが指定されていません")
 
             # 簡易処理の実行
             processed_data = self._simplified_processing(data)
@@ -269,9 +265,7 @@ class AutoRecoverySystem:
             # データの分割処理
             data = context.get("data")
             if data is None:
-                return RecoveryResult(
-                    success=False, error_message="データが指定されていません"
-                )
+                return RecoveryResult(success=False, error_message="データが指定されていません")
 
             # データを小さなチャンクに分割
             chunk_size = len(data) // 4
@@ -298,9 +292,7 @@ class AutoRecoverySystem:
             # 代替ファイルの検索
             original_path = context.get("file_path")
             if not original_path:
-                return RecoveryResult(
-                    success=False, error_message="ファイルパスが指定されていません"
-                )
+                return RecoveryResult(success=False, error_message="ファイルパスが指定されていません")
 
             # 代替ファイルの検索
             alternative_paths = self._find_alternative_files(original_path)
@@ -311,9 +303,7 @@ class AutoRecoverySystem:
                     data = pd.read_csv(alt_path)
                     return RecoveryResult(success=True, recovered_data=data)
 
-            return RecoveryResult(
-                success=False, error_message="代替ファイルが見つかりません"
-            )
+            return RecoveryResult(success=False, error_message="代替ファイルが見つかりません")
 
         except Exception as e:
             return RecoveryResult(success=False, error_message=str(e))
@@ -326,9 +316,7 @@ class AutoRecoverySystem:
             # ネットワーク操作の再試行
             network_function = context.get("network_function")
             if not network_function:
-                return RecoveryResult(
-                    success=False, error_message="ネットワーク関数が指定されていません"
-                )
+                return RecoveryResult(success=False, error_message="ネットワーク関数が指定されていません")
 
             # 再試行
             result = network_function()
@@ -449,9 +437,7 @@ class AutoRecoverySystem:
             "strategy_used": (
                 result.strategy_used.value if result.strategy_used else None
             ),
-            "context": {
-                k: str(v) for k, v in context.items() if k != "data"
-            },  # データは除外
+            "context": {k: str(v) for k, v in context.items() if k != "data"},  # データは除外
         }
 
         self.recovery_history.append(history_entry)

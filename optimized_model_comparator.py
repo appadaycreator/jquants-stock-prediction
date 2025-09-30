@@ -499,12 +499,8 @@ class OptimizedModelComparator:
             f"  🏆 最優秀モデル: {df_results.iloc[0]['model_name']} (MAE: {df_results.iloc[0]['mae']:.4f})"
         )
         self.logger.info(f"  📈 平均MAE: {df_results['mae'].mean():.4f}")
-        self.logger.info(
-            f"  ⏱️ 平均学習時間: {df_results['training_time'].mean():.2f}秒"
-        )
-        self.logger.info(
-            f"  💾 平均メモリ使用量: {df_results['memory_usage'].mean():.1f}MB"
-        )
+        self.logger.info(f"  ⏱️ 平均学習時間: {df_results['training_time'].mean():.2f}秒")
+        self.logger.info(f"  💾 平均メモリ使用量: {df_results['memory_usage'].mean():.1f}MB")
 
         # 上位3モデルを表示
         top_3 = df_results.head(3)

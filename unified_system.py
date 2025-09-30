@@ -157,9 +157,7 @@ class UnifiedSystem:
             self.logger.info(f"  📋 キャッシュ: {'有効' if use_cache else '無効'}")
 
         except ImportError as e:
-            self.log_warning(
-                f"パフォーマンス最適化システムの一部をインポートできませんでした: {e}"
-            )
+            self.log_warning(f"パフォーマンス最適化システムの一部をインポートできませんでした: {e}")
             # フォールバック設定
             self.memory_optimizer = None
             self.cache_manager = None
@@ -449,9 +447,7 @@ class UnifiedSystem:
         self.logger.info("APIエラーの復旧を試行中...")
         # APIエラーの復旧ロジック（リトライ、認証更新など）
         if context and context.get("retry_count", 0) < 3:
-            self.logger.info(
-                f"APIリトライを実行: {context.get('retry_count', 0) + 1}回目"
-            )
+            self.logger.info(f"APIリトライを実行: {context.get('retry_count', 0) + 1}回目")
         else:
             self.logger.warning("API復旧の上限に達しました")
 
@@ -694,9 +690,7 @@ class UnifiedSystem:
             self.logger.info("エラー復旧ワークフローを実行しました")
             return recovery_result
         except Exception as e:
-            self.log_error(
-                e, "エラー復旧ワークフローエラー", ErrorCategory.DATA_PROCESSING_ERROR
-            )
+            self.log_error(e, "エラー復旧ワークフローエラー", ErrorCategory.DATA_PROCESSING_ERROR)
             raise DataProcessingError(f"エラー復旧ワークフローエラー: {e}")
 
     def optimize_performance(self) -> Dict[str, Any]:
@@ -740,9 +734,7 @@ class UnifiedSystem:
 
                         # メモリ制限チェック
                         if not self.memory_optimizer.check_memory_limit():
-                            self.log_warning(
-                                "⚠️ メモリ制限に達しました。追加の最適化を実行します。"
-                            )
+                            self.log_warning("⚠️ メモリ制限に達しました。追加の最適化を実行します。")
                             # 追加の最適化処理
                             gc.collect()
 
@@ -764,9 +756,7 @@ class UnifiedSystem:
                     if memory_saved > 0:
                         self.log_info(f"✅ メモリ最適化完了: {memory_saved:.1f}MB節約")
                     else:
-                        self.log_info(
-                            f"✅ メモリ最適化完了: 現在のメモリ使用量 {final_memory:.1f}MB"
-                        )
+                        self.log_info(f"✅ メモリ最適化完了: 現在のメモリ使用量 {final_memory:.1f}MB")
 
                 except Exception as e:
                     self.log_warning(f"メモリ最適化エラー: {e}")
@@ -778,9 +768,9 @@ class UnifiedSystem:
                     # 最適化統計の取得
                     stats = self.ultra_processor.get_optimization_stats()
                     optimization_result["dataframe_optimization"] = True
-                    optimization_result["copy_operations_saved"] = (
-                        stats.copy_operations_saved
-                    )
+                    optimization_result[
+                        "copy_operations_saved"
+                    ] = stats.copy_operations_saved
                     optimization_result["inplace_operations"] = stats.inplace_operations
                     self.log_info("✅ データフレーム最適化完了")
                 except Exception as e:
@@ -822,9 +812,7 @@ class UnifiedSystem:
             return optimization_result
 
         except Exception as e:
-            self.log_error(
-                e, "パフォーマンス最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR
-            )
+            self.log_error(e, "パフォーマンス最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR)
             raise DataProcessingError(f"パフォーマンス最適化エラー: {e}")
 
     def auto_apply_memory_optimization(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -857,9 +845,7 @@ class UnifiedSystem:
                 if memory_saved > 0:
                     self.log_info(f"✅ 自動最適化完了: {memory_saved:.1f}MB節約")
                 else:
-                    self.log_info(
-                        f"✅ 自動最適化完了: 現在のメモリ使用量 {final_memory:.1f}MB"
-                    )
+                    self.log_info(f"✅ 自動最適化完了: 現在のメモリ使用量 {final_memory:.1f}MB")
 
                 return optimized_df
             else:
@@ -867,9 +853,7 @@ class UnifiedSystem:
                 return df
 
         except Exception as e:
-            self.log_error(
-                e, "自動メモリ最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR
-            )
+            self.log_error(e, "自動メモリ最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR)
             return df
 
     def optimize_data_processing(
@@ -939,9 +923,7 @@ class UnifiedSystem:
             return result_df
 
         except Exception as e:
-            self.log_error(
-                e, "データ処理最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR
-            )
+            self.log_error(e, "データ処理最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR)
             return df
 
     def get_performance_metrics(self) -> Dict[str, Any]:
@@ -968,7 +950,9 @@ class UnifiedSystem:
                 metrics["memory_status"] = (
                     "healthy"
                     if memory_usage_percent < 80
-                    else "warning" if memory_usage_percent < 95 else "critical"
+                    else "warning"
+                    if memory_usage_percent < 95
+                    else "critical"
                 )
 
             # キャッシュ統計の取得
@@ -1056,9 +1040,7 @@ class UnifiedSystem:
                 X, y, test_size=test_size, random_state=random_state
             )
 
-            self.log_info(
-                f"訓練データ: {len(X_train)}行, テストデータ: {len(X_test)}行"
-            )
+            self.log_info(f"訓練データ: {len(X_train)}行, テストデータ: {len(X_test)}行")
 
             # モデル設定の取得
             model_selection = prediction_config.get("model_selection", {})
@@ -1109,8 +1091,7 @@ class UnifiedSystem:
             mae = model_results["mae"]
             r2 = model_results["r2"]
             self.log_info(
-                f"✅ 予測完了! モデル: {best_model_name}, "
-                f"MAE: {mae:.4f}, R²: {r2:.4f}"
+                f"✅ 予測完了! モデル: {best_model_name}, " f"MAE: {mae:.4f}, R²: {r2:.4f}"
             )
 
             # パフォーマンスメトリクスの表示
@@ -1132,9 +1113,7 @@ class UnifiedSystem:
             return results
 
         except Exception as e:
-            self.handle_data_processing_error(
-                e, "株価予測実行", {"input_file": input_file}
-            )
+            self.handle_data_processing_error(e, "株価予測実行", {"input_file": input_file})
             raise
 
     def _compare_models_simple(
@@ -1181,9 +1160,7 @@ class UnifiedSystem:
                 self.log_info(f"🏆 最優秀モデル: {model_name} (MAE: {mae:.4f})")
                 return {"best_model": best_result["model_name"], "results": results}
             else:
-                self.log_warning(
-                    "有効なモデルが見つかりませんでした。デフォルトモデルを使用します。"
-                )
+                self.log_warning("有効なモデルが見つかりませんでした。デフォルトモデルを使用します。")
                 return {"best_model": "random_forest", "results": []}
 
         except Exception as e:
@@ -1245,9 +1222,7 @@ class UnifiedSystem:
 
             # メインプロット
             plt.subplot(2, 2, 1)
-            plt.plot(
-                y_test.values, label="実際の株価", color="blue", alpha=0.7, linewidth=2
-            )
+            plt.plot(y_test.values, label="実際の株価", color="blue", alpha=0.7, linewidth=2)
             plt.plot(y_pred, label="予測株価", color="red", alpha=0.7, linewidth=2)
             plt.legend()
             plt.title(f"株価予測結果 ({model_name})")
@@ -1524,9 +1499,7 @@ class UnifiedSystem:
                 "data_size": len(sample_data),
             }
         except Exception as e:
-            self.log_error(
-                e, "パイプライン実行エラー", ErrorCategory.DATA_PROCESSING_ERROR
-            )
+            self.log_error(e, "パイプライン実行エラー", ErrorCategory.DATA_PROCESSING_ERROR)
             return {"error": str(e), "status": "error"}
 
     def _handle_api_error(self, message):
@@ -1647,9 +1620,7 @@ class UnifiedSystem:
                 "timestamp": datetime.now().isoformat(),
             }
         except Exception as e:
-            self.log_error(
-                e, "エラー復旧ワークフローエラー", ErrorCategory.DATA_PROCESSING_ERROR
-            )
+            self.log_error(e, "エラー復旧ワークフローエラー", ErrorCategory.DATA_PROCESSING_ERROR)
             return {"recovery_attempts": 0, "success_rate": 0.0, "error": str(e)}
 
     def optimize_performance(self):
@@ -1672,9 +1643,7 @@ class UnifiedSystem:
                 "timestamp": datetime.now().isoformat(),
             }
         except Exception as e:
-            self.log_error(
-                e, "パフォーマンス最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR
-            )
+            self.log_error(e, "パフォーマンス最適化エラー", ErrorCategory.DATA_PROCESSING_ERROR)
             return {
                 "memory_usage_reduction": 0.0,
                 "processing_time_reduction": 0.0,

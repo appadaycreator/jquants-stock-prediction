@@ -77,9 +77,7 @@ class RiskToleranceOptimizer:
                 for symbol, profile_data in data.get("profiles", {}).items():
                     self._create_profile_from_data(symbol, profile_data)
 
-                self.logger.info(
-                    f"リスク許容度プロファイルを読み込み完了: {len(self.profiles)}銘柄"
-                )
+                self.logger.info(f"リスク許容度プロファイルを読み込み完了: {len(self.profiles)}銘柄")
             else:
                 self._create_default_profiles()
                 self.logger.info("デフォルトリスク許容度プロファイルを作成")
@@ -111,9 +109,7 @@ class RiskToleranceOptimizer:
             self.profiles[symbol] = profile
 
         except Exception as e:
-            self.logger.error(
-                f"銘柄 {symbol} のリスク許容度プロファイル作成エラー: {e}"
-            )
+            self.logger.error(f"銘柄 {symbol} のリスク許容度プロファイル作成エラー: {e}")
 
     def _create_default_profiles(self) -> None:
         """デフォルトリスク許容度プロファイルを作成"""
@@ -272,9 +268,7 @@ class RiskToleranceOptimizer:
     ) -> Dict[str, Any]:
         """リスク許容度を最適化"""
         if symbol not in self.profiles:
-            self.logger.warning(
-                f"銘柄 {symbol} のリスク許容度プロファイルが見つかりません"
-            )
+            self.logger.warning(f"銘柄 {symbol} のリスク許容度プロファイルが見つかりません")
             return {}
 
         profile = self.profiles[symbol]
@@ -445,9 +439,7 @@ class RiskToleranceOptimizer:
             return False
 
         if not 0 <= new_capacity <= 1:
-            self.logger.warning(
-                f"リスク容量は0-1の範囲で設定してください: {new_capacity}"
-            )
+            self.logger.warning(f"リスク容量は0-1の範囲で設定してください: {new_capacity}")
             return False
 
         self.profiles[symbol].risk_capacity = new_capacity

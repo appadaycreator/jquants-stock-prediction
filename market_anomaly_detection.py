@@ -509,9 +509,7 @@ class AnomalyAlertSystem:
             msg = MIMEMultipart()
             msg["From"] = self.email_config["from_email"]
             msg["To"] = self.email_config["to_email"]
-            msg["Subject"] = (
-                f"市場異常検知アラート - {anomaly.alert_level.value.upper()}"
-            )
+            msg["Subject"] = f"市場異常検知アラート - {anomaly.alert_level.value.upper()}"
 
             body = f"""
 市場異常が検知されました。

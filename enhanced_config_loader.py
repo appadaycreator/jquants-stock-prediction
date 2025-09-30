@@ -85,9 +85,7 @@ class EnhancedConfigLoader:
 
                     self.logger.info(f"設定ファイルを読み込みました: {file_path}")
                 except Exception as e:
-                    self.logger.error(
-                        f"設定ファイルの読み込みに失敗しました: {file_path} - {e}"
-                    )
+                    self.logger.error(f"設定ファイルの読み込みに失敗しました: {file_path} - {e}")
             else:
                 self.logger.warning(f"設定ファイルが見つかりません: {file_path}")
 

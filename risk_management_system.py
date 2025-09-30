@@ -140,9 +140,7 @@ class PositionSizer:
     def __init__(
         self, max_position_size: float = 0.1, max_portfolio_risk: float = 0.05
     ):
-        self.max_position_size = (
-            max_position_size  # 単一ポジションの最大サイズ（ポートフォリオの割合）
-        )
+        self.max_position_size = max_position_size  # 単一ポジションの最大サイズ（ポートフォリオの割合）
         self.max_portfolio_risk = max_portfolio_risk  # ポートフォリオ全体の最大リスク
 
     def calculate_position_size(
@@ -440,9 +438,7 @@ class RiskManagementSystem:
         self.positions[symbol] = temp_position
         self.risk_monitor.add_position(temp_position)
 
-        logger.info(
-            f"ポジション追加: {symbol} - {position_type} {quantity}株 @ ¥{entry_price}"
-        )
+        logger.info(f"ポジション追加: {symbol} - {position_type} {quantity}株 @ ¥{entry_price}")
         return temp_position
 
     def update_position_price(self, symbol: str, current_price: float):
@@ -568,19 +564,13 @@ class RiskManagementSystem:
         recommendations = []
 
         if risk_metrics.risk_score > 0.7:
-            recommendations.append(
-                "ポートフォリオリスクが高すぎます。ポジションサイズを縮小してください。"
-            )
+            recommendations.append("ポートフォリオリスクが高すぎます。ポジションサイズを縮小してください。")
 
         if risk_metrics.max_drawdown > 0.15:
-            recommendations.append(
-                "最大ドローダウンが15%を超えています。損切りを厳格に実行してください。"
-            )
+            recommendations.append("最大ドローダウンが15%を超えています。損切りを厳格に実行してください。")
 
         if risk_metrics.var_95 / risk_metrics.portfolio_value > 0.1:
-            recommendations.append(
-                "VaRが10%を超えています。エクスポージャーを削減してください。"
-            )
+            recommendations.append("VaRが10%を超えています。エクスポージャーを削減してください。")
 
         if high_risk_positions:
             recommendations.append(

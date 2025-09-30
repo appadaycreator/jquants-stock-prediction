@@ -84,15 +84,11 @@ class SecurityConfig:
         """環境のセキュリティチェック"""
         # .envファイルの存在チェック
         if os.path.exists(".env"):
-            result["recommendations"].append(
-                ".envファイルは.gitignoreに含まれていることを確認してください"
-            )
+            result["recommendations"].append(".envファイルは.gitignoreに含まれていることを確認してください")
 
         # 本番環境のチェック
         if os.getenv("ENVIRONMENT") == "production":
-            result["recommendations"].append(
-                "本番環境では追加のセキュリティ対策を実施してください"
-            )
+            result["recommendations"].append("本番環境では追加のセキュリティ対策を実施してください")
 
     def mask_sensitive_data(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """機密データのマスキング"""

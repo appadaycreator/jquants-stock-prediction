@@ -185,9 +185,7 @@ class WebMonitoringIntegration:
                             )
 
                             change_pct = stock_data["changePercent"]
-                            logger.info(
-                                f"監視更新: {stock['code']} - {change_pct:+.2f}%"
-                            )
+                            logger.info(f"監視更新: {stock['code']} - {change_pct:+.2f}%")
 
                     except Exception as e:
                         logger.error(f"銘柄監視エラー {stock['code']}: {e}")

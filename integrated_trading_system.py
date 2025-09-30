@@ -543,9 +543,7 @@ def main():
 
     print("\n🛡️ リスク管理:")
     risk_analysis = results.get("risk_analysis", {})
-    print(
-        f"  リスクスコア: {risk_analysis.get('risk_metrics', {}).get('risk_score', 0):.2f}"
-    )
+    print(f"  リスクスコア: {risk_analysis.get('risk_metrics', {}).get('risk_score', 0):.2f}")
     print(
         f"  リスク削減推奨: {'はい' if risk_analysis.get('should_reduce_risk', False) else 'いいえ'}"
     )
