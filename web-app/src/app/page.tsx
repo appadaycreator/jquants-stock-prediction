@@ -1233,7 +1233,7 @@ function DashboardContent() {
                 <h3 className="text-lg font-medium text-gray-900">予測が外れた期間（参考）</h3>
                 <span className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">参考情報</span>
               </div>
-              <p className="text-sm text-gray-500 mb-4">誤差が大きいポイント上位をハイライトします（閾値: 誤差>5%）。</p>
+              <p className="text-sm text-gray-500 mb-4">誤差が大きいポイント上位をハイライトします（閾値: 誤差{'>'}5%）。</p>
               {predictions && predictions.length > 0 ? (
                 <div className="space-y-3">
                   {predictions
