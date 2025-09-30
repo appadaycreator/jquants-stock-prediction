@@ -3,13 +3,15 @@
 import { useState, useEffect } from 'react';
 import { CheckCircle, AlertTriangle, Key, Database, RefreshCw, Trash2 } from 'lucide-react';
 import JQuantsAdapter, { JQuantsConfig } from '@/lib/jquants-adapter';
+import ReliableApiSystem from '@/lib/reliable-api-system';
 
 interface JQuantsTokenSetupProps {
   onTokenConfigured: (adapter: JQuantsAdapter) => void;
   onTokenRemoved: () => void;
+  onReliableSystemConfigured?: (system: ReliableApiSystem) => void;
 }
 
-export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved }: JQuantsTokenSetupProps) {
+export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, onReliableSystemConfigured }: JQuantsTokenSetupProps) {
   const [token, setToken] = useState('');
   const [isTesting, setIsTesting] = useState(false);
   const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
