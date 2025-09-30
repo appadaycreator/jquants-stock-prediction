@@ -2,8 +2,9 @@ export const dynamic = 'force-static';
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { wrapHandler, jsonError } from '../_error';
 
-export async function GET(request: NextRequest) {
+export const GET = wrapHandler(async function GET(request: NextRequest) {
   try {
     // 前日の日付を計算
     const yesterday = new Date();
@@ -82,22 +83,12 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json(yesterdayData);
-  } catch (error) {
+  } catch (error: any) {
     console.error('前日サマリー取得エラー:', error);
-    
-    // エラー時はデフォルトデータを返す
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayStr = yesterday.toISOString().split('T')[0];
-    
-    return NextResponse.json({
-      date: yesterdayStr,
-      totalReturn: 0,
-      topPerformers: [],
-      alerts: [
-        { type: 'info', message: '前日の分析結果が利用できません' }
-      ],
-      analysisStatus: 'failed'
-    });
+    return jsonError({
+      error_code: 'YESTERDAY_SUMMARY_FAILED',
+      user_message: '前日サマリーの取得に失敗しました',
+      retry_hint: '時間をおいて再実行してください',
+    }, { status: 500 });
   }
-}
+});

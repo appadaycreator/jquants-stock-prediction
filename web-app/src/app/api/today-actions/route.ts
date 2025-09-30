@@ -2,8 +2,9 @@ export const dynamic = 'force-static';
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { wrapHandler, jsonError } from '../_error';
 
-export async function GET(request: NextRequest) {
+export const GET = wrapHandler(async function GET(request: NextRequest) {
   try {
     const today = new Date();
     const todayStr = today.toISOString().split('T')[0];
@@ -72,26 +73,12 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json(todayActions);
-  } catch (error) {
+  } catch (error: any) {
     console.error('今日のアクション取得エラー:', error);
-    
-    // エラー時はデフォルトデータを返す
-    const nextUpdateTime = new Date();
-    nextUpdateTime.setHours(nextUpdateTime.getHours() + 2);
-    
-    return NextResponse.json({
-      analysisRequired: true,
-      watchlistUpdates: [],
-      nextUpdateTime: nextUpdateTime.toISOString(),
-      priorityActions: [
-        {
-          id: 'analysis',
-          title: '分析実行',
-          description: '最新データで予測分析を実行',
-          action: 'analyze',
-          priority: 'high'
-        }
-      ]
-    });
+    return jsonError({
+      error_code: 'TODAY_ACTIONS_FAILED',
+      user_message: '今日のアクション取得に失敗しました',
+      retry_hint: '時間をおいて再実行してください',
+    }, { status: 500 });
   }
-}
+});

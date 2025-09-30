@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { wrapHandler, jsonError } from '../_error';
 
-export async function POST(request: NextRequest) {
+export const POST = wrapHandler(async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { type, confirmBeforeExecute } = body;
@@ -71,11 +72,12 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(tradeResult);
-  } catch (error) {
+  } catch (error: any) {
     console.error('売買指示実行エラー:', error);
-    return NextResponse.json(
-      { error: '売買指示実行に失敗しました' },
-      { status: 500 }
-    );
+    return jsonError({
+      error_code: 'TRADE_EXECUTION_FAILED',
+      user_message: '売買指示実行に失敗しました',
+      retry_hint: '数十秒後に再実行してください',
+    }, { status: 500 });
   }
-}
+});
