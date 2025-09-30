@@ -17,7 +17,8 @@ import {
   BarChart3,
   Eye,
   Settings,
-  Loader2
+  Loader2,
+  Play
 } from 'lucide-react';
 
 interface YesterdaySummary {
@@ -70,6 +71,10 @@ export default function RoutineDashboard({
   const [error, setError] = useState<string | null>(null);
   const [timeUntilUpdate, setTimeUntilUpdate] = useState<string>('');
   const [isExecutingAction, setIsExecutingAction] = useState<string | null>(null);
+  const [routineJobId, setRoutineJobId] = useState<string | null>(null);
+  const [routineProgress, setRoutineProgress] = useState<number>(0);
+  const [routineStatus, setRoutineStatus] = useState<'idle' | 'running' | 'succeeded' | 'failed'>('idle');
+  const [routineError, setRoutineError] = useState<string | null>(null);
 
   // 前日の分析結果を取得
   const loadYesterdaySummary = useCallback(async () => {
@@ -283,6 +288,85 @@ export default function RoutineDashboard({
     }
   };
 
+  // 今日のルーティン実行（1→Nステップ進捗UI）
+  const runTodayRoutine = async () => {
+    try {
+      setRoutineStatus('running');
+      setRoutineError(null);
+      setRoutineProgress(0);
+
+      const clientTokenKey = 'routine:client_token';
+      let clientToken = localStorage.getItem(clientTokenKey);
+      if (!clientToken) {
+        clientToken = `client_${crypto.randomUUID?.() || Math.random().toString(36).slice(2)}`;
+        localStorage.setItem(clientTokenKey, clientToken);
+      }
+
+      const res = await fetch('/api/routine/run-today', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ client_token: clientToken })
+      });
+      if (!res.ok) throw new Error('ルーティン起動に失敗しました');
+      const data = await res.json();
+      const jobId = data.job_id as string;
+      setRoutineJobId(jobId);
+
+      // 再開対応: jobId を保存
+      sessionStorage.setItem('routine:job_id', jobId);
+
+      // ポーリング開始
+      pollRoutine(jobId);
+    } catch (e: any) {
+      setRoutineStatus('failed');
+      setRoutineError(e?.message || '不明なエラー');
+    }
+  };
+
+  const pollRoutine = async (jobId: string) => {
+    const start = Date.now();
+    const poll = async (): Promise<void> => {
+      try {
+        const res = await fetch(`/api/routine/jobs/${jobId}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error('ジョブ取得に失敗');
+        const data = await res.json();
+        setRoutineProgress(Math.min(99, Math.floor(data.progress ?? 0)));
+        if (data.status === 'succeeded') {
+          setRoutineProgress(100);
+          setRoutineStatus('succeeded');
+          showNotification('今日のルーティンが完了しました', 'success');
+          return;
+        }
+        if (data.status === 'failed') {
+          setRoutineStatus('failed');
+          setRoutineError(data.error || 'サーバーエラー');
+          showNotification('ルーティンが失敗しました', 'error');
+          return;
+        }
+
+        if (Date.now() - start > 3 * 60 * 1000) {
+          throw new Error('タイムアウト（3分）');
+        }
+        setTimeout(poll, 1500);
+      } catch (e: any) {
+        setRoutineStatus('failed');
+        setRoutineError(e?.message || '不明なエラー');
+      }
+    };
+    setTimeout(poll, 1500);
+  };
+
+  // 中断→再開対応（同UIで再アタッチ）
+  useEffect(() => {
+    const existingJobId = sessionStorage.getItem('routine:job_id');
+    if (existingJobId && routineStatus !== 'succeeded') {
+      setRoutineJobId(existingJobId);
+      setRoutineStatus('running');
+      pollRoutine(existingJobId);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // 通知表示
   const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
     const notification = document.createElement('div');
@@ -356,6 +440,81 @@ export default function RoutineDashboard({
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* 今日のルーティン カード（最上段） */}
+        <div className="mb-6 bg-white rounded-lg shadow border p-6">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Play className="h-5 w-5 text-blue-600" />
+              <h2 className="text-lg font-semibold text-gray-900">今日のルーティン</h2>
+            </div>
+            <button
+              onClick={runTodayRoutine}
+              disabled={routineStatus === 'running'}
+              className={`px-4 py-2 rounded-lg text-white font-medium ${
+                routineStatus === 'running' ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+              }`}
+            >
+              {routineStatus === 'running' ? '実行中...' : '1クリックで実行'}
+            </button>
+          </div>
+          {/* 進捗UI */}
+          <div className="space-y-2">
+            <div className="w-full bg-gray-100 rounded-full h-3">
+              <div
+                className={`h-3 rounded-full transition-all duration-500 ${
+                  routineStatus === 'failed' ? 'bg-red-500' : 'bg-blue-600'
+                }`}
+                style={{ width: `${routineProgress}%` }}
+              />
+            </div>
+            <div className="text-sm text-gray-600 flex items-center gap-3">
+              <span>進捗: {routineProgress}%</span>
+              {routineJobId && (
+                <span className="text-xs text-gray-500">Job: {routineJobId}</span>
+              )}
+              {routineStatus === 'succeeded' && (
+                <span className="text-green-700 flex items-center gap-1"><CheckCircle className="h-4 w-4"/> 完了</span>
+              )}
+              {routineStatus === 'failed' && (
+                <span className="text-red-700 flex items-center gap-1"><AlertCircle className="h-4 w-4"/> 失敗</span>
+              )}
+            </div>
+            {/* 再開ボタン（中断→復帰）*/}
+            {routineStatus !== 'running' && sessionStorage.getItem('routine:job_id') && (
+              <button
+                onClick={() => {
+                  const jid = sessionStorage.getItem('routine:job_id');
+                  if (jid) {
+                    setRoutineJobId(jid);
+                    setRoutineStatus('running');
+                    pollRoutine(jid);
+                  }
+                }}
+                className="text-blue-600 text-sm underline"
+              >
+                途中から再開
+              </button>
+            )}
+            {routineError && (
+              <div className="text-sm text-red-700">{routineError}</div>
+            )}
+          </div>
+          {/* ステップ表示（1→N）*/}
+          <div className="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 text-xs">
+            {["データ取得","前処理","予測","シグナル","推奨","実行記録"].map((label, idx) => {
+              const thresholds = [10,30,55,70,85,95,100];
+              const done = routineProgress >= thresholds[idx];
+              return (
+                <div key={label} className={`p-2 rounded border ${done ? 'bg-green-50 border-green-200 text-green-800' : 'bg-gray-50 border-gray-200 text-gray-700'}`}>
+                  <div className="flex items-center gap-1">
+                    {done ? <CheckCircle className="h-3 w-3"/> : <Loader2 className="h-3 w-3"/>}
+                    <span>{label}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* 前日の分析結果要約 */}
           <div className="lg:col-span-2">

@@ -66,7 +66,7 @@ class AutomatedScheduler:
         os.makedirs("logs", exist_ok=True)
 
     def run_ultra_fast_analysis(self) -> Dict:
-        """超高速分析の実行"""
+        """超高速分析の実行（段階進捗を外部で扱うためステータスのみ返却）"""
         try:
             logger.info("超高速分析を開始します...")
             start_time = datetime.now()

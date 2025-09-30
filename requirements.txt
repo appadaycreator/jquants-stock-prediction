@@ -26,6 +26,9 @@ pyyaml>=6.0.0
 # 自動化・スケジューリング
 schedule>=1.2.0
 
+# 軽量APIサーバ
+Flask>=3.0.0
+
 # セキュリティ
 cryptography>=3.4.8
 

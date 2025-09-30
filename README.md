@@ -181,8 +181,9 @@ GET /api/jobs/:job_id => {
 
 実装:
 - API: `web-app/src/app/api/analyze/route.ts`, `web-app/src/app/api/jobs/[job_id]/route.ts`
+- 5分ルーティンAPI: `web-app/src/app/api/routine/run-today/route.ts`, `web-app/src/app/api/routine/jobs/[job_id]/route.ts`
 - ジョブ管理: `web-app/src/app/api/_jobStore.ts`（開発用のインメモリ。実運用はWorkers KV/Queues等に置換）
-- UI: `web-app/src/components/OneClickAnalysis.tsx` が `client_token` を JSON Body に含めてジョブ起動・ポーリングを実装。静的環境では自動でローカルシミュレーションへフォールバック。停止は成功/失敗/タイムアウト/ローカル完了の明示分岐でのみ行います。
+- UI: `web-app/src/components/OneClickAnalysis.tsx`, `web-app/src/components/RoutineDashboard.tsx` が `client_token` を JSON Body に含めてジョブ起動・ポーリングを実装。静的環境では自動でローカルシミュレーション/前回結果にフォールバック。停止は成功/失敗/タイムアウト/ローカル完了の明示分岐でのみ行います。
 
 ## 🆕 新機能: 個人投資特化ダッシュボード
 
