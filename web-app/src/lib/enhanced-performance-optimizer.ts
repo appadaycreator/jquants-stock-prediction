@@ -166,6 +166,54 @@ class EnhancedPerformanceOptimizer {
   }
 
   /**
+   * 要素の遅延読み込み処理
+   */
+  private loadElement(element: HTMLElement): void {
+    // 画像要素の場合
+    if (element.tagName === 'IMG') {
+      const img = element as HTMLImageElement;
+      const dataSrc = img.getAttribute('data-src');
+      if (dataSrc) {
+        img.src = dataSrc;
+        img.removeAttribute('data-src');
+        img.classList.add('loaded');
+      }
+    }
+    
+    // 背景画像の場合
+    const bgImage = element.getAttribute('data-bg');
+    if (bgImage) {
+      element.style.backgroundImage = `url(${bgImage})`;
+      element.removeAttribute('data-bg');
+      element.classList.add('loaded');
+    }
+    
+    // カスタム遅延読み込み要素
+    const lazyData = element.getAttribute('data-lazy');
+    if (lazyData) {
+      try {
+        const data = JSON.parse(lazyData);
+        if (data.src) {
+          if (element.tagName === 'IMG') {
+            (element as HTMLImageElement).src = data.src;
+          } else {
+            element.style.backgroundImage = `url(${data.src})`;
+          }
+        }
+        element.removeAttribute('data-lazy');
+        element.classList.add('loaded');
+      } catch (error) {
+        console.warn('遅延読み込みデータの解析に失敗:', error);
+      }
+    }
+    
+    // 遅延読み込み完了イベントを発火
+    element.dispatchEvent(new CustomEvent('lazyLoaded', {
+      detail: { element }
+    }));
+  }
+
+  /**
    * Service Worker初期化
    */
   private initServiceWorker(): void {
@@ -418,7 +466,9 @@ class EnhancedPerformanceOptimizer {
       // キャッシュサイズ制限
       if (this.memoizedResults.size > 100) {
         const firstKey = this.memoizedResults.keys().next().value;
-        this.memoizedResults.delete(firstKey);
+        if (firstKey !== undefined) {
+          this.memoizedResults.delete(firstKey);
+        }
       }
 
       return result;
@@ -633,7 +683,7 @@ class EnhancedPerformanceOptimizer {
     // 重いアニメーションの無効化
     const heavyAnimations = document.querySelectorAll('[data-heavy-animation]');
     heavyAnimations.forEach(el => {
-      el.style.animation = 'none';
+      (el as HTMLElement).style.animation = 'none';
     });
   }
 

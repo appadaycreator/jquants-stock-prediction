@@ -136,6 +136,11 @@ class AutoRecoverySystem {
   }
 
   private setupGlobalErrorHandling() {
+    // ブラウザ環境でのみ実行
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     // 未処理のエラーをキャッチ
     window.addEventListener('error', (event) => {
       this.handleError(event.error);

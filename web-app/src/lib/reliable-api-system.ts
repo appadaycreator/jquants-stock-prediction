@@ -74,15 +74,13 @@ class ReliableApiSystem {
         ...config.cache
       },
       quality: {
-        enableMonitoring: true,
-        monitoringInterval: 60000,
+        enableMonitoring: config.quality?.enableMonitoring ?? true,
+        monitoringInterval: config.quality?.monitoringInterval ?? 60000,
         thresholds: {
-          minQualityScore: 90,
-          maxErrorRate: 5,
-          maxResponseTime: 5000,
-          ...config.quality?.thresholds
-        },
-        ...config.quality
+          minQualityScore: config.quality?.thresholds?.minQualityScore ?? 90,
+          maxErrorRate: config.quality?.thresholds?.maxErrorRate ?? 5,
+          maxResponseTime: config.quality?.thresholds?.maxResponseTime ?? 5000
+        }
       }
     };
 

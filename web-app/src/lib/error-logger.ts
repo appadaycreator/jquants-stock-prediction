@@ -442,6 +442,11 @@ export const errorLogger = new ErrorLogger();
 
 // グローバルエラーハンドリングの設定
 export function setupGlobalErrorHandling(): void {
+  // ブラウザ環境でのみ実行
+  if (typeof window === 'undefined') {
+    return;
+  }
+
   // 未処理のエラー
   window.addEventListener('error', (event) => {
     errorLogger.logError(event.error, {
