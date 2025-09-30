@@ -102,6 +102,28 @@ max_drawdown = 0.15      # 最大ドローダウン（15%）
 var_threshold = 0.1      # VaR閾値（10%）
 ```
 
+### リスク管理の即時反映（UIでON/OFF・閾値調整）
+
+- Web設定ページ `設定 > リスク管理設定` から、以下のパラメータを保存すると即時に反映されます。
+  - `enabled`: リスク管理全体のON/OFF
+  - `maxLoss.enabled`: 最大損失管理のON/OFF
+  - `maxLoss.max_loss_percent`: 最大損失率（小数、例 0.05 = 5%）
+  - `maxLoss.auto_stop_loss_threshold`: 自動損切り発動閾値（小数、例 0.08 = 8%）
+  - `volatility.enabled`: ボラティリティ調整のON/OFF
+  - `volatility.high_vol_threshold`: 高ボラ閾値（年率換算）
+  - `volatility.extreme_vol_threshold`: 極端ボラ閾値（年率換算）
+  - `volatility.high_vol_multiplier`: 高ボラ時のポジション縮小係数
+  - `volatility.extreme_vol_multiplier`: 極端ボラ時のポジション縮小係数
+  - `enforcement.block_violation_signals`: リスク違反シグナルのブロック（提案/執行に反映）
+
+保存先: `web-app/public/data/risk_settings.json`
+
+適用箇所:
+- シグナル生成・集計 `realtime_trading_signals.py` の `RiskManager` で読み込み、
+  - 高ボラ時はポジションサイズを縮小
+  - 最大損失違反が見込まれる提案はゼロサイズ（ブロック有効時）
+  を適用します。
+
 ### リアルタイム更新設定
 ```python
 # 更新間隔設定

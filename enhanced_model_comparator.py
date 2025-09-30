@@ -42,6 +42,9 @@ class EnhancedModelResult:
     feature_importance: Optional[Dict[str, float]] = None
     cache_hit: bool = False
     parallel_processed: bool = False
+    # 追加: 基準線（訓練平均予測）に対する勝率/誤差削減DD
+    win_rate_vs_baseline: Optional[float] = None
+    max_drawdown_error_reduction: Optional[float] = None
 
 
 class IntelligentCacheManager:
@@ -387,6 +390,22 @@ class ParallelModelProcessor:
             # メモリ使用量
             memory_usage = psutil.Process().memory_info().rss / 1024 / 1024
 
+            # 基準線（訓練平均）に対する比較
+            baseline_value = float(np.mean(y_train)) if len(y_train) > 0 else 0.0
+            baseline_pred = np.full_like(y_test, baseline_value, dtype=float)
+            model_abs_err = np.abs(y_test - y_pred)
+            baseline_abs_err = np.abs(y_test - baseline_pred)
+            win_rate = float(np.mean(model_abs_err < baseline_abs_err)) if len(y_test) > 0 else None
+            # 誤差削減の累積カーブと最大ドローダウン
+            improvement = baseline_abs_err - model_abs_err
+            cum_improvement = np.cumsum(improvement)
+            if len(cum_improvement) > 0:
+                peak = np.maximum.accumulate(cum_improvement)
+                dd = cum_improvement - peak
+                max_dd = float(np.min(dd))
+            else:
+                max_dd = None
+
             return EnhancedModelResult(
                 model_name=model_name,
                 model_type=model_type,
@@ -398,6 +417,8 @@ class ParallelModelProcessor:
                 prediction_time=prediction_time,
                 memory_usage=memory_usage,
                 parallel_processed=True,
+                win_rate_vs_baseline=win_rate,
+                max_drawdown_error_reduction=max_dd,
             )
 
         except Exception as e:
@@ -458,6 +479,21 @@ class ParallelModelProcessor:
             # メモリ使用量
             memory_usage = psutil.Process().memory_info().rss / 1024 / 1024
 
+            # 基準線（訓練平均）に対する比較
+            baseline_value = float(np.mean(y_train)) if len(y_train) > 0 else 0.0
+            baseline_pred = np.full_like(y_test, baseline_value, dtype=float)
+            model_abs_err = np.abs(y_test - y_pred)
+            baseline_abs_err = np.abs(y_test - baseline_pred)
+            win_rate = float(np.mean(model_abs_err < baseline_abs_err)) if len(y_test) > 0 else None
+            improvement = baseline_abs_err - model_abs_err
+            cum_improvement = np.cumsum(improvement)
+            if len(cum_improvement) > 0:
+                peak = np.maximum.accumulate(cum_improvement)
+                dd = cum_improvement - peak
+                max_dd = float(np.min(dd))
+            else:
+                max_dd = None
+
             return EnhancedModelResult(
                 model_name=model_name,
                 model_type=model_type,
@@ -470,6 +506,8 @@ class ParallelModelProcessor:
                 memory_usage=memory_usage,
                 cache_hit=cache_hit,
                 parallel_processed=True,
+                win_rate_vs_baseline=win_rate,
+                max_drawdown_error_reduction=max_dd,
             )
 
         except Exception as e:
@@ -534,6 +572,9 @@ class EnhancedModelComparator:
 
         start_time = time.time()
 
+        # 基準線（Baseline: 平均予測）を事前計算
+        baseline = self._compute_baseline_metrics(X_test, y_train, y_test)
+
         if self.use_parallel and self.parallel_processor:
             results = self.parallel_processor.process_models_parallel(
                 models_config,
@@ -578,17 +619,60 @@ class EnhancedModelComparator:
                     "memory_usage": r.memory_usage,
                     "cache_hit": r.cache_hit,
                     "parallel_processed": r.parallel_processed,
+                    "win_rate_vs_baseline": r.win_rate_vs_baseline,
+                    "max_drawdown_error_reduction": r.max_drawdown_error_reduction,
                 }
                 for r in results
             ]
         )
 
-        df_results = df_results.sort_values("mae")
+        # 基準線行を先頭に追加
+        baseline_row = {
+            "model_name": "baseline_mean",
+            "model_type": "baseline",
+            "mae": baseline["mae"],
+            "mse": baseline["mse"],
+            "rmse": np.sqrt(baseline["mse"]),
+            "r2": baseline["r2"],
+            "training_time": 0.0,
+            "prediction_time": baseline["prediction_time"],
+            "memory_usage": baseline["memory_usage"],
+            "cache_hit": False,
+            "parallel_processed": False,
+            "win_rate_vs_baseline": np.nan,
+            "max_drawdown_error_reduction": 0.0,
+        }
+
+        df_results = pd.concat([pd.DataFrame([baseline_row]), df_results], ignore_index=True)
+        df_results = df_results.sort_values(["mae", "model_type"]).reset_index(drop=True)
 
         # 統計情報をログ出力
         self._log_comparison_summary(df_results)
 
         return df_results
+
+    def _compute_baseline_metrics(
+        self,
+        X_test: np.ndarray,
+        y_train: np.ndarray,
+        y_test: np.ndarray,
+    ) -> Dict[str, Any]:
+        """基準線（訓練平均での定数予測）のメトリクスと、モデル比較用の勝率/ドローダウン計算ヘルパー"""
+        start = time.time()
+        baseline_pred = np.full_like(y_test, fill_value=float(np.mean(y_train)), dtype=float)
+        pred_time = time.time() - start
+        mae = mean_absolute_error(y_test, baseline_pred)
+        mse = mean_squared_error(y_test, baseline_pred)
+        r2 = r2_score(y_test, baseline_pred)
+
+        return {
+            "mae": float(mae),
+            "mse": float(mse),
+            "r2": float(r2),
+            "prediction_time": float(pred_time),
+            "memory_usage": psutil.Process().memory_info().rss / 1024 / 1024,
+            "baseline_pred": baseline_pred,
+        }
 
     def _compare_models_sequential(
         self,
@@ -649,7 +733,15 @@ class EnhancedModelComparator:
         if df_results.empty:
             return
 
-        best_model = df_results.iloc[0]
+        # 基準線（行）
+        baseline_rows = df_results[df_results["model_type"] == "baseline"]
+        baseline_info = None
+        if not baseline_rows.empty:
+            baseline_info = baseline_rows.iloc[0]
+
+        # 最良モデル（基準線を除く）
+        non_baseline = df_results[df_results["model_type"] != "baseline"]
+        best_model = non_baseline.iloc[0] if not non_baseline.empty else df_results.iloc[0]
         cache_hits = (
             df_results["cache_hit"].sum() if "cache_hit" in df_results.columns else 0
         )
@@ -663,6 +755,10 @@ class EnhancedModelComparator:
         self.logger.info(
             f"  🏆 最良モデル: {best_model['model_name']} (MAE: {best_model['mae']:.4f})"
         )
+        if baseline_info is not None:
+            self.logger.info(
+                f"  └ 基準線: {baseline_info['model_name']} (MAE: {baseline_info['mae']:.4f}, R2: {baseline_info['r2']:.4f})"
+            )
         self.logger.info(f"  📋 キャッシュヒット: {cache_hits}/{len(df_results)}モデル")
         self.logger.info(f"  🚀 並列処理: {parallel_processed}/{len(df_results)}モデル")
         self.logger.info(
@@ -671,6 +767,27 @@ class EnhancedModelComparator:
         self.logger.info(
             f"  💾 平均メモリ使用量: {df_results['memory_usage'].mean():.1f}MB"
         )
+
+        # 勝率/最大ドローダウン（誤差削減）の表示（存在すれば）
+        if "win_rate_vs_baseline" in df_results.columns:
+            avg_win_rate = (
+                df_results["win_rate_vs_baseline"].dropna().mean()
+                if not df_results["win_rate_vs_baseline"].dropna().empty
+                else np.nan
+            )
+            self.logger.info(
+                f"  🥇 ベースライン超過率(平均): {avg_win_rate:.1%}" if not np.isnan(avg_win_rate) else "  🥇 ベースライン超過率: N/A"
+            )
+        if "max_drawdown_error_reduction" in df_results.columns:
+            avg_mdd = (
+                df_results["max_drawdown_error_reduction"].dropna().mean()
+                if not df_results["max_drawdown_error_reduction"].dropna().empty
+                else np.nan
+            )
+            if not np.isnan(avg_mdd):
+                self.logger.info(
+                    f"  📉 誤差削減DD(平均): {avg_mdd:.4f}"
+                )
 
         # キャッシュ統計
         if self.cache_manager:

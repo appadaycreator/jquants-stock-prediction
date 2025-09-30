@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
-import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen, Bell } from "lucide-react";
+import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen, Bell, Shield } from "lucide-react";
 import { useAnalysisWithSettings } from "@/hooks/useAnalysisWithSettings";
 import { useSettings } from "@/contexts/SettingsContext";
 import AutoUpdateSettings from "@/components/notification/AutoUpdateSettings";
@@ -12,6 +12,9 @@ export default function SettingsPage() {
   const { settings, updateSettings, saveSettings, resetSettings, isLoading, isSaving } = useSettings();
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
+  const [riskSettings, setRiskSettings] = useState<any | null>(null);
+  const [riskLoading, setRiskLoading] = useState(false);
+  const [riskSaving, setRiskSaving] = useState(false);
 
   // 設定連携フック
   const { 
@@ -41,6 +44,66 @@ export default function SettingsPage() {
       console.error("設定保存エラー:", error);
       showMessage("設定の保存に失敗しました", "error");
     }
+  };
+
+  const loadRiskSettings = async () => {
+    try {
+      setRiskLoading(true);
+      const res = await fetch('/api/risk-settings', { cache: 'no-store' });
+      const json = await res.json();
+      setRiskSettings(json);
+    } catch (e) {
+      console.error('リスク設定読み込みエラー:', e);
+    } finally {
+      setRiskLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadRiskSettings();
+  }, []);
+
+  const saveRiskSettings = async () => {
+    try {
+      setRiskSaving(true);
+      const maxp = riskSettings?.maxLoss?.max_loss_percent;
+      if (typeof maxp === 'number' && (maxp <= 0 || maxp > 0.5)) {
+        showMessage('最大損失率は 0 < p <= 0.5 で指定してください', 'error');
+        return;
+      }
+      const resp = await fetch('/api/risk-settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(riskSettings),
+      });
+      const json = await resp.json();
+      if (!resp.ok || json?.ok === false) {
+        const errText = json?.errors?.join('\n') || '保存に失敗しました';
+        showMessage(errText, 'error');
+        return;
+      }
+      setRiskSettings(json.settings || json);
+      showMessage('リスク設定を保存し即時適用しました', 'success');
+    } catch (e) {
+      console.error('リスク設定保存エラー:', e);
+      showMessage('リスク設定の保存に失敗しました', 'error');
+    } finally {
+      setRiskSaving(false);
+    }
+  };
+
+  const updateRisk = (path: string, value: any) => {
+    setRiskSettings((prev: any) => {
+      const base = prev ? { ...prev } : {};
+      const keys = path.split('.');
+      let cur: any = base;
+      for (let i = 0; i < keys.length - 1; i++) {
+        cur[keys[i]] = cur[keys[i]] ?? {};
+        cur = cur[keys[i]];
+      }
+      cur[keys[keys.length - 1]] = value;
+      return base;
+    });
   };
 
   const handleReset = () => {
@@ -587,6 +650,72 @@ export default function SettingsPage() {
           </div>
             </div>
           </div>
+          {/* リスク設定（即時反映） */}
+          <div id="risk" className="bg-white rounded-lg shadow p-8">
+            <div className="flex items-center mb-6">
+              <Shield className="h-6 w-6 text-red-600 mr-3" />
+              <h2 className="text-2xl font-bold text-gray-900">リスク管理設定</h2>
+            </div>
+            {riskLoading ? (
+              <div className="text-gray-500">読み込み中...</div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-gray-700">リスク管理 全体ON/OFF</span>
+                    <input type="checkbox" checked={!!riskSettings?.enabled} onChange={(e) => updateRisk('enabled', e.target.checked)} />
+                  </div>
+                  <div className="mt-4 p-4 border rounded space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-gray-700">最大損失管理を有効化</span>
+                      <input type="checkbox" checked={!!riskSettings?.maxLoss?.enabled} onChange={(e) => updateRisk('maxLoss.enabled', e.target.checked)} />
+                    </div>
+                    <label className="block text-sm text-gray-600">
+                      最大損失率（小数, 0.05=5%）
+                      <input className="mt-1 w-full border rounded p-2" type="number" step="0.005" min="0.005" max="0.5" value={riskSettings?.maxLoss?.max_loss_percent ?? 0.05} onChange={(e) => updateRisk('maxLoss.max_loss_percent', parseFloat(e.target.value))} />
+                    </label>
+                    <label className="block text-sm text-gray-600">
+                      自動損切り閾値（小数, 0.08=8%）
+                      <input className="mt-1 w-full border rounded p-2" type="number" step="0.005" min="0.01" max="0.9" value={riskSettings?.maxLoss?.auto_stop_loss_threshold ?? 0.08} onChange={(e) => updateRisk('maxLoss.auto_stop_loss_threshold', parseFloat(e.target.value))} />
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-gray-700">ボラティリティ調整を有効化</span>
+                    <input type="checkbox" checked={!!riskSettings?.volatility?.enabled} onChange={(e) => updateRisk('volatility.enabled', e.target.checked)} />
+                  </div>
+                  <div className="mt-4 grid grid-cols-2 gap-4">
+                    <label className="text-sm text-gray-600">高ボラ閾値（年率）
+                      <input className="mt-1 w-full border rounded p-2" type="number" step="0.05" min="0.05" max="2" value={riskSettings?.volatility?.high_vol_threshold ?? 0.4} onChange={(e) => updateRisk('volatility.high_vol_threshold', parseFloat(e.target.value))} />
+                    </label>
+                    <label className="text-sm text-gray-600">極端ボラ閾値（年率）
+                      <input className="mt-1 w-full border rounded p-2" type="number" step="0.05" min="0.05" max="2" value={riskSettings?.volatility?.extreme_vol_threshold ?? 0.6} onChange={(e) => updateRisk('volatility.extreme_vol_threshold', parseFloat(e.target.value))} />
+                    </label>
+                    <label className="text-sm text-gray-600">高ボラ縮小係数
+                      <input className="mt-1 w-full border rounded p-2" type="number" step="0.05" min="0.1" max="1.5" value={riskSettings?.volatility?.high_vol_multiplier ?? 0.7} onChange={(e) => updateRisk('volatility.high_vol_multiplier', parseFloat(e.target.value))} />
+                    </label>
+                    <label className="text-sm text-gray-600">極端ボラ縮小係数
+                      <input className="mt-1 w-full border rounded p-2" type="number" step="0.05" min="0.1" max="1.5" value={riskSettings?.volatility?.extreme_vol_multiplier ?? 0.4} onChange={(e) => updateRisk('volatility.extreme_vol_multiplier', parseFloat(e.target.value))} />
+                    </label>
+                  </div>
+                  <div className="mt-3">
+                    <label className="inline-flex items-center space-x-2">
+                      <input type="checkbox" checked={!!riskSettings?.enforcement?.block_violation_signals} onChange={(e) => updateRisk('enforcement.block_violation_signals', e.target.checked)} />
+                      <span className="text-sm">リスク違反提案をブロック（売買提案/執行に反映）</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div className="mt-6 flex gap-3">
+              <button onClick={saveRiskSettings} disabled={riskSaving} className={`px-4 py-2 rounded ${riskSaving ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'} text-white`}>
+                {riskSaving ? '保存中...' : 'リスク設定を保存して即時適用'}
+              </button>
+              <button onClick={loadRiskSettings} className="px-4 py-2 rounded bg-gray-100 hover:bg-gray-200">再読込</button>
+            </div>
+          </div>
+
         </div>
       </main>
     </div>

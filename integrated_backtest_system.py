@@ -82,9 +82,17 @@ class IntegratedBacktestResult:
 class IntegratedBacktestSystem:
     """統合バックテストシステム"""
 
-    def __init__(self, symbols: List[str], initial_capital: float = 1000000):
+    def __init__(
+        self,
+        symbols: List[str],
+        initial_capital: float,
+        execution_lag_days: int,
+        commission: float,
+    ):
         self.symbols = symbols
         self.initial_capital = initial_capital
+        self.execution_lag_days = execution_lag_days
+        self.commission = commission
         self.data = {}
         self.strategy_results = {}
         self.optimized_weights = {}
@@ -202,6 +210,24 @@ class IntegratedBacktestSystem:
             BreakoutStrategy({"lookback": 20, "volume_threshold": 1.5}),
         ]
 
+        # ラグ適用用の戦略ラッパー
+        class LaggedStrategy:
+            def __init__(self, base_strategy, lag_days: int):
+                self.base = base_strategy
+                self.name = base_strategy.name
+                self.parameters = getattr(base_strategy, "parameters", {})
+                self.lag_days = max(int(lag_days), 0)
+
+            def generate_signals(self, data: pd.DataFrame, symbol: str) -> pd.Series:
+                sig = self.base.generate_signals(data, symbol)
+                if self.lag_days <= 0:
+                    return sig
+                shifted = sig.shift(self.lag_days).fillna(0)
+                return shifted
+
+            def should_exit(self, data: pd.DataFrame, symbol: str, position):
+                return self.base.should_exit(data, symbol, position)
+
         # 各銘柄で戦略実行
         for symbol, data in self.data.items():
             logger.info(f"戦略実行中: {symbol}")
@@ -211,8 +237,13 @@ class IntegratedBacktestSystem:
                 try:
                     from advanced_backtest_system import BacktestEngine
 
-                    engine = BacktestEngine(initial_capital=self.initial_capital)
-                    result = engine.run_backtest(data, strategy, start_date, end_date)
+                    engine = BacktestEngine(
+                        initial_capital=self.initial_capital, commission=self.commission
+                    )
+                    lagged_strategy = LaggedStrategy(strategy, self.execution_lag_days)
+                    result = engine.run_backtest(
+                        data, lagged_strategy, start_date, end_date
+                    )
 
                     symbol_results[strategy.name] = {
                         "total_return": result.total_return,
@@ -228,9 +259,45 @@ class IntegratedBacktestSystem:
                     logger.error(f"戦略実行エラー {symbol}-{strategy.name}: {e}")
                     symbol_results[strategy.name] = None
 
+            # 基準戦略: Buy & Hold（銘柄ごと）
+            try:
+                if not data.empty:
+                    mask = (data.index >= start_date) & (data.index <= end_date)
+                    d = data[mask]
+                    if not d.empty:
+                        buyhold_return = (d["Close"].iloc[-1] / d["Close"].iloc[0]) - 1
+                        equity = (d["Close"] / d["Close"].iloc[0]) * self.initial_capital
+                        dd_peak = equity.expanding().max()
+                        buyhold_dd = ((equity - dd_peak) / dd_peak).min() if len(equity) > 0 else 0
+                        symbol_results["Baseline_BuyHold"] = {
+                            "total_return": float(buyhold_return),
+                            "sharpe_ratio": 0.0,
+                            "max_drawdown": float(buyhold_dd),
+                            "win_rate": 0.0,
+                            "total_trades": 0,
+                            "equity_curve": equity,
+                            "trades": [],
+                        }
+            except Exception as e:
+                logger.warning(f"基準戦略(Buy&Hold)計算エラー {symbol}: {e}")
+
             strategy_results[symbol] = symbol_results
 
         self.strategy_results = strategy_results
+
+        # 基準戦略: Equal Weight（全銘柄のBuy&Hold平均）
+        try:
+            bh_returns = []
+            for symbol, results in strategy_results.items():
+                bh = results.get("Baseline_BuyHold")
+                if bh:
+                    bh_returns.append(bh["total_return"])
+            if bh_returns:
+                avg_bh = float(np.mean(bh_returns))
+                # 擬似的なポートフォリオ基準として保存
+                self.portfolio_performance["baseline_equal_weight_return"] = avg_bh
+        except Exception as e:
+            logger.warning(f"基準戦略(EqualWeight)集計エラー: {e}")
         return strategy_results
 
     def _optimize_strategies(
@@ -496,6 +563,13 @@ class IntegratedBacktestSystem:
         report.append(f"  シャープレシオ: {result.combined_sharpe:.2f}")
         report.append(f"  最大ドローダウン: {result.combined_max_drawdown:.2%}")
 
+        # 基準戦略（EqualWeight）
+        baseline_eqw = self.portfolio_performance.get(
+            "baseline_equal_weight_return", None
+        )
+        if baseline_eqw is not None:
+            report.append(f"  基準(EqualWeight Buy&Hold): {baseline_eqw:.2%}")
+
         # 最適化結果
         if result.optimized_weights:
             report.append(f"\n⚖️ 最適化重み:")
@@ -598,9 +672,17 @@ def main():
     start_date = datetime(2020, 1, 1)
     end_date = datetime(2023, 12, 31)
     initial_capital = 1000000
+    # 必須引数（実運用ラグ・取引コスト）
+    execution_lag_days = 1
+    commission = 0.001
 
     # 統合バックテストシステム初期化
-    system = IntegratedBacktestSystem(symbols, initial_capital)
+    system = IntegratedBacktestSystem(
+        symbols=symbols,
+        initial_capital=initial_capital,
+        execution_lag_days=execution_lag_days,
+        commission=commission,
+    )
 
     try:
         # 包括的バックテスト実行

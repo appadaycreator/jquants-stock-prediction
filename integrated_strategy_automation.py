@@ -58,7 +58,13 @@ class IntegratedStrategyAutomation:
         self.strategy_recommendation_system = AutomatedStrategyRecommendationSystem(
             self.unified_system
         )
-        self.backtest_system = IntegratedBacktestSystem()
+        # 統合バックテストシステム（必須: 初期資本・実運用ラグ・取引コスト）
+        self.backtest_system = IntegratedBacktestSystem(
+            symbols=["7203.T", "6758.T", "9984.T", "6861.T", "4063.T"],
+            initial_capital=1_000_000,
+            execution_lag_days=1,
+            commission=0.001,
+        )
         self.trading_system = EnhancedAutomatedTradingSystem(
             self.unified_system, self.ai_prediction_system
         )

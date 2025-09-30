@@ -728,6 +728,64 @@ class EnhancedNewsSentimentIntegration:
         """個別銘柄の感情分析結果取得"""
         return self.stock_sentiments.get(symbol)
 
+    def get_unified_sentiment_evidence(self, symbol: str) -> Dict[str, Any]:
+        """統一スキーマ: ニュース/センチメント根拠ブロック
+
+        Returns:
+            {
+              "news_sentiment": {
+                 "score": float,
+                 "type": str,
+                 "confidence": float,
+                 "top_headlines": [{"title": str, "url": str, "published_at": str}]
+              }
+            }
+        """
+        try:
+            sentiment = self.get_individual_sentiment(symbol)
+            if not sentiment:
+                return {
+                    "news_sentiment": {
+                        "score": 0.0,
+                        "type": "NEUTRAL",
+                        "confidence": 0.0,
+                        "top_headlines": [],
+                    }
+                }
+
+            # 直近のニュース上位3件を抽出（関連度×信頼度の降順）
+            sorted_news = sorted(
+                sentiment.news_items,
+                key=lambda n: getattr(n, "relevance_score", 0.0) * getattr(n, "confidence", 0.0),
+                reverse=True,
+            )
+            top_headlines = [
+                {
+                    "title": n.title,
+                    "url": n.url,
+                    "published_at": n.published_at.isoformat() if hasattr(n, "published_at") else "",
+                }
+                for n in sorted_news[:3]
+            ]
+
+            return {
+                "news_sentiment": {
+                    "score": sentiment.overall_sentiment_score,
+                    "type": getattr(sentiment.overall_sentiment_type, "value", str(sentiment.overall_sentiment_type)),
+                    "confidence": sentiment.confidence,
+                    "top_headlines": top_headlines,
+                }
+            }
+        except Exception:
+            return {
+                "news_sentiment": {
+                    "score": 0.0,
+                    "type": "NEUTRAL",
+                    "confidence": 0.0,
+                    "top_headlines": [],
+                }
+            }
+
     def get_all_sentiments(self) -> Dict[str, IndividualStockSentiment]:
         """全銘柄の感情分析結果取得"""
         return self.stock_sentiments.copy()
