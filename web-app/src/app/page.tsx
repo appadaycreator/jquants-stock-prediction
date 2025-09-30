@@ -728,7 +728,7 @@ function DashboardContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">
+    <div className="min-h-screen bg-gray-50 pb-20 lg:pb-0">
       {/* モバイルナビゲーション */}
       <MobileNavigation 
         activeTab={activeTab} 
@@ -738,16 +738,7 @@ function DashboardContent() {
         onMonitoringClick={() => setShowStockMonitoring(true)}
       />
 
-      {/* デスクトップナビゲーション */}
-      <div className="hidden lg:block" data-guide-target="navigation">
-        <Navigation 
-          activeTab={activeTab} 
-          onTabChange={setActiveTab}
-          onAnalysisClick={() => setShowAnalysisModal(true)}
-          onSettingsClick={() => setShowSettingsModal(true)}
-          onMonitoringClick={() => setShowStockMonitoring(true)}
-        />
-      </div>
+      {/* デスクトップナビゲーションはSidebarコンポーネントで処理 */}
 
       {/* デスクトップヘッダー */}
       <header className="hidden lg:block bg-white shadow-sm border-b">

@@ -21,7 +21,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <nav className="hidden md:block fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-40">
+    <nav className="hidden lg:block fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-40">
       <div className="p-6">
         <h2 className="text-lg font-semibold text-gray-900 mb-6">
           J-Quants株価予測

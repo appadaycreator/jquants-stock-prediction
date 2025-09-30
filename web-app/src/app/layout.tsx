@@ -64,7 +64,7 @@ export default function RootLayout({
           <GlobalErrorBoundary>
             <div id="root">
               {/* モバイル用のパディング調整 */}
-              <div className="pb-20 md:pb-0 md:pl-64">
+              <div className="pb-20 lg:pb-0 lg:pl-64">
                 {children}
               </div>
               <Sidebar />
