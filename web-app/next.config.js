@@ -78,6 +78,8 @@ const nextConfig = {
     // より確実なパス解決の設定
     config.resolve.alias = {
       ...config.resolve.alias,
+      '@/src': srcPath,
+      '@/src/lib': path.resolve(srcPath, 'lib'),
       '@': srcPath,
       'src': srcPath,
       '@/lib': path.resolve(srcPath, 'lib'),

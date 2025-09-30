@@ -8,13 +8,15 @@ import { enrichWithIndicators, toStocksApiResponse, sliceByRange, PriceBar } fro
 export async function GET(request: NextRequest, { params }: { params: { code: string } }) {
   try {
     const code = decodeURIComponent(params.code);
+    // 証券所サフィックス（例: .T, .JP, .XS）を除去してローカル価格ファイルに合わせる
+    const normalizedCode = code.replace(/\..*$/, '');
     const { searchParams } = new URL(request.url);
     const range = (searchParams.get('range') as '5y' | '1y' | '3m' | '1m' | null) ?? null;
 
     // 価格データのソース: public/data/prices/{code}.json or stock_data.json fallback
     // まず個別ファイルを探す
     const dataDir = path.join(process.cwd(), 'public', 'data');
-    const perCodePath = path.join(dataDir, 'prices', `${code}.json`);
+    const perCodePath = path.join(dataDir, 'prices', `${normalizedCode}.json`);
     let prices: PriceBar[] = [];
 
     if (fs.existsSync(perCodePath)) {
@@ -26,8 +28,9 @@ export async function GET(request: NextRequest, { params }: { params: { code: st
       if (fs.existsSync(fallbackPath)) {
         const raw = fs.readFileSync(fallbackPath, 'utf-8');
         const arr = JSON.parse(raw);
+        // 旧デモデータに code が無い場合があるため、安全に空配列を返す
         prices = (arr as any[])
-          .filter((r) => r.code === code)
+          .filter((r) => r && (r.code === code || r.code === normalizedCode))
           .map((r) => ({
             date: r.date,
             open: r.open,
@@ -35,7 +38,7 @@ export async function GET(request: NextRequest, { params }: { params: { code: st
             low: r.low,
             close: r.close,
             volume: r.volume,
-            code: r.code,
+            code: r.code ?? normalizedCode,
           }));
       }
     }

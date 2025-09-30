@@ -1948,14 +1948,16 @@ git push origin main
 
 ### パスエイリアス（Next.js/TypeScript）
 
-- `web-app/tsconfig.json` の設定に従い、アプリ内のインポートは `@/` エイリアスを使用してください。
-  - 例: ライブラリ `web-app/src/lib/*` は `@/lib/*`
-  - 例: コンポーネント `web-app/src/components/*` は `@/components/*`
-  - 例: アプリケーション `web-app/src/app/*` は `@/app/*`
-- 注意: `@/src/*` は無効です。`@/` は `web-app/src/` を指します。
+- `web-app/tsconfig.json` と `next.config.js` の設定により、以下のエイリアスが利用できます。
+  - 推奨: `@/lib/*`, `@/components/*`, `@/app/*`, `@/styles/*`, `@/hooks/*`, `@/contexts/*`, `@/types/*`
+  - 互換: `@/src/*`（旧記法の互換目的。新規コードでは使用せず推奨の書式に移行してください）
+- 例:
+  - ライブラリ `web-app/src/lib/*` → `@/lib/*`
+  - コンポーネント `web-app/src/components/*` → `@/components/*`
+  - アプリケーション `web-app/src/app/*` → `@/app/*`
 - 既知の誤りパターンの修正例:
-  - 誤: `import x from '@/src/lib/indicators'`
-  - 正: `import x from '@/lib/indicators'`
+  - 旧: `import x from '@/src/lib/indicators'`（現時点では解決されますが非推奨）
+  - 新: `import x from '@/lib/indicators'`（推奨）
 
 ### 互換性/横展開
 
