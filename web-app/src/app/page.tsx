@@ -322,10 +322,12 @@ function DashboardContent() {
         // デフォルトデータを設定
         results = {
           summary: {
-            totalStocks: 0,
-            averageAccuracy: 0,
-            lastUpdate: new Date().toISOString(),
-            status: 'no_data'
+            total_data_points: 0,
+            prediction_period: '-',
+            best_model: '-',
+            mae: '0',
+            r2: '0',
+            last_updated: new Date().toISOString()
           },
           stock: [],
           model: [],
@@ -406,10 +408,12 @@ function DashboardContent() {
       
       // エラー時もデフォルトデータを設定してユーザー体験を維持
       setSummary({
-        totalStocks: 0,
-        averageAccuracy: 0,
-        lastUpdate: new Date().toISOString(),
-        status: 'error'
+        total_data_points: 0,
+        prediction_period: '-',
+        best_model: '-',
+        mae: '0',
+        r2: '0',
+        last_updated: new Date().toISOString()
       });
       setStockData([]);
       setModelComparison([]);
