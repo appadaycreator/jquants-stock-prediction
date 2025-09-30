@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { withIdempotency } from '../../_idempotency';
 import { jsonError } from '../../_error';
+import { createJob, getJobIdByClientToken, simulateProgress, updateJob } from '../../_jobStore';
 
 export const dynamic = 'force-static';
 
@@ -8,32 +9,37 @@ export const POST = withIdempotency(async function POST(request: NextRequest) {
   try {
     const body = await request.json().catch(() => ({}));
     const clientToken = body?.client_token as string | undefined;
-    const idemKey = request.headers.get('Idempotency-Key') || undefined;
-
-    // サーバ実行がない環境では、既存の analyze エンドポイントに委譲
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/analyze`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(idemKey ? { 'Idempotency-Key': idemKey } : {})
-      },
-      body: JSON.stringify({ client_token: clientToken })
-    });
-    if (!res.ok) {
-      // 下流のエラー(JSON)を透過。JSONでない場合は汎用エラー。
-      try {
-        const errBody = await res.json();
-        return jsonError(errBody, { status: res.status });
-      } catch {
-        return jsonError({
-          error_code: 'ROUTINE_ENQUEUE_FAILED',
-          user_message: 'ルーティンの起動に失敗しました',
-          retry_hint: '数秒後に再実行してください'
-        }, { status: res.status || 500 });
+    
+    // まずは同一クライアントトークンでの既存ジョブを再利用
+    if (clientToken) {
+      const existing = getJobIdByClientToken(clientToken);
+      if (existing) {
+        return NextResponse.json({ job_id: existing });
       }
     }
-    const data = await res.json();
-    return NextResponse.json({ job_id: data.job_id });
+
+    // 直接ジョブを作成し、進捗シミュレーションを開始
+    const job = createJob({ clientToken });
+    const cancel = simulateProgress(job.id, () => {});
+
+    (async () => {
+      try {
+        const execMs = 5000 + Math.floor(Math.random() * 15000);
+        await new Promise((r) => setTimeout(r, execMs));
+        const dateStr = new Date().toISOString().split('T')[0];
+        updateJob(job.id, {
+          status: 'succeeded',
+          progress: 100,
+          resultUrl: `https://cdn.example.com/results/${dateStr}.json`,
+        });
+        cancel();
+      } catch (e: any) {
+        updateJob(job.id, { status: 'failed', error: e?.message || 'Unknown error' });
+        cancel();
+      }
+    })();
+
+    return NextResponse.json({ job_id: job.id });
   } catch (e) {
     return jsonError({
       error_code: 'INTERNAL_ERROR',
