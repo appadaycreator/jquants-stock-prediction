@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+export const dynamic = 'force-static';
+
 const LOG_DIR = path.join(process.cwd(), '..', 'logs');
 
 export async function GET(req: NextRequest) {

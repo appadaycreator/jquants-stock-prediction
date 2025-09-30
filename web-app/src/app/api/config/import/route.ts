@@ -3,6 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { execFile } from 'child_process';
 
+export const dynamic = 'force-static';
+
 function runValidator(configDirAbs: string): Promise<{ ok: boolean; stdout: string }>{
   return new Promise((resolve) => {
     const pythonPath = process.env.VIRTUAL_ENV

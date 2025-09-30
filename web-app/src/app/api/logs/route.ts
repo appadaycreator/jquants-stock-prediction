@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+export const dynamic = 'force-static';
+
 // なるべく軽量に: 既定では最新100件のみ返却
 // クエリ: level, source, request_id, limit
 

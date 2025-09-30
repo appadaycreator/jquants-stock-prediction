@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createJob, getJobIdByClientToken, updateJob } from '../_jobStore';
 import { jsonError } from '../_error';
 
+export const dynamic = 'force-static';
+
 // 簡易的な冪等性対応と再実行フック
 export async function POST(request: NextRequest) {
   try {

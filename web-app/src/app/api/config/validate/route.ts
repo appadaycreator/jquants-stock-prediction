@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { execFile } from 'child_process';
 import path from 'path';
 
+export const dynamic = 'force-static';
+
 function runValidator(configDirAbs: string): Promise<{ code: number, stdout: string, stderr: string }> {
   return new Promise((resolve) => {
     const pythonPath = process.env.VIRTUAL_ENV

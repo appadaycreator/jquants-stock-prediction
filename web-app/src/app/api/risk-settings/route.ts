@@ -3,6 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { withIdempotency } from '../_idempotency';
 
+export const dynamic = 'force-static';
+
 function getSettingsPath() {
   // public/data に保存（静的配信も可能に）
   const dataDir = path.join(process.cwd(), 'public', 'data');
