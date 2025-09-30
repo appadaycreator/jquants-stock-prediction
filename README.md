@@ -1946,6 +1946,17 @@ git push origin main
 - フロント接続: `web-app/src/app/page.tsx` （5年・1年・3ヶ月・1ヶ月のクイック範囲ボタン）
 - N/A の扱い: チャートは `null` を許容して崩さず、ツールチップで `N/A` 注記
 
+### パスエイリアス（Next.js/TypeScript）
+
+- `web-app/tsconfig.json` の設定に従い、アプリ内のインポートは `@/` エイリアスを使用してください。
+  - 例: ライブラリ `web-app/src/lib/*` は `@/lib/*`
+  - 例: コンポーネント `web-app/src/components/*` は `@/components/*`
+  - 例: アプリケーション `web-app/src/app/*` は `@/app/*`
+- 注意: `@/src/*` は無効です。`@/` は `web-app/src/` を指します。
+- 既知の誤りパターンの修正例:
+  - 誤: `import x from '@/src/lib/indicators'`
+  - 正: `import x from '@/lib/indicators'`
+
 ### 互換性/横展開
 
 - 既存の `public/data/stock_data.json` は後方互換でフォールバック読み込みされます。

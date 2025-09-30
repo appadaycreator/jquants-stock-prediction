@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import fs from 'fs';
 import { DateTime } from 'luxon';
-import { enrichWithIndicators, toStocksApiResponse, sliceByRange, PriceBar } from '@/src/lib/indicators';
+import { enrichWithIndicators, toStocksApiResponse, sliceByRange, PriceBar } from '@/lib/indicators';
 
 // stocks/{code}.json を返す API。JST 固定、未確定足除外、前回値フォワード、指標を同梱
 export async function GET(request: NextRequest, { params }: { params: { code: string } }) {
