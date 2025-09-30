@@ -1259,7 +1259,7 @@ function DashboardContent() {
                         <div className="text-gray-800"># {p.index}</div>
                         <div className="text-gray-600">実際: {p.actual?.toFixed?.(2) ?? p.actual}</div>
                         <div className="text-gray-600">予測: {p.predicted?.toFixed?.(2) ?? p.predicted}</div>
-                        <div className="font-medium text-red-700">誤差: {(p.error_percentage ?? p.error ?? 0).toFixed ? (p.error_percentage ?? p.error ?? 0).toFixed(2) : (p.error_percentage ?? p.error ?? 0)}%</div>
+                        <div className="font-medium text-red-700">誤差: {Number(p.error_percentage ?? p.error ?? 0).toFixed(2)}%</div>
                       </div>
                     ))}
                   <div className="text-xs text-gray-500">注: 外れた期間は銘柄・期間依存であり、モデルの優劣を断定するものではありません。</div>
