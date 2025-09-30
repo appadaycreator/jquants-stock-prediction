@@ -1,50 +1,54 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import Navigation from "../components/Navigation";
-import MobileNavigation from "../components/MobileNavigation";
-import BottomNav from "../components/mobile/BottomNav";
-import MobileDashboard from "../components/MobileDashboard";
-import MobileOptimizedDashboard from "../components/MobileOptimizedDashboard";
-import PullToRefresh from "../components/PullToRefresh";
-import SymbolSelector from "../components/SymbolSelector";
-import SymbolAnalysisResults from "../components/SymbolAnalysisResults";
-import OneClickAnalysis from "../components/OneClickAnalysis";
-import StockMonitoringManager from "../components/StockMonitoringManager";
-import RealtimeSignalDisplay from "../components/RealtimeSignalDisplay";
-import NotificationSettings from "../components/NotificationSettings";
-import MobileFirstDashboard from "../components/MobileFirstDashboard";
-import WatchlistManager from "../components/WatchlistManager";
-import JudgmentPanel from "../components/JudgmentPanel";
-import PeriodSelector from "../components/PeriodSelector";
-import ParallelUpdateManager from "../components/ParallelUpdateManager";
-import RoutineDashboard from "../components/RoutineDashboard";
 import { SettingsProvider } from "../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
 import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
-// Rechartsを完全に削除し、シンプルなHTML/CSSチャートに置き換え
 import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock, Cpu } from "lucide-react";
-import SideDetailPanel from "@/components/SideDetailPanel";
-import EnhancedErrorHandler from "../components/EnhancedErrorHandler";
-import ChartErrorBoundary from "../components/ChartErrorBoundary";
-import { ButtonTooltip, HelpTooltip } from "../components/Tooltip";
-import UserGuide from "../components/UserGuide";
-import { TourProvider } from "../components/guide/TourProvider";
-import { MetricTooltip, SimpleTooltip } from "../components/guide/Tooltip";
-import Checklist, { ChecklistBadge, DEFAULT_CHECKLIST_ITEMS } from "../components/guide/Checklist";
-import GlossaryModal from "../components/guide/GlossaryModal";
-import HelpModal from "../components/guide/HelpModal";
-import { useGuideShortcuts } from "@/lib/guide/shortcut";
-import { enrichWithIndicators, sliceByRange } from "@/lib/indicators";
-import { guideStore } from "@/lib/guide/guideStore";
-import { parseToJst } from "@/lib/datetime";
-import JQuantsTokenSetup from "@/components/JQuantsTokenSetup";
-import JQuantsAdapter from "@/lib/jquants-adapter";
-import NextUpdateIndicator from "@/components/NextUpdateIndicator";
 import { getCacheMeta } from "@/lib/fetcher";
 import { NotificationService } from "@/lib/notification/NotificationService";
+import UnifiedErrorHandler from "@/components/UnifiedErrorHandler";
+import { getErrorInfo, logError } from "@/lib/error-handler";
+import { errorLogger, setupGlobalErrorHandling } from "@/lib/error-logger";
+import { performanceMonitor, usePerformanceMonitor } from "@/lib/performance-monitor";
+
+// 動的インポートでコンポーネントを遅延読み込み
+const Navigation = dynamic(() => import("../components/Navigation"), { ssr: false });
+const MobileNavigation = dynamic(() => import("../components/MobileNavigation"), { ssr: false });
+const BottomNav = dynamic(() => import("../components/mobile/BottomNav"), { ssr: false });
+const MobileDashboard = dynamic(() => import("../components/MobileDashboard"), { ssr: false });
+const MobileOptimizedDashboard = dynamic(() => import("../components/MobileOptimizedDashboard"), { ssr: false });
+const PullToRefresh = dynamic(() => import("../components/PullToRefresh"), { ssr: false });
+const SymbolSelector = dynamic(() => import("../components/SymbolSelector"), { ssr: false });
+const SymbolAnalysisResults = dynamic(() => import("../components/SymbolAnalysisResults"), { ssr: false });
+const OneClickAnalysis = dynamic(() => import("../components/OneClickAnalysis"), { ssr: false });
+const StockMonitoringManager = dynamic(() => import("../components/StockMonitoringManager"), { ssr: false });
+const RealtimeSignalDisplay = dynamic(() => import("../components/RealtimeSignalDisplay"), { ssr: false });
+const NotificationSettings = dynamic(() => import("../components/NotificationSettings"), { ssr: false });
+const MobileFirstDashboard = dynamic(() => import("../components/MobileFirstDashboard"), { ssr: false });
+const WatchlistManager = dynamic(() => import("../components/WatchlistManager"), { ssr: false });
+const JudgmentPanel = dynamic(() => import("../components/JudgmentPanel"), { ssr: false });
+const PeriodSelector = dynamic(() => import("../components/PeriodSelector"), { ssr: false });
+const ParallelUpdateManager = dynamic(() => import("../components/ParallelUpdateManager"), { ssr: false });
+const RoutineDashboard = dynamic(() => import("../components/RoutineDashboard"), { ssr: false });
+const SideDetailPanel = dynamic(() => import("@/components/SideDetailPanel"), { ssr: false });
+const EnhancedErrorHandler = dynamic(() => import("../components/EnhancedErrorHandler"), { ssr: false });
+const ChartErrorBoundary = dynamic(() => import("../components/ChartErrorBoundary"), { ssr: false });
+const ButtonTooltip = dynamic(() => import("../components/Tooltip").then(mod => ({ default: mod.ButtonTooltip })), { ssr: false });
+const HelpTooltip = dynamic(() => import("../components/Tooltip").then(mod => ({ default: mod.HelpTooltip })), { ssr: false });
+const UserGuide = dynamic(() => import("../components/UserGuide"), { ssr: false });
+const TourProvider = dynamic(() => import("../components/guide/TourProvider").then(mod => ({ default: mod.TourProvider })), { ssr: false });
+const MetricTooltip = dynamic(() => import("../components/guide/Tooltip").then(mod => ({ default: mod.MetricTooltip })), { ssr: false });
+const SimpleTooltip = dynamic(() => import("../components/guide/Tooltip").then(mod => ({ default: mod.SimpleTooltip })), { ssr: false });
+const Checklist = dynamic(() => import("../components/guide/Checklist"), { ssr: false });
+const ChecklistBadge = dynamic(() => import("../components/guide/Checklist").then(mod => ({ default: mod.ChecklistBadge })), { ssr: false });
+const GlossaryModal = dynamic(() => import("../components/guide/GlossaryModal"), { ssr: false });
+const HelpModal = dynamic(() => import("../components/guide/HelpModal"), { ssr: false });
+const JQuantsTokenSetup = dynamic(() => import("@/components/JQuantsTokenSetup"), { ssr: false });
+const NextUpdateIndicator = dynamic(() => import("@/components/NextUpdateIndicator"), { ssr: false });
 
 // 型定義
 interface StockData {
@@ -123,6 +127,13 @@ function DashboardContent() {
   const [sidePanelOpen, setSidePanelOpen] = useState(false);
   const [sidePanelTitle, setSidePanelTitle] = useState<string>("");
   const [sidePanelContent, setSidePanelContent] = useState<React.ReactNode>(null);
+  
+  // エラーハンドリング状態
+  const [error, setError] = useState<Error | null>(null);
+  const [isClient, setIsClient] = useState(false);
+  
+  // パフォーマンス監視
+  usePerformanceMonitor('DashboardContent');
 
   const openSide = (title: string, content: React.ReactNode) => {
     setSidePanelTitle(title);
@@ -253,7 +264,68 @@ function DashboardContent() {
   };
 
   useEffect(() => {
-    loadData();
+    // クライアントサイドの初期化
+    setIsClient(true);
+    
+    // 強化されたグローバルエラーハンドリングの設定
+    setupGlobalErrorHandling();
+    
+    // パフォーマンス監視の初期化
+    console.log('🚀 パフォーマンス監視を開始しました');
+    const metrics = performanceMonitor.getMetrics();
+    console.log('初期メトリクス:', metrics);
+    
+    // カスタムエラーハンドリング
+    const handleError = (event: ErrorEvent) => {
+      console.error('Global error caught:', event.error);
+      const errorInfo = getErrorInfo(event.error);
+      logError(event.error);
+      
+      // 詳細なエラーログを記録
+      errorLogger.logError(event.error, {
+        component: 'Dashboard',
+        action: 'GlobalError',
+        state: { isClient, loading, activeTab }
+      });
+      
+      // 重大なエラーの場合は状態を更新
+      if (errorInfo.severity === 'critical' || errorInfo.severity === 'high') {
+        setError(event.error);
+      }
+    };
+    
+    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      console.error('Unhandled promise rejection:', event.reason);
+      const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
+      const errorInfo = getErrorInfo(error);
+      logError(error);
+      
+      // 詳細なエラーログを記録
+      errorLogger.logError(error, {
+        component: 'Dashboard',
+        action: 'UnhandledRejection',
+        state: { isClient, loading, activeTab }
+      });
+      
+      if (errorInfo.severity === 'critical' || errorInfo.severity === 'high') {
+        setError(error);
+      }
+    };
+    
+    window.addEventListener('error', handleError);
+    window.addEventListener('unhandledrejection', handleUnhandledRejection);
+    
+    // データ読み込み
+    loadData().catch((err) => {
+      console.error('Initial data load failed:', err);
+      const errorInfo = getErrorInfo(err);
+      logError(err);
+      
+      if (errorInfo.severity === 'critical' || errorInfo.severity === 'high') {
+        setError(err);
+      }
+    });
+    
     // 健全性取得
     fetch('/api/model-health', { cache: 'no-cache' })
       .then(r => r.json())
@@ -261,7 +333,6 @@ function DashboardContent() {
       .catch(() => setModelHealth({ status: 'ok' }));
     
     // ガイド再表示ロジック
-    // ツアー（TourProvider）未完了 かつ 当該セッションで未クローズなら自動表示
     try {
       const tourCompleted = localStorage.getItem('guide_tour_completed') === 'true';
       const guideDisabled = localStorage.getItem('guide_disabled') === 'true';
@@ -272,10 +343,11 @@ function DashboardContent() {
         setShowUserGuide(true);
       }
     } catch (e) {
-      // ストレージ未許可などでも致命的ではないため握りつぶす
+      console.warn('Storage access failed:', e);
       setIsFirstVisit(true);
       setShowUserGuide(true);
     }
+    
     // 初期キャッシュメタ情報の収集
     try {
       setCacheMeta({
@@ -287,7 +359,14 @@ function DashboardContent() {
         marketInsights: getCacheMeta('dash:marketInsights'),
         riskAssessment: getCacheMeta('dash:riskAssessment'),
       });
-    } catch {}
+    } catch (e) {
+      console.warn('Cache meta collection failed:', e);
+    }
+    
+    return () => {
+      window.removeEventListener('error', handleError);
+      window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+    };
   }, []);
 
   // モバイル判定
@@ -609,21 +688,31 @@ function DashboardContent() {
     setMonitoringConfig(config);
   };
 
+  // クライアントサイドレンダリング前のフォールバック
+  if (!isClient) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">読み込み中...</p>
+        </div>
+      </div>
+    );
+  }
+
   // エラーが発生した場合
   if (error) {
     return (
-      <EnhancedErrorHandler
+      <UnifiedErrorHandler
         error={error}
         onRetry={() => {
           setError(null);
           loadData();
         }}
-        onGoHome={() => {
-          setError(null);
-          window.location.href = '/';
-        }}
-        onGetHelp={() => setShowUserGuide(true)}
+        onDismiss={() => setError(null)}
         showDetails={process.env.NODE_ENV === 'development'}
+        autoRetry={true}
+        maxRetries={3}
       />
     );
   }
@@ -1959,10 +2048,32 @@ function DashboardContent() {
 
 export default function Dashboard() {
   return (
-    <SettingsProvider>
-      <TourProvider>
-        <DashboardContent />
-      </TourProvider>
-    </SettingsProvider>
+    <ErrorBoundary
+      fallback={({ error, resetErrorBoundary }) => (
+        <UnifiedErrorHandler
+          error={error}
+          onRetry={resetErrorBoundary}
+          onDismiss={() => window.location.reload()}
+          showDetails={process.env.NODE_ENV === 'development'}
+          autoRetry={true}
+          maxRetries={3}
+        />
+      )}
+    >
+      <Suspense fallback={
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">コンポーネントを読み込み中...</p>
+          </div>
+        </div>
+      }>
+        <SettingsProvider>
+          <TourProvider>
+            <DashboardContent />
+          </TourProvider>
+        </SettingsProvider>
+      </Suspense>
+    </ErrorBoundary>
   );
 }
