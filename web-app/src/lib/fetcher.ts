@@ -3,6 +3,8 @@
  * エラーハンドリング、リトライ、タイムアウト、AbortController対応
  */
 
+import { useState, useEffect } from 'react';
+
 export interface FetchOptions {
   signal?: AbortSignal;
   timeout?: number;
@@ -277,23 +279,95 @@ export function getCache<T>(key: string, maxAgeMs?: number): T | null {
   }
 }
 
+// デフォルトデータの取得
+function getDefaultData<T>(url: string): T | null {
+  try {
+    // URLパターンに基づいてデフォルトデータを提供
+    if (url.includes('/api/today')) {
+      return {
+        date: new Date().toISOString().split('T')[0],
+        summary: 'データ取得中...',
+        status: 'loading'
+      } as T;
+    }
+    
+    if (url.includes('/api/predictions')) {
+      return {
+        predictions: [],
+        status: 'loading',
+        message: '予測データを取得中...'
+      } as T;
+    }
+    
+    if (url.includes('/api/risk')) {
+      return {
+        risk_level: 'medium',
+        status: 'loading',
+        message: 'リスク分析中...'
+      } as T;
+    }
+    
+    if (url.includes('/api/dashboard')) {
+      return {
+        summary: {},
+        status: 'loading',
+        message: 'ダッシュボードデータを読み込み中...'
+      } as T;
+    }
+    
+    // 汎用デフォルト
+    return {
+      status: 'loading',
+      message: 'データを読み込み中...',
+      timestamp: Date.now()
+    } as T;
+  } catch {
+    return null;
+  }
+}
+
 export async function fetchJsonWithCache<T>(
   url: string,
   options: FetchOptions & { cacheKey?: string; cacheTtlMs?: number } = {}
 ): Promise<{ data: T; fromCache: boolean }>
 {
   const { cacheKey, cacheTtlMs } = options;
+  
+  // まずキャッシュをチェック
+  if (cacheKey) {
+    const cached = getCache<T>(cacheKey, cacheTtlMs);
+    if (cached) {
+      console.log(`Using cached data for ${cacheKey}`);
+      return { data: cached, fromCache: true };
+    }
+  }
+  
   try {
     const data = await fetchJson<T>(url, options);
-    if (cacheKey) setCache(cacheKey, data);
+    if (cacheKey) {
+      setCache(cacheKey, data);
+      console.log(`Cached fresh data for ${cacheKey}`);
+    }
     return { data, fromCache: false };
   } catch (e) {
+    console.warn(`Fetch failed for ${url}, attempting cache fallback:`, e);
+    
+    // キャッシュフォールバック（TTL無視）
     if (cacheKey) {
-      const cached = getCache<T>(cacheKey, cacheTtlMs);
+      const cached = getCache<T>(cacheKey);
       if (cached) {
+        console.log(`Using stale cache for ${cacheKey} due to fetch failure`);
         return { data: cached, fromCache: true };
       }
     }
+    
+    // 最後の手段: デフォルトデータ
+    const defaultData = getDefaultData<T>(url);
+    if (defaultData) {
+      console.log(`Using default data for ${url}`);
+      return { data: defaultData, fromCache: true };
+    }
+    
     throw e;
   }
 }
@@ -313,15 +387,67 @@ export async function fetchManyWithCache<T extends Record<string, any>>(
       (results as any)[k] = data;
       cacheFlags[k] = fromCache;
     } catch (err) {
+      console.warn(`Failed to fetch ${k}:`, err);
+      
       // 最後の手段: キャッシュのみ（TTL無視）
       const cached = getCache<any>(cacheKey);
       if (cached) {
         (results as any)[k] = cached;
         cacheFlags[k] = true;
+        console.log(`Using stale cache for ${k}`);
+      } else {
+        // デフォルトデータを使用
+        const defaultData = getDefaultData<any>(url);
+        if (defaultData) {
+          (results as any)[k] = defaultData;
+          cacheFlags[k] = true;
+          console.log(`Using default data for ${k}`);
+        }
       }
     }
   }));
 
   return { results, cacheFlags };
+}
+
+// オフライン対応の強化
+export function isOnline(): boolean {
+  return typeof navigator !== 'undefined' ? navigator.onLine : true;
+}
+
+export function waitForOnline(): Promise<void> {
+  return new Promise((resolve) => {
+    if (isOnline()) {
+      resolve();
+      return;
+    }
+    
+    const handleOnline = () => {
+      window.removeEventListener('online', handleOnline);
+      resolve();
+    };
+    
+    window.addEventListener('online', handleOnline);
+  });
+}
+
+// ネットワーク状態の監視
+export function createNetworkStatusHook() {
+  const [isOnline, setIsOnline] = useState(navigator?.onLine ?? true);
+  
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+  
+  return isOnline;
 }
 

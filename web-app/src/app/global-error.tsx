@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function GlobalError({
   error,
@@ -9,37 +9,106 @@ export default function GlobalError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  const [retryCount, setRetryCount] = useState(0);
+  const [isRetrying, setIsRetrying] = useState(false);
+  const [errorType, setErrorType] = useState<'rsc' | 'network' | 'data' | 'unknown'>('unknown');
+
   useEffect(() => {
     // グローバルエラーログをコンソールに出力
     console.error("Global Error:", error);
     
-    // RSC payloadエラーの場合、自動的にリトライ
-    if (error.message.includes("RSC payload") || 
-        error.message.includes("Connection closed") ||
-        error.message.includes("Failed to fetch RSC payload") ||
-        error.message.includes("settings.txt") ||
-        error.message.includes("reports.txt")) {
-      console.log("RSC payload error detected, attempting recovery...");
-      
-      // 複数回のリトライを試行
-      let retryCount = 0;
-      const maxRetries = 3;
-      
-      const retry = () => {
-        if (retryCount < maxRetries) {
-          retryCount++;
-          console.log(`Retry attempt ${retryCount}/${maxRetries}`);
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000 * retryCount);
-        } else {
-          console.error("Max retries reached, showing error page");
-        }
-      };
-      
-      retry();
+    // エラータイプを判定
+    const message = error.message.toLowerCase();
+    if (message.includes("rsc payload") || 
+        message.includes("connection closed") ||
+        message.includes("failed to fetch rsc payload") ||
+        message.includes("settings.txt") ||
+        message.includes("reports.txt")) {
+      setErrorType('rsc');
+    } else if (message.includes("network") || 
+               message.includes("fetch") || 
+               message.includes("connection")) {
+      setErrorType('network');
+    } else if (message.includes("data") || 
+               message.includes("json") || 
+               message.includes("parse")) {
+      setErrorType('data');
     }
-  }, [error]);
+    
+    // RSC payloadエラーの場合、自動的にリトライ
+    if (errorType === 'rsc' || errorType === 'network') {
+      console.log(`${errorType} error detected, attempting recovery...`);
+      handleAutoRetry();
+    }
+  }, [error, errorType]);
+
+  const handleAutoRetry = () => {
+    if (isRetrying || retryCount >= 3) return;
+    
+    setIsRetrying(true);
+    setRetryCount(prev => prev + 1);
+    
+    console.log(`Retry attempt ${retryCount + 1}/3`);
+    
+    // 指数バックオフでリトライ
+    const delay = Math.min(2000 * Math.pow(2, retryCount), 10000);
+    
+    setTimeout(() => {
+      // キャッシュをクリアしてリロード
+      if ('caches' in window) {
+        caches.keys().then(names => {
+          names.forEach(name => {
+            caches.delete(name);
+          });
+        });
+      }
+      
+      // ローカルストレージのキャッシュをクリア
+      try {
+        const keys = Object.keys(localStorage);
+        keys.forEach(key => {
+          if (key.startsWith('app_cache:') || key.startsWith('next:')) {
+            localStorage.removeItem(key);
+          }
+        });
+      } catch (e) {
+        console.warn('Failed to clear localStorage cache:', e);
+      }
+      
+      window.location.reload();
+    }, delay);
+  };
+
+  const getErrorMessage = () => {
+    switch (errorType) {
+      case 'rsc':
+        return {
+          title: 'RSC Payload エラー',
+          message: 'サーバーコンポーネントの通信エラーが発生しました。自動的に復旧を試みています...',
+          icon: '🔄'
+        };
+      case 'network':
+        return {
+          title: 'ネットワークエラー',
+          message: 'ネットワーク接続に問題があります。自動的に再試行しています...',
+          icon: '🌐'
+        };
+      case 'data':
+        return {
+          title: 'データ取得エラー',
+          message: 'データの取得に失敗しました。キャッシュデータを表示します...',
+          icon: '📊'
+        };
+      default:
+        return {
+          title: 'システムエラー',
+          message: '予期しないエラーが発生しました。自動的に復旧を試みています...',
+          icon: '⚠️'
+        };
+    }
+  };
+
+  const errorInfo = getErrorMessage();
 
   return (
     <html>
@@ -48,22 +117,27 @@ export default function GlobalError({
           <div className="text-center">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto">
               <div className="text-red-500 mb-4">
-                <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 19.5c-.77.833.192 2.5 1.732 2.5z" />
-                </svg>
+                <div className="text-6xl mb-2">{errorInfo.icon}</div>
+                {isRetrying && (
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-red-500"></div>
+                    <span className="text-sm text-gray-600">復旧中... ({retryCount}/3)</span>
+                  </div>
+                )}
               </div>
               <h2 className="text-xl font-bold text-gray-900 mb-2">
-                システムエラーが発生しました
+                {errorInfo.title}
               </h2>
               <p className="text-gray-600 mb-4">
-                予期しないエラーが発生しました。自動的に復旧を試みています...
+                {errorInfo.message}
               </p>
               <div className="space-y-2">
                 <button
                   onClick={reset}
                   className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  disabled={isRetrying}
                 >
-                  手動で再試行
+                  {isRetrying ? '復旧中...' : '手動で再試行'}
                 </button>
                 <button
                   onClick={() => window.location.href = "/"}
@@ -71,6 +145,13 @@ export default function GlobalError({
                 >
                   ホームに戻る
                 </button>
+                {retryCount >= 3 && (
+                  <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <p className="text-sm text-yellow-800">
+                      自動復旧に失敗しました。手動で再試行するか、ホームに戻ってください。
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
