@@ -1,12 +1,16 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-  // 基本設定 - GitHub Pages用に静的エクスポートを有効化
-  output: "export",
-  distDir: "out",
+  // 基本設定 - 本番環境でのみ静的エクスポート
+  ...(process.env.NODE_ENV === 'production' && {
+    output: "export",
+    distDir: "out",
+  }),
   
-  // GitHub Pages用の設定
-  basePath: "/jquants-stock-prediction",
-  assetPrefix: "/jquants-stock-prediction",
+  // GitHub Pages用の設定（本番環境のみ）
+  ...(process.env.NODE_ENV === 'production' && {
+    basePath: "/jquants-stock-prediction",
+    assetPrefix: "/jquants-stock-prediction",
+  }),
   
   // 画像最適化設定
   images: {
@@ -39,10 +43,22 @@ const nextConfig = {
   // 実験的機能の設定
   experimental: {
     optimizePackageImports: ["lucide-react", "recharts"],
-    // 静的エクスポート用の設定
-    staticGenerationRetryCount: 5,
-    // プリフェッチの無効化（GitHub Pagesでの問題を回避）
-    disableOptimizedLoading: true,
+    // 静的エクスポート用の設定（本番環境のみ）
+    ...(process.env.NODE_ENV === 'production' && {
+      staticGenerationRetryCount: 5,
+      disableOptimizedLoading: true,
+    }),
+    // 開発環境でのFast Refresh最適化
+    ...(process.env.NODE_ENV === 'development' && {
+      turbo: {
+        rules: {
+          '*.svg': {
+            loaders: ['@svgr/webpack'],
+            as: '*.js',
+          },
+        },
+      },
+    }),
   },
   
   // ESLint設定を無効化（ビルドエラーを回避）

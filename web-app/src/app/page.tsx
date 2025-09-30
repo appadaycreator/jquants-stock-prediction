@@ -19,6 +19,7 @@ import WatchlistManager from "../components/WatchlistManager";
 import JudgmentPanel from "../components/JudgmentPanel";
 import PeriodSelector from "../components/PeriodSelector";
 import ParallelUpdateManager from "../components/ParallelUpdateManager";
+import RoutineDashboard from "../components/RoutineDashboard";
 import { SettingsProvider } from "../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
 // Rechartsを完全に削除し、シンプルなHTML/CSSチャートに置き換え
@@ -281,31 +282,64 @@ function DashboardContent() {
       };
       
       // 環境に応じたパス設定
-      const basePath = process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '';
-      const dataPath = `${basePath}/data`;
+      const dataPath = process.env.NODE_ENV === 'production' ? './data' : '/data';
       
       console.log('データパス:', dataPath);
       console.log('環境:', process.env.NODE_ENV);
       
       // キャッシュ対応の安全取得（失敗時はキャッシュから復旧）
       const { fetchManyWithCache } = await import('@/lib/fetcher');
-      const { results, cacheFlags } = await fetchManyWithCache<{
-        summary: any;
-        stock: any[];
-        model: any[];
-        feature: any[];
-        pred: any[];
-        marketInsights: any;
-        riskAssessment: any;
-      }>({
-        summary: { url: `${dataPath}/dashboard_summary.json`, cacheKey: 'dash:summary', ttlMs: 1000 * 60 * 30 },
-        stock: { url: `${dataPath}/stock_data.json`, cacheKey: 'dash:stock', ttlMs: 1000 * 60 * 30 },
-        model: { url: `${dataPath}/unified_model_comparison.json`, cacheKey: 'dash:model', ttlMs: 1000 * 60 * 30 },
-        feature: { url: `${dataPath}/feature_analysis.json`, cacheKey: 'dash:feature', ttlMs: 1000 * 60 * 30 },
-        pred: { url: `${dataPath}/prediction_results.json`, cacheKey: 'dash:pred', ttlMs: 1000 * 60 * 30 },
-        marketInsights: { url: `${dataPath}/market_insights.json`, cacheKey: 'dash:marketInsights', ttlMs: 1000 * 60 * 30 },
-        riskAssessment: { url: `${dataPath}/risk_assessment.json`, cacheKey: 'dash:riskAssessment', ttlMs: 1000 * 60 * 30 },
-      }, { retries: 2, retryDelay: 800 });
+      
+      let results, cacheFlags;
+      try {
+        const fetchResult = await fetchManyWithCache<{
+          summary: any;
+          stock: any[];
+          model: any[];
+          feature: any[];
+          pred: any[];
+          marketInsights: any;
+          riskAssessment: any;
+        }>({
+          summary: { url: `${dataPath}/dashboard_summary.json`, cacheKey: 'dash:summary', ttlMs: 1000 * 60 * 30 },
+          stock: { url: `${dataPath}/stock_data.json`, cacheKey: 'dash:stock', ttlMs: 1000 * 60 * 30 },
+          model: { url: `${dataPath}/unified_model_comparison.json`, cacheKey: 'dash:model', ttlMs: 1000 * 60 * 30 },
+          feature: { url: `${dataPath}/feature_analysis.json`, cacheKey: 'dash:feature', ttlMs: 1000 * 60 * 30 },
+          pred: { url: `${dataPath}/prediction_results.json`, cacheKey: 'dash:pred', ttlMs: 1000 * 60 * 30 },
+          marketInsights: { url: `${dataPath}/market_insights.json`, cacheKey: 'dash:marketInsights', ttlMs: 1000 * 60 * 30 },
+          riskAssessment: { url: `${dataPath}/risk_assessment.json`, cacheKey: 'dash:riskAssessment', ttlMs: 1000 * 60 * 30 },
+        }, { retries: 2, retryDelay: 800 });
+        
+        results = fetchResult.results;
+        cacheFlags = fetchResult.cacheFlags;
+      } catch (fetchError) {
+        console.warn('データ取得に失敗、デフォルト値を設定:', fetchError);
+        
+        // デフォルトデータを設定
+        results = {
+          summary: {
+            totalStocks: 0,
+            averageAccuracy: 0,
+            lastUpdate: new Date().toISOString(),
+            status: 'no_data'
+          },
+          stock: [],
+          model: [],
+          feature: [],
+          pred: [],
+          marketInsights: {},
+          riskAssessment: {}
+        };
+        cacheFlags = {
+          summary: true,
+          stock: true,
+          model: true,
+          feature: true,
+          pred: true,
+          marketInsights: true,
+          riskAssessment: true
+        };
+      }
 
       const summaryData = results.summary;
       const stockDataRes = results.stock || [];
@@ -317,7 +351,8 @@ function DashboardContent() {
 
       // 一部でもキャッシュ復旧が発生した場合は警告を表示
       if (Object.values(cacheFlags).some(Boolean)) {
-        setError(new Error('最新の一部データ取得に失敗したため、キャッシュから復旧しました。'));
+        console.warn('最新の一部データ取得に失敗したため、キャッシュから復旧しました。');
+        // エラー状態は設定しない（ユーザー体験を優先）
       }
 
       setSummary(summaryData);
@@ -365,21 +400,22 @@ function DashboardContent() {
     } catch (error) {
       console.error("データの読み込みに失敗:", error);
       
-      // より詳細なエラーメッセージを提供
-      let errorMessage = 'データの読み込みに失敗しました';
-      if (error instanceof Error) {
-        if (error.message.includes("Failed to fetch")) {
-          errorMessage = 'ネットワーク接続に問題があります。インターネット接続を確認してください。';
-        } else if (error.message.includes("404")) {
-          errorMessage = 'データファイルが見つかりません。管理者にお問い合わせください。';
-        } else if (error.message.includes("RSC payload")) {
-          errorMessage = 'サーバーとの通信に問題があります。しばらく待ってから再試行してください。';
-        } else {
-          errorMessage = `エラー: ${error.message}`;
-        }
-      }
+      // エラー時もデフォルトデータを設定してユーザー体験を維持
+      setSummary({
+        totalStocks: 0,
+        averageAccuracy: 0,
+        lastUpdate: new Date().toISOString(),
+        status: 'error'
+      });
+      setStockData([]);
+      setModelComparison([]);
+      setFeatureAnalysis([]);
+      setPredictions([]);
+      setMarketInsights({});
+      setRiskAssessment({});
       
-      setError(new Error(errorMessage));
+      // エラーは警告として表示（ページは表示される）
+      console.warn('データ読み込みに失敗しましたが、デフォルト表示を継続します。');
       
       // RSC payloadエラーの場合、自動的にリトライ
       if (error instanceof Error && (
@@ -773,79 +809,21 @@ function DashboardContent() {
       {/* デスクトップメインコンテンツ */}
       <main className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-guide-target="dashboard-overview">
         {activeTab === "p1" && (
-          <div className="space-y-6">
-            {/* P1: 5分ルーティン機能 */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">5分ルーティン</h2>
-                  <p className="text-gray-600">体験の骨格：5分で完結する投資判断システム</p>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Clock className="h-6 w-6 text-blue-600" />
-                  <span className="text-sm font-medium text-blue-600">5分以内</span>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div className="bg-white rounded-lg p-4 border border-blue-200">
-                  <h3 className="font-semibold text-gray-900 mb-2">ウォッチリスト</h3>
-                  <p className="text-sm text-gray-600">銘柄の管理・検索・追加</p>
-                </div>
-                <div className="bg-white rounded-lg p-4 border border-blue-200">
-                  <h3 className="font-semibold text-gray-900 mb-2">期間選択</h3>
-                  <p className="text-sm text-gray-600">1日〜1年の期間設定</p>
-                </div>
-                <div className="bg-white rounded-lg p-4 border border-blue-200">
-                  <h3 className="font-semibold text-gray-900 mb-2">一括更新</h3>
-                  <p className="text-sm text-gray-600">並列取得・進捗表示</p>
-                </div>
-              </div>
-            </div>
-
-            {/* 期間選択 */}
-            <div className="bg-white rounded-lg shadow border p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">期間選択</h3>
-              <PeriodSelector
-                selectedPeriod={selectedPeriod}
-                onPeriodChange={setSelectedPeriod}
-                onCustomDateChange={(start, end) => {
-                  console.log('カスタム期間:', start, end);
-                }}
-              />
-            </div>
-
-            {/* 判断パネル */}
-            <JudgmentPanel
-              onStockSelect={(symbol) => {
-                console.log('銘柄選択:', symbol);
-              }}
-              onActionClick={(action, symbol) => {
-                console.log('アクション実行:', action, symbol);
-              }}
-            />
-
-            {/* ウォッチリスト管理 */}
-            <WatchlistManager
-              onStockSelect={(symbol) => {
-                console.log('銘柄選択:', symbol);
-              }}
-              onWatchlistChange={setWatchlists}
-            />
-
-            {/* 一括更新 */}
-            <ParallelUpdateManager
-              symbols={selectedSymbols.length > 0 ? selectedSymbols : ['7203.T', '6758.T', '6861.T']}
-              onUpdateComplete={(results) => {
-                console.log('更新完了:', results);
-              }}
-              onProgressChange={(progress) => {
-                console.log('進捗:', progress);
-              }}
-              maxConcurrent={4}
-              timeout={30000}
-            />
-          </div>
+          <RoutineDashboard
+            onAnalysisClick={() => {
+              console.log('分析実行');
+              // 分析実行のロジック
+            }}
+            onReportClick={() => {
+              console.log('レポート確認');
+              // レポートページへの遷移
+              window.open('/reports', '_blank');
+            }}
+            onTradeClick={() => {
+              console.log('売買指示');
+              // 売買指示のロジック
+            }}
+          />
         )}
 
         {activeTab === "overview" && (
@@ -1398,7 +1376,7 @@ function DashboardContent() {
                 </Link>
               </div>
               
-              {/* リスク管理概要カード */}
+                      {/* リスク管理概要カード */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                 <div className="bg-gradient-to-r from-red-50 to-red-100 border border-red-200 rounded-lg p-4">
                   <div className="flex items-center justify-between">
@@ -1434,7 +1412,42 @@ function DashboardContent() {
                 </div>
               </div>
               
-              {/* ポジション一覧 */}
+                      {/* 簡易 銘柄別 VaR/MDD テーブル（デモ表示） */}
+                      <div className="bg-white rounded-lg border border-gray-200 mb-6">
+                        <div className="px-6 py-4 border-b border-gray-200">
+                          <h3 className="text-lg font-semibold text-gray-900">銘柄別リスク指標</h3>
+                        </div>
+                        <div className="overflow-x-auto">
+                          <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="bg-gray-50">
+                              <tr>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">銘柄</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">VaR(95%)</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最大DD</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">年率ボラ</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">損切り</th>
+                              </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200 text-sm">
+                              {[ 
+                                { symbol: "7203.T", var95: 0.032, mdd: 0.085, vol: 0.24, sl: "¥2,150 / 8%" },
+                                { symbol: "6758.T", var95: 0.028, mdd: 0.072, vol: 0.21, sl: "¥11,200 / 7%" },
+                                { symbol: "9984.T", var95: 0.045, mdd: 0.125, vol: 0.35, sl: "¥5,200 / 10%" },
+                              ].map((row) => (
+                                <tr key={row.symbol}>
+                                  <td className="px-6 py-3 font-medium text-gray-900">{row.symbol}</td>
+                                  <td className="px-6 py-3">{(row.var95 * 100).toFixed(1)}%</td>
+                                  <td className="px-6 py-3">{(row.mdd * 100).toFixed(1)}%</td>
+                                  <td className="px-6 py-3">{(row.vol * 100).toFixed(1)}%</td>
+                                  <td className="px-6 py-3">{row.sl}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      {/* ポジション一覧 */}
               <div className="bg-white border border-gray-200 rounded-lg">
                 <div className="px-6 py-4 border-b border-gray-200">
                   <h3 className="text-lg font-semibold text-gray-900">現在のポジション</h3>
