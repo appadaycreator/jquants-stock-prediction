@@ -142,6 +142,12 @@ Next.js設定で自動的にGitHub Pages用のパスが設定されます：
 - 静的ホスティングではサーバー実行がないため、API ルート内でのファイル書き込み（`fs.writeFileSync` 等）は行わないでください。必要なデータは `public/data/*.json` に事前生成してください。
 - クライアントからの取得は `/data/xxx.json` へ直接フェッチするフォールバックを用意しています（例: `src/lib/today/fetchTodaySummary.ts`）。
 
+#### 個人投資ダッシュボードのデータ取得仕様
+- 優先: `/data/{YYYYMMDD}/personal_investment_dashboard.json`
+- フォールバック: `/data/personal_investment_dashboard.json`
+- 日付の決定: `src/lib/dataClient.ts` の `getLatestIndex` と `resolveBusinessDate` を使用
+- 実装参照: `src/app/personal-investment/page.tsx`
+
 ### GitHub Pages
 1. GitHub リポジトリの Settings → Pages
 2. Source: GitHub Actions を選択

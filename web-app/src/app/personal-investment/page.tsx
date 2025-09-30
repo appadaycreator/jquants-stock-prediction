@@ -133,11 +133,23 @@ export default function PersonalInvestmentDashboard() {
       setLoading(true);
       const latestIndex = await getLatestIndex();
       const ymd = resolveBusinessDate(null, latestIndex);
-      const { data } = await swrJson<DashboardData>(
-        'personal:dashboard',
-        `/data/${ymd}/personal_investment_dashboard.json`,
-        { ttlMs: 1000 * 60 * 10, timeoutMs: 6000, retries: 3, retryDelay: 800 }
-      );
+      // まずは日付付きパスを取得し、404等で失敗した場合は無日付パスにフォールバック
+      let data: DashboardData | null = null;
+      try {
+        const primary = await swrJson<DashboardData>(
+          `personal:dashboard:${ymd}`,
+          `/data/${ymd}/personal_investment_dashboard.json`,
+          { ttlMs: 1000 * 60 * 10, timeoutMs: 6000, retries: 3, retryDelay: 800 }
+        );
+        data = primary.data;
+      } catch (e) {
+        const fallback = await swrJson<DashboardData>(
+          'personal:dashboard',
+          `/data/personal_investment_dashboard.json`,
+          { ttlMs: 1000 * 60 * 10, timeoutMs: 6000, retries: 2, retryDelay: 800 }
+        );
+        data = fallback.data;
+      }
       if (!data) throw new Error('ダッシュボードデータが空です');
       setDashboardData(data);
       const candidates: Candidate[] = [

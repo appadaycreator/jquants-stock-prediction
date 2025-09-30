@@ -138,10 +138,10 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
         localStorage.setItem(clientTokenKey, clientToken);
       }
 
-      // 1) ジョブ作成
+      // 1) ジョブ作成（client_token を JSON Body で送信）
       const { job_id } = await fetchJson<{ job_id: string }>(
         '/api/analyze',
-        { timeout: 10000 }
+        { timeout: 10000, json: { client_token: clientToken } }
       ).catch(async (e) => {
         // 静的環境フォールバック: 旧クライアントシミュレーションに切替
         setStatus('静的環境のためローカルシミュレーションに切り替えます...');
@@ -154,6 +154,7 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
         const localId = `local_${Date.now()}`;
         setAnalysisId(localId);
         saveAnalysisHistory({ id: localId, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: 'success', result: sim.result });
+        setIsAnalyzing(false);
         throw null; // 以降の処理をスキップ
       });
       if (!job_id) return; // フォールバックで既に完了
@@ -183,6 +184,7 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
             setAnalysisResult(resultPayload);
             onAnalysisComplete?.(resultPayload);
             saveAnalysisHistory({ id: job_id, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: 'success', result: resultPayload });
+            setIsAnalyzing(false);
             return;
           }
           if (res.status === 'failed') {
@@ -205,6 +207,7 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
           }
           // 履歴保存
           saveAnalysisHistory({ id: job_id, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: 'error', error: err instanceof Error ? err.message : 'Unknown' });
+          setIsAnalyzing(false);
         }
       };
 
@@ -212,7 +215,6 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
     } catch (err) {
       setError(err instanceof Error ? err.message : '不明なエラーが発生しました');
       setStatus('分析に失敗しました');
-    } finally {
       setIsAnalyzing(false);
     }
   };

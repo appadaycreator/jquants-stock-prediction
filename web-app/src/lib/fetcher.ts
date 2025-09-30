@@ -8,6 +8,9 @@ export interface FetchOptions {
   timeout?: number;
   retries?: number;
   retryDelay?: number;
+  method?: string;
+  headers?: Record<string, string>;
+  json?: unknown;
 }
 
 export class AppError extends Error {
@@ -45,7 +48,10 @@ export async function fetchJson<T>(
     signal,
     timeout = 10000,
     retries = 3,
-    retryDelay = 1000
+    retryDelay = 1000,
+    method,
+    headers,
+    json
   } = options;
 
   const controller = new AbortController();
@@ -60,13 +66,22 @@ export async function fetchJson<T>(
 
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
+      const baseHeaders: Record<string, string> = {
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache",
+      };
+
+      const hasJsonBody = typeof json !== 'undefined';
+      if (hasJsonBody) {
+        baseHeaders['Content-Type'] = 'application/json';
+      }
+
       const response = await fetch(resolveUrl(url), {
         signal: controller.signal,
         cache: "no-cache",
-        headers: {
-          "Cache-Control": "no-cache",
-          "Pragma": "no-cache",
-        },
+        method: method || (hasJsonBody ? 'POST' : 'GET'),
+        headers: { ...baseHeaders, ...(headers || {}) },
+        body: hasJsonBody ? JSON.stringify(json) : undefined,
       });
 
       clearTimeout(timeoutId);

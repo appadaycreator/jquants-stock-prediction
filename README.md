@@ -150,10 +150,12 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 - **ビルド成功確認**: Next.js静的エクスポートが正常に完了
 - **デプロイパイプライン安定化**: GitHub Actionsでの自動デプロイが正常に動作
 
-#### ワンクリック分析（非同期ジョブ）API/UI 仕様（新）
+#### ワンクリック分析（非同期ジョブ）API/UI 仕様（更新）
 
 ```
-POST /api/analyze => { job_id: string }
+POST /api/analyze
+  Request JSON: { client_token: string }
+  Response JSON: { job_id: string }
   - 分析を非同期ジョブとして投入（GETは405で明示拒否）
 
 GET /api/jobs/:job_id => {
@@ -167,13 +169,20 @@ GET /api/jobs/:job_id => {
 - UI: 「分析実行」押下→トースト＋プログレス（0→100%）、キャンセル不可、成功で「最新結果を表示」に変化
 - 失敗時: 前回結果へのリンクと簡潔なエラー要約を表示
 - ポーリング: 1.5秒間隔、最大3分
-- 冪等性: `client_token` により二重クリック時は同一 `job_id` を返却
+- 冪等性: `client_token` により二重クリック時は同一 `job_id` を返却（クライアント→JSON Body で送信）
 - モバイル復帰: `job_id` に再アタッチして進捗を継続
+
+停止条件（重要・UIの挙動）:
+- 「実行中」は以下の場合にのみ解除されます（finallyでは解除しません）
+  - 成功: サーバー結果取得（`status: succeeded`）またはローカルフォールバック成功時
+  - 失敗: サーバーが`failed`を返却、またはポーリング中エラー発生時
+  - タイムアウト: 3分超過検知時
+- 上記以外（ポーリング継続中・キュー待機中）は「実行中」を維持し、進捗・経過時間の表示も継続します
 
 実装:
 - API: `web-app/src/app/api/analyze/route.ts`, `web-app/src/app/api/jobs/[job_id]/route.ts`
 - ジョブ管理: `web-app/src/app/api/_jobStore.ts`（開発用のインメモリ。実運用はWorkers KV/Queues等に置換）
-- UI: `web-app/src/components/OneClickAnalysis.tsx` が新APIで起動・ポーリング実装済み。静的環境では自動でローカルシミュレーションへフォールバック。
+- UI: `web-app/src/components/OneClickAnalysis.tsx` が `client_token` を JSON Body に含めてジョブ起動・ポーリングを実装。静的環境では自動でローカルシミュレーションへフォールバック。停止は成功/失敗/タイムアウト/ローカル完了の明示分岐でのみ行います。
 
 ## 🆕 新機能: 個人投資特化ダッシュボード
 
@@ -1452,7 +1461,7 @@ git push origin main
     - 失敗時: 自動で前回結果（`localStorage: today_summary`）にフォールバックし、「キャッシュ表示」の注意文を表示
     - 実装: `web-app/src/lib/today/fetchTodaySummary.ts`, `web-app/src/app/today/page.tsx`
   - 個人投資（`/personal-investment`）
-    - 取得: `/data/personal_investment_dashboard.json` を `fetchJsonWithCache` で取得
+    - 取得: 優先 `/data/{YYYYMMDD}/personal_investment_dashboard.json`、失敗時 `/data/personal_investment_dashboard.json` にフォールバック
     - 失敗時: `app_cache:personal:dashboard`（内部キー）から前回結果を読み出し表示
     - 実装: `web-app/src/app/personal-investment/page.tsx`
   - ダッシュボード（トップ `/`）

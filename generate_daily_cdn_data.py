@@ -61,7 +61,9 @@ def summarize_for_today() -> Dict[str, Any]:
     return summary
 
 
-def write_daily_files(ymd: str, summary: Dict[str, Any], stocks: List[Dict[str, Any]]) -> None:
+def write_daily_files(
+    ymd: str, summary: Dict[str, Any], stocks: List[Dict[str, Any]]
+) -> None:
     day_dir = PUBLIC_DATA / ymd
     stocks_dir = day_dir / "stocks"
     stocks_dir.mkdir(parents=True, exist_ok=True)
@@ -109,5 +111,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
 
