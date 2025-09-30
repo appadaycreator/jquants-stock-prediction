@@ -236,11 +236,8 @@ class PerformanceMonitor {
     // 不要なイベントリスナーの削除
     const elements = document.querySelectorAll('*');
     elements.forEach(element => {
-      // イベントリスナーの数を確認（実際の実装ではより詳細な監視が必要）
-      if (element.addEventListener) {
-        // デバッグ用のログ
-        console.debug('Event listeners on element:', element.tagName);
-      }
+      // デバッグ用のログ
+      console.debug('Event listeners on element:', element.tagName);
     });
   }
 
