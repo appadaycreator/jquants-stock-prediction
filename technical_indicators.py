@@ -7,7 +7,7 @@
 import pandas as pd
 import numpy as np
 import logging
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 
 logger = logging.getLogger(__name__)
 
@@ -461,7 +461,7 @@ def get_enhanced_features_list() -> List[str]:
     ]
 
 
-def get_unified_technical_evidence(df: pd.DataFrame) -> Dict[str, Any]:
+def get_unified_technical_evidence(df: pd.DataFrame) -> Dict[str, object]:
     """統一スキーマ: テクニカル根拠ブロック
 
     Input:

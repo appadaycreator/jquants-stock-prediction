@@ -2,9 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-static';
 
-export async function GET(_req: NextRequest, context: { params: { job_id: string } }) {
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: Record<string, string | string[]> }
+) {
   try {
-    const jobId = context.params.job_id;
+    const jobIdParam = (params as Record<string, string | string[]>).job_id;
+    const jobId = Array.isArray(jobIdParam) ? jobIdParam[0] : jobIdParam;
     // 既存のジョブAPIに委譲
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/jobs/${jobId}`, { cache: 'no-store' });
     if (!res.ok) {
