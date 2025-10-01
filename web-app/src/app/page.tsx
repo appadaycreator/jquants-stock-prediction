@@ -28,6 +28,8 @@ import AnalysisExecutionPanel from "@/components/AnalysisExecutionPanel";
 import LoadingOverlay from "@/components/LoadingOverlay";
 import ModelComparisonCharts from "@/components/ModelComparisonCharts";
 import AnalysisGuide from "@/components/AnalysisGuide";
+import { DataPlaceholder, MetricPlaceholder, ChartPlaceholder } from "@/components/PlaceholderComponents";
+import TutorialSystem from "@/components/TutorialSystem";
 
 // 動的インポートでコンポーネントを遅延読み込み
 const Navigation = dynamic(() => import("../components/Navigation"), { ssr: false });
@@ -1088,110 +1090,149 @@ function DashboardContent() {
           <div className="xl:col-span-9 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
               {/* 今日のルーティン */}
-              <button onClick={() => openSide("今日のルーティン", (
-                <div className="space-y-3 text-sm">
-                  <div className="text-gray-700">最終更新: {routine.lastUpdated || "N/A"}（{routine.freshnessLabel}）</div>
-                  <div className="space-y-2">
-                    <div className="font-medium text-gray-900">上位候補</div>
-                    <ul className="list-disc pl-4">
-                      {(routine.topCandidates || []).slice(0,5).map(c => (
-                        <li key={c.symbol}>{c.symbol} {c.recommendation} ({Math.round((c.confidence ?? 0.5)*100)}%)</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))} className="bg-white rounded-lg shadow p-5 text-left w-full">
-                <div className="flex items-center">
-                  <Clock className="h-6 w-6 text-blue-600" />
-                  <div className="ml-3">
-                    <p className="text-xs font-medium text-gray-500">今日のルーティン</p>
-                    <p className="text-xl font-semibold text-gray-900">{routine.freshnessLabel}</p>
-                    <p className="text-xs text-gray-500 mt-1">最終更新: {routine.lastUpdated || "-"}</p>
-                  </div>
-                </div>
-              </button>
-              {/* 重要アラート */}
-              <button onClick={() => openSide("重要アラート", (
-                <div className="space-y-2 text-sm">
-                  {(routine.summary?.warnings || []).length > 0 ? (
-                    <ul className="list-disc pl-4">
-                      {routine.summary?.warnings?.slice(0,10).map((w, i) => (
-                        <li key={i}>{w.symbol}: {w.message || "アラート"}</li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <div>重要アラートはありません。</div>
-                  )}
-                </div>
-              ))} className="bg-white rounded-lg shadow p-5 text-left w-full">
-                <div className="flex items-center">
-                  <AlertTriangle className="h-6 w-6 text-yellow-600" />
-                  <div className="ml-3">
-                    <p className="text-xs font-medium text-gray-500">重要アラート</p>
-                    <p className="text-xl font-semibold text-gray-900">{(routine.summary?.warnings || []).length}</p>
-                    <p className="text-xs text-gray-500 mt-1">件数</p>
-                  </div>
-                </div>
-              </button>
-              {/* リスク状態 */}
-              <button onClick={() => openSide("リスク評価", (
-                <div className="space-y-3 text-sm">
-                  <div>詳細なリスク内訳、スコア根拠、推奨アクションを表示。</div>
-                </div>
-              ))} className="bg-white rounded-lg shadow p-5 text-left w-full">
-                <div className="flex items-center">
-                  <Shield className="h-6 w-6 text-red-600" />
-                  <div className="ml-3">
-                    <p className="text-xs font-medium text-gray-500">リスク状態</p>
-                    <p className="text-sm">
-                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                        riskAssessment?.risk_level === "Low" ? "bg-green-100 text-green-800" :
-                        riskAssessment?.risk_level === "Medium" ? "bg-yellow-100 text-yellow-800" :
-                        "bg-red-100 text-red-800"
-                      }`}>{riskAssessment?.risk_level || "-"}</span>
-                      <span className="ml-2 text-gray-600">{riskAssessment?.risk_score ? `${(riskAssessment.risk_score * 100).toFixed(0)}%` : "-"}</span>
-                    </p>
-                  </div>
-                </div>
-              </button>
-              {/* 今日の推奨（STOP時は停止案内に切替） */}
-              <button onClick={() => openSide("今日の推奨", (
-                <div className="space-y-2 text-sm">
-                  {modelHealth?.status === "stop" ? (
+              {routine.lastUpdated ? (
+                <button onClick={() => openSide("今日のルーティン", (
+                  <div className="space-y-3 text-sm">
+                    <div className="text-gray-700">最終更新: {routine.lastUpdated}（{routine.freshnessLabel}）</div>
                     <div className="space-y-2">
-                      <div className="text-red-700 font-semibold">健全性ゲートにより提案を一時停止中</div>
-                      <div className="text-gray-700">原因: {(modelHealth?.reasons || []).join("、") || "要確認"}</div>
-                      <button
-                        onClick={() => loadData(true)}
-                        className="mt-2 px-3 py-1.5 bg-blue-600 text-white rounded"
-                      >再実行</button>
-                    </div>
-                  ) : (
-                    <>
                       <div className="font-medium text-gray-900">上位候補</div>
                       <ul className="list-disc pl-4">
                         {(routine.topCandidates || []).slice(0,5).map(c => (
                           <li key={c.symbol}>{c.symbol} {c.recommendation} ({Math.round((c.confidence ?? 0.5)*100)}%)</li>
                         ))}
                       </ul>
-                    </>
-                  )}
-                </div>
-              ))} className="bg-white rounded-lg shadow p-5 text-left w-full">
-                <div className="flex items-center">
-                  <Target className="h-6 w-6 text-green-600" />
-                  <div className="ml-3">
-                    <p className="text-xs font-medium text-gray-500">今日の推奨</p>
-                    {modelHealth?.status === "stop" ? (
-                      <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">一時停止</span>
-                    ) : (
-                      <p className="text-sm text-gray-900 truncate max-w-[220px]">
-                        {(routine.topCandidates || []).slice(0,3).map(c => c.symbol).join(" / ") || "-"}
+                    </div>
+                  </div>
+                ))} className="bg-white rounded-lg shadow p-5 text-left w-full">
+                  <div className="flex items-center">
+                    <Clock className="h-6 w-6 text-blue-600" />
+                    <div className="ml-3">
+                      <p className="text-xs font-medium text-gray-500">今日のルーティン</p>
+                      <p className="text-xl font-semibold text-gray-900">{routine.freshnessLabel}</p>
+                      <p className="text-xs text-gray-500 mt-1">最終更新: {routine.lastUpdated}</p>
+                    </div>
+                  </div>
+                </button>
+              ) : (
+                <DataPlaceholder
+                  title="今日のルーティン"
+                  description="5分で完了する投資分析ルーティンを開始しましょう"
+                  actionText="5分ルーティンを開始"
+                  onAction={() => window.location.href = '/five-min-routine'}
+                  icon={Clock}
+                />
+              )}
+              {/* 重要アラート */}
+              {(routine.summary?.warnings || []).length > 0 ? (
+                <button onClick={() => openSide("重要アラート", (
+                  <div className="space-y-2 text-sm">
+                    <ul className="list-disc pl-4">
+                      {routine.summary?.warnings?.slice(0,10).map((w, i) => (
+                        <li key={i}>{w.symbol}: {w.message || "アラート"}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))} className="bg-white rounded-lg shadow p-5 text-left w-full">
+                  <div className="flex items-center">
+                    <AlertTriangle className="h-6 w-6 text-yellow-600" />
+                    <div className="ml-3">
+                      <p className="text-xs font-medium text-gray-500">重要アラート</p>
+                      <p className="text-xl font-semibold text-gray-900">{(routine.summary?.warnings || []).length}</p>
+                      <p className="text-xs text-gray-500 mt-1">件数</p>
+                    </div>
+                  </div>
+                </button>
+              ) : (
+                <DataPlaceholder
+                  title="重要アラート"
+                  description="分析を実行すると、重要なアラートがここに表示されます"
+                  actionText="分析を実行"
+                  onAction={() => setShowAnalysisModal(true)}
+                  icon={AlertTriangle}
+                  variant="info"
+                />
+              )}
+              {/* リスク状態 */}
+              {riskAssessment?.risk_level ? (
+                <button onClick={() => openSide("リスク評価", (
+                  <div className="space-y-3 text-sm">
+                    <div>詳細なリスク内訳、スコア根拠、推奨アクションを表示。</div>
+                  </div>
+                ))} className="bg-white rounded-lg shadow p-5 text-left w-full">
+                  <div className="flex items-center">
+                    <Shield className="h-6 w-6 text-red-600" />
+                    <div className="ml-3">
+                      <p className="text-xs font-medium text-gray-500">リスク状態</p>
+                      <p className="text-sm">
+                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                          riskAssessment?.risk_level === "Low" ? "bg-green-100 text-green-800" :
+                          riskAssessment?.risk_level === "Medium" ? "bg-yellow-100 text-yellow-800" :
+                          "bg-red-100 text-red-800"
+                        }`}>{riskAssessment?.risk_level}</span>
+                        <span className="ml-2 text-gray-600">{riskAssessment?.risk_score ? `${(riskAssessment.risk_score * 100).toFixed(0)}%` : ""}</span>
                       </p>
+                    </div>
+                  </div>
+                </button>
+              ) : (
+                <DataPlaceholder
+                  title="リスク状態"
+                  description="分析を実行すると、投資リスクの評価結果が表示されます"
+                  actionText="分析を実行"
+                  onAction={() => setShowAnalysisModal(true)}
+                  icon={Shield}
+                  variant="warning"
+                />
+              )}
+              {/* 今日の推奨（STOP時は停止案内に切替） */}
+              {(routine.topCandidates || []).length > 0 ? (
+                <button onClick={() => openSide("今日の推奨", (
+                  <div className="space-y-2 text-sm">
+                    {modelHealth?.status === "stop" ? (
+                      <div className="space-y-2">
+                        <div className="text-red-700 font-semibold">健全性ゲートにより提案を一時停止中</div>
+                        <div className="text-gray-700">原因: {(modelHealth?.reasons || []).join("、") || "要確認"}</div>
+                        <button
+                          onClick={() => loadData(true)}
+                          className="mt-2 px-3 py-1.5 bg-blue-600 text-white rounded"
+                        >再実行</button>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="font-medium text-gray-900">上位候補</div>
+                        <ul className="list-disc pl-4">
+                          {(routine.topCandidates || []).slice(0,5).map(c => (
+                            <li key={c.symbol}>{c.symbol} {c.recommendation} ({Math.round((c.confidence ?? 0.5)*100)}%)</li>
+                          ))}
+                        </ul>
+                      </>
                     )}
                   </div>
-                </div>
-              </button>
+                ))} className="bg-white rounded-lg shadow p-5 text-left w-full">
+                  <div className="flex items-center">
+                    <Target className="h-6 w-6 text-green-600" />
+                    <div className="ml-3">
+                      <p className="text-xs font-medium text-gray-500">今日の推奨</p>
+                      {modelHealth?.status === "stop" ? (
+                        <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">一時停止</span>
+                      ) : (
+                        <p className="text-sm text-gray-900 truncate max-w-[220px]">
+                          {(routine.topCandidates || []).slice(0,3).map(c => c.symbol).join(" / ")}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </button>
+              ) : (
+                <DataPlaceholder
+                  title="今日の推奨"
+                  description="分析を実行すると、投資推奨銘柄がここに表示されます"
+                  actionText="分析を実行"
+                  onAction={() => setShowAnalysisModal(true)}
+                  icon={Target}
+                  variant="success"
+                />
+              )}
             </div>
             {/* 5分ルーティン（ホーム内完結） */}
             <div className="bg-white rounded-lg shadow p-4">
@@ -2216,6 +2257,15 @@ function DashboardContent() {
 
       {/* UI/UX統合コンポーネント */}
       <UIUXIntegration />
+
+      {/* チュートリアルシステム */}
+      <TutorialSystem
+        onComplete={() => console.log('チュートリアル完了')}
+        onSkip={() => console.log('チュートリアルスキップ')}
+        onStartAnalysis={() => setShowAnalysisModal(true)}
+        onOpenSettings={() => setShowSettingsModal(true)}
+        onOpenRoutine={() => window.location.href = '/five-min-routine'}
+      />
     </div>
   );
 }

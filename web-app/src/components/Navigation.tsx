@@ -11,6 +11,8 @@ import {
   Home,
   Eye,
   Calendar,
+  Clock,
+  AlertCircle,
 } from "lucide-react";
 
 interface NavigationProps {
@@ -38,6 +40,12 @@ export default function Navigation({
       description: "メインダッシュボード",
     },
     { 
+      href: "/five-min-routine", 
+      label: "5分ルーティン", 
+      icon: Clock,
+      description: "効率的な投資分析ルーティン",
+    },
+    { 
       href: "/today", 
       label: "今日の投資指示", 
       icon: Calendar,
@@ -60,6 +68,12 @@ export default function Navigation({
       label: "使い方", 
       icon: BookOpen,
       description: "使用方法ガイド",
+    },
+    { 
+      href: "/troubleshooting", 
+      label: "トラブルシューティング", 
+      icon: AlertCircle,
+      description: "問題解決ガイド",
     },
   ];
 
