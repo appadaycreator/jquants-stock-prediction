@@ -105,13 +105,17 @@ class EnhancedDataValidator:
         missing_report = self._validate_missing_values(data)
         detailed_report["missing_values"] = missing_report
         if missing_report["total_missing"] > 0:
-            warnings.append(f"欠損値が検出されました: {missing_report['total_missing']}個")
+            warnings.append(
+                f"欠損値が検出されました: {missing_report['total_missing']}個"
+            )
 
         # 4. 異常値の検証
         outlier_report = self._validate_outliers(data)
         detailed_report["outliers"] = outlier_report
         if outlier_report["total_outliers"] > 0:
-            warnings.append(f"異常値が検出されました: {outlier_report['total_outliers']}個")
+            warnings.append(
+                f"異常値が検出されました: {outlier_report['total_outliers']}個"
+            )
 
         # 5. OHLCデータの整合性検証
         if self.validation_rules["ohlc_validation"]:
@@ -268,11 +272,15 @@ class EnhancedDataValidator:
             # High >= Open, Close の確認
             invalid_high_open = data["High"] < data["Open"]
             if invalid_high_open.any():
-                issues.append(f"High < Open の行が {invalid_high_open.sum()} 行あります")
+                issues.append(
+                    f"High < Open の行が {invalid_high_open.sum()} 行あります"
+                )
 
             invalid_high_close = data["High"] < data["Close"]
             if invalid_high_close.any():
-                issues.append(f"High < Close の行が {invalid_high_close.sum()} 行あります")
+                issues.append(
+                    f"High < Close の行が {invalid_high_close.sum()} 行あります"
+                )
 
             # Low <= Open, Close の確認
             invalid_low_open = data["Low"] > data["Open"]
@@ -281,7 +289,9 @@ class EnhancedDataValidator:
 
             invalid_low_close = data["Low"] > data["Close"]
             if invalid_low_close.any():
-                issues.append(f"Low > Close の行が {invalid_low_close.sum()} 行あります")
+                issues.append(
+                    f"Low > Close の行が {invalid_low_close.sum()} 行あります"
+                )
 
         return issues
 
@@ -306,7 +316,9 @@ class EnhancedDataValidator:
             if volume_std > 0:
                 extreme_volume = data["Volume"] > volume_mean + 5 * volume_std
                 if extreme_volume.any():
-                    issues.append(f"異常に大きなボリュームが {extreme_volume.sum()} 行あります")
+                    issues.append(
+                        f"異常に大きなボリュームが {extreme_volume.sum()} 行あります"
+                    )
 
         return issues
 
@@ -333,7 +345,9 @@ class EnhancedDataValidator:
                     max_expected_interval = pd.Timedelta(days=7)  # 1週間
                     large_gaps = date_diffs > max_expected_interval
                     if large_gaps.any():
-                        issues.append(f"異常に大きな日付間隔が {large_gaps.sum()} 箇所あります")
+                        issues.append(
+                            f"異常に大きな日付間隔が {large_gaps.sum()} 箇所あります"
+                        )
 
         return issues
 
@@ -376,22 +390,30 @@ class EnhancedDataValidator:
         # 欠損値の推奨事項
         missing_report = detailed_report.get("missing_values", {})
         if missing_report.get("missing_percentage", 0) > 0.05:
-            recommendations.append("欠損値の処理を検討してください（前値補完、線形補完など）")
+            recommendations.append(
+                "欠損値の処理を検討してください（前値補完、線形補完など）"
+            )
 
         # 異常値の推奨事項
         outlier_report = detailed_report.get("outliers", {})
         if outlier_report.get("total_outliers", 0) > 0:
-            recommendations.append("異常値の処理を検討してください（除外、修正、変換など）")
+            recommendations.append(
+                "異常値の処理を検討してください（除外、修正、変換など）"
+            )
 
         # データ分布の推奨事項
         distribution_report = detailed_report.get("distribution", {})
         for col, skewness in distribution_report.get("skewness", {}).items():
             if abs(skewness) > 2:
-                recommendations.append(f"カラム '{col}' の分布が偏っています（歪度: {skewness:.2f}）")
+                recommendations.append(
+                    f"カラム '{col}' の分布が偏っています（歪度: {skewness:.2f}）"
+                )
 
         # データ量の推奨事項
         if len(data) < 100:
-            recommendations.append("データ量が少ないため、より多くのデータの取得を検討してください")
+            recommendations.append(
+                "データ量が少ないため、より多くのデータの取得を検討してください"
+            )
 
         return recommendations
 
@@ -497,18 +519,24 @@ class EnhancedDataValidator:
         # 欠損値の改善提案
         missing_report = validation_result.detailed_report.get("missing_values", {})
         if missing_report.get("total_missing", 0) > 0:
-            improvements.append("欠損値の処理: 前値補完、線形補完、または機械学習による補完を検討")
+            improvements.append(
+                "欠損値の処理: 前値補完、線形補完、または機械学習による補完を検討"
+            )
 
         # 異常値の改善提案
         outlier_report = validation_result.detailed_report.get("outliers", {})
         if outlier_report.get("total_outliers", 0) > 0:
-            improvements.append("異常値の処理: 除外、修正、またはロバスト統計量の使用を検討")
+            improvements.append(
+                "異常値の処理: 除外、修正、またはロバスト統計量の使用を検討"
+            )
 
         # データ分布の改善提案
         distribution_report = validation_result.detailed_report.get("distribution", {})
         for col, skewness in distribution_report.get("skewness", {}).items():
             if abs(skewness) > 1:
-                improvements.append(f"カラム '{col}' の分布改善: 対数変換、Box-Cox変換、または正規化を検討")
+                improvements.append(
+                    f"カラム '{col}' の分布改善: 対数変換、Box-Cox変換、または正規化を検討"
+                )
 
         # データ量の改善提案
         if len(data) < 100:

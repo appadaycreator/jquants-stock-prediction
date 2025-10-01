@@ -859,7 +859,9 @@ class IndividualStockBacktestSystem:
 
         # 技術指標最適化
         report.append(f"\n⚙️ 技術指標最適化:")
-        report.append(f"  最適パラメータ: {result.technical_optimization.optimal_parameters}")
+        report.append(
+            f"  最適パラメータ: {result.technical_optimization.optimal_parameters}"
+        )
         report.append(
             f"  最高パフォーマンス: {result.technical_optimization.performance_metrics['best_performance']:.4f}"
         )
@@ -871,7 +873,9 @@ class IndividualStockBacktestSystem:
                 report.append(f"  {strategy_name}:")
                 report.append(f"    総リターン: {strategy_result.total_return:.2%}")
                 report.append(f"    シャープレシオ: {strategy_result.sharpe_ratio:.2f}")
-                report.append(f"    最大ドローダウン: {strategy_result.max_drawdown:.2%}")
+                report.append(
+                    f"    最大ドローダウン: {strategy_result.max_drawdown:.2%}"
+                )
             else:
                 report.append(f"  {strategy_name}: データなし")
 
@@ -909,7 +913,9 @@ class IndividualStockBacktestSystem:
         with open(f"{filename}_report.txt", "w", encoding="utf-8") as f:
             f.write(report)
 
-        logger.info(f"結果を保存しました: {filename}_results.json, {filename}_report.txt")
+        logger.info(
+            f"結果を保存しました: {filename}_results.json, {filename}_report.txt"
+        )
 
 
 def main():

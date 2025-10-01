@@ -87,7 +87,9 @@ class JapaneseFontConfig:
                 print(f"✅ 日本語フォント設定完了: {self.japanese_font}")
                 return True
             else:
-                print("⚠️ 日本語フォントが見つかりません。デフォルトフォントを使用します。")
+                print(
+                    "⚠️ 日本語フォントが見つかりません。デフォルトフォントを使用します。"
+                )
                 return False
 
         except Exception as e:

@@ -130,7 +130,9 @@ class AdvancedMemoryOptimizer:
 
             # メモリ制限チェック
             if not self.check_memory_limit():
-                self.logger.warning("⚠️ メモリ制限に達しました。ガベージコレクションを実行")
+                self.logger.warning(
+                    "⚠️ メモリ制限に達しました。ガベージコレクションを実行"
+                )
                 gc.collect()
 
             # チャンク処理
@@ -521,7 +523,9 @@ class UnifiedPerformanceOptimizer:
         performance_summary = self.performance_monitor.get_performance_summary()
 
         self.logger.info("📊 最適化統計:")
-        self.logger.info(f"  📋 キャッシュヒット率: {cache_stats.get('hit_rate', 0):.1f}%")
+        self.logger.info(
+            f"  📋 キャッシュヒット率: {cache_stats.get('hit_rate', 0):.1f}%"
+        )
         self.logger.info(
             f"  ⏱️ 総処理時間: {performance_summary.get('total_time_seconds', 0):.2f}秒"
         )

@@ -537,9 +537,9 @@ def get_unified_technical_evidence(df: pd.DataFrame) -> Dict[str, object]:
         priority_order = ["RSI", "MACD", "BB_%B", "PricePos20d", "ADX"]
         ordered = sorted(
             key_items,
-            key=lambda x: priority_order.index(x["name"])
-            if x["name"] in priority_order
-            else 999,
+            key=lambda x: (
+                priority_order.index(x["name"]) if x["name"] in priority_order else 999
+            ),
         )
         top3 = ordered[:3]
 

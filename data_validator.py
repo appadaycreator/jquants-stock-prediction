@@ -58,7 +58,9 @@ class DataValidator:
             # 統計情報の収集
             results["statistics"] = self._collect_statistics(df)
 
-            logger.info(f"✅ データ検証完了 - 品質スコア: {results['quality_score']:.2f}")
+            logger.info(
+                f"✅ データ検証完了 - 品質スコア: {results['quality_score']:.2f}"
+            )
 
         except Exception as e:
             logger.error(f"❌ データ検証中にエラー: {e}")
@@ -143,7 +145,9 @@ class DataValidator:
                 # 負の値のチェック
                 negative_count = (df[col] < 0).sum()
                 if negative_count > 0:
-                    results["warnings"].append(f"{col}に負の値が{negative_count}件あります")
+                    results["warnings"].append(
+                        f"{col}に負の値が{negative_count}件あります"
+                    )
 
                 # ゼロ値のチェック
                 zero_count = (df[col] == 0).sum()
@@ -154,14 +158,18 @@ class DataValidator:
                 if "High" in df.columns and "Low" in df.columns:
                     invalid_hl = (df["High"] < df["Low"]).sum()
                     if invalid_hl > 0:
-                        results["errors"].append(f"High < Low の異常データが{invalid_hl}件あります")
+                        results["errors"].append(
+                            f"High < Low の異常データが{invalid_hl}件あります"
+                        )
                         results["is_valid"] = False
 
         # ボリュームデータのチェック
         if "Volume" in df.columns:
             negative_volume = (df["Volume"] < 0).sum()
             if negative_volume > 0:
-                results["warnings"].append(f"Volumeに負の値が{negative_volume}件あります")
+                results["warnings"].append(
+                    f"Volumeに負の値が{negative_volume}件あります"
+                )
 
         logger.info("✅ データ範囲検証完了")
 
@@ -186,7 +194,9 @@ class DataValidator:
             negative_diff = (date_diff < pd.Timedelta(0)).sum()
 
             if negative_diff > 0:
-                results["warnings"].append(f"日付の順序が逆転している箇所が{negative_diff}件あります")
+                results["warnings"].append(
+                    f"日付の順序が逆転している箇所が{negative_diff}件あります"
+                )
 
             # 日付の範囲チェック
             date_range = df["Date"].max() - df["Date"].min()
@@ -222,7 +232,9 @@ class DataValidator:
                             f"{col}に異常値が{outliers}件 ({outlier_rate:.1f}%) あります"
                         )
                     else:
-                        logger.info(f"📊 {col}の異常値: {outliers}件 ({outlier_rate:.1f}%)")
+                        logger.info(
+                            f"📊 {col}の異常値: {outliers}件 ({outlier_rate:.1f}%)"
+                        )
 
         logger.info("✅ 異常値検出完了")
 

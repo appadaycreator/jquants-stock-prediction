@@ -41,7 +41,9 @@ def test_email_notification(config):
         msg = MIMEMultipart()
         msg["From"] = email_config.get("email_user", "")
         msg["To"] = email_config.get("email_to", "")
-        msg["Subject"] = f"株価分析通知テスト - {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+        msg["Subject"] = (
+            f"株価分析通知テスト - {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+        )
 
         body = """
 これは株価分析システムの通知テストです。

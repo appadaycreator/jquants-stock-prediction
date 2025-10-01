@@ -410,7 +410,9 @@ class EnhancedAutoRetrySystem:
         }
 
         self.retry_history.append(record)
-        logger.info(f"リトライ成功: {context.operation_name} - {result.attempts}回の試行で成功")
+        logger.info(
+            f"リトライ成功: {context.operation_name} - {result.attempts}回の試行で成功"
+        )
 
     def _record_retry_failure(self, context: RetryContext, result: RetryResult):
         """リトライ失敗の記録"""
@@ -426,7 +428,9 @@ class EnhancedAutoRetrySystem:
         }
 
         self.retry_history.append(record)
-        logger.error(f"リトライ失敗: {context.operation_name} - {result.attempts}回の試行で失敗")
+        logger.error(
+            f"リトライ失敗: {context.operation_name} - {result.attempts}回の試行で失敗"
+        )
 
     def get_retry_statistics(self) -> Dict[str, Any]:
         """リトライ統計の取得"""
@@ -494,7 +498,9 @@ class EnhancedAutoRetrySystem:
         """サーキットブレーカー付きリトライ"""
         # サーキットブレーカーの状態チェック
         if self._is_circuit_breaker_open(operation_name):
-            logger.warning(f"サーキットブレーカーが開いているため操作をスキップ: {operation_name}")
+            logger.warning(
+                f"サーキットブレーカーが開いているため操作をスキップ: {operation_name}"
+            )
             return RetryResult(
                 success=False,
                 attempts=0,

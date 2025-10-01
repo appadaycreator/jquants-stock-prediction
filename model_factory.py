@@ -176,7 +176,9 @@ class ModelFactory:
             return SVR(**default_params)
         except Exception as e:
             if self.system:
-                self.system.log_error(e, "SVR作成エラー", additional_info={"params": params})
+                self.system.log_error(
+                    e, "SVR作成エラー", additional_info={"params": params}
+                )
             else:
                 self.logger.error(f"SVR作成エラー: {e}")
             raise
@@ -254,7 +256,9 @@ class ModelEvaluator:
                 # 線形モデルの場合は係数の絶対値を重要度とする
                 importance = np.abs(model.coef_)
             else:
-                self.logger.warning(f"モデル {type(model).__name__} は特徴量重要度をサポートしていません")
+                self.logger.warning(
+                    f"モデル {type(model).__name__} は特徴量重要度をサポートしていません"
+                )
                 return pd.DataFrame()
 
             df = pd.DataFrame(

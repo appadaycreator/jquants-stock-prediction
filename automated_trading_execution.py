@@ -418,7 +418,9 @@ class TradingExecutionEngine:
         """口座残高をチェック"""
         try:
             account_info = self.broker_api.get_account_info()
-            required_margin = order.quantity * (order.price or 1000.0) * 1.1  # 10%のマージン
+            required_margin = (
+                order.quantity * (order.price or 1000.0) * 1.1
+            )  # 10%のマージン
             return account_info["margin_available"] >= required_margin
         except:
             return True  # チェックできない場合は許可
@@ -452,7 +454,9 @@ class TradingExecutionEngine:
     def submit_order(self, order: Order) -> str:
         """注文を提出"""
         self.execution_queue.append(order)
-        logger.info(f"注文をキューに追加: {order.symbol} {order.side.value} {order.quantity}株")
+        logger.info(
+            f"注文をキューに追加: {order.symbol} {order.side.value} {order.quantity}株"
+        )
         return order.order_id
 
     def cancel_order(self, order_id: str) -> bool:

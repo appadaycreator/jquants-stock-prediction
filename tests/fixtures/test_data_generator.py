@@ -117,7 +117,9 @@ class DataGenerator:
 
             # ボラティリティクラスタリング
             if "volatility_cluster" in patterns:
-                if i > 0 and abs(prices[i - 1] - prices[i - 2]) > 0.05:  # 前日が大きく変動
+                if (
+                    i > 0 and abs(prices[i - 1] - prices[i - 2]) > 0.05
+                ):  # 前日が大きく変動
                     base_return *= 2  # ボラティリティを増加
 
             prices[i] = prices[i - 1] * (1 + base_return)

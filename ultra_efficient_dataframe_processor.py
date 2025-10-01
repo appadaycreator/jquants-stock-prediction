@@ -275,7 +275,9 @@ class UltraEfficientDataFrameProcessor:
         self, df: pd.DataFrame, chunk_size: int, processing_func: Callable
     ) -> pd.DataFrame:
         """超効率チャンク処理"""
-        self.logger.info(f"📊 超効率チャンク処理開始: {len(df)}行, チャンクサイズ: {chunk_size}")
+        self.logger.info(
+            f"📊 超効率チャンク処理開始: {len(df)}行, チャンクサイズ: {chunk_size}"
+        )
 
         if len(df) <= chunk_size:
             return processing_func(df)
@@ -286,7 +288,9 @@ class UltraEfficientDataFrameProcessor:
 
             # メモリ制限チェック
             if not self._check_memory_limit():
-                self.logger.warning("⚠️ メモリ制限に達しました。ガベージコレクションを実行")
+                self.logger.warning(
+                    "⚠️ メモリ制限に達しました。ガベージコレクションを実行"
+                )
                 gc.collect()
 
             # チャンク処理
@@ -447,5 +451,7 @@ if __name__ == "__main__":
     optimized_df = processor.process_dataframe_ultra_efficient(sample_df, operations)
 
     print(f"📊 元データ: {sample_df.memory_usage(deep=True).sum() / 1024 / 1024:.1f}MB")
-    print(f"📈 最適化後: {optimized_df.memory_usage(deep=True).sum() / 1024 / 1024:.1f}MB")
+    print(
+        f"📈 最適化後: {optimized_df.memory_usage(deep=True).sum() / 1024 / 1024:.1f}MB"
+    )
     print(f"✅ 処理完了: {len(optimized_df)}行, {len(optimized_df.columns)}列")

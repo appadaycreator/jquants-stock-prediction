@@ -81,10 +81,14 @@ class TypeSafeValidator:
                 if nan_count > 0:
                     result["nan_issues"][col] = nan_count
                     if self.strict_mode and nan_count > len(df) * 0.5:  # 50%以上
-                        result["errors"].append(f"カラム '{col}' に過度のNaN値: {nan_count}件")
+                        result["errors"].append(
+                            f"カラム '{col}' に過度のNaN値: {nan_count}件"
+                        )
                         result["is_valid"] = False
                     else:
-                        result["warnings"].append(f"カラム '{col}' にNaN値: {nan_count}件")
+                        result["warnings"].append(
+                            f"カラム '{col}' にNaN値: {nan_count}件"
+                        )
 
                 # 無限値の確認
                 inf_count = np.isinf(converted_series).sum()
@@ -136,7 +140,9 @@ class TypeSafeValidator:
                 # NaN値の確認
                 nan_count = converted_dates.isna().sum()
                 if nan_count > 0:
-                    result["warnings"].append(f"カラム '{col}' に無効な日付: {nan_count}件")
+                    result["warnings"].append(
+                        f"カラム '{col}' に無効な日付: {nan_count}件"
+                    )
 
                 # 日付範囲の確認
                 if not converted_dates.empty:
@@ -203,7 +209,9 @@ class TypeSafeValidator:
             final_nan_count = df_processed.isnull().sum().sum()
             processed_count = original_nan_count - final_nan_count
 
-            logger.info(f"✅ NaN値処理完了: {processed_count}件処理, 残り{final_nan_count}件")
+            logger.info(
+                f"✅ NaN値処理完了: {processed_count}件処理, 残り{final_nan_count}件"
+            )
 
             if final_nan_count > 0:
                 logger.warning(f"⚠️ {final_nan_count}件のNaN値が残っています")
@@ -254,7 +262,9 @@ class TypeSafeValidator:
             if col in df.columns:
                 negative_count = (df[col] < 0).sum()
                 if negative_count > 0:
-                    result["warnings"].append(f"カラム '{col}' に負の値: {negative_count}件")
+                    result["warnings"].append(
+                        f"カラム '{col}' に負の値: {negative_count}件"
+                    )
                     result["consistency_issues"][f"{col}_negative"] = negative_count
 
         logger.info("✅ データ整合性検証完了")

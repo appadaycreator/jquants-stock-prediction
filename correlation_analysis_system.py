@@ -307,7 +307,9 @@ class CorrelationAnalysisSystem:
                             else:
                                 correlation_matrix[symbol1][symbol2] = 0.0
                         except Exception as e:
-                            logger.warning(f"相関計算エラー: {symbol1} vs {symbol2} - {e}")
+                            logger.warning(
+                                f"相関計算エラー: {symbol1} vs {symbol2} - {e}"
+                            )
                             correlation_matrix[symbol1][symbol2] = 0.0
 
             return correlation_matrix
@@ -637,8 +639,12 @@ class CorrelationAnalysisSystem:
             current_sector_weight = sector_concentration.get(current_sector, 0.0)
 
             if current_sector_weight > self.diversification_params["max_sector_weight"]:
-                recommended_actions.append(f"{current_sector.value}セクターの集中度が高すぎます")
-                recommended_actions.append("異なるセクターへの分散投資を検討してください")
+                recommended_actions.append(
+                    f"{current_sector.value}セクターの集中度が高すぎます"
+                )
+                recommended_actions.append(
+                    "異なるセクターへの分散投資を検討してください"
+                )
 
             # 銘柄数不足チェック
             if len(all_symbols) < self.diversification_params["min_stocks"]:
@@ -795,7 +801,9 @@ class CorrelationAnalysisSystem:
             suggested_stocks = []
             for sector in suggested_sectors:
                 if sector in sector_stocks:
-                    suggested_stocks.extend(sector_stocks[sector][:2])  # セクターあたり2銘柄
+                    suggested_stocks.extend(
+                        sector_stocks[sector][:2]
+                    )  # セクターあたり2銘柄
 
             return suggested_stocks[:5]  # 最大5銘柄
         except Exception as e:
@@ -951,8 +959,12 @@ async def main():
         logger.info(f"相関分析完了:")
         logger.info(f"  平均相関: {correlation_metrics.average_correlation:.3f}")
         logger.info(f"  最大相関: {correlation_metrics.max_correlation:.3f}")
-        logger.info(f"  相関リスクスコア: {correlation_metrics.correlation_risk_score:.3f}")
-        logger.info(f"  分散投資スコア: {correlation_metrics.diversification_score:.3f}")
+        logger.info(
+            f"  相関リスクスコア: {correlation_metrics.correlation_risk_score:.3f}"
+        )
+        logger.info(
+            f"  分散投資スコア: {correlation_metrics.diversification_score:.3f}"
+        )
         logger.info(f"  集中度リスク: {correlation_metrics.concentration_risk:.3f}")
 
         # セクター集中度表示
@@ -962,7 +974,9 @@ async def main():
 
         # クラスター分析結果
         print(f"\n🔗 クラスター分析:")
-        print(f"  クラスター数: {correlation_metrics.cluster_analysis['cluster_count']}")
+        print(
+            f"  クラスター数: {correlation_metrics.cluster_analysis['cluster_count']}"
+        )
         for i, cluster in enumerate(correlation_metrics.cluster_analysis["clusters"]):
             print(f"  クラスター{i+1}: {', '.join(cluster)}")
 

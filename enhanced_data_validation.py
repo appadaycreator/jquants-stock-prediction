@@ -324,7 +324,9 @@ class EnhancedDataValidator:
 
         # R²が高すぎる場合
         if best_model["validation_metrics"]["r2"] > 0.99:
-            recommendations.append("⚠️ R²が0.99を超えています。データリークや過学習の可能性があります。")
+            recommendations.append(
+                "⚠️ R²が0.99を超えています。データリークや過学習の可能性があります。"
+            )
 
         # モデル性能の評価
         mae = best_model["validation_metrics"]["mae"]

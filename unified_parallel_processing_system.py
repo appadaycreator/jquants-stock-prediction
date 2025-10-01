@@ -184,7 +184,9 @@ class UnifiedParallelProcessingSystem:
                 self.current_workers = max(self.min_workers, self.current_workers - 1)
 
             if old_workers != self.current_workers:
-                logger.info(f"🔄 ワーカー数調整: {old_workers} → {self.current_workers}")
+                logger.info(
+                    f"🔄 ワーカー数調整: {old_workers} → {self.current_workers}"
+                )
                 logger.info(f"   - CPU使用率: {avg_cpu:.1f}%")
                 logger.info(f"   - メモリ使用率: {avg_memory:.1f}%")
 
@@ -418,7 +420,9 @@ class UnifiedParallelProcessingSystem:
         with self.lock:
             old_workers = self.current_workers
             self.current_workers = max(1, min(workers, self.max_workers_limit))
-            logger.info(f"🔧 ワーカー数手動設定: {old_workers} → {self.current_workers}")
+            logger.info(
+                f"🔧 ワーカー数手動設定: {old_workers} → {self.current_workers}"
+            )
 
     def enable_auto_adjust(self, enabled: bool = True):
         """自動調整の有効/無効を設定"""

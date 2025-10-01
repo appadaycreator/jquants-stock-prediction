@@ -142,7 +142,9 @@ class BaseStrategy(ABC):
         """ポジションサイズ計算"""
         # リスク管理: 資本の2%をリスクとして使用
         risk_per_trade = self.current_capital * 0.02
-        position_value = self.current_capital * 0.1 * signal_strength  # 資本の10%を最大ポジション
+        position_value = (
+            self.current_capital * 0.1 * signal_strength
+        )  # 資本の10%を最大ポジション
         return int(min(position_value / price, risk_per_trade / (price * 0.02)))
 
 

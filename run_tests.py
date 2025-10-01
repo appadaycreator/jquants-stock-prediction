@@ -101,7 +101,9 @@ def main():
             "リンターチェック",
         )
         if success:
-            success = run_command("black --check --diff .", "コードフォーマットチェック")
+            success = run_command(
+                "black --check --diff .", "コードフォーマットチェック"
+            )
 
     elif test_type == "format":
         success = run_command("black .", "コードフォーマット実行")

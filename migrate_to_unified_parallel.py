@@ -251,8 +251,12 @@ class ParallelProcessingMigration:
             f.write("```\n\n")
 
             f.write("## 注意事項\n\n")
-            f.write("- 既存のコードは自動的に移行されますが、手動での確認を推奨します\n")
-            f.write("- バックアップファイルは `backup/parallel_migration/` に保存されています\n")
+            f.write(
+                "- 既存のコードは自動的に移行されますが、手動での確認を推奨します\n"
+            )
+            f.write(
+                "- バックアップファイルは `backup/parallel_migration/` に保存されています\n"
+            )
             f.write("- 移行後は統合システムの設定を確認してください\n\n")
 
         logger.info(f"📊 移行レポート作成: {report_path}")
@@ -269,7 +273,9 @@ class ParallelProcessingMigration:
 
         # 統合システムファイルの存在確認
         if not os.path.exists(self.unified_system_path):
-            logger.error(f"❌ 統合システムファイルが見つかりません: {self.unified_system_path}")
+            logger.error(
+                f"❌ 統合システムファイルが見つかりません: {self.unified_system_path}"
+            )
             return False
 
         # 統合システムのインポートテスト

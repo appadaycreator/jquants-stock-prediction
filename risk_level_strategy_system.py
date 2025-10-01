@@ -667,7 +667,9 @@ class RiskLevelStrategySystem:
             )
             self.strategy_recommendations.append(recommendation)
 
-            self.logger.info(f"📊 ポートフォリオ推奨作成完了: {risk_profile.risk_level.value}")
+            self.logger.info(
+                f"📊 ポートフォリオ推奨作成完了: {risk_profile.risk_level.value}"
+            )
 
             return recommendation
 

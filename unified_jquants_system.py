@@ -130,8 +130,12 @@ class UnifiedJQuantsSystem:
                     "認証情報検証エラー",
                     masked_context,
                 )
-                self.logger.error("❌ 環境変数 JQUANTS_EMAIL と JQUANTS_PASSWORD を設定してください。")
-                self.logger.error("💡 .env ファイルを作成し、認証情報を設定してください。")
+                self.logger.error(
+                    "❌ 環境変数 JQUANTS_EMAIL と JQUANTS_PASSWORD を設定してください。"
+                )
+                self.logger.error(
+                    "💡 .env ファイルを作成し、認証情報を設定してください。"
+                )
                 raise ValueError(error_msg)
 
             self.logger.info("✅ 認証情報の読み込み完了")
@@ -361,7 +365,9 @@ class UnifiedJQuantsSystem:
 
             except requests.exceptions.ConnectionError as e:
                 if attempt < max_retries:
-                    self.logger.warning(f"🔌 接続エラー (試行 {attempt + 1}/{max_retries + 1})")
+                    self.logger.warning(
+                        f"🔌 接続エラー (試行 {attempt + 1}/{max_retries + 1})"
+                    )
                     self.logger.info(f"⏳ {retry_interval}秒後にリトライします...")
                     time.sleep(retry_interval)
                     continue
@@ -514,7 +520,9 @@ class UnifiedJQuantsSystem:
                 status = preflight["summary"].get("status")
                 if status == "要修正":
                     # 自動補修後も要修正なら停止
-                    self.logger.error("❌ プリフライトNG（自動補修後も要修正）。処理を停止します")
+                    self.logger.error(
+                        "❌ プリフライトNG（自動補修後も要修正）。処理を停止します"
+                    )
                     raise ValueError("プリフライトNG: 自動補修後も要修正")
                 elif status == "注意":
                     self.logger.warning("⚠️ プリフライトに警告があります（処理は継続）")
@@ -552,7 +560,9 @@ class UnifiedJQuantsSystem:
             # 6. データ検証の実行
             self.logger.info("🔍 ステップ6: データ品質検証")
             if not self._validate_processed_data(df):
-                self.logger.warning("⚠️ データ検証で問題が検出されましたが、処理を続行します")
+                self.logger.warning(
+                    "⚠️ データ検証で問題が検出されましたが、処理を続行します"
+                )
 
             # 7. データの保存
             self.logger.info("💾 ステップ7: データ保存")
@@ -562,7 +572,9 @@ class UnifiedJQuantsSystem:
             # 8. 最終統計情報の表示
             self.logger.info("📊 最終データ統計:")
             self.logger.info(f"  📏 データ形状: {df.shape}")
-            self.logger.info(f"  📅 データ期間: {df['Date'].min()} ～ {df['Date'].max()}")
+            self.logger.info(
+                f"  📅 データ期間: {df['Date'].min()} ～ {df['Date'].max()}"
+            )
             self.logger.info(f"  📈 特徴量数: {len(df.columns)}個")
             self.logger.info(f"  🎯 推奨特徴量: {len(available_features)}個")
 
@@ -634,7 +646,9 @@ class UnifiedJQuantsSystem:
                 X, y, test_size=test_size, random_state=random_state
             )
 
-            self.logger.info(f"訓練データ: {len(X_train)}行, テストデータ: {len(X_test)}行")
+            self.logger.info(
+                f"訓練データ: {len(X_train)}行, テストデータ: {len(X_test)}行"
+            )
 
             # モデル設定の取得
             model_selection = self.prediction_config.get("model_selection", {})
@@ -646,7 +660,9 @@ class UnifiedJQuantsSystem:
                 models_config = self.prediction_config.get("models", {})
 
                 if not models_config:
-                    self.logger.warning("警告: モデル設定が見つかりません。デフォルト設定を使用します。")
+                    self.logger.warning(
+                        "警告: モデル設定が見つかりません。デフォルト設定を使用します。"
+                    )
                     from model_factory import get_default_models_config
 
                     models_config = get_default_models_config()
@@ -685,7 +701,9 @@ class UnifiedJQuantsSystem:
                         best_config["type"], best_config.get("params", {})
                     )
                 else:
-                    self.logger.error("❌ モデル比較で有効な結果が得られませんでした。デフォルトモデルを使用します。")
+                    self.logger.error(
+                        "❌ モデル比較で有効な結果が得られませんでした。デフォルトモデルを使用します。"
+                    )
                     model = self.model_factory.create_model("random_forest")
                     best_model_name = "random_forest"
             else:
@@ -786,7 +804,9 @@ class UnifiedJQuantsSystem:
         for encoding in encodings:
             try:
                 df = pd.read_csv(input_file, encoding=encoding)
-                self.logger.info(f"✅ データ読み込み成功 (エンコーディング: {encoding})")
+                self.logger.info(
+                    f"✅ データ読み込み成功 (エンコーディング: {encoding})"
+                )
                 break
             except UnicodeDecodeError:
                 continue
@@ -936,7 +956,9 @@ class UnifiedJQuantsSystem:
 
         # メインプロット
         plt.subplot(2, 2, 1)
-        plt.plot(y_test.values, label="実際の株価", color="blue", alpha=0.7, linewidth=2)
+        plt.plot(
+            y_test.values, label="実際の株価", color="blue", alpha=0.7, linewidth=2
+        )
         plt.plot(y_pred, label="予測株価", color="red", alpha=0.7, linewidth=2)
         plt.legend()
         plt.title(f"株価予測結果 ({model_name})")

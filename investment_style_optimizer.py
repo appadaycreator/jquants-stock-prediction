@@ -224,31 +224,31 @@ class InvestmentStyleOptimizer:
             },
         )
 
-        self.market_conditions[
-            MarketCondition.SIDEWAYS_MARKET
-        ] = MarketConditionProfile(
-            condition=MarketCondition.SIDEWAYS_MARKET,
-            volatility_multiplier=1.0,
-            momentum_adjustment=0.9,
-            risk_adjustment=1.0,
-            threshold_adjustments={
-                "mean_reversion_weight": 1.2,
-                "momentum_weight": 0.8,
-            },
+        self.market_conditions[MarketCondition.SIDEWAYS_MARKET] = (
+            MarketConditionProfile(
+                condition=MarketCondition.SIDEWAYS_MARKET,
+                volatility_multiplier=1.0,
+                momentum_adjustment=0.9,
+                risk_adjustment=1.0,
+                threshold_adjustments={
+                    "mean_reversion_weight": 1.2,
+                    "momentum_weight": 0.8,
+                },
+            )
         )
 
-        self.market_conditions[
-            MarketCondition.VOLATILE_MARKET
-        ] = MarketConditionProfile(
-            condition=MarketCondition.VOLATILE_MARKET,
-            volatility_multiplier=1.5,
-            momentum_adjustment=1.1,
-            risk_adjustment=1.3,
-            threshold_adjustments={
-                "volatility_tolerance": 1.2,
-                "stop_loss": 1.2,
-                "take_profit": 1.1,
-            },
+        self.market_conditions[MarketCondition.VOLATILE_MARKET] = (
+            MarketConditionProfile(
+                condition=MarketCondition.VOLATILE_MARKET,
+                volatility_multiplier=1.5,
+                momentum_adjustment=1.1,
+                risk_adjustment=1.3,
+                threshold_adjustments={
+                    "volatility_tolerance": 1.2,
+                    "stop_loss": 1.2,
+                    "take_profit": 1.1,
+                },
+            )
         )
 
     def _load_config(self) -> None:
@@ -616,7 +616,9 @@ class InvestmentStyleOptimizer:
         optimal_score = style_scores.get(optimal_style, 0.5)
 
         # 信頼度を考慮した改善度
-        improvement = (optimal_score - current_score) * confidence * 0.3  # 最大30%の改善
+        improvement = (
+            (optimal_score - current_score) * confidence * 0.3
+        )  # 最大30%の改善
 
         return max(0.0, improvement)
 

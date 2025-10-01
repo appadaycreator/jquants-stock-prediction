@@ -777,8 +777,12 @@ class EnhancedModelComparator:
             )
         self.logger.info(f"  📋 キャッシュヒット: {cache_hits}/{len(df_results)}モデル")
         self.logger.info(f"  🚀 並列処理: {parallel_processed}/{len(df_results)}モデル")
-        self.logger.info(f"  ⏱️ 平均学習時間: {df_results['training_time'].mean():.2f}秒")
-        self.logger.info(f"  💾 平均メモリ使用量: {df_results['memory_usage'].mean():.1f}MB")
+        self.logger.info(
+            f"  ⏱️ 平均学習時間: {df_results['training_time'].mean():.2f}秒"
+        )
+        self.logger.info(
+            f"  💾 平均メモリ使用量: {df_results['memory_usage'].mean():.1f}MB"
+        )
 
         # 勝率/最大ドローダウン（誤差削減）の表示（存在すれば）
         if "win_rate_vs_baseline" in df_results.columns:

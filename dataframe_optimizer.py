@@ -252,7 +252,9 @@ class MemoryEfficientProcessor:
             # メモリ監視
             current_memory = self._get_memory_usage()
             if current_memory > 2048:  # 2GB以上
-                self.logger.warning("⚠️ メモリ使用量が高いため、ガベージコレクションを実行")
+                self.logger.warning(
+                    "⚠️ メモリ使用量が高いため、ガベージコレクションを実行"
+                )
                 gc.collect()
 
             self.logger.debug(f"  チャンク {i//chunk_size + 1}/{total_chunks} 完了")

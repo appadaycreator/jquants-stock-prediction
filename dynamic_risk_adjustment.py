@@ -515,17 +515,25 @@ class DynamicRiskAdjustmentSystem:
 
             # 感情調整に基づく推奨事項
             if risk_profile.sentiment_adjustment > 0.1:
-                recommendations.append("ポジティブ感情が検出されています。ポジションサイズを増加することを検討してください。")
+                recommendations.append(
+                    "ポジティブ感情が検出されています。ポジションサイズを増加することを検討してください。"
+                )
             elif risk_profile.sentiment_adjustment < -0.1:
-                recommendations.append("ネガティブ感情が検出されています。リスクを削減することを検討してください。")
+                recommendations.append(
+                    "ネガティブ感情が検出されています。リスクを削減することを検討してください。"
+                )
 
             # レバレッジの推奨
             if risk_profile.leverage > 1.5:
-                recommendations.append("高いレバレッジが設定されています。リスク管理に注意してください。")
+                recommendations.append(
+                    "高いレバレッジが設定されています。リスク管理に注意してください。"
+                )
 
             # ストップロスの推奨
             if risk_profile.stop_loss > 0.05:
-                recommendations.append("ストップロスが緩い設定です。リスク管理を強化することを検討してください。")
+                recommendations.append(
+                    "ストップロスが緩い設定です。リスク管理を強化することを検討してください。"
+                )
 
             return recommendations
 

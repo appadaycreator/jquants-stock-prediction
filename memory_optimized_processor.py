@@ -84,7 +84,9 @@ class MemoryOptimizedProcessor:
             for chunk in pd.read_csv(data_source, chunksize=self.chunk_size):
                 # メモリ使用量をチェック
                 if self.monitor.get_current_memory() > self.memory_limit_mb:
-                    self.logger.warning("⚠️ メモリ制限に達しました。ガベージコレクションを実行します。")
+                    self.logger.warning(
+                        "⚠️ メモリ制限に達しました。ガベージコレクションを実行します。"
+                    )
                     gc.collect()
 
                 # チャンク処理
@@ -119,7 +121,9 @@ class MemoryOptimizedProcessor:
         finally:
             final_memory = self.monitor.get_current_memory()
             memory_increase = final_memory - initial_memory
-            self.logger.info(f"✅ {operation_name} 完了 (メモリ増加: {memory_increase:.1f}MB)")
+            self.logger.info(
+                f"✅ {operation_name} 完了 (メモリ増加: {memory_increase:.1f}MB)"
+            )
 
             # メモリ使用量が大きい場合はガベージコレクション
             if memory_increase > 100:  # 100MB以上増加した場合

@@ -307,18 +307,26 @@ class IntegratedSentimentEnhancementSystem:
                 trend = pred.get("trend_direction", "stable")
 
                 if sentiment > 0.5 and trend == "up":
-                    recommendations.append("強いポジティブ感情が予測されています。買いシグナルを検討してください。")
+                    recommendations.append(
+                        "強いポジティブ感情が予測されています。買いシグナルを検討してください。"
+                    )
                 elif sentiment < -0.5 and trend == "down":
-                    recommendations.append("強いネガティブ感情が予測されています。売りシグナルを検討してください。")
+                    recommendations.append(
+                        "強いネガティブ感情が予測されています。売りシグナルを検討してください。"
+                    )
                 elif trend == "stable":
-                    recommendations.append("感情が安定しています。現在のポジションを維持してください。")
+                    recommendations.append(
+                        "感情が安定しています。現在のポジションを維持してください。"
+                    )
 
             # トレンドパターンに基づく推奨事項
             if "trend_patterns" in trend_predictions:
                 for pattern in trend_predictions["trend_patterns"]:
                     pattern_type = pattern.get("pattern_type", "")
                     if pattern_type == "bullish":
-                        recommendations.append("上昇トレンドパターンが検出されました。ポジティブな感情の継続が期待されます。")
+                        recommendations.append(
+                            "上昇トレンドパターンが検出されました。ポジティブな感情の継続が期待されます。"
+                        )
                     elif pattern_type == "bearish":
                         recommendations.append(
                             "下降トレンドパターンが検出されました。ネガティブな感情の継続に注意してください。"
@@ -460,8 +468,12 @@ class IntegratedSentimentEnhancementSystem:
                     )
 
                     if analysis.trading_recommendations:
-                        logger.info(f"  推奨事項: {len(analysis.trading_recommendations)}件")
-                        for rec in analysis.trading_recommendations[:3]:  # 最初の3件のみ表示
+                        logger.info(
+                            f"  推奨事項: {len(analysis.trading_recommendations)}件"
+                        )
+                        for rec in analysis.trading_recommendations[
+                            :3
+                        ]:  # 最初の3件のみ表示
                             logger.info(f"    - {rec}")
 
                 # 性能統計の表示
@@ -602,7 +614,9 @@ class IntegratedSentimentEnhancementSystem:
 
             # 処理時間のトレンド
             processing_times = [p.total_processing_time for p in recent_performance]
-            time_trend = "改善" if processing_times[-1] < processing_times[0] else "悪化"
+            time_trend = (
+                "改善" if processing_times[-1] < processing_times[0] else "悪化"
+            )
 
             # 精度のトレンド
             accuracies = [p.accuracy_score for p in recent_performance]
@@ -634,10 +648,14 @@ class IntegratedSentimentEnhancementSystem:
                 avg_accuracy = np.mean([p.accuracy_score for p in recent_performance])
 
                 if avg_processing_time > 10.0:
-                    recommendations.append("処理時間が長くなっています。システムの最適化を検討してください。")
+                    recommendations.append(
+                        "処理時間が長くなっています。システムの最適化を検討してください。"
+                    )
 
                 if avg_accuracy < 0.6:
-                    recommendations.append("予測精度が低下しています。モデルの再訓練を検討してください。")
+                    recommendations.append(
+                        "予測精度が低下しています。モデルの再訓練を検討してください。"
+                    )
 
             # システム状態に基づく推奨事項
             status = self.get_system_status()

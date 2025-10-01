@@ -548,7 +548,9 @@ class EnhancedNewsSentimentIntegration:
                         }
                     )
 
-                logger.info(f"感情分析完了: {symbol} - スコア: {overall_sentiment['score']:.3f}")
+                logger.info(
+                    f"感情分析完了: {symbol} - スコア: {overall_sentiment['score']:.3f}"
+                )
 
             except Exception as e:
                 logger.error(f"個別感情分析エラー {symbol}: {e}")
@@ -766,9 +768,9 @@ class EnhancedNewsSentimentIntegration:
                 {
                     "title": n.title,
                     "url": n.url,
-                    "published_at": n.published_at.isoformat()
-                    if hasattr(n, "published_at")
-                    else "",
+                    "published_at": (
+                        n.published_at.isoformat() if hasattr(n, "published_at") else ""
+                    ),
                 }
                 for n in sorted_news[:3]
             ]

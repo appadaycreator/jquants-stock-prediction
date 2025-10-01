@@ -340,7 +340,9 @@ class EnhancedNotificationSystem:
         """メール通知の送信"""
         try:
             # メール本文の生成
-            subject = f"【株価分析】{content['analysis_type']} - {content['status'].upper()}"
+            subject = (
+                f"【株価分析】{content['analysis_type']} - {content['status'].upper()}"
+            )
             body = self._generate_email_body(content)
 
             # メール送信

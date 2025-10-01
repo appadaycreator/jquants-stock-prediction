@@ -128,7 +128,9 @@ class PreflightRunner:
         """プリフライトを実行し、必要に応じて自動補修する"""
         lines: list[str] = []
         lines.append("=" * 72)
-        lines.append(f"プリフライト実行: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        lines.append(
+            f"プリフライト実行: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        )
         lines.append("=" * 72)
 
         # 事前の簡易統計

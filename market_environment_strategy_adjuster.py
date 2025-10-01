@@ -788,7 +788,9 @@ class MarketEnvironmentStrategySystem:
                     "adjustment": adjustment,
                 }
 
-            self.logger.info(f"📊 戦略調整完了: {symbol} - {environment.regime.value}環境")
+            self.logger.info(
+                f"📊 戦略調整完了: {symbol} - {environment.regime.value}環境"
+            )
 
             return {
                 "symbol": symbol,
@@ -927,7 +929,9 @@ def main():
                 print(f"    調整理由: {adjustment.adjustment_reason}")
                 print(f"    信頼度: {adjustment.confidence_score:.2f}")
                 print(f"    期待インパクト: {adjustment.expected_impact}")
-                print(f"    ポジションサイズ調整: {adjustment.position_size_adjustment:.2f}")
+                print(
+                    f"    ポジションサイズ調整: {adjustment.position_size_adjustment:.2f}"
+                )
 
         # 環境サマリー
         summary = env_strategy_system.get_environment_summary()

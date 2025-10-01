@@ -614,7 +614,9 @@ class EnhancedPortfolioMonitoring:
             self.portfolio_monitor.alerts.extend(alerts)
 
         for alert in alerts:
-            logger.warning(f"ポートフォリオアラート: {alert.alert_type} - {alert.message}")
+            logger.warning(
+                f"ポートフォリオアラート: {alert.alert_type} - {alert.message}"
+            )
 
     async def _process_portfolio_alerts(self):
         """ポートフォリオアラート処理"""
@@ -735,7 +737,9 @@ class EnhancedPortfolioMonitoring:
 
         # 分散投資関連の推奨事項
         if metrics.diversification_ratio < 0.3:
-            recommendations.append("分散投資を改善するため新規銘柄の追加を検討してください")
+            recommendations.append(
+                "分散投資を改善するため新規銘柄の追加を検討してください"
+            )
 
         # シャープレシオ関連の推奨事項
         if metrics.sharpe_ratio < 0.5:

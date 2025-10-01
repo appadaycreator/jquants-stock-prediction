@@ -414,13 +414,17 @@ class EnhancedAIPredictionSystem:
                 pass
 
             if health.status == ModelHealthStatus.STOP:
-                self.logger.error(f"🛑 健全性ゲート: 停止判定 - 理由: {', '.join(health.reasons)}")
+                self.logger.error(
+                    f"🛑 健全性ゲート: 停止判定 - 理由: {', '.join(health.reasons)}"
+                )
                 self._notify_health(health, severity="critical")
                 raise EnhancedAIPredictionSystem.ModelHealthException(
                     f"健全性ゲートにより推論停止: {health.reasons}"
                 )
             elif health.status == ModelHealthStatus.WARNING:
-                self.logger.warning(f"⚠️ 健全性ゲート: 警告 - 理由: {', '.join(health.reasons)}")
+                self.logger.warning(
+                    f"⚠️ 健全性ゲート: 警告 - 理由: {', '.join(health.reasons)}"
+                )
                 self._notify_health(health, severity="warning")
 
             # 予測
@@ -651,9 +655,11 @@ class EnhancedAIPredictionSystem:
                 "text": f"[ModelHealth] status={report.status.value} severity={severity} reasons={', '.join(report.reasons)}",
                 "attachments": [
                     {
-                        "color": "#ff0000"
-                        if report.status == ModelHealthStatus.STOP
-                        else "#ffcc00",
+                        "color": (
+                            "#ff0000"
+                            if report.status == ModelHealthStatus.STOP
+                            else "#ffcc00"
+                        ),
                         "fields": [
                             {"title": k, "value": str(v), "short": True}
                             for k, v in report.detail.items()

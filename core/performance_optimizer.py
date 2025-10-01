@@ -90,12 +90,18 @@ class PerformanceOptimizer:
                 self.logger.log_info("🚀 パフォーマンス最適化システム初期化完了")
                 self.logger.log_info(f"  💾 メモリ制限: {memory_limit_mb}MB")
                 self.logger.log_info(f"  📦 チャンクサイズ: {chunk_size}")
-                self.logger.log_info(f"  🔄 並列処理: {'有効' if use_parallel else '無効'}")
-                self.logger.log_info(f"  📋 キャッシュ: {'有効' if use_cache else '無効'}")
+                self.logger.log_info(
+                    f"  🔄 並列処理: {'有効' if use_parallel else '無効'}"
+                )
+                self.logger.log_info(
+                    f"  📋 キャッシュ: {'有効' if use_cache else '無効'}"
+                )
 
         except Exception as e:
             if self.logger:
-                self.logger.log_warning(f"パフォーマンス最適化システムの一部をインポートできませんでした: {e}")
+                self.logger.log_warning(
+                    f"パフォーマンス最適化システムの一部をインポートできませんでした: {e}"
+                )
             # フォールバック設定
             self.memory_optimizer = None
             self.cache_manager = None
@@ -173,9 +179,9 @@ class PerformanceOptimizer:
                     # 最適化統計の取得
                     stats = self.ultra_processor.get_optimization_stats()
                     optimization_result["dataframe_optimization"] = True
-                    optimization_result[
-                        "copy_operations_saved"
-                    ] = stats.copy_operations_saved
+                    optimization_result["copy_operations_saved"] = (
+                        stats.copy_operations_saved
+                    )
                     optimization_result["inplace_operations"] = stats.inplace_operations
                     if self.logger:
                         self.logger.log_info("✅ データフレーム最適化完了")

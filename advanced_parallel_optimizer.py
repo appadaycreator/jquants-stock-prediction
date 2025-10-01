@@ -471,15 +471,21 @@ class AdvancedParallelOptimizer:
             avg_memory = np.mean([m.memory_usage for m in recent_metrics])
 
             if avg_cpu > 80:
-                recommendations.append("CPU使用率が高いため、ワーカー数を減らすことを検討してください")
+                recommendations.append(
+                    "CPU使用率が高いため、ワーカー数を減らすことを検討してください"
+                )
 
             if avg_memory > 0.8:
-                recommendations.append("メモリ使用率が高いため、メモリ最適化を検討してください")
+                recommendations.append(
+                    "メモリ使用率が高いため、メモリ最適化を検討してください"
+                )
 
             if len(self.performance_history) > 10:
                 avg_efficiency = np.mean([m.efficiency for m in recent_metrics])
                 if avg_efficiency < 0.5:
-                    recommendations.append("効率性が低いため、タスクの分割や最適化を検討してください")
+                    recommendations.append(
+                        "効率性が低いため、タスクの分割や最適化を検討してください"
+                    )
 
         return recommendations
 

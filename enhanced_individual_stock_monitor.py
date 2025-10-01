@@ -753,7 +753,9 @@ class EnhancedIndividualStockMonitor:
                 "average_change": avg_change,
                 "high_risk_count": high_risk_count,
                 "buy_opportunities": buy_opportunities,
-                "recent_alerts": len(self.get_recent_alerts(1)),  # 過去1時間のアラート数
+                "recent_alerts": len(
+                    self.get_recent_alerts(1)
+                ),  # 過去1時間のアラート数
             }
 
     def save_monitoring_data(self, filename: str = "individual_monitoring_data.json"):

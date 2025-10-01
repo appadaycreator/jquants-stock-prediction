@@ -1151,8 +1151,12 @@ async def main():
         print(f"総シグナル数: {summary['total_signals']}")
         print(f"買いシグナル: {summary['signal_distribution']['buy']}")
         print(f"売りシグナル: {summary['signal_distribution']['sell']}")
-        print(f"平均価格変化: {summary['performance_metrics']['average_price_change']:+.2f}%")
-        print(f"平均ボラティリティ: {summary['performance_metrics']['average_volatility']:.2f}")
+        print(
+            f"平均価格変化: {summary['performance_metrics']['average_price_change']:+.2f}%"
+        )
+        print(
+            f"平均ボラティリティ: {summary['performance_metrics']['average_volatility']:.2f}"
+        )
 
 
 if __name__ == "__main__":

@@ -184,7 +184,9 @@ class AdvancedVolatilityRiskAdjustment:
             # 履歴に追加
             self.volatility_history[symbol].append(metrics)
 
-            logger.info(f"ボラティリティ分析完了: {symbol} - レジーム: {volatility_regime.value}")
+            logger.info(
+                f"ボラティリティ分析完了: {symbol} - レジーム: {volatility_regime.value}"
+            )
             return metrics
 
         except Exception as e:
@@ -461,7 +463,9 @@ class AdvancedVolatilityRiskAdjustment:
             # 履歴に追加
             self.adjustment_history[symbol].append(adjustment)
 
-            logger.info(f"ボラティリティ調整完了: {symbol} - 調整係数: {vol_multiplier:.3f}")
+            logger.info(
+                f"ボラティリティ調整完了: {symbol} - 調整係数: {vol_multiplier:.3f}"
+            )
             return adjustment
 
         except Exception as e:
@@ -704,9 +708,13 @@ class AdvancedVolatilityRiskAdjustment:
         try:
             # 予測ボラティリティによる含意
             if forecast_vol > current_metrics.historical_volatility * 1.2:
-                implications.append("予測ボラティリティ上昇によりリスク増加が予想されます")
+                implications.append(
+                    "予測ボラティリティ上昇によりリスク増加が予想されます"
+                )
             elif forecast_vol < current_metrics.historical_volatility * 0.8:
-                implications.append("予測ボラティリティ低下によりリスク減少が予想されます")
+                implications.append(
+                    "予測ボラティリティ低下によりリスク減少が予想されます"
+                )
 
             # レジーム変化の含意
             forecast_regime = self._determine_volatility_regime(forecast_vol)
@@ -810,9 +818,15 @@ async def main():
             vol_metrics = await vol_risk_system.analyze_volatility_risk(symbol)
 
             logger.info(f"分析完了: {symbol}")
-            logger.info(f"  ヒストリカルボラティリティ: {vol_metrics.historical_volatility:.3f}")
-            logger.info(f"  ボラティリティレジーム: {vol_metrics.volatility_regime.value}")
-            logger.info(f"  ボラティリティトレンド: {vol_metrics.volatility_trend.value}")
+            logger.info(
+                f"  ヒストリカルボラティリティ: {vol_metrics.historical_volatility:.3f}"
+            )
+            logger.info(
+                f"  ボラティリティレジーム: {vol_metrics.volatility_regime.value}"
+            )
+            logger.info(
+                f"  ボラティリティトレンド: {vol_metrics.volatility_trend.value}"
+            )
             logger.info(f"  クラスタリング検知: {vol_metrics.volatility_clustering}")
             logger.info(f"  リスクスコア: {vol_metrics.volatility_risk_score:.3f}")
 
@@ -825,7 +839,9 @@ async def main():
                 symbol, original_position, original_stop_loss, current_price
             )
 
-            logger.info(f"  調整後ポジションサイズ: ¥{adjustment.adjusted_position_size:,.0f}")
+            logger.info(
+                f"  調整後ポジションサイズ: ¥{adjustment.adjusted_position_size:,.0f}"
+            )
             logger.info(f"  調整後ストップロス: {adjustment.adjusted_stop_loss:.3f}")
             logger.info(f"  リスク削減: {adjustment.risk_reduction:.1%}")
             logger.info(f"  調整理由: {adjustment.adjustment_reason}")

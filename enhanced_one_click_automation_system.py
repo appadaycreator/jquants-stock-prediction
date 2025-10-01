@@ -271,7 +271,9 @@ class EnhancedOneClickAutomationSystem:
             # 履歴の記録
             self.automation_history.append(result)
 
-            logger.info(f"完全自動化完了: {automation_id} - {len(analysis_results)}件の分析完了")
+            logger.info(
+                f"完全自動化完了: {automation_id} - {len(analysis_results)}件の分析完了"
+            )
             return result
 
         except Exception as e:
