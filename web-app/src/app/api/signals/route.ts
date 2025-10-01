@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic'; // 静的エクスポートでは使用不可
 
 interface SignalData {
   symbol: string;

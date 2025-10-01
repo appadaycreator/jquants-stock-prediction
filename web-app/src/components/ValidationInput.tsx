@@ -112,8 +112,7 @@ export default function ValidationInput({
       </label>
       
       <ValidationTooltip
-        isValid={!isWarning}
-        message={error || ""}
+        content={error || ""}
         className="w-full"
       >
         <div className="relative">

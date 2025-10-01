@@ -13,7 +13,8 @@ import {
   Clock,
   HelpCircle,
   ArrowRight,
-  ExternalLink
+  ExternalLink,
+  BookOpen
 } from 'lucide-react';
 import Link from 'next/link';
 

@@ -35,7 +35,6 @@ interface YesterdaySummary {
     type: "warning" | "info" | "success";
     message: string;
   }>;
-  analysisStatus: "completed" | "partial" | "failed";
 }
 
 interface TodayActions {
@@ -112,7 +111,6 @@ export default function RoutineDashboard({
           { type: "success", message: "分析完了: 3銘柄の予測精度向上" },
           { type: "warning", message: "市場ボラティリティ上昇に注意" },
         ],
-        analysisStatus: "completed",
       });
     }
   }, []);
@@ -162,7 +160,6 @@ export default function RoutineDashboard({
         // キャッシュもない場合はデフォルトデータを表示
         setTodayActions({
           analysisRequired: true,
-          analysisStatus: 'not_started',
           watchlistUpdates: [
             { symbol: "7203.T", action: "modify", reason: "予測精度向上のため設定調整" },
             { symbol: "6758.T", action: "remove", reason: "パフォーマンス低下" },
@@ -190,12 +187,7 @@ export default function RoutineDashboard({
               action: "trade",
               priority: "high",
             },
-          ],
-          error: {
-            code: 'API_ERROR',
-            message: 'データ取得に失敗しました',
-            retry_hint: 'しばらく時間をおいてから再度お試しください'
-          }
+          ]
         });
       }
     } catch (err) {
@@ -220,12 +212,9 @@ export default function RoutineDashboard({
       // キャッシュもない場合はエラーメッセージを表示
       setTodayActions({
         analysisRequired: true,
-        analysisStatus: 'failed',
-        error: {
-          code: 'NETWORK_ERROR',
-          message: 'ネットワーク接続を確認してください',
-          retry_hint: 'インターネット接続を確認してから再度お試しください'
-        }
+        watchlistUpdates: [],
+        nextUpdateTime: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
+        priorityActions: []
       });
     }
   }, []);
@@ -671,11 +660,7 @@ export default function RoutineDashboard({
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-gray-900">前日の分析結果</h2>
                 <div className="flex items-center space-x-2">
-                  {yesterdaySummary?.analysisStatus === "completed" ? (
-                    <CheckCircle className="h-5 w-5 text-green-600" />
-                  ) : (
-                    <AlertCircle className="h-5 w-5 text-yellow-600" />
-                  )}
+                  <CheckCircle className="h-5 w-5 text-green-600" />
                   <span className="text-sm text-gray-600">
                     {yesterdaySummary?.date}
                   </span>

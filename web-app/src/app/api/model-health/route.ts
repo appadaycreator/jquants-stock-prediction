@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export const dynamic = 'force-static';
+// export const dynamic = 'force-static'; // 静的エクスポートでは使用不可
 
 export async function GET() {
   try {

@@ -5,7 +5,7 @@ import { HelpCircle } from "lucide-react";
 
 interface TooltipProps {
   content: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   position?: "top" | "bottom" | "left" | "right";
   className?: string;
   maxWidth?: string;
@@ -92,7 +92,7 @@ export default function Tooltip({
         onBlur={() => setIsVisible(false)}
         className="cursor-help"
       >
-        {children}
+        {children || <HelpCircle className="h-4 w-4 text-gray-400 hover:text-gray-600 transition-colors" />}
       </div>
       
       {isVisible && (

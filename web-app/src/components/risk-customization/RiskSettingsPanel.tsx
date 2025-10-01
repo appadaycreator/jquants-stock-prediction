@@ -23,7 +23,7 @@ import {
   Info
 } from 'lucide-react';
 import { useRiskCustomization } from '@/hooks/useRiskCustomization';
-import { RiskCustomizationSettings } from '@/lib/risk-customization-store';
+import { RiskCustomizationSettings, riskCustomizationStore } from '@/lib/risk-customization-store';
 
 interface RiskSettingsPanelProps {
   onClose?: () => void;

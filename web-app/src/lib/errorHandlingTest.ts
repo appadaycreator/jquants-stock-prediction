@@ -74,7 +74,7 @@ class ErrorHandlingTest {
       const retrieved = cache.get('test_key');
       
       // データが正しく取得できることを確認
-      return retrieved && retrieved.test === 'data';
+      return Boolean(retrieved && (retrieved as any).test === 'data');
     } catch (error) {
       console.error('キャッシュテストエラー:', error);
       return false;
@@ -124,7 +124,7 @@ class ErrorHandlingTest {
 
       // キャッシュからデータが取得できることを確認
       const cached = localStorage.getItem('signal_fallback_data');
-      return cached && JSON.parse(cached).signals.length > 0;
+      return Boolean(cached && JSON.parse(cached).signals.length > 0);
     } catch (error) {
       console.error('フォールバックテストエラー:', error);
       return false;
