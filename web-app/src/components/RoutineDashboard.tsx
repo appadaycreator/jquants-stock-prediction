@@ -119,7 +119,7 @@ export default function RoutineDashboard({
   const loadTodayActions = useCallback(async () => {
     try {
       // 静的ファイルから今日のアクションを取得
-      const response = await fetch("/data/20250930/today_actions_2025-09-30.json", {
+      const response = await fetch("/data/today_actions_2025-09-30.json", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         cache: "no-store",
