@@ -12,6 +12,12 @@ const nextConfig = {
     assetPrefix: "/jquants-stock-prediction",
   }),
   
+  // 開発環境ではbasePathを無効化
+  ...(process.env.NODE_ENV === "development" && {
+    basePath: "",
+    assetPrefix: "",
+  }),
+  
   // 画像最適化設定
   images: {
     unoptimized: true,
