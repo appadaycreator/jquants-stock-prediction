@@ -183,7 +183,7 @@ function DashboardContent() {
   const [range, setRange] = useState<"5y" | "1y" | "3m" | "1m">("1y");
   const [primaryStock, setPrimaryStock] = useState<any[]>([]);
   const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
-  const [modelHealth, setModelHealth] = useState<{ status: "ok" | "warning" | "stop"; reasons?: string[] } | null>(null);
+  const [modelHealth, setModelHealth] = useState<{ status: "ok" | "warning" | "stop"; reasons?: string[]; updatedAt?: string; metrics?: any } | null>(null);
   const [cacheMeta, setCacheMeta] = useState<Record<string, { exists: boolean; timestamp: number | null; ageMs: number | null }>>({});
   const [selectedPeriod, setSelectedPeriod] = useState("1m");
   const [watchlists, setWatchlists] = useState<any[]>([]);

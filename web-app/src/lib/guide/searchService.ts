@@ -75,12 +75,12 @@ export class SearchService {
     const results = helpFuse.search(query);
     return results.map(result => ({
       id: result.item.id,
-      title: result.item.title,
-      content: result.item.content || result.item.answer || '',
+      title: (result.item as any).title || (result.item as any).question,
+      content: (result.item as any).content || (result.item as any).answer || '',
       category: result.item.category,
       type: result.item.type,
       score: result.score,
-      matchedFields: result.matches?.map(match => match.key)
+      matchedFields: result.matches?.map(match => match.key).filter((key): key is string => key !== undefined)
     }));
   }
 
@@ -98,7 +98,7 @@ export class SearchService {
       category: result.item.category,
       type: 'glossary' as const,
       score: result.score,
-      matchedFields: result.matches?.map(match => match.key)
+      matchedFields: result.matches?.map(match => match.key).filter((key): key is string => key !== undefined)
     }));
   }
 
@@ -110,13 +110,13 @@ export class SearchService {
     
     const results = unifiedFuse.search(query);
     return results.map(result => ({
-      id: result.item.id || result.item.term,
-      title: result.item.title || result.item.term,
-      content: result.item.content || result.item.detail || result.item.answer || '',
+      id: (result.item as any).id || (result.item as any).term,
+      title: (result.item as any).title || (result.item as any).term,
+      content: (result.item as any).content || (result.item as any).detail || (result.item as any).answer || '',
       category: result.item.category,
       type: result.item.type,
       score: result.score,
-      matchedFields: result.matches?.map(match => match.key)
+      matchedFields: result.matches?.map(match => match.key).filter((key): key is string => key !== undefined)
     }));
   }
 
@@ -127,7 +127,7 @@ export class SearchService {
     if (!query.trim()) return [];
     
     const results = unifiedFuse.search(query, { limit });
-    return results.map(result => result.item.title || result.item.term);
+    return results.map(result => (result.item as any).title || (result.item as any).term);
   }
 
   /**
@@ -140,13 +140,13 @@ export class SearchService {
     return results
       .filter(result => result.item.category === category)
       .map(result => ({
-        id: result.item.id || result.item.term,
-        title: result.item.title || result.item.term,
-        content: result.item.content || result.item.detail || result.item.answer || '',
+        id: (result.item as any).id || (result.item as any).term,
+        title: (result.item as any).title || (result.item as any).term,
+        content: (result.item as any).content || (result.item as any).detail || (result.item as any).answer || '',
         category: result.item.category,
         type: result.item.type,
         score: result.score,
-        matchedFields: result.matches?.map(match => match.key)
+        matchedFields: result.matches?.map(match => match.key).filter((key): key is string => key !== undefined)
       }));
   }
 
@@ -157,7 +157,7 @@ export class SearchService {
     // 同じカテゴリの項目を取得
     const allItems = allData;
     const targetItem = allItems.find(item => 
-      (item.id === itemId || item.term === itemId) && item.type === type
+      ((item as any).id === itemId || (item as any).term === itemId) && item.type === type
     );
     
     if (!targetItem) return [];
@@ -165,13 +165,13 @@ export class SearchService {
     return allItems
       .filter(item => 
         item.category === targetItem.category && 
-        (item.id !== itemId && item.term !== itemId)
+        ((item as any).id !== itemId && (item as any).term !== itemId)
       )
       .slice(0, 3)
       .map(item => ({
-        id: item.id || item.term,
-        title: item.title || item.term,
-        content: item.content || item.detail || item.answer || '',
+        id: (item as any).id || (item as any).term,
+        title: (item as any).title || (item as any).term,
+        content: (item as any).content || (item as any).detail || (item as any).answer || '',
         category: item.category,
         type: item.type
       }));
