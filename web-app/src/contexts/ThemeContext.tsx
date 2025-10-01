@@ -2,13 +2,14 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-export type Theme = "light" | "dark" | "blue" | "green" | "purple";
+export type Theme = "light" | "dark" | "auto" | "blue" | "green" | "purple";
 
 interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
   isDark: boolean;
+  effectiveTheme: "light" | "dark";
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -26,17 +27,29 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>("light");
+  const [theme, setThemeState] = useState<Theme>("auto");
+  const [systemPrefersDark, setSystemPrefersDark] = useState(false);
+
+  // システム設定の変更を監視
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    setSystemPrefersDark(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setSystemPrefersDark(e.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   // ローカルストレージからテーマを読み込み
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as Theme;
-    if (savedTheme && ["light", "dark", "blue", "green", "purple"].includes(savedTheme)) {
+    if (savedTheme && ["light", "dark", "auto", "blue", "green", "purple"].includes(savedTheme)) {
       setThemeState(savedTheme);
     } else {
-      // システム設定を確認
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setThemeState(prefersDark ? "dark" : "light");
+      setThemeState("auto");
     }
   }, []);
 
@@ -48,9 +61,18 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   // ダークモードの切り替え
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
+    const newTheme = theme === "light" ? "dark" : theme === "dark" ? "auto" : "light";
     setTheme(newTheme);
   };
+
+  // 実際に適用されるテーマを計算
+  const effectiveTheme = theme === "auto" 
+    ? (systemPrefersDark ? "dark" : "light")
+    : theme === "blue" || theme === "green" || theme === "purple"
+    ? "light" // カラーテーマはライトベース
+    : theme as "light" | "dark";
+
+  const isDark = effectiveTheme === "dark";
 
   // テーマが変更されたときにHTMLクラスを更新
   useEffect(() => {
@@ -64,12 +86,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     
     // データ属性も設定
     root.setAttribute("data-theme", theme);
-  }, [theme]);
-
-  const isDark = theme === "dark";
+    root.setAttribute("data-effective-theme", effectiveTheme);
+  }, [theme, effectiveTheme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme, isDark }}>
+    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme, isDark, effectiveTheme }}>
       {children}
     </ThemeContext.Provider>
   );

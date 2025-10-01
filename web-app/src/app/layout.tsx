@@ -10,6 +10,7 @@ import BottomNav from "@/components/mobile/BottomNav";
 import Sidebar from "@/components/desktop/Sidebar";
 import { UserProfileProvider } from "@/contexts/UserProfileContext";
 import GlobalErrorBoundary from "@/components/GlobalErrorBoundary";
+import ResponsiveLayout from "@/components/ResponsiveLayout";
 import { useEffect, useState } from "react";
 import { startAutoRecovery } from "@/lib/auto-recovery";
 
@@ -108,10 +109,10 @@ export default function RootLayout({
               <UserProfileProvider>
                 <GlobalErrorBoundary>
                   <div id="root" className="theme-base">
-                    {/* モバイル用のパディング調整 */}
-                    <div className="pb-20 lg:pb-0 lg:pl-64">
+                    {/* レスポンシブレイアウト */}
+                    <ResponsiveLayout>
                       {children}
-                    </div>
+                    </ResponsiveLayout>
                     <Sidebar />
                     <BottomNav />
                   </div>

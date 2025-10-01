@@ -1,5 +1,28 @@
 /* モバイル専用CSS最適化 */
 
+/* ダークモード対応の強化 */
+.theme-dark {
+  --mobile-bg-primary: #0f172a;
+  --mobile-bg-secondary: #1e293b;
+  --mobile-bg-tertiary: #334155;
+  --mobile-text-primary: #f8fafc;
+  --mobile-text-secondary: #cbd5e1;
+  --mobile-text-tertiary: #94a3b8;
+  --mobile-border: #334155;
+  --mobile-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.theme-light {
+  --mobile-bg-primary: #ffffff;
+  --mobile-bg-secondary: #f9fafb;
+  --mobile-bg-tertiary: #f3f4f6;
+  --mobile-text-primary: #111827;
+  --mobile-text-secondary: #6b7280;
+  --mobile-text-tertiary: #9ca3af;
+  --mobile-border: #e5e7eb;
+  --mobile-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 /* タッチ操作の最適化 */
 @media (max-width: 768px) {
   /* タッチターゲットの最小サイズ確保 */
@@ -48,8 +71,9 @@
     position: sticky;
     top: 0;
     z-index: 40;
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
+    background: var(--mobile-bg-primary);
+    border-bottom: 1px solid var(--mobile-border);
+    color: var(--mobile-text-primary);
   }
 
   .mobile-content {
@@ -73,12 +97,19 @@
 
   /* モバイル専用カード */
   .mobile-card {
-    background: white;
+    background: var(--mobile-bg-primary);
     border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e5e7eb;
+    box-shadow: var(--mobile-shadow);
+    border: 1px solid var(--mobile-border);
     padding: 1rem;
     margin-bottom: 1rem;
+    color: var(--mobile-text-primary);
+    transition: all 0.3s ease;
+  }
+
+  .mobile-card:hover {
+    background: var(--mobile-bg-secondary);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   }
 
   /* モバイル専用ボタン */
@@ -107,13 +138,13 @@
   }
 
   .mobile-button-secondary {
-    background: #f3f4f6;
-    color: #374151;
-    border: 1px solid #d1d5db;
+    background: var(--mobile-bg-secondary);
+    color: var(--mobile-text-primary);
+    border: 1px solid var(--mobile-border);
   }
 
   .mobile-button-secondary:active {
-    background: #e5e7eb;
+    background: var(--mobile-bg-tertiary);
     transform: scale(0.98);
   }
 
@@ -121,17 +152,22 @@
   .mobile-input {
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--mobile-border);
     border-radius: 8px;
     font-size: 16px; /* iOS zoom防止 */
-    background: white;
-    transition: border-color 0.2s ease;
+    background: var(--mobile-bg-primary);
+    color: var(--mobile-text-primary);
+    transition: all 0.2s ease;
   }
 
   .mobile-input:focus {
     outline: none;
     border-color: #2563eb;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+
+  .mobile-input::placeholder {
+    color: var(--mobile-text-tertiary);
   }
 
   /* モバイル専用モーダル */
@@ -147,13 +183,14 @@
   }
 
   .mobile-modal-content {
-    background: white;
+    background: var(--mobile-bg-primary);
     border-radius: 16px 16px 0 0;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     animation: slideUp 0.3s ease-out;
+    color: var(--mobile-text-primary);
   }
 
   @keyframes slideUp {
@@ -171,8 +208,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: white;
-    border-top: 1px solid #e5e7eb;
+    background: var(--mobile-bg-primary);
+    border-top: 1px solid var(--mobile-border);
     padding: 8px 0;
     z-index: 30;
   }
@@ -183,13 +220,17 @@
     align-items: center;
     padding: 8px 12px;
     text-decoration: none;
-    color: #6b7280;
+    color: var(--mobile-text-secondary);
     font-size: 12px;
     transition: color 0.2s ease;
   }
 
   .mobile-nav-item.active {
     color: #2563eb;
+  }
+
+  .mobile-nav-item:hover {
+    color: var(--mobile-text-primary);
   }
 
   .mobile-nav-item svg {
@@ -200,19 +241,21 @@
 
   /* モバイル専用チャート */
   .mobile-chart {
-    background: white;
+    background: var(--mobile-bg-primary);
     border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e5e7eb;
+    box-shadow: var(--mobile-shadow);
+    border: 1px solid var(--mobile-border);
     overflow: hidden;
+    color: var(--mobile-text-primary);
   }
 
   .mobile-chart-header {
     padding: 16px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--mobile-border);
     display: flex;
     align-items: center;
     justify-content: between;
+    color: var(--mobile-text-primary);
   }
 
   .mobile-chart-content {
@@ -230,31 +273,36 @@
   .mobile-table td {
     padding: 12px 8px;
     text-align: left;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--mobile-border);
     font-size: 14px;
   }
 
   .mobile-table th {
-    background: #f9fafb;
+    background: var(--mobile-bg-secondary);
     font-weight: 600;
-    color: #374151;
+    color: var(--mobile-text-primary);
+  }
+
+  .mobile-table td {
+    color: var(--mobile-text-primary);
   }
 
   /* モバイル専用リスト */
   .mobile-list {
-    background: white;
+    background: var(--mobile-bg-primary);
     border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e5e7eb;
+    box-shadow: var(--mobile-shadow);
+    border: 1px solid var(--mobile-border);
     overflow: hidden;
   }
 
   .mobile-list-item {
     padding: 16px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--mobile-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: var(--mobile-text-primary);
   }
 
   .mobile-list-item:last-child {
@@ -301,13 +349,13 @@
     align-items: center;
     justify-content: center;
     padding: 32px;
-    color: #6b7280;
+    color: var(--mobile-text-secondary);
   }
 
   .mobile-spinner {
     width: 32px;
     height: 32px;
-    border: 3px solid #e5e7eb;
+    border: 3px solid var(--mobile-border);
     border-top: 3px solid #2563eb;
     border-radius: 50%;
     animation: spin 1s linear infinite;

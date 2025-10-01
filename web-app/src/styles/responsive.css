@@ -10,6 +10,29 @@
   --breakpoint-2xl: 1536px;
 }
 
+/* ダークモード対応の強化 */
+.theme-dark {
+  --responsive-bg-primary: #0f172a;
+  --responsive-bg-secondary: #1e293b;
+  --responsive-bg-tertiary: #334155;
+  --responsive-text-primary: #f8fafc;
+  --responsive-text-secondary: #cbd5e1;
+  --responsive-text-tertiary: #94a3b8;
+  --responsive-border: #334155;
+  --responsive-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.theme-light {
+  --responsive-bg-primary: #ffffff;
+  --responsive-bg-secondary: #f9fafb;
+  --responsive-bg-tertiary: #f3f4f6;
+  --responsive-text-primary: #111827;
+  --responsive-text-secondary: #6b7280;
+  --responsive-text-tertiary: #9ca3af;
+  --responsive-border: #e5e7eb;
+  --responsive-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 /* コンテナの最大幅とパディング */
 .container-responsive {
   width: 100%;
@@ -90,17 +113,19 @@
 
 /* カードのレスポンシブ対応 */
 .card-responsive {
-  background: white;
+  background: var(--responsive-bg-primary);
   border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
+  box-shadow: var(--responsive-shadow);
+  border: 1px solid var(--responsive-border);
   padding: 1rem;
   transition: all 0.2s ease;
+  color: var(--responsive-text-primary);
 }
 
 .card-responsive:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   transform: translateY(-1px);
+  background: var(--responsive-bg-secondary);
 }
 
 @media (min-width: 640px) {
@@ -338,8 +363,22 @@
 /* ダークモード対応の準備 */
 @media (prefers-color-scheme: dark) {
   .card-responsive {
-    background: #1f2937;
-    border-color: #374151;
-    color: #f9fafb;
+    background: var(--responsive-bg-primary);
+    border-color: var(--responsive-border);
+    color: var(--responsive-text-primary);
+  }
+}
+
+/* システム設定に基づく自動テーマ切り替え */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]):not([data-theme="light"]):not([data-theme="blue"]):not([data-theme="green"]):not([data-theme="purple"]) {
+    --responsive-bg-primary: #0f172a;
+    --responsive-bg-secondary: #1e293b;
+    --responsive-bg-tertiary: #334155;
+    --responsive-text-primary: #f8fafc;
+    --responsive-text-secondary: #cbd5e1;
+    --responsive-text-tertiary: #94a3b8;
+    --responsive-border: #334155;
+    --responsive-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   }
 }

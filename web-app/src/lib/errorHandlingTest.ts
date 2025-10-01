@@ -30,11 +30,9 @@ class ErrorHandlingTest {
    */
   async testAnalysisRequiredError(): Promise<boolean> {
     try {
-      const response = await fetch('/api/today-actions');
-      const data = await response.json();
-      
-      // 分析未実行時は202ステータスとanalysisRequired: trueが返されることを確認
-      return response.status === 202 && data.analysisRequired === true;
+      // APIルートが削除されているため、常にfalseを返す
+      console.warn('APIルートが削除されているため、テストをスキップします');
+      return false;
     } catch (error) {
       console.error('分析未実行テストエラー:', error);
       return false;
@@ -46,11 +44,9 @@ class ErrorHandlingTest {
    */
   async testSignalErrorHandling(): Promise<boolean> {
     try {
-      const response = await fetch('/api/signals');
-      const data = await response.json();
-      
-      // エラーレスポンスの構造を確認
-      return data.error && data.error.code && data.error.message;
+      // APIルートが削除されているため、常にfalseを返す
+      console.warn('APIルートが削除されているため、テストをスキップします');
+      return false;
     } catch (error) {
       console.error('シグナルエラーテストエラー:', error);
       return false;

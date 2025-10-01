@@ -175,27 +175,13 @@ class CacheManager {
       return cached;
     }
 
-    // 分析結果をチェック
-    try {
-      const response = await fetch('/api/today-actions');
-      if (response.ok) {
-        const data = await response.json();
-        const result = {
-          hasAnalysis: !data.analysisRequired,
-          lastAnalysisTime: data.lastAnalysisTime,
-          analysisStatus: data.analysisStatus
-        };
-        this.set(cacheKey, result, { ttlHours: 1 }); // 1時間キャッシュ
-        return result;
-      }
-    } catch (error) {
-      console.warn('分析結果の確認に失敗:', error);
-    }
-
-    return {
+    // APIルートが削除されているため、デフォルト値を返す
+    const result = {
       hasAnalysis: false,
-      analysisStatus: 'not_started'
+      analysisStatus: 'not_started' as const
     };
+    this.set(cacheKey, result, { ttlHours: 1 }); // 1時間キャッシュ
+    return result;
   }
 
   /**
@@ -206,27 +192,21 @@ class CacheManager {
     fromCache: boolean;
     error?: string;
   }> {
-    return this.getWithFallback(
-      'today_actions',
-      async () => {
-        const response = await fetch('/api/today-actions');
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        return response.json();
-      },
-      {
-        ttlHours: 6,
-        fallbackData: {
-          analysisRequired: true,
-          analysisStatus: 'not_started',
-          error: {
-            code: 'CACHE_FALLBACK',
-            message: 'データ取得に失敗しました。サンプルデータを表示しています。'
-          }
-        }
+    // APIルートが削除されているため、フォールバックデータを直接返す
+    const fallbackData = {
+      analysisRequired: true,
+      analysisStatus: 'not_started',
+      error: {
+        code: 'API_UNAVAILABLE',
+        message: 'APIが利用できません。サンプルデータを表示しています。'
       }
-    );
+    };
+    
+    return {
+      data: fallbackData,
+      fromCache: false,
+      error: 'APIが利用できません。サンプルデータを表示しています。'
+    };
   }
 
   /**
@@ -237,27 +217,21 @@ class CacheManager {
     fromCache: boolean;
     error?: string;
   }> {
-    return this.getWithFallback(
-      'signals',
-      async () => {
-        const response = await fetch('/api/signals');
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        return response.json();
-      },
-      {
-        ttlHours: 6,
-        fallbackData: {
-          signals: [],
-          analysisRequired: true,
-          error: {
-            code: 'CACHE_FALLBACK',
-            message: 'シグナル取得に失敗しました。サンプルデータを表示しています。'
-          }
-        }
+    // APIルートが削除されているため、フォールバックデータを直接返す
+    const fallbackData = {
+      signals: [],
+      analysisRequired: true,
+      error: {
+        code: 'API_UNAVAILABLE',
+        message: 'APIが利用できません。サンプルデータを表示しています。'
       }
-    );
+    };
+    
+    return {
+      data: fallbackData,
+      fromCache: false,
+      error: 'APIが利用できません。サンプルデータを表示しています。'
+    };
   }
 
   /**
