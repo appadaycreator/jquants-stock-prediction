@@ -129,10 +129,40 @@ export default function RoutineDashboard({
       if (response.ok) {
         const data = await response.json();
         setTodayActions(data);
+        
+        // 成功時はキャッシュに保存
+        try {
+          localStorage.setItem("today_actions_cache", JSON.stringify(data));
+          localStorage.setItem("today_actions_timestamp", new Date().toISOString());
+        } catch (e) {
+          console.warn("キャッシュ保存に失敗:", e);
+        }
       } else {
-        // デモデータを表示
+        // HTTPエラーの場合、キャッシュを確認
+        const cachedData = localStorage.getItem("today_actions_cache");
+        if (cachedData) {
+          try {
+            const cached = JSON.parse(cachedData);
+            const cacheTime = new Date(localStorage.getItem("today_actions_timestamp") || "");
+            const hoursDiff = (new Date().getTime() - cacheTime.getTime()) / (1000 * 60 * 60);
+            
+            if (hoursDiff < 6) { // 6時間以内のキャッシュは有効
+              setTodayActions({
+                ...cached,
+                isUsingCache: true,
+                cacheMessage: "最新データの取得に失敗しました。前回の結果を表示しています。"
+              });
+              return;
+            }
+          } catch (e) {
+            console.warn("キャッシュデータの読み込みに失敗:", e);
+          }
+        }
+        
+        // キャッシュもない場合はデフォルトデータを表示
         setTodayActions({
           analysisRequired: true,
+          analysisStatus: 'not_started',
           watchlistUpdates: [
             { symbol: "7203.T", action: "modify", reason: "予測精度向上のため設定調整" },
             { symbol: "6758.T", action: "remove", reason: "パフォーマンス低下" },
@@ -161,10 +191,42 @@ export default function RoutineDashboard({
               priority: "high",
             },
           ],
+          error: {
+            code: 'API_ERROR',
+            message: 'データ取得に失敗しました',
+            retry_hint: 'しばらく時間をおいてから再度お試しください'
+          }
         });
       }
     } catch (err) {
       console.error("今日のアクション取得に失敗:", err);
+      
+      // ネットワークエラーの場合、キャッシュを確認
+      const cachedData = localStorage.getItem("today_actions_cache");
+      if (cachedData) {
+        try {
+          const cached = JSON.parse(cachedData);
+          setTodayActions({
+            ...cached,
+            isUsingCache: true,
+            cacheMessage: "ネットワークエラーが発生しました。前回の結果を表示しています。"
+          });
+          return;
+        } catch (e) {
+          console.warn("キャッシュデータの読み込みに失敗:", e);
+        }
+      }
+      
+      // キャッシュもない場合はエラーメッセージを表示
+      setTodayActions({
+        analysisRequired: true,
+        analysisStatus: 'failed',
+        error: {
+          code: 'NETWORK_ERROR',
+          message: 'ネットワーク接続を確認してください',
+          retry_hint: 'インターネット接続を確認してから再度お試しください'
+        }
+      });
     }
   }, []);
 

@@ -6,6 +6,7 @@ import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
 import { useSignalWithFallback } from "@/hooks/useSignalWithFallback";
 import EnhancedInstructionCard from "@/components/EnhancedInstructionCard";
 import SignalHistoryDisplay from "@/components/SignalHistoryDisplay";
+import ErrorGuidance from "@/components/ErrorGuidance";
 
 export default function TodayPage() {
   const routine = useFiveMinRoutine();
@@ -40,18 +41,19 @@ export default function TodayPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="w-full max-w-md mx-auto px-4 py-4 md:max-w-3xl">
         {(routine.error || signalData.error) && (
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4 text-sm text-yellow-800">
-            {routine.error || signalData.error}
-            {signalData.isUsingFallback && (
-              <div className="mt-2 text-xs">
-                <button 
-                  onClick={signalData.clearError}
-                  className="text-blue-600 hover:text-blue-800 underline"
-                >
-                  前回の結果を表示
-                </button>
-              </div>
-            )}
+          <div className="mb-4">
+            <ErrorGuidance
+              error={routine.error || signalData.error || ''}
+              errorCode={signalData.error?.includes('分析を実行してから') ? 'ANALYSIS_REQUIRED' : 
+                         signalData.error?.includes('ネットワーク') ? 'NETWORK_ERROR' : 'API_ERROR'}
+              onRetry={() => {
+                if (routine.actions?.refresh) routine.actions.refresh();
+                if (signalData.refresh) signalData.refresh();
+              }}
+              onClearError={signalData.clearError}
+              isUsingFallback={signalData.isUsingFallback}
+              analysisRequired={signalData.error?.includes('分析を実行してから') || routine.error?.includes('分析を実行してから')}
+            />
           </div>
         )}
 

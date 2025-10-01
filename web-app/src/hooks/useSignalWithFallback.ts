@@ -87,36 +87,73 @@ export function useSignalWithFallback(symbols: string[] = []) {
     setIsUsingFallback(false);
 
     try {
-      // 実際のAPI呼び出しをシミュレート
-      // 本番環境では、ここで実際のAPIエンドポイントを呼び出す
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch("/api/signals", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+      });
       
-      // ランダムにエラーを発生させてフォールバック機能をテスト
-      if (Math.random() < 0.3) {
-        throw new Error("API取得に失敗しました");
+      if (response.ok) {
+        const data = await response.json();
+        
+        if (data.analysisRequired) {
+          // 分析が未実行の場合
+          setSignals([]);
+          setError(data.error?.message || "分析を実行してからお試しください");
+          setLastUpdate(new Date());
+          return;
+        }
+        
+        if (data.signals && data.signals.length > 0) {
+          setSignals(data.signals);
+          setLastUpdate(new Date());
+          saveSignalsToCache(data.signals);
+        } else {
+          // シグナルが空の場合、モックデータを生成
+          const mockSignals = generateMockSignals();
+          setSignals(mockSignals);
+          setIsUsingFallback(true);
+          setError("シグナルデータがありません。サンプルデータを表示しています。");
+          setLastUpdate(new Date());
+          saveSignalsToCache(mockSignals);
+        }
+      } else {
+        // HTTPエラーの場合
+        const errorData = await response.json().catch(() => ({}));
+        
+        // キャッシュを確認
+        const cachedSignals = getCachedSignals();
+        if (cachedSignals) {
+          setSignals(cachedSignals);
+          setIsUsingFallback(true);
+          setError(errorData.error?.message || "最新データの取得に失敗しました。前回の結果を表示しています。");
+          setLastUpdate(new Date());
+        } else {
+          // キャッシュもない場合はモックデータを生成
+          const fallbackSignals = generateMockSignals();
+          setSignals(fallbackSignals);
+          setIsUsingFallback(true);
+          setError(errorData.error?.message || "データ取得に失敗しました。サンプルデータを表示しています。");
+          setLastUpdate(new Date());
+          saveSignalsToCache(fallbackSignals);
+        }
       }
-
-      const mockSignals = generateMockSignals();
-      setSignals(mockSignals);
-      setLastUpdate(new Date());
-      saveSignalsToCache(mockSignals);
-      
     } catch (err) {
       console.error("シグナル取得エラー:", err);
       
-      // フォールバック: キャッシュされたデータを使用
+      // ネットワークエラーの場合、キャッシュを確認
       const cachedSignals = getCachedSignals();
       if (cachedSignals) {
         setSignals(cachedSignals);
         setIsUsingFallback(true);
-        setError("最新データの取得に失敗しました。前回の結果を表示しています。");
+        setError("ネットワークエラーが発生しました。前回の結果を表示しています。");
         setLastUpdate(new Date());
       } else {
         // キャッシュもない場合はモックデータを生成
         const fallbackSignals = generateMockSignals();
         setSignals(fallbackSignals);
         setIsUsingFallback(true);
-        setError("データ取得に失敗しました。サンプルデータを表示しています。");
+        setError("ネットワーク接続を確認してください。サンプルデータを表示しています。");
         setLastUpdate(new Date());
         saveSignalsToCache(fallbackSignals);
       }
