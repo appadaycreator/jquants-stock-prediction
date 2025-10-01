@@ -1,0 +1,194 @@
+{
+  "glossaryItems": [
+    {
+      "term": "MAE",
+      "short": "平均絶対誤差",
+      "detail": "Mean Absolute Error。予測値と実際値の差の絶対値の平均。値が小さいほど予測精度が高い。",
+      "category": "指標",
+      "keywords": ["MAE", "平均絶対誤差", "精度", "予測", "誤差"],
+      "links": ["/models", "/analysis"],
+      "externalLinks": [
+        {
+          "name": "Wikipedia - 平均絶対誤差",
+          "url": "https://ja.wikipedia.org/wiki/%E5%B9%B3%E5%9D%87%E7%B5%B6%E5%AF%BE%E8%AA%A4%E5%B7%AE"
+        }
+      ]
+    },
+    {
+      "term": "RMSE",
+      "short": "二乗平均平方根誤差",
+      "detail": "Root Mean Square Error。予測値と実際値の差の二乗平均の平方根。MAEより大きな誤差に敏感。",
+      "category": "指標",
+      "keywords": ["RMSE", "二乗平均平方根誤差", "精度", "予測", "誤差"],
+      "links": ["/models", "/analysis"],
+      "externalLinks": [
+        {
+          "name": "Wikipedia - 二乗平均平方根誤差",
+          "url": "https://ja.wikipedia.org/wiki/%E4%BA%8C%E4%B9%97%E5%B9%B3%E5%9D%87%E5%B9%B3%E6%96%B9%E6%A0%B9%E8%AA%A4%E5%B7%AE"
+        }
+      ]
+    },
+    {
+      "term": "R²",
+      "short": "決定係数",
+      "detail": "Coefficient of Determination。モデルがデータの変動を説明できる割合。1に近いほど良い。",
+      "category": "指標",
+      "keywords": ["R²", "決定係数", "説明力", "モデル", "変動"],
+      "links": ["/models", "/analysis"],
+      "externalLinks": [
+        {
+          "name": "Wikipedia - 決定係数",
+          "url": "https://ja.wikipedia.org/wiki/%E6%B1%BA%E5%AE%9A%E4%BF%82%E6%95%B0"
+        }
+      ]
+    },
+    {
+      "term": "予測精度",
+      "short": "予測の正確性",
+      "detail": "直近テスト期間での予測と実際の一致度。過去データへの過適合に注意が必要。",
+      "category": "指標",
+      "keywords": ["予測精度", "正確性", "一致度", "過適合", "テスト"],
+      "links": ["/predictions", "/analysis"],
+      "externalLinks": []
+    },
+    {
+      "term": "シャープレシオ",
+      "short": "リスク調整後リターン",
+      "detail": "Sharpe Ratio。リスク1単位あたりのリターン。高いほど効率的な投資。",
+      "category": "指標",
+      "keywords": ["シャープレシオ", "リスク調整", "リターン", "効率", "投資"],
+      "links": ["/risk", "/reports"],
+      "externalLinks": [
+        {
+          "name": "Wikipedia - シャープレシオ",
+          "url": "https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%A3%E3%83%BC%E3%83%97%E3%83%AC%E3%82%B7%E3%82%AA"
+        }
+      ]
+    },
+    {
+      "term": "損切り",
+      "short": "損失を限定する売却",
+      "detail": "Stop Loss。損失が一定水準に達した時の自動売却。リスク管理の基本。",
+      "category": "取引",
+      "keywords": ["損切り", "損失", "売却", "リスク管理", "自動"],
+      "links": ["/risk", "/settings"],
+      "externalLinks": [
+        {
+          "name": "Wikipedia - 損切り",
+          "url": "https://ja.wikipedia.org/wiki/%E6%90%8D%E5%88%87%E3%82%8A"
+        }
+      ]
+    },
+    {
+      "term": "利確",
+      "short": "利益を確定する売却",
+      "detail": "Take Profit。利益が一定水準に達した時の自動売却。利益の確保。",
+      "category": "取引",
+      "keywords": ["利確", "利益", "売却", "確保", "自動"],
+      "links": ["/risk", "/settings"],
+      "externalLinks": []
+    },
+    {
+      "term": "ボラティリティ",
+      "short": "価格変動の激しさ",
+      "detail": "Volatility。価格の変動幅。高いほどリスクが大きい。",
+      "category": "リスク",
+      "keywords": ["ボラティリティ", "価格変動", "リスク", "変動幅"],
+      "links": ["/risk", "/analysis"],
+      "externalLinks": [
+        {
+          "name": "Wikipedia - ボラティリティ",
+          "url": "https://ja.wikipedia.org/wiki/%E3%83%9C%E3%83%A9%E3%83%86%E3%82%A3%E3%83%AA%E3%83%86%E3%82%A3"
+        }
+      ]
+    },
+    {
+      "term": "過学習",
+      "short": "過去データに過度に適合",
+      "detail": "Overfitting。過去データに特化しすぎて将来予測ができない状態。",
+      "category": "モデル",
+      "keywords": ["過学習", "過適合", "過去データ", "将来予測", "特化"],
+      "links": ["/models", "/analysis"],
+      "externalLinks": [
+        {
+          "name": "Wikipedia - 過学習",
+          "url": "https://ja.wikipedia.org/wiki/%E9%81%8E%E5%AD%A6%E7%BF%92"
+        }
+      ]
+    },
+    {
+      "term": "特徴量重要度",
+      "short": "予測に影響する要因の重み",
+      "detail": "Feature Importance。どの要因が予測に最も影響するかの指標。",
+      "category": "分析",
+      "keywords": ["特徴量重要度", "要因", "重み", "予測", "影響"],
+      "links": ["/analysis"],
+      "externalLinks": []
+    },
+    {
+      "term": "残差分析",
+      "short": "予測誤差の分析",
+      "detail": "Residual Analysis。予測値と実際値の差のパターンを分析。",
+      "category": "分析",
+      "keywords": ["残差分析", "予測誤差", "パターン", "分析"],
+      "links": ["/analysis"],
+      "externalLinks": []
+    },
+    {
+      "term": "相関分析",
+      "short": "要因間の関係性分析",
+      "detail": "Correlation Analysis。複数の要因がどの程度関連するかの分析。",
+      "category": "分析",
+      "keywords": ["相関分析", "関係性", "要因", "関連", "分析"],
+      "links": ["/analysis"],
+      "externalLinks": [
+        {
+          "name": "Wikipedia - 相関",
+          "url": "https://ja.wikipedia.org/wiki/%E7%9B%B8%E9%96%A2"
+        }
+      ]
+    },
+    {
+      "term": "バックテスト",
+      "short": "過去データでの検証",
+      "detail": "Backtesting。過去のデータを使って戦略やモデルの性能を検証する手法。",
+      "category": "分析",
+      "keywords": ["バックテスト", "過去データ", "検証", "戦略", "性能"],
+      "links": ["/analysis", "/reports"],
+      "externalLinks": [
+        {
+          "name": "Wikipedia - バックテスト",
+          "url": "https://ja.wikipedia.org/wiki/%E3%83%90%E3%83%83%E3%82%AF%E3%83%86%E3%82%B9%E3%83%88"
+        }
+      ]
+    },
+    {
+      "term": "クロスバリデーション",
+      "short": "交差検証",
+      "detail": "Cross Validation。データを複数のグループに分けて、モデルの性能を検証する手法。",
+      "category": "分析",
+      "keywords": ["クロスバリデーション", "交差検証", "グループ", "性能", "検証"],
+      "links": ["/analysis"],
+      "externalLinks": [
+        {
+          "name": "Wikipedia - 交差検証",
+          "url": "https://ja.wikipedia.org/wiki/%E4%BA%A4%E5%B7%AE%E6%A4%9C%E8%A8%BC"
+        }
+      ]
+    },
+    {
+      "term": "ハイパーパラメータ",
+      "short": "モデルの調整パラメータ",
+      "detail": "Hyperparameter。機械学習モデルの学習前に設定するパラメータ。最適化により性能向上。",
+      "category": "モデル",
+      "keywords": ["ハイパーパラメータ", "調整", "学習", "最適化", "性能"],
+      "links": ["/models", "/analysis"],
+      "externalLinks": [
+        {
+          "name": "Wikipedia - ハイパーパラメータ",
+          "url": "https://ja.wikipedia.org/wiki/%E3%83%8F%E3%82%A4%E3%83%91%E3%83%BC%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF"
+        }
+      ]
+    }
+  ]
+}

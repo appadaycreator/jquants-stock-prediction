@@ -1,0 +1,114 @@
+{
+  "helpSections": [
+    {
+      "id": "getting-started",
+      "title": "はじめに",
+      "content": "J-Quants株価予測システムの基本的な使い方を説明します。初回利用時は自動ガイドが表示されます。",
+      "category": "基本操作",
+      "keywords": ["はじめに", "基本", "初心者", "ガイド", "チュートリアル"],
+      "links": [
+        { "label": "ダッシュボード", "href": "/" },
+        { "label": "使い方ガイド", "href": "/usage" }
+      ]
+    },
+    {
+      "id": "dashboard",
+      "title": "ダッシュボード",
+      "content": "今日の投資指示と主要KPIを確認できます。MAE、R²、予測精度などの指標を理解しましょう。",
+      "category": "ダッシュボード",
+      "keywords": ["ダッシュボード", "KPI", "指標", "MAE", "R²", "予測精度"],
+      "links": [
+        { "label": "ダッシュボード", "href": "/" },
+        { "label": "予測結果", "href": "/predictions" }
+      ]
+    },
+    {
+      "id": "models",
+      "title": "モデル比較",
+      "content": "複数の機械学習モデルの性能を比較できます。総合評価から詳細指標まで確認しましょう。",
+      "category": "分析",
+      "keywords": ["モデル", "比較", "機械学習", "性能", "評価", "指標"],
+      "links": [
+        { "label": "モデル比較", "href": "/models" },
+        { "label": "分析", "href": "/analysis" }
+      ]
+    },
+    {
+      "id": "risk",
+      "title": "リスク管理",
+      "content": "投資リスクの評価と管理機能。損切り・利確の設定、ボラティリティ分析が可能です。",
+      "category": "リスク管理",
+      "keywords": ["リスク", "管理", "損切り", "利確", "ボラティリティ", "投資"],
+      "links": [
+        { "label": "リスク", "href": "/risk" },
+        { "label": "設定", "href": "/settings" }
+      ]
+    },
+    {
+      "id": "notifications",
+      "title": "通知設定",
+      "content": "重要な予測結果やアラートをメールやブラウザで受け取れます。通知条件をカスタマイズ可能です。",
+      "category": "設定",
+      "keywords": ["通知", "設定", "メール", "アラート", "カスタマイズ"],
+      "links": [
+        { "label": "設定", "href": "/settings" },
+        { "label": "通知", "href": "/notifications" }
+      ]
+    },
+    {
+      "id": "data-management",
+      "title": "データ管理",
+      "content": "株価データの取得、更新、キャッシュ管理を行います。データの品質と更新頻度を確認できます。",
+      "category": "データ",
+      "keywords": ["データ", "管理", "取得", "更新", "キャッシュ", "品質"],
+      "links": [
+        { "label": "データ", "href": "/data" },
+        { "label": "設定", "href": "/settings" }
+      ]
+    }
+  ],
+  "faqItems": [
+    {
+      "id": "mae-r2-difference",
+      "question": "MAEとR²の違いは何ですか？",
+      "answer": "MAE（平均絶対誤差）は予測の精度を、R²（決定係数）はモデルの説明力を示します。低いMAEと高いR²が理想的です。",
+      "category": "指標",
+      "keywords": ["MAE", "R²", "精度", "説明力", "指標", "違い"]
+    },
+    {
+      "id": "low-accuracy",
+      "question": "予測精度が低い場合はどうすれば？",
+      "answer": "モデル比較で他のモデルを試すか、分析タブで特徴量重要度を確認し、データの質を見直してください。",
+      "category": "トラブル",
+      "keywords": ["予測精度", "低い", "モデル", "特徴量", "データ", "質"]
+    },
+    {
+      "id": "notification-settings",
+      "question": "通知設定はどこで変更できますか？",
+      "answer": "設定ページの通知設定から、メールアドレスや通知条件を変更できます。",
+      "category": "設定",
+      "keywords": ["通知", "設定", "変更", "メール", "条件"]
+    },
+    {
+      "id": "data-not-updating",
+      "question": "データが更新されない場合は？",
+      "answer": "最新結果を再取得ボタンをクリックするか、設定で更新間隔を確認してください。",
+      "category": "トラブル",
+      "keywords": ["データ", "更新", "再取得", "間隔", "設定"]
+    },
+    {
+      "id": "model-selection",
+      "question": "どのモデルを選べば良いですか？",
+      "answer": "総合評価が高く、MAEが低く、R²が高いモデルを選ぶことをお勧めします。過去の実績も参考にしてください。",
+      "category": "モデル",
+      "keywords": ["モデル", "選択", "総合評価", "MAE", "R²", "実績"]
+    },
+    {
+      "id": "risk-management",
+      "question": "リスク管理はどのように設定しますか？",
+      "answer": "損切り・利確の水準を設定し、ボラティリティに応じて投資金額を調整してください。リスク許容度に合わせて設定しましょう。",
+      "category": "リスク管理",
+      "keywords": ["リスク", "管理", "損切り", "利確", "ボラティリティ", "投資金額"]
+    }
+  ]
+}

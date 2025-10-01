@@ -79,8 +79,8 @@ export default function RoutineDashboard({
   // 前日の分析結果を取得
   const loadYesterdaySummary = useCallback(async () => {
     try {
-      // 実際のAPIから前日の結果を取得
-      const response = await fetch("/api/yesterday-summary", {
+      // 静的ファイルから前日の結果を取得
+      const response = await fetch("/data/today_summary.json", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         cache: "no-store",
@@ -118,7 +118,8 @@ export default function RoutineDashboard({
   // 今日のアクションを取得
   const loadTodayActions = useCallback(async () => {
     try {
-      const response = await fetch("/api/today-actions", {
+      // 静的ファイルから今日のアクションを取得
+      const response = await fetch("/data/20250930/today_actions_2025-09-30.json", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         cache: "no-store",
@@ -136,6 +137,18 @@ export default function RoutineDashboard({
           console.warn("キャッシュ保存に失敗:", e);
         }
       } else {
+        // フォールバック: トップレベルのファイルを試す
+        try {
+          const fallbackResponse = await fetch("/data/today_actions_2025-09-30.json", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            cache: "no-store",
+          });
+          
+          if (fallbackResponse.ok) {
+            const data = await fallbackResponse.json();
+            setTodayActions(data);
+          } else {
         // HTTPエラーの場合、キャッシュを確認
         const cachedData = localStorage.getItem("today_actions_cache");
         if (cachedData) {
