@@ -1,4 +1,4 @@
-/* カスタムスタイルのインポート（@importは先頭に配置） */
+/* カスタムスタイルのインポート（@importは最上部に配置） */
 @import '../styles/mobile.css';
 @import '../styles/responsive.css';
 @import '../styles/themes.css';
