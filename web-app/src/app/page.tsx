@@ -8,7 +8,8 @@ import { SettingsProvider } from "../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
 import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
 import UIUXIntegration from "../components/UIUXIntegration";
-import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock, Cpu } from "lucide-react";
+import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock, Cpu, Info } from "lucide-react";
+import { MODEL_DEFINITIONS } from "@/data/modelDefinitions";
 import { getCacheMeta } from "@/lib/fetcher";
 import { NotificationService } from "@/lib/notification/NotificationService";
 import UnifiedErrorHandler from "@/components/UnifiedErrorHandler";
@@ -28,6 +29,8 @@ import AnalysisExecutionPanel from "@/components/AnalysisExecutionPanel";
 import LoadingOverlay from "@/components/LoadingOverlay";
 import ModelComparisonCharts from "@/components/ModelComparisonCharts";
 import AnalysisGuide from "@/components/AnalysisGuide";
+import ModelDetailModal from "@/components/ModelDetailModal";
+import FeatureAnalysisPanel from "@/components/FeatureAnalysisPanel";
 import { DataPlaceholder, MetricPlaceholder, ChartPlaceholder } from "@/components/PlaceholderComponents";
 import TutorialSystem from "@/components/TutorialSystem";
 
@@ -190,6 +193,11 @@ function DashboardContent() {
   const [overviewExpanded, setOverviewExpanded] = useState({ chart: true, models: false, predictions: false });
   const [chartMetric, setChartMetric] = useState<"close" | "sma_5" | "sma_25" | "sma_50" | "volume">("close");
   const [chartRange, setChartRange] = useState<"7" | "30" | "90" | "all">("30");
+  // モデル詳細モーダル
+  const [showModelDetail, setShowModelDetail] = useState(false);
+  const [selectedModelDetail, setSelectedModelDetail] = useState<any>(null);
+  // 特徴量分析パネル
+  const [showFeatureAnalysis, setShowFeatureAnalysis] = useState(false);
   // 5分ルーティン
   const routine = useFiveMinRoutine();
   
@@ -1330,19 +1338,71 @@ function DashboardContent() {
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">順位</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">モデル名</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">MAE</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RMSE</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">R²</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <div className="flex items-center space-x-1">
+                          <span>MAE</span>
+                          <Tooltip content="平均絶対誤差: 予測値と実際値の差の絶対値の平均。値が小さいほど予測精度が高い。単位は予測対象と同じ（円、%など）。MAE < 価格の5%程度が良好。">
+                            <HelpCircle className="h-3 w-3 text-gray-400" />
+                          </Tooltip>
+                        </div>
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <div className="flex items-center space-x-1">
+                          <span>RMSE</span>
+                          <Tooltip content="平均平方根誤差: 予測値と実際値の差の二乗の平均の平方根。値が小さいほど予測精度が高い。大きな誤差を重視する指標。RMSE < 価格の10%程度が良好。">
+                            <HelpCircle className="h-3 w-3 text-gray-400" />
+                          </Tooltip>
+                        </div>
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <div className="flex items-center space-x-1">
+                          <span>R²</span>
+                          <Tooltip content="決定係数: モデルがデータの変動をどの程度説明できるかを示す指標。0-1の値で、1に近いほど良い。R² > 0.7が良好、R² > 0.9が優秀。">
+                            <HelpCircle className="h-3 w-3 text-gray-400" />
+                          </Tooltip>
+                        </div>
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {modelComparison.map((model, index) => (
-                      <tr key={model.name} className={index === 0 ? "bg-green-50" : ""}>
+                      <tr 
+                        key={model.name} 
+                        className={`${index === 0 ? "bg-green-50" : ""} hover:bg-gray-50 cursor-pointer transition-colors`}
+                        onClick={() => {
+                          const modelDef = MODEL_DEFINITIONS.find(m => m.name === model.name);
+                          if (modelDef) {
+                            setSelectedModelDetail({
+                              ...modelDef,
+                              performanceData: {
+                                mae: model.mae,
+                                rmse: model.rmse,
+                                r2: model.r2,
+                                rank: index + 1
+                              }
+                            });
+                            setShowModelDetail(true);
+                          }
+                        }}
+                      >
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {index + 1}
                           {index === 0 && <span className="ml-2 text-green-600">🏆</span>}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{model.name}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          <div className="flex items-center space-x-1">
+                            <span className="font-medium">{model.name}</span>
+                            <Tooltip content={`${model.name}について:\n${(() => {
+                              const modelDef = MODEL_DEFINITIONS.find(m => m.name === model.name);
+                              if (modelDef) {
+                                return `${modelDef.description}\n\n長所: ${modelDef.pros.slice(0, 2).join(', ')}\n短所: ${modelDef.cons.slice(0, 2).join(', ')}\n\n適用場面: ${modelDef.useCase}\n\nクリックで詳細を表示`;
+                              }
+                              return "モデルの詳細情報\n\nクリックで詳細を表示";
+                            })()}`}>
+                              <HelpCircle className="h-3 w-3 text-gray-400" />
+                            </Tooltip>
+                          </div>
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{model.mae.toFixed(4)}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{model.rmse.toFixed(4)}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{model.r2.toFixed(4)}</td>
@@ -1486,7 +1546,16 @@ function DashboardContent() {
             {/* 特徴量重要度 */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-white rounded-lg shadow p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">特徴量重要度</h3>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-900">特徴量重要度</h3>
+                  <button
+                    onClick={() => setShowFeatureAnalysis(true)}
+                    className="flex items-center space-x-2 px-3 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors text-sm"
+                  >
+                    <Info className="h-4 w-4" />
+                    <span>解釈方法を確認</span>
+                  </button>
+                </div>
                 <div className="h-72 bg-gray-50 rounded-lg p-4">
                   <div className="h-full flex items-center justify-center">
                     <div className="text-center">
@@ -2264,6 +2333,21 @@ function DashboardContent() {
         onStartAnalysis={() => setShowAnalysisModal(true)}
         onOpenSettings={() => setShowSettingsModal(true)}
         onOpenRoutine={() => window.location.href = '/five-min-routine'}
+      />
+
+      {/* モデル詳細モーダル */}
+      <ModelDetailModal
+        isOpen={showModelDetail}
+        onClose={() => setShowModelDetail(false)}
+        model={selectedModelDetail}
+        performanceData={selectedModelDetail?.performanceData}
+      />
+
+      {/* 特徴量分析パネル */}
+      <FeatureAnalysisPanel
+        isOpen={showFeatureAnalysis}
+        onClose={() => setShowFeatureAnalysis(false)}
+        featureAnalysis={featureAnalysis}
       />
     </div>
   );

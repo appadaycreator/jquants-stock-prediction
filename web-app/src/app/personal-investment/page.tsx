@@ -42,7 +42,13 @@ import {
   Shield,
   Eye,
   RefreshCw,
+  Settings,
+  Info,
 } from "lucide-react";
+import { useRiskCustomization } from "@/hooks/useRiskCustomization";
+import { RiskSettingsPanel } from "@/components/risk-customization/RiskSettingsPanel";
+// import { IndividualStockSettings } from "@/components/risk-customization/IndividualStockSettings";
+// import { RecommendationDetails } from "@/components/risk-customization/RecommendationDetails";
 
 // データ型定義
 interface PnLSummary {
@@ -112,11 +118,17 @@ interface DashboardData {
 
 export default function PersonalInvestmentDashboard() {
   const { profile } = useUserProfile();
+  const { settings, getIndividualStockSettings } = useRiskCustomization();
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [allocation, setAllocation] = useState<AllocationResult | null>(null);
+  
+  // カスタマイズ機能の状態
+  const [showRiskSettings, setShowRiskSettings] = useState(false);
+  const [showIndividualStockSettings, setShowIndividualStockSettings] = useState<string | null>(null);
+  const [showRecommendationDetails, setShowRecommendationDetails] = useState<string | null>(null);
 
   useEffect(() => {
     loadDashboardData();
@@ -280,6 +292,14 @@ export default function PersonalInvestmentDashboard() {
           <p className="text-gray-600">投資判断に直結する情報を優先表示</p>
         </div>
         <div className="flex space-x-2">
+          <Button
+            variant="outline"
+            onClick={() => setShowRiskSettings(true)}
+            title="リスク管理設定を開く"
+          >
+            <Settings className="h-4 w-4 mr-2" />
+            リスク設定
+          </Button>
           <Button
             variant="outline"
             onClick={loadDashboardData}
@@ -524,6 +544,28 @@ export default function PersonalInvestmentDashboard() {
                       </div>
                     </div>
                   )}
+                  
+                  {/* アクションボタン */}
+                  <div className="mt-4 flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowRecommendationDetails(recommendation.symbol)}
+                      className="flex-1"
+                    >
+                      <Info className="h-4 w-4 mr-1" />
+                      詳細理由
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowIndividualStockSettings(recommendation.symbol)}
+                      className="flex-1"
+                    >
+                      <Settings className="h-4 w-4 mr-1" />
+                      個別設定
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -639,6 +681,55 @@ export default function PersonalInvestmentDashboard() {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* リスク設定モーダル */}
+      {showRiskSettings && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <RiskSettingsPanel onClose={() => setShowRiskSettings(false)} />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 個別銘柄設定モーダル - 一時的に無効化 */}
+      {false && showIndividualStockSettings && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              {/* <IndividualStockSettings
+                symbol={showIndividualStockSettings}
+                currentPrice={positions.find(p => p.symbol === showIndividualStockSettings)?.current_price || 0}
+                onClose={() => setShowIndividualStockSettings(null)}
+              /> */}
+              <div>個別銘柄設定（開発中）</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 推奨詳細モーダル - 一時的に無効化 */}
+      {false && showRecommendationDetails && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              {/* <RecommendationDetails
+                symbol={showRecommendationDetails}
+                action={recommendations.find(r => r.symbol === showRecommendationDetails)?.action || 'HOLD'}
+                confidence={recommendations.find(r => r.symbol === showRecommendationDetails)?.confidence || 0}
+                currentPrice={positions.find(p => p.symbol === showRecommendationDetails)?.current_price || 0}
+                targetPrice={recommendations.find(r => r.symbol === showRecommendationDetails)?.target_price}
+                stopLossPrice={recommendations.find(r => r.symbol === showRecommendationDetails)?.stop_loss}
+                expectedReturn={recommendations.find(r => r.symbol === showRecommendationDetails)?.expected_return}
+                riskScore={recommendations.find(r => r.symbol === showRecommendationDetails)?.risk_score}
+                onClose={() => setShowRecommendationDetails(null)}
+              /> */}
+              <div>推奨詳細（開発中）</div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
