@@ -1,0 +1,69 @@
+# モデル再学習スケジューラー設定ファイル
+# 週次・月次でバックグラウンド再学習を実行し、完了後に通知するシステム
+
+retraining:
+  enabled: true  # 再学習機能を有効にする
+  frequency: "weekly"  # 実行頻度: daily, weekly, monthly
+  schedule_time: "02:00"  # 実行時刻 (24時間形式)
+  max_models: 10  # 最大モデル数
+  performance_threshold: 0.05  # 性能改善の閾値 (5%)
+  auto_switch_best_model: true  # 最良モデルへの自動切り替え
+
+notification:
+  enabled: true  # 通知機能を有効にする
+  include_performance_comparison: true  # 性能比較を含める
+  include_model_ranking: true  # モデルランキングを含める
+
+data:
+  source_file: "processed_stock_data.csv"  # 学習データファイル
+  target_column: "Close"  # 予測対象カラム
+  test_size: 0.2  # テストデータの割合
+  validation_size: 0.1  # 検証データの割合
+
+models:
+  retrain_all: true  # 全モデルを再学習する
+  specific_models: []  # 特定のモデルのみ再学習 (例: ["random_forest", "xgboost"])
+  exclude_models: []  # 除外するモデル (例: ["linear_regression"])
+
+# 高度な設定
+advanced:
+  parallel_processing: true  # 並列処理を有効にする
+  max_workers: 4  # 最大ワーカー数
+  memory_limit_mb: 2048  # メモリ制限 (MB)
+  cache_enabled: true  # キャッシュを有効にする
+  cache_ttl_hours: 24  # キャッシュの有効期限 (時間)
+
+# 通知チャネル設定
+notification_channels:
+  email:
+    enabled: false
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    email_user: ""
+    email_password: ""
+    email_to: ""
+    
+  slack:
+    enabled: false
+    webhook_url: ""
+    channel: "#model-retraining"
+    username: "モデル再学習Bot"
+    icon_emoji: ":robot_face:"
+    
+  webhook:
+    enabled: false
+    urls: []
+    
+# 性能監視設定
+performance_monitoring:
+  track_improvement: true  # 性能改善を追跡する
+  alert_on_degradation: true  # 性能低下時にアラート
+  degradation_threshold: -0.05  # 性能低下の閾値 (-5%)
+  min_improvement_threshold: 0.01  # 最小改善閾値 (1%)
+
+# データ品質設定
+data_quality:
+  min_data_points: 100  # 最小データポイント数
+  max_missing_ratio: 0.1  # 最大欠損率 (10%)
+  validate_data: true  # データ検証を有効にする
+  auto_clean_data: true  # データの自動クリーニング

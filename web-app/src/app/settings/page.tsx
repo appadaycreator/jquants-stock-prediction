@@ -637,6 +637,445 @@ export default function SettingsPage() {
             </div>
           </div>
 
+          {/* ハイパーパラメータ設定（上級者向け） */}
+          <div id="hyperparameters" className="bg-white rounded-lg shadow p-8">
+            <div className="flex items-center mb-6">
+              <Cpu className="h-6 w-6 text-purple-600 mr-3" />
+              <h2 className="text-2xl font-bold text-gray-900">ハイパーパラメータ設定</h2>
+              <span className="ml-3 px-2 py-1 text-xs bg-purple-100 text-purple-800 rounded-full">上級者向け</span>
+            </div>
+            
+            <div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div className="flex items-start">
+                <AlertTriangle className="h-5 w-5 text-yellow-600 mr-2 mt-0.5" />
+                <div>
+                  <h4 className="text-sm font-medium text-yellow-800">注意事項</h4>
+                  <p className="text-sm text-yellow-700 mt-1">
+                    ハイパーパラメータの変更はモデルの性能に大きく影響します。不適切な設定は予測精度の低下を招く可能性があります。
+                    変更前には必ずバックアップを取ることを推奨します。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              {/* XGBoost設定 */}
+              <div className="border border-gray-200 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">XGBoost</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      n_estimators
+                    </label>
+                    <input
+                      type="number"
+                      min="10"
+                      max="1000"
+                      step="10"
+                      value={settings.hyperparameters?.xgboost?.n_estimators || 100}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          xgboost: {
+                            ...settings.hyperparameters?.xgboost,
+                            n_estimators: parseInt(e.target.value)
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">ブースティングラウンド数 (10-1000)</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      learning_rate
+                    </label>
+                    <input
+                      type="number"
+                      min="0.01"
+                      max="1.0"
+                      step="0.01"
+                      value={settings.hyperparameters?.xgboost?.learning_rate || 0.1}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          xgboost: {
+                            ...settings.hyperparameters?.xgboost,
+                            learning_rate: parseFloat(e.target.value)
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">学習率 (0.01-1.0)</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      max_depth
+                    </label>
+                    <input
+                      type="number"
+                      min="1"
+                      max="20"
+                      step="1"
+                      value={settings.hyperparameters?.xgboost?.max_depth || 6}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          xgboost: {
+                            ...settings.hyperparameters?.xgboost,
+                            max_depth: parseInt(e.target.value)
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">木の最大深度 (1-20)</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      subsample
+                    </label>
+                    <input
+                      type="number"
+                      min="0.1"
+                      max="1.0"
+                      step="0.1"
+                      value={settings.hyperparameters?.xgboost?.subsample || 1.0}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          xgboost: {
+                            ...settings.hyperparameters?.xgboost,
+                            subsample: parseFloat(e.target.value)
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">サンプリング比率 (0.1-1.0)</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      colsample_bytree
+                    </label>
+                    <input
+                      type="number"
+                      min="0.1"
+                      max="1.0"
+                      step="0.1"
+                      value={settings.hyperparameters?.xgboost?.colsample_bytree || 1.0}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          xgboost: {
+                            ...settings.hyperparameters?.xgboost,
+                            colsample_bytree: parseFloat(e.target.value)
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">特徴量サンプリング比率 (0.1-1.0)</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      reg_alpha
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      max="10"
+                      step="0.1"
+                      value={settings.hyperparameters?.xgboost?.reg_alpha || 0}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          xgboost: {
+                            ...settings.hyperparameters?.xgboost,
+                            reg_alpha: parseFloat(e.target.value)
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">L1正則化 (0-10)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Random Forest設定 */}
+              <div className="border border-gray-200 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Random Forest</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      n_estimators
+                    </label>
+                    <input
+                      type="number"
+                      min="10"
+                      max="500"
+                      step="10"
+                      value={settings.hyperparameters?.random_forest?.n_estimators || 100}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          random_forest: {
+                            ...settings.hyperparameters?.random_forest,
+                            n_estimators: parseInt(e.target.value)
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">決定木の数 (10-500)</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      max_depth
+                    </label>
+                    <input
+                      type="number"
+                      min="1"
+                      max="50"
+                      step="1"
+                      value={settings.hyperparameters?.random_forest?.max_depth || 10}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          random_forest: {
+                            ...settings.hyperparameters?.random_forest,
+                            max_depth: parseInt(e.target.value)
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">木の最大深度 (1-50)</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      min_samples_split
+                    </label>
+                    <input
+                      type="number"
+                      min="2"
+                      max="20"
+                      step="1"
+                      value={settings.hyperparameters?.random_forest?.min_samples_split || 2}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          random_forest: {
+                            ...settings.hyperparameters?.random_forest,
+                            min_samples_split: parseInt(e.target.value)
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">分割に必要な最小サンプル数 (2-20)</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      min_samples_leaf
+                    </label>
+                    <input
+                      type="number"
+                      min="1"
+                      max="10"
+                      step="1"
+                      value={settings.hyperparameters?.random_forest?.min_samples_leaf || 1}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          random_forest: {
+                            ...settings.hyperparameters?.random_forest,
+                            min_samples_leaf: parseInt(e.target.value)
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">葉ノードの最小サンプル数 (1-10)</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      max_features
+                    </label>
+                    <select
+                      value={settings.hyperparameters?.random_forest?.max_features || "sqrt"}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          random_forest: {
+                            ...settings.hyperparameters?.random_forest,
+                            max_features: e.target.value
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    >
+                      <option value="sqrt">sqrt</option>
+                      <option value="log2">log2</option>
+                      <option value="auto">auto</option>
+                    </select>
+                    <p className="text-xs text-gray-500 mt-1">各分割で考慮する特徴量数</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      bootstrap
+                    </label>
+                    <select
+                      value={settings.hyperparameters?.random_forest?.bootstrap || "true"}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          random_forest: {
+                            ...settings.hyperparameters?.random_forest,
+                            bootstrap: e.target.value === "true"
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    >
+                      <option value="true">True</option>
+                      <option value="false">False</option>
+                    </select>
+                    <p className="text-xs text-gray-500 mt-1">ブートストラップサンプリング</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 線形回帰設定 */}
+              <div className="border border-gray-200 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">線形回帰・Ridge回帰</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Ridge alpha
+                    </label>
+                    <input
+                      type="number"
+                      min="0.001"
+                      max="100"
+                      step="0.001"
+                      value={settings.hyperparameters?.ridge?.alpha || 1.0}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          ridge: {
+                            ...settings.hyperparameters?.ridge,
+                            alpha: parseFloat(e.target.value)
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">正則化強度 (0.001-100)</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      fit_intercept
+                    </label>
+                    <select
+                      value={settings.hyperparameters?.ridge?.fit_intercept || "true"}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          ridge: {
+                            ...settings.hyperparameters?.ridge,
+                            fit_intercept: e.target.value === "true"
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    >
+                      <option value="true">True</option>
+                      <option value="false">False</option>
+                    </select>
+                    <p className="text-xs text-gray-500 mt-1">切片項の計算</p>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      normalize
+                    </label>
+                    <select
+                      value={settings.hyperparameters?.ridge?.normalize || "false"}
+                      onChange={(e) => updateSettings({
+                        hyperparameters: {
+                          ...settings.hyperparameters,
+                          ridge: {
+                            ...settings.hyperparameters?.ridge,
+                            normalize: e.target.value === "true"
+                          }
+                        }
+                      })}
+                      className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    >
+                      <option value="true">True</option>
+                      <option value="false">False</option>
+                    </select>
+                    <p className="text-xs text-gray-500 mt-1">特徴量の正規化</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 設定のリセット */}
+              <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900">ハイパーパラメータのリセット</h4>
+                  <p className="text-sm text-gray-500">デフォルト値に戻します</p>
+                </div>
+                <button
+                  onClick={() => {
+                    updateSettings({
+                      hyperparameters: {
+                        xgboost: {
+                          n_estimators: 100,
+                          learning_rate: 0.1,
+                          max_depth: 6,
+                          subsample: 1.0,
+                          colsample_bytree: 1.0,
+                          reg_alpha: 0
+                        },
+                        random_forest: {
+                          n_estimators: 100,
+                          max_depth: 10,
+                          min_samples_split: 2,
+                          min_samples_leaf: 1,
+                          max_features: "sqrt",
+                          bootstrap: true
+                        },
+                        ridge: {
+                          alpha: 1.0,
+                          fit_intercept: true,
+                          normalize: false
+                        }
+                      }
+                    });
+                  }}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  デフォルトに戻す
+                </button>
+              </div>
+            </div>
+          </div>
+
           {/* データ設定 */}
           <div id="data" className="bg-white rounded-lg shadow p-8">
             <div className="flex items-center mb-6">

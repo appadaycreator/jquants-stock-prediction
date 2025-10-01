@@ -26,6 +26,29 @@ export interface Settings {
     refresh_rate: number;
     show_tooltips: boolean;
   };
+  hyperparameters?: {
+    xgboost?: {
+      n_estimators: number;
+      learning_rate: number;
+      max_depth: number;
+      subsample: number;
+      colsample_bytree: number;
+      reg_alpha: number;
+    };
+    random_forest?: {
+      n_estimators: number;
+      max_depth: number;
+      min_samples_split: number;
+      min_samples_leaf: number;
+      max_features: string;
+      bootstrap: boolean;
+    };
+    ridge?: {
+      alpha: number;
+      fit_intercept: boolean;
+      normalize: boolean;
+    };
+  };
 }
 
 interface SettingsContextType {
