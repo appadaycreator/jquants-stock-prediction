@@ -27,6 +27,7 @@ import EnhancedDataUpdateManager from "@/components/EnhancedDataUpdateManager";
 import AnalysisExecutionPanel from "@/components/AnalysisExecutionPanel";
 import LoadingOverlay from "@/components/LoadingOverlay";
 import ModelComparisonCharts from "@/components/ModelComparisonCharts";
+import AnalysisGuide from "@/components/AnalysisGuide";
 
 // 動的インポートでコンポーネントを遅延読み込み
 const Navigation = dynamic(() => import("../components/Navigation"), { ssr: false });
@@ -1201,6 +1202,9 @@ function DashboardContent() {
                 onTradeClick={() => openSide("売買案内", (<div>候補別の売買案内を表示</div>))}
               />
             </div>
+
+            {/* 分析手順ガイド */}
+            <AnalysisGuide className="mt-4" />
           </div>
 
           {/* 右: サイド詳細パネル呼び出し用の固定コンテナ */}

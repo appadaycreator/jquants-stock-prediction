@@ -138,15 +138,52 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
         localStorage.setItem(clientTokenKey, clientToken);
       }
 
-      // 1) ジョブ作成（client_token を JSON Body で送信）
-      const { job_id } = await fetchJson<{ job_id: string }>(
-        "/api/analyze",
-        { timeout: 10000, json: { client_token: clientToken } },
-      ).catch(async (e) => {
-        // 静的環境フォールバック: 旧クライアントシミュレーションに切替
-        setStatus("静的環境のためローカルシミュレーションに切り替えます...");
+      // GitHub Pages静的サイト環境では直接ローカル分析を実行
+      const isStaticSite = process.env.NODE_ENV === "production" && typeof window !== "undefined";
+      
+      if (isStaticSite) {
+        // 静的サイト環境: 直接ローカル分析を実行
+        setStatus("ローカル分析を実行中...");
+        try {
+          const sim = await runAnalysisWithSettings({ analysisType: selectedType, useSettings: true });
+          if (!sim.success) {
+            throw new Error(sim.error || "分析実行に失敗しました");
+          }
+          setStatus("分析が完了しました！");
+          setProgress(100);
+          setAnalysisResult(sim.result);
+          onAnalysisComplete?.(sim.result);
+          const localId = `local_${Date.now()}`;
+          setAnalysisId(localId);
+          saveAnalysisHistory({ id: localId, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: "success", result: sim.result });
+          setIsAnalyzing(false);
+          return;
+        } catch (error) {
+          setStatus(`分析エラー: ${error instanceof Error ? error.message : "不明なエラー"}`);
+          setError(`分析の実行に失敗しました。詳細: ${error instanceof Error ? error.message : "不明なエラー"}`);
+          setIsAnalyzing(false);
+          throw error;
+        }
+      }
+
+      // 開発環境: APIエンドポイントを試行
+      let job_id: string | undefined;
+      try {
+        const response = await fetchJson<{ job_id: string }>(
+          "/api/analyze",
+          { timeout: 10000, json: { client_token: clientToken } },
+        );
+        job_id = response.job_id;
+        if (!job_id) return;
+        setAnalysisId(job_id);
+        setStatus("キューに投入しました。進捗を監視します...");
+      } catch (e) {
+        // APIエンドポイントが利用できない場合のフォールバック
+        setStatus("APIが利用できないためローカル分析に切り替えます...");
         const sim = await runAnalysisWithSettings({ analysisType: selectedType, useSettings: true });
-        if (!sim.success) throw e;
+        if (!sim.success) {
+          throw new Error(sim.error || "分析実行に失敗しました");
+        }
         setStatus("分析が完了しました！（ローカル）");
         setProgress(100);
         setAnalysisResult(sim.result);
@@ -155,12 +192,8 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
         setAnalysisId(localId);
         saveAnalysisHistory({ id: localId, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: "success", result: sim.result });
         setIsAnalyzing(false);
-        throw null; // 以降の処理をスキップ
-      });
-      if (!job_id) return; // フォールバックで既に完了
-
-      setAnalysisId(job_id);
-      setStatus("キューに投入しました。進捗を監視します...");
+        return;
+      }
 
       // 2) ポーリング: 1.5s間隔 最大3分
       const startedAt = Date.now();
