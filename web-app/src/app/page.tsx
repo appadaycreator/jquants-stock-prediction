@@ -53,8 +53,7 @@ const RoutineDashboard = dynamic(() => import("../components/RoutineDashboard"),
 const SideDetailPanel = dynamic(() => import("@/components/SideDetailPanel"), { ssr: false });
 const EnhancedErrorHandler = dynamic(() => import("../components/EnhancedErrorHandler"), { ssr: false });
 const ChartErrorBoundary = dynamic(() => import("../components/ChartErrorBoundary"), { ssr: false });
-const ButtonTooltip = dynamic(() => import("../components/Tooltip").then(mod => ({ default: mod.ButtonTooltip })), { ssr: false });
-const HelpTooltip = dynamic(() => import("../components/Tooltip").then(mod => ({ default: mod.HelpTooltip })), { ssr: false });
+const Tooltip = dynamic(() => import("../components/Tooltip").then(mod => ({ default: mod.default })), { ssr: false });
 const UserGuide = dynamic(() => import("../components/UserGuide"), { ssr: false });
 const TourProvider = dynamic(() => import("../components/guide/TourProvider").then(mod => ({ default: mod.TourProvider })), { ssr: false });
 const MetricTooltip = dynamic(() => import("../components/guide/Tooltip").then(mod => ({ default: mod.MetricTooltip })), { ssr: false });
@@ -922,7 +921,7 @@ function DashboardContent() {
               )}
                 <NextUpdateIndicator />
               <div className="flex space-x-2">
-                <ButtonTooltip content="特定の銘柄を選択して詳細分析を実行します">
+                <Tooltip content="特定の銘柄を選択して詳細分析を実行します">
                   <button
                     onClick={() => setShowSymbolSelector(true)}
                     className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -930,9 +929,9 @@ function DashboardContent() {
                     <Play className="h-4 w-4 mr-2" />
                     銘柄選択・分析
                   </button>
-                </ButtonTooltip>
+                </Tooltip>
                 
-                <ButtonTooltip content="全銘柄の包括的な分析を実行します（3-5分程度かかります）">
+                <Tooltip content="全銘柄の包括的な分析を実行します（3-5分程度かかります）">
                   <button
                     onClick={() => setShowAnalysisPanel(true)}
                     disabled={isAnalyzing}
@@ -945,9 +944,9 @@ function DashboardContent() {
                     <Play className={`h-4 w-4 mr-2 ${isAnalyzing ? "animate-pulse" : ""}`} />
                     {isAnalyzing ? "分析中..." : "全体分析"}
                   </button>
-                </ButtonTooltip>
+                </Tooltip>
                 
-                <ButtonTooltip content="分析設定、モデル選択、表示オプションを調整できます">
+                <Tooltip content="分析設定、モデル選択、表示オプションを調整できます">
                   <button
                     onClick={() => setShowSettingsModal(true)}
                     className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
@@ -956,9 +955,9 @@ function DashboardContent() {
                     <Settings className="h-4 w-4 mr-2" />
                     設定
                   </button>
-                </ButtonTooltip>
+                </Tooltip>
 
-                <ButtonTooltip content="J-Quants APIトークンを設定してリアルタイムデータを取得">
+                <Tooltip content="J-Quants APIトークンを設定してリアルタイムデータを取得">
                   <button
                     onClick={() => setShowJQuantsSetup(true)}
                     className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
@@ -966,9 +965,9 @@ function DashboardContent() {
                     <Database className="h-4 w-4 mr-2" />
                     J-Quants設定
                   </button>
-                </ButtonTooltip>
+                </Tooltip>
                 
-                <ButtonTooltip content="最新のデータを取得（キャッシュ無視）">
+                <Tooltip content="最新のデータを取得（キャッシュ無視）">
                   <button
                     onClick={() => setShowDataUpdateManager(true)}
                     disabled={isRefreshing}
@@ -981,9 +980,9 @@ function DashboardContent() {
                     <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`} />
                     {isRefreshing ? "更新中..." : "再取得"}
                   </button>
-                </ButtonTooltip>
+                </Tooltip>
 
-                <ButtonTooltip content="キャッシュを無視し、分析の再計算を実行します">
+                <Tooltip content="キャッシュを無視し、分析の再計算を実行します">
                   <button
                     onClick={() => setShowAnalysisModal(true)}
                     className="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
@@ -991,11 +990,11 @@ function DashboardContent() {
                     <Cpu className="h-4 w-4 mr-2" />
                     再計算
                   </button>
-                </ButtonTooltip>
+                </Tooltip>
 
                 {/* ガイド機能ボタン */}
                 <div className="flex items-center space-x-2">
-                  <ButtonTooltip content="クイックヘルプを表示（F1キー）">
+                  <Tooltip content="クイックヘルプを表示（F1キー）">
                     <button
                       onClick={() => setShowHelp(true)}
                       className="flex items-center px-3 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
@@ -1004,9 +1003,9 @@ function DashboardContent() {
                       <HelpCircle className="h-4 w-4 mr-1" />
                       ヘルプ
                     </button>
-                  </ButtonTooltip>
+                  </Tooltip>
 
-                  <ButtonTooltip content="用語集を表示（Gキー）">
+                  <Tooltip content="用語集を表示（Gキー）">
                     <button
                       onClick={() => setShowGlossary(true)}
                       className="flex items-center px-3 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-colors"
@@ -1014,10 +1013,10 @@ function DashboardContent() {
                       <BookOpen className="h-4 w-4 mr-1" />
                       用語集
                     </button>
-                  </ButtonTooltip>
+                  </Tooltip>
                 </div>
                 
-                <ButtonTooltip content="初回利用者向けの操作ガイドを表示します">
+                <Tooltip content="初回利用者向けの操作ガイドを表示します">
                   <button
                     onClick={() => setShowUserGuide(true)}
                     className="flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors"
@@ -1025,7 +1024,7 @@ function DashboardContent() {
                     <HelpCircle className="h-4 w-4 mr-2" />
                     ガイド
                   </button>
-                </ButtonTooltip>
+                </Tooltip>
               </div>
             </div>
           </div>

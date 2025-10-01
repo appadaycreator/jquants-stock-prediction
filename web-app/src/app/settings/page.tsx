@@ -7,6 +7,10 @@ import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, 
 import { useAnalysisWithSettings } from "@/hooks/useAnalysisWithSettings";
 import { useSettings } from "@/contexts/SettingsContext";
 import AutoUpdateSettings from "@/components/notification/AutoUpdateSettings";
+import HelpTooltip from "@/components/Tooltip";
+import FeatureCategories from "@/components/FeatureCategories";
+import ModelComparison from "@/components/ModelComparison";
+import ValidationInput, { validationPresets } from "@/components/ValidationInput";
 
 export default function SettingsPage() {
   const { settings, updateSettings, saveSettings, resetSettings, isLoading, isSaving } = useSettings();
@@ -473,26 +477,27 @@ export default function SettingsPage() {
             <div className="flex items-center mb-6">
               <BarChart className="h-6 w-6 text-purple-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">予測設定</h2>
+              <HelpTooltip content="予測設定では、分析の期間と使用するモデルを設定できます。\n\n予測期間：将来何日先まで予測するかを設定\n使用モデル：どの機械学習モデルを使用するかを選択" />
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  予測期間（日数）
-                </label>
-                <input
-                  type="number"
-                  value={settings.prediction.days}
-                  onChange={(e) => updateSettings({
-                    prediction: { ...settings.prediction, days: parseInt(e.target.value) },
-                  })}
-                  className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
-              </div>
+              <ValidationInput
+                type="number"
+                value={settings.prediction.days}
+                onChange={(value) => updateSettings({
+                  prediction: { ...settings.prediction, days: value },
+                })}
+                label="予測期間（日数）"
+                description="将来何日先まで予測するか"
+                validation={validationPresets.predictionDays}
+                recommendedValue={30}
+                placeholder="30"
+              />
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   使用するモデル
+                  <HelpTooltip content="使用する機械学習モデルを選択します。\n\n・すべてのモデル：複数のモデルを比較して最適な結果を選択\n・個別モデル：特定のモデルのみを使用" />
                 </label>
                 <select 
                   value={settings.model.type}
@@ -501,11 +506,14 @@ export default function SettingsPage() {
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 >
-                  <option value="all">すべてのモデル</option>
+                  <option value="all">すべてのモデル（推奨）</option>
                   <option value="linear">線形回帰</option>
                   <option value="random_forest">ランダムフォレスト</option>
                   <option value="xgboost">XGBoost</option>
                 </select>
+                <p className="text-xs text-gray-500 mt-1">
+                  推奨：すべてのモデルを選択すると、最適な結果が自動選択されます
+                </p>
               </div>
             </div>
           </div>
@@ -515,37 +523,15 @@ export default function SettingsPage() {
             <div className="flex items-center mb-6">
               <Database className="h-6 w-6 text-green-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">特徴量設定</h2>
+              <HelpTooltip content="特徴量設定では、分析に使用する技術指標を選択できます。\n\n特徴量は予測精度に大きく影響するため、推奨設定を使用することをお勧めします。\n各特徴量の詳細は展開してご確認ください。" />
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {[
-                { key: "sma_5", label: "SMA_5" },
-                { key: "sma_10", label: "SMA_10" },
-                { key: "sma_25", label: "SMA_25" },
-                { key: "sma_50", label: "SMA_50" },
-                { key: "rsi", label: "RSI" },
-                { key: "macd", label: "MACD" },
-                { key: "bollinger_upper", label: "ボリンジャー上" },
-                { key: "bollinger_lower", label: "ボリンジャー下" },
-              ].map(feature => (
-                <label key={feature.key} className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={settings.features.selected.includes(feature.key)}
-                    onChange={(e) => {
-                      const newSelected = e.target.checked
-                        ? [...settings.features.selected, feature.key]
-                        : settings.features.selected.filter(f => f !== feature.key);
-                      updateSettings({
-                        features: { ...settings.features, selected: newSelected },
-                      });
-                    }}
-                    className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                  />
-                  <span className="ml-2 text-sm text-gray-700">{feature.label}</span>
-                </label>
-              ))}
-            </div>
+            <FeatureCategories
+              selectedFeatures={settings.features.selected}
+              onFeatureChange={(features) => updateSettings({
+                features: { ...settings.features, selected: features },
+              })}
+            />
           </div>
 
           {/* モデル設定 */}
@@ -553,30 +539,25 @@ export default function SettingsPage() {
             <div className="flex items-center mb-6">
               <Cpu className="h-6 w-6 text-blue-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">モデル設定</h2>
+              <HelpTooltip content="モデル設定では、機械学習モデルの選択と動作を設定できます。\n\n初心者の方は「自動モデル比較」を有効にすることをお勧めします。\nこれにより、最適なモデルが自動的に選択されます。" />
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  プライマリモデル
-                </label>
-                <select 
-                  value={settings.model.primary_model}
-                  onChange={(e) => updateSettings({
-                    model: { ...settings.model, primary_model: e.target.value },
-                  })}
-                  className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                >
-                  <option value="xgboost">XGBoost</option>
-                  <option value="random_forest">Random Forest</option>
-                  <option value="linear_regression">線形回帰</option>
-                  <option value="ridge">Ridge回帰</option>
-                </select>
-              </div>
-              
+            <ModelComparison
+              selectedModel={settings.model.primary_model}
+              onModelChange={(model) => updateSettings({
+                model: { ...settings.model, primary_model: model },
+              })}
+              compareModels={settings.model.compare_models}
+              onCompareChange={(compare) => updateSettings({
+                model: { ...settings.model, compare_models: compare },
+              })}
+            />
+            
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   再訓練頻度
+                  <HelpTooltip content="モデルの再訓練頻度を設定します。\n\n・毎日：最新データで毎日モデルを更新（高精度だが計算負荷大）\n・毎週：週1回モデルを更新（バランス型）\n・毎月：月1回モデルを更新（計算負荷軽）\n・手動：手動で再訓練を実行" />
                 </label>
                 <select 
                   value={settings.model.retrain_frequency}
@@ -585,32 +566,14 @@ export default function SettingsPage() {
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 >
-                  <option value="daily">毎日</option>
-                  <option value="weekly">毎週</option>
-                  <option value="monthly">毎月</option>
+                  <option value="daily">毎日（高精度）</option>
+                  <option value="weekly">毎週（推奨）</option>
+                  <option value="monthly">毎月（軽量）</option>
                   <option value="manual">手動</option>
                 </select>
-              </div>
-              
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={settings.model.compare_models}
-                    onChange={(e) => updateSettings({
-                      model: { ...settings.model, compare_models: e.target.checked },
-                    })}
-                    className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                  />
-                  <label className="ml-2 text-sm text-gray-700">
-                    モデル比較を有効にする
-                  </label>
-                </div>
-                <div className="ml-6 text-xs text-gray-500">
-                  <p>• 複数の機械学習モデル（XGBoost、ランダムフォレスト、線形回帰など）を同時に実行し、性能を比較します</p>
-                  <p>• より正確な予測が可能ですが、実行時間が長くなります</p>
-                  <p>• 最適なモデルが自動的に選択され、結果に表示されます</p>
-                </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  推奨：毎週（バランスの取れた設定）
+                </p>
               </div>
               
               <div className="space-y-2">
@@ -626,12 +589,12 @@ export default function SettingsPage() {
                   <label className="ml-2 text-sm text-gray-700">
                     自動再訓練を有効にする
                   </label>
+                  <HelpTooltip content="自動再訓練を有効にすると、設定した頻度でモデルが自動的に更新されます。\n\nメリット：\n・常に最新データで学習されたモデルを使用\n・予測精度の向上\n\n注意：\n・再訓練中は一時的に分析機能が制限される場合があります" />
                 </div>
                 <div className="ml-6 text-xs text-gray-500">
-                  <p>• 設定した頻度（週次/月次）でモデルを自動的に再訓練します</p>
+                  <p>• 設定した頻度でモデルを自動的に再訓練します</p>
                   <p>• 新しいデータに基づいてモデルの精度を向上させます</p>
                   <p>• 再訓練はバックグラウンドで実行され、完了時に通知されます</p>
-                  <p>• 注意: 再訓練中は一時的に分析機能が制限される場合があります</p>
                 </div>
               </div>
             </div>
@@ -1147,12 +1110,14 @@ export default function SettingsPage() {
             <div className="flex items-center mb-6">
               <Database className="h-6 w-6 text-green-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">データ設定</h2>
+              <HelpTooltip content="データ設定では、データの取得頻度と処理方法を設定できます。\n\nデータ更新間隔：どの頻度でデータを取得するか\n最大データポイント数：分析に使用するデータの量\n技術指標：計算済みの技術指標を含めるかどうか" />
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   データ更新間隔
+                  <HelpTooltip content="データの取得頻度を設定します。\n\n・リアルタイム：常に最新データを取得（高負荷）\n・1時間ごと：1時間に1回データを更新（推奨）\n・毎日：1日1回データを更新（軽量）\n・毎週：1週間に1回データを更新（軽量）" />
                 </label>
                 <select 
                   value={settings.data.refresh_interval}
@@ -1161,26 +1126,28 @@ export default function SettingsPage() {
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 >
-                  <option value="realtime">リアルタイム</option>
-                  <option value="hourly">1時間ごと</option>
-                  <option value="daily">毎日</option>
-                  <option value="weekly">毎週</option>
+                  <option value="realtime">リアルタイム（高負荷）</option>
+                  <option value="hourly">1時間ごと（推奨）</option>
+                  <option value="daily">毎日（軽量）</option>
+                  <option value="weekly">毎週（軽量）</option>
                 </select>
+                <p className="text-xs text-gray-500 mt-1">
+                  推奨：1時間ごと（バランスの取れた設定）
+                </p>
               </div>
               
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  最大データポイント数
-                </label>
-                <input
-                  type="number"
-                  value={settings.data.max_data_points}
-                  onChange={(e) => updateSettings({
-                    data: { ...settings.data, max_data_points: parseInt(e.target.value) },
-                  })}
-                  className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
-              </div>
+              <ValidationInput
+                type="number"
+                value={settings.data.max_data_points}
+                onChange={(value) => updateSettings({
+                  data: { ...settings.data, max_data_points: value },
+                })}
+                label="最大データポイント数"
+                description="分析に使用するデータの量"
+                validation={validationPresets.maxDataPoints}
+                recommendedValue={1000}
+                placeholder="1000"
+              />
               
               <div className="flex items-center">
                 <input
@@ -1194,6 +1161,7 @@ export default function SettingsPage() {
                 <label className="ml-2 text-sm text-gray-700">
                   技術指標を含める
                 </label>
+                <HelpTooltip content="技術指標（RSI、MACD、ボリンジャーバンドなど）を事前計算して含めます。\n\nメリット：\n・分析の高速化\n・一貫した指標計算\n\nデメリット：\n・ストレージ使用量の増加\n・初期計算時間の増加" />
               </div>
             </div>
           </div>
@@ -1203,12 +1171,14 @@ export default function SettingsPage() {
             <div className="flex items-center mb-6">
               <BarChart className="h-6 w-6 text-purple-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">UI設定</h2>
+              <HelpTooltip content="UI設定では、画面の表示と動作を設定できます。\n\nテーマ：画面の色合いを選択\n更新間隔：データの自動更新頻度\nツールチップ：ヘルプ情報の表示" />
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   テーマ
+                  <HelpTooltip content="画面の色合いを選択します。\n\n・ライト：明るい色合い（推奨）\n・ダーク：暗い色合い\n・自動：システム設定に従う" />
                 </label>
                 <select 
                   value={settings.ui.theme}
@@ -1217,25 +1187,27 @@ export default function SettingsPage() {
                   })}
                   className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 >
-                  <option value="light">ライト</option>
+                  <option value="light">ライト（推奨）</option>
                   <option value="dark">ダーク</option>
                   <option value="auto">自動</option>
                 </select>
+                <p className="text-xs text-gray-500 mt-1">
+                  推奨：ライト（視認性が良い）
+                </p>
               </div>
               
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  更新間隔（秒）
-                </label>
-                <input
-                  type="number"
-                  value={settings.ui.refresh_rate}
-                  onChange={(e) => updateSettings({
-                    ui: { ...settings.ui, refresh_rate: parseInt(e.target.value) },
-                  })}
-                  className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
-              </div>
+              <ValidationInput
+                type="number"
+                value={settings.ui.refresh_rate}
+                onChange={(value) => updateSettings({
+                  ui: { ...settings.ui, refresh_rate: value },
+                })}
+                label="更新間隔（秒）"
+                description="データの自動更新頻度"
+                validation={validationPresets.refreshRate}
+                recommendedValue={30}
+                placeholder="30"
+              />
               
               <div className="flex items-center">
                 <input
@@ -1249,6 +1221,7 @@ export default function SettingsPage() {
                 <label className="ml-2 text-sm text-gray-700">
                   ツールチップを表示
                 </label>
+                <HelpTooltip content="ツールチップ（ヘルプ情報）の表示を制御します。\n\n有効：各項目にマウスを合わせると説明が表示されます\n無効：ツールチップは表示されません" />
               </div>
             </div>
           </div>
