@@ -138,70 +138,70 @@ export default function RoutineDashboard({
         }
       } else {
         // フォールバック: トップレベルのファイルを試す
-        try {
-          const fallbackResponse = await fetch("/data/today_actions_2025-09-30.json", {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-            cache: "no-store",
-          });
-          
-          if (fallbackResponse.ok) {
-            const data = await fallbackResponse.json();
-            setTodayActions(data);
-          } else {
-        // HTTPエラーの場合、キャッシュを確認
-        const cachedData = localStorage.getItem("today_actions_cache");
-        if (cachedData) {
-          try {
-            const cached = JSON.parse(cachedData);
-            const cacheTime = new Date(localStorage.getItem("today_actions_timestamp") || "");
-            const hoursDiff = (new Date().getTime() - cacheTime.getTime()) / (1000 * 60 * 60);
-            
-            if (hoursDiff < 6) { // 6時間以内のキャッシュは有効
-              setTodayActions({
-                ...cached,
-                isUsingCache: true,
-                cacheMessage: "最新データの取得に失敗しました。前回の結果を表示しています。"
-              });
-              return;
-            }
-          } catch (e) {
-            console.warn("キャッシュデータの読み込みに失敗:", e);
-          }
-        }
-        
-        // キャッシュもない場合はデフォルトデータを表示
-        setTodayActions({
-          analysisRequired: true,
-          watchlistUpdates: [
-            { symbol: "7203.T", action: "modify", reason: "予測精度向上のため設定調整" },
-            { symbol: "6758.T", action: "remove", reason: "パフォーマンス低下" },
-          ],
-          nextUpdateTime: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
-          priorityActions: [
-            {
-              id: "analysis",
-              title: "分析実行",
-              description: "最新データで予測分析を実行",
-              action: "analyze",
-              priority: "high",
-            },
-            {
-              id: "report",
-              title: "レポート確認",
-              description: "昨日の分析結果を確認",
-              action: "report",
-              priority: "medium",
-            },
-            {
-              id: "trade",
-              title: "売買指示",
-              description: "推奨アクションに基づく取引指示",
-              action: "trade",
-              priority: "high",
-            },
-          ]
+        const fallbackResponse = await fetch("/data/today_actions_2025-09-30.json", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store",
         });
+
+        if (fallbackResponse.ok) {
+          const data = await fallbackResponse.json();
+          setTodayActions(data);
+        } else {
+          // HTTPエラーの場合、キャッシュを確認
+          const cachedData = localStorage.getItem("today_actions_cache");
+          if (cachedData) {
+            try {
+              const cached = JSON.parse(cachedData);
+              const cacheTime = new Date(localStorage.getItem("today_actions_timestamp") || "");
+              const hoursDiff = (new Date().getTime() - cacheTime.getTime()) / (1000 * 60 * 60);
+
+              if (hoursDiff < 6) { // 6時間以内のキャッシュは有効
+                setTodayActions({
+                  ...cached,
+                  isUsingCache: true,
+                  cacheMessage: "最新データの取得に失敗しました。前回の結果を表示しています。"
+                });
+                return;
+              }
+            } catch (e) {
+              console.warn("キャッシュデータの読み込みに失敗:", e);
+            }
+          }
+
+          // キャッシュもない場合はデフォルトデータを表示
+          setTodayActions({
+            analysisRequired: true,
+            watchlistUpdates: [
+              { symbol: "7203.T", action: "modify", reason: "予測精度向上のため設定調整" },
+              { symbol: "6758.T", action: "remove", reason: "パフォーマンス低下" },
+            ],
+            nextUpdateTime: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
+            priorityActions: [
+              {
+                id: "analysis",
+                title: "分析実行",
+                description: "最新データで予測分析を実行",
+                action: "analyze",
+                priority: "high",
+              },
+              {
+                id: "report",
+                title: "レポート確認",
+                description: "昨日の分析結果を確認",
+                action: "report",
+                priority: "medium",
+              },
+              {
+                id: "trade",
+                title: "売買指示",
+                description: "推奨アクションに基づく取引指示",
+                action: "trade",
+                priority: "high",
+              },
+            ]
+          });
+        }
       }
     } catch (err) {
       console.error("今日のアクション取得に失敗:", err);
