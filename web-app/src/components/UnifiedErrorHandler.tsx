@@ -31,10 +31,10 @@ export default function UnifiedErrorHandler({
     // エラーログを記録
     logError(error);
     
-    // 自動リトライが必要な場合
-    if (autoRetry && info.autoRetry && retryCount < maxRetries) {
-      handleAutoRetry();
-    }
+    // 自動リトライを無効化してループを防止
+    // if (autoRetry && info.autoRetry && retryCount < maxRetries) {
+    //   handleAutoRetry();
+    // }
   }, [error, autoRetry, maxRetries, retryCount]);
 
   const handleAutoRetry = useCallback(() => {

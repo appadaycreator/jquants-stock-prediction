@@ -1,152 +1,104 @@
-# 🔧 コンソールエラー最終修正レポート
+# コンソールエラー・リダイレクトループ修正レポート
 
-## 🚨 修正されたエラー
+## 問題の概要
 
-### 1. RSC Payload エラー
-```
-Failed to fetch RSC payload for https://appadaycreator.github.io/jquants-stock-prediction/settings.txt
-Failed to fetch RSC payload for https://appadaycreator.github.io/jquants-stock-prediction/reports.txt
-```
+以下のコンソールエラーが発生し、リダイレクトループが発生していました：
 
-### 2. Favicon 404エラー
 ```
-GET https://appadaycreator.github.io/favicon.ico 404 (Not Found)
+node_modules_next_dist_compiled_react-dom_1f56dc._.js:sourcemap:13926 Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+[root of the server]__d1e004._.js:sourcemap:2041 Auto-recovery system started
 ```
 
-## 🔧 実施した修正
+## 原因分析
 
-### 1. Next.js設定の最適化
-**ファイル**: `web-app/next.config.js`
+1. **Auto-recovery system**が自動的に`window.location.reload()`を実行
+2. **GlobalErrorBoundary**と**global-error.tsx**で複数の自動リトライ機能が重複
+3. **RSC Payload エラー**が発生すると、自動復旧システムがページをリロードし、それがまたエラーを引き起こす無限ループ
 
-#### A. 実験的機能の整理
-- 非推奨の設定を削除
-- `serverComponentsExternalPackages` → `serverExternalPackages` に移動
-- 不要な `prefetch`, `serverComponents`, `staticGeneration` 設定を削除
+## 修正内容
 
-#### B. RSC Payload エラー対策
-- `generateStaticParams: false` を追加
-- 静的エクスポート時のRSC無効化
-- プリフェッチ機能の無効化
+### 1. Auto-recovery system の修正
 
-### 2. リダイレクト設定の強化
-**ファイル**: `docs/_redirects`
+**ファイル**: `web-app/src/lib/auto-recovery.ts`
 
-#### A. RSC Payload エラー解決
-```apache
-# RSC payload エラーを解決するための追加設定
-/settings.txt?_rsc=* /jquants-stock-prediction/settings/index.html 200
-/reports.txt?_rsc=* /jquants-stock-prediction/reports/index.html 200
-/index.txt?_rsc=* /jquants-stock-prediction/index.html 200
-```
-
-#### B. パス修正
-- `/reports.txt` → `/jquants-stock-prediction/reports/index.html`
-- `/settings.txt` → `/jquants-stock-prediction/settings/index.html`
-
-### 3. Favicon パス修正
-**ファイル**: `web-app/src/app/layout.tsx`
+- RSC Payload エラーの復旧戦略から`window.location.reload()`を削除
+- コンポーネントエラーの復旧戦略から`window.location.reload()`を削除
+- 最大試行回数を1に制限してループを防止
 
 ```typescript
 // 修正前
-icons: {
-  icon: "/favicon.ico",
-  apple: "/favicon.ico",
+action: async () => {
+  console.log("Executing RSC payload recovery...");
+  await this.clearCaches();
+  window.location.reload(); // ループの原因
+  return true;
 },
 
 // 修正後
-icons: {
-  icon: "/jquants-stock-prediction/favicon.ico",
-  apple: "/jquants-stock-prediction/favicon.ico",
+action: async () => {
+  console.log("Executing RSC payload recovery...");
+  await this.clearCaches();
+  console.log("RSC payload recovery completed without reload");
+  return true;
 },
 ```
 
-### 4. エラーハンドリングの強化
+### 2. Global Error Handler の修正
+
 **ファイル**: `web-app/src/app/global-error.tsx`
 
-#### A. RSC Payload エラー検出の拡張
+- 自動リトライ機能を無効化
+- `window.location.reload()`をコメントアウト
+
 ```typescript
-if (error.message.includes("RSC payload") || 
-    error.message.includes("Connection closed") ||
-    error.message.includes("Failed to fetch RSC payload") ||
-    error.message.includes("settings.txt") ||
-    error.message.includes("reports.txt")) {
+// 修正前
+if (errorType === "rsc" || errorType === "network") {
+  handleAutoRetry();
+}
+
+// 修正後
+// 自動リトライを無効化してループを防止
+// if (errorType === "rsc" || errorType === "network") {
+//   handleAutoRetry();
+// }
 ```
 
-#### B. 複数回リトライ機能
-- 最大3回のリトライ
-- 指数バックオフ（2秒、4秒、6秒）
-- リトライ回数のログ出力
+### 3. Global Error Boundary の修正
 
-## 📊 修正結果
+**ファイル**: `web-app/src/components/GlobalErrorBoundary.tsx`
 
-### 1. エラー解消
-- ✅ RSC payload エラーが解消される
-- ✅ favicon.ico 404エラーが解消される
-- ✅ コンソールエラーが大幅に減少
+- 自動リトライ機能を無効化
+- `resetErrorBoundary()`をコメントアウト
 
-### 2. パフォーマンス向上
-- ✅ 静的エクスポートの最適化
-- ✅ 不要なRSC機能の無効化
-- ✅ プリフェッチ機能の無効化
+### 4. Unified Error Handler の修正
 
-### 3. ユーザー体験の改善
-- ✅ 自動リトライ機能
-- ✅ エラー時の適切なフォールバック
-- ✅ ユーザーフレンドリーなエラーメッセージ
+**ファイル**: `web-app/src/components/UnifiedErrorHandler.tsx`
 
-## 🔄 デプロイ手順
+- 自動リトライ機能を無効化
 
-1. **ビルド実行**
-   ```bash
-   cd web-app
-   npm run build
-   ```
+## 修正の効果
 
-2. **ファイルコピー**
-   ```bash
-   cp -r web-app/dist/* docs/
-   ```
+1. **リダイレクトループの解消**: 自動リロード機能を無効化することで、無限ループを防止
+2. **エラーハンドリングの安定化**: 重複する自動復旧機能を整理
+3. **ユーザー体験の向上**: 予期しないページリロードが発生しなくなる
 
-3. **GitHub Pages デプロイ**
-   ```bash
-   git add .
-   git commit -m "Fix console errors: RSC payload and favicon 404"
-   git push origin main
-   ```
+## 今後の対応
 
-## 📝 技術的改善点
+1. **手動リトライ機能の維持**: ユーザーが手動でリトライできる機能は維持
+2. **エラーログの継続**: エラーの記録とログ出力は継続
+3. **段階的な復旧機能の再導入**: 必要に応じて、より安全な復旧機能を段階的に再導入
 
-### 1. RSC Payload エラー対策
-- **根本原因**: GitHub Pages静的ホスティングでのRSC未対応
-- **解決策**: 静的エクスポート時のRSC無効化
-- **効果**: RSC payload エラーの完全解消
+## テスト方法
 
-### 2. リダイレクト最適化
-- **問題**: パラメータ付きRSCファイルの404エラー
-- **解決策**: ワイルドカードリダイレクト設定
-- **効果**: すべてのRSCファイルアクセスを適切に処理
+1. ブラウザの開発者ツールでコンソールを確認
+2. エラーが発生してもリダイレクトループが発生しないことを確認
+3. 手動リトライ機能が正常に動作することを確認
 
-### 3. エラーハンドリング強化
-- **問題**: 単発のリトライでは不十分
-- **解決策**: 複数回リトライ + 指数バックオフ
-- **効果**: 一時的なネットワーク問題への対応
+## 関連ファイル
 
-## 🎯 期待される効果
+- `web-app/src/lib/auto-recovery.ts`
+- `web-app/src/app/global-error.tsx`
+- `web-app/src/components/GlobalErrorBoundary.tsx`
+- `web-app/src/components/UnifiedErrorHandler.tsx`
 
-1. **コンソールエラー解消**: ブラウザの開発者ツールでエラーが表示されなくなる
-2. **パフォーマンス向上**: 不要なRSC機能の無効化による高速化
-3. **ユーザー体験改善**: エラー時の自動復旧機能
-4. **保守性向上**: 適切なエラーハンドリングとログ出力
-
-## 📋 今後の監視項目
-
-1. **コンソールエラーの監視**: 新しいエラーが発生していないか
-2. **パフォーマンス監視**: ページ読み込み速度の改善
-3. **ユーザーエラー報告**: 実際のユーザーからのエラー報告
-4. **GitHub Pages ログ**: サーバーサイドエラーの監視
-
----
-
-**修正完了日時**: 2024年12月19日  
-**修正者**: AI Assistant  
-**ステータス**: ✅ 完了
+修正完了日: 2024年12月19日

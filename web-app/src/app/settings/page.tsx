@@ -677,6 +677,11 @@ export default function SettingsPage() {
                         hyperparameters: {
                           ...settings.hyperparameters,
                           xgboost: {
+                            learning_rate: 0.1,
+                            max_depth: 6,
+                            subsample: 0.8,
+                            colsample_bytree: 0.8,
+                            reg_alpha: 0.1,
                             ...settings.hyperparameters?.xgboost,
                             n_estimators: parseInt(e.target.value)
                           }
@@ -701,6 +706,11 @@ export default function SettingsPage() {
                         hyperparameters: {
                           ...settings.hyperparameters,
                           xgboost: {
+                            n_estimators: 100,
+                            max_depth: 6,
+                            subsample: 0.8,
+                            colsample_bytree: 0.8,
+                            reg_alpha: 0.1,
                             ...settings.hyperparameters?.xgboost,
                             learning_rate: parseFloat(e.target.value)
                           }
@@ -725,6 +735,11 @@ export default function SettingsPage() {
                         hyperparameters: {
                           ...settings.hyperparameters,
                           xgboost: {
+                            n_estimators: 100,
+                            learning_rate: 0.1,
+                            subsample: 0.8,
+                            colsample_bytree: 0.8,
+                            reg_alpha: 0.1,
                             ...settings.hyperparameters?.xgboost,
                             max_depth: parseInt(e.target.value)
                           }
@@ -749,6 +764,11 @@ export default function SettingsPage() {
                         hyperparameters: {
                           ...settings.hyperparameters,
                           xgboost: {
+                            n_estimators: 100,
+                            learning_rate: 0.1,
+                            max_depth: 6,
+                            colsample_bytree: 0.8,
+                            reg_alpha: 0.1,
                             ...settings.hyperparameters?.xgboost,
                             subsample: parseFloat(e.target.value)
                           }
@@ -773,6 +793,11 @@ export default function SettingsPage() {
                         hyperparameters: {
                           ...settings.hyperparameters,
                           xgboost: {
+                            n_estimators: 100,
+                            learning_rate: 0.1,
+                            max_depth: 6,
+                            subsample: 0.8,
+                            reg_alpha: 0.1,
                             ...settings.hyperparameters?.xgboost,
                             colsample_bytree: parseFloat(e.target.value)
                           }
@@ -797,6 +822,11 @@ export default function SettingsPage() {
                         hyperparameters: {
                           ...settings.hyperparameters,
                           xgboost: {
+                            n_estimators: 100,
+                            learning_rate: 0.1,
+                            max_depth: 6,
+                            subsample: 0.8,
+                            colsample_bytree: 0.8,
                             ...settings.hyperparameters?.xgboost,
                             reg_alpha: parseFloat(e.target.value)
                           }
@@ -827,6 +857,11 @@ export default function SettingsPage() {
                         hyperparameters: {
                           ...settings.hyperparameters,
                           random_forest: {
+                            max_depth: 10,
+                            min_samples_split: 2,
+                            min_samples_leaf: 1,
+                            max_features: "sqrt",
+                            bootstrap: true,
                             ...settings.hyperparameters?.random_forest,
                             n_estimators: parseInt(e.target.value)
                           }
@@ -851,6 +886,11 @@ export default function SettingsPage() {
                         hyperparameters: {
                           ...settings.hyperparameters,
                           random_forest: {
+                            n_estimators: 100,
+                            min_samples_split: 2,
+                            min_samples_leaf: 1,
+                            max_features: "sqrt",
+                            bootstrap: true,
                             ...settings.hyperparameters?.random_forest,
                             max_depth: parseInt(e.target.value)
                           }
@@ -875,6 +915,11 @@ export default function SettingsPage() {
                         hyperparameters: {
                           ...settings.hyperparameters,
                           random_forest: {
+                            n_estimators: 100,
+                            max_depth: 10,
+                            min_samples_leaf: 1,
+                            max_features: "sqrt",
+                            bootstrap: true,
                             ...settings.hyperparameters?.random_forest,
                             min_samples_split: parseInt(e.target.value)
                           }
@@ -899,6 +944,11 @@ export default function SettingsPage() {
                         hyperparameters: {
                           ...settings.hyperparameters,
                           random_forest: {
+                            n_estimators: 100,
+                            max_depth: 10,
+                            min_samples_split: 2,
+                            max_features: "sqrt",
+                            bootstrap: true,
                             ...settings.hyperparameters?.random_forest,
                             min_samples_leaf: parseInt(e.target.value)
                           }
@@ -919,6 +969,11 @@ export default function SettingsPage() {
                         hyperparameters: {
                           ...settings.hyperparameters,
                           random_forest: {
+                            n_estimators: 100,
+                            max_depth: 10,
+                            min_samples_split: 2,
+                            min_samples_leaf: 1,
+                            bootstrap: true,
                             ...settings.hyperparameters?.random_forest,
                             max_features: e.target.value
                           }
@@ -938,11 +993,16 @@ export default function SettingsPage() {
                       bootstrap
                     </label>
                     <select
-                      value={settings.hyperparameters?.random_forest?.bootstrap || "true"}
+                      value={settings.hyperparameters?.random_forest?.bootstrap ? "true" : "false"}
                       onChange={(e) => updateSettings({
                         hyperparameters: {
                           ...settings.hyperparameters,
                           random_forest: {
+                            n_estimators: 100,
+                            max_depth: 10,
+                            min_samples_split: 2,
+                            min_samples_leaf: 1,
+                            max_features: "sqrt",
                             ...settings.hyperparameters?.random_forest,
                             bootstrap: e.target.value === "true"
                           }
@@ -976,6 +1036,8 @@ export default function SettingsPage() {
                         hyperparameters: {
                           ...settings.hyperparameters,
                           ridge: {
+                            fit_intercept: true,
+                            normalize: false,
                             ...settings.hyperparameters?.ridge,
                             alpha: parseFloat(e.target.value)
                           }
@@ -991,11 +1053,13 @@ export default function SettingsPage() {
                       fit_intercept
                     </label>
                     <select
-                      value={settings.hyperparameters?.ridge?.fit_intercept || "true"}
+                      value={settings.hyperparameters?.ridge?.fit_intercept ? "true" : "false"}
                       onChange={(e) => updateSettings({
                         hyperparameters: {
                           ...settings.hyperparameters,
                           ridge: {
+                            alpha: 1.0,
+                            normalize: false,
                             ...settings.hyperparameters?.ridge,
                             fit_intercept: e.target.value === "true"
                           }
@@ -1014,11 +1078,13 @@ export default function SettingsPage() {
                       normalize
                     </label>
                     <select
-                      value={settings.hyperparameters?.ridge?.normalize || "false"}
+                      value={settings.hyperparameters?.ridge?.normalize ? "true" : "false"}
                       onChange={(e) => updateSettings({
                         hyperparameters: {
                           ...settings.hyperparameters,
                           ridge: {
+                            alpha: 1.0,
+                            fit_intercept: true,
                             ...settings.hyperparameters?.ridge,
                             normalize: e.target.value === "true"
                           }

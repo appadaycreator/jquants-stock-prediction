@@ -38,6 +38,11 @@ const nextConfig = {
   // RSCエラーを完全に無効化する設定
   reactStrictMode: false,
   
+  // Turbopackのマニフェスト問題を解決
+  generateBuildId: async () => {
+    return 'build-' + Date.now();
+  },
+  
   
   
   // パッケージのトランスパイル設定（Next.js 15対応）
@@ -51,17 +56,25 @@ const nextConfig = {
       staticGenerationRetryCount: 5,
       disableOptimizedLoading: true,
     }),
-    // 開発環境でのFast Refresh最適化
-    ...(process.env.NODE_ENV === "development" && {
-      turbo: {
-        rules: {
-          "*.svg": {
-            loaders: ["@svgr/webpack"],
-            as: "*.js",
-          },
+    // Turbopackの設定を最適化
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
         },
       },
-    }),
+      // Turbopackのマニフェスト問題を解決
+      resolveAlias: {
+        "@": "./src",
+        "@/components": "./src/components",
+        "@/lib": "./src/lib",
+        "@/app": "./src/app",
+        "@/contexts": "./src/contexts",
+        "@/hooks": "./src/hooks",
+        "@/types": "./src/types",
+      },
+    },
   },
   
   // ESLint設定を無効化（ビルドエラーを回避）
@@ -72,96 +85,30 @@ const nextConfig = {
   // サーバー外部パッケージの設定
   serverExternalPackages: [],
   
-  // Webpack設定の最適化
+  // Webpack設定の簡素化
   webpack: (config, { dev, isServer }) => {
-    // パス解決の設定を追加（絶対パスを使用）
+    // 基本的なパス解決の設定のみ
     const path = require("path");
     const srcPath = path.resolve(__dirname, "src");
     
-    // より確実なパス解決の設定
+    // 基本的なエイリアス設定
     config.resolve.alias = {
       ...config.resolve.alias,
-      "@/src": srcPath,
-      "@/src/lib": path.resolve(srcPath, "lib"),
       "@": srcPath,
-      "src": srcPath,
-      "@/lib": path.resolve(srcPath, "lib"),
       "@/components": path.resolve(srcPath, "components"),
+      "@/lib": path.resolve(srcPath, "lib"),
       "@/app": path.resolve(srcPath, "app"),
-      "@/styles": path.resolve(srcPath, "styles"),
-      "@/lib/guide": path.resolve(srcPath, "lib/guide"),
-      "@/lib/today": path.resolve(srcPath, "lib/today"),
-      "@/lib/guide/shortcut": path.resolve(srcPath, "lib/guide/shortcut"),
-      "@/lib/guide/guideStore": path.resolve(srcPath, "lib/guide/guideStore"),
-      "@/lib/datetime": path.resolve(srcPath, "lib/datetime"),
-      "@/lib/jquants-adapter": path.resolve(srcPath, "lib/jquants-adapter"),
-      "@/lib/today/fetchTodaySummary": path.resolve(srcPath, "lib/today/fetchTodaySummary"),
-      "@/types": path.resolve(srcPath, "types"),
       "@/contexts": path.resolve(srcPath, "contexts"),
       "@/hooks": path.resolve(srcPath, "hooks"),
+      "@/types": path.resolve(srcPath, "types"),
     };
     
-    // モジュール解決の設定を追加
-    config.resolve.modules = [
-      srcPath,
-      "node_modules",
-    ];
-    
-    // モジュール解決の確実性を向上
-    config.resolve.symlinks = false;
-    config.resolve.cacheWithContext = false;
-    
-    // パス解決の確実性を向上
-    config.resolve.mainFields = ["browser", "module", "main"];
-    config.resolve.conditionNames = ["import", "require", "node"];
-    
-    // 拡張子の解決順序を設定
-    config.resolve.extensions = [".tsx", ".ts", ".jsx", ".js", ".json"];
-    
-    // パス解決の確実性を向上
+    // 基本的なフォールバック設定
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,
       path: false,
     };
-    
-    // モジュール解決の確実性を向上
-    config.resolve.fullySpecified = false;
-    
-    // パス解決のデバッグ情報を追加
-    if (dev) {
-      config.resolve.logging = "verbose";
-    }
-    
-    // ビルド環境でのパス解決を確実にする（キャッシュ完全無効化）
-    config.resolve.unsafeCache = false;
-    config.resolve.cacheWithContext = false;
-    config.cache = false;
-    config.optimization = {
-      ...config.optimization,
-      moduleIds: "deterministic",
-      chunkIds: "deterministic",
-    };
-    
-    // バンドルサイズの最適化
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: "all",
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "vendors",
-            chunks: "all",
-          },
-          common: {
-            name: "common",
-            minChunks: 2,
-            chunks: "all",
-            enforce: true,
-          },
-        },
-      };
-    }
     
     return config;
   },

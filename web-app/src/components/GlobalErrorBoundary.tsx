@@ -66,10 +66,10 @@ function FallbackUI({ error, resetErrorBoundary }: { error: Error; resetErrorBou
     const category = categorizeError(error);
     setErrorCategory(category);
     
-    // 自動リトライが必要なエラータイプを判定
-    if (category === "rsc" || category === "network") {
-      handleAutoRetry();
-    }
+    // 自動リトライを無効化してループを防止
+    // if (category === "rsc" || category === "network") {
+    //   handleAutoRetry();
+    // }
   }, [error]);
 
   const handleAutoRetry = useCallback(() => {
@@ -103,7 +103,9 @@ function FallbackUI({ error, resetErrorBoundary }: { error: Error; resetErrorBou
         console.warn("Failed to clear localStorage cache:", e);
       }
       
-      resetErrorBoundary();
+      // リロードを無効化してループを防止
+      // resetErrorBoundary();
+      console.log("Recovery completed without reset to prevent loop");
       setIsAutoRetrying(false);
     }, delay);
   }, [errorCategory, retryCount, isAutoRetrying, resetErrorBoundary]);

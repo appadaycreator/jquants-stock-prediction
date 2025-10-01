@@ -17,7 +17,7 @@ interface CacheEntry<T> {
   };
 }
 
-interface PredictionCacheData {
+export interface PredictionCacheData {
   predictions: any[];
   modelComparison: any[];
   performance: {
@@ -30,7 +30,7 @@ interface PredictionCacheData {
   parameters: Record<string, any>;
 }
 
-interface ModelComparisonCacheData {
+export interface ModelComparisonCacheData {
   models: Array<{
     name: string;
     mae: number;

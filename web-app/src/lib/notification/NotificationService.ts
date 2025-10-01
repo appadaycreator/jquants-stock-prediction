@@ -34,12 +34,12 @@ export interface NotificationConfig {
 }
 
 export interface NotificationData {
-  type: "analysis_complete" | "error" | "recommendation" | "risk_alert";
+  type: "analysis_complete" | "error" | "recommendation" | "risk_alert" | "retraining_complete" | "retraining_failed" | "model_improvement" | "model_degradation";
   title: string;
   message: string;
   data?: any;
   timestamp: string;
-  priority: "high" | "medium" | "low";
+  priority: "high" | "medium" | "low" | "normal" | "critical";
 }
 
 export class NotificationService {
@@ -54,6 +54,17 @@ export class NotificationService {
       NotificationService.instance = new NotificationService();
     }
     return NotificationService.instance;
+  }
+
+  // 初期化メソッド
+  public async initialize(): Promise<void> {
+    try {
+      await this.loadConfig();
+      console.log("✅ 通知サービス初期化完了");
+    } catch (error) {
+      console.error("通知サービス初期化エラー:", error);
+      throw error;
+    }
   }
 
   // 設定の読み込み

@@ -35,11 +35,11 @@ export default function GlobalError({
       setErrorType("data");
     }
     
-    // RSC payloadエラーの場合、自動的にリトライ
-    if (errorType === "rsc" || errorType === "network") {
-      console.log(`${errorType} error detected, attempting recovery...`);
-      handleAutoRetry();
-    }
+    // 自動リトライを無効化してループを防止
+    // if (errorType === "rsc" || errorType === "network") {
+    //   console.log(`${errorType} error detected, attempting recovery...`);
+    //   handleAutoRetry();
+    // }
   }, [error, errorType]);
 
   const handleAutoRetry = () => {
@@ -75,7 +75,9 @@ export default function GlobalError({
         console.warn("Failed to clear localStorage cache:", e);
       }
       
-      window.location.reload();
+      // リロードを無効化してループを防止
+      // window.location.reload();
+      console.log("Recovery completed without reload to prevent loop");
     }, delay);
   };
 

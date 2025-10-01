@@ -335,6 +335,7 @@ export class RetrainingNotificationService {
         title: notificationData.title,
         message: notificationData.message,
         data: notificationData.details,
+        timestamp: notificationData.timestamp,
         priority: notificationData.priority
       });
 

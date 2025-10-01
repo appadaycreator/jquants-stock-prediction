@@ -37,7 +37,7 @@ class AutoRecoverySystem {
   }
 
   private initializeDefaultStrategies() {
-    // RSC Payload エラーの復旧戦略
+    // RSC Payload エラーの復旧戦略（リロードを無効化）
     this.addStrategy({
       name: "rsc-payload-recovery",
       condition: (error) => {
@@ -49,15 +49,15 @@ class AutoRecoverySystem {
       action: async () => {
         console.log("Executing RSC payload recovery...");
         
-        // キャッシュクリア
+        // キャッシュクリアのみ実行（リロードは無効化）
         await this.clearCaches();
         
-        // ページリロード
-        window.location.reload();
+        // リロードを無効化してループを防止
+        console.log("RSC payload recovery completed without reload");
         return true;
       },
       priority: 1,
-      maxAttempts: 3,
+      maxAttempts: 1, // 最大試行回数を1に制限
     });
 
     // ネットワークエラーの復旧戦略
@@ -111,7 +111,7 @@ class AutoRecoverySystem {
       maxAttempts: 2,
     });
 
-    // コンポーネントエラーの復旧戦略
+    // コンポーネントエラーの復旧戦略（リロードを無効化）
     this.addStrategy({
       name: "component-recovery",
       condition: (error) => {
@@ -123,15 +123,15 @@ class AutoRecoverySystem {
       action: async () => {
         console.log("Executing component recovery...");
         
-        // コンポーネント状態のリセット
+        // コンポーネント状態のリセットのみ実行
         await this.resetComponentState();
         
-        // ページリロード
-        window.location.reload();
+        // リロードを無効化してループを防止
+        console.log("Component recovery completed without reload");
         return true;
       },
       priority: 4,
-      maxAttempts: 2,
+      maxAttempts: 1, // 最大試行回数を1に制限
     });
   }
 
