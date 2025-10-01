@@ -46,11 +46,19 @@ jobs:
     
     - name: ユニットテストの実行
       timeout-minutes: 30
+      env:
+        JQUANTS_EMAIL: ${{ secrets.JQUANTS_EMAIL }}
+        JQUANTS_PASSWORD: ${{ secrets.JQUANTS_PASSWORD }}
+        JQUANTS_ID_TOKEN: ${{ secrets.JQUANTS_ID_TOKEN }}
       run: |
         pytest tests/unit/ -v --cov=. --cov-report=xml --cov-report=html --tb=short --maxfail=10 --durations=10
     
     - name: 統合テストの実行
       timeout-minutes: 20
+      env:
+        JQUANTS_EMAIL: ${{ secrets.JQUANTS_EMAIL }}
+        JQUANTS_PASSWORD: ${{ secrets.JQUANTS_PASSWORD }}
+        JQUANTS_ID_TOKEN: ${{ secrets.JQUANTS_ID_TOKEN }}
       run: |
         pytest tests/integration/ -v --tb=short --maxfail=5 --durations=5
     

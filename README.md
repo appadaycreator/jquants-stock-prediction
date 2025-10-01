@@ -1128,7 +1128,57 @@ pip install -r requirements.txt
 
 ### 2. 環境変数の設定
 
-`.env`ファイルを作成し、J-Quants APIの認証情報を設定してください：
+#### 方法1: GitHub ActionsのSecrets and Variables（推奨）
+
+GitHub Actionsで自動実行する場合、Secrets and VariablesでJ-Quantsの認証情報を設定してください：
+
+1. **GitHubリポジトリの設定**
+   - リポジトリページ → Settings → Secrets and variables → Actions
+   - "New repository secret" をクリック
+
+2. **必要なSecretsを追加**
+   ```
+   JQUANTS_EMAIL: your_email@example.com
+   JQUANTS_PASSWORD: your_password
+   JQUANTS_ID_TOKEN: your_id_token
+   ```
+
+3. **JQUANTS_ID_TOKENの取得方法**
+   - J-Quants APIにログインしてIDトークンを取得
+   - または、既存の認証フローで取得したIDトークンを使用
+   - IDトークンは24時間有効です
+
+4. **GitHub Actionsでの自動実行**
+   - プッシュ時に自動的にデータ取得・分析・デプロイが実行されます
+   - ユーザーが手動でトークンを入力する必要がありません
+   - セキュアな環境変数として認証情報が管理されます
+
+5. **設定手順の詳細**
+   ```
+   1. GitHubリポジトリにアクセス
+   2. Settings → Secrets and variables → Actions
+   3. "New repository secret" をクリック
+   4. 以下の3つのSecretを追加:
+      - Name: JQUANTS_EMAIL, Value: your_email@example.com
+      - Name: JQUANTS_PASSWORD, Value: your_password  
+      - Name: JQUANTS_ID_TOKEN, Value: your_id_token
+   5. 各Secretを保存
+   6. コードをプッシュしてGitHub Actionsが自動実行されることを確認
+   ```
+
+6. **設定完了の確認**
+   - GitHub Actionsの実行ログで「✅ J-Quants IDトークンが直接設定されています」が表示される
+   - Webアプリケーションでトークン入力画面が表示されない
+   - 自動的にデータ取得・分析が実行される
+
+7. **トラブルシューティング**
+   - トークンが設定されていない場合: 「❌ 環境変数 JQUANTS_ID_TOKEN または JQUANTS_EMAIL/JQUANTS_PASSWORD を設定してください。」が表示される
+   - GitHub Actionsで認証エラーが発生する場合: Secrets and Variablesの設定を確認
+   - ローカル開発でエラーが発生する場合: .envファイルの設定を確認
+
+#### 方法2: ローカル開発用の.envファイル
+
+ローカル開発時は`.env`ファイルを作成してください：
 
 ```bash
 # .env.sampleをコピーして.envファイルを作成
@@ -1137,6 +1187,7 @@ cp .env.sample .env
 # .envファイルを編集して実際の認証情報を設定
 # JQUANTS_EMAIL=your_email@example.com
 # JQUANTS_PASSWORD=your_password
+# JQUANTS_ID_TOKEN=your_id_token  # 直接IDトークンを設定することも可能
 ```
 
 ### 3. 設定ファイルの準備

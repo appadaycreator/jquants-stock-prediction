@@ -18,7 +18,7 @@ class SecurityConfig:
     """セキュリティ設定管理クラス"""
 
     def __init__(self):
-        self.required_env_vars = ["JQUANTS_EMAIL", "JQUANTS_PASSWORD"]
+        self.required_env_vars = ["JQUANTS_EMAIL", "JQUANTS_PASSWORD", "JQUANTS_ID_TOKEN"]
         self.sensitive_keys = ["password", "token", "key", "secret", "auth"]
 
     def validate_environment(self) -> Dict[str, Any]:

@@ -32,6 +32,10 @@ jobs:
         pip install --no-cache-dir -r requirements.txt
         
     - name: Generate web data
+      env:
+        JQUANTS_EMAIL: ${{ secrets.JQUANTS_EMAIL }}
+        JQUANTS_PASSWORD: ${{ secrets.JQUANTS_PASSWORD }}
+        JQUANTS_ID_TOKEN: ${{ secrets.JQUANTS_ID_TOKEN }}
       run: |
         python generate_web_data.py
         

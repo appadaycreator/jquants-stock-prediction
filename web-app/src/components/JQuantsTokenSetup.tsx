@@ -21,11 +21,31 @@ export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, o
 
   // 保存されたトークンを読み込み
   useEffect(() => {
-    const savedToken = localStorage.getItem("jquants_token");
-    if (savedToken) {
-      setToken(savedToken);
-      initializeAdapter(savedToken);
-    }
+    // 環境変数からトークンを取得（GitHub Actions等で設定された場合）
+    const checkEnvironmentToken = async () => {
+      try {
+        const response = await fetch('/api/jquants/token');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.token) {
+            setToken(data.token);
+            initializeAdapter(data.token);
+            return;
+          }
+        }
+      } catch (error) {
+        console.log("環境変数からトークンを取得できませんでした:", error);
+      }
+
+      // ローカルストレージからトークンを取得
+      const savedToken = localStorage.getItem("jquants_token");
+      if (savedToken) {
+        setToken(savedToken);
+        initializeAdapter(savedToken);
+      }
+    };
+
+    checkEnvironmentToken();
   }, []);
 
   const initializeAdapter = async (tokenValue: string) => {

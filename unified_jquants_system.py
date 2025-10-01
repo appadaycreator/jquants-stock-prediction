@@ -116,13 +116,21 @@ class UnifiedJQuantsSystem:
         try:
             self.email = os.getenv("JQUANTS_EMAIL")
             self.password = os.getenv("JQUANTS_PASSWORD")
+            self.id_token = os.getenv("JQUANTS_ID_TOKEN")
 
-            # 認証情報の検証（機密情報はログに出力しない）
+            # idTokenが直接設定されている場合は、email/passwordは不要
+            if self.id_token:
+                self.logger.info("✅ J-Quants IDトークンが直接設定されています")
+                self.logger.info("🔑 トークン認証モードで動作します")
+                return
+
+            # 従来のemail/password認証の場合
             if not self.email or not self.password:
                 error_msg = "認証情報が設定されていません"
                 masked_context = {
                     "email_set": bool(self.email),
                     "password_set": bool(self.password),
+                    "id_token_set": bool(self.id_token),
                     "env_file_exists": os.path.exists(".env"),
                 }
                 self._log_error(
@@ -131,10 +139,10 @@ class UnifiedJQuantsSystem:
                     masked_context,
                 )
                 self.logger.error(
-                    "❌ 環境変数 JQUANTS_EMAIL と JQUANTS_PASSWORD を設定してください。"
+                    "❌ 環境変数 JQUANTS_ID_TOKEN または JQUANTS_EMAIL/JQUANTS_PASSWORD を設定してください。"
                 )
                 self.logger.error(
-                    "💡 .env ファイルを作成し、認証情報を設定してください。"
+                    "💡 GitHub ActionsのSecrets and VariablesでJQUANTS_ID_TOKENを設定することを推奨します。"
                 )
                 raise ValueError(error_msg)
 
@@ -307,6 +315,14 @@ class UnifiedJQuantsSystem:
 
     def ensure_valid_token(self) -> str:
         """有効なトークンの確保"""
+        # 環境変数から直接設定されたidTokenがある場合は、それを優先
+        env_id_token = os.getenv("JQUANTS_ID_TOKEN")
+        if env_id_token and env_id_token != self.id_token:
+            self.id_token = env_id_token
+            self.logger.info("✅ 環境変数からIDトークンを取得しました")
+            return self.id_token
+
+        # 従来のトークン更新ロジック
         if (
             self.id_token is None
             or self.token_expires_at is None
