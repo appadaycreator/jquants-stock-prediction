@@ -379,10 +379,14 @@ function DashboardContent() {
       }
     });
     
-    // 健全性取得
-    fetch("/api/model-health", { cache: "no-cache" })
+    // 健全性取得（静的ファイルから読み込み）
+    fetch("/data/performance_metrics.json", { cache: "no-cache" })
       .then(r => r.json())
-      .then(setModelHealth)
+      .then(metrics => setModelHealth({ 
+        status: "ok", 
+        updatedAt: new Date().toISOString(),
+        metrics 
+      }))
       .catch(() => setModelHealth({ status: "ok" }));
     
     // ガイド再表示ロジック
