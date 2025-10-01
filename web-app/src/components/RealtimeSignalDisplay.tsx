@@ -13,6 +13,9 @@ interface TradingSignal {
   reason: string;
   risk_level: string;
   position_size: number;
+  category?: string;
+  expected_holding_period?: number;
+  historical_accuracy?: number;
   evidence?: {
     historical_accuracy_30d: number; // 0-1
     model: { name: string; description: string };

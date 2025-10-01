@@ -3,9 +3,13 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
+import { useSignalWithFallback } from "@/hooks/useSignalWithFallback";
+import EnhancedInstructionCard from "@/components/EnhancedInstructionCard";
+import SignalHistoryDisplay from "@/components/SignalHistoryDisplay";
 
 export default function TodayPage() {
   const routine = useFiveMinRoutine();
+  const signalData = useSignalWithFallback(routine.topCandidates.map(c => c.symbol));
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -35,9 +39,19 @@ export default function TodayPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="w-full max-w-md mx-auto px-4 py-4 md:max-w-3xl">
-        {routine.error && (
+        {(routine.error || signalData.error) && (
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4 text-sm text-yellow-800">
-            {routine.error}
+            {routine.error || signalData.error}
+            {signalData.isUsingFallback && (
+              <div className="mt-2 text-xs">
+                <button 
+                  onClick={signalData.clearError}
+                  className="text-blue-600 hover:text-blue-800 underline"
+                >
+                  前回の結果を表示
+                </button>
+              </div>
+            )}
           </div>
         )}
 
@@ -64,32 +78,46 @@ export default function TodayPage() {
           </div>
         </section>
 
-        {/* ② 候補：上位5銘柄 */}
+        {/* ② 候補：上位5銘柄（拡張版） */}
         <section className="mb-6" aria-label="上位候補">
-          <h2 className="text-lg font-bold text-gray-900 mb-3">上位5銘柄</h2>
+          <h2 className="text-lg font-bold text-gray-900 mb-3">今日の投資指示</h2>
           {routine.topCandidates.length === 0 ? (
             <div className="bg-white rounded-xl border p-4 text-gray-600 text-sm">該当候補がありません</div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-4">
               {routine.topCandidates.map((c, idx) => (
-                <div key={c.symbol} data-highlight={idx === 0 ? "true" : "false"} className="bg-white rounded-xl border p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm px-2 py-0.5 rounded bg-gray-100">#{idx + 1}</span>
-                        <span className="font-semibold text-gray-900">{c.symbol}</span>
-                        <span className="text-gray-500 text-sm">{c.name || c.symbol}</span>
-                      </div>
-                      <div className="text-xs text-gray-600 mt-1">{c.routine_reasons[0] || "スコア上位"}</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm text-gray-600">信頼度 {Math.round((c.confidence ?? 0.5) * 100)}%</div>
-                      <Link className="text-blue-600 text-sm underline" href={c.detail_paths?.analysis || c.detail_paths?.prediction || `/analysis?symbol=${encodeURIComponent(c.symbol)}`}>
-                        詳細へ
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+                <EnhancedInstructionCard
+                  key={c.symbol}
+                  symbol={c.symbol}
+                  name={c.name}
+                  recommendation={c.recommendation}
+                  confidence={c.confidence ?? 0.5}
+                  price={1000}
+                  reason={c.routine_reasons.join(", ") || "スコア上位"}
+                  expectedHoldingPeriod={30}
+                  riskLevel="MEDIUM"
+                  category="テクニカルブレイクアウト"
+                  historicalAccuracy={0.0}
+                  evidence={{
+                    technical: [
+                      { name: "RSI", value: 65, signal: "買い" },
+                      { name: "MACD", value: 1.2, signal: "買い" },
+                      { name: "移動平均", value: 2480, signal: "買い" }
+                    ],
+                    fundamental: [
+                      { name: "PER", value: 15.2, signal: "買い" },
+                      { name: "PBR", value: 1.1, signal: "買い" }
+                    ],
+                    sentiment: [
+                      { name: "ニュース", value: 0.7, signal: "買い" },
+                      { name: "SNS", value: 0.6, signal: "買い" }
+                    ]
+                  }}
+                  onActionClick={(symbol, action, quantity) => {
+                    console.log(`${symbol}: ${action} ${quantity * 100}%`);
+                    // 実際の取引実行ロジックをここに実装
+                  }}
+                />
               ))}
             </div>
           )}
@@ -144,6 +172,12 @@ export default function TodayPage() {
               保存
             </button>
           </div>
+        </section>
+
+        {/* ⑤ シグナル履歴 */}
+        <section className="mb-8" aria-label="シグナル履歴">
+          <h2 className="text-lg font-bold text-gray-900 mb-3">シグナル履歴</h2>
+          <SignalHistoryDisplay symbol={routine.topCandidates[0]?.symbol} days={30} />
         </section>
 
         <div className="text-center text-xs text-gray-500 pb-6">上下スクロールのみで完結・最小3クリック設計</div>

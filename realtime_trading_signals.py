@@ -60,6 +60,18 @@ class SignalType(Enum):
     STRONG_SELL = "STRONG_SELL"
 
 
+class SignalCategory(Enum):
+    """シグナルカテゴリ"""
+    
+    UPTREND = "上昇トレンド発生"
+    DOWNTREND_WARNING = "下落トレンド注意"
+    VOLUME_SURGE = "出来高急増"
+    RISK_RETURN_IMPROVEMENT = "リスクリターン改善"
+    TECHNICAL_BREAKOUT = "テクニカルブレイクアウト"
+    FUNDAMENTAL_CHANGE = "ファンダメンタル変化"
+    MARKET_SENTIMENT = "市場センチメント変化"
+
+
 class SignalStrength(Enum):
     """シグナル強度"""
 
@@ -82,6 +94,10 @@ class TradingSignal:
     indicators: Dict[str, float]
     reason: str
     risk_level: str
+    category: SignalCategory = SignalCategory.TECHNICAL_BREAKOUT
+    expected_holding_period: int = 30  # 想定保有期間（日）
+    historical_accuracy: float = 0.0  # 過去の的中率
+    evidence_summary: Dict[str, Any] = None  # 根拠サマリー
 
 
 class TechnicalIndicators:
@@ -739,6 +755,260 @@ def main():
         )
         print(f"     理由: {signal['reason']}")
         print()
+
+
+    def generate_enhanced_signals(self, data: pd.DataFrame, symbol: str) -> List[TradingSignal]:
+        """拡張されたシグナル生成（複数カテゴリ対応）"""
+        signals = []
+
+        if len(data) < 50:  # 十分なデータがない場合
+            return signals
+
+        # 技術指標を計算
+        close = data["Close"]
+        high = data["High"]
+        low = data["Low"]
+        volume = data["Volume"]
+
+        # 移動平均
+        sma_20 = self.indicators.sma(close, 20)
+        sma_50 = self.indicators.sma(close, 50)
+        ema_12 = self.indicators.ema(close, 12)
+        ema_26 = self.indicators.ema(close, 26)
+
+        # 技術指標
+        rsi = self.indicators.rsi(close)
+        macd, macd_signal, macd_hist = self.indicators.macd(close)
+        bb_upper, bb_middle, bb_lower = self.indicators.bollinger_bands(close)
+        stoch_k, stoch_d = self.indicators.stochastic(high, low, close)
+
+        # 最新の値
+        current_price = close.iloc[-1]
+        current_rsi = rsi.iloc[-1]
+        current_macd = macd.iloc[-1]
+        current_macd_signal = macd_signal.iloc[-1]
+        current_macd_hist = macd_hist.iloc[-1]
+        current_bb_upper = bb_upper.iloc[-1]
+        current_bb_lower = bb_lower.iloc[-1]
+        current_stoch_k = stoch_k.iloc[-1]
+        current_stoch_d = stoch_d.iloc[-1]
+
+        # シグナル生成ロジック
+        signal_data = {
+            "rsi": current_rsi,
+            "macd": current_macd,
+            "macd_signal": current_macd_signal,
+            "macd_hist": current_macd_hist,
+            "bb_upper": current_bb_upper,
+            "bb_lower": current_bb_lower,
+            "stoch_k": current_stoch_k,
+            "stoch_d": current_stoch_d,
+            "sma_20": sma_20.iloc[-1],
+            "sma_50": sma_50.iloc[-1],
+        }
+
+        # 複数のシグナルカテゴリを判定
+        detected_signals = self._detect_signal_categories(
+            data, signal_data, current_price, volume
+        )
+
+        # 各シグナルカテゴリに対してシグナルを生成
+        for category, signal_info in detected_signals.items():
+            if signal_info["detected"]:
+                signal = self._create_signal_from_category(
+                    symbol, category, signal_info, signal_data, current_price
+                )
+                signals.append(signal)
+
+        return signals
+
+    def _detect_signal_categories(self, data: pd.DataFrame, signal_data: Dict[str, float], 
+                                 current_price: float, volume: pd.Series) -> Dict[str, Dict]:
+        """複数のシグナルカテゴリを検出"""
+        signals = {}
+        
+        # 1. 上昇トレンド発生
+        signals["uptrend"] = self._detect_uptrend(signal_data, current_price)
+        
+        # 2. 下落トレンド注意
+        signals["downtrend_warning"] = self._detect_downtrend_warning(signal_data, current_price)
+        
+        # 3. 出来高急増
+        signals["volume_surge"] = self._detect_volume_surge(volume)
+        
+        # 4. リスクリターン改善
+        signals["risk_return_improvement"] = self._detect_risk_return_improvement(data, signal_data)
+        
+        # 5. テクニカルブレイクアウト
+        signals["technical_breakout"] = self._detect_technical_breakout(signal_data, current_price)
+        
+        return signals
+
+    def _detect_uptrend(self, signal_data: Dict[str, float], current_price: float) -> Dict:
+        """上昇トレンド発生の検出"""
+        sma_20 = signal_data["sma_20"]
+        sma_50 = signal_data["sma_50"]
+        rsi = signal_data["rsi"]
+        macd_hist = signal_data["macd_hist"]
+        
+        # 上昇トレンド条件
+        conditions = [
+            current_price > sma_20 > sma_50,  # 価格 > 短期MA > 長期MA
+            rsi > 50 and rsi < 70,  # RSIが適正範囲
+            macd_hist > 0,  # MACDヒストグラムが正
+        ]
+        
+        detected = sum(conditions) >= 2
+        confidence = sum(conditions) / len(conditions)
+        
+        return {
+            "detected": detected,
+            "confidence": confidence,
+            "category": SignalCategory.UPTREND,
+            "reason": "移動平均線の上昇トレンド形成",
+            "expected_holding_period": 30
+        }
+
+    def _detect_downtrend_warning(self, signal_data: Dict[str, float], current_price: float) -> Dict:
+        """下落トレンド注意の検出"""
+        sma_20 = signal_data["sma_20"]
+        sma_50 = signal_data["sma_50"]
+        rsi = signal_data["rsi"]
+        bb_lower = signal_data["bb_lower"]
+        
+        # 下落トレンド警告条件
+        conditions = [
+            current_price < sma_20 < sma_50,  # 価格 < 短期MA < 長期MA
+            rsi < 50,  # RSIが50未満
+            current_price < bb_lower,  # ボリンジャーバンド下限を下回る
+        ]
+        
+        detected = sum(conditions) >= 2
+        confidence = sum(conditions) / len(conditions)
+        
+        return {
+            "detected": detected,
+            "confidence": confidence,
+            "category": SignalCategory.DOWNTREND_WARNING,
+            "reason": "下落トレンドの兆候を検出",
+            "expected_holding_period": 7
+        }
+
+    def _detect_volume_surge(self, volume: pd.Series) -> Dict:
+        """出来高急増の検出"""
+        if len(volume) < 20:
+            return {"detected": False, "confidence": 0.0}
+        
+        current_volume = volume.iloc[-1]
+        avg_volume_20 = volume.tail(20).mean()
+        volume_ratio = current_volume / avg_volume_20 if avg_volume_20 > 0 else 0
+        
+        detected = volume_ratio > 2.0  # 平均の2倍以上
+        confidence = min(volume_ratio / 3.0, 1.0)  # 3倍で最大信頼度
+        
+        return {
+            "detected": detected,
+            "confidence": confidence,
+            "category": SignalCategory.VOLUME_SURGE,
+            "reason": f"出来高が平均の{volume_ratio:.1f}倍に急増",
+            "expected_holding_period": 14
+        }
+
+    def _detect_risk_return_improvement(self, data: pd.DataFrame, signal_data: Dict[str, float]) -> Dict:
+        """リスクリターン改善の検出"""
+        if len(data) < 20:
+            return {"detected": False, "confidence": 0.0}
+        
+        # 過去20日のリターンとボラティリティを計算
+        returns = data["Close"].pct_change().dropna()
+        volatility = returns.std() * np.sqrt(252)  # 年率ボラティリティ
+        sharpe_ratio = returns.mean() / returns.std() * np.sqrt(252) if returns.std() > 0 else 0
+        
+        # リスクリターン改善条件
+        conditions = [
+            sharpe_ratio > 0.5,  # シャープレシオが0.5以上
+            volatility < 0.3,  # ボラティリティが30%未満
+            returns.tail(5).mean() > 0,  # 直近5日がプラス
+        ]
+        
+        detected = sum(conditions) >= 2
+        confidence = sum(conditions) / len(conditions)
+        
+        return {
+            "detected": detected,
+            "confidence": confidence,
+            "category": SignalCategory.RISK_RETURN_IMPROVEMENT,
+            "reason": f"シャープレシオ: {sharpe_ratio:.2f}, ボラティリティ: {volatility:.1%}",
+            "expected_holding_period": 45
+        }
+
+    def _detect_technical_breakout(self, signal_data: Dict[str, float], current_price: float) -> Dict:
+        """テクニカルブレイクアウトの検出"""
+        bb_upper = signal_data["bb_upper"]
+        bb_lower = signal_data["bb_lower"]
+        rsi = signal_data["rsi"]
+        
+        # ブレイクアウト条件
+        conditions = [
+            current_price > bb_upper,  # ボリンジャーバンド上限ブレイク
+            rsi > 60,  # RSIが60以上
+        ]
+        
+        detected = all(conditions)
+        confidence = sum(conditions) / len(conditions)
+        
+        return {
+            "detected": detected,
+            "confidence": confidence,
+            "category": SignalCategory.TECHNICAL_BREAKOUT,
+            "reason": "ボリンジャーバンド上限ブレイクアウト",
+            "expected_holding_period": 21
+        }
+
+    def _create_signal_from_category(self, symbol: str, category: str, signal_info: Dict, 
+                                   signal_data: Dict[str, float], current_price: float) -> TradingSignal:
+        """シグナルカテゴリからTradingSignalを作成"""
+        # シグナルタイプの決定
+        if category in ["uptrend", "volume_surge", "risk_return_improvement", "technical_breakout"]:
+            signal_type = SignalType.BUY if signal_info["confidence"] > 0.6 else SignalType.HOLD
+        elif category == "downtrend_warning":
+            signal_type = SignalType.SELL if signal_info["confidence"] > 0.6 else SignalType.HOLD
+        else:
+            signal_type = SignalType.HOLD
+        
+        # 強度の決定
+        if signal_info["confidence"] >= 0.8:
+            strength = SignalStrength.VERY_STRONG
+        elif signal_info["confidence"] >= 0.6:
+            strength = SignalStrength.STRONG
+        elif signal_info["confidence"] >= 0.4:
+            strength = SignalStrength.MEDIUM
+        else:
+            strength = SignalStrength.WEAK
+        
+        # リスクレベルの決定
+        if signal_info["confidence"] >= 0.8:
+            risk_level = "LOW"
+        elif signal_info["confidence"] >= 0.6:
+            risk_level = "MEDIUM"
+        else:
+            risk_level = "HIGH"
+        
+        return TradingSignal(
+            symbol=symbol,
+            signal_type=signal_type,
+            strength=strength,
+            price=current_price,
+            confidence=signal_info["confidence"],
+            timestamp=datetime.now(),
+            indicators=signal_data,
+            reason=signal_info["reason"],
+            risk_level=risk_level,
+            category=signal_info["category"],
+            expected_holding_period=signal_info["expected_holding_period"],
+            historical_accuracy=0.0,  # 後で実装
+            evidence_summary=signal_info
+        )
 
 
 if __name__ == "__main__":
