@@ -532,7 +532,7 @@ export default function RoutineDashboard({
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">分析銘柄数</span>
                     <span className="text-lg font-semibold text-gray-900">
-                      {yesterdaySummary?.topPerformers.length || 0}
+                      {yesterdaySummary?.topPerformers?.length || 0}
                     </span>
                   </div>
                 </div>
@@ -540,7 +540,7 @@ export default function RoutineDashboard({
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">アラート数</span>
                     <span className="text-lg font-semibold text-gray-900">
-                      {yesterdaySummary?.alerts.length || 0}
+                      {yesterdaySummary?.alerts?.length || 0}
                     </span>
                   </div>
                 </div>
@@ -576,7 +576,7 @@ export default function RoutineDashboard({
               </div>
 
               {/* アラート */}
-              {yesterdaySummary?.alerts && yesterdaySummary.alerts.length > 0 && (
+              {yesterdaySummary?.alerts && yesterdaySummary.alerts?.length > 0 && (
                 <div>
                   <h3 className="text-md font-medium text-gray-900 mb-3">重要なアラート</h3>
                   <div className="space-y-2">
@@ -653,7 +653,7 @@ export default function RoutineDashboard({
             </div>
 
             {/* ウォッチリスト更新 */}
-            {todayActions?.watchlistUpdates && todayActions.watchlistUpdates.length > 0 && (
+            {todayActions?.watchlistUpdates && todayActions.watchlistUpdates?.length > 0 && (
               <div className="bg-white rounded-lg shadow border p-6">
                 <h3 className="text-md font-semibold text-gray-900 mb-4">ウォッチリスト更新</h3>
                 <div className="space-y-2">
