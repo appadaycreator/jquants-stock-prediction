@@ -11,6 +11,11 @@ import UIUXIntegration from "../../components/UIUXIntegration";
 import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock, Cpu, Info } from "lucide-react";
 import { MODEL_DEFINITIONS } from "@/data/modelDefinitions";
 import { getCacheMeta } from "@/lib/fetcher";
+import { freshnessManager, DataFreshnessInfo } from "@/lib/data-freshness-manager";
+import DataFreshnessBadge, { DataFreshnessSummary } from "@/components/DataFreshnessBadge";
+import DataTimestampDisplay, { DataTimestampSummary } from "@/components/DataTimestampDisplay";
+import CacheVisualization, { CacheVisualizationCompact } from "@/components/CacheVisualization";
+import EnhancedRefreshButton, { RefreshButtonGroup } from "@/components/EnhancedRefreshButton";
 import { NotificationService } from "@/lib/notification/NotificationService";
 import UnifiedErrorHandler from "@/components/UnifiedErrorHandler";
 import { getErrorInfo, logError } from "@/lib/error-handler";
@@ -128,6 +133,7 @@ function DashboardContent() {
   const [cacheMeta, setCacheMeta] = useState<CacheMeta>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [freshnessInfos, setFreshnessInfos] = useState<DataFreshnessInfo[]>([]);
   
   // ガイド関連の状態
   // 簡素化のため不要な状態変数を削除
@@ -152,9 +158,9 @@ function DashboardContent() {
       try {
         setIsLoading(true);
         
-        // キャッシュメタデータの取得（簡素化）
-        // const meta = await getCacheMeta();
-        // setCacheMeta(meta);
+        // キャッシュメタデータの取得
+        const meta = await getCacheMeta();
+        setCacheMeta(meta);
 
         // データの読み込み
         await loadDashboardData();
@@ -182,10 +188,77 @@ function DashboardContent() {
       // ここで実際のデータ読み込み処理を実装
       // 簡素化のため基本的なデータのみ設定
       setLastUpdateTime(new Date().toLocaleString("ja-JP"));
+      
+      // 鮮度情報の更新
+      updateFreshnessInfos();
     } catch (err) {
       console.error("データ読み込みエラー:", err);
       setError("データの読み込みに失敗しました");
     }
+  };
+
+  const updateFreshnessInfos = () => {
+    const now = new Date();
+    const infos: DataFreshnessInfo[] = [];
+
+    // 各データソースの鮮度情報を生成
+    if (cacheMeta.summary?.exists && cacheMeta.summary.timestamp) {
+      infos.push(freshnessManager.getFreshnessInfo(
+        cacheMeta.summary.timestamp,
+        'cache',
+        60 // 1時間TTL
+      ));
+    }
+
+    if (cacheMeta.stock?.exists && cacheMeta.stock.timestamp) {
+      infos.push(freshnessManager.getFreshnessInfo(
+        cacheMeta.stock.timestamp,
+        'cache',
+        30 // 30分TTL
+      ));
+    }
+
+    if (cacheMeta.model?.exists && cacheMeta.model.timestamp) {
+      infos.push(freshnessManager.getFreshnessInfo(
+        cacheMeta.model.timestamp,
+        'cache',
+        120 // 2時間TTL
+      ));
+    }
+
+    if (cacheMeta.feature?.exists && cacheMeta.feature.timestamp) {
+      infos.push(freshnessManager.getFreshnessInfo(
+        cacheMeta.feature.timestamp,
+        'cache',
+        60 // 1時間TTL
+      ));
+    }
+
+    if (cacheMeta.pred?.exists && cacheMeta.pred.timestamp) {
+      infos.push(freshnessManager.getFreshnessInfo(
+        cacheMeta.pred.timestamp,
+        'cache',
+        15 // 15分TTL
+      ));
+    }
+
+    if (cacheMeta.marketInsights?.exists && cacheMeta.marketInsights.timestamp) {
+      infos.push(freshnessManager.getFreshnessInfo(
+        cacheMeta.marketInsights.timestamp,
+        'cache',
+        30 // 30分TTL
+      ));
+    }
+
+    if (cacheMeta.riskAssessment?.exists && cacheMeta.riskAssessment.timestamp) {
+      infos.push(freshnessManager.getFreshnessInfo(
+        cacheMeta.riskAssessment.timestamp,
+        'cache',
+        60 // 1時間TTL
+      ));
+    }
+
+    setFreshnessInfos(infos);
   };
 
   const handleRefresh = async () => {
@@ -199,6 +272,40 @@ function DashboardContent() {
     } catch (err) {
       console.error("更新エラー:", err);
       setRefreshStatus("更新失敗");
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  const handleForceRefresh = async () => {
+    setIsRefreshing(true);
+    setRefreshStatus("強制更新中...");
+    
+    try {
+      // キャッシュをクリアして強制更新
+      await loadDashboardData();
+      setRefreshStatus("強制更新完了");
+      setTimeout(() => setRefreshStatus(""), 2000);
+    } catch (err) {
+      console.error("強制更新エラー:", err);
+      setRefreshStatus("強制更新失敗");
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  const handleRecompute = async () => {
+    setIsRefreshing(true);
+    setRefreshStatus("再計算中...");
+    
+    try {
+      // 分析の再実行
+      await loadDashboardData();
+      setRefreshStatus("再計算完了");
+      setTimeout(() => setRefreshStatus(""), 2000);
+    } catch (err) {
+      console.error("再計算エラー:", err);
+      setRefreshStatus("再計算失敗");
     } finally {
       setIsRefreshing(false);
     }
@@ -272,35 +379,49 @@ function DashboardContent() {
                     <p className="text-gray-600">機械学習による株価予測システム</p>
                   </div>
                   <div className="flex flex-col xl:flex-row items-start xl:items-center space-y-2 xl:space-y-0 xl:space-x-4">
-                    <div className="flex flex-wrap items-center gap-2">
+                    {/* システム状況と鮮度表示 */}
+                    <div className="flex flex-wrap items-center gap-3">
                       <div className="flex items-center space-x-2">
                         <CheckCircle className="h-5 w-5 text-green-500" />
                         <span className="text-sm text-gray-600">
                           システム: 正常稼働中
                         </span>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm text-gray-600">
-                          最終更新: {lastUpdateTime || summary?.last_updated || "-"}
-                        </span>
-                        {refreshStatus && (
-                          <span className="text-sm text-green-600">
-                            {refreshStatus}
-                          </span>
-                        )}
-                      </div>
+                      
+                      {/* データ鮮度サマリー */}
+                      {freshnessInfos.length > 0 && (
+                        <DataFreshnessSummary
+                          freshnessInfos={freshnessInfos}
+                          onRefreshAll={handleRefresh}
+                        />
+                      )}
+                      
+                      {/* キャッシュ状態の可視化 */}
+                      {freshnessInfos.length > 0 && (
+                        <CacheVisualization
+                          freshnessInfos={freshnessInfos}
+                          showDetails={false}
+                          onRefreshAll={handleRefresh}
+                          className="hidden xl:block"
+                        />
+                      )}
                     </div>
-                    <span className="text-xs px-2 py-0.5 rounded bg-gray-100 text-gray-700" title={`summary:${cacheMeta.summary?.timestamp ? new Date(cacheMeta.summary.timestamp).toLocaleString("ja-JP") : "N/A"}\nstock:${cacheMeta.stock?.timestamp ? new Date(cacheMeta.stock.timestamp).toLocaleString("ja-JP") : "N/A"}\nmodel:${cacheMeta.model?.timestamp ? new Date(cacheMeta.model.timestamp).toLocaleString("ja-JP") : "N/A"}\nfeature:${cacheMeta.feature?.timestamp ? new Date(cacheMeta.feature.timestamp).toLocaleString("ja-JP") : "N/A"}\npred:${cacheMeta.pred?.timestamp ? new Date(cacheMeta.pred.timestamp).toLocaleString("ja-JP") : "N/A"}\nmarket:${cacheMeta.marketInsights?.timestamp ? new Date(cacheMeta.marketInsights.timestamp).toLocaleString("ja-JP") : "N/A"}\nrisk:${cacheMeta.riskAssessment?.timestamp ? new Date(cacheMeta.riskAssessment.timestamp).toLocaleString("ja-JP") : "N/A"}`}>
-                          {Object.values(cacheMeta).some(m => m?.exists) ? "キャッシュ使用中" : "キャッシュなし"}
-                        </span>
-                    <button
-                      onClick={handleRefresh}
-                      disabled={isRefreshing}
-                      className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
-                    >
-                      <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-                      <span>更新</span>
-                    </button>
+                    
+                    {/* 更新ボタン群 */}
+                    <div className="flex items-center gap-2">
+                      <EnhancedRefreshButton
+                        onRefresh={handleRefresh}
+                        onForceRefresh={handleForceRefresh}
+                        onRecompute={handleRecompute}
+                        isLoading={isRefreshing}
+                        lastRefresh={lastUpdateTime ? new Date(lastUpdateTime) : undefined}
+                        refreshInterval={5} // 5分間隔で自動更新
+                        variant="primary"
+                        size="md"
+                        showProgress={true}
+                        showLastRefresh={true}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -341,7 +462,16 @@ function DashboardContent() {
                 <div className="space-y-6" data-guide-target="overview">
                   {/* システム状況 */}
                   <div className="bg-white rounded-lg shadow p-6">
-                    <h2 className="text-lg font-semibold text-gray-900 mb-4">システム状況</h2>
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="text-lg font-semibold text-gray-900">システム状況</h2>
+                      {/* データ鮮度表示 */}
+                      {freshnessInfos.length > 0 && (
+                        <DataFreshnessSummary
+                          freshnessInfos={freshnessInfos}
+                          onRefreshAll={handleRefresh}
+                        />
+                      )}
+                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div className="flex items-center space-x-3">
                         <div className="flex-shrink-0">
@@ -371,6 +501,17 @@ function DashboardContent() {
                         </div>
                       </div>
                     </div>
+                    
+                    {/* 詳細なキャッシュ状態 */}
+                    {freshnessInfos.length > 0 && (
+                      <div className="mt-6">
+                        <CacheVisualization
+                          freshnessInfos={freshnessInfos}
+                          showDetails={true}
+                          onRefreshAll={handleRefresh}
+                        />
+                      </div>
+                    )}
                   </div>
 
                   {/* パフォーマンス指標 */}
