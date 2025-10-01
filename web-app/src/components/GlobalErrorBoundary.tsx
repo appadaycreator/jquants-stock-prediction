@@ -66,6 +66,16 @@ function FallbackUI({ error, resetErrorBoundary }: { error: Error; resetErrorBou
     const category = categorizeError(error);
     setErrorCategory(category);
     
+    // 無限ループエラーの場合は自動リトライを無効化
+    if (error.message.includes("Maximum update depth exceeded")) {
+      console.warn("Infinite loop detected, disabling auto-retry");
+      // 無限ループエラーの場合は即座にページをリロード
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+      return;
+    }
+    
     // 自動リトライを無効化してループを防止
     // if (category === "rsc" || category === "network") {
     //   handleAutoRetry();

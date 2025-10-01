@@ -125,7 +125,7 @@ export function useSignalWithFallback(symbols: string[] = []) {
     } finally {
       setLoading(false);
     }
-  }, [generateMockSignals, getCachedSignals, saveSignalsToCache]);
+  }, []); // 依存配列を空にして無限ループを防ぐ
 
   const clearError = useCallback(() => {
     setError(null);
@@ -134,7 +134,7 @@ export function useSignalWithFallback(symbols: string[] = []) {
 
   useEffect(() => {
     fetchSignals();
-  }, [fetchSignals]);
+  }, []); // 依存配列を空にして無限ループを防ぐ
 
   return {
     signals,

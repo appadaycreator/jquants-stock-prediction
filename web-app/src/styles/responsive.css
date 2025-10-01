@@ -39,6 +39,7 @@
   max-width: 100%;
   margin: 0 auto;
   padding: 0 1rem;
+  transition: margin-left 0.3s ease;
 }
 
 @media (min-width: 640px) {
@@ -59,6 +60,8 @@
   .container-responsive {
     max-width: 1024px;
     padding: 0 2rem;
+    /* サイドバーが存在する場合のマージン調整 */
+    margin-left: 16rem;
   }
 }
 
@@ -73,6 +76,18 @@
   .container-responsive {
     max-width: 1536px;
     padding: 0 2rem;
+  }
+}
+
+/* サイドバー折りたたみ時の調整 */
+.sidebar-collapsed .container-responsive {
+  margin-left: 4rem;
+}
+
+/* モバイル表示時の調整 */
+@media (max-width: 1023px) {
+  .container-responsive {
+    margin-left: 0 !important;
   }
 }
 

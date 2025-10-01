@@ -17,7 +17,7 @@ import {
   ArrowDown,
   Minus,
 } from "lucide-react";
-import MobileChart from "./MobileChart";
+// import MobileChart from "./MobileChart"; // 一時的に無効化
 import { parseToJst } from "@/lib/datetime";
 
 interface MobileDashboardProps {
@@ -269,50 +269,27 @@ export default function MobileDashboard({
               </div>
             </div>
 
-            {/* 株価チャート */}
-            <MobileChart
-              data={chartData}
-              type="line"
-              title="株価推移と移動平均"
-              dataKey="実際価格"
-              lines={[
-                { dataKey: "実際価格", stroke: "#2563eb", strokeWidth: 2 },
-                { dataKey: "SMA_5", stroke: "#dc2626", strokeWidth: 1 },
-                { dataKey: "SMA_10", stroke: "#059669", strokeWidth: 1 },
-                { dataKey: "SMA_25", stroke: "#d97706", strokeWidth: 1 },
-                { dataKey: "SMA_50", stroke: "#7c3aed", strokeWidth: 1 },
-              ]}
-              height={250}
-            />
+            {/* 株価チャート - 一時的に無効化 */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">株価推移と移動平均</h3>
+              <p className="text-gray-600">チャート機能は一時的に無効化されています。</p>
+            </div>
           </>
         )}
 
         {activeTab === "predictions" && (
           <>
-            {/* 予測結果チャート */}
-            <MobileChart
-              data={predictionChartData}
-              type="line"
-              title="予測 vs 実際値"
-              dataKey="実際値"
-              lines={[
-                { dataKey: "実際値", stroke: "#2563eb", strokeWidth: 2 },
-                { dataKey: "予測値", stroke: "#dc2626", strokeWidth: 2 },
-              ]}
-              height={250}
-            />
+            {/* 予測結果チャート - 一時的に無効化 */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">予測 vs 実際値</h3>
+              <p className="text-gray-600">チャート機能は一時的に無効化されています。</p>
+            </div>
 
-            {/* 予測精度分布 */}
-            <MobileChart
-              data={predictions.slice(0, 20).map(p => ({ 
-                index: p.index, 
-                誤差: p.error.toFixed(2), 
-              }))}
-              type="bar"
-              title="予測誤差分布"
-              dataKey="誤差"
-              height={200}
-            />
+            {/* 予測精度分布 - 一時的に無効化 */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">予測誤差分布</h3>
+              <p className="text-gray-600">チャート機能は一時的に無効化されています。</p>
+            </div>
           </>
         )}
 
@@ -353,45 +330,33 @@ export default function MobileDashboard({
               </div>
             </div>
 
-            {/* モデル性能チャート */}
-            <MobileChart
-              data={modelComparison}
-              type="bar"
-              title="MAE比較"
-              dataKey="mae"
-              height={200}
-            />
+            {/* モデル性能チャート - 一時的に無効化 */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">MAE比較</h3>
+              <p className="text-gray-600">チャート機能は一時的に無効化されています。</p>
+            </div>
           </>
         )}
 
         {activeTab === "analysis" && (
           <>
-            {/* 特徴量重要度 */}
-            <MobileChart
-              data={featureAnalysis}
-              type="bar"
-              title="特徴量重要度"
-              dataKey="percentage"
-              height={250}
-            />
+            {/* 特徴量重要度 - 一時的に無効化 */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">特徴量重要度</h3>
+              <p className="text-gray-600">チャート機能は一時的に無効化されています。</p>
+            </div>
 
-            {/* 特徴量重要度分布 */}
-            <MobileChart
-              data={featureAnalysis.map(item => ({ ...item, name: item.feature }))}
-              type="pie"
-              title="特徴量重要度分布"
-              dataKey="percentage"
-              height={200}
-            />
+            {/* 特徴量重要度分布 - 一時的に無効化 */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">特徴量重要度分布</h3>
+              <p className="text-gray-600">チャート機能は一時的に無効化されています。</p>
+            </div>
 
-            {/* 散布図 */}
-            <MobileChart
-              data={predictions.slice(0, 30)}
-              type="scatter"
-              title="実際値 vs 予測値散布図"
-              dataKey="predicted"
-              height={250}
-            />
+            {/* 散布図 - 一時的に無効化 */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">実際値 vs 予測値散布図</h3>
+              <p className="text-gray-600">チャート機能は一時的に無効化されています。</p>
+            </div>
           </>
         )}
 

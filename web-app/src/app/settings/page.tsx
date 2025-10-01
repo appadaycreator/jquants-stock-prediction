@@ -126,10 +126,64 @@ export default function SettingsPage() {
     try {
       setRiskLoading(true);
       const res = await fetch("/api/risk-settings", { cache: "no-store" });
+      
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      
       const json = await res.json();
       setRiskSettings(json);
     } catch (e) {
       console.error("リスク設定読み込みエラー:", e);
+      // デフォルト設定を使用
+      setRiskSettings({
+        riskTolerance: 'medium',
+        maxLossPercentage: 5,
+        stopLossPercentage: 3,
+        takeProfitPercentage: 10,
+        maxPositionSize: 10,
+        diversificationLevel: 'medium',
+        rebalanceFrequency: 'monthly',
+        volatilityThreshold: 0.2,
+        correlationThreshold: 0.7,
+        sectorLimits: {
+          technology: 30,
+          healthcare: 20,
+          finance: 15,
+          consumer: 15,
+          industrial: 10,
+          utilities: 5,
+          energy: 5
+        },
+        countryLimits: {
+          japan: 60,
+          usa: 25,
+          europe: 10,
+          asia: 5
+        },
+        assetAllocation: {
+          stocks: 70,
+          bonds: 20,
+          cash: 10
+        },
+        riskMetrics: {
+          maxDrawdown: 15,
+          sharpeRatio: 1.0,
+          volatility: 0.15
+        },
+        notifications: {
+          priceAlerts: true,
+          riskAlerts: true,
+          rebalanceAlerts: true,
+          newsAlerts: false
+        },
+        advanced: {
+          useOptions: false,
+          useLeverage: false,
+          useShortSelling: false,
+          useDerivatives: false
+        }
+      });
     } finally {
       setRiskLoading(false);
     }

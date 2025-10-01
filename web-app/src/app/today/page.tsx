@@ -1,16 +1,21 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import Link from "next/link";
 import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
 import { useSignalWithFallback } from "@/hooks/useSignalWithFallback";
 import EnhancedInstructionCard from "@/components/EnhancedInstructionCard";
-import SignalHistoryDisplay from "@/components/SignalHistoryDisplay";
+// import SignalHistoryDisplay from "@/components/SignalHistoryDisplay"; // 一時的に無効化
 import ErrorGuidance from "@/components/ErrorGuidance";
 
 export default function TodayPage() {
   const routine = useFiveMinRoutine();
-  const signalData = useSignalWithFallback(routine.topCandidates.map(c => c.symbol));
+  // シンボル配列をメモ化して無限ループを防ぐ
+  const symbols = useMemo(() => 
+    routine.topCandidates.map(c => c.symbol), 
+    [routine.topCandidates]
+  );
+  const signalData = useSignalWithFallback(symbols);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -176,10 +181,12 @@ export default function TodayPage() {
           </div>
         </section>
 
-        {/* ⑤ シグナル履歴 */}
+        {/* ⑤ シグナル履歴 - 一時的に無効化 */}
         <section className="mb-8" aria-label="シグナル履歴">
           <h2 className="text-lg font-bold text-gray-900 mb-3">シグナル履歴</h2>
-          <SignalHistoryDisplay symbol={routine.topCandidates[0]?.symbol} days={30} />
+          <div className="bg-white rounded-lg shadow p-6">
+            <p className="text-gray-600">シグナル履歴機能は一時的に無効化されています。</p>
+          </div>
         </section>
 
         <div className="text-center text-xs text-gray-500 pb-6">上下スクロールのみで完結・最小3クリック設計</div>

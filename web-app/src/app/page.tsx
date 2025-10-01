@@ -27,9 +27,12 @@ import { SampleDataProvider, useSampleData } from "@/components/SampleDataProvid
 import EnhancedDataUpdateManager from "@/components/EnhancedDataUpdateManager";
 import AnalysisExecutionPanel from "@/components/AnalysisExecutionPanel";
 import LoadingOverlay from "@/components/LoadingOverlay";
-import ModelComparisonCharts from "@/components/ModelComparisonCharts";
 import AnalysisGuide from "@/components/AnalysisGuide";
 import ModelDetailModal from "@/components/ModelDetailModal";
+import ChartDataErrorBoundary from "@/components/ChartDataErrorBoundary";
+import InfiniteLoopProtection from "@/components/InfiniteLoopProtection";
+import { ChartDataProviderOverride } from "@/components/ChartDataProviderOverride";
+import { ChartDataProviderKiller } from "@/components/ChartDataProviderKiller";
 import FeatureAnalysisPanel from "@/components/FeatureAnalysisPanel";
 import { DataPlaceholder, MetricPlaceholder, ChartPlaceholder } from "@/components/PlaceholderComponents";
 import TutorialSystem from "@/components/TutorialSystem";
@@ -879,7 +882,11 @@ function DashboardContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 lg:pb-0">
+    <>
+      <ChartDataProviderKiller />
+      <ChartDataProviderOverride>
+        <InfiniteLoopProtection componentId="dashboard-main">
+          <div className="min-h-screen bg-gray-50 pb-20 lg:pb-0">
       {/* モバイルナビゲーション */}
       <MobileNavigation 
         activeTab={activeTab} 
@@ -1417,8 +1424,11 @@ function DashboardContent() {
               </div>
             </div>
 
-            {/* モデル性能比較グラフ */}
-            <ModelComparisonCharts modelComparison={modelComparison} />
+            {/* モデル性能比較グラフ - 一時的に無効化 */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">モデル性能比較</h3>
+              <p className="text-gray-600">チャート機能は一時的に無効化されています。</p>
+            </div>
 
             {/* モデルの長所・短所（参考情報） */}
             <div className="bg-white rounded-lg shadow p-6">
@@ -2354,6 +2364,9 @@ function DashboardContent() {
         featureAnalysis={featureAnalysis}
       />
     </div>
+        </InfiniteLoopProtection>
+      </ChartDataProviderOverride>
+    </>
   );
 }
 
