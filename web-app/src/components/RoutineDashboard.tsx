@@ -275,7 +275,7 @@ export default function RoutineDashboard({
     };
 
     loadData();
-  }, [loadYesterdaySummary, loadTodayActions]);
+  }, []);
 
   // アクション実行
   const handleActionClick = async (action: "analyze" | "report" | "trade") => {
