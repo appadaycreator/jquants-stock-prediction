@@ -3,6 +3,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { HelpCircle, X, Search, BookOpen, Settings, BarChart3, TrendingUp, Shield } from "lucide-react";
 import { useGuide } from "./TourProvider";
+import SearchBar from "./SearchBar";
+import SearchResults from "./SearchResults";
+import { SearchResult } from "@/lib/guide/searchService";
 
 interface HelpSection {
   id: string;
@@ -92,8 +95,30 @@ export default function HelpModal({
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSection, setSelectedSection] = useState<string>("getting-started");
   const [selectedFAQ, setSelectedFAQ] = useState<number | null>(null);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
+  const [isSearchMode, setIsSearchMode] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const { startTour } = useGuide();
+
+  // 検索結果の処理
+  const handleSearch = (results: SearchResult[]) => {
+    setSearchResults(results);
+    setIsSearchMode(results.length > 0);
+    setSelectedResult(null);
+  };
+
+  const handleSearchClear = () => {
+    setSearchResults([]);
+    setIsSearchMode(false);
+    setSelectedResult(null);
+  };
+
+  const handleResultClick = (result: SearchResult) => {
+    setSelectedResult(result);
+    setSelectedSection(result.id);
+    setSelectedFAQ(null);
+  };
 
   const filteredSections = HELP_SECTIONS.filter(section =>
     section.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -156,61 +181,67 @@ export default function HelpModal({
           <div className="w-1/3 border-r border-gray-200 flex flex-col">
             {/* 検索 */}
             <div className="p-4 border-b border-gray-200">
-              <div className="relative">
-                <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  placeholder="ヘルプを検索..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
+              <SearchBar
+                onSearch={handleSearch}
+                onClear={handleSearchClear}
+                placeholder="ヘルプ・用語集を検索..."
+                showSuggestions={true}
+              />
             </div>
 
             {/* ナビゲーション */}
             <div className="flex-1 overflow-y-auto">
               <div className="p-4">
-                <h3 className="text-sm font-medium text-gray-900 mb-3">主要機能</h3>
-                <div className="space-y-1">
-                  {filteredSections.map((section) => (
-                    <button
-                      key={section.id}
-                      onClick={() => setSelectedSection(section.id)}
-                      className={`w-full text-left p-3 rounded-md transition-colors ${
-                        selectedSection === section.id
-                          ? "bg-blue-100 text-blue-800"
-                          : "text-gray-700 hover:bg-gray-100"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        {section.icon}
-                        <span className="font-medium">{section.title}</span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
+                {isSearchMode ? (
+                  <SearchResults
+                    results={searchResults}
+                    query={searchTerm}
+                    onResultClick={handleResultClick}
+                    selectedResultId={selectedResult?.id}
+                  />
+                ) : (
+                  <>
+                    <h3 className="text-sm font-medium text-gray-900 mb-3">主要機能</h3>
+                    <div className="space-y-1">
+                      {filteredSections.map((section) => (
+                        <button
+                          key={section.id}
+                          onClick={() => setSelectedSection(section.id)}
+                          className={`w-full text-left p-3 rounded-md transition-colors ${
+                            selectedSection === section.id
+                              ? "bg-blue-100 text-blue-800"
+                              : "text-gray-700 hover:bg-gray-100"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            {section.icon}
+                            <span className="font-medium">{section.title}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
 
-                <div className="mt-6 pt-4 border-t border-gray-200">
-                  <h3 className="text-sm font-medium text-gray-900 mb-3">よくある質問</h3>
-                  <div className="space-y-1">
-                    {filteredFAQs.map((faq, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setSelectedFAQ(selectedFAQ === index ? null : index)}
-                        className={`w-full text-left p-2 rounded-md transition-colors ${
-                          selectedFAQ === index
-                            ? "bg-blue-100 text-blue-800"
-                            : "text-gray-700 hover:bg-gray-100"
-                        }`}
-                      >
-                        <div className="text-sm font-medium">{faq.question}</div>
-                        <div className="text-xs text-gray-500">{faq.category}</div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                    <div className="mt-6 pt-4 border-t border-gray-200">
+                      <h3 className="text-sm font-medium text-gray-900 mb-3">よくある質問</h3>
+                      <div className="space-y-1">
+                        {filteredFAQs.map((faq, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setSelectedFAQ(selectedFAQ === index ? null : index)}
+                            className={`w-full text-left p-2 rounded-md transition-colors ${
+                              selectedFAQ === index
+                                ? "bg-blue-100 text-blue-800"
+                                : "text-gray-700 hover:bg-gray-100"
+                            }`}
+                          >
+                            <div className="text-sm font-medium">{faq.question}</div>
+                            <div className="text-xs text-gray-500">{faq.category}</div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
