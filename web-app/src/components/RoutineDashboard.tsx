@@ -230,7 +230,7 @@ export default function RoutineDashboard({
         priorityActions: []
       });
     }
-  };
+  }, []);
 
   // タイマー更新
   useEffect(() => {
