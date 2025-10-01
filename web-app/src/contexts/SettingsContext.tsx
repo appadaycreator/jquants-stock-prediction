@@ -136,7 +136,25 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    loadSettings();
+    const initializeSettings = async () => {
+      try {
+        setIsLoading(true);
+        const savedSettings = localStorage.getItem("jquants-settings");
+        if (savedSettings) {
+          const parsedSettings = JSON.parse(savedSettings);
+          setSettings(prev => ({
+            ...prev,
+            ...parsedSettings,
+          }));
+        }
+      } catch (error) {
+        console.error("設定の読み込みに失敗:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    initializeSettings();
   }, []);
 
   return (
