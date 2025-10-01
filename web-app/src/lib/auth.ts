@@ -44,7 +44,7 @@ export class AuthManager {
   }
 
   /**
-   * 認証トークンを取得
+   * 認証トークンを取得（環境変数のみ）
    */
   async getAuthToken(): Promise<string | null> {
     // 1. 環境変数から直接IDトークンを取得
@@ -52,15 +52,7 @@ export class AuthManager {
       return this.config.idToken;
     }
 
-    // 2. ローカルストレージから保存されたトークンを取得
-    if (typeof window !== 'undefined') {
-      const savedToken = localStorage.getItem("jquants_token");
-      if (savedToken) {
-        return savedToken;
-      }
-    }
-
-    // 3. メール/パスワードからトークンを取得
+    // 2. メール/パスワードからトークンを取得
     if (this.config.email && this.config.password) {
       return await this.authenticateWithCredentials(
         this.config.email,
@@ -68,6 +60,7 @@ export class AuthManager {
       );
     }
 
+    // 手動入力機能は削除 - 環境変数からの認証のみ
     return null;
   }
 
@@ -92,10 +85,8 @@ export class AuthManager {
         const data = await response.json();
         const token = data.id_token;
         
-        // ローカルストレージに保存
-        if (typeof window !== 'undefined') {
-          localStorage.setItem("jquants_token", token);
-        }
+        // 手動入力機能は削除 - 環境変数のみを使用
+        // ローカルストレージへの保存は削除
         
         return token;
       }
@@ -115,12 +106,10 @@ export class AuthManager {
   }
 
   /**
-   * トークンをクリア
+   * トークンをクリア（環境変数のみ）
    */
   clearToken(): void {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem("jquants_token");
-    }
+    // 手動入力機能は削除 - 環境変数のみを使用
     this.config = {};
   }
 

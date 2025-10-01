@@ -68,7 +68,7 @@ const Checklist = dynamic(() => import("../components/guide/Checklist"), { ssr: 
 const ChecklistBadge = dynamic(() => import("../components/guide/Checklist").then(mod => ({ default: mod.ChecklistBadge })), { ssr: false });
 const GlossaryModal = dynamic(() => import("../components/guide/GlossaryModal"), { ssr: false });
 const HelpModal = dynamic(() => import("../components/guide/HelpModal"), { ssr: false });
-const JQuantsTokenSetup = dynamic(() => import("@/components/JQuantsTokenSetup"), { ssr: false });
+// const JQuantsTokenSetup = dynamic(() => import("@/components/JQuantsTokenSetup"), { ssr: false }); // 手動入力機能を削除
 const NextUpdateIndicator = dynamic(() => import("@/components/NextUpdateIndicator"), { ssr: false });
 
 // 型定義
@@ -191,7 +191,7 @@ function DashboardContent() {
   const [selectedPeriod, setSelectedPeriod] = useState("1m");
   const [watchlists, setWatchlists] = useState<any[]>([]);
   const [jquantsAdapter, setJquantsAdapter] = useState<JQuantsAdapter | null>(null);
-  const [showJQuantsSetup, setShowJQuantsSetup] = useState(false);
+  // const [showJQuantsSetup, setShowJQuantsSetup] = useState(false); // 手動入力機能を削除
   // UI/チャート制御
   const [overviewExpanded, setOverviewExpanded] = useState({ chart: true, models: false, predictions: false });
   const [chartMetric, setChartMetric] = useState<"close" | "sma_5" | "sma_25" | "sma_50" | "volume">("close");
@@ -976,15 +976,8 @@ function DashboardContent() {
                   </button>
                 </Tooltip>
 
-                <Tooltip content="J-Quants APIトークンを設定してリアルタイムデータを取得">
-                  <button
-                    onClick={() => setShowJQuantsSetup(true)}
-                    className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-                  >
-                    <Database className="h-4 w-4 mr-2" />
-                    J-Quants設定
-                  </button>
-                </Tooltip>
+                {/* J-Quants設定ボタン - 手動入力機能を削除 */}
+                {/* 環境変数からの自動認証のみを使用 */}
                 
                 <Tooltip content="最新のデータを取得（キャッシュ無視）">
                   <button
@@ -2172,34 +2165,8 @@ function DashboardContent() {
         </div>
       )}
 
-      {/* J-Quants設定モーダル */}
-      {showJQuantsSetup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">J-Quants API設定</h2>
-                <button
-                  onClick={() => setShowJQuantsSetup(false)}
-                  className="text-gray-400 hover:text-gray-600"
-                >
-                  <X className="h-6 w-6" />
-                </button>
-              </div>
-              
-              <JQuantsTokenSetup
-                onTokenConfigured={(adapter) => {
-                  setJquantsAdapter(adapter);
-                  setShowJQuantsSetup(false);
-                }}
-                onTokenRemoved={() => {
-                  setJquantsAdapter(null);
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
+      {/* J-Quants設定モーダル - 手動入力機能を削除 */}
+      {/* 環境変数からの自動認証のみを使用 */}
 
       {/* 初回利用者向けチュートリアル */}
       <FirstTimeTutorial
