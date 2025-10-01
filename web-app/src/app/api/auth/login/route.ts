@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// 静的エクスポート用の設定
+export const dynamic = 'force-static';
+
 /**
  * J-Quants API認証エンドポイント
  * ローカル環境での認証をサポート

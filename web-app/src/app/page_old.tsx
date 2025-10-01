@@ -21,7 +21,7 @@ import { enrichWithIndicators, sliceByRange } from "@/lib/indicators";
 import { guideStore } from "@/lib/guide/guideStore";
 import { parseToJst } from "@/lib/datetime";
 import JQuantsAdapter from "@/lib/jquants-adapter";
-import { DEFAULT_CHECKLIST_ITEMS } from "@/components/guide/Checklist";
+import { DEFAULT_CHECKLIST_ITEMS, type ChecklistItem } from "@/components/guide/Checklist";
 import FirstTimeTutorial from "@/components/FirstTimeTutorial";
 import { SampleDataProvider, useSampleData } from "@/components/SampleDataProvider";
 import EnhancedDataUpdateManager from "@/components/EnhancedDataUpdateManager";
@@ -96,12 +96,7 @@ interface ModelComparison {
   rank: number
 }
 
-interface ChecklistItem {
-  id: string
-  title: string
-  description: string
-  completed: boolean
-}
+// ChecklistItem型は@/components/guide/Checklistからインポート
 
 interface ChecklistProps {
   items: ChecklistItem[]

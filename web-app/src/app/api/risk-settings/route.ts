@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// 静的エクスポート用の設定
+export const dynamic = 'force-static';
+
 // デフォルトのリスク設定
 const defaultRiskSettings = {
   riskTolerance: 'medium',

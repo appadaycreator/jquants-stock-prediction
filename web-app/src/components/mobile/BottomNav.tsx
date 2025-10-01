@@ -20,27 +20,27 @@ const navItems: NavItem[] = [
   },
   {
     href: "/today",
-    label: "今日の指示",
-    icon: "📅",
+    label: "今日のタスク",
+    icon: "🎯",
     shortLabel: "今日",
   },
   {
-    href: "/reports",
-    label: "レポート",
+    href: "/dashboard",
+    label: "詳細分析",
     icon: "📊",
-    shortLabel: "レポート",
+    shortLabel: "分析",
+  },
+  {
+    href: "/risk",
+    label: "リスク管理",
+    icon: "🛡️",
+    shortLabel: "リスク",
   },
   {
     href: "/settings",
     label: "設定",
     icon: "⚙️",
     shortLabel: "設定",
-  },
-  {
-    href: "/usage",
-    label: "ヘルプ",
-    icon: "❓",
-    shortLabel: "ヘルプ",
   },
 ];
 

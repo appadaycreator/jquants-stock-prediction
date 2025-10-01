@@ -12,10 +12,10 @@ export default function Sidebar() {
 
   const navigation = [
     { name: "ホーム", href: "/", icon: "🏠" },
-    { name: "今日の指示", href: "/today", icon: "📅" },
-    { name: "レポート", href: "/reports", icon: "📊" },
+    { name: "今日のタスク", href: "/today", icon: "🎯" },
+    { name: "詳細分析", href: "/dashboard", icon: "📊" },
+    { name: "リスク管理", href: "/risk", icon: "🛡️" },
     { name: "設定", href: "/settings", icon: "⚙️" },
-    { name: "ヘルプ", href: "/usage", icon: "❓" },
   ];
 
   const additionalFeatures = [

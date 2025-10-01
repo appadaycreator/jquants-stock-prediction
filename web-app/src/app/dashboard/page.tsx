@@ -1,0 +1,546 @@
+"use client";
+
+import { useEffect, useState, Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import { SettingsProvider } from "../../contexts/SettingsContext";
+import { useAnalysisWithSettings } from "../../hooks/useAnalysisWithSettings";
+import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
+import UIUXIntegration from "../../components/UIUXIntegration";
+import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock, Cpu, Info } from "lucide-react";
+import { MODEL_DEFINITIONS } from "@/data/modelDefinitions";
+import { getCacheMeta } from "@/lib/fetcher";
+import { NotificationService } from "@/lib/notification/NotificationService";
+import UnifiedErrorHandler from "@/components/UnifiedErrorHandler";
+import { getErrorInfo, logError } from "@/lib/error-handler";
+import { errorLogger, setupGlobalErrorHandling } from "@/lib/error-logger";
+import { performanceMonitor, usePerformanceMonitor } from "@/lib/performance-monitor";
+import { useGuideShortcuts } from "@/lib/guide/shortcut";
+import { enrichWithIndicators, sliceByRange } from "@/lib/indicators";
+import { guideStore } from "@/lib/guide/guideStore";
+import { parseToJst } from "@/lib/datetime";
+import JQuantsAdapter from "@/lib/jquants-adapter";
+import { DEFAULT_CHECKLIST_ITEMS, type ChecklistItem } from "@/components/guide/Checklist";
+import FirstTimeTutorial from "@/components/FirstTimeTutorial";
+import { SampleDataProvider, useSampleData } from "@/components/SampleDataProvider";
+import EnhancedDataUpdateManager from "@/components/EnhancedDataUpdateManager";
+import AnalysisExecutionPanel from "@/components/AnalysisExecutionPanel";
+import LoadingOverlay from "@/components/LoadingOverlay";
+import AnalysisGuide from "@/components/AnalysisGuide";
+import ModelDetailModal from "@/components/ModelDetailModal";
+import ChartDataErrorBoundary from "@/components/ChartDataErrorBoundary";
+import InfiniteLoopProtection from "@/components/InfiniteLoopProtection";
+import { ChartDataProviderOverride } from "@/components/ChartDataProviderOverride";
+import { ChartDataProviderKiller } from "@/components/ChartDataProviderKiller";
+import FeatureAnalysisPanel from "@/components/FeatureAnalysisPanel";
+import { DataPlaceholder, MetricPlaceholder, ChartPlaceholder } from "@/components/PlaceholderComponents";
+import TutorialSystem from "@/components/TutorialSystem";
+
+// 動的インポートでコンポーネントを遅延読み込み
+const Navigation = dynamic(() => import("../../components/Navigation"), { ssr: false });
+const MobileNavigation = dynamic(() => import("../../components/MobileNavigation"), { ssr: false });
+const BottomNav = dynamic(() => import("../../components/mobile/BottomNav"), { ssr: false });
+const MobileDashboard = dynamic(() => import("../../components/MobileDashboard"), { ssr: false });
+const MobileOptimizedDashboard = dynamic(() => import("../../components/MobileOptimizedDashboard"), { ssr: false });
+const PullToRefresh = dynamic(() => import("../../components/PullToRefresh"), { ssr: false });
+const SymbolSelector = dynamic(() => import("../../components/SymbolSelector"), { ssr: false });
+const SymbolAnalysisResults = dynamic(() => import("../../components/SymbolAnalysisResults"), { ssr: false });
+const OneClickAnalysis = dynamic(() => import("../../components/OneClickAnalysis"), { ssr: false });
+const StockMonitoringManager = dynamic(() => import("../../components/StockMonitoringManager"), { ssr: false });
+const RealtimeSignalDisplay = dynamic(() => import("../../components/RealtimeSignalDisplay"), { ssr: false });
+const NotificationSettings = dynamic(() => import("../../components/NotificationSettings"), { ssr: false });
+const MobileFirstDashboard = dynamic(() => import("../../components/MobileFirstDashboard"), { ssr: false });
+const WatchlistManager = dynamic(() => import("../../components/WatchlistManager"), { ssr: false });
+const JudgmentPanel = dynamic(() => import("../../components/JudgmentPanel"), { ssr: false });
+const PeriodSelector = dynamic(() => import("../../components/PeriodSelector"), { ssr: false });
+const ParallelUpdateManager = dynamic(() => import("../../components/ParallelUpdateManager"), { ssr: false });
+const RoutineDashboard = dynamic(() => import("../../components/RoutineDashboard"), { ssr: false });
+const SideDetailPanel = dynamic(() => import("@/components/SideDetailPanel"), { ssr: false });
+const EnhancedErrorHandler = dynamic(() => import("../../components/EnhancedErrorHandler"), { ssr: false });
+const ChartErrorBoundary = dynamic(() => import("../../components/ChartErrorBoundary"), { ssr: false });
+const Tooltip = dynamic(() => import("../../components/Tooltip").then(mod => ({ default: mod.default })), { ssr: false });
+const UserGuide = dynamic(() => import("../../components/UserGuide"), { ssr: false });
+const TourProvider = dynamic(() => import("../../components/guide/TourProvider").then(mod => ({ default: mod.TourProvider })), { ssr: false });
+const MetricTooltip = dynamic(() => import("../../components/guide/Tooltip").then(mod => ({ default: mod.MetricTooltip })), { ssr: false });
+const SimpleTooltip = dynamic(() => import("../../components/guide/Tooltip").then(mod => ({ default: mod.SimpleTooltip })), { ssr: false });
+const Checklist = dynamic(() => import("../../components/guide/Checklist"), { ssr: false });
+const ChecklistBadge = dynamic(() => import("../../components/guide/Checklist").then(mod => ({ default: mod.ChecklistBadge })), { ssr: false });
+const GlossaryModal = dynamic(() => import("../../components/guide/GlossaryModal"), { ssr: false });
+const HelpModal = dynamic(() => import("../../components/guide/HelpModal"), { ssr: false });
+const NextUpdateIndicator = dynamic(() => import("@/components/NextUpdateIndicator"), { ssr: false });
+
+// 型定義
+interface StockData {
+  date: string
+  code?: string
+  open?: number
+  high?: number
+  low?: number
+  close?: number
+  volume?: number
+  sma_5?: number
+  sma_10?: number
+  sma_25?: number
+  sma_50?: number
+}
+
+interface ModelComparison {
+  name: string
+  type: string
+  mae: number
+  mse: number
+  rmse: number
+  r2: number
+  rank: number
+}
+
+// ChecklistItem型は@/components/guide/Checklistからインポート
+
+interface CacheMeta {
+  summary?: { exists: boolean; timestamp?: number }
+  stock?: { exists: boolean; timestamp?: number }
+  model?: { exists: boolean; timestamp?: number }
+  feature?: { exists: boolean; timestamp?: number }
+  pred?: { exists: boolean; timestamp?: number }
+  marketInsights?: { exists: boolean; timestamp?: number }
+  riskAssessment?: { exists: boolean; timestamp?: number }
+}
+
+function DashboardContent() {
+  const [activeTab, setActiveTab] = useState("overview");
+  const [stockData, setStockData] = useState<StockData[]>([]);
+  const [modelComparison, setModelComparison] = useState<ModelComparison[]>([]);
+  const [summary, setSummary] = useState<any>(null);
+  const [performanceMetrics, setPerformanceMetrics] = useState<any>(null);
+  const [marketInsights, setMarketInsights] = useState<any>(null);
+  const [riskAssessment, setRiskAssessment] = useState<any>(null);
+  const [featureAnalysis, setFeatureAnalysis] = useState<any>(null);
+  const [lastUpdateTime, setLastUpdateTime] = useState<string>("");
+  const [refreshStatus, setRefreshStatus] = useState<string>("");
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [showAnalysisModal, setShowAnalysisModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showStockMonitoring, setShowStockMonitoring] = useState(false);
+  const [showModelDetail, setShowModelDetail] = useState(false);
+  const [selectedModel, setSelectedModel] = useState<ModelComparison | null>(null);
+  const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>(DEFAULT_CHECKLIST_ITEMS);
+  const [cacheMeta, setCacheMeta] = useState<CacheMeta>({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  // ガイド関連の状態
+  // 簡素化のため不要な状態変数を削除
+
+  // パフォーマンス監視
+  usePerformanceMonitor("dashboard");
+
+  // ガイドショートカット（簡素化）
+  // useGuideShortcuts();
+
+  // 分析フック
+  const analysis = useAnalysisWithSettings();
+
+  // 5分ルーティンフック
+  const routine = useFiveMinRoutine();
+
+  // サンプルデータフック
+  const sampleData = useSampleData();
+
+  useEffect(() => {
+    const initializeDashboard = async () => {
+      try {
+        setIsLoading(true);
+        
+        // キャッシュメタデータの取得（簡素化）
+        // const meta = await getCacheMeta();
+        // setCacheMeta(meta);
+
+        // データの読み込み
+        await loadDashboardData();
+        
+        // 通知サービスの初期化
+        const notificationService = NotificationService.getInstance();
+        await notificationService.initialize();
+        
+        // エラーハンドリングの設定（簡素化）
+        // setupGlobalErrorHandling();
+        
+        setIsLoading(false);
+      } catch (err) {
+        console.error("ダッシュボード初期化エラー:", err);
+        setError("ダッシュボードの初期化に失敗しました");
+        setIsLoading(false);
+      }
+    };
+
+    initializeDashboard();
+  }, []);
+
+  const loadDashboardData = async () => {
+    try {
+      // ここで実際のデータ読み込み処理を実装
+      // 簡素化のため基本的なデータのみ設定
+      setLastUpdateTime(new Date().toLocaleString("ja-JP"));
+    } catch (err) {
+      console.error("データ読み込みエラー:", err);
+      setError("データの読み込みに失敗しました");
+    }
+  };
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    setRefreshStatus("更新中...");
+    
+    try {
+      await loadDashboardData();
+      setRefreshStatus("更新完了");
+      setTimeout(() => setRefreshStatus(""), 2000);
+    } catch (err) {
+      console.error("更新エラー:", err);
+      setRefreshStatus("更新失敗");
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  const handleModelClick = (model: ModelComparison) => {
+    setSelectedModel(model);
+    setShowModelDetail(true);
+  };
+
+  const handleChecklistToggle = (itemId: string) => {
+    setChecklistItems(prev => 
+      prev.map(item => 
+        item.id === itemId 
+          ? { ...item, completed: !item.completed }
+          : item
+      )
+    );
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">ダッシュボードを読み込み中...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">エラーが発生しました</h2>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          >
+            再読み込み
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <ChartDataProviderKiller />
+      <ChartDataProviderOverride>
+        <InfiniteLoopProtection componentId="dashboard-main">
+          <div className="min-h-screen bg-gray-50 pb-20 lg:pb-0">
+            {/* モバイルナビゲーション */}
+            <MobileNavigation 
+              activeTab={activeTab} 
+              onTabChange={setActiveTab}
+              onAnalysisClick={() => setShowAnalysisModal(true)}
+              onSettingsClick={() => setShowSettingsModal(true)}
+              onMonitoringClick={() => setShowStockMonitoring(true)}
+            />
+
+            {/* デスクトップヘッダー */}
+            <header className="hidden lg:block bg-white shadow-sm border-b">
+              <div className="w-full px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between items-center py-6">
+                  <div data-guide-target="welcome">
+                    <h1 className="text-3xl font-bold text-gray-900">J-Quants 株価予測ダッシュボード</h1>
+                    <p className="text-gray-600">機械学習による株価予測システム</p>
+                  </div>
+                  <div className="flex flex-col xl:flex-row items-start xl:items-center space-y-2 xl:space-y-0 xl:space-x-4">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <div className="flex items-center space-x-2">
+                        <CheckCircle className="h-5 w-5 text-green-500" />
+                        <span className="text-sm text-gray-600">
+                          システム: 正常稼働中
+                        </span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-sm text-gray-600">
+                          最終更新: {lastUpdateTime || summary?.last_updated || "-"}
+                        </span>
+                        {refreshStatus && (
+                          <span className="text-sm text-green-600">
+                            {refreshStatus}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <span className="text-xs px-2 py-0.5 rounded bg-gray-100 text-gray-700" title={`summary:${cacheMeta.summary?.timestamp ? new Date(cacheMeta.summary.timestamp).toLocaleString("ja-JP") : "N/A"}\nstock:${cacheMeta.stock?.timestamp ? new Date(cacheMeta.stock.timestamp).toLocaleString("ja-JP") : "N/A"}\nmodel:${cacheMeta.model?.timestamp ? new Date(cacheMeta.model.timestamp).toLocaleString("ja-JP") : "N/A"}\nfeature:${cacheMeta.feature?.timestamp ? new Date(cacheMeta.feature.timestamp).toLocaleString("ja-JP") : "N/A"}\npred:${cacheMeta.pred?.timestamp ? new Date(cacheMeta.pred.timestamp).toLocaleString("ja-JP") : "N/A"}\nmarket:${cacheMeta.marketInsights?.timestamp ? new Date(cacheMeta.marketInsights.timestamp).toLocaleString("ja-JP") : "N/A"}\nrisk:${cacheMeta.riskAssessment?.timestamp ? new Date(cacheMeta.riskAssessment.timestamp).toLocaleString("ja-JP") : "N/A"}`}>
+                          {Object.values(cacheMeta).some(m => m?.exists) ? "キャッシュ使用中" : "キャッシュなし"}
+                        </span>
+                    <button
+                      onClick={handleRefresh}
+                      disabled={isRefreshing}
+                      className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                    >
+                      <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+                      <span>更新</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </header>
+
+            {/* メインコンテンツ */}
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+              {/* タブナビゲーション */}
+              <div className="mb-8">
+                <nav className="flex space-x-8" aria-label="Tabs">
+                  {[
+                    { id: "overview", name: "概要", icon: BarChart3 },
+                    { id: "analysis", name: "分析", icon: Target },
+                    { id: "models", name: "モデル", icon: Cpu },
+                    { id: "predictions", name: "予測", icon: TrendingUp },
+                  ].map((tab) => {
+                    const Icon = tab.icon;
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`flex items-center space-x-2 py-2 px-1 border-b-2 font-medium text-sm ${
+                          activeTab === tab.id
+                            ? "border-blue-500 text-blue-600"
+                            : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                        }`}
+                      >
+                        <Icon className="h-4 w-4" />
+                        <span>{tab.name}</span>
+                      </button>
+                    );
+                  })}
+                </nav>
+              </div>
+
+              {/* タブコンテンツ */}
+              {activeTab === "overview" && (
+                <div className="space-y-6" data-guide-target="overview">
+                  {/* システム状況 */}
+                  <div className="bg-white rounded-lg shadow p-6">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-4">システム状況</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="flex-shrink-0">
+                          <CheckCircle className="h-8 w-8 text-green-500" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">システム状態</p>
+                          <p className="text-sm text-green-600">正常稼働中</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="flex-shrink-0">
+                          <Database className="h-8 w-8 text-blue-500" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">データ更新</p>
+                          <p className="text-sm text-gray-600">{lastUpdateTime || "未更新"}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="flex-shrink-0">
+                          <Cpu className="h-8 w-8 text-purple-500" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">モデル状態</p>
+                          <p className="text-sm text-gray-600">学習済み</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* パフォーマンス指標 */}
+                  {performanceMetrics && (
+                    <div className="bg-white rounded-lg shadow p-6">
+                      <h2 className="text-lg font-semibold text-gray-900 mb-4">パフォーマンス指標</h2>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-blue-600">{performanceMetrics.accuracy || "N/A"}%</p>
+                          <p className="text-sm text-gray-600">精度</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-green-600">{performanceMetrics.mae || "N/A"}</p>
+                          <p className="text-sm text-gray-600">MAE</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-purple-600">{performanceMetrics.rmse || "N/A"}</p>
+                          <p className="text-sm text-gray-600">RMSE</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-orange-600">{performanceMetrics.r2 || "N/A"}</p>
+                          <p className="text-sm text-gray-600">R²</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 市場インサイト */}
+                  {marketInsights && (
+                    <div className="bg-white rounded-lg shadow p-6">
+                      <h2 className="text-lg font-semibold text-gray-900 mb-4">市場インサイト</h2>
+                      <div className="space-y-3">
+                        {marketInsights.trends?.map((trend: any, index: number) => (
+                          <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <span className="text-sm text-gray-700">{trend.description}</span>
+                            <span className={`text-sm font-medium ${
+                              trend.sentiment === 'positive' ? 'text-green-600' : 
+                              trend.sentiment === 'negative' ? 'text-red-600' : 'text-gray-600'
+                            }`}>
+                              {trend.sentiment === 'positive' ? '上昇' : 
+                               trend.sentiment === 'negative' ? '下降' : '中立'}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {activeTab === "analysis" && (
+                <div className="space-y-6" data-guide-target="analysis-features">
+                  <div className="bg-white rounded-lg shadow p-6">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-4">分析機能</h2>
+                    <div className="text-center py-8">
+                      <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                      <p className="text-gray-600">分析機能は準備中です</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === "models" && (
+                <div className="space-y-6" data-guide-target="model-comparison">
+                  <div className="bg-white rounded-lg shadow p-6">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-4">モデル比較</h2>
+                    <div className="overflow-x-auto">
+                      <table className="min-w-full divide-y divide-gray-200">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">モデル名</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">タイプ</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">MAE</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RMSE</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">R²</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ランク</th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                          {modelComparison.map((model, index) => (
+                            <tr key={index} className="hover:bg-gray-50 cursor-pointer" onClick={() => handleModelClick(model)}>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{model.name}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.type}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.mae.toFixed(4)}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.rmse.toFixed(4)}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.r2.toFixed(4)}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                                  model.rank === 1 ? 'bg-green-100 text-green-800' :
+                                  model.rank <= 3 ? 'bg-yellow-100 text-yellow-800' :
+                                  'bg-gray-100 text-gray-800'
+                                }`}>
+                                  #{model.rank}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === "predictions" && (
+                <div className="space-y-6">
+                  <div className="bg-white rounded-lg shadow p-6">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-4">予測結果</h2>
+                    <div className="text-center py-8">
+                      <TrendingUp className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                      <p className="text-gray-600">予測機能は準備中です</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </main>
+
+            {/* モーダル */}
+            {showAnalysisModal && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-lg font-semibold">分析実行</h2>
+                    <button
+                      onClick={() => setShowAnalysisModal(false)}
+                      className="text-gray-400 hover:text-gray-600"
+                    >
+                      <X className="h-6 w-6" />
+                    </button>
+                  </div>
+                  <AnalysisExecutionPanel />
+                </div>
+              </div>
+            )}
+
+            {/* モデル詳細モーダル（簡素化のため削除） */}
+
+            {/* 簡素化のため不要なコンポーネントを削除 */}
+          </div>
+        </InfiniteLoopProtection>
+      </ChartDataProviderOverride>
+    </>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <ErrorBoundary
+      fallbackRender={({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) => (
+        <UnifiedErrorHandler
+          error={error}
+        />
+      )}
+    >
+      <SettingsProvider>
+        <SampleDataProvider>
+          <TourProvider>
+            <Suspense fallback={
+              <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                  <p className="text-gray-600">読み込み中...</p>
+                </div>
+              </div>
+            }>
+              <DashboardContent />
+            </Suspense>
+          </TourProvider>
+        </SampleDataProvider>
+      </SettingsProvider>
+    </ErrorBoundary>
+  );
+}

@@ -1,15 +1,19 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
 import { useSignalWithFallback } from "@/hooks/useSignalWithFallback";
 import EnhancedInstructionCard from "@/components/EnhancedInstructionCard";
 // import SignalHistoryDisplay from "@/components/SignalHistoryDisplay"; // 一時的に無効化
 import ErrorGuidance from "@/components/ErrorGuidance";
+import { Clock, Target, TrendingUp, RefreshCw, CheckCircle, AlertTriangle } from "lucide-react";
 
 export default function TodayPage() {
   const routine = useFiveMinRoutine();
+  const [startTime] = useState(Date.now());
+  const [completedTasks, setCompletedTasks] = useState<string[]>([]);
+  
   // シンボル配列をメモ化して無限ループを防ぐ
   const symbols = useMemo(() => 
     routine.topCandidates.map(c => c.symbol), 
@@ -42,8 +46,35 @@ export default function TodayPage() {
     );
   }
 
+  // 経過時間の計算
+  const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+  const remainingTime = Math.max(0, 300 - elapsedTime); // 5分 = 300秒
+
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* ヘッダー */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-md mx-auto px-4 py-4 md:max-w-3xl">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="bg-blue-100 p-2 rounded-lg">
+                <Target className="h-6 w-6 text-blue-600" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">今日のタスク</h1>
+                <p className="text-sm text-gray-600">5分で完了する投資判断</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Clock className="h-4 w-4 text-gray-500" />
+              <span className="text-sm text-gray-600">
+                {Math.floor(remainingTime / 60)}:{(remainingTime % 60).toString().padStart(2, '0')}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="w-full max-w-md mx-auto px-4 py-4 md:max-w-3xl">
         {(routine.error || signalData.error) && (
           <div className="mb-4">
@@ -69,25 +100,34 @@ export default function TodayPage() {
               <p className="text-sm text-gray-500">最終更新</p>
               <p className="text-base font-semibold text-gray-900">{routine.lastUpdated ? new Date(routine.lastUpdated).toLocaleString("ja-JP") : "—"}</p>
             </div>
-            <div>
+            <div className="flex items-center space-x-2">
               <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
                 routine.freshness === "Fresh" ? "bg-green-100 text-green-800" : routine.freshness === "Stale" ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-700"
               }`}>
+                {routine.freshness === "Fresh" ? <CheckCircle className="h-4 w-4 mr-1" /> : 
+                 routine.freshness === "Stale" ? <AlertTriangle className="h-4 w-4 mr-1" /> : null}
                 {routine.freshness}
               </span>
+              <button
+                className="bg-blue-600 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-700 flex items-center space-x-1"
+                onClick={routine.actions.refresh}
+              >
+                <RefreshCw className="h-4 w-4" />
+                <span>更新</span>
+              </button>
             </div>
-            <button
-              className="ml-3 bg-blue-600 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-700"
-              onClick={routine.actions.refresh}
-            >
-              更新
-            </button>
           </div>
         </section>
 
         {/* ② 候補：上位5銘柄（拡張版） */}
         <section className="mb-6" aria-label="上位候補">
-          <h2 className="text-lg font-bold text-gray-900 mb-3">今日の投資指示</h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-lg font-bold text-gray-900">今日の投資指示</h2>
+            <div className="flex items-center space-x-2">
+              <TrendingUp className="h-5 w-5 text-green-600" />
+              <span className="text-sm text-gray-600">{routine.topCandidates.length}件の候補</span>
+            </div>
+          </div>
           {routine.topCandidates.length === 0 ? (
             <div className="bg-white rounded-xl border p-4 text-gray-600 text-sm">該当候補がありません</div>
           ) : (
@@ -189,7 +229,26 @@ export default function TodayPage() {
           </div>
         </section>
 
-        <div className="text-center text-xs text-gray-500 pb-6">上下スクロールのみで完結・最小3クリック設計</div>
+        {/* 進捗表示 */}
+        <div className="bg-white rounded-xl border p-4 mb-6">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-medium text-gray-700">進捗状況</span>
+            <span className="text-sm text-gray-600">{completedTasks.length}/5 完了</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div 
+              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${(completedTasks.length / 5) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        <div className="text-center text-xs text-gray-500 pb-6">
+          <div className="flex items-center justify-center space-x-2">
+            <Clock className="h-4 w-4" />
+            <span>5分で完了・上下スクロールのみで完結</span>
+          </div>
+        </div>
       </div>
     </div>
   );
