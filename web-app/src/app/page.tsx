@@ -20,6 +20,11 @@ import { guideStore } from "@/lib/guide/guideStore";
 import { parseToJst } from "@/lib/datetime";
 import JQuantsAdapter from "@/lib/jquants-adapter";
 import { DEFAULT_CHECKLIST_ITEMS } from "@/components/guide/Checklist";
+import FirstTimeTutorial from "@/components/FirstTimeTutorial";
+import { SampleDataProvider, useSampleData } from "@/components/SampleDataProvider";
+import EnhancedDataUpdateManager from "@/components/EnhancedDataUpdateManager";
+import AnalysisExecutionPanel from "@/components/AnalysisExecutionPanel";
+import LoadingOverlay from "@/components/LoadingOverlay";
 
 // 動的インポートでコンポーネントを遅延読み込み
 const Navigation = dynamic(() => import("../components/Navigation"), { ssr: false });
@@ -166,7 +171,6 @@ function DashboardContent() {
   const [showMobileOptimized, setShowMobileOptimized] = useState(false);
   const [showMobileFirst, setShowMobileFirst] = useState(false);
   const [showUserGuide, setShowUserGuide] = useState(false);
-  const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [selectedCode, setSelectedCode] = useState<string>('7203.T');
   const [range, setRange] = useState<'5y' | '1y' | '3m' | '1m'>('1y');
@@ -184,6 +188,24 @@ function DashboardContent() {
   const [chartRange, setChartRange] = useState<'7' | '30' | '90' | 'all'>('30');
   // 5分ルーティン
   const routine = useFiveMinRoutine();
+  
+  // 新機能の状態管理
+  const [showFirstTimeTutorial, setShowFirstTimeTutorial] = useState(false);
+  const [showAnalysisPanel, setShowAnalysisPanel] = useState(false);
+  const [showDataUpdateManager, setShowDataUpdateManager] = useState(false);
+  const [loadingOverlay, setLoadingOverlay] = useState<{
+    isVisible: boolean;
+    title: string;
+    message: string;
+    progress?: number;
+    estimatedTime?: number;
+    type?: 'loading' | 'success' | 'error';
+    steps?: Array<{ name: string; status: 'pending' | 'running' | 'completed' | 'error'; description?: string; }>;
+  }>({
+    isVisible: false,
+    title: '',
+    message: ''
+  });
 
   // ガイド機能の状態
   const [showGlossary, setShowGlossary] = useState(false);
@@ -356,15 +378,20 @@ function DashboardContent() {
       const tourCompleted = localStorage.getItem('guide_tour_completed') === 'true';
       const guideDisabled = localStorage.getItem('guide_disabled') === 'true';
       const closedThisSession = sessionStorage.getItem('userGuideClosedThisSession') === 'true';
+      const firstTimeTutorialCompleted = localStorage.getItem('first_time_tutorial_completed') === 'true';
 
       if (!tourCompleted && !guideDisabled && !closedThisSession) {
-        setIsFirstVisit(true);
         setShowUserGuide(true);
+      }
+
+      // 初回利用者向けチュートリアルの表示判定
+      if (!firstTimeTutorialCompleted && !tourCompleted && !guideDisabled) {
+        setShowFirstTimeTutorial(true);
       }
     } catch (e) {
       console.warn('Storage access failed:', e);
-      setIsFirstVisit(true);
       setShowUserGuide(true);
+      setShowFirstTimeTutorial(true);
     }
     
     // 初期キャッシュメタ情報の収集
@@ -898,7 +925,7 @@ function DashboardContent() {
                 
                 <ButtonTooltip content="全銘柄の包括的な分析を実行します（3-5分程度かかります）">
                   <button
-                    onClick={() => setShowAnalysisModal(true)}
+                    onClick={() => setShowAnalysisPanel(true)}
                     disabled={isAnalyzing}
                     className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
                       isAnalyzing 
@@ -934,7 +961,7 @@ function DashboardContent() {
                 
                 <ButtonTooltip content="最新のデータを取得（キャッシュ無視）">
                   <button
-                    onClick={() => loadData(true)}
+                    onClick={() => setShowDataUpdateManager(true)}
                     disabled={isRefreshing}
                     className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
                       isRefreshing 
@@ -2061,6 +2088,142 @@ function DashboardContent() {
           </div>
         </div>
       )}
+
+      {/* 初回利用者向けチュートリアル */}
+      <FirstTimeTutorial
+        isVisible={showFirstTimeTutorial}
+        onClose={() => setShowFirstTimeTutorial(false)}
+        onStartAnalysis={() => {
+          setShowFirstTimeTutorial(false);
+          setShowAnalysisPanel(true);
+        }}
+        onStartDataUpdate={() => {
+          setShowFirstTimeTutorial(false);
+          setShowDataUpdateManager(true);
+        }}
+      />
+
+      {/* 分析実行パネル */}
+      {showAnalysisPanel && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">分析実行</h2>
+                <button
+                  onClick={() => setShowAnalysisPanel(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+              
+              <AnalysisExecutionPanel
+                onAnalysisStart={() => {
+                  setLoadingOverlay({
+                    isVisible: true,
+                    title: '分析実行中',
+                    message: 'AIによる株価予測分析を実行しています...',
+                    progress: 0,
+                    type: 'loading',
+                    steps: [
+                      { name: 'データ更新', status: 'pending', description: '最新の株価データを取得' },
+                      { name: '特徴量エンジニアリング', status: 'pending', description: '技術指標を計算' },
+                      { name: 'モデル学習', status: 'pending', description: 'AIモデルを学習' },
+                      { name: '予測実行', status: 'pending', description: '株価予測を実行' }
+                    ]
+                  });
+                }}
+                onAnalysisComplete={(result) => {
+                  setLoadingOverlay({
+                    isVisible: true,
+                    title: '分析完了',
+                    message: '分析が正常に完了しました',
+                    type: 'success'
+                  });
+                  setTimeout(() => {
+                    setLoadingOverlay({ isVisible: false, title: '', message: '' });
+                    setShowAnalysisPanel(false);
+                    loadData();
+                  }, 2000);
+                }}
+                onDataUpdateStart={() => {
+                  setLoadingOverlay({
+                    isVisible: true,
+                    title: 'データ更新中',
+                    message: '最新の株価データを取得しています...',
+                    progress: 0,
+                    type: 'loading'
+                  });
+                }}
+                onDataUpdateComplete={(result) => {
+                  setLoadingOverlay({
+                    isVisible: true,
+                    title: 'データ更新完了',
+                    message: 'データの更新が完了しました',
+                    type: 'success'
+                  });
+                  setTimeout(() => {
+                    setLoadingOverlay({ isVisible: false, title: '', message: '' });
+                    loadData();
+                  }, 2000);
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* データ更新マネージャー */}
+      {showDataUpdateManager && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">データ更新</h2>
+                <button
+                  onClick={() => setShowDataUpdateManager(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+              
+              <EnhancedDataUpdateManager
+                symbols={['7203.T', '6758.T', '6861.T', '9984.T', '9432.T']}
+                onUpdateComplete={(results) => {
+                  setShowDataUpdateManager(false);
+                  loadData();
+                }}
+                onProgressChange={(progress) => {
+                  setLoadingOverlay({
+                    isVisible: true,
+                    title: 'データ更新中',
+                    message: progress.current,
+                    progress: progress.percentage,
+                    estimatedTime: progress.estimatedTimeRemaining,
+                    type: 'loading'
+                  });
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ローディングオーバーレイ */}
+      <LoadingOverlay
+        isVisible={loadingOverlay.isVisible}
+        title={loadingOverlay.title}
+        message={loadingOverlay.message}
+        progress={loadingOverlay.progress}
+        estimatedTime={loadingOverlay.estimatedTime}
+        type={loadingOverlay.type}
+        steps={loadingOverlay.steps}
+        onCancel={() => {
+          setLoadingOverlay({ isVisible: false, title: '', message: '' });
+        }}
+      />
     </div>
   );
 }
