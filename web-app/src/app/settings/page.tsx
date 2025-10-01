@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
-import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen, Bell, Shield, Upload, Download, Eye, AlertTriangle } from "lucide-react";
+import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen, Bell, Shield, Upload, Download, Eye, AlertTriangle, HelpCircle } from "lucide-react";
 import { useAnalysisWithSettings } from "@/hooks/useAnalysisWithSettings";
 import { useSettings } from "@/contexts/SettingsContext";
 import AutoUpdateSettings from "@/components/notification/AutoUpdateSettings";
-import HelpTooltip from "@/components/Tooltip";
+import HelpTooltip, { default as Tooltip } from "@/components/Tooltip";
 import FeatureCategories from "@/components/FeatureCategories";
 import ModelComparison from "@/components/ModelComparison";
 import ValidationInput, { validationPresets } from "@/components/ValidationInput";
@@ -477,7 +477,9 @@ export default function SettingsPage() {
             <div className="flex items-center mb-6">
               <BarChart className="h-6 w-6 text-purple-600 mr-3" />
               <h2 className="text-2xl font-bold text-gray-900">予測設定</h2>
-              <HelpTooltip content="予測設定では、分析の期間と使用するモデルを設定できます。\n\n予測期間：将来何日先まで予測するかを設定\n使用モデル：どの機械学習モデルを使用するかを選択" />
+              <Tooltip content="予測設定では、分析の期間と使用するモデルを設定できます。\n\n予測期間：将来何日先まで予測するかを設定\n使用モデル：どの機械学習モデルを使用するかを選択">
+                <HelpCircle className="h-4 w-4 text-gray-400 hover:text-gray-600 transition-colors" />
+              </Tooltip>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
