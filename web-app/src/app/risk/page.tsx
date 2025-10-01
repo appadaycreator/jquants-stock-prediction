@@ -5,22 +5,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  LineChart, 
-  Line, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell,
-  Area,
-  AreaChart,
-} from "recharts";
+// import { 
+//   LineChart, 
+//   Line, 
+//   XAxis, 
+//   YAxis, 
+//   CartesianGrid, 
+//   Tooltip, 
+//   ResponsiveContainer,
+//   BarChart,
+//   Bar,
+//   PieChart,
+//   Pie,
+//   Cell,
+//   Area,
+//   AreaChart,
+// } from "recharts"; // rechartsライブラリを削除
 import { 
   Shield, 
   TrendingUp, 
@@ -330,35 +330,13 @@ export default function RiskDashboard() {
                     <CardTitle>リスク指標推移</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <AreaChart data={riskMetricsChart.dates.map((date, index) => ({
-                        date,
-                        risk_score: riskMetricsChart.risk_scores[index],
-                        portfolio_value: riskMetricsChart.portfolio_values[index],
-                      }))}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="date" />
-                        <YAxis yAxisId="left" />
-                        <YAxis yAxisId="right" orientation="right" />
-                        <Tooltip />
-                        <Area
-                          yAxisId="left"
-                          type="monotone"
-                          dataKey="risk_score"
-                          stroke="#ef4444"
-                          fill="#ef4444"
-                          fillOpacity={0.3}
-                          name="リスクスコア"
-                        />
-                        <Line
-                          yAxisId="right"
-                          type="monotone"
-                          dataKey="portfolio_value"
-                          stroke="#10b981"
-                          name="ポートフォリオ価値"
-                        />
-                      </AreaChart>
-                    </ResponsiveContainer>
+                    <div className="flex items-center justify-center h-[300px] bg-gray-50 rounded-lg">
+                      <div className="text-center">
+                        <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                        <p className="text-gray-600">リスクメトリクスチャート</p>
+                        <p className="text-sm text-gray-500">チャート機能は一時的に無効化されています</p>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               )}
@@ -369,29 +347,13 @@ export default function RiskDashboard() {
                   <CardTitle>ポジション分布</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <PieChart>
-                      <Pie
-                        data={positions.map(pos => ({
-                          name: pos.symbol,
-                          value: pos.weight,
-                          color: pos.pnl_color,
-                        }))}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={(props: any) => `${props.name} ${(props.percent * 100).toFixed(1)}%`}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                      >
-                        {positions.map((pos, index) => (
-                          <Cell key={`cell-${index}`} fill={pos.pnl_color} />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                    </PieChart>
-                  </ResponsiveContainer>
+                  <div className="flex items-center justify-center h-[300px] bg-gray-50 rounded-lg">
+                    <div className="text-center">
+                      <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                      <p className="text-gray-600">ポジション分布チャート</p>
+                      <p className="text-sm text-gray-500">チャート機能は一時的に無効化されています</p>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -473,40 +435,13 @@ export default function RiskDashboard() {
                       if (!selectedPosData) return null;
 
                       return (
-                        <ResponsiveContainer width="100%" height={400}>
-                          <LineChart data={selectedPosData.dates.map((date, index) => ({
-                            date,
-                            price: selectedPosData.prices[index],
-                            stop_loss: selectedPosData.stop_loss_line[index],
-                            take_profit: selectedPosData.take_profit_line[index],
-                          }))}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="date" />
-                            <YAxis />
-                            <Tooltip />
-                            <Line
-                              type="monotone"
-                              dataKey="price"
-                              stroke="#3b82f6"
-                              strokeWidth={2}
-                              name="価格"
-                            />
-                            <Line
-                              type="monotone"
-                              dataKey="stop_loss"
-                              stroke="#ef4444"
-                              strokeDasharray="5 5"
-                              name="損切りライン"
-                            />
-                            <Line
-                              type="monotone"
-                              dataKey="take_profit"
-                              stroke="#10b981"
-                              strokeDasharray="5 5"
-                              name="利確ライン"
-                            />
-                          </LineChart>
-                        </ResponsiveContainer>
+                        <div className="flex items-center justify-center h-[400px] bg-gray-50 rounded-lg">
+                          <div className="text-center">
+                            <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                            <p className="text-gray-600">価格チャート</p>
+                            <p className="text-sm text-gray-500">チャート機能は一時的に無効化されています</p>
+                          </div>
+                        </div>
                       );
                     })()}
                   </CardContent>
@@ -525,24 +460,13 @@ export default function RiskDashboard() {
                     <CardTitle>ドローダウン分析</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <AreaChart data={riskMetricsChart.dates.map((date, index) => ({
-                        date,
-                        drawdown: riskMetricsChart.drawdowns[index] * 100,
-                      }))}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="date" />
-                        <YAxis />
-                        <Tooltip formatter={(value) => [`${value}%`, "ドローダウン"]} />
-                        <Area
-                          type="monotone"
-                          dataKey="drawdown"
-                          stroke="#ef4444"
-                          fill="#ef4444"
-                          fillOpacity={0.3}
-                        />
-                      </AreaChart>
-                    </ResponsiveContainer>
+                    <div className="flex items-center justify-center h-[300px] bg-gray-50 rounded-lg">
+                      <div className="text-center">
+                        <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                        <p className="text-gray-600">ドローダウンチャート</p>
+                        <p className="text-sm text-gray-500">チャート機能は一時的に無効化されています</p>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               )}
@@ -553,19 +477,13 @@ export default function RiskDashboard() {
                   <CardTitle>ポジション別リスクスコア</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={positions.map(pos => ({
-                      symbol: pos.symbol,
-                      risk_score: pos.risk_score,
-                      color: pos.risk_color,
-                    }))}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="symbol" />
-                      <YAxis />
-                      <Tooltip />
-                      <Bar dataKey="risk_score" fill="#8884d8" />
-                    </BarChart>
-                  </ResponsiveContainer>
+                  <div className="flex items-center justify-center h-[300px] bg-gray-50 rounded-lg">
+                    <div className="text-center">
+                      <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                      <p className="text-gray-600">リスクスコア分布チャート</p>
+                      <p className="text-sm text-gray-500">チャート機能は一時的に無効化されています</p>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </div>
