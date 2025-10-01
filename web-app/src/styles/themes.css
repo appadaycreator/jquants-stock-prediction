@@ -1,0 +1,341 @@
+/* テーマシステム */
+
+/* ライトテーマ（デフォルト） */
+.theme-light {
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-light: #dbeafe;
+  --color-secondary: #6b7280;
+  --color-secondary-hover: #4b5563;
+  --color-accent: #10b981;
+  --color-accent-hover: #059669;
+  
+  --color-background: #ffffff;
+  --color-background-secondary: #f9fafb;
+  --color-background-tertiary: #f3f4f6;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f9fafb;
+  
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary: #9ca3af;
+  --color-text-inverse: #ffffff;
+  
+  --color-border: #e5e7eb;
+  --color-border-hover: #d1d5db;
+  --color-border-focus: #3b82f6;
+  
+  --color-success: #10b981;
+  --color-success-light: #d1fae5;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+  --color-error: #ef4444;
+  --color-error-light: #fee2e2;
+  --color-info: #3b82f6;
+  --color-info-light: #dbeafe;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* ダークテーマ */
+.theme-dark {
+  --color-primary: #60a5fa;
+  --color-primary-hover: #3b82f6;
+  --color-primary-light: #1e3a8a;
+  --color-secondary: #9ca3af;
+  --color-secondary-hover: #6b7280;
+  --color-accent: #34d399;
+  --color-accent-hover: #10b981;
+  
+  --color-background: #0f172a;
+  --color-background-secondary: #1e293b;
+  --color-background-tertiary: #334155;
+  --color-surface: #1e293b;
+  --color-surface-hover: #334155;
+  
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-tertiary: #94a3b8;
+  --color-text-inverse: #0f172a;
+  
+  --color-border: #334155;
+  --color-border-hover: #475569;
+  --color-border-focus: #60a5fa;
+  
+  --color-success: #34d399;
+  --color-success-light: #064e3b;
+  --color-warning: #fbbf24;
+  --color-warning-light: #451a03;
+  --color-error: #f87171;
+  --color-error-light: #7f1d1d;
+  --color-info: #60a5fa;
+  --color-info-light: #1e3a8a;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+/* ブルーテーマ */
+.theme-blue {
+  --color-primary: #1d4ed8;
+  --color-primary-hover: #1e40af;
+  --color-primary-light: #dbeafe;
+  --color-secondary: #64748b;
+  --color-secondary-hover: #475569;
+  --color-accent: #0ea5e9;
+  --color-accent-hover: #0284c7;
+  
+  --color-background: #f8fafc;
+  --color-background-secondary: #f1f5f9;
+  --color-background-tertiary: #e2e8f0;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f8fafc;
+  
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #64748b;
+  --color-text-inverse: #ffffff;
+  
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+  --color-border-focus: #1d4ed8;
+  
+  --color-success: #0ea5e9;
+  --color-success-light: #e0f2fe;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+  --color-error: #ef4444;
+  --color-error-light: #fee2e2;
+  --color-info: #1d4ed8;
+  --color-info-light: #dbeafe;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(29, 78, 216, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(29, 78, 216, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(29, 78, 216, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(29, 78, 216, 0.1);
+}
+
+/* グリーンテーマ */
+.theme-green {
+  --color-primary: #059669;
+  --color-primary-hover: #047857;
+  --color-primary-light: #d1fae5;
+  --color-secondary: #6b7280;
+  --color-secondary-hover: #4b5563;
+  --color-accent: #10b981;
+  --color-accent-hover: #059669;
+  
+  --color-background: #f0fdf4;
+  --color-background-secondary: #ecfdf5;
+  --color-background-tertiary: #d1fae5;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f0fdf4;
+  
+  --color-text-primary: #064e3b;
+  --color-text-secondary: #065f46;
+  --color-text-tertiary: #047857;
+  --color-text-inverse: #ffffff;
+  
+  --color-border: #d1fae5;
+  --color-border-hover: #a7f3d0;
+  --color-border-focus: #059669;
+  
+  --color-success: #10b981;
+  --color-success-light: #d1fae5;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+  --color-error: #ef4444;
+  --color-error-light: #fee2e2;
+  --color-info: #059669;
+  --color-info-light: #d1fae5;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(5, 150, 105, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(5, 150, 105, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(5, 150, 105, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(5, 150, 105, 0.1);
+}
+
+/* パープルテーマ */
+.theme-purple {
+  --color-primary: #7c3aed;
+  --color-primary-hover: #6d28d9;
+  --color-primary-light: #ede9fe;
+  --color-secondary: #6b7280;
+  --color-secondary-hover: #4b5563;
+  --color-accent: #a855f7;
+  --color-accent-hover: #9333ea;
+  
+  --color-background: #faf5ff;
+  --color-background-secondary: #f3e8ff;
+  --color-background-tertiary: #e9d5ff;
+  --color-surface: #ffffff;
+  --color-surface-hover: #faf5ff;
+  
+  --color-text-primary: #581c87;
+  --color-text-secondary: #7c2d12;
+  --color-text-tertiary: #a855f7;
+  --color-text-inverse: #ffffff;
+  
+  --color-border: #e9d5ff;
+  --color-border-hover: #d8b4fe;
+  --color-border-focus: #7c3aed;
+  
+  --color-success: #10b981;
+  --color-success-light: #d1fae5;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+  --color-error: #ef4444;
+  --color-error-light: #fee2e2;
+  --color-info: #7c3aed;
+  --color-info-light: #ede9fe;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(124, 58, 237, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(124, 58, 237, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(124, 58, 237, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(124, 58, 237, 0.1);
+}
+
+/* テーマ適用のベースクラス */
+.theme-base {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* カードコンポーネントのテーマ対応 */
+.card-themed {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.card-themed:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* ボタンコンポーネントのテーマ対応 */
+.btn-themed {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: 1px solid var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.btn-themed:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.btn-themed:focus {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* 入力フィールドのテーマ対応 */
+.input-themed {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  transition: all 0.3s ease;
+}
+
+.input-themed:focus {
+  border-color: var(--color-border-focus);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* テキストのテーマ対応 */
+.text-themed-primary {
+  color: var(--color-text-primary);
+}
+
+.text-themed-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-themed-tertiary {
+  color: var(--color-text-tertiary);
+}
+
+/* ステータスカラーのテーマ対応 */
+.status-success {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.status-warning {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+.status-error {
+  background-color: var(--color-error-light);
+  color: var(--color-error);
+}
+
+.status-info {
+  background-color: var(--color-info-light);
+  color: var(--color-info);
+}
+
+/* グラデーションのテーマ対応 */
+.gradient-themed {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+}
+
+.gradient-themed-subtle {
+  background: linear-gradient(135deg, var(--color-background), var(--color-background-secondary));
+}
+
+/* アニメーションのテーマ対応 */
+@keyframes theme-transition {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-transition {
+  animation: theme-transition 0.3s ease-out;
+}
+
+/* ダークモードでの画像の調整 */
+.theme-dark img {
+  opacity: 0.9;
+}
+
+.theme-dark img:hover {
+  opacity: 1;
+}
+
+/* スクロールバーのテーマ対応 */
+.theme-dark ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.theme-dark ::-webkit-scrollbar-track {
+  background: var(--color-background-secondary);
+}
+
+.theme-dark ::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+.theme-dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
+}

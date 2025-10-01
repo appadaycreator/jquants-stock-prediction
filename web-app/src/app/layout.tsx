@@ -4,6 +4,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SettingsProvider } from "@/contexts/SettingsContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import { AccessibilityProvider } from "@/components/AccessibilityProvider";
 import BottomNav from "@/components/mobile/BottomNav";
 import Sidebar from "@/components/desktop/Sidebar";
 import { UserProfileProvider } from "@/contexts/UserProfileContext";
@@ -100,20 +102,24 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={inter.className}>
-        <SettingsProvider>
-          <UserProfileProvider>
-            <GlobalErrorBoundary>
-              <div id="root">
-                {/* モバイル用のパディング調整 */}
-                <div className="pb-20 lg:pb-0 lg:pl-64">
-                  {children}
-                </div>
-                <Sidebar />
-                <BottomNav />
-              </div>
-            </GlobalErrorBoundary>
-          </UserProfileProvider>
-        </SettingsProvider>
+        <ThemeProvider>
+          <AccessibilityProvider>
+            <SettingsProvider>
+              <UserProfileProvider>
+                <GlobalErrorBoundary>
+                  <div id="root" className="theme-base">
+                    {/* モバイル用のパディング調整 */}
+                    <div className="pb-20 lg:pb-0 lg:pl-64">
+                      {children}
+                    </div>
+                    <Sidebar />
+                    <BottomNav />
+                  </div>
+                </GlobalErrorBoundary>
+              </UserProfileProvider>
+            </SettingsProvider>
+          </AccessibilityProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

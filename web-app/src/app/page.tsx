@@ -7,6 +7,7 @@ import Link from "next/link";
 import { SettingsProvider } from "../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../hooks/useAnalysisWithSettings";
 import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
+import UIUXIntegration from "../components/UIUXIntegration";
 import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock, Cpu } from "lucide-react";
 import { getCacheMeta } from "@/lib/fetcher";
 import { NotificationService } from "@/lib/notification/NotificationService";
@@ -2228,6 +2229,9 @@ function DashboardContent() {
           setLoadingOverlay({ isVisible: false, title: "", message: "" });
         }}
       />
+
+      {/* UI/UX統合コンポーネント */}
+      <UIUXIntegration />
     </div>
   );
 }

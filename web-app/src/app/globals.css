@@ -5,6 +5,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* カスタムスタイルのインポート */
+@import '../styles/responsive.css';
+@import '../styles/themes.css';
+@import '../styles/accessibility.css';
+
 @layer base {
   :root {
     --background: 0 0% 100%;
