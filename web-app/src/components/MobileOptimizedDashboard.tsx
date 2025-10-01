@@ -15,7 +15,7 @@ import {
   Bell,
   Settings,
   History,
-  Smartphone
+  Smartphone,
 } from "lucide-react";
 import { useAnalysisWithSettings } from "@/hooks/useAnalysisWithSettings";
 
@@ -26,23 +26,23 @@ interface MobileOptimizedDashboardProps {
 
 export default function MobileOptimizedDashboard({ 
   onAnalysisComplete, 
-  onAnalysisStart 
+  onAnalysisStart, 
 }: MobileOptimizedDashboardProps) {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
   const [analysisResult, setAnalysisResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-  const [elapsedTime, setElapsedTime] = useState<string>('00:00');
+  const [elapsedTime, setElapsedTime] = useState<string>("00:00");
   const [analysisHistory, setAnalysisHistory] = useState<any[]>([]);
   const [showHistory, setShowHistory] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [quickActions, setQuickActions] = useState([
-    { id: 'ultra_fast', name: '超高速分析', icon: Zap, time: '1-2分', color: 'bg-blue-500' },
-    { id: 'comprehensive', name: '包括的分析', icon: BarChart3, time: '3-5分', color: 'bg-green-500' },
-    { id: 'trading', name: 'トレーディング', icon: Target, time: '4-6分', color: 'bg-purple-500' }
+    { id: "ultra_fast", name: "超高速分析", icon: Zap, time: "1-2分", color: "bg-blue-500" },
+    { id: "comprehensive", name: "包括的分析", icon: BarChart3, time: "3-5分", color: "bg-green-500" },
+    { id: "trading", name: "トレーディング", icon: Target, time: "4-6分", color: "bg-purple-500" },
   ]);
-  const [selectedAction, setSelectedAction] = useState('ultra_fast');
+  const [selectedAction, setSelectedAction] = useState("ultra_fast");
 
   // 設定連携フック
   const { 
@@ -50,18 +50,18 @@ export default function MobileOptimizedDashboard({
     isAnalyzing: settingsAnalyzing, 
     analysisProgress: settingsProgress, 
     analysisStatus: settingsStatus,
-    getAnalysisDescription 
+    getAnalysisDescription, 
   } = useAnalysisWithSettings();
 
   // 履歴の読み込み
   useEffect(() => {
-    const saved = localStorage.getItem('mobileAnalysisHistory');
+    const saved = localStorage.getItem("mobileAnalysisHistory");
     if (saved) {
       try {
         const history = JSON.parse(saved);
         setAnalysisHistory(history);
       } catch (error) {
-        console.error('履歴読み込みエラー:', error);
+        console.error("履歴読み込みエラー:", error);
       }
     }
   }, []);
@@ -70,7 +70,7 @@ export default function MobileOptimizedDashboard({
   const saveAnalysisHistory = (history: any) => {
     const newHistory = [history, ...analysisHistory.slice(0, 4)]; // 最新5件を保持
     setAnalysisHistory(newHistory);
-    localStorage.setItem('mobileAnalysisHistory', JSON.stringify(newHistory));
+    localStorage.setItem("mobileAnalysisHistory", JSON.stringify(newHistory));
   };
 
   // 設定連携分析の実行
@@ -78,22 +78,22 @@ export default function MobileOptimizedDashboard({
     try {
       setIsAnalyzing(true);
       setProgress(0);
-      setStatus('設定に基づく分析を開始しています...');
+      setStatus("設定に基づく分析を開始しています...");
       setError(null);
       setAnalysisResult(null);
-      setElapsedTime('00:00');
+      setElapsedTime("00:00");
       
       onAnalysisStart?.();
 
       // 設定連携版の分析実行
       const result = await runAnalysisWithSettings({
         analysisType: selectedAction as any,
-        useSettings: true
+        useSettings: true,
       });
 
       if (result.success) {
         setProgress(100);
-        setStatus('分析完了！');
+        setStatus("分析完了！");
         setAnalysisResult(result.result);
         onAnalysisComplete?.(result.result);
         
@@ -103,17 +103,17 @@ export default function MobileOptimizedDashboard({
           type: selectedAction,
           timestamp: new Date().toISOString(),
           duration: elapsedTime,
-          status: 'success',
-          result: result.result
+          status: "success",
+          result: result.result,
         };
         saveAnalysisHistory(historyEntry);
       } else {
-        setError(result.error || '分析に失敗しました');
-        setStatus('分析に失敗しました');
+        setError(result.error || "分析に失敗しました");
+        setStatus("分析に失敗しました");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : '不明なエラーが発生しました');
-      setStatus('分析に失敗しました');
+      setError(err instanceof Error ? err.message : "不明なエラーが発生しました");
+      setStatus("分析に失敗しました");
     } finally {
       setIsAnalyzing(false);
     }
@@ -122,7 +122,7 @@ export default function MobileOptimizedDashboard({
   const resetAnalysis = () => {
     setIsAnalyzing(false);
     setProgress(0);
-    setStatus('');
+    setStatus("");
     setError(null);
     setAnalysisResult(null);
   };
@@ -169,8 +169,8 @@ export default function MobileOptimizedDashboard({
                   onClick={() => setSelectedAction(action.id)}
                   className={`p-4 rounded-lg border-2 transition-all ${
                     selectedAction === action.id
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-200 hover:border-gray-300"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -182,7 +182,7 @@ export default function MobileOptimizedDashboard({
                       <div className="text-sm text-gray-600">予想時間: {action.time}</div>
                     </div>
                     <div className="text-xs text-gray-500">
-                      {selectedAction === action.id ? '選択中' : ''}
+                      {selectedAction === action.id ? "選択中" : ""}
                     </div>
                   </div>
                 </button>
@@ -205,8 +205,8 @@ export default function MobileOptimizedDashboard({
               disabled={isAnalyzing}
               className={`px-6 py-3 rounded-lg font-medium transition-all ${
                 isAnalyzing
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700 text-white"
               }`}
             >
               {isAnalyzing ? (
@@ -297,14 +297,14 @@ export default function MobileOptimizedDashboard({
                 <div
                   key={history.id}
                   className={`p-3 rounded-lg border ${
-                    history.status === 'success'
-                      ? 'border-green-200 bg-green-50'
-                      : 'border-red-200 bg-red-50'
+                    history.status === "success"
+                      ? "border-green-200 bg-green-50"
+                      : "border-red-200 bg-red-50"
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      {history.status === 'success' ? (
+                      {history.status === "success" ? (
                         <CheckCircle className="w-4 h-4 text-green-600" />
                       ) : (
                         <AlertCircle className="w-4 h-4 text-red-600" />
@@ -315,14 +315,14 @@ export default function MobileOptimizedDashboard({
                     </div>
                     <div className="flex items-center gap-2 text-xs text-gray-500">
                       <Clock className="w-3 h-3" />
-                      {new Date(history.timestamp).toLocaleString('ja-JP')}
+                      {new Date(history.timestamp).toLocaleString("ja-JP")}
                     </div>
                   </div>
                   <div className="flex items-center justify-between mt-1">
                     <span className="text-xs text-gray-600">
                       実行時間: {history.duration}
                     </span>
-                    {index === 0 && history.status === 'success' && (
+                    {index === 0 && history.status === "success" && (
                       <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
                         最新結果
                       </span>

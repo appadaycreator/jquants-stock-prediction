@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { 
   Activity, 
   Database, 
@@ -11,10 +11,10 @@ import {
   RefreshCw,
   BarChart3,
   Settings,
-  Download
-} from 'lucide-react';
-import ReliableApiSystem, { SystemHealth } from '@/lib/reliable-api-system';
-import DataQualityMonitor, { QualityReport } from '@/lib/data-quality-monitor';
+  Download,
+} from "lucide-react";
+import ReliableApiSystem, { SystemHealth } from "@/lib/reliable-api-system";
+import DataQualityMonitor, { QualityReport } from "@/lib/data-quality-monitor";
 
 interface ReliableApiDashboardProps {
   system: ReliableApiSystem;
@@ -37,7 +37,7 @@ export default function ReliableApiDashboard({ system, onSystemUpdate }: Reliabl
       const healthData = system.getSystemHealth();
       setHealth(healthData);
     } catch (error) {
-      console.error('システムヘルス取得エラー:', error);
+      console.error("システムヘルス取得エラー:", error);
     }
   };
 
@@ -49,7 +49,7 @@ export default function ReliableApiDashboard({ system, onSystemUpdate }: Reliabl
       const report = system.generateQualityReport({ start: startDate, end: endDate });
       setQualityReport(report);
     } catch (error) {
-      console.error('品質レポート取得エラー:', error);
+      console.error("品質レポート取得エラー:", error);
     }
   };
 
@@ -65,18 +65,18 @@ export default function ReliableApiDashboard({ system, onSystemUpdate }: Reliabl
 
   const getHealthColor = (status: string) => {
     switch (status) {
-      case 'healthy': return 'text-green-600 bg-green-100';
-      case 'degraded': return 'text-yellow-600 bg-yellow-100';
-      case 'unhealthy': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case "healthy": return "text-green-600 bg-green-100";
+      case "degraded": return "text-yellow-600 bg-yellow-100";
+      case "unhealthy": return "text-red-600 bg-red-100";
+      default: return "text-gray-600 bg-gray-100";
     }
   };
 
   const getHealthIcon = (status: string) => {
     switch (status) {
-      case 'healthy': return <CheckCircle className="w-5 h-5" />;
-      case 'degraded': return <AlertTriangle className="w-5 h-5" />;
-      case 'unhealthy': return <AlertTriangle className="w-5 h-5" />;
+      case "healthy": return <CheckCircle className="w-5 h-5" />;
+      case "degraded": return <AlertTriangle className="w-5 h-5" />;
+      case "unhealthy": return <AlertTriangle className="w-5 h-5" />;
       default: return <Activity className="w-5 h-5" />;
     }
   };
@@ -104,7 +104,7 @@ export default function ReliableApiDashboard({ system, onSystemUpdate }: Reliabl
             disabled={isRefreshing}
             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
           >
-            <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`} />
             更新
           </button>
           <button
@@ -112,7 +112,7 @@ export default function ReliableApiDashboard({ system, onSystemUpdate }: Reliabl
             className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
           >
             <Settings className="w-4 h-4 mr-2" />
-            {showDetails ? '簡易表示' : '詳細表示'}
+            {showDetails ? "簡易表示" : "詳細表示"}
           </button>
         </div>
       </div>
@@ -253,11 +253,11 @@ export default function ReliableApiDashboard({ system, onSystemUpdate }: Reliabl
                 <button
                   onClick={() => {
                     const reportData = JSON.stringify(qualityReport, null, 2);
-                    const blob = new Blob([reportData], { type: 'application/json' });
+                    const blob = new Blob([reportData], { type: "application/json" });
                     const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
+                    const a = document.createElement("a");
                     a.href = url;
-                    a.download = `quality-report-${new Date().toISOString().split('T')[0]}.json`;
+                    a.download = `quality-report-${new Date().toISOString().split("T")[0]}.json`;
                     a.click();
                     URL.revokeObjectURL(url);
                   }}

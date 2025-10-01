@@ -1,17 +1,17 @@
 "use client";
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from "react";
 
 // キーボードショートカット設定
 export const SHORTCUT_KEYS = {
-  HELP: 'F1',
-  GLOSSARY: 'KeyG',
-  TOUR: 'KeyT',
-  ESCAPE: 'Escape',
-  NEXT: 'ArrowRight',
-  PREV: 'ArrowLeft',
-  ENTER: 'Enter',
-  SPACE: 'Space'
+  HELP: "F1",
+  GLOSSARY: "KeyG",
+  TOUR: "KeyT",
+  ESCAPE: "Escape",
+  NEXT: "ArrowRight",
+  PREV: "ArrowLeft",
+  ENTER: "Enter",
+  SPACE: "Space",
 } as const;
 
 // ショートカットハンドラー型
@@ -72,7 +72,7 @@ export class ShortcutManager {
 
     // 入力フィールドでのショートカット無効化
     const target = event.target as HTMLElement;
-    if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.contentEditable === 'true') {
+    if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.contentEditable === "true") {
       return;
     }
 
@@ -87,7 +87,7 @@ export class ShortcutManager {
         try {
           handler(event);
         } catch (error) {
-          console.error('Shortcut handler error:', error);
+          console.error("Shortcut handler error:", error);
         }
       });
     }
@@ -95,12 +95,12 @@ export class ShortcutManager {
 
   // イベントリスナー登録
   start(): void {
-    document.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener("keydown", this.handleKeyDown);
   }
 
   // イベントリスナー削除
   stop(): void {
-    document.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener("keydown", this.handleKeyDown);
   }
 
   // 全ショートカットクリア
@@ -116,7 +116,7 @@ export const shortcutManager = ShortcutManager.getInstance();
 export function useShortcut(
   key: string,
   handler: ShortcutHandler,
-  deps: React.DependencyList = []
+  deps: React.DependencyList = [],
 ): void {
   const memoizedHandler = useCallback(handler, deps);
 
@@ -139,7 +139,7 @@ export function useTourShortcut(handler: () => void): void {
   useShortcut(SHORTCUT_KEYS.TOUR, handler);
   
   // Ctrl/Cmd + T でもツアー開始
-  useShortcut('KeyT', (event) => {
+  useShortcut("KeyT", (event) => {
     if (event.ctrlKey || event.metaKey) {
       handler();
     }
@@ -153,7 +153,7 @@ export function useEscapeShortcut(handler: () => void): void {
 export function useNavigationShortcuts(
   onNext: () => void,
   onPrev: () => void,
-  onEnter: () => void
+  onEnter: () => void,
 ): void {
   useShortcut(SHORTCUT_KEYS.NEXT, onNext);
   useShortcut(SHORTCUT_KEYS.PREV, onPrev);
@@ -168,7 +168,7 @@ export function useGuideShortcuts(
   onTour: () => void,
   onNext: () => void,
   onPrev: () => void,
-  onSkip: () => void
+  onSkip: () => void,
 ): void {
   useHelpShortcut(onHelp);
   useGlossaryShortcut(onGlossary);
@@ -196,33 +196,33 @@ export function setShortcutsEnabled(enabled: boolean): void {
 // ショートカットヘルプ表示用のデータ
 export const SHORTCUT_HELP = [
   {
-    key: 'F1',
-    description: 'クイックヘルプを開く',
-    category: 'ナビゲーション'
+    key: "F1",
+    description: "クイックヘルプを開く",
+    category: "ナビゲーション",
   },
   {
-    key: 'G',
-    description: '用語集を開く',
-    category: 'ナビゲーション'
+    key: "G",
+    description: "用語集を開く",
+    category: "ナビゲーション",
   },
   {
-    key: 'T',
-    description: 'ガイドツアーを開始',
-    category: 'ナビゲーション'
+    key: "T",
+    description: "ガイドツアーを開始",
+    category: "ナビゲーション",
   },
   {
-    key: '← →',
-    description: 'ツアーの前/次へ移動',
-    category: 'ツアー'
+    key: "← →",
+    description: "ツアーの前/次へ移動",
+    category: "ツアー",
   },
   {
-    key: 'Enter / Space',
-    description: 'ツアーの次へ進む',
-    category: 'ツアー'
+    key: "Enter / Space",
+    description: "ツアーの次へ進む",
+    category: "ツアー",
   },
   {
-    key: 'Esc',
-    description: 'ツアーをスキップ',
-    category: 'ツアー'
-  }
+    key: "Esc",
+    description: "ツアーをスキップ",
+    category: "ツアー",
+  },
 ];

@@ -14,7 +14,7 @@ class Logger {
   private level: LogLevel;
   private context: string;
 
-  constructor(context: string = 'App', level: LogLevel = LogLevel.INFO) {
+  constructor(context: string = "App", level: LogLevel = LogLevel.INFO) {
     this.context = context;
     this.level = level;
   }
@@ -25,31 +25,31 @@ class Logger {
 
   private formatMessage(level: string, message: string, ...args: any[]): string {
     const timestamp = new Date().toISOString();
-    const contextStr = this.context ? `[${this.context}]` : '';
+    const contextStr = this.context ? `[${this.context}]` : "";
     return `${timestamp} ${level} ${contextStr} ${message}`;
   }
 
   debug(message: string, ...args: any[]): void {
     if (this.shouldLog(LogLevel.DEBUG)) {
-      console.debug(this.formatMessage('DEBUG', message, ...args), ...args);
+      console.debug(this.formatMessage("DEBUG", message, ...args), ...args);
     }
   }
 
   info(message: string, ...args: any[]): void {
     if (this.shouldLog(LogLevel.INFO)) {
-      console.info(this.formatMessage('INFO', message, ...args), ...args);
+      console.info(this.formatMessage("INFO", message, ...args), ...args);
     }
   }
 
   warn(message: string, ...args: any[]): void {
     if (this.shouldLog(LogLevel.WARN)) {
-      console.warn(this.formatMessage('WARN', message, ...args), ...args);
+      console.warn(this.formatMessage("WARN", message, ...args), ...args);
     }
   }
 
   error(message: string, ...args: any[]): void {
     if (this.shouldLog(LogLevel.ERROR)) {
-      console.error(this.formatMessage('ERROR', message, ...args), ...args);
+      console.error(this.formatMessage("ERROR", message, ...args), ...args);
     }
   }
 
@@ -63,15 +63,15 @@ class Logger {
 export const logger = new Logger();
 
 // 機能別ロガー
-export const fetcherLogger = logger.createChild('Fetcher');
-export const dateLogger = logger.createChild('DateTime');
-export const metricsLogger = logger.createChild('Metrics');
-export const chartLogger = logger.createChild('Chart');
+export const fetcherLogger = logger.createChild("Fetcher");
+export const dateLogger = logger.createChild("DateTime");
+export const metricsLogger = logger.createChild("Metrics");
+export const chartLogger = logger.createChild("Chart");
 
 /**
  * エラーの詳細情報を収集
  */
-export function collectErrorInfo(error: Error, context: string = ''): {
+export function collectErrorInfo(error: Error, context: string = ""): {
   message: string;
   stack?: string;
   context: string;
@@ -83,7 +83,7 @@ export function collectErrorInfo(error: Error, context: string = ''): {
     stack: error.stack,
     context,
     timestamp: new Date().toISOString(),
-    userAgent: navigator.userAgent
+    userAgent: navigator.userAgent,
   };
 }
 

@@ -15,16 +15,16 @@ import {
   RefreshCw,
   Clock,
   DollarSign,
-  BarChart3
+  BarChart3,
 } from "lucide-react";
 
 interface JudgmentCard {
   id: string;
-  type: 'prediction_deviation' | 'decline_alert' | 'volume_surge' | 'recommendation';
+  type: "prediction_deviation" | "decline_alert" | "volume_surge" | "recommendation";
   title: string;
   description: string;
-  priority: 'critical' | 'high' | 'medium' | 'low';
-  action: 'buy' | 'sell' | 'hold' | 'watch';
+  priority: "critical" | "high" | "medium" | "low";
+  action: "buy" | "sell" | "hold" | "watch";
   confidence: number;
   value?: number;
   change?: number;
@@ -46,7 +46,7 @@ interface JudgmentPanelProps {
 export default function JudgmentPanel({ 
   className = "",
   onStockSelect,
-  onActionClick
+  onActionClick,
 }: JudgmentPanelProps) {
   const [cards, setCards] = useState<JudgmentCard[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -69,7 +69,7 @@ export default function JudgmentPanel({
         symbol: "7203.T",
         name: "トヨタ自動車",
         timestamp: new Date().toISOString(),
-        evidence: { historical_accuracy_30d: 0.82, short_model_note: 'XGBoost v2（非線形）' }
+        evidence: { historical_accuracy_30d: 0.82, short_model_note: "XGBoost v2（非線形）" },
       },
       {
         id: "2",
@@ -84,7 +84,7 @@ export default function JudgmentPanel({
         symbol: "6758.T",
         name: "ソニーグループ",
         timestamp: new Date(Date.now() - 300000).toISOString(),
-        evidence: { historical_accuracy_30d: 0.73, short_model_note: 'RF v1（安定）' }
+        evidence: { historical_accuracy_30d: 0.73, short_model_note: "RF v1（安定）" },
       },
       {
         id: "3",
@@ -99,7 +99,7 @@ export default function JudgmentPanel({
         symbol: "6861.T",
         name: "キーエンス",
         timestamp: new Date(Date.now() - 600000).toISOString(),
-        evidence: { historical_accuracy_30d: 0.69, short_model_note: 'Linear v3（解釈性）' }
+        evidence: { historical_accuracy_30d: 0.69, short_model_note: "Linear v3（解釈性）" },
       },
       {
         id: "4",
@@ -114,7 +114,7 @@ export default function JudgmentPanel({
         symbol: "9984.T",
         name: "ソフトバンクグループ",
         timestamp: new Date(Date.now() - 900000).toISOString(),
-        evidence: { historical_accuracy_30d: 0.77, short_model_note: 'LightGBM v1（高速）' }
+        evidence: { historical_accuracy_30d: 0.77, short_model_note: "LightGBM v1（高速）" },
       },
       {
         id: "5",
@@ -129,8 +129,8 @@ export default function JudgmentPanel({
         symbol: "4063.T",
         name: "信越化学工業",
         timestamp: new Date(Date.now() - 1200000).toISOString(),
-        evidence: { historical_accuracy_30d: 0.71, short_model_note: 'RF v1（安定）' }
-      }
+        evidence: { historical_accuracy_30d: 0.71, short_model_note: "RF v1（安定）" },
+      },
     ];
 
     // データ読み込みのシミュレーション
@@ -144,32 +144,32 @@ export default function JudgmentPanel({
   // カードの優先度に基づく色の取得
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'bg-red-50 border-red-200 text-red-800';
-      case 'high': return 'bg-orange-50 border-orange-200 text-orange-800';
-      case 'medium': return 'bg-yellow-50 border-yellow-200 text-yellow-800';
-      case 'low': return 'bg-blue-50 border-blue-200 text-blue-800';
-      default: return 'bg-gray-50 border-gray-200 text-gray-800';
+      case "critical": return "bg-red-50 border-red-200 text-red-800";
+      case "high": return "bg-orange-50 border-orange-200 text-orange-800";
+      case "medium": return "bg-yellow-50 border-yellow-200 text-yellow-800";
+      case "low": return "bg-blue-50 border-blue-200 text-blue-800";
+      default: return "bg-gray-50 border-gray-200 text-gray-800";
     }
   };
 
   // アクションの色の取得
   const getActionColor = (action: string) => {
     switch (action) {
-      case 'buy': return 'bg-green-100 text-green-800 border-green-200';
-      case 'sell': return 'bg-red-100 text-red-800 border-red-200';
-      case 'hold': return 'bg-gray-100 text-gray-800 border-gray-200';
-      case 'watch': return 'bg-blue-100 text-blue-800 border-blue-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case "buy": return "bg-green-100 text-green-800 border-green-200";
+      case "sell": return "bg-red-100 text-red-800 border-red-200";
+      case "hold": return "bg-gray-100 text-gray-800 border-gray-200";
+      case "watch": return "bg-blue-100 text-blue-800 border-blue-200";
+      default: return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
 
   // アクションのアイコン取得
   const getActionIcon = (action: string) => {
     switch (action) {
-      case 'buy': return <ArrowUp className="h-4 w-4" />;
-      case 'sell': return <ArrowDown className="h-4 w-4" />;
-      case 'hold': return <Minus className="h-4 w-4" />;
-      case 'watch': return <Eye className="h-4 w-4" />;
+      case "buy": return <ArrowUp className="h-4 w-4" />;
+      case "sell": return <ArrowDown className="h-4 w-4" />;
+      case "hold": return <Minus className="h-4 w-4" />;
+      case "watch": return <Eye className="h-4 w-4" />;
       default: return <Minus className="h-4 w-4" />;
     }
   };
@@ -177,11 +177,11 @@ export default function JudgmentPanel({
   // アクションの日本語名取得
   const getActionLabel = (action: string) => {
     switch (action) {
-      case 'buy': return '買い';
-      case 'sell': return '売り';
-      case 'hold': return '様子見';
-      case 'watch': return '監視';
-      default: return '不明';
+      case "buy": return "買い";
+      case "sell": return "売り";
+      case "hold": return "様子見";
+      case "watch": return "監視";
+      default: return "不明";
     }
   };
 
@@ -218,7 +218,7 @@ export default function JudgmentPanel({
     const diffMs = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / 60000);
     
-    if (diffMins < 1) return 'たった今';
+    if (diffMins < 1) return "たった今";
     if (diffMins < 60) return `${diffMins}分前`;
     const diffHours = Math.floor(diffMins / 60);
     if (diffHours < 24) return `${diffHours}時間前`;
@@ -264,7 +264,7 @@ export default function JudgmentPanel({
                 className="flex items-center px-3 py-2 text-sm bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
               >
                 {showAll ? <EyeOff className="h-4 w-4 mr-2" /> : <Eye className="h-4 w-4 mr-2" />}
-                {showAll ? '折りたたむ' : `全て表示 (${cards.length})`}
+                {showAll ? "折りたたむ" : `全て表示 (${cards.length})`}
               </button>
             )}
           </div>
@@ -272,7 +272,7 @@ export default function JudgmentPanel({
         {lastUpdate && (
           <div className="flex items-center mt-2 text-sm text-gray-500">
             <Clock className="h-4 w-4 mr-1" />
-            最終更新: {lastUpdate.toLocaleString('ja-JP')}
+            最終更新: {lastUpdate.toLocaleString("ja-JP")}
           </div>
         )}
       </div>
@@ -290,10 +290,10 @@ export default function JudgmentPanel({
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center space-x-2">
                     <div className="flex items-center space-x-1">
-                      {card.type === 'prediction_deviation' && <TrendingUp className="h-5 w-5" />}
-                      {card.type === 'decline_alert' && <TrendingDown className="h-5 w-5" />}
-                      {card.type === 'volume_surge' && <BarChart3 className="h-5 w-5" />}
-                      {card.type === 'recommendation' && <Target className="h-5 w-5" />}
+                      {card.type === "prediction_deviation" && <TrendingUp className="h-5 w-5" />}
+                      {card.type === "decline_alert" && <TrendingDown className="h-5 w-5" />}
+                      {card.type === "volume_surge" && <BarChart3 className="h-5 w-5" />}
+                      {card.type === "recommendation" && <Target className="h-5 w-5" />}
                     </div>
                     <h3 className="font-semibold">{card.title}</h3>
                   </div>
@@ -317,11 +317,11 @@ export default function JudgmentPanel({
                     <div className="flex items-center space-x-2">
                       <DollarSign className="h-4 w-4 text-gray-500" />
                       <span className="text-lg font-bold">
-                        {card.value > 0 ? '+' : ''}{card.value}%
+                        {card.value > 0 ? "+" : ""}{card.value}%
                       </span>
                       {card.change !== undefined && (
-                        <span className={`text-sm ${card.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                          ({card.change >= 0 ? '+' : ''}{card.change}%)
+                        <span className={`text-sm ${card.change >= 0 ? "text-green-600" : "text-red-600"}`}>
+                          ({card.change >= 0 ? "+" : ""}{card.change}%)
                         </span>
                       )}
                     </div>
@@ -371,25 +371,25 @@ export default function JudgmentPanel({
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div>
               <div className="text-2xl font-bold text-red-600">
-                {cards.filter(c => c.priority === 'critical').length}
+                {cards.filter(c => c.priority === "critical").length}
               </div>
               <div className="text-sm text-gray-600">緊急</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-orange-600">
-                {cards.filter(c => c.priority === 'high').length}
+                {cards.filter(c => c.priority === "high").length}
               </div>
               <div className="text-sm text-gray-600">重要</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-green-600">
-                {cards.filter(c => c.action === 'buy').length}
+                {cards.filter(c => c.action === "buy").length}
               </div>
               <div className="text-sm text-gray-600">買い推奨</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-red-600">
-                {cards.filter(c => c.action === 'sell').length}
+                {cards.filter(c => c.action === "sell").length}
               </div>
               <div className="text-sm text-gray-600">売り推奨</div>
             </div>

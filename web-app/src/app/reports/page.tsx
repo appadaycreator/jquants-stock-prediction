@@ -114,8 +114,8 @@ export default function ReportsPage() {
         recommendations: riskAssessment.recommendations || [
           "✅ モデル性能は良好です（MAE < 100円）",
           "✅ クロスバリデーション結果は安定しています",
-          "⚠️ リスクレベルが中程度のため、継続的な監視が必要です"
-        ]
+          "⚠️ リスクレベルが中程度のため、継続的な監視が必要です",
+        ],
       },
     };
 
@@ -124,7 +124,7 @@ export default function ReportsPage() {
         setLoading(false);
       }, 1000);
     } catch (error) {
-      console.error('レポートデータの取得に失敗しました:', error);
+      console.error("レポートデータの取得に失敗しました:", error);
       setLoading(false);
     }
   };

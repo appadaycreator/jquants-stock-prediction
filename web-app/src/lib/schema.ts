@@ -3,7 +3,7 @@
  * APIレスポンスの厳格な検証
  */
 
-import { z } from 'zod';
+import { z } from "zod";
 
 // 予測ポイントのスキーマ
 export const PredictionPoint = z.object({
@@ -69,12 +69,12 @@ export const MarketInsights = z.object({
   market_trend: z.string(),
   volatility: z.number().finite(),
   recommendations: z.array(z.string()),
-  risk_level: z.enum(['低', '中', '高']),
+  risk_level: z.enum(["低", "中", "高"]),
 });
 
 // リスク評価のスキーマ
 export const RiskAssessment = z.object({
-  overall_risk: z.enum(['低', '中', '高']),
+  overall_risk: z.enum(["低", "中", "高"]),
   portfolio_value: z.number().finite(),
   var_95: z.number().finite(),
   max_drawdown: z.number().finite(),

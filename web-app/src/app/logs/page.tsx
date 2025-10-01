@@ -1,5 +1,5 @@
-'use client';
-import { useEffect, useMemo, useRef, useState } from 'react';
+"use client";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type LogItem = {
   ts: string;
@@ -10,17 +10,17 @@ type LogItem = {
   file: string;
 };
 
-const LEVELS = ['ALL', 'ERROR', 'WARN', 'INFO', 'DEBUG'];
+const LEVELS = ["ALL", "ERROR", "WARN", "INFO", "DEBUG"];
 
 export default function LogsPage() {
-  const [level, setLevel] = useState<string>('ALL');
-  const [source, setSource] = useState<string>('');
-  const [requestId, setRequestId] = useState<string>('');
+  const [level, setLevel] = useState<string>("ALL");
+  const [source, setSource] = useState<string>("");
+  const [requestId, setRequestId] = useState<string>("");
   const [limit, setLimit] = useState<number>(100);
   const [onlyCritical, setOnlyCritical] = useState<boolean>(false);
   const [items, setItems] = useState<LogItem[]>([]);
   const [files, setFiles] = useState<string[]>([]);
-  const [q, setQ] = useState<string>('');
+  const [q, setQ] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [autoRefresh, setAutoRefresh] = useState<boolean>(true);
   const timerRef = useRef<any>(null);
@@ -28,11 +28,11 @@ export default function LogsPage() {
   const fetchLogs = async () => {
     setLoading(true);
     const params = new URLSearchParams();
-    if (level !== 'ALL') params.set('level', level);
-    if (source) params.set('source', source);
-    if (requestId) params.set('request_id', requestId);
-    params.set('limit', String(limit));
-    const res = await fetch(`/api/logs?${params.toString()}`, { cache: 'no-store' });
+    if (level !== "ALL") params.set("level", level);
+    if (source) params.set("source", source);
+    if (requestId) params.set("request_id", requestId);
+    params.set("limit", String(limit));
+    const res = await fetch(`/api/logs?${params.toString()}`, { cache: "no-store" });
     const json = await res.json();
     setItems(json.items || []);
     setFiles(json.files || []);
@@ -53,7 +53,7 @@ export default function LogsPage() {
   const filtered = useMemo(() => {
     const kw = q.trim().toLowerCase();
     const list = onlyCritical
-      ? items.filter((x) => x.level === 'ERROR' || x.level === 'CRITICAL')
+      ? items.filter((x) => x.level === "ERROR" || x.level === "CRITICAL")
       : items;
     if (!kw) return list;
     return list.filter(
@@ -61,22 +61,22 @@ export default function LogsPage() {
         x.ts.toLowerCase().includes(kw) ||
         x.level.toLowerCase().includes(kw) ||
         x.source.toLowerCase().includes(kw) ||
-        (x.request_id || '').toLowerCase().includes(kw) ||
-        x.message.toLowerCase().includes(kw)
+        (x.request_id || "").toLowerCase().includes(kw) ||
+        x.message.toLowerCase().includes(kw),
     );
   }, [items, q, onlyCritical]);
 
   const copyToClipboard = async () => {
     const text = filtered
       .map((x) => `${x.ts} ${x.level} [${x.source}] ${x.message}`)
-      .join('\n');
+      .join("\n");
     await navigator.clipboard.writeText(text);
   };
 
   return (
-    <div style={{ padding: 16, display: 'grid', gap: 12 }}>
+    <div style={{ padding: 16, display: "grid", gap: 12 }}>
       <h2>ログビューア</h2>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
         <label>
           レベル:
           <select value={level} onChange={(e) => setLevel(e.target.value)}>
@@ -97,7 +97,7 @@ export default function LogsPage() {
         </label>
         <label>
           件数:
-          <input type="number" min={1} max={1000} value={limit} onChange={(e) => setLimit(parseInt(e.target.value || '100', 10))} />
+          <input type="number" min={1} max={1000} value={limit} onChange={(e) => setLimit(parseInt(e.target.value || "100", 10))} />
         </label>
         <label title="ERROR/CRITICAL のみ">
           <input type="checkbox" checked={onlyCritical} onChange={(e) => setOnlyCritical(e.target.checked)} /> 重大のみ
@@ -107,12 +107,12 @@ export default function LogsPage() {
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="キーワード" />
         </label>
         <button onClick={fetchLogs} disabled={loading}>更新</button>
-        <button onClick={() => setAutoRefresh((v) => !v)}>{autoRefresh ? '自動更新停止' : '自動更新'}</button>
+        <button onClick={() => setAutoRefresh((v) => !v)}>{autoRefresh ? "自動更新停止" : "自動更新"}</button>
         <button onClick={copyToClipboard}>表示内容をコピー</button>
       </div>
 
       <div style={{ fontSize: 12, opacity: 0.8 }}>ログファイル（ダウンロード可）:</div>
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         {files.map((f) => (
           <a key={f} href={`/api/logs/download?file=${encodeURIComponent(f)}`}>
             {f}
@@ -120,25 +120,25 @@ export default function LogsPage() {
         ))}
       </div>
 
-      <div style={{ border: '1px solid #ddd', borderRadius: 8, overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead style={{ background: '#fafafa' }}>
+      <div style={{ border: "1px solid #ddd", borderRadius: 8, overflow: "hidden" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <thead style={{ background: "#fafafa" }}>
             <tr>
-              <th style={{ textAlign: 'left', padding: 8 }}>時間</th>
-              <th style={{ textAlign: 'left', padding: 8 }}>レベル</th>
-              <th style={{ textAlign: 'left', padding: 8 }}>処理</th>
-              <th style={{ textAlign: 'left', padding: 8 }}>request_id</th>
-              <th style={{ textAlign: 'left', padding: 8 }}>メッセージ</th>
-              <th style={{ textAlign: 'left', padding: 8 }}>ファイル</th>
+              <th style={{ textAlign: "left", padding: 8 }}>時間</th>
+              <th style={{ textAlign: "left", padding: 8 }}>レベル</th>
+              <th style={{ textAlign: "left", padding: 8 }}>処理</th>
+              <th style={{ textAlign: "left", padding: 8 }}>request_id</th>
+              <th style={{ textAlign: "left", padding: 8 }}>メッセージ</th>
+              <th style={{ textAlign: "left", padding: 8 }}>ファイル</th>
             </tr>
           </thead>
           <tbody>
             {filtered.map((x, i) => (
-              <tr key={i} style={{ borderTop: '1px solid #eee', background: x.level === 'ERROR' || x.level === 'CRITICAL' ? '#fff4f4' : 'white' }}>
-                <td style={{ padding: 8, whiteSpace: 'nowrap' }}>{x.ts}</td>
+              <tr key={i} style={{ borderTop: "1px solid #eee", background: x.level === "ERROR" || x.level === "CRITICAL" ? "#fff4f4" : "white" }}>
+                <td style={{ padding: 8, whiteSpace: "nowrap" }}>{x.ts}</td>
                 <td style={{ padding: 8 }}>{x.level}</td>
                 <td style={{ padding: 8 }}>{x.source}</td>
-                <td style={{ padding: 8 }}>{x.request_id || ''}</td>
+                <td style={{ padding: 8 }}>{x.request_id || ""}</td>
                 <td style={{ padding: 8 }}>{x.message}</td>
                 <td style={{ padding: 8 }}>{x.file}</td>
               </tr>

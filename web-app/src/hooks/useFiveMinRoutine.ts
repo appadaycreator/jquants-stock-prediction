@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Candidate, TodaySummary } from '@/types/today';
-import { fetchTodaySummary, getCacheTimestamp, getCachedTodaySummary, saveTodaySummaryToCache } from '@/lib/today/fetchTodaySummary';
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Candidate, TodaySummary } from "@/types/today";
+import { fetchTodaySummary, getCacheTimestamp, getCachedTodaySummary, saveTodaySummaryToCache } from "@/lib/today/fetchTodaySummary";
 
-type FreshnessBadge = 'Fresh' | 'Stale' | 'Unknown';
+type FreshnessBadge = "Fresh" | "Stale" | "Unknown";
 
 export interface RoutineCandidate extends Candidate {
   routine_score: number;
@@ -14,7 +14,7 @@ export interface RoutineCandidate extends Candidate {
 export interface HoldingActionProposal {
   symbol: string;
   name?: string;
-  proposal: '継続' | '利確' | '損切り';
+  proposal: "継続" | "利確" | "損切り";
   qtyOptions: number[]; // 0.25, 0.5 など
   reason: string;
 }
@@ -31,24 +31,24 @@ export interface FiveMinRoutineState {
 }
 
 function computeFreshnessBadge(lastUpdatedIso: string | null): FreshnessBadge {
-  if (!lastUpdatedIso) return 'Unknown';
+  if (!lastUpdatedIso) return "Unknown";
   try {
     const updatedMs = new Date(lastUpdatedIso).getTime();
     const now = Date.now();
     const diffH = (now - updatedMs) / (1000 * 60 * 60);
-    return diffH <= 6 ? 'Fresh' : 'Stale';
+    return diffH <= 6 ? "Fresh" : "Stale";
   } catch (_) {
-    return 'Unknown';
+    return "Unknown";
   }
 }
 
-function recommendationStrength(rec: Candidate['recommendation']): number {
+function recommendationStrength(rec: Candidate["recommendation"]): number {
   switch (rec) {
-    case 'STRONG_BUY': return 1.0;
-    case 'BUY': return 0.8;
-    case 'HOLD': return 0.5;
-    case 'SELL': return 0.2;
-    case 'STRONG_SELL': return 0.0;
+    case "STRONG_BUY": return 1.0;
+    case "BUY": return 0.8;
+    case "HOLD": return 0.5;
+    case "SELL": return 0.2;
+    case "STRONG_SELL": return 0.0;
     default: return 0.5;
   }
 }
@@ -65,12 +65,12 @@ function computeCandidateScore(candidate: Candidate, summary: TodaySummary): { s
 
   // リスク（該当銘柄の警告があると減点）
   const hasWarning = summary.warnings?.some(w => w.symbol === candidate.symbol) ?? false;
-  if (hasWarning) reasons.push('リスク警告あり: スコア減点');
+  if (hasWarning) reasons.push("リスク警告あり: スコア減点");
 
   // スコア合成: 予測(0.6) + 信頼度(0.4) - 警告ペナルティ(0.15)
   let score = recStrength * 0.6 + confidence * 0.4 - (hasWarning ? 0.15 : 0);
   // BUY/STRONG_BUYを優遇
-  if (candidate.recommendation === 'BUY' || candidate.recommendation === 'STRONG_BUY') score += 0.05;
+  if (candidate.recommendation === "BUY" || candidate.recommendation === "STRONG_BUY") score += 0.05;
 
   return { score, reasons };
 }
@@ -80,7 +80,7 @@ function deriveHoldingProposals(summary: TodaySummary | null): HoldingActionProp
   // 保有銘柄はローカルに保存されていると想定（簡易実装）。無ければ候補上位を保有中と仮定。
   let holdings: string[] = [];
   try {
-    const stored = localStorage.getItem('portfolio_symbols');
+    const stored = localStorage.getItem("portfolio_symbols");
     if (stored) holdings = JSON.parse(stored);
   } catch (_) {}
   if (!holdings || holdings.length === 0) {
@@ -92,20 +92,20 @@ function deriveHoldingProposals(summary: TodaySummary | null): HoldingActionProp
       const c = summary.candidates.find(x => x.symbol === symbol);
       const name = c?.name ?? symbol;
       // 簡易ロジック: 推奨に応じて提案
-      let proposal: HoldingActionProposal['proposal'] = '継続';
-      let reason = 'トレンドに大きな変化なし';
+      let proposal: HoldingActionProposal["proposal"] = "継続";
+      let reason = "トレンドに大きな変化なし";
       if (c) {
-        if (c.recommendation === 'SELL' || c.recommendation === 'STRONG_SELL') {
+        if (c.recommendation === "SELL" || c.recommendation === "STRONG_SELL") {
           // リスクが無ければ利確、あれば損切り
           const warned = summary.warnings?.some(w => w.symbol === c.symbol) ?? false;
-          proposal = warned ? '損切り' : '利確';
-          reason = warned ? 'リスク警告により手仕舞い推奨' : 'シグナル弱化により利益確定推奨';
-        } else if (c.recommendation === 'BUY' || c.recommendation === 'STRONG_BUY') {
-          proposal = '継続';
-          reason = '上昇シグナル継続';
+          proposal = warned ? "損切り" : "利確";
+          reason = warned ? "リスク警告により手仕舞い推奨" : "シグナル弱化により利益確定推奨";
+        } else if (c.recommendation === "BUY" || c.recommendation === "STRONG_BUY") {
+          proposal = "継続";
+          reason = "上昇シグナル継続";
         } else {
-          proposal = '継続';
-          reason = '中立シグナル';
+          proposal = "継続";
+          reason = "中立シグナル";
         }
       }
       return {
@@ -121,8 +121,8 @@ function deriveHoldingProposals(summary: TodaySummary | null): HoldingActionProp
 function getTodayMemoKey(): string {
   const d = new Date();
   const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const dd = String(d.getDate()).padStart(2, '0');
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
   return `fiveMinMemo:${yyyy}-${mm}-${dd}`;
 }
 
@@ -132,16 +132,16 @@ export function useFiveMinRoutine() {
     error: null,
     summary: null,
     lastUpdated: null,
-    freshness: 'Unknown',
+    freshness: "Unknown",
     topCandidates: [],
     holdingProposals: [],
-    memo: '',
+    memo: "",
   });
 
   const loadMemo = useCallback(() => {
     try {
       const key = getTodayMemoKey();
-      const memo = localStorage.getItem(key) || '';
+      const memo = localStorage.getItem(key) || "";
       setState(prev => ({ ...prev, memo }));
     } catch (_) {}
   }, []);
@@ -204,13 +204,13 @@ export function useFiveMinRoutine() {
           freshness,
           topCandidates: ranked,
           holdingProposals,
-          error: '最新データの取得に失敗。キャッシュを表示中。',
+          error: "最新データの取得に失敗。キャッシュを表示中。",
         }));
       } else {
         setState(prev => ({
           ...prev,
           isLoading: false,
-          error: e?.message || 'データ取得に失敗しました',
+          error: e?.message || "データ取得に失敗しました",
         }));
       }
     }

@@ -3,7 +3,7 @@
  * 実測値 vs 予測値の散布図
  */
 
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 import {
   ScatterChart as RechartsScatterChart,
   Scatter,
@@ -11,9 +11,9 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer
-} from 'recharts';
-import { chartLogger } from '@/lib/logger';
+  ResponsiveContainer,
+} from "recharts";
+import { chartLogger } from "@/lib/logger";
 
 interface ScatterChartProps {
   data: Array<{
@@ -32,13 +32,13 @@ export default function ScatterChart({
   xLabel,
   yLabel,
   title,
-  height = 300
+  height = 300,
 }: ScatterChartProps) {
   
   // 散布図用データの生成
   const chartData = useMemo(() => {
     if (!data || data.length === 0) {
-      chartLogger.warn('散布図データが空です');
+      chartLogger.warn("散布図データが空です");
       return [];
     }
 
@@ -46,21 +46,21 @@ export default function ScatterChart({
       const normalizedData = data.map(item => ({
         ...item,
         x: Number(item.x),
-        y: Number(item.y)
+        y: Number(item.y),
       })).filter(item => 
         !isNaN(item.x) && !isNaN(item.y) && 
-        isFinite(item.x) && isFinite(item.y)
+        isFinite(item.x) && isFinite(item.y),
       );
 
-      chartLogger.info('散布図データの正規化完了', {
+      chartLogger.info("散布図データの正規化完了", {
         originalCount: data.length,
         normalizedCount: normalizedData.length,
-        invalidPoints: data.length - normalizedData.length
+        invalidPoints: data.length - normalizedData.length,
       });
 
       return normalizedData;
     } catch (error) {
-      chartLogger.error('散布図データの正規化に失敗:', error);
+      chartLogger.error("散布図データの正規化に失敗:", error);
       return [];
     }
   }, [data]);
@@ -100,7 +100,7 @@ export default function ScatterChart({
     
     return [
       { x: min, y: min },
-      { x: max, y: max }
+      { x: max, y: max },
     ];
   }, [chartData]);
 
@@ -130,14 +130,14 @@ export default function ScatterChart({
             dataKey="x" 
             name={xLabel}
             tick={{ fontSize: 12 }}
-            label={{ value: xLabel, position: 'insideBottom', offset: -5 }}
+            label={{ value: xLabel, position: "insideBottom", offset: -5 }}
           />
           <YAxis 
             type="number" 
             dataKey="y" 
             name={yLabel}
             tick={{ fontSize: 12 }}
-            label={{ value: yLabel, angle: -90, position: 'insideLeft' }}
+            label={{ value: yLabel, angle: -90, position: "insideLeft" }}
           />
           <Tooltip content={<CustomTooltip />} />
           
@@ -145,7 +145,7 @@ export default function ScatterChart({
           <Scatter
             data={idealLineData}
             fill="#ff6b6b"
-            line={{ stroke: '#ff6b6b', strokeWidth: 2, strokeDasharray: '5 5' }}
+            line={{ stroke: "#ff6b6b", strokeWidth: 2, strokeDasharray: "5 5" }}
             name="理想線 (y=x)"
           />
           

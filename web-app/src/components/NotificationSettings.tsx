@@ -49,41 +49,41 @@ export default function NotificationSettings() {
       smtp_port: 587,
       email_user: "",
       email_password: "",
-      email_to: ""
+      email_to: "",
     },
     slack: {
       enabled: false,
       webhook_url: "",
       channel: "#stock-analysis",
       username: "株価分析Bot",
-      icon_emoji: ":chart_with_upwards_trend:"
+      icon_emoji: ":chart_with_upwards_trend:",
     },
     schedule: {
       morning_analysis: "09:00",
       evening_analysis: "15:00",
-      timezone: "Asia/Tokyo"
+      timezone: "Asia/Tokyo",
     },
     content: {
       include_analysis_summary: true,
       include_performance_metrics: true,
       include_recommendations: true,
-      include_risk_alerts: true
+      include_risk_alerts: true,
     },
     filters: {
       min_confidence_threshold: 0.7,
       include_errors: true,
-      include_success: true
+      include_success: true,
     },
     rate_limiting: {
       max_notifications_per_hour: 5,
-      cooldown_minutes: 30
-    }
+      cooldown_minutes: 30,
+    },
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [testResult, setTestResult] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'email' | 'slack' | 'schedule' | 'content'>('email');
+  const [activeTab, setActiveTab] = useState<"email" | "slack" | "schedule" | "content">("email");
 
   // 設定の読み込み
   useEffect(() => {
@@ -93,13 +93,13 @@ export default function NotificationSettings() {
   const loadConfig = async () => {
     try {
       // ローカルストレージから設定を読み込み
-      const savedConfig = localStorage.getItem('notification-config');
+      const savedConfig = localStorage.getItem("notification-config");
       if (savedConfig) {
         const data = JSON.parse(savedConfig);
         setConfig(data);
       }
     } catch (error) {
-      console.error('設定読み込みエラー:', error);
+      console.error("設定読み込みエラー:", error);
     }
   };
 
@@ -108,24 +108,24 @@ export default function NotificationSettings() {
     setIsSaving(true);
     try {
       // ローカルストレージに設定を保存
-      localStorage.setItem('notification-config', JSON.stringify(config));
-      setTestResult('設定を保存しました');
+      localStorage.setItem("notification-config", JSON.stringify(config));
+      setTestResult("設定を保存しました");
       setTimeout(() => setTestResult(null), 3000);
     } catch (error) {
-      setTestResult('設定の保存に失敗しました');
+      setTestResult("設定の保存に失敗しました");
     } finally {
       setIsSaving(false);
     }
   };
 
   // 通知テスト
-  const testNotification = async (type: 'email' | 'slack') => {
+  const testNotification = async (type: "email" | "slack") => {
     setIsLoading(true);
     try {
       // クライアントサイドでのテスト（実際の送信は行わない）
-      setTestResult(`${type === 'email' ? 'メール' : 'Slack'}通知の設定が保存されました（テスト機能は静的サイトでは利用できません）`);
+      setTestResult(`${type === "email" ? "メール" : "Slack"}通知の設定が保存されました（テスト機能は静的サイトでは利用できません）`);
     } catch (error) {
-      setTestResult(`${type === 'email' ? 'メール' : 'Slack'}通知のテストに失敗しました`);
+      setTestResult(`${type === "email" ? "メール" : "Slack"}通知のテストに失敗しました`);
     } finally {
       setIsLoading(false);
     }
@@ -134,7 +134,7 @@ export default function NotificationSettings() {
   const updateConfig = (path: string, value: any) => {
     setConfig(prev => {
       const newConfig = { ...prev };
-      const keys = path.split('.');
+      const keys = path.split(".");
       let current: any = newConfig;
       
       for (let i = 0; i < keys.length - 1; i++) {
@@ -160,7 +160,7 @@ export default function NotificationSettings() {
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 flex items-center gap-2"
           >
             <Save className="w-4 h-4" />
-            {isSaving ? '保存中...' : '保存'}
+            {isSaving ? "保存中..." : "保存"}
           </button>
         </div>
       </div>
@@ -168,18 +168,18 @@ export default function NotificationSettings() {
       {/* タブナビゲーション */}
       <div className="flex border-b border-gray-200 mb-6">
         {[
-          { id: 'email', label: 'メール通知', icon: Mail },
-          { id: 'slack', label: 'Slack通知', icon: MessageSquare },
-          { id: 'schedule', label: 'スケジュール', icon: Clock },
-          { id: 'content', label: '通知内容', icon: Settings }
+          { id: "email", label: "メール通知", icon: Mail },
+          { id: "slack", label: "Slack通知", icon: MessageSquare },
+          { id: "schedule", label: "スケジュール", icon: Clock },
+          { id: "content", label: "通知内容", icon: Settings },
         ].map(({ id, label, icon: Icon }) => (
           <button
             key={id}
             onClick={() => setActiveTab(id as any)}
             className={`flex items-center gap-2 px-4 py-2 border-b-2 transition-colors ${
               activeTab === id
-                ? 'border-blue-500 text-blue-600'
-                : 'border-transparent text-gray-600 hover:text-gray-800'
+                ? "border-blue-500 text-blue-600"
+                : "border-transparent text-gray-600 hover:text-gray-800"
             }`}
           >
             <Icon className="w-4 h-4" />
@@ -189,7 +189,7 @@ export default function NotificationSettings() {
       </div>
 
       {/* メール通知設定 */}
-      {activeTab === 'email' && (
+      {activeTab === "email" && (
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold text-gray-800">メール通知設定</h3>
@@ -198,13 +198,13 @@ export default function NotificationSettings() {
                 <input
                   type="checkbox"
                   checked={config.email.enabled}
-                  onChange={(e) => updateConfig('email.enabled', e.target.checked)}
+                  onChange={(e) => updateConfig("email.enabled", e.target.checked)}
                   className="rounded"
                 />
                 メール通知を有効にする
               </label>
               <button
-                onClick={() => testNotification('email')}
+                onClick={() => testNotification("email")}
                 disabled={!config.email.enabled || isLoading}
                 className="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700 disabled:bg-gray-400 flex items-center gap-1"
               >
@@ -220,7 +220,7 @@ export default function NotificationSettings() {
               <input
                 type="text"
                 value={config.email.smtp_server}
-                onChange={(e) => updateConfig('email.smtp_server', e.target.value)}
+                onChange={(e) => updateConfig("email.smtp_server", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="smtp.gmail.com"
               />
@@ -230,7 +230,7 @@ export default function NotificationSettings() {
               <input
                 type="number"
                 value={config.email.smtp_port}
-                onChange={(e) => updateConfig('email.smtp_port', parseInt(e.target.value))}
+                onChange={(e) => updateConfig("email.smtp_port", parseInt(e.target.value))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="587"
               />
@@ -240,7 +240,7 @@ export default function NotificationSettings() {
               <input
                 type="email"
                 value={config.email.email_user}
-                onChange={(e) => updateConfig('email.email_user', e.target.value)}
+                onChange={(e) => updateConfig("email.email_user", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="your-email@gmail.com"
               />
@@ -250,7 +250,7 @@ export default function NotificationSettings() {
               <input
                 type="password"
                 value={config.email.email_password}
-                onChange={(e) => updateConfig('email.email_password', e.target.value)}
+                onChange={(e) => updateConfig("email.email_password", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Gmailアプリパスワード"
               />
@@ -260,7 +260,7 @@ export default function NotificationSettings() {
               <input
                 type="email"
                 value={config.email.email_to}
-                onChange={(e) => updateConfig('email.email_to', e.target.value)}
+                onChange={(e) => updateConfig("email.email_to", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="recipient@example.com"
               />
@@ -270,7 +270,7 @@ export default function NotificationSettings() {
       )}
 
       {/* Slack通知設定 */}
-      {activeTab === 'slack' && (
+      {activeTab === "slack" && (
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold text-gray-800">Slack通知設定</h3>
@@ -279,13 +279,13 @@ export default function NotificationSettings() {
                 <input
                   type="checkbox"
                   checked={config.slack.enabled}
-                  onChange={(e) => updateConfig('slack.enabled', e.target.checked)}
+                  onChange={(e) => updateConfig("slack.enabled", e.target.checked)}
                   className="rounded"
                 />
                 Slack通知を有効にする
               </label>
               <button
-                onClick={() => testNotification('slack')}
+                onClick={() => testNotification("slack")}
                 disabled={!config.slack.enabled || isLoading}
                 className="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700 disabled:bg-gray-400 flex items-center gap-1"
               >
@@ -301,7 +301,7 @@ export default function NotificationSettings() {
               <input
                 type="url"
                 value={config.slack.webhook_url}
-                onChange={(e) => updateConfig('slack.webhook_url', e.target.value)}
+                onChange={(e) => updateConfig("slack.webhook_url", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="https://hooks.slack.com/services/..."
               />
@@ -312,7 +312,7 @@ export default function NotificationSettings() {
                 <input
                   type="text"
                   value={config.slack.channel}
-                  onChange={(e) => updateConfig('slack.channel', e.target.value)}
+                  onChange={(e) => updateConfig("slack.channel", e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="#stock-analysis"
                 />
@@ -322,7 +322,7 @@ export default function NotificationSettings() {
                 <input
                   type="text"
                   value={config.slack.username}
-                  onChange={(e) => updateConfig('slack.username', e.target.value)}
+                  onChange={(e) => updateConfig("slack.username", e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="株価分析Bot"
                 />
@@ -333,7 +333,7 @@ export default function NotificationSettings() {
       )}
 
       {/* スケジュール設定 */}
-      {activeTab === 'schedule' && (
+      {activeTab === "schedule" && (
         <div className="space-y-6">
           <h3 className="text-lg font-semibold text-gray-800">スケジュール設定</h3>
           
@@ -343,7 +343,7 @@ export default function NotificationSettings() {
               <input
                 type="time"
                 value={config.schedule.morning_analysis}
-                onChange={(e) => updateConfig('schedule.morning_analysis', e.target.value)}
+                onChange={(e) => updateConfig("schedule.morning_analysis", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
@@ -352,7 +352,7 @@ export default function NotificationSettings() {
               <input
                 type="time"
                 value={config.schedule.evening_analysis}
-                onChange={(e) => updateConfig('schedule.evening_analysis', e.target.value)}
+                onChange={(e) => updateConfig("schedule.evening_analysis", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
@@ -360,7 +360,7 @@ export default function NotificationSettings() {
               <label className="block text-sm font-medium text-gray-700 mb-1">タイムゾーン</label>
               <select
                 value={config.schedule.timezone}
-                onChange={(e) => updateConfig('schedule.timezone', e.target.value)}
+                onChange={(e) => updateConfig("schedule.timezone", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
                 <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
@@ -373,7 +373,7 @@ export default function NotificationSettings() {
       )}
 
       {/* 通知内容設定 */}
-      {activeTab === 'content' && (
+      {activeTab === "content" && (
         <div className="space-y-6">
           <h3 className="text-lg font-semibold text-gray-800">通知内容設定</h3>
           
@@ -383,7 +383,7 @@ export default function NotificationSettings() {
               <input
                 type="checkbox"
                 checked={config.content.include_analysis_summary}
-                onChange={(e) => updateConfig('content.include_analysis_summary', e.target.checked)}
+                onChange={(e) => updateConfig("content.include_analysis_summary", e.target.checked)}
                 className="rounded"
               />
             </div>
@@ -392,7 +392,7 @@ export default function NotificationSettings() {
               <input
                 type="checkbox"
                 checked={config.content.include_performance_metrics}
-                onChange={(e) => updateConfig('content.include_performance_metrics', e.target.checked)}
+                onChange={(e) => updateConfig("content.include_performance_metrics", e.target.checked)}
                 className="rounded"
               />
             </div>
@@ -401,7 +401,7 @@ export default function NotificationSettings() {
               <input
                 type="checkbox"
                 checked={config.content.include_recommendations}
-                onChange={(e) => updateConfig('content.include_recommendations', e.target.checked)}
+                onChange={(e) => updateConfig("content.include_recommendations", e.target.checked)}
                 className="rounded"
               />
             </div>
@@ -410,7 +410,7 @@ export default function NotificationSettings() {
               <input
                 type="checkbox"
                 checked={config.content.include_risk_alerts}
-                onChange={(e) => updateConfig('content.include_risk_alerts', e.target.checked)}
+                onChange={(e) => updateConfig("content.include_risk_alerts", e.target.checked)}
                 className="rounded"
               />
             </div>
@@ -429,7 +429,7 @@ export default function NotificationSettings() {
                   max="1"
                   step="0.1"
                   value={config.filters.min_confidence_threshold}
-                  onChange={(e) => updateConfig('filters.min_confidence_threshold', parseFloat(e.target.value))}
+                  onChange={(e) => updateConfig("filters.min_confidence_threshold", parseFloat(e.target.value))}
                   className="w-full"
                 />
               </div>
@@ -438,7 +438,7 @@ export default function NotificationSettings() {
                 <input
                   type="checkbox"
                   checked={config.filters.include_errors}
-                  onChange={(e) => updateConfig('filters.include_errors', e.target.checked)}
+                  onChange={(e) => updateConfig("filters.include_errors", e.target.checked)}
                   className="rounded"
                 />
               </div>
@@ -447,7 +447,7 @@ export default function NotificationSettings() {
                 <input
                   type="checkbox"
                   checked={config.filters.include_success}
-                  onChange={(e) => updateConfig('filters.include_success', e.target.checked)}
+                  onChange={(e) => updateConfig("filters.include_success", e.target.checked)}
                   className="rounded"
                 />
               </div>

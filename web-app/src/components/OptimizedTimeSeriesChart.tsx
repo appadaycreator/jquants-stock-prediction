@@ -3,7 +3,7 @@
  * ダウンサンプリング、遅延読み込み、パフォーマンス監視
  */
 
-import React, { useMemo, useState, useEffect, useCallback } from 'react';
+import React, { useMemo, useState, useEffect, useCallback } from "react";
 import {
   LineChart,
   Line,
@@ -12,11 +12,11 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
-} from 'recharts';
-import { parseToJst, jstLabel } from '@/lib/datetime';
-import { performanceOptimizer } from '@/lib/performance-optimizer';
-import { logDateConversionError, logDateConversionSuccess } from '@/lib/observability';
+  ResponsiveContainer,
+} from "recharts";
+import { parseToJst, jstLabel } from "@/lib/datetime";
+import { performanceOptimizer } from "@/lib/performance-optimizer";
+import { logDateConversionError, logDateConversionSuccess } from "@/lib/observability";
 
 interface OptimizedTimeSeriesChartProps {
   data: Array<{
@@ -43,7 +43,7 @@ export default function OptimizedTimeSeriesChart({
   height = 300,
   maxDataPoints = 3000,
   enableDownsampling = true,
-  enableLazyLoading = true
+  enableLazyLoading = true,
 }: OptimizedTimeSeriesChartProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [chartData, setChartData] = useState<any[]>([]);
@@ -66,7 +66,7 @@ export default function OptimizedTimeSeriesChart({
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observer.observe(node);
@@ -87,7 +87,7 @@ export default function OptimizedTimeSeriesChart({
           const normalizedDate = parseToJst(item.date);
           
           if (!normalizedDate.isValid) {
-            logDateConversionError(item.date, new Error('Invalid date format'), `OptimizedChart item ${index}`);
+            logDateConversionError(item.date, new Error("Invalid date format"), `OptimizedChart item ${index}`);
             return null;
           }
 
@@ -98,7 +98,7 @@ export default function OptimizedTimeSeriesChart({
             ...item,
             date: jstLabelResult,
             timestamp: normalizedDate.toMillis(),
-            originalDate: item.date
+            originalDate: item.date,
           };
         } catch (error) {
           logDateConversionError(item.date, error as Error, `OptimizedChart item ${index}`);
@@ -112,24 +112,24 @@ export default function OptimizedTimeSeriesChart({
         const downsamplingResult = performanceOptimizer.downsampleChartData(normalizedData, maxDataPoints);
         finalData = downsamplingResult.data;
         
-        console.info('チャート最適化完了:', {
+        console.info("チャート最適化完了:", {
           original: downsamplingResult.originalCount,
           optimized: downsamplingResult.sampledCount,
           compressionRatio: `${(downsamplingResult.compressionRatio * 100).toFixed(1)}%`,
-          performance: 'OPTIMIZED'
+          performance: "OPTIMIZED",
         });
       }
 
       const processingTime = performance.now() - startTime;
-      console.info('チャートデータ処理時間:', {
+      console.info("チャートデータ処理時間:", {
         processingTime: `${processingTime.toFixed(2)}ms`,
         dataPoints: finalData.length,
-        status: processingTime < 100 ? 'FAST' : 'NORMAL'
+        status: processingTime < 100 ? "FAST" : "NORMAL",
       });
 
       return finalData;
     } catch (error) {
-      console.error('チャートデータ最適化エラー:', error);
+      console.error("チャートデータ最適化エラー:", error);
       return [];
     }
   }, [data, maxDataPoints, enableDownsampling]);
@@ -163,7 +163,7 @@ export default function OptimizedTimeSeriesChart({
           <p className="font-medium text-gray-900 mb-2">{label}</p>
           {payload.map((entry: any, index: number) => (
             <p key={index} className="text-sm" style={{ color: entry.color }}>
-              {entry.name}: {typeof entry.value === 'number' ? entry.value.toFixed(2) : (entry.value ?? 'N/A')}
+              {entry.name}: {typeof entry.value === "number" ? entry.value.toFixed(2) : (entry.value ?? "N/A")}
             </p>
           ))}
         </div>
@@ -184,10 +184,10 @@ export default function OptimizedTimeSeriesChart({
         return jstLabel(dt);
       }
       
-      return '2024-01-01';
+      return "2024-01-01";
     } catch (error) {
-      console.error('X軸ラベルフォーマットエラー:', error);
-      return '2024-01-01';
+      console.error("X軸ラベルフォーマットエラー:", error);
+      return "2024-01-01";
     }
   };
 

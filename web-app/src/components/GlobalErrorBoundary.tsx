@@ -12,7 +12,7 @@ type UnifiedApiError = {
 
 type AppErrorLike = Error & { code?: string; status?: number; retryHint?: string };
 
-type ErrorCategory = 'rsc' | 'network' | 'data' | 'component' | 'unknown';
+type ErrorCategory = "rsc" | "network" | "data" | "component" | "unknown";
 
 function isUnifiedApiErrorPayload(value: any): value is UnifiedApiError {
   return (
@@ -25,49 +25,49 @@ function isUnifiedApiErrorPayload(value: any): value is UnifiedApiError {
 
 function categorizeError(error: Error): ErrorCategory {
   const message = error.message.toLowerCase();
-  const stack = error.stack?.toLowerCase() || '';
+  const stack = error.stack?.toLowerCase() || "";
   
-  if (message.includes('rsc payload') || 
-      message.includes('server component') ||
-      message.includes('connection closed')) {
-    return 'rsc';
+  if (message.includes("rsc payload") || 
+      message.includes("server component") ||
+      message.includes("connection closed")) {
+    return "rsc";
   }
   
-  if (message.includes('network') || 
-      message.includes('fetch') || 
-      message.includes('connection') ||
-      message.includes('timeout')) {
-    return 'network';
+  if (message.includes("network") || 
+      message.includes("fetch") || 
+      message.includes("connection") ||
+      message.includes("timeout")) {
+    return "network";
   }
   
-  if (message.includes('data') || 
-      message.includes('json') || 
-      message.includes('parse') ||
-      message.includes('invalid')) {
-    return 'data';
+  if (message.includes("data") || 
+      message.includes("json") || 
+      message.includes("parse") ||
+      message.includes("invalid")) {
+    return "data";
   }
   
-  if (stack.includes('react') || 
-      stack.includes('component') ||
-      message.includes('render')) {
-    return 'component';
+  if (stack.includes("react") || 
+      stack.includes("component") ||
+      message.includes("render")) {
+    return "component";
   }
   
-  return 'unknown';
+  return "unknown";
 }
 
 function FallbackUI({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) {
   const [showModal, setShowModal] = useState(true);
   const [retryCount, setRetryCount] = useState(0);
   const [isAutoRetrying, setIsAutoRetrying] = useState(false);
-  const [errorCategory, setErrorCategory] = useState<ErrorCategory>('unknown');
+  const [errorCategory, setErrorCategory] = useState<ErrorCategory>("unknown");
 
   useEffect(() => {
     const category = categorizeError(error);
     setErrorCategory(category);
     
     // 自動リトライが必要なエラータイプを判定
-    if (category === 'rsc' || category === 'network') {
+    if (category === "rsc" || category === "network") {
       handleAutoRetry();
     }
   }, [error]);
@@ -85,7 +85,7 @@ function FallbackUI({ error, resetErrorBoundary }: { error: Error; resetErrorBou
     
     setTimeout(() => {
       // キャッシュクリア
-      if ('caches' in window) {
+      if ("caches" in window) {
         caches.keys().then(names => {
           names.forEach(name => caches.delete(name));
         });
@@ -95,12 +95,12 @@ function FallbackUI({ error, resetErrorBoundary }: { error: Error; resetErrorBou
       try {
         const keys = Object.keys(localStorage);
         keys.forEach(key => {
-          if (key.startsWith('app_cache:') || key.startsWith('next:')) {
+          if (key.startsWith("app_cache:") || key.startsWith("next:")) {
             localStorage.removeItem(key);
           }
         });
       } catch (e) {
-        console.warn('Failed to clear localStorage cache:', e);
+        console.warn("Failed to clear localStorage cache:", e);
       }
       
       resetErrorBoundary();
@@ -136,21 +136,21 @@ function FallbackUI({ error, resetErrorBoundary }: { error: Error; resetErrorBou
 
   const getErrorIcon = (category: ErrorCategory) => {
     switch (category) {
-      case 'rsc': return '🔄';
-      case 'network': return '🌐';
-      case 'data': return '📊';
-      case 'component': return '⚛️';
-      default: return '⚠️';
+      case "rsc": return "🔄";
+      case "network": return "🌐";
+      case "data": return "📊";
+      case "component": return "⚛️";
+      default: return "⚠️";
     }
   };
 
   const getErrorTitle = (category: ErrorCategory) => {
     switch (category) {
-      case 'rsc': return 'RSC Payload エラー';
-      case 'network': return 'ネットワークエラー';
-      case 'data': return 'データ取得エラー';
-      case 'component': return 'コンポーネントエラー';
-      default: return 'システムエラー';
+      case "rsc": return "RSC Payload エラー";
+      case "network": return "ネットワークエラー";
+      case "data": return "データ取得エラー";
+      case "component": return "コンポーネントエラー";
+      default: return "システムエラー";
     }
   };
 
@@ -213,7 +213,7 @@ function FallbackUI({ error, resetErrorBoundary }: { error: Error; resetErrorBou
                   className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
                   disabled={isAutoRetrying}
                 >
-                  {isAutoRetrying ? '復旧中...' : '手動で再試行'}
+                  {isAutoRetrying ? "復旧中..." : "手動で再試行"}
                 </button>
                 <button
                   onClick={() => (window.location.href = "/")}

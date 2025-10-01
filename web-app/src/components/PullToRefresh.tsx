@@ -68,7 +68,7 @@ export default function PullToRefresh({
         try {
           await onRefresh();
         } catch (error) {
-          console.error('Refresh failed:', error);
+          console.error("Refresh failed:", error);
         } finally {
           setIsRefreshing(false);
         }
@@ -85,14 +85,14 @@ export default function PullToRefresh({
       setIsAtTop(false);
     };
 
-    container.addEventListener('touchstart', handleTouchStart, { passive: false });
-    container.addEventListener('touchmove', handleTouchMove, { passive: false });
-    container.addEventListener('touchend', handleTouchEnd, { passive: false });
+    container.addEventListener("touchstart", handleTouchStart, { passive: false });
+    container.addEventListener("touchmove", handleTouchMove, { passive: false });
+    container.addEventListener("touchend", handleTouchEnd, { passive: false });
 
     return () => {
-      container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchmove', handleTouchMove);
-      container.removeEventListener('touchend', handleTouchEnd);
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchmove", handleTouchMove);
+      container.removeEventListener("touchend", handleTouchEnd);
     };
   }, [isAtTop, isPulling, pullDistance, startY, threshold, resistance, onRefresh]);
 
@@ -105,7 +105,7 @@ export default function PullToRefresh({
       <div
         ref={pullIndicatorRef}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
-          isPulling || isRefreshing ? 'translate-y-0' : '-translate-y-full'
+          isPulling || isRefreshing ? "translate-y-0" : "-translate-y-full"
         }`}
         style={{
           transform: `translateY(${Math.max(0, pullDistance - 60)}px)`,
@@ -116,7 +116,7 @@ export default function PullToRefresh({
             <div className="flex items-center space-x-3">
               <div
                 className={`transition-all duration-200 ${
-                  isRefreshing ? 'animate-spin' : ''
+                  isRefreshing ? "animate-spin" : ""
                 }`}
                 style={{
                   transform: `rotate(${pullProgress * 180}deg)`,
@@ -127,11 +127,11 @@ export default function PullToRefresh({
               
               <div className="text-sm font-medium text-gray-700">
                 {isRefreshing ? (
-                  '更新中...'
+                  "更新中..."
                 ) : shouldTrigger ? (
-                  '離すと更新されます'
+                  "離すと更新されます"
                 ) : (
-                  '引っ張って更新'
+                  "引っ張って更新"
                 )}
               </div>
             </div>

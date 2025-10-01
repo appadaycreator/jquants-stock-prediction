@@ -8,7 +8,7 @@
  */
 export function mae(y: number[], yhat: number[]): number {
   if (y.length !== yhat.length) {
-    throw new Error('配列の長さが一致しません');
+    throw new Error("配列の長さが一致しません");
   }
   
   const errors = y.map((actual, i) => Math.abs(actual - yhat[i]));
@@ -20,7 +20,7 @@ export function mae(y: number[], yhat: number[]): number {
  */
 export function rmse(y: number[], yhat: number[]): number {
   if (y.length !== yhat.length) {
-    throw new Error('配列の長さが一致しません');
+    throw new Error("配列の長さが一致しません");
   }
   
   const squaredErrors = y.map((actual, i) => Math.pow(actual - yhat[i], 2));
@@ -33,7 +33,7 @@ export function rmse(y: number[], yhat: number[]): number {
  */
 export function r2(y: number[], yhat: number[]): number {
   if (y.length !== yhat.length) {
-    throw new Error('配列の長さが一致しません');
+    throw new Error("配列の長さが一致しません");
   }
   
   const yMean = y.reduce((sum, val) => sum + val, 0) / y.length;
@@ -53,7 +53,7 @@ export function r2(y: number[], yhat: number[]): number {
  */
 export function mape(y: number[], yhat: number[]): number {
   if (y.length !== yhat.length) {
-    throw new Error('配列の長さが一致しません');
+    throw new Error("配列の長さが一致しません");
   }
   
   const errors = y.map((actual, i) => {
@@ -70,10 +70,10 @@ export function mape(y: number[], yhat: number[]): number {
 export function detectOverfitting(
   trainR2: number,
   testR2: number,
-  threshold: number = 0.1
+  threshold: number = 0.1,
 ): {
   isOverfitting: boolean;
-  riskLevel: '低' | '中' | '高';
+  riskLevel: "低" | "中" | "高";
   message: string;
 } {
   const r2Diff = trainR2 - testR2;
@@ -81,31 +81,31 @@ export function detectOverfitting(
   if (testR2 > 0.99) {
     return {
       isOverfitting: true,
-      riskLevel: '高',
-      message: '高リスク（R² > 0.99）'
+      riskLevel: "高",
+      message: "高リスク（R² > 0.99）",
     };
   }
   
   if (testR2 > 0.95) {
     return {
       isOverfitting: true,
-      riskLevel: '中',
-      message: '中リスク（R² > 0.95）'
+      riskLevel: "中",
+      message: "中リスク（R² > 0.95）",
     };
   }
   
   if (r2Diff > threshold) {
     return {
       isOverfitting: true,
-      riskLevel: '中',
-      message: `過学習疑い（差: ${r2Diff.toFixed(3)}）`
+      riskLevel: "中",
+      message: `過学習疑い（差: ${r2Diff.toFixed(3)}）`,
     };
   }
   
   return {
     isOverfitting: false,
-    riskLevel: '低',
-    message: '低リスク'
+    riskLevel: "低",
+    message: "低リスク",
   };
 }
 
@@ -138,7 +138,7 @@ export function evaluateBaseline(y: number[]): {
     mae: mae(actual, predicted),
     rmse: rmse(actual, predicted),
     r2: r2(actual, predicted),
-    mape: mape(actual, predicted)
+    mape: mape(actual, predicted),
   };
 }
 
@@ -147,7 +147,7 @@ export function evaluateBaseline(y: number[]): {
  */
 export function compareModels(
   modelMetrics: { mae: number; rmse: number; r2: number },
-  baselineMetrics: { mae: number; rmse: number; r2: number }
+  baselineMetrics: { mae: number; rmse: number; r2: number },
 ): {
   maeImprovement: number;
   rmseImprovement: number;
@@ -166,7 +166,7 @@ export function compareModels(
     maeImprovement,
     rmseImprovement,
     r2Improvement,
-    isBetter
+    isBetter,
   };
 }
 
@@ -176,7 +176,7 @@ export function compareModels(
 export function validateTimeSeriesSplit(
   dates: string[],
   trainSize: number,
-  testSize: number
+  testSize: number,
 ): boolean {
   if (dates.length < trainSize + testSize) {
     return false;
@@ -201,7 +201,7 @@ export function timeSeriesSplitEvaluation(
   X: number[][],
   y: number[],
   dates: string[],
-  nSplits: number = 5
+  nSplits: number = 5,
 ): {
   trainScores: number[];
   testScores: number[];
@@ -240,14 +240,14 @@ export function timeSeriesSplitEvaluation(
   const avgTestScore = testScores.reduce((a, b) => a + b, 0) / testScores.length;
   const scoreDiff = avgTrainScore - avgTestScore;
   
-  let overfittingRisk = '低リスク';
+  let overfittingRisk = "低リスク";
   let isOverfitting = false;
   
   if (avgTestScore > 0.99) {
-    overfittingRisk = '高リスク（R² > 0.99）';
+    overfittingRisk = "高リスク（R² > 0.99）";
     isOverfitting = true;
   } else if (avgTestScore > 0.95) {
-    overfittingRisk = '中リスク（R² > 0.95）';
+    overfittingRisk = "中リスク（R² > 0.95）";
     isOverfitting = true;
   } else if (scoreDiff > 0.1) {
     overfittingRisk = `過学習疑い（差: ${scoreDiff.toFixed(3)}）`;
@@ -258,7 +258,7 @@ export function timeSeriesSplitEvaluation(
     trainScores,
     testScores,
     overfittingRisk,
-    isOverfitting
+    isOverfitting,
   };
 }
 
@@ -270,7 +270,7 @@ export function walkForwardEvaluation(
   y: number[],
   dates: string[],
   windowSize: number = 100,
-  stepSize: number = 10
+  stepSize: number = 10,
 ): {
   predictions: number[];
   actuals: number[];
@@ -311,7 +311,7 @@ export function walkForwardEvaluation(
     mae: maeValue,
     rmse: rmseValue,
     r2: r2Value,
-    isBetterThanBaseline
+    isBetterThanBaseline,
   };
 }
 

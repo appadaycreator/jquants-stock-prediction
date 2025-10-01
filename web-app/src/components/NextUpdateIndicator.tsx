@@ -52,7 +52,7 @@ export default function NextUpdateIndicator() {
         const cfg = await svc.loadConfig();
         setConfig(cfg);
       } catch (e) {
-        console.debug('通知設定が未設定のため、インジケーターはデフォルト表示で継続します。');
+        console.debug("通知設定が未設定のため、インジケーターはデフォルト表示で継続します。");
         setConfig(null);
       }
       setPushReady(typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted");

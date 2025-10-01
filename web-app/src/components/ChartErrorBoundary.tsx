@@ -3,8 +3,8 @@
  * 描画時の例外をキャッチしてUIを保護
  */
 
-import React, { Component, ReactNode } from 'react';
-import { AppError } from '@/lib/fetcher';
+import React, { Component, ReactNode } from "react";
+import { AppError } from "@/lib/fetcher";
 
 interface ChartErrorBoundaryProps {
   children: ReactNode;
@@ -31,7 +31,7 @@ export default class ChartErrorBoundary extends Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('チャート描画エラー:', error, errorInfo);
+    console.error("チャート描画エラー:", error, errorInfo);
     
     if (this.props.onError) {
       this.props.onError(error);
@@ -52,7 +52,7 @@ export default class ChartErrorBoundary extends Component<
             </svg>
             <h3 className="text-lg font-medium text-gray-900 mb-2">チャートの描画に失敗しました</h3>
             <p className="text-sm text-gray-600 mb-4">
-              {this.state.error?.message || 'データの表示中にエラーが発生しました'}
+              {this.state.error?.message || "データの表示中にエラーが発生しました"}
             </p>
             <button
               onClick={() => this.setState({ hasError: false, error: undefined })}

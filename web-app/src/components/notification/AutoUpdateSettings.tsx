@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Bell, Mail, Clock, Settings, Save, TestTube, AlertCircle, CheckCircle } from 'lucide-react';
-import { NotificationService, NotificationConfig } from '@/lib/notification/NotificationService';
+import React, { useState, useEffect } from "react";
+import { Bell, Mail, Clock, Settings, Save, TestTube, AlertCircle, CheckCircle } from "lucide-react";
+import { NotificationService, NotificationConfig } from "@/lib/notification/NotificationService";
 
 export default function AutoUpdateSettings() {
   const [config, setConfig] = useState<NotificationConfig | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [testResult, setTestResult] = useState<string | null>(null);
-  const [autoUpdateStatus, setAutoUpdateStatus] = useState<'stopped' | 'running' | 'unknown'>('unknown');
+  const [autoUpdateStatus, setAutoUpdateStatus] = useState<"stopped" | "running" | "unknown">("unknown");
   const [notificationService, setNotificationService] = useState<NotificationService | null>(null);
 
   useEffect(() => {
@@ -26,17 +26,17 @@ export default function AutoUpdateSettings() {
       const config = await notificationService.loadConfig();
       setConfig(config);
     } catch (error) {
-      console.error('設定読み込みエラー:', error);
+      console.error("設定読み込みエラー:", error);
     }
   };
 
   const checkAutoUpdateStatus = async () => {
     try {
       // ローカルストレージから自動更新ステータスを確認
-      const autoUpdateEnabled = localStorage.getItem('auto-update-enabled');
-      setAutoUpdateStatus(autoUpdateEnabled === 'true' ? 'running' : 'stopped');
+      const autoUpdateEnabled = localStorage.getItem("auto-update-enabled");
+      setAutoUpdateStatus(autoUpdateEnabled === "true" ? "running" : "stopped");
     } catch (error) {
-      console.error('自動更新ステータス確認エラー:', error);
+      console.error("自動更新ステータス確認エラー:", error);
     }
   };
 
@@ -46,10 +46,10 @@ export default function AutoUpdateSettings() {
     setIsSaving(true);
     try {
       await notificationService.saveConfig(config);
-      setTestResult('設定を保存しました');
+      setTestResult("設定を保存しました");
       setTimeout(() => setTestResult(null), 3000);
     } catch (error) {
-      setTestResult('設定の保存に失敗しました');
+      setTestResult("設定の保存に失敗しました");
     } finally {
       setIsSaving(false);
     }
@@ -61,11 +61,11 @@ export default function AutoUpdateSettings() {
     setIsLoading(true);
     try {
       await notificationService.startAutoUpdate();
-      setAutoUpdateStatus('running');
-      setTestResult('自動更新を開始しました');
+      setAutoUpdateStatus("running");
+      setTestResult("自動更新を開始しました");
       setTimeout(() => setTestResult(null), 3000);
     } catch (error) {
-      setTestResult('自動更新の開始に失敗しました');
+      setTestResult("自動更新の開始に失敗しました");
     } finally {
       setIsLoading(false);
     }
@@ -77,11 +77,11 @@ export default function AutoUpdateSettings() {
     setIsLoading(true);
     try {
       await notificationService.stopAutoUpdate();
-      setAutoUpdateStatus('stopped');
-      setTestResult('自動更新を停止しました');
+      setAutoUpdateStatus("stopped");
+      setTestResult("自動更新を停止しました");
       setTimeout(() => setTestResult(null), 3000);
     } catch (error) {
-      setTestResult('自動更新の停止に失敗しました');
+      setTestResult("自動更新の停止に失敗しました");
     } finally {
       setIsLoading(false);
     }
@@ -94,14 +94,14 @@ export default function AutoUpdateSettings() {
     try {
       await notificationService.initializePushNotifications();
       await notificationService.notifyAnalysisComplete({
-        title: '通知テスト',
-        message: '通知設定は正常です',
-        timestamp: new Date().toISOString()
+        title: "通知テスト",
+        message: "通知設定は正常です",
+        timestamp: new Date().toISOString(),
       } as any);
-      setTestResult('通知テストを送信しました');
+      setTestResult("通知テストを送信しました");
       setTimeout(() => setTestResult(null), 3000);
     } catch (error) {
-      setTestResult('通知テストに失敗しました');
+      setTestResult("通知テストに失敗しました");
     } finally {
       setIsLoading(false);
     }
@@ -111,10 +111,10 @@ export default function AutoUpdateSettings() {
     if (!notificationService) return;
     try {
       await notificationService.initializePushNotifications();
-      setTestResult('ブラウザ通知を有効化しました');
+      setTestResult("ブラウザ通知を有効化しました");
       setTimeout(() => setTestResult(null), 3000);
     } catch (e) {
-      setTestResult('通知の有効化に失敗しました（サポート外または権限未許可）');
+      setTestResult("通知の有効化に失敗しました（サポート外または権限未許可）");
     }
   };
 
@@ -124,7 +124,7 @@ export default function AutoUpdateSettings() {
     setConfig(prev => {
       if (!prev) return prev;
       const newConfig = { ...prev };
-      const keys = path.split('.');
+      const keys = path.split(".");
       let current: any = newConfig;
       
       for (let i = 0; i < keys.length - 1; i++) {
@@ -158,7 +158,7 @@ export default function AutoUpdateSettings() {
           <span className="font-medium text-gray-900">自動更新ステータス</span>
         </div>
         <div className="flex items-center gap-2">
-          {autoUpdateStatus === 'running' ? (
+          {autoUpdateStatus === "running" ? (
             <>
               <CheckCircle className="w-5 h-5 text-green-600" />
               <span className="text-green-600 font-medium">実行中</span>
@@ -178,14 +178,14 @@ export default function AutoUpdateSettings() {
         <div className="flex gap-3">
           <button
             onClick={startAutoUpdate}
-            disabled={isLoading || autoUpdateStatus === 'running'}
+            disabled={isLoading || autoUpdateStatus === "running"}
             className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
           >
             自動更新開始
           </button>
           <button
             onClick={stopAutoUpdate}
-            disabled={isLoading || autoUpdateStatus === 'stopped'}
+            disabled={isLoading || autoUpdateStatus === "stopped"}
             className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
           >
             自動更新停止
@@ -212,7 +212,7 @@ export default function AutoUpdateSettings() {
             <input
               type="time"
               value={config.schedule.morning_analysis}
-              onChange={(e) => updateConfig('schedule.morning_analysis', e.target.value)}
+              onChange={(e) => updateConfig("schedule.morning_analysis", e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
@@ -223,7 +223,7 @@ export default function AutoUpdateSettings() {
             <input
               type="time"
               value={config.schedule.evening_analysis}
-              onChange={(e) => updateConfig('schedule.evening_analysis', e.target.value)}
+              onChange={(e) => updateConfig("schedule.evening_analysis", e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
@@ -244,7 +244,7 @@ export default function AutoUpdateSettings() {
             <input
               type="checkbox"
               checked={config.email.enabled}
-              onChange={(e) => updateConfig('email.enabled', e.target.checked)}
+              onChange={(e) => updateConfig("email.enabled", e.target.checked)}
               className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
             <span className="text-sm text-gray-700">メール通知を有効にする</span>
@@ -255,14 +255,14 @@ export default function AutoUpdateSettings() {
                 type="email"
                 placeholder="送信先メールアドレス"
                 value={config.email.email_to}
-                onChange={(e) => updateConfig('email.email_to', e.target.value)}
+                onChange={(e) => updateConfig("email.email_to", e.target.value)}
                 className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
               <input
                 type="email"
                 placeholder="送信者メールアドレス"
                 value={config.email.email_user}
-                onChange={(e) => updateConfig('email.email_user', e.target.value)}
+                onChange={(e) => updateConfig("email.email_user", e.target.value)}
                 className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
@@ -279,7 +279,7 @@ export default function AutoUpdateSettings() {
             <input
               type="checkbox"
               checked={config.push.enabled}
-              onChange={(e) => updateConfig('push.enabled', e.target.checked)}
+              onChange={(e) => updateConfig("push.enabled", e.target.checked)}
               className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
             <span className="text-sm text-gray-700">プッシュ通知を有効にする</span>
@@ -295,7 +295,7 @@ export default function AutoUpdateSettings() {
             <input
               type="checkbox"
               checked={config.content.include_analysis_summary}
-              onChange={(e) => updateConfig('content.include_analysis_summary', e.target.checked)}
+              onChange={(e) => updateConfig("content.include_analysis_summary", e.target.checked)}
               className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
             <span className="text-sm text-gray-700">分析サマリーを含める</span>
@@ -304,7 +304,7 @@ export default function AutoUpdateSettings() {
             <input
               type="checkbox"
               checked={config.content.include_recommendations}
-              onChange={(e) => updateConfig('content.include_recommendations', e.target.checked)}
+              onChange={(e) => updateConfig("content.include_recommendations", e.target.checked)}
               className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
             <span className="text-sm text-gray-700">推奨事項を含める</span>
@@ -313,7 +313,7 @@ export default function AutoUpdateSettings() {
             <input
               type="checkbox"
               checked={config.content.include_risk_alerts}
-              onChange={(e) => updateConfig('content.include_risk_alerts', e.target.checked)}
+              onChange={(e) => updateConfig("content.include_risk_alerts", e.target.checked)}
               className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
             <span className="text-sm text-gray-700">リスク警告を含める</span>

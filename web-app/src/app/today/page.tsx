@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import Link from 'next/link';
-import { useFiveMinRoutine } from '@/hooks/useFiveMinRoutine';
+import { useEffect } from "react";
+import Link from "next/link";
+import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
 
 export default function TodayPage() {
   const routine = useFiveMinRoutine();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const from = params.get('from');
-    if (from === 'notification') {
+    const from = params.get("from");
+    if (from === "notification") {
       setTimeout(() => {
-        const el = document.querySelector('[data-highlight="true"]');
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const el = document.querySelector("[data-highlight=\"true\"]");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
       }, 800);
     }
   }, []);
@@ -46,11 +46,11 @@ export default function TodayPage() {
           <div className="bg-white rounded-xl border p-4 flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500">最終更新</p>
-              <p className="text-base font-semibold text-gray-900">{routine.lastUpdated ? new Date(routine.lastUpdated).toLocaleString('ja-JP') : '—'}</p>
+              <p className="text-base font-semibold text-gray-900">{routine.lastUpdated ? new Date(routine.lastUpdated).toLocaleString("ja-JP") : "—"}</p>
             </div>
             <div>
               <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                routine.freshness === 'Fresh' ? 'bg-green-100 text-green-800' : routine.freshness === 'Stale' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-700'
+                routine.freshness === "Fresh" ? "bg-green-100 text-green-800" : routine.freshness === "Stale" ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-700"
               }`}>
                 {routine.freshness}
               </span>
@@ -72,7 +72,7 @@ export default function TodayPage() {
           ) : (
             <div className="space-y-3">
               {routine.topCandidates.map((c, idx) => (
-                <div key={c.symbol} data-highlight={idx === 0 ? 'true' : 'false'} className="bg-white rounded-xl border p-4">
+                <div key={c.symbol} data-highlight={idx === 0 ? "true" : "false"} className="bg-white rounded-xl border p-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="flex items-center gap-2">
@@ -80,7 +80,7 @@ export default function TodayPage() {
                         <span className="font-semibold text-gray-900">{c.symbol}</span>
                         <span className="text-gray-500 text-sm">{c.name || c.symbol}</span>
                       </div>
-                      <div className="text-xs text-gray-600 mt-1">{c.routine_reasons[0] || 'スコア上位'}</div>
+                      <div className="text-xs text-gray-600 mt-1">{c.routine_reasons[0] || "スコア上位"}</div>
                     </div>
                     <div className="text-right">
                       <div className="text-sm text-gray-600">信頼度 {Math.round((c.confidence ?? 0.5) * 100)}%</div>
@@ -111,7 +111,7 @@ export default function TodayPage() {
                     </div>
                     <div className="text-right">
                       <span className={`inline-block text-xs px-2 py-1 rounded mr-2 ${
-                        h.proposal === '継続' ? 'bg-blue-100 text-blue-800' : h.proposal === '利確' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                        h.proposal === "継続" ? "bg-blue-100 text-blue-800" : h.proposal === "利確" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
                       }`}>{h.proposal}</span>
                       {h.qtyOptions.map((q) => (
                         <button key={q} className="ml-1 bg-gray-100 px-2 py-1 rounded text-xs hover:bg-gray-200">

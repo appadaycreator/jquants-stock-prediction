@@ -14,7 +14,7 @@ export default function FirstTimeTutorial({
   isVisible,
   onClose,
   onStartAnalysis,
-  onStartDataUpdate
+  onStartDataUpdate,
 }: FirstTimeTutorialProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -25,7 +25,7 @@ export default function FirstTimeTutorial({
       title: "J-Quants株価予測システムへようこそ！",
       description: "AIを活用した株価予測システムで、投資判断をサポートします。",
       icon: <Target className="h-8 w-8 text-blue-600" />,
-      action: null
+      action: null,
     },
     {
       id: "data_guide",
@@ -35,8 +35,8 @@ export default function FirstTimeTutorial({
       action: {
         label: "データを更新",
         onClick: onStartDataUpdate,
-        icon: <RefreshCw className="h-4 w-4" />
-      }
+        icon: <RefreshCw className="h-4 w-4" />,
+      },
     },
     {
       id: "analysis_guide",
@@ -46,16 +46,16 @@ export default function FirstTimeTutorial({
       action: {
         label: "分析を実行",
         onClick: onStartAnalysis,
-        icon: <Play className="h-4 w-4" />
-      }
+        icon: <Play className="h-4 w-4" />,
+      },
     },
     {
       id: "completion",
       title: "準備完了！",
       description: "これで分析を開始できます。ダッシュボードで予測結果を確認してください。",
       icon: <CheckCircle className="h-8 w-8 text-green-600" />,
-      action: null
-    }
+      action: null,
+    },
   ];
 
   const currentStepData = steps[currentStep];
@@ -75,9 +75,9 @@ export default function FirstTimeTutorial({
   const handleComplete = () => {
     // チュートリアル完了をlocalStorageに保存
     try {
-      localStorage.setItem('first_time_tutorial_completed', 'true');
+      localStorage.setItem("first_time_tutorial_completed", "true");
     } catch (e) {
-      console.warn('localStorage access failed:', e);
+      console.warn("localStorage access failed:", e);
     }
     onClose();
   };

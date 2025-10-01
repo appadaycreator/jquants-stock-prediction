@@ -3,7 +3,7 @@
  * 詳細なエラー情報の取得、分析、レポート機能
  */
 
-import { getErrorInfo, type ErrorCategory, type ErrorSeverity } from './error-handler';
+import { getErrorInfo, type ErrorCategory, type ErrorSeverity } from "./error-handler";
 
 export interface ErrorLogEntry {
   id: string;
@@ -73,10 +73,10 @@ class ErrorLogger {
 
   constructor() {
     this.sessionId = this.generateSessionId();
-    this.isFirstVisit = !localStorage.getItem('app_visited');
+    this.isFirstVisit = !localStorage.getItem("app_visited");
     
     if (this.isFirstVisit) {
-      localStorage.setItem('app_visited', 'true');
+      localStorage.setItem("app_visited", "true");
     }
     
     this.loadStoredLogs();
@@ -89,12 +89,12 @@ class ErrorLogger {
 
   private loadStoredLogs(): void {
     try {
-      const stored = localStorage.getItem('error_logs');
+      const stored = localStorage.getItem("error_logs");
       if (stored) {
         this.logs = JSON.parse(stored);
       }
     } catch (e) {
-      console.warn('Failed to load stored error logs:', e);
+      console.warn("Failed to load stored error logs:", e);
     }
   }
 
@@ -102,26 +102,26 @@ class ErrorLogger {
     try {
       // 最新100件のみ保存
       const recentLogs = this.logs.slice(-100);
-      localStorage.setItem('error_logs', JSON.stringify(recentLogs));
+      localStorage.setItem("error_logs", JSON.stringify(recentLogs));
     } catch (e) {
-      console.warn('Failed to save error logs:', e);
+      console.warn("Failed to save error logs:", e);
     }
   }
 
   private setupPerformanceMonitoring(): void {
     // パフォーマンス監視の設定
-    if ('performance' in window) {
+    if ("performance" in window) {
       // メモリ使用量の監視
-      if ('memory' in performance) {
+      if ("memory" in performance) {
         setInterval(() => {
           const memory = (performance as any).memory;
           if (memory) {
             // メモリ使用量が高い場合の警告
             if (memory.usedJSHeapSize > 100 * 1024 * 1024) { // 100MB
-              console.warn('High memory usage detected:', {
+              console.warn("High memory usage detected:", {
                 used: memory.usedJSHeapSize,
                 total: memory.totalJSHeapSize,
-                limit: memory.jsHeapSizeLimit
+                limit: memory.jsHeapSizeLimit,
               });
             }
           }
@@ -137,7 +137,7 @@ class ErrorLogger {
       action?: string;
       state?: Record<string, any>;
       props?: Record<string, any>;
-    } = {}
+    } = {},
   ): string {
     const errorInfo = getErrorInfo(error);
     const timestamp = Date.now();
@@ -163,7 +163,7 @@ class ErrorLogger {
       userAgent: navigator.userAgent,
       viewport: {
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       },
       memory: performanceInfo.memory,
       performance: performanceInfo.performance,
@@ -171,15 +171,15 @@ class ErrorLogger {
       user: {
         sessionId: this.sessionId,
         userId: this.userId,
-        isFirstVisit: this.isFirstVisit
+        isFirstVisit: this.isFirstVisit,
       },
       network: networkInfo,
       browser: browserInfo,
       environment: {
-        nodeEnv: process.env.NODE_ENV || 'unknown',
+        nodeEnv: process.env.NODE_ENV || "unknown",
         buildId: process.env.NEXT_PUBLIC_BUILD_ID,
-        version: process.env.NEXT_PUBLIC_VERSION
-      }
+        version: process.env.NEXT_PUBLIC_VERSION,
+      },
     };
 
     this.logs.push(logEntry);
@@ -187,22 +187,22 @@ class ErrorLogger {
 
     // コンソールに詳細ログを出力
     console.group(`🚨 Error Logged: ${errorInfo.title}`);
-    console.error('Error Details:', {
+    console.error("Error Details:", {
       id,
       category: errorInfo.category,
       severity: errorInfo.severity,
       message: error.message,
       stack: error.stack,
       context,
-      timestamp: new Date(timestamp).toISOString()
+      timestamp: new Date(timestamp).toISOString(),
     });
-    console.error('Environment:', logEntry.environment);
-    console.error('Performance:', logEntry.performance);
-    console.error('Network:', logEntry.network);
+    console.error("Environment:", logEntry.environment);
+    console.error("Performance:", logEntry.performance);
+    console.error("Network:", logEntry.network);
     console.groupEnd();
 
     // 重大なエラーの場合は追加の処理
-    if (errorInfo.severity === 'critical') {
+    if (errorInfo.severity === "critical") {
       this.handleCriticalError(logEntry);
     }
 
@@ -220,40 +220,40 @@ class ErrorLogger {
     const performance: any = {
       navigation: null,
       paint: null,
-      load: null
+      load: null,
     };
 
     let memory: { used: number; total: number } | undefined;
 
     try {
       // ナビゲーション情報
-      const navEntries = performance.getEntriesByType('navigation');
+      const navEntries = performance.getEntriesByType("navigation");
       if (navEntries.length > 0) {
         performance.navigation = navEntries[0];
       }
 
       // ペイント情報
-      const paintEntries = performance.getEntriesByType('paint');
+      const paintEntries = performance.getEntriesByType("paint");
       if (paintEntries.length > 0) {
         performance.paint = paintEntries[0];
       }
 
       // ロード情報
-      const loadEntries = performance.getEntriesByType('load');
+      const loadEntries = performance.getEntriesByType("load");
       if (loadEntries.length > 0) {
         performance.load = loadEntries[0];
       }
 
       // メモリ情報
-      if ('memory' in performance) {
+      if ("memory" in performance) {
         const mem = (performance as any).memory;
         memory = {
           used: mem.usedJSHeapSize,
-          total: mem.totalJSHeapSize
+          total: mem.totalJSHeapSize,
         };
       }
     } catch (e) {
-      console.warn('Failed to get performance info:', e);
+      console.warn("Failed to get performance info:", e);
     }
 
     return { memory, performance };
@@ -266,23 +266,23 @@ class ErrorLogger {
     language: string;
   } {
     const ua = navigator.userAgent;
-    let name = 'Unknown';
-    let version = 'Unknown';
+    let name = "Unknown";
+    let version = "Unknown";
 
-    if (ua.includes('Chrome')) {
-      name = 'Chrome';
+    if (ua.includes("Chrome")) {
+      name = "Chrome";
       const match = ua.match(/Chrome\/(\d+)/);
       if (match) version = match[1];
-    } else if (ua.includes('Firefox')) {
-      name = 'Firefox';
+    } else if (ua.includes("Firefox")) {
+      name = "Firefox";
       const match = ua.match(/Firefox\/(\d+)/);
       if (match) version = match[1];
-    } else if (ua.includes('Safari')) {
-      name = 'Safari';
+    } else if (ua.includes("Safari")) {
+      name = "Safari";
       const match = ua.match(/Version\/(\d+)/);
       if (match) version = match[1];
-    } else if (ua.includes('Edge')) {
-      name = 'Edge';
+    } else if (ua.includes("Edge")) {
+      name = "Edge";
       const match = ua.match(/Edge\/(\d+)/);
       if (match) version = match[1];
     }
@@ -291,7 +291,7 @@ class ErrorLogger {
       name,
       version,
       platform: navigator.platform,
-      language: navigator.language
+      language: navigator.language,
     };
   }
 
@@ -301,34 +301,34 @@ class ErrorLogger {
     effectiveType?: string;
   } {
     const info: any = {
-      online: navigator.onLine
+      online: navigator.onLine,
     };
 
     try {
       // ネットワーク接続情報（対応ブラウザのみ）
-      if ('connection' in navigator) {
+      if ("connection" in navigator) {
         const connection = (navigator as any).connection;
         info.connectionType = connection.type;
         info.effectiveType = connection.effectiveType;
       }
     } catch (e) {
-      console.warn('Failed to get network info:', e);
+      console.warn("Failed to get network info:", e);
     }
 
     return info;
   }
 
   private handleCriticalError(logEntry: ErrorLogEntry): void {
-    console.error('🚨 Critical error detected:', logEntry);
+    console.error("🚨 Critical error detected:", logEntry);
     
     // 必要に応じて外部エラー追跡サービスに送信
     // 例: Sentry, LogRocket, Bugsnag など
     
     // ユーザーへの通知
-    if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification('システムエラーが発生しました', {
-        body: '重大なエラーが検出されました。ページを再読み込みしてください。',
-        icon: '/favicon.ico'
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification("システムエラーが発生しました", {
+        body: "重大なエラーが検出されました。ページを再読み込みしてください。",
+        icon: "/favicon.ico",
       });
     }
   }
@@ -379,12 +379,12 @@ class ErrorLogger {
     const errorTrend: { date: string; count: number }[] = [];
     for (let i = 6; i >= 0; i--) {
       const date = new Date(now - i * 24 * 60 * 60 * 1000);
-      const dateStr = date.toISOString().split('T')[0];
+      const dateStr = date.toISOString().split("T")[0];
       const dayStart = date.getTime();
       const dayEnd = dayStart + 24 * 60 * 60 * 1000;
       
       const dayErrors = this.logs.filter(log => 
-        log.timestamp >= dayStart && log.timestamp < dayEnd
+        log.timestamp >= dayStart && log.timestamp < dayEnd,
       );
       
       errorTrend.push({ date: dateStr, count: dayErrors.length });
@@ -397,7 +397,7 @@ class ErrorLogger {
     
     // 復旧率（自動復旧されたエラーの割合）
     const recoveredErrors = this.logs.filter(log => 
-      log.severity === 'low' || log.severity === 'medium'
+      log.severity === "low" || log.severity === "medium",
     ).length;
     const recoveryRate = recentLogs.length > 0 ? (recoveredErrors / recentLogs.length) * 100 : 0;
 
@@ -412,8 +412,8 @@ class ErrorLogger {
       userImpact: {
         affectedUsers: uniqueUsers,
         errorRate,
-        recoveryRate
-      }
+        recoveryRate,
+      },
     };
   }
 
@@ -425,7 +425,7 @@ class ErrorLogger {
 
   public clearLogs(): void {
     this.logs = [];
-    localStorage.removeItem('error_logs');
+    localStorage.removeItem("error_logs");
   }
 
   public exportLogs(): string {
@@ -443,38 +443,38 @@ export const errorLogger = new ErrorLogger();
 // グローバルエラーハンドリングの設定
 export function setupGlobalErrorHandling(): void {
   // ブラウザ環境でのみ実行
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return;
   }
 
   // 未処理のエラー
-  window.addEventListener('error', (event) => {
+  window.addEventListener("error", (event) => {
     errorLogger.logError(event.error, {
-      component: 'Global',
-      action: 'UnhandledError'
+      component: "Global",
+      action: "UnhandledError",
     });
   });
 
   // 未処理のPromise拒否
-  window.addEventListener('unhandledrejection', (event) => {
+  window.addEventListener("unhandledrejection", (event) => {
     const error = event.reason instanceof Error 
       ? event.reason 
       : new Error(String(event.reason));
     
     errorLogger.logError(error, {
-      component: 'Global',
-      action: 'UnhandledRejection'
+      component: "Global",
+      action: "UnhandledRejection",
     });
   });
 
   // リソース読み込みエラー
-  window.addEventListener('error', (event) => {
+  window.addEventListener("error", (event) => {
     if (event.target !== window) {
       const error = new Error(`Resource load error: ${event.target}`);
       errorLogger.logError(error, {
-        component: 'Resource',
-        action: 'LoadError',
-        props: { target: event.target }
+        component: "Resource",
+        action: "LoadError",
+        props: { target: event.target },
       });
     }
   }, true);

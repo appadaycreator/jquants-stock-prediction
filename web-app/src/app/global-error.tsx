@@ -11,7 +11,7 @@ export default function GlobalError({
 }) {
   const [retryCount, setRetryCount] = useState(0);
   const [isRetrying, setIsRetrying] = useState(false);
-  const [errorType, setErrorType] = useState<'rsc' | 'network' | 'data' | 'unknown'>('unknown');
+  const [errorType, setErrorType] = useState<"rsc" | "network" | "data" | "unknown">("unknown");
 
   useEffect(() => {
     // グローバルエラーログをコンソールに出力
@@ -24,19 +24,19 @@ export default function GlobalError({
         message.includes("failed to fetch rsc payload") ||
         message.includes("settings.txt") ||
         message.includes("reports.txt")) {
-      setErrorType('rsc');
+      setErrorType("rsc");
     } else if (message.includes("network") || 
                message.includes("fetch") || 
                message.includes("connection")) {
-      setErrorType('network');
+      setErrorType("network");
     } else if (message.includes("data") || 
                message.includes("json") || 
                message.includes("parse")) {
-      setErrorType('data');
+      setErrorType("data");
     }
     
     // RSC payloadエラーの場合、自動的にリトライ
-    if (errorType === 'rsc' || errorType === 'network') {
+    if (errorType === "rsc" || errorType === "network") {
       console.log(`${errorType} error detected, attempting recovery...`);
       handleAutoRetry();
     }
@@ -55,7 +55,7 @@ export default function GlobalError({
     
     setTimeout(() => {
       // キャッシュをクリアしてリロード
-      if ('caches' in window) {
+      if ("caches" in window) {
         caches.keys().then(names => {
           names.forEach(name => {
             caches.delete(name);
@@ -67,12 +67,12 @@ export default function GlobalError({
       try {
         const keys = Object.keys(localStorage);
         keys.forEach(key => {
-          if (key.startsWith('app_cache:') || key.startsWith('next:')) {
+          if (key.startsWith("app_cache:") || key.startsWith("next:")) {
             localStorage.removeItem(key);
           }
         });
       } catch (e) {
-        console.warn('Failed to clear localStorage cache:', e);
+        console.warn("Failed to clear localStorage cache:", e);
       }
       
       window.location.reload();
@@ -81,29 +81,29 @@ export default function GlobalError({
 
   const getErrorMessage = () => {
     switch (errorType) {
-      case 'rsc':
+      case "rsc":
         return {
-          title: 'RSC Payload エラー',
-          message: 'サーバーコンポーネントの通信エラーが発生しました。自動的に復旧を試みています...',
-          icon: '🔄'
+          title: "RSC Payload エラー",
+          message: "サーバーコンポーネントの通信エラーが発生しました。自動的に復旧を試みています...",
+          icon: "🔄",
         };
-      case 'network':
+      case "network":
         return {
-          title: 'ネットワークエラー',
-          message: 'ネットワーク接続に問題があります。自動的に再試行しています...',
-          icon: '🌐'
+          title: "ネットワークエラー",
+          message: "ネットワーク接続に問題があります。自動的に再試行しています...",
+          icon: "🌐",
         };
-      case 'data':
+      case "data":
         return {
-          title: 'データ取得エラー',
-          message: 'データの取得に失敗しました。キャッシュデータを表示します...',
-          icon: '📊'
+          title: "データ取得エラー",
+          message: "データの取得に失敗しました。キャッシュデータを表示します...",
+          icon: "📊",
         };
       default:
         return {
-          title: 'システムエラー',
-          message: '予期しないエラーが発生しました。自動的に復旧を試みています...',
-          icon: '⚠️'
+          title: "システムエラー",
+          message: "予期しないエラーが発生しました。自動的に復旧を試みています...",
+          icon: "⚠️",
         };
     }
   };
@@ -137,7 +137,7 @@ export default function GlobalError({
                   className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                   disabled={isRetrying}
                 >
-                  {isRetrying ? '復旧中...' : '手動で再試行'}
+                  {isRetrying ? "復旧中..." : "手動で再試行"}
                 </button>
                 <button
                   onClick={() => window.location.href = "/"}

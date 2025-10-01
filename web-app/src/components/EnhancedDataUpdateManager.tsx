@@ -23,21 +23,21 @@ interface EnhancedDataUpdateManagerProps {
 export default function EnhancedDataUpdateManager({
   onUpdateComplete,
   onProgressChange,
-  symbols = ['7203.T', '6758.T', '6861.T'],
-  className = ""
+  symbols = ["7203.T", "6758.T", "6861.T"],
+  className = "",
 }: EnhancedDataUpdateManagerProps) {
   const [isUpdating, setIsUpdating] = useState(false);
   const [progress, setProgress] = useState<UpdateProgress>({
     total: 0,
     completed: 0,
     failed: 0,
-    current: '',
+    current: "",
     percentage: 0,
-    startTime: new Date()
+    startTime: new Date(),
   });
   const [updateHistory, setUpdateHistory] = useState<Array<{
     timestamp: Date;
-    status: 'success' | 'error';
+    status: "success" | "error";
     message: string;
     duration: number;
   }>>([]);
@@ -47,16 +47,16 @@ export default function EnhancedDataUpdateManager({
   // 更新履歴の読み込み
   useEffect(() => {
     try {
-      const history = localStorage.getItem('data_update_history');
+      const history = localStorage.getItem("data_update_history");
       if (history) {
         const parsed = JSON.parse(history);
         setUpdateHistory(parsed.map((item: any) => ({
           ...item,
-          timestamp: new Date(item.timestamp)
+          timestamp: new Date(item.timestamp),
         })));
       }
     } catch (e) {
-      console.warn('更新履歴の読み込みに失敗:', e);
+      console.warn("更新履歴の読み込みに失敗:", e);
     }
   }, []);
 
@@ -65,9 +65,9 @@ export default function EnhancedDataUpdateManager({
     try {
       const newHistory = [entry, ...updateHistory.slice(0, 9)]; // 最新10件を保持
       setUpdateHistory(newHistory);
-      localStorage.setItem('data_update_history', JSON.stringify(newHistory));
+      localStorage.setItem("data_update_history", JSON.stringify(newHistory));
     } catch (e) {
-      console.warn('更新履歴の保存に失敗:', e);
+      console.warn("更新履歴の保存に失敗:", e);
     }
   };
 
@@ -83,9 +83,9 @@ export default function EnhancedDataUpdateManager({
       total: symbols.length,
       completed: 0,
       failed: 0,
-      current: '更新を開始しています...',
+      current: "更新を開始しています...",
       percentage: 0,
-      startTime
+      startTime,
     });
 
     try {
@@ -95,7 +95,7 @@ export default function EnhancedDataUpdateManager({
           setProgress(prev => ({
             ...prev,
             current: `${symbol} のデータを取得中...`,
-            percentage: Math.round((index / symbols.length) * 100)
+            percentage: Math.round((index / symbols.length) * 100),
           }));
 
           // 実際のデータ取得処理（シミュレーション）
@@ -104,29 +104,29 @@ export default function EnhancedDataUpdateManager({
           setProgress(prev => ({
             ...prev,
             completed: prev.completed + 1,
-            percentage: Math.round(((index + 1) / symbols.length) * 100)
+            percentage: Math.round(((index + 1) / symbols.length) * 100),
           }));
 
-          return { symbol, status: 'success', data: { price: 2500 + Math.random() * 100 } };
+          return { symbol, status: "success", data: { price: 2500 + Math.random() * 100 } };
         } catch (error) {
           setProgress(prev => ({
             ...prev,
-            failed: prev.failed + 1
+            failed: prev.failed + 1,
           }));
-          throw { symbol, error: error instanceof Error ? error.message : 'Unknown error' };
+          throw { symbol, error: error instanceof Error ? error.message : "Unknown error" };
         }
       });
 
       const results = await Promise.allSettled(updatePromises);
-      const successful = results.filter(r => r.status === 'fulfilled').length;
-      const failed = results.filter(r => r.status === 'rejected').length;
+      const successful = results.filter(r => r.status === "fulfilled").length;
+      const failed = results.filter(r => r.status === "rejected").length;
 
       const duration = Date.now() - startTime.getTime();
       const entry = {
         timestamp: new Date(),
-        status: (failed === 0 ? 'success' : 'error') as 'success' | 'error',
+        status: (failed === 0 ? "success" : "error") as "success" | "error",
         message: `${successful}件成功、${failed}件失敗`,
-        duration: Math.round(duration / 1000)
+        duration: Math.round(duration / 1000),
       };
 
       saveUpdateHistory(entry);
@@ -134,19 +134,19 @@ export default function EnhancedDataUpdateManager({
       setProgress(prev => ({
         ...prev,
         current: `更新完了: ${successful}件成功、${failed}件失敗`,
-        percentage: 100
+        percentage: 100,
       }));
 
-      onUpdateComplete?.(results.map(r => r.status === 'fulfilled' ? r.value : null).filter(Boolean));
+      onUpdateComplete?.(results.map(r => r.status === "fulfilled" ? r.value : null).filter(Boolean));
       
     } catch (error) {
-      console.error('データ更新エラー:', error);
+      console.error("データ更新エラー:", error);
       const duration = Date.now() - startTime.getTime();
       const entry = {
         timestamp: new Date(),
-        status: 'error' as const,
-        message: '更新に失敗しました',
-        duration: Math.round(duration / 1000)
+        status: "error" as const,
+        message: "更新に失敗しました",
+        duration: Math.round(duration / 1000),
       };
       saveUpdateHistory(entry);
     } finally {
@@ -162,8 +162,8 @@ export default function EnhancedDataUpdateManager({
       setIsUpdating(false);
       setProgress(prev => ({
         ...prev,
-        current: '更新がキャンセルされました',
-        percentage: 0
+        current: "更新がキャンセルされました",
+        percentage: 0,
       }));
     }
   };
@@ -192,7 +192,7 @@ export default function EnhancedDataUpdateManager({
           onClick={() => setShowDetails(!showDetails)}
           className="text-sm text-gray-500 hover:text-gray-700"
         >
-          {showDetails ? '詳細を隠す' : '詳細を表示'}
+          {showDetails ? "詳細を隠す" : "詳細を表示"}
         </button>
       </div>
 
@@ -268,17 +268,17 @@ export default function EnhancedDataUpdateManager({
                 updateHistory.map((entry, index) => (
                   <div key={index} className="flex items-center justify-between text-sm">
                     <div className="flex items-center space-x-2">
-                      {entry.status === 'success' ? (
+                      {entry.status === "success" ? (
                         <CheckCircle className="h-4 w-4 text-green-500" />
                       ) : (
                         <AlertTriangle className="h-4 w-4 text-red-500" />
                       )}
-                      <span className={entry.status === 'success' ? 'text-green-700' : 'text-red-700'}>
+                      <span className={entry.status === "success" ? "text-green-700" : "text-red-700"}>
                         {entry.message}
                       </span>
                     </div>
                     <div className="text-gray-500">
-                      {entry.timestamp.toLocaleString('ja-JP')} ({entry.duration}秒)
+                      {entry.timestamp.toLocaleString("ja-JP")} ({entry.duration}秒)
                     </div>
                   </div>
                 ))

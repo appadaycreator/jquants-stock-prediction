@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { X, ChevronLeft, ChevronRight, SkipForward } from 'lucide-react';
-import { accessibilityUtils } from '@/lib/guide/accessibility';
+import React, { useState, useEffect, useRef } from "react";
+import { X, ChevronLeft, ChevronRight, SkipForward } from "lucide-react";
+import { accessibilityUtils } from "@/lib/guide/accessibility";
 
 interface CoachmarkProps {
   step: {
@@ -31,7 +31,7 @@ export default function Coachmark({
   isFirst, 
   isLast,
   stepNumber = 1,
-  totalSteps = 10
+  totalSteps = 10,
 }: CoachmarkProps) {
   const [targetElement, setTargetElement] = useState<HTMLElement | null>(null);
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0, height: 0 });
@@ -48,18 +48,18 @@ export default function Coachmark({
           top: rect.top + window.scrollY,
           left: rect.left + window.scrollX,
           width: rect.width,
-          height: rect.height
+          height: rect.height,
         });
       }
     };
 
     updatePosition();
-    window.addEventListener('resize', updatePosition);
-    window.addEventListener('scroll', updatePosition);
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition);
 
     return () => {
-      window.removeEventListener('resize', updatePosition);
-      window.removeEventListener('scroll', updatePosition);
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition);
     };
   }, [step.target]);
 
@@ -67,7 +67,7 @@ export default function Coachmark({
   useEffect(() => {
     if (targetElement) {
       // スクリーンリーダーにステップをアナウンス
-      accessibilityUtils.screenReader.announceStep(step.title || '', step.body);
+      accessibilityUtils.screenReader.announceStep(step.title || "", step.body);
       
       // フォーカストラップを設定
       const cleanup = accessibilityUtils.focusManager.trapFocus(tooltipRef.current!);
@@ -87,19 +87,19 @@ export default function Coachmark({
       let newLeft = left;
 
       switch (step.placement) {
-        case 'top':
+        case "top":
           newTop = top - tooltipHeight - margin;
           newLeft = left + width / 2 - tooltipWidth / 2;
           break;
-        case 'bottom':
+        case "bottom":
           newTop = top + height + margin;
           newLeft = left + width / 2 - tooltipWidth / 2;
           break;
-        case 'left':
+        case "left":
           newTop = top + height / 2 - tooltipHeight / 2;
           newLeft = left - tooltipWidth - margin;
           break;
-        case 'right':
+        case "right":
           newTop = top + height / 2 - tooltipHeight / 2;
           newLeft = left + width + margin;
           break;
@@ -132,7 +132,7 @@ export default function Coachmark({
 
       setTooltipPosition({
         top: adjustedTop,
-        left: adjustedLeft
+        left: adjustedLeft,
       });
     }
   }, [targetElement, position, step.placement]);
@@ -153,8 +153,8 @@ export default function Coachmark({
           left: position.left - 4,
           width: position.width + 8,
           height: position.height + 8,
-          boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)',
-          zIndex: 1000
+          boxShadow: "0 0 0 9999px rgba(0, 0, 0, 0.5)",
+          zIndex: 1000,
         }}
       />
       
@@ -165,9 +165,9 @@ export default function Coachmark({
         style={{
           top: tooltipPosition.top,
           left: tooltipPosition.left,
-          zIndex: 1001
+          zIndex: 1001,
         }}
-        {...accessibilityUtils.generateAriaAttributes('tour')}
+        {...accessibilityUtils.generateAriaAttributes("tour")}
       >
         {/* ヘッダー */}
         <div className="flex justify-between items-start mb-3">

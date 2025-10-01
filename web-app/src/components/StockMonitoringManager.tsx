@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { 
   Search, X, Check, TrendingUp, Eye, EyeOff, Settings, 
-  Plus, Trash2, Save, AlertTriangle, Clock, Target 
+  Plus, Trash2, Save, AlertTriangle, Clock, Target, 
 } from "lucide-react";
 import { computeHistoricalVaR95, computeMaxDrawdown, computeAnnualizedVolatility, toPercent } from "@/lib/risk";
 import { NotificationService } from "@/lib/notification/NotificationService";
@@ -124,7 +124,7 @@ export default function StockMonitoringManager({
           setConfig(JSON.parse(savedConfig));
         }
       } catch (error) {
-        console.error('監視データ読み込みエラー:', error);
+        console.error("監視データ読み込みエラー:", error);
       }
     };
     
@@ -145,7 +145,7 @@ export default function StockMonitoringManager({
         localStorage.setItem("monitoredStocks", JSON.stringify(monitoredStocks));
         localStorage.setItem("monitoringConfig", JSON.stringify(config));
       } catch (error) {
-        console.error('監視データ保存エラー:', error);
+        console.error("監視データ保存エラー:", error);
       }
     };
     
@@ -159,7 +159,7 @@ export default function StockMonitoringManager({
         (stock) =>
           stock.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           stock.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          stock.sector.toLowerCase().includes(searchTerm.toLowerCase())
+          stock.sector.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       setFilteredStocks(filtered);
     } else {
@@ -192,7 +192,7 @@ export default function StockMonitoringManager({
     setMonitoredStocks(monitoredStocks.map(stock => 
       stock.code === code 
         ? { ...stock, isMonitoring: !stock.isMonitoring }
-        : stock
+        : stock,
     ));
   };
 
@@ -514,7 +514,7 @@ export default function StockMonitoringManager({
                         <label className="block text-gray-600 mb-1">損切り価格</label>
                         <input
                           type="number"
-                          value={stock.stopLossPrice ?? ''}
+                          value={stock.stopLossPrice ?? ""}
                           onChange={(e) => {
                             const v = e.target.value ? parseFloat(e.target.value) : undefined;
                             setMonitoredStocks(monitoredStocks.map(s => s.code === stock.code ? { ...s, stopLossPrice: v } : s));
@@ -633,7 +633,7 @@ export default function StockMonitoringManager({
             onClick={() => {
               setMonitoredStocks(monitoredStocks.map(stock => ({
                 ...stock,
-                isMonitoring: true
+                isMonitoring: true,
               })));
             }}
             className="flex items-center px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200"
@@ -645,7 +645,7 @@ export default function StockMonitoringManager({
             onClick={() => {
               setMonitoredStocks(monitoredStocks.map(stock => ({
                 ...stock,
-                isMonitoring: false
+                isMonitoring: false,
               })));
             }}
             className="flex items-center px-4 py-2 bg-yellow-100 text-yellow-700 rounded-lg hover:bg-yellow-200"

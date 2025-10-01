@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { getErrorInfo, logError, getLocalizedErrorMessage, type ErrorInfo } from '@/lib/error-handler';
+import React, { useState, useEffect, useCallback } from "react";
+import { getErrorInfo, logError, getLocalizedErrorMessage, type ErrorInfo } from "@/lib/error-handler";
 
 interface UnifiedErrorHandlerProps {
   error: Error;
@@ -18,7 +18,7 @@ export default function UnifiedErrorHandler({
   onDismiss,
   showDetails = false,
   autoRetry = true,
-  maxRetries = 3
+  maxRetries = 3,
 }: UnifiedErrorHandlerProps) {
   const [retryCount, setRetryCount] = useState(0);
   const [isRetrying, setIsRetrying] = useState(false);
@@ -49,7 +49,7 @@ export default function UnifiedErrorHandler({
     
     setTimeout(() => {
       // キャッシュクリア
-      if ('caches' in window) {
+      if ("caches" in window) {
         caches.keys().then(names => {
           names.forEach(name => caches.delete(name));
         });
@@ -59,12 +59,12 @@ export default function UnifiedErrorHandler({
       try {
         const keys = Object.keys(localStorage);
         keys.forEach(key => {
-          if (key.startsWith('app_cache:') || key.startsWith('next:')) {
+          if (key.startsWith("app_cache:") || key.startsWith("next:")) {
             localStorage.removeItem(key);
           }
         });
       } catch (e) {
-        console.warn('Failed to clear localStorage cache:', e);
+        console.warn("Failed to clear localStorage cache:", e);
       }
       
       if (onRetry) {
@@ -95,11 +95,11 @@ export default function UnifiedErrorHandler({
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'low': return 'bg-yellow-50 border-yellow-200 text-yellow-800';
-      case 'medium': return 'bg-orange-50 border-orange-200 text-orange-800';
-      case 'high': return 'bg-red-50 border-red-200 text-red-800';
-      case 'critical': return 'bg-red-100 border-red-300 text-red-900';
-      default: return 'bg-gray-50 border-gray-200 text-gray-800';
+      case "low": return "bg-yellow-50 border-yellow-200 text-yellow-800";
+      case "medium": return "bg-orange-50 border-orange-200 text-orange-800";
+      case "high": return "bg-red-50 border-red-200 text-red-800";
+      case "critical": return "bg-red-100 border-red-300 text-red-900";
+      default: return "bg-gray-50 border-gray-200 text-gray-800";
     }
   };
 
@@ -154,7 +154,7 @@ export default function UnifiedErrorHandler({
                 className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
                 disabled={isRetrying}
               >
-                {isRetrying ? '復旧中...' : '手動で再試行'}
+                {isRetrying ? "復旧中..." : "手動で再試行"}
               </button>
             )}
             

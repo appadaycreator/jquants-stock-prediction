@@ -6,7 +6,7 @@ import { useAnalysisWithSettings } from "@/hooks/useAnalysisWithSettings";
 import { fetchJson } from "@/lib/fetcher";
 
 interface AnalysisConfig {
-  type: 'ultra_fast' | 'comprehensive' | 'symbols' | 'trading' | 'sentiment';
+  type: "ultra_fast" | "comprehensive" | "symbols" | "trading" | "sentiment";
   name: string;
   description: string;
   icon: React.ReactNode;
@@ -15,40 +15,40 @@ interface AnalysisConfig {
 
 const analysisConfigs: AnalysisConfig[] = [
   {
-    type: 'ultra_fast',
-    name: '超高速分析',
-    description: '1日5分で完結する最適化された分析',
+    type: "ultra_fast",
+    name: "超高速分析",
+    description: "1日5分で完結する最適化された分析",
     icon: <Zap className="w-5 h-5" />,
-    estimatedTime: '1-2分'
+    estimatedTime: "1-2分",
   },
   {
-    type: 'comprehensive',
-    name: '包括的分析',
-    description: 'データ取得から予測まで全工程を自動実行',
+    type: "comprehensive",
+    name: "包括的分析",
+    description: "データ取得から予測まで全工程を自動実行",
     icon: <BarChart3 className="w-5 h-5" />,
-    estimatedTime: '3-5分'
+    estimatedTime: "3-5分",
   },
   {
-    type: 'symbols',
-    name: '銘柄分析',
-    description: '指定銘柄の詳細分析を実行',
+    type: "symbols",
+    name: "銘柄分析",
+    description: "指定銘柄の詳細分析を実行",
     icon: <TrendingUp className="w-5 h-5" />,
-    estimatedTime: '2-3分'
+    estimatedTime: "2-3分",
   },
   {
-    type: 'trading',
-    name: 'トレーディング分析',
-    description: '統合トレーディングシステムによる分析',
+    type: "trading",
+    name: "トレーディング分析",
+    description: "統合トレーディングシステムによる分析",
     icon: <Zap className="w-5 h-5" />,
-    estimatedTime: '4-6分'
+    estimatedTime: "4-6分",
   },
   {
-    type: 'sentiment',
-    name: '感情分析',
-    description: 'ニュース感情分析による予測',
+    type: "sentiment",
+    name: "感情分析",
+    description: "ニュース感情分析による予測",
     icon: <Brain className="w-5 h-5" />,
-    estimatedTime: '3-4分'
-  }
+    estimatedTime: "3-4分",
+  },
 ];
 
 interface AnalysisHistory {
@@ -56,7 +56,7 @@ interface AnalysisHistory {
   type: string;
   timestamp: string;
   duration: string;
-  status: 'success' | 'error';
+  status: "success" | "error";
   result?: any;
   error?: string;
 }
@@ -68,14 +68,14 @@ interface OneClickAnalysisProps {
 
 export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }: OneClickAnalysisProps) {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [selectedType, setSelectedType] = useState<AnalysisConfig['type']>('ultra_fast');
+  const [selectedType, setSelectedType] = useState<AnalysisConfig["type"]>("ultra_fast");
   const [progress, setProgress] = useState(0);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
   const [showConfig, setShowConfig] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [analysisId, setAnalysisId] = useState<string | null>(null);
-  const [elapsedTime, setElapsedTime] = useState<string>('00:00');
+  const [elapsedTime, setElapsedTime] = useState<string>("00:00");
   const [analysisHistory, setAnalysisHistory] = useState<AnalysisHistory[]>([]);
   const [showHistory, setShowHistory] = useState(false);
   const [previousResult, setPreviousResult] = useState<any>(null);
@@ -86,7 +86,7 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
     isAnalyzing: settingsAnalyzing, 
     analysisProgress: settingsProgress, 
     analysisStatus: settingsStatus,
-    getAnalysisDescription 
+    getAnalysisDescription, 
   } = useAnalysisWithSettings();
 
   const selectedConfig = analysisConfigs.find(config => config.type === selectedType);
@@ -95,12 +95,12 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
   const saveAnalysisHistory = (history: AnalysisHistory) => {
     const newHistory = [history, ...analysisHistory.slice(0, 9)]; // 最新10件を保持
     setAnalysisHistory(newHistory);
-    localStorage.setItem('analysisHistory', JSON.stringify(newHistory));
+    localStorage.setItem("analysisHistory", JSON.stringify(newHistory));
   };
 
   // 履歴の読み込み
   const loadAnalysisHistory = () => {
-    const saved = localStorage.getItem('analysisHistory');
+    const saved = localStorage.getItem("analysisHistory");
     if (saved) {
       try {
         const history = JSON.parse(saved);
@@ -109,7 +109,7 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
           setPreviousResult(history[0].result);
         }
       } catch (error) {
-        console.error('履歴読み込みエラー:', error);
+        console.error("履歴読み込みエラー:", error);
       }
     }
   };
@@ -123,15 +123,15 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
     try {
       setIsAnalyzing(true);
       setProgress(0);
-      setStatus('ジョブを作成しています...');
+      setStatus("ジョブを作成しています...");
       setError(null);
       setAnalysisResult(null);
-      setElapsedTime('00:00');
+      setElapsedTime("00:00");
 
       onAnalysisStart?.();
 
       // 冪等化用トークン（セッションに一意）
-      const clientTokenKey = 'analysis:client_token';
+      const clientTokenKey = "analysis:client_token";
       let clientToken = localStorage.getItem(clientTokenKey);
       if (!clientToken) {
         clientToken = `client_${crypto.randomUUID?.() || Math.random().toString(36).slice(2)}`;
@@ -140,27 +140,27 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
 
       // 1) ジョブ作成（client_token を JSON Body で送信）
       const { job_id } = await fetchJson<{ job_id: string }>(
-        '/api/analyze',
-        { timeout: 10000, json: { client_token: clientToken } }
+        "/api/analyze",
+        { timeout: 10000, json: { client_token: clientToken } },
       ).catch(async (e) => {
         // 静的環境フォールバック: 旧クライアントシミュレーションに切替
-        setStatus('静的環境のためローカルシミュレーションに切り替えます...');
+        setStatus("静的環境のためローカルシミュレーションに切り替えます...");
         const sim = await runAnalysisWithSettings({ analysisType: selectedType, useSettings: true });
         if (!sim.success) throw e;
-        setStatus('分析が完了しました！（ローカル）');
+        setStatus("分析が完了しました！（ローカル）");
         setProgress(100);
         setAnalysisResult(sim.result);
         onAnalysisComplete?.(sim.result);
         const localId = `local_${Date.now()}`;
         setAnalysisId(localId);
-        saveAnalysisHistory({ id: localId, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: 'success', result: sim.result });
+        saveAnalysisHistory({ id: localId, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: "success", result: sim.result });
         setIsAnalyzing(false);
         throw null; // 以降の処理をスキップ
       });
       if (!job_id) return; // フォールバックで既に完了
 
       setAnalysisId(job_id);
-      setStatus('キューに投入しました。進捗を監視します...');
+      setStatus("キューに投入しました。進捗を監視します...");
 
       // 2) ポーリング: 1.5s間隔 最大3分
       const startedAt = Date.now();
@@ -171,50 +171,50 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
         try {
           const res = await fetchJson<{ status: string; progress?: number; result_url?: string; error?: string }>(
             `/api/jobs/${job_id}`,
-            { timeout: 8000 }
+            { timeout: 8000 },
           );
           const prog = Math.min(99, Math.max(0, Math.floor(res.progress ?? 0)));
           setProgress(prog);
-          setStatus(res.status === 'running' ? '分析を実行中...' : res.status === 'queued' ? '待機中...' : status);
+          setStatus(res.status === "running" ? "分析を実行中..." : res.status === "queued" ? "待機中..." : status);
 
-          if (res.status === 'succeeded') {
+          if (res.status === "succeeded") {
             setProgress(100);
-            setStatus('分析が完了しました！');
-            const resultPayload = { message: '分析が完了しました', resultUrl: res.result_url, webDataGenerated: true };
+            setStatus("分析が完了しました！");
+            const resultPayload = { message: "分析が完了しました", resultUrl: res.result_url, webDataGenerated: true };
             setAnalysisResult(resultPayload);
             onAnalysisComplete?.(resultPayload);
-            saveAnalysisHistory({ id: job_id, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: 'success', result: resultPayload });
+            saveAnalysisHistory({ id: job_id, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: "success", result: resultPayload });
             setIsAnalyzing(false);
             return;
           }
-          if (res.status === 'failed') {
-            const errMsg = res.error || 'サーバー側でエラーが発生しました';
+          if (res.status === "failed") {
+            const errMsg = res.error || "サーバー側でエラーが発生しました";
             throw new Error(errMsg);
           }
 
           if (Date.now() - startedAt > timeoutMs) {
-            throw new Error('タイムアウトしました（3分）');
+            throw new Error("タイムアウトしました（3分）");
           }
 
           setTimeout(poll, pollInterval);
         } catch (err) {
           // フェールオーバー: 前回結果
           const last = analysisHistory[0]?.result;
-          setError(err instanceof Error ? err.message : '不明なエラー');
-          setStatus('失敗しました。前回結果にフォールバックできます');
+          setError(err instanceof Error ? err.message : "不明なエラー");
+          setStatus("失敗しました。前回結果にフォールバックできます");
           if (last) {
             setAnalysisResult(last);
           }
           // 履歴保存
-          saveAnalysisHistory({ id: job_id, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: 'error', error: err instanceof Error ? err.message : 'Unknown' });
+          saveAnalysisHistory({ id: job_id, type: selectedType, timestamp: new Date().toISOString(), duration: elapsedTime, status: "error", error: err instanceof Error ? err.message : "Unknown" });
           setIsAnalyzing(false);
         }
       };
 
       setTimeout(poll, pollInterval);
     } catch (err) {
-      setError(err instanceof Error ? err.message : '不明なエラーが発生しました');
-      setStatus('分析に失敗しました');
+      setError(err instanceof Error ? err.message : "不明なエラーが発生しました");
+      setStatus("分析に失敗しました");
       setIsAnalyzing(false);
     }
   };
@@ -222,7 +222,7 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
   const resetAnalysis = () => {
     setIsAnalyzing(false);
     setProgress(0);
-    setStatus('');
+    setStatus("");
     setError(null);
     setAnalysisResult(null);
   };
@@ -262,8 +262,8 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
                 onClick={() => setSelectedType(config.type)}
                 className={`p-3 rounded-lg border-2 transition-all ${
                   selectedType === config.type
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-gray-300'
+                    ? "border-blue-500 bg-blue-50"
+                    : "border-gray-200 hover:border-gray-300"
                 }`}
               >
                 <div className="flex items-center gap-2 mb-1">
@@ -293,14 +293,14 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
                 <div
                   key={history.id}
                   className={`p-3 rounded-lg border ${
-                    history.status === 'success'
-                      ? 'border-green-200 bg-green-50'
-                      : 'border-red-200 bg-red-50'
+                    history.status === "success"
+                      ? "border-green-200 bg-green-50"
+                      : "border-red-200 bg-red-50"
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      {history.status === 'success' ? (
+                      {history.status === "success" ? (
                         <CheckCircle className="w-4 h-4 text-green-600" />
                       ) : (
                         <AlertCircle className="w-4 h-4 text-red-600" />
@@ -311,14 +311,14 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
                     </div>
                     <div className="flex items-center gap-2 text-xs text-gray-500">
                       <Clock className="w-3 h-3" />
-                      {new Date(history.timestamp).toLocaleString('ja-JP')}
+                      {new Date(history.timestamp).toLocaleString("ja-JP")}
                     </div>
                   </div>
                   <div className="flex items-center justify-between mt-1">
                     <span className="text-xs text-gray-600">
                       実行時間: {history.duration}
                     </span>
-                    {index === 0 && history.status === 'success' && (
+                    {index === 0 && history.status === "success" && (
                       <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
                         最新結果
                       </span>
@@ -342,7 +342,7 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
             <div>
               <h4 className="font-medium text-blue-700 mb-2">前回の結果</h4>
               <div className="text-sm text-blue-600">
-                <p>実行日時: {new Date(analysisHistory[0]?.timestamp).toLocaleString('ja-JP')}</p>
+                <p>実行日時: {new Date(analysisHistory[0]?.timestamp).toLocaleString("ja-JP")}</p>
                 <p>実行時間: {analysisHistory[0]?.duration}</p>
                 <p>分析タイプ: {analysisConfigs.find(c => c.type === analysisHistory[0]?.type)?.name}</p>
               </div>
@@ -350,7 +350,7 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
             <div>
               <h4 className="font-medium text-green-700 mb-2">今回の結果</h4>
               <div className="text-sm text-green-600">
-                <p>実行日時: {new Date().toLocaleString('ja-JP')}</p>
+                <p>実行日時: {new Date().toLocaleString("ja-JP")}</p>
                 <p>実行時間: {elapsedTime}</p>
                 <p>分析タイプ: {selectedConfig?.name}</p>
               </div>
@@ -398,8 +398,8 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
             disabled={isAnalyzing}
             className={`px-6 py-3 rounded-lg font-medium transition-all ${
               isAnalyzing
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-blue-600 hover:bg-blue-700 text-white'
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
             }`}
           >
             {isAnalyzing ? (

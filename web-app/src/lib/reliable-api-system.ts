@@ -3,9 +3,9 @@
  * 強化されたJ-Quantsアダプタ、品質監視、最適化キャッシュを統合
  */
 
-import EnhancedJQuantsAdapter, { JQuantsConfig, StockData, ApiMetrics, DataQualityReport } from './enhanced-jquants-adapter';
-import DataQualityMonitor, { QualityMetrics, QualityReport } from './data-quality-monitor';
-import OptimizedCacheManager, { CacheConfig } from './optimized-cache-manager';
+import EnhancedJQuantsAdapter, { JQuantsConfig, StockData, ApiMetrics, DataQualityReport } from "./enhanced-jquants-adapter";
+import DataQualityMonitor, { QualityMetrics, QualityReport } from "./data-quality-monitor";
+import OptimizedCacheManager, { CacheConfig } from "./optimized-cache-manager";
 
 interface ReliableApiSystemConfig {
   jquants: Partial<JQuantsConfig>;
@@ -22,7 +22,7 @@ interface ReliableApiSystemConfig {
 }
 
 interface SystemHealth {
-  overall: 'healthy' | 'degraded' | 'unhealthy';
+  overall: "healthy" | "degraded" | "unhealthy";
   api: {
     status: string;
     metrics: ApiMetrics;
@@ -38,8 +38,8 @@ interface SystemHealth {
     overallScore: number;
     activeAnomalies: number;
     trends: {
-      quality: 'improving' | 'stable' | 'declining';
-      performance: 'improving' | 'stable' | 'declining';
+      quality: "improving" | "stable" | "declining";
+      performance: "improving" | "stable" | "declining";
     };
   };
   recommendations: string[];
@@ -55,15 +55,15 @@ class ReliableApiSystem {
   constructor(config: ReliableApiSystemConfig) {
     this.config = {
       jquants: {
-        token: '',
-        baseUrl: 'https://api.jquants.com/v1',
+        token: "",
+        baseUrl: "https://api.jquants.com/v1",
         timeout: 30000,
         maxRetries: 3,
         retryDelay: 1000,
         rateLimitDelay: 100,
         enableDataValidation: true,
         enableQualityMonitoring: true,
-        ...config.jquants
+        ...config.jquants,
       },
       cache: {
         maxSize: 100,
@@ -71,7 +71,7 @@ class ReliableApiSystem {
         compressionEnabled: true,
         autoCleanup: true,
         cleanupInterval: 60 * 60 * 1000,
-        ...config.cache
+        ...config.cache,
       },
       quality: {
         enableMonitoring: config.quality?.enableMonitoring ?? true,
@@ -79,9 +79,9 @@ class ReliableApiSystem {
         thresholds: {
           minQualityScore: config.quality?.thresholds?.minQualityScore ?? 90,
           maxErrorRate: config.quality?.thresholds?.maxErrorRate ?? 5,
-          maxResponseTime: config.quality?.thresholds?.maxResponseTime ?? 5000
-        }
-      }
+          maxResponseTime: config.quality?.thresholds?.maxResponseTime ?? 5000,
+        },
+      },
     };
 
     this.adapter = new EnhancedJQuantsAdapter(this.config.jquants);
@@ -94,7 +94,7 @@ class ReliableApiSystem {
    */
   async initialize(): Promise<{ success: boolean; message: string }> {
     try {
-      console.info('信頼性APIシステムの初期化を開始');
+      console.info("信頼性APIシステムの初期化を開始");
 
       // 接続テスト
       const connectionTest = await this.adapter.testConnection();
@@ -108,17 +108,17 @@ class ReliableApiSystem {
       }
 
       this.isInitialized = true;
-      console.info('信頼性APIシステムの初期化完了');
+      console.info("信頼性APIシステムの初期化完了");
 
       return {
         success: true,
-        message: 'システムが正常に初期化されました'
+        message: "システムが正常に初期化されました",
       };
     } catch (error) {
-      console.error('システム初期化エラー:', error);
+      console.error("システム初期化エラー:", error);
       return {
         success: false,
-        message: `初期化失敗: ${error instanceof Error ? error.message : '不明なエラー'}`
+        message: `初期化失敗: ${error instanceof Error ? error.message : "不明なエラー"}`,
       };
     }
   }
@@ -134,7 +134,7 @@ class ReliableApiSystem {
       useCache?: boolean;
       validateData?: boolean;
       monitorQuality?: boolean;
-    } = {}
+    } = {},
   ): Promise<{
     data: StockData[];
     fromCache: boolean;
@@ -147,7 +147,7 @@ class ReliableApiSystem {
     const monitorQuality = options.monitorQuality !== false;
 
     try {
-      console.info('株価データ取得開始', { symbol, startDate, endDate, useCache });
+      console.info("株価データ取得開始", { symbol, startDate, endDate, useCache });
 
       // キャッシュから取得を試行
       let data: StockData[] = [];
@@ -160,7 +160,7 @@ class ReliableApiSystem {
         if (cachedData && cachedData.length > 0) {
           data = cachedData;
           fromCache = true;
-          console.info('キャッシュからデータ取得', { symbol, count: data.length });
+          console.info("キャッシュからデータ取得", { symbol, count: data.length });
         }
       }
 
@@ -173,8 +173,8 @@ class ReliableApiSystem {
           const cacheKey = `stock_${symbol}_${startDate}_${endDate}`;
           await this.cacheManager.set(cacheKey, data, {
             ttl: 60 * 60 * 1000, // 1時間
-            tags: ['stock_data', symbol],
-            priority: 0.8
+            tags: ["stock_data", symbol],
+            priority: 0.8,
           });
         }
       }
@@ -201,27 +201,27 @@ class ReliableApiSystem {
           responseTime,
           errorRate,
           dataCompleteness,
-          dataAccuracy
+          dataAccuracy,
         };
 
         this.qualityMonitor.recordMetrics(symbol, metrics);
       }
 
-      console.info('株価データ取得完了', { 
+      console.info("株価データ取得完了", { 
         symbol, 
         count: data.length, 
         fromCache, 
-        qualityScore 
+        qualityScore, 
       });
 
       return {
         data,
         fromCache,
         qualityScore,
-        metrics
+        metrics,
       };
     } catch (error) {
-      console.error('株価データ取得エラー:', error);
+      console.error("株価データ取得エラー:", error);
       throw error;
     }
   }
@@ -235,13 +235,13 @@ class ReliableApiSystem {
   }> {
     try {
       if (useCache) {
-        const cacheKey = 'all_symbols';
+        const cacheKey = "all_symbols";
         const cachedSymbols = await this.cacheManager.get<Array<{ code: string; name: string; sector?: string }>>(cacheKey);
         
         if (cachedSymbols && cachedSymbols.length > 0) {
           return {
             symbols: cachedSymbols,
-            fromCache: true
+            fromCache: true,
           };
         }
       }
@@ -249,20 +249,20 @@ class ReliableApiSystem {
       const symbols = await this.adapter.getAllSymbols();
       
       if (useCache && symbols.length > 0) {
-        const cacheKey = 'all_symbols';
+        const cacheKey = "all_symbols";
         await this.cacheManager.set(cacheKey, symbols, {
           ttl: 24 * 60 * 60 * 1000, // 24時間
-          tags: ['symbols', 'reference'],
-          priority: 0.9
+          tags: ["symbols", "reference"],
+          priority: 0.9,
         });
       }
 
       return {
         symbols,
-        fromCache: false
+        fromCache: false,
       };
     } catch (error) {
-      console.error('全銘柄一覧取得エラー:', error);
+      console.error("全銘柄一覧取得エラー:", error);
       throw error;
     }
   }
@@ -276,32 +276,32 @@ class ReliableApiSystem {
     const qualityStatus = this.qualityMonitor.getCurrentQualityStatus();
 
     // 全体の健康状態の判定
-    let overall: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
+    let overall: "healthy" | "degraded" | "unhealthy" = "healthy";
     const issues: string[] = [];
 
-    if (apiHealth.status === 'unhealthy' || qualityStatus.overallHealth === 'unhealthy') {
-      overall = 'unhealthy';
-    } else if (apiHealth.status === 'degraded' || qualityStatus.overallHealth === 'degraded') {
-      overall = 'degraded';
+    if (apiHealth.status === "unhealthy" || qualityStatus.overallHealth === "unhealthy") {
+      overall = "unhealthy";
+    } else if (apiHealth.status === "degraded" || qualityStatus.overallHealth === "degraded") {
+      overall = "degraded";
     }
 
     // 推奨事項の生成
     const recommendations: string[] = [];
 
     if (cacheStats.hitRate < 80) {
-      recommendations.push('キャッシュヒット率が低いです。キャッシュ戦略の見直しを推奨します。');
+      recommendations.push("キャッシュヒット率が低いです。キャッシュ戦略の見直しを推奨します。");
     }
 
     if (apiHealth.metrics.consecutiveFailures > 3) {
-      recommendations.push('API接続が不安定です。接続設定の確認を推奨します。');
+      recommendations.push("API接続が不安定です。接続設定の確認を推奨します。");
     }
 
     if (qualityStatus.activeAnomalies > 5) {
-      recommendations.push('データ品質に問題があります。品質監視の強化を推奨します。');
+      recommendations.push("データ品質に問題があります。品質監視の強化を推奨します。");
     }
 
     if (apiHealth.metrics.averageResponseTime > 5000) {
-      recommendations.push('応答時間が長いです。ネットワーク最適化を推奨します。');
+      recommendations.push("応答時間が長いです。ネットワーク最適化を推奨します。");
     }
 
     return {
@@ -310,12 +310,12 @@ class ReliableApiSystem {
         status: apiHealth.status,
         metrics: apiHealth.metrics,
         lastSuccess: apiHealth.metrics.lastRequestTime,
-        consecutiveFailures: apiHealth.metrics.consecutiveFailures
+        consecutiveFailures: apiHealth.metrics.consecutiveFailures,
       },
       cache: {
         hitRate: cacheStats.hitRate,
         totalSize: cacheStats.totalSize,
-        efficiency: cacheStats.hitRate / (cacheStats.hitRate + cacheStats.missRate)
+        efficiency: cacheStats.hitRate / (cacheStats.hitRate + cacheStats.missRate),
       },
       quality: {
         overallScore: qualityStatus.recentMetrics.length > 0 
@@ -323,11 +323,11 @@ class ReliableApiSystem {
           : 100,
         activeAnomalies: qualityStatus.activeAnomalies,
         trends: {
-          quality: 'stable', // 簡易実装
-          performance: 'stable'
-        }
+          quality: "stable", // 簡易実装
+          performance: "stable",
+        },
       },
-      recommendations
+      recommendations,
     };
   }
 
@@ -336,7 +336,7 @@ class ReliableApiSystem {
    */
   generateQualityReport(
     timeRange: { start: string; end: string },
-    symbols?: string[]
+    symbols?: string[],
   ): QualityReport {
     return this.qualityMonitor.generateQualityReport(timeRange, symbols);
   }
@@ -365,7 +365,7 @@ class ReliableApiSystem {
   updateConfig(newConfig: Partial<ReliableApiSystemConfig>): void {
     this.config = {
       ...this.config,
-      ...newConfig
+      ...newConfig,
     };
 
     if (newConfig.cache) {
@@ -376,7 +376,7 @@ class ReliableApiSystem {
       this.qualityMonitor.updateThresholds(newConfig.quality.thresholds);
     }
 
-    console.info('システム設定を更新しました', this.config);
+    console.info("システム設定を更新しました", this.config);
   }
 
   /**
@@ -386,9 +386,9 @@ class ReliableApiSystem {
     try {
       this.qualityMonitor.stopMonitoring();
       this.cacheManager.stopCleanup();
-      console.info('信頼性APIシステムを停止しました');
+      console.info("信頼性APIシステムを停止しました");
     } catch (error) {
-      console.error('システム停止エラー:', error);
+      console.error("システム停止エラー:", error);
     }
   }
 
@@ -450,7 +450,7 @@ class ReliableApiSystem {
     responseTime: number,
     errorRate: number,
     dataCompleteness: number,
-    dataAccuracy: number
+    dataAccuracy: number,
   ): number {
     // 各要素の重み付けスコア
     const responseScore = Math.max(0, 100 - (responseTime / 100)); // 応答時間スコア
@@ -463,14 +463,14 @@ class ReliableApiSystem {
       response: 0.2,
       error: 0.3,
       completeness: 0.25,
-      accuracy: 0.25
+      accuracy: 0.25,
     };
 
     return Math.round(
       responseScore * weights.response +
       errorScore * weights.error +
       completenessScore * weights.completeness +
-      accuracyScore * weights.accuracy
+      accuracyScore * weights.accuracy,
     );
   }
 }

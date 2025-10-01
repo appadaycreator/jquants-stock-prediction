@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { withIdempotency } from '../../_idempotency';
-import { jsonError } from '../../_error';
-import { createJob, getJobIdByClientToken, simulateProgress, updateJob } from '../../_jobStore';
+import { NextRequest, NextResponse } from "next/server";
+import { withIdempotency } from "../../_idempotency";
+import { jsonError } from "../../_error";
+import { createJob, getJobIdByClientToken, simulateProgress, updateJob } from "../../_jobStore";
 
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
 export const POST = withIdempotency(async function POST(request: NextRequest) {
   try {
@@ -26,15 +26,15 @@ export const POST = withIdempotency(async function POST(request: NextRequest) {
       try {
         const execMs = 5000 + Math.floor(Math.random() * 15000);
         await new Promise((r) => setTimeout(r, execMs));
-        const dateStr = new Date().toISOString().split('T')[0];
+        const dateStr = new Date().toISOString().split("T")[0];
         updateJob(job.id, {
-          status: 'succeeded',
+          status: "succeeded",
           progress: 100,
           resultUrl: `https://cdn.example.com/results/${dateStr}.json`,
         });
         cancel();
       } catch (e: any) {
-        updateJob(job.id, { status: 'failed', error: e?.message || 'Unknown error' });
+        updateJob(job.id, { status: "failed", error: e?.message || "Unknown error" });
         cancel();
       }
     })();
@@ -42,15 +42,15 @@ export const POST = withIdempotency(async function POST(request: NextRequest) {
     return NextResponse.json({ job_id: job.id });
   } catch (e) {
     return jsonError({
-      error_code: 'INTERNAL_ERROR',
-      user_message: '内部エラーが発生しました',
-      retry_hint: 'しばらく待ってから再実行してください'
+      error_code: "INTERNAL_ERROR",
+      user_message: "内部エラーが発生しました",
+      retry_hint: "しばらく待ってから再実行してください",
     }, { status: 500 });
   }
 });
 
 export async function GET() {
-  return NextResponse.json({ error: 'Method Not Allowed' }, { status: 405 });
+  return NextResponse.json({ error: "Method Not Allowed" }, { status: 405 });
 }
 
 

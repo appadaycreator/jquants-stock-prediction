@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { CheckCircle, Circle, X } from 'lucide-react';
-import { accessibilityUtils } from '@/lib/guide/accessibility';
+import React, { useState, useEffect } from "react";
+import { CheckCircle, Circle, X } from "lucide-react";
+import { accessibilityUtils } from "@/lib/guide/accessibility";
 
 interface ChecklistItem {
   id: string;
@@ -24,7 +24,7 @@ export default function Checklist({
   onItemComplete, 
   onItemReset, 
   onComplete, 
-  className = '' 
+  className = "", 
 }: ChecklistProps) {
   const [isVisible, setIsVisible] = useState(true);
   const [completedCount, setCompletedCount] = useState(0);
@@ -57,7 +57,7 @@ export default function Checklist({
   return (
     <div 
       className={`bg-white rounded-lg shadow-lg border border-gray-200 p-4 ${className}`}
-      {...accessibilityUtils.generateAriaAttributes('checklist')}
+      {...accessibilityUtils.generateAriaAttributes("checklist")}
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
@@ -81,8 +81,8 @@ export default function Checklist({
             key={item.id}
             className={`flex items-start gap-3 p-2 rounded-md cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               item.completed 
-                ? 'bg-green-50 hover:bg-green-100' 
-                : 'bg-gray-50 hover:bg-gray-100'
+                ? "bg-green-50 hover:bg-green-100" 
+                : "bg-gray-50 hover:bg-gray-100"
             }`}
             onClick={() => handleItemClick(item)}
             role="listitem"
@@ -90,7 +90,7 @@ export default function Checklist({
             aria-checked={item.completed}
             aria-label={`${item.title}: ${item.description}`}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
+              if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
                 handleItemClick(item);
               }
@@ -105,12 +105,12 @@ export default function Checklist({
             </div>
             <div className="flex-1 min-w-0">
               <p className={`text-sm font-medium ${
-                item.completed ? 'text-green-800 line-through' : 'text-gray-900'
+                item.completed ? "text-green-800 line-through" : "text-gray-900"
               }`}>
                 {item.title}
               </p>
               <p className={`text-xs ${
-                item.completed ? 'text-green-600' : 'text-gray-600'
+                item.completed ? "text-green-600" : "text-gray-600"
               }`}>
                 {item.description}
               </p>
@@ -138,7 +138,7 @@ export default function Checklist({
 export function ChecklistBadge({ 
   completedCount, 
   totalCount, 
-  onClick 
+  onClick, 
 }: { 
   completedCount: number; 
   totalCount: number; 
@@ -174,27 +174,27 @@ export function ChecklistBadge({
 // デフォルトチェックリスト項目
 export const DEFAULT_CHECKLIST_ITEMS: ChecklistItem[] = [
   {
-    id: 'update-check',
-    title: 'データ更新（Fresh/Stale）を確認',
-    description: '最終更新と鮮度バッジで状態を判断',
-    completed: false
+    id: "update-check",
+    title: "データ更新（Fresh/Stale）を確認",
+    description: "最終更新と鮮度バッジで状態を判断",
+    completed: false,
   },
   {
-    id: 'top5-candidates',
-    title: '上位5銘柄を確認',
-    description: 'シグナル・予測上位・リスク下位の根拠を確認',
-    completed: false
+    id: "top5-candidates",
+    title: "上位5銘柄を確認",
+    description: "シグナル・予測上位・リスク下位の根拠を確認",
+    completed: false,
   },
   {
-    id: 'holding-action',
-    title: '保有の継続/利確/損切りを選択',
-    description: '数量候補（25%/50%）から選ぶ',
-    completed: false
+    id: "holding-action",
+    title: "保有の継続/利確/損切りを選択",
+    description: "数量候補（25%/50%）から選ぶ",
+    completed: false,
   },
   {
-    id: 'daily-memo',
-    title: '本日のメモを保存',
-    description: '1行メモをローカルに保存',
-    completed: false
-  }
+    id: "daily-memo",
+    title: "本日のメモを保存",
+    description: "1行メモをローカルに保存",
+    completed: false,
+  },
 ];

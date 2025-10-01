@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { HelpCircle, X, Search, BookOpen, Settings, BarChart3, TrendingUp, Shield } from 'lucide-react';
-import { useGuide } from './TourProvider';
+import React, { useState, useEffect, useRef } from "react";
+import { HelpCircle, X, Search, BookOpen, Settings, BarChart3, TrendingUp, Shield } from "lucide-react";
+import { useGuide } from "./TourProvider";
 
 interface HelpSection {
   id: string;
@@ -20,89 +20,89 @@ interface HelpModalProps {
 
 const HELP_SECTIONS: HelpSection[] = [
   {
-    id: 'getting-started',
-    title: 'はじめに',
+    id: "getting-started",
+    title: "はじめに",
     icon: <BookOpen size={20} />,
-    content: 'J-Quants株価予測システムの基本的な使い方を説明します。初回利用時は自動ガイドが表示されます。',
+    content: "J-Quants株価予測システムの基本的な使い方を説明します。初回利用時は自動ガイドが表示されます。",
     links: [
-      { label: 'ダッシュボード', href: '/' },
-      { label: '使い方ガイド', href: '/usage' }
-    ]
+      { label: "ダッシュボード", href: "/" },
+      { label: "使い方ガイド", href: "/usage" },
+    ],
   },
   {
-    id: 'dashboard',
-    title: 'ダッシュボード',
+    id: "dashboard",
+    title: "ダッシュボード",
     icon: <BarChart3 size={20} />,
-    content: '今日の投資指示と主要KPIを確認できます。MAE、R²、予測精度などの指標を理解しましょう。',
+    content: "今日の投資指示と主要KPIを確認できます。MAE、R²、予測精度などの指標を理解しましょう。",
     links: [
-      { label: 'ダッシュボード', href: '/' },
-      { label: '予測結果', href: '/predictions' }
-    ]
+      { label: "ダッシュボード", href: "/" },
+      { label: "予測結果", href: "/predictions" },
+    ],
   },
   {
-    id: 'models',
-    title: 'モデル比較',
+    id: "models",
+    title: "モデル比較",
     icon: <TrendingUp size={20} />,
-    content: '複数の機械学習モデルの性能を比較できます。総合評価から詳細指標まで確認しましょう。',
+    content: "複数の機械学習モデルの性能を比較できます。総合評価から詳細指標まで確認しましょう。",
     links: [
-      { label: 'モデル比較', href: '/models' },
-      { label: '分析', href: '/analysis' }
-    ]
+      { label: "モデル比較", href: "/models" },
+      { label: "分析", href: "/analysis" },
+    ],
   },
   {
-    id: 'risk',
-    title: 'リスク管理',
+    id: "risk",
+    title: "リスク管理",
     icon: <Shield size={20} />,
-    content: '投資リスクの評価と管理機能。損切り・利確の設定、ボラティリティ分析が可能です。',
+    content: "投資リスクの評価と管理機能。損切り・利確の設定、ボラティリティ分析が可能です。",
     links: [
-      { label: 'リスク', href: '/risk' },
-      { label: '設定', href: '/settings' }
-    ]
-  }
+      { label: "リスク", href: "/risk" },
+      { label: "設定", href: "/settings" },
+    ],
+  },
 ];
 
 const FAQ_ITEMS = [
   {
-    question: 'MAEとR²の違いは何ですか？',
-    answer: 'MAE（平均絶対誤差）は予測の精度を、R²（決定係数）はモデルの説明力を示します。低いMAEと高いR²が理想的です。',
-    category: '指標'
+    question: "MAEとR²の違いは何ですか？",
+    answer: "MAE（平均絶対誤差）は予測の精度を、R²（決定係数）はモデルの説明力を示します。低いMAEと高いR²が理想的です。",
+    category: "指標",
   },
   {
-    question: '予測精度が低い場合はどうすれば？',
-    answer: 'モデル比較で他のモデルを試すか、分析タブで特徴量重要度を確認し、データの質を見直してください。',
-    category: 'トラブル'
+    question: "予測精度が低い場合はどうすれば？",
+    answer: "モデル比較で他のモデルを試すか、分析タブで特徴量重要度を確認し、データの質を見直してください。",
+    category: "トラブル",
   },
   {
-    question: '通知設定はどこで変更できますか？',
-    answer: '設定ページの通知設定から、メールアドレスや通知条件を変更できます。',
-    category: '設定'
+    question: "通知設定はどこで変更できますか？",
+    answer: "設定ページの通知設定から、メールアドレスや通知条件を変更できます。",
+    category: "設定",
   },
   {
-    question: 'データが更新されない場合は？',
-    answer: '最新結果を再取得ボタンをクリックするか、設定で更新間隔を確認してください。',
-    category: 'トラブル'
-  }
+    question: "データが更新されない場合は？",
+    answer: "最新結果を再取得ボタンをクリックするか、設定で更新間隔を確認してください。",
+    category: "トラブル",
+  },
 ];
 
 export default function HelpModal({ 
   isOpen, 
   onClose, 
-  currentPage = '/' 
+  currentPage = "/", 
 }: HelpModalProps) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedSection, setSelectedSection] = useState<string>('getting-started');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedSection, setSelectedSection] = useState<string>("getting-started");
   const [selectedFAQ, setSelectedFAQ] = useState<number | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const { startTour } = useGuide();
 
   const filteredSections = HELP_SECTIONS.filter(section =>
     section.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    section.content.toLowerCase().includes(searchTerm.toLowerCase())
+    section.content.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const filteredFAQs = FAQ_ITEMS.filter(faq =>
     faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    faq.answer.toLowerCase().includes(searchTerm.toLowerCase())
+    faq.answer.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   useEffect(() => {
@@ -113,19 +113,19 @@ export default function HelpModal({
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
     };
   }, [isOpen, onClose]);
 
@@ -180,8 +180,8 @@ export default function HelpModal({
                       onClick={() => setSelectedSection(section.id)}
                       className={`w-full text-left p-3 rounded-md transition-colors ${
                         selectedSection === section.id
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'text-gray-700 hover:bg-gray-100'
+                          ? "bg-blue-100 text-blue-800"
+                          : "text-gray-700 hover:bg-gray-100"
                       }`}
                     >
                       <div className="flex items-center gap-2">
@@ -201,8 +201,8 @@ export default function HelpModal({
                         onClick={() => setSelectedFAQ(selectedFAQ === index ? null : index)}
                         className={`w-full text-left p-2 rounded-md transition-colors ${
                           selectedFAQ === index
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'text-gray-700 hover:bg-gray-100'
+                            ? "bg-blue-100 text-blue-800"
+                            : "text-gray-700 hover:bg-gray-100"
                         }`}
                       >
                         <div className="text-sm font-medium">{faq.question}</div>

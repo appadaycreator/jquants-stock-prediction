@@ -44,21 +44,21 @@ export default function MobileDashboard({
   const [activeTab, setActiveTab] = useState("overview");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
-  const [refreshStatus, setRefreshStatus] = useState<string>('');
+  const [refreshStatus, setRefreshStatus] = useState<string>("");
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    setRefreshStatus('データを更新しています...');
+    setRefreshStatus("データを更新しています...");
     await onRefresh();
     
     // 更新日時を設定
     const now = new Date();
-    setLastUpdateTime(now.toLocaleString('ja-JP'));
-    setRefreshStatus('更新完了');
+    setLastUpdateTime(now.toLocaleString("ja-JP"));
+    setRefreshStatus("更新完了");
     
     setTimeout(() => {
       setIsRefreshing(false);
-      setRefreshStatus('');
+      setRefreshStatus("");
     }, 2000);
   };
 
@@ -72,20 +72,20 @@ export default function MobileDashboard({
       
       // YYYYMMDD形式をYYYY-MM-DD形式に変換
       if (/^\d{8}$/.test(dateStr)) {
-        return dateStr.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+        return dateStr.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
       }
       
       // その他の形式の場合はDateオブジェクトで解析
       const date = new Date(dateStr);
       if (isNaN(date.getTime())) {
-        console.error('Invalid date format:', dateStr);
-        return '2024-01-01'; // デフォルト日付
+        console.error("Invalid date format:", dateStr);
+        return "2024-01-01"; // デフォルト日付
       }
       
-      return date.toISOString().split('T')[0];
+      return date.toISOString().split("T")[0];
     } catch (error) {
-      console.error('Date normalization error:', error, 'Input:', dateStr);
-      return '2024-01-01'; // デフォルト日付
+      console.error("Date normalization error:", error, "Input:", dateStr);
+      return "2024-01-01"; // デフォルト日付
     }
   };
 
@@ -95,17 +95,17 @@ export default function MobileDashboard({
       const dt = parseToJst(dateStr);
       
       if (!dt.isValid) {
-        console.error('Invalid date format:', dateStr);
-        return '2024-01-01'; // デフォルト日付を返す
+        console.error("Invalid date format:", dateStr);
+        return "2024-01-01"; // デフォルト日付を返す
       }
       
       return dt.toLocaleString({
-        month: 'short',
-        day: 'numeric',
+        month: "short",
+        day: "numeric",
       });
     } catch (error) {
-      console.error('Date formatting error:', error, 'Input:', dateStr);
-      return '2024-01-01'; // デフォルト日付を返す
+      console.error("Date formatting error:", error, "Input:", dateStr);
+      return "2024-01-01"; // デフォルト日付を返す
     }
   };
 
@@ -152,9 +152,9 @@ export default function MobileDashboard({
                 onClick={handleRefresh}
                 disabled={isRefreshing}
                 className="p-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
-                title={isRefreshing ? '更新中...' : 'データを更新'}
+                title={isRefreshing ? "更新中..." : "データを更新"}
               >
-                <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
               </button>
               <button
                 onClick={onAnalysis}

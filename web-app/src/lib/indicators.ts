@@ -1,5 +1,5 @@
 // タイムシリーズ指標計算と欠損処理（JST固定）
-import { DateTime } from 'luxon';
+import { DateTime } from "luxon";
 
 export type PriceBar = {
   date: string; // ISO 文字列または YYYY-MM-DD
@@ -28,13 +28,13 @@ export type EnrichedBar = PriceBar & Indicators & {
 };
 
 const toJstDate = (input: string | Date): DateTime => {
-  const dt = typeof input === 'string'
-    ? DateTime.fromISO(input, { zone: 'Asia/Tokyo' })
-    : DateTime.fromJSDate(input, { zone: 'Asia/Tokyo' });
+  const dt = typeof input === "string"
+    ? DateTime.fromISO(input, { zone: "Asia/Tokyo" })
+    : DateTime.fromJSDate(input, { zone: "Asia/Tokyo" });
   if (dt.isValid) return dt.set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
   // フォールバック: YYYY-MM-DD 形式
-  const alt = DateTime.fromFormat(String(input), 'yyyy-MM-dd', { zone: 'Asia/Tokyo' });
-  return alt.isValid ? alt : DateTime.invalid('invalid-input');
+  const alt = DateTime.fromFormat(String(input), "yyyy-MM-dd", { zone: "Asia/Tokyo" });
+  return alt.isValid ? alt : DateTime.invalid("invalid-input");
 };
 
 export function forwardFillMissingDays(bars: PriceBar[]): PriceBar[] {
@@ -49,7 +49,7 @@ export function forwardFillMissingDays(bars: PriceBar[]): PriceBar[] {
   for (let i = 0; i < sorted.length; i++) {
     const cur = sorted[i];
     if (i === 0) {
-      filled.push({ ...cur, date: cur._dt.toISODate() ?? cur._dt.toFormat('yyyy-LL-dd') });
+      filled.push({ ...cur, date: cur._dt.toISODate() ?? cur._dt.toFormat("yyyy-LL-dd") });
       continue;
     }
     const prev = sorted[i - 1];
@@ -58,7 +58,7 @@ export function forwardFillMissingDays(bars: PriceBar[]): PriceBar[] {
       // 前回値フォワード
       const prevBar = filled[filled.length - 1];
       filled.push({
-        date: d.toISODate() ?? d.toFormat('yyyy-LL-dd'),
+        date: d.toISODate() ?? d.toFormat("yyyy-LL-dd"),
         open: prevBar.open,
         high: prevBar.high,
         low: prevBar.low,
@@ -68,7 +68,7 @@ export function forwardFillMissingDays(bars: PriceBar[]): PriceBar[] {
       });
       d = d.plus({ days: 1 });
     }
-    filled.push({ ...cur, date: cur._dt.toISODate() ?? cur._dt.toFormat('yyyy-LL-dd') });
+    filled.push({ ...cur, date: cur._dt.toISODate() ?? cur._dt.toFormat("yyyy-LL-dd") });
   }
   return filled;
 }
@@ -123,7 +123,7 @@ export function enrichWithIndicators(input: PriceBar[], options?: { todayFinalOn
   if (!input || input.length === 0) return [];
 
   // 未確定足排除: 当日途中は前日終値まで
-  const jstToday = DateTime.now().setZone('Asia/Tokyo').startOf('day');
+  const jstToday = DateTime.now().setZone("Asia/Tokyo").startOf("day");
   const trimmed = (options?.todayFinalOnly ?? true)
     ? input.filter(b => toJstDate(b.date) < jstToday.plus({ days: 0 }))
     : input;
@@ -165,25 +165,25 @@ export function enrichWithIndicators(input: PriceBar[], options?: { todayFinalOn
   return enriched;
 }
 
-export function sliceByRange(data: EnrichedBar[], range: '5y' | '1y' | '3m' | '1m'): EnrichedBar[] {
+export function sliceByRange(data: EnrichedBar[], range: "5y" | "1y" | "3m" | "1m"): EnrichedBar[] {
   if (!data.length) return data;
-  const last = DateTime.fromMillis(data[data.length - 1].ts, { zone: 'Asia/Tokyo' });
+  const last = DateTime.fromMillis(data[data.length - 1].ts, { zone: "Asia/Tokyo" });
   const from = {
-    '5y': last.minus({ years: 5 }),
-    '1y': last.minus({ years: 1 }),
-    '3m': last.minus({ months: 3 }),
-    '1m': last.minus({ months: 1 }),
+    "5y": last.minus({ years: 5 }),
+    "1y": last.minus({ years: 1 }),
+    "3m": last.minus({ months: 3 }),
+    "1m": last.minus({ months: 1 }),
   }[range] ?? last.minus({ years: 1 });
   return data.filter(b => b.ts >= from.toMillis());
 }
 
 export type StocksApiResponse = {
   code: string;
-  prices: Array<Pick<EnrichedBar, 'date' | 'open' | 'high' | 'low' | 'close' | 'volume'>>;
-  indicators: Array<Pick<EnrichedBar, 'date' | 'sma_5' | 'sma_25' | 'sma_75' | 'ema_12' | 'ema_26' | 'macd' | 'macd_signal' | 'macd_hist' | 'rsi_14'>>;
+  prices: Array<Pick<EnrichedBar, "date" | "open" | "high" | "low" | "close" | "volume">>;
+  indicators: Array<Pick<EnrichedBar, "date" | "sma_5" | "sma_25" | "sma_75" | "ema_12" | "ema_26" | "macd" | "macd_signal" | "macd_hist" | "rsi_14">>;
   meta: {
-    timezone: 'Asia/Tokyo';
-    latestBarPolicy: 'finalized_only';
+    timezone: "Asia/Tokyo";
+    latestBarPolicy: "finalized_only";
     filledGaps: boolean;
     range?: string;
   };
@@ -213,8 +213,8 @@ export function toStocksApiResponse(code: string, data: EnrichedBar[], range?: s
       rsi_14: d.rsi_14,
     })),
     meta: {
-      timezone: 'Asia/Tokyo',
-      latestBarPolicy: 'finalized_only',
+      timezone: "Asia/Tokyo",
+      latestBarPolicy: "finalized_only",
       filledGaps: true,
       range,
     },

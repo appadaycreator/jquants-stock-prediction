@@ -32,34 +32,34 @@ class PerformanceOptimizer {
    * パフォーマンス監視の初期化
    */
   private initPerformanceObservers() {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     // LCP監視
-    if ('PerformanceObserver' in window) {
+    if ("PerformanceObserver" in window) {
       try {
         this.lcpObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries();
           const lcp = entries[entries.length - 1];
-          console.info('LCP測定:', {
+          console.info("LCP測定:", {
             value: `${lcp.startTime.toFixed(2)}ms`,
-            target: '<3000ms',
-            status: lcp.startTime < 3000 ? 'PASS' : 'FAIL'
+            target: "<3000ms",
+            status: lcp.startTime < 3000 ? "PASS" : "FAIL",
           });
         });
-        this.lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+        this.lcpObserver.observe({ entryTypes: ["largest-contentful-paint"] });
       } catch (error) {
-        console.warn('LCP監視の初期化に失敗:', error);
+        console.warn("LCP監視の初期化に失敗:", error);
       }
     }
 
     // メモリ使用量監視
-    if ('memory' in performance) {
+    if ("memory" in performance) {
       setInterval(() => {
         const memory = (performance as any).memory;
-        console.info('メモリ使用量:', {
+        console.info("メモリ使用量:", {
           used: `${Math.round(memory.usedJSHeapSize / 1024 / 1024)}MB`,
           total: `${Math.round(memory.totalJSHeapSize / 1024 / 1024)}MB`,
-          limit: `${Math.round(memory.jsHeapSizeLimit / 1024 / 1024)}MB`
+          limit: `${Math.round(memory.jsHeapSizeLimit / 1024 / 1024)}MB`,
         });
       }, 30000); // 30秒間隔
     }
@@ -74,7 +74,7 @@ class PerformanceOptimizer {
         data,
         originalCount: data.length,
         sampledCount: data.length,
-        compressionRatio: 1.0
+        compressionRatio: 1.0,
       };
     }
 
@@ -92,18 +92,18 @@ class PerformanceOptimizer {
 
     const compressionRatio = sampledData.length / data.length;
 
-    console.info('チャートダウンサンプリング完了:', {
+    console.info("チャートダウンサンプリング完了:", {
       original: data.length,
       sampled: sampledData.length,
       compressionRatio: `${(compressionRatio * 100).toFixed(1)}%`,
-      performance: compressionRatio < 0.5 ? 'OPTIMIZED' : 'NORMAL'
+      performance: compressionRatio < 0.5 ? "OPTIMIZED" : "NORMAL",
     });
 
     return {
       data: sampledData,
       originalCount: data.length,
       sampledCount: sampledData.length,
-      compressionRatio
+      compressionRatio,
     };
   }
 
@@ -120,15 +120,15 @@ class PerformanceOptimizer {
       const component = await import(componentPath);
       const loadTime = performance.now() - startTime;
 
-      console.info('コンポーネント動的読み込み:', {
+      console.info("コンポーネント動的読み込み:", {
         path: componentPath,
         loadTime: `${loadTime.toFixed(2)}ms`,
-        status: loadTime < 1000 ? 'FAST' : 'SLOW'
+        status: loadTime < 1000 ? "FAST" : "SLOW",
       });
 
       return component;
     } catch (error) {
-      console.error('コンポーネント読み込みエラー:', error);
+      console.error("コンポーネント読み込みエラー:", error);
       throw error;
     }
   }
@@ -137,14 +137,14 @@ class PerformanceOptimizer {
    * 画像の遅延読み込み
    */
   createLazyImage(src: string, alt: string, className?: string): HTMLImageElement {
-    const img = document.createElement('img');
+    const img = document.createElement("img");
     img.alt = alt;
-    img.className = className || '';
-    img.loading = 'lazy';
-    img.decoding = 'async';
+    img.className = className || "";
+    img.loading = "lazy";
+    img.decoding = "async";
 
     // Intersection Observer で遅延読み込み
-    if ('IntersectionObserver' in window) {
+    if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -172,12 +172,12 @@ class PerformanceOptimizer {
       const startTime = performance.now();
       
       // フォントの事前読み込み
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'font';
-      link.type = 'font/woff2';
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "font";
+      link.type = "font/woff2";
       link.href = fontUrl;
-      link.crossOrigin = 'anonymous';
+      link.crossOrigin = "anonymous";
       document.head.appendChild(link);
 
       // フォントの読み込み完了を待つ
@@ -190,13 +190,13 @@ class PerformanceOptimizer {
       });
 
       const loadTime = performance.now() - startTime;
-      console.info('フォント読み込み完了:', {
+      console.info("フォント読み込み完了:", {
         family: fontFamily,
         loadTime: `${loadTime.toFixed(2)}ms`,
-        status: loadTime < 500 ? 'FAST' : 'NORMAL'
+        status: loadTime < 500 ? "FAST" : "NORMAL",
       });
     } catch (error) {
-      console.error('フォント読み込みエラー:', error);
+      console.error("フォント読み込みエラー:", error);
     }
   }
 
@@ -209,9 +209,9 @@ class PerformanceOptimizer {
     // 未使用のコードの削除
     const unusedModules = this.detectUnusedModules();
     if (unusedModules.length > 0) {
-      console.info('未使用モジュール検出:', {
+      console.info("未使用モジュール検出:", {
         modules: unusedModules,
-        recommendation: 'Tree shakingの確認を推奨'
+        recommendation: "Tree shakingの確認を推奨",
       });
     }
   }
@@ -248,7 +248,7 @@ class PerformanceOptimizer {
    */
   optimizeMemory(): void {
     // ガベージコレクションの強制実行
-    if ('gc' in window) {
+    if ("gc" in window) {
       (window as any).gc();
     }
 
@@ -264,7 +264,7 @@ class PerformanceOptimizer {
    */
   private cleanupEventListeners(): void {
     // 実際の実装では、イベントリスナーの追跡が必要
-    console.info('イベントリスナークリーンアップ実行');
+    console.info("イベントリスナークリーンアップ実行");
   }
 
   /**
@@ -272,7 +272,7 @@ class PerformanceOptimizer {
    */
   private optimizeCache(): void {
     // IndexedDBの最適化
-    if ('indexedDB' in window) {
+    if ("indexedDB" in window) {
       // 古いデータの削除
       this.cleanupOldCacheData();
     }
@@ -283,35 +283,35 @@ class PerformanceOptimizer {
    */
   private async cleanupOldCacheData(): Promise<void> {
     // 実装は省略（実際のプロジェクトでは適切に実装）
-    console.info('古いキャッシュデータのクリーンアップ実行');
+    console.info("古いキャッシュデータのクリーンアップ実行");
   }
 
   /**
    * パフォーマンスレポートの生成
    */
   generatePerformanceReport(): any {
-    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-    const paint = performance.getEntriesByType('paint');
-    const lcp = performance.getEntriesByType('largest-contentful-paint');
+    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
+    const paint = performance.getEntriesByType("paint");
+    const lcp = performance.getEntriesByType("largest-contentful-paint");
     const memory = (performance as any).memory;
 
     return {
       navigation: {
         domContentLoaded: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
         loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
-        totalTime: navigation.loadEventEnd - navigation.fetchStart
+        totalTime: navigation.loadEventEnd - navigation.fetchStart,
       },
       paint: {
-        firstPaint: paint.find(p => p.name === 'first-paint')?.startTime || 0,
-        firstContentfulPaint: paint.find(p => p.name === 'first-contentful-paint')?.startTime || 0
+        firstPaint: paint.find(p => p.name === "first-paint")?.startTime || 0,
+        firstContentfulPaint: paint.find(p => p.name === "first-contentful-paint")?.startTime || 0,
       },
       lcp: lcp.length > 0 ? lcp[lcp.length - 1].startTime : 0,
       memory: memory ? {
         used: Math.round(memory.usedJSHeapSize / 1024 / 1024),
         total: Math.round(memory.totalJSHeapSize / 1024 / 1024),
-        limit: Math.round(memory.jsHeapSizeLimit / 1024 / 1024)
+        limit: Math.round(memory.jsHeapSizeLimit / 1024 / 1024),
       } : null,
-      recommendations: this.generateRecommendations()
+      recommendations: this.generateRecommendations(),
     };
   }
 
@@ -323,15 +323,15 @@ class PerformanceOptimizer {
     const report = this.generatePerformanceReport();
 
     if (report.lcp > 3000) {
-      recommendations.push('LCPが3秒を超えています。画像の最適化とコード分割を推奨します。');
+      recommendations.push("LCPが3秒を超えています。画像の最適化とコード分割を推奨します。");
     }
 
     if (report.memory && report.memory.used > 100) {
-      recommendations.push('メモリ使用量が100MBを超えています。メモリリークの確認を推奨します。');
+      recommendations.push("メモリ使用量が100MBを超えています。メモリリークの確認を推奨します。");
     }
 
     if (report.navigation.totalTime > 5000) {
-      recommendations.push('初期読み込み時間が5秒を超えています。バンドルサイズの最適化を推奨します。');
+      recommendations.push("初期読み込み時間が5秒を超えています。バンドルサイズの最適化を推奨します。");
     }
 
     return recommendations;
@@ -356,7 +356,7 @@ const defaultConfig: PerformanceConfig = {
   enableLazyLoading: true,
   enableCodeSplitting: true,
   enableImageOptimization: true,
-  enableFontOptimization: true
+  enableFontOptimization: true,
 };
 
 export const performanceOptimizer = new PerformanceOptimizer(defaultConfig);

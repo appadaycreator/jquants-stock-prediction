@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { CheckCircle, AlertTriangle, Key, Database, RefreshCw, Trash2 } from 'lucide-react';
-import JQuantsAdapter, { JQuantsConfig } from '@/lib/jquants-adapter';
-import ReliableApiSystem from '@/lib/reliable-api-system';
+import { useState, useEffect } from "react";
+import { CheckCircle, AlertTriangle, Key, Database, RefreshCw, Trash2 } from "lucide-react";
+import JQuantsAdapter, { JQuantsConfig } from "@/lib/jquants-adapter";
+import ReliableApiSystem from "@/lib/reliable-api-system";
 
 interface JQuantsTokenSetupProps {
   onTokenConfigured: (adapter: JQuantsAdapter) => void;
@@ -12,7 +12,7 @@ interface JQuantsTokenSetupProps {
 }
 
 export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, onReliableSystemConfigured }: JQuantsTokenSetupProps) {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState("");
   const [isTesting, setIsTesting] = useState(false);
   const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
   const [adapter, setAdapter] = useState<JQuantsAdapter | null>(null);
@@ -21,7 +21,7 @@ export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, o
 
   // 保存されたトークンを読み込み
   useEffect(() => {
-    const savedToken = localStorage.getItem('jquants_token');
+    const savedToken = localStorage.getItem("jquants_token");
     if (savedToken) {
       setToken(savedToken);
       initializeAdapter(savedToken);
@@ -32,8 +32,8 @@ export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, o
     try {
       const config: JQuantsConfig = {
         token: tokenValue,
-        baseUrl: 'https://api.jquants.com/v1',
-        timeout: 30000
+        baseUrl: "https://api.jquants.com/v1",
+        timeout: 30000,
       };
 
       const newAdapter = new JQuantsAdapter(config);
@@ -42,7 +42,7 @@ export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, o
       // キャッシュ統計を取得
       await loadCacheStats(newAdapter);
     } catch (error) {
-      console.error('アダプタ初期化エラー:', error);
+      console.error("アダプタ初期化エラー:", error);
     }
   };
 
@@ -59,13 +59,13 @@ export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, o
       setTestResult(result);
 
       if (result.success) {
-        localStorage.setItem('jquants_token', token);
+        localStorage.setItem("jquants_token", token);
         onTokenConfigured(adapter!);
       }
     } catch (error) {
       setTestResult({
         success: false,
-        message: `接続テストエラー: ${error instanceof Error ? error.message : '不明なエラー'}`
+        message: `接続テストエラー: ${error instanceof Error ? error.message : "不明なエラー"}`,
       });
     } finally {
       setIsTesting(false);
@@ -77,8 +77,8 @@ export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, o
       await adapter.clearCache();
     }
     
-    localStorage.removeItem('jquants_token');
-    setToken('');
+    localStorage.removeItem("jquants_token");
+    setToken("");
     setAdapter(null);
     setTestResult(null);
     setCacheStats(null);
@@ -101,13 +101,13 @@ export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, o
       const stats = await adapterInstance.getCacheStats();
       setCacheStats(stats);
     } catch (error) {
-      console.error('キャッシュ統計取得エラー:', error);
+      console.error("キャッシュ統計取得エラー:", error);
     }
   };
 
   const formatLastUpdated = (dateString: string) => {
-    if (!dateString) return '未設定';
-    return new Date(dateString).toLocaleString('ja-JP');
+    if (!dateString) return "未設定";
+    return new Date(dateString).toLocaleString("ja-JP");
   };
 
   return (
@@ -153,8 +153,8 @@ export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, o
             disabled={!token.trim() || isTesting}
             className={`w-full flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-colors ${
               !token.trim() || isTesting
-                ? 'bg-gray-400 cursor-not-allowed text-white'
-                : 'bg-blue-600 hover:bg-blue-700 text-white'
+                ? "bg-gray-400 cursor-not-allowed text-white"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
             }`}
           >
             {isTesting ? (
@@ -173,8 +173,8 @@ export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, o
           {testResult && (
             <div className={`p-3 rounded-lg ${
               testResult.success 
-                ? 'bg-green-50 border border-green-200' 
-                : 'bg-red-50 border border-red-200'
+                ? "bg-green-50 border border-green-200" 
+                : "bg-red-50 border border-red-200"
             }`}>
               <div className="flex items-center">
                 {testResult.success ? (
@@ -183,7 +183,7 @@ export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, o
                   <AlertTriangle className="h-5 w-5 text-red-500 mr-2" />
                 )}
                 <span className={`text-sm font-medium ${
-                  testResult.success ? 'text-green-800' : 'text-red-800'
+                  testResult.success ? "text-green-800" : "text-red-800"
                 }`}>
                   {testResult.message}
                 </span>
@@ -225,7 +225,7 @@ export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, o
                 disabled={isLoadingStats}
                 className="p-1 text-gray-500 hover:text-gray-700 transition-colors"
               >
-                <RefreshCw className={`h-4 w-4 ${isLoadingStats ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`h-4 w-4 ${isLoadingStats ? "animate-spin" : ""}`} />
               </button>
             </div>
 
@@ -272,7 +272,7 @@ export default function JQuantsTokenSetup({ onTokenConfigured, onTokenRemoved, o
           <button
             onClick={() => {
               // 1クリック更新の実装
-              console.log('1クリック更新実行');
+              console.log("1クリック更新実行");
             }}
             className="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
           >

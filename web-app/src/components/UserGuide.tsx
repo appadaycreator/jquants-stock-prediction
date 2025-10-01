@@ -15,7 +15,7 @@ import {
   ChevronRight,
   CheckCircle,
   ArrowRight,
-  BookOpen
+  BookOpen,
 } from "lucide-react";
 
 interface GuideStep {
@@ -29,53 +29,53 @@ interface GuideStep {
 
 const guideSteps: GuideStep[] = [
   {
-    id: 'overview',
-    title: 'ダッシュボードの概要',
-    description: '株価予測システムの主要機能と指標を確認できます。システムの稼働状況、最新の更新日時、主要な指標（最優秀モデル、予測精度、MAE、データ数）を確認できます。',
+    id: "overview",
+    title: "ダッシュボードの概要",
+    description: "株価予測システムの主要機能と指標を確認できます。システムの稼働状況、最新の更新日時、主要な指標（最優秀モデル、予測精度、MAE、データ数）を確認できます。",
     icon: <BarChart3 className="w-6 h-6" />,
-    action: '概要タブをクリックして、システムの現在の状況を確認してください',
-    target: 'overview'
+    action: "概要タブをクリックして、システムの現在の状況を確認してください",
+    target: "overview",
   },
   {
-    id: 'analysis',
-    title: '分析の実行',
-    description: 'ワンクリックで株価分析を実行し、予測結果を取得できます。ボタンを押すとローディング状態が表示され、処理の進捗が確認できます。',
+    id: "analysis",
+    title: "分析の実行",
+    description: "ワンクリックで株価分析を実行し、予測結果を取得できます。ボタンを押すとローディング状態が表示され、処理の進捗が確認できます。",
     icon: <Play className="w-6 h-6" />,
-    action: '「分析実行」ボタンをクリックして、ローディング状態と進捗表示を確認してください',
-    target: 'analysis'
+    action: "「分析実行」ボタンをクリックして、ローディング状態と進捗表示を確認してください",
+    target: "analysis",
   },
   {
-    id: 'refresh',
-    title: 'データの更新',
-    description: '最新のデータを取得してダッシュボードを更新します。更新ボタンを押すとローディング状態が表示され、完了後に更新日時が表示されます。',
+    id: "refresh",
+    title: "データの更新",
+    description: "最新のデータを取得してダッシュボードを更新します。更新ボタンを押すとローディング状態が表示され、完了後に更新日時が表示されます。",
     icon: <RefreshCw className="w-6 h-6" />,
-    action: '「更新」ボタンをクリックして、ローディング状態と完了通知を確認してください',
-    target: 'refresh'
+    action: "「更新」ボタンをクリックして、ローディング状態と完了通知を確認してください",
+    target: "refresh",
   },
   {
-    id: 'predictions',
-    title: '予測結果の確認',
-    description: '実際の株価と予測値の比較、精度の評価を行います。予測vs実際値のチャートと誤差分布を確認できます。',
+    id: "predictions",
+    title: "予測結果の確認",
+    description: "実際の株価と予測値の比較、精度の評価を行います。予測vs実際値のチャートと誤差分布を確認できます。",
     icon: <TrendingUp className="w-6 h-6" />,
-    action: '予測結果タブをクリックして、予測精度を確認してください',
-    target: 'predictions'
+    action: "予測結果タブをクリックして、予測精度を確認してください",
+    target: "predictions",
   },
   {
-    id: 'models',
-    title: 'モデル比較',
-    description: '複数の機械学習モデルの性能を比較し、最適なモデルを選択できます。MAE、RMSE、R²の比較表とチャートを確認できます。',
+    id: "models",
+    title: "モデル比較",
+    description: "複数の機械学習モデルの性能を比較し、最適なモデルを選択できます。MAE、RMSE、R²の比較表とチャートを確認できます。",
     icon: <Target className="w-6 h-6" />,
-    action: 'モデル比較タブをクリックして、各モデルの性能を比較してください',
-    target: 'models'
+    action: "モデル比較タブをクリックして、各モデルの性能を比較してください",
+    target: "models",
   },
   {
-    id: 'settings',
-    title: '設定の調整',
-    description: '分析期間、モデル選択、表示オプションなどをカスタマイズできます。設定ボタンをクリックして詳細なオプションを調整できます。',
+    id: "settings",
+    title: "設定の調整",
+    description: "分析期間、モデル選択、表示オプションなどをカスタマイズできます。設定ボタンをクリックして詳細なオプションを調整できます。",
     icon: <Settings className="w-6 h-6" />,
-    action: '設定ボタンをクリックして、分析設定をカスタマイズしてください',
-    target: 'settings'
-  }
+    action: "設定ボタンをクリックして、分析設定をカスタマイズしてください",
+    target: "settings",
+  },
 ];
 
 interface UserGuideProps {
@@ -89,7 +89,7 @@ export default function UserGuide({
   isVisible, 
   onClose, 
   onStepComplete,
-  currentTab = 'overview'
+  currentTab = "overview",
 }: UserGuideProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
@@ -97,12 +97,12 @@ export default function UserGuide({
 
   // ローカルストレージから完了済みステップを読み込み
   useEffect(() => {
-    const saved = localStorage.getItem('userGuideCompleted');
+    const saved = localStorage.getItem("userGuideCompleted");
     if (saved) {
       try {
         setCompletedSteps(JSON.parse(saved));
       } catch (error) {
-        console.error('ガイド進捗の読み込みエラー:', error);
+        console.error("ガイド進捗の読み込みエラー:", error);
       }
     }
   }, []);
@@ -110,7 +110,7 @@ export default function UserGuide({
   // 完了済みステップを保存
   const saveCompletedSteps = (steps: string[]) => {
     setCompletedSteps(steps);
-    localStorage.setItem('userGuideCompleted', JSON.stringify(steps));
+    localStorage.setItem("userGuideCompleted", JSON.stringify(steps));
   };
 
   // ステップ完了
@@ -128,7 +128,7 @@ export default function UserGuide({
       setCurrentStep(currentStep + 1);
     } else {
       // 全ステップ完了
-      completeStep('all');
+      completeStep("all");
       onClose();
     }
   };
@@ -186,15 +186,15 @@ export default function UserGuide({
                     key={step.id}
                     className={`p-4 rounded-lg border-2 transition-all ${
                       completedSteps.includes(step.id)
-                        ? 'border-green-200 bg-green-50'
-                        : 'border-gray-200 bg-white'
+                        ? "border-green-200 bg-green-50"
+                        : "border-gray-200 bg-white"
                     }`}
                   >
                     <div className="flex items-start gap-3">
                       <div className={`p-2 rounded-lg ${
                         completedSteps.includes(step.id)
-                          ? 'bg-green-100 text-green-600'
-                          : 'bg-blue-100 text-blue-600'
+                          ? "bg-green-100 text-green-600"
+                          : "bg-blue-100 text-blue-600"
                       }`}>
                         {completedSteps.includes(step.id) ? (
                           <CheckCircle className="w-5 h-5" />
@@ -332,7 +332,7 @@ export default function UserGuide({
                   onClick={nextStep}
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  {currentStep === guideSteps.length - 1 ? '完了' : '次へ'}
+                  {currentStep === guideSteps.length - 1 ? "完了" : "次へ"}
                 </button>
               </div>
             </div>

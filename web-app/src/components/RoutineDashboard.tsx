@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import { fetchJson, createIdempotencyKey } from '../lib/fetcher';
+import { useState, useEffect, useCallback } from "react";
+import { fetchJson, createIdempotencyKey } from "../lib/fetcher";
 import { 
   Clock, 
   TrendingUp, 
@@ -19,8 +19,8 @@ import {
   Eye,
   Settings,
   Loader2,
-  Play
-} from 'lucide-react';
+  Play,
+} from "lucide-react";
 
 interface YesterdaySummary {
   date: string;
@@ -29,20 +29,20 @@ interface YesterdaySummary {
     symbol: string;
     name: string;
     return: number;
-    action: 'buy' | 'sell' | 'hold';
+    action: "buy" | "sell" | "hold";
   }>;
   alerts: Array<{
-    type: 'warning' | 'info' | 'success';
+    type: "warning" | "info" | "success";
     message: string;
   }>;
-  analysisStatus: 'completed' | 'partial' | 'failed';
+  analysisStatus: "completed" | "partial" | "failed";
 }
 
 interface TodayActions {
   analysisRequired: boolean;
   watchlistUpdates: Array<{
     symbol: string;
-    action: 'add' | 'remove' | 'modify';
+    action: "add" | "remove" | "modify";
     reason: string;
   }>;
   nextUpdateTime: string;
@@ -50,8 +50,8 @@ interface TodayActions {
     id: string;
     title: string;
     description: string;
-    action: 'analyze' | 'report' | 'trade';
-    priority: 'high' | 'medium' | 'low';
+    action: "analyze" | "report" | "trade";
+    priority: "high" | "medium" | "low";
   }>;
 }
 
@@ -64,27 +64,27 @@ interface RoutineDashboardProps {
 export default function RoutineDashboard({ 
   onAnalysisClick, 
   onReportClick, 
-  onTradeClick 
+  onTradeClick, 
 }: RoutineDashboardProps) {
   const [yesterdaySummary, setYesterdaySummary] = useState<YesterdaySummary | null>(null);
   const [todayActions, setTodayActions] = useState<TodayActions | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [timeUntilUpdate, setTimeUntilUpdate] = useState<string>('');
+  const [timeUntilUpdate, setTimeUntilUpdate] = useState<string>("");
   const [isExecutingAction, setIsExecutingAction] = useState<string | null>(null);
   const [routineJobId, setRoutineJobId] = useState<string | null>(null);
   const [routineProgress, setRoutineProgress] = useState<number>(0);
-  const [routineStatus, setRoutineStatus] = useState<'idle' | 'running' | 'succeeded' | 'failed'>('idle');
+  const [routineStatus, setRoutineStatus] = useState<"idle" | "running" | "succeeded" | "failed">("idle");
   const [routineError, setRoutineError] = useState<string | null>(null);
 
   // 前日の分析結果を取得
   const loadYesterdaySummary = useCallback(async () => {
     try {
       // 実際のAPIから前日の結果を取得
-      const response = await fetch('/api/yesterday-summary', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        cache: 'no-store'
+      const response = await fetch("/api/yesterday-summary", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
       });
       
       if (response.ok) {
@@ -92,27 +92,27 @@ export default function RoutineDashboard({
         setYesterdaySummary(data);
       } else {
         // フォールバック: ローカルストレージから取得
-        const cached = localStorage.getItem('yesterday_summary');
+        const cached = localStorage.getItem("yesterday_summary");
         if (cached) {
           setYesterdaySummary(JSON.parse(cached));
         }
       }
     } catch (err) {
-      console.error('前日結果の取得に失敗:', err);
+      console.error("前日結果の取得に失敗:", err);
       // デモデータを表示
       setYesterdaySummary({
-        date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split("T")[0],
         totalReturn: 2.3,
         topPerformers: [
-          { symbol: '7203.T', name: 'トヨタ自動車', return: 3.2, action: 'buy' },
-          { symbol: '6758.T', name: 'ソニーグループ', return: -1.1, action: 'sell' },
-          { symbol: '6861.T', name: 'キーエンス', return: 1.8, action: 'hold' }
+          { symbol: "7203.T", name: "トヨタ自動車", return: 3.2, action: "buy" },
+          { symbol: "6758.T", name: "ソニーグループ", return: -1.1, action: "sell" },
+          { symbol: "6861.T", name: "キーエンス", return: 1.8, action: "hold" },
         ],
         alerts: [
-          { type: 'success', message: '分析完了: 3銘柄の予測精度向上' },
-          { type: 'warning', message: '市場ボラティリティ上昇に注意' }
+          { type: "success", message: "分析完了: 3銘柄の予測精度向上" },
+          { type: "warning", message: "市場ボラティリティ上昇に注意" },
         ],
-        analysisStatus: 'completed'
+        analysisStatus: "completed",
       });
     }
   }, []);
@@ -120,10 +120,10 @@ export default function RoutineDashboard({
   // 今日のアクションを取得
   const loadTodayActions = useCallback(async () => {
     try {
-      const response = await fetch('/api/today-actions', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        cache: 'no-store'
+      const response = await fetch("/api/today-actions", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
       });
       
       if (response.ok) {
@@ -134,37 +134,37 @@ export default function RoutineDashboard({
         setTodayActions({
           analysisRequired: true,
           watchlistUpdates: [
-            { symbol: '7203.T', action: 'modify', reason: '予測精度向上のため設定調整' },
-            { symbol: '6758.T', action: 'remove', reason: 'パフォーマンス低下' }
+            { symbol: "7203.T", action: "modify", reason: "予測精度向上のため設定調整" },
+            { symbol: "6758.T", action: "remove", reason: "パフォーマンス低下" },
           ],
           nextUpdateTime: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
           priorityActions: [
             {
-              id: 'analysis',
-              title: '分析実行',
-              description: '最新データで予測分析を実行',
-              action: 'analyze',
-              priority: 'high'
+              id: "analysis",
+              title: "分析実行",
+              description: "最新データで予測分析を実行",
+              action: "analyze",
+              priority: "high",
             },
             {
-              id: 'report',
-              title: 'レポート確認',
-              description: '昨日の分析結果を確認',
-              action: 'report',
-              priority: 'medium'
+              id: "report",
+              title: "レポート確認",
+              description: "昨日の分析結果を確認",
+              action: "report",
+              priority: "medium",
             },
             {
-              id: 'trade',
-              title: '売買指示',
-              description: '推奨アクションに基づく取引指示',
-              action: 'trade',
-              priority: 'high'
-            }
-          ]
+              id: "trade",
+              title: "売買指示",
+              description: "推奨アクションに基づく取引指示",
+              action: "trade",
+              priority: "high",
+            },
+          ],
         });
       }
     } catch (err) {
-      console.error('今日のアクション取得に失敗:', err);
+      console.error("今日のアクション取得に失敗:", err);
     }
   }, []);
 
@@ -181,7 +181,7 @@ export default function RoutineDashboard({
           const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
           setTimeUntilUpdate(`${hours}時間${minutes}分`);
         } else {
-          setTimeUntilUpdate('更新準備中');
+          setTimeUntilUpdate("更新準備中");
         }
       }
     };
@@ -200,11 +200,11 @@ export default function RoutineDashboard({
       try {
         await Promise.all([
           loadYesterdaySummary(),
-          loadTodayActions()
+          loadTodayActions(),
         ]);
       } catch (err) {
-        setError('データの読み込みに失敗しました');
-        console.error('データ読み込みエラー:', err);
+        setError("データの読み込みに失敗しました");
+        console.error("データ読み込みエラー:", err);
       } finally {
         setLoading(false);
       }
@@ -214,58 +214,58 @@ export default function RoutineDashboard({
   }, [loadYesterdaySummary, loadTodayActions]);
 
   // アクション実行
-  const handleActionClick = async (action: 'analyze' | 'report' | 'trade') => {
+  const handleActionClick = async (action: "analyze" | "report" | "trade") => {
     setIsExecutingAction(action);
     
     try {
       switch (action) {
-        case 'analyze':
-          const result = await fetchJson<any>('/api/execute-analysis', {
+        case "analyze":
+          const result = await fetchJson<any>("/api/execute-analysis", {
             json: {
-              type: 'full_analysis',
-              symbols: ['7203.T', '6758.T', '6861.T'],
-              timeframe: '1d'
+              type: "full_analysis",
+              symbols: ["7203.T", "6758.T", "6861.T"],
+              timeframe: "1d",
             },
-            idempotencyKey: true
+            idempotencyKey: true,
           });
-            console.log('分析完了:', result);
+            console.log("分析完了:", result);
             onAnalysisClick?.();
-            showNotification('分析が完了しました', 'success');
+            showNotification("分析が完了しました", "success");
           
           break;
           
-        case 'report':
-          const report = await fetchJson<any>('/api/generate-report', {
+        case "report":
+          const report = await fetchJson<any>("/api/generate-report", {
             json: {
-              type: 'daily_summary',
+              type: "daily_summary",
               includeCharts: true,
-              includeRecommendations: true
+              includeRecommendations: true,
             },
-            idempotencyKey: true
+            idempotencyKey: true,
           });
-            console.log('レポート生成完了:', report);
+            console.log("レポート生成完了:", report);
             onReportClick?.();
-            showNotification('レポートが生成されました', 'success');
+            showNotification("レポートが生成されました", "success");
           
           break;
           
-        case 'trade':
-          const trade = await fetchJson<any>('/api/execute-trade', {
+        case "trade":
+          const trade = await fetchJson<any>("/api/execute-trade", {
             json: {
-              type: 'recommended_actions',
-              confirmBeforeExecute: true
+              type: "recommended_actions",
+              confirmBeforeExecute: true,
             },
-            idempotencyKey: true
+            idempotencyKey: true,
           });
-            console.log('売買指示完了:', trade);
+            console.log("売買指示完了:", trade);
             onTradeClick?.();
-            showNotification('売買指示が実行されました', 'success');
+            showNotification("売買指示が実行されました", "success");
           
           break;
       }
     } catch (error) {
       console.error(`${action}実行エラー:`, error);
-      showNotification(`${action}実行に失敗しました`, 'error');
+      showNotification(`${action}実行に失敗しました`, "error");
     } finally {
       setIsExecutingAction(null);
     }
@@ -274,32 +274,32 @@ export default function RoutineDashboard({
   // 今日のルーティン実行（1→Nステップ進捗UI）
   const runTodayRoutine = async () => {
     try {
-      setRoutineStatus('running');
+      setRoutineStatus("running");
       setRoutineError(null);
       setRoutineProgress(0);
 
-      const clientTokenKey = 'routine:client_token';
+      const clientTokenKey = "routine:client_token";
       let clientToken = localStorage.getItem(clientTokenKey);
       if (!clientToken) {
         clientToken = `client_${crypto.randomUUID?.() || Math.random().toString(36).slice(2)}`;
         localStorage.setItem(clientTokenKey, clientToken);
       }
 
-      const data = await fetchJson<any>('/api/routine/run-today', {
+      const data = await fetchJson<any>("/api/routine/run-today", {
         json: { client_token: clientToken },
-        idempotencyKey: true
+        idempotencyKey: true,
       });
       const jobId = data.job_id as string;
       setRoutineJobId(jobId);
 
       // 再開対応: jobId を保存
-      sessionStorage.setItem('routine:job_id', jobId);
+      sessionStorage.setItem("routine:job_id", jobId);
 
       // ポーリング開始
       pollRoutine(jobId);
     } catch (e: any) {
-      setRoutineStatus('failed');
-      setRoutineError(e?.message || '不明なエラー');
+      setRoutineStatus("failed");
+      setRoutineError(e?.message || "不明なエラー");
     }
   };
 
@@ -307,30 +307,30 @@ export default function RoutineDashboard({
     const start = Date.now();
     const poll = async (): Promise<void> => {
       try {
-        const res = await fetch(`/api/routine/jobs/${jobId}`, { cache: 'no-store' });
-        if (!res.ok) throw new Error('ジョブ取得に失敗');
+        const res = await fetch(`/api/routine/jobs/${jobId}`, { cache: "no-store" });
+        if (!res.ok) throw new Error("ジョブ取得に失敗");
         const data = await res.json();
         setRoutineProgress(Math.min(99, Math.floor(data.progress ?? 0)));
-        if (data.status === 'succeeded') {
+        if (data.status === "succeeded") {
           setRoutineProgress(100);
-          setRoutineStatus('succeeded');
-          showNotification('今日のルーティンが完了しました', 'success');
+          setRoutineStatus("succeeded");
+          showNotification("今日のルーティンが完了しました", "success");
           return;
         }
-        if (data.status === 'failed') {
-          setRoutineStatus('failed');
-          setRoutineError(data.error || 'サーバーエラー');
-          showNotification('ルーティンが失敗しました', 'error');
+        if (data.status === "failed") {
+          setRoutineStatus("failed");
+          setRoutineError(data.error || "サーバーエラー");
+          showNotification("ルーティンが失敗しました", "error");
           return;
         }
 
         if (Date.now() - start > 3 * 60 * 1000) {
-          throw new Error('タイムアウト（3分）');
+          throw new Error("タイムアウト（3分）");
         }
         setTimeout(poll, 1500);
       } catch (e: any) {
-        setRoutineStatus('failed');
-        setRoutineError(e?.message || '不明なエラー');
+        setRoutineStatus("failed");
+        setRoutineError(e?.message || "不明なエラー");
       }
     };
     setTimeout(poll, 1500);
@@ -338,28 +338,28 @@ export default function RoutineDashboard({
 
   // 中断→再開対応（同UIで再アタッチ）
   useEffect(() => {
-    const existingJobId = sessionStorage.getItem('routine:job_id');
-    if (existingJobId && routineStatus !== 'succeeded') {
+    const existingJobId = sessionStorage.getItem("routine:job_id");
+    if (existingJobId && routineStatus !== "succeeded") {
       setRoutineJobId(existingJobId);
-      setRoutineStatus('running');
+      setRoutineStatus("running");
       pollRoutine(existingJobId);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // 通知表示
-  const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
-    const notification = document.createElement('div');
+  const showNotification = (message: string, type: "success" | "error" | "info") => {
+    const notification = document.createElement("div");
     notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 ${
-      type === 'success' ? 'bg-green-100 text-green-800 border border-green-200' :
-      type === 'error' ? 'bg-red-100 text-red-800 border border-red-200' :
-      'bg-blue-100 text-blue-800 border border-blue-200'
+      type === "success" ? "bg-green-100 text-green-800 border border-green-200" :
+      type === "error" ? "bg-red-100 text-red-800 border border-red-200" :
+      "bg-blue-100 text-blue-800 border border-blue-200"
     }`;
     notification.innerHTML = `
       <div class="flex items-center space-x-2">
-        ${type === 'success' ? '<div class="w-4 h-4 bg-green-500 rounded-full"></div>' :
-          type === 'error' ? '<div class="w-4 h-4 bg-red-500 rounded-full"></div>' :
-          '<div class="w-4 h-4 bg-blue-500 rounded-full"></div>'}
+        ${type === "success" ? "<div class=\"w-4 h-4 bg-green-500 rounded-full\"></div>" :
+          type === "error" ? "<div class=\"w-4 h-4 bg-red-500 rounded-full\"></div>" :
+          "<div class=\"w-4 h-4 bg-blue-500 rounded-full\"></div>"}
         <span>${message}</span>
       </div>
     `;
@@ -429,12 +429,12 @@ export default function RoutineDashboard({
             </div>
             <button
               onClick={runTodayRoutine}
-              disabled={routineStatus === 'running'}
+              disabled={routineStatus === "running"}
               className={`px-4 py-2 rounded-lg text-white font-medium ${
-                routineStatus === 'running' ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+                routineStatus === "running" ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
               }`}
             >
-              {routineStatus === 'running' ? '実行中...' : '1クリックで実行'}
+              {routineStatus === "running" ? "実行中..." : "1クリックで実行"}
             </button>
           </div>
           {/* 進捗UI */}
@@ -442,7 +442,7 @@ export default function RoutineDashboard({
             <div className="w-full bg-gray-100 rounded-full h-3">
               <div
                 className={`h-3 rounded-full transition-all duration-500 ${
-                  routineStatus === 'failed' ? 'bg-red-500' : 'bg-blue-600'
+                  routineStatus === "failed" ? "bg-red-500" : "bg-blue-600"
                 }`}
                 style={{ width: `${routineProgress}%` }}
               />
@@ -452,21 +452,21 @@ export default function RoutineDashboard({
               {routineJobId && (
                 <span className="text-xs text-gray-500">Job: {routineJobId}</span>
               )}
-              {routineStatus === 'succeeded' && (
+              {routineStatus === "succeeded" && (
                 <span className="text-green-700 flex items-center gap-1"><CheckCircle className="h-4 w-4"/> 完了</span>
               )}
-              {routineStatus === 'failed' && (
+              {routineStatus === "failed" && (
                 <span className="text-red-700 flex items-center gap-1"><AlertCircle className="h-4 w-4"/> 失敗</span>
               )}
             </div>
             {/* 再開ボタン（中断→復帰）*/}
-            {routineStatus !== 'running' && sessionStorage.getItem('routine:job_id') && (
+            {routineStatus !== "running" && sessionStorage.getItem("routine:job_id") && (
               <button
                 onClick={() => {
-                  const jid = sessionStorage.getItem('routine:job_id');
+                  const jid = sessionStorage.getItem("routine:job_id");
                   if (jid) {
                     setRoutineJobId(jid);
-                    setRoutineStatus('running');
+                    setRoutineStatus("running");
                     pollRoutine(jid);
                   }
                 }}
@@ -485,7 +485,7 @@ export default function RoutineDashboard({
               const thresholds = [10,30,55,70,85,95,100];
               const done = routineProgress >= thresholds[idx];
               return (
-                <div key={label} className={`p-2 rounded border ${done ? 'bg-green-50 border-green-200 text-green-800' : 'bg-gray-50 border-gray-200 text-gray-700'}`}>
+                <div key={label} className={`p-2 rounded border ${done ? "bg-green-50 border-green-200 text-green-800" : "bg-gray-50 border-gray-200 text-gray-700"}`}>
                   <div className="flex items-center gap-1">
                     {done ? <CheckCircle className="h-3 w-3"/> : <Loader2 className="h-3 w-3"/>}
                     <span>{label}</span>
@@ -502,7 +502,7 @@ export default function RoutineDashboard({
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-gray-900">前日の分析結果</h2>
                 <div className="flex items-center space-x-2">
-                  {yesterdaySummary?.analysisStatus === 'completed' ? (
+                  {yesterdaySummary?.analysisStatus === "completed" ? (
                     <CheckCircle className="h-5 w-5 text-green-600" />
                   ) : (
                     <AlertCircle className="h-5 w-5 text-yellow-600" />
@@ -519,11 +519,11 @@ export default function RoutineDashboard({
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">総リターン</span>
                     <span className={`text-lg font-semibold ${
-                      (yesterdaySummary?.totalReturn || 0) >= 0 ? 'text-green-600' : 'text-red-600'
+                      (yesterdaySummary?.totalReturn || 0) >= 0 ? "text-green-600" : "text-red-600"
                     }`}>
                       {yesterdaySummary?.totalReturn ? 
-                        `${yesterdaySummary.totalReturn > 0 ? '+' : ''}${yesterdaySummary.totalReturn}%` : 
-                        'N/A'
+                        `${yesterdaySummary.totalReturn > 0 ? "+" : ""}${yesterdaySummary.totalReturn}%` : 
+                        "N/A"
                       }
                     </span>
                   </div>
@@ -554,9 +554,9 @@ export default function RoutineDashboard({
                     <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div className="flex items-center space-x-3">
                         <div className="flex items-center space-x-1">
-                          {stock.action === 'buy' && <ArrowUp className="h-4 w-4 text-green-600" />}
-                          {stock.action === 'sell' && <ArrowDown className="h-4 w-4 text-red-600" />}
-                          {stock.action === 'hold' && <Minus className="h-4 w-4 text-gray-600" />}
+                          {stock.action === "buy" && <ArrowUp className="h-4 w-4 text-green-600" />}
+                          {stock.action === "sell" && <ArrowDown className="h-4 w-4 text-red-600" />}
+                          {stock.action === "hold" && <Minus className="h-4 w-4 text-gray-600" />}
                         </div>
                         <div>
                           <span className="font-medium text-gray-900">{stock.symbol}</span>
@@ -565,9 +565,9 @@ export default function RoutineDashboard({
                       </div>
                       <div className="text-right">
                         <span className={`font-semibold ${
-                          stock.return >= 0 ? 'text-green-600' : 'text-red-600'
+                          stock.return >= 0 ? "text-green-600" : "text-red-600"
                         }`}>
-                          {stock.return > 0 ? '+' : ''}{stock.return}%
+                          {stock.return > 0 ? "+" : ""}{stock.return}%
                         </span>
                       </div>
                     </div>
@@ -582,9 +582,9 @@ export default function RoutineDashboard({
                   <div className="space-y-2">
                     {yesterdaySummary.alerts.map((alert, index) => (
                       <div key={index} className={`p-3 rounded-lg flex items-center space-x-2 ${
-                        alert.type === 'success' ? 'bg-green-50 text-green-800' :
-                        alert.type === 'warning' ? 'bg-yellow-50 text-yellow-800' :
-                        'bg-blue-50 text-blue-800'
+                        alert.type === "success" ? "bg-green-50 text-green-800" :
+                        alert.type === "warning" ? "bg-yellow-50 text-yellow-800" :
+                        "bg-blue-50 text-blue-800"
                       }`}>
                         <AlertCircle className="h-4 w-4" />
                         <span className="text-sm">{alert.message}</span>
@@ -612,12 +612,12 @@ export default function RoutineDashboard({
                       disabled={isExecuting}
                       className={`w-full p-4 rounded-lg border-2 transition-all duration-200 ${
                         isExecuting 
-                          ? 'border-gray-300 bg-gray-100 cursor-not-allowed opacity-75'
-                          : action.priority === 'high' 
-                          ? 'border-red-200 bg-red-50 hover:bg-red-100' 
-                          : action.priority === 'medium'
-                          ? 'border-yellow-200 bg-yellow-50 hover:bg-yellow-100'
-                          : 'border-gray-200 bg-gray-50 hover:bg-gray-100'
+                          ? "border-gray-300 bg-gray-100 cursor-not-allowed opacity-75"
+                          : action.priority === "high" 
+                          ? "border-red-200 bg-red-50 hover:bg-red-100" 
+                          : action.priority === "medium"
+                          ? "border-yellow-200 bg-yellow-50 hover:bg-yellow-100"
+                          : "border-gray-200 bg-gray-50 hover:bg-gray-100"
                       }`}
                     >
                       <div className="flex items-center justify-between">
@@ -626,9 +626,9 @@ export default function RoutineDashboard({
                             <Loader2 className="h-5 w-5 animate-spin text-blue-600" />
                           ) : (
                             <>
-                              {action.action === 'analyze' && <BarChart3 className="h-5 w-5 text-blue-600" />}
-                              {action.action === 'report' && <FileText className="h-5 w-5 text-green-600" />}
-                              {action.action === 'trade' && <ShoppingCart className="h-5 w-5 text-purple-600" />}
+                              {action.action === "analyze" && <BarChart3 className="h-5 w-5 text-blue-600" />}
+                              {action.action === "report" && <FileText className="h-5 w-5 text-green-600" />}
+                              {action.action === "trade" && <ShoppingCart className="h-5 w-5 text-purple-600" />}
                             </>
                           )}
                           <div className="text-left">
@@ -639,11 +639,11 @@ export default function RoutineDashboard({
                           </div>
                         </div>
                         <div className={`px-2 py-1 rounded text-xs font-medium ${
-                          action.priority === 'high' ? 'bg-red-100 text-red-800' :
-                          action.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-gray-100 text-gray-800'
+                          action.priority === "high" ? "bg-red-100 text-red-800" :
+                          action.priority === "medium" ? "bg-yellow-100 text-yellow-800" :
+                          "bg-gray-100 text-gray-800"
                         }`}>
-                          {action.priority === 'high' ? '高' : action.priority === 'medium' ? '中' : '低'}
+                          {action.priority === "high" ? "高" : action.priority === "medium" ? "中" : "低"}
                         </div>
                       </div>
                     </button>
@@ -662,8 +662,8 @@ export default function RoutineDashboard({
                       <div>
                         <span className="font-medium text-gray-900">{update.symbol}</span>
                         <span className="text-sm text-gray-600 ml-2">
-                          {update.action === 'add' ? '追加' : 
-                           update.action === 'remove' ? '削除' : '変更'}
+                          {update.action === "add" ? "追加" : 
+                           update.action === "remove" ? "削除" : "変更"}
                         </span>
                       </div>
                       <div className="text-sm text-gray-600 text-right">

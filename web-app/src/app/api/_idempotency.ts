@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
 type StoredEntry = {
   status: number;
@@ -27,28 +27,28 @@ export interface IdempotencyOptions {
  */
 export function withIdempotency<T extends (req: NextRequest) => Promise<Response>>(
   handler: T,
-  options: IdempotencyOptions = {}
+  options: IdempotencyOptions = {},
 ): T {
-  const headerName = options.headerName || 'Idempotency-Key';
+  const headerName = options.headerName || "Idempotency-Key";
   const ttlMs = options.ttlMs ?? DEFAULT_TTL_MS;
 
   return (async (req: NextRequest): Promise<Response> => {
     const method = req.method.toUpperCase();
-    const requiresKey = method === 'POST' || method === 'PUT' || method === 'PATCH' || method === 'DELETE';
+    const requiresKey = method === "POST" || method === "PUT" || method === "PATCH" || method === "DELETE";
 
     if (!requiresKey) {
       return handler(req);
     }
 
-    const key = req.headers.get(headerName) || '';
+    const key = req.headers.get(headerName) || "";
     if (!key) {
       return NextResponse.json(
         {
-          error_code: 'IDEMPOTENCY_KEY_REQUIRED',
+          error_code: "IDEMPOTENCY_KEY_REQUIRED",
           user_message: `${headerName} ヘッダが必要です`,
-          retry_hint: 'クライアントで一意キーを生成し、同一操作で同一キーを送信してください'
+          retry_hint: "クライアントで一意キーを生成し、同一操作で同一キーを送信してください",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -58,8 +58,8 @@ export function withIdempotency<T extends (req: NextRequest) => Promise<Response
       return new NextResponse(JSON.stringify(hit.body), {
         status: hit.status,
         headers: {
-          'Content-Type': 'application/json',
-          'Idempotency-Reused': 'true',
+          "Content-Type": "application/json",
+          "Idempotency-Reused": "true",
           ...hit.headers,
         },
       });
@@ -74,7 +74,7 @@ export function withIdempotency<T extends (req: NextRequest) => Promise<Response
       const headers: Record<string, string> = {};
       res.headers.forEach((v, k) => {
         // センシティブ/不要なヘッダは保存しない
-        if (!['set-cookie'].includes(k.toLowerCase())) headers[k] = v;
+        if (!["set-cookie"].includes(k.toLowerCase())) headers[k] = v;
       });
       if (body !== null) {
         store.set(key, {

@@ -1,13 +1,13 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   // 基本設定 - 本番環境でのみ静的エクスポート
-  ...(process.env.NODE_ENV === 'production' && {
+  ...(process.env.NODE_ENV === "production" && {
     output: "export",
     distDir: "out",
   }),
   
   // GitHub Pages用の設定（本番環境のみ）
-  ...(process.env.NODE_ENV === 'production' && {
+  ...(process.env.NODE_ENV === "production" && {
     basePath: "/jquants-stock-prediction",
     assetPrefix: "/jquants-stock-prediction",
   }),
@@ -47,17 +47,17 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react", "recharts"],
     // 静的エクスポート用の設定（本番環境のみ）
-    ...(process.env.NODE_ENV === 'production' && {
+    ...(process.env.NODE_ENV === "production" && {
       staticGenerationRetryCount: 5,
       disableOptimizedLoading: true,
     }),
     // 開発環境でのFast Refresh最適化
-    ...(process.env.NODE_ENV === 'development' && {
+    ...(process.env.NODE_ENV === "development" && {
       turbo: {
         rules: {
-          '*.svg': {
-            loaders: ['@svgr/webpack'],
-            as: '*.js',
+          "*.svg": {
+            loaders: ["@svgr/webpack"],
+            as: "*.js",
           },
         },
       },
@@ -75,36 +75,36 @@ const nextConfig = {
   // Webpack設定の最適化
   webpack: (config, { dev, isServer }) => {
     // パス解決の設定を追加（絶対パスを使用）
-    const path = require('path');
-    const srcPath = path.resolve(__dirname, 'src');
+    const path = require("path");
+    const srcPath = path.resolve(__dirname, "src");
     
     // より確実なパス解決の設定
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@/src': srcPath,
-      '@/src/lib': path.resolve(srcPath, 'lib'),
-      '@': srcPath,
-      'src': srcPath,
-      '@/lib': path.resolve(srcPath, 'lib'),
-      '@/components': path.resolve(srcPath, 'components'),
-      '@/app': path.resolve(srcPath, 'app'),
-      '@/styles': path.resolve(srcPath, 'styles'),
-      '@/lib/guide': path.resolve(srcPath, 'lib/guide'),
-      '@/lib/today': path.resolve(srcPath, 'lib/today'),
-      '@/lib/guide/shortcut': path.resolve(srcPath, 'lib/guide/shortcut'),
-      '@/lib/guide/guideStore': path.resolve(srcPath, 'lib/guide/guideStore'),
-      '@/lib/datetime': path.resolve(srcPath, 'lib/datetime'),
-      '@/lib/jquants-adapter': path.resolve(srcPath, 'lib/jquants-adapter'),
-      '@/lib/today/fetchTodaySummary': path.resolve(srcPath, 'lib/today/fetchTodaySummary'),
-      '@/types': path.resolve(srcPath, 'types'),
-      '@/contexts': path.resolve(srcPath, 'contexts'),
-      '@/hooks': path.resolve(srcPath, 'hooks'),
+      "@/src": srcPath,
+      "@/src/lib": path.resolve(srcPath, "lib"),
+      "@": srcPath,
+      "src": srcPath,
+      "@/lib": path.resolve(srcPath, "lib"),
+      "@/components": path.resolve(srcPath, "components"),
+      "@/app": path.resolve(srcPath, "app"),
+      "@/styles": path.resolve(srcPath, "styles"),
+      "@/lib/guide": path.resolve(srcPath, "lib/guide"),
+      "@/lib/today": path.resolve(srcPath, "lib/today"),
+      "@/lib/guide/shortcut": path.resolve(srcPath, "lib/guide/shortcut"),
+      "@/lib/guide/guideStore": path.resolve(srcPath, "lib/guide/guideStore"),
+      "@/lib/datetime": path.resolve(srcPath, "lib/datetime"),
+      "@/lib/jquants-adapter": path.resolve(srcPath, "lib/jquants-adapter"),
+      "@/lib/today/fetchTodaySummary": path.resolve(srcPath, "lib/today/fetchTodaySummary"),
+      "@/types": path.resolve(srcPath, "types"),
+      "@/contexts": path.resolve(srcPath, "contexts"),
+      "@/hooks": path.resolve(srcPath, "hooks"),
     };
     
     // モジュール解決の設定を追加
     config.resolve.modules = [
       srcPath,
-      'node_modules',
+      "node_modules",
     ];
     
     // モジュール解決の確実性を向上
@@ -112,11 +112,11 @@ const nextConfig = {
     config.resolve.cacheWithContext = false;
     
     // パス解決の確実性を向上
-    config.resolve.mainFields = ['browser', 'module', 'main'];
-    config.resolve.conditionNames = ['import', 'require', 'node'];
+    config.resolve.mainFields = ["browser", "module", "main"];
+    config.resolve.conditionNames = ["import", "require", "node"];
     
     // 拡張子の解決順序を設定
-    config.resolve.extensions = ['.tsx', '.ts', '.jsx', '.js', '.json'];
+    config.resolve.extensions = [".tsx", ".ts", ".jsx", ".js", ".json"];
     
     // パス解決の確実性を向上
     config.resolve.fallback = {
@@ -130,7 +130,7 @@ const nextConfig = {
     
     // パス解決のデバッグ情報を追加
     if (dev) {
-      config.resolve.logging = 'verbose';
+      config.resolve.logging = "verbose";
     }
     
     // ビルド環境でのパス解決を確実にする（キャッシュ完全無効化）
@@ -139,8 +139,8 @@ const nextConfig = {
     config.cache = false;
     config.optimization = {
       ...config.optimization,
-      moduleIds: 'deterministic',
-      chunkIds: 'deterministic',
+      moduleIds: "deterministic",
+      chunkIds: "deterministic",
     };
     
     // バンドルサイズの最適化

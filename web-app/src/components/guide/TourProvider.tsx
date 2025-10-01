@@ -1,8 +1,8 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { createPortal } from 'react-dom';
-import { accessibilityUtils } from '@/lib/guide/accessibility';
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
+import { accessibilityUtils } from "@/lib/guide/accessibility";
 
 // 型定義
 export interface GuideStep {
@@ -43,104 +43,104 @@ const GuideContext = createContext<GuideContextType | null>(null);
 
 // ローカルストレージキー
 const STORAGE_KEYS = {
-  FIRST_VISIT: 'guide_first_visit',
-  COMPLETED_STEPS: 'guide_completed_steps',
-  TOUR_COMPLETED: 'guide_tour_completed',
-  GUIDE_DISABLED: 'guide_disabled',
-  CURRENT_STEP: 'guide_current_step'
+  FIRST_VISIT: "guide_first_visit",
+  COMPLETED_STEPS: "guide_completed_steps",
+  TOUR_COMPLETED: "guide_tour_completed",
+  GUIDE_DISABLED: "guide_disabled",
+  CURRENT_STEP: "guide_current_step",
 };
 
 // デフォルトステップ定義
 const DEFAULT_STEPS: GuideStep[] = [
   {
-    id: 'welcome',
-    target: '[data-guide-target="welcome"]',
-    title: 'ようこそ！',
-    body: 'J-Quants株価予測システムへようこそ。3分で主要機能を案内します。',
-    placement: 'auto',
-    page: '/',
-    next: 'navigation'
+    id: "welcome",
+    target: "[data-guide-target=\"welcome\"]",
+    title: "ようこそ！",
+    body: "J-Quants株価予測システムへようこそ。3分で主要機能を案内します。",
+    placement: "auto",
+    page: "/",
+    next: "navigation",
   },
   {
-    id: 'navigation',
-    target: '[data-guide-target="navigation"]',
-    title: 'ナビゲーション',
-    body: '各ページへの移動はここから。予測・モデル・分析・設定を切り替えできます。',
-    placement: 'bottom',
-    page: '/',
-    next: 'dashboard-overview'
+    id: "navigation",
+    target: "[data-guide-target=\"navigation\"]",
+    title: "ナビゲーション",
+    body: "各ページへの移動はここから。予測・モデル・分析・設定を切り替えできます。",
+    placement: "bottom",
+    page: "/",
+    next: "dashboard-overview",
   },
   {
-    id: 'dashboard-overview',
-    target: '[data-guide-target="dashboard-overview"]',
-    title: 'ダッシュボード概要',
-    body: '今日の投資指示と主要KPIが表示されます。まずはここを確認しましょう。',
-    placement: 'auto',
-    page: '/',
-    next: 'kpi-metrics'
+    id: "dashboard-overview",
+    target: "[data-guide-target=\"dashboard-overview\"]",
+    title: "ダッシュボード概要",
+    body: "今日の投資指示と主要KPIが表示されます。まずはここを確認しましょう。",
+    placement: "auto",
+    page: "/",
+    next: "kpi-metrics",
   },
   {
-    id: 'kpi-metrics',
-    target: '[data-guide-target="kpi-metrics"]',
-    title: '主要指標の見方',
-    body: 'MAE（平均絶対誤差）・R²（決定係数）・予測精度を確認。低いMAEと高いR²が理想的。',
-    placement: 'auto',
-    page: '/',
-    next: 'candidate-cards'
+    id: "kpi-metrics",
+    target: "[data-guide-target=\"kpi-metrics\"]",
+    title: "主要指標の見方",
+    body: "MAE（平均絶対誤差）・R²（決定係数）・予測精度を確認。低いMAEと高いR²が理想的。",
+    placement: "auto",
+    page: "/",
+    next: "candidate-cards",
   },
   {
-    id: 'candidate-cards',
-    target: '[data-guide-target="candidate-cards"]',
-    title: '候補銘柄カード',
-    body: '推奨銘柄とリスク情報を表示。カードをクリックして詳細分析に進めます。',
-    placement: 'auto',
-    page: '/',
-    next: 'model-comparison'
+    id: "candidate-cards",
+    target: "[data-guide-target=\"candidate-cards\"]",
+    title: "候補銘柄カード",
+    body: "推奨銘柄とリスク情報を表示。カードをクリックして詳細分析に進めます。",
+    placement: "auto",
+    page: "/",
+    next: "model-comparison",
   },
   {
-    id: 'model-comparison',
-    target: '[data-guide-target="model-comparison"]',
-    title: 'モデル比較',
-    body: '複数モデルの性能を比較。総合評価→詳細指標の順で確認しましょう。',
-    placement: 'auto',
-    page: '/',
-    next: 'analysis-features'
+    id: "model-comparison",
+    target: "[data-guide-target=\"model-comparison\"]",
+    title: "モデル比較",
+    body: "複数モデルの性能を比較。総合評価→詳細指標の順で確認しましょう。",
+    placement: "auto",
+    page: "/",
+    next: "analysis-features",
   },
   {
-    id: 'analysis-features',
-    target: '[data-guide-target="analysis-features"]',
-    title: '分析機能',
-    body: '特徴量重要度・残差分析・相関分析でモデルの信頼性を確認できます。',
-    placement: 'auto',
-    page: '/',
-    next: 'settings-config'
+    id: "analysis-features",
+    target: "[data-guide-target=\"analysis-features\"]",
+    title: "分析機能",
+    body: "特徴量重要度・残差分析・相関分析でモデルの信頼性を確認できます。",
+    placement: "auto",
+    page: "/",
+    next: "settings-config",
   },
   {
-    id: 'settings-config',
-    target: '[data-guide-target="settings-config"]',
-    title: '設定',
-    body: '実行時刻・通知先・しきい値を設定。定期的な分析実行に必要です。',
-    placement: 'auto',
-    page: '/',
-    next: 'help-support'
+    id: "settings-config",
+    target: "[data-guide-target=\"settings-config\"]",
+    title: "設定",
+    body: "実行時刻・通知先・しきい値を設定。定期的な分析実行に必要です。",
+    placement: "auto",
+    page: "/",
+    next: "help-support",
   },
   {
-    id: 'help-support',
-    target: '[data-guide-target="help-support"]',
-    title: 'ヘルプ・サポート',
-    body: '困った時はF1キーまたは「？」ボタンでクイックヘルプを表示できます。',
-    placement: 'auto',
-    page: '/',
-    next: 'completion'
+    id: "help-support",
+    target: "[data-guide-target=\"help-support\"]",
+    title: "ヘルプ・サポート",
+    body: "困った時はF1キーまたは「？」ボタンでクイックヘルプを表示できます。",
+    placement: "auto",
+    page: "/",
+    next: "completion",
   },
   {
-    id: 'completion',
-    target: '[data-guide-target="completion"]',
-    title: '完了！',
-    body: 'お疲れ様でした！これで主要機能を理解できました。明日からは自動案内しません。',
-    placement: 'auto',
-    page: '/'
-  }
+    id: "completion",
+    target: "[data-guide-target=\"completion\"]",
+    title: "完了！",
+    body: "お疲れ様でした！これで主要機能を理解できました。明日からは自動案内しません。",
+    placement: "auto",
+    page: "/",
+  },
 ];
 
 export function TourProvider({ children, steps = DEFAULT_STEPS }: { 
@@ -153,15 +153,15 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
     completedSteps: [],
     isFirstVisit: true,
     isTourCompleted: false,
-    isGuideDisabled: false
+    isGuideDisabled: false,
   });
 
   // ローカルストレージから状態を復元
   useEffect(() => {
-    const isFirstVisit = localStorage.getItem(STORAGE_KEYS.FIRST_VISIT) !== 'false';
-    const completedSteps = JSON.parse(localStorage.getItem(STORAGE_KEYS.COMPLETED_STEPS) || '[]');
-    const isTourCompleted = localStorage.getItem(STORAGE_KEYS.TOUR_COMPLETED) === 'true';
-    const isGuideDisabled = localStorage.getItem(STORAGE_KEYS.GUIDE_DISABLED) === 'true';
+    const isFirstVisit = localStorage.getItem(STORAGE_KEYS.FIRST_VISIT) !== "false";
+    const completedSteps = JSON.parse(localStorage.getItem(STORAGE_KEYS.COMPLETED_STEPS) || "[]");
+    const isTourCompleted = localStorage.getItem(STORAGE_KEYS.TOUR_COMPLETED) === "true";
+    const isGuideDisabled = localStorage.getItem(STORAGE_KEYS.GUIDE_DISABLED) === "true";
     const currentStep = localStorage.getItem(STORAGE_KEYS.CURRENT_STEP);
 
     setState(prev => ({
@@ -170,7 +170,7 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
       completedSteps,
       isTourCompleted,
       isGuideDisabled,
-      currentStep: currentStep || null
+      currentStep: currentStep || null,
     }));
 
     // 初回訪問でガイドが無効化されていない場合は自動開始
@@ -218,12 +218,12 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
       accessibilityUtils.focusManager.saveFocus();
       
       // スクリーンリーダーにアナウンス
-      accessibilityUtils.screenReader.announce('ガイドツアーを開始しました');
+      accessibilityUtils.screenReader.announce("ガイドツアーを開始しました");
       
       saveState({
         isActive: true,
         currentStep: firstStep.id,
-        isFirstVisit: false
+        isFirstVisit: false,
       });
     }
   }, [steps, saveState]);
@@ -242,7 +242,7 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
             isActive: false,
             currentStep: null,
             isTourCompleted: true,
-            completedSteps: [...prev.completedSteps, prev.currentStep]
+            completedSteps: [...prev.completedSteps, prev.currentStep],
           };
         }
 
@@ -251,10 +251,10 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
 
         // アクション実行
         if (nextStepData.action) {
-          if (nextStepData.action.type === 'nav') {
+          if (nextStepData.action.type === "nav") {
             // ページ遷移は親コンポーネントで処理
             window.location.href = nextStepData.action.to;
-          } else if (nextStepData.action.type === 'click') {
+          } else if (nextStepData.action.type === "click") {
             const element = document.querySelector(nextStepData.action.target);
             if (element) {
               (element as HTMLElement).click();
@@ -265,7 +265,7 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
         return {
           ...prev,
           currentStep: nextStepData.id,
-          completedSteps: [...prev.completedSteps, prev.currentStep]
+          completedSteps: [...prev.completedSteps, prev.currentStep],
         };
       });
     }, 0);
@@ -283,7 +283,7 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
 
       return {
         ...prev,
-        currentStep: prevStepData.id
+        currentStep: prevStepData.id,
       };
     });
   }, [steps]);
@@ -292,13 +292,13 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
     saveState({
       isActive: false,
       currentStep: null,
-      isTourCompleted: true
+      isTourCompleted: true,
     });
   }, [saveState]);
 
   const completeTour = useCallback(() => {
     // スクリーンリーダーにアナウンス
-    accessibilityUtils.screenReader.announce('ガイドツアーが完了しました');
+    accessibilityUtils.screenReader.announce("ガイドツアーが完了しました");
     
     // フォーカスを復元
     accessibilityUtils.focusManager.restoreFocus();
@@ -307,13 +307,13 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
       isActive: false,
       currentStep: null,
       isTourCompleted: true,
-      completedSteps: [...state.completedSteps, state.currentStep || '']
+      completedSteps: [...state.completedSteps, state.currentStep || ""],
     });
   }, [saveState, state.completedSteps, state.currentStep]);
 
   const toggleGuide = useCallback(() => {
     saveState({
-      isGuideDisabled: !state.isGuideDisabled
+      isGuideDisabled: !state.isGuideDisabled,
     });
   }, [saveState, state.isGuideDisabled]);
 
@@ -330,7 +330,7 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
       completedSteps: [],
       isFirstVisit: true,
       isTourCompleted: false,
-      isGuideDisabled: false
+      isGuideDisabled: false,
     });
   }, []);
 
@@ -353,13 +353,13 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
     toggleGuide,
     resetGuide,
     getCurrentStepData,
-    isStepCompleted
+    isStepCompleted,
   };
 
   return (
     <GuideContext.Provider value={contextValue}>
       {children}
-      {state.isActive && typeof window !== 'undefined' && (
+      {state.isActive && typeof window !== "undefined" && (
         <TourOverlay />
       )}
     </GuideContext.Provider>
@@ -393,7 +393,7 @@ function TourOverlay() {
         isLast={!currentStepData.next}
       />
     </div>,
-    document.body
+    document.body,
   );
 }
 
@@ -401,7 +401,7 @@ function TourOverlay() {
 export function useGuide(): GuideContextType {
   const context = useContext(GuideContext);
   if (!context) {
-    throw new Error('useGuide must be used within a TourProvider');
+    throw new Error("useGuide must be used within a TourProvider");
   }
   return context;
 }
@@ -430,7 +430,7 @@ function Coachmark({ step, onNext, onPrev, onSkip, onComplete, isFirst, isLast }
         top: rect.top + window.scrollY,
         left: rect.left + window.scrollX,
         width: rect.width,
-        height: rect.height
+        height: rect.height,
       });
     }
   }, [step.target]);
@@ -456,25 +456,25 @@ function Coachmark({ step, onNext, onPrev, onSkip, onComplete, isFirst, isLast }
     const margin = 16;
 
     switch (step.placement) {
-      case 'top':
+      case "top":
         return {
           top: top - tooltipHeight - margin,
-          left: left + width / 2 - tooltipWidth / 2
+          left: left + width / 2 - tooltipWidth / 2,
         };
-      case 'bottom':
+      case "bottom":
         return {
           top: top + height + margin,
-          left: left + width / 2 - tooltipWidth / 2
+          left: left + width / 2 - tooltipWidth / 2,
         };
-      case 'left':
+      case "left":
         return {
           top: top + height / 2 - tooltipHeight / 2,
-          left: left - tooltipWidth - margin
+          left: left - tooltipWidth - margin,
         };
-      case 'right':
+      case "right":
         return {
           top: top + height / 2 - tooltipHeight / 2,
-          left: left + width + margin
+          left: left + width + margin,
         };
       default:
         // auto
@@ -486,22 +486,22 @@ function Coachmark({ step, onNext, onPrev, onSkip, onComplete, isFirst, isLast }
         if (spaceBottom >= tooltipHeight + margin) {
           return {
             top: top + height + margin,
-            left: left + width / 2 - tooltipWidth / 2
+            left: left + width / 2 - tooltipWidth / 2,
           };
         } else if (spaceTop >= tooltipHeight + margin) {
           return {
             top: top - tooltipHeight - margin,
-            left: left + width / 2 - tooltipWidth / 2
+            left: left + width / 2 - tooltipWidth / 2,
           };
         } else if (spaceRight >= tooltipWidth + margin) {
           return {
             top: top + height / 2 - tooltipHeight / 2,
-            left: left + width + margin
+            left: left + width + margin,
           };
         } else {
           return {
             top: top + height / 2 - tooltipHeight / 2,
-            left: left - tooltipWidth - margin
+            left: left - tooltipWidth - margin,
           };
         }
     }
@@ -519,7 +519,7 @@ function Coachmark({ step, onNext, onPrev, onSkip, onComplete, isFirst, isLast }
           left: position.left - 4,
           width: position.width + 8,
           height: position.height + 8,
-          boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.5)'
+          boxShadow: "0 0 0 9999px rgba(0, 0, 0, 0.5)",
         }}
       />
       
@@ -529,7 +529,7 @@ function Coachmark({ step, onNext, onPrev, onSkip, onComplete, isFirst, isLast }
         style={{
           top: tooltipPosition.top,
           left: tooltipPosition.left,
-          zIndex: 1000
+          zIndex: 1000,
         }}
       >
         {step.title && (

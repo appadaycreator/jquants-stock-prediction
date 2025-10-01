@@ -19,7 +19,7 @@ export default function MobilePerformanceOptimizer({
 }: MobilePerformanceOptimizerProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isLowEndDevice, setIsLowEndDevice] = useState(false);
-  const [connectionType, setConnectionType] = useState<'slow' | 'fast' | 'unknown'>('unknown');
+  const [connectionType, setConnectionType] = useState<"slow" | "fast" | "unknown">("unknown");
 
   // デバイス性能の判定
   useEffect(() => {
@@ -44,26 +44,26 @@ export default function MobilePerformanceOptimizer({
   // ネットワーク接続の判定
   useEffect(() => {
     const checkConnection = () => {
-      if ('connection' in navigator) {
+      if ("connection" in navigator) {
         const connection = (navigator as any).connection;
         const effectiveType = connection.effectiveType;
         
-        if (effectiveType === 'slow-2g' || effectiveType === '2g') {
-          setConnectionType('slow');
-        } else if (effectiveType === '4g') {
-          setConnectionType('fast');
+        if (effectiveType === "slow-2g" || effectiveType === "2g") {
+          setConnectionType("slow");
+        } else if (effectiveType === "4g") {
+          setConnectionType("fast");
         } else {
-          setConnectionType('unknown');
+          setConnectionType("unknown");
         }
       }
     };
 
     checkConnection();
     
-    if ('connection' in navigator) {
+    if ("connection" in navigator) {
       const connection = (navigator as any).connection;
-      connection.addEventListener('change', checkConnection);
-      return () => connection.removeEventListener('change', checkConnection);
+      connection.addEventListener("change", checkConnection);
+      return () => connection.removeEventListener("change", checkConnection);
     }
   }, []);
 
@@ -73,10 +73,10 @@ export default function MobilePerformanceOptimizer({
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
-    const element = document.getElementById('mobile-performance-container');
+    const element = document.getElementById("mobile-performance-container");
     if (element) {
       observer.observe(element);
     }
@@ -90,12 +90,12 @@ export default function MobilePerformanceOptimizer({
 
   // データスロットリング
   const throttledDataUpdate = useCallback((data: any[], delay: number = 100) => {
-    if (!enableDataThrottling || connectionType === 'fast') {
+    if (!enableDataThrottling || connectionType === "fast") {
       return data;
     }
 
     // 低速接続ではデータを制限
-    const maxItems = connectionType === 'slow' ? 50 : 100;
+    const maxItems = connectionType === "slow" ? 50 : 100;
     return data.slice(0, maxItems);
   }, [enableDataThrottling, connectionType]);
 
@@ -104,21 +104,21 @@ export default function MobilePerformanceOptimizer({
     if (!enableImageOptimization) return src;
 
     // WebP対応の確認
-    const supportsWebP = document.createElement('canvas')
-      .toDataURL('image/webp')
-      .indexOf('data:image/webp') === 0;
+    const supportsWebP = document.createElement("canvas")
+      .toDataURL("image/webp")
+      .indexOf("data:image/webp") === 0;
 
-    if (supportsWebP && src.includes('.')) {
-      const baseSrc = src.replace(/\.[^/.]+$/, '');
+    if (supportsWebP && src.includes(".")) {
+      const baseSrc = src.replace(/\.[^/.]+$/, "");
       return `${baseSrc}.webp`;
     }
 
     // サイズ最適化
     if (width && height) {
       const params = new URLSearchParams();
-      params.set('w', width.toString());
-      params.set('h', height.toString());
-      params.set('q', isLowEndDevice ? '60' : '80');
+      params.set("w", width.toString());
+      params.set("h", height.toString());
+      params.set("q", isLowEndDevice ? "60" : "80");
       
       return `${src}?${params.toString()}`;
     }
@@ -151,19 +151,19 @@ export default function MobilePerformanceOptimizer({
   // パフォーマンス設定の最適化
   const performanceSettings = useMemo(() => ({
     // アニメーションの制限
-    reducedMotion: isLowEndDevice || connectionType === 'slow',
+    reducedMotion: isLowEndDevice || connectionType === "slow",
     
     // データ更新頻度の制限
-    updateInterval: connectionType === 'slow' ? 5000 : 1000,
+    updateInterval: connectionType === "slow" ? 5000 : 1000,
     
     // チャートの詳細度制限
-    chartDetail: isLowEndDevice ? 'low' : 'high',
+    chartDetail: isLowEndDevice ? "low" : "high",
     
     // キャッシュ戦略
-    cacheStrategy: connectionType === 'slow' ? 'aggressive' : 'normal',
+    cacheStrategy: connectionType === "slow" ? "aggressive" : "normal",
     
     // プリロードの制限
-    preloadLimit: connectionType === 'slow' ? 2 : 5,
+    preloadLimit: connectionType === "slow" ? 2 : 5,
   }), [isLowEndDevice, connectionType]);
 
   // メモリ使用量の監視
@@ -171,17 +171,17 @@ export default function MobilePerformanceOptimizer({
     if (!isLowEndDevice) return;
 
     const monitorMemory = () => {
-      if ('memory' in performance) {
+      if ("memory" in performance) {
         const memory = (performance as any).memory;
         const usedMB = memory.usedJSHeapSize / 1024 / 1024;
         const limitMB = memory.jsHeapSizeLimit / 1024 / 1024;
         
         // メモリ使用率が80%を超えた場合の警告
         if (usedMB / limitMB > 0.8) {
-          console.warn('High memory usage detected:', {
+          console.warn("High memory usage detected:", {
             used: `${usedMB.toFixed(2)}MB`,
             limit: `${limitMB.toFixed(2)}MB`,
-            percentage: `${((usedMB / limitMB) * 100).toFixed(1)}%`
+            percentage: `${((usedMB / limitMB) * 100).toFixed(1)}%`,
           });
         }
       }
@@ -194,19 +194,19 @@ export default function MobilePerformanceOptimizer({
   // ネットワーク状態の監視
   useEffect(() => {
     const handleOnline = () => {
-      console.log('Network: Online');
+      console.log("Network: Online");
     };
 
     const handleOffline = () => {
-      console.log('Network: Offline');
+      console.log("Network: Offline");
     };
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 
@@ -224,7 +224,7 @@ export default function MobilePerformanceOptimizer({
 // パフォーマンス最適化フック
 export function useMobilePerformance() {
   const [isLowEndDevice, setIsLowEndDevice] = useState(false);
-  const [connectionType, setConnectionType] = useState<'slow' | 'fast' | 'unknown'>('unknown');
+  const [connectionType, setConnectionType] = useState<"slow" | "fast" | "unknown">("unknown");
 
   useEffect(() => {
     // デバイス性能の判定
@@ -239,14 +239,14 @@ export function useMobilePerformance() {
     setIsLowEndDevice(isLowEnd);
 
     // ネットワーク接続の判定
-    if ('connection' in navigator) {
+    if ("connection" in navigator) {
       const connection = (navigator as any).connection;
       const effectiveType = connection.effectiveType;
       
-      if (effectiveType === 'slow-2g' || effectiveType === '2g') {
-        setConnectionType('slow');
-      } else if (effectiveType === '4g') {
-        setConnectionType('fast');
+      if (effectiveType === "slow-2g" || effectiveType === "2g") {
+        setConnectionType("slow");
+      } else if (effectiveType === "4g") {
+        setConnectionType("fast");
       }
     }
   }, []);
@@ -254,8 +254,8 @@ export function useMobilePerformance() {
   return {
     isLowEndDevice,
     connectionType,
-    shouldReduceAnimations: isLowEndDevice || connectionType === 'slow',
-    shouldLimitData: connectionType === 'slow',
-    updateInterval: connectionType === 'slow' ? 5000 : 1000,
+    shouldReduceAnimations: isLowEndDevice || connectionType === "slow",
+    shouldLimitData: connectionType === "slow",
+    updateInterval: connectionType === "slow" ? 5000 : 1000,
   };
 }

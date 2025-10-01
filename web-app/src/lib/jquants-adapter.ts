@@ -36,10 +36,10 @@ interface CacheMetadata {
 class JQuantsAdapter {
   private config: JQuantsConfig;
   private db: IDBDatabase | null = null;
-  private readonly DB_NAME = 'jquants_cache';
+  private readonly DB_NAME = "jquants_cache";
   private readonly DB_VERSION = 1;
-  private readonly STORE_NAME = 'stock_data';
-  private readonly METADATA_STORE = 'metadata';
+  private readonly STORE_NAME = "stock_data";
+  private readonly METADATA_STORE = "metadata";
 
   constructor(config: JQuantsConfig) {
     this.config = config;
@@ -54,13 +54,13 @@ class JQuantsAdapter {
       const request = indexedDB.open(this.DB_NAME, this.DB_VERSION);
       
       request.onerror = () => {
-        console.error('IndexedDB初期化エラー:', request.error);
+        console.error("IndexedDB初期化エラー:", request.error);
         reject(request.error);
       };
       
       request.onsuccess = () => {
         this.db = request.result;
-        console.info('IndexedDB初期化完了');
+        console.info("IndexedDB初期化完了");
         resolve();
       };
       
@@ -69,14 +69,14 @@ class JQuantsAdapter {
         
         // 株価データストア
         if (!db.objectStoreNames.contains(this.STORE_NAME)) {
-          const stockStore = db.createObjectStore(this.STORE_NAME, { keyPath: ['symbol', 'date'] });
-          stockStore.createIndex('symbol', 'symbol', { unique: false });
-          stockStore.createIndex('date', 'date', { unique: false });
+          const stockStore = db.createObjectStore(this.STORE_NAME, { keyPath: ["symbol", "date"] });
+          stockStore.createIndex("symbol", "symbol", { unique: false });
+          stockStore.createIndex("date", "date", { unique: false });
         }
         
         // メタデータストア
         if (!db.objectStoreNames.contains(this.METADATA_STORE)) {
-          db.createObjectStore(this.METADATA_STORE, { keyPath: 'symbol' });
+          db.createObjectStore(this.METADATA_STORE, { keyPath: "symbol" });
         }
       };
     });
@@ -89,16 +89,16 @@ class JQuantsAdapter {
   async getAllSymbols(): Promise<Array<{ code: string; name: string; sector?: string }>> {
     try {
       const response = await fetch(`${this.config.baseUrl}/markets/stock/list`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Authorization': `Bearer ${this.config.token}`,
-          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${this.config.token}`,
+          "Content-Type": "application/json",
         },
         signal: AbortSignal.timeout(this.config.timeout),
       });
 
       if (!response.ok) {
-        console.error('全銘柄一覧取得失敗', response.status, response.statusText);
+        console.error("全銘柄一覧取得失敗", response.status, response.statusText);
         return [];
       }
 
@@ -110,7 +110,7 @@ class JQuantsAdapter {
         sector: item?.Sector33 || item?.SectorName || item?.sector,
       })).filter((s: any) => !!s.code && !!s.name);
     } catch (error) {
-      console.error('全銘柄一覧取得エラー:', error);
+      console.error("全銘柄一覧取得エラー:", error);
       return [];
     }
   }
@@ -120,13 +120,13 @@ class JQuantsAdapter {
    */
   async testConnection(): Promise<{ success: boolean; message: string }> {
     try {
-      console.info('J-Quants接続テスト開始');
+      console.info("J-Quants接続テスト開始");
       
       const response = await fetch(`${this.config.baseUrl}/markets/stock/list`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Authorization': `Bearer ${this.config.token}`,
-          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${this.config.token}`,
+          "Content-Type": "application/json",
         },
         signal: AbortSignal.timeout(this.config.timeout),
       });
@@ -136,20 +136,20 @@ class JQuantsAdapter {
       }
 
       const data = await response.json();
-      console.info('J-Quants接続テスト成功', { 
+      console.info("J-Quants接続テスト成功", { 
         status: response.status,
-        dataCount: data?.data?.length || 0 
+        dataCount: data?.data?.length || 0, 
       });
 
       return {
         success: true,
-        message: `接続成功: ${data?.data?.length || 0}件の銘柄データを取得`
+        message: `接続成功: ${data?.data?.length || 0}件の銘柄データを取得`,
       };
     } catch (error) {
-      console.error('J-Quants接続テスト失敗:', error);
+      console.error("J-Quants接続テスト失敗:", error);
       return {
         success: false,
-        message: `接続失敗: ${error instanceof Error ? error.message : '不明なエラー'}`
+        message: `接続失敗: ${error instanceof Error ? error.message : "不明なエラー"}`,
       };
     }
   }
@@ -161,19 +161,19 @@ class JQuantsAdapter {
     symbol: string, 
     startDate: string, 
     endDate: string,
-    useCache: boolean = true
+    useCache: boolean = true,
   ): Promise<StockData[]> {
     try {
-      console.info('株価データ取得開始', { symbol, startDate, endDate, useCache });
+      console.info("株価データ取得開始", { symbol, startDate, endDate, useCache });
 
       // キャッシュから取得を試行
       if (useCache) {
         const cachedData = await this.getCachedData(symbol, startDate, endDate);
         if (cachedData.length > 0) {
-          console.info('キャッシュからデータ取得', { 
+          console.info("キャッシュからデータ取得", { 
             symbol, 
             count: cachedData.length,
-            dateRange: `${startDate} - ${endDate}`
+            dateRange: `${startDate} - ${endDate}`,
           });
           return cachedData;
         }
@@ -187,14 +187,14 @@ class JQuantsAdapter {
         await this.saveToCache(symbol, apiData, startDate, endDate);
       }
 
-      console.info('APIからデータ取得完了', { 
+      console.info("APIからデータ取得完了", { 
         symbol, 
-        count: apiData.length 
+        count: apiData.length, 
       });
 
       return apiData;
     } catch (error) {
-      console.error('株価データ取得エラー:', error);
+      console.error("株価データ取得エラー:", error);
       throw error;
     }
   }
@@ -206,32 +206,32 @@ class JQuantsAdapter {
     try {
       const today = new Date();
       const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-      const sevenDaysAgoStr = sevenDaysAgo.toISOString().split('T')[0];
-      const todayStr = today.toISOString().split('T')[0];
+      const sevenDaysAgoStr = sevenDaysAgo.toISOString().split("T")[0];
+      const todayStr = today.toISOString().split("T")[0];
 
-      console.info('差分更新開始', { symbol, dateRange: `${sevenDaysAgoStr} - ${todayStr}` });
+      console.info("差分更新開始", { symbol, dateRange: `${sevenDaysAgoStr} - ${todayStr}` });
 
       // 直近7日を常時再取得
       const recentData = await this.getStockData(symbol, sevenDaysAgoStr, todayStr, false);
       
       // 既存のキャッシュデータとマージ
-      const existingData = await this.getCachedData(symbol, '2020-01-01', sevenDaysAgoStr);
+      const existingData = await this.getCachedData(symbol, "2020-01-01", sevenDaysAgoStr);
       const mergedData = [...existingData, ...recentData].sort((a, b) => 
-        new Date(a.date).getTime() - new Date(b.date).getTime()
+        new Date(a.date).getTime() - new Date(b.date).getTime(),
       );
 
       // キャッシュを更新
-      await this.saveToCache(symbol, mergedData, '2020-01-01', todayStr);
+      await this.saveToCache(symbol, mergedData, "2020-01-01", todayStr);
 
-      console.info('差分更新完了', { 
+      console.info("差分更新完了", { 
         symbol, 
         totalCount: mergedData.length,
-        newCount: recentData.length 
+        newCount: recentData.length, 
       });
 
       return mergedData;
     } catch (error) {
-      console.error('差分更新エラー:', error);
+      console.error("差分更新エラー:", error);
       throw error;
     }
   }
@@ -241,10 +241,10 @@ class JQuantsAdapter {
    */
   private async fetchFromAPI(symbol: string, startDate: string, endDate: string): Promise<StockData[]> {
     const response = await fetch(`${this.config.baseUrl}/markets/daily_quotes`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Authorization': `Bearer ${this.config.token}`,
-        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${this.config.token}`,
+        "Content-Type": "application/json",
       },
       signal: AbortSignal.timeout(this.config.timeout),
     });
@@ -292,21 +292,21 @@ class JQuantsAdapter {
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.STORE_NAME], 'readonly');
+      const transaction = this.db!.transaction([this.STORE_NAME], "readonly");
       const store = transaction.objectStore(this.STORE_NAME);
-      const index = store.index('symbol');
+      const index = store.index("symbol");
       const request = index.getAll(symbol);
 
       request.onsuccess = () => {
         const allData = request.result;
         const filteredData = allData.filter(item => 
-          item.date >= startDate && item.date <= endDate
+          item.date >= startDate && item.date <= endDate,
         );
         resolve(filteredData);
       };
 
       request.onerror = () => {
-        console.error('キャッシュ取得エラー:', request.error);
+        console.error("キャッシュ取得エラー:", request.error);
         reject(request.error);
       };
     });
@@ -321,7 +321,7 @@ class JQuantsAdapter {
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.STORE_NAME, this.METADATA_STORE], 'readwrite');
+      const transaction = this.db!.transaction([this.STORE_NAME, this.METADATA_STORE], "readwrite");
       
       // 株価データを保存
       const stockStore = transaction.objectStore(this.STORE_NAME);
@@ -339,7 +339,7 @@ class JQuantsAdapter {
           }
         };
         request.onerror = () => {
-          console.error('キャッシュ保存エラー:', request.error);
+          console.error("キャッシュ保存エラー:", request.error);
           reject(request.error);
         };
       });
@@ -347,9 +347,9 @@ class JQuantsAdapter {
       // メタデータを保存
       const metadata: CacheMetadata = {
         lastUpdated: new Date().toISOString(),
-        dataVersion: '1.0',
+        dataVersion: "1.0",
         symbol,
-        dateRange: { start: startDate, end: endDate }
+        dateRange: { start: startDate, end: endDate },
       };
 
       const metadataRequest = metadataStore.put(metadata);
@@ -360,7 +360,7 @@ class JQuantsAdapter {
         }
       };
       metadataRequest.onerror = () => {
-        console.error('メタデータ保存エラー:', metadataRequest.error);
+        console.error("メタデータ保存エラー:", metadataRequest.error);
         reject(metadataRequest.error);
       };
     });
@@ -375,12 +375,12 @@ class JQuantsAdapter {
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.STORE_NAME, this.METADATA_STORE], 'readwrite');
+      const transaction = this.db!.transaction([this.STORE_NAME, this.METADATA_STORE], "readwrite");
       
       if (symbol) {
         // 特定銘柄のキャッシュをクリア
         const stockStore = transaction.objectStore(this.STORE_NAME);
-        const index = stockStore.index('symbol');
+        const index = stockStore.index("symbol");
         const request = index.getAll(symbol);
         
         request.onsuccess = () => {
@@ -414,11 +414,11 @@ class JQuantsAdapter {
    */
   async getCacheStats(): Promise<{ totalRecords: number; symbols: string[]; lastUpdated: string }> {
     if (!this.db) {
-      return { totalRecords: 0, symbols: [], lastUpdated: '' };
+      return { totalRecords: 0, symbols: [], lastUpdated: "" };
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.STORE_NAME, this.METADATA_STORE], 'readonly');
+      const transaction = this.db!.transaction([this.STORE_NAME, this.METADATA_STORE], "readonly");
       const stockStore = transaction.objectStore(this.STORE_NAME);
       const metadataStore = transaction.objectStore(this.METADATA_STORE);
 
@@ -445,7 +445,7 @@ class JQuantsAdapter {
         resolve({
           totalRecords: stockData.length,
           symbols,
-          lastUpdated: lastUpdated > 0 ? new Date(lastUpdated).toISOString() : ''
+          lastUpdated: lastUpdated > 0 ? new Date(lastUpdated).toISOString() : "",
         });
       };
 

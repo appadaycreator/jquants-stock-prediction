@@ -17,8 +17,8 @@ interface QualityMetrics {
 }
 
 interface AnomalyDetection {
-  type: 'price_spike' | 'volume_anomaly' | 'missing_data' | 'duplicate_data' | 'format_error';
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  type: "price_spike" | "volume_anomaly" | "missing_data" | "duplicate_data" | "format_error";
+  severity: "low" | "medium" | "high" | "critical";
   description: string;
   affectedRecords: number;
   recommendation: string;
@@ -41,9 +41,9 @@ interface QualityReport {
   anomalies: AnomalyDetection[];
   recommendations: string[];
   trends: {
-    qualityTrend: 'improving' | 'stable' | 'declining';
-    errorTrend: 'increasing' | 'stable' | 'decreasing';
-    performanceTrend: 'improving' | 'stable' | 'declining';
+    qualityTrend: "improving" | "stable" | "declining";
+    errorTrend: "increasing" | "stable" | "decreasing";
+    performanceTrend: "improving" | "stable" | "declining";
   };
 }
 
@@ -75,11 +75,11 @@ class DataQualityMonitor {
   /**
    * 品質メトリクスの記録
    */
-  recordMetrics(symbol: string, metrics: Omit<QualityMetrics, 'timestamp' | 'symbol'>): void {
+  recordMetrics(symbol: string, metrics: Omit<QualityMetrics, "timestamp" | "symbol">): void {
     const qualityMetrics: QualityMetrics = {
       timestamp: new Date().toISOString(),
       symbol,
-      ...metrics
+      ...metrics,
     };
 
     if (!this.metrics.has(symbol)) {
@@ -107,84 +107,84 @@ class DataQualityMonitor {
     // 品質スコアの異常検出
     if (metrics.qualityScore < this.thresholds.minQualityScore) {
       anomalies.push({
-        type: 'format_error',
-        severity: metrics.qualityScore < 70 ? 'critical' : 'high',
+        type: "format_error",
+        severity: metrics.qualityScore < 70 ? "critical" : "high",
         description: `品質スコアが閾値を下回っています: ${metrics.qualityScore}%`,
         affectedRecords: metrics.invalidRecords,
-        recommendation: 'データ検証ルールの見直しとAPIの安定性確認が必要です',
-        detectedAt: metrics.timestamp
+        recommendation: "データ検証ルールの見直しとAPIの安定性確認が必要です",
+        detectedAt: metrics.timestamp,
       });
     }
 
     // エラー率の異常検出
     if (metrics.errorRate > this.thresholds.maxErrorRate) {
       anomalies.push({
-        type: 'format_error',
-        severity: metrics.errorRate > 20 ? 'critical' : 'medium',
+        type: "format_error",
+        severity: metrics.errorRate > 20 ? "critical" : "medium",
         description: `エラー率が閾値を超過しています: ${metrics.errorRate}%`,
         affectedRecords: metrics.invalidRecords,
-        recommendation: 'API接続の安定性とデータソースの確認が必要です',
-        detectedAt: metrics.timestamp
+        recommendation: "API接続の安定性とデータソースの確認が必要です",
+        detectedAt: metrics.timestamp,
       });
     }
 
     // 応答時間の異常検出
     if (metrics.responseTime > this.thresholds.maxResponseTime) {
       anomalies.push({
-        type: 'missing_data',
-        severity: metrics.responseTime > 10000 ? 'high' : 'medium',
+        type: "missing_data",
+        severity: metrics.responseTime > 10000 ? "high" : "medium",
         description: `応答時間が閾値を超過しています: ${metrics.responseTime}ms`,
         affectedRecords: 0,
-        recommendation: 'ネットワーク接続とAPIサーバーの性能確認が必要です',
-        detectedAt: metrics.timestamp
+        recommendation: "ネットワーク接続とAPIサーバーの性能確認が必要です",
+        detectedAt: metrics.timestamp,
       });
     }
 
     // データ完全性の異常検出
     if (metrics.dataCompleteness < this.thresholds.minDataCompleteness) {
       anomalies.push({
-        type: 'missing_data',
-        severity: metrics.dataCompleteness < 80 ? 'critical' : 'high',
+        type: "missing_data",
+        severity: metrics.dataCompleteness < 80 ? "critical" : "high",
         description: `データ完全性が不足しています: ${metrics.dataCompleteness}%`,
         affectedRecords: metrics.totalRecords - metrics.validRecords,
-        recommendation: 'データ取得プロセスの見直しと再取得が必要です',
-        detectedAt: metrics.timestamp
+        recommendation: "データ取得プロセスの見直しと再取得が必要です",
+        detectedAt: metrics.timestamp,
       });
     }
 
     // 価格スパイクの検出（簡易版）
     if (this.detectPriceSpike(symbol, metrics)) {
       anomalies.push({
-        type: 'price_spike',
-        severity: 'medium',
-        description: '価格データに異常な変動が検出されました',
+        type: "price_spike",
+        severity: "medium",
+        description: "価格データに異常な変動が検出されました",
         affectedRecords: 1,
-        recommendation: '価格データの妥当性確認が必要です',
-        detectedAt: metrics.timestamp
+        recommendation: "価格データの妥当性確認が必要です",
+        detectedAt: metrics.timestamp,
       });
     }
 
     // 出来高異常の検出
     if (this.detectVolumeAnomaly(symbol, metrics)) {
       anomalies.push({
-        type: 'volume_anomaly',
-        severity: 'low',
-        description: '出来高データに異常が検出されました',
+        type: "volume_anomaly",
+        severity: "low",
+        description: "出来高データに異常が検出されました",
         affectedRecords: 1,
-        recommendation: '出来高データの妥当性確認が必要です',
-        detectedAt: metrics.timestamp
+        recommendation: "出来高データの妥当性確認が必要です",
+        detectedAt: metrics.timestamp,
       });
     }
 
     // 重複データの検出
     if (this.detectDuplicateData(symbol, metrics)) {
       anomalies.push({
-        type: 'duplicate_data',
-        severity: 'medium',
-        description: '重複データが検出されました',
+        type: "duplicate_data",
+        severity: "medium",
+        description: "重複データが検出されました",
         affectedRecords: 1,
-        recommendation: 'データ取得プロセスの重複排除機能の確認が必要です',
-        detectedAt: metrics.timestamp
+        recommendation: "データ取得プロセスの重複排除機能の確認が必要です",
+        detectedAt: metrics.timestamp,
       });
     }
 
@@ -232,7 +232,7 @@ class DataQualityMonitor {
    */
   generateQualityReport(
     timeRange: { start: string; end: string },
-    symbols?: string[]
+    symbols?: string[],
   ): QualityReport {
     const reportId = `quality_report_${Date.now()}`;
     const startTime = new Date(timeRange.start);
@@ -281,24 +281,24 @@ class DataQualityMonitor {
       metrics: relevantMetrics,
       anomalies: relevantAnomalies,
       recommendations,
-      trends
+      trends,
     };
   }
 
   /**
    * トレンド分析
    */
-  private analyzeTrends(metrics: QualityMetrics[]): QualityReport['trends'] {
+  private analyzeTrends(metrics: QualityMetrics[]): QualityReport["trends"] {
     if (metrics.length < 2) {
       return {
-        qualityTrend: 'stable',
-        errorTrend: 'stable',
-        performanceTrend: 'stable'
+        qualityTrend: "stable",
+        errorTrend: "stable",
+        performanceTrend: "stable",
       };
     }
 
     const sortedMetrics = metrics.sort((a, b) => 
-      new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+      new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime(),
     );
 
     const firstHalf = sortedMetrics.slice(0, Math.floor(sortedMetrics.length / 2));
@@ -314,12 +314,12 @@ class DataQualityMonitor {
     const secondHalfAvgResponseTime = secondHalf.reduce((sum, m) => sum + m.responseTime, 0) / secondHalf.length;
 
     return {
-      qualityTrend: secondHalfAvgQuality > firstHalfAvgQuality + 5 ? 'improving' :
-                   secondHalfAvgQuality < firstHalfAvgQuality - 5 ? 'declining' : 'stable',
-      errorTrend: secondHalfAvgErrorRate < firstHalfAvgErrorRate - 1 ? 'decreasing' :
-                  secondHalfAvgErrorRate > firstHalfAvgErrorRate + 1 ? 'increasing' : 'stable',
-      performanceTrend: secondHalfAvgResponseTime < firstHalfAvgResponseTime - 500 ? 'improving' :
-                        secondHalfAvgResponseTime > firstHalfAvgResponseTime + 500 ? 'declining' : 'stable'
+      qualityTrend: secondHalfAvgQuality > firstHalfAvgQuality + 5 ? "improving" :
+                   secondHalfAvgQuality < firstHalfAvgQuality - 5 ? "declining" : "stable",
+      errorTrend: secondHalfAvgErrorRate < firstHalfAvgErrorRate - 1 ? "decreasing" :
+                  secondHalfAvgErrorRate > firstHalfAvgErrorRate + 1 ? "increasing" : "stable",
+      performanceTrend: secondHalfAvgResponseTime < firstHalfAvgResponseTime - 500 ? "improving" :
+                        secondHalfAvgResponseTime > firstHalfAvgResponseTime + 500 ? "declining" : "stable",
     };
   }
 
@@ -328,43 +328,43 @@ class DataQualityMonitor {
    */
   private generateRecommendations(
     metrics: QualityMetrics[], 
-    anomalies: AnomalyDetection[]
+    anomalies: AnomalyDetection[],
   ): string[] {
     const recommendations: string[] = [];
 
     // 品質スコアに基づく推奨事項
     const avgQualityScore = metrics.reduce((sum, m) => sum + m.qualityScore, 0) / metrics.length;
     if (avgQualityScore < 90) {
-      recommendations.push('データ品質の改善が必要です。APIの安定性とデータ検証ルールの見直しを推奨します。');
+      recommendations.push("データ品質の改善が必要です。APIの安定性とデータ検証ルールの見直しを推奨します。");
     }
 
     // エラー率に基づく推奨事項
     const avgErrorRate = metrics.reduce((sum, m) => sum + m.errorRate, 0) / metrics.length;
     if (avgErrorRate > 5) {
-      recommendations.push('エラー率が高い状態です。API接続の安定性とリトライ機能の強化を推奨します。');
+      recommendations.push("エラー率が高い状態です。API接続の安定性とリトライ機能の強化を推奨します。");
     }
 
     // 応答時間に基づく推奨事項
     const avgResponseTime = metrics.reduce((sum, m) => sum + m.responseTime, 0) / metrics.length;
     if (avgResponseTime > 3000) {
-      recommendations.push('応答時間が長い状態です。ネットワーク最適化とキャッシュ戦略の見直しを推奨します。');
+      recommendations.push("応答時間が長い状態です。ネットワーク最適化とキャッシュ戦略の見直しを推奨します。");
     }
 
     // 異常に基づく推奨事項
-    const criticalAnomalies = anomalies.filter(a => a.severity === 'critical');
+    const criticalAnomalies = anomalies.filter(a => a.severity === "critical");
     if (criticalAnomalies.length > 0) {
-      recommendations.push('重大な異常が検出されています。即座にシステムの確認と対応が必要です。');
+      recommendations.push("重大な異常が検出されています。即座にシステムの確認と対応が必要です。");
     }
 
-    const highAnomalies = anomalies.filter(a => a.severity === 'high');
+    const highAnomalies = anomalies.filter(a => a.severity === "high");
     if (highAnomalies.length > 5) {
-      recommendations.push('高優先度の異常が多数検出されています。データ品質監視の強化を推奨します。');
+      recommendations.push("高優先度の異常が多数検出されています。データ品質監視の強化を推奨します。");
     }
 
     // データ完全性に基づく推奨事項
     const avgCompleteness = metrics.reduce((sum, m) => sum + m.dataCompleteness, 0) / metrics.length;
     if (avgCompleteness < 95) {
-      recommendations.push('データ完全性が不足しています。データ取得プロセスの見直しを推奨します。');
+      recommendations.push("データ完全性が不足しています。データ取得プロセスの見直しを推奨します。");
     }
 
     return recommendations;
@@ -375,7 +375,7 @@ class DataQualityMonitor {
    */
   startMonitoring(intervalMs: number = 60000): void {
     if (this.isMonitoring) {
-      console.warn('品質監視は既に開始されています');
+      console.warn("品質監視は既に開始されています");
       return;
     }
 
@@ -384,7 +384,7 @@ class DataQualityMonitor {
       this.performHealthCheck();
     }, intervalMs);
 
-    console.info('データ品質監視を開始しました', { intervalMs });
+    console.info("データ品質監視を開始しました", { intervalMs });
   }
 
   /**
@@ -396,7 +396,7 @@ class DataQualityMonitor {
       this.monitoringInterval = null;
     }
     this.isMonitoring = false;
-    console.info('データ品質監視を停止しました');
+    console.info("データ品質監視を停止しました");
   }
 
   /**
@@ -411,10 +411,10 @@ class DataQualityMonitor {
     });
 
     if (recentAnomalies.length > this.thresholds.maxAnomalyCount) {
-      console.warn('品質監視アラート: 異常が閾値を超過しています', {
+      console.warn("品質監視アラート: 異常が閾値を超過しています", {
         anomalyCount: recentAnomalies.length,
         threshold: this.thresholds.maxAnomalyCount,
-        timestamp: currentTime
+        timestamp: currentTime,
       });
     }
 
@@ -430,7 +430,7 @@ class DataQualityMonitor {
         console.warn(`品質監視アラート: ${symbol}のデータが古くなっています`, {
           symbol,
           lastUpdate: latestMetrics.timestamp,
-          timestamp: currentTime
+          timestamp: currentTime,
         });
       }
     });
@@ -440,7 +440,7 @@ class DataQualityMonitor {
    * 現在の品質状況を取得
    */
   getCurrentQualityStatus(): {
-    overallHealth: 'healthy' | 'degraded' | 'unhealthy';
+    overallHealth: "healthy" | "degraded" | "unhealthy";
     activeAnomalies: number;
     recentMetrics: QualityMetrics[];
     recommendations: string[];
@@ -462,11 +462,11 @@ class DataQualityMonitor {
       ? recentMetrics.reduce((sum, m) => sum + m.qualityScore, 0) / recentMetrics.length
       : 100;
 
-    let overallHealth: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
+    let overallHealth: "healthy" | "degraded" | "unhealthy" = "healthy";
     if (avgQualityScore < 80 || activeAnomalies > 5) {
-      overallHealth = 'unhealthy';
+      overallHealth = "unhealthy";
     } else if (avgQualityScore < 90 || activeAnomalies > 2) {
-      overallHealth = 'degraded';
+      overallHealth = "degraded";
     }
 
     const recommendations = this.generateRecommendations(recentMetrics, this.anomalies);
@@ -475,7 +475,7 @@ class DataQualityMonitor {
       overallHealth,
       activeAnomalies,
       recentMetrics,
-      recommendations
+      recommendations,
     };
   }
 
@@ -493,7 +493,7 @@ class DataQualityMonitor {
     });
 
     return allMetrics.sort((a, b) => 
-      new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+      new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime(),
     );
   }
 
@@ -512,7 +512,7 @@ class DataQualityMonitor {
    */
   updateThresholds(newThresholds: Partial<QualityThresholds>): void {
     this.thresholds = { ...this.thresholds, ...newThresholds };
-    console.info('品質監視閾値を更新しました', this.thresholds);
+    console.info("品質監視閾値を更新しました", this.thresholds);
   }
 
   /**
@@ -521,7 +521,7 @@ class DataQualityMonitor {
   clearData(): void {
     this.metrics.clear();
     this.anomalies = [];
-    console.info('品質監視データをクリアしました');
+    console.info("品質監視データをクリアしました");
   }
 }
 
@@ -530,5 +530,5 @@ export type {
   QualityMetrics, 
   AnomalyDetection, 
   QualityReport, 
-  QualityThresholds 
+  QualityThresholds, 
 };

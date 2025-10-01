@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from 'react';
-import { useSettings } from '@/contexts/SettingsContext';
+import { useState } from "react";
+import { useSettings } from "@/contexts/SettingsContext";
 
 export interface AnalysisOptions {
   symbols?: string[];
@@ -32,7 +32,7 @@ export function useAnalysisWithSettings() {
         include_technical_indicators: settings.data.include_technical_indicators,
         selected_features: settings.features.selected,
         symbols: options.symbols || [],
-        analysis_type: options.analysisType || 'comprehensive',
+        analysis_type: options.analysisType || "comprehensive",
         use_settings: options.useSettings !== false, // デフォルトでtrue
       };
 
@@ -68,7 +68,7 @@ export function useAnalysisWithSettings() {
             prediction: "BUY",
             confidence: 0.85,
             price: 2500,
-            change: 2.5
+            change: 2.5,
           },
           {
             symbol: "6758.T",
@@ -76,15 +76,15 @@ export function useAnalysisWithSettings() {
             prediction: "SELL",
             confidence: 0.72,
             price: 12000,
-            change: -1.8
-          }
+            change: -1.8,
+          },
         ],
         summary: {
           total_predictions: 2,
           buy_signals: 1,
           sell_signals: 1,
-          avg_confidence: 0.785
-        }
+          avg_confidence: 0.785,
+        },
       };
       
       setAnalysisStatus("分析が完了しました。データを更新しています...");
@@ -97,11 +97,11 @@ export function useAnalysisWithSettings() {
       };
 
     } catch (error) {
-      console.error('分析実行エラー:', error);
-      setAnalysisStatus(`分析エラー: ${error instanceof Error ? error.message : '不明なエラー'}`);
+      console.error("分析実行エラー:", error);
+      setAnalysisStatus(`分析エラー: ${error instanceof Error ? error.message : "不明なエラー"}`);
       return {
         success: false,
-        error: error instanceof Error ? error.message : '不明なエラー',
+        error: error instanceof Error ? error.message : "不明なエラー",
       };
     } finally {
       setIsAnalyzing(false);
@@ -119,7 +119,7 @@ export function useAnalysisWithSettings() {
     
     const retrainText = settings.model.auto_retrain 
       ? `自動再訓練（${settings.model.retrain_frequency}）`
-      : '手動再訓練';
+      : "手動再訓練";
     
     return {
       prediction: `${settings.prediction.days}日先予測`,

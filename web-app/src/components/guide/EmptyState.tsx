@@ -1,16 +1,16 @@
 "use client";
 
-import React from 'react';
-import { RefreshCw, Settings, AlertCircle, Database, TrendingUp } from 'lucide-react';
+import React from "react";
+import { RefreshCw, Settings, AlertCircle, Database, TrendingUp } from "lucide-react";
 
 interface EmptyStateProps {
-  type: 'no-data' | 'error' | 'loading' | 'no-results';
+  type: "no-data" | "error" | "loading" | "no-results";
   title: string;
   description: string;
   actions: {
     label: string;
     onClick: () => void;
-    variant: 'primary' | 'secondary';
+    variant: "primary" | "secondary";
     icon?: React.ReactNode;
   }[];
   className?: string;
@@ -21,17 +21,17 @@ export default function EmptyState({
   title, 
   description, 
   actions, 
-  className = '' 
+  className = "", 
 }: EmptyStateProps) {
   const getIcon = () => {
     switch (type) {
-      case 'no-data':
+      case "no-data":
         return <Database size={48} className="text-gray-400" />;
-      case 'error':
+      case "error":
         return <AlertCircle size={48} className="text-red-400" />;
-      case 'loading':
+      case "loading":
         return <RefreshCw size={48} className="text-blue-400 animate-spin" />;
-      case 'no-results':
+      case "no-results":
         return <TrendingUp size={48} className="text-gray-400" />;
       default:
         return <Database size={48} className="text-gray-400" />;
@@ -58,9 +58,9 @@ export default function EmptyState({
             key={index}
             onClick={action.onClick}
             className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-colors ${
-              action.variant === 'primary'
-                ? 'bg-blue-600 text-white hover:bg-blue-700'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              action.variant === "primary"
+                ? "bg-blue-600 text-white hover:bg-blue-700"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >
             {action.icon}
@@ -84,17 +84,17 @@ export function NoDataEmptyState({ onRefresh, onSettings }: {
       description="分析結果がまだ生成されていません。最新データを取得するか、設定を確認してください。"
       actions={[
         {
-          label: '最新結果を再取得',
+          label: "最新結果を再取得",
           onClick: onRefresh,
-          variant: 'primary',
-          icon: <RefreshCw size={16} />
+          variant: "primary",
+          icon: <RefreshCw size={16} />,
         },
         {
-          label: '設定を確認',
+          label: "設定を確認",
           onClick: onSettings,
-          variant: 'secondary',
-          icon: <Settings size={16} />
-        }
+          variant: "secondary",
+          icon: <Settings size={16} />,
+        },
       ]}
     />
   );
@@ -104,7 +104,7 @@ export function NoDataEmptyState({ onRefresh, onSettings }: {
 export function ErrorEmptyState({ 
   error, 
   onRetry, 
-  onSettings 
+  onSettings, 
 }: { 
   error: string; 
   onRetry: () => void; 
@@ -117,24 +117,24 @@ export function ErrorEmptyState({
       description={`${error}。設定を確認するか、しばらく時間をおいてから再試行してください。`}
       actions={[
         {
-          label: '再試行',
+          label: "再試行",
           onClick: onRetry,
-          variant: 'primary',
-          icon: <RefreshCw size={16} />
+          variant: "primary",
+          icon: <RefreshCw size={16} />,
         },
         {
-          label: '設定を見直す',
+          label: "設定を見直す",
           onClick: onSettings,
-          variant: 'secondary',
-          icon: <Settings size={16} />
-        }
+          variant: "secondary",
+          icon: <Settings size={16} />,
+        },
       ]}
     />
   );
 }
 
 // ローディング時の空状態
-export function LoadingEmptyState({ message = 'データを読み込み中...' }: { 
+export function LoadingEmptyState({ message = "データを読み込み中..." }: { 
   message?: string;
 }) {
   return (
@@ -150,7 +150,7 @@ export function LoadingEmptyState({ message = 'データを読み込み中...' }
 // 検索結果なしの空状態
 export function NoResultsEmptyState({ 
   searchTerm, 
-  onClearSearch 
+  onClearSearch, 
 }: { 
   searchTerm: string; 
   onClearSearch: () => void;
@@ -162,10 +162,10 @@ export function NoResultsEmptyState({
       description={`「${searchTerm}」に一致する結果がありません。別のキーワードで検索してみてください。`}
       actions={[
         {
-          label: '検索をクリア',
+          label: "検索をクリア",
           onClick: onClearSearch,
-          variant: 'primary'
-        }
+          variant: "primary",
+        },
       ]}
     />
   );

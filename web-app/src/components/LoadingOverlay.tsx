@@ -11,10 +11,10 @@ interface LoadingOverlayProps {
   estimatedTime?: number;
   onCancel?: () => void;
   showCancelButton?: boolean;
-  type?: 'loading' | 'success' | 'error';
+  type?: "loading" | "success" | "error";
   steps?: Array<{
     name: string;
-    status: 'pending' | 'running' | 'completed' | 'error';
+    status: "pending" | "running" | "completed" | "error";
     description?: string;
   }>;
 }
@@ -27,8 +27,8 @@ export default function LoadingOverlay({
   estimatedTime,
   onCancel,
   showCancelButton = true,
-  type = 'loading',
-  steps = []
+  type = "loading",
+  steps = [],
 }: LoadingOverlayProps) {
   const [showDetails, setShowDetails] = useState(false);
 
@@ -36,9 +36,9 @@ export default function LoadingOverlay({
 
   const getIcon = () => {
     switch (type) {
-      case 'success':
+      case "success":
         return <CheckCircle className="h-8 w-8 text-green-500" />;
-      case 'error':
+      case "error":
         return <AlertTriangle className="h-8 w-8 text-red-500" />;
       default:
         return <RefreshCw className="h-8 w-8 text-blue-500 animate-spin" />;
@@ -47,23 +47,23 @@ export default function LoadingOverlay({
 
   const getBackgroundColor = () => {
     switch (type) {
-      case 'success':
-        return 'bg-green-50';
-      case 'error':
-        return 'bg-red-50';
+      case "success":
+        return "bg-green-50";
+      case "error":
+        return "bg-red-50";
       default:
-        return 'bg-blue-50';
+        return "bg-blue-50";
     }
   };
 
   const getBorderColor = () => {
     switch (type) {
-      case 'success':
-        return 'border-green-200';
-      case 'error':
-        return 'border-red-200';
+      case "success":
+        return "border-green-200";
+      case "error":
+        return "border-red-200";
       default:
-        return 'border-blue-200';
+        return "border-blue-200";
     }
   };
 
@@ -79,7 +79,7 @@ export default function LoadingOverlay({
               <p className="text-sm text-gray-600">{message}</p>
             </div>
           </div>
-          {showCancelButton && onCancel && type === 'loading' && (
+          {showCancelButton && onCancel && type === "loading" && (
             <button
               onClick={onCancel}
               className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -92,7 +92,7 @@ export default function LoadingOverlay({
         {/* コンテンツ */}
         <div className="p-6">
           {/* 進捗バー */}
-          {type === 'loading' && (
+          {type === "loading" && (
             <div className="mb-6">
               <div className="flex justify-between text-sm text-gray-600 mb-2">
                 <span>進捗</span>
@@ -108,7 +108,7 @@ export default function LoadingOverlay({
           )}
 
           {/* 推定残り時間 */}
-          {estimatedTime && type === 'loading' && (
+          {estimatedTime && type === "loading" && (
             <div className="flex items-center space-x-2 text-sm text-gray-600 mb-4">
               <Clock className="h-4 w-4" />
               <span>推定残り時間: {estimatedTime}分</span>
@@ -122,7 +122,7 @@ export default function LoadingOverlay({
                 onClick={() => setShowDetails(!showDetails)}
                 className="text-sm text-gray-500 hover:text-gray-700 mb-3"
               >
-                {showDetails ? '詳細を隠す' : '詳細を表示'}
+                {showDetails ? "詳細を隠す" : "詳細を表示"}
               </button>
               
               {showDetails && (
@@ -130,16 +130,16 @@ export default function LoadingOverlay({
                   {steps.map((step, index) => (
                     <div key={index} className="flex items-center space-x-3 text-sm">
                       <div className="flex-shrink-0">
-                        {step.status === 'completed' && (
+                        {step.status === "completed" && (
                           <CheckCircle className="h-4 w-4 text-green-500" />
                         )}
-                        {step.status === 'running' && (
+                        {step.status === "running" && (
                           <RefreshCw className="h-4 w-4 text-blue-500 animate-spin" />
                         )}
-                        {step.status === 'error' && (
+                        {step.status === "error" && (
                           <AlertTriangle className="h-4 w-4 text-red-500" />
                         )}
-                        {step.status === 'pending' && (
+                        {step.status === "pending" && (
                           <div className="h-4 w-4 rounded-full border-2 border-gray-300" />
                         )}
                       </div>
@@ -157,7 +157,7 @@ export default function LoadingOverlay({
           )}
 
           {/* アクションボタン */}
-          {type === 'loading' && showCancelButton && onCancel && (
+          {type === "loading" && showCancelButton && onCancel && (
             <div className="flex justify-center">
               <button
                 onClick={onCancel}
@@ -168,7 +168,7 @@ export default function LoadingOverlay({
             </div>
           )}
 
-          {type === 'success' && (
+          {type === "success" && (
             <div className="text-center">
               <button
                 onClick={() => window.location.reload()}
@@ -179,7 +179,7 @@ export default function LoadingOverlay({
             </div>
           )}
 
-          {type === 'error' && (
+          {type === "error" && (
             <div className="text-center">
               <button
                 onClick={() => window.location.reload()}

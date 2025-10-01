@@ -3,7 +3,7 @@
  * Invalid Date問題の修正とJST正規化
  */
 
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 import {
   LineChart,
   Line,
@@ -12,11 +12,11 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
-} from 'recharts';
-import { parseToJst, jstLabel, createChartDateArray } from '@/lib/datetime';
-import { chartLogger } from '@/lib/logger';
-import { logDateConversionError, logDateConversionSuccess, logSchemaValidationError, logSchemaValidationSuccess } from '@/lib/observability';
+  ResponsiveContainer,
+} from "recharts";
+import { parseToJst, jstLabel, createChartDateArray } from "@/lib/datetime";
+import { chartLogger } from "@/lib/logger";
+import { logDateConversionError, logDateConversionSuccess, logSchemaValidationError, logSchemaValidationSuccess } from "@/lib/observability";
 
 interface TimeSeriesChartProps {
   data: Array<{
@@ -37,13 +37,13 @@ export default function TimeSeriesChart({
   data,
   lines,
   title,
-  height = 300
+  height = 300,
 }: TimeSeriesChartProps) {
   
   // データの正規化とチャート用データの生成
   const chartData = useMemo(() => {
     if (!data || data.length === 0) {
-      chartLogger.warn('チャートデータが空です');
+      chartLogger.warn("チャートデータが空です");
       return [];
     }
 
@@ -51,9 +51,9 @@ export default function TimeSeriesChart({
       // スキーマ検証
       data.forEach((item, index) => {
         if (!item.date) {
-          logSchemaValidationError('date', item.date, 'string', `TimeSeriesChart item ${index}`);
+          logSchemaValidationError("date", item.date, "string", `TimeSeriesChart item ${index}`);
         } else {
-          logSchemaValidationSuccess('date', `TimeSeriesChart item ${index}`);
+          logSchemaValidationSuccess("date", `TimeSeriesChart item ${index}`);
         }
       });
 
@@ -63,8 +63,8 @@ export default function TimeSeriesChart({
           const normalizedDate = parseToJst(item.date);
           
           if (!normalizedDate.isValid) {
-            logDateConversionError(item.date, new Error('Invalid date format'), `TimeSeriesChart item ${index}`);
-            chartLogger.error('無効な日付を検出:', item.date);
+            logDateConversionError(item.date, new Error("Invalid date format"), `TimeSeriesChart item ${index}`);
+            chartLogger.error("無効な日付を検出:", item.date);
             return null;
           }
 
@@ -76,7 +76,7 @@ export default function TimeSeriesChart({
             date: jstLabelResult,
             timestamp: normalizedDate.toMillis(),
             // 元の日付文字列も保持（デバッグ用）
-            originalDate: item.date
+            originalDate: item.date,
           };
         } catch (error) {
           logDateConversionError(item.date, error as Error, `TimeSeriesChart item ${index}`);
@@ -84,15 +84,15 @@ export default function TimeSeriesChart({
         }
       }).filter(item => item !== null);
 
-      chartLogger.info('チャートデータの正規化完了', {
+      chartLogger.info("チャートデータの正規化完了", {
         originalCount: data.length,
         normalizedCount: normalizedData.length,
-        invalidDates: data.length - normalizedData.length
+        invalidDates: data.length - normalizedData.length,
       });
 
       return normalizedData;
     } catch (error) {
-      chartLogger.error('チャートデータの正規化に失敗:', error);
+      chartLogger.error("チャートデータの正規化に失敗:", error);
       return [];
     }
   }, [data]);
@@ -107,7 +107,7 @@ export default function TimeSeriesChart({
           </p>
           {payload.map((entry: any, index: number) => (
             <p key={index} className="text-sm" style={{ color: entry.color }}>
-              {entry.name}: {typeof entry.value === 'number' ? entry.value.toFixed(2) : entry.value}
+              {entry.name}: {typeof entry.value === "number" ? entry.value.toFixed(2) : entry.value}
             </p>
           ))}
         </div>
@@ -130,13 +130,13 @@ export default function TimeSeriesChart({
         return jstLabel(dt);
       }
       
-      chartLogger.warn('X軸ラベルの日付が無効です:', tickItem);
+      chartLogger.warn("X軸ラベルの日付が無効です:", tickItem);
       // Invalid Dateの代わりにデフォルト日付を返す
-      return '2024-01-01';
+      return "2024-01-01";
     } catch (error) {
-      chartLogger.error('X軸ラベルのフォーマットに失敗:', error, 'Input:', tickItem);
+      chartLogger.error("X軸ラベルのフォーマットに失敗:", error, "Input:", tickItem);
       // Invalid Dateの代わりにデフォルト日付を返す
-      return '2024-01-01';
+      return "2024-01-01";
     }
   };
 

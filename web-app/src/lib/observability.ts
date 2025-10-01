@@ -45,25 +45,25 @@ class ObservabilityLogger {
         failedRequests: 0,
         timeoutErrors: 0,
         networkErrors: 0,
-        httpErrors: {}
+        httpErrors: {},
       },
       schemaValidation: {
         totalValidations: 0,
         successfulValidations: 0,
         failedValidations: 0,
-        validationErrors: {}
+        validationErrors: {},
       },
       dateConversion: {
         totalConversions: 0,
         successfulConversions: 0,
         failedConversions: 0,
-        invalidFormats: {}
+        invalidFormats: {},
       },
       performance: {
         averageResponseTime: 0,
         slowestRequests: [],
-        memoryUsage: 0
-      }
+        memoryUsage: 0,
+      },
     };
     this.startTime = Date.now();
     this.requestTimes = new Map();
@@ -77,31 +77,31 @@ class ObservabilityLogger {
     this.metrics.communication.totalRequests++;
     this.metrics.communication.failedRequests++;
 
-    if (error.name === 'TimeoutError' || error.message.includes('timeout')) {
+    if (error.name === "TimeoutError" || error.message.includes("timeout")) {
       this.metrics.communication.timeoutErrors++;
-      console.warn('通信タイムアウト:', {
+      console.warn("通信タイムアウト:", {
         url: context.url,
         method: context.method,
         error: error.message,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
-    } else if (error.name === 'NetworkError' || error.message.includes('fetch')) {
+    } else if (error.name === "NetworkError" || error.message.includes("fetch")) {
       this.metrics.communication.networkErrors++;
-      console.warn('ネットワークエラー:', {
+      console.warn("ネットワークエラー:", {
         url: context.url,
         method: context.method,
         error: error.message,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     } else if (context.status) {
       this.metrics.communication.httpErrors[context.status] = 
         (this.metrics.communication.httpErrors[context.status] || 0) + 1;
-      console.warn('HTTPエラー:', {
+      console.warn("HTTPエラー:", {
         url: context.url,
         method: context.method,
         status: context.status,
         error: error.message,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     }
 
@@ -119,11 +119,11 @@ class ObservabilityLogger {
     this.updateResponseTime(context.duration);
     this.updateSlowestRequests(context.url, context.duration);
 
-    console.info('通信成功:', {
+    console.info("通信成功:", {
       url: context.url,
       method: context.method,
       duration: `${context.duration}ms`,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
 
     this.logMetricsSummary();
@@ -138,12 +138,12 @@ class ObservabilityLogger {
     this.metrics.schemaValidation.validationErrors[field] = 
       (this.metrics.schemaValidation.validationErrors[field] || 0) + 1;
 
-    console.warn('スキーマ検証エラー:', {
+    console.warn("スキーマ検証エラー:", {
       field,
-      value: typeof value === 'object' ? JSON.stringify(value) : value,
+      value: typeof value === "object" ? JSON.stringify(value) : value,
       expectedType,
       context,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
 
     this.logMetricsSummary();
@@ -156,10 +156,10 @@ class ObservabilityLogger {
     this.metrics.schemaValidation.totalValidations++;
     this.metrics.schemaValidation.successfulValidations++;
 
-    console.info('スキーマ検証成功:', {
+    console.info("スキーマ検証成功:", {
       field,
       context,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -175,12 +175,12 @@ class ObservabilityLogger {
     this.metrics.dateConversion.invalidFormats[format] = 
       (this.metrics.dateConversion.invalidFormats[format] || 0) + 1;
 
-    console.warn('日付変換エラー:', {
+    console.warn("日付変換エラー:", {
       input: dateString,
       format,
       error: error.message,
       context,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
 
     this.logMetricsSummary();
@@ -193,11 +193,11 @@ class ObservabilityLogger {
     this.metrics.dateConversion.totalConversions++;
     this.metrics.dateConversion.successfulConversions++;
 
-    console.info('日付変換成功:', {
+    console.info("日付変換成功:", {
       input: dateString,
       output: result,
       context,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -208,12 +208,12 @@ class ObservabilityLogger {
     const memoryUsage = (performance as any).memory?.usedJSHeapSize || 0;
     this.metrics.performance.memoryUsage = memoryUsage;
 
-    console.info('パフォーマンスメトリクス:', {
+    console.info("パフォーマンスメトリクス:", {
       uptime: `${Date.now() - this.startTime}ms`,
       memoryUsage: `${Math.round(memoryUsage / 1024 / 1024)}MB`,
       averageResponseTime: `${this.metrics.performance.averageResponseTime}ms`,
       slowestRequests: this.metrics.performance.slowestRequests.slice(0, 3),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -224,9 +224,9 @@ class ObservabilityLogger {
     const uptime = Date.now() - this.startTime;
     const successRate = this.metrics.communication.totalRequests > 0 
       ? (this.metrics.communication.successfulRequests / this.metrics.communication.totalRequests * 100).toFixed(1)
-      : '0';
+      : "0";
 
-    console.info('メトリクスサマリー:', {
+    console.info("メトリクスサマリー:", {
       uptime: `${Math.round(uptime / 1000)}秒`,
       communication: {
         total: this.metrics.communication.totalRequests,
@@ -234,18 +234,18 @@ class ObservabilityLogger {
         failure: this.metrics.communication.failedRequests,
         successRate: `${successRate}%`,
         timeouts: this.metrics.communication.timeoutErrors,
-        networkErrors: this.metrics.communication.networkErrors
+        networkErrors: this.metrics.communication.networkErrors,
       },
       schemaValidation: {
         total: this.metrics.schemaValidation.totalValidations,
         success: this.metrics.schemaValidation.successfulValidations,
-        failure: this.metrics.schemaValidation.failedValidations
+        failure: this.metrics.schemaValidation.failedValidations,
       },
       dateConversion: {
         total: this.metrics.dateConversion.totalConversions,
         success: this.metrics.dateConversion.successfulConversions,
-        failure: this.metrics.dateConversion.failedConversions
-      }
+        failure: this.metrics.dateConversion.failedConversions,
+      },
     });
   }
 
@@ -267,7 +267,7 @@ class ObservabilityLogger {
     this.slowestRequests.push({
       url,
       duration,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
 
     // 上位10件のみ保持
@@ -282,12 +282,12 @@ class ObservabilityLogger {
    * 日付フォーマットの検出
    */
   private detectDateFormat(dateString: string): string {
-    if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) return 'YYYY-MM-DD';
-    if (/^\d{8}$/.test(dateString)) return 'YYYYMMDD';
-    if (/^\d{4}\/\d{2}\/\d{2}$/.test(dateString)) return 'YYYY/MM/DD';
-    if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateString)) return 'MM/DD/YYYY';
-    if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(dateString)) return 'ISO8601';
-    return 'unknown';
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) return "YYYY-MM-DD";
+    if (/^\d{8}$/.test(dateString)) return "YYYYMMDD";
+    if (/^\d{4}\/\d{2}\/\d{2}$/.test(dateString)) return "YYYY/MM/DD";
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateString)) return "MM/DD/YYYY";
+    if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(dateString)) return "ISO8601";
+    return "unknown";
   }
 
   /**
@@ -308,25 +308,25 @@ class ObservabilityLogger {
         failedRequests: 0,
         timeoutErrors: 0,
         networkErrors: 0,
-        httpErrors: {}
+        httpErrors: {},
       },
       schemaValidation: {
         totalValidations: 0,
         successfulValidations: 0,
         failedValidations: 0,
-        validationErrors: {}
+        validationErrors: {},
       },
       dateConversion: {
         totalConversions: 0,
         successfulConversions: 0,
         failedConversions: 0,
-        invalidFormats: {}
+        invalidFormats: {},
       },
       performance: {
         averageResponseTime: 0,
         slowestRequests: [],
-        memoryUsage: 0
-      }
+        memoryUsage: 0,
+      },
     };
     this.startTime = Date.now();
     this.requestTimes.clear();

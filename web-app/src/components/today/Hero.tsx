@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { TodaySummary } from '@/types/today';
+import { TodaySummary } from "@/types/today";
 
 interface HeroProps {
   summary: TodaySummary;
@@ -9,39 +9,39 @@ interface HeroProps {
 export default function Hero({ summary }: HeroProps) {
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleString('ja-JP', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZone: 'Asia/Tokyo',
+    return date.toLocaleString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "Asia/Tokyo",
     });
   };
 
   const getMarketStatusText = (phase: string) => {
     switch (phase) {
-      case 'preopen':
-        return '場前';
-      case 'open':
-        return '場中';
-      case 'postclose':
-        return '引け後';
+      case "preopen":
+        return "場前";
+      case "open":
+        return "場中";
+      case "postclose":
+        return "引け後";
       default:
-        return '不明';
+        return "不明";
     }
   };
 
   const getMarketStatusColor = (phase: string) => {
     switch (phase) {
-      case 'preopen':
-        return 'text-blue-600 bg-blue-50';
-      case 'open':
-        return 'text-green-600 bg-green-50';
-      case 'postclose':
-        return 'text-gray-600 bg-gray-50';
+      case "preopen":
+        return "text-blue-600 bg-blue-50";
+      case "open":
+        return "text-green-600 bg-green-50";
+      case "postclose":
+        return "text-gray-600 bg-gray-50";
       default:
-        return 'text-gray-600 bg-gray-50';
+        return "text-gray-600 bg-gray-50";
     }
   };
 

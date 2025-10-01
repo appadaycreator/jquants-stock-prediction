@@ -31,7 +31,7 @@ interface RealtimeSignalDisplayProps {
 export default function RealtimeSignalDisplay({ 
   symbols = [], 
   autoRefresh = true, 
-  refreshInterval = 30000 
+  refreshInterval = 30000, 
 }: RealtimeSignalDisplayProps) {
   const [signals, setSignals] = useState<TradingSignal[]>([]);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -43,7 +43,7 @@ export default function RealtimeSignalDisplay({
     sell: 0,
     hold: 0,
     strong_buy: 0,
-    strong_sell: 0
+    strong_sell: 0,
   });
 
   useEffect(() => {
@@ -79,23 +79,23 @@ export default function RealtimeSignalDisplay({
             historical_accuracy_30d: 0.78,
             model: {
               name: "統合予測モデル",
-              description: "テクニカル分析とファンダメンタル分析を統合したAIモデル"
+              description: "テクニカル分析とファンダメンタル分析を統合したAIモデル",
             },
             top_features: [
               { name: "RSI", importance: 0.85 },
               { name: "MACD", importance: 0.72 },
-              { name: "業績成長率", importance: 0.68 }
+              { name: "業績成長率", importance: 0.68 },
             ],
             news_headlines: [
               { title: "株式市場全体が上昇", url: "https://example.com/news1", published_at: "2023-10-27T10:00:00Z" },
-              { title: "7203.Tのテクニカル指標が改善", url: "https://example.com/news2", published_at: "2023-10-27T11:00:00Z" }
+              { title: "7203.Tのテクニカル指標が改善", url: "https://example.com/news2", published_at: "2023-10-27T11:00:00Z" },
             ],
             technical_top3: [
               { name: "RSI", value: 70, signal: "買い" },
               { name: "MACD", value: 1.2, signal: "買い" },
-              { name: "移動平均線", value: 2480, signal: "買い" }
-            ]
-          }
+              { name: "移動平均線", value: 2480, signal: "買い" },
+            ],
+          },
         },
         {
           symbol: "6758.T", 
@@ -111,31 +111,31 @@ export default function RealtimeSignalDisplay({
             historical_accuracy_30d: 0.65,
             model: {
               name: "リスク評価モデル",
-              description: "リスク要因を重点的に分析するAIモデル"
+              description: "リスク要因を重点的に分析するAIモデル",
             },
             top_features: [
               { name: "RSI", importance: 0.72 },
               { name: "MACD", importance: 0.68 },
-              { name: "PER", importance: 0.55 }
+              { name: "PER", importance: 0.55 },
             ],
             news_headlines: [
-              { title: "6758.Tの業績が悪化", url: "https://example.com/news3", published_at: "2023-10-27T12:00:00Z" }
+              { title: "6758.Tの業績が悪化", url: "https://example.com/news3", published_at: "2023-10-27T12:00:00Z" },
             ],
             technical_top3: [
               { name: "RSI", value: 65, signal: "売り" },
               { name: "MACD", value: -0.5, signal: "売り" },
-              { name: "移動平均線", value: 11800, signal: "売り" }
-            ]
-          }
-        }
+              { name: "移動平均線", value: 11800, signal: "売り" },
+            ],
+          },
+        },
       ];
       
       const mockSummary = {
-        buy: mockSignals.filter(s => s.signal_type === 'BUY' && s.strength === 'WEAK').length,
-        sell: mockSignals.filter(s => s.signal_type === 'SELL' && s.strength === 'WEAK').length,
+        buy: mockSignals.filter(s => s.signal_type === "BUY" && s.strength === "WEAK").length,
+        sell: mockSignals.filter(s => s.signal_type === "SELL" && s.strength === "WEAK").length,
         hold: 0,
-        strong_buy: mockSignals.filter(s => s.signal_type === 'BUY' && s.strength === 'STRONG').length,
-        strong_sell: mockSignals.filter(s => s.signal_type === 'SELL' && s.strength === 'STRONG').length
+        strong_buy: mockSignals.filter(s => s.signal_type === "BUY" && s.strength === "STRONG").length,
+        strong_sell: mockSignals.filter(s => s.signal_type === "SELL" && s.strength === "STRONG").length,
       };
       
       setSignals(mockSignals);
@@ -143,8 +143,8 @@ export default function RealtimeSignalDisplay({
       setLastUpdate(new Date());
       
     } catch (err) {
-      console.error('シグナル取得エラー:', err);
-      setError('シグナルデータの取得に失敗しました');
+      console.error("シグナル取得エラー:", err);
+      setError("シグナルデータの取得に失敗しました");
     } finally {
       setLoading(false);
     }
@@ -152,13 +152,13 @@ export default function RealtimeSignalDisplay({
 
   const getSignalIcon = (signalType: string) => {
     switch (signalType) {
-      case 'STRONG_BUY':
+      case "STRONG_BUY":
         return <TrendingUp className="h-5 w-5 text-green-600" />;
-      case 'BUY':
+      case "BUY":
         return <TrendingUp className="h-4 w-4 text-green-500" />;
-      case 'STRONG_SELL':
+      case "STRONG_SELL":
         return <TrendingDown className="h-5 w-5 text-red-600" />;
-      case 'SELL':
+      case "SELL":
         return <TrendingDown className="h-4 w-4 text-red-500" />;
       default:
         return <Minus className="h-4 w-4 text-gray-500" />;
@@ -167,57 +167,57 @@ export default function RealtimeSignalDisplay({
 
   const getSignalColor = (signalType: string) => {
     switch (signalType) {
-      case 'STRONG_BUY':
-        return 'text-green-700 bg-green-100 border-green-200';
-      case 'BUY':
-        return 'text-green-600 bg-green-50 border-green-100';
-      case 'STRONG_SELL':
-        return 'text-red-700 bg-red-100 border-red-200';
-      case 'SELL':
-        return 'text-red-600 bg-red-50 border-red-100';
+      case "STRONG_BUY":
+        return "text-green-700 bg-green-100 border-green-200";
+      case "BUY":
+        return "text-green-600 bg-green-50 border-green-100";
+      case "STRONG_SELL":
+        return "text-red-700 bg-red-100 border-red-200";
+      case "SELL":
+        return "text-red-600 bg-red-50 border-red-100";
       default:
-        return 'text-gray-600 bg-gray-50 border-gray-100';
+        return "text-gray-600 bg-gray-50 border-gray-100";
     }
   };
 
   const getStrengthColor = (strength: string) => {
     switch (strength) {
-      case 'VERY_STRONG':
-        return 'text-green-600';
-      case 'STRONG':
-        return 'text-blue-600';
-      case 'MEDIUM':
-        return 'text-yellow-600';
-      case 'WEAK':
-        return 'text-gray-600';
+      case "VERY_STRONG":
+        return "text-green-600";
+      case "STRONG":
+        return "text-blue-600";
+      case "MEDIUM":
+        return "text-yellow-600";
+      case "WEAK":
+        return "text-gray-600";
       default:
-        return 'text-gray-500';
+        return "text-gray-500";
     }
   };
 
   const getRiskColor = (riskLevel: string) => {
     switch (riskLevel) {
-      case 'LOW':
-        return 'text-green-600 bg-green-50';
-      case 'MEDIUM':
-        return 'text-yellow-600 bg-yellow-50';
-      case 'HIGH':
-        return 'text-red-600 bg-red-50';
+      case "LOW":
+        return "text-green-600 bg-green-50";
+      case "MEDIUM":
+        return "text-yellow-600 bg-yellow-50";
+      case "HIGH":
+        return "text-red-600 bg-red-50";
       default:
-        return 'text-gray-600 bg-gray-50';
+        return "text-gray-600 bg-gray-50";
     }
   };
 
   const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 0.8) return 'text-green-600';
-    if (confidence >= 0.6) return 'text-yellow-600';
-    return 'text-red-600';
+    if (confidence >= 0.8) return "text-green-600";
+    if (confidence >= 0.6) return "text-yellow-600";
+    return "text-red-600";
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('ja-JP', {
-      style: 'currency',
-      currency: 'JPY',
+    return new Intl.NumberFormat("ja-JP", {
+      style: "currency",
+      currency: "JPY",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
@@ -253,7 +253,7 @@ export default function RealtimeSignalDisplay({
             disabled={loading}
             className="flex items-center space-x-1 px-3 py-1 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
           >
-            <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
             <span>更新</span>
           </button>
         </div>
@@ -373,7 +373,7 @@ export default function RealtimeSignalDisplay({
                       onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
                       className="ml-2 text-sm text-blue-600 hover:underline"
                     >
-                      {expandedIndex === index ? '根拠を閉じる' : '根拠を表示'}
+                      {expandedIndex === index ? "根拠を閉じる" : "根拠を表示"}
                     </button>
                   </div>
                 </div>
@@ -386,7 +386,7 @@ export default function RealtimeSignalDisplay({
                   <p className="text-xs text-gray-500 mt-1">
                     更新時刻: {new Date(signal.timestamp).toLocaleString()}
                   </p>
-                  {signal.reason?.includes('推薦抑制') && (
+                  {signal.reason?.includes("推薦抑制") && (
                     <div className="mt-2 text-xs text-red-600">
                       <AlertCircle className="h-3 w-3 inline mr-1" />
                       安全スイッチ作動: 根拠不足または信頼度不足でHOLDに抑制

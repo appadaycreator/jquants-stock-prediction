@@ -118,21 +118,21 @@ class DataValidator {
     price: {
       min: 0,
       max: 1000000,
-      required: true
+      required: true,
     },
     volume: {
       min: 0,
       max: 1000000000,
-      required: true
+      required: true,
     },
     date: {
       format: /^\d{4}-\d{2}-\d{2}$/,
-      required: true
+      required: true,
     },
     code: {
       format: /^\d{4}$/,
-      required: true
-    }
+      required: true,
+    },
   };
 
   static validateStockData(data: any[]): { validData: StockData[]; errors: string[] } {
@@ -158,7 +158,7 @@ class DataValidator {
       }
 
       // 価格データのチェック
-      const priceFields = ['open', 'high', 'low', 'close'];
+      const priceFields = ["open", "high", "low", "close"];
       priceFields.forEach(field => {
         const value = parseFloat(item[field]);
         if (isNaN(value) || value < this.VALIDATION_RULES.price.min || value > this.VALIDATION_RULES.price.max) {
@@ -235,8 +235,8 @@ class QualityMonitor {
       rateLimitErrors: 0,
       validationErrors: 0,
       averageResponseTime: 0,
-      lastRequestTime: '',
-      consecutiveFailures: 0
+      lastRequestTime: "",
+      consecutiveFailures: 0,
     };
   }
 
@@ -252,13 +252,13 @@ class QualityMonitor {
       this.metrics.consecutiveFailures++;
 
       switch (errorType) {
-        case 'timeout':
+        case "timeout":
           this.metrics.timeoutErrors++;
           break;
-        case 'rate_limit':
+        case "rate_limit":
           this.metrics.rateLimitErrors++;
           break;
-        case 'validation':
+        case "validation":
           this.metrics.validationErrors++;
           break;
       }
@@ -285,7 +285,7 @@ class QualityMonitor {
     return Array.from(this.qualityReports.values());
   }
 
-  getHealthStatus(): { status: 'healthy' | 'degraded' | 'unhealthy'; issues: string[] } {
+  getHealthStatus(): { status: "healthy" | "degraded" | "unhealthy"; issues: string[] } {
     const issues: string[] = [];
     const successRate = this.metrics.totalRequests > 0 
       ? (this.metrics.successfulRequests / this.metrics.totalRequests) * 100 
@@ -311,11 +311,11 @@ class QualityMonitor {
       issues.push(`データ検証エラーが多い: ${this.metrics.validationErrors}回`);
     }
 
-    let status: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
+    let status: "healthy" | "degraded" | "unhealthy" = "healthy";
     if (issues.length > 2 || successRate < 80) {
-      status = 'unhealthy';
+      status = "unhealthy";
     } else if (issues.length > 0 || successRate < 95) {
-      status = 'degraded';
+      status = "degraded";
     }
 
     return { status, issues };
@@ -325,19 +325,19 @@ class QualityMonitor {
 class EnhancedJQuantsAdapter {
   private config: JQuantsConfig;
   private db: IDBDatabase | null = null;
-  private readonly DB_NAME = 'jquants_enhanced_cache';
+  private readonly DB_NAME = "jquants_enhanced_cache";
   private readonly DB_VERSION = 2;
-  private readonly STORE_NAME = 'stock_data';
-  private readonly METADATA_STORE = 'metadata';
-  private readonly METRICS_STORE = 'metrics';
+  private readonly STORE_NAME = "stock_data";
+  private readonly METADATA_STORE = "metadata";
+  private readonly METRICS_STORE = "metrics";
 
   private rateLimiter: RateLimiter;
   private qualityMonitor: QualityMonitor;
 
   constructor(config: Partial<JQuantsConfig> = {}) {
     this.config = {
-      token: config.token || '',
-      baseUrl: config.baseUrl || 'https://api.jquants.com/v1',
+      token: config.token || "",
+      baseUrl: config.baseUrl || "https://api.jquants.com/v1",
       timeout: config.timeout || 30000,
       maxRetries: config.maxRetries || 3,
       retryDelay: config.retryDelay || 1000,
@@ -359,13 +359,13 @@ class EnhancedJQuantsAdapter {
       const request = indexedDB.open(this.DB_NAME, this.DB_VERSION);
       
       request.onerror = () => {
-        console.error('IndexedDB初期化エラー:', request.error);
+        console.error("IndexedDB初期化エラー:", request.error);
         reject(request.error);
       };
       
       request.onsuccess = () => {
         this.db = request.result;
-        console.info('強化版IndexedDB初期化完了');
+        console.info("強化版IndexedDB初期化完了");
         resolve();
       };
       
@@ -374,22 +374,22 @@ class EnhancedJQuantsAdapter {
         
         // 株価データストア
         if (!db.objectStoreNames.contains(this.STORE_NAME)) {
-          const stockStore = db.createObjectStore(this.STORE_NAME, { keyPath: ['symbol', 'date'] });
-          stockStore.createIndex('symbol', 'symbol', { unique: false });
-          stockStore.createIndex('date', 'date', { unique: false });
-          stockStore.createIndex('quality_score', 'qualityScore', { unique: false });
+          const stockStore = db.createObjectStore(this.STORE_NAME, { keyPath: ["symbol", "date"] });
+          stockStore.createIndex("symbol", "symbol", { unique: false });
+          stockStore.createIndex("date", "date", { unique: false });
+          stockStore.createIndex("quality_score", "qualityScore", { unique: false });
         }
         
         // メタデータストア
         if (!db.objectStoreNames.contains(this.METADATA_STORE)) {
-          const metadataStore = db.createObjectStore(this.METADATA_STORE, { keyPath: 'symbol' });
-          metadataStore.createIndex('last_updated', 'lastUpdated', { unique: false });
-          metadataStore.createIndex('quality_score', 'qualityScore', { unique: false });
+          const metadataStore = db.createObjectStore(this.METADATA_STORE, { keyPath: "symbol" });
+          metadataStore.createIndex("last_updated", "lastUpdated", { unique: false });
+          metadataStore.createIndex("quality_score", "qualityScore", { unique: false });
         }
 
         // メトリクスストア
         if (!db.objectStoreNames.contains(this.METRICS_STORE)) {
-          db.createObjectStore(this.METRICS_STORE, { keyPath: 'id' });
+          db.createObjectStore(this.METRICS_STORE, { keyPath: "id" });
         }
       };
     });
@@ -401,7 +401,7 @@ class EnhancedJQuantsAdapter {
   private async fetchWithRetry<T>(
     url: string,
     options: RequestInit = {},
-    context: string = 'API call'
+    context: string = "API call",
   ): Promise<T> {
     let lastError: Error | null = null;
     const startTime = Date.now();
@@ -415,8 +415,8 @@ class EnhancedJQuantsAdapter {
           ...options,
           signal: controller.signal,
           headers: {
-            'Authorization': `Bearer ${this.config.token}`,
-            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${this.config.token}`,
+            "Content-Type": "application/json",
             ...options.headers,
           },
         });
@@ -425,7 +425,7 @@ class EnhancedJQuantsAdapter {
 
         if (!response.ok) {
           if (response.status === 429) {
-            throw new Error('RATE_LIMIT_EXCEEDED');
+            throw new Error("RATE_LIMIT_EXCEEDED");
           }
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
@@ -441,10 +441,10 @@ class EnhancedJQuantsAdapter {
         lastError = error as Error;
         const responseTime = Date.now() - startTime;
 
-        if (error instanceof Error && error.name === 'AbortError') {
-          this.qualityMonitor.recordRequest(false, responseTime, 'timeout');
-        } else if (error instanceof Error && error.message === 'RATE_LIMIT_EXCEEDED') {
-          this.qualityMonitor.recordRequest(false, responseTime, 'rate_limit');
+        if (error instanceof Error && error.name === "AbortError") {
+          this.qualityMonitor.recordRequest(false, responseTime, "timeout");
+        } else if (error instanceof Error && error.message === "RATE_LIMIT_EXCEEDED") {
+          this.qualityMonitor.recordRequest(false, responseTime, "rate_limit");
         } else {
           this.qualityMonitor.recordRequest(false, responseTime);
         }
@@ -474,14 +474,14 @@ class EnhancedJQuantsAdapter {
    */
   async getAllSymbols(): Promise<Array<{ code: string; name: string; sector?: string }>> {
     try {
-      console.info('全銘柄一覧取得開始');
+      console.info("全銘柄一覧取得開始");
 
       const data = await this.makeApiCall(() =>
         this.fetchWithRetry<any>(
           `${this.config.baseUrl}/markets/stock/list`,
-          { method: 'GET' },
-          '全銘柄一覧取得'
-        )
+          { method: "GET" },
+          "全銘柄一覧取得",
+        ),
       );
 
       const list: any[] = data?.data || [];
@@ -491,10 +491,10 @@ class EnhancedJQuantsAdapter {
         sector: item?.Sector33 || item?.SectorName || item?.sector,
       })).filter((s: any) => !!s.code && !!s.name);
 
-      console.info('全銘柄一覧取得完了', { count: symbols.length });
+      console.info("全銘柄一覧取得完了", { count: symbols.length });
       return symbols;
     } catch (error) {
-      console.error('全銘柄一覧取得エラー:', error);
+      console.error("全銘柄一覧取得エラー:", error);
       return [];
     }
   }
@@ -504,37 +504,37 @@ class EnhancedJQuantsAdapter {
    */
   async testConnection(): Promise<{ success: boolean; message: string; metrics?: ApiMetrics }> {
     try {
-      console.info('J-Quants接続テスト開始');
+      console.info("J-Quants接続テスト開始");
       
       const data = await this.makeApiCall(() =>
         this.fetchWithRetry<any>(
           `${this.config.baseUrl}/markets/stock/list`,
-          { method: 'GET' },
-          '接続テスト'
-        )
+          { method: "GET" },
+          "接続テスト",
+        ),
       );
 
       const metrics = this.qualityMonitor.getMetrics();
       const healthStatus = this.qualityMonitor.getHealthStatus();
 
-      console.info('J-Quants接続テスト成功', { 
+      console.info("J-Quants接続テスト成功", { 
         dataCount: data?.data?.length || 0,
-        healthStatus: healthStatus.status
+        healthStatus: healthStatus.status,
       });
 
       return {
         success: true,
         message: `接続成功: ${data?.data?.length || 0}件の銘柄データを取得 (健康状態: ${healthStatus.status})`,
-        metrics
+        metrics,
       };
     } catch (error) {
-      console.error('J-Quants接続テスト失敗:', error);
+      console.error("J-Quants接続テスト失敗:", error);
       const metrics = this.qualityMonitor.getMetrics();
       
       return {
         success: false,
-        message: `接続失敗: ${error instanceof Error ? error.message : '不明なエラー'}`,
-        metrics
+        message: `接続失敗: ${error instanceof Error ? error.message : "不明なエラー"}`,
+        metrics,
       };
     }
   }
@@ -546,19 +546,19 @@ class EnhancedJQuantsAdapter {
     symbol: string, 
     startDate: string, 
     endDate: string,
-    useCache: boolean = true
+    useCache: boolean = true,
   ): Promise<StockData[]> {
     try {
-      console.info('株価データ取得開始', { symbol, startDate, endDate, useCache });
+      console.info("株価データ取得開始", { symbol, startDate, endDate, useCache });
 
       // キャッシュから取得を試行
       if (useCache) {
         const cachedData = await this.getCachedData(symbol, startDate, endDate);
         if (cachedData.length > 0) {
-          console.info('キャッシュからデータ取得', { 
+          console.info("キャッシュからデータ取得", { 
             symbol, 
             count: cachedData.length,
-            dateRange: `${startDate} - ${endDate}`
+            dateRange: `${startDate} - ${endDate}`,
           });
           return cachedData;
         }
@@ -566,7 +566,7 @@ class EnhancedJQuantsAdapter {
 
       // APIから取得
       const apiData = await this.makeApiCall(() =>
-        this.fetchFromAPI(symbol, startDate, endDate)
+        this.fetchFromAPI(symbol, startDate, endDate),
       );
 
       // データ検証
@@ -579,8 +579,8 @@ class EnhancedJQuantsAdapter {
         validationErrors = validation.errors;
 
         if (validationErrors.length > 0) {
-          console.warn('データ検証エラー:', validationErrors);
-          this.qualityMonitor.recordRequest(false, 0, 'validation');
+          console.warn("データ検証エラー:", validationErrors);
+          this.qualityMonitor.recordRequest(false, 0, "validation");
         }
       }
 
@@ -594,11 +594,11 @@ class EnhancedJQuantsAdapter {
           invalidRecords: apiData.length - validatedData.length,
           qualityScore,
           validationErrors: validationErrors.map(error => ({
-            type: 'validation',
+            type: "validation",
             count: 1,
-            description: error
+            description: error,
           })),
-          recommendations: this.generateQualityRecommendations(qualityScore, validationErrors)
+          recommendations: this.generateQualityRecommendations(qualityScore, validationErrors),
         };
 
         this.qualityMonitor.recordDataQuality(symbol, qualityReport);
@@ -609,16 +609,16 @@ class EnhancedJQuantsAdapter {
         await this.saveToCache(symbol, validatedData, startDate, endDate, validationErrors);
       }
 
-      console.info('APIからデータ取得完了', { 
+      console.info("APIからデータ取得完了", { 
         symbol, 
         count: validatedData.length,
         qualityScore: this.config.enableQualityMonitoring ? 
-          DataValidator.calculateQualityScore(validatedData.length, apiData.length) : undefined
+          DataValidator.calculateQualityScore(validatedData.length, apiData.length) : undefined,
       });
 
       return validatedData;
     } catch (error) {
-      console.error('株価データ取得エラー:', error);
+      console.error("株価データ取得エラー:", error);
       throw error;
     }
   }
@@ -629,8 +629,8 @@ class EnhancedJQuantsAdapter {
   private async fetchFromAPI(symbol: string, startDate: string, endDate: string): Promise<StockData[]> {
     const data = await this.fetchWithRetry<any>(
       `${this.config.baseUrl}/markets/daily_quotes`,
-      { method: 'GET' },
-      `株価データ取得 (${symbol})`
+      { method: "GET" },
+      `株価データ取得 (${symbol})`,
     );
 
     return this.transformAPIResponse(data, symbol);
@@ -666,21 +666,21 @@ class EnhancedJQuantsAdapter {
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.STORE_NAME], 'readonly');
+      const transaction = this.db!.transaction([this.STORE_NAME], "readonly");
       const store = transaction.objectStore(this.STORE_NAME);
-      const index = store.index('symbol');
+      const index = store.index("symbol");
       const request = index.getAll(symbol);
 
       request.onsuccess = () => {
         const allData = request.result;
         const filteredData = allData.filter(item => 
-          item.date >= startDate && item.date <= endDate
+          item.date >= startDate && item.date <= endDate,
         );
         resolve(filteredData);
       };
 
       request.onerror = () => {
-        console.error('キャッシュ取得エラー:', request.error);
+        console.error("キャッシュ取得エラー:", request.error);
         reject(request.error);
       };
     });
@@ -694,14 +694,14 @@ class EnhancedJQuantsAdapter {
     data: StockData[], 
     startDate: string, 
     endDate: string, 
-    validationErrors: string[] = []
+    validationErrors: string[] = [],
   ): Promise<void> {
     if (!this.db || data.length === 0) {
       return;
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.STORE_NAME, this.METADATA_STORE], 'readwrite');
+      const transaction = this.db!.transaction([this.STORE_NAME, this.METADATA_STORE], "readwrite");
       
       // 株価データを保存
       const stockStore = transaction.objectStore(this.STORE_NAME);
@@ -719,7 +719,7 @@ class EnhancedJQuantsAdapter {
           }
         };
         request.onerror = () => {
-          console.error('キャッシュ保存エラー:', request.error);
+          console.error("キャッシュ保存エラー:", request.error);
           reject(request.error);
         };
       });
@@ -728,11 +728,11 @@ class EnhancedJQuantsAdapter {
       const qualityScore = DataValidator.calculateQualityScore(data.length, data.length + validationErrors.length);
       const metadata: CacheMetadata = {
         lastUpdated: new Date().toISOString(),
-        dataVersion: '2.0',
+        dataVersion: "2.0",
         symbol,
         dateRange: { start: startDate, end: endDate },
         qualityScore,
-        validationErrors
+        validationErrors,
       };
 
       const metadataRequest = metadataStore.put(metadata);
@@ -743,7 +743,7 @@ class EnhancedJQuantsAdapter {
         }
       };
       metadataRequest.onerror = () => {
-        console.error('メタデータ保存エラー:', metadataRequest.error);
+        console.error("メタデータ保存エラー:", metadataRequest.error);
         reject(metadataRequest.error);
       };
     });
@@ -756,19 +756,19 @@ class EnhancedJQuantsAdapter {
     const recommendations: string[] = [];
 
     if (qualityScore < 90) {
-      recommendations.push('データ品質が低下しています。APIの安定性を確認してください。');
+      recommendations.push("データ品質が低下しています。APIの安定性を確認してください。");
     }
 
-    if (errors.some(error => error.includes('Invalid date format'))) {
-      recommendations.push('日付フォーマットの検証を強化してください。');
+    if (errors.some(error => error.includes("Invalid date format"))) {
+      recommendations.push("日付フォーマットの検証を強化してください。");
     }
 
-    if (errors.some(error => error.includes('price'))) {
-      recommendations.push('価格データの異常値をチェックしてください。');
+    if (errors.some(error => error.includes("price"))) {
+      recommendations.push("価格データの異常値をチェックしてください。");
     }
 
-    if (errors.some(error => error.includes('volume'))) {
-      recommendations.push('出来高データの検証を強化してください。');
+    if (errors.some(error => error.includes("volume"))) {
+      recommendations.push("出来高データの検証を強化してください。");
     }
 
     return recommendations;
@@ -786,7 +786,7 @@ class EnhancedJQuantsAdapter {
       status: healthStatus.status,
       issues: healthStatus.issues,
       metrics,
-      qualityReports
+      qualityReports,
     };
   }
 
@@ -804,14 +804,14 @@ class EnhancedJQuantsAdapter {
       return { 
         totalRecords: 0, 
         symbols: [], 
-        lastUpdated: '', 
+        lastUpdated: "", 
         averageQualityScore: 0,
-        totalValidationErrors: 0
+        totalValidationErrors: 0,
       };
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.STORE_NAME, this.METADATA_STORE], 'readonly');
+      const transaction = this.db!.transaction([this.STORE_NAME, this.METADATA_STORE], "readonly");
       const stockStore = transaction.objectStore(this.STORE_NAME);
       const metadataStore = transaction.objectStore(this.METADATA_STORE);
 
@@ -844,9 +844,9 @@ class EnhancedJQuantsAdapter {
         resolve({
           totalRecords: stockData.length,
           symbols,
-          lastUpdated: lastUpdated > 0 ? new Date(lastUpdated).toISOString() : '',
+          lastUpdated: lastUpdated > 0 ? new Date(lastUpdated).toISOString() : "",
           averageQualityScore: Math.round(averageQualityScore),
-          totalValidationErrors
+          totalValidationErrors,
         });
       };
 
@@ -865,13 +865,13 @@ class EnhancedJQuantsAdapter {
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.STORE_NAME, this.METADATA_STORE], 'readwrite');
+      const transaction = this.db!.transaction([this.STORE_NAME, this.METADATA_STORE], "readwrite");
       
       if (symbol) {
         // 特定銘柄のキャッシュをクリア
         const stockStore = transaction.objectStore(this.STORE_NAME);
         const metadataStore = transaction.objectStore(this.METADATA_STORE);
-        const index = stockStore.index('symbol');
+        const index = stockStore.index("symbol");
         const request = index.getAll(symbol);
         
         request.onsuccess = () => {
@@ -909,5 +909,5 @@ export type {
   StockData, 
   CacheMetadata, 
   ApiMetrics, 
-  DataQualityReport 
+  DataQualityReport, 
 };

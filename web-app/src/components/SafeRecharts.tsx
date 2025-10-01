@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -29,7 +29,7 @@ class SafeRecharts extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('SafeRecharts caught an error:', error, errorInfo);
+    console.error("SafeRecharts caught an error:", error, errorInfo);
     
     // createSelectorエラーの場合は自動リトライ
     if (error.message.includes("createSelector expects all input-selectors to be functions")) {

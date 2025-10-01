@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { AlertTriangle, RefreshCw, Home, Wifi, Server, Clock, HelpCircle } from "lucide-react";
 
 interface ErrorInfo {
-  type: 'network' | 'server' | 'data' | 'timeout' | 'unknown';
+  type: "network" | "server" | "data" | "timeout" | "unknown";
   message: string;
   description: string;
   action: string;
@@ -14,45 +14,45 @@ interface ErrorInfo {
 
 const errorTypes: Record<string, ErrorInfo> = {
   network: {
-    type: 'network',
-    message: '通信に失敗しました',
-    description: 'インターネット接続を確認してください。数分後に再試行してください。',
-    action: '再試行',
+    type: "network",
+    message: "通信に失敗しました",
+    description: "インターネット接続を確認してください。数分後に再試行してください。",
+    action: "再試行",
     icon: <Wifi className="w-8 h-8" />,
-    retryable: true
+    retryable: true,
   },
   server: {
-    type: 'server',
-    message: 'サーバーエラーが発生しました',
-    description: 'サーバーが一時的に利用できません。しばらく待ってから再試行してください。',
-    action: '再試行',
+    type: "server",
+    message: "サーバーエラーが発生しました",
+    description: "サーバーが一時的に利用できません。しばらく待ってから再試行してください。",
+    action: "再試行",
     icon: <Server className="w-8 h-8" />,
-    retryable: true
+    retryable: true,
   },
   data: {
-    type: 'data',
-    message: 'データの読み込みに失敗しました',
-    description: 'データファイルが見つからないか、破損している可能性があります。',
-    action: 'データを再生成',
+    type: "data",
+    message: "データの読み込みに失敗しました",
+    description: "データファイルが見つからないか、破損している可能性があります。",
+    action: "データを再生成",
     icon: <AlertTriangle className="w-8 h-8" />,
-    retryable: true
+    retryable: true,
   },
   timeout: {
-    type: 'timeout',
-    message: '処理がタイムアウトしました',
-    description: '処理に時間がかかりすぎています。しばらく待ってから再試行してください。',
-    action: '再試行',
+    type: "timeout",
+    message: "処理がタイムアウトしました",
+    description: "処理に時間がかかりすぎています。しばらく待ってから再試行してください。",
+    action: "再試行",
     icon: <Clock className="w-8 h-8" />,
-    retryable: true
+    retryable: true,
   },
   unknown: {
-    type: 'unknown',
-    message: '予期しないエラーが発生しました',
-    description: 'システムに問題が発生しました。しばらく待ってから再試行してください。',
-    action: '再試行',
+    type: "unknown",
+    message: "予期しないエラーが発生しました",
+    description: "システムに問題が発生しました。しばらく待ってから再試行してください。",
+    action: "再試行",
     icon: <AlertTriangle className="w-8 h-8" />,
-    retryable: true
-  }
+    retryable: true,
+  },
 };
 
 interface EnhancedErrorHandlerProps {
@@ -68,7 +68,7 @@ export default function EnhancedErrorHandler({
   onRetry,
   onGoHome,
   onGetHelp,
-  showDetails = false
+  showDetails = false,
 }: EnhancedErrorHandlerProps) {
   const [isRetrying, setIsRetrying] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
@@ -77,19 +77,19 @@ export default function EnhancedErrorHandler({
   const getErrorType = (error: Error): string => {
     const message = error.message.toLowerCase();
     
-    if (message.includes('network') || message.includes('fetch') || message.includes('connection')) {
-      return 'network';
+    if (message.includes("network") || message.includes("fetch") || message.includes("connection")) {
+      return "network";
     }
-    if (message.includes('server') || message.includes('500') || message.includes('502') || message.includes('503')) {
-      return 'server';
+    if (message.includes("server") || message.includes("500") || message.includes("502") || message.includes("503")) {
+      return "server";
     }
-    if (message.includes('data') || message.includes('json') || message.includes('parse')) {
-      return 'data';
+    if (message.includes("data") || message.includes("json") || message.includes("parse")) {
+      return "data";
     }
-    if (message.includes('timeout') || message.includes('time')) {
-      return 'timeout';
+    if (message.includes("timeout") || message.includes("time")) {
+      return "timeout";
     }
-    return 'unknown';
+    return "unknown";
   };
 
   const errorType = getErrorType(error);
@@ -107,9 +107,9 @@ export default function EnhancedErrorHandler({
   };
 
   const getRetryMessage = () => {
-    if (retryCount === 0) return '';
-    if (retryCount === 1) return '1回目の再試行中...';
-    if (retryCount === 2) return '2回目の再試行中...';
+    if (retryCount === 0) return "";
+    if (retryCount === 1) return "1回目の再試行中...";
+    if (retryCount === 2) return "2回目の再試行中...";
     return `${retryCount}回目の再試行中...`;
   };
 
@@ -168,8 +168,8 @@ export default function EnhancedErrorHandler({
               disabled={isRetrying}
               className={`w-full flex items-center justify-center px-4 py-3 rounded-lg font-medium transition-colors ${
                 isRetrying
-                  ? 'bg-gray-400 cursor-not-allowed text-white'
-                  : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  ? "bg-gray-400 cursor-not-allowed text-white"
+                  : "bg-blue-600 hover:bg-blue-700 text-white"
               }`}
             >
               {isRetrying ? (

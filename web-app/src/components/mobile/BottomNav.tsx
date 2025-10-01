@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 interface NavItem {
   href: string;
@@ -13,35 +13,35 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    href: '/',
-    label: 'ホーム',
-    icon: '🏠',
-    shortLabel: 'ホーム'
+    href: "/",
+    label: "ホーム",
+    icon: "🏠",
+    shortLabel: "ホーム",
   },
   {
-    href: '/today',
-    label: '今日の指示',
-    icon: '📅',
-    shortLabel: '今日'
+    href: "/today",
+    label: "今日の指示",
+    icon: "📅",
+    shortLabel: "今日",
   },
   {
-    href: '/reports',
-    label: 'レポート',
-    icon: '📊',
-    shortLabel: 'レポート'
+    href: "/reports",
+    label: "レポート",
+    icon: "📊",
+    shortLabel: "レポート",
   },
   {
-    href: '/settings',
-    label: '設定',
-    icon: '⚙️',
-    shortLabel: '設定'
+    href: "/settings",
+    label: "設定",
+    icon: "⚙️",
+    shortLabel: "設定",
   },
   {
-    href: '/usage',
-    label: 'ヘルプ',
-    icon: '❓',
-    shortLabel: 'ヘルプ'
-  }
+    href: "/usage",
+    label: "ヘルプ",
+    icon: "❓",
+    shortLabel: "ヘルプ",
+  },
 ];
 
 export default function BottomNav() {
@@ -49,8 +49,8 @@ export default function BottomNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isActive = (href: string) => {
-    if (href === '/') {
-      return pathname === '/';
+    if (href === "/") {
+      return pathname === "/";
     }
     return pathname.startsWith(href);
   };
@@ -66,8 +66,8 @@ export default function BottomNav() {
               href={item.href}
               className={`flex flex-col items-center justify-center min-h-[48px] min-w-[48px] px-3 py-2 rounded-lg transition-colors touch-target ${
                 isActive(item.href)
-                  ? 'text-blue-600 bg-blue-50'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  ? "text-blue-600 bg-blue-50"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
               }`}
             >
               <span className="text-xl mb-1 leading-none">{item.icon}</span>
@@ -142,8 +142,8 @@ export default function BottomNav() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
                   isActive(item.href)
-                    ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                    : 'text-gray-700 hover:bg-gray-50'
+                    ? "bg-blue-50 text-blue-700 border border-blue-200"
+                    : "text-gray-700 hover:bg-gray-50"
                 }`}
               >
                 <span className="text-lg">{item.icon}</span>

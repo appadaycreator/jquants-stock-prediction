@@ -7,60 +7,60 @@ export const ACCESSIBILITY_CONFIG = {
   highContrast: true,
   keyboardNavigation: true,
   ariaLabels: {
-    tour: 'ガイドツアー',
-    tooltip: 'ツールチップ',
-    checklist: 'チェックリスト',
-    help: 'ヘルプ',
-    glossary: '用語集'
-  }
+    tour: "ガイドツアー",
+    tooltip: "ツールチップ",
+    checklist: "チェックリスト",
+    help: "ヘルプ",
+    glossary: "用語集",
+  },
 };
 
 // ARIA属性の生成
 export function generateAriaAttributes(type: string, options: Record<string, any> = {}) {
   const baseAttributes = {
-    role: 'button',
+    role: "button",
     tabIndex: 0,
-    'aria-label': ACCESSIBILITY_CONFIG.ariaLabels[type as keyof typeof ACCESSIBILITY_CONFIG.ariaLabels] || type
+    "aria-label": ACCESSIBILITY_CONFIG.ariaLabels[type as keyof typeof ACCESSIBILITY_CONFIG.ariaLabels] || type,
   };
 
   switch (type) {
-    case 'tour':
+    case "tour":
       return {
         ...baseAttributes,
-        role: 'dialog',
-        'aria-modal': true,
-        'aria-labelledby': 'tour-title',
-        'aria-describedby': 'tour-description'
+        role: "dialog",
+        "aria-modal": true,
+        "aria-labelledby": "tour-title",
+        "aria-describedby": "tour-description",
       };
     
-    case 'tooltip':
+    case "tooltip":
       return {
         ...baseAttributes,
-        role: 'tooltip',
-        'aria-live': 'polite' as const
+        role: "tooltip",
+        "aria-live": "polite" as const,
       };
     
-    case 'checklist':
+    case "checklist":
       return {
         ...baseAttributes,
-        role: 'list',
-        'aria-label': 'チェックリスト'
+        role: "list",
+        "aria-label": "チェックリスト",
       };
     
-    case 'help':
+    case "help":
       return {
         ...baseAttributes,
-        role: 'dialog',
-        'aria-modal': true,
-        'aria-labelledby': 'help-title'
+        role: "dialog",
+        "aria-modal": true,
+        "aria-labelledby": "help-title",
       };
     
-    case 'glossary':
+    case "glossary":
       return {
         ...baseAttributes,
-        role: 'dialog',
-        'aria-modal': true,
-        'aria-labelledby': 'glossary-title'
+        role: "dialog",
+        "aria-modal": true,
+        "aria-labelledby": "glossary-title",
       };
     
     default:
@@ -111,14 +111,14 @@ export class FocusManager {
   // フォーカストラップ（モーダル内でのフォーカス制限）
   trapFocus(container: HTMLElement): () => void {
     const focusableElements = container.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      "button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])",
     );
     
     const firstElement = focusableElements[0] as HTMLElement;
     const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
     const handleTabKey = (e: KeyboardEvent) => {
-      if (e.key === 'Tab') {
+      if (e.key === "Tab") {
         if (e.shiftKey) {
           if (document.activeElement === firstElement) {
             lastElement.focus();
@@ -133,11 +133,11 @@ export class FocusManager {
       }
     };
 
-    container.addEventListener('keydown', handleTabKey);
+    container.addEventListener("keydown", handleTabKey);
     
     // クリーンアップ関数を返す
     return () => {
-      container.removeEventListener('keydown', handleTabKey);
+      container.removeEventListener("keydown", handleTabKey);
     };
   }
 
@@ -165,12 +165,12 @@ export class ScreenReaderManager {
   }
 
   private createAnnouncementElement(): void {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
-    this.announcementElement = document.createElement('div');
-    this.announcementElement.setAttribute('aria-live', 'polite');
-    this.announcementElement.setAttribute('aria-atomic', 'true');
-    this.announcementElement.className = 'sr-only';
+    this.announcementElement = document.createElement("div");
+    this.announcementElement.setAttribute("aria-live", "polite");
+    this.announcementElement.setAttribute("aria-atomic", "true");
+    this.announcementElement.className = "sr-only";
     this.announcementElement.style.cssText = `
       position: absolute;
       left: -10000px;
@@ -182,16 +182,16 @@ export class ScreenReaderManager {
   }
 
   // アナウンスを読み上げ
-  announce(message: string, priority: 'polite' | 'assertive' = 'polite'): void {
+  announce(message: string, priority: "polite" | "assertive" = "polite"): void {
     if (!this.announcementElement) return;
 
-    this.announcementElement.setAttribute('aria-live', priority);
+    this.announcementElement.setAttribute("aria-live", priority);
     this.announcementElement.textContent = message;
     
     // 短時間後にクリア
     setTimeout(() => {
       if (this.announcementElement) {
-        this.announcementElement.textContent = '';
+        this.announcementElement.textContent = "";
       }
     }, 1000);
   }
@@ -199,12 +199,12 @@ export class ScreenReaderManager {
   // ガイドステップのアナウンス
   announceStep(stepTitle: string, stepDescription: string): void {
     const message = `ガイドステップ: ${stepTitle}. ${stepDescription}`;
-    this.announce(message, 'assertive');
+    this.announce(message, "assertive");
   }
 
   // チェックリスト項目のアナウンス
   announceChecklistItem(itemTitle: string, completed: boolean): void {
-    const status = completed ? '完了' : '未完了';
+    const status = completed ? "完了" : "未完了";
     const message = `チェックリスト項目: ${itemTitle} - ${status}`;
     this.announce(message);
   }
@@ -252,12 +252,12 @@ export class KeyboardNavigation {
 
   // イベントリスナーを開始
   start(): void {
-    document.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener("keydown", this.handleKeyDown);
   }
 
   // イベントリスナーを停止
   stop(): void {
-    document.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener("keydown", this.handleKeyDown);
   }
 
   // 全ショートカットをクリア
@@ -268,10 +268,10 @@ export class KeyboardNavigation {
 
 // 高コントラストモードの検出
 export function detectHighContrastMode(): boolean {
-  if (typeof window === 'undefined') return false;
+  if (typeof window === "undefined") return false;
   
   // Windows High Contrast Mode の検出
-  const mediaQuery = window.matchMedia('(-ms-high-contrast: active)');
+  const mediaQuery = window.matchMedia("(-ms-high-contrast: active)");
   if (mediaQuery.matches) return true;
   
   // その他の高コントラストモードの検出
@@ -284,16 +284,16 @@ export function detectHighContrastMode(): boolean {
 }
 
 // 色覚異常対応
-export function detectColorBlindness(): 'normal' | 'protanopia' | 'deuteranopia' | 'tritanopia' {
-  if (typeof window === 'undefined') return 'normal';
+export function detectColorBlindness(): "normal" | "protanopia" | "deuteranopia" | "tritanopia" {
+  if (typeof window === "undefined") return "normal";
   
   // 色覚異常の検出（簡易版）
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return 'normal';
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return "normal";
   
   // テスト用の色を描画
-  ctx.fillStyle = '#ff0000';
+  ctx.fillStyle = "#ff0000";
   ctx.fillRect(0, 0, 1, 1);
   
   const imageData = ctx.getImageData(0, 0, 1, 1);
@@ -301,10 +301,10 @@ export function detectColorBlindness(): 'normal' | 'protanopia' | 'deuteranopia'
   
   // 色の値を分析（簡易版）
   if (data[0] === 255 && data[1] === 0 && data[2] === 0) {
-    return 'normal';
+    return "normal";
   }
   
-  return 'normal'; // 実際の実装ではより詳細な検出が必要
+  return "normal"; // 実際の実装ではより詳細な検出が必要
 }
 
 // アクセシビリティユーティリティ
@@ -328,7 +328,7 @@ export const accessibilityUtils = {
   generateAriaAttributes,
   
   // アクセシビリティ設定
-  config: ACCESSIBILITY_CONFIG
+  config: ACCESSIBILITY_CONFIG,
 };
 
 // シングルトンインスタンス

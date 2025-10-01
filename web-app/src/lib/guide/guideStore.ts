@@ -1,17 +1,17 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { GuideState } from '@/components/guide/TourProvider';
+import { useState, useEffect } from "react";
+import { GuideState } from "@/components/guide/TourProvider";
 
 // ローカルストレージキー
 const STORAGE_KEYS = {
-  FIRST_VISIT: 'guide_first_visit',
-  COMPLETED_STEPS: 'guide_completed_steps',
-  TOUR_COMPLETED: 'guide_tour_completed',
-  GUIDE_DISABLED: 'guide_disabled',
-  CURRENT_STEP: 'guide_current_step',
-  CHECKLIST_PROGRESS: 'guide_checklist_progress',
-  USER_PREFERENCES: 'guide_user_preferences'
+  FIRST_VISIT: "guide_first_visit",
+  COMPLETED_STEPS: "guide_completed_steps",
+  TOUR_COMPLETED: "guide_tour_completed",
+  GUIDE_DISABLED: "guide_disabled",
+  CURRENT_STEP: "guide_current_step",
+  CHECKLIST_PROGRESS: "guide_checklist_progress",
+  USER_PREFERENCES: "guide_user_preferences",
 };
 
 // ユーザー設定
@@ -59,7 +59,7 @@ export class GuideStore {
 
   // 初回訪問フラグ
   get isFirstVisit(): boolean {
-    return localStorage.getItem(STORAGE_KEYS.FIRST_VISIT) !== 'false';
+    return localStorage.getItem(STORAGE_KEYS.FIRST_VISIT) !== "false";
   }
 
   set isFirstVisit(value: boolean) {
@@ -87,7 +87,7 @@ export class GuideStore {
 
   // ツアー完了フラグ
   get isTourCompleted(): boolean {
-    return localStorage.getItem(STORAGE_KEYS.TOUR_COMPLETED) === 'true';
+    return localStorage.getItem(STORAGE_KEYS.TOUR_COMPLETED) === "true";
   }
 
   set isTourCompleted(value: boolean) {
@@ -97,7 +97,7 @@ export class GuideStore {
 
   // ガイド無効化フラグ
   get isGuideDisabled(): boolean {
-    return localStorage.getItem(STORAGE_KEYS.GUIDE_DISABLED) === 'true';
+    return localStorage.getItem(STORAGE_KEYS.GUIDE_DISABLED) === "true";
   }
 
   set isGuideDisabled(value: boolean) {
@@ -125,7 +125,7 @@ export class GuideStore {
     return stored ? JSON.parse(stored) : {
       completedItems: [],
       totalItems: 4,
-      isCompleted: false
+      isCompleted: false,
     };
   }
 
@@ -140,7 +140,7 @@ export class GuideStore {
       const updated = {
         ...current,
         completedItems: [...current.completedItems, itemId],
-        isCompleted: current.completedItems.length + 1 >= current.totalItems
+        isCompleted: current.completedItems.length + 1 >= current.totalItems,
       };
       if (updated.isCompleted) {
         updated.completedAt = new Date().toISOString();
@@ -155,7 +155,7 @@ export class GuideStore {
       ...current,
       completedItems: current.completedItems.filter(id => id !== itemId),
       isCompleted: false,
-      completedAt: undefined
+      completedAt: undefined,
     };
     this.checklistProgress = updated;
   }
@@ -169,7 +169,7 @@ export class GuideStore {
       showProgress: true,
       keyboardNavigation: true,
       highContrast: false,
-      language: 'ja'
+      language: "ja",
     };
   }
 
@@ -191,7 +191,7 @@ export class GuideStore {
       completedSteps: this.completedSteps,
       isFirstVisit: this.isFirstVisit,
       isTourCompleted: this.isTourCompleted,
-      isGuideDisabled: this.isGuideDisabled
+      isGuideDisabled: this.isGuideDisabled,
     };
   }
 
@@ -242,7 +242,7 @@ export class GuideStore {
     return {
       completed,
       total,
-      percentage: Math.round((completed / total) * 100)
+      percentage: Math.round((completed / total) * 100),
     };
   }
 
@@ -252,7 +252,7 @@ export class GuideStore {
     return {
       completed: progress.completedItems.length,
       total: progress.totalItems,
-      percentage: Math.round((progress.completedItems.length / progress.totalItems) * 100)
+      percentage: Math.round((progress.completedItems.length / progress.totalItems) * 100),
     };
   }
 
@@ -278,7 +278,7 @@ export class GuideStore {
       completedChecklistItems: checklistProgress.completed,
       checklistCompletionRate: checklistProgress.percentage,
       isFirstTimeUser: this.isFirstVisit,
-      lastActivity: this.checklistProgress.completedAt
+      lastActivity: this.checklistProgress.completedAt,
     };
   }
 }
@@ -300,7 +300,7 @@ export function useGuideStore() {
 
   return {
     ...state,
-    store: guideStore
+    store: guideStore,
   };
 }
 

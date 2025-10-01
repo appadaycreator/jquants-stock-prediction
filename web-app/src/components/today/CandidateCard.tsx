@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Candidate } from '@/types/today';
-import { useState } from 'react';
+import { Candidate } from "@/types/today";
+import { useState } from "react";
 
 interface CandidateCardProps {
   candidate: Candidate;
@@ -10,37 +10,37 @@ interface CandidateCardProps {
 
 export default function CandidateCard({ candidate, index }: CandidateCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [actionTaken, setActionTaken] = useState<'none' | 'order' | 'skip' | 'monitor'>('none');
+  const [actionTaken, setActionTaken] = useState<"none" | "order" | "skip" | "monitor">("none");
 
   const getRecommendationColor = (recommendation: string) => {
     switch (recommendation) {
-      case 'STRONG_BUY':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'BUY':
-        return 'bg-green-50 text-green-700 border-green-100';
-      case 'HOLD':
-        return 'bg-yellow-50 text-yellow-700 border-yellow-100';
-      case 'SELL':
-        return 'bg-red-50 text-red-700 border-red-100';
-      case 'STRONG_SELL':
-        return 'bg-red-100 text-red-800 border-red-200';
+      case "STRONG_BUY":
+        return "bg-green-100 text-green-800 border-green-200";
+      case "BUY":
+        return "bg-green-50 text-green-700 border-green-100";
+      case "HOLD":
+        return "bg-yellow-50 text-yellow-700 border-yellow-100";
+      case "SELL":
+        return "bg-red-50 text-red-700 border-red-100";
+      case "STRONG_SELL":
+        return "bg-red-100 text-red-800 border-red-200";
       default:
-        return 'bg-gray-50 text-gray-700 border-gray-100';
+        return "bg-gray-50 text-gray-700 border-gray-100";
     }
   };
 
   const getRecommendationText = (recommendation: string) => {
     switch (recommendation) {
-      case 'STRONG_BUY':
-        return '強力買い';
-      case 'BUY':
-        return '買い';
-      case 'HOLD':
-        return 'ホールド';
-      case 'SELL':
-        return '売り';
-      case 'STRONG_SELL':
-        return '強力売り';
+      case "STRONG_BUY":
+        return "強力買い";
+      case "BUY":
+        return "買い";
+      case "HOLD":
+        return "ホールド";
+      case "SELL":
+        return "売り";
+      case "STRONG_SELL":
+        return "強力売り";
       default:
         return recommendation;
     }
@@ -48,10 +48,10 @@ export default function CandidateCard({ candidate, index }: CandidateCardProps) 
 
   const getConfidenceStars = (confidence: number) => {
     const stars = Math.round(confidence * 5);
-    return '★'.repeat(stars) + '☆'.repeat(5 - stars);
+    return "★".repeat(stars) + "☆".repeat(5 - stars);
   };
 
-  const handleAction = (action: 'order' | 'skip' | 'monitor') => {
+  const handleAction = (action: "order" | "skip" | "monitor") => {
     setActionTaken(action);
     // ここで実際のアクション処理を行う
     console.log(`Action taken for ${candidate.symbol}: ${action}`);
@@ -82,7 +82,7 @@ export default function CandidateCard({ candidate, index }: CandidateCardProps) 
             onClick={() => setIsExpanded(!isExpanded)}
             className="text-gray-400 hover:text-gray-600 transition-colors"
           >
-            {isExpanded ? '▲' : '▼'}
+            {isExpanded ? "▲" : "▼"}
           </button>
         </div>
 
@@ -135,38 +135,38 @@ export default function CandidateCard({ candidate, index }: CandidateCardProps) 
         )}
 
         <div className="flex gap-2">
-          {actionTaken === 'none' && (
+          {actionTaken === "none" && (
             <>
               <button
-                onClick={() => handleAction('order')}
+                onClick={() => handleAction("order")}
                 className="flex-1 bg-blue-600 text-white px-4 py-3 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors active:scale-95 min-h-[44px]"
               >
                 発注へ
               </button>
               <button
-                onClick={() => handleAction('skip')}
+                onClick={() => handleAction("skip")}
                 className="flex-1 bg-gray-100 text-gray-700 px-4 py-3 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors active:scale-95 min-h-[44px]"
               >
                 見送り
               </button>
               <button
-                onClick={() => handleAction('monitor')}
+                onClick={() => handleAction("monitor")}
                 className="flex-1 bg-yellow-100 text-yellow-700 px-4 py-3 rounded-full text-sm font-medium hover:bg-yellow-200 transition-colors active:scale-95 min-h-[44px]"
               >
                 監視
               </button>
             </>
           )}
-          {actionTaken !== 'none' && (
+          {actionTaken !== "none" && (
             <div className="flex-1 flex items-center justify-center">
               <span className={`px-4 py-3 rounded-full text-sm font-medium ${
-                actionTaken === 'order' ? 'bg-green-100 text-green-700' :
-                actionTaken === 'skip' ? 'bg-gray-100 text-gray-700' :
-                'bg-yellow-100 text-yellow-700'
+                actionTaken === "order" ? "bg-green-100 text-green-700" :
+                actionTaken === "skip" ? "bg-gray-100 text-gray-700" :
+                "bg-yellow-100 text-yellow-700"
               }`}>
-                {actionTaken === 'order' ? '発注済み' :
-                 actionTaken === 'skip' ? '見送り済み' :
-                 '監視中'}
+                {actionTaken === "order" ? "発注済み" :
+                 actionTaken === "skip" ? "見送り済み" :
+                 "監視中"}
               </span>
             </div>
           )}

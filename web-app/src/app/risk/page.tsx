@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   LineChart, 
   Line, 
@@ -19,8 +19,8 @@ import {
   Pie,
   Cell,
   Area,
-  AreaChart
-} from 'recharts';
+  AreaChart,
+} from "recharts";
 import { 
   Shield, 
   TrendingUp, 
@@ -31,8 +31,8 @@ import {
   Activity,
   AlertCircle,
   CheckCircle,
-  XCircle
-} from 'lucide-react';
+  XCircle,
+} from "lucide-react";
 
 // データ型定義
 interface PortfolioOverview {
@@ -143,14 +143,14 @@ export default function RiskDashboard() {
         metricsRes,
         performanceRes,
         alertsRes,
-        recommendationsRes
+        recommendationsRes,
       ] = await Promise.all([
-        fetch('/data/risk_portfolio_overview.json'),
-        fetch('/data/risk_positions.json'),
-        fetch('/data/risk_metrics_chart.json'),
-        fetch('/data/risk_position_performance.json'),
-        fetch('/data/risk_alerts.json'),
-        fetch('/data/risk_recommendations.json')
+        fetch("/data/risk_portfolio_overview.json"),
+        fetch("/data/risk_positions.json"),
+        fetch("/data/risk_metrics_chart.json"),
+        fetch("/data/risk_position_performance.json"),
+        fetch("/data/risk_alerts.json"),
+        fetch("/data/risk_recommendations.json"),
       ]);
 
       const overviewData = await overviewRes.json();
@@ -168,16 +168,16 @@ export default function RiskDashboard() {
       setRecommendations(recommendationsData);
       
     } catch (error) {
-      console.error('リスクデータの読み込みエラー:', error);
+      console.error("リスクデータの読み込みエラー:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('ja-JP', {
-      style: 'currency',
-      currency: 'JPY',
+    return new Intl.NumberFormat("ja-JP", {
+      style: "currency",
+      currency: "JPY",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(value);
@@ -189,13 +189,13 @@ export default function RiskDashboard() {
 
   const getRiskLevelIcon = (riskLevel: string) => {
     switch (riskLevel) {
-      case 'LOW':
+      case "LOW":
         return <CheckCircle className="h-4 w-4 text-green-500" />;
-      case 'MEDIUM':
+      case "MEDIUM":
         return <AlertCircle className="h-4 w-4 text-yellow-500" />;
-      case 'HIGH':
+      case "HIGH":
         return <AlertTriangle className="h-4 w-4 text-orange-500" />;
-      case 'CRITICAL':
+      case "CRITICAL":
         return <XCircle className="h-4 w-4 text-red-500" />;
       default:
         return <Activity className="h-4 w-4 text-gray-500" />;
@@ -204,14 +204,14 @@ export default function RiskDashboard() {
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'HIGH':
-        return 'bg-red-100 text-red-800 border-red-200';
-      case 'MEDIUM':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'LOW':
-        return 'bg-green-100 text-green-800 border-green-200';
+      case "HIGH":
+        return "bg-red-100 text-red-800 border-red-200";
+      case "MEDIUM":
+        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+      case "LOW":
+        return "bg-green-100 text-green-800 border-green-200";
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
 
@@ -334,7 +334,7 @@ export default function RiskDashboard() {
                       <AreaChart data={riskMetricsChart.dates.map((date, index) => ({
                         date,
                         risk_score: riskMetricsChart.risk_scores[index],
-                        portfolio_value: riskMetricsChart.portfolio_values[index]
+                        portfolio_value: riskMetricsChart.portfolio_values[index],
                       }))}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="date" />
@@ -375,7 +375,7 @@ export default function RiskDashboard() {
                         data={positions.map(pos => ({
                           name: pos.symbol,
                           value: pos.weight,
-                          color: pos.pnl_color
+                          color: pos.pnl_color,
                         }))}
                         cx="50%"
                         cy="50%"
@@ -468,7 +468,7 @@ export default function RiskDashboard() {
                   <CardContent>
                     {(() => {
                       const selectedPosData = positionPerformanceChart.positions.find(
-                        pos => pos.symbol === selectedPosition
+                        pos => pos.symbol === selectedPosition,
                       );
                       if (!selectedPosData) return null;
 
@@ -478,7 +478,7 @@ export default function RiskDashboard() {
                             date,
                             price: selectedPosData.prices[index],
                             stop_loss: selectedPosData.stop_loss_line[index],
-                            take_profit: selectedPosData.take_profit_line[index]
+                            take_profit: selectedPosData.take_profit_line[index],
                           }))}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="date" />
@@ -528,12 +528,12 @@ export default function RiskDashboard() {
                     <ResponsiveContainer width="100%" height={300}>
                       <AreaChart data={riskMetricsChart.dates.map((date, index) => ({
                         date,
-                        drawdown: riskMetricsChart.drawdowns[index] * 100
+                        drawdown: riskMetricsChart.drawdowns[index] * 100,
                       }))}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="date" />
                         <YAxis />
-                        <Tooltip formatter={(value) => [`${value}%`, 'ドローダウン']} />
+                        <Tooltip formatter={(value) => [`${value}%`, "ドローダウン"]} />
                         <Area
                           type="monotone"
                           dataKey="drawdown"
@@ -557,7 +557,7 @@ export default function RiskDashboard() {
                     <BarChart data={positions.map(pos => ({
                       symbol: pos.symbol,
                       risk_score: pos.risk_score,
-                      color: pos.risk_color
+                      color: pos.risk_color,
                     }))}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="symbol" />

@@ -17,7 +17,7 @@ interface AnalysisStep {
   description: string;
   icon: React.ReactNode;
   estimatedTime: string;
-  status: 'pending' | 'running' | 'completed' | 'error';
+  status: "pending" | "running" | "completed" | "error";
 }
 
 export default function AnalysisExecutionPanel({
@@ -25,44 +25,44 @@ export default function AnalysisExecutionPanel({
   onAnalysisComplete,
   onDataUpdateStart,
   onDataUpdateComplete,
-  className = ""
+  className = "",
 }: AnalysisExecutionPanelProps) {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [analysisSteps, setAnalysisSteps] = useState<AnalysisStep[]>([
     {
-      id: 'data_update',
-      name: 'データ更新',
-      description: '最新の株価データを取得します',
+      id: "data_update",
+      name: "データ更新",
+      description: "最新の株価データを取得します",
       icon: <Database className="h-5 w-5" />,
-      estimatedTime: '30秒',
-      status: 'pending'
+      estimatedTime: "30秒",
+      status: "pending",
     },
     {
-      id: 'feature_engineering',
-      name: '特徴量エンジニアリング',
-      description: '技術指標を計算します',
+      id: "feature_engineering",
+      name: "特徴量エンジニアリング",
+      description: "技術指標を計算します",
       icon: <BarChart3 className="h-5 w-5" />,
-      estimatedTime: '1分',
-      status: 'pending'
+      estimatedTime: "1分",
+      status: "pending",
     },
     {
-      id: 'model_training',
-      name: 'モデル学習',
-      description: 'AIモデルを学習させます',
+      id: "model_training",
+      name: "モデル学習",
+      description: "AIモデルを学習させます",
       icon: <Target className="h-5 w-5" />,
-      estimatedTime: '2分',
-      status: 'pending'
+      estimatedTime: "2分",
+      status: "pending",
     },
     {
-      id: 'prediction',
-      name: '予測実行',
-      description: '株価予測を実行します',
+      id: "prediction",
+      name: "予測実行",
+      description: "株価予測を実行します",
       icon: <Play className="h-5 w-5" />,
-      estimatedTime: '30秒',
-      status: 'pending'
-    }
+      estimatedTime: "30秒",
+      status: "pending",
+    },
   ]);
 
   const [overallProgress, setOverallProgress] = useState(0);
@@ -83,7 +83,7 @@ export default function AnalysisExecutionPanel({
         setCurrentStep(i);
         setAnalysisSteps(prev => prev.map((step, index) => ({
           ...step,
-          status: index === i ? 'running' : index < i ? 'completed' : 'pending'
+          status: index === i ? "running" : index < i ? "completed" : "pending",
         })));
 
         // ステップの実行時間をシミュレート
@@ -94,12 +94,12 @@ export default function AnalysisExecutionPanel({
       }
 
       // 完了
-      setAnalysisSteps(prev => prev.map(step => ({ ...step, status: 'completed' })));
-      onAnalysisComplete?.({ success: true, message: '分析が完了しました' });
+      setAnalysisSteps(prev => prev.map(step => ({ ...step, status: "completed" })));
+      onAnalysisComplete?.({ success: true, message: "分析が完了しました" });
 
     } catch (error) {
-      console.error('分析実行エラー:', error);
-      setAnalysisSteps(prev => prev.map(step => ({ ...step, status: 'error' })));
+      console.error("分析実行エラー:", error);
+      setAnalysisSteps(prev => prev.map(step => ({ ...step, status: "error" })));
     } finally {
       setIsAnalyzing(false);
     }
@@ -115,9 +115,9 @@ export default function AnalysisExecutionPanel({
     try {
       // データ更新のシミュレーション
       await new Promise(resolve => setTimeout(resolve, 3000));
-      onDataUpdateComplete?.({ success: true, message: 'データ更新が完了しました' });
+      onDataUpdateComplete?.({ success: true, message: "データ更新が完了しました" });
     } catch (error) {
-      console.error('データ更新エラー:', error);
+      console.error("データ更新エラー:", error);
     } finally {
       setIsUpdating(false);
     }
@@ -132,10 +132,10 @@ export default function AnalysisExecutionPanel({
 
     const totalTime = analysisSteps.reduce((sum, step) => {
       const timeMap: Record<string, number> = {
-        'data_update': 2,
-        'feature_engineering': 3,
-        'model_training': 5,
-        'prediction': 2
+        "data_update": 2,
+        "feature_engineering": 3,
+        "model_training": 5,
+        "prediction": 2,
       };
       return sum + (timeMap[step.id] || 1);
     }, 0);
@@ -147,11 +147,11 @@ export default function AnalysisExecutionPanel({
 
   const getStepIcon = (step: AnalysisStep) => {
     switch (step.status) {
-      case 'completed':
+      case "completed":
         return <CheckCircle className="h-5 w-5 text-green-500" />;
-      case 'running':
+      case "running":
         return <RefreshCw className="h-5 w-5 text-blue-500 animate-spin" />;
-      case 'error':
+      case "error":
         return <AlertTriangle className="h-5 w-5 text-red-500" />;
       default:
         return step.icon;
@@ -160,14 +160,14 @@ export default function AnalysisExecutionPanel({
 
   const getStepStatusColor = (step: AnalysisStep) => {
     switch (step.status) {
-      case 'completed':
-        return 'text-green-600 bg-green-50 border-green-200';
-      case 'running':
-        return 'text-blue-600 bg-blue-50 border-blue-200';
-      case 'error':
-        return 'text-red-600 bg-red-50 border-red-200';
+      case "completed":
+        return "text-green-600 bg-green-50 border-green-200";
+      case "running":
+        return "text-blue-600 bg-blue-50 border-blue-200";
+      case "error":
+        return "text-red-600 bg-red-50 border-red-200";
       default:
-        return 'text-gray-600 bg-gray-50 border-gray-200';
+        return "text-gray-600 bg-gray-50 border-gray-200";
     }
   };
 
@@ -207,7 +207,7 @@ export default function AnalysisExecutionPanel({
               </div>
               <div className="text-right">
                 <div className="text-sm font-medium">{step.estimatedTime}</div>
-                {step.status === 'running' && (
+                {step.status === "running" && (
                   <div className="text-xs text-blue-600">実行中...</div>
                 )}
               </div>

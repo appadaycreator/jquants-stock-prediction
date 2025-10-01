@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   const navigation = [
-    { name: 'ホーム', href: '/', icon: '🏠' },
-    { name: '今日の指示', href: '/today', icon: '📅' },
-    { name: 'レポート', href: '/reports', icon: '📊' },
-    { name: '設定', href: '/settings', icon: '⚙️' },
-    { name: 'ヘルプ', href: '/usage', icon: '❓' },
+    { name: "ホーム", href: "/", icon: "🏠" },
+    { name: "今日の指示", href: "/today", icon: "📅" },
+    { name: "レポート", href: "/reports", icon: "📊" },
+    { name: "設定", href: "/settings", icon: "⚙️" },
+    { name: "ヘルプ", href: "/usage", icon: "❓" },
   ];
 
   const additionalFeatures = [
-    { name: '個人投資', href: '/personal-investment', icon: '💼' },
-    { name: 'レポート', href: '/reports', icon: '📈' },
-    { name: '分析状況', href: '/analysis-progress', icon: '🔄' },
+    { name: "個人投資", href: "/personal-investment", icon: "💼" },
+    { name: "レポート", href: "/reports", icon: "📈" },
+    { name: "分析状況", href: "/analysis-progress", icon: "🔄" },
   ];
 
   return (
@@ -36,8 +36,8 @@ export default function Sidebar() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
                   isActive
-                    ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                    : 'text-gray-700 hover:bg-gray-50'
+                    ? "bg-blue-50 text-blue-700 border border-blue-200"
+                    : "text-gray-700 hover:bg-gray-50"
                 }`}
               >
                 <span className="text-lg">{item.icon}</span>
@@ -55,7 +55,7 @@ export default function Sidebar() {
                 key={item.name}
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors ${
-                  isActive ? 'bg-gray-50' : ''
+                  isActive ? "bg-gray-50" : ""
                 }`}
               >
                 <span className="text-lg">{item.icon}</span>

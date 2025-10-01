@@ -158,7 +158,7 @@ function DashboardContent() {
   const [isClient, setIsClient] = useState(false);
   
   // パフォーマンス監視
-  usePerformanceMonitor('DashboardContent');
+  usePerformanceMonitor("DashboardContent");
 
   const openSide = (title: string, content: React.ReactNode) => {
     setSidePanelTitle(title);
@@ -172,20 +172,20 @@ function DashboardContent() {
   const [showMobileFirst, setShowMobileFirst] = useState(false);
   const [showUserGuide, setShowUserGuide] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [selectedCode, setSelectedCode] = useState<string>('7203.T');
-  const [range, setRange] = useState<'5y' | '1y' | '3m' | '1m'>('1y');
+  const [selectedCode, setSelectedCode] = useState<string>("7203.T");
+  const [range, setRange] = useState<"5y" | "1y" | "3m" | "1m">("1y");
   const [primaryStock, setPrimaryStock] = useState<any[]>([]);
   const [lastUpdateTime, setLastUpdateTime] = useState<string | null>(null);
-  const [modelHealth, setModelHealth] = useState<{ status: 'ok' | 'warning' | 'stop'; reasons?: string[] } | null>(null);
+  const [modelHealth, setModelHealth] = useState<{ status: "ok" | "warning" | "stop"; reasons?: string[] } | null>(null);
   const [cacheMeta, setCacheMeta] = useState<Record<string, { exists: boolean; timestamp: number | null; ageMs: number | null }>>({});
-  const [selectedPeriod, setSelectedPeriod] = useState('1m');
+  const [selectedPeriod, setSelectedPeriod] = useState("1m");
   const [watchlists, setWatchlists] = useState<any[]>([]);
   const [jquantsAdapter, setJquantsAdapter] = useState<JQuantsAdapter | null>(null);
   const [showJQuantsSetup, setShowJQuantsSetup] = useState(false);
   // UI/チャート制御
   const [overviewExpanded, setOverviewExpanded] = useState({ chart: true, models: false, predictions: false });
-  const [chartMetric, setChartMetric] = useState<'close' | 'sma_5' | 'sma_25' | 'sma_50' | 'volume'>('close');
-  const [chartRange, setChartRange] = useState<'7' | '30' | '90' | 'all'>('30');
+  const [chartMetric, setChartMetric] = useState<"close" | "sma_5" | "sma_25" | "sma_50" | "volume">("close");
+  const [chartRange, setChartRange] = useState<"7" | "30" | "90" | "all">("30");
   // 5分ルーティン
   const routine = useFiveMinRoutine();
   
@@ -199,12 +199,12 @@ function DashboardContent() {
     message: string;
     progress?: number;
     estimatedTime?: number;
-    type?: 'loading' | 'success' | 'error';
-    steps?: Array<{ name: string; status: 'pending' | 'running' | 'completed' | 'error'; description?: string; }>;
+    type?: "loading" | "success" | "error";
+    steps?: Array<{ name: string; status: "pending" | "running" | "completed" | "error"; description?: string; }>;
   }>({
     isVisible: false,
-    title: '',
-    message: ''
+    title: "",
+    message: "",
   });
 
   // ガイド機能の状態
@@ -219,9 +219,9 @@ function DashboardContent() {
     isAnalyzing: settingsAnalyzing, 
     analysisProgress: settingsProgress, 
     analysisStatus: settingsStatus,
-    getAnalysisDescription 
+    getAnalysisDescription, 
   } = useAnalysisWithSettings();
-  const [refreshStatus, setRefreshStatus] = useState<string>('');
+  const [refreshStatus, setRefreshStatus] = useState<string>("");
 
   // ガイド機能のハンドラー
   const handleChecklistItemComplete = (itemId: string) => {
@@ -229,8 +229,8 @@ function DashboardContent() {
       prev.map((item: ChecklistItem) => 
         item.id === itemId 
           ? { ...item, completed: true }
-          : item
-      )
+          : item,
+      ),
     );
     guideStore.addChecklistItem(itemId);
   };
@@ -240,8 +240,8 @@ function DashboardContent() {
       prev.map((item: ChecklistItem) => 
         item.id === itemId 
           ? { ...item, completed: false }
-          : item
-      )
+          : item,
+      ),
     );
     guideStore.removeChecklistItem(itemId);
   };
@@ -257,27 +257,27 @@ function DashboardContent() {
     () => setShowGlossary(true),
     () => {
       // ツアー開始の処理はTourProvider内で行う
-      console.log('ツアー開始');
+      console.log("ツアー開始");
     },
     () => {
       // 次のステップの処理はTourProvider内で行う
-      console.log('次のステップ');
+      console.log("次のステップ");
     },
     () => {
       // 前のステップの処理はTourProvider内で行う
-      console.log('前のステップ');
+      console.log("前のステップ");
     },
     () => {
       // ツアースキップの処理はTourProvider内で行う
-      console.log('ツアースキップ');
-    }
+      console.log("ツアースキップ");
+    },
   );
 
   // 日時文字列を正規化する関数
   const normalizeDateString = (dateStr: string | undefined): string => {
     try {
-      if (!dateStr || dateStr === 'undefined' || dateStr === 'null') {
-        return '2024-01-01'; // デフォルト日付
+      if (!dateStr || dateStr === "undefined" || dateStr === "null") {
+        return "2024-01-01"; // デフォルト日付
       }
       
       // 既にYYYY-MM-DD形式の場合はそのまま返す
@@ -287,20 +287,20 @@ function DashboardContent() {
       
       // YYYYMMDD形式をYYYY-MM-DD形式に変換
       if (/^\d{8}$/.test(dateStr)) {
-        return dateStr.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+        return dateStr.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
       }
       
       // その他の形式の場合はDateオブジェクトで解析
       const date = new Date(dateStr);
       if (isNaN(date.getTime())) {
-        console.error('Invalid date format:', dateStr);
-        return '2024-01-01'; // デフォルト日付
+        console.error("Invalid date format:", dateStr);
+        return "2024-01-01"; // デフォルト日付
       }
       
-      return date.toISOString().split('T')[0];
+      return date.toISOString().split("T")[0];
     } catch (error) {
-      console.error('Date normalization error:', error, 'Input:', dateStr);
-      return '2024-01-01'; // デフォルト日付
+      console.error("Date normalization error:", error, "Input:", dateStr);
+      return "2024-01-01"; // デフォルト日付
     }
   };
 
@@ -312,73 +312,73 @@ function DashboardContent() {
     setupGlobalErrorHandling();
     
     // パフォーマンス監視の初期化
-    console.log('🚀 パフォーマンス監視を開始しました');
+    console.log("🚀 パフォーマンス監視を開始しました");
     const metrics = performanceMonitor.getMetrics();
-    console.log('初期メトリクス:', metrics);
+    console.log("初期メトリクス:", metrics);
     
     // カスタムエラーハンドリング
     const handleError = (event: ErrorEvent) => {
-      console.error('Global error caught:', event.error);
+      console.error("Global error caught:", event.error);
       const errorInfo = getErrorInfo(event.error);
       logError(event.error);
       
       // 詳細なエラーログを記録
       errorLogger.logError(event.error, {
-        component: 'Dashboard',
-        action: 'GlobalError',
-        state: { isClient, loading, activeTab }
+        component: "Dashboard",
+        action: "GlobalError",
+        state: { isClient, loading, activeTab },
       });
       
       // 重大なエラーの場合は状態を更新
-      if (errorInfo.severity === 'critical' || errorInfo.severity === 'high') {
+      if (errorInfo.severity === "critical" || errorInfo.severity === "high") {
         setError(event.error);
       }
     };
     
     const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-      console.error('Unhandled promise rejection:', event.reason);
+      console.error("Unhandled promise rejection:", event.reason);
       const rejectionError = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
       const errorInfo = getErrorInfo(rejectionError);
       logError(rejectionError);
       
       // 詳細なエラーログを記録
       errorLogger.logError(rejectionError, {
-        component: 'Dashboard',
-        action: 'UnhandledRejection',
-        state: { isClient, loading, activeTab }
+        component: "Dashboard",
+        action: "UnhandledRejection",
+        state: { isClient, loading, activeTab },
       });
       
-      if (errorInfo.severity === 'critical' || errorInfo.severity === 'high') {
+      if (errorInfo.severity === "critical" || errorInfo.severity === "high") {
         setError(rejectionError);
       }
     };
     
-    window.addEventListener('error', handleError);
-    window.addEventListener('unhandledrejection', handleUnhandledRejection);
+    window.addEventListener("error", handleError);
+    window.addEventListener("unhandledrejection", handleUnhandledRejection);
     
     // データ読み込み
     loadData().catch((err) => {
-      console.error('Initial data load failed:', err);
+      console.error("Initial data load failed:", err);
       const errorInfo = getErrorInfo(err);
       logError(err);
       
-      if (errorInfo.severity === 'critical' || errorInfo.severity === 'high') {
+      if (errorInfo.severity === "critical" || errorInfo.severity === "high") {
         setError(err);
       }
     });
     
     // 健全性取得
-    fetch('/api/model-health', { cache: 'no-cache' })
+    fetch("/api/model-health", { cache: "no-cache" })
       .then(r => r.json())
       .then(setModelHealth)
-      .catch(() => setModelHealth({ status: 'ok' }));
+      .catch(() => setModelHealth({ status: "ok" }));
     
     // ガイド再表示ロジック
     try {
-      const tourCompleted = localStorage.getItem('guide_tour_completed') === 'true';
-      const guideDisabled = localStorage.getItem('guide_disabled') === 'true';
-      const closedThisSession = sessionStorage.getItem('userGuideClosedThisSession') === 'true';
-      const firstTimeTutorialCompleted = localStorage.getItem('first_time_tutorial_completed') === 'true';
+      const tourCompleted = localStorage.getItem("guide_tour_completed") === "true";
+      const guideDisabled = localStorage.getItem("guide_disabled") === "true";
+      const closedThisSession = sessionStorage.getItem("userGuideClosedThisSession") === "true";
+      const firstTimeTutorialCompleted = localStorage.getItem("first_time_tutorial_completed") === "true";
 
       if (!tourCompleted && !guideDisabled && !closedThisSession) {
         setShowUserGuide(true);
@@ -389,7 +389,7 @@ function DashboardContent() {
         setShowFirstTimeTutorial(true);
       }
     } catch (e) {
-      console.warn('Storage access failed:', e);
+      console.warn("Storage access failed:", e);
       setShowUserGuide(true);
       setShowFirstTimeTutorial(true);
     }
@@ -397,21 +397,21 @@ function DashboardContent() {
     // 初期キャッシュメタ情報の収集
     try {
       setCacheMeta({
-        summary: getCacheMeta('dash:summary'),
-        stock: getCacheMeta('dash:stock'),
-        model: getCacheMeta('dash:model'),
-        feature: getCacheMeta('dash:feature'),
-        pred: getCacheMeta('dash:pred'),
-        marketInsights: getCacheMeta('dash:marketInsights'),
-        riskAssessment: getCacheMeta('dash:riskAssessment'),
+        summary: getCacheMeta("dash:summary"),
+        stock: getCacheMeta("dash:stock"),
+        model: getCacheMeta("dash:model"),
+        feature: getCacheMeta("dash:feature"),
+        pred: getCacheMeta("dash:pred"),
+        marketInsights: getCacheMeta("dash:marketInsights"),
+        riskAssessment: getCacheMeta("dash:riskAssessment"),
       });
     } catch (e) {
-      console.warn('Cache meta collection failed:', e);
+      console.warn("Cache meta collection failed:", e);
     }
     
     return () => {
-      window.removeEventListener('error', handleError);
-      window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+      window.removeEventListener("error", handleError);
+      window.removeEventListener("unhandledrejection", handleUnhandledRejection);
     };
   }, []);
 
@@ -425,15 +425,15 @@ function DashboardContent() {
     };
     
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const loadData = async (isRefresh = false) => {
     try {
       if (isRefresh) {
         setIsRefreshing(true);
-        setRefreshStatus('データを更新しています...');
+        setRefreshStatus("データを更新しています...");
       } else {
         setLoading(true);
       }
@@ -463,13 +463,13 @@ function DashboardContent() {
       };
       
       // ベースパス解決（fetcher側）が効くように先頭スラッシュで固定
-      const dataPath = '/data';
+      const dataPath = "/data";
       
-      console.log('データパス:', dataPath);
-      console.log('環境:', process.env.NODE_ENV);
+      console.log("データパス:", dataPath);
+      console.log("環境:", process.env.NODE_ENV);
       
       // キャッシュ対応の安全取得（失敗時はキャッシュから復旧）
-      const { fetchManyWithCache } = await import('@/lib/fetcher');
+      const { fetchManyWithCache } = await import("@/lib/fetcher");
       
       let results, cacheFlags;
       try {
@@ -482,36 +482,36 @@ function DashboardContent() {
           marketInsights: any;
           riskAssessment: any;
         }>({
-          summary: { url: `${dataPath}/dashboard_summary.json`, cacheKey: 'dash:summary', ttlMs: 1000 * 60 * 30 },
-          stock: { url: `${dataPath}/stock_data.json`, cacheKey: 'dash:stock', ttlMs: 1000 * 60 * 30 },
-          model: { url: `${dataPath}/unified_model_comparison.json`, cacheKey: 'dash:model', ttlMs: 1000 * 60 * 30 },
-          feature: { url: `${dataPath}/feature_analysis.json`, cacheKey: 'dash:feature', ttlMs: 1000 * 60 * 30 },
-          pred: { url: `${dataPath}/prediction_results.json`, cacheKey: 'dash:pred', ttlMs: 1000 * 60 * 30 },
-          marketInsights: { url: `${dataPath}/market_insights.json`, cacheKey: 'dash:marketInsights', ttlMs: 1000 * 60 * 30 },
-          riskAssessment: { url: `${dataPath}/risk_assessment.json`, cacheKey: 'dash:riskAssessment', ttlMs: 1000 * 60 * 30 },
+          summary: { url: `${dataPath}/dashboard_summary.json`, cacheKey: "dash:summary", ttlMs: 1000 * 60 * 30 },
+          stock: { url: `${dataPath}/stock_data.json`, cacheKey: "dash:stock", ttlMs: 1000 * 60 * 30 },
+          model: { url: `${dataPath}/unified_model_comparison.json`, cacheKey: "dash:model", ttlMs: 1000 * 60 * 30 },
+          feature: { url: `${dataPath}/feature_analysis.json`, cacheKey: "dash:feature", ttlMs: 1000 * 60 * 30 },
+          pred: { url: `${dataPath}/prediction_results.json`, cacheKey: "dash:pred", ttlMs: 1000 * 60 * 30 },
+          marketInsights: { url: `${dataPath}/market_insights.json`, cacheKey: "dash:marketInsights", ttlMs: 1000 * 60 * 30 },
+          riskAssessment: { url: `${dataPath}/risk_assessment.json`, cacheKey: "dash:riskAssessment", ttlMs: 1000 * 60 * 30 },
         }, { retries: 2, retryDelay: 800 });
         
         results = fetchResult.results;
         cacheFlags = fetchResult.cacheFlags;
       } catch (fetchError) {
-        console.warn('データ取得に失敗、デフォルト値を設定:', fetchError);
+        console.warn("データ取得に失敗、デフォルト値を設定:", fetchError);
         
         // デフォルトデータを設定
         results = {
           summary: {
             total_data_points: 0,
-            prediction_period: '-',
-            best_model: '-',
-            mae: '0',
-            r2: '0',
-            last_updated: new Date().toISOString()
+            prediction_period: "-",
+            best_model: "-",
+            mae: "0",
+            r2: "0",
+            last_updated: new Date().toISOString(),
           },
           stock: [],
           model: [],
           feature: [],
           pred: [],
           marketInsights: {},
-          riskAssessment: {}
+          riskAssessment: {},
         };
         cacheFlags = {
           summary: true,
@@ -520,7 +520,7 @@ function DashboardContent() {
           feature: true,
           pred: true,
           marketInsights: true,
-          riskAssessment: true
+          riskAssessment: true,
         };
       }
 
@@ -534,7 +534,7 @@ function DashboardContent() {
 
       // 一部でもキャッシュ復旧が発生した場合は警告を表示
       if (Object.values(cacheFlags).some(Boolean)) {
-        console.warn('最新の一部データ取得に失敗したため、キャッシュから復旧しました。');
+        console.warn("最新の一部データ取得に失敗したため、キャッシュから復旧しました。");
         // エラー状態は設定しない（ユーザー体験を優先）
       }
 
@@ -544,7 +544,7 @@ function DashboardContent() {
       
       // 主要チャートデータを公開JSONから取得し、クライアント側で指標を付与
       try {
-        const normalizedCode = selectedCode.replace(/\..*$/, '');
+        const normalizedCode = selectedCode.replace(/\..*$/, "");
         const raw = (stockDataRes || []).filter((r: any) => r && (r.code === selectedCode || r.code === normalizedCode));
         if (raw.length > 0) {
           const enriched = enrichWithIndicators(raw, { todayFinalOnly: true });
@@ -554,27 +554,27 @@ function DashboardContent() {
           setPrimaryStock([]);
         }
       } catch (e) {
-        console.warn('client-side indicators failed', e);
+        console.warn("client-side indicators failed", e);
         setPrimaryStock([]);
       }
       const now = new Date();
-      setLastUpdateTime(now.toLocaleString('ja-JP'));
+      setLastUpdateTime(now.toLocaleString("ja-JP"));
       try {
         setCacheMeta({
-          summary: getCacheMeta('dash:summary'),
-          stock: getCacheMeta('dash:stock'),
-          model: getCacheMeta('dash:model'),
-          feature: getCacheMeta('dash:feature'),
-          pred: getCacheMeta('dash:pred'),
-          marketInsights: getCacheMeta('dash:marketInsights'),
-          riskAssessment: getCacheMeta('dash:riskAssessment'),
+          summary: getCacheMeta("dash:summary"),
+          stock: getCacheMeta("dash:stock"),
+          model: getCacheMeta("dash:model"),
+          feature: getCacheMeta("dash:feature"),
+          pred: getCacheMeta("dash:pred"),
+          marketInsights: getCacheMeta("dash:marketInsights"),
+          riskAssessment: getCacheMeta("dash:riskAssessment"),
         });
       } catch {}
       
       // 日時データを正規化してから設定
       const normalizedStockData = stockDataRes.slice(0, 100).map((item: StockData) => ({
         ...item,
-        date: normalizeDateString(item.date || undefined)
+        date: normalizeDateString(item.date || undefined),
       }));
       setStockData(normalizedStockData);
       
@@ -586,7 +586,7 @@ function DashboardContent() {
         mse: model.rmse * model.rmse, // MSEを計算
         rmse: model.rmse,
         r2: model.r2,
-        rank: model.rank
+        rank: model.rank,
       }));
       setModelComparison(transformedModelData);
       
@@ -599,7 +599,7 @@ function DashboardContent() {
           { feature: "RSI", importance: 0.15, percentage: 15 },
           { feature: "移動平均", importance: 0.12, percentage: 12 },
           { feature: "ボリンジャーバンド", importance: 0.08, percentage: 8 },
-          { feature: "MACD", importance: 0.05, percentage: 5 }
+          { feature: "MACD", importance: 0.05, percentage: 5 },
         ];
       }
       setFeatureAnalysis(featureData);
@@ -611,11 +611,11 @@ function DashboardContent() {
       // エラー時もデフォルトデータを設定してユーザー体験を維持
       setSummary({
         total_data_points: 0,
-        prediction_period: '-',
-        best_model: '-',
-        mae: '0',
-        r2: '0',
-        last_updated: new Date().toISOString()
+        prediction_period: "-",
+        best_model: "-",
+        mae: "0",
+        r2: "0",
+        last_updated: new Date().toISOString(),
       });
       setStockData([]);
       setModelComparison([]);
@@ -625,7 +625,7 @@ function DashboardContent() {
       setRiskAssessment({});
       
       // エラーは警告として表示（ページは表示される）
-      console.warn('データ読み込みに失敗しましたが、デフォルト表示を継続します。');
+      console.warn("データ読み込みに失敗しましたが、デフォルト表示を継続します。");
       
       // RSC payloadエラーの場合、自動的にリトライ
       if (error instanceof Error && (
@@ -642,21 +642,21 @@ function DashboardContent() {
       setLoading(false);
       if (isRefresh) {
         setIsRefreshing(false);
-        setRefreshStatus('更新完了');
+        setRefreshStatus("更新完了");
         try {
           const notifier = NotificationService.getInstance();
           await notifier.initializePushNotifications();
           await notifier.notifyAnalysisComplete({
-            title: 'データ更新完了',
-            message: '最新のダッシュボードデータに更新されました',
-            timestamp: new Date().toISOString()
+            title: "データ更新完了",
+            message: "最新のダッシュボードデータに更新されました",
+            timestamp: new Date().toISOString(),
           } as any);
         } catch (e) {
-          console.debug('ローカル通知は無効（静的サイト/権限未許可など）');
+          console.debug("ローカル通知は無効（静的サイト/権限未許可など）");
         }
         // 3秒後にステータスをクリア
         setTimeout(() => {
-          setRefreshStatus('');
+          setRefreshStatus("");
         }, 3000);
       }
     }
@@ -667,8 +667,8 @@ function DashboardContent() {
       // 設定連携版の分析実行
       const result = await runAnalysisWithSettings({
         symbols,
-        analysisType: 'comprehensive',
-        useSettings: true
+        analysisType: "comprehensive",
+        useSettings: true,
       });
 
       if (result.success) {
@@ -756,7 +756,7 @@ function DashboardContent() {
           loadData();
         }}
         onDismiss={() => setError(null)}
-        showDetails={process.env.NODE_ENV === 'development'}
+        showDetails={process.env.NODE_ENV === "development"}
         autoRetry={true}
         maxRetries={3}
       />
@@ -776,11 +776,11 @@ function DashboardContent() {
 
   const RangeSelector = () => (
     <div className="flex gap-2 items-center">
-      {(['5y','1y','3m','1m'] as const).map(r => (
+      {(["5y","1y","3m","1m"] as const).map(r => (
         <button
           key={r}
           onClick={() => { setRange(r); loadData(true); }}
-          className={`px-3 py-1 rounded ${range === r ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}
+          className={`px-3 py-1 rounded ${range === r ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700"}`}
         >
           {r}
         </button>
@@ -794,18 +794,18 @@ function DashboardContent() {
       const dt = parseToJst(dateStr);
       
       if (!dt.isValid) {
-        console.error('Invalid date format:', dateStr);
-        return '2024-01-01'; // デフォルト日付を返す
+        console.error("Invalid date format:", dateStr);
+        return "2024-01-01"; // デフォルト日付を返す
       }
       
       return dt.toLocaleString({
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
       });
     } catch (error) {
-      console.error('Date formatting error:', error, 'Input:', dateStr);
-      return '2024-01-01'; // デフォルト日付を返す
+      console.error("Date formatting error:", error, "Input:", dateStr);
+      return "2024-01-01"; // デフォルト日付を返す
     }
   };
 
@@ -844,7 +844,7 @@ function DashboardContent() {
 
   const chartFiltered = (() => {
     let data = safeStockData;
-    if (chartRange !== 'all') {
+    if (chartRange !== "all") {
       const n = parseInt(chartRange, 10);
       data = data.slice(Math.max(0, data.length - n));
     }
@@ -853,11 +853,11 @@ function DashboardContent() {
 
   const getMetricValue = (d: any): number | undefined => {
     switch (chartMetric) {
-      case 'close': return d.close;
-      case 'sma_5': return d.sma_5;
-      case 'sma_25': return d.sma_25;
-      case 'sma_50': return d.sma_50;
-      case 'volume': return (d.volume ?? 0) / 1000000;
+      case "close": return d.close;
+      case "sma_5": return d.sma_5;
+      case "sma_25": return d.sma_25;
+      case "sma_50": return d.sma_50;
+      case "volume": return (d.volume ?? 0) / 1000000;
       default: return undefined;
     }
   };
@@ -898,17 +898,17 @@ function DashboardContent() {
                   </span>
                 )}
               </div>
-              <span className="text-xs px-2 py-0.5 rounded bg-gray-100 text-gray-700" title={`summary:${cacheMeta.summary?.timestamp ? new Date(cacheMeta.summary.timestamp).toLocaleString('ja-JP') : 'N/A'}\nstock:${cacheMeta.stock?.timestamp ? new Date(cacheMeta.stock.timestamp).toLocaleString('ja-JP') : 'N/A'}\nmodel:${cacheMeta.model?.timestamp ? new Date(cacheMeta.model.timestamp).toLocaleString('ja-JP') : 'N/A'}\nfeature:${cacheMeta.feature?.timestamp ? new Date(cacheMeta.feature.timestamp).toLocaleString('ja-JP') : 'N/A'}\npred:${cacheMeta.pred?.timestamp ? new Date(cacheMeta.pred.timestamp).toLocaleString('ja-JP') : 'N/A'}\nmarket:${cacheMeta.marketInsights?.timestamp ? new Date(cacheMeta.marketInsights.timestamp).toLocaleString('ja-JP') : 'N/A'}\nrisk:${cacheMeta.riskAssessment?.timestamp ? new Date(cacheMeta.riskAssessment.timestamp).toLocaleString('ja-JP') : 'N/A'}`}>
-                {Object.values(cacheMeta).some(m => m?.exists) ? 'キャッシュ使用中' : 'キャッシュなし'}
+              <span className="text-xs px-2 py-0.5 rounded bg-gray-100 text-gray-700" title={`summary:${cacheMeta.summary?.timestamp ? new Date(cacheMeta.summary.timestamp).toLocaleString("ja-JP") : "N/A"}\nstock:${cacheMeta.stock?.timestamp ? new Date(cacheMeta.stock.timestamp).toLocaleString("ja-JP") : "N/A"}\nmodel:${cacheMeta.model?.timestamp ? new Date(cacheMeta.model.timestamp).toLocaleString("ja-JP") : "N/A"}\nfeature:${cacheMeta.feature?.timestamp ? new Date(cacheMeta.feature.timestamp).toLocaleString("ja-JP") : "N/A"}\npred:${cacheMeta.pred?.timestamp ? new Date(cacheMeta.pred.timestamp).toLocaleString("ja-JP") : "N/A"}\nmarket:${cacheMeta.marketInsights?.timestamp ? new Date(cacheMeta.marketInsights.timestamp).toLocaleString("ja-JP") : "N/A"}\nrisk:${cacheMeta.riskAssessment?.timestamp ? new Date(cacheMeta.riskAssessment.timestamp).toLocaleString("ja-JP") : "N/A"}`}>
+                {Object.values(cacheMeta).some(m => m?.exists) ? "キャッシュ使用中" : "キャッシュなし"}
               </span>
               {/* 本日のモデル健全性バッジ */}
               {modelHealth && (
                 <div className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  modelHealth.status === 'ok' ? 'bg-green-100 text-green-800' :
-                  modelHealth.status === 'warning' ? 'bg-yellow-100 text-yellow-800' :
-                  'bg-red-100 text-red-800'
-                }`} title={(modelHealth.reasons||[]).join('\n')}>
-                  本日のモデル健全性: {modelHealth.status === 'ok' ? 'OK' : modelHealth.status === 'warning' ? '警告' : '停止'}
+                  modelHealth.status === "ok" ? "bg-green-100 text-green-800" :
+                  modelHealth.status === "warning" ? "bg-yellow-100 text-yellow-800" :
+                  "bg-red-100 text-red-800"
+                }`} title={(modelHealth.reasons||[]).join("\n")}>
+                  本日のモデル健全性: {modelHealth.status === "ok" ? "OK" : modelHealth.status === "warning" ? "警告" : "停止"}
                 </div>
               )}
                 <NextUpdateIndicator />
@@ -929,12 +929,12 @@ function DashboardContent() {
                     disabled={isAnalyzing}
                     className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
                       isAnalyzing 
-                        ? 'bg-gray-400 cursor-not-allowed' 
-                        : 'bg-purple-600 hover:bg-purple-700'
+                        ? "bg-gray-400 cursor-not-allowed" 
+                        : "bg-purple-600 hover:bg-purple-700"
                     } text-white`}
                   >
-                    <Play className={`h-4 w-4 mr-2 ${isAnalyzing ? 'animate-pulse' : ''}`} />
-                    {isAnalyzing ? '分析中...' : '全体分析'}
+                    <Play className={`h-4 w-4 mr-2 ${isAnalyzing ? "animate-pulse" : ""}`} />
+                    {isAnalyzing ? "分析中..." : "全体分析"}
                   </button>
                 </ButtonTooltip>
                 
@@ -965,12 +965,12 @@ function DashboardContent() {
                     disabled={isRefreshing}
                     className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
                       isRefreshing 
-                        ? 'bg-gray-400 cursor-not-allowed' 
-                        : 'bg-green-600 hover:bg-green-700'
+                        ? "bg-gray-400 cursor-not-allowed" 
+                        : "bg-green-600 hover:bg-green-700"
                     } text-white`}
                   >
-                    <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-                    {isRefreshing ? '更新中...' : '再取得'}
+                    <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`} />
+                    {isRefreshing ? "更新中..." : "再取得"}
                   </button>
                 </ButtonTooltip>
 
@@ -1031,11 +1031,11 @@ function DashboardContent() {
       ) : showMobileOptimized ? (
         <MobileOptimizedDashboard 
           onAnalysisComplete={(result) => {
-            console.log('分析完了:', result);
+            console.log("分析完了:", result);
             loadData();
           }}
           onAnalysisStart={() => {
-            console.log('分析開始');
+            console.log("分析開始");
           }}
         />
       ) : (
@@ -1081,9 +1081,9 @@ function DashboardContent() {
           <div className="lg:col-span-8 space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
               {/* 今日のルーティン */}
-              <button onClick={() => openSide('今日のルーティン', (
+              <button onClick={() => openSide("今日のルーティン", (
                 <div className="space-y-3 text-sm">
-                  <div className="text-gray-700">最終更新: {routine.lastUpdated || 'N/A'}（{routine.freshnessLabel}）</div>
+                  <div className="text-gray-700">最終更新: {routine.lastUpdated || "N/A"}（{routine.freshnessLabel}）</div>
                   <div className="space-y-2">
                     <div className="font-medium text-gray-900">上位候補</div>
                     <ul className="list-disc pl-4">
@@ -1099,17 +1099,17 @@ function DashboardContent() {
                   <div className="ml-3">
                     <p className="text-xs font-medium text-gray-500">今日のルーティン</p>
                     <p className="text-xl font-semibold text-gray-900">{routine.freshnessLabel}</p>
-                    <p className="text-xs text-gray-500 mt-1">最終更新: {routine.lastUpdated || '-'}</p>
+                    <p className="text-xs text-gray-500 mt-1">最終更新: {routine.lastUpdated || "-"}</p>
                   </div>
                 </div>
               </button>
               {/* 重要アラート */}
-              <button onClick={() => openSide('重要アラート', (
+              <button onClick={() => openSide("重要アラート", (
                 <div className="space-y-2 text-sm">
                   {(routine.summary?.warnings || []).length > 0 ? (
                     <ul className="list-disc pl-4">
                       {routine.summary?.warnings?.slice(0,10).map((w, i) => (
-                        <li key={i}>{w.symbol}: {w.message || 'アラート'}</li>
+                        <li key={i}>{w.symbol}: {w.message || "アラート"}</li>
                       ))}
                     </ul>
                   ) : (
@@ -1127,7 +1127,7 @@ function DashboardContent() {
                 </div>
               </button>
               {/* リスク状態 */}
-              <button onClick={() => openSide('リスク評価', (
+              <button onClick={() => openSide("リスク評価", (
                 <div className="space-y-3 text-sm">
                   <div>詳細なリスク内訳、スコア根拠、推奨アクションを表示。</div>
                 </div>
@@ -1138,22 +1138,22 @@ function DashboardContent() {
                     <p className="text-xs font-medium text-gray-500">リスク状態</p>
                     <p className="text-sm">
                       <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                        riskAssessment?.risk_level === 'Low' ? 'bg-green-100 text-green-800' :
-                        riskAssessment?.risk_level === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-red-100 text-red-800'
-                      }`}>{riskAssessment?.risk_level || '-'}</span>
-                      <span className="ml-2 text-gray-600">{riskAssessment?.risk_score ? `${(riskAssessment.risk_score * 100).toFixed(0)}%` : '-'}</span>
+                        riskAssessment?.risk_level === "Low" ? "bg-green-100 text-green-800" :
+                        riskAssessment?.risk_level === "Medium" ? "bg-yellow-100 text-yellow-800" :
+                        "bg-red-100 text-red-800"
+                      }`}>{riskAssessment?.risk_level || "-"}</span>
+                      <span className="ml-2 text-gray-600">{riskAssessment?.risk_score ? `${(riskAssessment.risk_score * 100).toFixed(0)}%` : "-"}</span>
                     </p>
                   </div>
                 </div>
               </button>
               {/* 今日の推奨（STOP時は停止案内に切替） */}
-              <button onClick={() => openSide('今日の推奨', (
+              <button onClick={() => openSide("今日の推奨", (
                 <div className="space-y-2 text-sm">
-                  {modelHealth?.status === 'stop' ? (
+                  {modelHealth?.status === "stop" ? (
                     <div className="space-y-2">
                       <div className="text-red-700 font-semibold">健全性ゲートにより提案を一時停止中</div>
-                      <div className="text-gray-700">原因: {(modelHealth?.reasons || []).join('、') || '要確認'}</div>
+                      <div className="text-gray-700">原因: {(modelHealth?.reasons || []).join("、") || "要確認"}</div>
                       <button
                         onClick={() => loadData(true)}
                         className="mt-2 px-3 py-1.5 bg-blue-600 text-white rounded"
@@ -1175,11 +1175,11 @@ function DashboardContent() {
                   <Target className="h-6 w-6 text-green-600" />
                   <div className="ml-3">
                     <p className="text-xs font-medium text-gray-500">今日の推奨</p>
-                    {modelHealth?.status === 'stop' ? (
+                    {modelHealth?.status === "stop" ? (
                       <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">一時停止</span>
                     ) : (
                       <p className="text-sm text-gray-900 truncate max-w-[220px]">
-                        {(routine.topCandidates || []).slice(0,3).map(c => c.symbol).join(' / ') || '-'}
+                        {(routine.topCandidates || []).slice(0,3).map(c => c.symbol).join(" / ") || "-"}
                       </p>
                     )}
                   </div>
@@ -1191,8 +1191,8 @@ function DashboardContent() {
               <h3 className="text-lg font-medium text-gray-900 mb-2">今日のルーティン（5分）</h3>
               <RoutineDashboard
                 onAnalysisClick={() => setShowAnalysisModal(true)}
-                onReportClick={() => openSide('レポート要約', (<div>今日のダイジェストを表示</div>))}
-                onTradeClick={() => openSide('売買案内', (<div>候補別の売買案内を表示</div>))}
+                onReportClick={() => openSide("レポート要約", (<div>今日のダイジェストを表示</div>))}
+                onTradeClick={() => openSide("売買案内", (<div>候補別の売買案内を表示</div>))}
               />
             </div>
           </div>
@@ -1224,10 +1224,10 @@ function DashboardContent() {
                           <div className="text-xs text-gray-500 mb-2">#{item.index}</div>
                           <div className="space-y-1">
                             <div className="text-sm font-semibold text-blue-600">
-                              実際: ¥{item.実際値?.toFixed(0) || 'N/A'}
+                              実際: ¥{item.実際値?.toFixed(0) || "N/A"}
                             </div>
                             <div className="text-sm font-semibold text-red-600">
-                              予測: ¥{item.予測値?.toFixed(0) || 'N/A'}
+                              予測: ¥{item.予測値?.toFixed(0) || "N/A"}
                             </div>
                           </div>
                         </div>
@@ -1252,13 +1252,13 @@ function DashboardContent() {
                         <div key={index} className="bg-white rounded p-2 shadow-sm">
                           <div className="text-xs text-gray-500 mb-1">#{item.index}</div>
                           <div className="text-sm font-semibold text-purple-600">
-                            誤差: {item.error?.toFixed(2) || 'N/A'}%
+                            誤差: {item.error?.toFixed(2) || "N/A"}%
                           </div>
                         </div>
                       ))}
                     </div>
                     <div className="text-sm text-gray-500">
-                      平均誤差: {predictions.length > 0 ? (predictions.reduce((sum, p) => sum + p.error, 0) / predictions.length).toFixed(2) : 'N/A'}%
+                      平均誤差: {predictions.length > 0 ? (predictions.reduce((sum, p) => sum + p.error, 0) / predictions.length).toFixed(2) : "N/A"}%
                     </div>
                   </div>
                 </div>
@@ -1313,14 +1313,14 @@ function DashboardContent() {
                       {modelComparison.slice(0, 4).map((model, index) => (
                         <div key={index} className="bg-white rounded p-3 shadow-sm">
                           <div className="text-sm font-semibold text-gray-800 mb-1">{model.name}</div>
-                          <div className="text-xs text-gray-500 mb-1">MAE: {model.mae?.toFixed(4) || 'N/A'}</div>
-                          <div className="text-xs text-gray-500 mb-1">RMSE: {model.rmse?.toFixed(4) || 'N/A'}</div>
-                          <div className="text-xs text-gray-500">R²: {model.r2?.toFixed(4) || 'N/A'}</div>
+                          <div className="text-xs text-gray-500 mb-1">MAE: {model.mae?.toFixed(4) || "N/A"}</div>
+                          <div className="text-xs text-gray-500 mb-1">RMSE: {model.rmse?.toFixed(4) || "N/A"}</div>
+                          <div className="text-xs text-gray-500">R²: {model.r2?.toFixed(4) || "N/A"}</div>
                         </div>
                       ))}
                     </div>
                     <div className="text-sm text-gray-500">
-                      最優秀モデル: {modelComparison.length > 0 ? modelComparison[0].name : 'N/A'}
+                      最優秀モデル: {modelComparison.length > 0 ? modelComparison[0].name : "N/A"}
                     </div>
                   </div>
                 </div>
@@ -1336,33 +1336,33 @@ function DashboardContent() {
               <p className="text-sm text-gray-500 mb-4">各モデルの一般的な特性です。銘柄・期間により当てはまらない場合があります。</p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {modelComparison.slice(0, 6).map((model) => {
-                  const name = model.name?.toLowerCase() || '';
+                  const name = model.name?.toLowerCase() || "";
                   const meta = (() => {
-                    if (name.includes('random') || name.includes('forest')) {
+                    if (name.includes("random") || name.includes("forest")) {
                       return {
-                        display: 'Random Forest',
-                        pros: ['非線形捕捉に強い', '外れ値に比較的頑健', '特徴量スケールに鈍感'],
-                        cons: ['説明性がやや低い', '高次元で計算コスト増', '外挿が苦手'],
+                        display: "Random Forest",
+                        pros: ["非線形捕捉に強い", "外れ値に比較的頑健", "特徴量スケールに鈍感"],
+                        cons: ["説明性がやや低い", "高次元で計算コスト増", "外挿が苦手"],
                       };
                     }
-                    if (name.includes('xgb') || name.includes('xgboost')) {
+                    if (name.includes("xgb") || name.includes("xgboost")) {
                       return {
-                        display: 'XGBoost',
-                        pros: ['高精度になりやすい', '欠損や非線形に強い', '特徴量重要度が解釈しやすい'],
-                        cons: ['パラメータ調整が複雑', '過学習のリスク', '学習時間が長い場合あり'],
+                        display: "XGBoost",
+                        pros: ["高精度になりやすい", "欠損や非線形に強い", "特徴量重要度が解釈しやすい"],
+                        cons: ["パラメータ調整が複雑", "過学習のリスク", "学習時間が長い場合あり"],
                       };
                     }
-                    if (name.includes('linear') || name.includes('ridge') || name.includes('lasso')) {
+                    if (name.includes("linear") || name.includes("ridge") || name.includes("lasso")) {
                       return {
-                        display: '線形/正則化モデル',
-                        pros: ['解釈容易', '計算が軽い', '外挿に比較的強い'],
-                        cons: ['非線形関係を捉えにくい', '特徴量設計に依存', '外れ値影響を受けやすい'],
+                        display: "線形/正則化モデル",
+                        pros: ["解釈容易", "計算が軽い", "外挿に比較的強い"],
+                        cons: ["非線形関係を捉えにくい", "特徴量設計に依存", "外れ値影響を受けやすい"],
                       };
                     }
                     return {
                       display: model.name,
-                      pros: ['実装が安定', '汎用的'],
-                      cons: ['特性はデータ依存'],
+                      pros: ["実装が安定", "汎用的"],
+                      cons: ["特性はデータ依存"],
                     };
                   })();
                   return (
@@ -1423,7 +1423,7 @@ function DashboardContent() {
                 <h3 className="text-lg font-medium text-gray-900">予測が外れた期間（参考）</h3>
                 <span className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">参考情報</span>
               </div>
-              <p className="text-sm text-gray-500 mb-4">誤差が大きいポイント上位をハイライトします（閾値: 誤差{'>'}5%）。</p>
+              <p className="text-sm text-gray-500 mb-4">誤差が大きいポイント上位をハイライトします（閾値: 誤差{">"}5%）。</p>
               {predictions && predictions.length > 0 ? (
                 <div className="space-y-3">
                   {predictions
@@ -1466,7 +1466,7 @@ function DashboardContent() {
                           <div key={index} className="bg-white rounded p-3 shadow-sm">
                             <div className="text-sm font-semibold text-gray-800 mb-1">{feature.feature}</div>
                             <div className="text-xs text-green-600 mb-1">
-                              重要度: {(feature.importance * 100)?.toFixed(1) || 'N/A'}%
+                              重要度: {(feature.importance * 100)?.toFixed(1) || "N/A"}%
                             </div>
                             <div className="w-full bg-gray-200 rounded-full h-2">
                               <div 
@@ -1478,7 +1478,7 @@ function DashboardContent() {
                         ))}
                       </div>
                       <div className="text-sm text-gray-500">
-                        最重要特徴量: {featureAnalysis.length > 0 ? featureAnalysis[0].feature : 'N/A'}
+                        最重要特徴量: {featureAnalysis.length > 0 ? featureAnalysis[0].feature : "N/A"}
                       </div>
                     </div>
                   </div>
@@ -1527,20 +1527,20 @@ function DashboardContent() {
                           <div className="text-xs text-gray-500 mb-1">#{item.index}</div>
                           <div className="space-y-1">
                             <div className="text-xs text-blue-600">
-                              実際: {item.actual?.toFixed(0) || 'N/A'}
+                              実際: {item.actual?.toFixed(0) || "N/A"}
                             </div>
                             <div className="text-xs text-red-600">
-                              予測: {item.predicted?.toFixed(0) || 'N/A'}
+                              予測: {item.predicted?.toFixed(0) || "N/A"}
                             </div>
                             <div className="text-xs text-gray-500">
-                              誤差: {item.error?.toFixed(1) || 'N/A'}%
+                              誤差: {item.error?.toFixed(1) || "N/A"}%
                             </div>
                           </div>
                         </div>
                       ))}
                     </div>
                     <div className="text-sm text-gray-500">
-                      予測精度: {predictions.length > 0 ? (100 - (predictions.reduce((sum, p) => sum + p.error, 0) / predictions.length)).toFixed(1) : 'N/A'}%
+                      予測精度: {predictions.length > 0 ? (100 - (predictions.reduce((sum, p) => sum + p.error, 0) / predictions.length)).toFixed(1) : "N/A"}%
                     </div>
                   </div>
                 </div>
@@ -1630,7 +1630,7 @@ function DashboardContent() {
                   {[
                     { symbol: "7203.T", name: "トヨタ自動車", price: 2500, change: 2.5, action: "BUY", confidence: 85 },
                     { symbol: "6758.T", name: "ソニーグループ", price: 12000, change: -1.2, action: "HOLD", confidence: 70 },
-                    { symbol: "6861.T", name: "キーエンス", price: 5000, change: 3.8, action: "STRONG_BUY", confidence: 90 }
+                    { symbol: "6861.T", name: "キーエンス", price: 5000, change: 3.8, action: "STRONG_BUY", confidence: 90 },
                   ].map((stock) => (
                     <div key={stock.symbol} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                       <div className="flex items-center space-x-4">
@@ -1640,17 +1640,17 @@ function DashboardContent() {
                         </div>
                         <div className="text-right">
                           <p className="font-semibold">¥{stock.price.toLocaleString()}</p>
-                          <p className={`text-sm ${stock.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                            {stock.change >= 0 ? '+' : ''}{stock.change}%
+                          <p className={`text-sm ${stock.change >= 0 ? "text-green-600" : "text-red-600"}`}>
+                            {stock.change >= 0 ? "+" : ""}{stock.change}%
                           </p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
                         <span className={`px-2 py-1 rounded text-xs font-medium ${
-                          stock.action === 'STRONG_BUY' ? 'bg-green-100 text-green-800' :
-                          stock.action === 'BUY' ? 'bg-blue-100 text-blue-800' :
-                          stock.action === 'HOLD' ? 'bg-gray-100 text-gray-800' :
-                          'bg-red-100 text-red-800'
+                          stock.action === "STRONG_BUY" ? "bg-green-100 text-green-800" :
+                          stock.action === "BUY" ? "bg-blue-100 text-blue-800" :
+                          stock.action === "HOLD" ? "bg-gray-100 text-gray-800" :
+                          "bg-red-100 text-red-800"
                         }`}>
                           {stock.action}
                         </span>
@@ -1770,19 +1770,19 @@ function DashboardContent() {
                           <p className="text-sm text-gray-600">{position.name}</p>
                         </div>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          position.risk === 'HIGH' ? 'bg-red-100 text-red-800' :
-                          position.risk === 'MEDIUM' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-green-100 text-green-800'
+                          position.risk === "HIGH" ? "bg-red-100 text-red-800" :
+                          position.risk === "MEDIUM" ? "bg-yellow-100 text-yellow-800" :
+                          "bg-green-100 text-green-800"
                         }`}>
                           {position.risk}
                         </span>
                       </div>
                       <div className="text-right">
-                        <div className={`font-semibold ${position.pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                          {position.pnl >= 0 ? '+' : ''}¥{position.pnl.toLocaleString()}
+                        <div className={`font-semibold ${position.pnl >= 0 ? "text-green-600" : "text-red-600"}`}>
+                          {position.pnl >= 0 ? "+" : ""}¥{position.pnl.toLocaleString()}
                         </div>
-                        <div className={`text-sm ${position.pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                          {position.pnl >= 0 ? '+' : ''}{position.pnlPercent}%
+                        <div className={`text-sm ${position.pnl >= 0 ? "text-green-600" : "text-red-600"}`}>
+                          {position.pnl >= 0 ? "+" : ""}{position.pnlPercent}%
                         </div>
                       </div>
                     </div>
@@ -2015,12 +2015,12 @@ function DashboardContent() {
         isVisible={showUserGuide}
         onClose={() => {
           try {
-            sessionStorage.setItem('userGuideClosedThisSession', 'true');
+            sessionStorage.setItem("userGuideClosedThisSession", "true");
           } catch (_) {}
           setShowUserGuide(false);
         }}
         onStepComplete={(stepId) => {
-          console.log('ガイドステップ完了:', stepId);
+          console.log("ガイドステップ完了:", stepId);
         }}
         currentTab={activeTab}
       />
@@ -2122,27 +2122,27 @@ function DashboardContent() {
                 onAnalysisStart={() => {
                   setLoadingOverlay({
                     isVisible: true,
-                    title: '分析実行中',
-                    message: 'AIによる株価予測分析を実行しています...',
+                    title: "分析実行中",
+                    message: "AIによる株価予測分析を実行しています...",
                     progress: 0,
-                    type: 'loading',
+                    type: "loading",
                     steps: [
-                      { name: 'データ更新', status: 'pending', description: '最新の株価データを取得' },
-                      { name: '特徴量エンジニアリング', status: 'pending', description: '技術指標を計算' },
-                      { name: 'モデル学習', status: 'pending', description: 'AIモデルを学習' },
-                      { name: '予測実行', status: 'pending', description: '株価予測を実行' }
-                    ]
+                      { name: "データ更新", status: "pending", description: "最新の株価データを取得" },
+                      { name: "特徴量エンジニアリング", status: "pending", description: "技術指標を計算" },
+                      { name: "モデル学習", status: "pending", description: "AIモデルを学習" },
+                      { name: "予測実行", status: "pending", description: "株価予測を実行" },
+                    ],
                   });
                 }}
                 onAnalysisComplete={(result) => {
                   setLoadingOverlay({
                     isVisible: true,
-                    title: '分析完了',
-                    message: '分析が正常に完了しました',
-                    type: 'success'
+                    title: "分析完了",
+                    message: "分析が正常に完了しました",
+                    type: "success",
                   });
                   setTimeout(() => {
-                    setLoadingOverlay({ isVisible: false, title: '', message: '' });
+                    setLoadingOverlay({ isVisible: false, title: "", message: "" });
                     setShowAnalysisPanel(false);
                     loadData();
                   }, 2000);
@@ -2150,21 +2150,21 @@ function DashboardContent() {
                 onDataUpdateStart={() => {
                   setLoadingOverlay({
                     isVisible: true,
-                    title: 'データ更新中',
-                    message: '最新の株価データを取得しています...',
+                    title: "データ更新中",
+                    message: "最新の株価データを取得しています...",
                     progress: 0,
-                    type: 'loading'
+                    type: "loading",
                   });
                 }}
                 onDataUpdateComplete={(result) => {
                   setLoadingOverlay({
                     isVisible: true,
-                    title: 'データ更新完了',
-                    message: 'データの更新が完了しました',
-                    type: 'success'
+                    title: "データ更新完了",
+                    message: "データの更新が完了しました",
+                    type: "success",
                   });
                   setTimeout(() => {
-                    setLoadingOverlay({ isVisible: false, title: '', message: '' });
+                    setLoadingOverlay({ isVisible: false, title: "", message: "" });
                     loadData();
                   }, 2000);
                 }}
@@ -2190,7 +2190,7 @@ function DashboardContent() {
               </div>
               
               <EnhancedDataUpdateManager
-                symbols={['7203.T', '6758.T', '6861.T', '9984.T', '9432.T']}
+                symbols={["7203.T", "6758.T", "6861.T", "9984.T", "9432.T"]}
                 onUpdateComplete={(results) => {
                   setShowDataUpdateManager(false);
                   loadData();
@@ -2198,11 +2198,11 @@ function DashboardContent() {
                 onProgressChange={(progress) => {
                   setLoadingOverlay({
                     isVisible: true,
-                    title: 'データ更新中',
+                    title: "データ更新中",
                     message: progress.current,
                     progress: progress.percentage,
                     estimatedTime: progress.estimatedTimeRemaining,
-                    type: 'loading'
+                    type: "loading",
                   });
                 }}
               />
@@ -2221,7 +2221,7 @@ function DashboardContent() {
         type={loadingOverlay.type}
         steps={loadingOverlay.steps}
         onCancel={() => {
-          setLoadingOverlay({ isVisible: false, title: '', message: '' });
+          setLoadingOverlay({ isVisible: false, title: "", message: "" });
         }}
       />
     </div>
@@ -2236,7 +2236,7 @@ export default function Dashboard() {
           error={error}
           onRetry={resetErrorBoundary}
           onDismiss={() => window.location.reload()}
-          showDetails={process.env.NODE_ENV === 'development'}
+          showDetails={process.env.NODE_ENV === "development"}
           autoRetry={true}
           maxRetries={3}
         />

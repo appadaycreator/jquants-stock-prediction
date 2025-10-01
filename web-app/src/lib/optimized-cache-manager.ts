@@ -41,7 +41,7 @@ interface CacheStats {
 }
 
 interface CacheStrategy {
-  type: 'lru' | 'lfu' | 'fifo' | 'adaptive';
+  type: "lru" | "lfu" | "fifo" | "adaptive";
   maxAge: number;
   maxSize: number;
   compressionThreshold: number;
@@ -49,10 +49,10 @@ interface CacheStrategy {
 
 class OptimizedCacheManager {
   private db: IDBDatabase | null = null;
-  private readonly DB_NAME = 'optimized_cache';
+  private readonly DB_NAME = "optimized_cache";
   private readonly DB_VERSION = 3;
-  private readonly STORE_NAME = 'cache_entries';
-  private readonly STATS_STORE = 'cache_stats';
+  private readonly STORE_NAME = "cache_entries";
+  private readonly STATS_STORE = "cache_stats";
 
   private config: CacheConfig;
   private stats: CacheStats;
@@ -70,7 +70,7 @@ class OptimizedCacheManager {
         frequency: config.priorityWeights?.frequency || 0.4,
         recency: config.priorityWeights?.recency || 0.3,
         size: config.priorityWeights?.size || 0.3,
-      }
+      },
     };
 
     this.stats = {
@@ -80,7 +80,7 @@ class OptimizedCacheManager {
       missRate: 0,
       evictionCount: 0,
       compressionRatio: 0,
-      averageAccessTime: 0
+      averageAccessTime: 0,
     };
 
     this.initDB();
@@ -94,13 +94,13 @@ class OptimizedCacheManager {
       const request = indexedDB.open(this.DB_NAME, this.DB_VERSION);
       
       request.onerror = () => {
-        console.error('キャッシュDB初期化エラー:', request.error);
+        console.error("キャッシュDB初期化エラー:", request.error);
         reject(request.error);
       };
       
       request.onsuccess = () => {
         this.db = request.result;
-        console.info('最適化キャッシュDB初期化完了');
+        console.info("最適化キャッシュDB初期化完了");
         this.loadStats();
         if (this.config.autoCleanup) {
           this.startCleanup();
@@ -113,17 +113,17 @@ class OptimizedCacheManager {
         
         // キャッシュエントリストア
         if (!db.objectStoreNames.contains(this.STORE_NAME)) {
-          const store = db.createObjectStore(this.STORE_NAME, { keyPath: 'key' });
-          store.createIndex('lastAccessed', 'metadata.lastAccessed', { unique: false });
-          store.createIndex('accessCount', 'metadata.accessCount', { unique: false });
-          store.createIndex('size', 'metadata.size', { unique: false });
-          store.createIndex('priority', 'metadata.priority', { unique: false });
-          store.createIndex('tags', 'metadata.tags', { unique: false, multiEntry: true });
+          const store = db.createObjectStore(this.STORE_NAME, { keyPath: "key" });
+          store.createIndex("lastAccessed", "metadata.lastAccessed", { unique: false });
+          store.createIndex("accessCount", "metadata.accessCount", { unique: false });
+          store.createIndex("size", "metadata.size", { unique: false });
+          store.createIndex("priority", "metadata.priority", { unique: false });
+          store.createIndex("tags", "metadata.tags", { unique: false, multiEntry: true });
         }
         
         // 統計ストア
         if (!db.objectStoreNames.contains(this.STATS_STORE)) {
-          db.createObjectStore(this.STATS_STORE, { keyPath: 'id' });
+          db.createObjectStore(this.STATS_STORE, { keyPath: "id" });
         }
       };
     });
@@ -142,7 +142,7 @@ class OptimizedCacheManager {
     try {
       const entry = await this.getEntry(key);
       if (!entry) {
-        this.updateStats('miss');
+        this.updateStats("miss");
         return null;
       }
 
@@ -151,7 +151,7 @@ class OptimizedCacheManager {
       const entryAge = now - new Date(entry.metadata.createdAt).getTime();
       if (entryAge > entry.metadata.ttl) {
         await this.delete(key);
-        this.updateStats('miss');
+        this.updateStats("miss");
         return null;
       }
 
@@ -160,11 +160,11 @@ class OptimizedCacheManager {
       entry.metadata.accessCount++;
       await this.updateEntry(entry);
 
-      this.updateStats('hit', performance.now() - startTime);
+      this.updateStats("hit", performance.now() - startTime);
       return entry.data;
     } catch (error) {
-      console.error('キャッシュ取得エラー:', error);
-      this.updateStats('miss');
+      console.error("キャッシュ取得エラー:", error);
+      this.updateStats("miss");
       return null;
     }
   }
@@ -180,7 +180,7 @@ class OptimizedCacheManager {
       tags?: string[];
       priority?: number;
       compress?: boolean;
-    } = {}
+    } = {},
   ): Promise<void> {
     if (!this.db) {
       return;
@@ -206,17 +206,17 @@ class OptimizedCacheManager {
           size: shouldCompress ? this.calculateSize(processedData) : size,
           ttl: options.ttl || this.config.ttl,
           priority: options.priority || this.calculatePriority(key, size),
-          tags: options.tags || []
-        }
+          tags: options.tags || [],
+        },
       };
 
       // 容量チェック
       await this.ensureCapacity(entry.metadata.size);
 
       await this.saveEntry(entry);
-      this.updateStats('set', performance.now() - startTime);
+      this.updateStats("set", performance.now() - startTime);
     } catch (error) {
-      console.error('キャッシュ保存エラー:', error);
+      console.error("キャッシュ保存エラー:", error);
     }
   }
 
@@ -229,11 +229,11 @@ class OptimizedCacheManager {
     }
 
     try {
-      const transaction = this.db.transaction([this.STORE_NAME], 'readwrite');
+      const transaction = this.db.transaction([this.STORE_NAME], "readwrite");
       const store = transaction.objectStore(this.STORE_NAME);
       await store.delete(key);
     } catch (error) {
-      console.error('キャッシュ削除エラー:', error);
+      console.error("キャッシュ削除エラー:", error);
     }
   }
 
@@ -256,7 +256,7 @@ class OptimizedCacheManager {
 
       return deletedCount;
     } catch (error) {
-      console.error('タグ別削除エラー:', error);
+      console.error("タグ別削除エラー:", error);
       return 0;
     }
   }
@@ -267,7 +267,7 @@ class OptimizedCacheManager {
   async incrementalUpdate<T>(
     key: string,
     newData: T,
-    mergeStrategy: 'replace' | 'merge' | 'append' = 'merge'
+    mergeStrategy: "replace" | "merge" | "append" = "merge",
   ): Promise<void> {
     try {
       const existingData = await this.get<T>(key);
@@ -278,13 +278,13 @@ class OptimizedCacheManager {
 
       let mergedData: T;
       switch (mergeStrategy) {
-        case 'replace':
+        case "replace":
           mergedData = newData;
           break;
-        case 'merge':
+        case "merge":
           mergedData = this.mergeData(existingData, newData);
           break;
-        case 'append':
+        case "append":
           mergedData = this.appendData(existingData, newData);
           break;
         default:
@@ -293,7 +293,7 @@ class OptimizedCacheManager {
 
       await this.set(key, mergedData);
     } catch (error) {
-      console.error('差分更新エラー:', error);
+      console.error("差分更新エラー:", error);
     }
   }
 
@@ -305,7 +305,7 @@ class OptimizedCacheManager {
       return [...existing, ...newData] as T;
     }
 
-    if (typeof existing === 'object' && typeof newData === 'object' && existing !== null && newData !== null) {
+    if (typeof existing === "object" && typeof newData === "object" && existing !== null && newData !== null) {
       return { ...existing, ...newData } as T;
     }
 
@@ -357,12 +357,12 @@ class OptimizedCacheManager {
         this.stats.evictionCount++;
       }
 
-      console.info('キャッシュエントリを削除しました', { 
+      console.info("キャッシュエントリを削除しました", { 
         freedSize, 
-        evictedCount: this.stats.evictionCount 
+        evictedCount: this.stats.evictionCount, 
       });
     } catch (error) {
-      console.error('エントリ削除エラー:', error);
+      console.error("エントリ削除エラー:", error);
     }
   }
 
@@ -410,7 +410,7 @@ class OptimizedCacheManager {
       const compressed = await this.compressString(jsonString);
       return compressed as T;
     } catch (error) {
-      console.warn('データ圧縮に失敗しました:', error);
+      console.warn("データ圧縮に失敗しました:", error);
       return data;
     }
   }
@@ -431,7 +431,7 @@ class OptimizedCacheManager {
       const jsonString = atob(compressedData as string);
       return JSON.parse(jsonString);
     } catch (error) {
-      console.warn('データ解凍に失敗しました:', error);
+      console.warn("データ解凍に失敗しました:", error);
       return compressedData;
     }
   }
@@ -450,10 +450,10 @@ class OptimizedCacheManager {
     // キーの重要度に基づく優先度計算
     let priority = 0.5; // デフォルト
 
-    if (key.includes('critical')) priority = 1.0;
-    else if (key.includes('important')) priority = 0.8;
-    else if (key.includes('normal')) priority = 0.5;
-    else if (key.includes('low')) priority = 0.2;
+    if (key.includes("critical")) priority = 1.0;
+    else if (key.includes("important")) priority = 0.8;
+    else if (key.includes("normal")) priority = 0.5;
+    else if (key.includes("low")) priority = 0.2;
 
     // サイズによる調整
     if (size > 1024 * 1024) priority *= 0.8; // 1MB以上は優先度を下げる
@@ -465,12 +465,12 @@ class OptimizedCacheManager {
   /**
    * 統計の更新
    */
-  private updateStats(type: 'hit' | 'miss' | 'set', accessTime?: number): void {
+  private updateStats(type: "hit" | "miss" | "set", accessTime?: number): void {
     const total = this.stats.hitRate + this.stats.missRate;
     
-    if (type === 'hit') {
+    if (type === "hit") {
       this.stats.hitRate++;
-    } else if (type === 'miss') {
+    } else if (type === "miss") {
       this.stats.missRate++;
     }
 
@@ -497,11 +497,11 @@ class OptimizedCacheManager {
     if (!this.db) return;
 
     try {
-      const transaction = this.db.transaction([this.STATS_STORE], 'readwrite');
+      const transaction = this.db.transaction([this.STATS_STORE], "readwrite");
       const store = transaction.objectStore(this.STATS_STORE);
-      await store.put({ id: 'current', ...this.stats });
+      await store.put({ id: "current", ...this.stats });
     } catch (error) {
-      console.error('統計保存エラー:', error);
+      console.error("統計保存エラー:", error);
     }
   }
 
@@ -512,9 +512,9 @@ class OptimizedCacheManager {
     if (!this.db) return;
 
     try {
-      const transaction = this.db.transaction([this.STATS_STORE], 'readonly');
+      const transaction = this.db.transaction([this.STATS_STORE], "readonly");
       const store = transaction.objectStore(this.STATS_STORE);
-      const request = store.get('current');
+      const request = store.get("current");
 
       request.onsuccess = () => {
         if (request.result) {
@@ -522,7 +522,7 @@ class OptimizedCacheManager {
         }
       };
     } catch (error) {
-      console.error('統計読み込みエラー:', error);
+      console.error("統計読み込みエラー:", error);
     }
   }
 
@@ -549,10 +549,10 @@ class OptimizedCacheManager {
       }
 
       if (cleanedCount > 0) {
-        console.info('期限切れキャッシュをクリーンアップしました', { cleanedCount });
+        console.info("期限切れキャッシュをクリーンアップしました", { cleanedCount });
       }
     } catch (error) {
-      console.error('クリーンアップエラー:', error);
+      console.error("クリーンアップエラー:", error);
     }
   }
 
@@ -571,7 +571,7 @@ class OptimizedCacheManager {
         return age > entry.metadata.ttl;
       });
     } catch (error) {
-      console.error('期限切れエントリ取得エラー:', error);
+      console.error("期限切れエントリ取得エラー:", error);
       return [];
     }
   }
@@ -583,7 +583,7 @@ class OptimizedCacheManager {
     if (!this.db) return [];
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.STORE_NAME], 'readonly');
+      const transaction = this.db!.transaction([this.STORE_NAME], "readonly");
       const store = transaction.objectStore(this.STORE_NAME);
       const request = store.getAll();
 
@@ -601,10 +601,10 @@ class OptimizedCacheManager {
     try {
       const allEntries = await this.getAllEntries();
       return allEntries.filter(entry => 
-        tags.some(tag => entry.metadata.tags.includes(tag))
+        tags.some(tag => entry.metadata.tags.includes(tag)),
       );
     } catch (error) {
-      console.error('タグ別エントリ取得エラー:', error);
+      console.error("タグ別エントリ取得エラー:", error);
       return [];
     }
   }
@@ -616,7 +616,7 @@ class OptimizedCacheManager {
     if (!this.db) return null;
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.STORE_NAME], 'readonly');
+      const transaction = this.db!.transaction([this.STORE_NAME], "readonly");
       const store = transaction.objectStore(this.STORE_NAME);
       const request = store.get(key);
 
@@ -632,7 +632,7 @@ class OptimizedCacheManager {
     if (!this.db) return;
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.STORE_NAME], 'readwrite');
+      const transaction = this.db!.transaction([this.STORE_NAME], "readwrite");
       const store = transaction.objectStore(this.STORE_NAME);
       const request = store.put(entry);
 
@@ -658,7 +658,7 @@ class OptimizedCacheManager {
       const entries = await this.getAllEntries();
       return entries.reduce((total, entry) => total + entry.metadata.size, 0);
     } catch (error) {
-      console.error('総サイズ取得エラー:', error);
+      console.error("総サイズ取得エラー:", error);
       return 0;
     }
   }
@@ -670,7 +670,7 @@ class OptimizedCacheManager {
     if (!this.db) return;
 
     try {
-      const transaction = this.db.transaction([this.STORE_NAME], 'readwrite');
+      const transaction = this.db.transaction([this.STORE_NAME], "readwrite");
       const store = transaction.objectStore(this.STORE_NAME);
       await store.clear();
 
@@ -681,13 +681,13 @@ class OptimizedCacheManager {
         missRate: 0,
         evictionCount: 0,
         compressionRatio: 0,
-        averageAccessTime: 0
+        averageAccessTime: 0,
       };
 
       await this.saveStats();
-      console.info('キャッシュをクリアしました');
+      console.info("キャッシュをクリアしました");
     } catch (error) {
-      console.error('キャッシュクリアエラー:', error);
+      console.error("キャッシュクリアエラー:", error);
     }
   }
 
@@ -696,7 +696,7 @@ class OptimizedCacheManager {
    */
   updateConfig(newConfig: Partial<CacheConfig>): void {
     this.config = { ...this.config, ...newConfig };
-    console.info('キャッシュ設定を更新しました', this.config);
+    console.info("キャッシュ設定を更新しました", this.config);
   }
 
   /**

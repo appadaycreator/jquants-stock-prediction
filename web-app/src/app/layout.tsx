@@ -15,7 +15,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 // クライアントサイドレンダリング用のメタデータ設定
 const setMetadata = () => {
-  if (typeof document !== 'undefined') {
+  if (typeof document !== "undefined") {
     // タイトル設定
     document.title = "J-Quants株価予測システム";
     
@@ -36,7 +36,7 @@ const setMetadata = () => {
       { property: "og:locale", content: "ja_JP" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "J-Quants株価予測システム" },
-      { name: "twitter:description", content: "J-Quants APIを使用した株価予測システム - モバイル最適化された投資判断支援ツール" }
+      { name: "twitter:description", content: "J-Quants APIを使用した株価予測システム - モバイル最適化された投資判断支援ツール" },
     ];
     
     metaTags.forEach(({ name, content, property }) => {
@@ -44,16 +44,16 @@ const setMetadata = () => {
       let meta = document.querySelector(selector) as HTMLMetaElement;
       
       if (!meta) {
-        meta = document.createElement('meta');
+        meta = document.createElement("meta");
         if (property) {
-          meta.setAttribute('property', property);
+          meta.setAttribute("property", property);
         } else if (name) {
-          meta.setAttribute('name', name);
+          meta.setAttribute("name", name);
         }
         document.head.appendChild(meta);
       }
       
-      meta.setAttribute('content', content);
+      meta.setAttribute("content", content);
     });
   }
 };

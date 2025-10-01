@@ -75,7 +75,7 @@ export default function MobileTesting({ onTestComplete }: MobileTestingProps) {
       platform: navigator.platform,
       screenResolution: `${screen.width}x${screen.height}`,
       devicePixelRatio: window.devicePixelRatio,
-      orientation: screen.orientation?.type || 'unknown',
+      orientation: screen.orientation?.type || "unknown",
       isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
       isTablet: /iPad|Android(?=.*Tablet)|Kindle|Silk/i.test(navigator.userAgent),
       isDesktop: !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
@@ -90,13 +90,13 @@ export default function MobileTesting({ onTestComplete }: MobileTestingProps) {
       isLowEndDevice: false,
       supportsWebGL: false,
       supportsWebP: false,
-      supportsServiceWorker: 'serviceWorker' in navigator,
+      supportsServiceWorker: "serviceWorker" in navigator,
     };
 
     // WebGL対応の確認
     try {
-      const canvas = document.createElement('canvas');
-      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      const canvas = document.createElement("canvas");
+      const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
       performance.supportsWebGL = !!gl;
     } catch (e) {
       performance.supportsWebGL = false;
@@ -104,8 +104,8 @@ export default function MobileTesting({ onTestComplete }: MobileTestingProps) {
 
     // WebP対応の確認
     try {
-      const canvas = document.createElement('canvas');
-      performance.supportsWebP = canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+      const canvas = document.createElement("canvas");
+      performance.supportsWebP = canvas.toDataURL("image/webp").indexOf("data:image/webp") === 0;
     } catch (e) {
       performance.supportsWebP = false;
     }
@@ -120,17 +120,17 @@ export default function MobileTesting({ onTestComplete }: MobileTestingProps) {
 
     // ネットワーク情報の取得
     const network: NetworkInfo = {
-      connectionType: 'unknown',
-      effectiveType: 'unknown',
+      connectionType: "unknown",
+      effectiveType: "unknown",
       downlink: 0,
       rtt: 0,
       saveData: false,
     };
 
-    if ('connection' in navigator) {
+    if ("connection" in navigator) {
       const connection = (navigator as any).connection;
-      network.connectionType = connection.type || 'unknown';
-      network.effectiveType = connection.effectiveType || 'unknown';
+      network.connectionType = connection.type || "unknown";
+      network.effectiveType = connection.effectiveType || "unknown";
       network.downlink = connection.downlink || 0;
       network.rtt = connection.rtt || 0;
       network.saveData = connection.saveData || false;
@@ -140,24 +140,24 @@ export default function MobileTesting({ onTestComplete }: MobileTestingProps) {
 
     // 互換性情報の取得
     const compatibility: CompatibilityInfo = {
-      supportsTouch: 'ontouchstart' in window,
-      supportsPointer: 'onpointerdown' in window,
-      supportsHover: window.matchMedia('(hover: hover)').matches,
+      supportsTouch: "ontouchstart" in window,
+      supportsPointer: "onpointerdown" in window,
+      supportsHover: window.matchMedia("(hover: hover)").matches,
       supportsPassiveEvents: false,
-      supportsIntersectionObserver: 'IntersectionObserver' in window,
+      supportsIntersectionObserver: "IntersectionObserver" in window,
     };
 
     // パッシブイベントの対応確認
     try {
       let supportsPassive = false;
-      const opts = Object.defineProperty({}, 'passive', {
+      const opts = Object.defineProperty({}, "passive", {
         get: function() {
           supportsPassive = true;
           return false;
-        }
+        },
       });
-      window.addEventListener('testPassive', null as any, opts);
-      window.removeEventListener('testPassive', null as any, opts);
+      window.addEventListener("testPassive", null as any, opts);
+      window.removeEventListener("testPassive", null as any, opts);
       compatibility.supportsPassiveEvents = supportsPassive;
     } catch (e) {
       compatibility.supportsPassiveEvents = false;
@@ -172,7 +172,7 @@ export default function MobileTesting({ onTestComplete }: MobileTestingProps) {
       recommendations.push("低性能デバイスが検出されました。アニメーションを制限し、データ量を削減することを推奨します。");
     }
 
-    if (network.effectiveType === 'slow-2g' || network.effectiveType === '2g') {
+    if (network.effectiveType === "slow-2g" || network.effectiveType === "2g") {
       recommendations.push("低速ネットワークが検出されました。データの事前読み込みを制限し、画像を最適化することを推奨します。");
     }
 
@@ -223,9 +223,9 @@ export default function MobileTesting({ onTestComplete }: MobileTestingProps) {
     
     const { performance, network } = testResults;
     
-    if (performance.isLowEndDevice || network.effectiveType === 'slow-2g') {
+    if (performance.isLowEndDevice || network.effectiveType === "slow-2g") {
       return "low";
-    } else if (network.effectiveType === '3g' || performance.memory <= 4) {
+    } else if (network.effectiveType === "3g" || performance.memory <= 4) {
       return "medium";
     } else {
       return "high";

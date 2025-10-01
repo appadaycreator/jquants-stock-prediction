@@ -33,7 +33,7 @@ class AccessibilityManager {
    * アクセシビリティの初期化
    */
   private initAccessibility() {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     // キーボードナビゲーション
     if (this.config.enableKeyboardNavigation) {
@@ -60,24 +60,24 @@ class AccessibilityManager {
    * キーボードナビゲーションの設定
    */
   private setupKeyboardNavigation() {
-    document.addEventListener('keydown', (event) => {
+    document.addEventListener("keydown", (event) => {
       // Tabキーでフォーカス移動
-      if (event.key === 'Tab') {
+      if (event.key === "Tab") {
         this.handleTabNavigation(event);
       }
 
       // Enter/Spaceキーでアクティベート
-      if (event.key === 'Enter' || event.key === ' ') {
+      if (event.key === "Enter" || event.key === " ") {
         this.handleActivation(event);
       }
 
       // Escapeキーでフォーカストラップ解除
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         this.handleEscapeKey(event);
       }
 
       // 矢印キーでカスタムナビゲーション
-      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
         this.handleArrowNavigation(event);
       }
     });
@@ -111,9 +111,9 @@ class AccessibilityManager {
   private handleActivation(event: KeyboardEvent) {
     const target = event.target as HTMLElement;
     
-    if (target.getAttribute('role') === 'button' || 
-        target.tagName === 'BUTTON' ||
-        target.getAttribute('tabindex') === '0') {
+    if (target.getAttribute("role") === "button" || 
+        target.tagName === "BUTTON" ||
+        target.getAttribute("tabindex") === "0") {
       event.preventDefault();
       target.click();
     }
@@ -134,9 +134,9 @@ class AccessibilityManager {
    */
   private handleArrowNavigation(event: KeyboardEvent) {
     const target = event.target as HTMLElement;
-    const role = target.getAttribute('role');
+    const role = target.getAttribute("role");
     
-    if (role === 'tablist' || role === 'menu' || role === 'grid') {
+    if (role === "tablist" || role === "menu" || role === "grid") {
       event.preventDefault();
       this.navigateWithArrows(target, event.key);
     }
@@ -152,16 +152,16 @@ class AccessibilityManager {
     let nextIndex = currentIndex;
 
     switch (direction) {
-      case 'ArrowUp':
+      case "ArrowUp":
         nextIndex = Math.max(0, currentIndex - 1);
         break;
-      case 'ArrowDown':
+      case "ArrowDown":
         nextIndex = Math.min(focusableElements.length - 1, currentIndex + 1);
         break;
-      case 'ArrowLeft':
+      case "ArrowLeft":
         nextIndex = Math.max(0, currentIndex - 1);
         break;
-      case 'ArrowRight':
+      case "ArrowRight":
         nextIndex = Math.min(focusableElements.length - 1, currentIndex + 1);
         break;
     }
@@ -175,13 +175,13 @@ class AccessibilityManager {
    * フォーカス管理の設定
    */
   private setupFocusManagement() {
-    document.addEventListener('focusin', (event) => {
+    document.addEventListener("focusin", (event) => {
       const target = event.target as HTMLElement;
       this.focusHistory.push(target);
       this.currentFocusIndex = this.focusHistory.length - 1;
     });
 
-    document.addEventListener('focusout', (event) => {
+    document.addEventListener("focusout", (event) => {
       // フォーカスが外れた時の処理
       this.handleFocusOut(event);
     });
@@ -196,7 +196,7 @@ class AccessibilityManager {
 
     // フォーカスが完全に外れた場合
     if (!relatedTarget || !document.contains(relatedTarget)) {
-      this.announceToScreenReader('フォーカスが外れました');
+      this.announceToScreenReader("フォーカスが外れました");
     }
   }
 
@@ -205,19 +205,19 @@ class AccessibilityManager {
    */
   private setupHighContrastMode() {
     // システムの高コントラスト設定を検出
-    if (window.matchMedia('(prefers-contrast: high)').matches) {
-      document.body.classList.add('high-contrast');
-      this.announceToScreenReader('高コントラストモードが有効です');
+    if (window.matchMedia("(prefers-contrast: high)").matches) {
+      document.body.classList.add("high-contrast");
+      this.announceToScreenReader("高コントラストモードが有効です");
     }
 
     // 高コントラスト設定の変更を監視
-    window.matchMedia('(prefers-contrast: high)').addEventListener('change', (e) => {
+    window.matchMedia("(prefers-contrast: high)").addEventListener("change", (e) => {
       if (e.matches) {
-        document.body.classList.add('high-contrast');
-        this.announceToScreenReader('高コントラストモードが有効になりました');
+        document.body.classList.add("high-contrast");
+        this.announceToScreenReader("高コントラストモードが有効になりました");
       } else {
-        document.body.classList.remove('high-contrast');
-        this.announceToScreenReader('高コントラストモードが無効になりました');
+        document.body.classList.remove("high-contrast");
+        this.announceToScreenReader("高コントラストモードが無効になりました");
       }
     });
   }
@@ -237,11 +237,11 @@ class AccessibilityManager {
    * ライブリージョンの作成
    */
   private createLiveRegion() {
-    const liveRegion = document.createElement('div');
-    liveRegion.setAttribute('aria-live', 'polite');
-    liveRegion.setAttribute('aria-atomic', 'true');
-    liveRegion.className = 'sr-only';
-    liveRegion.id = 'live-region';
+    const liveRegion = document.createElement("div");
+    liveRegion.setAttribute("aria-live", "polite");
+    liveRegion.setAttribute("aria-atomic", "true");
+    liveRegion.className = "sr-only";
+    liveRegion.id = "live-region";
     document.body.appendChild(liveRegion);
   }
 
@@ -249,8 +249,8 @@ class AccessibilityManager {
    * スキップリンクの追加
    */
   private addSkipLinks() {
-    const skipLinks = document.createElement('div');
-    skipLinks.className = 'skip-links';
+    const skipLinks = document.createElement("div");
+    skipLinks.className = "skip-links";
     skipLinks.innerHTML = `
       <a href="#main-content" class="skip-link">メインコンテンツにスキップ</a>
       <a href="#navigation" class="skip-link">ナビゲーションにスキップ</a>
@@ -274,7 +274,7 @@ class AccessibilityManager {
       
       // フォーカストラップのイベントリスナー
       const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === 'Tab') {
+        if (event.key === "Tab") {
           if (event.shiftKey && document.activeElement === firstElement) {
             event.preventDefault();
             lastElement.focus();
@@ -285,7 +285,7 @@ class AccessibilityManager {
         }
       };
       
-      options.container.addEventListener('keydown', handleKeyDown);
+      options.container.addEventListener("keydown", handleKeyDown);
     }
   }
 
@@ -301,19 +301,19 @@ class AccessibilityManager {
    */
   private getFocusableElements(container: HTMLElement = document.body): HTMLElement[] {
     const focusableSelectors = [
-      'button:not([disabled])',
-      'input:not([disabled])',
-      'select:not([disabled])',
-      'textarea:not([disabled])',
-      'a[href]',
-      '[tabindex]:not([tabindex="-1"])',
-      '[role="button"]',
-      '[role="link"]',
-      '[role="menuitem"]',
-      '[role="tab"]'
+      "button:not([disabled])",
+      "input:not([disabled])",
+      "select:not([disabled])",
+      "textarea:not([disabled])",
+      "a[href]",
+      "[tabindex]:not([tabindex=\"-1\"])",
+      "[role=\"button\"]",
+      "[role=\"link\"]",
+      "[role=\"menuitem\"]",
+      "[role=\"tab\"]",
     ];
 
-    const elements = container.querySelectorAll(focusableSelectors.join(', '));
+    const elements = container.querySelectorAll(focusableSelectors.join(", "));
     return Array.from(elements) as HTMLElement[];
   }
 
@@ -321,12 +321,12 @@ class AccessibilityManager {
    * スクリーンリーダーへの通知
    */
   announceToScreenReader(message: string) {
-    const liveRegion = document.getElementById('live-region');
+    const liveRegion = document.getElementById("live-region");
     if (liveRegion) {
       liveRegion.textContent = message;
       // メッセージをクリア（同じメッセージを再度読み上げるため）
       setTimeout(() => {
-        liveRegion.textContent = '';
+        liveRegion.textContent = "";
       }, 1000);
     }
   }
@@ -336,9 +336,9 @@ class AccessibilityManager {
    */
   setAriaLabel(element: HTMLElement, label: string, description?: string) {
     if (this.config.enableAriaLabels) {
-      element.setAttribute('aria-label', label);
+      element.setAttribute("aria-label", label);
       if (description) {
-        element.setAttribute('aria-describedby', description);
+        element.setAttribute("aria-describedby", description);
       }
     }
   }
@@ -369,7 +369,7 @@ class AccessibilityManager {
     return result ? {
       r: parseInt(result[1], 16),
       g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
+      b: parseInt(result[3], 16),
     } : null;
   }
 
@@ -391,10 +391,10 @@ class AccessibilityManager {
   generateAccessibilityReport(): any {
     const focusableElements = this.getFocusableElements();
     const elementsWithAriaLabels = focusableElements.filter(el => 
-      el.hasAttribute('aria-label') || el.hasAttribute('aria-labelledby')
+      el.hasAttribute("aria-label") || el.hasAttribute("aria-labelledby"),
     );
     const elementsWithRoles = focusableElements.filter(el => 
-      el.hasAttribute('role')
+      el.hasAttribute("role"),
     );
 
     return {
@@ -403,9 +403,9 @@ class AccessibilityManager {
       elementsWithRoles: elementsWithRoles.length,
       accessibilityScore: Math.round(
         ((elementsWithAriaLabels.length + elementsWithRoles.length) / 
-         (focusableElements.length * 2)) * 100
+         (focusableElements.length * 2)) * 100,
       ),
-      recommendations: this.generateAccessibilityRecommendations()
+      recommendations: this.generateAccessibilityRecommendations(),
     };
   }
 
@@ -417,11 +417,11 @@ class AccessibilityManager {
     const report = this.generateAccessibilityReport();
 
     if (report.accessibilityScore < 70) {
-      recommendations.push('ARIAラベルとロールの追加を推奨します。');
+      recommendations.push("ARIAラベルとロールの追加を推奨します。");
     }
 
     if (report.elementsWithAriaLabels < report.totalFocusableElements * 0.5) {
-      recommendations.push('フォーカス可能な要素の50%以上にARIAラベルを追加してください。');
+      recommendations.push("フォーカス可能な要素の50%以上にARIAラベルを追加してください。");
     }
 
     return recommendations;
@@ -443,7 +443,7 @@ const defaultConfig: AccessibilityConfig = {
   enableScreenReader: true,
   enableHighContrast: true,
   enableFocusManagement: true,
-  enableAriaLabels: true
+  enableAriaLabels: true,
 };
 
 export const accessibilityManager = new AccessibilityManager(defaultConfig);

@@ -3,7 +3,7 @@
  * アプリケーションの自動復旧、ヘルスチェック、状態復元
  */
 
-import { getErrorInfo, logError, type ErrorCategory } from './error-handler';
+import { getErrorInfo, logError, type ErrorCategory } from "./error-handler";
 
 export interface RecoveryStrategy {
   name: string;
@@ -28,7 +28,7 @@ class AutoRecoverySystem {
     lastRecoveryAttempt: 0,
     recoveryCount: 0,
     successfulRecoveries: 0,
-    failedRecoveries: 0
+    failedRecoveries: 0,
   };
 
   constructor() {
@@ -39,15 +39,15 @@ class AutoRecoverySystem {
   private initializeDefaultStrategies() {
     // RSC Payload エラーの復旧戦略
     this.addStrategy({
-      name: 'rsc-payload-recovery',
+      name: "rsc-payload-recovery",
       condition: (error) => {
         const message = error.message.toLowerCase();
-        return message.includes('rsc payload') || 
-               message.includes('server component') ||
-               message.includes('connection closed');
+        return message.includes("rsc payload") || 
+               message.includes("server component") ||
+               message.includes("connection closed");
       },
       action: async () => {
-        console.log('Executing RSC payload recovery...');
+        console.log("Executing RSC payload recovery...");
         
         // キャッシュクリア
         await this.clearCaches();
@@ -57,21 +57,21 @@ class AutoRecoverySystem {
         return true;
       },
       priority: 1,
-      maxAttempts: 3
+      maxAttempts: 3,
     });
 
     // ネットワークエラーの復旧戦略
     this.addStrategy({
-      name: 'network-recovery',
+      name: "network-recovery",
       condition: (error) => {
         const message = error.message.toLowerCase();
-        return message.includes('network') || 
-               message.includes('fetch') || 
-               message.includes('connection') ||
-               message.includes('timeout');
+        return message.includes("network") || 
+               message.includes("fetch") || 
+               message.includes("connection") ||
+               message.includes("timeout");
       },
       action: async () => {
-        console.log('Executing network recovery...');
+        console.log("Executing network recovery...");
         
         // ネットワーク接続の確認
         if (!navigator.onLine) {
@@ -84,20 +84,20 @@ class AutoRecoverySystem {
         return true;
       },
       priority: 2,
-      maxAttempts: 5
+      maxAttempts: 5,
     });
 
     // データエラーの復旧戦略
     this.addStrategy({
-      name: 'data-recovery',
+      name: "data-recovery",
       condition: (error) => {
         const message = error.message.toLowerCase();
-        return message.includes('data') || 
-               message.includes('json') || 
-               message.includes('parse');
+        return message.includes("data") || 
+               message.includes("json") || 
+               message.includes("parse");
       },
       action: async () => {
-        console.log('Executing data recovery...');
+        console.log("Executing data recovery...");
         
         // ローカルストレージのクリア
         await this.clearLocalStorage();
@@ -108,20 +108,20 @@ class AutoRecoverySystem {
         return true;
       },
       priority: 3,
-      maxAttempts: 2
+      maxAttempts: 2,
     });
 
     // コンポーネントエラーの復旧戦略
     this.addStrategy({
-      name: 'component-recovery',
+      name: "component-recovery",
       condition: (error) => {
-        const stack = error.stack?.toLowerCase() || '';
-        return stack.includes('react') || 
-               stack.includes('component') ||
-               error.message.includes('render');
+        const stack = error.stack?.toLowerCase() || "";
+        return stack.includes("react") || 
+               stack.includes("component") ||
+               error.message.includes("render");
       },
       action: async () => {
-        console.log('Executing component recovery...');
+        console.log("Executing component recovery...");
         
         // コンポーネント状態のリセット
         await this.resetComponentState();
@@ -131,23 +131,23 @@ class AutoRecoverySystem {
         return true;
       },
       priority: 4,
-      maxAttempts: 2
+      maxAttempts: 2,
     });
   }
 
   private setupGlobalErrorHandling() {
     // ブラウザ環境でのみ実行
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return;
     }
 
     // 未処理のエラーをキャッチ
-    window.addEventListener('error', (event) => {
+    window.addEventListener("error", (event) => {
       this.handleError(event.error);
     });
 
     // 未処理のPromise拒否をキャッチ
-    window.addEventListener('unhandledrejection', (event) => {
+    window.addEventListener("unhandledrejection", (event) => {
       this.handleError(event.reason);
     });
   }
@@ -159,12 +159,12 @@ class AutoRecoverySystem {
 
   public async handleError(error: Error): Promise<boolean> {
     if (this.state.isRecovering) {
-      console.log('Recovery already in progress, skipping...');
+      console.log("Recovery already in progress, skipping...");
       return false;
     }
 
     const errorInfo = getErrorInfo(error);
-    console.log('Handling error:', errorInfo);
+    console.log("Handling error:", errorInfo);
 
     // エラーログを記録
     logError(error);
@@ -212,10 +212,10 @@ class AutoRecoverySystem {
   }
 
   private async clearCaches(): Promise<void> {
-    if ('caches' in window) {
+    if ("caches" in window) {
       const cacheNames = await caches.keys();
       await Promise.all(
-        cacheNames.map(name => caches.delete(name))
+        cacheNames.map(name => caches.delete(name)),
       );
     }
   }
@@ -224,14 +224,14 @@ class AutoRecoverySystem {
     try {
       const keys = Object.keys(localStorage);
       keys.forEach(key => {
-        if (key.startsWith('app_cache:') || 
-            key.startsWith('next:') || 
-            key.startsWith('error_')) {
+        if (key.startsWith("app_cache:") || 
+            key.startsWith("next:") || 
+            key.startsWith("error_")) {
           localStorage.removeItem(key);
         }
       });
     } catch (e) {
-      console.warn('Failed to clear localStorage:', e);
+      console.warn("Failed to clear localStorage:", e);
     }
   }
 
@@ -239,15 +239,15 @@ class AutoRecoverySystem {
     try {
       // デフォルトの設定を復元
       const defaultSettings = {
-        theme: 'light',
-        language: 'ja',
+        theme: "light",
+        language: "ja",
         notifications: true,
-        autoRefresh: true
+        autoRefresh: true,
       };
       
-      localStorage.setItem('app_settings', JSON.stringify(defaultSettings));
+      localStorage.setItem("app_settings", JSON.stringify(defaultSettings));
     } catch (e) {
-      console.warn('Failed to restore default data:', e);
+      console.warn("Failed to restore default data:", e);
     }
   }
 
@@ -255,14 +255,14 @@ class AutoRecoverySystem {
     try {
       // コンポーネント状態をリセット
       const stateKeys = Object.keys(localStorage).filter(key => 
-        key.startsWith('component_') || key.startsWith('react_')
+        key.startsWith("component_") || key.startsWith("react_"),
       );
       
       stateKeys.forEach(key => {
         localStorage.removeItem(key);
       });
     } catch (e) {
-      console.warn('Failed to reset component state:', e);
+      console.warn("Failed to reset component state:", e);
     }
   }
 
@@ -274,11 +274,11 @@ class AutoRecoverySystem {
       }
       
       const handleOnline = () => {
-        window.removeEventListener('online', handleOnline);
+        window.removeEventListener("online", handleOnline);
         resolve();
       };
       
-      window.addEventListener('online', handleOnline);
+      window.addEventListener("online", handleOnline);
     });
   }
 
@@ -295,7 +295,7 @@ class AutoRecoverySystem {
         ? (this.state.successfulRecoveries / this.state.recoveryCount) * 100 
         : 0,
       lastRecoveryAttempt: this.state.lastRecoveryAttempt,
-      isRecovering: this.state.isRecovering
+      isRecovering: this.state.isRecovering,
     };
   }
 
@@ -305,7 +305,7 @@ class AutoRecoverySystem {
       lastRecoveryAttempt: 0,
       recoveryCount: 0,
       successfulRecoveries: 0,
-      failedRecoveries: 0
+      failedRecoveries: 0,
     };
   }
 }
@@ -324,57 +324,57 @@ export async function performHealthCheck(): Promise<{
 
   // ネットワーク接続の確認
   if (!navigator.onLine) {
-    issues.push('ネットワーク接続がありません');
-    recommendations.push('ネットワーク接続を確認してください');
+    issues.push("ネットワーク接続がありません");
+    recommendations.push("ネットワーク接続を確認してください");
   }
 
   // ローカルストレージの確認
   try {
-    localStorage.setItem('health_check', 'test');
-    localStorage.removeItem('health_check');
+    localStorage.setItem("health_check", "test");
+    localStorage.removeItem("health_check");
   } catch (e) {
-    issues.push('ローカルストレージが利用できません');
-    recommendations.push('ブラウザの設定を確認してください');
+    issues.push("ローカルストレージが利用できません");
+    recommendations.push("ブラウザの設定を確認してください");
   }
 
   // キャッシュの確認
-  if ('caches' in window) {
+  if ("caches" in window) {
     try {
       const cacheNames = await caches.keys();
       if (cacheNames.length > 10) {
-        issues.push('キャッシュが多すぎます');
-        recommendations.push('キャッシュをクリアしてください');
+        issues.push("キャッシュが多すぎます");
+        recommendations.push("キャッシュをクリアしてください");
       }
     } catch (e) {
-      issues.push('キャッシュAPIが利用できません');
+      issues.push("キャッシュAPIが利用できません");
     }
   }
 
   // メモリ使用量の確認
-  if ('memory' in performance) {
+  if ("memory" in performance) {
     const memory = (performance as any).memory;
     const usedMB = memory.usedJSHeapSize / 1024 / 1024;
     if (usedMB > 100) {
-      issues.push('メモリ使用量が高いです');
-      recommendations.push('ページを再読み込みしてください');
+      issues.push("メモリ使用量が高いです");
+      recommendations.push("ページを再読み込みしてください");
     }
   }
 
   return {
     isHealthy: issues.length === 0,
     issues,
-    recommendations
+    recommendations,
   };
 }
 
 // 自動復旧の開始
 export function startAutoRecovery() {
-  console.log('Auto-recovery system started');
+  console.log("Auto-recovery system started");
   return autoRecoverySystem;
 }
 
 // 自動復旧の停止
 export function stopAutoRecovery() {
-  console.log('Auto-recovery system stopped');
+  console.log("Auto-recovery system stopped");
   // 必要に応じてクリーンアップ処理を追加
 }

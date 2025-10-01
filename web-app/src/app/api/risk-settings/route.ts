@@ -1,17 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-import { withIdempotency } from '../_idempotency';
+import { NextRequest, NextResponse } from "next/server";
+import fs from "fs";
+import path from "path";
+import { withIdempotency } from "../_idempotency";
 
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
 function getSettingsPath() {
   // public/data に保存（静的配信も可能に）
-  const dataDir = path.join(process.cwd(), 'public', 'data');
+  const dataDir = path.join(process.cwd(), "public", "data");
   if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
   }
-  return path.join(dataDir, 'risk_settings.json');
+  return path.join(dataDir, "risk_settings.json");
 }
 
 function getDefaultSettings() {
@@ -20,19 +20,19 @@ function getDefaultSettings() {
     maxLoss: {
       enabled: true,
       max_loss_percent: 0.05, // 5%
-      auto_stop_loss_threshold: 0.08 // 8%
+      auto_stop_loss_threshold: 0.08, // 8%
     },
     volatility: {
       enabled: true,
       high_vol_threshold: 0.4, // 年率40%
       extreme_vol_threshold: 0.6, // 年率60%
       high_vol_multiplier: 0.7, // 高ボラ時の縮小係数
-      extreme_vol_multiplier: 0.4 // 極端ボラ時の縮小係数
+      extreme_vol_multiplier: 0.4, // 極端ボラ時の縮小係数
     },
     enforcement: {
-      block_violation_signals: true // 違反提案は出さない
+      block_violation_signals: true, // 違反提案は出さない
     },
-    last_updated: new Date().toISOString()
+    last_updated: new Date().toISOString(),
   };
 }
 
@@ -44,7 +44,7 @@ export async function GET() {
       fs.writeFileSync(settingsPath, JSON.stringify(defaults, null, 2));
       return NextResponse.json(defaults);
     }
-    const raw = fs.readFileSync(settingsPath, 'utf-8');
+    const raw = fs.readFileSync(settingsPath, "utf-8");
     const json = JSON.parse(raw);
     return NextResponse.json(json);
   } catch (e) {
@@ -58,12 +58,12 @@ export const POST = withIdempotency(async function POST(req: NextRequest) {
   // 簡易検証
   const errs: string[] = [];
   const maxp = payload?.maxLoss?.max_loss_percent;
-  if (typeof maxp !== 'undefined' && (isNaN(maxp) || maxp <= 0 || maxp > 0.5)) {
-    errs.push('max_loss_percent は 0 < p <= 0.5 の範囲で指定してください');
+  if (typeof maxp !== "undefined" && (isNaN(maxp) || maxp <= 0 || maxp > 0.5)) {
+    errs.push("max_loss_percent は 0 < p <= 0.5 の範囲で指定してください");
   }
   const autoStop = payload?.maxLoss?.auto_stop_loss_threshold;
-  if (typeof autoStop !== 'undefined' && (isNaN(autoStop) || autoStop <= 0 || autoStop > 0.9)) {
-    errs.push('auto_stop_loss_threshold は 0 < p <= 0.9 の範囲で指定してください');
+  if (typeof autoStop !== "undefined" && (isNaN(autoStop) || autoStop <= 0 || autoStop > 0.9)) {
+    errs.push("auto_stop_loss_threshold は 0 < p <= 0.9 の範囲で指定してください");
   }
   if (errs.length) {
     return NextResponse.json({ ok: false, errors: errs }, { status: 400 });
@@ -74,7 +74,7 @@ export const POST = withIdempotency(async function POST(req: NextRequest) {
   let current = getDefaultSettings();
   try {
     if (fs.existsSync(settingsPath)) {
-      current = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));
+      current = JSON.parse(fs.readFileSync(settingsPath, "utf-8"));
     }
   } catch {}
 

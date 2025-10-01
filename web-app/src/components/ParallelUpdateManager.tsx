@@ -10,13 +10,13 @@ import {
   XCircle, 
   AlertCircle,
   TrendingUp,
-  Clock
+  Clock,
 } from "lucide-react";
 
 interface StockUpdate {
   symbol: string;
   name: string;
-  status: 'pending' | 'updating' | 'completed' | 'error';
+  status: "pending" | "updating" | "completed" | "error";
   progress: number;
   error?: string;
   data?: any;
@@ -37,7 +37,7 @@ export default function ParallelUpdateManager({
   onProgressChange,
   maxConcurrent = 4,
   timeout = 30000,
-  className = ""
+  className = "",
 }: ParallelUpdateManagerProps) {
   const [updates, setUpdates] = useState<StockUpdate[]>([]);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -58,8 +58,8 @@ export default function ParallelUpdateManager({
     const initialUpdates: StockUpdate[] = symbols.map(symbol => ({
       symbol,
       name: getStockName(symbol),
-      status: 'pending',
-      progress: 0
+      status: "pending",
+      progress: 0,
     }));
     setUpdates(initialUpdates);
   }, [symbols]);
@@ -104,7 +104,7 @@ export default function ParallelUpdateManager({
       "6758.T": "ソニーグループ",
       "6861.T": "キーエンス",
       "9984.T": "ソフトバンクグループ",
-      "4063.T": "信越化学工業"
+      "4063.T": "信越化学工業",
     };
     return stockNames[symbol] || symbol;
   };
@@ -128,10 +128,10 @@ export default function ParallelUpdateManager({
     // 全銘柄をpending状態にリセット
     setUpdates(prev => prev.map(update => ({
       ...update,
-      status: 'pending',
+      status: "pending",
       progress: 0,
       error: undefined,
-      data: undefined
+      data: undefined,
     })));
 
     // 並列処理の実行
@@ -140,7 +140,7 @@ export default function ParallelUpdateManager({
 
   // 並列更新の実行
   const executeParallelUpdate = async () => {
-    const pendingUpdates = updates.filter(u => u.status === 'pending');
+    const pendingUpdates = updates.filter(u => u.status === "pending");
     const results: any[] = [];
 
     // バッチ処理（最大同時実行数を制限）
@@ -149,7 +149,7 @@ export default function ParallelUpdateManager({
 
       const batch = pendingUpdates.slice(i, i + maxConcurrent);
       const batchPromises = batch.map(update => 
-        updateStock(update.symbol, abortControllerRef.current!.signal)
+        updateStock(update.symbol, abortControllerRef.current!.signal),
       );
 
       try {
@@ -157,19 +157,19 @@ export default function ParallelUpdateManager({
         
         batchResults.forEach((result, index) => {
           const symbol = batch[index].symbol;
-          if (result.status === 'fulfilled') {
+          if (result.status === "fulfilled") {
             setUpdates(prev => prev.map(u => 
               u.symbol === symbol 
-                ? { ...u, status: 'completed', progress: 100, data: result.value }
-                : u
+                ? { ...u, status: "completed", progress: 100, data: result.value }
+                : u,
             ));
             setCompletedCount(prev => prev + 1);
             results.push(result.value);
           } else {
             setUpdates(prev => prev.map(u => 
               u.symbol === symbol 
-                ? { ...u, status: 'error', error: result.reason?.message || 'Unknown error' }
-                : u
+                ? { ...u, status: "error", error: result.reason?.message || "Unknown error" }
+                : u,
             ));
             setErrorCount(prev => prev + 1);
           }
@@ -187,7 +187,7 @@ export default function ParallelUpdateManager({
         }
 
       } catch (error) {
-        console.error('Batch update error:', error);
+        console.error("Batch update error:", error);
       }
     }
 
@@ -201,8 +201,8 @@ export default function ParallelUpdateManager({
     // 更新開始
     setUpdates(prev => prev.map(u => 
       u.symbol === symbol 
-        ? { ...u, status: 'updating', progress: 0 }
-        : u
+        ? { ...u, status: "updating", progress: 0 }
+        : u,
     ));
 
     // タイムアウトの設定
@@ -210,8 +210,8 @@ export default function ParallelUpdateManager({
       if (!signal.aborted) {
         setUpdates(prev => prev.map(u => 
           u.symbol === symbol 
-            ? { ...u, status: 'error', error: 'Timeout' }
-            : u
+            ? { ...u, status: "error", error: "Timeout" }
+            : u,
         ));
       }
     }, timeout);
@@ -248,7 +248,7 @@ export default function ParallelUpdateManager({
 
     for (let i = 1; i <= steps; i++) {
       if (signal.aborted) {
-        throw new Error('Aborted');
+        throw new Error("Aborted");
       }
 
       // 進捗更新
@@ -256,7 +256,7 @@ export default function ParallelUpdateManager({
       setUpdates(prev => prev.map(u => 
         u.symbol === symbol 
           ? { ...u, progress }
-          : u
+          : u,
       ));
 
       await new Promise(resolve => setTimeout(resolve, stepDelay / steps));
@@ -268,7 +268,7 @@ export default function ParallelUpdateManager({
       price: 1000 + Math.random() * 5000,
       change: (Math.random() - 0.5) * 10,
       volume: Math.floor(Math.random() * 1000000),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
   };
 
@@ -292,10 +292,10 @@ export default function ParallelUpdateManager({
     abortUpdate();
     setUpdates(prev => prev.map(update => ({
       ...update,
-      status: 'pending',
+      status: "pending",
       progress: 0,
       error: undefined,
-      data: undefined
+      data: undefined,
     })));
     setOverallProgress(0);
     setCompletedCount(0);
@@ -308,7 +308,7 @@ export default function ParallelUpdateManager({
   const formatElapsedTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -338,7 +338,7 @@ export default function ParallelUpdateManager({
                   className="flex items-center px-3 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
                 >
                   {isPaused ? <Play className="h-4 w-4 mr-2" /> : <Pause className="h-4 w-4 mr-2" />}
-                  {isPaused ? '再開' : '一時停止'}
+                  {isPaused ? "再開" : "一時停止"}
                 </button>
                 <button
                   onClick={abortUpdate}
@@ -395,10 +395,10 @@ export default function ParallelUpdateManager({
             <div key={update.symbol} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <div className="flex items-center space-x-3">
                 <div className="flex-shrink-0">
-                  {update.status === 'completed' && <CheckCircle className="h-5 w-5 text-green-500" />}
-                  {update.status === 'error' && <XCircle className="h-5 w-5 text-red-500" />}
-                  {update.status === 'updating' && <RefreshCw className="h-5 w-5 text-blue-500 animate-spin" />}
-                  {update.status === 'pending' && <AlertCircle className="h-5 w-5 text-gray-400" />}
+                  {update.status === "completed" && <CheckCircle className="h-5 w-5 text-green-500" />}
+                  {update.status === "error" && <XCircle className="h-5 w-5 text-red-500" />}
+                  {update.status === "updating" && <RefreshCw className="h-5 w-5 text-blue-500 animate-spin" />}
+                  {update.status === "pending" && <AlertCircle className="h-5 w-5 text-gray-400" />}
                 </div>
                 <div>
                   <div className="font-medium text-gray-900">{update.symbol}</div>
@@ -407,7 +407,7 @@ export default function ParallelUpdateManager({
               </div>
               
               <div className="flex items-center space-x-3">
-                {update.status === 'updating' && (
+                {update.status === "updating" && (
                   <div className="w-20 bg-gray-200 rounded-full h-1">
                     <div 
                       className="bg-blue-600 h-1 rounded-full transition-all duration-300"
@@ -416,10 +416,10 @@ export default function ParallelUpdateManager({
                   </div>
                 )}
                 <div className="text-sm text-gray-600">
-                  {update.status === 'completed' && '完了'}
-                  {update.status === 'error' && 'エラー'}
-                  {update.status === 'updating' && `${update.progress}%`}
-                  {update.status === 'pending' && '待機中'}
+                  {update.status === "completed" && "完了"}
+                  {update.status === "error" && "エラー"}
+                  {update.status === "updating" && `${update.progress}%`}
+                  {update.status === "pending" && "待機中"}
                 </div>
               </div>
             </div>
@@ -433,7 +433,7 @@ export default function ParallelUpdateManager({
           <h4 className="text-sm font-medium text-red-800 mb-2">エラー詳細</h4>
           <div className="space-y-1">
             {updates
-              .filter(u => u.status === 'error')
+              .filter(u => u.status === "error")
               .map((update) => (
                 <div key={update.symbol} className="text-sm text-red-700">
                   {update.symbol}: {update.error}

@@ -3,7 +3,7 @@
  * エラーハンドリング、リトライ、タイムアウト、AbortController対応
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export interface FetchOptions {
   signal?: AbortSignal;
@@ -21,10 +21,10 @@ export class AppError extends Error {
     message: string,
     public code: string,
     public status?: number,
-    public retryHint?: string
+    public retryHint?: string,
   ) {
     super(message);
-    this.name = 'AppError';
+    this.name = "AppError";
   }
 }
 
@@ -43,15 +43,15 @@ export function createIdempotencyKey(): string {
  */
 export async function fetchJson<T>(
   url: string,
-  options: FetchOptions = {}
+  options: FetchOptions = {},
 ): Promise<T> {
   const resolveUrl = (input: string) => {
     try {
       // 絶対URLまたはhttp(s)はそのまま
       if (/^https?:\/\//i.test(input)) return input;
-      const basePath = process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '';
+      const basePath = process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "";
       // 先頭が/の場合はベースパス連結
-      if (input.startsWith('/')) return `${basePath}${input}`;
+      if (input.startsWith("/")) return `${basePath}${input}`;
       return input;
     } catch {
       return input;
@@ -66,7 +66,7 @@ export async function fetchJson<T>(
     method,
     headers,
     json,
-    idempotencyKey
+    idempotencyKey,
   } = options;
 
   const controller = new AbortController();
@@ -74,7 +74,7 @@ export async function fetchJson<T>(
 
   // 外部のAbortSignalと統合
   if (signal) {
-    signal.addEventListener('abort', () => controller.abort());
+    signal.addEventListener("abort", () => controller.abort());
   }
 
   let lastError: Error | null = null;
@@ -86,17 +86,17 @@ export async function fetchJson<T>(
         "Pragma": "no-cache",
       };
 
-      const hasJsonBody = typeof json !== 'undefined';
+      const hasJsonBody = typeof json !== "undefined";
       if (hasJsonBody) {
-        baseHeaders['Content-Type'] = 'application/json';
+        baseHeaders["Content-Type"] = "application/json";
       }
 
       // 冪等キーを必要に応じて付与
-      const finalMethod = method || (hasJsonBody ? 'POST' : 'GET');
+      const finalMethod = method || (hasJsonBody ? "POST" : "GET");
       const shouldAttachIdem = /^(POST|PUT|PATCH|DELETE)$/i.test(finalMethod);
-      const keyValue = idempotencyKey === true ? createIdempotencyKey() : (typeof idempotencyKey === 'string' ? idempotencyKey : undefined);
+      const keyValue = idempotencyKey === true ? createIdempotencyKey() : (typeof idempotencyKey === "string" ? idempotencyKey : undefined);
       if (shouldAttachIdem && keyValue) {
-        baseHeaders['Idempotency-Key'] = keyValue;
+        baseHeaders["Idempotency-Key"] = keyValue;
       }
 
       const response = await fetch(resolveUrl(url), {
@@ -115,36 +115,36 @@ export async function fetchJson<T>(
         try {
           const text = await response.text();
           const json = JSON.parse(text);
-          if (json && typeof json === 'object' && json.error_code && json.user_message) {
+          if (json && typeof json === "object" && json.error_code && json.user_message) {
             throw new AppError(
               json.user_message,
               String(json.error_code),
               response.status,
-              json.retry_hint
+              json.retry_hint,
             );
           }
           // JSONでない/スキーマ外の場合は従来のHTTPエラー
           throw new AppError(
             `HTTP ${response.status}: ${response.statusText}`,
             `HTTP_${response.status}`,
-            response.status
+            response.status,
           );
         } catch (parseErr) {
           if (parseErr instanceof AppError) throw parseErr;
           throw new AppError(
             `HTTP ${response.status}: ${response.statusText}`,
             `HTTP_${response.status}`,
-            response.status
+            response.status,
           );
         }
       }
 
       // コンテンツタイプ検査
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
         throw new AppError(
-          'レスポンスがJSON形式ではありません',
-          'INVALID_CONTENT_TYPE'
+          "レスポンスがJSON形式ではありません",
+          "INVALID_CONTENT_TYPE",
         );
       }
 
@@ -155,8 +155,8 @@ export async function fetchJson<T>(
       lastError = error as Error;
       
       // AbortErrorの場合は即座に終了
-      if (error instanceof Error && error.name === 'AbortError') {
-        throw new AppError('リクエストが中断されました', 'ABORTED');
+      if (error instanceof Error && error.name === "AbortError") {
+        throw new AppError("リクエストが中断されました", "ABORTED");
       }
 
       // 最後の試行でない場合は待機
@@ -175,8 +175,8 @@ export async function fetchJson<T>(
   }
 
   throw new AppError(
-    `すべてのリトライ試行が失敗しました: ${lastError?.message || 'Unknown error'}`,
-    'ALL_RETRIES_FAILED'
+    `すべてのリトライ試行が失敗しました: ${lastError?.message || "Unknown error"}`,
+    "ALL_RETRIES_FAILED",
   );
 }
 
@@ -185,7 +185,7 @@ export async function fetchJson<T>(
  */
 export async function fetchMultiple<T extends Record<string, any>>(
   requests: Record<keyof T, string>,
-  options: FetchOptions = {}
+  options: FetchOptions = {},
 ): Promise<T> {
   const results = {} as T;
   const errors: string[] = [];
@@ -195,7 +195,7 @@ export async function fetchMultiple<T extends Record<string, any>>(
       const data = await fetchJson<any>(url, options);
       return { key, data };
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
       errors.push(`${key}: ${errorMessage}`);
       return { key, data: null };
     }
@@ -211,7 +211,7 @@ export async function fetchMultiple<T extends Record<string, any>>(
 
   // エラーがあった場合は警告を出力
   if (errors.length > 0) {
-    console.warn('一部のデータ取得に失敗しました:', errors);
+    console.warn("一部のデータ取得に失敗しました:", errors);
   }
 
   return results;
@@ -222,12 +222,12 @@ export async function fetchMultiple<T extends Record<string, any>>(
  */
 export function validateDataStructure<T>(
   data: any,
-  validator: (data: any) => data is T
+  validator: (data: any) => data is T,
 ): T {
   if (!validator(data)) {
     throw new AppError(
-      'データ構造が不正です',
-      'INVALID_DATA_STRUCTURE'
+      "データ構造が不正です",
+      "INVALID_DATA_STRUCTURE",
     );
   }
   return data;
@@ -237,14 +237,14 @@ export function validateDataStructure<T>(
 // 追加: キャッシュ対応ユーティリティ
 // =========================
 
-const CACHE_PREFIX = 'app_cache:';
+const CACHE_PREFIX = "app_cache:";
 
 export function getCacheTimestamp(key: string): number | null {
   try {
     const raw = localStorage.getItem(CACHE_PREFIX + key);
     if (!raw) return null;
     const payload = JSON.parse(raw) as { v: unknown; t: number };
-    return typeof payload.t === 'number' ? payload.t : null;
+    return typeof payload.t === "number" ? payload.t : null;
   } catch {
     return null;
   }
@@ -283,43 +283,43 @@ export function getCache<T>(key: string, maxAgeMs?: number): T | null {
 function getDefaultData<T>(url: string): T | null {
   try {
     // URLパターンに基づいてデフォルトデータを提供
-    if (url.includes('/api/today')) {
+    if (url.includes("/api/today")) {
       return {
-        date: new Date().toISOString().split('T')[0],
-        summary: 'データ取得中...',
-        status: 'loading'
+        date: new Date().toISOString().split("T")[0],
+        summary: "データ取得中...",
+        status: "loading",
       } as T;
     }
     
-    if (url.includes('/api/predictions')) {
+    if (url.includes("/api/predictions")) {
       return {
         predictions: [],
-        status: 'loading',
-        message: '予測データを取得中...'
+        status: "loading",
+        message: "予測データを取得中...",
       } as T;
     }
     
-    if (url.includes('/api/risk')) {
+    if (url.includes("/api/risk")) {
       return {
-        risk_level: 'medium',
-        status: 'loading',
-        message: 'リスク分析中...'
+        risk_level: "medium",
+        status: "loading",
+        message: "リスク分析中...",
       } as T;
     }
     
-    if (url.includes('/api/dashboard')) {
+    if (url.includes("/api/dashboard")) {
       return {
         summary: {},
-        status: 'loading',
-        message: 'ダッシュボードデータを読み込み中...'
+        status: "loading",
+        message: "ダッシュボードデータを読み込み中...",
       } as T;
     }
     
     // 汎用デフォルト
     return {
-      status: 'loading',
-      message: 'データを読み込み中...',
-      timestamp: Date.now()
+      status: "loading",
+      message: "データを読み込み中...",
+      timestamp: Date.now(),
     } as T;
   } catch {
     return null;
@@ -328,7 +328,7 @@ function getDefaultData<T>(url: string): T | null {
 
 export async function fetchJsonWithCache<T>(
   url: string,
-  options: FetchOptions & { cacheKey?: string; cacheTtlMs?: number } = {}
+  options: FetchOptions & { cacheKey?: string; cacheTtlMs?: number } = {},
 ): Promise<{ data: T; fromCache: boolean }>
 {
   const { cacheKey, cacheTtlMs } = options;
@@ -374,7 +374,7 @@ export async function fetchJsonWithCache<T>(
 
 export async function fetchManyWithCache<T extends Record<string, any>>(
   map: Record<keyof T, { url: string; cacheKey: string; ttlMs?: number }>,
-  options: FetchOptions = {}
+  options: FetchOptions = {},
 ): Promise<{ results: Partial<T>; cacheFlags: Record<string, boolean> }>
 {
   const entries = Object.entries(map) as [string, { url: string; cacheKey: string; ttlMs?: number }][];
@@ -412,7 +412,7 @@ export async function fetchManyWithCache<T extends Record<string, any>>(
 
 // オフライン対応の強化
 export function isOnline(): boolean {
-  return typeof navigator !== 'undefined' ? navigator.onLine : true;
+  return typeof navigator !== "undefined" ? navigator.onLine : true;
 }
 
 export function waitForOnline(): Promise<void> {
@@ -423,28 +423,28 @@ export function waitForOnline(): Promise<void> {
     }
     
     const handleOnline = () => {
-      window.removeEventListener('online', handleOnline);
+      window.removeEventListener("online", handleOnline);
       resolve();
     };
     
-    window.addEventListener('online', handleOnline);
+    window.addEventListener("online", handleOnline);
   });
 }
 
 // ネットワーク状態の監視
-export function createNetworkStatusHook() {
+export function useNetworkStatus() {
   const [isOnline, setIsOnline] = useState(navigator?.onLine ?? true);
   
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
     
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
     
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
   

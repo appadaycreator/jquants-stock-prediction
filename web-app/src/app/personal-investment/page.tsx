@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { getLatestIndex, resolveBusinessDate, swrJson } from '@/lib/dataClient';
-import UserProfileForm from '@/components/personalization/UserProfileForm';
-import { useUserProfile } from '@/contexts/UserProfileContext';
-import { allocateEqualRiskBudget, AllocationResult, Candidate } from '@/lib/personalization/allocation';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
+import React, { useState, useEffect } from "react";
+import { getLatestIndex, resolveBusinessDate, swrJson } from "@/lib/dataClient";
+import UserProfileForm from "@/components/personalization/UserProfileForm";
+import { useUserProfile } from "@/contexts/UserProfileContext";
+import { allocateEqualRiskBudget, AllocationResult, Candidate } from "@/lib/personalization/allocation";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { 
   LineChart, 
   Line, 
@@ -24,8 +24,8 @@ import {
   Pie,
   Cell,
   Area,
-  AreaChart
-} from 'recharts';
+  AreaChart,
+} from "recharts";
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -41,8 +41,8 @@ import {
   Activity,
   Shield,
   Eye,
-  RefreshCw
-} from 'lucide-react';
+  RefreshCw,
+} from "lucide-react";
 
 // データ型定義
 interface PnLSummary {
@@ -139,22 +139,22 @@ export default function PersonalInvestmentDashboard() {
         const primary = await swrJson<DashboardData>(
           `personal:dashboard:${ymd}`,
           `/data/${ymd}/personal_investment_dashboard.json`,
-          { ttlMs: 1000 * 60 * 10, timeoutMs: 6000, retries: 3, retryDelay: 800 }
+          { ttlMs: 1000 * 60 * 10, timeoutMs: 6000, retries: 3, retryDelay: 800 },
         );
         data = primary.data;
       } catch (e) {
         const fallback = await swrJson<DashboardData>(
-          'personal:dashboard',
-          `/data/personal_investment_dashboard.json`,
-          { ttlMs: 1000 * 60 * 10, timeoutMs: 6000, retries: 2, retryDelay: 800 }
+          "personal:dashboard",
+          "/data/personal_investment_dashboard.json",
+          { ttlMs: 1000 * 60 * 10, timeoutMs: 6000, retries: 2, retryDelay: 800 },
         );
         data = fallback.data;
       }
-      if (!data) throw new Error('ダッシュボードデータが空です');
+      if (!data) throw new Error("ダッシュボードデータが空です");
       setDashboardData(data);
       const candidates: Candidate[] = [
-        ...data.positions.map((p: any) => ({ symbol: p.symbol, sector: 'Unknown', score: Math.max(0.1, p.confidence || 0.5) })),
-        ...data.recommendations.map((r: any) => ({ symbol: r.symbol, sector: 'Unknown', score: Math.max(0.1, r.confidence || 0.6) }))
+        ...data.positions.map((p: any) => ({ symbol: p.symbol, sector: "Unknown", score: Math.max(0.1, p.confidence || 0.5) })),
+        ...data.recommendations.map((r: any) => ({ symbol: r.symbol, sector: "Unknown", score: Math.max(0.1, r.confidence || 0.6) })),
       ].filter((v, i, arr) => arr.findIndex(x => x.symbol === v.symbol) === i);
 
       const alloc = allocateEqualRiskBudget({
@@ -168,10 +168,10 @@ export default function PersonalInvestmentDashboard() {
       });
       setAllocation(alloc);
     } catch (error) {
-      console.error('ダッシュボードデータの読み込みエラー:', error);
+      console.error("ダッシュボードデータの読み込みエラー:", error);
       // 最後の手段: ローカルキャッシュのキー互換確保
       try {
-        const cached = localStorage.getItem('app_cache:personal:dashboard');
+        const cached = localStorage.getItem("app_cache:personal:dashboard");
         if (cached) {
           const parsed = JSON.parse(cached);
           if (parsed && parsed.v) setDashboardData(parsed.v as DashboardData);
@@ -184,15 +184,15 @@ export default function PersonalInvestmentDashboard() {
 
   const getActionIcon = (action: string) => {
     switch (action) {
-      case 'STRONG_BUY':
+      case "STRONG_BUY":
         return <ArrowUp className="h-4 w-4 text-green-600" />;
-      case 'BUY':
+      case "BUY":
         return <ArrowUp className="h-4 w-4 text-green-500" />;
-      case 'HOLD':
+      case "HOLD":
         return <Minus className="h-4 w-4 text-gray-500" />;
-      case 'SELL':
+      case "SELL":
         return <ArrowDown className="h-4 w-4 text-red-500" />;
-      case 'STRONG_SELL':
+      case "STRONG_SELL":
         return <ArrowDown className="h-4 w-4 text-red-600" />;
       default:
         return <Minus className="h-4 w-4 text-gray-500" />;
@@ -201,46 +201,46 @@ export default function PersonalInvestmentDashboard() {
 
   const getActionColor = (action: string) => {
     switch (action) {
-      case 'STRONG_BUY':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'BUY':
-        return 'bg-green-50 text-green-700 border-green-100';
-      case 'HOLD':
-        return 'bg-gray-100 text-gray-700 border-gray-200';
-      case 'SELL':
-        return 'bg-red-50 text-red-700 border-red-100';
-      case 'STRONG_SELL':
-        return 'bg-red-100 text-red-800 border-red-200';
+      case "STRONG_BUY":
+        return "bg-green-100 text-green-800 border-green-200";
+      case "BUY":
+        return "bg-green-50 text-green-700 border-green-100";
+      case "HOLD":
+        return "bg-gray-100 text-gray-700 border-gray-200";
+      case "SELL":
+        return "bg-red-50 text-red-700 border-red-100";
+      case "STRONG_SELL":
+        return "bg-red-100 text-red-800 border-red-200";
       default:
-        return 'bg-gray-100 text-gray-700 border-gray-200';
+        return "bg-gray-100 text-gray-700 border-gray-200";
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'CRITICAL':
-        return 'bg-red-100 text-red-800 border-red-200';
-      case 'HIGH':
-        return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'MEDIUM':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'LOW':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
+      case "CRITICAL":
+        return "bg-red-100 text-red-800 border-red-200";
+      case "HIGH":
+        return "bg-orange-100 text-orange-800 border-orange-200";
+      case "MEDIUM":
+        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+      case "LOW":
+        return "bg-blue-100 text-blue-800 border-blue-200";
       default:
-        return 'bg-gray-100 text-gray-700 border-gray-200';
+        return "bg-gray-100 text-gray-700 border-gray-200";
     }
   };
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
-      case 'HIGH':
-        return 'text-red-600';
-      case 'MEDIUM':
-        return 'text-yellow-600';
-      case 'LOW':
-        return 'text-green-600';
+      case "HIGH":
+        return "text-red-600";
+      case "MEDIUM":
+        return "text-yellow-600";
+      case "LOW":
+        return "text-green-600";
       default:
-        return 'text-gray-600';
+        return "text-gray-600";
     }
   };
 
@@ -286,7 +286,7 @@ export default function PersonalInvestmentDashboard() {
             disabled={loading}
             title="最新のダッシュボードデータを取得します"
           >
-            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             更新
           </Button>
           <Button
@@ -336,7 +336,7 @@ export default function PersonalInvestmentDashboard() {
             )}
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl font-bold ${pnl_summary.unrealized_pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+            <div className={`text-2xl font-bold ${pnl_summary.unrealized_pnl >= 0 ? "text-green-600" : "text-red-600"}`}>
               ¥{pnl_summary.unrealized_pnl.toLocaleString()}
             </div>
             <p className="text-xs text-muted-foreground">
@@ -396,8 +396,8 @@ export default function PersonalInvestmentDashboard() {
                       <div className="text-lg font-semibold">
                         ¥{position.current_price.toLocaleString()}
                       </div>
-                      <div className={`text-sm ${position.pnl_percentage >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        {position.pnl_percentage >= 0 ? '+' : ''}{position.pnl_percentage.toFixed(2)}%
+                      <div className={`text-sm ${position.pnl_percentage >= 0 ? "text-green-600" : "text-red-600"}`}>
+                        {position.pnl_percentage >= 0 ? "+" : ""}{position.pnl_percentage.toFixed(2)}%
                       </div>
                     </div>
                   </div>
@@ -414,7 +414,7 @@ export default function PersonalInvestmentDashboard() {
                     </div>
                     <div>
                       <p className="text-gray-600">損益</p>
-                      <p className={`font-medium ${position.unrealized_pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      <p className={`font-medium ${position.unrealized_pnl >= 0 ? "text-green-600" : "text-red-600"}`}>
                         ¥{position.unrealized_pnl.toLocaleString()}
                       </p>
                     </div>
@@ -501,7 +501,7 @@ export default function PersonalInvestmentDashboard() {
                     <div>
                       <p className="text-gray-600">期待リターン</p>
                       <p className="font-medium">
-                        {recommendation.expected_return ? `${(recommendation.expected_return * 100).toFixed(1)}%` : 'N/A'}
+                        {recommendation.expected_return ? `${(recommendation.expected_return * 100).toFixed(1)}%` : "N/A"}
                       </p>
                     </div>
                   </div>
@@ -540,7 +540,7 @@ export default function PersonalInvestmentDashboard() {
               <CardContent>
                 <div className="text-center">
                   <div className="text-3xl font-bold mb-2">
-                    {market_overview.market_trend === '上昇' ? (
+                    {market_overview.market_trend === "上昇" ? (
                       <TrendingUp className="h-8 w-8 text-green-600 mx-auto" />
                     ) : (
                       <TrendingDown className="h-8 w-8 text-red-600 mx-auto" />
@@ -575,8 +575,8 @@ export default function PersonalInvestmentDashboard() {
                 {Object.entries(market_overview.sector_performance).map(([sector, performance]) => (
                   <div key={sector} className="flex justify-between items-center">
                     <span className="text-sm font-medium">{sector}</span>
-                    <span className={`text-sm font-medium ${performance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {performance >= 0 ? '+' : ''}{(performance * 100).toFixed(2)}%
+                    <span className={`text-sm font-medium ${performance >= 0 ? "text-green-600" : "text-red-600"}`}>
+                      {performance >= 0 ? "+" : ""}{(performance * 100).toFixed(2)}%
                     </span>
                   </div>
                 ))}

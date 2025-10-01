@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { fetchJsonWithCache, getCache } from '@/lib/fetcher';
+import { fetchJsonWithCache, getCache } from "@/lib/fetcher";
 
 export type LatestIndex = {
   latest: string; // YYYYMMDD
@@ -35,11 +35,11 @@ function getLocal<T>(key: string, maxAgeMs?: number): T | null {
 
 export async function getLatestIndex(): Promise<LatestIndex> {
   // 直近成功値を最初に返し、裏で更新
-  const cacheKey = 'latest:index';
+  const cacheKey = "latest:index";
   const cached = getLocal<LatestIndex>(cacheKey, 1000 * 60 * 60 * 6);
   if (cached) {
     // 裏で更新をキック（待たない）
-    fetchJsonWithCache<LatestIndex>('/data/latest/index.json', {
+    fetchJsonWithCache<LatestIndex>("/data/latest/index.json", {
       cacheKey,
       cacheTtlMs: 1000 * 60 * 10,
       timeout: SIX_SECONDS,
@@ -51,7 +51,7 @@ export async function getLatestIndex(): Promise<LatestIndex> {
     return cached;
   }
 
-  const { data, fromCache } = await fetchJsonWithCache<LatestIndex>('/data/latest/index.json', {
+  const { data, fromCache } = await fetchJsonWithCache<LatestIndex>("/data/latest/index.json", {
     cacheKey,
     cacheTtlMs: 1000 * 60 * 10,
     timeout: SIX_SECONDS,
@@ -72,7 +72,7 @@ export function resolveBusinessDate(target: string | null, index: LatestIndex): 
 export async function swrJson<T>(
   cacheKey: string,
   url: string,
-  opts: { ttlMs?: number; timeoutMs?: number; retries?: number; retryDelay?: number } = {}
+  opts: { ttlMs?: number; timeoutMs?: number; retries?: number; retryDelay?: number } = {},
 ): Promise<SwrResult<T>> {
   const { ttlMs = 1000 * 60 * 60, timeoutMs = SIX_SECONDS, retries = 3, retryDelay = 800 } = opts;
 

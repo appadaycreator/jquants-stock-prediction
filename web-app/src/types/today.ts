@@ -1,12 +1,12 @@
-export type MarketPhase = 'preopen' | 'open' | 'postclose';
+export type MarketPhase = "preopen" | "open" | "postclose";
 
-export type Recommendation = 'BUY' | 'SELL' | 'HOLD' | 'STRONG_BUY' | 'STRONG_SELL';
+export type Recommendation = "BUY" | "SELL" | "HOLD" | "STRONG_BUY" | "STRONG_SELL";
 
-export type TimeHorizon = 'D1' | 'D3' | '1W' | '2W' | '1M';
+export type TimeHorizon = "D1" | "D3" | "1W" | "2W" | "1M";
 
-export type WarningType = 'drawdown' | 'volatility' | 'event';
+export type WarningType = "drawdown" | "volatility" | "event";
 
-export type TodoType = 'order' | 'review' | 'monitor';
+export type TodoType = "order" | "review" | "monitor";
 
 export interface TodayOverview {
   buy_candidates: number;

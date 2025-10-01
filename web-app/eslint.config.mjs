@@ -17,7 +17,7 @@ const eslintConfig = [
       "semi": ["error", "always"],
       "comma-dangle": ["error", "always-multiline"],
       "no-unused-vars": "warn",
-      "no-console": "warn",
+      "no-console": "off", // 開発中のconsole.logを許可
     },
   },
   {

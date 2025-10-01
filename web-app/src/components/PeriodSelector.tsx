@@ -22,57 +22,57 @@ const PERIOD_PRESETS: PeriodOption[] = [
     id: "1d",
     label: "1日",
     days: 1,
-    description: "過去1日間"
+    description: "過去1日間",
   },
   {
     id: "5d",
     label: "5日",
     days: 5,
-    description: "過去5日間"
+    description: "過去5日間",
   },
   {
     id: "1m",
     label: "1か月",
     days: 30,
-    description: "過去1か月間"
+    description: "過去1か月間",
   },
   {
     id: "3m",
     label: "3か月",
     days: 90,
-    description: "過去3か月間"
+    description: "過去3か月間",
   },
   {
     id: "6m",
     label: "6か月",
     days: 180,
-    description: "過去6か月間"
+    description: "過去6か月間",
   },
   {
     id: "ytd",
     label: "YTD",
     days: 0, // 特別処理
-    description: "年初来"
+    description: "年初来",
   },
   {
     id: "1y",
     label: "1年",
     days: 365,
-    description: "過去1年間"
+    description: "過去1年間",
   },
   {
     id: "custom",
     label: "カスタム",
     days: 0,
-    description: "カスタム期間"
-  }
+    description: "カスタム期間",
+  },
 ];
 
 export default function PeriodSelector({
   selectedPeriod,
   onPeriodChange,
   onCustomDateChange,
-  className = ""
+  className = "",
 }: PeriodSelectorProps) {
   const [showCustomDatePicker, setShowCustomDatePicker] = useState(false);
   const [customStartDate, setCustomStartDate] = useState("");
@@ -86,8 +86,8 @@ export default function PeriodSelector({
       const oneMonthAgo = new Date(today);
       oneMonthAgo.setMonth(today.getMonth() - 1);
       
-      setCustomStartDate(oneMonthAgo.toISOString().split('T')[0]);
-      setCustomEndDate(today.toISOString().split('T')[0]);
+      setCustomStartDate(oneMonthAgo.toISOString().split("T")[0]);
+      setCustomEndDate(today.toISOString().split("T")[0]);
     }
   }, [customStartDate, customEndDate]);
 
@@ -117,8 +117,8 @@ export default function PeriodSelector({
     const oneMonthAgo = new Date(today);
     oneMonthAgo.setMonth(today.getMonth() - 1);
     
-    setCustomStartDate(oneMonthAgo.toISOString().split('T')[0]);
-    setCustomEndDate(today.toISOString().split('T')[0]);
+    setCustomStartDate(oneMonthAgo.toISOString().split("T")[0]);
+    setCustomEndDate(today.toISOString().split("T")[0]);
   };
 
   // 選択された期間の情報を取得
@@ -142,7 +142,7 @@ export default function PeriodSelector({
             )}
           </div>
         </div>
-        <ChevronDown className={`h-5 w-5 text-gray-500 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`h-5 w-5 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </button>
 
       {/* ドロップダウンメニュー */}
@@ -155,8 +155,8 @@ export default function PeriodSelector({
                 onClick={() => handlePeriodSelect(period.id)}
                 className={`w-full flex items-center justify-between px-3 py-2 text-left rounded-lg transition-colors ${
                   selectedPeriod === period.id
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'hover:bg-gray-50 text-gray-700'
+                    ? "bg-blue-50 text-blue-700"
+                    : "hover:bg-gray-50 text-gray-700"
                 }`}
               >
                 <div>
@@ -222,8 +222,8 @@ export default function PeriodSelector({
                       const today = new Date();
                       const oneWeekAgo = new Date(today);
                       oneWeekAgo.setDate(today.getDate() - 7);
-                      setCustomStartDate(oneWeekAgo.toISOString().split('T')[0]);
-                      setCustomEndDate(today.toISOString().split('T')[0]);
+                      setCustomStartDate(oneWeekAgo.toISOString().split("T")[0]);
+                      setCustomEndDate(today.toISOString().split("T")[0]);
                     }}
                     className="px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
                   >
@@ -234,8 +234,8 @@ export default function PeriodSelector({
                       const today = new Date();
                       const oneMonthAgo = new Date(today);
                       oneMonthAgo.setMonth(today.getMonth() - 1);
-                      setCustomStartDate(oneMonthAgo.toISOString().split('T')[0]);
-                      setCustomEndDate(today.toISOString().split('T')[0]);
+                      setCustomStartDate(oneMonthAgo.toISOString().split("T")[0]);
+                      setCustomEndDate(today.toISOString().split("T")[0]);
                     }}
                     className="px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
                   >
@@ -246,8 +246,8 @@ export default function PeriodSelector({
                       const today = new Date();
                       const threeMonthsAgo = new Date(today);
                       threeMonthsAgo.setMonth(today.getMonth() - 3);
-                      setCustomStartDate(threeMonthsAgo.toISOString().split('T')[0]);
-                      setCustomEndDate(today.toISOString().split('T')[0]);
+                      setCustomStartDate(threeMonthsAgo.toISOString().split("T")[0]);
+                      setCustomEndDate(today.toISOString().split("T")[0]);
                     }}
                     className="px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
                   >
@@ -258,8 +258,8 @@ export default function PeriodSelector({
                       const today = new Date();
                       const oneYearAgo = new Date(today);
                       oneYearAgo.setFullYear(today.getFullYear() - 1);
-                      setCustomStartDate(oneYearAgo.toISOString().split('T')[0]);
-                      setCustomEndDate(today.toISOString().split('T')[0]);
+                      setCustomStartDate(oneYearAgo.toISOString().split("T")[0]);
+                      setCustomEndDate(today.toISOString().split("T")[0]);
                     }}
                     className="px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
                   >

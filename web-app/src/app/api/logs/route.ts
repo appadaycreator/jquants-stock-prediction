@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { NextRequest, NextResponse } from "next/server";
+import fs from "fs";
+import path from "path";
 
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
 // なるべく軽量に: 既定では最新100件のみ返却
 // クエリ: level, source, request_id, limit
@@ -16,13 +16,13 @@ type LogItem = {
   file: string;
 };
 
-const LOG_DIR = path.join(process.cwd(), '..', 'logs');
+const LOG_DIR = path.join(process.cwd(), "..", "logs");
 
 function listLogFiles(): string[] {
   try {
     if (!fs.existsSync(LOG_DIR)) return [];
     const files = fs.readdirSync(LOG_DIR)
-      .filter((f) => f.endsWith('.log'))
+      .filter((f) => f.endsWith(".log"))
       .map((f) => path.join(LOG_DIR, f))
       .sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs);
     return files;
@@ -63,13 +63,13 @@ function collectLogs(params: {
       const maxBytes = 3 * 1024 * 1024;
       let content: string;
       if (stat.size > maxBytes) {
-        const fd = fs.openSync(file, 'r');
+        const fd = fs.openSync(file, "r");
         const buf = new Uint8Array(maxBytes);
         const bytesRead = fs.readSync(fd, buf, 0, maxBytes, stat.size - maxBytes);
         fs.closeSync(fd);
-        content = Buffer.from(buf.subarray(0, bytesRead)).toString('utf-8');
+        content = Buffer.from(buf.subarray(0, bytesRead)).toString("utf-8");
       } else {
-        content = fs.readFileSync(file, 'utf-8');
+        content = fs.readFileSync(file, "utf-8");
       }
       const lines = content.split(/\r?\n/);
       // 末尾からさかのぼる（新しい順）
@@ -94,10 +94,10 @@ export async function GET(req: NextRequest) {
   // 静的互換は不要（動的ログ読み込みのため）
   try {
     const { searchParams } = new URL(req.url);
-    const level = searchParams.get('level') || undefined; // DEBUG/INFO/WARN/ERROR/CRITICAL
-    const source = searchParams.get('source') || undefined; // logger name substring
-    const request_id = searchParams.get('request_id') || undefined;
-    const limit = Math.min(Math.max(parseInt(searchParams.get('limit') || '100', 10) || 100, 1), 1000);
+    const level = searchParams.get("level") || undefined; // DEBUG/INFO/WARN/ERROR/CRITICAL
+    const source = searchParams.get("source") || undefined; // logger name substring
+    const request_id = searchParams.get("request_id") || undefined;
+    const limit = Math.min(Math.max(parseInt(searchParams.get("limit") || "100", 10) || 100, 1), 1000);
 
     const { items, files } = collectLogs({ level, source, request_id, limit });
     return NextResponse.json({ items, meta: { total: items.length, limit }, files });

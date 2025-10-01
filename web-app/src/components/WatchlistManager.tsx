@@ -13,7 +13,7 @@ import {
   Check,
   AlertCircle,
   Star,
-  StarOff
+  StarOff,
 } from "lucide-react";
 
 interface WatchlistItem {
@@ -41,7 +41,7 @@ interface WatchlistManagerProps {
 
 export default function WatchlistManager({ 
   onWatchlistChange, 
-  onStockSelect 
+  onStockSelect, 
 }: WatchlistManagerProps) {
   const [watchlists, setWatchlists] = useState<Watchlist[]>([]);
   const [activeWatchlist, setActiveWatchlist] = useState<string | null>(null);
@@ -71,7 +71,7 @@ export default function WatchlistManager({
           { id: "1-3", symbol: "6861.T", name: "キーエンス", sector: "電子部品", addedAt: "2024-01-03", isFavorite: true, tags: ["計測機器"] },
         ],
         createdAt: "2024-01-01",
-        updatedAt: "2024-01-15"
+        updatedAt: "2024-01-15",
       },
       {
         id: "2",
@@ -81,8 +81,8 @@ export default function WatchlistManager({
           { id: "2-2", symbol: "4063.T", name: "信越化学工業", sector: "化学", addedAt: "2024-01-06", isFavorite: true, tags: ["半導体材料"] },
         ],
         createdAt: "2024-01-05",
-        updatedAt: "2024-01-10"
-      }
+        updatedAt: "2024-01-10",
+      },
     ];
     
     setWatchlists(sampleWatchlists);
@@ -115,7 +115,7 @@ export default function WatchlistManager({
         { symbol: "4063.T", name: "信越化学工業", sector: "化学" },
       ].filter(stock => 
         stock.symbol.toLowerCase().includes(query.toLowerCase()) ||
-        stock.name.toLowerCase().includes(query.toLowerCase())
+        stock.name.toLowerCase().includes(query.toLowerCase()),
       );
       
       setStockSearchResults(sampleResults);
@@ -135,7 +135,7 @@ export default function WatchlistManager({
       name: newWatchlistName,
       items: [],
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
 
     setWatchlists(prev => [...prev, newWatchlist]);
@@ -158,7 +158,7 @@ export default function WatchlistManager({
     setWatchlists(prev => prev.map(wl => 
       wl.id === editingWatchlist.id 
         ? { ...wl, name: newWatchlistName, updatedAt: new Date().toISOString() }
-        : wl
+        : wl,
     ));
     
     setEditingWatchlist(null);
@@ -176,7 +176,7 @@ export default function WatchlistManager({
       return;
     }
     setWatchlists(prev => prev.map(w =>
-      w.id === renamingWatchlistId ? { ...w, name: newWatchlistName.trim(), updatedAt: new Date().toISOString() } : w
+      w.id === renamingWatchlistId ? { ...w, name: newWatchlistName.trim(), updatedAt: new Date().toISOString() } : w,
     ));
     setRenamingWatchlistId(null);
     setNewWatchlistName("");
@@ -204,13 +204,13 @@ export default function WatchlistManager({
       sector: stock.sector,
       addedAt: new Date().toISOString(),
       isFavorite: false,
-      tags: []
+      tags: [],
     };
 
     setWatchlists(prev => prev.map(wl => 
       wl.id === activeWatchlist 
         ? { ...wl, items: [...wl.items, newItem], updatedAt: new Date().toISOString() }
-        : wl
+        : wl,
     ));
 
     setShowStockSearch(false);
@@ -223,7 +223,7 @@ export default function WatchlistManager({
     setWatchlists(prev => prev.map(wl => 
       wl.id === watchlistId 
         ? { ...wl, items: wl.items.filter(item => item.id !== itemId), updatedAt: new Date().toISOString() }
-        : wl
+        : wl,
     ));
   };
 
@@ -236,11 +236,11 @@ export default function WatchlistManager({
             items: wl.items.map(item => 
               item.id === itemId 
                 ? { ...item, isFavorite: !item.isFavorite }
-                : item
+                : item,
             ),
-            updatedAt: new Date().toISOString()
+            updatedAt: new Date().toISOString(),
           }
-        : wl
+        : wl,
     ));
   };
 
@@ -255,11 +255,11 @@ export default function WatchlistManager({
             items: wl.items.map(item =>
               item.id === itemId
                 ? { ...item, tags: Array.from(new Set([...(item.tags || []), trimmed])) }
-                : item
+                : item,
             ),
-            updatedAt: new Date().toISOString()
+            updatedAt: new Date().toISOString(),
           }
-        : wl
+        : wl,
     ));
     setNewTagInput(prev => ({ ...prev, [itemId]: "" }));
   };
@@ -273,11 +273,11 @@ export default function WatchlistManager({
             items: wl.items.map(item =>
               item.id === itemId
                 ? { ...item, tags: (item.tags || []).filter(t => t !== tag) }
-                : item
+                : item,
             ),
-            updatedAt: new Date().toISOString()
+            updatedAt: new Date().toISOString(),
           }
-        : wl
+        : wl,
     ));
   };
 
@@ -305,7 +305,7 @@ export default function WatchlistManager({
     setWatchlists(prev => prev.map(wl => 
       wl.id === activeWatchlist 
         ? { ...wl, items, updatedAt: new Date().toISOString() }
-        : wl
+        : wl,
     ));
 
     setDragIndex(null);
@@ -314,12 +314,12 @@ export default function WatchlistManager({
   // JSONエクスポート
   const exportWatchlists = () => {
     const dataStr = JSON.stringify(watchlists, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    const exportFileDefaultName = `watchlists_${new Date().toISOString().split('T')[0]}.json`;
+    const dataUri = "data:application/json;charset=utf-8,"+ encodeURIComponent(dataStr);
+    const exportFileDefaultName = `watchlists_${new Date().toISOString().split("T")[0]}.json`;
     
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
+    const linkElement = document.createElement("a");
+    linkElement.setAttribute("href", dataUri);
+    linkElement.setAttribute("download", exportFileDefaultName);
     linkElement.click();
   };
 
@@ -393,8 +393,8 @@ export default function WatchlistManager({
                   key={watchlist.id}
                   className={`p-3 rounded-lg border cursor-pointer transition-colors ${
                     activeWatchlist === watchlist.id
-                      ? 'bg-blue-50 border-blue-200'
-                      : 'bg-gray-50 border-gray-200 hover:bg-gray-100'
+                      ? "bg-blue-50 border-blue-200"
+                      : "bg-gray-50 border-gray-200 hover:bg-gray-100"
                   }`}
                   onClick={() => setActiveWatchlist(watchlist.id)}
                 >
@@ -408,8 +408,8 @@ export default function WatchlistManager({
                           onChange={(e) => setNewWatchlistName(e.target.value)}
                           onBlur={handleInlineRenameCommit}
                           onKeyDown={(e) => {
-                            if (e.key === 'Enter') handleInlineRenameCommit();
-                            if (e.key === 'Escape') {
+                            if (e.key === "Enter") handleInlineRenameCommit();
+                            if (e.key === "Escape") {
                               setRenamingWatchlistId(null);
                               setNewWatchlistName("");
                             }
@@ -542,7 +542,7 @@ export default function WatchlistManager({
                                 value={newTagInput[item.id] || ""}
                                 onChange={e => setNewTagInput(prev => ({ ...prev, [item.id]: e.target.value }))}
                                 onKeyDown={e => {
-                                  if (e.key === 'Enter') {
+                                  if (e.key === "Enter") {
                                     addTagToItem(currentWatchlist.id, item.id, newTagInput[item.id] || "");
                                   }
                                 }}

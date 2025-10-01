@@ -3,14 +3,14 @@
  * エラーハンドリング、スキーマ検証、UI安定化
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { fetchJson, fetchMultiple, AppError } from '@/lib/fetcher';
-import { PredictionResponse, StockData, ModelComparison } from '@/lib/schema';
-import { parseToJst, jstLabel } from '@/lib/datetime';
-import { mae, rmse, r2, detectOverfitting, evaluateBaseline, compareModels, timeSeriesSplitEvaluation, walkForwardEvaluation } from '@/lib/metrics';
-import { fetcherLogger, metricsLogger } from '@/lib/logger';
-import ErrorPanel from './ErrorPanel';
-import { PredictionsViewSkeleton } from './Skeletons/LoadingSkeleton';
+import React, { useState, useEffect, useCallback } from "react";
+import { fetchJson, fetchMultiple, AppError } from "@/lib/fetcher";
+import { PredictionResponse, StockData, ModelComparison } from "@/lib/schema";
+import { parseToJst, jstLabel } from "@/lib/datetime";
+import { mae, rmse, r2, detectOverfitting, evaluateBaseline, compareModels, timeSeriesSplitEvaluation, walkForwardEvaluation } from "@/lib/metrics";
+import { fetcherLogger, metricsLogger } from "@/lib/logger";
+import ErrorPanel from "./ErrorPanel";
+import { PredictionsViewSkeleton } from "./Skeletons/LoadingSkeleton";
 
 interface PredictionsViewProps {
   onError?: (error: Error) => void;
@@ -36,7 +36,7 @@ interface KpiData {
   };
   overfittingRisk: {
     isOverfitting: boolean;
-    riskLevel: '低' | '中' | '高';
+    riskLevel: "低" | "中" | "高";
     message: string;
   };
 }
@@ -70,17 +70,17 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
       const controller = new AbortController();
       setAbortController(controller);
 
-      fetcherLogger.info('予測結果データの読み込みを開始');
+      fetcherLogger.info("予測結果データの読み込みを開始");
 
       // 複数のデータを並列取得（エラーバウンダリで隔離）
       const data = await fetchMultiple({
-        predictions: './data/prediction_results.json',
-        stockData: './data/stock_data.json',
-        modelComparison: './data/unified_model_comparison.json'
+        predictions: "./data/prediction_results.json",
+        stockData: "./data/stock_data.json",
+        modelComparison: "./data/unified_model_comparison.json",
       }, {
         signal: controller.signal,
         timeout: 10000,
-        retries: 3
+        retries: 3,
       });
 
       // スキーマ検証（エラーバウンダリで隔離）
@@ -90,29 +90,29 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
         predictionData = PredictionResponse.parse(data.predictions);
       } catch (schemaError) {
         throw new AppError(
-          `予測データのスキーマ検証に失敗: ${schemaError instanceof Error ? schemaError.message : 'Unknown error'}`,
-          'INVALID_PREDICTION_SCHEMA'
+          `予測データのスキーマ検証に失敗: ${schemaError instanceof Error ? schemaError.message : "Unknown error"}`,
+          "INVALID_PREDICTION_SCHEMA",
         );
       }
 
       try {
         stockData = (data as any).stockData?.map((item: any) => StockData.parse(item)) || [];
       } catch (schemaError) {
-        fetcherLogger.warn('株価データのスキーマ検証に失敗、空配列で継続', schemaError);
+        fetcherLogger.warn("株価データのスキーマ検証に失敗、空配列で継続", schemaError);
         stockData = [];
       }
 
       try {
         modelData = (data as any).modelComparison?.map((item: any) => ModelComparison.parse(item)) || [];
       } catch (schemaError) {
-        fetcherLogger.warn('モデル比較データのスキーマ検証に失敗、空配列で継続', schemaError);
+        fetcherLogger.warn("モデル比較データのスキーマ検証に失敗、空配列で継続", schemaError);
         modelData = [];
       }
 
-      fetcherLogger.info('データの読み込みが完了', {
+      fetcherLogger.info("データの読み込みが完了", {
         predictionsCount: predictionData.data.length,
         stockDataCount: stockData.length,
-        modelCount: modelData.length
+        modelCount: modelData.length,
       });
 
       // 予測データの変換（エラーバウンダリで隔離）
@@ -123,12 +123,12 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
           symbol: item.symbol,
           y_true: item.y_true,
           y_pred: item.y_pred,
-          error: Math.abs(item.y_true - item.y_pred)
+          error: Math.abs(item.y_true - item.y_pred),
         }));
       } catch (transformError) {
         throw new AppError(
-          `予測データの変換に失敗: ${transformError instanceof Error ? transformError.message : 'Unknown error'}`,
-          'PREDICTION_TRANSFORM_ERROR'
+          `予測データの変換に失敗: ${transformError instanceof Error ? transformError.message : "Unknown error"}`,
+          "PREDICTION_TRANSFORM_ERROR",
         );
       }
 
@@ -139,11 +139,11 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
         if (predictionData.meta) {
           setModelInfo({
             name: predictionData.meta.model,
-            generatedAt: predictionData.meta.generatedAt
+            generatedAt: predictionData.meta.generatedAt,
           });
         }
       } catch (metaError) {
-        fetcherLogger.warn('モデル情報の設定に失敗', metaError);
+        fetcherLogger.warn("モデル情報の設定に失敗", metaError);
         setModelInfo(null);
       }
 
@@ -161,7 +161,7 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
         const baselineMetrics = evaluateBaseline(y_true);
         const baselineComparison = compareModels(
           { mae: maeValue, rmse: rmseValue, r2: r2Value },
-          baselineMetrics
+          baselineMetrics,
         );
 
         // TimeSeriesSplit評価による過学習検出
@@ -175,9 +175,9 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
         // 過学習検出（TimeSeriesSplit結果を使用）
         const overfittingRisk = {
           isOverfitting: timeSeriesEval.isOverfitting,
-          riskLevel: timeSeriesEval.overfittingRisk.includes('高リスク') ? '高' as const :
-                    timeSeriesEval.overfittingRisk.includes('中リスク') ? '中' as const : '低' as const,
-          message: timeSeriesEval.overfittingRisk
+          riskLevel: timeSeriesEval.overfittingRisk.includes("高リスク") ? "高" as const :
+                    timeSeriesEval.overfittingRisk.includes("中リスク") ? "中" as const : "低" as const,
+          message: timeSeriesEval.overfittingRisk,
         };
 
         kpi = {
@@ -185,10 +185,10 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
           rmse: rmseValue,
           r2: r2Value,
           baselineComparison,
-          overfittingRisk
+          overfittingRisk,
         };
       } catch (kpiError) {
-        fetcherLogger.error('KPI計算に失敗、デフォルト値を設定', kpiError);
+        fetcherLogger.error("KPI計算に失敗、デフォルト値を設定", kpiError);
         kpi = {
           mae: 0,
           rmse: 0,
@@ -197,34 +197,34 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
             maeImprovement: 0,
             rmseImprovement: 0,
             r2Improvement: 0,
-            isBetter: false
+            isBetter: false,
           },
           overfittingRisk: {
             isOverfitting: false,
-            riskLevel: '低' as const,
-            message: '計算エラー'
-          }
+            riskLevel: "低" as const,
+            message: "計算エラー",
+          },
         };
       }
 
       setKpiData(kpi);
 
-      metricsLogger.info('KPI計算完了', {
+      metricsLogger.info("KPI計算完了", {
         mae: kpi.mae,
         rmse: kpi.rmse,
         r2: kpi.r2,
-        isBetterThanBaseline: kpi.baselineComparison?.isBetter || false
+        isBetterThanBaseline: kpi.baselineComparison?.isBetter || false,
       });
 
       setRetryCount(0);
 
     } catch (err) {
       const error = err instanceof AppError ? err : new AppError(
-        err instanceof Error ? err.message : 'Unknown error',
-        'UNKNOWN_ERROR'
+        err instanceof Error ? err.message : "Unknown error",
+        "UNKNOWN_ERROR",
       );
 
-      fetcherLogger.error('予測結果データの読み込みに失敗', error);
+      fetcherLogger.error("予測結果データの読み込みに失敗", error);
 
       setError(error);
 
@@ -330,9 +330,9 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-medium text-gray-500">R²</h3>
               <span className={`text-2xl font-bold ${
-                kpiData.overfittingRisk.riskLevel === '高' ? 'text-red-600' :
-                kpiData.overfittingRisk.riskLevel === '中' ? 'text-yellow-600' :
-                'text-green-600'
+                kpiData.overfittingRisk.riskLevel === "高" ? "text-red-600" :
+                kpiData.overfittingRisk.riskLevel === "中" ? "text-yellow-600" :
+                "text-green-600"
               }`}>
                 {kpiData.r2.toFixed(3)}
               </span>
@@ -346,9 +346,9 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-medium text-gray-500">ベースライン</h3>
               <span className={`text-2xl font-bold ${
-                kpiData.baselineComparison.isBetter ? 'text-green-600' : 'text-red-600'
+                kpiData.baselineComparison.isBetter ? "text-green-600" : "text-red-600"
               }`}>
-                {kpiData.baselineComparison.isBetter ? '改善' : '劣化'}
+                {kpiData.baselineComparison.isBetter ? "改善" : "劣化"}
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-1">
@@ -361,30 +361,30 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
       {/* 過学習警告 */}
       {kpiData && kpiData.overfittingRisk.isOverfitting && (
         <div className={`border rounded-lg p-4 ${
-          kpiData.overfittingRisk.riskLevel === '高' ? 'bg-red-50 border-red-200' :
-          kpiData.overfittingRisk.riskLevel === '中' ? 'bg-yellow-50 border-yellow-200' :
-          'bg-orange-50 border-orange-200'
+          kpiData.overfittingRisk.riskLevel === "高" ? "bg-red-50 border-red-200" :
+          kpiData.overfittingRisk.riskLevel === "中" ? "bg-yellow-50 border-yellow-200" :
+          "bg-orange-50 border-orange-200"
         }`}>
           <div className="flex items-start">
             <svg className={`h-5 w-5 mr-2 mt-0.5 ${
-              kpiData.overfittingRisk.riskLevel === '高' ? 'text-red-500' :
-              kpiData.overfittingRisk.riskLevel === '中' ? 'text-yellow-500' :
-              'text-orange-500'
+              kpiData.overfittingRisk.riskLevel === "高" ? "text-red-500" :
+              kpiData.overfittingRisk.riskLevel === "中" ? "text-yellow-500" :
+              "text-orange-500"
             }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
             <div className="flex-1">
               <h3 className={`text-sm font-medium ${
-                kpiData.overfittingRisk.riskLevel === '高' ? 'text-red-800' :
-                kpiData.overfittingRisk.riskLevel === '中' ? 'text-yellow-800' :
-                'text-orange-800'
+                kpiData.overfittingRisk.riskLevel === "高" ? "text-red-800" :
+                kpiData.overfittingRisk.riskLevel === "中" ? "text-yellow-800" :
+                "text-orange-800"
               }`}>
                 過学習のリスクが検出されました
               </h3>
               <p className={`text-sm mt-1 ${
-                kpiData.overfittingRisk.riskLevel === '高' ? 'text-red-700' :
-                kpiData.overfittingRisk.riskLevel === '中' ? 'text-yellow-700' :
-                'text-orange-700'
+                kpiData.overfittingRisk.riskLevel === "高" ? "text-red-700" :
+                kpiData.overfittingRisk.riskLevel === "中" ? "text-yellow-700" :
+                "text-orange-700"
               }`}>
                 {kpiData.overfittingRisk.message}
               </p>

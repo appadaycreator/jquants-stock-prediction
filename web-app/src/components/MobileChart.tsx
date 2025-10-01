@@ -20,7 +20,7 @@ import {
 
 interface MobileChartProps {
   data: any[];
-  type: 'line' | 'bar' | 'pie' | 'scatter';
+  type: "line" | "bar" | "pie" | "scatter";
   title: string;
   dataKey: string;
   xAxisKey?: string;
@@ -39,7 +39,7 @@ export default function MobileChart({
   type,
   title,
   dataKey,
-  xAxisKey = 'date',
+  xAxisKey = "date",
   lines = [],
   height = 300,
   onFullscreen,
@@ -79,7 +79,7 @@ export default function MobileChart({
       const touch2 = e.touches[1];
       const distance = Math.sqrt(
         Math.pow(touch2.clientX - touch1.clientX, 2) +
-        Math.pow(touch2.clientY - touch1.clientY, 2)
+        Math.pow(touch2.clientY - touch1.clientY, 2),
       );
       (e.target as any).initialDistance = distance;
     }
@@ -91,7 +91,7 @@ export default function MobileChart({
       const touch2 = e.touches[1];
       const distance = Math.sqrt(
         Math.pow(touch2.clientX - touch1.clientX, 2) +
-        Math.pow(touch2.clientY - touch1.clientY, 2)
+        Math.pow(touch2.clientY - touch1.clientY, 2),
       );
       const initialDistance = (e.target as any).initialDistance;
       
@@ -129,9 +129,9 @@ export default function MobileChart({
 
   const downloadChart = () => {
     // チャートの画像ダウンロード機能
-    const canvas = chartRef.current?.querySelector('canvas');
+    const canvas = chartRef.current?.querySelector("canvas");
     if (canvas) {
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.download = `${title}.png`;
       link.href = canvas.toDataURL();
       link.click();
@@ -148,18 +148,18 @@ export default function MobileChart({
     } else {
       // フォールバック: URLをクリップボードにコピー
       navigator.clipboard.writeText(window.location.href);
-      alert('URLをクリップボードにコピーしました');
+      alert("URLをクリップボードにコピーしました");
     }
   };
 
   const renderEmptyState = () => {
     const getIcon = () => {
       switch (type) {
-        case 'bar':
+        case "bar":
           return <BarChart3 className="h-12 w-12 mx-auto mb-4 text-gray-400" />;
-        case 'pie':
+        case "pie":
           return <Target className="h-12 w-12 mx-auto mb-4 text-gray-400" />;
-        case 'scatter':
+        case "scatter":
           return <TrendingUp className="h-12 w-12 mx-auto mb-4 text-gray-400" />;
         default:
           return <BarChart3 className="h-12 w-12 mx-auto mb-4 text-gray-400" />;
@@ -189,7 +189,7 @@ export default function MobileChart({
     };
 
     switch (type) {
-      case 'line':
+      case "line":
         return (
           <LineChart {...commonProps}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -197,10 +197,10 @@ export default function MobileChart({
             <YAxis />
             <Tooltip 
               contentStyle={{ 
-                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                border: '1px solid #e5e7eb',
-                borderRadius: '8px',
-                fontSize: '14px',
+                backgroundColor: "rgba(255, 255, 255, 0.95)",
+                border: "1px solid #e5e7eb",
+                borderRadius: "8px",
+                fontSize: "14px",
               }}
             />
             <Legend />
@@ -218,7 +218,7 @@ export default function MobileChart({
           </LineChart>
         );
 
-      case 'bar':
+      case "bar":
         return (
           <BarChart {...commonProps}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -226,10 +226,10 @@ export default function MobileChart({
             <YAxis />
             <Tooltip 
               contentStyle={{ 
-                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                border: '1px solid #e5e7eb',
-                borderRadius: '8px',
-                fontSize: '14px',
+                backgroundColor: "rgba(255, 255, 255, 0.95)",
+                border: "1px solid #e5e7eb",
+                borderRadius: "8px",
+                fontSize: "14px",
               }}
             />
             <Legend />
@@ -237,7 +237,7 @@ export default function MobileChart({
           </BarChart>
         );
 
-      case 'pie':
+      case "pie":
         const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8", "#82CA9D"];
         return (
           <PieChart>
@@ -259,7 +259,7 @@ export default function MobileChart({
           </PieChart>
         );
 
-      case 'scatter':
+      case "scatter":
         return (
           <ScatterChart {...commonProps}>
             <CartesianGrid />
@@ -279,11 +279,11 @@ export default function MobileChart({
     <div 
       ref={chartRef}
       className={`bg-white rounded-lg shadow-sm border ${
-        isFullscreenMode ? 'fixed inset-0 z-50 p-4' : ''
+        isFullscreenMode ? "fixed inset-0 z-50 p-4" : ""
       }`}
       style={{
         transform: `scale(${zoomLevel}) translateX(${panOffset}px)`,
-        transition: isDragging ? 'none' : 'transform 0.1s ease-out',
+        transition: isDragging ? "none" : "transform 0.1s ease-out",
       }}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}

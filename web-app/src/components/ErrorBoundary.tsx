@@ -3,8 +3,8 @@
  * 予測結果タブの致命的エラーを捕捉
  */
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { logger, collectErrorInfo } from '@/lib/logger';
+import React, { Component, ErrorInfo, ReactNode } from "react";
+import { logger, collectErrorInfo } from "@/lib/logger";
 
 interface Props {
   children: ReactNode;
@@ -24,7 +24,7 @@ export class ErrorBoundary extends Component<Props, State> {
     this.state = {
       hasError: false,
       error: null,
-      errorInfo: null
+      errorInfo: null,
     };
   }
 
@@ -32,20 +32,20 @@ export class ErrorBoundary extends Component<Props, State> {
     return {
       hasError: true,
       error,
-      errorInfo: null
+      errorInfo: null,
     };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({
       error,
-      errorInfo
+      errorInfo,
     });
 
     // エラー情報をログに記録
-    const errorDetails = collectErrorInfo(error, 'ErrorBoundary');
-    logger.error('ErrorBoundary caught an error:', errorDetails);
-    logger.error('Component stack:', errorInfo.componentStack);
+    const errorDetails = collectErrorInfo(error, "ErrorBoundary");
+    logger.error("ErrorBoundary caught an error:", errorDetails);
+    logger.error("Component stack:", errorInfo.componentStack);
 
     // 親コンポーネントにエラーを通知
     if (this.props.onError) {
@@ -57,7 +57,7 @@ export class ErrorBoundary extends Component<Props, State> {
     this.setState({
       hasError: false,
       error: null,
-      errorInfo: null
+      errorInfo: null,
     });
   };
 
@@ -88,7 +88,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 申し訳ございません。予測結果の表示中にエラーが発生しました。
               </p>
               
-              {process.env.NODE_ENV === 'development' && this.state.error && (
+              {process.env.NODE_ENV === "development" && this.state.error && (
                 <details className="mb-4">
                   <summary className="text-sm text-gray-500 cursor-pointer">
                     エラー詳細（開発モード）

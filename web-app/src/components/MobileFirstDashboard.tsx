@@ -15,7 +15,7 @@ import {
   Clock,
   BarChart3,
   Eye,
-  Plus
+  Plus,
 } from "lucide-react";
 import JudgmentPanel from "./JudgmentPanel";
 import WatchlistManager from "./WatchlistManager";
@@ -27,10 +27,10 @@ interface MobileFirstDashboardProps {
 }
 
 export default function MobileFirstDashboard({ className = "" }: MobileFirstDashboardProps) {
-  const [activeTab, setActiveTab] = useState<'home' | 'watchlist' | 'update' | 'settings'>('home');
+  const [activeTab, setActiveTab] = useState<"home" | "watchlist" | "update" | "settings">("home");
   const [showSidebar, setShowSidebar] = useState(false);
   const [selectedSymbols, setSelectedSymbols] = useState<string[]>([]);
-  const [selectedPeriod, setSelectedPeriod] = useState('1m');
+  const [selectedPeriod, setSelectedPeriod] = useState("1m");
   const [isUpdating, setIsUpdating] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
 
@@ -43,25 +43,25 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
     };
     
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   // タブの切り替え
-  const handleTabChange = (tab: 'home' | 'watchlist' | 'update' | 'settings') => {
+  const handleTabChange = (tab: "home" | "watchlist" | "update" | "settings") => {
     setActiveTab(tab);
     setShowSidebar(false);
   };
 
   // 銘柄選択
   const handleStockSelect = (symbol: string) => {
-    console.log('銘柄選択:', symbol);
+    console.log("銘柄選択:", symbol);
     // 実際の実装では銘柄詳細ページに遷移
   };
 
   // アクション実行
   const handleActionClick = (action: string, symbol: string) => {
-    console.log('アクション実行:', action, symbol);
+    console.log("アクション実行:", action, symbol);
     // 実際の実装では取引指示の実行
   };
 
@@ -72,7 +72,7 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
 
   // カスタム日付変更
   const handleCustomDateChange = (startDate: string, endDate: string) => {
-    console.log('カスタム期間:', startDate, endDate);
+    console.log("カスタム期間:", startDate, endDate);
   };
 
   // 更新開始
@@ -84,12 +84,12 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
   // 更新完了
   const handleUpdateComplete = (results: any[]) => {
     setIsUpdating(false);
-    console.log('更新完了:', results);
+    console.log("更新完了:", results);
   };
 
   // 進捗更新
   const handleProgressChange = (progress: number) => {
-    console.log('進捗:', progress);
+    console.log("進捗:", progress);
   };
 
   // サイドバーのコンテンツ
@@ -107,11 +107,11 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
       
       <nav className="space-y-2">
         <button
-          onClick={() => handleTabChange('home')}
+          onClick={() => handleTabChange("home")}
           className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-            activeTab === 'home' 
-              ? 'bg-blue-50 text-blue-700 border border-blue-200' 
-              : 'text-gray-700 hover:bg-gray-50'
+            activeTab === "home" 
+              ? "bg-blue-50 text-blue-700 border border-blue-200" 
+              : "text-gray-700 hover:bg-gray-50"
           }`}
         >
           <Home className="h-5 w-5" />
@@ -119,11 +119,11 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
         </button>
         
         <button
-          onClick={() => handleTabChange('watchlist')}
+          onClick={() => handleTabChange("watchlist")}
           className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-            activeTab === 'watchlist' 
-              ? 'bg-blue-50 text-blue-700 border border-blue-200' 
-              : 'text-gray-700 hover:bg-gray-50'
+            activeTab === "watchlist" 
+              ? "bg-blue-50 text-blue-700 border border-blue-200" 
+              : "text-gray-700 hover:bg-gray-50"
           }`}
         >
           <Star className="h-5 w-5" />
@@ -131,11 +131,11 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
         </button>
         
         <button
-          onClick={() => handleTabChange('update')}
+          onClick={() => handleTabChange("update")}
           className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-            activeTab === 'update' 
-              ? 'bg-blue-50 text-blue-700 border border-blue-200' 
-              : 'text-gray-700 hover:bg-gray-50'
+            activeTab === "update" 
+              ? "bg-blue-50 text-blue-700 border border-blue-200" 
+              : "text-gray-700 hover:bg-gray-50"
           }`}
         >
           <RefreshCw className="h-5 w-5" />
@@ -143,11 +143,11 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
         </button>
         
         <button
-          onClick={() => handleTabChange('settings')}
+          onClick={() => handleTabChange("settings")}
           className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-            activeTab === 'settings' 
-              ? 'bg-blue-50 text-blue-700 border border-blue-200' 
-              : 'text-gray-700 hover:bg-gray-50'
+            activeTab === "settings" 
+              ? "bg-blue-50 text-blue-700 border border-blue-200" 
+              : "text-gray-700 hover:bg-gray-50"
           }`}
         >
           <Settings className="h-5 w-5" />
@@ -160,7 +160,7 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
   // メインコンテンツのレンダリング
   const renderMainContent = () => {
     switch (activeTab) {
-      case 'home':
+      case "home":
         return (
           <div className="space-y-6">
             {/* 期間選択 */}
@@ -184,14 +184,14 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
               <h3 className="text-lg font-semibold text-gray-900 mb-4">クイックアクション</h3>
               <div className="grid grid-cols-2 gap-4">
                 <button
-                  onClick={() => handleTabChange('watchlist')}
+                  onClick={() => handleTabChange("watchlist")}
                   className="flex items-center justify-center space-x-2 p-4 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors"
                 >
                   <Star className="h-5 w-5" />
                   <span>ウォッチリスト</span>
                 </button>
                 <button
-                  onClick={() => handleTabChange('update')}
+                  onClick={() => handleTabChange("update")}
                   className="flex items-center justify-center space-x-2 p-4 bg-green-50 text-green-700 rounded-lg border border-green-200 hover:bg-green-100 transition-colors"
                 >
                   <RefreshCw className="h-5 w-5" />
@@ -202,20 +202,20 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
           </div>
         );
 
-      case 'watchlist':
+      case "watchlist":
         return (
           <WatchlistManager
             onStockSelect={handleStockSelect}
             onWatchlistChange={(watchlists) => {
-              console.log('ウォッチリスト変更:', watchlists);
+              console.log("ウォッチリスト変更:", watchlists);
             }}
           />
         );
 
-      case 'update':
+      case "update":
         return (
           <ParallelUpdateManager
-            symbols={selectedSymbols.length > 0 ? selectedSymbols : ['7203.T', '6758.T', '6861.T']}
+            symbols={selectedSymbols.length > 0 ? selectedSymbols : ["7203.T", "6758.T", "6861.T"]}
             onUpdateComplete={handleUpdateComplete}
             onProgressChange={handleProgressChange}
             maxConcurrent={4}
@@ -223,7 +223,7 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
           />
         );
 
-      case 'settings':
+      case "settings":
         return (
           <div className="bg-white rounded-lg shadow border p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">設定</h3>
@@ -290,11 +290,11 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
             <div className="flex items-center space-x-2">
               {lastUpdate && (
                 <div className="text-xs text-gray-500">
-                  {lastUpdate.toLocaleTimeString('ja-JP')}
+                  {lastUpdate.toLocaleTimeString("ja-JP")}
                 </div>
               )}
               <button
-                onClick={() => handleTabChange('update')}
+                onClick={() => handleTabChange("update")}
                 className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 <RefreshCw className="h-5 w-5" />
@@ -324,7 +324,7 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-30">
           <div className="p-4">
             <button
-              onClick={() => handleTabChange('update')}
+              onClick={() => handleTabChange("update")}
               className="w-full flex items-center justify-center space-x-2 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               <RefreshCw className="h-5 w-5" />
@@ -339,11 +339,11 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-30">
           <div className="grid grid-cols-4">
             <button
-              onClick={() => handleTabChange('home')}
+              onClick={() => handleTabChange("home")}
               className={`flex flex-col items-center py-3 px-2 text-xs ${
-                activeTab === 'home' 
-                  ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-600'
+                activeTab === "home" 
+                  ? "text-blue-600 bg-blue-50" 
+                  : "text-gray-600"
               }`}
             >
               <Home className="h-5 w-5 mb-1" />
@@ -351,11 +351,11 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
             </button>
             
             <button
-              onClick={() => handleTabChange('watchlist')}
+              onClick={() => handleTabChange("watchlist")}
               className={`flex flex-col items-center py-3 px-2 text-xs ${
-                activeTab === 'watchlist' 
-                  ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-600'
+                activeTab === "watchlist" 
+                  ? "text-blue-600 bg-blue-50" 
+                  : "text-gray-600"
               }`}
             >
               <Star className="h-5 w-5 mb-1" />
@@ -363,11 +363,11 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
             </button>
             
             <button
-              onClick={() => handleTabChange('update')}
+              onClick={() => handleTabChange("update")}
               className={`flex flex-col items-center py-3 px-2 text-xs ${
-                activeTab === 'update' 
-                  ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-600'
+                activeTab === "update" 
+                  ? "text-blue-600 bg-blue-50" 
+                  : "text-gray-600"
               }`}
             >
               <RefreshCw className="h-5 w-5 mb-1" />
@@ -375,11 +375,11 @@ export default function MobileFirstDashboard({ className = "" }: MobileFirstDash
             </button>
             
             <button
-              onClick={() => handleTabChange('settings')}
+              onClick={() => handleTabChange("settings")}
               className={`flex flex-col items-center py-3 px-2 text-xs ${
-                activeTab === 'settings' 
-                  ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-600'
+                activeTab === "settings" 
+                  ? "text-blue-600 bg-blue-50" 
+                  : "text-gray-600"
               }`}
             >
               <Settings className="h-5 w-5 mb-1" />

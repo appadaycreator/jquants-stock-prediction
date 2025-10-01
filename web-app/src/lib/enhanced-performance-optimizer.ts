@@ -58,7 +58,7 @@ class EnhancedPerformanceOptimizer {
    * パフォーマンス監視の初期化
    */
   private initPerformanceMonitoring(): void {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     // Core Web Vitals監視
     this.observeCoreWebVitals();
@@ -74,7 +74,7 @@ class EnhancedPerformanceOptimizer {
    * Core Web Vitals監視
    */
   private observeCoreWebVitals(): void {
-    if (!('PerformanceObserver' in window)) return;
+    if (!("PerformanceObserver" in window)) return;
 
     try {
       // LCP監視
@@ -88,16 +88,16 @@ class EnhancedPerformanceOptimizer {
         }
       });
       
-      this.performanceObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+      this.performanceObserver.observe({ entryTypes: ["largest-contentful-paint"] });
 
       // FID監視
-      this.performanceObserver.observe({ entryTypes: ['first-input'] });
+      this.performanceObserver.observe({ entryTypes: ["first-input"] });
 
       // CLS監視
-      this.performanceObserver.observe({ entryTypes: ['layout-shift'] });
+      this.performanceObserver.observe({ entryTypes: ["layout-shift"] });
 
     } catch (error) {
-      console.warn('Core Web Vitals監視の初期化に失敗:', error);
+      console.warn("Core Web Vitals監視の初期化に失敗:", error);
     }
   }
 
@@ -105,7 +105,7 @@ class EnhancedPerformanceOptimizer {
    * メモリ使用量監視
    */
   private observeMemoryUsage(): void {
-    if (!('memory' in performance)) return;
+    if (!("memory" in performance)) return;
 
     setInterval(() => {
       const memory = (performance as any).memory;
@@ -123,7 +123,7 @@ class EnhancedPerformanceOptimizer {
    * レンダリング監視
    */
   private observeRendering(): void {
-    if (!('PerformanceObserver' in window)) return;
+    if (!("PerformanceObserver" in window)) return;
 
     try {
       const observer = new PerformanceObserver((list) => {
@@ -136,9 +136,9 @@ class EnhancedPerformanceOptimizer {
         });
       });
       
-      observer.observe({ entryTypes: ['measure', 'navigation'] });
+      observer.observe({ entryTypes: ["measure", "navigation"] });
     } catch (error) {
-      console.warn('レンダリング監視の初期化に失敗:', error);
+      console.warn("レンダリング監視の初期化に失敗:", error);
     }
   }
 
@@ -156,11 +156,11 @@ class EnhancedPerformanceOptimizer {
         }
       });
     }, {
-      rootMargin: '50px'
+      rootMargin: "50px",
     });
 
     // 既存の遅延読み込み要素を監視
-    document.querySelectorAll('[data-lazy]').forEach(el => {
+    document.querySelectorAll("[data-lazy]").forEach(el => {
       this.intersectionObserver?.observe(el);
     });
   }
@@ -170,46 +170,46 @@ class EnhancedPerformanceOptimizer {
    */
   private loadElement(element: HTMLElement): void {
     // 画像要素の場合
-    if (element.tagName === 'IMG') {
+    if (element.tagName === "IMG") {
       const img = element as HTMLImageElement;
-      const dataSrc = img.getAttribute('data-src');
+      const dataSrc = img.getAttribute("data-src");
       if (dataSrc) {
         img.src = dataSrc;
-        img.removeAttribute('data-src');
-        img.classList.add('loaded');
+        img.removeAttribute("data-src");
+        img.classList.add("loaded");
       }
     }
     
     // 背景画像の場合
-    const bgImage = element.getAttribute('data-bg');
+    const bgImage = element.getAttribute("data-bg");
     if (bgImage) {
       element.style.backgroundImage = `url(${bgImage})`;
-      element.removeAttribute('data-bg');
-      element.classList.add('loaded');
+      element.removeAttribute("data-bg");
+      element.classList.add("loaded");
     }
     
     // カスタム遅延読み込み要素
-    const lazyData = element.getAttribute('data-lazy');
+    const lazyData = element.getAttribute("data-lazy");
     if (lazyData) {
       try {
         const data = JSON.parse(lazyData);
         if (data.src) {
-          if (element.tagName === 'IMG') {
+          if (element.tagName === "IMG") {
             (element as HTMLImageElement).src = data.src;
           } else {
             element.style.backgroundImage = `url(${data.src})`;
           }
         }
-        element.removeAttribute('data-lazy');
-        element.classList.add('loaded');
+        element.removeAttribute("data-lazy");
+        element.classList.add("loaded");
       } catch (error) {
-        console.warn('遅延読み込みデータの解析に失敗:', error);
+        console.warn("遅延読み込みデータの解析に失敗:", error);
       }
     }
     
     // 遅延読み込み完了イベントを発火
-    element.dispatchEvent(new CustomEvent('lazyLoaded', {
-      detail: { element }
+    element.dispatchEvent(new CustomEvent("lazyLoaded", {
+      detail: { element },
     }));
   }
 
@@ -219,13 +219,13 @@ class EnhancedPerformanceOptimizer {
   private initServiceWorker(): void {
     if (!this.config.enableServiceWorker) return;
 
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js')
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js")
         .then(registration => {
-          console.log('Service Worker登録成功:', registration);
+          console.log("Service Worker登録成功:", registration);
         })
         .catch(error => {
-          console.warn('Service Worker登録失敗:', error);
+          console.warn("Service Worker登録失敗:", error);
         });
     }
   }
@@ -236,7 +236,7 @@ class EnhancedPerformanceOptimizer {
   downsampleChartData(
     data: any[], 
     maxPoints: number = this.config.maxDataPoints,
-    strategy: 'uniform' | 'adaptive' | 'smart' = 'smart'
+    strategy: "uniform" | "adaptive" | "smart" = "smart",
   ): any[] {
     if (data.length <= maxPoints) {
       return data;
@@ -245,24 +245,24 @@ class EnhancedPerformanceOptimizer {
     let sampledData: any[];
 
     switch (strategy) {
-      case 'uniform':
+      case "uniform":
         sampledData = this.uniformSampling(data, maxPoints);
         break;
-      case 'adaptive':
+      case "adaptive":
         sampledData = this.adaptiveSampling(data, maxPoints);
         break;
-      case 'smart':
+      case "smart":
         sampledData = this.smartSampling(data, maxPoints);
         break;
       default:
         sampledData = this.smartSampling(data, maxPoints);
     }
 
-    console.info('チャートダウンサンプリング完了:', {
+    console.info("チャートダウンサンプリング完了:", {
       original: data.length,
       sampled: sampledData.length,
       strategy,
-      compressionRatio: `${(sampledData.length / data.length * 100).toFixed(1)}%`
+      compressionRatio: `${(sampledData.length / data.length * 100).toFixed(1)}%`,
     });
 
     return sampledData;
@@ -299,7 +299,7 @@ class EnhancedPerformanceOptimizer {
 
     const threshold = changes.sort((a, b) => b - a)[Math.floor(maxPoints * 0.3)];
     const importantIndices = changes.map((change, index) => 
-      change >= threshold ? index : -1
+      change >= threshold ? index : -1,
     ).filter(index => index !== -1);
 
     const sampled = importantIndices.map(index => data[index]);
@@ -339,7 +339,7 @@ class EnhancedPerformanceOptimizer {
    */
   async loadComponent(
     componentPath: string,
-    fallback?: React.ComponentType
+    fallback?: React.ComponentType,
   ): Promise<any> {
     if (!this.config.enableCodeSplitting) {
       return require(componentPath);
@@ -358,18 +358,18 @@ class EnhancedPerformanceOptimizer {
       const component = await import(componentPath);
       const loadTime = performance.now() - startTime;
 
-      console.info('コンポーネント動的読み込み:', {
+      console.info("コンポーネント動的読み込み:", {
         path: componentPath,
         loadTime: `${loadTime.toFixed(2)}ms`,
-        status: loadTime < 1000 ? 'FAST' : 'SLOW'
+        status: loadTime < 1000 ? "FAST" : "SLOW",
       });
 
       return component;
     } catch (error) {
-      console.error('コンポーネント読み込みエラー:', error);
+      console.error("コンポーネント読み込みエラー:", error);
       
       if (fallback) {
-        console.info('フォールバックコンポーネントを使用');
+        console.info("フォールバックコンポーネントを使用");
         return fallback;
       }
       
@@ -392,7 +392,7 @@ class EnhancedPerformanceOptimizer {
     container: HTMLElement,
     items: any[],
     itemHeight: number,
-    renderItem: (item: any, index: number) => HTMLElement
+    renderItem: (item: any, index: number) => HTMLElement,
   ): void {
     if (!this.config.enableVirtualScrolling) {
       // 通常のレンダリング
@@ -410,7 +410,7 @@ class EnhancedPerformanceOptimizer {
 
     const renderVisibleItems = () => {
       // 既存の要素をクリア
-      container.innerHTML = '';
+      container.innerHTML = "";
       
       // 可視範囲の要素のみレンダリング
       for (let i = startIndex; i < endIndex; i++) {
@@ -437,7 +437,7 @@ class EnhancedPerformanceOptimizer {
       }
     }, 16); // 60fps
 
-    container.addEventListener('scroll', handleScroll);
+    container.addEventListener("scroll", handleScroll);
     renderVisibleItems();
   }
 
@@ -446,7 +446,7 @@ class EnhancedPerformanceOptimizer {
    */
   memoize<T extends (...args: any[]) => any>(
     fn: T,
-    keyGenerator?: (...args: Parameters<T>) => string
+    keyGenerator?: (...args: Parameters<T>) => string,
   ): T {
     if (!this.config.enableMemoization) {
       return fn;
@@ -456,7 +456,7 @@ class EnhancedPerformanceOptimizer {
       const key = keyGenerator ? keyGenerator(...args) : JSON.stringify(args);
       
       if (this.memoizedResults.has(key)) {
-        console.debug('メモ化キャッシュヒット:', key);
+        console.debug("メモ化キャッシュヒット:", key);
         return this.memoizedResults.get(key);
       }
 
@@ -480,14 +480,14 @@ class EnhancedPerformanceOptimizer {
    */
   debounce<T extends (...args: any[]) => any>(
     func: T,
-    delay: number = 300
+    delay: number = 300,
   ): T {
     if (!this.config.enableDebouncing) {
       return func;
     }
 
     return ((...args: Parameters<T>) => {
-      const key = func.name || 'anonymous';
+      const key = func.name || "anonymous";
       
       if (this.debounceTimers.has(key)) {
         clearTimeout(this.debounceTimers.get(key)!);
@@ -509,13 +509,13 @@ class EnhancedPerformanceOptimizer {
     src: string,
     alt: string,
     className?: string,
-    placeholder?: string
+    placeholder?: string,
   ): HTMLImageElement {
-    const img = document.createElement('img');
+    const img = document.createElement("img");
     img.alt = alt;
-    img.className = className || '';
-    img.loading = 'lazy';
-    img.decoding = 'async';
+    img.className = className || "";
+    img.loading = "lazy";
+    img.decoding = "async";
     
     // プレースホルダー画像
     if (placeholder) {
@@ -526,7 +526,7 @@ class EnhancedPerformanceOptimizer {
     if (this.intersectionObserver) {
       this.intersectionObserver.observe(img);
       
-      img.addEventListener('load', () => {
+      img.addEventListener("load", () => {
         this.intersectionObserver?.unobserve(img);
       });
     } else {
@@ -539,7 +539,7 @@ class EnhancedPerformanceOptimizer {
       img.src = src;
     };
 
-    img.addEventListener('intersect', loadImage);
+    img.addEventListener("intersect", loadImage);
     
     return img;
   }
@@ -548,7 +548,7 @@ class EnhancedPerformanceOptimizer {
    * LCP最適化
    */
   private optimizeLCP(): void {
-    console.info('LCP最適化を実行');
+    console.info("LCP最適化を実行");
     
     // 重要なリソースのプリロード
     this.preloadCriticalResources();
@@ -564,10 +564,10 @@ class EnhancedPerformanceOptimizer {
    * メモリ最適化
    */
   private optimizeMemory(): void {
-    console.info('メモリ最適化を実行');
+    console.info("メモリ最適化を実行");
     
     // ガベージコレクションの強制実行
-    if ('gc' in window) {
+    if ("gc" in window) {
       (window as any).gc();
     }
 
@@ -583,7 +583,7 @@ class EnhancedPerformanceOptimizer {
    * レンダリング最適化
    */
   private optimizeRendering(): void {
-    console.info('レンダリング最適化を実行');
+    console.info("レンダリング最適化を実行");
     
     // 不要なDOM要素の削除
     this.cleanupUnusedElements();
@@ -600,16 +600,16 @@ class EnhancedPerformanceOptimizer {
    */
   private preloadCriticalResources(): void {
     const criticalResources = [
-      '/fonts/main.woff2',
-      '/images/logo.png',
-      '/css/critical.css'
+      "/fonts/main.woff2",
+      "/images/logo.png",
+      "/css/critical.css",
     ];
 
     criticalResources.forEach(resource => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
+      const link = document.createElement("link");
+      link.rel = "preload";
       link.href = resource;
-      link.as = resource.endsWith('.css') ? 'style' : 'image';
+      link.as = resource.endsWith(".css") ? "style" : "image";
       document.head.appendChild(link);
     });
   }
@@ -618,10 +618,10 @@ class EnhancedPerformanceOptimizer {
    * 画像最適化
    */
   private optimizeImages(): void {
-    const images = document.querySelectorAll('img[data-src]');
+    const images = document.querySelectorAll("img[data-src]");
     images.forEach(img => {
-      if (img.getAttribute('loading') !== 'lazy') {
-        img.setAttribute('loading', 'lazy');
+      if (img.getAttribute("loading") !== "lazy") {
+        img.setAttribute("loading", "lazy");
       }
     });
   }
@@ -631,12 +631,12 @@ class EnhancedPerformanceOptimizer {
    */
   private optimizeFonts(): void {
     // フォントのプリロード
-    const fontLink = document.createElement('link');
-    fontLink.rel = 'preload';
-    fontLink.as = 'font';
-    fontLink.type = 'font/woff2';
-    fontLink.href = '/fonts/main.woff2';
-    fontLink.crossOrigin = 'anonymous';
+    const fontLink = document.createElement("link");
+    fontLink.rel = "preload";
+    fontLink.as = "font";
+    fontLink.type = "font/woff2";
+    fontLink.href = "/fonts/main.woff2";
+    fontLink.crossOrigin = "anonymous";
     document.head.appendChild(fontLink);
   }
 
@@ -645,9 +645,9 @@ class EnhancedPerformanceOptimizer {
    */
   private cleanupUnusedElements(): void {
     // 非表示要素の削除
-    const hiddenElements = document.querySelectorAll('[style*="display: none"]');
+    const hiddenElements = document.querySelectorAll("[style*=\"display: none\"]");
     hiddenElements.forEach(el => {
-      if (el.getAttribute('data-keep') !== 'true') {
+      if (el.getAttribute("data-keep") !== "true") {
         el.remove();
       }
     });
@@ -681,9 +681,9 @@ class EnhancedPerformanceOptimizer {
    */
   private optimizeAnimations(): void {
     // 重いアニメーションの無効化
-    const heavyAnimations = document.querySelectorAll('[data-heavy-animation]');
+    const heavyAnimations = document.querySelectorAll("[data-heavy-animation]");
     heavyAnimations.forEach(el => {
-      (el as HTMLElement).style.animation = 'none';
+      (el as HTMLElement).style.animation = "none";
     });
   }
 
@@ -692,42 +692,42 @@ class EnhancedPerformanceOptimizer {
    */
   private cleanupEventListeners(): void {
     // 実際の実装では、イベントリスナーの追跡が必要
-    console.info('イベントリスナークリーンアップ実行');
+    console.info("イベントリスナークリーンアップ実行");
   }
 
   /**
    * パフォーマンスレポートの生成
    */
   generatePerformanceReport(): any {
-    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-    const paint = performance.getEntriesByType('paint');
-    const lcp = performance.getEntriesByType('largest-contentful-paint');
+    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
+    const paint = performance.getEntriesByType("paint");
+    const lcp = performance.getEntriesByType("largest-contentful-paint");
     const memory = (performance as any).memory;
 
     return {
       navigation: {
         domContentLoaded: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
         loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
-        totalTime: navigation.loadEventEnd - navigation.fetchStart
+        totalTime: navigation.loadEventEnd - navigation.fetchStart,
       },
       paint: {
-        firstPaint: paint.find(p => p.name === 'first-paint')?.startTime || 0,
-        firstContentfulPaint: paint.find(p => p.name === 'first-contentful-paint')?.startTime || 0
+        firstPaint: paint.find(p => p.name === "first-paint")?.startTime || 0,
+        firstContentfulPaint: paint.find(p => p.name === "first-contentful-paint")?.startTime || 0,
       },
       lcp: lcp.length > 0 ? lcp[lcp.length - 1].startTime : 0,
       memory: memory ? {
         used: Math.round(memory.usedJSHeapSize / 1024 / 1024),
         total: Math.round(memory.totalJSHeapSize / 1024 / 1024),
-        limit: Math.round(memory.jsHeapSizeLimit / 1024 / 1024)
+        limit: Math.round(memory.jsHeapSizeLimit / 1024 / 1024),
       } : null,
       optimizations: {
         lazyLoading: this.config.enableLazyLoading,
         codeSplitting: this.config.enableCodeSplitting,
         virtualScrolling: this.config.enableVirtualScrolling,
         memoization: this.config.enableMemoization,
-        debouncing: this.config.enableDebouncing
+        debouncing: this.config.enableDebouncing,
       },
-      recommendations: this.generateRecommendations()
+      recommendations: this.generateRecommendations(),
     };
   }
 
@@ -739,15 +739,15 @@ class EnhancedPerformanceOptimizer {
     const report = this.generatePerformanceReport();
 
     if (report.lcp > this.config.targetLCP) {
-      recommendations.push('LCPが目標値を超えています。画像の最適化とコード分割を推奨します。');
+      recommendations.push("LCPが目標値を超えています。画像の最適化とコード分割を推奨します。");
     }
 
     if (report.memory && report.memory.used > 100) {
-      recommendations.push('メモリ使用量が100MBを超えています。メモリリークの確認を推奨します。');
+      recommendations.push("メモリ使用量が100MBを超えています。メモリリークの確認を推奨します。");
     }
 
     if (report.navigation.totalTime > 5000) {
-      recommendations.push('初期読み込み時間が5秒を超えています。バンドルサイズの最適化を推奨します。');
+      recommendations.push("初期読み込み時間が5秒を超えています。バンドルサイズの最適化を推奨します。");
     }
 
     return recommendations;
@@ -792,7 +792,7 @@ const defaultConfig: EnhancedPerformanceConfig = {
   enableServiceWorker: true,
   targetLCP: 3000,
   targetFID: 100,
-  targetCLS: 0.1
+  targetCLS: 0.1,
 };
 
 export const enhancedPerformanceOptimizer = new EnhancedPerformanceOptimizer(defaultConfig);

@@ -1,4 +1,4 @@
-type JobStatus = 'queued' | 'running' | 'succeeded' | 'failed';
+type JobStatus = "queued" | "running" | "succeeded" | "failed";
 
 export interface JobRecord {
   id: string;
@@ -28,7 +28,7 @@ export function createJob(params: { clientToken?: string }): JobRecord {
   const now = Date.now();
   const record: JobRecord = {
     id,
-    status: 'queued',
+    status: "queued",
     progress: 0,
     createdAt: now,
     updatedAt: now,
@@ -52,7 +52,7 @@ export function simulateProgress(jobId: string, onComplete: (final: JobRecord) =
   // 1.5秒間隔で進捗更新、最大3分（120 ticks）
   const intervalMs = 1500;
   const maxTicks = Math.floor((3 * 60 * 1000) / intervalMs);
-  updateJob(jobId, { status: 'running', progress: 5 });
+  updateJob(jobId, { status: "running", progress: 5 });
 
   const timer = setInterval(() => {
     const job = getJob(jobId);
@@ -67,7 +67,7 @@ export function simulateProgress(jobId: string, onComplete: (final: JobRecord) =
     if (tick >= maxTicks) {
       clearInterval(timer);
       // タイムアウト扱い
-      const final = updateJob(jobId, { status: 'failed', error: 'Timeout after 3 minutes' });
+      const final = updateJob(jobId, { status: "failed", error: "Timeout after 3 minutes" });
       if (final) onComplete(final);
     }
   }, intervalMs);

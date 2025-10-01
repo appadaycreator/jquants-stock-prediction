@@ -29,12 +29,12 @@ export function SampleDataProvider({ children, fallbackToSample = true }: Sample
           const now = new Date();
           const dates = Array.from({ length: 30 }, (_, i) => {
             const date = new Date(now.getTime() - (29 - i) * 24 * 60 * 60 * 1000);
-            return date.toISOString().split('T')[0];
+            return date.toISOString().split("T")[0];
           });
 
           const stockData = dates.map((date, index) => ({
             date,
-            code: '7203.T',
+            code: "7203.T",
             open: 2500 + Math.random() * 100 - 50,
             high: 2550 + Math.random() * 50,
             low: 2450 - Math.random() * 50,
@@ -47,7 +47,7 @@ export function SampleDataProvider({ children, fallbackToSample = true }: Sample
             rsi_14: 30 + Math.random() * 40,
             macd: Math.random() * 10 - 5,
             macd_signal: Math.random() * 8 - 4,
-            macd_hist: Math.random() * 2 - 1
+            macd_hist: Math.random() * 2 - 1,
           }));
 
           const modelComparison = [
@@ -58,7 +58,7 @@ export function SampleDataProvider({ children, fallbackToSample = true }: Sample
               mse: 0.0008,
               rmse: 0.0283,
               r2: 0.8765,
-              rank: 1
+              rank: 1,
             },
             {
               name: "Random Forest",
@@ -67,7 +67,7 @@ export function SampleDataProvider({ children, fallbackToSample = true }: Sample
               mse: 0.0009,
               rmse: 0.0300,
               r2: 0.8543,
-              rank: 2
+              rank: 2,
             },
             {
               name: "Linear Regression",
@@ -76,8 +76,8 @@ export function SampleDataProvider({ children, fallbackToSample = true }: Sample
               mse: 0.0012,
               rmse: 0.0346,
               r2: 0.7891,
-              rank: 3
-            }
+              rank: 3,
+            },
           ];
 
           const featureAnalysis = [
@@ -86,7 +86,7 @@ export function SampleDataProvider({ children, fallbackToSample = true }: Sample
             { feature: "RSI", importance: 0.15, percentage: 15 },
             { feature: "移動平均", importance: 0.12, percentage: 12 },
             { feature: "ボリンジャーバンド", importance: 0.08, percentage: 8 },
-            { feature: "MACD", importance: 0.05, percentage: 5 }
+            { feature: "MACD", importance: 0.05, percentage: 5 },
           ];
 
           const predictions = Array.from({ length: 20 }, (_, i) => ({
@@ -94,7 +94,7 @@ export function SampleDataProvider({ children, fallbackToSample = true }: Sample
             actual: 2500 + Math.random() * 200 - 100,
             predicted: 2500 + Math.random() * 200 - 100,
             error: Math.random() * 10 - 5,
-            error_percentage: Math.random() * 5
+            error_percentage: Math.random() * 5,
           }));
 
           const summary = {
@@ -103,14 +103,14 @@ export function SampleDataProvider({ children, fallbackToSample = true }: Sample
             best_model: "XGBoost",
             mae: "0.0234",
             r2: "0.8765",
-            last_updated: now.toISOString()
+            last_updated: now.toISOString(),
           };
 
           const marketInsights = {
             volatility: "medium",
             trend: "bullish",
             risk_level: "moderate",
-            market_sentiment: "positive"
+            market_sentiment: "positive",
           };
 
           const riskAssessment = {
@@ -118,7 +118,7 @@ export function SampleDataProvider({ children, fallbackToSample = true }: Sample
             risk_score: 0.65,
             var_95: 0.032,
             max_drawdown: 0.085,
-            sharpe_ratio: 1.25
+            sharpe_ratio: 1.25,
           };
 
           return {
@@ -128,14 +128,14 @@ export function SampleDataProvider({ children, fallbackToSample = true }: Sample
             predictions,
             summary,
             marketInsights,
-            riskAssessment
+            riskAssessment,
           };
         };
 
         const data = generateSampleData();
         setSampleData(data);
       } catch (error) {
-        console.error('サンプルデータの生成に失敗:', error);
+        console.error("サンプルデータの生成に失敗:", error);
       } finally {
         setIsLoading(false);
       }
@@ -148,7 +148,7 @@ export function SampleDataProvider({ children, fallbackToSample = true }: Sample
   const contextValue = {
     sampleData,
     isLoading,
-    isSampleData: true
+    isSampleData: true,
   };
 
   if (isLoading) {
@@ -177,7 +177,7 @@ export function useSampleData() {
     const loadSampleData = async () => {
       try {
         // サンプルデータファイルから読み込みを試行
-        const response = await fetch('/data/sample_data.json');
+        const response = await fetch("/data/sample_data.json");
         if (response.ok) {
           const data = await response.json();
           setSampleData(data);
@@ -187,13 +187,13 @@ export function useSampleData() {
             const now = new Date();
             const dates = Array.from({ length: 30 }, (_, i) => {
               const date = new Date(now.getTime() - (29 - i) * 24 * 60 * 60 * 1000);
-              return date.toISOString().split('T')[0];
+              return date.toISOString().split("T")[0];
             });
 
             return {
               stockData: dates.map((date, index) => ({
                 date,
-                code: '7203.T',
+                code: "7203.T",
                 open: 2500 + Math.random() * 100 - 50,
                 high: 2550 + Math.random() * 50,
                 low: 2450 - Math.random() * 50,
@@ -206,7 +206,7 @@ export function useSampleData() {
                 rsi_14: 30 + Math.random() * 40,
                 macd: Math.random() * 10 - 5,
                 macd_signal: Math.random() * 8 - 4,
-                macd_hist: Math.random() * 2 - 1
+                macd_hist: Math.random() * 2 - 1,
               })),
               modelComparison: [
                 {
@@ -216,19 +216,19 @@ export function useSampleData() {
                   mse: 0.0008,
                   rmse: 0.0283,
                   r2: 0.8765,
-                  rank: 1
-                }
+                  rank: 1,
+                },
               ],
               featureAnalysis: [
                 { feature: "価格変動率", importance: 0.35, percentage: 35 },
-                { feature: "ボリューム", importance: 0.25, percentage: 25 }
+                { feature: "ボリューム", importance: 0.25, percentage: 25 },
               ],
               predictions: Array.from({ length: 20 }, (_, i) => ({
                 index: i + 1,
                 actual: 2500 + Math.random() * 200 - 100,
                 predicted: 2500 + Math.random() * 200 - 100,
                 error: Math.random() * 10 - 5,
-                error_percentage: Math.random() * 5
+                error_percentage: Math.random() * 5,
               })),
               summary: {
                 total_data_points: 30,
@@ -236,24 +236,24 @@ export function useSampleData() {
                 best_model: "XGBoost",
                 mae: "0.0234",
                 r2: "0.8765",
-                last_updated: now.toISOString()
+                last_updated: now.toISOString(),
               },
               marketInsights: {
                 volatility: "medium",
                 trend: "bullish",
-                risk_level: "moderate"
+                risk_level: "moderate",
               },
               riskAssessment: {
                 risk_level: "Medium",
-                risk_score: 0.65
-              }
+                risk_score: 0.65,
+              },
             };
           };
 
           setSampleData(generateSampleData());
         }
       } catch (error) {
-        console.error('サンプルデータの読み込みに失敗:', error);
+        console.error("サンプルデータの読み込みに失敗:", error);
       }
     };
 

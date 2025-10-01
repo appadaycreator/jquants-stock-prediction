@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { TodaySummary } from '@/types/today';
-import { useRouter } from 'next/navigation';
+import { TodaySummary } from "@/types/today";
+import { useRouter } from "next/navigation";
 
 interface TaskRecommendationsProps {
   summary: TodaySummary;
@@ -9,11 +9,11 @@ interface TaskRecommendationsProps {
 
 interface TaskItem {
   id: string;
-  type: 'buy' | 'sell' | 'watch';
+  type: "buy" | "sell" | "watch";
   symbol: string;
   name: string;
   reason: string;
-  priority: 'high' | 'medium' | 'low';
+  priority: "high" | "medium" | "low";
   action: string;
   confidence: number;
 }
@@ -26,27 +26,27 @@ export default function TaskRecommendations({ summary }: TaskRecommendationsProp
 
     // 買い候補をタスクに変換
     summary.candidates.forEach((candidate, index) => {
-      if (candidate.recommendation === 'BUY' || candidate.recommendation === 'STRONG_BUY') {
+      if (candidate.recommendation === "BUY" || candidate.recommendation === "STRONG_BUY") {
         tasks.push({
           id: `buy-${candidate.symbol}`,
-          type: 'buy',
+          type: "buy",
           symbol: candidate.symbol,
           name: candidate.name || candidate.symbol,
-          reason: candidate.rationale?.[0] || 'テクニカル分析で上昇トレンドを確認',
-          priority: index < 2 ? 'high' : 'medium',
-          action: '買い',
-          confidence: candidate.confidence || 0.7
+          reason: candidate.rationale?.[0] || "テクニカル分析で上昇トレンドを確認",
+          priority: index < 2 ? "high" : "medium",
+          action: "買い",
+          confidence: candidate.confidence || 0.7,
         });
-      } else if (candidate.recommendation === 'SELL' || candidate.recommendation === 'STRONG_SELL') {
+      } else if (candidate.recommendation === "SELL" || candidate.recommendation === "STRONG_SELL") {
         tasks.push({
           id: `sell-${candidate.symbol}`,
-          type: 'sell',
+          type: "sell",
           symbol: candidate.symbol,
           name: candidate.name || candidate.symbol,
-          reason: candidate.rationale?.[0] || 'テクニカル分析で下降トレンドを確認',
-          priority: index < 2 ? 'high' : 'medium',
-          action: '売り',
-          confidence: candidate.confidence || 0.7
+          reason: candidate.rationale?.[0] || "テクニカル分析で下降トレンドを確認",
+          priority: index < 2 ? "high" : "medium",
+          action: "売り",
+          confidence: candidate.confidence || 0.7,
         });
       }
     });
@@ -55,13 +55,13 @@ export default function TaskRecommendations({ summary }: TaskRecommendationsProp
     summary.warnings.forEach((warning, index) => {
       tasks.push({
         id: `watch-${warning.symbol}`,
-        type: 'watch',
+        type: "watch",
         symbol: warning.symbol,
         name: warning.symbol,
-        reason: warning.message || 'リスク要因を監視',
-        priority: 'medium',
-        action: '監視',
-        confidence: 0.5
+        reason: warning.message || "リスク要因を監視",
+        priority: "medium",
+        action: "監視",
+        confidence: 0.5,
       });
     });
 
@@ -85,26 +85,26 @@ export default function TaskRecommendations({ summary }: TaskRecommendationsProp
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'bg-red-50 border-red-200 text-red-800';
-      case 'medium': return 'bg-yellow-50 border-yellow-200 text-yellow-800';
-      case 'low': return 'bg-blue-50 border-blue-200 text-blue-800';
-      default: return 'bg-gray-50 border-gray-200 text-gray-800';
+      case "high": return "bg-red-50 border-red-200 text-red-800";
+      case "medium": return "bg-yellow-50 border-yellow-200 text-yellow-800";
+      case "low": return "bg-blue-50 border-blue-200 text-blue-800";
+      default: return "bg-gray-50 border-gray-200 text-gray-800";
     }
   };
 
   const getActionColor = (type: string) => {
     switch (type) {
-      case 'buy': return 'bg-green-100 text-green-800';
-      case 'sell': return 'bg-red-100 text-red-800';
-      case 'watch': return 'bg-yellow-100 text-yellow-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case "buy": return "bg-green-100 text-green-800";
+      case "sell": return "bg-red-100 text-red-800";
+      case "watch": return "bg-yellow-100 text-yellow-800";
+      default: return "bg-gray-100 text-gray-800";
     }
   };
 
   const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 0.8) return 'text-green-600';
-    if (confidence >= 0.6) return 'text-yellow-600';
-    return 'text-red-600';
+    if (confidence >= 0.8) return "text-green-600";
+    if (confidence >= 0.6) return "text-yellow-600";
+    return "text-red-600";
   };
 
   if (tasks.length === 0) {
@@ -139,14 +139,14 @@ export default function TaskRecommendations({ summary }: TaskRecommendationsProp
           <div
             key={task.id}
             className={`bg-white rounded-xl border-2 p-4 shadow-sm hover:shadow-md transition-shadow ${
-              index === 0 ? 'ring-2 ring-blue-500 ring-opacity-50' : ''
+              index === 0 ? "ring-2 ring-blue-500 ring-opacity-50" : ""
             }`}
           >
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center gap-3">
                 <div className="flex-shrink-0">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                    index === 0 ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
+                    index === 0 ? "bg-blue-100 text-blue-800" : "bg-gray-100 text-gray-800"
                   }`}>
                     {index + 1}
                   </div>
@@ -158,7 +158,7 @@ export default function TaskRecommendations({ summary }: TaskRecommendationsProp
                       {task.action}
                     </span>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(task.priority)}`}>
-                      {task.priority === 'high' ? '高優先度' : task.priority === 'medium' ? '中優先度' : '低優先度'}
+                      {task.priority === "high" ? "高優先度" : task.priority === "medium" ? "中優先度" : "低優先度"}
                     </span>
                   </div>
                   <p className="text-sm text-gray-600">{task.name}</p>

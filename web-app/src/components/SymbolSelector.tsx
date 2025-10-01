@@ -87,7 +87,7 @@ export default function SymbolSelector({
         (stock) =>
           stock.name.toLowerCase().includes(term) ||
           stock.code.toLowerCase().includes(term) ||
-          stock.sector.toLowerCase().includes(term)
+          stock.sector.toLowerCase().includes(term),
       );
       setFilteredStocks(filtered);
     } else {

@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 // Progress component is replaced with simple HTML progress bar
 import { 
   Activity, 
@@ -18,14 +18,14 @@ import {
   TrendingUp,
   Database,
   Cpu,
-  Zap
-} from 'lucide-react';
+  Zap,
+} from "lucide-react";
 
 // 分析状況の型定義
 interface AnalysisStatus {
   id: string;
   name: string;
-  status: 'running' | 'completed' | 'failed' | 'pending';
+  status: "running" | "completed" | "failed" | "pending";
   progress: number;
   startTime: string;
   endTime?: string;
@@ -71,38 +71,38 @@ export default function AnalysisProgressPage() {
       // 実際の分析状況取得は静的サイトでは実行できないため、シミュレーション
       const mockAnalyses: AnalysisStatus[] = [
           {
-            id: '1',
-            name: '統合株価予測分析',
-            status: 'completed' as const,
+            id: "1",
+            name: "統合株価予測分析",
+            status: "completed" as const,
             progress: 100,
-            startTime: '2025-09-29T15:00:00Z',
-            endTime: '2025-09-29T15:05:30Z',
+            startTime: "2025-09-29T15:00:00Z",
+            endTime: "2025-09-29T15:05:30Z",
             duration: 330,
             results: {
               accuracy: 0.85,
               predictions: 56,
-              models: ['XGBoost', 'Random Forest', 'LSTM']
-            }
+              models: ["XGBoost", "Random Forest", "LSTM"],
+            },
           },
           {
-            id: '2',
-            name: '感情分析システム',
-            status: 'running' as const,
+            id: "2",
+            name: "感情分析システム",
+            status: "running" as const,
             progress: 65,
-            startTime: '2025-09-29T15:10:00Z',
+            startTime: "2025-09-29T15:10:00Z",
             results: {
               accuracy: 0.78,
               predictions: 23,
-              models: ['BERT', 'Sentiment Analysis']
-            }
+              models: ["BERT", "Sentiment Analysis"],
+            },
           },
           {
-            id: '3',
-            name: 'リスク評価分析',
-            status: 'pending' as const,
+            id: "3",
+            name: "リスク評価分析",
+            status: "pending" as const,
             progress: 0,
-            startTime: '2025-09-29T15:15:00Z'
-          }
+            startTime: "2025-09-29T15:15:00Z",
+          },
         ];
         
         setAnalyses(mockAnalyses);
@@ -111,10 +111,10 @@ export default function AnalysisProgressPage() {
           successfulAnalyses: 12,
           failedAnalyses: 3,
           averageDuration: 285,
-          lastUpdate: new Date().toISOString()
+          lastUpdate: new Date().toISOString(),
         });
     } catch (error) {
-      console.error('分析状況データの読み込みエラー:', error);
+      console.error("分析状況データの読み込みエラー:", error);
     } finally {
       setLoading(false);
     }
@@ -122,13 +122,13 @@ export default function AnalysisProgressPage() {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'running':
+      case "running":
         return <Activity className="h-4 w-4 text-blue-500 animate-pulse" />;
-      case 'completed':
+      case "completed":
         return <CheckCircle className="h-4 w-4 text-green-500" />;
-      case 'failed':
+      case "failed":
         return <AlertTriangle className="h-4 w-4 text-red-500" />;
-      case 'pending':
+      case "pending":
         return <Clock className="h-4 w-4 text-yellow-500" />;
       default:
         return <Clock className="h-4 w-4 text-gray-500" />;
@@ -137,16 +137,16 @@ export default function AnalysisProgressPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'running':
-        return 'bg-blue-100 text-blue-800';
-      case 'completed':
-        return 'bg-green-100 text-green-800';
-      case 'failed':
-        return 'bg-red-100 text-red-800';
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
+      case "running":
+        return "bg-blue-100 text-blue-800";
+      case "completed":
+        return "bg-green-100 text-green-800";
+      case "failed":
+        return "bg-red-100 text-red-800";
+      case "pending":
+        return "bg-yellow-100 text-yellow-800";
       default:
-        return 'bg-gray-100 text-gray-800';
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -157,7 +157,7 @@ export default function AnalysisProgressPage() {
   };
 
   const formatTime = (timeString: string) => {
-    return new Date(timeString).toLocaleString('ja-JP');
+    return new Date(timeString).toLocaleString("ja-JP");
   };
 
   if (loading) {
@@ -194,7 +194,7 @@ export default function AnalysisProgressPage() {
             size="sm"
           >
             {autoRefresh ? <Pause className="h-4 w-4 mr-2" /> : <Play className="h-4 w-4 mr-2" />}
-            {autoRefresh ? '自動更新停止' : '自動更新開始'}
+            {autoRefresh ? "自動更新停止" : "自動更新開始"}
           </Button>
         </div>
       </div>
@@ -287,9 +287,9 @@ export default function AnalysisProgressPage() {
                       </div>
                     </div>
                     <Badge className={getStatusColor(analysis.status)}>
-                      {analysis.status === 'running' ? '実行中' :
-                       analysis.status === 'completed' ? '完了' :
-                       analysis.status === 'failed' ? '失敗' : '待機中'}
+                      {analysis.status === "running" ? "実行中" :
+                       analysis.status === "completed" ? "完了" :
+                       analysis.status === "failed" ? "失敗" : "待機中"}
                     </Badge>
                   </div>
                 </CardHeader>

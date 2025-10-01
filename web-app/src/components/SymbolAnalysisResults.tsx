@@ -50,9 +50,9 @@ export default function SymbolAnalysisResults({ selectedSymbols }: SymbolAnalysi
       setLoading(true);
       setError(null);
       
-      const response = await fetch('./data/symbol_analysis_results.json');
+      const response = await fetch("./data/symbol_analysis_results.json");
       if (!response.ok) {
-        throw new Error('分析結果が見つかりません');
+        throw new Error("分析結果が見つかりません");
       }
       
       const data = await response.json();
@@ -60,8 +60,8 @@ export default function SymbolAnalysisResults({ selectedSymbols }: SymbolAnalysi
       setAnalysisResults(results);
       
     } catch (err) {
-      console.error('分析結果読み込みエラー:', err);
-      setError('分析結果の読み込みに失敗しました');
+      console.error("分析結果読み込みエラー:", err);
+      setError("分析結果の読み込みに失敗しました");
     } finally {
       setLoading(false);
     }
@@ -69,9 +69,9 @@ export default function SymbolAnalysisResults({ selectedSymbols }: SymbolAnalysi
 
   const getSignalIcon = (signal: string) => {
     switch (signal) {
-      case 'BUY':
+      case "BUY":
         return <TrendingUp className="h-4 w-4 text-green-600" />;
-      case 'SELL':
+      case "SELL":
         return <TrendingDown className="h-4 w-4 text-red-600" />;
       default:
         return <Minus className="h-4 w-4 text-gray-600" />;
@@ -80,19 +80,19 @@ export default function SymbolAnalysisResults({ selectedSymbols }: SymbolAnalysi
 
   const getSignalColor = (signal: string) => {
     switch (signal) {
-      case 'BUY':
-        return 'text-green-600 bg-green-50';
-      case 'SELL':
-        return 'text-red-600 bg-red-50';
+      case "BUY":
+        return "text-green-600 bg-green-50";
+      case "SELL":
+        return "text-red-600 bg-red-50";
       default:
-        return 'text-gray-600 bg-gray-50';
+        return "text-gray-600 bg-gray-50";
     }
   };
 
   const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 0.8) return 'text-green-600';
-    if (confidence >= 0.6) return 'text-yellow-600';
-    return 'text-red-600';
+    if (confidence >= 0.8) return "text-green-600";
+    if (confidence >= 0.6) return "text-yellow-600";
+    return "text-red-600";
   };
 
   if (loading) {
@@ -145,8 +145,8 @@ export default function SymbolAnalysisResults({ selectedSymbols }: SymbolAnalysi
                 
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">変化率:</span>
-                  <span className={`font-medium ${result.stats.change_percent >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                    {result.stats.change_percent >= 0 ? '+' : ''}{result.stats.change_percent.toFixed(2)}%
+                  <span className={`font-medium ${result.stats.change_percent >= 0 ? "text-green-600" : "text-red-600"}`}>
+                    {result.stats.change_percent >= 0 ? "+" : ""}{result.stats.change_percent.toFixed(2)}%
                   </span>
                 </div>
                 
@@ -213,19 +213,19 @@ export default function SymbolAnalysisResults({ selectedSymbols }: SymbolAnalysi
                     {result.symbol}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {result.technical.rsi ? result.technical.rsi.toFixed(2) : 'N/A'}
+                    {result.technical.rsi ? result.technical.rsi.toFixed(2) : "N/A"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {result.technical.macd ? result.technical.macd.toFixed(4) : 'N/A'}
+                    {result.technical.macd ? result.technical.macd.toFixed(4) : "N/A"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {result.technical.bb_percent ? (result.technical.bb_percent * 100).toFixed(1) + '%' : 'N/A'}
+                    {result.technical.bb_percent ? (result.technical.bb_percent * 100).toFixed(1) + "%" : "N/A"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {result.technical.sma_5 ? '¥' + result.technical.sma_5.toLocaleString() : 'N/A'}
+                    {result.technical.sma_5 ? "¥" + result.technical.sma_5.toLocaleString() : "N/A"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {result.technical.sma_25 ? '¥' + result.technical.sma_25.toLocaleString() : 'N/A'}
+                    {result.technical.sma_25 ? "¥" + result.technical.sma_25.toLocaleString() : "N/A"}
                   </td>
                 </tr>
               ))}

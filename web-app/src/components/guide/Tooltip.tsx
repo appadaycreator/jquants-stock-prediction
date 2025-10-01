@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import { HelpCircle, Info } from 'lucide-react';
+import React, { useState, useRef, useEffect } from "react";
+import { HelpCircle, Info } from "lucide-react";
 
 interface TooltipProps {
   content: string;
   detail?: string;
   children: React.ReactNode;
-  placement?: 'top' | 'bottom' | 'left' | 'right' | 'auto';
-  trigger?: 'hover' | 'click' | 'focus';
+  placement?: "top" | "bottom" | "left" | "right" | "auto";
+  trigger?: "hover" | "click" | "focus";
   maxWidth?: number;
   className?: string;
 }
@@ -17,10 +17,10 @@ export default function Tooltip({
   content, 
   detail,
   children, 
-  placement = 'auto',
-  trigger = 'hover',
+  placement = "auto",
+  trigger = "hover",
   maxWidth = 300,
-  className = ''
+  className = "",
 }: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
@@ -38,19 +38,19 @@ export default function Tooltip({
     let newLeft = triggerRect.left;
 
     switch (placement) {
-      case 'top':
+      case "top":
         newTop = triggerRect.top - tooltipRect.height - margin;
         newLeft = triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2;
         break;
-      case 'bottom':
+      case "bottom":
         newTop = triggerRect.bottom + margin;
         newLeft = triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2;
         break;
-      case 'left':
+      case "left":
         newTop = triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2;
         newLeft = triggerRect.left - tooltipRect.width - margin;
         break;
-      case 'right':
+      case "right":
         newTop = triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2;
         newLeft = triggerRect.right + margin;
         break;
@@ -83,49 +83,49 @@ export default function Tooltip({
 
     setPosition({
       top: adjustedTop + window.scrollY,
-      left: adjustedLeft + window.scrollX
+      left: adjustedLeft + window.scrollX,
     });
   };
 
   useEffect(() => {
     if (isVisible) {
       updatePosition();
-      window.addEventListener('resize', updatePosition);
-      window.addEventListener('scroll', updatePosition);
+      window.addEventListener("resize", updatePosition);
+      window.addEventListener("scroll", updatePosition);
     }
 
     return () => {
-      window.removeEventListener('resize', updatePosition);
-      window.removeEventListener('scroll', updatePosition);
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition);
     };
   }, [isVisible, placement]);
 
   const handleMouseEnter = () => {
-    if (trigger === 'hover') {
+    if (trigger === "hover") {
       setIsVisible(true);
     }
   };
 
   const handleMouseLeave = () => {
-    if (trigger === 'hover') {
+    if (trigger === "hover") {
       setIsVisible(false);
     }
   };
 
   const handleClick = () => {
-    if (trigger === 'click') {
+    if (trigger === "click") {
       setIsVisible(!isVisible);
     }
   };
 
   const handleFocus = () => {
-    if (trigger === 'focus') {
+    if (trigger === "focus") {
       setIsVisible(true);
     }
   };
 
   const handleBlur = () => {
-    if (trigger === 'focus') {
+    if (trigger === "focus") {
       setIsVisible(false);
     }
   };
@@ -149,7 +149,7 @@ export default function Tooltip({
           style={{
             top: position.top,
             left: position.left,
-            maxWidth: maxWidth
+            maxWidth: maxWidth,
           }}
           role="tooltip"
         >
@@ -167,11 +167,11 @@ export default function Tooltip({
           <div 
             className="absolute w-2 h-2 bg-gray-900 transform rotate-45"
             style={{
-              [placement === 'top' ? 'bottom' : placement === 'bottom' ? 'top' : 
-               placement === 'left' ? 'right' : 'left']: '-4px',
-              [placement === 'top' || placement === 'bottom' ? 'left' : 'top']: '50%',
-              transform: placement === 'top' || placement === 'bottom' ? 
-                'translateX(-50%) rotate(45deg)' : 'translateY(-50%) rotate(45deg)'
+              [placement === "top" ? "bottom" : placement === "bottom" ? "top" : 
+               placement === "left" ? "right" : "left"]: "-4px",
+              [placement === "top" || placement === "bottom" ? "left" : "top"]: "50%",
+              transform: placement === "top" || placement === "bottom" ? 
+                "translateX(-50%) rotate(45deg)" : "translateY(-50%) rotate(45deg)",
             }}
           />
         </div>
@@ -181,7 +181,7 @@ export default function Tooltip({
 }
 
 // 簡易ツールチップ（ホバー専用）
-export function SimpleTooltip({ content, children, className = '' }: { 
+export function SimpleTooltip({ content, children, className = "" }: { 
   content: string; 
   children: React.ReactNode; 
   className?: string;
@@ -199,7 +199,7 @@ export function MetricTooltip({
   value, 
   description, 
   children, 
-  className = '' 
+  className = "", 
 }: { 
   metric: string; 
   value: string; 
@@ -220,7 +220,7 @@ export function MetricTooltip({
 }
 
 // ヘルプアイコン付きツールチップ
-export function HelpTooltip({ content, detail, className = '' }: { 
+export function HelpTooltip({ content, detail, className = "" }: { 
   content: string; 
   detail?: string; 
   className?: string;
