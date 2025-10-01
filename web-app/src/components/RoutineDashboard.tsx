@@ -550,7 +550,7 @@ export default function RoutineDashboard({
               <div className="mb-6">
                 <h3 className="text-md font-medium text-gray-900 mb-3">主要銘柄パフォーマンス</h3>
                 <div className="space-y-2">
-                  {yesterdaySummary?.topPerformers.map((stock, index) => (
+                  {yesterdaySummary?.topPerformers?.map((stock, index) => (
                     <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div className="flex items-center space-x-3">
                         <div className="flex items-center space-x-1">
@@ -580,7 +580,7 @@ export default function RoutineDashboard({
                 <div>
                   <h3 className="text-md font-medium text-gray-900 mb-3">重要なアラート</h3>
                   <div className="space-y-2">
-                    {yesterdaySummary.alerts.map((alert, index) => (
+                    {yesterdaySummary.alerts?.map((alert, index) => (
                       <div key={index} className={`p-3 rounded-lg flex items-center space-x-2 ${
                         alert.type === "success" ? "bg-green-50 text-green-800" :
                         alert.type === "warning" ? "bg-yellow-50 text-yellow-800" :
@@ -603,7 +603,7 @@ export default function RoutineDashboard({
               <h2 className="text-lg font-semibold text-gray-900 mb-4">今日のアクション</h2>
               
               <div className="space-y-3">
-                {todayActions?.priorityActions.map((action) => {
+                {todayActions?.priorityActions?.map((action) => {
                   const isExecuting = isExecutingAction === action.action;
                   return (
                     <button
@@ -657,7 +657,7 @@ export default function RoutineDashboard({
               <div className="bg-white rounded-lg shadow border p-6">
                 <h3 className="text-md font-semibold text-gray-900 mb-4">ウォッチリスト更新</h3>
                 <div className="space-y-2">
-                  {todayActions.watchlistUpdates.map((update, index) => (
+                  {todayActions.watchlistUpdates?.map((update, index) => (
                     <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div>
                         <span className="font-medium text-gray-900">{update.symbol}</span>
