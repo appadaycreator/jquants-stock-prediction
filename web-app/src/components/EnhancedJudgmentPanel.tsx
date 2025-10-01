@@ -13,7 +13,7 @@ import {
   BarChart3,
   Clock,
   DollarSign,
-  Activity
+  Activity,
 } from "lucide-react";
 
 interface PredictionData {

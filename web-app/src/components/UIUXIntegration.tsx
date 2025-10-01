@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from 'react';
-import { useTheme } from '@/contexts/ThemeContext';
-import { useAccessibility } from './AccessibilityProvider';
-import ThemeSelector from './ThemeSelector';
-import AccessibilitySettings from './AccessibilitySettings';
-import EnhancedHelpGuide from './EnhancedHelpGuide';
+import React, { useState } from "react";
+import { useTheme } from "@/contexts/ThemeContext";
+import { useAccessibility } from "./AccessibilityProvider";
+import ThemeSelector from "./ThemeSelector";
+import AccessibilitySettings from "./AccessibilitySettings";
+import EnhancedHelpGuide from "./EnhancedHelpGuide";
 import { 
   Palette, 
   Settings, 
@@ -15,8 +15,8 @@ import {
   Move,
   Droplets,
   Speaker,
-  X
-} from 'lucide-react';
+  X,
+} from "lucide-react";
 
 const UIUXIntegration: React.FC = () => {
   const [showThemeSelector, setShowThemeSelector] = useState(false);

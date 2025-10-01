@@ -15,7 +15,7 @@ import {
   Settings,
   Play,
   Pause,
-  RotateCcw
+  RotateCcw,
 } from "lucide-react";
 
 interface WatchlistItem {
@@ -72,7 +72,7 @@ export default function EnhancedFiveMinRoutine() {
     { id: "watchlist", title: "ウォッチリスト更新", icon: <Eye className="h-5 w-5" /> },
     { id: "prediction", title: "予測実行", icon: <BarChart3 className="h-5 w-5" /> },
     { id: "signals", title: "シグナル確認", icon: <TrendingUp className="h-5 w-5" /> },
-    { id: "judgment", title: "売買判断", icon: <Target className="h-5 w-5" /> }
+    { id: "judgment", title: "売買判断", icon: <Target className="h-5 w-5" /> },
   ];
 
   // ステップ完了時の処理

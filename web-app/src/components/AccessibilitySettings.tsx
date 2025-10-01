@@ -1,7 +1,7 @@
 "use client";
 
-import React from 'react';
-import { useAccessibility } from './AccessibilityProvider';
+import React from "react";
+import { useAccessibility } from "./AccessibilityProvider";
 import { 
   Eye, 
   Type, 
@@ -13,8 +13,8 @@ import {
   Text,
   Move,
   Droplets,
-  Speaker
-} from 'lucide-react';
+  Speaker,
+} from "lucide-react";
 
 const AccessibilitySettings: React.FC = () => {
   const {
@@ -33,11 +33,11 @@ const AccessibilitySettings: React.FC = () => {
   } = useAccessibility();
 
   const fontSizeOptions = [
-    { value: 14, label: '小' },
-    { value: 16, label: '標準' },
-    { value: 18, label: '大' },
-    { value: 20, label: '特大' },
-    { value: 22, label: '最大' },
+    { value: 14, label: "小" },
+    { value: 16, label: "標準" },
+    { value: 18, label: "大" },
+    { value: 20, label: "特大" },
+    { value: 22, label: "最大" },
   ];
 
   return (
@@ -103,8 +103,8 @@ const AccessibilitySettings: React.FC = () => {
                     onClick={() => setFontSize(option.value)}
                     className={`px-3 py-1 rounded text-sm transition-colors ${
                       fontSize === option.value
-                        ? 'bg-themed-primary text-themed-text-inverse'
-                        : 'bg-themed-surface text-themed-text-secondary hover:bg-themed-background-tertiary'
+                        ? "bg-themed-primary text-themed-text-inverse"
+                        : "bg-themed-surface text-themed-text-secondary hover:bg-themed-background-tertiary"
                     }`}
                   >
                     {option.label}

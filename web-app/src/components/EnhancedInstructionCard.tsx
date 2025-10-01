@@ -35,7 +35,7 @@ export default function InstructionCard({
   category,
   historicalAccuracy = 0.0,
   evidence,
-  onActionClick
+  onActionClick,
 }: InstructionCardProps) {
   const [expanded, setExpanded] = useState(false);
   const [selectedQuantity, setSelectedQuantity] = useState(0.25);

@@ -16,7 +16,7 @@ import {
   Clock,
   Star,
   TrendingUp,
-  TrendingDown
+  TrendingDown,
 } from "lucide-react";
 
 interface WatchlistItem {
@@ -72,15 +72,15 @@ export default function EnhancedWatchlistModal({
 
   // 銘柄検索の候補
   const searchSuggestions = [
-    "7203.T", "6758.T", "6861.T", "9984.T", "9432.T", "6752.T", "4063.T", "8306.T"
+    "7203.T", "6758.T", "6861.T", "9984.T", "9432.T", "6752.T", "4063.T", "8306.T",
   ].filter(symbol => 
     symbol.toLowerCase().includes(searchTerm.toLowerCase()) && 
-    !watchlist.some(item => item.symbol === symbol)
+    !watchlist.some(item => item.symbol === symbol),
   );
 
   const filteredWatchlist = watchlist.filter(item =>
     item.symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const handleAddSymbol = () => {
@@ -95,7 +95,7 @@ export default function EnhancedWatchlistModal({
       addedDate: new Date().toISOString(),
       notes: newNotes,
       priority: newPriority,
-      alerts: {}
+      alerts: {},
     };
 
     const updatedWatchlist = [...watchlist, newItem];
@@ -125,7 +125,7 @@ export default function EnhancedWatchlistModal({
     if (!editingItem) return;
 
     const updatedWatchlist = watchlist.map(item =>
-      item.symbol === editingItem.symbol ? editingItem : item
+      item.symbol === editingItem.symbol ? editingItem : item,
     );
     onWatchlistUpdate(updatedWatchlist);
     setEditingItem(null);

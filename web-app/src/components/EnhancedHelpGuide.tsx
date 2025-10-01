@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from "react";
 import { 
   Search, 
   Play, 
@@ -14,16 +14,16 @@ import {
   Filter,
   Clock,
   User,
-  Star
-} from 'lucide-react';
+  Star,
+} from "lucide-react";
 
 interface TutorialStep {
   id: string;
   title: string;
   description: string;
-  type: 'video' | 'text' | 'interactive';
+  type: "video" | "text" | "interactive";
   duration?: number;
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  difficulty: "beginner" | "intermediate" | "advanced";
   category: string;
   tags: string[];
   content: React.ReactNode;
@@ -35,21 +35,21 @@ interface HelpGuideProps {
 }
 
 const EnhancedHelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedDifficulty, setSelectedDifficulty] = useState('all');
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['getting-started']));
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedDifficulty, setSelectedDifficulty] = useState("all");
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(["getting-started"]));
 
   const tutorialSteps: TutorialStep[] = [
     {
-      id: 'getting-started',
-      title: 'はじめに',
-      description: 'J-Quants株価予測システムの基本的な使い方を学びます',
-      type: 'video',
+      id: "getting-started",
+      title: "はじめに",
+      description: "J-Quants株価予測システムの基本的な使い方を学びます",
+      type: "video",
       duration: 5,
-      difficulty: 'beginner',
-      category: '基本操作',
-      tags: ['基本', '入門', 'チュートリアル'],
+      difficulty: "beginner",
+      category: "基本操作",
+      tags: ["基本", "入門", "チュートリアル"],
       content: (
         <div className="space-y-4">
           <div className="bg-themed-background-secondary p-4 rounded-lg">
@@ -83,14 +83,14 @@ const EnhancedHelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose }) => {
       ),
     },
     {
-      id: 'dashboard-overview',
-      title: 'ダッシュボードの使い方',
-      description: 'メインダッシュボードの各機能と操作方法を説明します',
-      type: 'interactive',
+      id: "dashboard-overview",
+      title: "ダッシュボードの使い方",
+      description: "メインダッシュボードの各機能と操作方法を説明します",
+      type: "interactive",
       duration: 10,
-      difficulty: 'beginner',
-      category: '基本操作',
-      tags: ['ダッシュボード', '基本操作', 'ナビゲーション'],
+      difficulty: "beginner",
+      category: "基本操作",
+      tags: ["ダッシュボード", "基本操作", "ナビゲーション"],
       content: (
         <div className="space-y-4">
           <div className="bg-themed-background-secondary p-4 rounded-lg">
@@ -119,14 +119,14 @@ const EnhancedHelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose }) => {
       ),
     },
     {
-      id: 'analysis-execution',
-      title: '分析の実行方法',
-      description: '株価分析の実行手順と設定方法を詳しく説明します',
-      type: 'video',
+      id: "analysis-execution",
+      title: "分析の実行方法",
+      description: "株価分析の実行手順と設定方法を詳しく説明します",
+      type: "video",
       duration: 15,
-      difficulty: 'intermediate',
-      category: '分析機能',
-      tags: ['分析', '実行', '設定', 'モデル'],
+      difficulty: "intermediate",
+      category: "分析機能",
+      tags: ["分析", "実行", "設定", "モデル"],
       content: (
         <div className="space-y-4">
           <div className="bg-themed-background-secondary p-4 rounded-lg">
@@ -143,14 +143,14 @@ const EnhancedHelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose }) => {
       ),
     },
     {
-      id: 'risk-management',
-      title: 'リスク管理の基礎',
-      description: '投資リスクの理解と管理方法について学びます',
-      type: 'text',
+      id: "risk-management",
+      title: "リスク管理の基礎",
+      description: "投資リスクの理解と管理方法について学びます",
+      type: "text",
       duration: 20,
-      difficulty: 'advanced',
-      category: 'リスク管理',
-      tags: ['リスク', '管理', '投資', '安全'],
+      difficulty: "advanced",
+      category: "リスク管理",
+      tags: ["リスク", "管理", "投資", "安全"],
       content: (
         <div className="space-y-4">
           <div className="bg-themed-warning-light p-4 rounded-lg">
@@ -166,17 +166,17 @@ const EnhancedHelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose }) => {
   ];
 
   const categories = [
-    { id: 'all', name: 'すべて', count: tutorialSteps.length },
-    { id: '基本操作', name: '基本操作', count: tutorialSteps.filter(s => s.category === '基本操作').length },
-    { id: '分析機能', name: '分析機能', count: tutorialSteps.filter(s => s.category === '分析機能').length },
-    { id: 'リスク管理', name: 'リスク管理', count: tutorialSteps.filter(s => s.category === 'リスク管理').length },
+    { id: "all", name: "すべて", count: tutorialSteps.length },
+    { id: "基本操作", name: "基本操作", count: tutorialSteps.filter(s => s.category === "基本操作").length },
+    { id: "分析機能", name: "分析機能", count: tutorialSteps.filter(s => s.category === "分析機能").length },
+    { id: "リスク管理", name: "リスク管理", count: tutorialSteps.filter(s => s.category === "リスク管理").length },
   ];
 
   const difficulties = [
-    { id: 'all', name: 'すべて', color: 'text-themed-text-secondary' },
-    { id: 'beginner', name: '初級', color: 'text-themed-success' },
-    { id: 'intermediate', name: '中級', color: 'text-themed-warning' },
-    { id: 'advanced', name: '上級', color: 'text-themed-error' },
+    { id: "all", name: "すべて", color: "text-themed-text-secondary" },
+    { id: "beginner", name: "初級", color: "text-themed-success" },
+    { id: "intermediate", name: "中級", color: "text-themed-warning" },
+    { id: "advanced", name: "上級", color: "text-themed-error" },
   ];
 
   const filteredSteps = useMemo(() => {
@@ -184,8 +184,8 @@ const EnhancedHelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose }) => {
       const matchesSearch = step.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                            step.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                            step.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-      const matchesCategory = selectedCategory === 'all' || step.category === selectedCategory;
-      const matchesDifficulty = selectedDifficulty === 'all' || step.difficulty === selectedDifficulty;
+      const matchesCategory = selectedCategory === "all" || step.category === selectedCategory;
+      const matchesDifficulty = selectedDifficulty === "all" || step.difficulty === selectedDifficulty;
       
       return matchesSearch && matchesCategory && matchesDifficulty;
     });
@@ -203,11 +203,11 @@ const EnhancedHelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose }) => {
 
   const getDifficultyIcon = (difficulty: string) => {
     switch (difficulty) {
-      case 'beginner':
+      case "beginner":
         return <Star className="h-4 w-4 text-themed-success" />;
-      case 'intermediate':
+      case "intermediate":
         return <Star className="h-4 w-4 text-themed-warning" />;
-      case 'advanced':
+      case "advanced":
         return <Star className="h-4 w-4 text-themed-error" />;
       default:
         return <Star className="h-4 w-4 text-themed-text-secondary" />;
@@ -216,9 +216,9 @@ const EnhancedHelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose }) => {
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'video':
+      case "video":
         return <Video className="h-4 w-4 text-themed-info" />;
-      case 'interactive':
+      case "interactive":
         return <Play className="h-4 w-4 text-themed-primary" />;
       default:
         return <FileText className="h-4 w-4 text-themed-text-secondary" />;

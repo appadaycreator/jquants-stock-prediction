@@ -14,7 +14,7 @@ export default function SignalTooltip({
   content, 
   children, 
   position = "top",
-  maxWidth = 300 
+  maxWidth = 300, 
 }: SignalTooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
@@ -119,39 +119,39 @@ export function SignalCategoryTooltip({ category, children }: SignalCategoryTool
         title: "上昇トレンド発生",
         description: "移動平均線の上昇トレンド形成により、価格の継続的な上昇が期待されるシグナルです。",
         icon: <TrendingUp className="h-4 w-4" />,
-        color: "text-green-600"
+        color: "text-green-600",
       },
       "下落トレンド注意": {
         title: "下落トレンド注意",
         description: "下落トレンドの兆候を検出したシグナルです。リスク管理を強化する必要があります。",
         icon: <AlertTriangle className="h-4 w-4" />,
-        color: "text-red-600"
+        color: "text-red-600",
       },
       "出来高急増": {
         title: "出来高急増",
         description: "出来高が平均の2倍以上に急増したシグナルです。市場の関心が高まっている可能性があります。",
         icon: <TrendingUp className="h-4 w-4" />,
-        color: "text-blue-600"
+        color: "text-blue-600",
       },
       "リスクリターン改善": {
         title: "リスクリターン改善",
         description: "シャープレシオの改善により、リスクに対するリターンが向上したシグナルです。",
         icon: <TrendingUp className="h-4 w-4" />,
-        color: "text-purple-600"
+        color: "text-purple-600",
       },
       "テクニカルブレイクアウト": {
         title: "テクニカルブレイクアウト",
         description: "ボリンジャーバンドの上限を突破したテクニカルブレイクアウトシグナルです。",
         icon: <TrendingUp className="h-4 w-4" />,
-        color: "text-orange-600"
-      }
+        color: "text-orange-600",
+      },
     };
 
     return categoryInfo[category] || {
       title: category,
       description: "シグナルの詳細情報",
       icon: <Info className="h-4 w-4" />,
-      color: "text-gray-600"
+      color: "text-gray-600",
     };
   };
 

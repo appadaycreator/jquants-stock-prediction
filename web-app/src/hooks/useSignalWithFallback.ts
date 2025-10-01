@@ -56,7 +56,7 @@ export function useSignalWithFallback(symbols: string[] = []) {
     try {
       const cacheData = {
         signals,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
       localStorage.setItem(FALLBACK_KEY, JSON.stringify(cacheData));
     } catch (e) {
@@ -77,7 +77,7 @@ export function useSignalWithFallback(symbols: string[] = []) {
       timestamp: new Date().toISOString(),
       reason: `${categories[Math.floor(Math.random() * categories.length)]}によるシグナル`,
       category: categories[Math.floor(Math.random() * categories.length)],
-      expected_holding_period: 30
+      expected_holding_period: 30,
     }));
   }, [symbols]);
 
@@ -141,6 +141,6 @@ export function useSignalWithFallback(symbols: string[] = []) {
     isUsingFallback,
     lastUpdate,
     refresh: fetchSignals,
-    clearError
+    clearError,
   };
 }

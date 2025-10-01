@@ -1,18 +1,18 @@
 "use client";
 
-import React from 'react';
-import { useTheme } from '@/contexts/ThemeContext';
-import { Palette, Sun, Moon, Droplets, Leaf, Sparkles } from 'lucide-react';
+import React from "react";
+import { useTheme } from "@/contexts/ThemeContext";
+import { Palette, Sun, Moon, Droplets, Leaf, Sparkles } from "lucide-react";
 
 const ThemeSelector: React.FC = () => {
   const { theme, setTheme } = useTheme();
 
   const themes = [
-    { id: 'light', name: 'ライト', icon: Sun, description: '明るく清潔なデザイン' },
-    { id: 'dark', name: 'ダーク', icon: Moon, description: '目に優しい暗いテーマ' },
-    { id: 'blue', name: 'ブルー', icon: Droplets, description: '信頼感のある青系テーマ' },
-    { id: 'green', name: 'グリーン', icon: Leaf, description: '自然で落ち着いた緑系テーマ' },
-    { id: 'purple', name: 'パープル', icon: Sparkles, description: '創造性を感じる紫系テーマ' },
+    { id: "light", name: "ライト", icon: Sun, description: "明るく清潔なデザイン" },
+    { id: "dark", name: "ダーク", icon: Moon, description: "目に優しい暗いテーマ" },
+    { id: "blue", name: "ブルー", icon: Droplets, description: "信頼感のある青系テーマ" },
+    { id: "green", name: "グリーン", icon: Leaf, description: "自然で落ち着いた緑系テーマ" },
+    { id: "purple", name: "パープル", icon: Sparkles, description: "創造性を感じる紫系テーマ" },
   ] as const;
 
   return (
@@ -30,8 +30,8 @@ const ThemeSelector: React.FC = () => {
             className={`
               relative p-4 rounded-lg border-2 transition-all duration-200
               ${theme === id 
-                ? 'border-themed-primary bg-themed-primary-light' 
-                : 'border-themed-border hover:border-themed-border-hover bg-themed-surface'
+                ? "border-themed-primary bg-themed-primary-light" 
+                : "border-themed-border hover:border-themed-border-hover bg-themed-surface"
               }
             `}
             aria-pressed={theme === id}
@@ -41,8 +41,8 @@ const ThemeSelector: React.FC = () => {
               <div className={`
                 p-2 rounded-lg
                 ${theme === id 
-                  ? 'bg-themed-primary text-themed-text-inverse' 
-                  : 'bg-themed-background-secondary text-themed-text-secondary'
+                  ? "bg-themed-primary text-themed-text-inverse" 
+                  : "bg-themed-background-secondary text-themed-text-secondary"
                 }
               `}>
                 <Icon className="h-4 w-4" />

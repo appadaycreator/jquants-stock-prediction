@@ -14,7 +14,7 @@ import {
   Settings,
   Play,
   Pause,
-  RotateCcw
+  RotateCcw,
 } from "lucide-react";
 
 interface Step {
@@ -62,7 +62,7 @@ export default function FiveMinRoutineSteps({
       estimatedTime: "1分",
       status: "pending",
       progress: 0,
-      advice: "新規銘柄は3-5銘柄までに絞り、既存銘柄の設定を優先的に確認しましょう"
+      advice: "新規銘柄は3-5銘柄までに絞り、既存銘柄の設定を優先的に確認しましょう",
     },
     {
       id: "prediction",
@@ -72,7 +72,7 @@ export default function FiveMinRoutineSteps({
       estimatedTime: "2分",
       status: "pending",
       progress: 0,
-      advice: "予測精度が80%以上の銘柄を優先的に確認し、信頼度の低い銘柄は除外を検討"
+      advice: "予測精度が80%以上の銘柄を優先的に確認し、信頼度の低い銘柄は除外を検討",
     },
     {
       id: "signals",
@@ -82,7 +82,7 @@ export default function FiveMinRoutineSteps({
       estimatedTime: "1分",
       status: "pending",
       progress: 0,
-      advice: "複数のシグナルが一致する銘柄を優先し、矛盾するシグナルは慎重に判断"
+      advice: "複数のシグナルが一致する銘柄を優先し、矛盾するシグナルは慎重に判断",
     },
     {
       id: "judgment",
@@ -92,8 +92,8 @@ export default function FiveMinRoutineSteps({
       estimatedTime: "1分",
       status: "pending",
       progress: 0,
-      advice: "リスク許容度に応じてポジションサイズを調整し、損切りラインを明確に設定"
-    }
+      advice: "リスク許容度に応じてポジションサイズを調整し、損切りラインを明確に設定",
+    },
   ]);
 
   // ステップの状態を更新
@@ -107,7 +107,7 @@ export default function FiveMinRoutineSteps({
         } else {
           return { ...step, status: "pending", progress: 0 };
         }
-      })
+      }),
     );
   }, [currentStep, isRunning]);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface AccessibilityContextType {
   highContrast: boolean;
@@ -22,7 +22,7 @@ const AccessibilityContext = createContext<AccessibilityContextType | undefined>
 export const useAccessibility = () => {
   const context = useContext(AccessibilityContext);
   if (context === undefined) {
-    throw new Error('useAccessibility must be used within an AccessibilityProvider');
+    throw new Error("useAccessibility must be used within an AccessibilityProvider");
   }
   return context;
 };
@@ -41,7 +41,7 @@ export const AccessibilityProvider: React.FC<AccessibilityProviderProps> = ({ ch
 
   // ローカルストレージから設定を読み込み
   useEffect(() => {
-    const savedSettings = localStorage.getItem('accessibility-settings');
+    const savedSettings = localStorage.getItem("accessibility-settings");
     if (savedSettings) {
       try {
         const settings = JSON.parse(savedSettings);
@@ -52,12 +52,12 @@ export const AccessibilityProvider: React.FC<AccessibilityProviderProps> = ({ ch
         setFontSize(settings.fontSize || 16);
         setScreenReader(settings.screenReader || false);
       } catch (error) {
-        console.warn('Failed to load accessibility settings:', error);
+        console.warn("Failed to load accessibility settings:", error);
       }
     }
 
     // システム設定を確認
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     setReducedMotion(prefersReducedMotion);
   }, []);
 
@@ -71,7 +71,7 @@ export const AccessibilityProvider: React.FC<AccessibilityProviderProps> = ({ ch
       fontSize,
       screenReader,
     };
-    localStorage.setItem('accessibility-settings', JSON.stringify(settings));
+    localStorage.setItem("accessibility-settings", JSON.stringify(settings));
   }, [highContrast, largeText, reducedMotion, colorBlindMode, fontSize, screenReader]);
 
   // アクセシビリティ設定をHTMLに適用
@@ -80,30 +80,30 @@ export const AccessibilityProvider: React.FC<AccessibilityProviderProps> = ({ ch
     
     // 高コントラストモード
     if (highContrast) {
-      root.classList.add('high-contrast-mode');
+      root.classList.add("high-contrast-mode");
     } else {
-      root.classList.remove('high-contrast-mode');
+      root.classList.remove("high-contrast-mode");
     }
 
     // 大きなテキスト
     if (largeText) {
-      root.classList.add('large-text-mode');
+      root.classList.add("large-text-mode");
     } else {
-      root.classList.remove('large-text-mode');
+      root.classList.remove("large-text-mode");
     }
 
     // アニメーション削減
     if (reducedMotion) {
-      root.classList.add('reduced-motion-mode');
+      root.classList.add("reduced-motion-mode");
     } else {
-      root.classList.remove('reduced-motion-mode');
+      root.classList.remove("reduced-motion-mode");
     }
 
     // 色覚障害モード
     if (colorBlindMode) {
-      root.classList.add('colorblind-mode');
+      root.classList.add("colorblind-mode");
     } else {
-      root.classList.remove('colorblind-mode');
+      root.classList.remove("colorblind-mode");
     }
 
     // フォントサイズ
@@ -111,9 +111,9 @@ export const AccessibilityProvider: React.FC<AccessibilityProviderProps> = ({ ch
 
     // スクリーンリーダー
     if (screenReader) {
-      root.classList.add('screen-reader-mode');
+      root.classList.add("screen-reader-mode");
     } else {
-      root.classList.remove('screen-reader-mode');
+      root.classList.remove("screen-reader-mode");
     }
   }, [highContrast, largeText, reducedMotion, colorBlindMode, fontSize, screenReader]);
 

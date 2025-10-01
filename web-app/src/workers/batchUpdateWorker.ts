@@ -4,7 +4,7 @@
 interface UpdateTask {
   id: string;
   symbol: string;
-  type: 'price' | 'analysis' | 'prediction';
+  type: "price" | "analysis" | "prediction";
   priority: number;
   data?: any;
 }
@@ -19,7 +19,7 @@ interface UpdateProgress {
 }
 
 interface WorkerMessage {
-  type: 'START_UPDATE' | 'PAUSE_UPDATE' | 'RESUME_UPDATE' | 'STOP_UPDATE' | 'GET_STATUS';
+  type: "START_UPDATE" | "PAUSE_UPDATE" | "RESUME_UPDATE" | "STOP_UPDATE" | "GET_STATUS";
   payload?: {
     tasks: UpdateTask[];
     batchSize?: number;
@@ -28,7 +28,7 @@ interface WorkerMessage {
 }
 
 interface WorkerResponse {
-  type: 'PROGRESS' | 'COMPLETE' | 'ERROR' | 'STATUS';
+  type: "PROGRESS" | "COMPLETE" | "ERROR" | "STATUS";
   payload?: {
     progress: UpdateProgress;
     result?: any;
@@ -47,26 +47,26 @@ class BatchUpdateWorker {
   private errors: string[] = [];
 
   constructor() {
-    self.addEventListener('message', this.handleMessage.bind(this));
+    self.addEventListener("message", this.handleMessage.bind(this));
   }
 
   private handleMessage(event: MessageEvent<WorkerMessage>) {
     const { type, payload } = event.data;
 
     switch (type) {
-      case 'START_UPDATE':
+      case "START_UPDATE":
         this.startUpdate(payload?.tasks || [], payload?.batchSize, payload?.delayMs);
         break;
-      case 'PAUSE_UPDATE':
+      case "PAUSE_UPDATE":
         this.pauseUpdate();
         break;
-      case 'RESUME_UPDATE':
+      case "RESUME_UPDATE":
         this.resumeUpdate();
         break;
-      case 'STOP_UPDATE':
+      case "STOP_UPDATE":
         this.stopUpdate();
         break;
-      case 'GET_STATUS':
+      case "GET_STATUS":
         this.sendStatus();
         break;
     }
@@ -135,13 +135,13 @@ class BatchUpdateWorker {
     try {
       // Simulate different types of processing
       switch (task.type) {
-        case 'price':
+        case "price":
           await this.updatePrice(task);
           break;
-        case 'analysis':
+        case "analysis":
           await this.updateAnalysis(task);
           break;
-        case 'prediction':
+        case "prediction":
           await this.updatePrediction(task);
           break;
       }
@@ -156,7 +156,7 @@ class BatchUpdateWorker {
     
     // Simulate occasional errors
     if (Math.random() < 0.05) {
-      throw new Error('Price update failed');
+      throw new Error("Price update failed");
     }
   }
 
@@ -166,7 +166,7 @@ class BatchUpdateWorker {
     
     // Simulate occasional errors
     if (Math.random() < 0.03) {
-      throw new Error('Analysis failed');
+      throw new Error("Analysis failed");
     }
   }
 
@@ -176,7 +176,7 @@ class BatchUpdateWorker {
     
     // Simulate occasional errors
     if (Math.random() < 0.02) {
-      throw new Error('Prediction failed');
+      throw new Error("Prediction failed");
     }
   }
 
@@ -188,15 +188,15 @@ class BatchUpdateWorker {
     const progress: UpdateProgress = {
       completed: this.currentIndex,
       total: this.tasks.length,
-      current: this.tasks[this.currentIndex]?.symbol || '',
+      current: this.tasks[this.currentIndex]?.symbol || "",
       percentage: Math.round((this.currentIndex / this.tasks.length) * 100),
       estimatedTimeRemaining: this.calculateEstimatedTime(),
-      errors: [...this.errors]
+      errors: [...this.errors],
     };
 
     const response: WorkerResponse = {
-      type: 'PROGRESS',
-      payload: { progress }
+      type: "PROGRESS",
+      payload: { progress },
     };
 
     self.postMessage(response);
@@ -206,15 +206,15 @@ class BatchUpdateWorker {
     const progress: UpdateProgress = {
       completed: this.tasks.length,
       total: this.tasks.length,
-      current: '',
+      current: "",
       percentage: 100,
       estimatedTimeRemaining: 0,
-      errors: [...this.errors]
+      errors: [...this.errors],
     };
 
     const response: WorkerResponse = {
-      type: 'COMPLETE',
-      payload: { progress }
+      type: "COMPLETE",
+      payload: { progress },
     };
 
     self.postMessage(response);
@@ -224,15 +224,15 @@ class BatchUpdateWorker {
     const progress: UpdateProgress = {
       completed: this.currentIndex,
       total: this.tasks.length,
-      current: this.tasks[this.currentIndex]?.symbol || '',
+      current: this.tasks[this.currentIndex]?.symbol || "",
       percentage: Math.round((this.currentIndex / this.tasks.length) * 100),
       estimatedTimeRemaining: this.calculateEstimatedTime(),
-      errors: [...this.errors]
+      errors: [...this.errors],
     };
 
     const response: WorkerResponse = {
-      type: 'STATUS',
-      payload: { progress }
+      type: "STATUS",
+      payload: { progress },
     };
 
     self.postMessage(response);

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-export type Theme = 'light' | 'dark' | 'blue' | 'green' | 'purple';
+export type Theme = "light" | "dark" | "blue" | "green" | "purple";
 
 interface ThemeContextType {
   theme: Theme;
@@ -16,7 +16,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    throw new Error("useTheme must be used within a ThemeProvider");
   }
   return context;
 };
@@ -26,29 +26,29 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>('light');
+  const [theme, setThemeState] = useState<Theme>("light");
 
   // ローカルストレージからテーマを読み込み
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    if (savedTheme && ['light', 'dark', 'blue', 'green', 'purple'].includes(savedTheme)) {
+    const savedTheme = localStorage.getItem("theme") as Theme;
+    if (savedTheme && ["light", "dark", "blue", "green", "purple"].includes(savedTheme)) {
       setThemeState(savedTheme);
     } else {
       // システム設定を確認
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setThemeState(prefersDark ? 'dark' : 'light');
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setThemeState(prefersDark ? "dark" : "light");
     }
   }, []);
 
   // テーマ変更時にローカルストレージに保存
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
-    localStorage.setItem('theme', newTheme);
+    localStorage.setItem("theme", newTheme);
   };
 
   // ダークモードの切り替え
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
+    const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
   };
 
@@ -57,16 +57,16 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const root = document.documentElement;
     
     // 既存のテーマクラスを削除
-    root.classList.remove('theme-light', 'theme-dark', 'theme-blue', 'theme-green', 'theme-purple');
+    root.classList.remove("theme-light", "theme-dark", "theme-blue", "theme-green", "theme-purple");
     
     // 新しいテーマクラスを追加
     root.classList.add(`theme-${theme}`);
     
     // データ属性も設定
-    root.setAttribute('data-theme', theme);
+    root.setAttribute("data-theme", theme);
   }, [theme]);
 
-  const isDark = theme === 'dark';
+  const isDark = theme === "dark";
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, toggleTheme, isDark }}>

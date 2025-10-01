@@ -35,7 +35,7 @@ export default function SignalHistoryDisplay({ symbol, days = 30 }: SignalHistor
       setError(null);
       
       // ローカルストレージから履歴データを取得
-      const storedHistory = localStorage.getItem(`signal_history_${symbol || 'all'}`);
+      const storedHistory = localStorage.getItem(`signal_history_${symbol || "all"}`);
       if (storedHistory) {
         const parsed = JSON.parse(storedHistory);
         setHistoryData(parsed);
@@ -43,7 +43,7 @@ export default function SignalHistoryDisplay({ symbol, days = 30 }: SignalHistor
         // モックデータを生成
         const mockData = generateMockHistoryData();
         setHistoryData(mockData);
-        localStorage.setItem(`signal_history_${symbol || 'all'}`, JSON.stringify(mockData));
+        localStorage.setItem(`signal_history_${symbol || "all"}`, JSON.stringify(mockData));
       }
     } catch (err) {
       console.error("履歴データ取得エラー:", err);
@@ -66,13 +66,13 @@ export default function SignalHistoryDisplay({ symbol, days = 30 }: SignalHistor
       symbols.forEach(sym => {
         if (Math.random() > 0.3) { // 70%の確率でシグナル生成
           data.push({
-            date: date.toISOString().split('T')[0],
+            date: date.toISOString().split("T")[0],
             symbol: sym,
             signal_type: signalTypes[Math.floor(Math.random() * signalTypes.length)],
             confidence: Math.random() * 0.4 + 0.6, // 0.6-1.0
             category: categories[Math.floor(Math.random() * categories.length)],
             price: 1000 + Math.random() * 2000,
-            reason: `${categories[Math.floor(Math.random() * categories.length)]}によるシグナル`
+            reason: `${categories[Math.floor(Math.random() * categories.length)]}によるシグナル`,
           });
         }
       });
@@ -85,15 +85,15 @@ export default function SignalHistoryDisplay({ symbol, days = 30 }: SignalHistor
     const csvContent = [
       "日付,銘柄,シグナル種別,信頼度,カテゴリ,価格,理由",
       ...historyData.map(item => 
-        `${item.date},${item.symbol},${item.signal_type},${item.confidence.toFixed(2)},${item.category},${item.price},${item.reason}`
-      ).join("\n")
+        `${item.date},${item.symbol},${item.signal_type},${item.confidence.toFixed(2)},${item.category},${item.price},${item.reason}`,
+      ).join("\n"),
     ].join("\n");
     
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
     link.setAttribute("href", url);
-    link.setAttribute("download", `signal_history_${symbol || 'all'}_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute("download", `signal_history_${symbol || "all"}_${new Date().toISOString().split("T")[0]}.csv`);
     link.style.visibility = "hidden";
     document.body.appendChild(link);
     link.click();
@@ -112,7 +112,7 @@ export default function SignalHistoryDisplay({ symbol, days = 30 }: SignalHistor
     });
     
     return Object.values(chartData).sort((a: any, b: any) => 
-      new Date(a.date).getTime() - new Date(b.date).getTime()
+      new Date(a.date).getTime() - new Date(b.date).getTime(),
     );
   };
 

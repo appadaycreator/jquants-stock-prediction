@@ -1,8 +1,8 @@
 "use client";
 
-import React from 'react';
-import { TrendingUp, TrendingDown, BarChart3, Activity } from 'lucide-react';
-import EnhancedTooltip from './EnhancedTooltip';
+import React from "react";
+import { TrendingUp, TrendingDown, BarChart3, Activity } from "lucide-react";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 interface ChartTooltipProps {
   title: string;
@@ -11,7 +11,7 @@ interface ChartTooltipProps {
     label: string;
     value: string | number;
     change?: number;
-    trend?: 'up' | 'down' | 'neutral';
+    trend?: "up" | "down" | "neutral";
   }[];
   className?: string;
 }
@@ -20,27 +20,27 @@ const ChartTooltip: React.FC<ChartTooltipProps> = ({
   title,
   description,
   metrics = [],
-  className = '',
+  className = "",
 }) => {
-  const getTrendIcon = (trend?: 'up' | 'down' | 'neutral') => {
+  const getTrendIcon = (trend?: "up" | "down" | "neutral") => {
     switch (trend) {
-      case 'up':
+      case "up":
         return <TrendingUp className="h-3 w-3 text-themed-success" />;
-      case 'down':
+      case "down":
         return <TrendingDown className="h-3 w-3 text-themed-error" />;
       default:
         return <Activity className="h-3 w-3 text-themed-text-tertiary" />;
     }
   };
 
-  const getTrendColor = (trend?: 'up' | 'down' | 'neutral') => {
+  const getTrendColor = (trend?: "up" | "down" | "neutral") => {
     switch (trend) {
-      case 'up':
-        return 'text-themed-success';
-      case 'down':
-        return 'text-themed-error';
+      case "up":
+        return "text-themed-success";
+      case "down":
+        return "text-themed-error";
       default:
-        return 'text-themed-text-secondary';
+        return "text-themed-text-secondary";
     }
   };
 
@@ -70,7 +70,7 @@ const ChartTooltip: React.FC<ChartTooltipProps> = ({
                       </span>
                       {metric.change !== undefined && (
                         <span className={`text-xs ${getTrendColor(metric.trend)}`}>
-                          ({metric.change > 0 ? '+' : ''}{metric.change}%)
+                          ({metric.change > 0 ? "+" : ""}{metric.change}%)
                         </span>
                       )}
                       {getTrendIcon(metric.trend)}

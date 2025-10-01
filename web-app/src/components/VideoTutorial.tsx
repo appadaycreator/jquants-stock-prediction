@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import { 
   Play, 
   Pause, 
@@ -11,8 +11,9 @@ import {
   RotateCcw,
   Settings,
   Download,
-  Share2
-} from 'lucide-react';
+  Share2,
+  X,
+} from "lucide-react";
 
 interface VideoTutorialProps {
   src: string;
@@ -31,7 +32,7 @@ const VideoTutorial: React.FC<VideoTutorialProps> = ({
   duration,
   thumbnail,
   onClose,
-  className = '',
+  className = "",
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -54,17 +55,16 @@ const VideoTutorial: React.FC<VideoTutorialProps> = ({
 
     const handleTimeUpdate = () => setCurrentTime(video.currentTime);
     const handleLoadedMetadata = () => {
-      if (duration) {
-        video.duration = duration;
-      }
+      // 動画のメタデータが読み込まれた時の処理
+      // durationは読み取り専用プロパティのため、直接設定はできません
     };
 
-    video.addEventListener('timeupdate', handleTimeUpdate);
-    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    video.addEventListener("loadedmetadata", handleLoadedMetadata);
 
     return () => {
-      video.removeEventListener('timeupdate', handleTimeUpdate);
-      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
   }, [duration]);
 
@@ -130,7 +130,7 @@ const VideoTutorial: React.FC<VideoTutorialProps> = ({
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
   const progress = duration ? (currentTime / duration) * 100 : 0;
@@ -204,7 +204,7 @@ const VideoTutorial: React.FC<VideoTutorialProps> = ({
               </div>
 
               <span className="text-themed-text-inverse text-sm">
-                {formatTime(currentTime)} / {duration ? formatTime(duration) : '--:--'}
+                {formatTime(currentTime)} / {duration ? formatTime(duration) : "--:--"}
               </span>
             </div>
 
@@ -226,7 +226,7 @@ const VideoTutorial: React.FC<VideoTutorialProps> = ({
                           key={rate}
                           onClick={() => handlePlaybackRateChange(rate)}
                           className={`w-full text-left px-2 py-1 text-sm rounded hover:bg-themed-background-secondary ${
-                            playbackRate === rate ? 'bg-themed-primary-light text-themed-primary' : 'text-themed-text-secondary'
+                            playbackRate === rate ? "bg-themed-primary-light text-themed-primary" : "text-themed-text-secondary"
                           }`}
                         >
                           {rate}x

@@ -12,13 +12,13 @@ import {
   Clock,
   TrendingUp,
   TrendingDown,
-  Activity
+  Activity,
 } from "lucide-react";
 
 interface UpdateTask {
   id: string;
   symbol: string;
-  type: 'price' | 'analysis' | 'prediction';
+  type: "price" | "analysis" | "prediction";
   priority: number;
   data?: any;
 }
@@ -48,10 +48,10 @@ export default function BatchUpdateController({
   const [progress, setProgress] = useState<UpdateProgress>({
     completed: 0,
     total: 0,
-    current: '',
+    current: "",
     percentage: 0,
     estimatedTimeRemaining: 0,
-    errors: []
+    errors: [],
   });
   const [worker, setWorker] = useState<Worker | null>(null);
   const [results, setResults] = useState<any[]>([]);
@@ -60,8 +60,8 @@ export default function BatchUpdateController({
 
   // Initialize Web Worker
   useEffect(() => {
-    if (typeof Worker !== 'undefined') {
-      const workerInstance = new Worker('/workers/batchUpdateWorker.js');
+    if (typeof Worker !== "undefined") {
+      const workerInstance = new Worker("/workers/batchUpdateWorker.js");
       workerRef.current = workerInstance;
       setWorker(workerInstance);
 
@@ -69,13 +69,13 @@ export default function BatchUpdateController({
         const { type, payload } = event.data;
 
         switch (type) {
-          case 'PROGRESS':
+          case "PROGRESS":
             if (payload?.progress) {
               setProgress(payload.progress);
               onProgressChange(payload.progress);
             }
             break;
-          case 'COMPLETE':
+          case "COMPLETE":
             setIsRunning(false);
             setIsPaused(false);
             if (payload?.progress) {
@@ -84,10 +84,10 @@ export default function BatchUpdateController({
             }
             onUpdateComplete(results);
             break;
-          case 'ERROR':
-            console.error('Worker error:', payload?.error);
+          case "ERROR":
+            console.error("Worker error:", payload?.error);
             break;
-          case 'STATUS':
+          case "STATUS":
             if (payload?.progress) {
               setProgress(payload.progress);
             }
@@ -96,7 +96,7 @@ export default function BatchUpdateController({
       };
 
       workerInstance.onerror = (error) => {
-        console.error('Worker error:', error);
+        console.error("Worker error:", error);
         setIsRunning(false);
         setIsPaused(false);
       };
@@ -111,9 +111,9 @@ export default function BatchUpdateController({
     return symbols.map((symbol, index) => ({
       id: `task_${index}`,
       symbol,
-      type: 'price' as const,
+      type: "price" as const,
       priority: index < 5 ? 1 : 2, // First 5 symbols have higher priority
-      data: { symbol }
+      data: { symbol },
     }));
   };
 
@@ -124,43 +124,43 @@ export default function BatchUpdateController({
     setProgress({
       completed: 0,
       total: tasks.length,
-      current: '',
+      current: "",
       percentage: 0,
       estimatedTimeRemaining: 0,
-      errors: []
+      errors: [],
     });
     setResults([]);
     setIsRunning(true);
     setIsPaused(false);
 
     workerRef.current.postMessage({
-      type: 'START_UPDATE',
+      type: "START_UPDATE",
       payload: {
         tasks,
         batchSize: 3, // Process 3 symbols at a time
-        delayMs: 1000 // 1 second delay between batches
-      }
+        delayMs: 1000, // 1 second delay between batches
+      },
     });
   };
 
   const pauseUpdate = () => {
     if (!workerRef.current) return;
 
-    workerRef.current.postMessage({ type: 'PAUSE_UPDATE' });
+    workerRef.current.postMessage({ type: "PAUSE_UPDATE" });
     setIsPaused(true);
   };
 
   const resumeUpdate = () => {
     if (!workerRef.current) return;
 
-    workerRef.current.postMessage({ type: 'RESUME_UPDATE' });
+    workerRef.current.postMessage({ type: "RESUME_UPDATE" });
     setIsPaused(false);
   };
 
   const stopUpdate = () => {
     if (!workerRef.current) return;
 
-    workerRef.current.postMessage({ type: 'STOP_UPDATE' });
+    workerRef.current.postMessage({ type: "STOP_UPDATE" });
     setIsRunning(false);
     setIsPaused(false);
   };
@@ -170,10 +170,10 @@ export default function BatchUpdateController({
     setProgress({
       completed: 0,
       total: 0,
-      current: '',
+      current: "",
       percentage: 0,
       estimatedTimeRemaining: 0,
-      errors: []
+      errors: [],
     });
     setResults([]);
   };

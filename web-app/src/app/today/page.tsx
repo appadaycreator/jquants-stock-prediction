@@ -102,16 +102,16 @@ export default function TodayPage() {
                     technical: [
                       { name: "RSI", value: 65, signal: "買い" },
                       { name: "MACD", value: 1.2, signal: "買い" },
-                      { name: "移動平均", value: 2480, signal: "買い" }
+                      { name: "移動平均", value: 2480, signal: "買い" },
                     ],
                     fundamental: [
                       { name: "PER", value: 15.2, signal: "買い" },
-                      { name: "PBR", value: 1.1, signal: "買い" }
+                      { name: "PBR", value: 1.1, signal: "買い" },
                     ],
                     sentiment: [
                       { name: "ニュース", value: 0.7, signal: "買い" },
-                      { name: "SNS", value: 0.6, signal: "買い" }
-                    ]
+                      { name: "SNS", value: 0.6, signal: "買い" },
+                    ],
                   }}
                   onActionClick={(symbol, action, quantity) => {
                     console.log(`${symbol}: ${action} ${quantity * 100}%`);
