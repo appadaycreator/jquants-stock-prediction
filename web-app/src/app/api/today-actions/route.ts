@@ -4,20 +4,26 @@ import { promises as fs } from "fs";
 
 export async function GET() {
   try {
-    // 直近の日付フォルダがあれば優先、それが無ければトップの today_actions_*.json を参照
-    const baseDir = path.join(process.cwd(), "web-app", "public", "data");
+    // Next.jsの実行環境でのパス解決
+    const baseDir = path.join(process.cwd(), "public", "data");
     try {
-      const datedDir = path.join(baseDir, "20250930", "");
-      const alt = path.join(datedDir, "today_actions_2025-09-30.json");
-      const content = await fs.readFile(alt, "utf-8");
+      // 日付フォルダ内のファイルを優先
+      const datedFile = path.join(baseDir, "20250930", "today_actions_2025-09-30.json");
+      const content = await fs.readFile(datedFile, "utf-8");
       return NextResponse.json(JSON.parse(content), { status: 200 });
     } catch {
+      // フォールバック: トップレベルのファイル
       const filePath = path.join(baseDir, "today_actions_2025-09-30.json");
       const content = await fs.readFile(filePath, "utf-8");
       return NextResponse.json(JSON.parse(content), { status: 200 });
     }
   } catch (e: any) {
-    return NextResponse.json({ ok: false, message: e?.message || "failed" }, { status: 500 });
+    console.error("today-actions error:", e);
+    return NextResponse.json({ 
+      ok: false, 
+      message: e?.message || "failed",
+      stack: process.env.NODE_ENV === "development" ? e?.stack : undefined
+    }, { status: 500 });
   }
 }
 

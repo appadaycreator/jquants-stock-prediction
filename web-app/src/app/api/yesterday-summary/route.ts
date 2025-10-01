@@ -4,12 +4,18 @@ import { promises as fs } from "fs";
 
 export async function GET() {
   try {
-    const filePath = path.join(process.cwd(), "web-app", "public", "data", "today_summary.json");
+    // Next.jsの実行環境でのパス解決
+    const filePath = path.join(process.cwd(), "public", "data", "today_summary.json");
     const content = await fs.readFile(filePath, "utf-8");
     const json = JSON.parse(content);
     return NextResponse.json(json, { status: 200 });
   } catch (e: any) {
-    return NextResponse.json({ ok: false, message: e?.message || "failed" }, { status: 500 });
+    console.error("yesterday-summary error:", e);
+    return NextResponse.json({ 
+      ok: false, 
+      message: e?.message || "failed",
+      stack: process.env.NODE_ENV === "development" ? e?.stack : undefined
+    }, { status: 500 });
   }
 }
 
