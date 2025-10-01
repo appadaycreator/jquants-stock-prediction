@@ -877,26 +877,30 @@ function DashboardContent() {
 
       {/* デスクトップヘッダー */}
       <header className="hidden lg:block bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div data-guide-target="welcome">
               <h1 className="text-3xl font-bold text-gray-900">J-Quants 株価予測ダッシュボード</h1>
               <p className="text-gray-600">機械学習による株価予測システム</p>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                <span className="text-sm text-gray-600">
-                  システム: 正常稼働中
-                </span>
-                <span className="text-sm text-gray-600">
-                  最終更新: {lastUpdateTime || summary?.last_updated || "-"}
-                </span>
-                {refreshStatus && (
-                  <span className="text-sm text-green-600 ml-2">
-                    {refreshStatus}
+            <div className="flex flex-col xl:flex-row items-start xl:items-center space-y-2 xl:space-y-0 xl:space-x-4">
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-sm text-gray-600">
+                    システム: 正常稼働中
                   </span>
-                )}
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm text-gray-600">
+                    最終更新: {lastUpdateTime || summary?.last_updated || "-"}
+                  </span>
+                  {refreshStatus && (
+                    <span className="text-sm text-green-600">
+                      {refreshStatus}
+                    </span>
+                  )}
+                </div>
               </div>
               <span className="text-xs px-2 py-0.5 rounded bg-gray-100 text-gray-700" title={`summary:${cacheMeta.summary?.timestamp ? new Date(cacheMeta.summary.timestamp).toLocaleString("ja-JP") : "N/A"}\nstock:${cacheMeta.stock?.timestamp ? new Date(cacheMeta.stock.timestamp).toLocaleString("ja-JP") : "N/A"}\nmodel:${cacheMeta.model?.timestamp ? new Date(cacheMeta.model.timestamp).toLocaleString("ja-JP") : "N/A"}\nfeature:${cacheMeta.feature?.timestamp ? new Date(cacheMeta.feature.timestamp).toLocaleString("ja-JP") : "N/A"}\npred:${cacheMeta.pred?.timestamp ? new Date(cacheMeta.pred.timestamp).toLocaleString("ja-JP") : "N/A"}\nmarket:${cacheMeta.marketInsights?.timestamp ? new Date(cacheMeta.marketInsights.timestamp).toLocaleString("ja-JP") : "N/A"}\nrisk:${cacheMeta.riskAssessment?.timestamp ? new Date(cacheMeta.riskAssessment.timestamp).toLocaleString("ja-JP") : "N/A"}`}>
                 {Object.values(cacheMeta).some(m => m?.exists) ? "キャッシュ使用中" : "キャッシュなし"}
@@ -1075,11 +1079,11 @@ function DashboardContent() {
       <BottomNav />
 
       {/* デスクトップメインコンテンツ（4カード＋サイド詳細） */}
-      <main className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-guide-target="dashboard-overview">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <main className="hidden lg:block w-full px-4 sm:px-6 lg:px-8 py-8" data-guide-target="dashboard-overview">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 max-w-none">
           {/* 左: 4カード */}
-          <div className="lg:col-span-8 space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+          <div className="xl:col-span-9 space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
               {/* 今日のルーティン */}
               <button onClick={() => openSide("今日のルーティン", (
                 <div className="space-y-3 text-sm">
@@ -1198,7 +1202,7 @@ function DashboardContent() {
           </div>
 
           {/* 右: サイド詳細パネル呼び出し用の固定コンテナ */}
-          <div className="lg:col-span-4">
+          <div className="xl:col-span-3">
             <SideDetailPanel
               open={sidePanelOpen}
               title={sidePanelTitle}

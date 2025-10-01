@@ -495,9 +495,9 @@ export default function RoutineDashboard({
             })}
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
           {/* 前日の分析結果要約 */}
-          <div className="lg:col-span-2">
+          <div className="xl:col-span-3">
             <div className="bg-white rounded-lg shadow border p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-gray-900">前日の分析結果</h2>
@@ -597,7 +597,7 @@ export default function RoutineDashboard({
           </div>
 
           {/* 今日のアクション */}
-          <div className="space-y-6">
+          <div className="xl:col-span-1 space-y-6">
             {/* 1クリックアクション */}
             <div className="bg-white rounded-lg shadow border p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">今日のアクション</h2>
