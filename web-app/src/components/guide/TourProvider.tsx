@@ -294,7 +294,7 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
       currentStep: null,
       isTourCompleted: true,
     });
-  }, [saveState]);
+  }, []);
 
   const completeTour = useCallback(() => {
     // スクリーンリーダーにアナウンス
@@ -309,13 +309,13 @@ export function TourProvider({ children, steps = DEFAULT_STEPS }: {
       isTourCompleted: true,
       completedSteps: [...state.completedSteps, state.currentStep || ""],
     });
-  }, [saveState, state.completedSteps, state.currentStep]);
+  }, [state.completedSteps, state.currentStep]);
 
   const toggleGuide = useCallback(() => {
     saveState({
       isGuideDisabled: !state.isGuideDisabled,
     });
-  }, [saveState, state.isGuideDisabled]);
+  }, [state.isGuideDisabled]);
 
   const resetGuide = useCallback(() => {
     localStorage.removeItem(STORAGE_KEYS.FIRST_VISIT);
