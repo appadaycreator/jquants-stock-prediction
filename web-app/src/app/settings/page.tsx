@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
-import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen, Bell, Shield, Upload, Download, Eye } from "lucide-react";
+import { Settings, Save, RefreshCw, Database, Cpu, BarChart, Play, AlertCircle, CheckCircle, BookOpen, Bell, Shield, Upload, Download, Eye, AlertTriangle } from "lucide-react";
 import { useAnalysisWithSettings } from "@/hooks/useAnalysisWithSettings";
 import { useSettings } from "@/contexts/SettingsContext";
 import AutoUpdateSettings from "@/components/notification/AutoUpdateSettings";
