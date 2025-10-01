@@ -124,7 +124,7 @@ export default function EnhancedDataUpdateManager({
       const duration = Date.now() - startTime.getTime();
       const entry = {
         timestamp: new Date(),
-        status: failed === 0 ? 'success' : 'error' as const,
+        status: (failed === 0 ? 'success' : 'error') as 'success' | 'error',
         message: `${successful}件成功、${failed}件失敗`,
         duration: Math.round(duration / 1000)
       };
