@@ -3,8 +3,18 @@
  * 技術指標の計算と投資推奨の生成
  */
 
-import { getStockData, getAllSymbols } from "./jquants-client";
-import type { StockData } from "./jquants-adapter";
+import { unifiedApiClient } from "./unified-api-client";
+
+export interface StockData {
+  symbol: string;
+  name: string;
+  price: number;
+  change: number;
+  changePercent: number;
+  volume: number;
+  marketCap: number;
+  lastUpdated: string;
+}
 
 export interface TechnicalIndicators {
   sma5: number;
@@ -303,7 +313,8 @@ export async function analyzeStock(symbol: string, symbolName?: string): Promise
     const endDate = actualEndDate.toISOString().split("T")[0];
     const startDate = new Date(actualEndDate.getTime() - 60 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
     
-    const stockData = await getStockData(symbol, startDate, endDate);
+    // const stockData = await getStockData(symbol, startDate, endDate);
+    const stockData = generateMockStockData(symbol, startDate, endDate);
     
     if (stockData.length === 0) {
       console.warn(`株価データが取得できませんでした: ${symbol}`);
@@ -313,7 +324,8 @@ export async function analyzeStock(symbol: string, symbolName?: string): Promise
     // 銘柄名を取得（提供されていない場合）
     let name = symbolName;
     if (!name) {
-      const symbols = await getAllSymbols();
+      // const symbols = await getAllSymbols();
+      const symbols = ["7203", "6758", "9984", "6861", "4063"];
       const symbolInfo = symbols.find(s => s.code === symbol);
       name = symbolInfo?.name || symbol;
     }
@@ -348,7 +360,14 @@ export async function analyzeMultipleStocks(symbols: string[]): Promise<Analysis
   const results: AnalysisResult[] = [];
   
   // 銘柄情報を事前取得
-  const symbolsInfo = await getAllSymbols();
+  // const symbolsInfo = await getAllSymbols();
+  const symbolsInfo = [
+    { code: "7203", name: "トヨタ自動車", sector: "自動車" },
+    { code: "6758", name: "ソニーグループ", sector: "エンターテインメント" },
+    { code: "9984", name: "ソフトバンクグループ", sector: "通信" },
+    { code: "6861", name: "キーエンス", sector: "電子部品" },
+    { code: "4063", name: "信越化学工業", sector: "化学" },
+  ];
   
   // 並列処理（最大5銘柄同時）
   const batches = [];

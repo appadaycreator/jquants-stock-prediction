@@ -1,110 +1,144 @@
 /**
- * リスク管理カスタマイズ設定を管理するカスタムフック
+ * リスク管理カスタマイズフック
+ * リスク管理設定の状態管理と操作を提供
  */
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 import { 
   RiskCustomizationSettings, 
-  riskCustomizationStore, 
-} from "@/lib/risk-customization-store";
+  riskCustomizationStore 
+} from '@/lib/risk-customization-store';
 
 export function useRiskCustomization() {
-  const [settings, setSettings] = useState<RiskCustomizationSettings>(
-    riskCustomizationStore.getSettings(),
-  );
-  const [isLoading, setIsLoading] = useState(false);
+  const [state, setState] = useState(riskCustomizationStore.getState());
 
-  // 設定を更新
-  const updateSettings = useCallback((newSettings: Partial<RiskCustomizationSettings>) => {
-    setIsLoading(true);
-    try {
-      riskCustomizationStore.saveSettings(newSettings);
-      setSettings(riskCustomizationStore.getSettings());
-    } catch (error) {
-      console.error("設定の更新に失敗:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  // 個別銘柄設定を更新
-  const updateIndividualStockSettings = useCallback((
-    symbol: string, 
-    stockSettings: Partial<RiskCustomizationSettings["individualStockSettings"][string]>,
-  ) => {
-    setIsLoading(true);
-    try {
-      riskCustomizationStore.updateIndividualStockSettings(symbol, stockSettings);
-      setSettings(riskCustomizationStore.getSettings());
-    } catch (error) {
-      console.error("個別銘柄設定の更新に失敗:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  // 個別銘柄設定を削除
-  const removeIndividualStockSettings = useCallback((symbol: string) => {
-    setIsLoading(true);
-    try {
-      riskCustomizationStore.removeIndividualStockSettings(symbol);
-      setSettings(riskCustomizationStore.getSettings());
-    } catch (error) {
-      console.error("個別銘柄設定の削除に失敗:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  // 設定をリセット
-  const resetSettings = useCallback(() => {
-    setIsLoading(true);
-    try {
-      riskCustomizationStore.resetSettings();
-      setSettings(riskCustomizationStore.getSettings());
-    } catch (error) {
-      console.error("設定のリセットに失敗:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  // リスク閾値を取得
-  const getRiskThresholds = useCallback(() => {
-    return riskCustomizationStore.getRiskThresholds();
-  }, []);
-
-  // 目標リターンを取得
-  const getReturnTargets = useCallback(() => {
-    return riskCustomizationStore.getReturnTargets();
-  }, []);
-
-  // 個別銘柄設定を取得
-  const getIndividualStockSettings = useCallback((symbol: string) => {
-    return settings.individualStockSettings[symbol] || null;
-  }, [settings.individualStockSettings]);
-
-  // 設定変更の監視
+  // ストアの変更を監視
   useEffect(() => {
-    const handleStorageChange = () => {
-      setSettings(riskCustomizationStore.getSettings());
-    };
+    const unsubscribe = riskCustomizationStore.subscribe(() => {
+      setState(riskCustomizationStore.getState());
+    });
 
-    if (typeof window !== "undefined") {
-      window.addEventListener("storage", handleStorageChange);
-      return () => window.removeEventListener("storage", handleStorageChange);
+    return unsubscribe;
+  }, []);
+
+  // 設定の更新
+  const updateSettings = useCallback((settings: Partial<RiskCustomizationSettings>) => {
+    riskCustomizationStore.updateSettings(settings);
+    riskCustomizationStore.saveToLocalStorage();
+  }, []);
+
+  // 設定のリセット
+  const resetSettings = useCallback(() => {
+    riskCustomizationStore.resetSettings();
+    riskCustomizationStore.saveToLocalStorage();
+  }, []);
+
+  // リスク閾値の取得
+  const getRiskThresholds = useCallback(() => {
+    const settings = riskCustomizationStore.getSettings();
+    return {
+      maxDrawdown: settings.riskTolerance.maxDrawdown,
+      volatilityTolerance: settings.riskTolerance.volatilityTolerance,
+      varTolerance: settings.riskTolerance.varTolerance,
+    };
+  }, []);
+
+  // 目標リターンの取得
+  const getReturnTargets = useCallback(() => {
+    const settings = riskCustomizationStore.getSettings();
+    return {
+      annual: settings.targetReturn.annual,
+      monthly: settings.targetReturn.monthly,
+      riskAdjusted: settings.targetReturn.riskAdjusted,
+    };
+  }, []);
+
+  // 通知設定の取得
+  const getNotificationSettings = useCallback(() => {
+    const settings = riskCustomizationStore.getSettings();
+    return settings.notifications;
+  }, []);
+
+  // 表示設定の取得
+  const getDisplaySettings = useCallback(() => {
+    const settings = riskCustomizationStore.getSettings();
+    return settings.display;
+  }, []);
+
+  // リスクレベルの判定
+  const getRiskLevel = useCallback((metrics: {
+    maxDrawdown: number;
+    volatility: number;
+    var: number;
+  }) => {
+    const settings = riskCustomizationStore.getSettings();
+    const { maxDrawdown, volatilityTolerance, varTolerance } = settings.riskTolerance;
+
+    let riskScore = 0;
+    
+    // ドローダウンベースのスコア
+    if (metrics.maxDrawdown <= maxDrawdown * 0.5) riskScore += 1;
+    else if (metrics.maxDrawdown <= maxDrawdown) riskScore += 2;
+    else if (metrics.maxDrawdown <= maxDrawdown * 1.5) riskScore += 3;
+    else riskScore += 4;
+
+    // ボラティリティベースのスコア
+    if (metrics.volatility <= volatilityTolerance * 0.5) riskScore += 1;
+    else if (metrics.volatility <= volatilityTolerance) riskScore += 2;
+    else if (metrics.volatility <= volatilityTolerance * 1.5) riskScore += 3;
+    else riskScore += 4;
+
+    // VaRベースのスコア
+    if (metrics.var <= varTolerance * 0.5) riskScore += 1;
+    else if (metrics.var <= varTolerance) riskScore += 2;
+    else if (metrics.var <= varTolerance * 1.5) riskScore += 3;
+    else riskScore += 4;
+
+    // リスクレベルの判定
+    if (riskScore <= 3) return "VERY_LOW";
+    if (riskScore <= 6) return "LOW";
+    if (riskScore <= 9) return "MEDIUM";
+    if (riskScore <= 12) return "HIGH";
+    if (riskScore <= 15) return "VERY_HIGH";
+    return "CRITICAL";
+  }, []);
+
+  // リスク警告の生成
+  const getRiskWarnings = useCallback((metrics: {
+    maxDrawdown: number;
+    volatility: number;
+    var: number;
+  }) => {
+    const settings = riskCustomizationStore.getSettings();
+    const warnings: string[] = [];
+
+    if (metrics.maxDrawdown > settings.riskTolerance.maxDrawdown) {
+      warnings.push(`最大ドローダウンが許容値を超過しています (${(metrics.maxDrawdown * 100).toFixed(1)}% > ${(settings.riskTolerance.maxDrawdown * 100).toFixed(1)}%)`);
     }
+
+    if (metrics.volatility > settings.riskTolerance.volatilityTolerance) {
+      warnings.push(`ボラティリティが許容値を超過しています (${(metrics.volatility * 100).toFixed(1)}% > ${(settings.riskTolerance.volatilityTolerance * 100).toFixed(1)}%)`);
+    }
+
+    if (metrics.var > settings.riskTolerance.varTolerance) {
+      warnings.push(`VaRが許容値を超過しています (${(metrics.var * 100).toFixed(1)}% > ${(settings.riskTolerance.varTolerance * 100).toFixed(1)}%)`);
+    }
+
+    return warnings;
   }, []);
 
   return {
-    settings,
-    isLoading,
+    settings: state.settings,
+    isLoading: state.isLoading,
+    error: state.error,
+    lastUpdated: state.lastUpdated,
     updateSettings,
-    updateIndividualStockSettings,
-    removeIndividualStockSettings,
     resetSettings,
     getRiskThresholds,
     getReturnTargets,
-    getIndividualStockSettings,
+    getNotificationSettings,
+    getDisplaySettings,
+    getRiskLevel,
+    getRiskWarnings,
   };
 }

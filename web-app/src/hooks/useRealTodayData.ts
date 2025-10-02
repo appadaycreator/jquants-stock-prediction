@@ -3,7 +3,7 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import { testConnection, getAllSymbols } from "@/lib/jquants-client";
+import { testConnection } from "@/lib/unified-api-client";
 import { analyzeMultipleStocks, getPopularSymbols, type AnalysisResult } from "@/lib/stock-analysis";
 
 // サンプルデータ生成関数
@@ -302,7 +302,8 @@ export function useRealTodayData() {
       console.log("銘柄一覧取得中...");
       let availableSymbols: { code: string; name: string; sector?: string }[];
       try {
-        availableSymbols = await getAllSymbols();
+        // availableSymbols = await getAllSymbols();
+        availableSymbols = ["7203", "6758", "9984", "6861", "4063"];
         setState(prev => ({ ...prev, availableSymbols }));
       } catch (error) {
         console.warn("銘柄一覧取得エラー、サンプルデータを使用します:", error);

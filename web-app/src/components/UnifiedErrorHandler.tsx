@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { getErrorInfo, logError, getLocalizedErrorMessage, type ErrorInfo } from "@/lib/error-handler";
+import { getErrorInfo, logError, getLocalizedErrorMessage, type ErrorInfo } from "@/lib/unified-error-handler";
 
 interface UnifiedErrorHandlerProps {
   error: Error;

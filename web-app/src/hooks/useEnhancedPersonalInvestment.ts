@@ -6,9 +6,9 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import apiClient from "@/lib/enhanced-api-client";
-import { optimizedCacheManager } from "@/lib/optimized-cache-manager";
-import { optimizedErrorHandler, ErrorContext } from "@/lib/optimized-error-handler";
+import { unifiedApiClient } from "@/lib/unified-api-client";
+import { unifiedCacheManager } from "@/lib/unified-cache-manager";
+import { optimizedErrorHandler, ErrorContext } from "@/lib/unified-error-handler";
 
 interface PersonalInvestmentData {
   portfolio: {
@@ -75,7 +75,7 @@ export function useEnhancedPersonalInvestment(): UseEnhancedPersonalInvestmentRe
     try {
       // キャッシュから取得を試行
       if (useCache) {
-        const cachedData = await optimizedCacheManager.get<PersonalInvestmentData>("personal_investment");
+        const cachedData = await unifiedCacheManager.get<PersonalInvestmentData>("personal_investment");
         if (cachedData) {
           setData(cachedData);
           setFromCache(true);
@@ -133,7 +133,7 @@ export function useEnhancedPersonalInvestment(): UseEnhancedPersonalInvestmentRe
       setLastUpdated(mockData.lastUpdated);
       
       // キャッシュに保存
-      await optimizedCacheManager.set("personal_investment", mockData, {
+      await unifiedCacheManager.set("personal_investment", mockData, {
         ttl: 600000,
         tags: ["personal", "investment", "portfolio"],
         priority: 0.9,

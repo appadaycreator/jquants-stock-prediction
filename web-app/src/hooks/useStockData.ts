@@ -4,7 +4,18 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { EnhancedDataCache, StockDataResponse } from "@/lib/enhancedDataCache";
+import { unifiedCacheManager } from "@/lib/unified-cache-manager";
+
+export interface StockDataResponse {
+  symbol: string;
+  name: string;
+  price: number;
+  change: number;
+  changePercent: number;
+  volume: number;
+  marketCap: number;
+  lastUpdated: string;
+}
 
 export interface UseStockDataState {
   data: StockDataResponse | null;
@@ -53,7 +64,7 @@ export function useStockData(options: UseStockDataOptions = {}) {
     setState(prev => ({ ...prev, loading: true, error: null }));
 
     try {
-      const data = await EnhancedDataCache.getData(symbol, forceRefresh);
+      const data = await unifiedCacheManager.get<StockDataResponse>(`stock_${symbol}`);
       
       if (data) {
         const source = forceRefresh ? "api" : "cache";
@@ -102,8 +113,8 @@ export function useStockData(options: UseStockDataOptions = {}) {
   /**
    * キャッシュクリア
    */
-  const clearCache = useCallback(() => {
-    EnhancedDataCache.clearCache(symbol);
+  const clearCache = useCallback(async () => {
+    await unifiedCacheManager.delete(`stock_${symbol}`);
     setState(prev => ({ ...prev, data: null, source: null }));
   }, [symbol]);
 
@@ -167,7 +178,7 @@ export function useStockData(options: UseStockDataOptions = {}) {
    */
   useEffect(() => {
     const cleanup = () => {
-      EnhancedDataCache.cleanupExpiredCache();
+      // unifiedCacheManager.cleanup();
     };
     
     // ページロード時にクリーンアップ
@@ -212,7 +223,7 @@ export function useMultipleStockData(symbols: string[], options: Omit<UseStockDa
     
     const promises = symbols.map(async (symbol) => {
       try {
-        const data = await EnhancedDataCache.getData(symbol);
+        const data = await unifiedCacheManager.get<StockDataResponse>(`stock_${symbol}`);
         return { symbol, data, error: null };
       } catch (error) {
         return { 

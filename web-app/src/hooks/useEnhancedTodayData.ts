@@ -6,9 +6,9 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import apiClient from "@/lib/enhanced-api-client";
-import { optimizedCacheManager } from "@/lib/optimized-cache-manager";
-import { optimizedErrorHandler, ErrorContext } from "@/lib/optimized-error-handler";
+import { unifiedApiClient } from "@/lib/unified-api-client";
+import { unifiedCacheManager } from "@/lib/unified-cache-manager";
+import { optimizedErrorHandler, ErrorContext } from "@/lib/unified-error-handler";
 
 interface TodaySummary {
   date: string;
@@ -69,7 +69,7 @@ export function useEnhancedTodayData(): UseEnhancedTodayDataReturn {
     try {
       // キャッシュから取得を試行
       if (useCache) {
-        const cachedData = await optimizedCacheManager.get<TodaySummary>("today_summary");
+        const cachedData = await unifiedCacheManager.get<TodaySummary>("today_summary");
         if (cachedData) {
           setData(cachedData);
           setFromCache(true);
@@ -119,7 +119,7 @@ export function useEnhancedTodayData(): UseEnhancedTodayDataReturn {
       setLastUpdated(mockData.lastUpdated);
       
       // キャッシュに保存
-      await optimizedCacheManager.set("today_summary", mockData, {
+      await unifiedCacheManager.set("today_summary", mockData, {
         ttl: 300000,
         tags: ["today", "summary"],
         priority: 0.9,

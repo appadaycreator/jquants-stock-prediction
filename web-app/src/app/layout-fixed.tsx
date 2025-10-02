@@ -18,7 +18,7 @@ import GlobalErrorBoundary from "@/components/GlobalErrorBoundary";
 import UnifiedErrorBoundary from "@/components/UnifiedErrorBoundary";
 import FixedResponsiveLayout from "@/components/FixedResponsiveLayout";
 import { useEffect, useState } from "react";
-import { startAutoRecovery } from "@/lib/auto-recovery";
+import { optimizedErrorHandler } from "@/lib/unified-error-handler";
 
 const inter = Inter({ subsets: ["latin"] });
 
