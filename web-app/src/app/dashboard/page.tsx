@@ -5,7 +5,7 @@ import { useEffect, useState, Suspense } from "react";
 // 動的レンダリングを強制
 export const dynamic = 'force-dynamic';
 import { ErrorBoundary } from "react-error-boundary";
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
 import Link from "next/link";
 import { SettingsProvider } from "../../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../../hooks/useAnalysisWithSettings";
@@ -46,37 +46,37 @@ import { DataPlaceholder, MetricPlaceholder, ChartPlaceholder } from "@/componen
 import TutorialSystem from "@/components/TutorialSystem";
 
 // 動的インポートでコンポーネントを遅延読み込み
-const Navigation = dynamic(() => import("../../components/Navigation"), { ssr: false });
-const MobileNavigation = dynamic(() => import("../../components/MobileNavigation"), { ssr: false });
-const BottomNav = dynamic(() => import("../../components/mobile/BottomNav"), { ssr: false });
-const MobileDashboard = dynamic(() => import("../../components/MobileDashboard"), { ssr: false });
-const MobileOptimizedDashboard = dynamic(() => import("../../components/MobileOptimizedDashboard"), { ssr: false });
-const PullToRefresh = dynamic(() => import("../../components/PullToRefresh"), { ssr: false });
-const SymbolSelector = dynamic(() => import("../../components/SymbolSelector"), { ssr: false });
-const SymbolAnalysisResults = dynamic(() => import("../../components/SymbolAnalysisResults"), { ssr: false });
-const OneClickAnalysis = dynamic(() => import("../../components/OneClickAnalysis"), { ssr: false });
-const StockMonitoringManager = dynamic(() => import("../../components/StockMonitoringManager"), { ssr: false });
-const RealtimeSignalDisplay = dynamic(() => import("../../components/RealtimeSignalDisplay"), { ssr: false });
-const NotificationSettings = dynamic(() => import("../../components/NotificationSettings"), { ssr: false });
-const MobileFirstDashboard = dynamic(() => import("../../components/MobileFirstDashboard"), { ssr: false });
-const WatchlistManager = dynamic(() => import("../../components/WatchlistManager"), { ssr: false });
-const JudgmentPanel = dynamic(() => import("../../components/JudgmentPanel"), { ssr: false });
-const PeriodSelector = dynamic(() => import("../../components/PeriodSelector"), { ssr: false });
-const ParallelUpdateManager = dynamic(() => import("../../components/ParallelUpdateManager"), { ssr: false });
-const RoutineDashboard = dynamic(() => import("../../components/RoutineDashboard"), { ssr: false });
-const SideDetailPanel = dynamic(() => import("@/components/SideDetailPanel"), { ssr: false });
-const EnhancedErrorHandler = dynamic(() => import("../../components/EnhancedErrorHandler"), { ssr: false });
-const ChartErrorBoundary = dynamic(() => import("../../components/ChartErrorBoundary"), { ssr: false });
-const Tooltip = dynamic(() => import("../../components/Tooltip").then(mod => ({ default: mod.default })), { ssr: false });
-const UserGuide = dynamic(() => import("../../components/UserGuide"), { ssr: false });
-const TourProvider = dynamic(() => import("../../components/guide/TourProvider").then(mod => ({ default: mod.TourProvider })), { ssr: false });
-const MetricTooltip = dynamic(() => import("../../components/guide/Tooltip").then(mod => ({ default: mod.MetricTooltip })), { ssr: false });
-const SimpleTooltip = dynamic(() => import("../../components/guide/Tooltip").then(mod => ({ default: mod.SimpleTooltip })), { ssr: false });
-const Checklist = dynamic(() => import("../../components/guide/Checklist"), { ssr: false });
-const ChecklistBadge = dynamic(() => import("../../components/guide/Checklist").then(mod => ({ default: mod.ChecklistBadge })), { ssr: false });
-const GlossaryModal = dynamic(() => import("../../components/guide/GlossaryModal"), { ssr: false });
-const HelpModal = dynamic(() => import("../../components/guide/HelpModal"), { ssr: false });
-const NextUpdateIndicator = dynamic(() => import("@/components/NextUpdateIndicator"), { ssr: false });
+const Navigation = dynamicImport(() => import("../../components/Navigation"), { ssr: false });
+const MobileNavigation = dynamicImport(() => import("../../components/MobileNavigation"), { ssr: false });
+const BottomNav = dynamicImport(() => import("../../components/mobile/BottomNav"), { ssr: false });
+const MobileDashboard = dynamicImport(() => import("../../components/MobileDashboard"), { ssr: false });
+const MobileOptimizedDashboard = dynamicImport(() => import("../../components/MobileOptimizedDashboard"), { ssr: false });
+const PullToRefresh = dynamicImport(() => import("../../components/PullToRefresh"), { ssr: false });
+const SymbolSelector = dynamicImport(() => import("../../components/SymbolSelector"), { ssr: false });
+const SymbolAnalysisResults = dynamicImport(() => import("../../components/SymbolAnalysisResults"), { ssr: false });
+const OneClickAnalysis = dynamicImport(() => import("../../components/OneClickAnalysis"), { ssr: false });
+const StockMonitoringManager = dynamicImport(() => import("../../components/StockMonitoringManager"), { ssr: false });
+const RealtimeSignalDisplay = dynamicImport(() => import("../../components/RealtimeSignalDisplay"), { ssr: false });
+const NotificationSettings = dynamicImport(() => import("../../components/NotificationSettings"), { ssr: false });
+const MobileFirstDashboard = dynamicImport(() => import("../../components/MobileFirstDashboard"), { ssr: false });
+const WatchlistManager = dynamicImport(() => import("../../components/WatchlistManager"), { ssr: false });
+const JudgmentPanel = dynamicImport(() => import("../../components/JudgmentPanel"), { ssr: false });
+const PeriodSelector = dynamicImport(() => import("../../components/PeriodSelector"), { ssr: false });
+const ParallelUpdateManager = dynamicImport(() => import("../../components/ParallelUpdateManager"), { ssr: false });
+const RoutineDashboard = dynamicImport(() => import("../../components/RoutineDashboard"), { ssr: false });
+const SideDetailPanel = dynamicImport(() => import("@/components/SideDetailPanel"), { ssr: false });
+const EnhancedErrorHandler = dynamicImport(() => import("../../components/EnhancedErrorHandler"), { ssr: false });
+const ChartErrorBoundary = dynamicImport(() => import("../../components/ChartErrorBoundary"), { ssr: false });
+const Tooltip = dynamicImport(() => import("../../components/Tooltip").then(mod => ({ default: mod.default })), { ssr: false });
+const UserGuide = dynamicImport(() => import("../../components/UserGuide"), { ssr: false });
+const TourProvider = dynamicImport(() => import("../../components/guide/TourProvider").then(mod => ({ default: mod.TourProvider })), { ssr: false });
+const MetricTooltip = dynamicImport(() => import("../../components/guide/Tooltip").then(mod => ({ default: mod.MetricTooltip })), { ssr: false });
+const SimpleTooltip = dynamicImport(() => import("../../components/guide/Tooltip").then(mod => ({ default: mod.SimpleTooltip })), { ssr: false });
+const Checklist = dynamicImport(() => import("../../components/guide/Checklist"), { ssr: false });
+const ChecklistBadge = dynamicImport(() => import("../../components/guide/Checklist").then(mod => ({ default: mod.ChecklistBadge })), { ssr: false });
+const GlossaryModal = dynamicImport(() => import("../../components/guide/GlossaryModal"), { ssr: false });
+const HelpModal = dynamicImport(() => import("../../components/guide/HelpModal"), { ssr: false });
+const NextUpdateIndicator = dynamicImport(() => import("@/components/NextUpdateIndicator"), { ssr: false });
 
 // 型定義
 interface StockData {
