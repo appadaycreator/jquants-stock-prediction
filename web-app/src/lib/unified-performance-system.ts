@@ -57,7 +57,7 @@ class UnifiedPerformanceSystem {
   /**
    * システムの初期化
    */
-  private async initialize(): Promise<void> {
+  async initialize(): Promise<void> {
     if (this.isInitialized) return;
 
     try {
@@ -309,7 +309,7 @@ class UnifiedPerformanceSystem {
         module = await import("chart.js");
         break;
       case "technical":
-        module = await import("tradingview-charting-library");
+        module = await import("chart.js");
         break;
       default:
         module = await import("chart.js");

@@ -10,10 +10,9 @@ import {
   Wifi, 
   WifiOff, 
   Download, 
-  Touch, 
-  Zoom,
-  Navigation,
-  Vibrate
+  Hand, 
+  Search,
+  Navigation
 } from 'lucide-react';
 
 interface MobileOptimizerProps {
@@ -116,7 +115,7 @@ export default function MobileOptimizer({
             <h4 className="text-sm font-medium text-gray-900 mb-2">最適化機能</h4>
             <div className="grid grid-cols-2 gap-2">
               <div className="flex items-center space-x-2">
-                <Touch className="h-3 w-3 text-blue-500" />
+                <Hand className="h-3 w-3 text-blue-500" />
                 <span className="text-xs text-gray-600">タッチジェスチャー</span>
               </div>
               
@@ -126,12 +125,12 @@ export default function MobileOptimizer({
               </div>
               
               <div className="flex items-center space-x-2">
-                <Zoom className="h-3 w-3 text-purple-500" />
+                <Search className="h-3 w-3 text-purple-500" />
                 <span className="text-xs text-gray-600">ピンチズーム</span>
               </div>
               
               <div className="flex items-center space-x-2">
-                <Vibrate className="h-3 w-3 text-orange-500" />
+                <Smartphone className="h-3 w-3 text-orange-500" />
                 <span className="text-xs text-gray-600">ハプティック</span>
               </div>
             </div>

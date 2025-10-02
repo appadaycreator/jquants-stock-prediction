@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { unifiedPerformanceSystem } from "@/lib/unified-performance-system";
 import { frontendMemoryOptimizer } from "@/lib/frontend-memory-optimizer";
 import { progressiveDataLoader } from "@/lib/progressive-data-loader";
@@ -31,7 +31,7 @@ interface PerformanceStatus {
   recommendations: string[];
 }
 
-export default function PerformanceOptimizedApp({
+function PerformanceOptimizedApp({
   children,
   enableMemoryOptimization = true,
   enableLazyLoading = true,

@@ -6,7 +6,7 @@ import {
   XCircle, 
   AlertTriangle, 
   Smartphone, 
-  Touch, 
+  Hand, 
   Wifi,
   Battery,
   Cpu,

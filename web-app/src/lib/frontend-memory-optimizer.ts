@@ -140,7 +140,7 @@ class FrontendMemoryOptimizer {
   /**
    * メモリ最適化の実行
    */
-  private optimizeMemory(): void {
+  optimizeMemory(): void {
     console.info("メモリ最適化を実行中...");
 
     const beforeOptimization = this.getCurrentMemoryUsage();
@@ -182,7 +182,7 @@ class FrontendMemoryOptimizer {
   /**
    * 現在のメモリ使用量を取得
    */
-  private getCurrentMemoryUsage(): number {
+  getCurrentMemoryUsage(): number {
     if (!("memory" in performance)) return 0;
     
     const memory = (performance as any).memory;
@@ -498,6 +498,29 @@ class FrontendMemoryOptimizer {
       optimizations,
       recommendations,
     };
+  }
+
+  /**
+   * チャートデータのダウンサンプリング
+   */
+  downsampleChartData(data: any[], maxPoints: number): any[] {
+    if (data.length <= maxPoints) {
+      return data;
+    }
+
+    const step = Math.ceil(data.length / maxPoints);
+    const downsampled: any[] = [];
+
+    for (let i = 0; i < data.length; i += step) {
+      downsampled.push(data[i]);
+    }
+
+    // 最後のデータポイントを必ず含める
+    if (downsampled[downsampled.length - 1] !== data[data.length - 1]) {
+      downsampled.push(data[data.length - 1]);
+    }
+
+    return downsampled;
   }
 
   /**

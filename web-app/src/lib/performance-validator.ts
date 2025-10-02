@@ -90,7 +90,11 @@ class PerformanceValidator {
       const fidObserver = new PerformanceObserver((list) => {
         const entries = list.getEntries();
         entries.forEach(entry => {
-          this.recordFID(entry.processingStart - entry.startTime);
+          // First Input Delay の計算（processingStartが利用できない場合の代替）
+          const fid = (entry as any).processingStart ? 
+            (entry as any).processingStart - entry.startTime : 
+            entry.duration || 0;
+          this.recordFID(fid);
         });
       });
       fidObserver.observe({ entryTypes: ["first-input"] });
@@ -100,7 +104,9 @@ class PerformanceValidator {
       const clsObserver = new PerformanceObserver((list) => {
         const entries = list.getEntries();
         entries.forEach(entry => {
-          this.recordCLS(entry.value);
+          // Cumulative Layout Shift の計算（valueが利用できない場合の代替）
+          const cls = (entry as any).value || entry.duration || 0;
+          this.recordCLS(cls);
         });
       });
       clsObserver.observe({ entryTypes: ["layout-shift"] });

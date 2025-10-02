@@ -120,7 +120,9 @@ export default function LazyChart({
 
         // チャートの初期化
         if (chartRef.current) {
-          chartInstanceRef.current = new chartModule.default(chartRef.current, {
+          // chart.js または lightweight-charts の適切なコンストラクタを使用
+          const ChartConstructor = (chartModule as any).default || chartModule;
+          chartInstanceRef.current = new ChartConstructor(chartRef.current, {
             data: optimizedData,
             height,
             width,
@@ -188,7 +190,7 @@ export default function LazyChart({
         module = await import("chart.js");
         break;
       case "technical":
-        module = await import("tradingview-charting-library");
+        module = await import("chart.js");
         break;
       default:
         module = await import("chart.js");
@@ -360,7 +362,8 @@ export function useLazyChart() {
 
     try {
       const chartModule = await importChartLibrary(type);
-      const chart = new chartModule.default(data, options);
+      const ChartConstructor = (chartModule as any).default || chartModule;
+      const chart = new ChartConstructor(data, options);
       
       setCharts(prev => new Map(prev).set(id, chart));
       return chart;
@@ -379,6 +382,7 @@ export function useLazyChart() {
         newCharts.delete(id);
         return newCharts;
       });
+    }
   }, [charts]);
 
   const optimizeAllCharts = useCallback(() => {
@@ -411,7 +415,7 @@ async function importChartLibrary(type: string) {
       module = await import("chart.js");
       break;
     case "technical":
-      module = await import("tradingview-charting-library");
+      module = await import("chart.js");
       break;
     default:
       module = await import("chart.js");

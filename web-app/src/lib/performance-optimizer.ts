@@ -3,6 +3,8 @@
  * 5分ルーティンの実現に向けた最適化
  */
 
+import React from 'react';
+
 interface PerformanceMetrics {
   loadTime: number;
   renderTime: number;

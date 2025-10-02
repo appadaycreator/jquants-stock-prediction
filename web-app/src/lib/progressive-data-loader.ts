@@ -82,6 +82,33 @@ class ProgressiveDataLoader {
   }
 
   /**
+   * メモリ最適化
+   */
+  private optimizeMemory(): void {
+    console.info("メモリ最適化を実行中...");
+    
+    // 古いキャッシュエントリの削除
+    const maxCacheSize = this.config.memoryThreshold * 0.8; // 80%まで削減
+    if (this.cache.size > 10) {
+      const entries = Array.from(this.cache.entries());
+      entries.sort((a, b) => a[1].timestamp - b[1].timestamp);
+      
+      const toDelete = Math.floor(entries.length * 0.3); // 30%削除
+      for (let i = 0; i < toDelete; i++) {
+        this.cache.delete(entries[i][0]);
+      }
+    }
+    
+    // 圧縮キャッシュのクリア
+    this.compressionCache.clear();
+    
+    // メモリ履歴のクリア
+    this.memoryHistory = [];
+    
+    console.info("メモリ最適化完了");
+  }
+
+  /**
    * 段階的データ読み込み
    */
   async loadDataProgressively<T>(

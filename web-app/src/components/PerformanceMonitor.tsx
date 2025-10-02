@@ -140,7 +140,7 @@ export default function PerformanceMonitor({
             <div className="border-t pt-4">
               <h4 className="text-sm font-medium text-gray-900 mb-2">推奨事項</h4>
               <div className="space-y-2">
-                {recommendations.map((recommendation, index) => (
+                {recommendations.map((recommendation: string, index: number) => (
                   <div key={index} className="text-xs text-yellow-600 bg-yellow-50 p-2 rounded">
                     {recommendation}
                   </div>

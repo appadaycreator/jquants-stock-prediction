@@ -159,7 +159,36 @@ function DashboardContent() {
         setIsLoading(true);
         
         // キャッシュメタデータの取得
-        const meta = await getCacheMeta();
+        const meta = {
+          summary: {
+            exists: getCacheMeta("dash:summary").exists,
+            timestamp: getCacheMeta("dash:summary").timestamp || undefined
+          },
+          stock: {
+            exists: getCacheMeta("dash:stock").exists,
+            timestamp: getCacheMeta("dash:stock").timestamp || undefined
+          },
+          model: {
+            exists: getCacheMeta("dash:model").exists,
+            timestamp: getCacheMeta("dash:model").timestamp || undefined
+          },
+          feature: {
+            exists: getCacheMeta("dash:feature").exists,
+            timestamp: getCacheMeta("dash:feature").timestamp || undefined
+          },
+          pred: {
+            exists: getCacheMeta("dash:pred").exists,
+            timestamp: getCacheMeta("dash:pred").timestamp || undefined
+          },
+          marketInsights: {
+            exists: getCacheMeta("dash:marketInsights").exists,
+            timestamp: getCacheMeta("dash:marketInsights").timestamp || undefined
+          },
+          riskAssessment: {
+            exists: getCacheMeta("dash:riskAssessment").exists,
+            timestamp: getCacheMeta("dash:riskAssessment").timestamp || undefined
+          },
+        };
         setCacheMeta(meta);
 
         // データの読み込み
