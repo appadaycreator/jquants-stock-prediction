@@ -21,7 +21,7 @@ from typing import Dict, Any, Optional
 
 from flask import Flask, jsonify, request
 
-from automated_scheduler import AutomatedScheduler
+# from automated_scheduler import AutomatedScheduler  # 削除されたモジュール
 
 
 JobStatus = str  # 'queued' | 'running' | 'succeeded' | 'failed'
@@ -65,8 +65,7 @@ def _update(job: JobRecord, **patch: Any) -> None:
 
 
 def _run_today_pipeline(job_id: str) -> None:
-    scheduler = AutomatedScheduler()
-
+    # 簡略化されたパイプライン実行
     steps = [
         ("データ取得", 10, lambda: _run_subprocess("fetch")),
         ("前処理", 30, lambda: _run_subprocess("preprocess")),
@@ -83,14 +82,7 @@ def _run_today_pipeline(job_id: str) -> None:
         _update(job, status="running", progress=5)
 
     try:
-        # 既存の超高速分析（webデータ生成まで含む）を先行実行
-        # これにより静的サイト用JSONが生成される
-        result = scheduler.run_ultra_fast_analysis()
-        if result.get("status") != "success":
-            raise RuntimeError(result.get("error") or "ultra_fast 分析失敗")
-        _bump_progress(job_id, 8)
-
-        # 段階実行（疑似ステップ）。実処理は既存スクリプト群に委譲。
+        # 段階実行（疑似ステップ）
         for _, prog, fn in steps:
             fn()
             _set_progress(job_id, prog)
