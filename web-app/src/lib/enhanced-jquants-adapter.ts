@@ -406,70 +406,57 @@ class EnhancedJQuantsAdapter {
   }
 
   /**
-   * 指数バックオフ付きAPI呼び出し
+   * 静的データ取得（CORS問題を回避）
    */
   private async fetchWithRetry<T>(
     url: string,
     options: RequestInit = {},
     context: string = "API call",
   ): Promise<T> {
-    let lastError: Error | null = null;
     const startTime = Date.now();
 
-    for (let attempt = 0; attempt <= this.config.maxRetries; attempt++) {
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
-
-        const response = await fetch(url, {
-          ...options,
-          signal: controller.signal,
-          headers: {
-            "Authorization": `Bearer ${this.config.token}`,
-            "Content-Type": "application/json",
-            ...options.headers,
-          },
-        });
-
-        clearTimeout(timeoutId);
-
-        if (!response.ok) {
-          if (response.status === 429) {
-            throw new Error("RATE_LIMIT_EXCEEDED");
-          }
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        const responseTime = Date.now() - startTime;
-
-        this.qualityMonitor.recordRequest(true, responseTime);
-        console.info(`${context}成功`, { attempt: attempt + 1, responseTime });
-
-        return data;
-      } catch (error) {
-        lastError = error as Error;
-        const responseTime = Date.now() - startTime;
-
-        if (error instanceof Error && error.name === "AbortError") {
-          this.qualityMonitor.recordRequest(false, responseTime, "timeout");
-        } else if (error instanceof Error && error.message === "RATE_LIMIT_EXCEEDED") {
-          this.qualityMonitor.recordRequest(false, responseTime, "rate_limit");
-        } else {
-          this.qualityMonitor.recordRequest(false, responseTime);
-        }
-
-        console.warn(`${context}失敗 (試行 ${attempt + 1}/${this.config.maxRetries + 1}):`, error);
-
-        if (attempt < this.config.maxRetries) {
-          const delay = this.config.retryDelay * Math.pow(2, attempt);
-          console.log(`${delay}ms後にリトライ...`);
-          await new Promise(resolve => setTimeout(resolve, delay));
-        }
+    try {
+      // 静的データファイルから取得
+      let dataUrl: string;
+      
+      if (url.includes("/markets/stock/list")) {
+        dataUrl = "/data/listed_index.json";
+      } else if (url.includes("/prices/daily_quotes")) {
+        // 価格データは個別ファイルから取得する必要がある
+        // ここでは基本的な構造を返す
+        return {
+          data: [],
+          message: "価格データは個別銘柄ファイルから取得してください"
+        } as T;
+      } else {
+        dataUrl = "/data/listed_index.json";
       }
-    }
 
-    throw new Error(`${context}が${this.config.maxRetries + 1}回の試行後に失敗: ${lastError?.message}`);
+      const response = await fetch(dataUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const responseTime = Date.now() - startTime;
+
+      this.qualityMonitor.recordRequest(true, responseTime);
+      console.info(`${context}成功 (静的データ)`, { responseTime });
+
+      return data;
+    } catch (error) {
+      const responseTime = Date.now() - startTime;
+      this.qualityMonitor.recordRequest(false, responseTime);
+      
+      console.warn(`${context}失敗 (静的データ):`, error);
+      throw new Error(`${context}が失敗: ${error instanceof Error ? error.message : "不明なエラー"}`);
+    }
   }
 
   /**
@@ -480,11 +467,11 @@ class EnhancedJQuantsAdapter {
   }
 
   /**
-   * 全銘柄一覧の取得（強化版）
+   * 全銘柄一覧の取得（静的データ版）
    */
   async getAllSymbols(): Promise<Array<{ code: string; name: string; sector?: string }>> {
     try {
-      console.info("全銘柄一覧取得開始");
+      console.info("全銘柄一覧取得開始 (静的データ)");
 
       const data = await this.makeApiCall(() =>
         this.fetchWithRetry<any>(
@@ -494,17 +481,18 @@ class EnhancedJQuantsAdapter {
         ),
       );
 
-      const list: any[] = data?.data || [];
+      // 静的データの構造に合わせて処理
+      const list: any[] = data?.stocks || data?.data || [];
       const symbols = list.map((item: any) => ({
-        code: item?.Code || item?.code,
-        name: item?.CompanyName || item?.name || item?.CompanyNameJa || item?.CompanyNameJp || item?.CompanyNameJPN,
-        sector: item?.Sector33 || item?.SectorName || item?.sector,
+        code: item?.code || item?.Code,
+        name: item?.name || item?.CompanyName || item?.CompanyNameJa || item?.CompanyNameJp || item?.CompanyNameJPN,
+        sector: item?.sector || item?.Sector33 || item?.SectorName,
       })).filter((s: any) => !!s.code && !!s.name);
 
-      console.info("全銘柄一覧取得完了", { count: symbols.length });
+      console.info("全銘柄一覧取得完了 (静的データ)", { count: symbols.length });
       return symbols;
     } catch (error) {
-      console.error("全銘柄一覧取得エラー:", error);
+      console.error("全銘柄一覧取得エラー (静的データ):", error);
       return [];
     }
   }

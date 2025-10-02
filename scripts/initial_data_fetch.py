@@ -160,8 +160,10 @@ class InitialDataFetcher:
             logger.error(f"銘柄 {code} の価格データ取得エラー: {e}")
             return []
     
-    def process_stock_data(self, stock_list: List[Dict[str, Any]], max_stocks: int = 50) -> Dict[str, Any]:
+    def process_stock_data(self, stock_list: List[Dict[str, Any]], max_stocks: int = None) -> Dict[str, Any]:
         """株価データの処理"""
+        if max_stocks is None:
+            max_stocks = len(stock_list)  # 全銘柄を処理
         logger.info(f"株価データの処理開始 (最大{max_stocks}銘柄)")
         
         processed_data = {

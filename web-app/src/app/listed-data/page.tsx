@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import EnhancedJQuantsAdapter from '@/lib/enhanced-jquants-adapter';
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import EnhancedJQuantsAdapter from "@/lib/enhanced-jquants-adapter";
 
 interface ListedStock {
   code: string;
@@ -27,23 +27,23 @@ interface ListedData {
   stocks: ListedStock[];
 }
 
-type SortField = 'code' | 'name' | 'sector' | 'market' | 'currentPrice' | 'change' | 'volume';
-type SortDirection = 'asc' | 'desc';
+type SortField = "code" | "name" | "sector" | "market" | "currentPrice" | "change" | "volume";
+type SortDirection = "asc" | "desc";
 
 const ListedDataPage: React.FC = () => {
   const [data, setData] = useState<ListedData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedSector, setSelectedSector] = useState('');
-  const [selectedMarket, setSelectedMarket] = useState('');
-  const [sortField, setSortField] = useState<SortField>('code');
-  const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedSector, setSelectedSector] = useState("");
+  const [selectedMarket, setSelectedMarket] = useState("");
+  const [sortField, setSortField] = useState<SortField>("code");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(50);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
-  const [volumeRange, setVolumeRange] = useState({ min: '', max: '' });
+  const [priceRange, setPriceRange] = useState({ min: "", max: "" });
+  const [volumeRange, setVolumeRange] = useState({ min: "", max: "" });
   const [jquantsAdapter] = useState(() => new EnhancedJQuantsAdapter());
 
   const fetchListedData = useCallback(async () => {
@@ -52,7 +52,7 @@ const ListedDataPage: React.FC = () => {
       setError(null);
       
       // まずキャッシュされたデータを取得
-      const response = await fetch('/data/listed_index.json');
+      const response = await fetch("/data/listed_index.json");
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -78,18 +78,18 @@ const ListedDataPage: React.FC = () => {
             metadata: {
               ...listedData.metadata,
               last_updated: new Date().toISOString(),
-            }
+            },
           });
         } else {
           setData(listedData);
         }
       } catch (apiError) {
-        console.warn('J-Quants API取得に失敗、キャッシュデータを使用:', apiError);
+        console.warn("J-Quants API取得に失敗、キャッシュデータを使用:", apiError);
         setData(listedData);
       }
     } catch (err) {
-      console.error('Error fetching listed data:', err);
-      setError('データの取得に失敗しました');
+      console.error("Error fetching listed data:", err);
+      setError("データの取得に失敗しました");
     } finally {
       setLoading(false);
     }
@@ -99,45 +99,52 @@ const ListedDataPage: React.FC = () => {
     fetchListedData();
   }, [fetchListedData]);
 
-  const getUniqueSectors = useCallback(() => {
+  const getUniqueSectors = useMemo(() => {
     if (!data) return [];
     return Array.from(new Set(data.stocks.map(stock => stock.sector))).sort();
   }, [data]);
 
-  const getUniqueMarkets = useCallback(() => {
+  const getUniqueMarkets = useMemo(() => {
     if (!data) return [];
     return Array.from(new Set(data.stocks.map(stock => stock.market))).sort();
   }, [data]);
 
   const handleSort = useCallback((field: SortField) => {
     if (sortField === field) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
       setSortField(field);
-      setSortDirection('asc');
+      setSortDirection("asc");
     }
+    setCurrentPage(1); // ソート時にページをリセット
   }, [sortField, sortDirection]);
 
   const filteredAndSortedStocks = useMemo(() => {
     if (!data) return [];
 
+    const searchTermLower = searchTerm.toLowerCase();
+    const minPrice = priceRange.min ? parseFloat(priceRange.min) : null;
+    const maxPrice = priceRange.max ? parseFloat(priceRange.max) : null;
+    const minVolume = volumeRange.min ? parseFloat(volumeRange.min) : null;
+    const maxVolume = volumeRange.max ? parseFloat(volumeRange.max) : null;
+
     let filtered = data.stocks.filter(stock => {
-      const matchesSearch = stock.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      const matchesSearch = stock.name.toLowerCase().includes(searchTermLower) || 
                            stock.code.includes(searchTerm);
       const matchesSector = !selectedSector || stock.sector === selectedSector;
       const matchesMarket = !selectedMarket || stock.market === selectedMarket;
       
       // 価格フィルター
-      const matchesPrice = !priceRange.min || !priceRange.max || 
+      const matchesPrice = !minPrice || !maxPrice || 
         (stock.currentPrice && 
-         stock.currentPrice >= parseFloat(priceRange.min) && 
-         stock.currentPrice <= parseFloat(priceRange.max));
+         stock.currentPrice >= minPrice && 
+         stock.currentPrice <= maxPrice);
       
       // 出来高フィルター
-      const matchesVolume = !volumeRange.min || !volumeRange.max || 
+      const matchesVolume = !minVolume || !maxVolume || 
         (stock.volume && 
-         stock.volume >= parseFloat(volumeRange.min) && 
-         stock.volume <= parseFloat(volumeRange.max));
+         stock.volume >= minVolume && 
+         stock.volume <= maxVolume);
 
       return matchesSearch && matchesSector && matchesMarket && matchesPrice && matchesVolume;
     });
@@ -147,23 +154,28 @@ const ListedDataPage: React.FC = () => {
       let aValue: any = a[sortField];
       let bValue: any = b[sortField];
 
-      if (sortField === 'currentPrice' || sortField === 'change' || sortField === 'volume') {
+      if (sortField === "currentPrice" || sortField === "change" || sortField === "volume") {
         aValue = aValue || 0;
         bValue = bValue || 0;
       }
 
-      if (typeof aValue === 'string') {
+      if (typeof aValue === "string") {
         aValue = aValue.toLowerCase();
         bValue = bValue.toLowerCase();
       }
 
-      if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
-      if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+      if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
+      if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
       return 0;
     });
 
     return filtered;
   }, [data, searchTerm, selectedSector, selectedMarket, sortField, sortDirection, priceRange, volumeRange]);
+
+  // フィルター変更時にページをリセット
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedSector, selectedMarket, priceRange, volumeRange]);
 
   const paginatedStocks = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -171,6 +183,16 @@ const ListedDataPage: React.FC = () => {
   }, [filteredAndSortedStocks, currentPage, itemsPerPage]);
 
   const totalPages = Math.ceil(filteredAndSortedStocks.length / itemsPerPage);
+
+  // ページネーション用のヘルパー関数
+  const goToPage = useCallback((page: number) => {
+    setCurrentPage(Math.max(1, Math.min(page, totalPages)));
+  }, [totalPages]);
+
+  const goToFirstPage = useCallback(() => goToPage(1), [goToPage]);
+  const goToLastPage = useCallback(() => goToPage(totalPages), [goToPage, totalPages]);
+  const goToPreviousPage = useCallback(() => goToPage(currentPage - 1), [goToPage, currentPage]);
+  const goToNextPage = useCallback(() => goToPage(currentPage + 1), [goToPage, currentPage]);
 
   if (loading) {
     return (
@@ -225,7 +247,7 @@ const ListedDataPage: React.FC = () => {
             <strong>総銘柄数:</strong> {data.metadata.total_stocks}
           </div>
           <div>
-            <strong>最終更新:</strong> {new Date(data.metadata.last_updated).toLocaleString('ja-JP')}
+            <strong>最終更新:</strong> {new Date(data.metadata.last_updated).toLocaleString("ja-JP")}
           </div>
           <div>
             <strong>データタイプ:</strong> {data.metadata.data_type}
@@ -237,12 +259,14 @@ const ListedDataPage: React.FC = () => {
       <div className="bg-white p-4 rounded-lg shadow-md mb-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">検索・フィルター</h2>
-          <button
-            onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
-          >
-            {showAdvancedFilters ? '詳細フィルターを閉じる' : '詳細フィルターを開く'}
-          </button>
+            <button
+              onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+              className="text-blue-600 hover:text-blue-800 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+              aria-expanded={showAdvancedFilters}
+              aria-controls="advanced-filters"
+            >
+              {showAdvancedFilters ? "詳細フィルターを閉じる" : "詳細フィルターを開く"}
+            </button>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -268,7 +292,7 @@ const ListedDataPage: React.FC = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">すべてのセクター</option>
-              {getUniqueSectors().map(sector => (
+              {getUniqueSectors.map(sector => (
                 <option key={sector} value={sector}>{sector}</option>
               ))}
             </select>
@@ -283,7 +307,7 @@ const ListedDataPage: React.FC = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">すべての市場</option>
-              {getUniqueMarkets().map(market => (
+              {getUniqueMarkets.map(market => (
                 <option key={market} value={market}>{market}</option>
               ))}
             </select>
@@ -291,7 +315,7 @@ const ListedDataPage: React.FC = () => {
         </div>
 
         {showAdvancedFilters && (
-          <div className="mt-4 pt-4 border-t border-gray-200">
+          <div id="advanced-filters" className="mt-4 pt-4 border-t border-gray-200">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -363,39 +387,75 @@ const ListedDataPage: React.FC = () => {
             <thead className="bg-gray-50">
               <tr>
                 <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  onClick={() => handleSort('code')}
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onClick={() => handleSort("code")}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleSort("code");
+                    }
+                  }}
+                  aria-sort={sortField === "code" ? (sortDirection === "asc" ? "ascending" : "descending") : "none"}
                 >
                   銘柄コード
-                  {sortField === 'code' && (
-                    <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                  {sortField === "code" && (
+                    <span className="ml-1" aria-hidden="true">{sortDirection === "asc" ? "↑" : "↓"}</span>
                   )}
                 </th>
                 <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  onClick={() => handleSort('name')}
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onClick={() => handleSort("name")}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleSort("name");
+                    }
+                  }}
+                  aria-sort={sortField === "name" ? (sortDirection === "asc" ? "ascending" : "descending") : "none"}
                 >
                   会社名
-                  {sortField === 'name' && (
-                    <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                  {sortField === "name" && (
+                    <span className="ml-1" aria-hidden="true">{sortDirection === "asc" ? "↑" : "↓"}</span>
                   )}
                 </th>
                 <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  onClick={() => handleSort('sector')}
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onClick={() => handleSort("sector")}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleSort("sector");
+                    }
+                  }}
+                  aria-sort={sortField === "sector" ? (sortDirection === "asc" ? "ascending" : "descending") : "none"}
                 >
                   セクター
-                  {sortField === 'sector' && (
-                    <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                  {sortField === "sector" && (
+                    <span className="ml-1" aria-hidden="true">{sortDirection === "asc" ? "↑" : "↓"}</span>
                   )}
                 </th>
                 <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  onClick={() => handleSort('market')}
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onClick={() => handleSort("market")}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleSort("market");
+                    }
+                  }}
+                  aria-sort={sortField === "market" ? (sortDirection === "asc" ? "ascending" : "descending") : "none"}
                 >
                   市場
-                  {sortField === 'market' && (
-                    <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                  {sortField === "market" && (
+                    <span className="ml-1" aria-hidden="true">{sortDirection === "asc" ? "↑" : "↓"}</span>
                   )}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -430,32 +490,33 @@ const ListedDataPage: React.FC = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                      stock.market === 'プライム' ? 'bg-green-100 text-green-800' :
-                      stock.market === 'スタンダード' ? 'bg-blue-100 text-blue-800' :
-                      stock.market === 'グロース' ? 'bg-purple-100 text-purple-800' :
-                      'bg-gray-100 text-gray-800'
+                      stock.market === "プライム" ? "bg-green-100 text-green-800" :
+                      stock.market === "スタンダード" ? "bg-blue-100 text-blue-800" :
+                      stock.market === "グロース" ? "bg-purple-100 text-purple-800" :
+                      "bg-gray-100 text-gray-800"
                     }`}>
                       {stock.market}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {stock.currentPrice ? `¥${stock.currentPrice.toLocaleString()}` : '-'}
+                    {stock.currentPrice ? `¥${stock.currentPrice.toLocaleString()}` : "-"}
                     {stock.change && stock.changePercent && (
-                      <div className={`text-xs ${stock.change >= 0 ? 'text-red-600' : 'text-green-600'}`}>
-                        {stock.change >= 0 ? '+' : ''}{stock.change.toLocaleString()} ({stock.changePercent >= 0 ? '+' : ''}{stock.changePercent.toFixed(2)}%)
+                      <div className={`text-xs ${stock.change >= 0 ? "text-red-600" : "text-green-600"}`}>
+                        {stock.change >= 0 ? "+" : ""}{stock.change.toLocaleString()} ({stock.changePercent >= 0 ? "+" : ""}{stock.changePercent.toFixed(2)}%)
                       </div>
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {stock.volume ? stock.volume.toLocaleString() : '-'}
+                    {stock.volume ? stock.volume.toLocaleString() : "-"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {new Date(stock.updated_at).toLocaleString('ja-JP')}
+                    {new Date(stock.updated_at).toLocaleString("ja-JP")}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <button
-                      onClick={() => window.open(`/dashboard?symbol=${stock.code}`, '_blank')}
-                      className="text-blue-600 hover:text-blue-800 font-medium"
+                      onClick={() => window.open(`/dashboard?symbol=${stock.code}`, "_blank")}
+                      className="text-blue-600 hover:text-blue-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
+                      aria-label={`${stock.name} (${stock.code}) の詳細ページを新しいタブで開く`}
                     >
                       詳細
                     </button>
@@ -476,33 +537,37 @@ const ListedDataPage: React.FC = () => {
             </div>
             <div className="flex items-center space-x-2">
               <button
-                onClick={() => setCurrentPage(1)}
+                onClick={goToFirstPage}
                 disabled={currentPage === 1}
-                className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                aria-label="最初のページへ"
               >
                 最初
               </button>
               <button
-                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                onClick={goToPreviousPage}
                 disabled={currentPage === 1}
-                className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                aria-label="前のページへ"
               >
                 前へ
               </button>
-              <span className="px-3 py-1 text-sm bg-blue-500 text-white rounded">
+              <span className="px-3 py-1 text-sm bg-blue-500 text-white rounded" aria-label={`現在のページ: ${currentPage}`}>
                 {currentPage}
               </span>
               <button
-                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                onClick={goToNextPage}
                 disabled={currentPage === totalPages}
-                className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                aria-label="次のページへ"
               >
                 次へ
               </button>
               <button
-                onClick={() => setCurrentPage(totalPages)}
+                onClick={goToLastPage}
                 disabled={currentPage === totalPages}
-                className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                aria-label="最後のページへ"
               >
                 最後
               </button>

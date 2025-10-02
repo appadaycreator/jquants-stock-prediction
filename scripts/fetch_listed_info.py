@@ -121,9 +121,9 @@ class ListedInfoFetcher:
                     'raw_data': stock
                 })
         
-        # 上位100銘柄を選択
-        selected_stocks = major_stocks[:100]
-        logger.info(f"主要銘柄選択: {len(selected_stocks)}銘柄")
+        # 全銘柄を選択（制限を解除）
+        selected_stocks = major_stocks
+        logger.info(f"全銘柄選択: {len(selected_stocks)}銘柄")
         
         # 構造化データの作成
         for stock in selected_stocks:
