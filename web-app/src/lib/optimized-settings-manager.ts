@@ -1,315 +1,194 @@
 /**
  * 最適化された統合設定マネージャー
- * 重複した設定管理機能を統合し、パフォーマンスを最適化
+ * 重複した設定機能を統合し、パフォーマンスを最適化
  */
 
-interface Settings {
+export interface SettingsConfig {
   prediction: {
-    days: number;
-  };
-  model: {
-    type: string;
-    primary_model: string;
-    compare_models: boolean;
-    auto_retrain: boolean;
-    retrain_frequency: string;
-  };
-  data: {
-    refresh_interval: string;
-    max_data_points: number;
-    include_technical_indicators: boolean;
-  };
-  features: {
-    selected: string[];
-  };
-  ui: {
-    theme: string;
-    refresh_rate: number;
-    show_tooltips: boolean;
+    period: number;
+    models: string[];
+    features: string[];
   };
   risk: {
-    tolerance: string;
+    level: string;
     maxDrawdown: number;
-    volatilityLimit: number;
-    varLimit: number;
-    targetReturn: number;
+    volatility: number;
+    var: number;
   };
-  notifications: {
+  notification: {
     enabled: boolean;
     email: string;
     slack: string;
-    browser: boolean;
+    frequency: string;
   };
-  hyperparameters?: {
-    [key: string]: any;
+  cache: {
+    enabled: boolean;
+    ttl: number;
+    maxSize: number;
   };
-  version: string;
-}
-
-interface RiskCustomizationSettings {
-  riskTolerance: "VERY_LOW" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH" | "CRITICAL";
-  maxDrawdownTolerance: number;
-  volatilityTolerance: number;
-  varTolerance: number;
-  targetReturn: number;
-  individualStockSettings: {
-    [symbol: string]: {
-      targetPrice?: number;
-      stopLossPrice?: number;
-      positionSize?: number;
-      riskLevel?: string;
-    };
+  ui: {
+    theme: string;
+    language: string;
+    autoRefresh: boolean;
+    refreshInterval: number;
   };
 }
 
-interface NotificationSettings {
-  enabled: boolean;
-  email: string;
-  slack: string;
-  browser: boolean;
-  autoUpdate: boolean;
-  updateInterval: number;
-  alertThresholds: {
-    priceChange: number;
-    volumeSpike: number;
-    riskLevel: string;
-  };
-}
-
-interface SettingsValidationResult {
+export interface SettingsValidation {
   isValid: boolean;
   errors: string[];
   warnings: string[];
 }
 
-interface SettingsMigrationResult {
-  success: boolean;
-  migratedSettings: Settings;
+export interface SettingsMigration {
+  fromVersion: string;
+  toVersion: string;
   changes: string[];
 }
 
+export interface SettingsStatistics {
+  totalSettings: number;
+  lastModified: string;
+  version: string;
+  migrationCount: number;
+}
+
 class OptimizedSettingsManager {
-  private settings: Settings;
-  private riskSettings: RiskCustomizationSettings | null = null;
-  private notificationSettings: NotificationSettings | null = null;
-  private listeners: Set<(settings: Settings) => void> = new Set();
-  private isInitialized = false;
-  private version = "2.7.0";
+  private settings: SettingsConfig;
+  private listeners: Map<string, (settings: SettingsConfig) => void> = new Map();
+  private validationRules: Map<string, (value: any) => boolean> = new Map();
+  private migrationHistory: SettingsMigration[] = [];
+  private currentVersion = "2.8.0";
 
   constructor() {
     this.settings = this.getDefaultSettings();
-    this.initializeSettings();
-  }
-
-  /**
-   * デフォルト設定の取得
-   */
-  private getDefaultSettings(): Settings {
-    return {
-      prediction: {
-        days: 30,
-      },
-      model: {
-        type: "all",
-        primary_model: "xgboost",
-        compare_models: true,
-        auto_retrain: false,
-        retrain_frequency: "weekly",
-      },
-      data: {
-        refresh_interval: "daily",
-        max_data_points: 1000,
-        include_technical_indicators: true,
-      },
-      features: {
-        selected: ["sma_5", "sma_10", "sma_25", "sma_50", "rsi", "macd"],
-      },
-      ui: {
-        theme: "light",
-        refresh_rate: 30,
-        show_tooltips: true,
-      },
-      risk: {
-        tolerance: "MEDIUM",
-        maxDrawdown: 10,
-        volatilityLimit: 20,
-        varLimit: 5,
-        targetReturn: 15,
-      },
-      notifications: {
-        enabled: true,
-        email: "",
-        slack: "",
-        browser: true,
-      },
-      version: this.version,
-    };
-  }
-
-  /**
-   * 設定の初期化
-   */
-  private async initializeSettings(): Promise<void> {
-    try {
-      await this.loadSettings();
-      await this.loadRiskSettings();
-      await this.loadNotificationSettings();
-      this.isInitialized = true;
-      this.notifyListeners();
-    } catch (error) {
-      console.error("設定の初期化に失敗:", error);
-      this.isInitialized = true;
-    }
-  }
-
-  /**
-   * 設定の読み込み
-   */
-  async loadSettings(): Promise<void> {
-    try {
-      const savedSettings = localStorage.getItem("jquants-settings");
-      if (savedSettings) {
-        const parsedSettings = JSON.parse(savedSettings);
-        this.settings = this.migrateSettings(parsedSettings);
-      }
-    } catch (error) {
-      console.error("設定の読み込みに失敗:", error);
-      this.settings = this.getDefaultSettings();
-    }
-  }
-
-  /**
-   * リスク設定の読み込み
-   */
-  async loadRiskSettings(): Promise<void> {
-    try {
-      const savedRiskSettings = localStorage.getItem("jquants-risk-settings");
-      if (savedRiskSettings) {
-        this.riskSettings = JSON.parse(savedRiskSettings);
-      }
-    } catch (error) {
-      console.error("リスク設定の読み込みに失敗:", error);
-    }
-  }
-
-  /**
-   * 通知設定の読み込み
-   */
-  async loadNotificationSettings(): Promise<void> {
-    try {
-      const savedNotificationSettings = localStorage.getItem("jquants-notification-settings");
-      if (savedNotificationSettings) {
-        this.notificationSettings = JSON.parse(savedNotificationSettings);
-      }
-    } catch (error) {
-      console.error("通知設定の読み込みに失敗:", error);
-    }
-  }
-
-  /**
-   * 設定の保存
-   */
-  async saveSettings(): Promise<void> {
-    try {
-      this.settings.version = this.version;
-      localStorage.setItem("jquants-settings", JSON.stringify(this.settings));
-      this.notifyListeners();
-    } catch (error) {
-      console.error("設定の保存に失敗:", error);
-      throw error;
-    }
-  }
-
-  /**
-   * リスク設定の保存
-   */
-  async saveRiskSettings(riskSettings: RiskCustomizationSettings): Promise<void> {
-    try {
-      this.riskSettings = riskSettings;
-      localStorage.setItem("jquants-risk-settings", JSON.stringify(riskSettings));
-    } catch (error) {
-      console.error("リスク設定の保存に失敗:", error);
-      throw error;
-    }
-  }
-
-  /**
-   * 通知設定の保存
-   */
-  async saveNotificationSettings(notificationSettings: NotificationSettings): Promise<void> {
-    try {
-      this.notificationSettings = notificationSettings;
-      localStorage.setItem("jquants-notification-settings", JSON.stringify(notificationSettings));
-    } catch (error) {
-      console.error("通知設定の保存に失敗:", error);
-      throw error;
-    }
-  }
-
-  /**
-   * 設定の更新
-   */
-  updateSettings(newSettings: Partial<Settings>): void {
-    this.settings = { ...this.settings, ...newSettings };
-    this.notifyListeners();
+    this.initializeValidationRules();
+    this.loadSettings();
   }
 
   /**
    * 設定の取得
    */
-  getSettings(): Settings {
-    return { ...this.settings };
+  get<K extends keyof SettingsConfig>(key: K): SettingsConfig[K] {
+    return this.settings[key];
   }
 
   /**
-   * リスク設定の取得
+   * 設定の更新
    */
-  getRiskSettings(): RiskCustomizationSettings | null {
-    return this.riskSettings ? { ...this.riskSettings } : null;
+  set<K extends keyof SettingsConfig>(key: K, value: SettingsConfig[K]): boolean {
+    const oldValue = this.settings[key];
+    this.settings[key] = value;
+    
+    // バリデーション
+    const validation = this.validateSettings();
+    if (!validation.isValid) {
+      this.settings[key] = oldValue;
+      console.error("設定のバリデーションに失敗しました:", validation.errors);
+      return false;
+    }
+
+    // リスナーに通知
+    this.notifyListeners();
+    
+    // 永続化
+    this.saveSettings();
+    
+    return true;
   }
 
   /**
-   * 通知設定の取得
+   * 設定の一括更新
    */
-  getNotificationSettings(): NotificationSettings | null {
-    return this.notificationSettings ? { ...this.notificationSettings } : null;
+  updateSettings(updates: Partial<SettingsConfig>): boolean {
+    const oldSettings = { ...this.settings };
+    
+    try {
+      Object.assign(this.settings, updates);
+      
+      // バリデーション
+      const validation = this.validateSettings();
+      if (!validation.isValid) {
+        this.settings = oldSettings;
+        console.error("設定のバリデーションに失敗しました:", validation.errors);
+        return false;
+      }
+
+      // リスナーに通知
+      this.notifyListeners();
+      
+      // 永続化
+      this.saveSettings();
+      
+      return true;
+    } catch (error) {
+      this.settings = oldSettings;
+      console.error("設定の更新に失敗しました:", error);
+      return false;
+    }
+  }
+
+  /**
+   * 設定のリセット
+   */
+  reset(): void {
+    this.settings = this.getDefaultSettings();
+    this.notifyListeners();
+    this.saveSettings();
   }
 
   /**
    * 設定の検証
    */
-  validateSettings(settings: any): SettingsValidationResult {
+  validateSettings(): SettingsValidation {
     const errors: string[] = [];
     const warnings: string[] = [];
 
-    // 必須フィールドの検証
-    if (!settings.prediction || typeof settings.prediction.days !== "number") {
-      errors.push("予測期間が正しく設定されていません");
+    // 予測設定の検証
+    if (this.settings.prediction.period < 1 || this.settings.prediction.period > 365) {
+      errors.push("予測期間は1-365日の範囲で設定してください");
     }
 
-    if (!settings.model || !settings.model.primary_model) {
-      errors.push("主要モデルが設定されていません");
+    if (this.settings.prediction.models.length === 0) {
+      errors.push("少なくとも1つのモデルを選択してください");
     }
 
-    if (!settings.data || typeof settings.data.max_data_points !== "number") {
-      errors.push("データポイント数が正しく設定されていません");
+    if (this.settings.prediction.features.length === 0) {
+      errors.push("少なくとも1つの特徴量を選択してください");
     }
 
-    if (!settings.features || !Array.isArray(settings.features.selected)) {
-      errors.push("特徴量が正しく設定されていません");
+    // リスク設定の検証
+    if (this.settings.risk.maxDrawdown < 0 || this.settings.risk.maxDrawdown > 100) {
+      errors.push("最大ドローダウンは0-100%の範囲で設定してください");
     }
 
-    // 値の範囲チェック
-    if (settings.prediction?.days < 1 || settings.prediction?.days > 365) {
-      errors.push("予測期間は1日から365日の間で設定してください");
+    if (this.settings.risk.volatility < 0 || this.settings.risk.volatility > 100) {
+      errors.push("ボラティリティは0-100%の範囲で設定してください");
     }
 
-    if (settings.data?.max_data_points < 100 || settings.data?.max_data_points > 10000) {
-      warnings.push("データポイント数は100から10000の間で設定することを推奨します");
+    if (this.settings.risk.var < 0 || this.settings.risk.var > 100) {
+      errors.push("VaRは0-100%の範囲で設定してください");
     }
 
-    if (settings.ui?.refresh_rate < 10 || settings.ui?.refresh_rate > 300) {
-      warnings.push("更新間隔は10秒から300秒の間で設定することを推奨します");
+    // 通知設定の検証
+    if (this.settings.notification.enabled) {
+      if (!this.settings.notification.email && !this.settings.notification.slack) {
+        warnings.push("通知が有効ですが、メールまたはSlackの設定がありません");
+      }
+    }
+
+    // キャッシュ設定の検証
+    if (this.settings.cache.ttl < 0) {
+      errors.push("キャッシュTTLは0以上である必要があります");
+    }
+
+    if (this.settings.cache.maxSize < 0) {
+      errors.push("キャッシュ最大サイズは0以上である必要があります");
+    }
+
+    // UI設定の検証
+    if (this.settings.ui.refreshInterval < 1000) {
+      warnings.push("更新間隔が短すぎる可能性があります（1000ms以上推奨）");
     }
 
     return {
@@ -320,211 +199,272 @@ class OptimizedSettingsManager {
   }
 
   /**
-   * 設定のマイグレーション
-   */
-  private migrateSettings(settings: any): Settings {
-    const defaultSettings = this.getDefaultSettings();
-    const migratedSettings = { ...defaultSettings, ...settings };
-
-    // バージョン固有のマイグレーション
-    if (!migratedSettings.version || migratedSettings.version < "2.7.0") {
-      // 新しいフィールドの追加
-      if (!migratedSettings.risk) {
-        migratedSettings.risk = defaultSettings.risk;
-      }
-
-      if (!migratedSettings.notifications) {
-        migratedSettings.notifications = defaultSettings.notifications;
-      }
-
-      // 古いフィールドの削除
-      if (migratedSettings.legacy_field) {
-        delete migratedSettings.legacy_field;
-      }
-    }
-
-    return migratedSettings;
-  }
-
-  /**
-   * 設定のリセット
-   */
-  resetSettings(): void {
-    this.settings = this.getDefaultSettings();
-    this.riskSettings = null;
-    this.notificationSettings = null;
-    this.notifyListeners();
-  }
-
-  /**
    * 設定のエクスポート
    */
   exportSettings(): string {
     const exportData = {
       settings: this.settings,
-      riskSettings: this.riskSettings,
-      notificationSettings: this.notificationSettings,
-      exportDate: new Date().toISOString(),
-      version: this.version,
+      version: this.currentVersion,
+      timestamp: new Date().toISOString(),
     };
-
+    
     return JSON.stringify(exportData, null, 2);
   }
 
   /**
    * 設定のインポート
    */
-  async importSettings(settingsJson: string): Promise<SettingsMigrationResult> {
+  importSettings(jsonData: string): boolean {
     try {
-      const importData = JSON.parse(settingsJson);
-      const changes: string[] = [];
-
-      // 設定の検証
-      const validation = this.validateSettings(importData.settings);
-      if (!validation.isValid) {
-        throw new Error(`設定の検証に失敗: ${validation.errors.join(", ")}`);
+      const importData = JSON.parse(jsonData);
+      
+      if (!importData.settings) {
+        console.error("無効な設定データです");
+        return false;
       }
 
-      // 設定の適用
-      if (importData.settings) {
-        this.settings = this.migrateSettings(importData.settings);
-        changes.push("メイン設定をインポートしました");
+      // バージョン互換性チェック
+      if (importData.version && importData.version !== this.currentVersion) {
+        const migration = this.migrateSettings(importData.version, this.currentVersion);
+        if (!migration) {
+          console.error("設定の移行に失敗しました");
+          return false;
+        }
       }
 
-      if (importData.riskSettings) {
-        this.riskSettings = importData.riskSettings;
-        changes.push("リスク設定をインポートしました");
-      }
-
-      if (importData.notificationSettings) {
-        this.notificationSettings = importData.notificationSettings;
-        changes.push("通知設定をインポートしました");
-      }
-
-      // 保存
-      await this.saveSettings();
-      if (this.riskSettings) {
-        await this.saveRiskSettings(this.riskSettings);
-      }
-      if (this.notificationSettings) {
-        await this.saveNotificationSettings(this.notificationSettings);
-      }
-
-      this.notifyListeners();
-
-      return {
-        success: true,
-        migratedSettings: this.settings,
-        changes,
-      };
+      // 設定の更新
+      return this.updateSettings(importData.settings);
     } catch (error) {
-      console.error("設定のインポートに失敗:", error);
-      return {
-        success: false,
-        migratedSettings: this.settings,
-        changes: [],
-      };
+      console.error("設定のインポートに失敗しました:", error);
+      return false;
     }
   }
 
   /**
-   * リスナーの追加
+   * 設定の移行
    */
-  addListener(listener: (settings: Settings) => void): () => void {
-    this.listeners.add(listener);
-    return () => this.listeners.delete(listener);
+  private migrateSettings(fromVersion: string, toVersion: string): boolean {
+    try {
+      const migration: SettingsMigration = {
+        fromVersion,
+        toVersion,
+        changes: [],
+      };
+
+      // バージョン固有の移行ロジック
+      if (fromVersion.startsWith("2.7") && toVersion.startsWith("2.8")) {
+        // 2.7から2.8への移行
+        if (!this.settings.cache) {
+          this.settings.cache = {
+            enabled: true,
+            ttl: 300000, // 5分
+            maxSize: 50 * 1024 * 1024, // 50MB
+          };
+          migration.changes.push("キャッシュ設定を追加");
+        }
+
+        if (!this.settings.ui) {
+          this.settings.ui = {
+            theme: "auto",
+            language: "ja",
+            autoRefresh: true,
+            refreshInterval: 30000, // 30秒
+          };
+          migration.changes.push("UI設定を追加");
+        }
+      }
+
+      this.migrationHistory.push(migration);
+      return true;
+    } catch (error) {
+      console.error("設定の移行に失敗しました:", error);
+      return false;
+    }
+  }
+
+  /**
+   * リスナーの登録
+   */
+  addListener(id: string, callback: (settings: SettingsConfig) => void): void {
+    this.listeners.set(id, callback);
+  }
+
+  /**
+   * リスナーの削除
+   */
+  removeListener(id: string): void {
+    this.listeners.delete(id);
   }
 
   /**
    * リスナーへの通知
    */
   private notifyListeners(): void {
-    this.listeners.forEach(listener => {
+    for (const callback of this.listeners.values()) {
       try {
-        listener(this.settings);
+        callback(this.settings);
       } catch (error) {
-        console.error("設定リスナーの通知に失敗:", error);
+        console.error("設定リスナーの通知に失敗しました:", error);
       }
-    });
-  }
-
-  /**
-   * 設定のバックアップ
-   */
-  async backupSettings(): Promise<string> {
-    const backup = {
-      settings: this.settings,
-      riskSettings: this.riskSettings,
-      notificationSettings: this.notificationSettings,
-      backupDate: new Date().toISOString(),
-      version: this.version,
-    };
-
-    return JSON.stringify(backup, null, 2);
-  }
-
-  /**
-   * 設定の復元
-   */
-  async restoreSettings(backupJson: string): Promise<boolean> {
-    try {
-      const backup = JSON.parse(backupJson);
-      
-      if (backup.settings) {
-        this.settings = this.migrateSettings(backup.settings);
-      }
-
-      if (backup.riskSettings) {
-        this.riskSettings = backup.riskSettings;
-      }
-
-      if (backup.notificationSettings) {
-        this.notificationSettings = backup.notificationSettings;
-      }
-
-      await this.saveSettings();
-      if (this.riskSettings) {
-        await this.saveRiskSettings(this.riskSettings);
-      }
-      if (this.notificationSettings) {
-        await this.saveNotificationSettings(this.notificationSettings);
-      }
-
-      this.notifyListeners();
-      return true;
-    } catch (error) {
-      console.error("設定の復元に失敗:", error);
-      return false;
     }
   }
 
   /**
-   * 初期化状態の確認
+   * デフォルト設定の取得
    */
-  isReady(): boolean {
-    return this.isInitialized;
+  private getDefaultSettings(): SettingsConfig {
+    return {
+      prediction: {
+        period: 30,
+        models: ["random_forest", "xgboost"],
+        features: ["close", "volume", "sma_5", "sma_25"],
+      },
+      risk: {
+        level: "medium",
+        maxDrawdown: 20,
+        volatility: 30,
+        var: 5,
+      },
+      notification: {
+        enabled: false,
+        email: "",
+        slack: "",
+        frequency: "daily",
+      },
+      cache: {
+        enabled: true,
+        ttl: 300000, // 5分
+        maxSize: 50 * 1024 * 1024, // 50MB
+      },
+      ui: {
+        theme: "auto",
+        language: "ja",
+        autoRefresh: true,
+        refreshInterval: 30000, // 30秒
+      },
+    };
   }
 
   /**
-   * 設定の統計情報
+   * バリデーションルールの初期化
    */
-  getSettingsStats(): {
-    totalSettings: number;
-    riskSettingsConfigured: boolean;
-    notificationSettingsConfigured: boolean;
-    lastModified: string;
-  } {
+  private initializeValidationRules(): void {
+    this.validationRules.set("prediction.period", (value) => 
+      typeof value === "number" && value >= 1 && value <= 365
+    );
+    
+    this.validationRules.set("prediction.models", (value) => 
+      Array.isArray(value) && value.length > 0
+    );
+    
+    this.validationRules.set("prediction.features", (value) => 
+      Array.isArray(value) && value.length > 0
+    );
+    
+    this.validationRules.set("risk.maxDrawdown", (value) => 
+      typeof value === "number" && value >= 0 && value <= 100
+    );
+    
+    this.validationRules.set("risk.volatility", (value) => 
+      typeof value === "number" && value >= 0 && value <= 100
+    );
+    
+    this.validationRules.set("risk.var", (value) => 
+      typeof value === "number" && value >= 0 && value <= 100
+    );
+  }
+
+  /**
+   * 設定の読み込み
+   */
+  private loadSettings(): void {
+    try {
+      if (typeof window !== "undefined") {
+        const stored = localStorage.getItem("optimized_settings");
+        if (stored) {
+          const data = JSON.parse(stored);
+          this.settings = { ...this.getDefaultSettings(), ...data.settings };
+          
+          // バージョン移行
+          if (data.version && data.version !== this.currentVersion) {
+            this.migrateSettings(data.version, this.currentVersion);
+          }
+        }
+      }
+    } catch (error) {
+      console.warn("設定の読み込みに失敗しました:", error);
+      this.settings = this.getDefaultSettings();
+    }
+  }
+
+  /**
+   * 設定の保存
+   */
+  private saveSettings(): void {
+    try {
+      if (typeof window !== "undefined") {
+        const data = {
+          settings: this.settings,
+          version: this.currentVersion,
+          timestamp: new Date().toISOString(),
+        };
+        localStorage.setItem("optimized_settings", JSON.stringify(data));
+      }
+    } catch (error) {
+      console.error("設定の保存に失敗しました:", error);
+    }
+  }
+
+  /**
+   * 設定統計の取得
+   */
+  getStatistics(): SettingsStatistics {
     return {
       totalSettings: Object.keys(this.settings).length,
-      riskSettingsConfigured: this.riskSettings !== null,
-      notificationSettingsConfigured: this.notificationSettings !== null,
       lastModified: new Date().toISOString(),
+      version: this.currentVersion,
+      migrationCount: this.migrationHistory.length,
     };
+  }
+
+  /**
+   * 移行履歴の取得
+   */
+  getMigrationHistory(): SettingsMigration[] {
+    return [...this.migrationHistory];
   }
 }
 
 // シングルトンインスタンス
-const optimizedSettingsManager = new OptimizedSettingsManager();
+export const optimizedSettingsManager = new OptimizedSettingsManager();
 
-export default optimizedSettingsManager;
-export type { Settings, RiskCustomizationSettings, NotificationSettings, SettingsValidationResult, SettingsMigrationResult };
+// 便利な関数
+export const getSettings = <K extends keyof SettingsConfig>(key: K): SettingsConfig[K] => 
+  optimizedSettingsManager.get(key);
+
+export const setSettings = <K extends keyof SettingsConfig>(key: K, value: SettingsConfig[K]): boolean => 
+  optimizedSettingsManager.set(key, value);
+
+export const updateSettings = (updates: Partial<SettingsConfig>): boolean => 
+  optimizedSettingsManager.updateSettings(updates);
+
+export const resetSettings = (): void => 
+  optimizedSettingsManager.reset();
+
+export const validateSettings = (): SettingsValidation => 
+  optimizedSettingsManager.validateSettings();
+
+export const exportSettings = (): string => 
+  optimizedSettingsManager.exportSettings();
+
+export const importSettings = (jsonData: string): boolean => 
+  optimizedSettingsManager.importSettings(jsonData);
+
+export const addSettingsListener = (id: string, callback: (settings: SettingsConfig) => void): void => 
+  optimizedSettingsManager.addListener(id, callback);
+
+export const removeSettingsListener = (id: string): void => 
+  optimizedSettingsManager.removeListener(id);
+
+export const getSettingsStatistics = (): SettingsStatistics => 
+  optimizedSettingsManager.getStatistics();

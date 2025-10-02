@@ -3,283 +3,392 @@
  * 重複したキャッシュ機能を統合し、パフォーマンスを最適化
  */
 
-interface CacheEntry<T> {
+export interface CacheItem<T = any> {
   data: T;
   timestamp: number;
   ttl: number;
-  tags?: string[];
-  priority?: number;
-  compressed?: boolean;
-  size?: number;
-}
-
-interface CacheConfig {
-  maxSize: number;
-  defaultTtl: number;
-  cleanupInterval: number;
-  compressionEnabled: boolean;
-  persistenceEnabled: boolean;
-  lruEnabled: boolean;
-  memoryThreshold: number;
-  compressionThreshold: number;
-}
-
-interface CacheStats {
-  hits: number;
-  misses: number;
-  totalRequests: number;
-  hitRate: number;
+  accessCount: number;
+  lastAccessed: number;
   size: number;
-  maxSize: number;
-  memoryUsage: number;
-  compressionRatio: number;
-  evictions: number;
-  oldestItem: number;
-  newestItem: number;
 }
 
-interface CacheOptions {
+export interface CacheOptions {
   ttl?: number;
-  tags?: string[];
-  priority?: number;
-  compress?: boolean;
-  persist?: boolean;
+  maxSize?: number;
+  compression?: boolean;
+  persistence?: boolean;
+}
+
+export interface CacheStatistics {
+  hitRate: number;
+  missRate: number;
+  totalItems: number;
+  totalSize: number;
+  memoryUsage: number;
+  evictionCount: number;
+}
+
+export interface CacheConfig {
+  defaultTtl: number;
+  maxMemorySize: number;
+  maxItems: number;
+  compressionThreshold: number;
+  persistenceEnabled: boolean;
+  evictionPolicy: "lru" | "lfu" | "fifo";
 }
 
 class OptimizedCacheManager {
-  private memoryCache: Map<string, CacheEntry<any>> = new Map();
+  private cache: Map<string, CacheItem> = new Map();
+  private accessOrder: string[] = [];
   private config: CacheConfig;
-  private db: IDBDatabase | null = null;
-  private cleanupTimer: NodeJS.Timeout | null = null;
-  private stats: CacheStats;
-  private compressionEnabled: boolean;
-  private persistenceEnabled: boolean;
-  private lruEnabled: boolean;
+  private statistics: CacheStatistics;
+  private compressionEnabled: boolean = false;
 
   constructor(config: Partial<CacheConfig> = {}) {
     this.config = {
-      maxSize: config.maxSize || 1000,
-      defaultTtl: config.defaultTtl || 300000, // 5分
-      cleanupInterval: config.cleanupInterval || 60000, // 1分
-      compressionEnabled: config.compressionEnabled !== false,
-      persistenceEnabled: config.persistenceEnabled !== false,
-      lruEnabled: config.lruEnabled !== false,
-      memoryThreshold: config.memoryThreshold || 50 * 1024 * 1024, // 50MB
-      compressionThreshold: config.compressionThreshold || 1024, // 1KB
+      defaultTtl: 5 * 60 * 1000, // 5分
+      maxMemorySize: 50 * 1024 * 1024, // 50MB
+      maxItems: 1000,
+      compressionThreshold: 1024, // 1KB
+      persistenceEnabled: true,
+      evictionPolicy: "lru",
+      ...config,
     };
 
-    this.stats = {
-      hits: 0,
-      misses: 0,
-      totalRequests: 0,
+    this.statistics = {
       hitRate: 0,
-      size: 0,
-      maxSize: this.config.maxSize,
+      missRate: 0,
+      totalItems: 0,
+      totalSize: 0,
       memoryUsage: 0,
-      compressionRatio: 0,
-      evictions: 0,
-      oldestItem: 0,
-      newestItem: 0,
+      evictionCount: 0,
     };
 
-    this.compressionEnabled = this.config.compressionEnabled;
-    this.persistenceEnabled = this.config.persistenceEnabled;
-    this.lruEnabled = this.config.lruEnabled;
-
-    this.initIndexedDB();
-    this.startCleanup();
-    this.startMemoryMonitoring();
-  }
-
-  /**
-   * IndexedDBの初期化
-   */
-  private async initIndexedDB(): Promise<void> {
-    if (!this.persistenceEnabled) return;
-    
-    if (typeof window === "undefined") {
-      console.warn("IndexedDBはクライアントサイドでのみ利用可能です");
-      return;
-    }
-
-    return new Promise((resolve, reject) => {
-      const request = indexedDB.open("optimized_cache_db", 1);
-      
-      request.onerror = () => {
-        console.error("IndexedDB初期化エラー:", request.error);
-        reject(request.error);
-      };
-      
-      request.onsuccess = () => {
-        this.db = request.result;
-        console.info("IndexedDB初期化完了");
-        resolve();
-      };
-      
-      request.onupgradeneeded = (event) => {
-        const db = (event.target as IDBOpenDBRequest).result;
-        
-        if (!db.objectStoreNames.contains("cache")) {
-          const store = db.createObjectStore("cache", { keyPath: "key" });
-          store.createIndex("timestamp", "timestamp", { unique: false });
-          store.createIndex("tags", "tags", { unique: false, multiEntry: true });
-          store.createIndex("priority", "priority", { unique: false });
-        }
-      };
-    });
+    this.initializePersistence();
   }
 
   /**
    * データの取得
    */
-  async get<T>(key: string, options: CacheOptions = {}): Promise<T | null> {
-    this.stats.totalRequests++;
-
-    // メモリキャッシュから取得
-    const memoryEntry = this.memoryCache.get(key);
-    if (memoryEntry && this.isValid(memoryEntry)) {
-      this.stats.hits++;
-      this.updateAccessTime(key);
-      return memoryEntry.data as T;
+  get<T>(key: string): T | null {
+    const item = this.cache.get(key);
+    
+    if (!item) {
+      this.updateStatistics(false);
+      return null;
     }
 
-    // 永続化キャッシュから取得
-    if (this.persistenceEnabled && this.db) {
-      try {
-        const persistentEntry = await this.getFromIndexedDB(key);
-        if (persistentEntry && this.isValid(persistentEntry)) {
-          // メモリキャッシュに復元
-          this.memoryCache.set(key, persistentEntry);
-          this.stats.hits++;
-          this.updateAccessTime(key);
-          return persistentEntry.data as T;
-        }
-      } catch (error) {
-        console.warn("永続化キャッシュからの取得に失敗:", error);
-      }
+    // TTLチェック
+    if (this.isExpired(item)) {
+      this.cache.delete(key);
+      this.removeFromAccessOrder(key);
+      this.updateStatistics(false);
+      return null;
     }
 
-    this.stats.misses++;
-    return null;
+    // アクセス情報の更新
+    item.accessCount++;
+    item.lastAccessed = Date.now();
+    this.updateAccessOrder(key);
+    this.updateStatistics(true);
+
+    return item.data as T;
   }
 
   /**
-   * データの設定
+   * データの保存
    */
-  async set<T>(key: string, data: T, options: CacheOptions = {}): Promise<void> {
+  set<T>(key: string, data: T, options: CacheOptions = {}): void {
     const ttl = options.ttl || this.config.defaultTtl;
-    const tags = options.tags || [];
-    const priority = options.priority || 0;
-    const compress = options.compress !== false && this.shouldCompress(data);
-    const persist = options.persist !== false && this.persistenceEnabled;
-
-    const entry: CacheEntry<T> = {
-      data: compress ? await this.compress(data) : data,
-      timestamp: Date.now(),
-      ttl,
-      tags,
-      priority,
-      compressed: compress,
-      size: this.calculateSize(data),
-    };
-
-    // メモリキャッシュに保存
-    this.memoryCache.set(key, entry);
-    this.updateStats();
-
-    // 永続化キャッシュに保存
-    if (persist && this.db) {
-      try {
-        await this.saveToIndexedDB(key, entry);
-      } catch (error) {
-        console.warn("永続化キャッシュへの保存に失敗:", error);
-      }
+    const size = this.calculateSize(data);
+    
+    // メモリ制限チェック
+    if (this.shouldEvict(size)) {
+      this.evictItems(size);
     }
 
-    // キャッシュサイズの制限チェック
-    if (this.memoryCache.size > this.config.maxSize) {
-      await this.evictEntries();
+    // データの圧縮
+    const processedData = this.processData(data, options);
+
+    const item: CacheItem<T> = {
+      data: processedData,
+      timestamp: Date.now(),
+      ttl,
+      accessCount: 0,
+      lastAccessed: Date.now(),
+      size,
+    };
+
+    this.cache.set(key, item);
+    this.updateAccessOrder(key);
+    this.updateStatistics(false);
+
+    // 永続化
+    if (this.config.persistenceEnabled && options.persistence !== false) {
+      this.saveToPersistence(key, item);
     }
   }
 
   /**
    * データの削除
    */
-  async remove(key: string): Promise<void> {
-    this.memoryCache.delete(key);
-
-    if (this.persistenceEnabled && this.db) {
-      try {
-        await this.removeFromIndexedDB(key);
-      } catch (error) {
-        console.warn("永続化キャッシュからの削除に失敗:", error);
-      }
-    }
-  }
-
-  /**
-   * タグによる一括削除
-   */
-  async removeByTags(tags: string[]): Promise<void> {
-    const keysToRemove: string[] = [];
-
-    for (const [key, entry] of this.memoryCache) {
-      if (entry.tags && entry.tags.some(tag => tags.includes(tag))) {
-        keysToRemove.push(key);
-      }
+  delete(key: string): boolean {
+    const deleted = this.cache.delete(key);
+    this.removeFromAccessOrder(key);
+    
+    if (deleted && this.config.persistenceEnabled) {
+      this.removeFromPersistence(key);
     }
 
-    for (const key of keysToRemove) {
-      await this.remove(key);
-    }
+    return deleted;
   }
 
   /**
    * キャッシュのクリア
    */
-  async clear(): Promise<void> {
-    this.memoryCache.clear();
+  clear(): void {
+    this.cache.clear();
+    this.accessOrder = [];
+    this.statistics = {
+      hitRate: 0,
+      missRate: 0,
+      totalItems: 0,
+      totalSize: 0,
+      memoryUsage: 0,
+      evictionCount: 0,
+    };
 
-    if (this.persistenceEnabled && this.db) {
-      try {
-        await this.clearIndexedDB();
-      } catch (error) {
-        console.warn("永続化キャッシュのクリアに失敗:", error);
-      }
+    if (this.config.persistenceEnabled) {
+      this.clearPersistence();
     }
-
-    this.resetStats();
   }
 
   /**
-   * エントリの有効性チェック
+   * キャッシュの存在確認
    */
-  private isValid(entry: CacheEntry<any>): boolean {
-    return Date.now() - entry.timestamp < entry.ttl;
+  has(key: string): boolean {
+    const item = this.cache.get(key);
+    return item ? !this.isExpired(item) : false;
   }
 
   /**
-   * アクセス時間の更新
+   * キャッシュサイズの取得
    */
-  private updateAccessTime(key: string): void {
-    const entry = this.memoryCache.get(key);
-    if (entry) {
-      entry.timestamp = Date.now();
+  size(): number {
+    return this.cache.size;
+  }
+
+  /**
+   * キャッシュ統計の取得
+   */
+  getStatistics(): CacheStatistics {
+    this.updateMemoryUsage();
+    return { ...this.statistics };
+  }
+
+  /**
+   * キャッシュの最適化
+   */
+  optimize(): void {
+    // 期限切れアイテムの削除
+    this.removeExpiredItems();
+
+    // メモリ使用量の最適化
+    if (this.statistics.memoryUsage > this.config.maxMemorySize) {
+      this.evictItems(0);
     }
+
+    // アクセス頻度の低いアイテムの削除
+    this.removeLowAccessItems();
+  }
+
+  /**
+   * データの処理（圧縮など）
+   */
+  private processData<T>(data: T, options: CacheOptions): T {
+    if (options.compression && this.shouldCompress(data)) {
+      return this.compress(data);
+    }
+    return data;
   }
 
   /**
    * データサイズの計算
    */
   private calculateSize(data: any): number {
-    return JSON.stringify(data).length;
+    try {
+      return JSON.stringify(data).length * 2; // 概算
+    } catch {
+      return 0;
+    }
   }
 
   /**
-   * 圧縮が必要かどうかの判定
+   * 期限切れチェック
+   */
+  private isExpired(item: CacheItem): boolean {
+    return Date.now() - item.timestamp > item.ttl;
+  }
+
+  /**
+   * エビクションが必要かチェック
+   */
+  private shouldEvict(newItemSize: number): boolean {
+    return this.cache.size >= this.config.maxItems || 
+           this.statistics.memoryUsage + newItemSize > this.config.maxMemorySize;
+  }
+
+  /**
+   * アイテムのエビクション
+   */
+  private evictItems(requiredSpace: number): void {
+    const itemsToEvict: string[] = [];
+    let freedSpace = 0;
+
+    // エビクションポリシーに基づいてアイテムを選択
+    switch (this.config.evictionPolicy) {
+      case "lru":
+        itemsToEvict.push(...this.getLRUItems());
+        break;
+      case "lfu":
+        itemsToEvict.push(...this.getLFUItems());
+        break;
+      case "fifo":
+        itemsToEvict.push(...this.getFIFOItems());
+        break;
+    }
+
+    // アイテムの削除
+    for (const key of itemsToEvict) {
+      const item = this.cache.get(key);
+      if (item) {
+        freedSpace += item.size;
+        this.cache.delete(key);
+        this.removeFromAccessOrder(key);
+        this.statistics.evictionCount++;
+      }
+
+      if (freedSpace >= requiredSpace) {
+        break;
+      }
+    }
+  }
+
+  /**
+   * LRUアイテムの取得
+   */
+  private getLRUItems(): string[] {
+    return this.accessOrder.slice(0, Math.floor(this.cache.size * 0.1));
+  }
+
+  /**
+   * LFUアイテムの取得
+   */
+  private getLFUItems(): string[] {
+    const items = Array.from(this.cache.entries())
+      .sort(([, a], [, b]) => a.accessCount - b.accessCount)
+      .slice(0, Math.floor(this.cache.size * 0.1))
+      .map(([key]) => key);
+    
+    return items;
+  }
+
+  /**
+   * FIFOアイテムの取得
+   */
+  private getFIFOItems(): string[] {
+    const items = Array.from(this.cache.entries())
+      .sort(([, a], [, b]) => a.timestamp - b.timestamp)
+      .slice(0, Math.floor(this.cache.size * 0.1))
+      .map(([key]) => key);
+    
+    return items;
+  }
+
+  /**
+   * アクセス順序の更新
+   */
+  private updateAccessOrder(key: string): void {
+    this.removeFromAccessOrder(key);
+    this.accessOrder.push(key);
+  }
+
+  /**
+   * アクセス順序からの削除
+   */
+  private removeFromAccessOrder(key: string): void {
+    const index = this.accessOrder.indexOf(key);
+    if (index > -1) {
+      this.accessOrder.splice(index, 1);
+    }
+  }
+
+  /**
+   * 期限切れアイテムの削除
+   */
+  private removeExpiredItems(): void {
+    const expiredKeys: string[] = [];
+    
+    for (const [key, item] of this.cache.entries()) {
+      if (this.isExpired(item)) {
+        expiredKeys.push(key);
+      }
+    }
+
+    expiredKeys.forEach(key => {
+      this.cache.delete(key);
+      this.removeFromAccessOrder(key);
+    });
+  }
+
+  /**
+   * 低アクセスアイテムの削除
+   */
+  private removeLowAccessItems(): void {
+    const lowAccessItems = Array.from(this.cache.entries())
+      .filter(([, item]) => item.accessCount < 2)
+      .sort(([, a], [, b]) => a.lastAccessed - b.lastAccessed)
+      .slice(0, Math.floor(this.cache.size * 0.05))
+      .map(([key]) => key);
+
+    lowAccessItems.forEach(key => {
+      this.cache.delete(key);
+      this.removeFromAccessOrder(key);
+    });
+  }
+
+  /**
+   * 統計情報の更新
+   */
+  private updateStatistics(hit: boolean): void {
+    const total = this.statistics.hitRate + this.statistics.missRate + 1;
+    
+    if (hit) {
+      this.statistics.hitRate++;
+    } else {
+      this.statistics.missRate++;
+    }
+
+    this.statistics.totalItems = this.cache.size;
+    this.updateMemoryUsage();
+  }
+
+  /**
+   * メモリ使用量の更新
+   */
+  private updateMemoryUsage(): void {
+    let totalSize = 0;
+    for (const item of this.cache.values()) {
+      totalSize += item.size;
+    }
+    this.statistics.totalSize = totalSize;
+    this.statistics.memoryUsage = totalSize;
+  }
+
+  /**
+   * データの圧縮が必要かチェック
    */
   private shouldCompress(data: any): boolean {
-    if (!this.compressionEnabled) return false;
     const size = this.calculateSize(data);
     return size > this.config.compressionThreshold;
   }
@@ -287,278 +396,96 @@ class OptimizedCacheManager {
   /**
    * データの圧縮
    */
-  private async compress(data: any): Promise<any> {
-    // 簡易的な圧縮実装（実際の実装ではLZ4やGzipを使用）
-    const jsonString = JSON.stringify(data);
-    return btoa(jsonString); // Base64エンコード
-  }
-
-  /**
-   * データの展開
-   */
-  private async decompress(data: any): Promise<any> {
+  private compress<T>(data: T): T {
+    // 簡易的な圧縮（実際の実装では適切な圧縮ライブラリを使用）
     try {
-      const jsonString = atob(data); // Base64デコード
-      return JSON.parse(jsonString);
-    } catch (error) {
-      console.warn("データの展開に失敗:", error);
+      const compressed = JSON.stringify(data);
+      return JSON.parse(compressed) as T;
+    } catch {
       return data;
     }
   }
 
   /**
-   * IndexedDBからの取得
+   * 永続化の初期化
    */
-  private async getFromIndexedDB(key: string): Promise<CacheEntry<any> | null> {
-    if (!this.db) return null;
+  private initializePersistence(): void {
+    if (this.config.persistenceEnabled && typeof window !== "undefined") {
+      this.loadFromPersistence();
+    }
+  }
 
-    return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(["cache"], "readonly");
-      const store = transaction.objectStore("cache");
-      const request = store.get(key);
+  /**
+   * 永続化からの読み込み
+   */
+  private loadFromPersistence(): void {
+    try {
+      const stored = localStorage.getItem("optimized_cache");
+      if (stored) {
+        const data = JSON.parse(stored);
+        this.cache = new Map(data.cache || []);
+        this.accessOrder = data.accessOrder || [];
+      }
+    } catch (error) {
+      console.warn("キャッシュの永続化読み込みに失敗しました:", error);
+    }
+  }
 
-      request.onsuccess = () => {
-        const result = request.result;
-        if (result) {
-          resolve(result.entry);
-        } else {
-          resolve(null);
-        }
+  /**
+   * 永続化への保存
+   */
+  private saveToPersistence(key: string, item: CacheItem): void {
+    try {
+      const data = {
+        cache: Array.from(this.cache.entries()),
+        accessOrder: this.accessOrder,
       };
-
-      request.onerror = () => {
-        reject(request.error);
-      };
-    });
-  }
-
-  /**
-   * IndexedDBへの保存
-   */
-  private async saveToIndexedDB(key: string, entry: CacheEntry<any>): Promise<void> {
-    if (!this.db) return;
-
-    return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(["cache"], "readwrite");
-      const store = transaction.objectStore("cache");
-      const request = store.put({ key, entry, timestamp: Date.now() });
-
-      request.onsuccess = () => resolve();
-      request.onerror = () => reject(request.error);
-    });
-  }
-
-  /**
-   * IndexedDBからの削除
-   */
-  private async removeFromIndexedDB(key: string): Promise<void> {
-    if (!this.db) return;
-
-    return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(["cache"], "readwrite");
-      const store = transaction.objectStore("cache");
-      const request = store.delete(key);
-
-      request.onsuccess = () => resolve();
-      request.onerror = () => reject(request.error);
-    });
-  }
-
-  /**
-   * IndexedDBのクリア
-   */
-  private async clearIndexedDB(): Promise<void> {
-    if (!this.db) return;
-
-    return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(["cache"], "readwrite");
-      const store = transaction.objectStore("cache");
-      const request = store.clear();
-
-      request.onsuccess = () => resolve();
-      request.onerror = () => reject(request.error);
-    });
-  }
-
-  /**
-   * エントリの削除（LRU）
-   */
-  private async evictEntries(): Promise<void> {
-    if (!this.lruEnabled) return;
-
-    const entries = Array.from(this.memoryCache.entries())
-      .sort(([, a], [, b]) => a.timestamp - b.timestamp);
-
-    const toEvict = entries.slice(0, Math.floor(this.config.maxSize * 0.1));
-    
-    for (const [key] of toEvict) {
-      this.memoryCache.delete(key);
-      this.stats.evictions++;
+      localStorage.setItem("optimized_cache", JSON.stringify(data));
+    } catch (error) {
+      console.warn("キャッシュの永続化保存に失敗しました:", error);
     }
   }
 
   /**
-   * 期限切れエントリの削除
+   * 永続化からの削除
    */
-  private async removeExpiredEntries(): Promise<void> {
-    const now = Date.now();
-    const expiredKeys: string[] = [];
-
-    for (const [key, entry] of this.memoryCache) {
-      if (now - entry.timestamp >= entry.ttl) {
-        expiredKeys.push(key);
-      }
-    }
-
-    expiredKeys.forEach(key => this.memoryCache.delete(key));
+  private removeFromPersistence(key: string): void {
+    this.saveToPersistence(key, {} as CacheItem);
   }
 
   /**
-   * 重複データの削除
+   * 永続化のクリア
    */
-  private async deduplicateData(): Promise<void> {
-    const seen = new Set<string>();
-    const duplicates: string[] = [];
-
-    for (const [key, entry] of this.memoryCache) {
-      const hash = this.hashData(entry.data);
-      if (seen.has(hash)) {
-        duplicates.push(key);
-      } else {
-        seen.add(hash);
-      }
-    }
-
-    duplicates.forEach(key => this.memoryCache.delete(key));
-
-    if (duplicates.length > 0) {
-      console.debug("重複データを削除:", {
-        duplicates: duplicates.length,
-        remaining: this.memoryCache.size,
-      });
-    }
-  }
-
-  /**
-   * データのハッシュ化
-   */
-  private hashData(data: any): string {
-    return JSON.stringify(data);
-  }
-
-  /**
-   * クリーンアップの開始
-   */
-  private startCleanup(): void {
-    this.cleanupTimer = setInterval(async () => {
-      await this.removeExpiredEntries();
-      await this.deduplicateData();
-      this.updateStats();
-    }, this.config.cleanupInterval);
-  }
-
-  /**
-   * メモリ監視の開始
-   */
-  private startMemoryMonitoring(): void {
-    if (typeof window === "undefined") return;
-
-    setInterval(() => {
-      this.updateStats();
-      
-      if (this.stats.memoryUsage > this.config.memoryThreshold) {
-        this.evictEntries();
-      }
-    }, 30000); // 30秒ごと
-  }
-
-  /**
-   * 統計の更新
-   */
-  private updateStats(): void {
-    this.stats.size = this.memoryCache.size;
-    this.stats.hitRate = this.stats.totalRequests > 0 
-      ? (this.stats.hits / this.stats.totalRequests) * 100 
-      : 0;
-
-    // メモリ使用量の計算
-    let totalSize = 0;
-    let oldestTime = Date.now();
-    let newestTime = 0;
-
-    for (const [, entry] of this.memoryCache) {
-      totalSize += entry.size || 0;
-      oldestTime = Math.min(oldestTime, entry.timestamp);
-      newestTime = Math.max(newestTime, entry.timestamp);
-    }
-
-    this.stats.memoryUsage = totalSize;
-    this.stats.oldestItem = oldestTime;
-    this.stats.newestItem = newestTime;
-  }
-
-  /**
-   * 統計のリセット
-   */
-  private resetStats(): void {
-    this.stats = {
-      hits: 0,
-      misses: 0,
-      totalRequests: 0,
-      hitRate: 0,
-      size: 0,
-      maxSize: this.config.maxSize,
-      memoryUsage: 0,
-      compressionRatio: 0,
-      evictions: 0,
-      oldestItem: 0,
-      newestItem: 0,
-    };
-  }
-
-  /**
-   * 統計の取得
-   */
-  getStats(): CacheStats {
-    return { ...this.stats };
-  }
-
-  /**
-   * 設定の取得
-   */
-  getConfig(): CacheConfig {
-    return { ...this.config };
-  }
-
-  /**
-   * 設定の更新
-   */
-  updateConfig(newConfig: Partial<CacheConfig>): void {
-    this.config = { ...this.config, ...newConfig };
-    
-    if (newConfig.maxSize && this.memoryCache.size > newConfig.maxSize) {
-      this.evictEntries();
-    }
-  }
-
-  /**
-   * クリーンアップの停止
-   */
-  destroy(): void {
-    if (this.cleanupTimer) {
-      clearInterval(this.cleanupTimer);
-      this.cleanupTimer = null;
-    }
-
-    if (this.db) {
-      this.db.close();
-      this.db = null;
+  private clearPersistence(): void {
+    try {
+      localStorage.removeItem("optimized_cache");
+    } catch (error) {
+      console.warn("キャッシュの永続化クリアに失敗しました:", error);
     }
   }
 }
 
 // シングルトンインスタンス
-const optimizedCacheManager = new OptimizedCacheManager();
+export const optimizedCacheManager = new OptimizedCacheManager();
 
-export default optimizedCacheManager;
-export type { CacheEntry, CacheConfig, CacheStats, CacheOptions };
+// 便利な関数
+export const getCache = <T>(key: string): T | null => 
+  optimizedCacheManager.get<T>(key);
+
+export const setCache = <T>(key: string, data: T, options?: CacheOptions): void => 
+  optimizedCacheManager.set(key, data, options);
+
+export const deleteCache = (key: string): boolean => 
+  optimizedCacheManager.delete(key);
+
+export const clearCache = (): void => 
+  optimizedCacheManager.clear();
+
+export const hasCache = (key: string): boolean => 
+  optimizedCacheManager.has(key);
+
+export const getCacheStatistics = (): CacheStatistics => 
+  optimizedCacheManager.getStatistics();
+
+export const optimizeCache = (): void => 
+  optimizedCacheManager.optimize();
