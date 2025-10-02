@@ -10,7 +10,7 @@ import { Clock, RefreshCw, Calendar, TrendingUp } from "lucide-react";
 
 interface DataTimestampDisplayProps {
   lastUpdated: Date | string | number;
-  source?: 'api' | 'cache' | 'fallback';
+  source?: "api" | "cache" | "fallback";
   showRelativeTime?: boolean;
   showAbsoluteTime?: boolean;
   showNextUpdate?: boolean;
@@ -20,7 +20,7 @@ interface DataTimestampDisplayProps {
 
 const DataTimestampDisplay: React.FC<DataTimestampDisplayProps> = ({
   lastUpdated,
-  source = 'cache',
+  source = "cache",
   showRelativeTime = true,
   showAbsoluteTime = false,
   showNextUpdate = false,
@@ -40,7 +40,7 @@ const DataTimestampDisplay: React.FC<DataTimestampDisplayProps> = ({
 
   const updateTime = new Date(lastUpdated);
   const relativeTime = getRelativeTime(updateTime);
-  const absoluteTime = updateTime.toLocaleString('ja-JP');
+  const absoluteTime = updateTime.toLocaleString("ja-JP");
   const nextUpdate = new Date(updateTime.getTime() + (ttlMinutes * 60 * 1000));
 
   // 相対時間の取得
@@ -52,7 +52,7 @@ const DataTimestampDisplay: React.FC<DataTimestampDisplayProps> = ({
     const diffDays = Math.floor(diffHours / 24);
 
     if (diffMinutes < 1) {
-      return 'たった今';
+      return "たった今";
     } else if (diffMinutes < 60) {
       return `${diffMinutes}分前`;
     } else if (diffHours < 24) {
@@ -65,11 +65,11 @@ const DataTimestampDisplay: React.FC<DataTimestampDisplayProps> = ({
   // ソースアイコンの取得
   const getSourceIcon = () => {
     switch (source) {
-      case 'api':
+      case "api":
         return <TrendingUp className="h-4 w-4 text-green-600" />;
-      case 'cache':
+      case "cache":
         return <Clock className="h-4 w-4 text-blue-600" />;
-      case 'fallback':
+      case "fallback":
         return <RefreshCw className="h-4 w-4 text-yellow-600" />;
       default:
         return <Clock className="h-4 w-4 text-gray-600" />;
@@ -79,14 +79,14 @@ const DataTimestampDisplay: React.FC<DataTimestampDisplayProps> = ({
   // ソース色の取得
   const getSourceColor = () => {
     switch (source) {
-      case 'api':
-        return 'text-green-600';
-      case 'cache':
-        return 'text-blue-600';
-      case 'fallback':
-        return 'text-yellow-600';
+      case "api":
+        return "text-green-600";
+      case "cache":
+        return "text-blue-600";
+      case "fallback":
+        return "text-yellow-600";
       default:
-        return 'text-gray-600';
+        return "text-gray-600";
     }
   };
 
@@ -128,9 +128,9 @@ const DataTimestampDisplay: React.FC<DataTimestampDisplayProps> = ({
 // サマリー版コンポーネント
 export const DataTimestampSummary: React.FC<{
   lastUpdated: Date | string | number;
-  source?: 'api' | 'cache' | 'fallback';
+  source?: "api" | "cache" | "fallback";
   className?: string;
-}> = ({ lastUpdated, source = 'cache', className = "" }) => {
+}> = ({ lastUpdated, source = "cache", className = "" }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -152,7 +152,7 @@ export const DataTimestampSummary: React.FC<{
     const diffDays = Math.floor(diffHours / 24);
 
     if (diffMinutes < 1) {
-      return 'たった今';
+      return "たった今";
     } else if (diffMinutes < 60) {
       return `${diffMinutes}分前`;
     } else if (diffHours < 24) {

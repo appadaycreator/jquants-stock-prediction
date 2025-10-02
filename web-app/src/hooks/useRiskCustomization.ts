@@ -2,15 +2,15 @@
  * リスク管理カスタマイズ設定を管理するカスタムフック
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 import { 
   RiskCustomizationSettings, 
-  riskCustomizationStore 
-} from '@/lib/risk-customization-store';
+  riskCustomizationStore, 
+} from "@/lib/risk-customization-store";
 
 export function useRiskCustomization() {
   const [settings, setSettings] = useState<RiskCustomizationSettings>(
-    riskCustomizationStore.getSettings()
+    riskCustomizationStore.getSettings(),
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,7 +21,7 @@ export function useRiskCustomization() {
       riskCustomizationStore.saveSettings(newSettings);
       setSettings(riskCustomizationStore.getSettings());
     } catch (error) {
-      console.error('設定の更新に失敗:', error);
+      console.error("設定の更新に失敗:", error);
     } finally {
       setIsLoading(false);
     }
@@ -30,14 +30,14 @@ export function useRiskCustomization() {
   // 個別銘柄設定を更新
   const updateIndividualStockSettings = useCallback((
     symbol: string, 
-    stockSettings: Partial<RiskCustomizationSettings['individualStockSettings'][string]>
+    stockSettings: Partial<RiskCustomizationSettings["individualStockSettings"][string]>,
   ) => {
     setIsLoading(true);
     try {
       riskCustomizationStore.updateIndividualStockSettings(symbol, stockSettings);
       setSettings(riskCustomizationStore.getSettings());
     } catch (error) {
-      console.error('個別銘柄設定の更新に失敗:', error);
+      console.error("個別銘柄設定の更新に失敗:", error);
     } finally {
       setIsLoading(false);
     }
@@ -50,7 +50,7 @@ export function useRiskCustomization() {
       riskCustomizationStore.removeIndividualStockSettings(symbol);
       setSettings(riskCustomizationStore.getSettings());
     } catch (error) {
-      console.error('個別銘柄設定の削除に失敗:', error);
+      console.error("個別銘柄設定の削除に失敗:", error);
     } finally {
       setIsLoading(false);
     }
@@ -63,7 +63,7 @@ export function useRiskCustomization() {
       riskCustomizationStore.resetSettings();
       setSettings(riskCustomizationStore.getSettings());
     } catch (error) {
-      console.error('設定のリセットに失敗:', error);
+      console.error("設定のリセットに失敗:", error);
     } finally {
       setIsLoading(false);
     }
@@ -90,9 +90,9 @@ export function useRiskCustomization() {
       setSettings(riskCustomizationStore.getSettings());
     };
 
-    if (typeof window !== 'undefined') {
-      window.addEventListener('storage', handleStorageChange);
-      return () => window.removeEventListener('storage', handleStorageChange);
+    if (typeof window !== "undefined") {
+      window.addEventListener("storage", handleStorageChange);
+      return () => window.removeEventListener("storage", handleStorageChange);
     }
   }, []);
 

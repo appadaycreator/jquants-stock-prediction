@@ -5,8 +5,8 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Clock, RefreshCw, AlertTriangle, CheckCircle, Info } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Clock, RefreshCw, AlertTriangle, CheckCircle, Info } from "lucide-react";
 
 interface PreviousResultDisplayProps {
   data: any;
@@ -24,7 +24,7 @@ export default function PreviousResultDisplay({
   timestamp,
   onRefresh,
   onDismiss,
-  title = '前回の結果',
+  title = "前回の結果",
   showRefreshButton = true,
   showDataAge = true,
   maxAge = 24 * 60 * 60 * 1000, // 24時間
@@ -66,17 +66,17 @@ export default function PreviousResultDisplay({
     } else if (minutes > 0) {
       return `${minutes}分前`;
     } else {
-      return 'たった今';
+      return "たった今";
     }
   };
 
   const getDataAgeColor = (age: number): string => {
     if (age < 60 * 60 * 1000) { // 1時間以内
-      return 'text-green-600';
+      return "text-green-600";
     } else if (age < 24 * 60 * 60 * 1000) { // 24時間以内
-      return 'text-yellow-600';
+      return "text-yellow-600";
     } else {
-      return 'text-red-600';
+      return "text-red-600";
     }
   };
 
@@ -128,9 +128,9 @@ export default function PreviousResultDisplay({
               disabled={isRefreshing}
               className="flex items-center space-x-1 bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`w-4 h-4 ${isRefreshing ? "animate-spin" : ""}`} />
               <span className="text-sm">
-                {isRefreshing ? '更新中...' : '更新'}
+                {isRefreshing ? "更新中..." : "更新"}
               </span>
             </button>
           )}
@@ -173,7 +173,7 @@ export function DataFreshnessIndicator({
   maxAge = 24 * 60 * 60 * 1000,
   showIcon = true,
   showText = true,
-  className = '',
+  className = "",
 }: DataFreshnessIndicatorProps) {
   const [dataAge, setDataAge] = useState<number | null>(null);
 
@@ -194,34 +194,34 @@ export function DataFreshnessIndicator({
     return null;
   }
 
-  const getFreshnessLevel = (age: number): 'fresh' | 'stale' | 'old' => {
+  const getFreshnessLevel = (age: number): "fresh" | "stale" | "old" => {
     if (age < 60 * 60 * 1000) { // 1時間以内
-      return 'fresh';
+      return "fresh";
     } else if (age < maxAge) {
-      return 'stale';
+      return "stale";
     } else {
-      return 'old';
+      return "old";
     }
   };
 
-  const getFreshnessColor = (level: 'fresh' | 'stale' | 'old'): string => {
+  const getFreshnessColor = (level: "fresh" | "stale" | "old"): string => {
     switch (level) {
-      case 'fresh':
-        return 'text-green-600';
-      case 'stale':
-        return 'text-yellow-600';
-      case 'old':
-        return 'text-red-600';
+      case "fresh":
+        return "text-green-600";
+      case "stale":
+        return "text-yellow-600";
+      case "old":
+        return "text-red-600";
     }
   };
 
-  const getFreshnessIcon = (level: 'fresh' | 'stale' | 'old') => {
+  const getFreshnessIcon = (level: "fresh" | "stale" | "old") => {
     switch (level) {
-      case 'fresh':
+      case "fresh":
         return <CheckCircle className="w-4 h-4 text-green-600" />;
-      case 'stale':
+      case "stale":
         return <Clock className="w-4 h-4 text-yellow-600" />;
-      case 'old':
+      case "old":
         return <AlertTriangle className="w-4 h-4 text-red-600" />;
     }
   };
@@ -238,7 +238,7 @@ export function DataFreshnessIndicator({
     } else if (minutes > 0) {
       return `${minutes}分前`;
     } else {
-      return 'たった今';
+      return "たった今";
     }
   };
 

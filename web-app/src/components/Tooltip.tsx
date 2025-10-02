@@ -16,7 +16,7 @@ export default function Tooltip({
   children, 
   position = "top", 
   className = "",
-  maxWidth = "300px"
+  maxWidth = "300px",
 }: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
@@ -145,7 +145,7 @@ export function ValidationTooltip({
   isValid, 
   message, 
   children, 
-  className = "" 
+  className = "", 
 }: ValidationTooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
 

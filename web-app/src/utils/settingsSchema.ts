@@ -54,27 +54,27 @@ export interface SettingsSchema {
 export const defaultSettings: SettingsSchema = {
   version: "1.0.0",
   prediction: {
-    days: 30
+    days: 30,
   },
   features: {
-    selected: ["sma_5", "sma_10", "sma_25", "rsi", "macd", "bollinger_upper", "bollinger_lower"]
+    selected: ["sma_5", "sma_10", "sma_25", "rsi", "macd", "bollinger_upper", "bollinger_lower"],
   },
   model: {
     type: "all",
     primary_model: "xgboost",
     compare_models: true,
     retrain_frequency: "weekly",
-    auto_retrain: true
+    auto_retrain: true,
   },
   data: {
     refresh_interval: "hourly",
     max_data_points: 1000,
-    include_technical_indicators: true
+    include_technical_indicators: true,
   },
   ui: {
     theme: "light",
     refresh_rate: 30,
-    show_tooltips: true
+    show_tooltips: true,
   },
   hyperparameters: {
     xgboost: {
@@ -83,7 +83,7 @@ export const defaultSettings: SettingsSchema = {
       max_depth: 6,
       subsample: 1.0,
       colsample_bytree: 1.0,
-      reg_alpha: 0
+      reg_alpha: 0,
     },
     random_forest: {
       n_estimators: 100,
@@ -91,14 +91,14 @@ export const defaultSettings: SettingsSchema = {
       min_samples_split: 2,
       min_samples_leaf: 1,
       max_features: "sqrt",
-      bootstrap: true
+      bootstrap: true,
     },
     ridge: {
       alpha: 1.0,
       fit_intercept: true,
-      normalize: false
-    }
-  }
+      normalize: false,
+    },
+  },
 };
 
 // バリデーションルール
@@ -107,68 +107,68 @@ export const validationRules = {
     days: {
       min: 1,
       max: 365,
-      required: true
-    }
+      required: true,
+    },
   },
   features: {
     selected: {
       minItems: 1,
       maxItems: 20,
-      required: true
-    }
+      required: true,
+    },
   },
   model: {
     type: {
       enum: ["all", "linear", "random_forest", "xgboost"],
-      required: true
+      required: true,
     },
     primary_model: {
       enum: ["xgboost", "random_forest", "linear_regression", "ridge"],
-      required: true
+      required: true,
     },
     compare_models: {
       type: "boolean",
-      required: true
+      required: true,
     },
     retrain_frequency: {
       enum: ["daily", "weekly", "monthly", "manual"],
-      required: true
+      required: true,
     },
     auto_retrain: {
       type: "boolean",
-      required: true
-    }
+      required: true,
+    },
   },
   data: {
     refresh_interval: {
       enum: ["realtime", "hourly", "daily", "weekly"],
-      required: true
+      required: true,
     },
     max_data_points: {
       min: 100,
       max: 10000,
-      required: true
+      required: true,
     },
     include_technical_indicators: {
       type: "boolean",
-      required: true
-    }
+      required: true,
+    },
   },
   ui: {
     theme: {
       enum: ["light", "dark", "auto"],
-      required: true
+      required: true,
     },
     refresh_rate: {
       min: 1,
       max: 3600,
-      required: true
+      required: true,
     },
     show_tooltips: {
       type: "boolean",
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 
 // 設定のバリデーション
@@ -241,7 +241,7 @@ export function validateSettings(settings: any): { isValid: boolean; errors: str
 
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
   };
 }
 
@@ -254,13 +254,13 @@ export function migrateSettings(settings: any): SettingsSchema {
     // 古い設定を新しい形式に変換
     if (settings.prediction) {
       migrated.prediction = {
-        days: settings.prediction.days || 30
+        days: settings.prediction.days || 30,
       };
     }
 
     if (settings.features) {
       migrated.features = {
-        selected: settings.features.selected || defaultSettings.features.selected
+        selected: settings.features.selected || defaultSettings.features.selected,
       };
     }
 
@@ -270,7 +270,7 @@ export function migrateSettings(settings: any): SettingsSchema {
         primary_model: settings.model.primary_model || "xgboost",
         compare_models: settings.model.compare_models !== undefined ? settings.model.compare_models : true,
         retrain_frequency: settings.model.retrain_frequency || "weekly",
-        auto_retrain: settings.model.auto_retrain !== undefined ? settings.model.auto_retrain : true
+        auto_retrain: settings.model.auto_retrain !== undefined ? settings.model.auto_retrain : true,
       };
     }
 
@@ -278,7 +278,7 @@ export function migrateSettings(settings: any): SettingsSchema {
       migrated.data = {
         refresh_interval: settings.data.refresh_interval || "hourly",
         max_data_points: settings.data.max_data_points || 1000,
-        include_technical_indicators: settings.data.include_technical_indicators !== undefined ? settings.data.include_technical_indicators : true
+        include_technical_indicators: settings.data.include_technical_indicators !== undefined ? settings.data.include_technical_indicators : true,
       };
     }
 
@@ -286,14 +286,14 @@ export function migrateSettings(settings: any): SettingsSchema {
       migrated.ui = {
         theme: settings.ui.theme || "light",
         refresh_rate: settings.ui.refresh_rate || 30,
-        show_tooltips: settings.ui.show_tooltips !== undefined ? settings.ui.show_tooltips : true
+        show_tooltips: settings.ui.show_tooltips !== undefined ? settings.ui.show_tooltips : true,
       };
     }
 
     if (settings.hyperparameters) {
       migrated.hyperparameters = {
         ...defaultSettings.hyperparameters,
-        ...settings.hyperparameters
+        ...settings.hyperparameters,
       };
     }
   }
@@ -312,42 +312,42 @@ export function normalizeSettings(settings: any): SettingsSchema {
   if (settings.prediction) {
     normalized.prediction = {
       ...defaultSettings.prediction,
-      ...settings.prediction
+      ...settings.prediction,
     };
   }
 
   if (settings.features) {
     normalized.features = {
       ...defaultSettings.features,
-      ...settings.features
+      ...settings.features,
     };
   }
 
   if (settings.model) {
     normalized.model = {
       ...defaultSettings.model,
-      ...settings.model
+      ...settings.model,
     };
   }
 
   if (settings.data) {
     normalized.data = {
       ...defaultSettings.data,
-      ...settings.data
+      ...settings.data,
     };
   }
 
   if (settings.ui) {
     normalized.ui = {
       ...defaultSettings.ui,
-      ...settings.ui
+      ...settings.ui,
     };
   }
 
   if (settings.hyperparameters) {
     normalized.hyperparameters = {
       ...defaultSettings.hyperparameters,
-      ...settings.hyperparameters
+      ...settings.hyperparameters,
     };
   }
 

@@ -212,7 +212,7 @@ export default function SwipeNavigation({
           className="flex transition-transform duration-300 ease-out"
           style={{
             transform: `translateX(${-currentPage * 100 + (isDragging ? translateX : 0)}%)`,
-            width: `${children.length * 100}%`
+            width: `${children.length * 100}%`,
           }}
         >
           {children.map((child, index) => (

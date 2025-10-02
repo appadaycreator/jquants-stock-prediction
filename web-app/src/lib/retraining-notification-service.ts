@@ -78,7 +78,7 @@ export class RetrainingNotificationService {
   async notifyRetrainingComplete(
     modelsRetrained: number,
     duration: number,
-    performanceComparison?: ModelPerformanceComparison
+    performanceComparison?: ModelPerformanceComparison,
   ): Promise<void> {
     if (!this.isInitialized) {
       console.warn("通知サービスが初期化されていません");
@@ -89,7 +89,7 @@ export class RetrainingNotificationService {
       const notificationData = this.createRetrainingCompleteNotification(
         modelsRetrained,
         duration,
-        performanceComparison
+        performanceComparison,
       );
 
       await this.sendNotification(notificationData);
@@ -105,7 +105,7 @@ export class RetrainingNotificationService {
    */
   async notifyRetrainingFailed(
     errorMessage: string,
-    duration: number
+    duration: number,
   ): Promise<void> {
     if (!this.isInitialized) {
       console.warn("通知サービスが初期化されていません");
@@ -115,7 +115,7 @@ export class RetrainingNotificationService {
     try {
       const notificationData = this.createRetrainingFailedNotification(
         errorMessage,
-        duration
+        duration,
       );
 
       await this.sendNotification(notificationData);
@@ -130,7 +130,7 @@ export class RetrainingNotificationService {
    * モデル性能改善通知の送信
    */
   async notifyModelImprovement(
-    performanceComparison: ModelPerformanceComparison
+    performanceComparison: ModelPerformanceComparison,
   ): Promise<void> {
     if (!this.isInitialized) {
       console.warn("通知サービスが初期化されていません");
@@ -139,7 +139,7 @@ export class RetrainingNotificationService {
 
     try {
       const notificationData = this.createModelImprovementNotification(
-        performanceComparison
+        performanceComparison,
       );
 
       await this.sendNotification(notificationData);
@@ -154,7 +154,7 @@ export class RetrainingNotificationService {
    * モデル性能低下通知の送信
    */
   async notifyModelDegradation(
-    performanceComparison: ModelPerformanceComparison
+    performanceComparison: ModelPerformanceComparison,
   ): Promise<void> {
     if (!this.isInitialized) {
       console.warn("通知サービスが初期化されていません");
@@ -163,7 +163,7 @@ export class RetrainingNotificationService {
 
     try {
       const notificationData = this.createModelDegradationNotification(
-        performanceComparison
+        performanceComparison,
       );
 
       await this.sendNotification(notificationData);
@@ -180,7 +180,7 @@ export class RetrainingNotificationService {
   private createRetrainingCompleteNotification(
     modelsRetrained: number,
     duration: number,
-    performanceComparison?: ModelPerformanceComparison
+    performanceComparison?: ModelPerformanceComparison,
   ): RetrainingNotificationData {
     const durationStr = this.formatDuration(duration);
     let title = "🔄 モデル再学習完了";
@@ -213,13 +213,13 @@ export class RetrainingNotificationService {
           metrics: {
             mae: performanceComparison.after.mae,
             rmse: performanceComparison.after.rmse,
-            r2: performanceComparison.after.r2
-          }
+            r2: performanceComparison.after.r2,
+          },
         } : undefined,
-        recommendations: this.generateRecommendations(performanceComparison)
+        recommendations: this.generateRecommendations(performanceComparison),
       },
       timestamp: new Date().toISOString(),
-      priority
+      priority,
     };
   }
 
@@ -228,7 +228,7 @@ export class RetrainingNotificationService {
    */
   private createRetrainingFailedNotification(
     errorMessage: string,
-    duration: number
+    duration: number,
   ): RetrainingNotificationData {
     const durationStr = this.formatDuration(duration);
 
@@ -243,11 +243,11 @@ export class RetrainingNotificationService {
         recommendations: [
           "データの品質を確認してください",
           "設定パラメータを見直してください",
-          "システムログを確認してください"
-        ]
+          "システムログを確認してください",
+        ],
       },
       timestamp: new Date().toISOString(),
-      priority: "critical"
+      priority: "critical",
     };
   }
 
@@ -255,7 +255,7 @@ export class RetrainingNotificationService {
    * モデル性能改善通知データの作成
    */
   private createModelImprovementNotification(
-    performanceComparison: ModelPerformanceComparison
+    performanceComparison: ModelPerformanceComparison,
   ): RetrainingNotificationData {
     const improvement = performanceComparison.improvement.overallImprovement;
     const improvementPercent = (improvement * 100).toFixed(1);
@@ -273,17 +273,17 @@ export class RetrainingNotificationService {
           metrics: {
             mae: performanceComparison.after.mae,
             rmse: performanceComparison.after.rmse,
-            r2: performanceComparison.after.r2
-          }
+            r2: performanceComparison.after.r2,
+          },
         },
         recommendations: [
           "新しいモデル設定を保存することを推奨します",
           "定期的な再学習を継続してください",
-          "パフォーマンス監視を強化してください"
-        ]
+          "パフォーマンス監視を強化してください",
+        ],
       },
       timestamp: new Date().toISOString(),
-      priority: "high"
+      priority: "high",
     };
   }
 
@@ -291,7 +291,7 @@ export class RetrainingNotificationService {
    * モデル性能低下通知データの作成
    */
   private createModelDegradationNotification(
-    performanceComparison: ModelPerformanceComparison
+    performanceComparison: ModelPerformanceComparison,
   ): RetrainingNotificationData {
     const degradation = Math.abs(performanceComparison.improvement.overallImprovement);
     const degradationPercent = (degradation * 100).toFixed(1);
@@ -309,18 +309,18 @@ export class RetrainingNotificationService {
           metrics: {
             mae: performanceComparison.after.mae,
             rmse: performanceComparison.after.rmse,
-            r2: performanceComparison.after.r2
-          }
+            r2: performanceComparison.after.r2,
+          },
         },
         recommendations: [
           "ハイパーパラメータの調整を検討してください",
           "データの品質を確認してください",
           "異なるモデルタイプの試行を検討してください",
-          "手動での再学習を実行してください"
-        ]
+          "手動での再学習を実行してください",
+        ],
       },
       timestamp: new Date().toISOString(),
-      priority: "high"
+      priority: "high",
     };
   }
 
@@ -336,14 +336,14 @@ export class RetrainingNotificationService {
         message: notificationData.message,
         data: notificationData.details,
         timestamp: notificationData.timestamp,
-        priority: notificationData.priority
+        priority: notificationData.priority,
       });
 
       // 分析完了通知としても送信
       await this.notificationService.notifyAnalysisComplete({
         success: notificationData.type !== "retraining_failed",
         message: notificationData.message,
-        details: notificationData.details
+        details: notificationData.details,
       });
 
     } catch (error) {
@@ -406,7 +406,7 @@ export class RetrainingNotificationService {
     return {
       enabled: true,
       types: ["retraining_complete", "retraining_failed", "model_improvement", "model_degradation"],
-      frequency: "immediate"
+      frequency: "immediate",
     };
   }
 

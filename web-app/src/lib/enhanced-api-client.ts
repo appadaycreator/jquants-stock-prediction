@@ -40,7 +40,7 @@ class EnhancedApiClient {
 
   constructor(config: Partial<ApiClientConfig> = {}) {
     this.config = {
-      baseUrl: config.baseUrl || (typeof window !== 'undefined' ? `${window.location.origin}/api/proxy` : 'http://localhost:3000/api/proxy'),
+      baseUrl: config.baseUrl || (typeof window !== "undefined" ? `${window.location.origin}/api/proxy` : "http://localhost:3000/api/proxy"),
       timeout: config.timeout || 30000,
       maxRetries: config.maxRetries || 3,
       retryDelay: config.retryDelay || 1000,
@@ -59,9 +59,9 @@ class EnhancedApiClient {
       retry?: RetryOptions;
       cache?: CacheOptions;
       timeout?: number;
-    } = {}
+    } = {},
   ): Promise<ApiResponse<T>> {
-    return this.request<T>('GET', endpoint, undefined, params, options);
+    return this.request<T>("GET", endpoint, undefined, params, options);
   }
 
   /**
@@ -74,9 +74,9 @@ class EnhancedApiClient {
       retry?: RetryOptions;
       cache?: CacheOptions;
       timeout?: number;
-    } = {}
+    } = {},
   ): Promise<ApiResponse<T>> {
-    return this.request<T>('POST', endpoint, data, undefined, options);
+    return this.request<T>("POST", endpoint, data, undefined, options);
   }
 
   /**
@@ -91,7 +91,7 @@ class EnhancedApiClient {
       retry?: RetryOptions;
       cache?: CacheOptions;
       timeout?: number;
-    } = {}
+    } = {},
   ): Promise<ApiResponse<T>> {
     const startTime = performance.now();
     const cacheKey = this.generateCacheKey(method, endpoint, data, params);
@@ -135,7 +135,7 @@ class EnhancedApiClient {
       retryOptions,
       options.timeout || this.config.timeout,
       data,
-      params
+      params,
     );
 
     this.requestQueue.set(cacheKey, requestPromise);
@@ -171,7 +171,7 @@ class EnhancedApiClient {
     retryOptions: RetryOptions,
     timeout: number,
     data?: any,
-    params?: Record<string, any>
+    params?: Record<string, any>,
   ): Promise<T> {
     let lastError: Error | null = null;
 
@@ -205,11 +205,11 @@ class EnhancedApiClient {
     endpoint: string,
     timeout: number,
     data?: any,
-    params?: Record<string, any>
+    params?: Record<string, any>,
   ): Promise<any> {
     // プロキシエンドポイントの構築
     const proxyUrl = new URL(this.config.baseUrl);
-    proxyUrl.searchParams.append('endpoint', endpoint);
+    proxyUrl.searchParams.append("endpoint", endpoint);
     
     // パラメータの追加
     if (params) {
@@ -225,7 +225,7 @@ class EnhancedApiClient {
       const response = await fetch(proxyUrl.toString(), {
         method,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: data ? JSON.stringify(data) : undefined,
         signal: controller.signal,
@@ -250,9 +250,9 @@ class EnhancedApiClient {
    */
   private defaultRetryCondition(error: any): boolean {
     // ネットワークエラー、タイムアウト、5xxエラーの場合はリトライ
-    if (error.name === 'AbortError') return true; // タイムアウト
-    if (error.message?.includes('HTTP 5')) return true; // 5xxエラー
-    if (error.message?.includes('fetch')) return true; // ネットワークエラー
+    if (error.name === "AbortError") return true; // タイムアウト
+    if (error.message?.includes("HTTP 5")) return true; // 5xxエラー
+    if (error.message?.includes("fetch")) return true; // ネットワークエラー
     return false;
   }
 
@@ -331,7 +331,7 @@ class EnhancedApiClient {
 
 // シングルトンインスタンス
 const apiClient = new EnhancedApiClient({
-  baseUrl: '/api/proxy',
+  baseUrl: "/api/proxy",
   timeout: 30000,
   maxRetries: 3,
   retryDelay: 1000,

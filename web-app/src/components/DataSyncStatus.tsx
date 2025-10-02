@@ -2,16 +2,16 @@
  * データ同期状況表示コンポーネント
  */
 
-import React from 'react';
-import { useDataSync } from '../hooks/useDataSync';
+import React from "react";
+import { useDataSync } from "../hooks/useDataSync";
 import { 
   CheckCircle, 
   AlertCircle, 
   RefreshCw, 
   Clock, 
   Database,
-  Activity
-} from 'lucide-react';
+  Activity,
+} from "lucide-react";
 
 interface DataSyncStatusProps {
   showDetails?: boolean;
@@ -20,7 +20,7 @@ interface DataSyncStatusProps {
 
 export default function DataSyncStatus({ 
   showDetails = false, 
-  compact = false 
+  compact = false, 
 }: DataSyncStatusProps) {
   const {
     status,
@@ -29,7 +29,7 @@ export default function DataSyncStatus({
     performSync,
     isHealthy,
     hasErrors,
-    lastUpdate
+    lastUpdate,
   } = useDataSync();
 
   const getStatusIcon = () => {
@@ -46,17 +46,17 @@ export default function DataSyncStatus({
   };
 
   const getStatusText = () => {
-    if (isLoading) return '同期中...';
-    if (isHealthy) return '正常';
-    if (hasErrors) return 'エラー';
-    return '待機中';
+    if (isLoading) return "同期中...";
+    if (isHealthy) return "正常";
+    if (hasErrors) return "エラー";
+    return "待機中";
   };
 
   const getStatusColor = () => {
-    if (isLoading) return 'text-blue-600';
-    if (isHealthy) return 'text-green-600';
-    if (hasErrors) return 'text-red-600';
-    return 'text-gray-600';
+    if (isLoading) return "text-blue-600";
+    if (isHealthy) return "text-green-600";
+    if (hasErrors) return "text-red-600";
+    return "text-gray-600";
   };
 
   const formatLastUpdate = (timestamp: string) => {
@@ -64,10 +64,10 @@ export default function DataSyncStatus({
     const now = new Date();
     const diff = now.getTime() - date.getTime();
     
-    if (diff < 60000) return '1分以内';
+    if (diff < 60000) return "1分以内";
     if (diff < 3600000) return `${Math.floor(diff / 60000)}分前`;
     if (diff < 86400000) return `${Math.floor(diff / 3600000)}時間前`;
-    return date.toLocaleString('ja-JP');
+    return date.toLocaleString("ja-JP");
   };
 
   if (compact) {
@@ -126,7 +126,7 @@ export default function DataSyncStatus({
                     <AlertCircle className="h-3 w-3 text-red-500" />
                   )}
                   <span className="text-xs text-gray-600 capitalize">
-                    {source.replace(/([A-Z])/g, ' $1').trim()}
+                    {source.replace(/([A-Z])/g, " $1").trim()}
                   </span>
                 </div>
               ))}
@@ -154,7 +154,7 @@ export default function DataSyncStatus({
           disabled={isLoading}
           className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
           <span>手動同期</span>
         </button>
         

@@ -16,7 +16,7 @@ export default function SearchResults({
   results,
   query,
   onResultClick,
-  selectedResultId
+  selectedResultId,
 }: SearchResultsProps) {
   if (results.length === 0) {
     return (
@@ -30,11 +30,11 @@ export default function SearchResults({
 
   const getIcon = (type: string) => {
     switch (type) {
-      case 'help':
+      case "help":
         return <HelpCircle size={16} className="text-blue-600" />;
-      case 'faq':
+      case "faq":
         return <MessageSquare size={16} className="text-green-600" />;
-      case 'glossary':
+      case "glossary":
         return <BookOpen size={16} className="text-purple-600" />;
       default:
         return <Search size={16} className="text-gray-600" />;
@@ -43,14 +43,14 @@ export default function SearchResults({
 
   const getTypeLabel = (type: string) => {
     switch (type) {
-      case 'help':
-        return 'ヘルプ';
-      case 'faq':
-        return 'FAQ';
-      case 'glossary':
-        return '用語集';
+      case "help":
+        return "ヘルプ";
+      case "faq":
+        return "FAQ";
+      case "glossary":
+        return "用語集";
       default:
-        return 'その他';
+        return "その他";
     }
   };
 
@@ -64,7 +64,7 @@ export default function SearchResults({
         const { highlightedTitle, highlightedContent } = highlightSearchResult(
           result.title,
           result.content,
-          query
+          query,
         );
         
         const isSelected = selectedResultId === result.id;
@@ -75,8 +75,8 @@ export default function SearchResults({
             onClick={() => onResultClick(result)}
             className={`p-4 rounded-lg border cursor-pointer transition-all duration-200 ${
               isSelected
-                ? 'bg-blue-50 border-blue-200 shadow-md'
-                : 'bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300'
+                ? "bg-blue-50 border-blue-200 shadow-md"
+                : "bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300"
             }`}
           >
             <div className="flex items-start gap-3">

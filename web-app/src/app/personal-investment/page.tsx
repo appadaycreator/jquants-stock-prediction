@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 
 // 動的レンダリングを強制
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 import { getLatestIndex, resolveBusinessDate, swrJson } from "@/lib/dataClient";
 import { useEnhancedPersonalInvestment, usePersonalInvestmentFallback } from "@/hooks/useEnhancedPersonalInvestment";
 import UserProfileForm from "@/components/personalization/UserProfileForm";

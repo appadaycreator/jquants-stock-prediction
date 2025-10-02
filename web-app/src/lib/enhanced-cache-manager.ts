@@ -62,33 +62,33 @@ class EnhancedCacheManager {
     if (!this.config.persistenceEnabled) return;
     
     // サーバーサイドではIndexedDBを使用しない
-    if (typeof window === 'undefined') {
-      console.warn('IndexedDBはクライアントサイドでのみ利用可能です');
+    if (typeof window === "undefined") {
+      console.warn("IndexedDBはクライアントサイドでのみ利用可能です");
       return;
     }
 
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open('enhanced_cache_db', 1);
+      const request = indexedDB.open("enhanced_cache_db", 1);
       
       request.onerror = () => {
-        console.error('IndexedDB初期化エラー:', request.error);
+        console.error("IndexedDB初期化エラー:", request.error);
         reject(request.error);
       };
       
       request.onsuccess = () => {
         this.db = request.result;
-        console.info('IndexedDB初期化完了');
+        console.info("IndexedDB初期化完了");
         resolve();
       };
       
       request.onupgradeneeded = (event) => {
         const db = (event.target as IDBOpenDBRequest).result;
         
-        if (!db.objectStoreNames.contains('cache')) {
-          const store = db.createObjectStore('cache', { keyPath: 'key' });
-          store.createIndex('timestamp', 'timestamp', { unique: false });
-          store.createIndex('tags', 'tags', { unique: false, multiEntry: true });
-          store.createIndex('priority', 'priority', { unique: false });
+        if (!db.objectStoreNames.contains("cache")) {
+          const store = db.createObjectStore("cache", { keyPath: "key" });
+          store.createIndex("timestamp", "timestamp", { unique: false });
+          store.createIndex("tags", "tags", { unique: false, multiEntry: true });
+          store.createIndex("priority", "priority", { unique: false });
         }
       };
     });
@@ -109,7 +109,7 @@ class EnhancedCacheManager {
     }
 
     // IndexedDBから取得（クライアントサイドのみ）
-    if (typeof window !== 'undefined' && this.db) {
+    if (typeof window !== "undefined" && this.db) {
       try {
         const dbItem = await this.getFromIndexedDB(key);
         if (dbItem && this.isValid(dbItem)) {
@@ -120,7 +120,7 @@ class EnhancedCacheManager {
           return dbItem.data;
         }
       } catch (error) {
-        console.warn('IndexedDB取得エラー:', error);
+        console.warn("IndexedDB取得エラー:", error);
       }
     }
 
@@ -138,7 +138,7 @@ class EnhancedCacheManager {
       ttl?: number;
       tags?: string[];
       priority?: number;
-    } = {}
+    } = {},
   ): Promise<void> {
     const now = Date.now();
     const item: CacheItem<T> = {
@@ -155,11 +155,11 @@ class EnhancedCacheManager {
     this.memoryCache.set(key, item);
 
     // IndexedDBに保存（クライアントサイドのみ）
-    if (typeof window !== 'undefined' && this.db) {
+    if (typeof window !== "undefined" && this.db) {
       try {
         await this.saveToIndexedDB(key, item);
       } catch (error) {
-        console.warn('IndexedDB保存エラー:', error);
+        console.warn("IndexedDB保存エラー:", error);
       }
     }
 
@@ -175,11 +175,11 @@ class EnhancedCacheManager {
   async delete(key: string): Promise<void> {
     this.memoryCache.delete(key);
     
-    if (typeof window !== 'undefined' && this.db) {
+    if (typeof window !== "undefined" && this.db) {
       try {
         await this.deleteFromIndexedDB(key);
       } catch (error) {
-        console.warn('IndexedDB削除エラー:', error);
+        console.warn("IndexedDB削除エラー:", error);
       }
     }
   }
@@ -207,11 +207,11 @@ class EnhancedCacheManager {
   async clear(): Promise<void> {
     this.memoryCache.clear();
     
-    if (typeof window !== 'undefined' && this.db) {
+    if (typeof window !== "undefined" && this.db) {
       try {
         await this.clearIndexedDB();
       } catch (error) {
-        console.warn('IndexedDBクリアエラー:', error);
+        console.warn("IndexedDBクリアエラー:", error);
       }
     }
   }
@@ -302,11 +302,11 @@ class EnhancedCacheManager {
    * IndexedDBからの取得
    */
   private async getFromIndexedDB(key: string): Promise<CacheItem<any> | null> {
-    if (typeof window === 'undefined' || !this.db) return null;
+    if (typeof window === "undefined" || !this.db) return null;
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['cache'], 'readonly');
-      const store = transaction.objectStore('cache');
+      const transaction = this.db!.transaction(["cache"], "readonly");
+      const store = transaction.objectStore("cache");
       const request = store.get(key);
 
       request.onsuccess = () => {
@@ -323,11 +323,11 @@ class EnhancedCacheManager {
    * IndexedDBへの保存
    */
   private async saveToIndexedDB(key: string, item: CacheItem<any>): Promise<void> {
-    if (typeof window === 'undefined' || !this.db) return;
+    if (typeof window === "undefined" || !this.db) return;
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['cache'], 'readwrite');
-      const store = transaction.objectStore('cache');
+      const transaction = this.db!.transaction(["cache"], "readwrite");
+      const store = transaction.objectStore("cache");
       const request = store.put({ key, ...item });
 
       request.onsuccess = () => resolve();
@@ -339,11 +339,11 @@ class EnhancedCacheManager {
    * IndexedDBからの削除
    */
   private async deleteFromIndexedDB(key: string): Promise<void> {
-    if (typeof window === 'undefined' || !this.db) return;
+    if (typeof window === "undefined" || !this.db) return;
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['cache'], 'readwrite');
-      const store = transaction.objectStore('cache');
+      const transaction = this.db!.transaction(["cache"], "readwrite");
+      const store = transaction.objectStore("cache");
       const request = store.delete(key);
 
       request.onsuccess = () => resolve();
@@ -355,11 +355,11 @@ class EnhancedCacheManager {
    * IndexedDBのクリア
    */
   private async clearIndexedDB(): Promise<void> {
-    if (typeof window === 'undefined' || !this.db) return;
+    if (typeof window === "undefined" || !this.db) return;
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['cache'], 'readwrite');
-      const store = transaction.objectStore('cache');
+      const transaction = this.db!.transaction(["cache"], "readwrite");
+      const store = transaction.objectStore("cache");
       const request = store.clear();
 
       request.onsuccess = () => resolve();

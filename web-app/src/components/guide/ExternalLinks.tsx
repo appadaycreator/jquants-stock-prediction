@@ -6,7 +6,7 @@ import { ExternalLink, Globe, BookOpen, Info } from "lucide-react";
 interface ExternalLinkItem {
   name: string;
   url: string;
-  type?: 'wikipedia' | 'official' | 'documentation' | 'other';
+  type?: "wikipedia" | "official" | "documentation" | "other";
 }
 
 interface ExternalLinksProps {
@@ -21,11 +21,11 @@ export default function ExternalLinks({ links, className = "" }: ExternalLinksPr
 
   const getIcon = (type?: string) => {
     switch (type) {
-      case 'wikipedia':
+      case "wikipedia":
         return <BookOpen size={14} className="text-blue-600" />;
-      case 'official':
+      case "official":
         return <Globe size={14} className="text-green-600" />;
-      case 'documentation':
+      case "documentation":
         return <Info size={14} className="text-purple-600" />;
       default:
         return <ExternalLink size={14} className="text-gray-600" />;
@@ -34,14 +34,14 @@ export default function ExternalLinks({ links, className = "" }: ExternalLinksPr
 
   const getTypeLabel = (type?: string) => {
     switch (type) {
-      case 'wikipedia':
-        return 'Wikipedia';
-      case 'official':
-        return '公式';
-      case 'documentation':
-        return 'ドキュメント';
+      case "wikipedia":
+        return "Wikipedia";
+      case "official":
+        return "公式";
+      case "documentation":
+        return "ドキュメント";
       default:
-        return '外部リンク';
+        return "外部リンク";
     }
   };
 

@@ -17,7 +17,7 @@ interface GlossaryItem {
   externalLinks?: {
     name: string;
     url: string;
-    type?: 'wikipedia' | 'official' | 'documentation' | 'other';
+    type?: "wikipedia" | "official" | "documentation" | "other";
   }[];
 }
 

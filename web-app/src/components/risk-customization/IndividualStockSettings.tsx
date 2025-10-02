@@ -2,15 +2,15 @@
  * 個別銘柄設定コンポーネント
  */
 
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import React, { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   Target, 
   AlertTriangle, 
@@ -20,9 +20,9 @@ import {
   Plus,
   Trash2,
   Bell,
-  Shield
-} from 'lucide-react';
-import { useRiskCustomization } from '@/hooks/useRiskCustomization';
+  Shield,
+} from "lucide-react";
+import { useRiskCustomization } from "@/hooks/useRiskCustomization";
 
 interface IndividualStockSettingsProps {
   symbol: string;
@@ -33,7 +33,7 @@ interface IndividualStockSettingsProps {
 export function IndividualStockSettings({ 
   symbol, 
   currentPrice = 0, 
-  onClose 
+  onClose, 
 }: IndividualStockSettingsProps) {
   const {
     settings,
@@ -47,7 +47,7 @@ export function IndividualStockSettings({
     targetPrice: undefined,
     stopLossPrice: undefined,
     maxPositionSize: undefined,
-    riskLevel: 'MEDIUM' as const,
+    riskLevel: "MEDIUM" as const,
     notificationEnabled: true,
   };
 
@@ -153,8 +153,8 @@ export function IndividualStockSettings({
             <Input
               id="target-price"
               type="number"
-              value={localSettings.targetPrice || ''}
-              onChange={(e) => updateSetting('targetPrice', parseFloat(e.target.value) || undefined)}
+              value={localSettings.targetPrice || ""}
+              onChange={(e) => updateSetting("targetPrice", parseFloat(e.target.value) || undefined)}
               placeholder="例: 5000"
             />
             {currentPrice > 0 && localSettings.targetPrice && (
@@ -174,7 +174,7 @@ export function IndividualStockSettings({
                     key={percentage}
                     variant="outline"
                     size="sm"
-                    onClick={() => updateSetting('targetPrice', calculateTargetPrice(percentage))}
+                    onClick={() => updateSetting("targetPrice", calculateTargetPrice(percentage))}
                   >
                     +{percentage}%
                   </Button>
@@ -199,8 +199,8 @@ export function IndividualStockSettings({
             <Input
               id="stop-loss-price"
               type="number"
-              value={localSettings.stopLossPrice || ''}
-              onChange={(e) => updateSetting('stopLossPrice', parseFloat(e.target.value) || undefined)}
+              value={localSettings.stopLossPrice || ""}
+              onChange={(e) => updateSetting("stopLossPrice", parseFloat(e.target.value) || undefined)}
               placeholder="例: 4000"
             />
             {currentPrice > 0 && localSettings.stopLossPrice && (
@@ -220,7 +220,7 @@ export function IndividualStockSettings({
                     key={percentage}
                     variant="outline"
                     size="sm"
-                    onClick={() => updateSetting('stopLossPrice', calculateStopLoss(percentage))}
+                    onClick={() => updateSetting("stopLossPrice", calculateStopLoss(percentage))}
                   >
                     -{percentage}%
                   </Button>
@@ -245,8 +245,8 @@ export function IndividualStockSettings({
             <Input
               id="max-position-size"
               type="number"
-              value={localSettings.maxPositionSize || ''}
-              onChange={(e) => updateSetting('maxPositionSize', parseInt(e.target.value) || undefined)}
+              value={localSettings.maxPositionSize || ""}
+              onChange={(e) => updateSetting("maxPositionSize", parseInt(e.target.value) || undefined)}
               placeholder="例: 100"
             />
           </div>
@@ -266,7 +266,7 @@ export function IndividualStockSettings({
             <Label htmlFor="risk-level">リスクレベル</Label>
             <Select
               value={localSettings.riskLevel}
-              onValueChange={(value) => updateSetting('riskLevel', value)}
+              onValueChange={(value) => updateSetting("riskLevel", value)}
             >
               <SelectTrigger>
                 <SelectValue />
@@ -296,7 +296,7 @@ export function IndividualStockSettings({
             <Switch
               id="notification-enabled"
               checked={localSettings.notificationEnabled}
-              onCheckedChange={(checked) => updateSetting('notificationEnabled', checked)}
+              onCheckedChange={(checked) => updateSetting("notificationEnabled", checked)}
             />
           </div>
         </CardContent>
@@ -334,7 +334,7 @@ export function IndividualStockSettings({
             <div className="flex justify-between">
               <span>通知:</span>
               <Badge variant={localSettings.notificationEnabled ? "default" : "secondary"}>
-                {localSettings.notificationEnabled ? '有効' : '無効'}
+                {localSettings.notificationEnabled ? "有効" : "無効"}
               </Badge>
             </div>
           </div>

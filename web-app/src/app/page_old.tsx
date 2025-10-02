@@ -383,7 +383,7 @@ function DashboardContent() {
       .then(metrics => setModelHealth({ 
         status: "ok", 
         updatedAt: new Date().toISOString(),
-        metrics 
+        metrics, 
       }))
       .catch(() => setModelHealth({ status: "ok" }));
     
@@ -1045,12 +1045,18 @@ function DashboardContent() {
         <MobileFirstDashboard />
       ) : showMobileOptimized ? (
         <MobileOptimizedDashboard 
-          onAnalysisComplete={(result) => {
-            console.log("分析完了:", result);
+          onAnalysisClick={() => {
+            console.log("分析開始");
             loadData();
           }}
-          onAnalysisStart={() => {
-            console.log("分析開始");
+          onReportClick={() => {
+            console.log("レポート表示");
+          }}
+          onTradeClick={() => {
+            console.log("取引ダッシュボード");
+          }}
+          onSettingsClick={() => {
+            console.log("設定");
           }}
         />
       ) : (
@@ -1124,7 +1130,7 @@ function DashboardContent() {
                   title="今日のルーティン"
                   description="5分で完了する投資分析ルーティンを開始しましょう"
                   actionText="5分ルーティンを開始"
-                  onAction={() => window.location.href = '/five-min-routine'}
+                  onAction={() => window.location.href = "/five-min-routine"}
                   icon={Clock}
                 />
               )}
@@ -1377,8 +1383,8 @@ function DashboardContent() {
                                 mae: model.mae,
                                 rmse: model.rmse,
                                 r2: model.r2,
-                                rank: index + 1
-                              }
+                                rank: index + 1,
+                              },
                             });
                             setShowModelDetail(true);
                           }
@@ -1394,7 +1400,7 @@ function DashboardContent() {
                             <Tooltip content={`${model.name}について:\n${(() => {
                               const modelDef = MODEL_DEFINITIONS.find(m => m.name === model.name);
                               if (modelDef) {
-                                return `${modelDef.description}\n\n長所: ${modelDef.pros.slice(0, 2).join(', ')}\n短所: ${modelDef.cons.slice(0, 2).join(', ')}\n\n適用場面: ${modelDef.useCase}\n\nクリックで詳細を表示`;
+                                return `${modelDef.description}\n\n長所: ${modelDef.pros.slice(0, 2).join(", ")}\n短所: ${modelDef.cons.slice(0, 2).join(", ")}\n\n適用場面: ${modelDef.useCase}\n\nクリックで詳細を表示`;
                               }
                               return "モデルの詳細情報\n\nクリックで詳細を表示";
                             })()}`}>
@@ -2304,11 +2310,11 @@ function DashboardContent() {
 
       {/* チュートリアルシステム */}
       <TutorialSystem
-        onComplete={() => console.log('チュートリアル完了')}
-        onSkip={() => console.log('チュートリアルスキップ')}
+        onComplete={() => console.log("チュートリアル完了")}
+        onSkip={() => console.log("チュートリアルスキップ")}
         onStartAnalysis={() => setShowAnalysisModal(true)}
         onOpenSettings={() => setShowSettingsModal(true)}
-        onOpenRoutine={() => window.location.href = '/five-min-routine'}
+        onOpenRoutine={() => window.location.href = "/five-min-routine"}
       />
 
       {/* モデル詳細モーダル */}

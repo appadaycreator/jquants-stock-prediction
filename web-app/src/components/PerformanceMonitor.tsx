@@ -3,8 +3,8 @@
  * リアルタイムでパフォーマンス状況を表示
  */
 
-import React from 'react';
-import { usePerformance } from '../hooks/usePerformance';
+import React from "react";
+import { usePerformance } from "../hooks/usePerformance";
 import { 
   Activity, 
   Zap, 
@@ -13,8 +13,8 @@ import {
   AlertTriangle,
   CheckCircle,
   TrendingUp,
-  Cpu
-} from 'lucide-react';
+  Cpu,
+} from "lucide-react";
 
 interface PerformanceMonitorProps {
   showDetails?: boolean;
@@ -25,7 +25,7 @@ interface PerformanceMonitorProps {
 export default function PerformanceMonitor({ 
   showDetails = false, 
   compact = false,
-  onOptimize
+  onOptimize,
 }: PerformanceMonitorProps) {
   const {
     metrics,
@@ -36,7 +36,7 @@ export default function PerformanceMonitor({
     getRecommendations,
     getPerformanceStatus,
     isHealthy,
-    needsOptimization
+    needsOptimization,
   } = usePerformance();
 
   const score = getScore();
@@ -70,9 +70,9 @@ export default function PerformanceMonitor({
     return (
       <div className="flex items-center space-x-2">
         {getStatusIcon()}
-        <span className={`text-sm ${status.color === 'green' ? 'text-green-600' : 
-          status.color === 'yellow' ? 'text-yellow-600' : 
-          status.color === 'red' ? 'text-red-600' : 'text-gray-600'}`}>
+        <span className={`text-sm ${status.color === "green" ? "text-green-600" : 
+          status.color === "yellow" ? "text-yellow-600" : 
+          status.color === "red" ? "text-red-600" : "text-gray-600"}`}>
           {score}点
         </span>
       </div>
@@ -89,9 +89,9 @@ export default function PerformanceMonitor({
         <div className="flex items-center space-x-2">
           {getStatusIcon()}
           <span className={`font-medium ${
-            status.color === 'green' ? 'text-green-600' : 
-            status.color === 'yellow' ? 'text-yellow-600' : 
-            status.color === 'red' ? 'text-red-600' : 'text-gray-600'
+            status.color === "green" ? "text-green-600" : 
+            status.color === "yellow" ? "text-yellow-600" : 
+            status.color === "red" ? "text-red-600" : "text-gray-600"
           }`}>
             {score}点 ({status.status})
           </span>
@@ -154,9 +154,9 @@ export default function PerformanceMonitor({
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-gray-900">パフォーマンススコア</span>
               <span className={`text-sm font-bold ${
-                score >= 90 ? 'text-green-600' : 
-                score >= 70 ? 'text-blue-600' : 
-                score >= 50 ? 'text-yellow-600' : 'text-red-600'
+                score >= 90 ? "text-green-600" : 
+                score >= 70 ? "text-blue-600" : 
+                score >= 50 ? "text-yellow-600" : "text-red-600"
               }`}>
                 {score}点
               </span>
@@ -164,9 +164,9 @@ export default function PerformanceMonitor({
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div 
                 className={`h-2 rounded-full transition-all duration-300 ${
-                  score >= 90 ? 'bg-green-500' : 
-                  score >= 70 ? 'bg-blue-500' : 
-                  score >= 50 ? 'bg-yellow-500' : 'bg-red-500'
+                  score >= 90 ? "bg-green-500" : 
+                  score >= 70 ? "bg-blue-500" : 
+                  score >= 50 ? "bg-yellow-500" : "bg-red-500"
                 }`}
                 style={{ width: `${score}%` }}
               />
@@ -184,8 +184,8 @@ export default function PerformanceMonitor({
           disabled={isOptimizing}
           className="flex items-center space-x-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <Activity className={`h-4 w-4 ${isOptimizing ? 'animate-spin' : ''}`} />
-          <span>{isOptimizing ? '最適化中...' : '最適化実行'}</span>
+          <Activity className={`h-4 w-4 ${isOptimizing ? "animate-spin" : ""}`} />
+          <span>{isOptimizing ? "最適化中..." : "最適化実行"}</span>
         </button>
         
         <div className="text-xs text-gray-500">

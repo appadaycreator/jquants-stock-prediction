@@ -17,7 +17,7 @@ interface CacheOptions {
 
 class CacheManager {
   private static instance: CacheManager;
-  private readonly CACHE_PREFIX = 'jquants_cache_';
+  private readonly CACHE_PREFIX = "jquants_cache_";
   private readonly DEFAULT_TTL_HOURS = 6;
 
   static getInstance(): CacheManager {
@@ -35,12 +35,12 @@ class CacheManager {
       const cacheItem: CacheItem<T> = {
         data,
         timestamp: new Date().toISOString(),
-        version: options.version || '1.0'
+        version: options.version || "1.0",
       };
       
       localStorage.setItem(
         `${this.CACHE_PREFIX}${key}`,
-        JSON.stringify(cacheItem)
+        JSON.stringify(cacheItem),
       );
     } catch (error) {
       console.warn(`キャッシュ保存に失敗 (${key}):`, error);
@@ -117,7 +117,7 @@ class CacheManager {
   async getWithFallback<T>(
     key: string,
     fetchFn: () => Promise<T>,
-    options: CacheOptions = {}
+    options: CacheOptions = {},
   ): Promise<{ data: T; fromCache: boolean; error?: string }> {
     try {
       // まずキャッシュをチェック
@@ -139,7 +139,7 @@ class CacheManager {
         return { 
           data: cached, 
           fromCache: true, 
-          error: '最新データの取得に失敗しました。前回の結果を表示しています。' 
+          error: "最新データの取得に失敗しました。前回の結果を表示しています。", 
         };
       }
 
@@ -148,7 +148,7 @@ class CacheManager {
         return { 
           data: options.fallbackData, 
           fromCache: true, 
-          error: 'データ取得に失敗しました。サンプルデータを表示しています。' 
+          error: "データ取得に失敗しました。サンプルデータを表示しています。", 
         };
       }
 
@@ -162,13 +162,13 @@ class CacheManager {
   async getAnalysisResults(): Promise<{
     hasAnalysis: boolean;
     lastAnalysisTime?: string;
-    analysisStatus?: 'completed' | 'failed' | 'not_started';
+    analysisStatus?: "completed" | "failed" | "not_started";
   }> {
-    const cacheKey = 'analysis_status';
+    const cacheKey = "analysis_status";
     const cached = this.get<{
       hasAnalysis: boolean;
       lastAnalysisTime?: string;
-      analysisStatus?: 'completed' | 'failed' | 'not_started';
+      analysisStatus?: "completed" | "failed" | "not_started";
     }>(cacheKey);
 
     if (cached) {
@@ -178,7 +178,7 @@ class CacheManager {
     // APIルートが削除されているため、デフォルト値を返す
     const result = {
       hasAnalysis: false,
-      analysisStatus: 'not_started' as const
+      analysisStatus: "not_started" as const,
     };
     this.set(cacheKey, result, { ttlHours: 1 }); // 1時間キャッシュ
     return result;
@@ -195,17 +195,17 @@ class CacheManager {
     // APIルートが削除されているため、フォールバックデータを直接返す
     const fallbackData = {
       analysisRequired: true,
-      analysisStatus: 'not_started',
+      analysisStatus: "not_started",
       error: {
-        code: 'API_UNAVAILABLE',
-        message: 'APIが利用できません。サンプルデータを表示しています。'
-      }
+        code: "API_UNAVAILABLE",
+        message: "APIが利用できません。サンプルデータを表示しています。",
+      },
     };
     
     return {
       data: fallbackData,
       fromCache: false,
-      error: 'APIが利用できません。サンプルデータを表示しています。'
+      error: "APIが利用できません。サンプルデータを表示しています。",
     };
   }
 
@@ -222,15 +222,15 @@ class CacheManager {
       signals: [],
       analysisRequired: true,
       error: {
-        code: 'API_UNAVAILABLE',
-        message: 'APIが利用できません。サンプルデータを表示しています。'
-      }
+        code: "API_UNAVAILABLE",
+        message: "APIが利用できません。サンプルデータを表示しています。",
+      },
     };
     
     return {
       data: fallbackData,
       fromCache: false,
-      error: 'APIが利用できません。サンプルデータを表示しています。'
+      error: "APIが利用できません。サンプルデータを表示しています。",
     };
   }
 
@@ -246,7 +246,7 @@ class CacheManager {
         }
       });
     } catch (error) {
-      console.warn('キャッシュクリアに失敗:', error);
+      console.warn("キャッシュクリアに失敗:", error);
     }
   }
 
@@ -284,10 +284,10 @@ class CacheManager {
             try {
               const cacheItem = JSON.parse(value);
               items.push({
-                key: key.replace(this.CACHE_PREFIX, ''),
+                key: key.replace(this.CACHE_PREFIX, ""),
                 size,
                 timestamp: cacheItem.timestamp,
-                isValid: this.isValid(key.replace(this.CACHE_PREFIX, ''))
+                isValid: this.isValid(key.replace(this.CACHE_PREFIX, "")),
               });
             } catch (e) {
               // 無効なキャッシュアイテム
@@ -296,13 +296,13 @@ class CacheManager {
         }
       });
     } catch (error) {
-      console.warn('キャッシュ統計の取得に失敗:', error);
+      console.warn("キャッシュ統計の取得に失敗:", error);
     }
 
     return {
       totalItems: items.length,
       totalSize,
-      items
+      items,
     };
   }
 }

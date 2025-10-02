@@ -160,7 +160,7 @@ export default function RoutineDashboard({
                 setTodayActions({
                   ...cached,
                   isUsingCache: true,
-                  cacheMessage: "最新データの取得に失敗しました。前回の結果を表示しています。"
+                  cacheMessage: "最新データの取得に失敗しました。前回の結果を表示しています。",
                 });
                 return;
               }
@@ -199,7 +199,7 @@ export default function RoutineDashboard({
                 action: "trade",
                 priority: "high",
               },
-            ]
+            ],
           });
         }
       }
@@ -214,7 +214,7 @@ export default function RoutineDashboard({
           setTodayActions({
             ...cached,
             isUsingCache: true,
-            cacheMessage: "ネットワークエラーが発生しました。前回の結果を表示しています。"
+            cacheMessage: "ネットワークエラーが発生しました。前回の結果を表示しています。",
           });
           return;
         } catch (e) {
@@ -227,7 +227,7 @@ export default function RoutineDashboard({
         analysisRequired: true,
         watchlistUpdates: [],
         nextUpdateTime: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
-        priorityActions: []
+        priorityActions: [],
       });
     }
   }, []);

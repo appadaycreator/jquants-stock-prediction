@@ -5,7 +5,7 @@
 
 interface DataSyncStatus {
   lastUpdate: string;
-  status: 'success' | 'error' | 'pending';
+  status: "success" | "error" | "pending";
   dataSources: {
     stockData: boolean;
     predictions: boolean;
@@ -34,20 +34,20 @@ class DataSyncManager {
       syncInterval: 5 * 60 * 1000, // 5分
       retryAttempts: 3,
       fallbackEnabled: true,
-      ...config
+      ...config,
     };
 
     this.status = {
       lastUpdate: new Date().toISOString(),
-      status: 'pending',
+      status: "pending",
       dataSources: {
         stockData: false,
         predictions: false,
         modelHealth: false,
         todayActions: false,
-        yesterdaySummary: false
+        yesterdaySummary: false,
       },
-      errors: []
+      errors: [],
     };
   }
 
@@ -76,8 +76,8 @@ class DataSyncManager {
    * 手動データ同期
    */
   async performSync(): Promise<DataSyncStatus> {
-    console.log('データ同期開始:', new Date().toISOString());
-    this.status.status = 'pending';
+    console.log("データ同期開始:", new Date().toISOString());
+    this.status.status = "pending";
     this.status.errors = [];
 
     try {
@@ -87,7 +87,7 @@ class DataSyncManager {
         this.syncPredictions(),
         this.syncModelHealth(),
         this.syncTodayActions(),
-        this.syncYesterdaySummary()
+        this.syncYesterdaySummary(),
       ];
 
       const results = await Promise.allSettled(syncPromises);
@@ -97,7 +97,7 @@ class DataSyncManager {
       results.forEach((result, index) => {
         const dataSource = Object.keys(this.status.dataSources)[index] as keyof typeof this.status.dataSources;
         
-        if (result.status === 'fulfilled') {
+        if (result.status === "fulfilled") {
           this.status.dataSources[dataSource] = true;
           successCount++;
         } else {
@@ -106,18 +106,18 @@ class DataSyncManager {
         }
       });
 
-      this.status.status = successCount > 0 ? 'success' : 'error';
+      this.status.status = successCount > 0 ? "success" : "error";
       this.status.lastUpdate = new Date().toISOString();
 
-      console.log('データ同期完了:', {
+      console.log("データ同期完了:", {
         success: successCount,
         total: results.length,
-        errors: this.status.errors
+        errors: this.status.errors,
       });
 
     } catch (error) {
-      console.error('データ同期エラー:', error);
-      this.status.status = 'error';
+      console.error("データ同期エラー:", error);
+      this.status.status = "error";
       this.status.errors.push(`同期エラー: ${error}`);
     }
 
@@ -129,7 +129,7 @@ class DataSyncManager {
    */
   private async syncStockData(): Promise<void> {
     try {
-      const response = await fetch('/data/stock_data.json');
+      const response = await fetch("/data/stock_data.json");
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -137,12 +137,12 @@ class DataSyncManager {
       
       // データの検証
       if (!data || !Array.isArray(data)) {
-        throw new Error('無効なデータ形式');
+        throw new Error("無効なデータ形式");
       }
 
-      console.log('株価データ同期成功:', data.length, '件');
+      console.log("株価データ同期成功:", data.length, "件");
     } catch (error) {
-      console.error('株価データ同期エラー:', error);
+      console.error("株価データ同期エラー:", error);
       throw error;
     }
   }
@@ -152,7 +152,7 @@ class DataSyncManager {
    */
   private async syncPredictions(): Promise<void> {
     try {
-      const response = await fetch('/data/predictions.json');
+      const response = await fetch("/data/predictions.json");
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -160,12 +160,12 @@ class DataSyncManager {
       
       // データの検証
       if (!data || !data.predictions) {
-        throw new Error('無効な予測データ形式');
+        throw new Error("無効な予測データ形式");
       }
 
-      console.log('予測データ同期成功:', data.predictions.length, '件');
+      console.log("予測データ同期成功:", data.predictions.length, "件");
     } catch (error) {
-      console.error('予測データ同期エラー:', error);
+      console.error("予測データ同期エラー:", error);
       throw error;
     }
   }
@@ -175,7 +175,7 @@ class DataSyncManager {
    */
   private async syncModelHealth(): Promise<void> {
     try {
-      const response = await fetch('/api/model-health');
+      const response = await fetch("/api/model-health");
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -183,12 +183,12 @@ class DataSyncManager {
       
       // データの検証
       if (!data || !data.status) {
-        throw new Error('無効なモデル健全性データ形式');
+        throw new Error("無効なモデル健全性データ形式");
       }
 
-      console.log('モデル健全性同期成功:', data.status);
+      console.log("モデル健全性同期成功:", data.status);
     } catch (error) {
-      console.error('モデル健全性同期エラー:', error);
+      console.error("モデル健全性同期エラー:", error);
       throw error;
     }
   }
@@ -198,7 +198,7 @@ class DataSyncManager {
    */
   private async syncTodayActions(): Promise<void> {
     try {
-      const response = await fetch('/api/today-actions');
+      const response = await fetch("/api/today-actions");
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -206,12 +206,12 @@ class DataSyncManager {
       
       // データの検証
       if (!data || !data.actions) {
-        throw new Error('無効な今日のアクションデータ形式');
+        throw new Error("無効な今日のアクションデータ形式");
       }
 
-      console.log('今日のアクション同期成功:', data.actions.length, '件');
+      console.log("今日のアクション同期成功:", data.actions.length, "件");
     } catch (error) {
-      console.error('今日のアクション同期エラー:', error);
+      console.error("今日のアクション同期エラー:", error);
       throw error;
     }
   }
@@ -221,7 +221,7 @@ class DataSyncManager {
    */
   private async syncYesterdaySummary(): Promise<void> {
     try {
-      const response = await fetch('/api/yesterday-summary');
+      const response = await fetch("/api/yesterday-summary");
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -229,12 +229,12 @@ class DataSyncManager {
       
       // データの検証
       if (!data || !data.date) {
-        throw new Error('無効な昨日のサマリーデータ形式');
+        throw new Error("無効な昨日のサマリーデータ形式");
       }
 
-      console.log('昨日のサマリー同期成功:', data.date);
+      console.log("昨日のサマリー同期成功:", data.date);
     } catch (error) {
-      console.error('昨日のサマリー同期エラー:', error);
+      console.error("昨日のサマリー同期エラー:", error);
       throw error;
     }
   }
@@ -266,7 +266,7 @@ class DataSyncManager {
 export const dataSyncManager = new DataSyncManager();
 
 // デフォルト設定での自動開始
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   dataSyncManager.startSync();
 }
 

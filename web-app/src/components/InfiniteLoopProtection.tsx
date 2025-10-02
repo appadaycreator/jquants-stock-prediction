@@ -12,7 +12,7 @@ interface InfiniteLoopProtectionProps {
 export default function InfiniteLoopProtection({ 
   children, 
   fallback,
-  componentId = "default"
+  componentId = "default",
 }: InfiniteLoopProtectionProps) {
   const [isBlocked, setIsBlocked] = useState(false);
   const renderCount = useRef(0);

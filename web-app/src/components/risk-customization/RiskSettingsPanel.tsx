@@ -2,16 +2,16 @@
  * リスク管理カスタマイズ設定パネル
  */
 
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Slider } from '@/components/ui/slider';
-import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import React, { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   Shield, 
   Target, 
@@ -20,10 +20,10 @@ import {
   Settings, 
   Save, 
   RotateCcw,
-  Info
-} from 'lucide-react';
-import { useRiskCustomization } from '@/hooks/useRiskCustomization';
-import { RiskCustomizationSettings, riskCustomizationStore } from '@/lib/risk-customization-store';
+  Info,
+} from "lucide-react";
+import { useRiskCustomization } from "@/hooks/useRiskCustomization";
+import { RiskCustomizationSettings, riskCustomizationStore } from "@/lib/risk-customization-store";
 
 interface RiskSettingsPanelProps {
   onClose?: () => void;
@@ -68,7 +68,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
   };
 
   // リスク許容度の更新
-  const updateRiskTolerance = (field: keyof RiskCustomizationSettings['riskTolerance'], value: any) => {
+  const updateRiskTolerance = (field: keyof RiskCustomizationSettings["riskTolerance"], value: any) => {
     setLocalSettings(prev => ({
       ...prev,
       riskTolerance: {
@@ -79,7 +79,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
   };
 
   // 目標リターンの更新
-  const updateTargetReturn = (field: keyof RiskCustomizationSettings['targetReturn'], value: any) => {
+  const updateTargetReturn = (field: keyof RiskCustomizationSettings["targetReturn"], value: any) => {
     setLocalSettings(prev => ({
       ...prev,
       targetReturn: {
@@ -90,7 +90,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
   };
 
   // 通知設定の更新
-  const updateNotifications = (field: keyof RiskCustomizationSettings['notifications'], value: boolean) => {
+  const updateNotifications = (field: keyof RiskCustomizationSettings["notifications"], value: boolean) => {
     setLocalSettings(prev => ({
       ...prev,
       notifications: {
@@ -101,7 +101,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
   };
 
   // 表示設定の更新
-  const updateDisplay = (field: keyof RiskCustomizationSettings['display'], value: boolean) => {
+  const updateDisplay = (field: keyof RiskCustomizationSettings["display"], value: boolean) => {
     setLocalSettings(prev => ({
       ...prev,
       display: {
@@ -114,14 +114,14 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
   // リスクレベルの説明
   const getRiskLevelDescription = (level: string) => {
     const descriptions = {
-      'VERY_LOW': '非常に保守的 - 元本保護重視',
-      'LOW': '保守的 - 安定した成長を重視',
-      'MEDIUM': 'バランス型 - リスクとリターンのバランス',
-      'HIGH': '積極的 - 高いリターンを追求',
-      'VERY_HIGH': '非常に積極的 - 高リスク高リターン',
-      'CRITICAL': '極めて積極的 - 最大限のリターン追求',
+      "VERY_LOW": "非常に保守的 - 元本保護重視",
+      "LOW": "保守的 - 安定した成長を重視",
+      "MEDIUM": "バランス型 - リスクとリターンのバランス",
+      "HIGH": "積極的 - 高いリターンを追求",
+      "VERY_HIGH": "非常に積極的 - 高リスク高リターン",
+      "CRITICAL": "極めて積極的 - 最大限のリターン追求",
     };
-    return descriptions[level as keyof typeof descriptions] || '';
+    return descriptions[level as keyof typeof descriptions] || "";
   };
 
   return (
@@ -167,7 +167,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
             <Label htmlFor="risk-level">リスクレベル</Label>
             <Select
               value={localSettings.riskTolerance.level}
-              onValueChange={(value) => updateRiskTolerance('level', value)}
+              onValueChange={(value) => updateRiskTolerance("level", value)}
             >
               <SelectTrigger>
                 <SelectValue />
@@ -191,7 +191,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
             <Label>最大ドローダウン許容値: {(localSettings.riskTolerance.maxDrawdown * 100).toFixed(1)}%</Label>
             <Slider
               value={[localSettings.riskTolerance.maxDrawdown * 100]}
-              onValueChange={([value]) => updateRiskTolerance('maxDrawdown', value / 100)}
+              onValueChange={([value]) => updateRiskTolerance("maxDrawdown", value / 100)}
               max={50}
               min={1}
               step={0.5}
@@ -208,7 +208,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
             <Label>ボラティリティ許容値: {(localSettings.riskTolerance.volatilityTolerance * 100).toFixed(1)}%</Label>
             <Slider
               value={[localSettings.riskTolerance.volatilityTolerance * 100]}
-              onValueChange={([value]) => updateRiskTolerance('volatilityTolerance', value / 100)}
+              onValueChange={([value]) => updateRiskTolerance("volatilityTolerance", value / 100)}
               max={100}
               min={5}
               step={1}
@@ -225,7 +225,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
             <Label>VaR許容値: {(localSettings.riskTolerance.varTolerance * 100).toFixed(1)}%</Label>
             <Slider
               value={[localSettings.riskTolerance.varTolerance * 100]}
-              onValueChange={([value]) => updateRiskTolerance('varTolerance', value / 100)}
+              onValueChange={([value]) => updateRiskTolerance("varTolerance", value / 100)}
               max={20}
               min={1}
               step={0.5}
@@ -255,7 +255,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
               id="annual-return"
               type="number"
               value={localSettings.targetReturn.annual * 100}
-              onChange={(e) => updateTargetReturn('annual', parseFloat(e.target.value) / 100)}
+              onChange={(e) => updateTargetReturn("annual", parseFloat(e.target.value) / 100)}
               min={0}
               max={100}
               step={0.1}
@@ -269,7 +269,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
               id="monthly-return"
               type="number"
               value={localSettings.targetReturn.monthly * 100}
-              onChange={(e) => updateTargetReturn('monthly', parseFloat(e.target.value) / 100)}
+              onChange={(e) => updateTargetReturn("monthly", parseFloat(e.target.value) / 100)}
               min={0}
               max={20}
               step={0.1}
@@ -281,7 +281,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
             <Switch
               id="risk-adjusted"
               checked={localSettings.targetReturn.riskAdjusted}
-              onCheckedChange={(checked) => updateTargetReturn('riskAdjusted', checked)}
+              onCheckedChange={(checked) => updateTargetReturn("riskAdjusted", checked)}
             />
             <Label htmlFor="risk-adjusted">リスク調整後リターンを使用</Label>
           </div>
@@ -303,7 +303,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
               <Switch
                 id="target-price-notification"
                 checked={localSettings.notifications.targetPriceReached}
-                onCheckedChange={(checked) => updateNotifications('targetPriceReached', checked)}
+                onCheckedChange={(checked) => updateNotifications("targetPriceReached", checked)}
               />
             </div>
             <div className="flex items-center justify-between">
@@ -311,7 +311,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
               <Switch
                 id="stop-loss-notification"
                 checked={localSettings.notifications.stopLossTriggered}
-                onCheckedChange={(checked) => updateNotifications('stopLossTriggered', checked)}
+                onCheckedChange={(checked) => updateNotifications("stopLossTriggered", checked)}
               />
             </div>
             <div className="flex items-center justify-between">
@@ -319,7 +319,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
               <Switch
                 id="risk-level-notification"
                 checked={localSettings.notifications.riskLevelChanged}
-                onCheckedChange={(checked) => updateNotifications('riskLevelChanged', checked)}
+                onCheckedChange={(checked) => updateNotifications("riskLevelChanged", checked)}
               />
             </div>
             <div className="flex items-center justify-between">
@@ -327,7 +327,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
               <Switch
                 id="daily-summary-notification"
                 checked={localSettings.notifications.dailySummary}
-                onCheckedChange={(checked) => updateNotifications('dailySummary', checked)}
+                onCheckedChange={(checked) => updateNotifications("dailySummary", checked)}
               />
             </div>
           </div>
@@ -349,7 +349,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
               <Switch
                 id="show-risk-details"
                 checked={localSettings.display.showRiskDetails}
-                onCheckedChange={(checked) => updateDisplay('showRiskDetails', checked)}
+                onCheckedChange={(checked) => updateDisplay("showRiskDetails", checked)}
               />
             </div>
             <div className="flex items-center justify-between">
@@ -357,7 +357,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
               <Switch
                 id="show-recommendation-reasons"
                 checked={localSettings.display.showRecommendationReasons}
-                onCheckedChange={(checked) => updateDisplay('showRecommendationReasons', checked)}
+                onCheckedChange={(checked) => updateDisplay("showRecommendationReasons", checked)}
               />
             </div>
             <div className="flex items-center justify-between">
@@ -365,7 +365,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
               <Switch
                 id="show-technical-indicators"
                 checked={localSettings.display.showTechnicalIndicators}
-                onCheckedChange={(checked) => updateDisplay('showTechnicalIndicators', checked)}
+                onCheckedChange={(checked) => updateDisplay("showTechnicalIndicators", checked)}
               />
             </div>
             <div className="flex items-center justify-between">
@@ -373,7 +373,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
               <Switch
                 id="show-sentiment-analysis"
                 checked={localSettings.display.showSentimentAnalysis}
-                onCheckedChange={(checked) => updateDisplay('showSentimentAnalysis', checked)}
+                onCheckedChange={(checked) => updateDisplay("showSentimentAnalysis", checked)}
               />
             </div>
           </div>
@@ -403,7 +403,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
                 目標リターン: {(localSettings.targetReturn.annual * 100).toFixed(1)}%
               </Badge>
               <p className="text-gray-600">
-                リスク調整: {localSettings.targetReturn.riskAdjusted ? '有効' : '無効'}
+                リスク調整: {localSettings.targetReturn.riskAdjusted ? "有効" : "無効"}
               </p>
             </div>
           </div>

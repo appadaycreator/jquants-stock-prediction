@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 // 動的レンダリングを強制
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { 
   Target, 
@@ -15,7 +15,7 @@ import {
   Play,
   Settings,
   BookOpen,
-  Shield
+  Shield,
 } from "lucide-react";
 
 export default function LandingPage() {

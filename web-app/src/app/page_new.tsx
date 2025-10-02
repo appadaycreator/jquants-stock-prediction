@@ -12,7 +12,7 @@ import {
   Play,
   Settings,
   BookOpen,
-  Shield
+  Shield,
 } from "lucide-react";
 
 export default function LandingPage() {

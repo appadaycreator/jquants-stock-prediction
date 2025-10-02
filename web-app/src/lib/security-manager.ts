@@ -16,12 +16,12 @@ interface SecurityConfig {
 }
 
 interface SecurityHeaders {
-  'Content-Security-Policy': string;
-  'X-Frame-Options': string;
-  'X-Content-Type-Options': string;
-  'X-XSS-Protection': string;
-  'Strict-Transport-Security': string;
-  'Referrer-Policy': string;
+  "Content-Security-Policy": string;
+  "X-Frame-Options": string;
+  "X-Content-Type-Options": string;
+  "X-XSS-Protection": string;
+  "Strict-Transport-Security": string;
+  "Referrer-Policy": string;
 }
 
 interface AuditLog {
@@ -49,7 +49,7 @@ class SecurityManager {
       maxLoginAttempts: 5,
       passwordMinLength: 8,
       enableAuditLog: true,
-      ...config
+      ...config,
     };
 
     this.initializeSecurity();
@@ -59,7 +59,7 @@ class SecurityManager {
    * セキュリティの初期化
    */
   private initializeSecurity(): void {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     this.setSecurityHeaders();
     this.initializeCSP();
@@ -71,22 +71,22 @@ class SecurityManager {
    * セキュリティヘッダーの設定
    */
   private setSecurityHeaders(): void {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     const headers: SecurityHeaders = {
-      'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' data:;",
-      'X-Frame-Options': 'DENY',
-      'X-Content-Type-Options': 'nosniff',
-      'X-XSS-Protection': '1; mode=block',
-      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
-      'Referrer-Policy': 'strict-origin-when-cross-origin'
+      "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; font-src 'self' data:;",
+      "X-Frame-Options": "DENY",
+      "X-Content-Type-Options": "nosniff",
+      "X-XSS-Protection": "1; mode=block",
+      "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
     };
 
     // メタタグとして設定
     Object.entries(headers).forEach(([name, value]) => {
-      const meta = document.createElement('meta');
-      meta.setAttribute('http-equiv', name);
-      meta.setAttribute('content', value);
+      const meta = document.createElement("meta");
+      meta.setAttribute("http-equiv", name);
+      meta.setAttribute("content", value);
       document.head.appendChild(meta);
     });
   }
@@ -95,10 +95,10 @@ class SecurityManager {
    * CSPの初期化
    */
   private initializeCSP(): void {
-    if (!this.config.enableCSP || typeof window === 'undefined') return;
+    if (!this.config.enableCSP || typeof window === "undefined") return;
 
     // インラインスクリプトの制限
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.textContent = `
       // CSP違反の監視
       document.addEventListener('securitypolicyviolation', (e) => {
@@ -117,7 +117,7 @@ class SecurityManager {
    * セッション管理の初期化
    */
   private initializeSessionManagement(): void {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     // セッションタイムアウトの監視
     let lastActivity = Date.now();
@@ -127,7 +127,7 @@ class SecurityManager {
     };
 
     // ユーザーアクティビティの監視
-    ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
+    ["mousedown", "mousemove", "keypress", "scroll", "touchstart"].forEach(event => {
       document.addEventListener(event, resetActivity, true);
     });
 
@@ -143,7 +143,7 @@ class SecurityManager {
    * セッションタイムアウトの処理
    */
   private handleSessionTimeout(): void {
-    this.logSecurityEvent('session_timeout', {});
+    this.logSecurityEvent("session_timeout", {});
     
     // セッションのクリア
     this.clearSession();
@@ -159,10 +159,10 @@ class SecurityManager {
     if (!this.config.enableAuditLog) return;
 
     // セキュリティイベントの監視
-    this.logSecurityEvent('security_initialized', {
+    this.logSecurityEvent("security_initialized", {
       timestamp: new Date().toISOString(),
       userAgent: navigator.userAgent,
-      url: window.location.href
+      url: window.location.href,
     });
   }
 
@@ -177,24 +177,24 @@ class SecurityManager {
     }
 
     if (!/[A-Z]/.test(password)) {
-      errors.push('大文字を含む必要があります');
+      errors.push("大文字を含む必要があります");
     }
 
     if (!/[a-z]/.test(password)) {
-      errors.push('小文字を含む必要があります');
+      errors.push("小文字を含む必要があります");
     }
 
     if (!/[0-9]/.test(password)) {
-      errors.push('数字を含む必要があります');
+      errors.push("数字を含む必要があります");
     }
 
     if (!/[^A-Za-z0-9]/.test(password)) {
-      errors.push('特殊文字を含む必要があります');
+      errors.push("特殊文字を含む必要があります");
     }
 
     return {
       valid: errors.length === 0,
-      errors
+      errors,
     };
   }
 
@@ -217,7 +217,7 @@ class SecurityManager {
     }
 
     if (attempts.count >= this.config.maxLoginAttempts) {
-      this.logSecurityEvent('login_blocked', { identifier, attempts: attempts.count });
+      this.logSecurityEvent("login_blocked", { identifier, attempts: attempts.count });
       return { allowed: false, remaining: 0 };
     }
 
@@ -227,7 +227,7 @@ class SecurityManager {
 
     return { 
       allowed: true, 
-      remaining: this.config.maxLoginAttempts - attempts.count 
+      remaining: this.config.maxLoginAttempts - attempts.count, 
     };
   }
 
@@ -240,7 +240,7 @@ class SecurityManager {
     
     this.sessionTokens.set(token, { userId, expires });
     
-    this.logSecurityEvent('session_created', { userId, token });
+    this.logSecurityEvent("session_created", { userId, token });
     
     return token;
   }
@@ -252,13 +252,13 @@ class SecurityManager {
     const session = this.sessionTokens.get(token);
     
     if (!session) {
-      this.logSecurityEvent('invalid_session', { token });
+      this.logSecurityEvent("invalid_session", { token });
       return { valid: false };
     }
 
     if (Date.now() > session.expires) {
       this.sessionTokens.delete(token);
-      this.logSecurityEvent('session_expired', { token, userId: session.userId });
+      this.logSecurityEvent("session_expired", { token, userId: session.userId });
       return { valid: false };
     }
 
@@ -270,7 +270,7 @@ class SecurityManager {
    */
   clearSession(): void {
     this.sessionTokens.clear();
-    this.logSecurityEvent('session_cleared', {});
+    this.logSecurityEvent("session_cleared", {});
   }
 
   /**
@@ -280,12 +280,12 @@ class SecurityManager {
     this.clearSession();
     
     // ローカルストレージのクリア
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       localStorage.clear();
       sessionStorage.clear();
     }
 
-    this.logSecurityEvent('logout', {});
+    this.logSecurityEvent("logout", {});
   }
 
   /**
@@ -294,7 +294,7 @@ class SecurityManager {
   private generateSecureToken(): string {
     const array = new Uint8Array(32);
     crypto.getRandomValues(array);
-    return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+    return Array.from(array, byte => byte.toString(16).padStart(2, "0")).join("");
   }
 
   /**
@@ -309,18 +309,18 @@ class SecurityManager {
       const keyBuffer = encoder.encode(key);
 
       const cryptoKey = await crypto.subtle.importKey(
-        'raw',
+        "raw",
         keyBuffer,
-        { name: 'AES-GCM' },
+        { name: "AES-GCM" },
         false,
-        ['encrypt']
+        ["encrypt"],
       );
 
       const iv = crypto.getRandomValues(new Uint8Array(12));
       const encrypted = await crypto.subtle.encrypt(
-        { name: 'AES-GCM', iv },
+        { name: "AES-GCM", iv },
         cryptoKey,
-        dataBuffer
+        dataBuffer,
       );
 
       const result = new Uint8Array(iv.length + encrypted.byteLength);
@@ -329,7 +329,7 @@ class SecurityManager {
 
       return btoa(String.fromCharCode(...result));
     } catch (error) {
-      console.error('暗号化エラー:', error);
+      console.error("暗号化エラー:", error);
       throw error;
     }
   }
@@ -345,11 +345,11 @@ class SecurityManager {
       const keyBuffer = new TextEncoder().encode(key);
 
       const cryptoKey = await crypto.subtle.importKey(
-        'raw',
+        "raw",
         keyBuffer,
-        { name: 'AES-GCM' },
+        { name: "AES-GCM" },
         false,
-        ['decrypt']
+        ["decrypt"],
       );
 
       const data = Uint8Array.from(atob(encryptedData), c => c.charCodeAt(0));
@@ -357,14 +357,14 @@ class SecurityManager {
       const encrypted = data.slice(12);
 
       const decrypted = await crypto.subtle.decrypt(
-        { name: 'AES-GCM', iv },
+        { name: "AES-GCM", iv },
         cryptoKey,
-        encrypted
+        encrypted,
       );
 
       return decoder.decode(decrypted);
     } catch (error) {
-      console.error('復号化エラー:', error);
+      console.error("復号化エラー:", error);
       throw error;
     }
   }
@@ -380,13 +380,13 @@ class SecurityManager {
       event,
       details,
       ip: this.getClientIP(),
-      user: this.getCurrentUser()
+      user: this.getCurrentUser(),
     };
 
     this.auditLogs.push(log);
 
     // ログの保存（実際の実装ではサーバーに送信）
-    console.log('セキュリティイベント:', log);
+    console.log("セキュリティイベント:", log);
   }
 
   /**
@@ -394,7 +394,7 @@ class SecurityManager {
    */
   private getClientIP(): string {
     // 実際の実装ではサーバーから取得
-    return 'unknown';
+    return "unknown";
   }
 
   /**
@@ -402,7 +402,7 @@ class SecurityManager {
    */
   private getCurrentUser(): string {
     // 実際の実装では認証システムから取得
-    return 'anonymous';
+    return "anonymous";
   }
 
   /**

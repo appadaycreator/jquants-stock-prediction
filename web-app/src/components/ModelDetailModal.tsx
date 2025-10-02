@@ -20,7 +20,7 @@ export default function ModelDetailModal({
   isOpen, 
   onClose, 
   model, 
-  performanceData 
+  performanceData, 
 }: ModelDetailModalProps) {
   if (!isOpen || !model) return null;
 

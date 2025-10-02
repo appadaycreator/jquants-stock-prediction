@@ -28,27 +28,27 @@ const featureCategories: FeatureCategory[] = [
         key: "sma_5",
         label: "SMA_5",
         description: "5日単純移動平均。短期トレンドの方向性を示します。推奨値：短期分析に有効",
-        recommended: true
+        recommended: true,
       },
       {
         key: "sma_10",
         label: "SMA_10",
         description: "10日単純移動平均。中短期トレンドの確認に使用。推奨値：バランスの取れた分析",
-        recommended: true
+        recommended: true,
       },
       {
         key: "sma_25",
         label: "SMA_25",
         description: "25日単純移動平均。中期トレンドの判断に使用。推奨値：中期分析の基準",
-        recommended: true
+        recommended: true,
       },
       {
         key: "sma_50",
         label: "SMA_50",
         description: "50日単純移動平均。長期トレンドの確認に使用。推奨値：長期トレンド分析",
-        recommended: false
-      }
-    ]
+        recommended: false,
+      },
+    ],
   },
   {
     id: "oscillators",
@@ -59,15 +59,15 @@ const featureCategories: FeatureCategory[] = [
         key: "rsi",
         label: "RSI",
         description: "相対力指数。0-100の範囲で過買い・過売りを判断。推奨値：30以下で買い、70以上で売り",
-        recommended: true
+        recommended: true,
       },
       {
         key: "macd",
         label: "MACD",
         description: "移動平均収束発散。トレンドの変化を捉える。推奨値：シグナルラインとの交差で判断",
-        recommended: true
-      }
-    ]
+        recommended: true,
+      },
+    ],
   },
   {
     id: "volatility",
@@ -78,15 +78,15 @@ const featureCategories: FeatureCategory[] = [
         key: "bollinger_upper",
         label: "ボリンジャー上",
         description: "ボリンジャーバンドの上限。価格が上回ると過買いの可能性。推奨値：価格が上回ったら売りシグナル",
-        recommended: true
+        recommended: true,
       },
       {
         key: "bollinger_lower",
         label: "ボリンジャー下",
         description: "ボリンジャーバンドの下限。価格が下回ると過売りの可能性。推奨値：価格が下回ったら買いシグナル",
-        recommended: true
-      }
-    ]
+        recommended: true,
+      },
+    ],
   },
   {
     id: "volume",
@@ -97,16 +97,16 @@ const featureCategories: FeatureCategory[] = [
         key: "volume_sma",
         label: "出来高移動平均",
         description: "出来高の移動平均。取引の活発さを測定。推奨値：価格上昇時の出来高増加を確認",
-        recommended: false
+        recommended: false,
       },
       {
         key: "volume_ratio",
         label: "出来高比率",
         description: "現在の出来高と平均出来高の比率。推奨値：1.5以上で異常な取引量",
-        recommended: false
-      }
-    ]
-  }
+        recommended: false,
+      },
+    ],
+  },
 ];
 
 interface FeatureCategoriesProps {
@@ -116,19 +116,19 @@ interface FeatureCategoriesProps {
 
 export default function FeatureCategories({ 
   selectedFeatures, 
-  onFeatureChange 
+  onFeatureChange, 
 }: FeatureCategoriesProps) {
   const [expandedCategories, setExpandedCategories] = useState<string[]>([
     "moving_averages", 
     "oscillators", 
-    "volatility"
+    "volatility",
   ]);
 
   const toggleCategory = (categoryId: string) => {
     setExpandedCategories(prev => 
       prev.includes(categoryId) 
         ? prev.filter(id => id !== categoryId)
-        : [...prev, categoryId]
+        : [...prev, categoryId],
     );
   };
 

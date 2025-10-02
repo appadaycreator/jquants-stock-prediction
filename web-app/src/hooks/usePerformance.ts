@@ -3,8 +3,8 @@
  * リアルタイムでパフォーマンスを監視・最適化
  */
 
-import { useState, useEffect, useCallback } from 'react';
-import { performanceOptimizer } from '../lib/performance-optimizer';
+import { useState, useEffect, useCallback } from "react";
+import { performanceOptimizer } from "../lib/performance-optimizer";
 
 interface UsePerformanceOptions {
   enableMonitoring?: boolean;
@@ -22,7 +22,7 @@ export function usePerformance(options: UsePerformanceOptions = {}) {
     enableMonitoring = true,
     reportInterval = 30000, // 30秒
     onPerformanceChange,
-    onOptimizationNeeded
+    onOptimizationNeeded,
   } = options;
 
   // パフォーマンス監視
@@ -70,7 +70,7 @@ export function usePerformance(options: UsePerformanceOptions = {}) {
       setReport(updatedReport);
       
     } catch (error) {
-      console.error('最適化エラー:', error);
+      console.error("最適化エラー:", error);
     } finally {
       setIsOptimizing(false);
     }
@@ -92,10 +92,10 @@ export function usePerformance(options: UsePerformanceOptions = {}) {
   const getPerformanceStatus = useCallback(() => {
     const score = getScore();
     
-    if (score >= 90) return { status: 'excellent', color: 'green' };
-    if (score >= 70) return { status: 'good', color: 'blue' };
-    if (score >= 50) return { status: 'fair', color: 'yellow' };
-    return { status: 'poor', color: 'red' };
+    if (score >= 90) return { status: "excellent", color: "green" };
+    if (score >= 70) return { status: "good", color: "blue" };
+    if (score >= 50) return { status: "fair", color: "yellow" };
+    return { status: "poor", color: "red" };
   }, [getScore]);
 
   return {
@@ -107,6 +107,6 @@ export function usePerformance(options: UsePerformanceOptions = {}) {
     getRecommendations,
     getPerformanceStatus,
     isHealthy: getScore() >= 70,
-    needsOptimization: getScore() < 70
+    needsOptimization: getScore() < 70,
   };
 }

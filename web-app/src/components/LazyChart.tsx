@@ -87,7 +87,7 @@ export default function LazyChart({
       {
         rootMargin: "100px", // 100px手前で読み込み開始
         threshold: 0.1,
-      }
+      },
     );
 
     observerRef.current.observe(chartRef.current);
@@ -354,7 +354,7 @@ export function useLazyChart() {
     id: string,
     type: string,
     data: any[],
-    options: any = {}
+    options: any = {},
   ) => {
     if (charts.has(id)) {
       return charts.get(id);

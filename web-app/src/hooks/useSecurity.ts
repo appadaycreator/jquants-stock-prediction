@@ -3,8 +3,8 @@
  * セキュリティ機能の提供と監視
  */
 
-import { useState, useEffect, useCallback } from 'react';
-import { securityManager } from '../lib/security-manager';
+import { useState, useEffect, useCallback } from "react";
+import { securityManager } from "../lib/security-manager";
 
 interface UseSecurityOptions {
   enableMonitoring?: boolean;
@@ -23,7 +23,7 @@ export function useSecurity(options: UseSecurityOptions = {}) {
     enableMonitoring = true,
     onSecurityEvent,
     onSessionTimeout,
-    onLoginBlocked
+    onLoginBlocked,
   } = options;
 
   // セキュリティ監視
@@ -32,7 +32,7 @@ export function useSecurity(options: UseSecurityOptions = {}) {
 
     const interval = setInterval(() => {
       // セッションの検証
-      const token = localStorage.getItem('session_token');
+      const token = localStorage.getItem("session_token");
       if (token) {
         const validation = securityManager.validateSession(token);
         setSessionValid(validation.valid);
@@ -75,10 +75,10 @@ export function useSecurity(options: UseSecurityOptions = {}) {
   // セッションの作成
   const createSession = useCallback((userId: string) => {
     const token = securityManager.createSession(userId);
-    localStorage.setItem('session_token', token);
+    localStorage.setItem("session_token", token);
     setSessionValid(true);
     
-    onSecurityEvent?.('session_created', { userId });
+    onSecurityEvent?.("session_created", { userId });
     return token;
   }, [onSecurityEvent]);
 
@@ -93,9 +93,9 @@ export function useSecurity(options: UseSecurityOptions = {}) {
   const logout = useCallback(() => {
     securityManager.logout();
     setSessionValid(false);
-    localStorage.removeItem('session_token');
+    localStorage.removeItem("session_token");
     
-    onSecurityEvent?.('logout', {});
+    onSecurityEvent?.("logout", {});
   }, [onSecurityEvent]);
 
   // データの暗号化
@@ -103,7 +103,7 @@ export function useSecurity(options: UseSecurityOptions = {}) {
     try {
       return await securityManager.encryptData(data, key);
     } catch (error) {
-      console.error('暗号化エラー:', error);
+      console.error("暗号化エラー:", error);
       throw error;
     }
   }, []);
@@ -113,7 +113,7 @@ export function useSecurity(options: UseSecurityOptions = {}) {
     try {
       return await securityManager.decryptData(encryptedData, key);
     } catch (error) {
-      console.error('復号化エラー:', error);
+      console.error("復号化エラー:", error);
       throw error;
     }
   }, []);
@@ -154,6 +154,6 @@ export function useSecurity(options: UseSecurityOptions = {}) {
     logSecurityEvent,
     updateSecurityConfig,
     getSecurityConfig,
-    getAuditLogs
+    getAuditLogs,
   };
 }

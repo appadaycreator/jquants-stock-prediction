@@ -5,8 +5,8 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { CheckCircle, Clock, Target, TrendingUp, ArrowRight, X } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { CheckCircle, Clock, Target, TrendingUp, ArrowRight, X } from "lucide-react";
 
 interface RoutineStep {
   id: string;
@@ -34,31 +34,31 @@ export default function QuickRoutineGuide({
   const [currentStep, setCurrentStep] = useState(0);
   const [steps, setSteps] = useState<RoutineStep[]>([
     {
-      id: 'analysis',
-      title: '分析実行',
-      description: '最新の市場データを分析して投資候補を特定します',
+      id: "analysis",
+      title: "分析実行",
+      description: "最新の市場データを分析して投資候補を特定します",
       estimatedTime: 60,
       completed: false,
       action: () => {
         // 分析実行のアクション
-        console.log('分析実行');
+        console.log("分析実行");
       },
     },
     {
-      id: 'review',
-      title: '結果確認',
-      description: '分析結果を確認し、投資候補の詳細を確認します',
+      id: "review",
+      title: "結果確認",
+      description: "分析結果を確認し、投資候補の詳細を確認します",
       estimatedTime: 120,
       completed: false,
-      href: '/today',
+      href: "/today",
     },
     {
-      id: 'decision',
-      title: '投資判断',
-      description: '今日の投資指示に基づいて投資判断を行います',
+      id: "decision",
+      title: "投資判断",
+      description: "今日の投資指示に基づいて投資判断を行います",
       estimatedTime: 120,
       completed: false,
-      href: '/personal-investment',
+      href: "/personal-investment",
     },
   ]);
   const [startTime, setStartTime] = useState<number | null>(null);
@@ -81,7 +81,7 @@ export default function QuickRoutineGuide({
 
   const handleStepComplete = (stepId: string) => {
     setSteps(prev => prev.map(step => 
-      step.id === stepId ? { ...step, completed: true } : step
+      step.id === stepId ? { ...step, completed: true } : step,
     ));
     
     // 次のステップに進む
@@ -146,7 +146,7 @@ export default function QuickRoutineGuide({
               進捗: {completedSteps}/{steps.length} ステップ
             </span>
             <span className="text-sm text-gray-500">
-              {Math.floor(elapsedTime / 60)}:{(elapsedTime % 60).toString().padStart(2, '0')}
+              {Math.floor(elapsedTime / 60)}:{(elapsedTime % 60).toString().padStart(2, "0")}
             </span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
@@ -173,10 +173,10 @@ export default function QuickRoutineGuide({
                 key={step.id}
                 className={`p-4 rounded-lg border-2 transition-all ${
                   index === currentStep
-                    ? 'border-blue-500 bg-blue-50'
+                    ? "border-blue-500 bg-blue-50"
                     : step.completed
-                    ? 'border-green-500 bg-green-50'
-                    : 'border-gray-200 bg-gray-50'
+                    ? "border-green-500 bg-green-50"
+                    : "border-gray-200 bg-gray-50"
                 }`}
               >
                 <div className="flex items-start space-x-3">
@@ -285,7 +285,7 @@ export function useQuickRoutineGuide() {
 
   useEffect(() => {
     // 初回訪問チェック
-    const hasSeenGuide = localStorage.getItem('quick_routine_guide_seen');
+    const hasSeenGuide = localStorage.getItem("quick_routine_guide_seen");
     if (!hasSeenGuide) {
       setIsOpen(true);
     }
@@ -294,16 +294,16 @@ export function useQuickRoutineGuide() {
   const openGuide = () => setIsOpen(true);
   const closeGuide = () => {
     setIsOpen(false);
-    localStorage.setItem('quick_routine_guide_seen', 'true');
+    localStorage.setItem("quick_routine_guide_seen", "true");
   };
 
   const completeGuide = () => {
     setHasCompleted(true);
-    localStorage.setItem('quick_routine_guide_completed', 'true');
+    localStorage.setItem("quick_routine_guide_completed", "true");
   };
 
   const skipGuide = () => {
-    localStorage.setItem('quick_routine_guide_seen', 'true');
+    localStorage.setItem("quick_routine_guide_seen", "true");
   };
 
   return {

@@ -12,7 +12,7 @@ import {
   Zap, 
   CheckCircle, 
   AlertTriangle,
-  Clock
+  Clock,
 } from "lucide-react";
 
 interface EnhancedRefreshButtonProps {
@@ -25,8 +25,8 @@ interface EnhancedRefreshButtonProps {
   lastRefresh?: Date | string | number;
   showLastUpdated?: boolean;
   showLastRefresh?: boolean;
-  variant?: 'default' | 'compact' | 'full';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "default" | "compact" | "full";
+  size?: "sm" | "md" | "lg";
   showProgress?: boolean;
   refreshInterval?: number;
   className?: string;
@@ -42,8 +42,8 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
   lastRefresh,
   showLastUpdated = true,
   showLastRefresh = true,
-  variant = 'default',
-  size = 'md',
+  variant = "default",
+  size = "md",
   showProgress = false,
   refreshInterval,
   className = "",
@@ -62,7 +62,7 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
       await onRefresh();
       setLastRefreshTime(new Date());
     } catch (error) {
-      console.error('リフレッシュエラー:', error);
+      console.error("リフレッシュエラー:", error);
     } finally {
       setIsRefreshing(false);
     }
@@ -77,7 +77,7 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
       await onForceRefresh();
       setLastRefreshTime(new Date());
     } catch (error) {
-      console.error('強制リフレッシュエラー:', error);
+      console.error("強制リフレッシュエラー:", error);
     } finally {
       setIsForceRefreshing(false);
     }
@@ -92,7 +92,7 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
       await onRecalculate();
       setLastRefreshTime(new Date());
     } catch (error) {
-      console.error('再計算エラー:', error);
+      console.error("再計算エラー:", error);
     } finally {
       setIsRecalculating(false);
     }
@@ -108,7 +108,7 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
     const diffDays = Math.floor(diffHours / 24);
 
     if (diffMinutes < 1) {
-      return 'たった今';
+      return "たった今";
     } else if (diffMinutes < 60) {
       return `${diffMinutes}分前`;
     } else if (diffHours < 24) {
@@ -119,18 +119,18 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
   };
 
   // コンパクト版
-  if (variant === 'compact') {
+  if (variant === "compact") {
     return (
       <div className={`flex items-center space-x-2 ${className}`}>
         <button
           onClick={handleRefresh}
           disabled={isRefreshing || isLoading}
           className={`p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 ${
-            isRefreshing || isLoading ? 'opacity-50 cursor-not-allowed' : ''
+            isRefreshing || isLoading ? "opacity-50 cursor-not-allowed" : ""
           }`}
           title="データを更新"
         >
-          <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
         </button>
         
         {showLastUpdated && lastUpdated && (
@@ -143,7 +143,7 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
   }
 
   // フル版
-  if (variant === 'full') {
+  if (variant === "full") {
     return (
       <div className={`space-y-3 ${className}`}>
         {/* ボタン群 */}
@@ -152,11 +152,11 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
             onClick={handleRefresh}
             disabled={isRefreshing || isLoading}
             className={`flex items-center space-x-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200 ${
-              isRefreshing || isLoading ? 'opacity-50 cursor-not-allowed' : ''
+              isRefreshing || isLoading ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >
-            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-            <span>{isRefreshing ? '更新中...' : '更新'}</span>
+            <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
+            <span>{isRefreshing ? "更新中..." : "更新"}</span>
           </button>
           
           {onForceRefresh && (
@@ -164,11 +164,11 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
               onClick={handleForceRefresh}
               disabled={isForceRefreshing || isLoading}
               className={`flex items-center space-x-2 px-4 py-2 rounded-lg bg-yellow-600 text-white hover:bg-yellow-700 transition-colors duration-200 ${
-                isForceRefreshing || isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                isForceRefreshing || isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
-              <Zap className={`h-4 w-4 ${isForceRefreshing ? 'animate-pulse' : ''}`} />
-              <span>{isForceRefreshing ? '強制更新中...' : '強制更新'}</span>
+              <Zap className={`h-4 w-4 ${isForceRefreshing ? "animate-pulse" : ""}`} />
+              <span>{isForceRefreshing ? "強制更新中..." : "強制更新"}</span>
             </button>
           )}
           
@@ -177,11 +177,11 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
               onClick={handleRecalculate}
               disabled={isRecalculating || isLoading}
               className={`flex items-center space-x-2 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors duration-200 ${
-                isRecalculating || isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                isRecalculating || isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
-              <RotateCcw className={`h-4 w-4 ${isRecalculating ? 'animate-spin' : ''}`} />
-              <span>{isRecalculating ? '再計算中...' : '再計算'}</span>
+              <RotateCcw className={`h-4 w-4 ${isRecalculating ? "animate-spin" : ""}`} />
+              <span>{isRecalculating ? "再計算中..." : "再計算"}</span>
             </button>
           )}
         </div>
@@ -213,11 +213,11 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
         onClick={handleRefresh}
         disabled={isRefreshing || isLoading}
         className={`flex items-center space-x-2 px-3 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200 ${
-          isRefreshing || isLoading ? 'opacity-50 cursor-not-allowed' : ''
+          isRefreshing || isLoading ? "opacity-50 cursor-not-allowed" : ""
         }`}
       >
-        <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-        <span>{isRefreshing ? '更新中...' : '更新'}</span>
+        <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
+        <span>{isRefreshing ? "更新中..." : "更新"}</span>
       </button>
       
       {showLastUpdated && lastUpdated && (

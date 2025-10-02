@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 // 動的レンダリングを強制
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
 import { useSignalWithFallback } from "@/hooks/useSignalWithFallback";
@@ -26,7 +26,7 @@ export default function TodayPage() {
   // シンボル配列をメモ化して無限ループを防ぐ
   const symbols = useMemo(() => 
     routine.topCandidates.map(c => c.symbol), 
-    [routine.topCandidates]
+    [routine.topCandidates],
   );
   const signalData = useSignalWithFallback(symbols);
 
@@ -57,7 +57,7 @@ export default function TodayPage() {
             state={{
               isLoading: true,
               progress: 50,
-              message: '今日の指示を取得中...',
+              message: "今日の指示を取得中...",
               canRetry: false,
               retryCount: 0,
               maxRetries: 3,
@@ -83,7 +83,7 @@ export default function TodayPage() {
                   最新データの取得に失敗しました
                 </h3>
                 <p className="text-sm text-yellow-700 mt-1">
-                  前回の結果を表示しています（{fallbackTimestamp ? new Date(fallbackTimestamp).toLocaleString() : '不明'}）
+                  前回の結果を表示しています（{fallbackTimestamp ? new Date(fallbackTimestamp).toLocaleString() : "不明"}）
                 </p>
               </div>
             </div>
@@ -154,7 +154,7 @@ export default function TodayPage() {
             <div className="flex items-center space-x-2">
               <Clock className="h-4 w-4 text-gray-500" />
               <span className="text-sm text-gray-600">
-                {Math.floor(remainingTime / 60)}:{(remainingTime % 60).toString().padStart(2, '0')}
+                {Math.floor(remainingTime / 60)}:{(remainingTime % 60).toString().padStart(2, "0")}
               </span>
             </div>
           </div>
@@ -165,16 +165,16 @@ export default function TodayPage() {
         {(routine.error || signalData.error) && (
           <div className="mb-4">
             <ErrorGuidance
-              error={routine.error || signalData.error || ''}
-              errorCode={signalData.error?.includes('分析を実行してから') ? 'ANALYSIS_REQUIRED' : 
-                         signalData.error?.includes('ネットワーク') ? 'NETWORK_ERROR' : 'API_ERROR'}
+              error={routine.error || signalData.error || ""}
+              errorCode={signalData.error?.includes("分析を実行してから") ? "ANALYSIS_REQUIRED" : 
+                         signalData.error?.includes("ネットワーク") ? "NETWORK_ERROR" : "API_ERROR"}
               onRetry={() => {
                 if (routine.actions?.refresh) routine.actions.refresh();
                 if (signalData.refresh) signalData.refresh();
               }}
               onClearError={signalData.clearError}
               isUsingFallback={signalData.isUsingFallback}
-              analysisRequired={signalData.error?.includes('分析を実行してから') || routine.error?.includes('分析を実行してから')}
+              analysisRequired={signalData.error?.includes("分析を実行してから") || routine.error?.includes("分析を実行してから")}
             />
           </div>
         )}

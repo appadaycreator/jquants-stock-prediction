@@ -58,16 +58,16 @@ class EnhancedDataPersistence {
    */
   private async initIndexedDB(): Promise<void> {
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open('enhanced_persistence_db', 2);
+      const request = indexedDB.open("enhanced_persistence_db", 2);
       
       request.onerror = () => {
-        console.error('IndexedDB初期化エラー:', request.error);
+        console.error("IndexedDB初期化エラー:", request.error);
         reject(request.error);
       };
       
       request.onsuccess = () => {
         this.db = request.result;
-        console.info('IndexedDB初期化完了');
+        console.info("IndexedDB初期化完了");
         resolve();
       };
       
@@ -75,18 +75,18 @@ class EnhancedDataPersistence {
         const db = (event.target as IDBOpenDBRequest).result;
         
         // データストア
-        if (!db.objectStoreNames.contains('data')) {
-          const dataStore = db.createObjectStore('data', { keyPath: 'key' });
-          dataStore.createIndex('timestamp', 'timestamp', { unique: false });
-          dataStore.createIndex('type', 'type', { unique: false });
-          dataStore.createIndex('size', 'size', { unique: false });
+        if (!db.objectStoreNames.contains("data")) {
+          const dataStore = db.createObjectStore("data", { keyPath: "key" });
+          dataStore.createIndex("timestamp", "timestamp", { unique: false });
+          dataStore.createIndex("type", "type", { unique: false });
+          dataStore.createIndex("size", "size", { unique: false });
         }
         
         // バックアップストア
-        if (!db.objectStoreNames.contains('backups')) {
-          const backupStore = db.createObjectStore('backups', { keyPath: 'id' });
-          backupStore.createIndex('timestamp', 'timestamp', { unique: false });
-          backupStore.createIndex('type', 'type', { unique: false });
+        if (!db.objectStoreNames.contains("backups")) {
+          const backupStore = db.createObjectStore("backups", { keyPath: "id" });
+          backupStore.createIndex("timestamp", "timestamp", { unique: false });
+          backupStore.createIndex("type", "type", { unique: false });
         }
       };
     });
@@ -103,7 +103,7 @@ class EnhancedDataPersistence {
       const key = await this.generateEncryptionKey();
       this.encryptionKey = key;
     } catch (error) {
-      console.warn('暗号化の初期化に失敗:', error);
+      console.warn("暗号化の初期化に失敗:", error);
       this.config.encryptionEnabled = false;
     }
   }
@@ -120,18 +120,18 @@ class EnhancedDataPersistence {
       compress?: boolean;
       encrypt?: boolean;
       backup?: boolean;
-    } = {}
+    } = {},
   ): Promise<void> {
     try {
       const now = Date.now();
-      const type = options.type || 'default';
+      const type = options.type || "default";
       const compress = options.compress !== false && this.config.compressionEnabled;
       const encrypt = options.encrypt !== false && this.config.encryptionEnabled;
       const backup = options.backup !== false && this.config.backupEnabled;
 
       let processedData = data;
       let metadata = {
-        source: 'user',
+        source: "user",
         type,
         size: JSON.stringify(data).length,
         compressed: false,
@@ -157,7 +157,7 @@ class EnhancedDataPersistence {
       const storedData: StoredData<T> = {
         data: processedData,
         timestamp: now,
-        version: '1.0',
+        version: "1.0",
         checksum,
         metadata,
       };
@@ -166,7 +166,7 @@ class EnhancedDataPersistence {
       try {
         localStorage.setItem(key, JSON.stringify(storedData));
       } catch (error) {
-        console.warn('ローカルストレージへの保存に失敗:', error);
+        console.warn("ローカルストレージへの保存に失敗:", error);
       }
 
       // IndexedDBに保存
@@ -181,7 +181,7 @@ class EnhancedDataPersistence {
 
       console.info(`データを保存しました: ${key}`);
     } catch (error) {
-      console.error('データ保存エラー:', error);
+      console.error("データ保存エラー:", error);
       throw error;
     }
   }
@@ -208,7 +208,7 @@ class EnhancedDataPersistence {
 
       return null;
     } catch (error) {
-      console.error('データ取得エラー:', error);
+      console.error("データ取得エラー:", error);
       return null;
     }
   }
@@ -224,7 +224,7 @@ class EnhancedDataPersistence {
         await this.deleteFromIndexedDB(key);
       }
     } catch (error) {
-      console.error('データ削除エラー:', error);
+      console.error("データ削除エラー:", error);
     }
   }
 
@@ -246,7 +246,7 @@ class EnhancedDataPersistence {
               items.push({
                 key,
                 timestamp: storedData.timestamp,
-                type: storedData.metadata?.type || 'unknown',
+                type: storedData.metadata?.type || "unknown",
                 size: storedData.metadata?.size || 0,
               });
             } catch (error) {
@@ -256,7 +256,7 @@ class EnhancedDataPersistence {
         }
       }
     } catch (error) {
-      console.error('データ一覧取得エラー:', error);
+      console.error("データ一覧取得エラー:", error);
     }
 
     return items.sort((a, b) => b.timestamp - a.timestamp);
@@ -286,7 +286,7 @@ class EnhancedDataPersistence {
         }
       }
     } catch (error) {
-      console.error('ストレージ使用量計算エラー:', error);
+      console.error("ストレージ使用量計算エラー:", error);
     }
 
     const availableSpace = this.config.maxStorageSize - totalSize;
@@ -324,7 +324,7 @@ class EnhancedDataPersistence {
         console.info(`クリーンアップ完了: ${itemsToDelete.length}件の古いデータを削除`);
       }
     } catch (error) {
-      console.error('クリーンアップエラー:', error);
+      console.error("クリーンアップエラー:", error);
     }
   }
 
@@ -354,7 +354,7 @@ class EnhancedDataPersistence {
     // チェックサムの検証
     const checksum = await this.calculateChecksum(data);
     if (checksum !== storedData.checksum) {
-      throw new Error('データの整合性チェックに失敗しました');
+      throw new Error("データの整合性チェックに失敗しました");
     }
 
     // 復号化
@@ -415,9 +415,9 @@ class EnhancedDataPersistence {
     const jsonString = JSON.stringify(data);
     const encoder = new TextEncoder();
     const dataBuffer = encoder.encode(jsonString);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", dataBuffer);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
   }
 
   /**
@@ -426,7 +426,7 @@ class EnhancedDataPersistence {
   private async generateEncryptionKey(): Promise<string> {
     const array = new Uint8Array(32);
     crypto.getRandomValues(array);
-    return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+    return Array.from(array, byte => byte.toString(16).padStart(2, "0")).join("");
   }
 
   /**
@@ -436,8 +436,8 @@ class EnhancedDataPersistence {
     if (!this.db) return;
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['data'], 'readwrite');
-      const store = transaction.objectStore('data');
+      const transaction = this.db!.transaction(["data"], "readwrite");
+      const store = transaction.objectStore("data");
       const request = store.put({ key, ...data });
 
       request.onsuccess = () => resolve();
@@ -452,8 +452,8 @@ class EnhancedDataPersistence {
     if (!this.db) return null;
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['data'], 'readonly');
-      const store = transaction.objectStore('data');
+      const transaction = this.db!.transaction(["data"], "readonly");
+      const store = transaction.objectStore("data");
       const request = store.get(key);
 
       request.onsuccess = () => resolve(request.result);
@@ -468,8 +468,8 @@ class EnhancedDataPersistence {
     if (!this.db) return;
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['data'], 'readwrite');
-      const store = transaction.objectStore('data');
+      const transaction = this.db!.transaction(["data"], "readwrite");
+      const store = transaction.objectStore("data");
       const request = store.delete(key);
 
       request.onsuccess = () => resolve();
@@ -484,8 +484,8 @@ class EnhancedDataPersistence {
     if (!this.db) return;
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['backups'], 'readwrite');
-      const store = transaction.objectStore('backups');
+      const transaction = this.db!.transaction(["backups"], "readwrite");
+      const store = transaction.objectStore("backups");
       const request = store.put(backup);
 
       request.onsuccess = () => resolve();

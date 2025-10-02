@@ -55,7 +55,7 @@ export class PredictionCacheManager {
     maxCacheSize: 50 * 1024 * 1024, // 50MB
     defaultTTL: 24 * 60 * 60 * 1000, // 24時間
     compressionEnabled: true,
-    version: "2.0"
+    version: "2.0",
   };
 
   private stats = {
@@ -63,7 +63,7 @@ export class PredictionCacheManager {
     misses: 0,
     sets: 0,
     deletes: 0,
-    compressions: 0
+    compressions: 0,
   };
 
   /**
@@ -120,7 +120,7 @@ export class PredictionCacheManager {
       ttl?: number;
       tags?: string[];
       priority?: number;
-    } = {}
+    } = {},
   ): Promise<void> {
     if (!this.db) {
       console.warn("データベースが初期化されていません");
@@ -148,8 +148,8 @@ export class PredictionCacheManager {
           size: shouldCompress ? this.calculateSize(processedData) : size,
           ttl: options.ttl || this.config.defaultTTL,
           tags: options.tags || ["prediction"],
-          version: this.config.version
-        }
+          version: this.config.version,
+        },
       };
 
       // 容量チェック
@@ -211,7 +211,7 @@ export class PredictionCacheManager {
       ttl?: number;
       tags?: string[];
       priority?: number;
-    } = {}
+    } = {},
   ): Promise<void> {
     if (!this.db) {
       console.warn("データベースが初期化されていません");
@@ -239,8 +239,8 @@ export class PredictionCacheManager {
           size: shouldCompress ? this.calculateSize(processedData) : size,
           ttl: options.ttl || this.config.defaultTTL,
           tags: options.tags || ["modelComparison"],
-          version: this.config.version
-        }
+          version: this.config.version,
+        },
       };
 
       // 容量チェック
@@ -298,11 +298,11 @@ export class PredictionCacheManager {
   generateCacheKey(
     type: "prediction" | "comparison",
     parameters: Record<string, any>,
-    modelName?: string
+    modelName?: string,
   ): string {
     const paramString = JSON.stringify(parameters);
     const hash = this.simpleHash(paramString);
-    const timestamp = new Date().toISOString().split('T')[0]; // 日付のみ
+    const timestamp = new Date().toISOString().split("T")[0]; // 日付のみ
     
     if (type === "prediction" && modelName) {
       return `${type}_${modelName}_${hash}_${timestamp}`;
@@ -315,7 +315,7 @@ export class PredictionCacheManager {
    */
   async searchCache(
     type: "prediction" | "comparison",
-    tags: string[]
+    tags: string[],
   ): Promise<Array<{ key: string; data: any; metadata: any }>> {
     if (!this.db) {
       return [];
@@ -341,7 +341,7 @@ export class PredictionCacheManager {
             results.push({
               key: entry.key,
               data: entry.data,
-              metadata: entry.metadata
+              metadata: entry.metadata,
             });
           }
         }
@@ -405,7 +405,7 @@ export class PredictionCacheManager {
       misses: this.stats.misses,
       hitRate: Math.round(hitRate * 100) / 100,
       totalSize: 0, // 実装が必要
-      entryCount: 0 // 実装が必要
+      entryCount: 0, // 実装が必要
     };
   }
 

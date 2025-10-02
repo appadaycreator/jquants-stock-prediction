@@ -4,8 +4,8 @@
  */
 
 export interface ErrorInfo {
-  category: 'network' | 'api' | 'data' | 'validation' | 'system' | 'unknown';
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  category: "network" | "api" | "data" | "validation" | "system" | "unknown";
+  severity: "low" | "medium" | "high" | "critical";
   message: string;
   userMessage: string;
   autoRetry: boolean;
@@ -16,7 +16,7 @@ export interface ErrorInfo {
 }
 
 export interface ErrorRecoveryAction {
-  type: 'retry' | 'fallback' | 'redirect' | 'refresh' | 'clear-cache' | 'none';
+  type: "retry" | "fallback" | "redirect" | "refresh" | "clear-cache" | "none";
   description: string;
   execute: () => Promise<boolean>;
 }
@@ -35,64 +35,64 @@ class UnifiedErrorHandler {
    */
   categorizeError(error: Error): ErrorInfo {
     const message = error.message.toLowerCase();
-    const stack = error.stack || '';
+    const stack = error.stack || "";
     
-    let category: ErrorInfo['category'] = 'unknown';
-    let severity: ErrorInfo['severity'] = 'medium';
-    let userMessage = '予期しないエラーが発生しました';
+    let category: ErrorInfo["category"] = "unknown";
+    let severity: ErrorInfo["severity"] = "medium";
+    let userMessage = "予期しないエラーが発生しました";
     let autoRetry = false;
     let retryDelay = 2000;
-    let fallbackAction = 'ページを再読み込みしてください';
+    let fallbackAction = "ページを再読み込みしてください";
 
     // ネットワークエラー
-    if (message.includes('network') || message.includes('fetch') || message.includes('connection') || 
-        message.includes('timeout') || message.includes('cors')) {
-      category = 'network';
-      severity = 'medium';
-      userMessage = 'ネットワーク接続に問題があります。しばらく待ってから再試行してください。';
+    if (message.includes("network") || message.includes("fetch") || message.includes("connection") || 
+        message.includes("timeout") || message.includes("cors")) {
+      category = "network";
+      severity = "medium";
+      userMessage = "ネットワーク接続に問題があります。しばらく待ってから再試行してください。";
       autoRetry = true;
       retryDelay = 3000;
-      fallbackAction = 'オフライン機能を使用するか、後でもう一度お試しください';
+      fallbackAction = "オフライン機能を使用するか、後でもう一度お試しください";
     }
     
     // APIエラー
-    else if (message.includes('api') || message.includes('endpoint') || message.includes('server')) {
-      category = 'api';
-      severity = 'high';
-      userMessage = 'サーバーとの通信に問題があります。';
+    else if (message.includes("api") || message.includes("endpoint") || message.includes("server")) {
+      category = "api";
+      severity = "high";
+      userMessage = "サーバーとの通信に問題があります。";
       autoRetry = true;
       retryDelay = 5000;
-      fallbackAction = 'キャッシュされたデータを表示します';
+      fallbackAction = "キャッシュされたデータを表示します";
     }
     
     // データエラー
-    else if (message.includes('data') || message.includes('json') || message.includes('parse') || 
-             message.includes('validation')) {
-      category = 'data';
-      severity = 'medium';
-      userMessage = 'データの処理中に問題が発生しました。';
+    else if (message.includes("data") || message.includes("json") || message.includes("parse") || 
+             message.includes("validation")) {
+      category = "data";
+      severity = "medium";
+      userMessage = "データの処理中に問題が発生しました。";
       autoRetry = false;
-      fallbackAction = 'デフォルトデータを表示します';
+      fallbackAction = "デフォルトデータを表示します";
     }
     
     // システムエラー
-    else if (message.includes('system') || message.includes('internal') || 
-             message.includes('unexpected')) {
-      category = 'system';
-      severity = 'high';
-      userMessage = 'システム内部でエラーが発生しました。';
+    else if (message.includes("system") || message.includes("internal") || 
+             message.includes("unexpected")) {
+      category = "system";
+      severity = "high";
+      userMessage = "システム内部でエラーが発生しました。";
       autoRetry = true;
       retryDelay = 10000;
-      fallbackAction = 'システムを再初期化します';
+      fallbackAction = "システムを再初期化します";
     }
 
     // 重大なエラー
-    if (message.includes('critical') || message.includes('fatal') || 
-        stack.includes('TypeError') || stack.includes('ReferenceError')) {
-      severity = 'critical';
-      userMessage = '重大なエラーが発生しました。ページを再読み込みしてください。';
+    if (message.includes("critical") || message.includes("fatal") || 
+        stack.includes("TypeError") || stack.includes("ReferenceError")) {
+      severity = "critical";
+      userMessage = "重大なエラーが発生しました。ページを再読み込みしてください。";
       autoRetry = false;
-      fallbackAction = 'ページを完全に再読み込みしてください';
+      fallbackAction = "ページを完全に再読み込みしてください";
     }
 
     return {
@@ -105,10 +105,10 @@ class UnifiedErrorHandler {
       fallbackAction,
       timestamp: new Date().toISOString(),
       context: {
-        userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : '',
-        url: typeof window !== 'undefined' ? window.location.href : '',
-        timestamp: Date.now()
-      }
+        userAgent: typeof window !== "undefined" ? window.navigator.userAgent : "",
+        url: typeof window !== "undefined" ? window.location.href : "",
+        timestamp: Date.now(),
+      },
     };
   }
 
@@ -119,11 +119,11 @@ class UnifiedErrorHandler {
     const errorInfo = this.categorizeError(error);
     this.errorHistory.push(errorInfo);
 
-    console.error('統一エラーハンドラー:', errorInfo);
+    console.error("統一エラーハンドラー:", errorInfo);
 
     // 復旧アクションの実行
     if (this.isRecovering) {
-      console.log('既に復旧処理中です');
+      console.log("既に復旧処理中です");
       return false;
     }
 
@@ -142,13 +142,13 @@ class UnifiedErrorHandler {
 
       // フォールバックアクション
       if (await this.executeFallbackAction(errorInfo)) {
-        console.log('フォールバック復旧成功');
+        console.log("フォールバック復旧成功");
         this.isRecovering = false;
         return true;
       }
 
     } catch (recoveryError) {
-      console.error('復旧処理エラー:', recoveryError);
+      console.error("復旧処理エラー:", recoveryError);
     } finally {
       this.isRecovering = false;
     }
@@ -161,72 +161,72 @@ class UnifiedErrorHandler {
    */
   private initializeRecoveryActions(): void {
     // ネットワークエラー用の復旧アクション
-    this.recoveryActions.set('network', [
+    this.recoveryActions.set("network", [
       {
-        type: 'retry',
-        description: 'ネットワーク接続の再試行',
+        type: "retry",
+        description: "ネットワーク接続の再試行",
         execute: async () => {
           await new Promise(resolve => setTimeout(resolve, 2000));
           return true;
-        }
+        },
       },
       {
-        type: 'clear-cache',
-        description: 'キャッシュのクリア',
+        type: "clear-cache",
+        description: "キャッシュのクリア",
         execute: async () => {
-          if ('caches' in window) {
+          if ("caches" in window) {
             const cacheNames = await caches.keys();
             await Promise.all(cacheNames.map(name => caches.delete(name)));
           }
           return true;
-        }
-      }
+        },
+      },
     ]);
 
     // APIエラー用の復旧アクション
-    this.recoveryActions.set('api', [
+    this.recoveryActions.set("api", [
       {
-        type: 'retry',
-        description: 'API呼び出しの再試行',
+        type: "retry",
+        description: "API呼び出しの再試行",
         execute: async () => {
           await new Promise(resolve => setTimeout(resolve, 3000));
           return true;
-        }
+        },
       },
       {
-        type: 'fallback',
-        description: 'フォールバックデータの使用',
+        type: "fallback",
+        description: "フォールバックデータの使用",
         execute: async () => {
           // フォールバックデータの読み込み
           return true;
-        }
-      }
+        },
+      },
     ]);
 
     // データエラー用の復旧アクション
-    this.recoveryActions.set('data', [
+    this.recoveryActions.set("data", [
       {
-        type: 'fallback',
-        description: 'デフォルトデータの使用',
+        type: "fallback",
+        description: "デフォルトデータの使用",
         execute: async () => {
           // デフォルトデータの読み込み
           return true;
-        }
-      }
+        },
+      },
     ]);
 
     // システムエラー用の復旧アクション
-    this.recoveryActions.set('system', [
+    this.recoveryActions.set("system", [
       {
-        type: 'refresh',
-        description: 'ページの再読み込み',
+        type: "refresh",
+        description: "ページの再読み込み",
         execute: async () => {
-          if (typeof window !== 'undefined') {
+          if (typeof window !== "undefined") {
             window.location.reload();
           }
           return true;
-        }
-      }
+        },
+      },
     ]);
   }
 
@@ -236,21 +236,21 @@ class UnifiedErrorHandler {
   private async executeFallbackAction(errorInfo: ErrorInfo): Promise<boolean> {
     try {
       switch (errorInfo.category) {
-        case 'network':
+        case "network":
           // オフライン機能の有効化
           return true;
         
-        case 'api':
+        case "api":
           // キャッシュデータの使用
           return true;
         
-        case 'data':
+        case "data":
           // デフォルトデータの使用
           return true;
         
-        case 'system':
+        case "system":
           // ページの再読み込み
-          if (typeof window !== 'undefined') {
+          if (typeof window !== "undefined") {
             window.location.reload();
           }
           return true;
@@ -259,7 +259,7 @@ class UnifiedErrorHandler {
           return false;
       }
     } catch (error) {
-      console.error('フォールバックアクションエラー:', error);
+      console.error("フォールバックアクションエラー:", error);
       return false;
     }
   }
@@ -284,7 +284,7 @@ class UnifiedErrorHandler {
   getRecoveryStatus(): { isRecovering: boolean; lastError?: ErrorInfo } {
     return {
       isRecovering: this.isRecovering,
-      lastError: this.errorHistory[this.errorHistory.length - 1]
+      lastError: this.errorHistory[this.errorHistory.length - 1],
     };
   }
 }

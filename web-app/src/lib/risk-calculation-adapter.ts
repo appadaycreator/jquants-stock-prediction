@@ -3,7 +3,7 @@
  * 既存のリスク計算ロジックをユーザーのカスタマイズ設定に合わせて調整
  */
 
-import { RiskCustomizationSettings } from './risk-customization-store';
+import { RiskCustomizationSettings } from "./risk-customization-store";
 
 export interface RiskMetrics {
   portfolio_value: number;
@@ -19,9 +19,9 @@ export interface RiskMetrics {
 export interface AdjustedRiskMetrics extends RiskMetrics {
   // ユーザー設定に基づく調整値
   adjusted_risk_score: number;
-  risk_level: 'VERY_LOW' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH' | 'CRITICAL';
-  risk_tolerance_status: 'WITHIN_TOLERANCE' | 'APPROACHING_LIMIT' | 'EXCEEDED_LIMIT';
-  target_return_status: 'MEETING_TARGET' | 'BELOW_TARGET' | 'ABOVE_TARGET';
+  risk_level: "VERY_LOW" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH" | "CRITICAL";
+  risk_tolerance_status: "WITHIN_TOLERANCE" | "APPROACHING_LIMIT" | "EXCEEDED_LIMIT";
+  target_return_status: "MEETING_TARGET" | "BELOW_TARGET" | "ABOVE_TARGET";
   recommendations: string[];
 }
 
@@ -69,7 +69,7 @@ export class RiskCalculationAdapter {
       riskMetrics, 
       riskLevel, 
       riskToleranceStatus, 
-      targetReturnStatus
+      targetReturnStatus,
     );
 
     return {
@@ -89,7 +89,7 @@ export class RiskCalculationAdapter {
     symbol: string,
     currentPrice: number,
     baseRiskScore: number,
-    expectedReturn: number
+    expectedReturn: number,
   ): IndividualStockRiskProfile {
     const stockSettings = this.settings.individualStockSettings[symbol];
     const thresholds = this.getRiskThresholds();
@@ -97,7 +97,7 @@ export class RiskCalculationAdapter {
     // 個別銘柄のリスクスコア調整
     const adjustedRiskScore = this.calculateIndividualStockRiskScore(
       baseRiskScore, 
-      stockSettings
+      stockSettings,
     );
     
     // リスクレベル判定
@@ -106,7 +106,7 @@ export class RiskCalculationAdapter {
     // リスク調整後リターン計算
     const riskAdjustedReturn = this.calculateRiskAdjustedReturn(
       expectedReturn, 
-      adjustedRiskScore
+      adjustedRiskScore,
     );
     
     // 推奨事項の生成
@@ -115,7 +115,7 @@ export class RiskCalculationAdapter {
       currentPrice,
       adjustedRiskScore,
       riskLevel,
-      stockSettings
+      stockSettings,
     );
 
     return {
@@ -141,12 +141,12 @@ export class RiskCalculationAdapter {
     
     // リスクレベルに応じた閾値の調整
     const levelMultipliers = {
-      'VERY_LOW': 0.5,
-      'LOW': 0.7,
-      'MEDIUM': 1.0,
-      'HIGH': 1.3,
-      'VERY_HIGH': 1.6,
-      'CRITICAL': 2.0,
+      "VERY_LOW": 0.5,
+      "LOW": 0.7,
+      "MEDIUM": 1.0,
+      "HIGH": 1.3,
+      "VERY_HIGH": 1.6,
+      "CRITICAL": 2.0,
     };
 
     const multiplier = levelMultipliers[level];
@@ -187,7 +187,7 @@ export class RiskCalculationAdapter {
    */
   private calculateIndividualStockRiskScore(
     baseRiskScore: number, 
-    stockSettings?: RiskCustomizationSettings['individualStockSettings'][string]
+    stockSettings?: RiskCustomizationSettings["individualStockSettings"][string],
   ): number {
     if (!stockSettings) {
       return baseRiskScore;
@@ -197,10 +197,10 @@ export class RiskCalculationAdapter {
 
     // 個別リスクレベルによる調整
     const riskLevelMultipliers = {
-      'LOW': 0.7,
-      'MEDIUM': 1.0,
-      'HIGH': 1.3,
-      'CRITICAL': 1.6,
+      "LOW": 0.7,
+      "MEDIUM": 1.0,
+      "HIGH": 1.3,
+      "CRITICAL": 1.6,
     };
 
     if (stockSettings.riskLevel) {
@@ -219,23 +219,23 @@ export class RiskCalculationAdapter {
   /**
    * リスクレベルを判定
    */
-  private determineRiskLevel(riskScore: number): 'VERY_LOW' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH' | 'CRITICAL' {
-    if (riskScore < 0.2) return 'VERY_LOW';
-    if (riskScore < 0.4) return 'LOW';
-    if (riskScore < 0.6) return 'MEDIUM';
-    if (riskScore < 0.8) return 'HIGH';
-    if (riskScore < 0.9) return 'VERY_HIGH';
-    return 'CRITICAL';
+  private determineRiskLevel(riskScore: number): "VERY_LOW" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH" | "CRITICAL" {
+    if (riskScore < 0.2) return "VERY_LOW";
+    if (riskScore < 0.4) return "LOW";
+    if (riskScore < 0.6) return "MEDIUM";
+    if (riskScore < 0.8) return "HIGH";
+    if (riskScore < 0.9) return "VERY_HIGH";
+    return "CRITICAL";
   }
 
   /**
    * 個別銘柄リスクレベルを判定
    */
   private determineIndividualStockRiskLevel(riskScore: number): string {
-    if (riskScore < 0.3) return 'LOW';
-    if (riskScore < 0.6) return 'MEDIUM';
-    if (riskScore < 0.8) return 'HIGH';
-    return 'CRITICAL';
+    if (riskScore < 0.3) return "LOW";
+    if (riskScore < 0.6) return "MEDIUM";
+    if (riskScore < 0.8) return "HIGH";
+    return "CRITICAL";
   }
 
   /**
@@ -243,38 +243,38 @@ export class RiskCalculationAdapter {
    */
   private assessRiskTolerance(
     riskMetrics: RiskMetrics, 
-    thresholds: ReturnType<typeof this.getRiskThresholds>
-  ): 'WITHIN_TOLERANCE' | 'APPROACHING_LIMIT' | 'EXCEEDED_LIMIT' {
+    thresholds: ReturnType<typeof this.getRiskThresholds>,
+  ): "WITHIN_TOLERANCE" | "APPROACHING_LIMIT" | "EXCEEDED_LIMIT" {
     const drawdownExceeded = riskMetrics.max_drawdown > thresholds.maxDrawdown;
     const volatilityExceeded = riskMetrics.var_95 > thresholds.varTolerance;
     
     if (drawdownExceeded || volatilityExceeded) {
-      return 'EXCEEDED_LIMIT';
+      return "EXCEEDED_LIMIT";
     }
     
     const approachingDrawdown = riskMetrics.max_drawdown > thresholds.maxDrawdown * 0.8;
     const approachingVolatility = riskMetrics.var_95 > thresholds.varTolerance * 0.8;
     
     if (approachingDrawdown || approachingVolatility) {
-      return 'APPROACHING_LIMIT';
+      return "APPROACHING_LIMIT";
     }
     
-    return 'WITHIN_TOLERANCE';
+    return "WITHIN_TOLERANCE";
   }
 
   /**
    * 目標リターンを評価
    */
-  private assessTargetReturn(riskMetrics: RiskMetrics): 'MEETING_TARGET' | 'BELOW_TARGET' | 'ABOVE_TARGET' {
+  private assessTargetReturn(riskMetrics: RiskMetrics): "MEETING_TARGET" | "BELOW_TARGET" | "ABOVE_TARGET" {
     const targetReturn = this.settings.targetReturn.annual;
     const currentReturn = riskMetrics.sharpe_ratio * 0.1; // 簡易的なリターン計算
     
     if (currentReturn >= targetReturn * 1.1) {
-      return 'ABOVE_TARGET';
+      return "ABOVE_TARGET";
     } else if (currentReturn >= targetReturn * 0.9) {
-      return 'MEETING_TARGET';
+      return "MEETING_TARGET";
     } else {
-      return 'BELOW_TARGET';
+      return "BELOW_TARGET";
     }
   }
 
@@ -307,12 +307,12 @@ export class RiskCalculationAdapter {
     
     // リスクレベルに応じた重み調整
     const weightProfiles = {
-      'VERY_LOW': { drawdown: 0.5, volatility: 0.3, correlation: 0.1, base: 0.1 },
-      'LOW': { drawdown: 0.4, volatility: 0.3, correlation: 0.2, base: 0.1 },
-      'MEDIUM': { drawdown: 0.3, volatility: 0.3, correlation: 0.2, base: 0.2 },
-      'HIGH': { drawdown: 0.2, volatility: 0.3, correlation: 0.3, base: 0.2 },
-      'VERY_HIGH': { drawdown: 0.1, volatility: 0.3, correlation: 0.4, base: 0.2 },
-      'CRITICAL': { drawdown: 0.1, volatility: 0.2, correlation: 0.4, base: 0.3 },
+      "VERY_LOW": { drawdown: 0.5, volatility: 0.3, correlation: 0.1, base: 0.1 },
+      "LOW": { drawdown: 0.4, volatility: 0.3, correlation: 0.2, base: 0.1 },
+      "MEDIUM": { drawdown: 0.3, volatility: 0.3, correlation: 0.2, base: 0.2 },
+      "HIGH": { drawdown: 0.2, volatility: 0.3, correlation: 0.3, base: 0.2 },
+      "VERY_HIGH": { drawdown: 0.1, volatility: 0.3, correlation: 0.4, base: 0.2 },
+      "CRITICAL": { drawdown: 0.1, volatility: 0.2, correlation: 0.4, base: 0.3 },
     };
     
     return weightProfiles[level];
@@ -325,27 +325,27 @@ export class RiskCalculationAdapter {
     riskMetrics: RiskMetrics,
     riskLevel: string,
     riskToleranceStatus: string,
-    targetReturnStatus: string
+    targetReturnStatus: string,
   ): string[] {
     const recommendations: string[] = [];
     
     // リスク許容度に基づく推奨事項
-    if (riskToleranceStatus === 'EXCEEDED_LIMIT') {
-      recommendations.push('リスクが許容範囲を超えています。ポジションサイズを縮小してください。');
-    } else if (riskToleranceStatus === 'APPROACHING_LIMIT') {
-      recommendations.push('リスクが許容範囲に近づいています。注意深く監視してください。');
+    if (riskToleranceStatus === "EXCEEDED_LIMIT") {
+      recommendations.push("リスクが許容範囲を超えています。ポジションサイズを縮小してください。");
+    } else if (riskToleranceStatus === "APPROACHING_LIMIT") {
+      recommendations.push("リスクが許容範囲に近づいています。注意深く監視してください。");
     }
     
     // 目標リターンに基づく推奨事項
-    if (targetReturnStatus === 'BELOW_TARGET') {
-      recommendations.push('目標リターンを下回っています。投資戦略の見直しを検討してください。');
-    } else if (targetReturnStatus === 'ABOVE_TARGET') {
-      recommendations.push('目標リターンを上回っています。リスク管理を継続してください。');
+    if (targetReturnStatus === "BELOW_TARGET") {
+      recommendations.push("目標リターンを下回っています。投資戦略の見直しを検討してください。");
+    } else if (targetReturnStatus === "ABOVE_TARGET") {
+      recommendations.push("目標リターンを上回っています。リスク管理を継続してください。");
     }
     
     // リスクレベルに基づく推奨事項
-    if (riskLevel === 'HIGH' || riskLevel === 'VERY_HIGH' || riskLevel === 'CRITICAL') {
-      recommendations.push('リスクレベルが高いです。分散投資の強化を検討してください。');
+    if (riskLevel === "HIGH" || riskLevel === "VERY_HIGH" || riskLevel === "CRITICAL") {
+      recommendations.push("リスクレベルが高いです。分散投資の強化を検討してください。");
     }
     
     return recommendations;
@@ -359,7 +359,7 @@ export class RiskCalculationAdapter {
     currentPrice: number,
     riskScore: number,
     riskLevel: string,
-    stockSettings?: RiskCustomizationSettings['individualStockSettings'][string]
+    stockSettings?: RiskCustomizationSettings["individualStockSettings"][string],
   ): string[] {
     const recommendations: string[] = [];
     
@@ -367,9 +367,9 @@ export class RiskCalculationAdapter {
     if (stockSettings?.targetPrice) {
       const targetReturn = ((stockSettings.targetPrice - currentPrice) / currentPrice) * 100;
       if (targetReturn > 20) {
-        recommendations.push('目標価格が高すぎる可能性があります。現実的な目標に調整してください。');
+        recommendations.push("目標価格が高すぎる可能性があります。現実的な目標に調整してください。");
       } else if (targetReturn < 5) {
-        recommendations.push('目標価格が低すぎる可能性があります。より高い目標を検討してください。');
+        recommendations.push("目標価格が低すぎる可能性があります。より高い目標を検討してください。");
       }
     }
     
@@ -377,14 +377,14 @@ export class RiskCalculationAdapter {
     if (stockSettings?.stopLossPrice) {
       const stopLossReturn = ((currentPrice - stockSettings.stopLossPrice) / currentPrice) * 100;
       if (stopLossReturn > 20) {
-        recommendations.push('損切ラインが緩すぎる可能性があります。より厳しい損切を検討してください。');
+        recommendations.push("損切ラインが緩すぎる可能性があります。より厳しい損切を検討してください。");
       } else if (stopLossReturn < 5) {
-        recommendations.push('損切ラインが厳しすぎる可能性があります。適切な損切レベルに調整してください。');
+        recommendations.push("損切ラインが厳しすぎる可能性があります。適切な損切レベルに調整してください。");
       }
     }
     
     // リスクレベルに基づく推奨事項
-    if (riskLevel === 'HIGH' || riskLevel === 'CRITICAL') {
+    if (riskLevel === "HIGH" || riskLevel === "CRITICAL") {
       recommendations.push(`${symbol}のリスクが高いです。ポジションサイズを縮小することを検討してください。`);
     }
     

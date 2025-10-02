@@ -15,7 +15,7 @@ import {
   XCircle,
   RefreshCw,
   TrendingUp,
-  BarChart3
+  BarChart3,
 } from "lucide-react";
 
 interface CacheVisualizationProps {
@@ -54,7 +54,7 @@ const CacheVisualization: React.FC<CacheVisualizationProps> = ({
     const getCacheStats = () => {
       try {
         const keys = Object.keys(localStorage);
-        const cacheKeys = keys.filter(key => key.startsWith('stock_') || key.startsWith('cache_'));
+        const cacheKeys = keys.filter(key => key.startsWith("stock_") || key.startsWith("cache_"));
         
         let totalSize = 0;
         const items: Array<{
@@ -100,7 +100,7 @@ const CacheVisualization: React.FC<CacheVisualizationProps> = ({
 
         setCacheItems(items);
       } catch (error) {
-        console.error('キャッシュ統計取得エラー:', error);
+        console.error("キャッシュ統計取得エラー:", error);
       }
     };
 
@@ -113,11 +113,11 @@ const CacheVisualization: React.FC<CacheVisualizationProps> = ({
 
   // サイズのフォーマット
   const formatSize = (bytes: number): string => {
-    if (bytes === 0) return '0 B';
+    if (bytes === 0) return "0 B";
     const k = 1024;
-    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const sizes = ["B", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
   // 相対時間の取得
@@ -129,7 +129,7 @@ const CacheVisualization: React.FC<CacheVisualizationProps> = ({
     const diffDays = Math.floor(diffHours / 24);
 
     if (diffMinutes < 1) {
-      return 'たった今';
+      return "たった今";
     } else if (diffMinutes < 60) {
       return `${diffMinutes}分前`;
     } else if (diffHours < 24) {
@@ -200,8 +200,8 @@ const CacheVisualization: React.FC<CacheVisualizationProps> = ({
                   key={index}
                   className={`flex items-center justify-between p-3 rounded-lg ${
                     item.isExpired 
-                      ? 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800' 
-                      : 'bg-gray-50 dark:bg-gray-700'
+                      ? "bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800" 
+                      : "bg-gray-50 dark:bg-gray-700"
                   }`}
                 >
                   <div className="flex items-center space-x-3">
@@ -226,10 +226,10 @@ const CacheVisualization: React.FC<CacheVisualizationProps> = ({
                   <div className="flex items-center space-x-2">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       item.isExpired 
-                        ? 'bg-red-100 text-red-800' 
-                        : 'bg-green-100 text-green-800'
+                        ? "bg-red-100 text-red-800" 
+                        : "bg-green-100 text-green-800"
                     }`}>
-                      {item.isExpired ? '期限切れ' : '有効'}
+                      {item.isExpired ? "期限切れ" : "有効"}
                     </span>
                   </div>
                 </div>
@@ -255,7 +255,7 @@ export const CacheVisualizationCompact: React.FC<{
     const getCacheStats = () => {
       try {
         const keys = Object.keys(localStorage);
-        const cacheKeys = keys.filter(key => key.startsWith('stock_') || key.startsWith('cache_'));
+        const cacheKeys = keys.filter(key => key.startsWith("stock_") || key.startsWith("cache_"));
         
         let totalSize = 0;
         cacheKeys.forEach(key => {
@@ -270,7 +270,7 @@ export const CacheVisualizationCompact: React.FC<{
           totalSize,
         });
       } catch (error) {
-        console.error('キャッシュ統計取得エラー:', error);
+        console.error("キャッシュ統計取得エラー:", error);
       }
     };
 
@@ -280,11 +280,11 @@ export const CacheVisualizationCompact: React.FC<{
   }, []);
 
   const formatSize = (bytes: number): string => {
-    if (bytes === 0) return '0 B';
+    if (bytes === 0) return "0 B";
     const k = 1024;
-    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const sizes = ["B", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
   return (

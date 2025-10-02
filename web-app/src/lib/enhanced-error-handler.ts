@@ -21,8 +21,8 @@ interface ErrorRecovery {
 }
 
 interface ErrorClassification {
-  type: 'network' | 'api' | 'validation' | 'timeout' | 'auth' | 'unknown';
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  type: "network" | "api" | "validation" | "timeout" | "auth" | "unknown";
+  severity: "low" | "medium" | "high" | "critical";
   recoverable: boolean;
   userMessage: string;
   technicalMessage: string;
@@ -78,16 +78,16 @@ class EnhancedErrorHandler {
     const errorMessage = error.message.toLowerCase();
     
     // ネットワークエラー
-    if (errorMessage.includes('fetch') || errorMessage.includes('network') || errorMessage.includes('connection')) {
+    if (errorMessage.includes("fetch") || errorMessage.includes("network") || errorMessage.includes("connection")) {
       return {
-        type: 'network',
-        severity: 'medium',
+        type: "network",
+        severity: "medium",
         recoverable: true,
-        userMessage: 'ネットワーク接続に問題があります。しばらく待ってから再試行してください。',
+        userMessage: "ネットワーク接続に問題があります。しばらく待ってから再試行してください。",
         technicalMessage: `Network error: ${error.message}`,
         recovery: {
-          action: 'retry',
-          description: '自動的に再試行します',
+          action: "retry",
+          description: "自動的に再試行します",
           autoRetry: true,
           retryDelay: 2000,
           maxRetries: 3,
@@ -96,20 +96,20 @@ class EnhancedErrorHandler {
     }
 
     // APIエラー
-    if (errorMessage.includes('api') || errorMessage.includes('http')) {
+    if (errorMessage.includes("api") || errorMessage.includes("http")) {
       const statusMatch = errorMessage.match(/http (\d+)/);
       const status = statusMatch ? parseInt(statusMatch[1]) : 0;
       
       if (status >= 500) {
         return {
-          type: 'api',
-          severity: 'high',
+          type: "api",
+          severity: "high",
           recoverable: true,
-          userMessage: 'サーバーに一時的な問題が発生しています。しばらく待ってから再試行してください。',
+          userMessage: "サーバーに一時的な問題が発生しています。しばらく待ってから再試行してください。",
           technicalMessage: `API error: ${error.message}`,
           recovery: {
-            action: 'retry',
-            description: '自動的に再試行します',
+            action: "retry",
+            description: "自動的に再試行します",
             autoRetry: true,
             retryDelay: 5000,
             maxRetries: 2,
@@ -117,34 +117,34 @@ class EnhancedErrorHandler {
         };
       } else if (status === 401 || status === 403) {
         return {
-          type: 'auth',
-          severity: 'high',
+          type: "auth",
+          severity: "high",
           recoverable: false,
-          userMessage: '認証に問題があります。ログインし直してください。',
+          userMessage: "認証に問題があります。ログインし直してください。",
           technicalMessage: `Authentication error: ${error.message}`,
         };
       } else if (status === 404) {
         return {
-          type: 'api',
-          severity: 'medium',
+          type: "api",
+          severity: "medium",
           recoverable: false,
-          userMessage: '要求されたデータが見つかりません。',
+          userMessage: "要求されたデータが見つかりません。",
           technicalMessage: `Not found: ${error.message}`,
         };
       }
     }
 
     // タイムアウトエラー
-    if (errorMessage.includes('timeout') || errorMessage.includes('abort')) {
+    if (errorMessage.includes("timeout") || errorMessage.includes("abort")) {
       return {
-        type: 'timeout',
-        severity: 'medium',
+        type: "timeout",
+        severity: "medium",
         recoverable: true,
-        userMessage: 'リクエストがタイムアウトしました。再試行してください。',
+        userMessage: "リクエストがタイムアウトしました。再試行してください。",
         technicalMessage: `Timeout error: ${error.message}`,
         recovery: {
-          action: 'retry',
-          description: '自動的に再試行します',
+          action: "retry",
+          description: "自動的に再試行します",
           autoRetry: true,
           retryDelay: 3000,
           maxRetries: 2,
@@ -153,26 +153,26 @@ class EnhancedErrorHandler {
     }
 
     // バリデーションエラー
-    if (errorMessage.includes('validation') || errorMessage.includes('invalid')) {
+    if (errorMessage.includes("validation") || errorMessage.includes("invalid")) {
       return {
-        type: 'validation',
-        severity: 'low',
+        type: "validation",
+        severity: "low",
         recoverable: false,
-        userMessage: '入力データに問題があります。入力内容を確認してください。',
+        userMessage: "入力データに問題があります。入力内容を確認してください。",
         technicalMessage: `Validation error: ${error.message}`,
       };
     }
 
     // その他のエラー
     return {
-      type: 'unknown',
-      severity: 'medium',
+      type: "unknown",
+      severity: "medium",
       recoverable: true,
-      userMessage: '予期しないエラーが発生しました。ページを再読み込みしてください。',
+      userMessage: "予期しないエラーが発生しました。ページを再読み込みしてください。",
       technicalMessage: `Unknown error: ${error.message}`,
       recovery: {
-        action: 'reload',
-        description: 'ページを再読み込みします',
+        action: "reload",
+        description: "ページを再読み込みします",
         autoRetry: false,
       },
     };
@@ -207,10 +207,10 @@ class EnhancedErrorHandler {
         timestamp: new Date().toISOString(),
       };
 
-      console.error('Enhanced Error Handler:', logData);
+      console.error("Enhanced Error Handler:", logData);
 
       // 本番環境では外部ログサービスに送信
-      if (process.env.NODE_ENV === 'production') {
+      if (process.env.NODE_ENV === "production") {
         this.sendToLogService(logData);
       }
     }
@@ -221,12 +221,12 @@ class EnhancedErrorHandler {
    */
   private notifyUser(classification: ErrorClassification, context: ErrorContext): void {
     // トースト通知の表示
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       this.showToast(classification.userMessage, classification.severity);
     }
 
     // 重大なエラーの場合はアラート表示
-    if (classification.severity === 'critical') {
+    if (classification.severity === "critical") {
       alert(`重大なエラーが発生しました: ${classification.userMessage}`);
     }
   }
@@ -236,11 +236,11 @@ class EnhancedErrorHandler {
    */
   private showToast(message: string, severity: string): void {
     // 簡易的なトースト実装
-    const toast = document.createElement('div');
+    const toast = document.createElement("div");
     toast.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 ${
-      severity === 'critical' ? 'bg-red-500' :
-      severity === 'high' ? 'bg-orange-500' :
-      severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
+      severity === "critical" ? "bg-red-500" :
+      severity === "high" ? "bg-orange-500" :
+      severity === "medium" ? "bg-yellow-500" : "bg-blue-500"
     } text-white`;
     toast.textContent = message;
     
@@ -259,7 +259,7 @@ class EnhancedErrorHandler {
       return false;
     }
 
-    const retryKey = `${context.operation}_${context.component || 'unknown'}`;
+    const retryKey = `${context.operation}_${context.component || "unknown"}`;
     const currentAttempts = this.retryAttempts.get(retryKey) || 0;
     
     if (currentAttempts >= (classification.recovery.maxRetries || this.maxRetryAttempts)) {
@@ -322,7 +322,7 @@ class EnhancedErrorHandler {
    */
   private sendToLogService(logData: any): void {
     // 実際の実装では、Sentry、LogRocket、DataDogなどのサービスを使用
-    console.info('Log service integration:', logData);
+    console.info("Log service integration:", logData);
   }
 
   /**

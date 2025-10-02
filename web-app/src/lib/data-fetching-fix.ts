@@ -3,8 +3,8 @@
  * 404エラー解消とリアルタイムデータ取得の実装
  */
 
-import FixedJQuantsAdapter from './fixed-jquants-adapter';
-import { StockData } from './fixed-jquants-adapter';
+import FixedJQuantsAdapter from "./fixed-jquants-adapter";
+import { StockData } from "./fixed-jquants-adapter";
 
 interface DataFetchingConfig {
   enableCache: boolean;
@@ -18,7 +18,7 @@ interface DataFetchingResult<T> {
   data: T;
   fromCache: boolean;
   timestamp: number;
-  source: 'api' | 'cache' | 'fallback';
+  source: "api" | "cache" | "fallback";
   error?: string;
 }
 
@@ -59,7 +59,7 @@ class DataFetchingFix {
       console.error("データ取得システム初期化エラー:", error);
       return {
         success: false,
-        message: `初期化に失敗しました: ${error instanceof Error ? error.message : "不明なエラー"}`
+        message: `初期化に失敗しました: ${error instanceof Error ? error.message : "不明なエラー"}`,
       };
     }
   }
@@ -75,7 +75,7 @@ class DataFetchingFix {
       useCache?: boolean;
       enableFallback?: boolean;
       forceRefresh?: boolean;
-    } = {}
+    } = {},
   ): Promise<DataFetchingResult<StockData[]>> {
     const useCache = options.useCache !== false;
     const enableFallback = options.enableFallback !== false;
@@ -144,7 +144,7 @@ class DataFetchingFix {
   private async fetchFromAPI(
     symbol: string,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): Promise<DataFetchingResult<StockData[]>> {
     try {
       const data = await this.adapter.getStockData(symbol, startDate, endDate, false);
@@ -153,7 +153,7 @@ class DataFetchingFix {
         data,
         fromCache: false,
         timestamp: Date.now(),
-        source: 'api',
+        source: "api",
       };
     } catch (error) {
       console.error("API取得エラー:", error);
@@ -167,7 +167,7 @@ class DataFetchingFix {
   private async getCachedData(
     symbol: string,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): Promise<DataFetchingResult<StockData[]>> {
     try {
       const cacheKey = `stock_${symbol}_${startDate}_${endDate}`;
@@ -183,7 +183,7 @@ class DataFetchingFix {
             data,
             fromCache: true,
             timestamp,
-            source: 'cache',
+            source: "cache",
           };
         }
       }
@@ -192,7 +192,7 @@ class DataFetchingFix {
         data: [],
         fromCache: false,
         timestamp: 0,
-        source: 'cache',
+        source: "cache",
       };
     } catch (error) {
       console.error("キャッシュ取得エラー:", error);
@@ -200,7 +200,7 @@ class DataFetchingFix {
         data: [],
         fromCache: false,
         timestamp: 0,
-        source: 'cache',
+        source: "cache",
       };
     }
   }
@@ -212,7 +212,7 @@ class DataFetchingFix {
     symbol: string,
     data: StockData[],
     startDate: string,
-    endDate: string
+    endDate: string,
   ): Promise<void> {
     try {
       const cacheKey = `stock_${symbol}_${startDate}_${endDate}`;
@@ -237,7 +237,7 @@ class DataFetchingFix {
   private async handleFallback(
     symbol: string,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): Promise<DataFetchingResult<StockData[]>> {
     try {
       // 古いキャッシュを探す
@@ -250,8 +250,8 @@ class DataFetchingFix {
           data,
           fromCache: true,
           timestamp,
-          source: 'fallback',
-          error: '最新データの取得に失敗しました。前回の結果を表示しています。',
+          source: "fallback",
+          error: "最新データの取得に失敗しました。前回の結果を表示しています。",
         };
       }
       
@@ -261,8 +261,8 @@ class DataFetchingFix {
         data: sampleData,
         fromCache: false,
         timestamp: Date.now(),
-        source: 'fallback',
-        error: 'データ取得に失敗しました。サンプルデータを表示しています。',
+        source: "fallback",
+        error: "データ取得に失敗しました。サンプルデータを表示しています。",
       };
     } catch (error) {
       console.error("フォールバック処理エラー:", error);
@@ -270,8 +270,8 @@ class DataFetchingFix {
         data: [],
         fromCache: false,
         timestamp: 0,
-        source: 'fallback',
-        error: 'データ取得に失敗しました。',
+        source: "fallback",
+        error: "データ取得に失敗しました。",
       };
     }
   }
@@ -301,7 +301,7 @@ class DataFetchingFix {
       const volume = Math.floor(Math.random() * 1000000) + 100000;
       
       data.push({
-        date: date.toISOString().split('T')[0],
+        date: date.toISOString().split("T")[0],
         code: symbol,
         open: Math.round(open * 100) / 100,
         high: Math.round(high * 100) / 100,
@@ -331,7 +331,7 @@ class DataFetchingFix {
       console.error("接続テストエラー:", error);
       return {
         success: false,
-        message: `接続テストに失敗しました: ${error instanceof Error ? error.message : "不明なエラー"}`
+        message: `接続テストに失敗しました: ${error instanceof Error ? error.message : "不明なエラー"}`,
       };
     }
   }
@@ -355,7 +355,7 @@ class DataFetchingFix {
   clearCache(): void {
     try {
       const keys = Object.keys(localStorage);
-      const stockKeys = keys.filter(key => key.startsWith('stock_'));
+      const stockKeys = keys.filter(key => key.startsWith("stock_"));
       
       stockKeys.forEach(key => {
         localStorage.removeItem(key);

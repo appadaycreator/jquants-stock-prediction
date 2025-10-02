@@ -5,7 +5,7 @@
 export interface RiskCustomizationSettings {
   // 許容リスクレベル設定
   riskTolerance: {
-    level: 'VERY_LOW' | 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH' | 'CRITICAL';
+    level: "VERY_LOW" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH" | "CRITICAL";
     maxDrawdown: number; // 最大ドローダウン許容値（0-1）
     volatilityTolerance: number; // ボラティリティ許容値（0-1）
     varTolerance: number; // VaR許容値（0-1）
@@ -24,7 +24,7 @@ export interface RiskCustomizationSettings {
       targetPrice?: number; // 目標価格
       stopLossPrice?: number; // 損切ライン
       maxPositionSize?: number; // 最大ポジションサイズ
-      riskLevel?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+      riskLevel?: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
       notificationEnabled: boolean; // 通知有効化
     };
   };
@@ -48,7 +48,7 @@ export interface RiskCustomizationSettings {
 
 const DEFAULT_SETTINGS: RiskCustomizationSettings = {
   riskTolerance: {
-    level: 'MEDIUM',
+    level: "MEDIUM",
     maxDrawdown: 0.15, // 15%
     volatilityTolerance: 0.25, // 25%
     varTolerance: 0.05, // 5%
@@ -73,7 +73,7 @@ const DEFAULT_SETTINGS: RiskCustomizationSettings = {
   },
 };
 
-const STORAGE_KEY = 'risk_customization_settings';
+const STORAGE_KEY = "risk_customization_settings";
 
 export class RiskCustomizationStore {
   private static instance: RiskCustomizationStore;
@@ -95,7 +95,7 @@ export class RiskCustomizationStore {
    */
   private loadSettings(): RiskCustomizationSettings {
     try {
-      if (typeof window === 'undefined') {
+      if (typeof window === "undefined") {
         return DEFAULT_SETTINGS;
       }
 
@@ -106,7 +106,7 @@ export class RiskCustomizationStore {
         return this.mergeSettings(DEFAULT_SETTINGS, parsed);
       }
     } catch (error) {
-      console.error('設定の読み込みに失敗:', error);
+      console.error("設定の読み込みに失敗:", error);
     }
     return DEFAULT_SETTINGS;
   }
@@ -118,11 +118,11 @@ export class RiskCustomizationStore {
     try {
       this.settings = this.mergeSettings(this.settings, settings);
       
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(this.settings));
       }
     } catch (error) {
-      console.error('設定の保存に失敗:', error);
+      console.error("設定の保存に失敗:", error);
     }
   }
 
@@ -138,7 +138,7 @@ export class RiskCustomizationStore {
    */
   public updateIndividualStockSettings(
     symbol: string, 
-    settings: Partial<RiskCustomizationSettings['individualStockSettings'][string]>
+    settings: Partial<RiskCustomizationSettings["individualStockSettings"][string]>,
   ): void {
     this.settings.individualStockSettings[symbol] = {
       ...this.settings.individualStockSettings[symbol],
@@ -168,14 +168,14 @@ export class RiskCustomizationStore {
    */
   private mergeSettings(
     base: RiskCustomizationSettings, 
-    override: Partial<RiskCustomizationSettings>
+    override: Partial<RiskCustomizationSettings>,
   ): RiskCustomizationSettings {
     return {
       riskTolerance: { ...base.riskTolerance, ...override.riskTolerance },
       targetReturn: { ...base.targetReturn, ...override.targetReturn },
       individualStockSettings: { 
         ...base.individualStockSettings, 
-        ...override.individualStockSettings 
+        ...override.individualStockSettings, 
       },
       notifications: { ...base.notifications, ...override.notifications },
       display: { ...base.display, ...override.display },
@@ -190,12 +190,12 @@ export class RiskCustomizationStore {
     
     // リスクレベルに応じた閾値の調整
     const levelMultipliers = {
-      'VERY_LOW': 0.5,
-      'LOW': 0.7,
-      'MEDIUM': 1.0,
-      'HIGH': 1.3,
-      'VERY_HIGH': 1.6,
-      'CRITICAL': 2.0,
+      "VERY_LOW": 0.5,
+      "LOW": 0.7,
+      "MEDIUM": 1.0,
+      "HIGH": 1.3,
+      "VERY_HIGH": 1.6,
+      "CRITICAL": 2.0,
     };
 
     const multiplier = levelMultipliers[level];

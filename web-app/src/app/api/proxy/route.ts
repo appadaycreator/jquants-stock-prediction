@@ -3,81 +3,81 @@
  * J-Quants APIへのリクエストを中継し、CORSエラーを回避
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
 // 静的エクスポート用の設定
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
-const JQUANTS_BASE_URL = 'https://api.jquants.com/v1';
+const JQUANTS_BASE_URL = "https://api.jquants.com/v1";
 const ALLOWED_ORIGINS = [
-  'http://localhost:3000',
-  'https://jquants-stock-prediction.vercel.app',
-  'https://jquants-stock-prediction.netlify.app',
+  "http://localhost:3000",
+  "https://jquants-stock-prediction.vercel.app",
+  "https://jquants-stock-prediction.netlify.app",
 ];
 
 export async function GET(request: NextRequest) {
-  return handleRequest(request, 'GET');
+  return handleRequest(request, "GET");
 }
 
 export async function POST(request: NextRequest) {
-  return handleRequest(request, 'POST');
+  return handleRequest(request, "POST");
 }
 
 export async function PUT(request: NextRequest) {
-  return handleRequest(request, 'PUT');
+  return handleRequest(request, "PUT");
 }
 
 export async function DELETE(request: NextRequest) {
-  return handleRequest(request, 'DELETE');
+  return handleRequest(request, "DELETE");
 }
 
 async function handleRequest(request: NextRequest, method: string) {
   try {
-    const origin = request.headers.get('origin');
+    const origin = request.headers.get("origin");
     
     // CORSヘッダーの設定
     const corsHeaders = {
-      'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin || '') ? origin! : '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
-      'Access-Control-Max-Age': '86400',
+      "Access-Control-Allow-Origin": ALLOWED_ORIGINS.includes(origin || "") ? origin! : "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
+      "Access-Control-Max-Age": "86400",
     };
 
     // OPTIONSリクエストの処理
-    if (method === 'OPTIONS') {
+    if (method === "OPTIONS") {
       return new NextResponse(null, { status: 200, headers: corsHeaders });
     }
 
     // リクエストパラメータの取得
     const { searchParams } = new URL(request.url);
-    const endpoint = searchParams.get('endpoint');
+    const endpoint = searchParams.get("endpoint");
     
     if (!endpoint) {
       return NextResponse.json(
-        { error: 'エンドポイントが指定されていません' },
-        { status: 400, headers: corsHeaders }
+        { error: "エンドポイントが指定されていません" },
+        { status: 400, headers: corsHeaders },
       );
     }
 
     // J-Quants APIへのリクエスト構築
     const targetUrl = `${JQUANTS_BASE_URL}/${endpoint}`;
     const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
 
     // 認証ヘッダーの転送
-    const authHeader = request.headers.get('authorization');
+    const authHeader = request.headers.get("authorization");
     if (authHeader) {
-      headers['Authorization'] = authHeader;
+      headers["Authorization"] = authHeader;
     }
 
     // リクエストボディの取得
     let body: string | undefined;
-    if (method !== 'GET' && method !== 'DELETE') {
+    if (method !== "GET" && method !== "DELETE") {
       try {
         body = await request.text();
       } catch (error) {
-        console.warn('リクエストボディの取得に失敗:', error);
+        console.warn("リクエストボディの取得に失敗:", error);
       }
     }
 
@@ -101,7 +101,7 @@ async function handleRequest(request: NextRequest, method: string) {
 
     // エラーハンドリング
     if (!response.ok) {
-      console.error('J-Quants API エラー:', {
+      console.error("J-Quants API エラー:", {
         status: response.status,
         statusText: response.statusText,
         data: jsonData,
@@ -109,15 +109,15 @@ async function handleRequest(request: NextRequest, method: string) {
 
       return NextResponse.json(
         {
-          error: 'J-Quants API エラー',
+          error: "J-Quants API エラー",
           status: response.status,
           message: response.statusText,
           details: jsonData,
         },
         { 
           status: response.status,
-          headers: corsHeaders 
-        }
+          headers: corsHeaders, 
+        },
       );
     }
 
@@ -128,21 +128,21 @@ async function handleRequest(request: NextRequest, method: string) {
     });
 
   } catch (error) {
-    console.error('プロキシサーバーエラー:', error);
+    console.error("プロキシサーバーエラー:", error);
     
     return NextResponse.json(
       {
-        error: 'プロキシサーバーエラー',
-        message: error instanceof Error ? error.message : '不明なエラー',
+        error: "プロキシサーバーエラー",
+        message: error instanceof Error ? error.message : "不明なエラー",
       },
       { 
         status: 500,
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
-        }
-      }
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
+        },
+      },
     );
   }
 }

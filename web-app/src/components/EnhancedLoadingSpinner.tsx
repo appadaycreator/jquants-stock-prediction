@@ -5,8 +5,8 @@
 
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { Loader2, AlertTriangle, RefreshCw, CheckCircle } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from "react";
+import { Loader2, AlertTriangle, RefreshCw, CheckCircle } from "lucide-react";
 
 interface LoadingState {
   isLoading: boolean;
@@ -24,8 +24,8 @@ interface EnhancedLoadingSpinnerProps {
   onCancel?: () => void;
   showProgress?: boolean;
   showRetryButton?: boolean;
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'default' | 'minimal' | 'overlay';
+  size?: "sm" | "md" | "lg";
+  variant?: "default" | "minimal" | "overlay";
 }
 
 export default function EnhancedLoadingSpinner({
@@ -34,8 +34,8 @@ export default function EnhancedLoadingSpinner({
   onCancel,
   showProgress = true,
   showRetryButton = true,
-  size = 'md',
-  variant = 'default',
+  size = "md",
+  variant = "default",
 }: EnhancedLoadingSpinnerProps) {
   const [animationPhase, setAnimationPhase] = useState(0);
 
@@ -49,9 +49,9 @@ export default function EnhancedLoadingSpinner({
   }, [state.isLoading]);
 
   const sizeClasses = {
-    sm: 'w-4 h-4',
-    md: 'w-8 h-8',
-    lg: 'w-12 h-12',
+    sm: "w-4 h-4",
+    md: "w-8 h-8",
+    lg: "w-12 h-12",
   };
 
   const getLoadingMessage = () => {
@@ -65,7 +65,7 @@ export default function EnhancedLoadingSpinner({
   };
 
   const getAnimationDots = () => {
-    const dots = ['.', '..', '...', '....'];
+    const dots = [".", "..", "...", "...."];
     return dots[animationPhase];
   };
 
@@ -94,7 +94,7 @@ export default function EnhancedLoadingSpinner({
   };
 
   const renderContent = () => {
-    if (variant === 'minimal') {
+    if (variant === "minimal") {
       return (
         <div className="flex items-center space-x-2">
           {renderSpinner()}
@@ -106,14 +106,14 @@ export default function EnhancedLoadingSpinner({
       );
     }
 
-    if (variant === 'overlay') {
+    if (variant === "overlay") {
       return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
             <div className="text-center">
               {renderSpinner()}
               <h3 className="mt-4 text-lg font-medium text-gray-900">
-                {state.isLoading ? '処理中...' : state.error ? 'エラー' : '完了'}
+                {state.isLoading ? "処理中..." : state.error ? "エラー" : "完了"}
               </h3>
               <p className="mt-2 text-sm text-gray-600">
                 {getLoadingMessage()}
@@ -166,7 +166,7 @@ export default function EnhancedLoadingSpinner({
         
         <div className="mt-4 text-center">
           <h3 className="text-lg font-medium text-gray-900">
-            {state.isLoading ? '処理中...' : state.error ? 'エラーが発生しました' : '完了'}
+            {state.isLoading ? "処理中..." : state.error ? "エラーが発生しました" : "完了"}
           </h3>
           <p className="mt-2 text-sm text-gray-600">
             {getLoadingMessage()}
@@ -207,7 +207,7 @@ export default function EnhancedLoadingSpinner({
 /**
  * ローディング状態管理フック
  */
-export function useLoadingState(initialMessage: string = '読み込み中...') {
+export function useLoadingState(initialMessage: string = "読み込み中...") {
   const [state, setState] = useState<LoadingState>({
     isLoading: false,
     progress: 0,
@@ -245,7 +245,7 @@ export function useLoadingState(initialMessage: string = '読み込み中...') {
     }));
   }, []);
 
-  const setSuccess = useCallback((message: string = '完了') => {
+  const setSuccess = useCallback((message: string = "完了") => {
     setState(prev => ({
       ...prev,
       isLoading: false,

@@ -3,8 +3,8 @@
  * リアルタイムでデータ同期状況を監視
  */
 
-import { useState, useEffect, useCallback } from 'react';
-import { dataSyncManager } from '../lib/data-sync';
+import { useState, useEffect, useCallback } from "react";
+import { dataSyncManager } from "../lib/data-sync";
 
 interface UseDataSyncOptions {
   autoSync?: boolean;
@@ -22,7 +22,7 @@ export function useDataSync(options: UseDataSyncOptions = {}) {
     autoSync = true,
     syncInterval = 5 * 60 * 1000, // 5分
     onSyncComplete,
-    onSyncError
+    onSyncError,
   } = options;
 
   // データ同期の実行
@@ -36,15 +36,15 @@ export function useDataSync(options: UseDataSyncOptions = {}) {
       const syncStatus = await dataSyncManager.performSync();
       setStatus(syncStatus);
 
-      if (syncStatus.status === 'success') {
+      if (syncStatus.status === "success") {
         onSyncComplete?.(syncStatus);
       } else {
-        const errorMessage = syncStatus.errors.join(', ');
+        const errorMessage = syncStatus.errors.join(", ");
         setError(errorMessage);
         onSyncError?.(errorMessage);
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : '不明なエラー';
+      const errorMessage = err instanceof Error ? err.message : "不明なエラー";
       setError(errorMessage);
       onSyncError?.(errorMessage);
     } finally {
@@ -92,8 +92,8 @@ export function useDataSync(options: UseDataSyncOptions = {}) {
     performSync: manualSync,
     stopSync,
     startSync,
-    isHealthy: status.status === 'success',
+    isHealthy: status.status === "success",
     hasErrors: status.errors.length > 0,
-    lastUpdate: status.lastUpdate
+    lastUpdate: status.lastUpdate,
   };
 }

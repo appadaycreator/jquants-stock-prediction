@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { 
   AlertCircle, 
   CheckCircle, 
@@ -14,9 +14,9 @@ import {
   HelpCircle,
   ArrowRight,
   ExternalLink,
-  BookOpen
-} from 'lucide-react';
-import Link from 'next/link';
+  BookOpen,
+} from "lucide-react";
+import Link from "next/link";
 
 interface TroubleshootingItem {
   id: string;
@@ -28,201 +28,201 @@ interface TroubleshootingItem {
     description: string;
     action?: () => void;
   }>;
-  severity: 'low' | 'medium' | 'high' | 'critical';
-  category: 'data' | 'analysis' | 'display' | 'performance' | 'connection';
+  severity: "low" | "medium" | "high" | "critical";
+  category: "data" | "analysis" | "display" | "performance" | "connection";
 }
 
 export default function TroubleshootingPage() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
 
   const troubleshootingItems: TroubleshootingItem[] = [
     {
-      id: 'no-data-display',
-      title: 'データが表示されない（N/A表示）',
-      description: 'ダッシュボードで「N/A」や空欄が表示される問題',
+      id: "no-data-display",
+      title: "データが表示されない（N/A表示）",
+      description: "ダッシュボードで「N/A」や空欄が表示される問題",
       symptoms: [
-        'ダッシュボードに「N/A」が表示される',
-        'チャートが空の状態で表示される',
-        '予測結果が表示されない',
-        'メトリクスが「-」で表示される'
+        "ダッシュボードに「N/A」が表示される",
+        "チャートが空の状態で表示される",
+        "予測結果が表示されない",
+        "メトリクスが「-」で表示される",
       ],
       solutions: [
         {
-          step: '1',
-          description: '分析を実行してください',
-          action: () => window.location.href = '/'
+          step: "1",
+          description: "分析を実行してください",
+          action: () => window.location.href = "/",
         },
         {
-          step: '2',
-          description: '5分ルーティンに従って操作を進めてください',
-          action: () => window.location.href = '/five-min-routine'
+          step: "2",
+          description: "5分ルーティンに従って操作を進めてください",
+          action: () => window.location.href = "/five-min-routine",
         },
         {
-          step: '3',
-          description: 'データの更新を試してください'
-        }
+          step: "3",
+          description: "データの更新を試してください",
+        },
       ],
-      severity: 'medium',
-      category: 'data'
+      severity: "medium",
+      category: "data",
     },
     {
-      id: 'analysis-fails',
-      title: '分析が実行できない',
-      description: '分析ボタンを押しても分析が開始されない問題',
+      id: "analysis-fails",
+      title: "分析が実行できない",
+      description: "分析ボタンを押しても分析が開始されない問題",
       symptoms: [
-        '分析ボタンを押しても反応がない',
-        '分析が途中で止まる',
-        'エラーメッセージが表示される',
-        '分析結果が取得できない'
+        "分析ボタンを押しても反応がない",
+        "分析が途中で止まる",
+        "エラーメッセージが表示される",
+        "分析結果が取得できない",
       ],
       solutions: [
         {
-          step: '1',
-          description: 'ページを再読み込みしてください'
+          step: "1",
+          description: "ページを再読み込みしてください",
         },
         {
-          step: '2',
-          description: 'ブラウザのキャッシュをクリアしてください'
+          step: "2",
+          description: "ブラウザのキャッシュをクリアしてください",
         },
         {
-          step: '3',
-          description: '別のブラウザで試してください'
+          step: "3",
+          description: "別のブラウザで試してください",
         },
         {
-          step: '4',
-          description: '設定を確認してください',
-          action: () => window.location.href = '/settings'
-        }
+          step: "4",
+          description: "設定を確認してください",
+          action: () => window.location.href = "/settings",
+        },
       ],
-      severity: 'high',
-      category: 'analysis'
+      severity: "high",
+      category: "analysis",
     },
     {
-      id: 'slow-performance',
-      title: '動作が遅い',
-      description: 'ページの読み込みや操作が遅い問題',
+      id: "slow-performance",
+      title: "動作が遅い",
+      description: "ページの読み込みや操作が遅い問題",
       symptoms: [
-        'ページの読み込みが遅い',
-        'ボタンの反応が遅い',
-        'チャートの描画が遅い',
-        'データの更新が遅い'
+        "ページの読み込みが遅い",
+        "ボタンの反応が遅い",
+        "チャートの描画が遅い",
+        "データの更新が遅い",
       ],
       solutions: [
         {
-          step: '1',
-          description: 'インターネット接続を確認してください'
+          step: "1",
+          description: "インターネット接続を確認してください",
         },
         {
-          step: '2',
-          description: 'ブラウザを最新版に更新してください'
+          step: "2",
+          description: "ブラウザを最新版に更新してください",
         },
         {
-          step: '3',
-          description: '他のタブを閉じてください'
+          step: "3",
+          description: "他のタブを閉じてください",
         },
         {
-          step: '4',
-          description: 'デバイスの再起動を試してください'
-        }
+          step: "4",
+          description: "デバイスの再起動を試してください",
+        },
       ],
-      severity: 'low',
-      category: 'performance'
+      severity: "low",
+      category: "performance",
     },
     {
-      id: 'connection-issues',
-      title: '接続エラー',
-      description: 'サーバーとの接続に問題がある場合',
+      id: "connection-issues",
+      title: "接続エラー",
+      description: "サーバーとの接続に問題がある場合",
       symptoms: [
-        '「接続エラー」が表示される',
-        'データが取得できない',
-        'APIエラーが発生する',
-        'タイムアウトエラーが表示される'
+        "「接続エラー」が表示される",
+        "データが取得できない",
+        "APIエラーが発生する",
+        "タイムアウトエラーが表示される",
       ],
       solutions: [
         {
-          step: '1',
-          description: 'インターネット接続を確認してください'
+          step: "1",
+          description: "インターネット接続を確認してください",
         },
         {
-          step: '2',
-          description: 'しばらく待ってから再試行してください'
+          step: "2",
+          description: "しばらく待ってから再試行してください",
         },
         {
-          step: '3',
-          description: 'ページを再読み込みしてください'
+          step: "3",
+          description: "ページを再読み込みしてください",
         },
         {
-          step: '4',
-          description: 'システム管理者に連絡してください'
-        }
+          step: "4",
+          description: "システム管理者に連絡してください",
+        },
       ],
-      severity: 'critical',
-      category: 'connection'
+      severity: "critical",
+      category: "connection",
     },
     {
-      id: 'display-issues',
-      title: '表示が正しくない',
-      description: 'レイアウトや表示に問題がある場合',
+      id: "display-issues",
+      title: "表示が正しくない",
+      description: "レイアウトや表示に問題がある場合",
       symptoms: [
-        'レイアウトが崩れている',
-        '文字が正しく表示されない',
-        'ボタンが押せない',
-        'チャートが表示されない'
+        "レイアウトが崩れている",
+        "文字が正しく表示されない",
+        "ボタンが押せない",
+        "チャートが表示されない",
       ],
       solutions: [
         {
-          step: '1',
-          description: 'ブラウザのズームを100%に設定してください'
+          step: "1",
+          description: "ブラウザのズームを100%に設定してください",
         },
         {
-          step: '2',
-          description: 'ブラウザのキャッシュをクリアしてください'
+          step: "2",
+          description: "ブラウザのキャッシュをクリアしてください",
         },
         {
-          step: '3',
-          description: '別のブラウザで試してください'
+          step: "3",
+          description: "別のブラウザで試してください",
         },
         {
-          step: '4',
-          description: 'デバイスの解像度を確認してください'
-        }
+          step: "4",
+          description: "デバイスの解像度を確認してください",
+        },
       ],
-      severity: 'medium',
-      category: 'display'
-    }
+      severity: "medium",
+      category: "display",
+    },
   ];
 
   const categories = [
-    { id: 'all', label: 'すべて', icon: HelpCircle },
-    { id: 'data', label: 'データ', icon: Database },
-    { id: 'analysis', label: '分析', icon: BarChart3 },
-    { id: 'display', label: '表示', icon: Settings },
-    { id: 'performance', label: 'パフォーマンス', icon: Clock },
-    { id: 'connection', label: '接続', icon: Wifi }
+    { id: "all", label: "すべて", icon: HelpCircle },
+    { id: "data", label: "データ", icon: Database },
+    { id: "analysis", label: "分析", icon: BarChart3 },
+    { id: "display", label: "表示", icon: Settings },
+    { id: "performance", label: "パフォーマンス", icon: Clock },
+    { id: "connection", label: "接続", icon: Wifi },
   ];
 
-  const filteredItems = selectedCategory === 'all' 
+  const filteredItems = selectedCategory === "all" 
     ? troubleshootingItems 
     : troubleshootingItems.filter(item => item.category === selectedCategory);
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'low': return 'text-green-600 bg-green-100';
-      case 'medium': return 'text-yellow-600 bg-yellow-100';
-      case 'high': return 'text-orange-600 bg-orange-100';
-      case 'critical': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case "low": return "text-green-600 bg-green-100";
+      case "medium": return "text-yellow-600 bg-yellow-100";
+      case "high": return "text-orange-600 bg-orange-100";
+      case "critical": return "text-red-600 bg-red-100";
+      default: return "text-gray-600 bg-gray-100";
     }
   };
 
   const getSeverityLabel = (severity: string) => {
     switch (severity) {
-      case 'low': return '軽微';
-      case 'medium': return '中程度';
-      case 'high': return '重要';
-      case 'critical': return '緊急';
-      default: return '不明';
+      case "low": return "軽微";
+      case "medium": return "中程度";
+      case "high": return "重要";
+      case "critical": return "緊急";
+      default: return "不明";
     }
   };
 
@@ -285,8 +285,8 @@ export default function TroubleshootingPage() {
                     onClick={() => setSelectedCategory(category.id)}
                     className={`flex items-center space-x-2 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                       selectedCategory === category.id
-                        ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                        : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                        ? "bg-blue-50 text-blue-700 border border-blue-200"
+                        : "bg-gray-50 text-gray-700 hover:bg-gray-100"
                     }`}
                   >
                     <Icon className="h-4 w-4" />
@@ -320,7 +320,7 @@ export default function TroubleshootingPage() {
                         {item.symptoms.length} 症状
                       </span>
                       <X className={`h-5 w-5 text-gray-400 transition-transform ${
-                        expandedItem === item.id ? 'rotate-45' : ''
+                        expandedItem === item.id ? "rotate-45" : ""
                       }`} />
                     </div>
                   </div>

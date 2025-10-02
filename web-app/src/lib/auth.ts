@@ -26,7 +26,7 @@ export class AuthManager {
 
   private loadConfig(): void {
     // 環境変数から認証情報を取得（.envファイルから読み込み）
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       // クライアントサイド（NEXT_PUBLIC_プレフィックスが必要）
       this.config = {
         email: process.env.NEXT_PUBLIC_JQUANTS_EMAIL,
@@ -56,7 +56,7 @@ export class AuthManager {
     if (this.config.email && this.config.password) {
       return await this.authenticateWithCredentials(
         this.config.email,
-        this.config.password
+        this.config.password,
       );
     }
 
@@ -69,14 +69,14 @@ export class AuthManager {
    */
   private async authenticateWithCredentials(
     email: string,
-    password: string
+    password: string,
   ): Promise<string | null> {
     try {
       // J-Quants APIにログインしてトークンを取得
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
@@ -91,7 +91,7 @@ export class AuthManager {
         return token;
       }
     } catch (error) {
-      console.error('認証エラー:', error);
+      console.error("認証エラー:", error);
     }
 
     return null;

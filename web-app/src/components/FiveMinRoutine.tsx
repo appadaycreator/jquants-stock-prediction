@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { 
   CheckCircle, 
   Clock, 
@@ -15,9 +15,9 @@ import {
   CheckCircle2,
   Timer,
   Users,
-  Settings
-} from 'lucide-react';
-import { ChecklistPlaceholder } from './PlaceholderComponents';
+  Settings,
+} from "lucide-react";
+import { ChecklistPlaceholder } from "./PlaceholderComponents";
 
 interface RoutineStep {
   id: string;
@@ -27,7 +27,7 @@ interface RoutineStep {
   completed: boolean;
   action?: () => void;
   required: boolean;
-  category: 'setup' | 'analysis' | 'review' | 'action';
+  category: "setup" | "analysis" | "review" | "action";
 }
 
 interface FiveMinRoutineProps {
@@ -45,78 +45,78 @@ export default function FiveMinRoutine({
   onReportClick,
   onTradeClick,
   currentStep,
-  onStepComplete
+  onStepComplete,
 }: FiveMinRoutineProps) {
   const [steps, setSteps] = useState<RoutineStep[]>([
     {
-      id: 'symbol_selection',
-      title: '銘柄選択',
-      description: '分析したい銘柄を選択します',
-      estimatedTime: '1分',
+      id: "symbol_selection",
+      title: "銘柄選択",
+      description: "分析したい銘柄を選択します",
+      estimatedTime: "1分",
       completed: false,
       required: true,
-      category: 'setup',
+      category: "setup",
       action: () => {
         // 銘柄選択ページに遷移
-        console.log('銘柄選択を開始');
-      }
+        console.log("銘柄選択を開始");
+      },
     },
     {
-      id: 'data_validation',
-      title: 'データ確認',
-      description: '選択した銘柄のデータが最新か確認します',
-      estimatedTime: '30秒',
+      id: "data_validation",
+      title: "データ確認",
+      description: "選択した銘柄のデータが最新か確認します",
+      estimatedTime: "30秒",
       completed: false,
       required: true,
-      category: 'setup',
+      category: "setup",
       action: () => {
         // データ確認処理
-        console.log('データ確認を開始');
-      }
+        console.log("データ確認を開始");
+      },
     },
     {
-      id: 'analysis_execution',
-      title: '分析実行',
-      description: 'AI予測分析を実行します',
-      estimatedTime: '2分',
+      id: "analysis_execution",
+      title: "分析実行",
+      description: "AI予測分析を実行します",
+      estimatedTime: "2分",
       completed: false,
       required: true,
-      category: 'analysis',
-      action: onAnalysisClick
+      category: "analysis",
+      action: onAnalysisClick,
     },
     {
-      id: 'prediction_review',
-      title: '予測結果確認',
-      description: '分析結果と予測値を確認します',
-      estimatedTime: '1分',
+      id: "prediction_review",
+      title: "予測結果確認",
+      description: "分析結果と予測値を確認します",
+      estimatedTime: "1分",
       completed: false,
       required: true,
-      category: 'review',
-      action: onReportClick
+      category: "review",
+      action: onReportClick,
     },
     {
-      id: 'risk_assessment',
-      title: 'リスク評価',
-      description: '投資リスクと推奨アクションを確認します',
-      estimatedTime: '30秒',
+      id: "risk_assessment",
+      title: "リスク評価",
+      description: "投資リスクと推奨アクションを確認します",
+      estimatedTime: "30秒",
       completed: false,
       required: true,
-      category: 'review',
+      category: "review",
       action: () => {
         // リスク評価ページに遷移
-        console.log('リスク評価を開始');
-      }
+        console.log("リスク評価を開始");
+      },
     },
     {
-      id: 'investment_decision',
-      title: '投資判断',
-      description: '個人投資ダッシュボードで最終判断を行います',
-      estimatedTime: '1分',
+      id: "investment_decision",
+      title: "投資判断",
+      description: "個人投資ダッシュボードで最終判断を行います",
+      estimatedTime: "1分",
       completed: false,
       required: false,
-      category: 'action',
-      action: onTradeClick
-    }
+      category: "action",
+      action: onTradeClick,
+    },
   ]);
 
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -136,21 +136,21 @@ export default function FiveMinRoutine({
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'setup': return Settings;
-      case 'analysis': return BarChart3;
-      case 'review': return Target;
-      case 'action': return DollarSign;
+      case "setup": return Settings;
+      case "analysis": return BarChart3;
+      case "review": return Target;
+      case "action": return DollarSign;
       default: return CheckCircle;
     }
   };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'setup': return 'text-blue-600 bg-blue-50 border-blue-200';
-      case 'analysis': return 'text-purple-600 bg-purple-50 border-purple-200';
-      case 'review': return 'text-green-600 bg-green-50 border-green-200';
-      case 'action': return 'text-orange-600 bg-orange-50 border-orange-200';
-      default: return 'text-gray-600 bg-gray-50 border-gray-200';
+      case "setup": return "text-blue-600 bg-blue-50 border-blue-200";
+      case "analysis": return "text-purple-600 bg-purple-50 border-purple-200";
+      case "review": return "text-green-600 bg-green-50 border-green-200";
+      case "action": return "text-orange-600 bg-orange-50 border-orange-200";
+      default: return "text-gray-600 bg-gray-50 border-gray-200";
     }
   };
 
@@ -158,7 +158,7 @@ export default function FiveMinRoutine({
     setSteps(prev => prev.map(step => 
       step.id === stepId 
         ? { ...step, completed: !step.completed }
-        : step
+        : step,
     ));
     onStepComplete?.(stepId);
   };
@@ -173,16 +173,16 @@ export default function FiveMinRoutine({
   };
 
   const getElapsedTime = () => {
-    if (!startTime) return '00:00';
+    if (!startTime) return "00:00";
     const elapsed = Math.floor((currentTime.getTime() - startTime.getTime()) / 1000);
     const minutes = Math.floor(elapsed / 60);
     const seconds = elapsed % 60;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
   const getEstimatedTotalTime = () => {
     const totalMinutes = steps.reduce((total, step) => {
-      const minutes = parseInt(step.estimatedTime.replace(/[^\d]/g, ''));
+      const minutes = parseInt(step.estimatedTime.replace(/[^\d]/g, ""));
       return total + minutes;
     }, 0);
     return `${totalMinutes}分`;
@@ -222,7 +222,7 @@ export default function FiveMinRoutine({
               {isRunning ? getElapsedTime() : getEstimatedTotalTime()}
             </div>
             <div className="text-sm text-gray-600">
-              {isRunning ? '経過時間' : '予想時間'}
+              {isRunning ? "経過時間" : "予想時間"}
             </div>
           </div>
         </div>
@@ -266,20 +266,20 @@ export default function FiveMinRoutine({
               key={step.id}
               className={`bg-white rounded-lg border-2 p-6 transition-all ${
                 step.completed 
-                  ? 'border-green-200 bg-green-50' 
+                  ? "border-green-200 bg-green-50" 
                   : isCurrentStep
-                  ? 'border-blue-300 bg-blue-50'
-                  : 'border-gray-200'
+                  ? "border-blue-300 bg-blue-50"
+                  : "border-gray-200"
               }`}
             >
               <div className="flex items-start space-x-4">
                 {/* ステップ番号 */}
                 <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                   step.completed 
-                    ? 'bg-green-500 text-white' 
+                    ? "bg-green-500 text-white" 
                     : isCurrentStep
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-300 text-gray-600'
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-300 text-gray-600"
                 }`}>
                   {step.completed ? <CheckCircle2 className="h-4 w-4" /> : index + 1}
                 </div>
@@ -289,10 +289,10 @@ export default function FiveMinRoutine({
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <CategoryIcon className={`h-5 w-5 ${
-                        step.completed ? 'text-green-600' : 'text-gray-400'
+                        step.completed ? "text-green-600" : "text-gray-400"
                       }`} />
                       <h3 className={`text-lg font-semibold ${
-                        step.completed ? 'text-green-800' : 'text-gray-900'
+                        step.completed ? "text-green-800" : "text-gray-900"
                       }`}>
                         {step.title}
                       </h3>
@@ -309,7 +309,7 @@ export default function FiveMinRoutine({
                   </div>
 
                   <p className={`text-sm ${
-                    step.completed ? 'text-green-700' : 'text-gray-600'
+                    step.completed ? "text-green-700" : "text-gray-600"
                   }`}>
                     {step.description}
                   </p>
@@ -322,12 +322,12 @@ export default function FiveMinRoutine({
                         disabled={step.completed}
                         className={`inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
                           step.completed
-                            ? 'bg-green-100 text-green-700 cursor-not-allowed'
-                            : 'bg-blue-600 text-white hover:bg-blue-700'
+                            ? "bg-green-100 text-green-700 cursor-not-allowed"
+                            : "bg-blue-600 text-white hover:bg-blue-700"
                         }`}
                       >
                         <Play className="h-4 w-4 mr-2" />
-                        {step.completed ? '完了' : '実行'}
+                        {step.completed ? "完了" : "実行"}
                       </button>
                     )}
 
@@ -335,12 +335,12 @@ export default function FiveMinRoutine({
                       onClick={() => handleStepComplete(step.id)}
                       className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                         step.completed
-                          ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          ? "bg-green-100 text-green-700 hover:bg-green-200"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                       }`}
                     >
                       <CheckCircle className="h-4 w-4 mr-2" />
-                      {step.completed ? '完了済み' : '完了にする'}
+                      {step.completed ? "完了済み" : "完了にする"}
                     </button>
                   </div>
                 </div>

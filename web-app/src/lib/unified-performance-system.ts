@@ -203,7 +203,7 @@ class UnifiedPerformanceSystem {
         async (offset, limit) => {
           const response = await fetch(`${dataSource}?offset=${offset}&limit=${limit}`);
           return response.json();
-        }
+        },
       );
 
       // チャートの描画
@@ -297,22 +297,22 @@ class UnifiedPerformanceSystem {
   private async loadChartLibrary(type: string): Promise<any> {
     const startTime = performance.now();
     
-    let module;
+    let chartModule;
     switch (type) {
       case "line":
-        module = await import("chart.js");
+        chartModule = await import("chart.js");
         break;
       case "candlestick":
-        module = await import("lightweight-charts");
+        chartModule = await import("lightweight-charts");
         break;
       case "volume":
-        module = await import("chart.js");
+        chartModule = await import("chart.js");
         break;
       case "technical":
-        module = await import("chart.js");
+        chartModule = await import("chart.js");
         break;
       default:
-        module = await import("chart.js");
+        chartModule = await import("chart.js");
     }
 
     const loadTime = performance.now() - startTime;
@@ -321,7 +321,7 @@ class UnifiedPerformanceSystem {
       loadTime: `${loadTime.toFixed(2)}ms`,
     });
 
-    return module;
+    return chartModule;
   }
 
   /**

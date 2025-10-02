@@ -3,8 +3,8 @@
  * セキュリティ状況の監視と表示
  */
 
-import React from 'react';
-import { useSecurity } from '../hooks/useSecurity';
+import React from "react";
+import { useSecurity } from "../hooks/useSecurity";
 import { 
   Shield, 
   Lock, 
@@ -14,8 +14,8 @@ import {
   Key,
   Clock,
   User,
-  Activity
-} from 'lucide-react';
+  Activity,
+} from "lucide-react";
 
 interface SecurityMonitorProps {
   showDetails?: boolean;
@@ -26,7 +26,7 @@ interface SecurityMonitorProps {
 export default function SecurityMonitor({ 
   showDetails = false, 
   compact = false,
-  onSecurityEvent
+  onSecurityEvent,
 }: SecurityMonitorProps) {
   const {
     isSecure,
@@ -43,7 +43,7 @@ export default function SecurityMonitor({
     logSecurityEvent,
     updateSecurityConfig,
     getSecurityConfig,
-    getAuditLogs
+    getAuditLogs,
   } = useSecurity({ onSecurityEvent });
 
   const getStatusIcon = () => {
@@ -57,20 +57,20 @@ export default function SecurityMonitor({
   };
 
   const getStatusText = () => {
-    if (isSecure && sessionValid) return 'セキュア';
-    if (isSecure && !sessionValid) return 'セッション期限切れ';
-    return 'セキュリティ警告';
+    if (isSecure && sessionValid) return "セキュア";
+    if (isSecure && !sessionValid) return "セッション期限切れ";
+    return "セキュリティ警告";
   };
 
   const getStatusColor = () => {
-    if (isSecure && sessionValid) return 'text-green-600';
-    if (isSecure && !sessionValid) return 'text-yellow-600';
-    return 'text-red-600';
+    if (isSecure && sessionValid) return "text-green-600";
+    if (isSecure && !sessionValid) return "text-yellow-600";
+    return "text-red-600";
   };
 
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);
-    return date.toLocaleString('ja-JP');
+    return date.toLocaleString("ja-JP");
   };
 
   if (compact) {
@@ -108,9 +108,9 @@ export default function SecurityMonitor({
               <div>
                 <div className="text-sm text-gray-600">セッション</div>
                 <div className={`text-sm font-medium ${
-                  sessionValid ? 'text-green-600' : 'text-red-600'
+                  sessionValid ? "text-green-600" : "text-red-600"
                 }`}>
-                  {sessionValid ? '有効' : '無効'}
+                  {sessionValid ? "有効" : "無効"}
                 </div>
               </div>
             </div>
@@ -120,9 +120,9 @@ export default function SecurityMonitor({
               <div>
                 <div className="text-sm text-gray-600">セキュリティ</div>
                 <div className={`text-sm font-medium ${
-                  isSecure ? 'text-green-600' : 'text-red-600'
+                  isSecure ? "text-green-600" : "text-red-600"
                 }`}>
-                  {isSecure ? '有効' : '無効'}
+                  {isSecure ? "有効" : "無効"}
                 </div>
               </div>
             </div>
@@ -159,9 +159,9 @@ export default function SecurityMonitor({
                   <div key={identifier} className="flex items-center justify-between text-xs">
                     <span className="text-gray-600">{identifier}</span>
                     <span className={`font-medium ${
-                      remaining > 0 ? 'text-green-600' : 'text-red-600'
+                      remaining > 0 ? "text-green-600" : "text-red-600"
                     }`}>
-                      {remaining > 0 ? `${remaining}回残り` : 'ブロック中'}
+                      {remaining > 0 ? `${remaining}回残り` : "ブロック中"}
                     </span>
                   </div>
                 ))}
@@ -201,7 +201,7 @@ export default function SecurityMonitor({
         <div className="space-x-2">
           <button
             onClick={() => {
-              logSecurityEvent('security_check', { timestamp: new Date().toISOString() });
+              logSecurityEvent("security_check", { timestamp: new Date().toISOString() });
             }}
             className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
           >
@@ -219,7 +219,7 @@ export default function SecurityMonitor({
         </div>
         
         <div className="text-xs text-gray-500">
-          {sessionValid ? 'セッション有効' : 'セッション無効'}
+          {sessionValid ? "セッション有効" : "セッション無効"}
         </div>
       </div>
     </div>

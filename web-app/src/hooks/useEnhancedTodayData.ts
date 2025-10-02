@@ -5,29 +5,29 @@
 
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import apiClient from '@/lib/enhanced-api-client';
-import cacheManager from '@/lib/enhanced-cache-manager';
-import errorHandler, { ErrorContext } from '@/lib/enhanced-error-handler';
+import { useState, useEffect, useCallback, useRef } from "react";
+import apiClient from "@/lib/enhanced-api-client";
+import cacheManager from "@/lib/enhanced-cache-manager";
+import errorHandler, { ErrorContext } from "@/lib/enhanced-error-handler";
 
 interface TodaySummary {
   date: string;
-  marketStatus: 'open' | 'closed' | 'pre_market' | 'after_hours';
+  marketStatus: "open" | "closed" | "pre_market" | "after_hours";
   topSignals: Array<{
     symbol: string;
-    action: 'buy' | 'sell' | 'hold';
+    action: "buy" | "sell" | "hold";
     confidence: number;
     price: number;
     change: number;
     reason: string;
   }>;
   marketInsights: {
-    trend: 'bullish' | 'bearish' | 'neutral';
-    volatility: 'low' | 'medium' | 'high';
+    trend: "bullish" | "bearish" | "neutral";
+    volatility: "low" | "medium" | "high";
     sentiment: number;
   };
   riskAssessment: {
-    level: 'low' | 'medium' | 'high';
+    level: "low" | "medium" | "high";
     factors: string[];
     recommendations: string[];
   };
@@ -69,7 +69,7 @@ export function useEnhancedTodayData(): UseEnhancedTodayDataReturn {
     try {
       // キャッシュから取得を試行
       if (useCache) {
-        const cachedData = await cacheManager.get<TodaySummary>('today_summary');
+        const cachedData = await cacheManager.get<TodaySummary>("today_summary");
         if (cachedData) {
           setData(cachedData);
           setFromCache(true);
@@ -80,37 +80,37 @@ export function useEnhancedTodayData(): UseEnhancedTodayDataReturn {
 
       // モックデータを返す（開発環境用）
       const mockData: TodaySummary = {
-        date: new Date().toISOString().split('T')[0],
-        marketStatus: 'open',
+        date: new Date().toISOString().split("T")[0],
+        marketStatus: "open",
         topSignals: [
           {
-            symbol: '7203',
-            action: 'buy',
+            symbol: "7203",
+            action: "buy",
             confidence: 0.85,
             price: 2500,
             change: 2.5,
-            reason: 'テクニカル分析で上昇トレンドを確認'
+            reason: "テクニカル分析で上昇トレンドを確認",
           },
           {
-            symbol: '6758',
-            action: 'sell',
+            symbol: "6758",
+            action: "sell",
             confidence: 0.72,
             price: 1800,
             change: -1.2,
-            reason: '利益確定のタイミング'
-          }
+            reason: "利益確定のタイミング",
+          },
         ],
         marketInsights: {
-          trend: 'bullish',
-          volatility: 'medium',
-          sentiment: 0.7
+          trend: "bullish",
+          volatility: "medium",
+          sentiment: 0.7,
         },
         riskAssessment: {
-          level: 'medium',
-          factors: ['市場の不安定性', '金利変動リスク'],
-          recommendations: ['分散投資の実施', 'リスク管理の徹底']
+          level: "medium",
+          factors: ["市場の不安定性", "金利変動リスク"],
+          recommendations: ["分散投資の実施", "リスク管理の徹底"],
         },
-        lastUpdated: new Date().toISOString()
+        lastUpdated: new Date().toISOString(),
       };
 
       // モックデータを返す
@@ -119,9 +119,9 @@ export function useEnhancedTodayData(): UseEnhancedTodayDataReturn {
       setLastUpdated(mockData.lastUpdated);
       
       // キャッシュに保存
-      await cacheManager.set('today_summary', mockData, {
+      await cacheManager.set("today_summary", mockData, {
         ttl: 300000,
-        tags: ['today', 'summary'],
+        tags: ["today", "summary"],
         priority: 0.9,
       });
       return;
@@ -129,8 +129,8 @@ export function useEnhancedTodayData(): UseEnhancedTodayDataReturn {
     } catch (err) {
       const error = err as Error;
       const context: ErrorContext = {
-        operation: 'fetchTodayData',
-        component: 'TodayPage',
+        operation: "fetchTodayData",
+        component: "TodayPage",
         timestamp: Date.now(),
         userAgent: navigator.userAgent,
         url: window.location.href,
@@ -185,17 +185,17 @@ export function useTodayDataFallback() {
     
     // ローカルストレージにも保存
     try {
-      localStorage.setItem('today_fallback_data', JSON.stringify(data));
-      localStorage.setItem('today_fallback_timestamp', Date.now().toString());
+      localStorage.setItem("today_fallback_data", JSON.stringify(data));
+      localStorage.setItem("today_fallback_timestamp", Date.now().toString());
     } catch (error) {
-      console.warn('Failed to save fallback data to localStorage:', error);
+      console.warn("Failed to save fallback data to localStorage:", error);
     }
   }, []);
 
   const loadFallbackData = useCallback(() => {
     try {
-      const storedData = localStorage.getItem('today_fallback_data');
-      const storedTimestamp = localStorage.getItem('today_fallback_timestamp');
+      const storedData = localStorage.getItem("today_fallback_data");
+      const storedTimestamp = localStorage.getItem("today_fallback_timestamp");
       
       if (storedData && storedTimestamp) {
         const data = JSON.parse(storedData);
@@ -205,7 +205,7 @@ export function useTodayDataFallback() {
         setFallbackTimestamp(timestamp);
       }
     } catch (error) {
-      console.warn('Failed to load fallback data from localStorage:', error);
+      console.warn("Failed to load fallback data from localStorage:", error);
     }
   }, []);
 

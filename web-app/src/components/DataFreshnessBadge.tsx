@@ -13,7 +13,7 @@ interface DataFreshnessBadgeProps {
   dataSourceId: string;
   dataSourceName: string;
   lastUpdated: Date | string | number;
-  source: 'api' | 'cache' | 'fallback';
+  source: "api" | "cache" | "fallback";
   ttlMinutes?: number;
   onRefresh?: () => Promise<void>;
   showDetails?: boolean;
@@ -52,7 +52,7 @@ const DataFreshnessBadge: React.FC<DataFreshnessBadgeProps> = ({
       dataSourceName,
       new Date(lastUpdated),
       ttlMinutes,
-      source
+      source,
     );
 
     // リフレッシュコールバックの登録
@@ -102,33 +102,33 @@ const DataFreshnessBadge: React.FC<DataFreshnessBadgeProps> = ({
   // バッジの色とアイコンの決定
   const getBadgeStyle = () => {
     switch (freshnessInfo.cacheStatus) {
-      case 'fresh':
+      case "fresh":
         return {
-          bgColor: 'bg-green-100',
-          textColor: 'text-green-800',
+          bgColor: "bg-green-100",
+          textColor: "text-green-800",
           icon: <CheckCircle className="h-4 w-4" />,
-          iconColor: 'text-green-600',
+          iconColor: "text-green-600",
         };
-      case 'stale':
+      case "stale":
         return {
-          bgColor: 'bg-yellow-100',
-          textColor: 'text-yellow-800',
+          bgColor: "bg-yellow-100",
+          textColor: "text-yellow-800",
           icon: <AlertTriangle className="h-4 w-4" />,
-          iconColor: 'text-yellow-600',
+          iconColor: "text-yellow-600",
         };
-      case 'expired':
+      case "expired":
         return {
-          bgColor: 'bg-red-100',
-          textColor: 'text-red-800',
+          bgColor: "bg-red-100",
+          textColor: "text-red-800",
           icon: <XCircle className="h-4 w-4" />,
-          iconColor: 'text-red-600',
+          iconColor: "text-red-600",
         };
       default:
         return {
-          bgColor: 'bg-gray-100',
-          textColor: 'text-gray-800',
+          bgColor: "bg-gray-100",
+          textColor: "text-gray-800",
           icon: <Clock className="h-4 w-4" />,
-          iconColor: 'text-gray-600',
+          iconColor: "text-gray-600",
         };
     }
   };
@@ -164,11 +164,11 @@ const DataFreshnessBadge: React.FC<DataFreshnessBadgeProps> = ({
           onClick={handleRefresh}
           disabled={isRefreshing}
           className={`p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 ${
-            isRefreshing ? 'opacity-50 cursor-not-allowed' : ''
+            isRefreshing ? "opacity-50 cursor-not-allowed" : ""
           }`}
           title="データを更新"
         >
-          <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
         </button>
       )}
 
@@ -192,7 +192,7 @@ const getRelativeTime = (date: Date | string | number): string => {
   const diffDays = Math.floor(diffHours / 24);
 
   if (diffMinutes < 1) {
-    return 'たった今';
+    return "たった今";
   } else if (diffMinutes < 60) {
     return `${diffMinutes}分前`;
   } else if (diffHours < 24) {
@@ -203,4 +203,4 @@ const getRelativeTime = (date: Date | string | number): string => {
 };
 
 export default DataFreshnessBadge;
-export { default as DataFreshnessSummary } from './DataFreshnessSummary';
+export { default as DataFreshnessSummary } from "./DataFreshnessSummary";

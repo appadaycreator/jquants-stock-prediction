@@ -137,13 +137,13 @@ export default function SettingsPage() {
       console.error("リスク設定読み込みエラー:", e);
       // デフォルト設定を使用
       setRiskSettings({
-        riskTolerance: 'medium',
+        riskTolerance: "medium",
         maxLossPercentage: 5,
         stopLossPercentage: 3,
         takeProfitPercentage: 10,
         maxPositionSize: 10,
-        diversificationLevel: 'medium',
-        rebalanceFrequency: 'monthly',
+        diversificationLevel: "medium",
+        rebalanceFrequency: "monthly",
         volatilityThreshold: 0.2,
         correlationThreshold: 0.7,
         sectorLimits: {
@@ -153,36 +153,36 @@ export default function SettingsPage() {
           consumer: 15,
           industrial: 10,
           utilities: 5,
-          energy: 5
+          energy: 5,
         },
         countryLimits: {
           japan: 60,
           usa: 25,
           europe: 10,
-          asia: 5
+          asia: 5,
         },
         assetAllocation: {
           stocks: 70,
           bonds: 20,
-          cash: 10
+          cash: 10,
         },
         riskMetrics: {
           maxDrawdown: 15,
           sharpeRatio: 1.0,
-          volatility: 0.15
+          volatility: 0.15,
         },
         notifications: {
           priceAlerts: true,
           riskAlerts: true,
           rebalanceAlerts: true,
-          newsAlerts: false
+          newsAlerts: false,
         },
         advanced: {
           useOptions: false,
           useLeverage: false,
           useShortSelling: false,
-          useDerivatives: false
-        }
+          useDerivatives: false,
+        },
       });
     } finally {
       setRiskLoading(false);
@@ -704,9 +704,9 @@ export default function SettingsPage() {
                             colsample_bytree: 0.8,
                             reg_alpha: 0.1,
                             ...settings.hyperparameters?.xgboost,
-                            n_estimators: parseInt(e.target.value)
-                          }
-                        }
+                            n_estimators: parseInt(e.target.value),
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     />
@@ -733,9 +733,9 @@ export default function SettingsPage() {
                             colsample_bytree: 0.8,
                             reg_alpha: 0.1,
                             ...settings.hyperparameters?.xgboost,
-                            learning_rate: parseFloat(e.target.value)
-                          }
-                        }
+                            learning_rate: parseFloat(e.target.value),
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     />
@@ -762,9 +762,9 @@ export default function SettingsPage() {
                             colsample_bytree: 0.8,
                             reg_alpha: 0.1,
                             ...settings.hyperparameters?.xgboost,
-                            max_depth: parseInt(e.target.value)
-                          }
-                        }
+                            max_depth: parseInt(e.target.value),
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     />
@@ -791,9 +791,9 @@ export default function SettingsPage() {
                             colsample_bytree: 0.8,
                             reg_alpha: 0.1,
                             ...settings.hyperparameters?.xgboost,
-                            subsample: parseFloat(e.target.value)
-                          }
-                        }
+                            subsample: parseFloat(e.target.value),
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     />
@@ -820,9 +820,9 @@ export default function SettingsPage() {
                             subsample: 0.8,
                             reg_alpha: 0.1,
                             ...settings.hyperparameters?.xgboost,
-                            colsample_bytree: parseFloat(e.target.value)
-                          }
-                        }
+                            colsample_bytree: parseFloat(e.target.value),
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     />
@@ -849,9 +849,9 @@ export default function SettingsPage() {
                             subsample: 0.8,
                             colsample_bytree: 0.8,
                             ...settings.hyperparameters?.xgboost,
-                            reg_alpha: parseFloat(e.target.value)
-                          }
-                        }
+                            reg_alpha: parseFloat(e.target.value),
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     />
@@ -884,9 +884,9 @@ export default function SettingsPage() {
                             max_features: "sqrt",
                             bootstrap: true,
                             ...settings.hyperparameters?.random_forest,
-                            n_estimators: parseInt(e.target.value)
-                          }
-                        }
+                            n_estimators: parseInt(e.target.value),
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     />
@@ -913,9 +913,9 @@ export default function SettingsPage() {
                             max_features: "sqrt",
                             bootstrap: true,
                             ...settings.hyperparameters?.random_forest,
-                            max_depth: parseInt(e.target.value)
-                          }
-                        }
+                            max_depth: parseInt(e.target.value),
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     />
@@ -942,9 +942,9 @@ export default function SettingsPage() {
                             max_features: "sqrt",
                             bootstrap: true,
                             ...settings.hyperparameters?.random_forest,
-                            min_samples_split: parseInt(e.target.value)
-                          }
-                        }
+                            min_samples_split: parseInt(e.target.value),
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     />
@@ -971,9 +971,9 @@ export default function SettingsPage() {
                             max_features: "sqrt",
                             bootstrap: true,
                             ...settings.hyperparameters?.random_forest,
-                            min_samples_leaf: parseInt(e.target.value)
-                          }
-                        }
+                            min_samples_leaf: parseInt(e.target.value),
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     />
@@ -996,9 +996,9 @@ export default function SettingsPage() {
                             min_samples_leaf: 1,
                             bootstrap: true,
                             ...settings.hyperparameters?.random_forest,
-                            max_features: e.target.value
-                          }
-                        }
+                            max_features: e.target.value,
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     >
@@ -1025,9 +1025,9 @@ export default function SettingsPage() {
                             min_samples_leaf: 1,
                             max_features: "sqrt",
                             ...settings.hyperparameters?.random_forest,
-                            bootstrap: e.target.value === "true"
-                          }
-                        }
+                            bootstrap: e.target.value === "true",
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     >
@@ -1060,9 +1060,9 @@ export default function SettingsPage() {
                             fit_intercept: true,
                             normalize: false,
                             ...settings.hyperparameters?.ridge,
-                            alpha: parseFloat(e.target.value)
-                          }
-                        }
+                            alpha: parseFloat(e.target.value),
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     />
@@ -1082,9 +1082,9 @@ export default function SettingsPage() {
                             alpha: 1.0,
                             normalize: false,
                             ...settings.hyperparameters?.ridge,
-                            fit_intercept: e.target.value === "true"
-                          }
-                        }
+                            fit_intercept: e.target.value === "true",
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     >
@@ -1107,9 +1107,9 @@ export default function SettingsPage() {
                             alpha: 1.0,
                             fit_intercept: true,
                             ...settings.hyperparameters?.ridge,
-                            normalize: e.target.value === "true"
-                          }
-                        }
+                            normalize: e.target.value === "true",
+                          },
+                        },
                       })}
                       className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     >
@@ -1137,7 +1137,7 @@ export default function SettingsPage() {
                           max_depth: 6,
                           subsample: 1.0,
                           colsample_bytree: 1.0,
-                          reg_alpha: 0
+                          reg_alpha: 0,
                         },
                         random_forest: {
                           n_estimators: 100,
@@ -1145,14 +1145,14 @@ export default function SettingsPage() {
                           min_samples_split: 2,
                           min_samples_leaf: 1,
                           max_features: "sqrt",
-                          bootstrap: true
+                          bootstrap: true,
                         },
                         ridge: {
                           alpha: 1.0,
                           fit_intercept: true,
-                          normalize: false
-                        }
-                      }
+                          normalize: false,
+                        },
+                      },
                     });
                   }}
                   className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"

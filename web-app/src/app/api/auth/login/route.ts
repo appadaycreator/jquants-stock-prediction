@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
 // 静的エクスポート用の設定
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
 
 /**
@@ -15,16 +15,16 @@ export async function POST(request: NextRequest) {
 
     if (!email || !password) {
       return NextResponse.json(
-        { error: 'メールアドレスとパスワードが必要です' },
-        { status: 400 }
+        { error: "メールアドレスとパスワードが必要です" },
+        { status: 400 },
       );
     }
 
     // J-Quants APIにログイン
-    const loginResponse = await fetch('https://api.jquants.com/v1/token/auth_user', {
-      method: 'POST',
+    const loginResponse = await fetch("https://api.jquants.com/v1/token/auth_user", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         mailaddress: email,
@@ -34,18 +34,18 @@ export async function POST(request: NextRequest) {
 
     if (!loginResponse.ok) {
       return NextResponse.json(
-        { error: 'J-Quants API認証に失敗しました' },
-        { status: 401 }
+        { error: "J-Quants API認証に失敗しました" },
+        { status: 401 },
       );
     }
 
     const loginData = await loginResponse.json();
 
     // リフレッシュトークンを使用してIDトークンを取得
-    const tokenResponse = await fetch('https://api.jquants.com/v1/token/auth_refresh', {
-      method: 'POST',
+    const tokenResponse = await fetch("https://api.jquants.com/v1/token/auth_refresh", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         refreshtoken: loginData.refreshtoken,
@@ -54,8 +54,8 @@ export async function POST(request: NextRequest) {
 
     if (!tokenResponse.ok) {
       return NextResponse.json(
-        { error: 'IDトークンの取得に失敗しました' },
-        { status: 401 }
+        { error: "IDトークンの取得に失敗しました" },
+        { status: 401 },
       );
     }
 
@@ -68,10 +68,10 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('認証エラー:', error);
+    console.error("認証エラー:", error);
     return NextResponse.json(
-      { error: '認証処理中にエラーが発生しました' },
-      { status: 500 }
+      { error: "認証処理中にエラーが発生しました" },
+      { status: 500 },
     );
   }
 }

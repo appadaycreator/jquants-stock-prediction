@@ -417,7 +417,7 @@ class OptimizedCacheStrategy {
    */
   private predictRelatedKeys(key: string): string[] {
     // 簡易的な予測ロジック
-    const baseKey = key.split('_')[0];
+    const baseKey = key.split("_")[0];
     return [`${baseKey}_related`, `${baseKey}_metadata`];
   }
 

@@ -31,7 +31,7 @@ export function useCachedAnalysis() {
     misses: 0,
     hitRate: 0,
     totalSize: 0,
-    entryCount: 0
+    entryCount: 0,
   });
 
   // キャッシュシステムの初期化
@@ -58,7 +58,7 @@ export function useCachedAnalysis() {
    * キャッシュされた分析結果の取得
    */
   const getCachedAnalysis = useCallback(async (
-    parameters: AnalysisParameters
+    parameters: AnalysisParameters,
   ): Promise<CachedAnalysisResult | null> => {
     if (!isInitialized) {
       console.warn("キャッシュシステムが初期化されていません");
@@ -69,7 +69,7 @@ export function useCachedAnalysis() {
       const cacheKey = predictionCacheManager.generateCacheKey(
         "prediction",
         parameters,
-        parameters.modelType
+        parameters.modelType,
       );
 
       // 予測結果の取得
@@ -81,7 +81,7 @@ export function useCachedAnalysis() {
       // モデル比較結果の取得
       const comparisonKey = predictionCacheManager.generateCacheKey(
         "comparison",
-        parameters
+        parameters,
       );
       const comparisonData = await predictionCacheManager.getCachedModelComparison(comparisonKey);
 
@@ -93,7 +93,7 @@ export function useCachedAnalysis() {
         performance: predictionData.performance,
         fromCache: true,
         cacheKey,
-        timestamp: predictionData.timestamp
+        timestamp: predictionData.timestamp,
       };
 
     } catch (error) {
@@ -111,7 +111,7 @@ export function useCachedAnalysis() {
       predictions: any[];
       modelComparison: any[];
       performance: { mae: number; rmse: number; r2: number };
-    }
+    },
   ): Promise<void> => {
     if (!isInitialized) {
       console.warn("キャッシュシステムが初期化されていません");
@@ -122,12 +122,12 @@ export function useCachedAnalysis() {
       const predictionKey = predictionCacheManager.generateCacheKey(
         "prediction",
         parameters,
-        parameters.modelType
+        parameters.modelType,
       );
 
       const comparisonKey = predictionCacheManager.generateCacheKey(
         "comparison",
-        parameters
+        parameters,
       );
 
       // 予測結果のキャッシュ
@@ -137,7 +137,7 @@ export function useCachedAnalysis() {
         performance: result.performance,
         timestamp: new Date().toISOString(),
         modelName: parameters.modelType,
-        parameters
+        parameters,
       };
 
       await predictionCacheManager.cachePrediction(
@@ -146,8 +146,8 @@ export function useCachedAnalysis() {
         {
           ttl: 24 * 60 * 60 * 1000, // 24時間
           tags: ["analysis", parameters.symbol, parameters.modelType],
-          priority: 1
-        }
+          priority: 1,
+        },
       );
 
       // モデル比較結果のキャッシュ
@@ -155,7 +155,7 @@ export function useCachedAnalysis() {
         models: result.modelComparison,
         bestModel: result.modelComparison[0]?.name || "",
         comparisonTimestamp: new Date().toISOString(),
-        parameters
+        parameters,
       };
 
       await predictionCacheManager.cacheModelComparison(
@@ -164,8 +164,8 @@ export function useCachedAnalysis() {
         {
           ttl: 24 * 60 * 60 * 1000, // 24時間
           tags: ["modelComparison", parameters.symbol],
-          priority: 1
-        }
+          priority: 1,
+        },
       );
 
       updateCacheStats();
@@ -180,7 +180,7 @@ export function useCachedAnalysis() {
    * キャッシュの検索
    */
   const searchCache = useCallback(async (
-    tags: string[]
+    tags: string[],
   ): Promise<Array<{ key: string; data: any; metadata: any }>> => {
     if (!isInitialized) {
       return [];
@@ -266,6 +266,6 @@ export function useCachedAnalysis() {
     optimizeCache,
     getCacheHitRate,
     getCacheSize,
-    updateCacheStats
+    updateCacheStats,
   };
 }

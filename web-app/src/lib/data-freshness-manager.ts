@@ -7,8 +7,8 @@ export interface DataFreshnessInfo {
   isFresh: boolean;
   lastUpdated: Date;
   ageMinutes: number;
-  cacheStatus: 'fresh' | 'stale' | 'expired' | 'unknown';
-  source: 'api' | 'cache' | 'fallback';
+  cacheStatus: "fresh" | "stale" | "expired" | "unknown";
+  source: "api" | "cache" | "fallback";
   ttlMinutes?: number;
   nextRefresh?: Date;
 }
@@ -46,40 +46,40 @@ export class DataFreshnessManager {
    */
   getFreshnessInfo(
     lastUpdated: Date | string | number,
-    source: 'api' | 'cache' | 'fallback' = 'cache',
-    ttlMinutes?: number
+    source: "api" | "cache" | "fallback" = "cache",
+    ttlMinutes?: number,
   ): DataFreshnessInfo {
     const now = new Date();
     const updateTime = new Date(lastUpdated);
     const ageMinutes = Math.floor((now.getTime() - updateTime.getTime()) / (1000 * 60));
     const ttl = ttlMinutes || this.config.defaultTtlMinutes;
 
-    let cacheStatus: DataFreshnessInfo['cacheStatus'];
+    let cacheStatus: DataFreshnessInfo["cacheStatus"];
     let isFresh: boolean;
 
     if (ageMinutes <= this.config.freshThresholdMinutes) {
-      cacheStatus = 'fresh';
+      cacheStatus = "fresh";
       isFresh = true;
     } else if (ageMinutes <= this.config.staleThresholdMinutes) {
-      cacheStatus = 'stale';
+      cacheStatus = "stale";
       isFresh = false;
     } else if (ageMinutes <= this.config.expiredThresholdMinutes) {
-      cacheStatus = 'stale';
+      cacheStatus = "stale";
       isFresh = false;
     } else {
-      cacheStatus = 'expired';
+      cacheStatus = "expired";
       isFresh = false;
     }
 
     // TTLを超えている場合は期限切れ
     if (ageMinutes > ttl) {
-      cacheStatus = 'expired';
+      cacheStatus = "expired";
       isFresh = false;
     }
 
     // APIから直接取得した場合は常にフレッシュ
-    if (source === 'api') {
-      cacheStatus = 'fresh';
+    if (source === "api") {
+      cacheStatus = "fresh";
       isFresh = true;
     }
 
@@ -101,7 +101,7 @@ export class DataFreshnessManager {
    */
   getFreshnessFromCacheMeta(
     cacheMeta: { exists: boolean; timestamp?: number; ttl?: number },
-    source: 'api' | 'cache' | 'fallback' = 'cache'
+    source: "api" | "cache" | "fallback" = "cache",
   ): DataFreshnessInfo | null {
     if (!cacheMeta.exists || !cacheMeta.timestamp) {
       return null;
@@ -110,7 +110,7 @@ export class DataFreshnessManager {
     return this.getFreshnessInfo(
       cacheMeta.timestamp,
       source,
-      cacheMeta.ttl
+      cacheMeta.ttl,
     );
   }
 
@@ -118,9 +118,9 @@ export class DataFreshnessManager {
    * 複数のデータソースの鮮度情報を統合
    */
   getCombinedFreshnessInfo(
-    freshnessInfos: DataFreshnessInfo[]
+    freshnessInfos: DataFreshnessInfo[],
   ): {
-    overallStatus: 'all_fresh' | 'mixed' | 'all_stale' | 'all_expired';
+    overallStatus: "all_fresh" | "mixed" | "all_stale" | "all_expired";
     oldestData: DataFreshnessInfo | null;
     freshCount: number;
     staleCount: number;
@@ -129,7 +129,7 @@ export class DataFreshnessManager {
   } {
     if (freshnessInfos.length === 0) {
       return {
-        overallStatus: 'all_expired',
+        overallStatus: "all_expired",
         oldestData: null,
         freshCount: 0,
         staleCount: 0,
@@ -139,23 +139,23 @@ export class DataFreshnessManager {
     }
 
     const freshCount = freshnessInfos.filter(info => info.isFresh).length;
-    const staleCount = freshnessInfos.filter(info => info.cacheStatus === 'stale').length;
-    const expiredCount = freshnessInfos.filter(info => info.cacheStatus === 'expired').length;
+    const staleCount = freshnessInfos.filter(info => info.cacheStatus === "stale").length;
+    const expiredCount = freshnessInfos.filter(info => info.cacheStatus === "expired").length;
     const totalCount = freshnessInfos.length;
 
     const oldestData = freshnessInfos.reduce((oldest, current) => 
-      current.ageMinutes > oldest.ageMinutes ? current : oldest
+      current.ageMinutes > oldest.ageMinutes ? current : oldest,
     );
 
-    let overallStatus: 'all_fresh' | 'mixed' | 'all_stale' | 'all_expired';
+    let overallStatus: "all_fresh" | "mixed" | "all_stale" | "all_expired";
     if (freshCount === totalCount) {
-      overallStatus = 'all_fresh';
+      overallStatus = "all_fresh";
     } else if (expiredCount === totalCount) {
-      overallStatus = 'all_expired';
+      overallStatus = "all_expired";
     } else if (staleCount === totalCount) {
-      overallStatus = 'all_stale';
+      overallStatus = "all_stale";
     } else {
-      overallStatus = 'mixed';
+      overallStatus = "mixed";
     }
 
     return {
@@ -171,40 +171,40 @@ export class DataFreshnessManager {
   /**
    * 鮮度バッジのスタイルを取得
    */
-  getFreshnessBadgeStyle(cacheStatus: DataFreshnessInfo['cacheStatus']): {
+  getFreshnessBadgeStyle(cacheStatus: DataFreshnessInfo["cacheStatus"]): {
     className: string;
     icon: string;
     text: string;
     color: string;
   } {
     switch (cacheStatus) {
-      case 'fresh':
+      case "fresh":
         return {
-          className: 'bg-green-100 text-green-800 border-green-200',
-          icon: '✓',
-          text: 'Fresh',
-          color: 'green',
+          className: "bg-green-100 text-green-800 border-green-200",
+          icon: "✓",
+          text: "Fresh",
+          color: "green",
         };
-      case 'stale':
+      case "stale":
         return {
-          className: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-          icon: '⚠',
-          text: 'Stale',
-          color: 'yellow',
+          className: "bg-yellow-100 text-yellow-800 border-yellow-200",
+          icon: "⚠",
+          text: "Stale",
+          color: "yellow",
         };
-      case 'expired':
+      case "expired":
         return {
-          className: 'bg-red-100 text-red-800 border-red-200',
-          icon: '✗',
-          text: 'Expired',
-          color: 'red',
+          className: "bg-red-100 text-red-800 border-red-200",
+          icon: "✗",
+          text: "Expired",
+          color: "red",
         };
       default:
         return {
-          className: 'bg-gray-100 text-gray-800 border-gray-200',
-          icon: '?',
-          text: 'Unknown',
-          color: 'gray',
+          className: "bg-gray-100 text-gray-800 border-gray-200",
+          icon: "?",
+          text: "Unknown",
+          color: "gray",
         };
     }
   }
@@ -214,7 +214,7 @@ export class DataFreshnessManager {
    */
   getRelativeTimeString(ageMinutes: number): string {
     if (ageMinutes < 1) {
-      return 'たった今';
+      return "たった今";
     } else if (ageMinutes < 60) {
       return `${ageMinutes}分前`;
     } else if (ageMinutes < 1440) {
@@ -234,7 +234,7 @@ export class DataFreshnessManager {
     const diffMinutes = Math.floor((nextRefresh.getTime() - now.getTime()) / (1000 * 60));
     
     if (diffMinutes <= 0) {
-      return '更新が必要';
+      return "更新が必要";
     } else if (diffMinutes < 60) {
       return `${diffMinutes}分後に更新`;
     } else {

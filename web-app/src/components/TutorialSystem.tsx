@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { 
   X, 
   ArrowRight, 
@@ -13,9 +13,9 @@ import {
   Shield,
   Settings,
   HelpCircle,
-  Star
-} from 'lucide-react';
-import { TutorialPlaceholder } from './PlaceholderComponents';
+  Star,
+} from "lucide-react";
+import { TutorialPlaceholder } from "./PlaceholderComponents";
 
 interface TutorialStep {
   id: string;
@@ -38,58 +38,58 @@ export default function TutorialSystem({
   onSkip,
   onStartAnalysis,
   onOpenSettings,
-  onOpenRoutine
+  onOpenRoutine,
 }: TutorialSystemProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [steps, setSteps] = useState<TutorialStep[]>([
     {
-      id: 'welcome',
-      title: 'JQuants投資分析システムへようこそ',
-      description: 'AIを活用した株式投資分析システムです。5分で簡単に分析を実行できます。',
-      completed: false
+      id: "welcome",
+      title: "JQuants投資分析システムへようこそ",
+      description: "AIを活用した株式投資分析システムです。5分で簡単に分析を実行できます。",
+      completed: false,
     },
     {
-      id: 'symbol_selection',
-      title: '銘柄選択',
-      description: '分析したい銘柄を選択します。人気銘柄やお気に入りから選べます。',
+      id: "symbol_selection",
+      title: "銘柄選択",
+      description: "分析したい銘柄を選択します。人気銘柄やお気に入りから選べます。",
       completed: false,
       action: () => {
         // 銘柄選択ページに遷移
-        console.log('銘柄選択ページに遷移');
-      }
+        console.log("銘柄選択ページに遷移");
+      },
     },
     {
-      id: 'analysis_execution',
-      title: '分析実行',
-      description: 'AI予測分析を実行します。技術指標、センチメント分析、リスク評価を行います。',
+      id: "analysis_execution",
+      title: "分析実行",
+      description: "AI予測分析を実行します。技術指標、センチメント分析、リスク評価を行います。",
       completed: false,
-      action: onStartAnalysis
+      action: onStartAnalysis,
     },
     {
-      id: 'results_review',
-      title: '結果確認',
-      description: '分析結果と予測値を確認します。チャートや指標で視覚的に確認できます。',
-      completed: false
-    },
-    {
-      id: 'risk_management',
-      title: 'リスク管理',
-      description: '投資リスクと推奨アクションを確認します。個人のリスク許容度に応じて調整できます。',
-      completed: false
-    },
-    {
-      id: 'routine_setup',
-      title: '5分ルーティン設定',
-      description: '毎日の分析ルーティンを設定します。効率的な投資判断のための手順を自動化できます。',
+      id: "results_review",
+      title: "結果確認",
+      description: "分析結果と予測値を確認します。チャートや指標で視覚的に確認できます。",
       completed: false,
-      action: onOpenRoutine
-    }
+    },
+    {
+      id: "risk_management",
+      title: "リスク管理",
+      description: "投資リスクと推奨アクションを確認します。個人のリスク許容度に応じて調整できます。",
+      completed: false,
+    },
+    {
+      id: "routine_setup",
+      title: "5分ルーティン設定",
+      description: "毎日の分析ルーティンを設定します。効率的な投資判断のための手順を自動化できます。",
+      completed: false,
+      action: onOpenRoutine,
+    },
   ]);
 
   useEffect(() => {
     // 初回利用者判定
-    const hasSeenTutorial = localStorage.getItem('jquants-tutorial-completed');
+    const hasSeenTutorial = localStorage.getItem("jquants-tutorial-completed");
     const isFirstVisit = !hasSeenTutorial;
     
     if (isFirstVisit) {
@@ -112,13 +112,13 @@ export default function TutorialSystem({
   };
 
   const handleComplete = () => {
-    localStorage.setItem('jquants-tutorial-completed', 'true');
+    localStorage.setItem("jquants-tutorial-completed", "true");
     setIsVisible(false);
     onComplete?.();
   };
 
   const handleSkip = () => {
-    localStorage.setItem('jquants-tutorial-completed', 'true');
+    localStorage.setItem("jquants-tutorial-completed", "true");
     setIsVisible(false);
     onSkip?.();
   };
@@ -129,7 +129,7 @@ export default function TutorialSystem({
     }
     // ステップを完了としてマーク
     setSteps(prev => prev.map(s => 
-      s.id === step.id ? { ...s, completed: true } : s
+      s.id === step.id ? { ...s, completed: true } : s,
     ));
   };
 
@@ -182,12 +182,12 @@ export default function TutorialSystem({
             {/* ステップアイコン */}
             <div className="flex justify-center">
               <div className="p-4 bg-blue-100 rounded-full">
-                {currentStepData.id === 'welcome' && <Users className="h-8 w-8 text-blue-600" />}
-                {currentStepData.id === 'symbol_selection' && <Target className="h-8 w-8 text-blue-600" />}
-                {currentStepData.id === 'analysis_execution' && <BarChart3 className="h-8 w-8 text-blue-600" />}
-                {currentStepData.id === 'results_review' && <CheckCircle className="h-8 w-8 text-blue-600" />}
-                {currentStepData.id === 'risk_management' && <Shield className="h-8 w-8 text-blue-600" />}
-                {currentStepData.id === 'routine_setup' && <Settings className="h-8 w-8 text-blue-600" />}
+                {currentStepData.id === "welcome" && <Users className="h-8 w-8 text-blue-600" />}
+                {currentStepData.id === "symbol_selection" && <Target className="h-8 w-8 text-blue-600" />}
+                {currentStepData.id === "analysis_execution" && <BarChart3 className="h-8 w-8 text-blue-600" />}
+                {currentStepData.id === "results_review" && <CheckCircle className="h-8 w-8 text-blue-600" />}
+                {currentStepData.id === "risk_management" && <Shield className="h-8 w-8 text-blue-600" />}
+                {currentStepData.id === "routine_setup" && <Settings className="h-8 w-8 text-blue-600" />}
               </div>
             </div>
 
@@ -223,32 +223,32 @@ export default function TutorialSystem({
                     key={step.id}
                     className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
                       index === currentStep
-                        ? 'bg-blue-50 border border-blue-200'
+                        ? "bg-blue-50 border border-blue-200"
                         : step.completed
-                        ? 'bg-green-50 border border-green-200'
-                        : 'bg-gray-50 border border-gray-200'
+                        ? "bg-green-50 border border-green-200"
+                        : "bg-gray-50 border border-gray-200"
                     }`}
                   >
                     <div className={`p-1 rounded-full ${
                       index === currentStep
-                        ? 'bg-blue-500'
+                        ? "bg-blue-500"
                         : step.completed
-                        ? 'bg-green-500'
-                        : 'bg-gray-300'
+                        ? "bg-green-500"
+                        : "bg-gray-300"
                     }`}>
                       <CheckCircle className={`h-4 w-4 ${
                         index === currentStep || step.completed
-                          ? 'text-white'
-                          : 'text-gray-500'
+                          ? "text-white"
+                          : "text-gray-500"
                       }`} />
                     </div>
                     <div className="flex-1">
                       <div className={`text-sm font-medium ${
                         index === currentStep
-                          ? 'text-blue-800'
+                          ? "text-blue-800"
                           : step.completed
-                          ? 'text-green-800'
-                          : 'text-gray-700'
+                          ? "text-green-800"
+                          : "text-gray-700"
                       }`}>
                         {step.title}
                       </div>
@@ -289,7 +289,7 @@ export default function TutorialSystem({
               onClick={handleNext}
               className="flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
             >
-              {currentStep === steps.length - 1 ? '完了' : '次へ'}
+              {currentStep === steps.length - 1 ? "完了" : "次へ"}
               {currentStep < steps.length - 1 && <ArrowRight className="h-4 w-4 ml-2" />}
             </button>
           </div>
@@ -304,7 +304,7 @@ export function useTutorial() {
   const [showTutorial, setShowTutorial] = useState(false);
 
   const showTutorialAgain = () => {
-    localStorage.removeItem('jquants-tutorial-completed');
+    localStorage.removeItem("jquants-tutorial-completed");
     setShowTutorial(true);
   };
 
@@ -315,6 +315,6 @@ export function useTutorial() {
   return {
     showTutorial,
     showTutorialAgain,
-    hideTutorial
+    hideTutorial,
   };
 }

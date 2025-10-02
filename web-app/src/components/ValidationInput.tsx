@@ -35,7 +35,7 @@ export default function ValidationInput({
   validation,
   recommendedValue,
   className = "",
-  disabled = false
+  disabled = false,
 }: ValidationInputProps) {
   const [error, setError] = useState<string | null>(null);
   const [touched, setTouched] = useState(false);
@@ -186,7 +186,7 @@ export const validationPresets = {
       if (value < 7) return "予測期間が短すぎます。最低7日以上を推奨します。";
       if (value > 90) return "予測期間が長すぎます。90日以下を推奨します。";
       return null;
-    }
+    },
   },
   refreshInterval: {
     required: true,
@@ -196,7 +196,7 @@ export const validationPresets = {
         return "有効な更新間隔を選択してください";
       }
       return null;
-    }
+    },
   },
   maxDataPoints: {
     min: 100,
@@ -206,7 +206,7 @@ export const validationPresets = {
       if (value < 500) return "データポイント数が少なすぎます。最低500以上を推奨します。";
       if (value > 5000) return "データポイント数が多すぎます。5000以下を推奨します。";
       return null;
-    }
+    },
   },
   refreshRate: {
     min: 1,
@@ -216,6 +216,6 @@ export const validationPresets = {
       if (value < 5) return "更新間隔が短すぎます。最低5秒以上を推奨します。";
       if (value > 300) return "更新間隔が長すぎます。300秒以下を推奨します。";
       return null;
-    }
-  }
+    },
+  },
 };

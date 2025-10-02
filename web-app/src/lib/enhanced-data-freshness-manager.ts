@@ -16,8 +16,8 @@ interface DataFreshnessInfo {
   isFresh: boolean;
   lastUpdated: Date;
   ageMinutes: number;
-  cacheStatus: 'fresh' | 'stale' | 'expired';
-  source: 'api' | 'cache' | 'fallback';
+  cacheStatus: "fresh" | "stale" | "expired";
+  source: "api" | "cache" | "fallback";
   ttlMinutes: number;
   nextRefresh: Date;
   qualityScore?: number;
@@ -28,7 +28,7 @@ interface DataSource {
   name: string;
   lastUpdated: Date;
   ttlMinutes: number;
-  source: 'api' | 'cache' | 'fallback';
+  source: "api" | "cache" | "fallback";
   qualityScore: number;
   isActive: boolean;
 }
@@ -69,8 +69,8 @@ class EnhancedDataFreshnessManager {
     name: string,
     lastUpdated: Date,
     ttlMinutes: number = this.config.defaultTtlMinutes,
-    source: 'api' | 'cache' | 'fallback' = 'cache',
-    qualityScore: number = 100
+    source: "api" | "cache" | "fallback" = "cache",
+    qualityScore: number = 100,
   ): void {
     this.dataSources.set(id, {
       id,
@@ -95,40 +95,40 @@ class EnhancedDataFreshnessManager {
    */
   getFreshnessInfo(
     lastUpdated: Date | string | number,
-    source: 'api' | 'cache' | 'fallback' = 'cache',
-    ttlMinutes?: number
+    source: "api" | "cache" | "fallback" = "cache",
+    ttlMinutes?: number,
   ): DataFreshnessInfo {
     const now = new Date();
     const updateTime = new Date(lastUpdated);
     const ageMinutes = Math.floor((now.getTime() - updateTime.getTime()) / (1000 * 60));
     const ttl = ttlMinutes || this.config.defaultTtlMinutes;
 
-    let cacheStatus: DataFreshnessInfo['cacheStatus'];
+    let cacheStatus: DataFreshnessInfo["cacheStatus"];
     let isFresh: boolean;
 
     if (ageMinutes <= this.config.freshThresholdMinutes) {
-      cacheStatus = 'fresh';
+      cacheStatus = "fresh";
       isFresh = true;
     } else if (ageMinutes <= this.config.staleThresholdMinutes) {
-      cacheStatus = 'stale';
+      cacheStatus = "stale";
       isFresh = false;
     } else if (ageMinutes <= this.config.expiredThresholdMinutes) {
-      cacheStatus = 'stale';
+      cacheStatus = "stale";
       isFresh = false;
     } else {
-      cacheStatus = 'expired';
+      cacheStatus = "expired";
       isFresh = false;
     }
 
     // TTLを超えている場合は期限切れ
     if (ageMinutes > ttl) {
-      cacheStatus = 'expired';
+      cacheStatus = "expired";
       isFresh = false;
     }
 
     // APIから直接取得した場合は常にフレッシュ
-    if (source === 'api') {
-      cacheStatus = 'fresh';
+    if (source === "api") {
+      cacheStatus = "fresh";
       isFresh = true;
     }
 
@@ -157,7 +157,7 @@ class EnhancedDataFreshnessManager {
     return this.getFreshnessInfo(
       dataSource.lastUpdated,
       dataSource.source,
-      dataSource.ttlMinutes
+      dataSource.ttlMinutes,
     );
   }
 
@@ -181,7 +181,7 @@ class EnhancedDataFreshnessManager {
    * 鮮度バッジの情報を取得
    */
   getFreshnessBadgeInfo(id: string): {
-    status: 'fresh' | 'stale' | 'expired';
+    status: "fresh" | "stale" | "expired";
     color: string;
     text: string;
     icon: string;
@@ -189,41 +189,41 @@ class EnhancedDataFreshnessManager {
     const freshness = this.getDataSourceFreshness(id);
     if (!freshness) {
       return {
-        status: 'expired',
-        color: 'bg-red-100 text-red-800',
-        text: 'データなし',
-        icon: '❌',
+        status: "expired",
+        color: "bg-red-100 text-red-800",
+        text: "データなし",
+        icon: "❌",
       };
     }
 
     switch (freshness.cacheStatus) {
-      case 'fresh':
+      case "fresh":
         return {
-          status: 'fresh',
-          color: 'bg-green-100 text-green-800',
+          status: "fresh",
+          color: "bg-green-100 text-green-800",
           text: `Fresh (${freshness.ageMinutes}分前)`,
-          icon: '🟢',
+          icon: "🟢",
         };
-      case 'stale':
+      case "stale":
         return {
-          status: 'stale',
-          color: 'bg-yellow-100 text-yellow-800',
+          status: "stale",
+          color: "bg-yellow-100 text-yellow-800",
           text: `Stale (${freshness.ageMinutes}分前)`,
-          icon: '🟡',
+          icon: "🟡",
         };
-      case 'expired':
+      case "expired":
         return {
-          status: 'expired',
-          color: 'bg-red-100 text-red-800',
+          status: "expired",
+          color: "bg-red-100 text-red-800",
           text: `Expired (${freshness.ageMinutes}分前)`,
-          icon: '🔴',
+          icon: "🔴",
         };
       default:
         return {
-          status: 'expired',
-          color: 'bg-gray-100 text-gray-800',
-          text: '不明',
-          icon: '❓',
+          status: "expired",
+          color: "bg-gray-100 text-gray-800",
+          text: "不明",
+          icon: "❓",
         };
     }
   }
@@ -234,8 +234,8 @@ class EnhancedDataFreshnessManager {
   updateDataSource(
     id: string,
     lastUpdated: Date,
-    source: 'api' | 'cache' | 'fallback' = 'api',
-    qualityScore: number = 100
+    source: "api" | "cache" | "fallback" = "api",
+    qualityScore: number = 100,
   ): void {
     const dataSource = this.dataSources.get(id);
     if (dataSource) {
@@ -273,7 +273,7 @@ class EnhancedDataFreshnessManager {
       }
 
       const freshness = this.getDataSourceFreshness(id);
-      if (freshness && freshness.cacheStatus === 'stale') {
+      if (freshness && freshness.cacheStatus === "stale") {
         staleDataSources.push(id);
       }
     });
@@ -304,7 +304,7 @@ class EnhancedDataFreshnessManager {
 
     try {
       await callback();
-      this.updateDataSource(id, new Date(), 'api');
+      this.updateDataSource(id, new Date(), "api");
       console.info(`データソース ${id} の手動リフレッシュ完了`);
       return true;
     } catch (error) {
@@ -362,7 +362,7 @@ class EnhancedDataFreshnessManager {
    * システムヘルスチェック
    */
   getSystemHealth(): {
-    status: 'healthy' | 'warning' | 'critical';
+    status: "healthy" | "warning" | "critical";
     totalSources: number;
     activeSources: number;
     freshSources: number;
@@ -387,13 +387,13 @@ class EnhancedDataFreshnessManager {
       
       if (freshness) {
         switch (freshness.cacheStatus) {
-          case 'fresh':
+          case "fresh":
             freshSources++;
             break;
-          case 'stale':
+          case "stale":
             staleSources++;
             break;
-          case 'expired':
+          case "expired":
             expiredSources++;
             issues.push(`データソース ${id} が期限切れです`);
             break;
@@ -401,12 +401,12 @@ class EnhancedDataFreshnessManager {
       }
     });
 
-    let status: 'healthy' | 'warning' | 'critical' = 'healthy';
+    let status: "healthy" | "warning" | "critical" = "healthy";
     
     if (expiredSources > 0) {
-      status = 'critical';
+      status = "critical";
     } else if (staleSources > activeSources * 0.5) {
-      status = 'warning';
+      status = "warning";
     }
 
     return {

@@ -67,7 +67,7 @@ export default function MobileVerticalLayout({
     if (containerRef.current) {
       containerRef.current.scrollTo({
         top: 0,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }
   };
@@ -86,7 +86,7 @@ export default function MobileVerticalLayout({
       
       container.scrollTo({
         top: Math.min(nextScroll, maxScroll),
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }
   };
@@ -100,7 +100,7 @@ export default function MobileVerticalLayout({
         style={{
           height: "100vh",
           overflowY: "auto",
-          WebkitOverflowScrolling: "touch"
+          WebkitOverflowScrolling: "touch",
         }}
       >
         {children}
@@ -116,7 +116,7 @@ export default function MobileVerticalLayout({
                 className="w-full bg-blue-600 transition-all duration-200"
                 style={{ 
                   height: `${scrollProgress * 100}%`,
-                  transform: "translateY(0)"
+                  transform: "translateY(0)",
                 }}
               />
             </div>

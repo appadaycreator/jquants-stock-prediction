@@ -5,8 +5,8 @@
 
 "use client";
 
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 import { 
   TrendingUp, 
   Target, 
@@ -17,15 +17,15 @@ import {
   ArrowRight,
   RefreshCw,
   AlertTriangle,
-  CheckCircle
-} from 'lucide-react';
+  CheckCircle,
+} from "lucide-react";
 
 interface QuickActionProps {
   title: string;
   description: string;
   icon: React.ReactNode;
   href: string;
-  status?: 'success' | 'warning' | 'error' | 'loading';
+  status?: "success" | "warning" | "error" | "loading";
   badge?: string;
   onClick?: () => void;
 }
@@ -35,34 +35,34 @@ function QuickActionCard({
   description,
   icon,
   href,
-  status = 'success',
+  status = "success",
   badge,
   onClick,
 }: QuickActionProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'success':
-        return 'border-green-200 bg-green-50 hover:bg-green-100';
-      case 'warning':
-        return 'border-yellow-200 bg-yellow-50 hover:bg-yellow-100';
-      case 'error':
-        return 'border-red-200 bg-red-50 hover:bg-red-100';
-      case 'loading':
-        return 'border-blue-200 bg-blue-50 hover:bg-blue-100';
+      case "success":
+        return "border-green-200 bg-green-50 hover:bg-green-100";
+      case "warning":
+        return "border-yellow-200 bg-yellow-50 hover:bg-yellow-100";
+      case "error":
+        return "border-red-200 bg-red-50 hover:bg-red-100";
+      case "loading":
+        return "border-blue-200 bg-blue-50 hover:bg-blue-100";
       default:
-        return 'border-gray-200 bg-gray-50 hover:bg-gray-100';
+        return "border-gray-200 bg-gray-50 hover:bg-gray-100";
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'success':
+      case "success":
         return <CheckCircle className="w-4 h-4 text-green-600" />;
-      case 'warning':
+      case "warning":
         return <AlertTriangle className="w-4 h-4 text-yellow-600" />;
-      case 'error':
+      case "error":
         return <AlertTriangle className="w-4 h-4 text-red-600" />;
-      case 'loading':
+      case "loading":
         return <RefreshCw className="w-4 h-4 text-blue-600 animate-spin" />;
       default:
         return null;
@@ -121,36 +121,36 @@ export default function DashboardQuickActions({
 }: DashboardQuickActionsProps) {
   const quickActions = [
     {
-      title: '今日の投資指示',
-      description: '本日の売買候補と投資指示を確認',
+      title: "今日の投資指示",
+      description: "本日の売買候補と投資指示を確認",
       icon: <Target className="w-8 h-8 text-blue-600" />,
-      href: '/today',
-      status: (todayData?.hasData ? 'success' : 'warning') as 'success' | 'warning' | 'error' | 'loading',
+      href: "/today",
+      status: (todayData?.hasData ? "success" : "warning") as "success" | "warning" | "error" | "loading",
       badge: todayData?.signalCount ? `${todayData.signalCount}件` : undefined,
     },
     {
-      title: '個人投資ポートフォリオ',
-      description: '個人投資の状況と推奨銘柄を確認',
+      title: "個人投資ポートフォリオ",
+      description: "個人投資の状況と推奨銘柄を確認",
       icon: <DollarSign className="w-8 h-8 text-green-600" />,
-      href: '/personal-investment',
-      status: (personalInvestmentData?.hasData ? 'success' : 'warning') as 'success' | 'warning' | 'error' | 'loading',
+      href: "/personal-investment",
+      status: (personalInvestmentData?.hasData ? "success" : "warning") as "success" | "warning" | "error" | "loading",
       badge: personalInvestmentData?.portfolioValue 
         ? `¥${personalInvestmentData.portfolioValue.toLocaleString()}`
         : undefined,
     },
     {
-      title: '5分ルーティン',
-      description: '効率的な投資分析のためのステップガイド',
+      title: "5分ルーティン",
+      description: "効率的な投資分析のためのステップガイド",
       icon: <Clock className="w-8 h-8 text-purple-600" />,
-      href: '/five-min-routine',
-      status: 'success' as 'success' | 'warning' | 'error' | 'loading',
+      href: "/five-min-routine",
+      status: "success" as "success" | "warning" | "error" | "loading",
     },
     {
-      title: '詳細分析',
-      description: '詳細な分析結果とチャートを確認',
+      title: "詳細分析",
+      description: "詳細な分析結果とチャートを確認",
       icon: <BarChart3 className="w-8 h-8 text-orange-600" />,
-      href: '/dashboard',
-      status: 'success' as 'success' | 'warning' | 'error' | 'loading',
+      href: "/dashboard",
+      status: "success" as "success" | "warning" | "error" | "loading",
     },
   ];
 
@@ -220,7 +220,7 @@ interface MiniDashboardCardProps {
   title: string;
   value: string | number;
   change?: number;
-  changeType?: 'positive' | 'negative' | 'neutral';
+  changeType?: "positive" | "negative" | "neutral";
   icon: React.ReactNode;
   href?: string;
 }
@@ -229,26 +229,26 @@ export function MiniDashboardCard({
   title,
   value,
   change,
-  changeType = 'neutral',
+  changeType = "neutral",
   icon,
   href,
 }: MiniDashboardCardProps) {
   const getChangeColor = (type: string) => {
     switch (type) {
-      case 'positive':
-        return 'text-green-600';
-      case 'negative':
-        return 'text-red-600';
+      case "positive":
+        return "text-green-600";
+      case "negative":
+        return "text-red-600";
       default:
-        return 'text-gray-600';
+        return "text-gray-600";
     }
   };
 
   const getChangeIcon = (type: string) => {
     switch (type) {
-      case 'positive':
+      case "positive":
         return <TrendingUp className="w-4 h-4" />;
-      case 'negative':
+      case "negative":
         return <TrendingUp className="w-4 h-4 rotate-180" />;
       default:
         return null;
@@ -265,7 +265,7 @@ export function MiniDashboardCard({
             <div className={`flex items-center space-x-1 mt-1 ${getChangeColor(changeType)}`}>
               {getChangeIcon(changeType)}
               <span className="text-sm font-medium">
-                {change > 0 ? '+' : ''}{change}%
+                {change > 0 ? "+" : ""}{change}%
               </span>
             </div>
           )}

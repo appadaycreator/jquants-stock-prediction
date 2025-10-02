@@ -10,7 +10,7 @@ import {
   Wifi,
   Battery,
   Cpu,
-  MemoryStick
+  MemoryStick,
 } from "lucide-react";
 
 interface TestResult {
@@ -37,11 +37,11 @@ export default function MobileTestSuite() {
         windowWidth: window.innerWidth,
         windowHeight: window.innerHeight,
         devicePixelRatio: window.devicePixelRatio,
-        touchSupport: 'ontouchstart' in window,
-        orientation: window.screen.orientation?.type || 'unknown',
-        connection: (navigator as any).connection?.effectiveType || 'unknown',
-        memory: (performance as any).memory?.jsHeapSizeLimit || 'unknown',
-        hardwareConcurrency: navigator.hardwareConcurrency || 'unknown',
+        touchSupport: "ontouchstart" in window,
+        orientation: window.screen.orientation?.type || "unknown",
+        connection: (navigator as any).connection?.effectiveType || "unknown",
+        memory: (performance as any).memory?.jsHeapSizeLimit || "unknown",
+        hardwareConcurrency: navigator.hardwareConcurrency || "unknown",
       };
       setDeviceInfo(info);
     };
@@ -60,16 +60,16 @@ export default function MobileTestSuite() {
       name: "モバイルデバイス検出",
       status: isMobile ? "pass" : "fail",
       message: isMobile ? "モバイルデバイスとして検出されました" : "デスクトップデバイスとして検出されました",
-      details: `画面幅: ${window.innerWidth}px, ユーザーエージェント: ${navigator.userAgent}`
+      details: `画面幅: ${window.innerWidth}px, ユーザーエージェント: ${navigator.userAgent}`,
     });
 
     // 2. タッチサポートテスト
-    const touchSupported = 'ontouchstart' in window;
+    const touchSupported = "ontouchstart" in window;
     results.push({
       name: "タッチサポート",
       status: touchSupported ? "pass" : "warning",
       message: touchSupported ? "タッチ操作がサポートされています" : "タッチ操作がサポートされていません",
-      details: "マウス操作のみ利用可能"
+      details: "マウス操作のみ利用可能",
     });
 
     // 3. 画面サイズテスト
@@ -96,7 +96,7 @@ export default function MobileTestSuite() {
       name: "画面サイズ",
       status: screenStatus,
       message: screenMessage,
-      details: `幅: ${screenSize}px, 高さ: ${window.innerHeight}px`
+      details: `幅: ${screenSize}px, 高さ: ${window.innerHeight}px`,
     });
 
     // 4. ネットワーク接続テスト
@@ -106,13 +106,13 @@ export default function MobileTestSuite() {
       let networkStatus: "pass" | "fail" | "warning" = "pass";
       let networkMessage = "";
       
-      if (effectiveType === 'slow-2g' || effectiveType === '2g') {
+      if (effectiveType === "slow-2g" || effectiveType === "2g") {
         networkStatus = "warning";
         networkMessage = "ネットワーク接続が遅いです";
-      } else if (effectiveType === '3g') {
+      } else if (effectiveType === "3g") {
         networkStatus = "pass";
         networkMessage = "3G接続です";
-      } else if (effectiveType === '4g') {
+      } else if (effectiveType === "4g") {
         networkStatus = "pass";
         networkMessage = "4G接続です";
       }
@@ -121,7 +121,7 @@ export default function MobileTestSuite() {
         name: "ネットワーク接続",
         status: networkStatus,
         message: networkMessage,
-        details: `接続タイプ: ${effectiveType}, ダウンリンク: ${connection.downlink}Mbps`
+        details: `接続タイプ: ${effectiveType}, ダウンリンク: ${connection.downlink}Mbps`,
       });
     }
 
@@ -147,7 +147,7 @@ export default function MobileTestSuite() {
         name: "メモリ容量",
         status: memoryStatus,
         message: memoryMessage,
-        details: `総メモリ: ${totalMemory.toFixed(1)}GB`
+        details: `総メモリ: ${totalMemory.toFixed(1)}GB`,
       });
     }
 
@@ -172,12 +172,12 @@ export default function MobileTestSuite() {
         name: "CPUコア数",
         status: coreStatus,
         message: coreMessage,
-        details: `コア数: ${cores}`
+        details: `コア数: ${cores}`,
       });
     }
 
     // 7. タッチターゲットサイズテスト
-    const touchTargets = document.querySelectorAll('button, [role="button"], .touch-target, .mobile-touch-target');
+    const touchTargets = document.querySelectorAll("button, [role=\"button\"], .touch-target, .mobile-touch-target");
     let smallTargets = 0;
     let totalTargets = touchTargets.length;
     
@@ -196,7 +196,7 @@ export default function MobileTestSuite() {
       name: "タッチターゲットサイズ",
       status: targetStatus,
       message: targetMessage,
-      details: `総ターゲット数: ${totalTargets}, 小さいターゲット: ${smallTargets}`
+      details: `総ターゲット数: ${totalTargets}, 小さいターゲット: ${smallTargets}`,
     });
 
     // 8. スクロール性能テスト
@@ -218,7 +218,7 @@ export default function MobileTestSuite() {
               name: "スクロール性能",
               status,
               message,
-              details: `FPS: ${fps}`
+              details: `FPS: ${fps}`,
             });
           }
         };
@@ -301,7 +301,7 @@ export default function MobileTestSuite() {
               <span className="font-medium">接続タイプ:</span> {deviceInfo.connection}
             </div>
             <div>
-              <span className="font-medium">メモリ:</span> {deviceInfo.memory !== 'unknown' ? `${(deviceInfo.memory / (1024 * 1024 * 1024)).toFixed(1)}GB` : '不明'}
+              <span className="font-medium">メモリ:</span> {deviceInfo.memory !== "unknown" ? `${(deviceInfo.memory / (1024 * 1024 * 1024)).toFixed(1)}GB` : "不明"}
             </div>
             <div>
               <span className="font-medium">CPUコア数:</span> {deviceInfo.hardwareConcurrency}

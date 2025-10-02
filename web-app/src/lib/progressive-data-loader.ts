@@ -166,7 +166,7 @@ class ProgressiveDataLoader {
         batchOffsets.push(currentOffset);
         
         promises.push(
-          this.loadBatchWithRetry(dataLoader, currentOffset, this.config.batchSize)
+          this.loadBatchWithRetry(dataLoader, currentOffset, this.config.batchSize),
         );
         
         offset += this.config.batchSize;
@@ -427,8 +427,8 @@ class ProgressiveDataLoader {
             // 重複を避けてマージ
             const newItems = batch.filter(item => 
               !updatedData.some(existing => 
-                JSON.stringify(existing) === JSON.stringify(item)
-              )
+                JSON.stringify(existing) === JSON.stringify(item),
+              ),
             );
             updatedData.push(...newItems);
             break;

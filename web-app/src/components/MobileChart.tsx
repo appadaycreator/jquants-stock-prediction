@@ -10,7 +10,7 @@ import {
   Maximize2,
   Minimize2,
   Move,
-  BarChart3
+  BarChart3,
 } from "lucide-react";
 
 interface MobileChartProps {
@@ -59,7 +59,7 @@ export default function MobileChart({
       const touch2 = e.touches[1];
       const distance = Math.sqrt(
         Math.pow(touch2.clientX - touch1.clientX, 2) +
-        Math.pow(touch2.clientY - touch1.clientY, 2)
+        Math.pow(touch2.clientY - touch1.clientY, 2),
       );
       setTouchStartDistance(distance);
       setIsPinching(true);
@@ -84,7 +84,7 @@ export default function MobileChart({
       const touch2 = e.touches[1];
       const distance = Math.sqrt(
         Math.pow(touch2.clientX - touch1.clientX, 2) +
-        Math.pow(touch2.clientY - touch1.clientY, 2)
+        Math.pow(touch2.clientY - touch1.clientY, 2),
       );
       
       if (touchStartDistance > 0) {
@@ -293,7 +293,7 @@ export default function MobileChart({
           className="w-full h-full touch-none"
           style={{ 
             transform: `scale(${zoom}) translate(${panX / zoom}px, ${panY / zoom}px)`,
-            transformOrigin: "center center"
+            transformOrigin: "center center",
           }}
         />
         
@@ -326,7 +326,7 @@ export default function MobileChart({
                 className="w-full h-full touch-none"
                 style={{ 
                   transform: `scale(${zoom}) translate(${panX / zoom}px, ${panY / zoom}px)`,
-                  transformOrigin: "center center"
+                  transformOrigin: "center center",
                 }}
               />
             </div>

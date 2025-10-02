@@ -42,11 +42,11 @@ export function ChartDataProviderKiller() {
       }
     };
     
-    window.addEventListener('error', handleError);
+    window.addEventListener("error", handleError);
     
     return () => {
       clearInterval(interval);
-      window.removeEventListener('error', handleError);
+      window.removeEventListener("error", handleError);
     };
   }, []);
 

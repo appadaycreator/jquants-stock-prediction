@@ -18,7 +18,7 @@ import {
   HelpCircle,
   Menu,
   X,
-  ChevronRight
+  ChevronRight,
 } from "lucide-react";
 
 interface NavigationItem {
@@ -26,7 +26,7 @@ interface NavigationItem {
   label: string;
   icon: React.ComponentType<{ className?: string }>;
   description: string;
-  status: 'active' | 'inactive' | 'coming-soon';
+  status: "active" | "inactive" | "coming-soon";
 }
 
 const navigationItems: NavigationItem[] = [
@@ -35,60 +35,60 @@ const navigationItems: NavigationItem[] = [
     label: "ダッシュボード",
     icon: Home,
     description: "メインダッシュボード",
-    status: 'active'
+    status: "active",
   },
   {
     href: "/today",
     label: "今日の指示",
     icon: Calendar,
     description: "本日の売買候補と指示",
-    status: 'active'
+    status: "active",
   },
   {
     href: "/personal-investment",
     label: "個人投資",
     icon: TrendingUp,
     description: "個人投資ポートフォリオ管理",
-    status: 'active'
+    status: "active",
   },
   {
     href: "/risk",
     label: "リスク管理",
     icon: Shield,
     description: "リスク管理と設定",
-    status: 'active'
+    status: "active",
   },
   {
     href: "/reports",
     label: "レポート",
     icon: FileText,
     description: "詳細レポート",
-    status: 'active'
+    status: "active",
   },
   {
     href: "/settings",
     label: "設定",
     icon: Settings,
     description: "システム設定",
-    status: 'active'
+    status: "active",
   },
   {
     href: "/usage",
     label: "使い方",
     icon: HelpCircle,
     description: "使用方法ガイド",
-    status: 'active'
-  }
+    status: "active",
+  },
 ];
 
 interface FixedNavigationProps {
   className?: string;
-  variant?: 'header' | 'sidebar' | 'mobile';
+  variant?: "header" | "sidebar" | "mobile";
 }
 
 const FixedNavigation: React.FC<FixedNavigationProps> = ({ 
   className = "",
-  variant = 'header'
+  variant = "header",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -107,10 +107,10 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
       setIsLoading(true);
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
     
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
 
@@ -134,7 +134,7 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
         setIsOpen(false);
       }, 100);
     } catch (error) {
-      console.error('ナビゲーションエラー:', error);
+      console.error("ナビゲーションエラー:", error);
       setIsLoading(false);
       
       // フォールバック: 直接リンクを使用
@@ -146,16 +146,16 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
   const renderNavigationItem = (item: NavigationItem) => {
     const Icon = item.icon;
     const isActive = pathname === item.href;
-    const isDisabled = item.status === 'inactive' || item.status === 'coming-soon';
+    const isDisabled = item.status === "inactive" || item.status === "coming-soon";
 
     const baseClasses = `
       flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200
       ${isActive 
-        ? 'bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300' 
-        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+        ? "bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300" 
+        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
       }
-      ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-      ${isLoading ? 'opacity-50' : ''}
+      ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+      ${isLoading ? "opacity-50" : ""}
     `;
 
     const content = (
@@ -170,7 +170,7 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
             {item.description}
           </p>
         </div>
-        {item.status === 'coming-soon' && (
+        {item.status === "coming-soon" && (
           <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
             準備中
           </span>
@@ -198,7 +198,7 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
   };
 
   // ヘッダーバリアント
-  if (variant === 'header') {
+  if (variant === "header") {
     return (
       <nav className={`hidden lg:flex items-center space-x-1 ${className}`}>
         {navigationItems.slice(0, 5).map((item) => {
@@ -215,7 +215,7 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
                   ? "bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300"
                   : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100"
                 }
-                ${isLoading ? 'opacity-50' : ''}
+                ${isLoading ? "opacity-50" : ""}
               `}
               disabled={isLoading}
             >
@@ -231,7 +231,7 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
   }
 
   // サイドバーバリアント
-  if (variant === 'sidebar') {
+  if (variant === "sidebar") {
     return (
       <nav className={`space-y-1 ${className}`}>
         {navigationItems.map((item) => (

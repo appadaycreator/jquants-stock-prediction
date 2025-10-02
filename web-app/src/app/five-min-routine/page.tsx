@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { SettingsProvider } from '../../contexts/SettingsContext';
-import FiveMinRoutine from '../../components/FiveMinRoutine';
-import TutorialSystem from '../../components/TutorialSystem';
-import { useTutorial } from '../../components/TutorialSystem';
+import React, { useState, useEffect } from "react";
+import { SettingsProvider } from "../../contexts/SettingsContext";
+import FiveMinRoutine from "../../components/FiveMinRoutine";
+import TutorialSystem from "../../components/TutorialSystem";
+import { useTutorial } from "../../components/TutorialSystem";
 import { 
   ArrowLeft, 
   Home, 
@@ -12,9 +12,9 @@ import {
   BarChart3, 
   Target, 
   Shield,
-  RefreshCw
-} from 'lucide-react';
-import Link from 'next/link';
+  RefreshCw,
+} from "lucide-react";
+import Link from "next/link";
 
 export default function FiveMinRoutinePage() {
   const [showTutorial, setShowTutorial] = useState(false);
@@ -22,36 +22,36 @@ export default function FiveMinRoutinePage() {
 
   const handleAnalysisClick = () => {
     // 分析実行ページに遷移
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   const handleSettingsClick = () => {
     // 設定ページに遷移
-    window.location.href = '/settings';
+    window.location.href = "/settings";
   };
 
   const handleReportClick = () => {
     // レポートページに遷移
-    window.location.href = '/reports';
+    window.location.href = "/reports";
   };
 
   const handleTradeClick = () => {
     // 個人投資ページに遷移
-    window.location.href = '/personal-investment';
+    window.location.href = "/personal-investment";
   };
 
   const handleStepComplete = (stepId: string) => {
-    console.log('ステップ完了:', stepId);
+    console.log("ステップ完了:", stepId);
     // ステップ完了時の処理を追加
   };
 
   const handleTutorialComplete = () => {
-    console.log('チュートリアル完了');
+    console.log("チュートリアル完了");
     setShowTutorial(false);
   };
 
   const handleTutorialSkip = () => {
-    console.log('チュートリアルスキップ');
+    console.log("チュートリアルスキップ");
     setShowTutorial(false);
   };
 

@@ -23,8 +23,8 @@ const FixedResponsiveHeader: React.FC = () => {
       setIsScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // モバイルメニューの制御
@@ -45,7 +45,7 @@ const FixedResponsiveHeader: React.FC = () => {
     <header className={`
       bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 
       sticky top-0 z-30 transition-all duration-200
-      ${isScrolled ? 'shadow-md' : 'shadow-sm'}
+      ${isScrolled ? "shadow-md" : "shadow-sm"}
     `}>
       <div className="container-responsive">
         <div className="flex items-center justify-between h-16">

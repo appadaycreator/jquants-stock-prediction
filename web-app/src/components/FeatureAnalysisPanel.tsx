@@ -17,7 +17,7 @@ interface FeatureAnalysisPanelProps {
 export default function FeatureAnalysisPanel({ 
   isOpen, 
   onClose, 
-  featureAnalysis 
+  featureAnalysis, 
 }: FeatureAnalysisPanelProps) {
   const [activeTab, setActiveTab] = useState<"interpretation" | "guide" | "tips">("interpretation");
 
@@ -136,7 +136,7 @@ export default function FeatureAnalysisPanel({
                       <div className="text-sm text-gray-600">
                         {(() => {
                           const guide = FEATURE_IMPORTANCE_GUIDE.interpretation.find(
-                            item => item.feature === feature.feature
+                            item => item.feature === feature.feature,
                           );
                           return guide ? (
                             <div>

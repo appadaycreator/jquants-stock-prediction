@@ -43,8 +43,8 @@ class FixedJQuantsAdapter {
 
   constructor(config: Partial<JQuantsConfig> = {}) {
     this.config = {
-      token: process.env.NEXT_PUBLIC_JQUANTS_TOKEN || '',
-      baseUrl: 'https://api.jquants.com/v1',
+      token: process.env.NEXT_PUBLIC_JQUANTS_TOKEN || "",
+      baseUrl: "https://api.jquants.com/v1",
       timeout: 30000,
       maxRetries: 3,
       retryDelay: 1000,
@@ -70,13 +70,13 @@ class FixedJQuantsAdapter {
       
       return {
         success: true,
-        message: "J-Quants API初期化が完了しました"
+        message: "J-Quants API初期化が完了しました",
       };
     } catch (error) {
       console.error("J-Quants初期化エラー:", error);
       return {
         success: false,
-        message: `初期化に失敗しました: ${error instanceof Error ? error.message : "不明なエラー"}`
+        message: `初期化に失敗しました: ${error instanceof Error ? error.message : "不明なエラー"}`,
       };
     }
   }
@@ -94,13 +94,13 @@ class FixedJQuantsAdapter {
 
       // 新しいトークンを取得
       const response = await fetch(`${this.config.baseUrl}/token/auth_user`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          mailaddress: process.env.NEXT_PUBLIC_JQUANTS_EMAIL || '',
-          password: process.env.NEXT_PUBLIC_JQUANTS_PASSWORD || '',
+          mailaddress: process.env.NEXT_PUBLIC_JQUANTS_EMAIL || "",
+          password: process.env.NEXT_PUBLIC_JQUANTS_PASSWORD || "",
         }),
       });
 
@@ -115,9 +115,9 @@ class FixedJQuantsAdapter {
         
         // アクセストークンを取得
         const tokenResponse = await fetch(`${this.config.baseUrl}/token/auth_refresh`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             refreshtoken: this.refreshToken,
@@ -151,8 +151,8 @@ class FixedJQuantsAdapter {
     }
 
     return {
-      'Authorization': `Bearer ${this.authToken}`,
-      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${this.authToken}`,
+      "Content-Type": "application/json",
     };
   }
 
@@ -161,7 +161,7 @@ class FixedJQuantsAdapter {
    */
   private async makeApiCall<T>(
     apiCall: () => Promise<T>,
-    operation: string = "API呼び出し"
+    operation: string = "API呼び出し",
   ): Promise<T> {
     let lastError: Error | null = null;
     
@@ -178,7 +178,7 @@ class FixedJQuantsAdapter {
         console.warn(`${operation} 失敗 (試行 ${attempt}/${this.config.maxRetries}):`, lastError.message);
         
         // 認証エラーの場合は再認証を試行
-        if (lastError.message.includes('401') || lastError.message.includes('認証')) {
+        if (lastError.message.includes("401") || lastError.message.includes("認証")) {
           try {
             await this.authenticate();
             continue;
@@ -213,7 +213,7 @@ class FixedJQuantsAdapter {
 
       const data = await this.makeApiCall(async () => {
         const response = await fetch(`${this.config.baseUrl}/markets/stock/list`, {
-          method: 'GET',
+          method: "GET",
           headers: this.getAuthHeaders(),
         });
 
@@ -276,9 +276,9 @@ class FixedJQuantsAdapter {
         const response = await fetch(
           `${this.config.baseUrl}/markets/daily_quotes?code=${symbol}&from=${startDate}&to=${endDate}`,
           {
-            method: 'GET',
+            method: "GET",
             headers: this.getAuthHeaders(),
-          }
+          },
         );
 
         if (!response.ok) {

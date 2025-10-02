@@ -13,7 +13,7 @@ import {
   AlertTriangle, 
   XCircle,
   Database,
-  TrendingUp
+  TrendingUp,
 } from "lucide-react";
 import EnhancedDataFreshnessManager from "@/lib/enhanced-data-freshness-manager";
 
@@ -92,11 +92,11 @@ const DataFreshnessSummary: React.FC<DataFreshnessSummaryProps> = ({
     if (!systemHealth) return <Clock className="h-4 w-4" />;
     
     switch (systemHealth.status) {
-      case 'healthy':
+      case "healthy":
         return <CheckCircle className="h-4 w-4 text-green-600" />;
-      case 'warning':
+      case "warning":
         return <AlertTriangle className="h-4 w-4 text-yellow-600" />;
-      case 'critical':
+      case "critical":
         return <XCircle className="h-4 w-4 text-red-600" />;
       default:
         return <Clock className="h-4 w-4" />;
@@ -105,17 +105,17 @@ const DataFreshnessSummary: React.FC<DataFreshnessSummaryProps> = ({
 
   // システムヘルス色の取得
   const getHealthColor = () => {
-    if (!systemHealth) return 'text-gray-600';
+    if (!systemHealth) return "text-gray-600";
     
     switch (systemHealth.status) {
-      case 'healthy':
-        return 'text-green-600';
-      case 'warning':
-        return 'text-yellow-600';
-      case 'critical':
-        return 'text-red-600';
+      case "healthy":
+        return "text-green-600";
+      case "warning":
+        return "text-yellow-600";
+      case "critical":
+        return "text-red-600";
       default:
-        return 'text-gray-600';
+        return "text-gray-600";
     }
   };
 
@@ -127,13 +127,13 @@ const DataFreshnessSummary: React.FC<DataFreshnessSummaryProps> = ({
 
     freshnessInfo.forEach((info) => {
       switch (info.cacheStatus) {
-        case 'fresh':
+        case "fresh":
           freshCount++;
           break;
-        case 'stale':
+        case "stale":
           staleCount++;
           break;
-        case 'expired':
+        case "expired":
           expiredCount++;
           break;
       }
@@ -161,11 +161,11 @@ const DataFreshnessSummary: React.FC<DataFreshnessSummaryProps> = ({
             onClick={handleRefresh}
             disabled={isRefreshing}
             className={`p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 ${
-              isRefreshing ? 'opacity-50 cursor-not-allowed' : ''
+              isRefreshing ? "opacity-50 cursor-not-allowed" : ""
             }`}
             title="データを更新"
           >
-            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
           </button>
         )}
       </div>

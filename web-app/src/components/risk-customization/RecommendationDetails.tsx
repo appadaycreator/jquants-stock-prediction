@@ -2,11 +2,11 @@
  * 推奨アクションの詳細理由表示コンポーネント
  */
 
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import React, { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   Info, 
   TrendingUp, 
@@ -18,14 +18,14 @@ import {
   Brain,
   DollarSign,
   Clock,
-  Star
-} from 'lucide-react';
-import { useRiskCustomization } from '@/hooks/useRiskCustomization';
-import { RiskCalculationAdapter } from '@/lib/risk-calculation-adapter';
+  Star,
+} from "lucide-react";
+import { useRiskCustomization } from "@/hooks/useRiskCustomization";
+import { RiskCalculationAdapter } from "@/lib/risk-calculation-adapter";
 
 interface RecommendationDetailsProps {
   symbol: string;
-  action: 'STRONG_BUY' | 'BUY' | 'HOLD' | 'SELL' | 'STRONG_SELL';
+  action: "STRONG_BUY" | "BUY" | "HOLD" | "SELL" | "STRONG_SELL";
   confidence: number;
   currentPrice: number;
   targetPrice?: number;
@@ -57,10 +57,10 @@ export function RecommendationDetails({
   riskScore = 0,
   technicalIndicators,
   sentimentAnalysis,
-  onClose
+  onClose,
 }: RecommendationDetailsProps) {
   const { settings, getIndividualStockSettings } = useRiskCustomization();
-  const [activeTab, setActiveTab] = useState<'overview' | 'technical' | 'sentiment' | 'risk'>('overview');
+  const [activeTab, setActiveTab] = useState<"overview" | "technical" | "sentiment" | "risk">("overview");
 
   const stockSettings = getIndividualStockSettings(symbol);
   const adapter = new RiskCalculationAdapter(settings);
@@ -68,40 +68,40 @@ export function RecommendationDetails({
   // アクションの色とアイコンを取得
   const getActionDisplay = (action: string) => {
     const displays = {
-      'STRONG_BUY': { 
-        color: 'text-green-600', 
-        bgColor: 'bg-green-50', 
+      "STRONG_BUY": { 
+        color: "text-green-600", 
+        bgColor: "bg-green-50", 
         icon: TrendingUp, 
-        label: '強力買い',
-        description: '非常に強力な買いシグナル'
+        label: "強力買い",
+        description: "非常に強力な買いシグナル",
       },
-      'BUY': { 
-        color: 'text-green-500', 
-        bgColor: 'bg-green-50', 
+      "BUY": { 
+        color: "text-green-500", 
+        bgColor: "bg-green-50", 
         icon: TrendingUp, 
-        label: '買い',
-        description: '買いシグナル'
+        label: "買い",
+        description: "買いシグナル",
       },
-      'HOLD': { 
-        color: 'text-gray-500', 
-        bgColor: 'bg-gray-50', 
+      "HOLD": { 
+        color: "text-gray-500", 
+        bgColor: "bg-gray-50", 
         icon: BarChart3, 
-        label: 'ホールド',
-        description: '現状維持推奨'
+        label: "ホールド",
+        description: "現状維持推奨",
       },
-      'SELL': { 
-        color: 'text-red-500', 
-        bgColor: 'bg-red-50', 
+      "SELL": { 
+        color: "text-red-500", 
+        bgColor: "bg-red-50", 
         icon: TrendingDown, 
-        label: '売り',
-        description: '売りシグナル'
+        label: "売り",
+        description: "売りシグナル",
       },
-      'STRONG_SELL': { 
-        color: 'text-red-600', 
-        bgColor: 'bg-red-50', 
+      "STRONG_SELL": { 
+        color: "text-red-600", 
+        bgColor: "bg-red-50", 
         icon: TrendingDown, 
-        label: '強力売り',
-        description: '非常に強力な売りシグナル'
+        label: "強力売り",
+        description: "非常に強力な売りシグナル",
       },
     };
     return displays[action as keyof typeof displays];
@@ -112,10 +112,10 @@ export function RecommendationDetails({
 
   // 信頼度の表示
   const getConfidenceLevel = (confidence: number) => {
-    if (confidence >= 0.8) return { level: '非常に高い', color: 'text-green-600' };
-    if (confidence >= 0.6) return { level: '高い', color: 'text-blue-600' };
-    if (confidence >= 0.4) return { level: '中程度', color: 'text-yellow-600' };
-    return { level: '低い', color: 'text-red-600' };
+    if (confidence >= 0.8) return { level: "非常に高い", color: "text-green-600" };
+    if (confidence >= 0.6) return { level: "高い", color: "text-blue-600" };
+    if (confidence >= 0.4) return { level: "中程度", color: "text-yellow-600" };
+    return { level: "低い", color: "text-red-600" };
   };
 
   const confidenceLevel = getConfidenceLevel(confidence);
@@ -125,34 +125,34 @@ export function RecommendationDetails({
     const reasons: string[] = [];
 
     // 基本理由
-    if (action === 'STRONG_BUY' || action === 'BUY') {
-      reasons.push('テクニカル指標が買いシグナルを示している');
+    if (action === "STRONG_BUY" || action === "BUY") {
+      reasons.push("テクニカル指標が買いシグナルを示している");
       if (expectedReturn > 0.1) {
         reasons.push(`期待リターンが高い（${(expectedReturn * 100).toFixed(1)}%）`);
       }
-    } else if (action === 'SELL' || action === 'STRONG_SELL') {
-      reasons.push('テクニカル指標が売りシグナルを示している');
+    } else if (action === "SELL" || action === "STRONG_SELL") {
+      reasons.push("テクニカル指標が売りシグナルを示している");
       if (riskScore > 0.7) {
-        reasons.push('リスクが高い状態');
+        reasons.push("リスクが高い状態");
       }
     } else {
-      reasons.push('現状維持が最適と判断');
+      reasons.push("現状維持が最適と判断");
     }
 
     // テクニカル分析理由
     if (technicalIndicators) {
       if (technicalIndicators.rsi && technicalIndicators.rsi < 30) {
-        reasons.push('RSIが売られすぎを示している');
+        reasons.push("RSIが売られすぎを示している");
       } else if (technicalIndicators.rsi && technicalIndicators.rsi > 70) {
-        reasons.push('RSIが買われすぎを示している');
+        reasons.push("RSIが買われすぎを示している");
       }
 
       if (technicalIndicators.movingAverage) {
         const { sma20, sma50, sma200 } = technicalIndicators.movingAverage;
         if (currentPrice > sma20 && sma20 > sma50 && sma50 > sma200) {
-          reasons.push('移動平均線が上昇トレンドを示している');
+          reasons.push("移動平均線が上昇トレンドを示している");
         } else if (currentPrice < sma20 && sma20 < sma50 && sma50 < sma200) {
-          reasons.push('移動平均線が下降トレンドを示している');
+          reasons.push("移動平均線が下降トレンドを示している");
         }
       }
     }
@@ -160,17 +160,17 @@ export function RecommendationDetails({
     // センチメント分析理由
     if (sentimentAnalysis) {
       if (sentimentAnalysis.score > 0.3) {
-        reasons.push('市場センチメントがポジティブ');
+        reasons.push("市場センチメントがポジティブ");
       } else if (sentimentAnalysis.score < -0.3) {
-        reasons.push('市場センチメントがネガティブ');
+        reasons.push("市場センチメントがネガティブ");
       }
     }
 
     // リスク分析理由
     if (riskScore > 0.8) {
-      reasons.push('リスクレベルが非常に高い');
+      reasons.push("リスクレベルが非常に高い");
     } else if (riskScore < 0.3) {
-      reasons.push('リスクレベルが低く安全');
+      reasons.push("リスクレベルが低く安全");
     }
 
     return reasons;
@@ -224,14 +224,14 @@ export function RecommendationDetails({
       {/* タブナビゲーション */}
       <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
         {[
-          { id: 'overview', label: '概要', icon: Info },
-          { id: 'technical', label: 'テクニカル', icon: BarChart3 },
-          { id: 'sentiment', label: 'センチメント', icon: Brain },
-          { id: 'risk', label: 'リスク', icon: Shield },
+          { id: "overview", label: "概要", icon: Info },
+          { id: "technical", label: "テクニカル", icon: BarChart3 },
+          { id: "sentiment", label: "センチメント", icon: Brain },
+          { id: "risk", label: "リスク", icon: Shield },
         ].map(({ id, label, icon: Icon }) => (
           <Button
             key={id}
-            variant={activeTab === id ? 'default' : 'ghost'}
+            variant={activeTab === id ? "default" : "ghost"}
             size="sm"
             onClick={() => setActiveTab(id as any)}
             className="flex items-center gap-1"
@@ -243,7 +243,7 @@ export function RecommendationDetails({
       </div>
 
       {/* タブコンテンツ */}
-      {activeTab === 'overview' && (
+      {activeTab === "overview" && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -264,7 +264,7 @@ export function RecommendationDetails({
         </Card>
       )}
 
-      {activeTab === 'technical' && technicalIndicators && (
+      {activeTab === "technical" && technicalIndicators && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -276,7 +276,7 @@ export function RecommendationDetails({
             {technicalIndicators.rsi && (
               <div className="flex justify-between items-center">
                 <span>RSI (14)</span>
-                <Badge variant={technicalIndicators.rsi > 70 ? 'destructive' : technicalIndicators.rsi < 30 ? 'default' : 'secondary'}>
+                <Badge variant={technicalIndicators.rsi > 70 ? "destructive" : technicalIndicators.rsi < 30 ? "default" : "secondary"}>
                   {technicalIndicators.rsi.toFixed(1)}
                 </Badge>
               </div>
@@ -325,7 +325,7 @@ export function RecommendationDetails({
         </Card>
       )}
 
-      {activeTab === 'sentiment' && sentimentAnalysis && (
+      {activeTab === "sentiment" && sentimentAnalysis && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -336,8 +336,8 @@ export function RecommendationDetails({
           <CardContent className="space-y-4">
             <div className="flex justify-between items-center">
               <span>センチメントスコア</span>
-              <Badge variant={sentimentAnalysis.score > 0 ? 'default' : 'destructive'}>
-                {sentimentAnalysis.score > 0 ? '+' : ''}{sentimentAnalysis.score.toFixed(2)}
+              <Badge variant={sentimentAnalysis.score > 0 ? "default" : "destructive"}>
+                {sentimentAnalysis.score > 0 ? "+" : ""}{sentimentAnalysis.score.toFixed(2)}
               </Badge>
             </div>
             <div className="flex justify-between items-center">
@@ -352,7 +352,7 @@ export function RecommendationDetails({
         </Card>
       )}
 
-      {activeTab === 'risk' && (
+      {activeTab === "risk" && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -363,13 +363,13 @@ export function RecommendationDetails({
           <CardContent className="space-y-4">
             <div className="flex justify-between items-center">
               <span>リスクスコア</span>
-              <Badge variant={riskScore > 0.7 ? 'destructive' : riskScore > 0.4 ? 'default' : 'secondary'}>
+              <Badge variant={riskScore > 0.7 ? "destructive" : riskScore > 0.4 ? "default" : "secondary"}>
                 {(riskScore * 100).toFixed(1)}%
               </Badge>
             </div>
             <div className="flex justify-between items-center">
               <span>期待リターン</span>
-              <Badge variant={expectedReturn > 0 ? 'default' : 'destructive'}>
+              <Badge variant={expectedReturn > 0 ? "default" : "destructive"}>
                 {(expectedReturn * 100).toFixed(1)}%
               </Badge>
             </div>

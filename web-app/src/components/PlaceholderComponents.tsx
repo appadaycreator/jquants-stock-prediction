@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import { 
   BarChart3, 
   TrendingUp, 
@@ -13,8 +13,8 @@ import {
   AlertCircle,
   Clock,
   Users,
-  DollarSign
-} from 'lucide-react';
+  DollarSign,
+} from "lucide-react";
 
 interface PlaceholderProps {
   title: string;
@@ -22,7 +22,7 @@ interface PlaceholderProps {
   actionText: string;
   onAction: () => void;
   icon?: React.ComponentType<{ className?: string }>;
-  variant?: 'default' | 'success' | 'warning' | 'info';
+  variant?: "default" | "success" | "warning" | "info";
   showProgress?: boolean;
   progress?: number;
 }
@@ -33,22 +33,22 @@ export function DataPlaceholder({
   actionText,
   onAction,
   icon: Icon = BarChart3,
-  variant = 'default',
+  variant = "default",
   showProgress = false,
-  progress = 0
+  progress = 0,
 }: PlaceholderProps) {
   const variantStyles = {
-    default: 'border-gray-200 bg-gray-50',
-    success: 'border-green-200 bg-green-50',
-    warning: 'border-yellow-200 bg-yellow-50',
-    info: 'border-blue-200 bg-blue-50'
+    default: "border-gray-200 bg-gray-50",
+    success: "border-green-200 bg-green-50",
+    warning: "border-yellow-200 bg-yellow-50",
+    info: "border-blue-200 bg-blue-50",
   };
 
   const iconStyles = {
-    default: 'text-gray-400',
-    success: 'text-green-500',
-    warning: 'text-yellow-500',
-    info: 'text-blue-500'
+    default: "text-gray-400",
+    success: "text-green-500",
+    warning: "text-yellow-500",
+    info: "text-blue-500",
   };
 
   return (
@@ -104,9 +104,9 @@ export function MetricPlaceholder({
   value, 
   hasData, 
   onAction,
-  icon: Icon = TrendingUp 
+  icon: Icon = TrendingUp, 
 }: MetricPlaceholderProps) {
-  if (hasData && value !== undefined && value !== null && value !== 'N/A') {
+  if (hasData && value !== undefined && value !== null && value !== "N/A") {
     return (
       <div className="bg-white rounded-lg p-4 shadow-sm border">
         <div className="flex items-center justify-between">
@@ -154,7 +154,7 @@ export function ChartPlaceholder({
   title, 
   description, 
   onAction,
-  height = "h-64"
+  height = "h-64",
 }: ChartPlaceholderProps) {
   return (
     <div className={`${height} bg-gray-50 rounded-lg border-2 border-dashed border-gray-200 flex items-center justify-center`}>
@@ -192,7 +192,7 @@ interface ChecklistPlaceholderProps {
 export function ChecklistPlaceholder({ 
   title, 
   items, 
-  onCompleteAll 
+  onCompleteAll, 
 }: ChecklistPlaceholderProps) {
   const completedCount = items.filter(item => item.completed).length;
   const totalCount = items.length;
@@ -221,19 +221,19 @@ export function ChecklistPlaceholder({
             key={item.id}
             className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
               item.completed 
-                ? 'bg-green-50 border border-green-200' 
-                : 'bg-gray-50 border border-gray-200'
+                ? "bg-green-50 border border-green-200" 
+                : "bg-gray-50 border border-gray-200"
             }`}
           >
             <div className={`p-1 rounded-full ${
-              item.completed ? 'bg-green-500' : 'bg-gray-300'
+              item.completed ? "bg-green-500" : "bg-gray-300"
             }`}>
               <CheckCircle className={`h-4 w-4 ${
-                item.completed ? 'text-white' : 'text-gray-500'
+                item.completed ? "text-white" : "text-gray-500"
               }`} />
             </div>
             <span className={`flex-1 text-sm ${
-              item.completed ? 'text-green-800' : 'text-gray-700'
+              item.completed ? "text-green-800" : "text-gray-700"
             }`}>
               {item.label}
             </span>
@@ -282,7 +282,7 @@ export function TutorialPlaceholder({
   description,
   steps,
   onStart,
-  onSkip
+  onSkip,
 }: TutorialPlaceholderProps) {
   const completedSteps = steps.filter(step => step.completed).length;
   const totalSteps = steps.length;
@@ -307,15 +307,15 @@ export function TutorialPlaceholder({
                   key={step.id}
                   className={`flex items-center space-x-3 p-3 rounded-lg ${
                     step.completed 
-                      ? 'bg-green-50 border border-green-200' 
-                      : 'bg-gray-50 border border-gray-200'
+                      ? "bg-green-50 border border-green-200" 
+                      : "bg-gray-50 border border-gray-200"
                   }`}
                 >
                   <div className={`p-1 rounded-full ${
-                    step.completed ? 'bg-green-500' : 'bg-gray-300'
+                    step.completed ? "bg-green-500" : "bg-gray-300"
                   }`}>
                     <CheckCircle className={`h-4 w-4 ${
-                      step.completed ? 'text-white' : 'text-gray-500'
+                      step.completed ? "text-white" : "text-gray-500"
                     }`} />
                   </div>
                   <div className="flex-1">

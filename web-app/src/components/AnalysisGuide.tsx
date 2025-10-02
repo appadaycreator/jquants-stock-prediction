@@ -13,20 +13,20 @@ export default function AnalysisGuide({ className = "" }: AnalysisGuideProps) {
       icon: Target,
       title: "銘柄選択",
       description: "分析したい銘柄を選択してください。複数選択も可能です。",
-      details: ["トヨタ自動車 (7203.T)", "ソニーグループ (6758.T)", "キーエンス (6861.T)"]
+      details: ["トヨタ自動車 (7203.T)", "ソニーグループ (6758.T)", "キーエンス (6861.T)"],
     },
     {
       icon: BarChart3,
       title: "分析実行",
       description: "「分析実行」ボタンをクリックして予測分析を開始します。",
-      details: ["ローカル分析が実行されます", "分析結果はリアルタイムで表示", "完了まで約2-3分"]
+      details: ["ローカル分析が実行されます", "分析結果はリアルタイムで表示", "完了まで約2-3分"],
     },
     {
       icon: TrendingUp,
       title: "結果閲覧",
       description: "分析結果を確認し、投資判断の参考にしてください。",
-      details: ["予測値と信頼度を表示", "買い/売り/保持の推奨", "詳細な分析レポート"]
-    }
+      details: ["予測値と信頼度を表示", "買い/売り/保持の推奨", "詳細な分析レポート"],
+    },
   ];
 
   return (

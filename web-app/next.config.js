@@ -28,7 +28,7 @@ const nextConfig = {
   
   // Turbopackのマニフェスト問題を解決
   generateBuildId: async () => {
-    return 'build-' + Date.now();
+    return "build-" + Date.now();
   },
   
   // パッケージのトランスパイル設定（Next.js 15対応）

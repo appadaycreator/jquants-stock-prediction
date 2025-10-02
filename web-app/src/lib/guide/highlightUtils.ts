@@ -12,7 +12,7 @@
 export function highlightText(
   text: string, 
   query: string, 
-  className: string = 'bg-yellow-200 text-yellow-900 px-1 rounded'
+  className: string = "bg-yellow-200 text-yellow-900 px-1 rounded",
 ): string {
   if (!query.trim() || !text) return text;
   
@@ -20,12 +20,12 @@ export function highlightText(
   const keywords = query
     .split(/\s+/)
     .filter(keyword => keyword.length > 0)
-    .map(keyword => keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    .map(keyword => keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
   
   if (keywords.length === 0) return text;
   
   // 正規表現を作成（大文字小文字を区別しない）
-  const regex = new RegExp(`(${keywords.join('|')})`, 'gi');
+  const regex = new RegExp(`(${keywords.join("|")})`, "gi");
   
   return text.replace(regex, `<span class="${className}">$1</span>`);
 }
@@ -40,7 +40,7 @@ export function highlightText(
 export function highlightFields(
   fields: string[], 
   query: string, 
-  className: string = 'bg-yellow-200 text-yellow-900 px-1 rounded'
+  className: string = "bg-yellow-200 text-yellow-900 px-1 rounded",
 ): string[] {
   return fields.map(field => highlightText(field, query, className));
 }
@@ -57,7 +57,7 @@ export function createSnippet(
   text: string, 
   query: string, 
   maxLength: number = 150,
-  className: string = 'bg-yellow-200 text-yellow-900 px-1 rounded'
+  className: string = "bg-yellow-200 text-yellow-900 px-1 rounded",
 ): string {
   if (!query.trim() || !text) return text;
   
@@ -77,7 +77,7 @@ export function createSnippet(
   if (matchIndex === -1) {
     // マッチしない場合は先頭から切り取る
     return text.length > maxLength 
-      ? text.substring(0, maxLength) + '...'
+      ? text.substring(0, maxLength) + "..."
       : text;
   }
   
@@ -88,8 +88,8 @@ export function createSnippet(
   let snippet = text.substring(start, end);
   
   // 前後に省略記号を追加
-  if (start > 0) snippet = '...' + snippet;
-  if (end < text.length) snippet = snippet + '...';
+  if (start > 0) snippet = "..." + snippet;
+  if (end < text.length) snippet = snippet + "...";
   
   // ハイライトを適用
   return highlightText(snippet, query, className);
@@ -107,7 +107,7 @@ export function highlightSearchResult(
   title: string,
   content: string,
   query: string,
-  showSnippet: boolean = true
+  showSnippet: boolean = true,
 ): {
   highlightedTitle: string;
   highlightedContent: string;
@@ -120,7 +120,7 @@ export function highlightSearchResult(
   
   return {
     highlightedTitle,
-    highlightedContent
+    highlightedContent,
   };
 }
 
@@ -134,7 +134,7 @@ export function normalizeQuery(query: string): string {
     .trim()
     .split(/\s+/)
     .filter(word => word.length > 0)
-    .join(' ');
+    .join(" ");
 }
 
 /**

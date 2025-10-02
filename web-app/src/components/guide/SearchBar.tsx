@@ -18,7 +18,7 @@ export default function SearchBar({
   onClear,
   placeholder = "ヘルプ・用語集を検索...",
   showSuggestions = true,
-  className = ""
+  className = "",
 }: SearchBarProps) {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -31,12 +31,12 @@ export default function SearchBar({
 
   // 最近の検索履歴を読み込み
   useEffect(() => {
-    const saved = localStorage.getItem('help-search-history');
+    const saved = localStorage.getItem("help-search-history");
     if (saved) {
       try {
         setRecentSearches(JSON.parse(saved));
       } catch (e) {
-        console.warn('Failed to load search history:', e);
+        console.warn("Failed to load search history:", e);
       }
     }
   }, []);
@@ -59,10 +59,10 @@ export default function SearchBar({
       if (normalizedQuery && !recentSearches.includes(normalizedQuery)) {
         const newHistory = [normalizedQuery, ...recentSearches].slice(0, 5);
         setRecentSearches(newHistory);
-        localStorage.setItem('help-search-history', JSON.stringify(newHistory));
+        localStorage.setItem("help-search-history", JSON.stringify(newHistory));
       }
     } catch (error) {
-      console.error('Search error:', error);
+      console.error("Search error:", error);
       onSearch([]);
     } finally {
       setIsSearching(false);
@@ -80,7 +80,7 @@ export default function SearchBar({
       const suggestions = SearchService.getSuggestions(searchQuery, 5);
       setSuggestions(suggestions);
     } catch (error) {
-      console.error('Suggestions error:', error);
+      console.error("Suggestions error:", error);
       setSuggestions([]);
     }
   };
@@ -110,10 +110,10 @@ export default function SearchBar({
 
   // キーボードイベント処理
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
       handleSearch();
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       setShowSuggestionsList(false);
       inputRef.current?.blur();
     }
@@ -150,8 +150,8 @@ export default function SearchBar({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (

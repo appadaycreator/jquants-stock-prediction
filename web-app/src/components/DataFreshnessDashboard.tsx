@@ -15,7 +15,7 @@ import {
   TrendingUp,
   Database,
   Wifi,
-  WifiOff
+  WifiOff,
 } from "lucide-react";
 import EnhancedDataFreshnessManager from "@/lib/enhanced-data-freshness-manager";
 import DataFreshnessBadge from "./DataFreshnessBadge";
@@ -85,11 +85,11 @@ const DataFreshnessDashboard: React.FC<DataFreshnessDashboardProps> = ({
     if (!systemHealth) return <Clock className="h-5 w-5" />;
     
     switch (systemHealth.status) {
-      case 'healthy':
+      case "healthy":
         return <CheckCircle className="h-5 w-5 text-green-600" />;
-      case 'warning':
+      case "warning":
         return <AlertTriangle className="h-5 w-5 text-yellow-600" />;
-      case 'critical':
+      case "critical":
         return <XCircle className="h-5 w-5 text-red-600" />;
       default:
         return <Clock className="h-5 w-5" />;
@@ -98,17 +98,17 @@ const DataFreshnessDashboard: React.FC<DataFreshnessDashboardProps> = ({
 
   // システムヘルス色の取得
   const getHealthColor = () => {
-    if (!systemHealth) return 'text-gray-600';
+    if (!systemHealth) return "text-gray-600";
     
     switch (systemHealth.status) {
-      case 'healthy':
-        return 'text-green-600';
-      case 'warning':
-        return 'text-yellow-600';
-      case 'critical':
-        return 'text-red-600';
+      case "healthy":
+        return "text-green-600";
+      case "warning":
+        return "text-yellow-600";
+      case "critical":
+        return "text-red-600";
       default:
-        return 'text-gray-600';
+        return "text-gray-600";
     }
   };
 
@@ -128,11 +128,11 @@ const DataFreshnessDashboard: React.FC<DataFreshnessDashboardProps> = ({
             onClick={handleRefreshAll}
             disabled={isRefreshing}
             className={`flex items-center space-x-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200 ${
-              isRefreshing ? 'opacity-50 cursor-not-allowed' : ''
+              isRefreshing ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >
-            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-            <span>{isRefreshing ? '更新中...' : '全更新'}</span>
+            <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
+            <span>{isRefreshing ? "更新中..." : "全更新"}</span>
           </button>
         )}
       </div>
@@ -148,7 +148,7 @@ const DataFreshnessDashboard: React.FC<DataFreshnessDashboardProps> = ({
               </span>
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400">
-              最終更新: {lastUpdate ? lastUpdate.toLocaleTimeString() : '未更新'}
+              最終更新: {lastUpdate ? lastUpdate.toLocaleTimeString() : "未更新"}
             </div>
           </div>
           
@@ -208,9 +208,9 @@ const DataFreshnessDashboard: React.FC<DataFreshnessDashboardProps> = ({
               >
                 <div className="flex items-center space-x-3">
                   <div className="flex items-center space-x-2">
-                    {info.cacheStatus === 'fresh' && <CheckCircle className="h-5 w-5 text-green-600" />}
-                    {info.cacheStatus === 'stale' && <AlertTriangle className="h-5 w-5 text-yellow-600" />}
-                    {info.cacheStatus === 'expired' && <XCircle className="h-5 w-5 text-red-600" />}
+                    {info.cacheStatus === "fresh" && <CheckCircle className="h-5 w-5 text-green-600" />}
+                    {info.cacheStatus === "stale" && <AlertTriangle className="h-5 w-5 text-yellow-600" />}
+                    {info.cacheStatus === "expired" && <XCircle className="h-5 w-5 text-red-600" />}
                   </div>
                   
                   <div>
@@ -223,9 +223,9 @@ const DataFreshnessDashboard: React.FC<DataFreshnessDashboardProps> = ({
                 
                 <div className="flex items-center space-x-2">
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    info.cacheStatus === 'fresh' ? 'bg-green-100 text-green-800' :
-                    info.cacheStatus === 'stale' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-red-100 text-red-800'
+                    info.cacheStatus === "fresh" ? "bg-green-100 text-green-800" :
+                    info.cacheStatus === "stale" ? "bg-yellow-100 text-yellow-800" :
+                    "bg-red-100 text-red-800"
                   }`}>
                     {info.cacheStatus.toUpperCase()}
                   </span>

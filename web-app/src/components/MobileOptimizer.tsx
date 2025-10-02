@@ -3,8 +3,8 @@
  * モバイル環境での最適化機能を提供
  */
 
-import React from 'react';
-import { useMobile } from '../hooks/useMobile';
+import React from "react";
+import { useMobile } from "../hooks/useMobile";
 import { 
   Smartphone, 
   Wifi, 
@@ -12,8 +12,8 @@ import {
   Download, 
   Hand, 
   Search,
-  Navigation
-} from 'lucide-react';
+  Navigation,
+} from "lucide-react";
 
 interface MobileOptimizerProps {
   showDetails?: boolean;
@@ -24,7 +24,7 @@ interface MobileOptimizerProps {
 export default function MobileOptimizer({ 
   showDetails = false, 
   compact = false,
-  onOptimize
+  onOptimize,
 }: MobileOptimizerProps) {
   const {
     isMobile,
@@ -34,7 +34,7 @@ export default function MobileOptimizer({
     enableMobileOptimization,
     enableSwipeNavigation,
     enablePinchZoom,
-    enableTouchFeedback
+    enableTouchFeedback,
   } = useMobile();
 
   const getStatusIcon = () => {
@@ -44,15 +44,15 @@ export default function MobileOptimizer({
   };
 
   const getStatusText = () => {
-    if (!isMobile) return 'デスクトップ';
-    if (isOnline) return 'オンライン';
-    return 'オフライン';
+    if (!isMobile) return "デスクトップ";
+    if (isOnline) return "オンライン";
+    return "オフライン";
   };
 
   const getStatusColor = () => {
-    if (!isMobile) return 'text-gray-600';
-    if (isOnline) return 'text-green-600';
-    return 'text-red-600';
+    if (!isMobile) return "text-gray-600";
+    if (isOnline) return "text-green-600";
+    return "text-red-600";
   };
 
   if (compact) {
@@ -90,7 +90,7 @@ export default function MobileOptimizer({
               <div>
                 <div className="text-sm text-gray-600">デバイス</div>
                 <div className="text-sm font-medium">
-                  {isMobile ? 'モバイル' : 'デスクトップ'}
+                  {isMobile ? "モバイル" : "デスクトップ"}
                 </div>
               </div>
             </div>
@@ -104,7 +104,7 @@ export default function MobileOptimizer({
               <div>
                 <div className="text-sm text-gray-600">接続状態</div>
                 <div className="text-sm font-medium">
-                  {isOnline ? 'オンライン' : 'オフライン'}
+                  {isOnline ? "オンライン" : "オフライン"}
                 </div>
               </div>
             </div>
@@ -158,9 +158,9 @@ export default function MobileOptimizer({
                 <span className="text-sm text-gray-600">PWAインストール</span>
               </div>
               <div className={`text-sm font-medium ${
-                isInstalled ? 'text-green-600' : 'text-gray-600'
+                isInstalled ? "text-green-600" : "text-gray-600"
               }`}>
-                {isInstalled ? 'インストール済み' : '未インストール'}
+                {isInstalled ? "インストール済み" : "未インストール"}
               </div>
             </div>
           </div>
@@ -188,7 +188,7 @@ export default function MobileOptimizer({
         </div>
         
         <div className="text-xs text-gray-500">
-          {isMobile ? 'モバイル最適化済み' : 'デスクトップモード'}
+          {isMobile ? "モバイル最適化済み" : "デスクトップモード"}
         </div>
       </div>
     </div>

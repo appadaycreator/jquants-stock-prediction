@@ -26,7 +26,7 @@ export default function Sidebar() {
 
   // ローカルストレージから状態を復元
   useEffect(() => {
-    const savedState = localStorage.getItem('sidebar-collapsed');
+    const savedState = localStorage.getItem("sidebar-collapsed");
     if (savedState !== null) {
       setIsCollapsed(JSON.parse(savedState));
     }
@@ -36,9 +36,9 @@ export default function Sidebar() {
   const toggleCollapse = () => {
     const newState = !isCollapsed;
     setIsCollapsed(newState);
-    localStorage.setItem('sidebar-collapsed', JSON.stringify(newState));
+    localStorage.setItem("sidebar-collapsed", JSON.stringify(newState));
     // カスタムイベントを発火して他のコンポーネントに通知
-    window.dispatchEvent(new CustomEvent('sidebar-toggle'));
+    window.dispatchEvent(new CustomEvent("sidebar-toggle"));
   };
 
   const toggleMobile = () => {
@@ -65,7 +65,7 @@ export default function Sidebar() {
 
       {/* デスクトップ用サイドバー */}
       <nav className={`hidden lg:block fixed left-0 top-0 h-full bg-white border-r border-gray-200 z-40 transition-all duration-300 ${
-        isCollapsed ? 'w-16' : 'w-64'
+        isCollapsed ? "w-16" : "w-64"
       }`}>
         <div className="p-4">
           {/* ヘッダーとトグルボタン */}
@@ -146,7 +146,7 @@ export default function Sidebar() {
 
       {/* モバイル用サイドバー */}
       <nav className={`lg:hidden fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-50 transform transition-transform duration-300 ${
-        isMobileOpen ? 'translate-x-0' : '-translate-x-full'
+        isMobileOpen ? "translate-x-0" : "-translate-x-full"
       }`}>
         <div className="p-4">
           <div className="flex items-center justify-between mb-6">

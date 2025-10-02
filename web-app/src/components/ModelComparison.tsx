@@ -26,7 +26,7 @@ const models: ModelInfo[] = [
     useCase: "高精度な予測が必要な場合",
     pros: ["高い予測精度", "過学習に強い", "特徴量の重要度を分析可能"],
     cons: ["計算時間が長い", "パラメータ調整が複雑"],
-    recommended: true
+    recommended: true,
   },
   {
     id: "random_forest",
@@ -37,7 +37,7 @@ const models: ModelInfo[] = [
     useCase: "バランスの取れた性能を求める場合",
     pros: ["高速処理", "過学習に強い", "解釈しやすい"],
     cons: ["大量データではメモリ使用量が多い"],
-    recommended: true
+    recommended: true,
   },
   {
     id: "linear_regression",
@@ -48,7 +48,7 @@ const models: ModelInfo[] = [
     useCase: "シンプルで高速な予測が必要な場合",
     pros: ["高速処理", "解釈しやすい", "計算リソースが少ない"],
     cons: ["非線形関係を捉えられない", "精度に限界"],
-    recommended: false
+    recommended: false,
   },
   {
     id: "ridge",
@@ -59,8 +59,8 @@ const models: ModelInfo[] = [
     useCase: "過学習を防ぎたい場合",
     pros: ["過学習に強い", "高速処理", "パラメータ調整が簡単"],
     cons: ["線形関係の仮定が必要", "非線形関係を捉えられない"],
-    recommended: false
-  }
+    recommended: false,
+  },
 ];
 
 interface ModelComparisonProps {
@@ -74,7 +74,7 @@ export default function ModelComparison({
   selectedModel,
   onModelChange,
   compareModels,
-  onCompareChange
+  onCompareChange,
 }: ModelComparisonProps) {
   const [expandedModel, setExpandedModel] = useState<string | null>(null);
 

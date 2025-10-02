@@ -18,23 +18,23 @@ export default function ErrorGuidance({
   onRetry,
   onClearError,
   isUsingFallback = false,
-  analysisRequired = false
+  analysisRequired = false,
 }: ErrorGuidanceProps) {
-  const [networkStatus, setNetworkStatus] = useState<'online' | 'offline' | 'unknown'>('unknown');
+  const [networkStatus, setNetworkStatus] = useState<"online" | "offline" | "unknown">("unknown");
   const [isRetrying, setIsRetrying] = useState(false);
 
   useEffect(() => {
     const updateNetworkStatus = () => {
-      setNetworkStatus(navigator.onLine ? 'online' : 'offline');
+      setNetworkStatus(navigator.onLine ? "online" : "offline");
     };
 
     updateNetworkStatus();
-    window.addEventListener('online', updateNetworkStatus);
-    window.addEventListener('offline', updateNetworkStatus);
+    window.addEventListener("online", updateNetworkStatus);
+    window.addEventListener("offline", updateNetworkStatus);
 
     return () => {
-      window.removeEventListener('online', updateNetworkStatus);
-      window.removeEventListener('offline', updateNetworkStatus);
+      window.removeEventListener("online", updateNetworkStatus);
+      window.removeEventListener("offline", updateNetworkStatus);
     };
   }, []);
 
@@ -51,31 +51,31 @@ export default function ErrorGuidance({
 
   const getErrorIcon = () => {
     if (analysisRequired) return <AlertTriangle className="h-5 w-5" />;
-    if (networkStatus === 'offline') return <WifiOff className="h-5 w-5" />;
+    if (networkStatus === "offline") return <WifiOff className="h-5 w-5" />;
     if (isUsingFallback) return <CheckCircle className="h-5 w-5" />;
     return <AlertTriangle className="h-5 w-5" />;
   };
 
   const getErrorColor = () => {
-    if (analysisRequired) return 'bg-blue-50 border-blue-200 text-blue-800';
-    if (isUsingFallback) return 'bg-yellow-50 border-yellow-200 text-yellow-800';
-    return 'bg-red-50 border-red-200 text-red-800';
+    if (analysisRequired) return "bg-blue-50 border-blue-200 text-blue-800";
+    if (isUsingFallback) return "bg-yellow-50 border-yellow-200 text-yellow-800";
+    return "bg-red-50 border-red-200 text-red-800";
   };
 
   const getRetryHint = () => {
     if (analysisRequired) {
-      return '最新の投資判断を行うために、まず分析を実行してください。';
+      return "最新の投資判断を行うために、まず分析を実行してください。";
     }
-    if (networkStatus === 'offline') {
-      return 'インターネット接続を確認してください。';
+    if (networkStatus === "offline") {
+      return "インターネット接続を確認してください。";
     }
-    if (errorCode === 'API_ERROR') {
-      return 'サーバーに一時的な問題が発生している可能性があります。';
+    if (errorCode === "API_ERROR") {
+      return "サーバーに一時的な問題が発生している可能性があります。";
     }
-    if (errorCode === 'NETWORK_ERROR') {
-      return 'ネットワーク接続を確認してください。';
+    if (errorCode === "NETWORK_ERROR") {
+      return "ネットワーク接続を確認してください。";
     }
-    return 'しばらく時間をおいてから再度お試しください。';
+    return "しばらく時間をおいてから再度お試しください。";
   };
 
   const getActionButtons = () => {
@@ -83,14 +83,14 @@ export default function ErrorGuidance({
       return (
         <div className="flex gap-2 mt-3">
           <button
-            onClick={() => window.location.href = '/'}
+            onClick={() => window.location.href = "/"}
             className="bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 flex items-center gap-1"
           >
             <ExternalLink className="h-4 w-4" />
             分析実行へ
           </button>
           <button
-            onClick={() => window.location.href = '/reports'}
+            onClick={() => window.location.href = "/reports"}
             className="bg-gray-600 text-white px-3 py-2 rounded text-sm hover:bg-gray-700 flex items-center gap-1"
           >
             過去の結果を確認
@@ -107,8 +107,8 @@ export default function ErrorGuidance({
             disabled={isRetrying}
             className="bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 disabled:opacity-50 flex items-center gap-1"
           >
-            <RefreshCw className={`h-4 w-4 ${isRetrying ? 'animate-spin' : ''}`} />
-            {isRetrying ? '再試行中...' : '最新データを取得'}
+            <RefreshCw className={`h-4 w-4 ${isRetrying ? "animate-spin" : ""}`} />
+            {isRetrying ? "再試行中..." : "最新データを取得"}
           </button>
           {onClearError && (
             <button
@@ -129,10 +129,10 @@ export default function ErrorGuidance({
           disabled={isRetrying}
           className="bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 disabled:opacity-50 flex items-center gap-1"
         >
-          <RefreshCw className={`h-4 w-4 ${isRetrying ? 'animate-spin' : ''}`} />
-          {isRetrying ? '再試行中...' : '再試行'}
+          <RefreshCw className={`h-4 w-4 ${isRetrying ? "animate-spin" : ""}`} />
+          {isRetrying ? "再試行中..." : "再試行"}
         </button>
-        {networkStatus === 'offline' && (
+        {networkStatus === "offline" && (
           <button
             onClick={() => window.location.reload()}
             className="bg-gray-600 text-white px-3 py-2 rounded text-sm hover:bg-gray-700 flex items-center gap-1"
@@ -151,13 +151,13 @@ export default function ErrorGuidance({
         {getErrorIcon()}
         <div className="flex-1">
           <div className="font-medium mb-1">
-            {analysisRequired ? '分析が必要です' : isUsingFallback ? 'フォールバック表示中' : 'エラーが発生しました'}
+            {analysisRequired ? "分析が必要です" : isUsingFallback ? "フォールバック表示中" : "エラーが発生しました"}
           </div>
           <div className="text-sm mb-2">{error}</div>
           <div className="text-xs opacity-75">{getRetryHint()}</div>
           
           {/* ネットワーク状態表示 */}
-          {networkStatus === 'offline' && (
+          {networkStatus === "offline" && (
             <div className="mt-2 text-xs flex items-center gap-1">
               <WifiOff className="h-3 w-3" />
               オフライン状態です

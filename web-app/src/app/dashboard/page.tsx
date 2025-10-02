@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from "react";
 
 // 動的レンダリングを強制
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 import { ErrorBoundary } from "react-error-boundary";
 import dynamicImport from "next/dynamic";
 import Link from "next/link";
@@ -165,31 +165,31 @@ function DashboardContent() {
         const meta = {
           summary: {
             exists: getCacheMeta("dash:summary").exists,
-            timestamp: getCacheMeta("dash:summary").timestamp || undefined
+            timestamp: getCacheMeta("dash:summary").timestamp || undefined,
           },
           stock: {
             exists: getCacheMeta("dash:stock").exists,
-            timestamp: getCacheMeta("dash:stock").timestamp || undefined
+            timestamp: getCacheMeta("dash:stock").timestamp || undefined,
           },
           model: {
             exists: getCacheMeta("dash:model").exists,
-            timestamp: getCacheMeta("dash:model").timestamp || undefined
+            timestamp: getCacheMeta("dash:model").timestamp || undefined,
           },
           feature: {
             exists: getCacheMeta("dash:feature").exists,
-            timestamp: getCacheMeta("dash:feature").timestamp || undefined
+            timestamp: getCacheMeta("dash:feature").timestamp || undefined,
           },
           pred: {
             exists: getCacheMeta("dash:pred").exists,
-            timestamp: getCacheMeta("dash:pred").timestamp || undefined
+            timestamp: getCacheMeta("dash:pred").timestamp || undefined,
           },
           marketInsights: {
             exists: getCacheMeta("dash:marketInsights").exists,
-            timestamp: getCacheMeta("dash:marketInsights").timestamp || undefined
+            timestamp: getCacheMeta("dash:marketInsights").timestamp || undefined,
           },
           riskAssessment: {
             exists: getCacheMeta("dash:riskAssessment").exists,
-            timestamp: getCacheMeta("dash:riskAssessment").timestamp || undefined
+            timestamp: getCacheMeta("dash:riskAssessment").timestamp || undefined,
           },
         };
         setCacheMeta(meta);
@@ -237,56 +237,56 @@ function DashboardContent() {
     if (cacheMeta.summary?.exists && cacheMeta.summary.timestamp) {
       infos.push(freshnessManager.getFreshnessInfo(
         cacheMeta.summary.timestamp,
-        'cache',
-        60 // 1時間TTL
+        "cache",
+        60, // 1時間TTL
       ));
     }
 
     if (cacheMeta.stock?.exists && cacheMeta.stock.timestamp) {
       infos.push(freshnessManager.getFreshnessInfo(
         cacheMeta.stock.timestamp,
-        'cache',
-        30 // 30分TTL
+        "cache",
+        30, // 30分TTL
       ));
     }
 
     if (cacheMeta.model?.exists && cacheMeta.model.timestamp) {
       infos.push(freshnessManager.getFreshnessInfo(
         cacheMeta.model.timestamp,
-        'cache',
-        120 // 2時間TTL
+        "cache",
+        120, // 2時間TTL
       ));
     }
 
     if (cacheMeta.feature?.exists && cacheMeta.feature.timestamp) {
       infos.push(freshnessManager.getFreshnessInfo(
         cacheMeta.feature.timestamp,
-        'cache',
-        60 // 1時間TTL
+        "cache",
+        60, // 1時間TTL
       ));
     }
 
     if (cacheMeta.pred?.exists && cacheMeta.pred.timestamp) {
       infos.push(freshnessManager.getFreshnessInfo(
         cacheMeta.pred.timestamp,
-        'cache',
-        15 // 15分TTL
+        "cache",
+        15, // 15分TTL
       ));
     }
 
     if (cacheMeta.marketInsights?.exists && cacheMeta.marketInsights.timestamp) {
       infos.push(freshnessManager.getFreshnessInfo(
         cacheMeta.marketInsights.timestamp,
-        'cache',
-        30 // 30分TTL
+        "cache",
+        30, // 30分TTL
       ));
     }
 
     if (cacheMeta.riskAssessment?.exists && cacheMeta.riskAssessment.timestamp) {
       infos.push(freshnessManager.getFreshnessInfo(
         cacheMeta.riskAssessment.timestamp,
-        'cache',
-        60 // 1時間TTL
+        "cache",
+        60, // 1時間TTL
       ));
     }
 
@@ -353,8 +353,8 @@ function DashboardContent() {
       prev.map(item => 
         item.id === itemId 
           ? { ...item, completed: !item.completed }
-          : item
-      )
+          : item,
+      ),
     );
   };
 
@@ -580,11 +580,11 @@ function DashboardContent() {
                           <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                             <span className="text-sm text-gray-700">{trend.description}</span>
                             <span className={`text-sm font-medium ${
-                              trend.sentiment === 'positive' ? 'text-green-600' : 
-                              trend.sentiment === 'negative' ? 'text-red-600' : 'text-gray-600'
+                              trend.sentiment === "positive" ? "text-green-600" : 
+                              trend.sentiment === "negative" ? "text-red-600" : "text-gray-600"
                             }`}>
-                              {trend.sentiment === 'positive' ? '上昇' : 
-                               trend.sentiment === 'negative' ? '下降' : '中立'}
+                              {trend.sentiment === "positive" ? "上昇" : 
+                               trend.sentiment === "negative" ? "下降" : "中立"}
                             </span>
                           </div>
                         ))}
@@ -632,9 +632,9 @@ function DashboardContent() {
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.r2.toFixed(4)}</td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                                  model.rank === 1 ? 'bg-green-100 text-green-800' :
-                                  model.rank <= 3 ? 'bg-yellow-100 text-yellow-800' :
-                                  'bg-gray-100 text-gray-800'
+                                  model.rank === 1 ? "bg-green-100 text-green-800" :
+                                  model.rank <= 3 ? "bg-yellow-100 text-yellow-800" :
+                                  "bg-gray-100 text-gray-800"
                                 }`}>
                                   #{model.rank}
                                 </span>

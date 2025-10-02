@@ -15,7 +15,7 @@ interface FixedResponsiveLayoutProps {
 
 const FixedResponsiveLayout: React.FC<FixedResponsiveLayoutProps> = ({ 
   children, 
-  className = "" 
+  className = "", 
 }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +23,7 @@ const FixedResponsiveLayout: React.FC<FixedResponsiveLayoutProps> = ({
   // サイドバーの状態を監視
   useEffect(() => {
     const handleStorageChange = () => {
-      const savedState = localStorage.getItem('sidebar-collapsed');
+      const savedState = localStorage.getItem("sidebar-collapsed");
       if (savedState !== null) {
         setSidebarCollapsed(JSON.parse(savedState));
       }
@@ -33,14 +33,14 @@ const FixedResponsiveLayout: React.FC<FixedResponsiveLayoutProps> = ({
     handleStorageChange();
 
     // ストレージ変更を監視
-    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
     
     // カスタムイベントを監視（同じタブ内での変更）
-    window.addEventListener('sidebar-toggle', handleStorageChange);
+    window.addEventListener("sidebar-toggle", handleStorageChange);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('sidebar-toggle', handleStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("sidebar-toggle", handleStorageChange);
     };
   }, []);
 
@@ -66,7 +66,7 @@ const FixedResponsiveLayout: React.FC<FixedResponsiveLayoutProps> = ({
 
   return (
     <div className={`min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300 ${
-      sidebarCollapsed ? 'sidebar-collapsed' : ''
+      sidebarCollapsed ? "sidebar-collapsed" : ""
     }`}>
       <FixedResponsiveHeader />
       

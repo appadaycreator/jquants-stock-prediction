@@ -31,10 +31,10 @@ class ErrorHandlingTest {
   async testAnalysisRequiredError(): Promise<boolean> {
     try {
       // APIルートが削除されているため、常にfalseを返す
-      console.warn('APIルートが削除されているため、テストをスキップします');
+      console.warn("APIルートが削除されているため、テストをスキップします");
       return false;
     } catch (error) {
-      console.error('分析未実行テストエラー:', error);
+      console.error("分析未実行テストエラー:", error);
       return false;
     }
   }
@@ -45,10 +45,10 @@ class ErrorHandlingTest {
   async testSignalErrorHandling(): Promise<boolean> {
     try {
       // APIルートが削除されているため、常にfalseを返す
-      console.warn('APIルートが削除されているため、テストをスキップします');
+      console.warn("APIルートが削除されているため、テストをスキップします");
       return false;
     } catch (error) {
-      console.error('シグナルエラーテストエラー:', error);
+      console.error("シグナルエラーテストエラー:", error);
       return false;
     }
   }
@@ -59,20 +59,20 @@ class ErrorHandlingTest {
   async testCacheFunctionality(): Promise<boolean> {
     try {
       // キャッシュマネージャーをテスト
-      const { default: CacheManager } = await import('./cacheManager');
+      const { default: CacheManager } = await import("./cacheManager");
       const cache = CacheManager.getInstance();
       
       // テストデータを保存
-      const testData = { test: 'data', timestamp: new Date().toISOString() };
-      cache.set('test_key', testData);
+      const testData = { test: "data", timestamp: new Date().toISOString() };
+      cache.set("test_key", testData);
       
       // キャッシュから取得
-      const retrieved = cache.get('test_key');
+      const retrieved = cache.get("test_key");
       
       // データが正しく取得できることを確認
-      return Boolean(retrieved && (retrieved as any).test === 'data');
+      return Boolean(retrieved && (retrieved as any).test === "data");
     } catch (error) {
-      console.error('キャッシュテストエラー:', error);
+      console.error("キャッシュテストエラー:", error);
       return false;
     }
   }
@@ -83,7 +83,7 @@ class ErrorHandlingTest {
   async testNetworkErrorHandling(): Promise<boolean> {
     try {
       // 存在しないエンドポイントにリクエストしてネットワークエラーをシミュレート
-      const response = await fetch('/api/nonexistent-endpoint');
+      const response = await fetch("/api/nonexistent-endpoint");
       
       // 404エラーが適切に処理されることを確認
       return response.status === 404;
@@ -101,28 +101,28 @@ class ErrorHandlingTest {
       // モックデータでフォールバック機能をテスト
       const mockSignals = [
         {
-          symbol: '7203.T',
-          signal_type: 'BUY',
+          symbol: "7203.T",
+          signal_type: "BUY",
           confidence: 0.8,
           price: 2500,
           timestamp: new Date().toISOString(),
-          reason: 'テスト用シグナル',
-          category: 'テスト',
-          expected_holding_period: 30
-        }
+          reason: "テスト用シグナル",
+          category: "テスト",
+          expected_holding_period: 30,
+        },
       ];
 
       // ローカルストレージにテストデータを保存
-      localStorage.setItem('signal_fallback_data', JSON.stringify({
+      localStorage.setItem("signal_fallback_data", JSON.stringify({
         signals: mockSignals,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       }));
 
       // キャッシュからデータが取得できることを確認
-      const cached = localStorage.getItem('signal_fallback_data');
+      const cached = localStorage.getItem("signal_fallback_data");
       return Boolean(cached && JSON.parse(cached).signals.length > 0);
     } catch (error) {
-      console.error('フォールバックテストエラー:', error);
+      console.error("フォールバックテストエラー:", error);
       return false;
     }
   }
@@ -133,13 +133,13 @@ class ErrorHandlingTest {
   async testErrorGuidanceDisplay(): Promise<boolean> {
     try {
       // ErrorGuidanceコンポーネントの基本的な機能をテスト
-      const testError = 'テストエラーメッセージ';
-      const testErrorCode = 'TEST_ERROR';
+      const testError = "テストエラーメッセージ";
+      const testErrorCode = "TEST_ERROR";
       
       // エラーコードとメッセージが適切に処理されることを確認
       return testError && testErrorCode && testError.length > 0;
     } catch (error) {
-      console.error('エラーガイダンステストエラー:', error);
+      console.error("エラーガイダンステストエラー:", error);
       return false;
     }
   }
@@ -160,35 +160,35 @@ class ErrorHandlingTest {
   }> {
     const scenarios: TestScenario[] = [
       {
-        name: 'analysis_required',
-        description: '分析未実行時のエラー処理',
-        testFn: () => this.testAnalysisRequiredError()
+        name: "analysis_required",
+        description: "分析未実行時のエラー処理",
+        testFn: () => this.testAnalysisRequiredError(),
       },
       {
-        name: 'signal_error',
-        description: 'シグナル取得エラー処理',
-        testFn: () => this.testSignalErrorHandling()
+        name: "signal_error",
+        description: "シグナル取得エラー処理",
+        testFn: () => this.testSignalErrorHandling(),
       },
       {
-        name: 'cache_functionality',
-        description: 'キャッシュ機能',
-        testFn: () => this.testCacheFunctionality()
+        name: "cache_functionality",
+        description: "キャッシュ機能",
+        testFn: () => this.testCacheFunctionality(),
       },
       {
-        name: 'network_error',
-        description: 'ネットワークエラー処理',
-        testFn: () => this.testNetworkErrorHandling()
+        name: "network_error",
+        description: "ネットワークエラー処理",
+        testFn: () => this.testNetworkErrorHandling(),
       },
       {
-        name: 'fallback_functionality',
-        description: 'フォールバック機能',
-        testFn: () => this.testFallbackFunctionality()
+        name: "fallback_functionality",
+        description: "フォールバック機能",
+        testFn: () => this.testFallbackFunctionality(),
       },
       {
-        name: 'error_guidance',
-        description: 'エラーガイダンス表示',
-        testFn: () => this.testErrorGuidanceDisplay()
-      }
+        name: "error_guidance",
+        description: "エラーガイダンス表示",
+        testFn: () => this.testErrorGuidanceDisplay(),
+      },
     ];
 
     this.testResults = [];
@@ -199,14 +199,14 @@ class ErrorHandlingTest {
         this.testResults.push({
           scenario: scenario.name,
           passed,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         });
       } catch (error) {
         this.testResults.push({
           scenario: scenario.name,
           passed: false,
           error: error instanceof Error ? error.message : String(error),
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         });
       }
     }
@@ -218,7 +218,7 @@ class ErrorHandlingTest {
       total: this.testResults.length,
       passed,
       failed,
-      results: this.testResults
+      results: this.testResults,
     };
   }
 

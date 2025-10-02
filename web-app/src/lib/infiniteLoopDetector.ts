@@ -58,16 +58,16 @@ class InfiniteLoopDetector {
 export const infiniteLoopDetector = new InfiniteLoopDetector();
 
 // グローバルな無限ループ検出
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   let globalRenderCount = 0;
   let lastGlobalRenderTime = Date.now();
   let isReloading = false;
   
   const originalConsoleError = console.error;
   console.error = (...args) => {
-    const message = args.join(' ');
-    if (message.includes('Maximum update depth exceeded') && !isReloading) {
-      console.warn('Global infinite loop detected, forcing page reload');
+    const message = args.join(" ");
+    if (message.includes("Maximum update depth exceeded") && !isReloading) {
+      console.warn("Global infinite loop detected, forcing page reload");
       isReloading = true;
       // 即座にリロード
       window.location.reload();
@@ -83,7 +83,7 @@ if (typeof window !== 'undefined') {
     if (timeSinceLastRender < 30) { // 30ms以内の連続レンダリング
       globalRenderCount++;
       if (globalRenderCount > 25 && !isReloading) {
-        console.warn('Global infinite loop detected, forcing page reload');
+        console.warn("Global infinite loop detected, forcing page reload");
         isReloading = true;
         window.location.reload();
       }
@@ -99,14 +99,14 @@ if (typeof window !== 'undefined') {
     observer.observe(document.body, {
       childList: true,
       subtree: true,
-      attributes: true
+      attributes: true,
     });
   } else {
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener("DOMContentLoaded", () => {
       observer.observe(document.body, {
         childList: true,
         subtree: true,
-        attributes: true
+        attributes: true,
       });
     });
   }
