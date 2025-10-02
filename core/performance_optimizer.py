@@ -1,337 +1,263 @@
 #!/usr/bin/env python3
 """
-パフォーマンス最適化システム - 統合システムから分離
-メモリ最適化、データフレーム最適化、並列処理、キャッシュ管理
+パフォーマンス最適化システム
+システム全体のパフォーマンスを監視・最適化
 """
 
 import time
-import gc
+import psutil
+import threading
 from typing import Dict, Any, Optional, List
-from datetime import datetime
-import pandas as pd
+from datetime import datetime, timedelta
+from collections import deque
+import gc
 
 
 class PerformanceOptimizer:
-    """パフォーマンス最適化システム"""
+    """パフォーマンス最適化クラス"""
 
-    def __init__(self, config: Dict[str, Any] = None, logger=None):
+    def __init__(self, logger=None, error_handler=None):
         """初期化"""
-        self.config = config or {}
         self.logger = logger
+        self.error_handler = error_handler
+        self.metrics_history = deque(maxlen=1000)  # 最新1000件のメトリクスを保持
+        self.optimization_enabled = True
+        self.monitoring_thread = None
+        self.monitoring_active = False
 
-        # パフォーマンス最適化システムの初期化
-        self._initialize_performance_optimizers()
-
-        # パフォーマンス監視
-        self.performance_start_time = None
-
-    def _initialize_performance_optimizers(self) -> None:
-        """パフォーマンス最適化システムの初期化"""
-        try:
-            # パフォーマンス最適化設定の取得
-            perf_config = self.config.get("performance_optimization", {})
-            memory_limit_mb = perf_config.get("memory_limit_mb", 2048)
-            chunk_size = perf_config.get("chunk_size", 10000)
-            max_workers = perf_config.get("max_workers", None)
-            use_cache = perf_config.get("use_cache", True)
-            use_parallel = perf_config.get("use_parallel", True)
-
-            # 高度なメモリ最適化システム
-            try:
-                from advanced_performance_optimizer import (
-                    AdvancedMemoryOptimizer,
-                    AdvancedCacheManager,
-                )
-
-                self.memory_optimizer = AdvancedMemoryOptimizer(
-                    memory_limit_mb, chunk_size
-                )
-                self.cache_manager = AdvancedCacheManager()
-            except ImportError:
-                self.memory_optimizer = None
-                self.cache_manager = None
-
-            # 超効率データフレーム処理システム
-            try:
-                from ultra_efficient_dataframe_processor import (
-                    UltraEfficientDataFrameProcessor,
-                    MemoryEfficientDataFrameProcessor,
-                )
-
-                self.ultra_processor = UltraEfficientDataFrameProcessor()
-                self.dataframe_processor = MemoryEfficientDataFrameProcessor(
-                    chunk_size, memory_limit_mb
-                )
-            except ImportError:
-                self.ultra_processor = None
-                self.dataframe_processor = None
-
-            # 並列処理システム
-            try:
-                from enhanced_model_comparator import EnhancedModelComparator
-
-                self.parallel_processor = EnhancedModelComparator(
-                    max_workers, use_cache, use_parallel
-                )
-            except ImportError:
-                self.parallel_processor = None
-
-            # 統合パフォーマンス最適化システム
-            try:
-                from advanced_performance_optimizer import UnifiedPerformanceOptimizer
-
-                self.unified_optimizer = UnifiedPerformanceOptimizer(
-                    memory_limit_mb, chunk_size
-                )
-            except ImportError:
-                self.unified_optimizer = None
-
-            if self.logger:
-                self.logger.log_info("🚀 パフォーマンス最適化システム初期化完了")
-                self.logger.log_info(f"  💾 メモリ制限: {memory_limit_mb}MB")
-                self.logger.log_info(f"  📦 チャンクサイズ: {chunk_size}")
-                self.logger.log_info(
-                    f"  🔄 並列処理: {'有効' if use_parallel else '無効'}"
-                )
-                self.logger.log_info(
-                    f"  📋 キャッシュ: {'有効' if use_cache else '無効'}"
-                )
-
-        except Exception as e:
-            if self.logger:
-                self.logger.log_warning(
-                    f"パフォーマンス最適化システムの一部をインポートできませんでした: {e}"
-                )
-            # フォールバック設定
-            self.memory_optimizer = None
-            self.cache_manager = None
-            self.ultra_processor = None
-            self.dataframe_processor = None
-            self.parallel_processor = None
-            self.unified_optimizer = None
-
-    def start_performance_monitoring(self):
+    def start_monitoring(self, interval: int = 30):
         """パフォーマンス監視の開始"""
-        self.performance_start_time = time.time()
-        if self.logger:
-            self.logger.log_info("📊 パフォーマンス監視開始")
-        return self.performance_start_time
-
-    def stop_performance_monitoring(self):
-        """パフォーマンス監視の終了"""
-        if self.performance_start_time:
-            elapsed_time = time.time() - self.performance_start_time
-            if self.logger:
-                self.logger.log_info(f"⏱️ パフォーマンス監視終了: {elapsed_time:.2f}秒")
-            return elapsed_time
-        return None
-
-    def get_performance_results(self, start_time):
-        """パフォーマンス結果の取得"""
-        if self.performance_start_time:
-            elapsed_time = time.time() - self.performance_start_time
-        else:
-            elapsed_time = time.time() - start_time
-
-        return {
-            "execution_time": elapsed_time,
-            "elapsed_time": elapsed_time,
-            "start_time": start_time,
-            "end_time": time.time(),
-            "performance_status": "completed" if elapsed_time < 10.0 else "degraded",
-        }
-
-    def optimize_performance(self) -> Dict[str, Any]:
-        """パフォーマンス最適化の実行"""
         try:
-            if self.logger:
-                self.logger.log_info("🚀 パフォーマンス最適化開始")
+            if self.monitoring_active:
+                return
 
-            optimization_result = {
-                "status": "optimized",
-                "optimization_time": time.time(),
-                "timestamp": datetime.now().isoformat(),
-                "memory_optimization": False,
-                "dataframe_optimization": False,
-                "parallel_optimization": False,
-                "cache_optimization": False,
-            }
-
-            # メモリ最適化の実行
-            if self.memory_optimizer:
-                try:
-                    if self.logger:
-                        self.logger.log_info("💾 メモリ最適化を実行中...")
-                    # ガベージコレクションの実行
-                    gc.collect()
-                    optimization_result["memory_optimization"] = True
-                    if self.logger:
-                        self.logger.log_info("✅ メモリ最適化完了")
-                except Exception as e:
-                    if self.logger:
-                        self.logger.log_warning(f"メモリ最適化エラー: {e}")
-
-            # データフレーム最適化の実行
-            if self.ultra_processor:
-                try:
-                    if self.logger:
-                        self.logger.log_info("📊 データフレーム最適化を実行中...")
-                    # 最適化統計の取得
-                    stats = self.ultra_processor.get_optimization_stats()
-                    optimization_result["dataframe_optimization"] = True
-                    optimization_result["copy_operations_saved"] = (
-                        stats.copy_operations_saved
-                    )
-                    optimization_result["inplace_operations"] = stats.inplace_operations
-                    if self.logger:
-                        self.logger.log_info("✅ データフレーム最適化完了")
-                except Exception as e:
-                    if self.logger:
-                        self.logger.log_warning(f"データフレーム最適化エラー: {e}")
-
-            # 並列処理最適化の実行
-            if self.parallel_processor:
-                try:
-                    if self.logger:
-                        self.logger.log_info("🔄 並列処理最適化を実行中...")
-                    optimization_result["parallel_optimization"] = True
-                    if self.logger:
-                        self.logger.log_info("✅ 並列処理最適化完了")
-                except Exception as e:
-                    if self.logger:
-                        self.logger.log_warning(f"並列処理最適化エラー: {e}")
-
-            # キャッシュ最適化の実行
-            if self.cache_manager:
-                try:
-                    if self.logger:
-                        self.logger.log_info("📋 キャッシュ最適化を実行中...")
-                    cache_stats = self.cache_manager.get_cache_stats()
-                    optimization_result["cache_optimization"] = True
-                    optimization_result["cache_hit_rate"] = cache_stats.get(
-                        "hit_rate", 0
-                    )
-                    if self.logger:
-                        self.logger.log_info("✅ キャッシュ最適化完了")
-                except Exception as e:
-                    if self.logger:
-                        self.logger.log_warning(f"キャッシュ最適化エラー: {e}")
-
-            # 統合最適化の実行
-            if self.unified_optimizer:
-                try:
-                    if self.logger:
-                        self.logger.log_info("🎯 統合最適化を実行中...")
-                    # 統合最適化の実行
-                    optimization_result["unified_optimization"] = True
-                    if self.logger:
-                        self.logger.log_info("✅ 統合最適化完了")
-                except Exception as e:
-                    if self.logger:
-                        self.logger.log_warning(f"統合最適化エラー: {e}")
+            self.monitoring_active = True
+            self.monitoring_thread = threading.Thread(
+                target=self._monitoring_loop, 
+                args=(interval,), 
+                daemon=True
+            )
+            self.monitoring_thread.start()
 
             if self.logger:
-                self.logger.log_info("🎉 パフォーマンス最適化完了")
-            return optimization_result
+                self.logger.log_info(f"パフォーマンス監視を開始しました（間隔: {interval}秒）")
 
         except Exception as e:
-            if self.logger:
-                self.logger.log_error(f"パフォーマンス最適化エラー: {e}")
+            if self.error_handler:
+                self.error_handler.handle_system_error(e, "パフォーマンス監視開始")
             raise
 
-    def optimize_data_processing(
-        self, df: pd.DataFrame, operations: List[Dict] = None
-    ) -> pd.DataFrame:
-        """データ処理の最適化"""
-        try:
-            if self.logger:
-                self.logger.log_info("🚀 データ処理最適化開始")
+    def stop_monitoring(self):
+        """パフォーマンス監視の停止"""
+        self.monitoring_active = False
+        if self.monitoring_thread:
+            self.monitoring_thread.join(timeout=5)
 
-            if operations is None:
-                operations = [
-                    {"type": "memory_optimization"},
-                    {"type": "dtype_optimization"},
-                    {"type": "inplace_operations"},
-                ]
+        if self.logger:
+            self.logger.log_info("パフォーマンス監視を停止しました")
 
-            # 統合最適化システムを使用
-            if self.unified_optimizer:
-                result_df = self.unified_optimizer.optimize_data_processing(
-                    df, operations
-                )
+    def _monitoring_loop(self, interval: int):
+        """監視ループ"""
+        while self.monitoring_active:
+            try:
+                metrics = self.collect_system_metrics()
+                self.metrics_history.append(metrics)
+                
+                # パフォーマンス問題の検出
+                self._detect_performance_issues(metrics)
+                
+                time.sleep(interval)
+            except Exception as e:
                 if self.logger:
-                    self.logger.log_info("✅ 統合最適化システムによる処理完了")
-                return result_df
+                    self.logger.log_warning(f"監視ループエラー: {e}")
+                time.sleep(interval)
 
-            # フォールバック処理
-            result_df = df
-            for operation in operations:
-                op_type = operation.get("type")
+    def collect_system_metrics(self) -> Dict[str, Any]:
+        """システムメトリクスの収集"""
+        try:
+            # CPU使用率
+            cpu_percent = psutil.cpu_percent(interval=1)
+            
+            # メモリ使用量
+            memory = psutil.virtual_memory()
+            
+            # ディスク使用量
+            disk = psutil.disk_usage('/')
+            
+            # プロセス情報
+            process = psutil.Process()
+            process_memory = process.memory_info()
+            
+            return {
+                "timestamp": datetime.now().isoformat(),
+                "cpu_percent": cpu_percent,
+                "memory_total": memory.total,
+                "memory_available": memory.available,
+                "memory_percent": memory.percent,
+                "disk_total": disk.total,
+                "disk_used": disk.used,
+                "disk_percent": (disk.used / disk.total) * 100,
+                "process_memory_rss": process_memory.rss,
+                "process_memory_vms": process_memory.vms,
+                "process_cpu_percent": process.cpu_percent()
+            }
+        except Exception as e:
+            if self.error_handler:
+                self.error_handler.handle_system_error(e, "メトリクス収集")
+            return {"timestamp": datetime.now().isoformat(), "error": str(e)}
 
-                if op_type == "memory_optimization" and self.memory_optimizer:
-                    result_df = self.memory_optimizer.optimize_dataframe_memory(
-                        result_df
-                    )
-                elif op_type == "dtype_optimization" and self.ultra_processor:
-                    result_df = self.ultra_processor.optimize_dtypes_ultra(result_df)
-                elif op_type == "inplace_operations" and self.ultra_processor:
-                    result_df = self.ultra_processor.process_inplace(
-                        result_df, [operation]
-                    )
+    def _detect_performance_issues(self, metrics: Dict[str, Any]):
+        """パフォーマンス問題の検出"""
+        try:
+            issues = []
 
-            if self.logger:
-                self.logger.log_info("✅ データ処理最適化完了")
-            return result_df
+            # CPU使用率のチェック
+            if metrics.get("cpu_percent", 0) > 90:
+                issues.append(f"CPU使用率が高すぎます: {metrics['cpu_percent']:.1f}%")
+
+            # メモリ使用率のチェック
+            if metrics.get("memory_percent", 0) > 90:
+                issues.append(f"メモリ使用率が高すぎます: {metrics['memory_percent']:.1f}%")
+
+            # ディスク使用率のチェック
+            if metrics.get("disk_percent", 0) > 90:
+                issues.append(f"ディスク使用率が高すぎます: {metrics['disk_percent']:.1f}%")
+
+            if issues:
+                if self.logger:
+                    self.logger.log_warning(f"パフォーマンス問題を検出: {', '.join(issues)}")
+                
+                # 自動最適化の実行
+                if self.optimization_enabled:
+                    self._auto_optimize(issues)
 
         except Exception as e:
             if self.logger:
-                self.logger.log_error(f"データ処理最適化エラー: {e}")
-            return df
+                self.logger.log_warning(f"パフォーマンス問題検出エラー: {e}")
 
-    def get_performance_metrics(self) -> Dict[str, Any]:
-        """パフォーマンスメトリクスの取得"""
+    def _auto_optimize(self, issues: List[str]):
+        """自動最適化の実行"""
         try:
-            metrics = {
-                "system_status": "healthy",
-                "timestamp": datetime.now().isoformat(),
-                "memory_optimizer_available": self.memory_optimizer is not None,
-                "dataframe_processor_available": self.dataframe_processor is not None,
-                "parallel_processor_available": self.parallel_processor is not None,
-                "unified_optimizer_available": self.unified_optimizer is not None,
+            optimizations = []
+
+            # メモリ最適化
+            if any("メモリ" in issue for issue in issues):
+                gc.collect()  # ガベージコレクション
+                optimizations.append("ガベージコレクションを実行")
+
+            # プロセス最適化
+            if any("CPU" in issue for issue in issues):
+                # プロセスの優先度調整（可能な場合）
+                try:
+                    process = psutil.Process()
+                    process.nice(10)  # 優先度を下げる
+                    optimizations.append("プロセス優先度を調整")
+                except:
+                    pass
+
+            if optimizations:
+                if self.logger:
+                    self.logger.log_info(f"自動最適化を実行: {', '.join(optimizations)}")
+
+        except Exception as e:
+            if self.logger:
+                self.logger.log_warning(f"自動最適化エラー: {e}")
+
+    def get_performance_summary(self) -> Dict[str, Any]:
+        """パフォーマンスサマリーの取得"""
+        try:
+            if not self.metrics_history:
+                return {"message": "メトリクス履歴がありません"}
+
+            # 最新のメトリクス
+            latest_metrics = self.metrics_history[-1]
+            
+            # 平均値の計算
+            cpu_values = [m.get("cpu_percent", 0) for m in self.metrics_history if "cpu_percent" in m]
+            memory_values = [m.get("memory_percent", 0) for m in self.metrics_history if "memory_percent" in m]
+            disk_values = [m.get("disk_percent", 0) for m in self.metrics_history if "disk_percent" in m]
+
+            return {
+                "current_metrics": latest_metrics,
+                "average_cpu_percent": sum(cpu_values) / len(cpu_values) if cpu_values else 0,
+                "average_memory_percent": sum(memory_values) / len(memory_values) if memory_values else 0,
+                "average_disk_percent": sum(disk_values) / len(disk_values) if disk_values else 0,
+                "total_measurements": len(self.metrics_history),
+                "monitoring_active": self.monitoring_active,
+                "optimization_enabled": self.optimization_enabled,
+                "summary_timestamp": datetime.now().isoformat()
             }
 
-            # メモリ使用量の取得
-            if self.memory_optimizer:
-                metrics["current_memory_mb"] = self.memory_optimizer.get_memory_usage()
-                metrics["memory_limit_mb"] = self.memory_optimizer.memory_limit_mb
+        except Exception as e:
+            if self.error_handler:
+                self.error_handler.handle_system_error(e, "パフォーマンスサマリー取得")
+            return {"error": str(e)}
 
-            # キャッシュ統計の取得
-            if self.cache_manager:
-                cache_stats = self.cache_manager.get_cache_stats()
-                metrics["cache_stats"] = cache_stats
+    def optimize_memory(self):
+        """メモリ最適化"""
+        try:
+            # ガベージコレクション
+            collected = gc.collect()
+            
+            if self.logger:
+                self.logger.log_info(f"メモリ最適化完了: {collected}個のオブジェクトを回収")
 
-            # データフレーム最適化統計の取得
-            if self.ultra_processor:
-                df_stats = self.ultra_processor.get_optimization_stats()
-                metrics["dataframe_optimization_stats"] = {
-                    "copy_operations_saved": df_stats.copy_operations_saved,
-                    "inplace_operations": df_stats.inplace_operations,
-                    "dtype_optimizations": df_stats.dtype_optimizations,
-                }
-
-            return metrics
+            return {"collected_objects": collected, "timestamp": datetime.now().isoformat()}
 
         except Exception as e:
-            if self.logger:
-                self.logger.log_error(f"パフォーマンスメトリクス取得エラー: {e}")
-            return {"error": str(e), "status": "error"}
+            if self.error_handler:
+                self.error_handler.handle_system_error(e, "メモリ最適化")
+            return {"error": str(e)}
 
-    def get_memory_usage(self):
-        """メモリ使用量の取得"""
+    def get_optimization_recommendations(self) -> List[str]:
+        """最適化推奨事項の取得"""
         try:
-            import psutil
+            if not self.metrics_history:
+                return ["メトリクス履歴が不足しています"]
 
-            process = psutil.Process()
-            return process.memory_info().rss / 1024 / 1024  # MB単位
-        except ImportError:
-            return 0.0
+            latest_metrics = self.metrics_history[-1]
+            recommendations = []
+
+            # CPU推奨事項
+            if latest_metrics.get("cpu_percent", 0) > 80:
+                recommendations.append("CPU使用率が高いです。処理の並列化を検討してください")
+
+            # メモリ推奨事項
+            if latest_metrics.get("memory_percent", 0) > 80:
+                recommendations.append("メモリ使用率が高いです。データのバッチ処理を検討してください")
+
+            # ディスク推奨事項
+            if latest_metrics.get("disk_percent", 0) > 80:
+                recommendations.append("ディスク使用率が高いです。古いログファイルの削除を検討してください")
+
+            if not recommendations:
+                recommendations.append("現在のパフォーマンスは良好です")
+
+            return recommendations
+
+        except Exception as e:
+            if self.error_handler:
+                self.error_handler.handle_system_error(e, "推奨事項取得")
+            return [f"推奨事項取得エラー: {str(e)}"]
+
+    def reset_metrics(self):
+        """メトリクス履歴のリセット"""
+        self.metrics_history.clear()
+        if self.logger:
+            self.logger.log_info("パフォーマンスメトリクスをリセットしました")
+
+    def get_system_info(self) -> Dict[str, Any]:
+        """システム情報の取得"""
+        try:
+            return {
+                "cpu_count": psutil.cpu_count(),
+                "memory_total": psutil.virtual_memory().total,
+                "disk_total": psutil.disk_usage('/').total,
+                "python_version": f"{psutil.sys.version_info.major}.{psutil.sys.version_info.minor}.{psutil.sys.version_info.micro}",
+                "platform": psutil.sys.platform,
+                "timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            if self.error_handler:
+                self.error_handler.handle_system_error(e, "システム情報取得")
+            return {"error": str(e)}
