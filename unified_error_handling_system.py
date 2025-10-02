@@ -146,6 +146,10 @@ class UnifiedErrorHandlingSystem:
         console_handler.setFormatter(console_formatter)
         logger.addHandler(console_handler)
 
+        # ログディレクトリの作成
+        import os
+        os.makedirs("logs", exist_ok=True)
+        
         # ファイルハンドラー
         file_handler = logging.FileHandler(
             "logs/unified_error_handling.log", encoding="utf-8"

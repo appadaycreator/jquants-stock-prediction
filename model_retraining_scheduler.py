@@ -26,6 +26,9 @@ from enhanced_analysis_notification_system import EnhancedNotificationSystem, No
 from unified_system import UnifiedSystem, ErrorCategory, LogLevel, LogCategory
 
 # ログ設定
+import os
+os.makedirs("logs", exist_ok=True)
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",

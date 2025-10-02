@@ -37,6 +37,9 @@ from enhanced_auto_retry_system import (
 )
 
 # ログ設定
+import os
+os.makedirs("logs", exist_ok=True)
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
