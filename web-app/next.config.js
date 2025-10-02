@@ -1,10 +1,10 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-  // 静的エクスポートを完全に無効化（APIルートを使用するため）
-  // output: "export",
+  // GitHub Pages用の静的エクスポート設定
+  output: "export",
   
   // 静的生成を無効化（動的レンダリングを強制）
-  output: "standalone",
+  // output: "standalone",
   
   // 画像最適化設定
   images: {

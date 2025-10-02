@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// 動的ルートとして設定
-export const dynamic = 'force-dynamic';
+// 静的エクスポート用の設定
+export const dynamic = 'force-static';
+
 
 // 昨日のサマリー用のデフォルトデータ
 const defaultYesterdaySummary = {

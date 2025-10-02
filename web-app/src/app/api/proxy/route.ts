@@ -5,8 +5,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 
-// 動的ルートとして設定
-export const dynamic = 'force-dynamic';
+// 静的エクスポート用の設定
+export const dynamic = 'force-static';
 
 const JQUANTS_BASE_URL = 'https://api.jquants.com/v1';
 const ALLOWED_ORIGINS = [

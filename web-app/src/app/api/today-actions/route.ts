@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // 静的エクスポート用の設定
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
+
 
 // 今日のアクション提案用のデフォルトデータ
 const defaultTodayActions = {
