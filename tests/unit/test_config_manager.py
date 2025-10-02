@@ -22,7 +22,7 @@ class TestConfigManager:
 
     def test_init_without_config(self):
         """設定なし初期化のテスト"""
-        with patch.object(ConfigManager, '_load_config'):
+        with patch.object(ConfigManager, "_load_config"):
             manager = ConfigManager()
             assert manager.config == {}
 
@@ -63,13 +63,13 @@ class TestConfigManager:
         """設定保存のテスト"""
         config = {"system": {"name": "Test"}}
         manager = ConfigManager(config=config)
-        
-        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.yaml') as f:
+
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".yaml") as f:
             temp_path = f.name
-        
+
         try:
             manager.save_config(temp_path)
-            with open(temp_path, 'r') as f:
+            with open(temp_path, "r") as f:
                 saved_config = yaml.safe_load(f)
             assert saved_config == config
         finally:
@@ -79,10 +79,10 @@ class TestConfigManager:
         """設定更新のテスト"""
         config = {"system": {"name": "Original"}}
         manager = ConfigManager(config=config)
-        
+
         new_config = {"system": {"version": "2.0"}}
         manager.update_configuration(new_config)
-        
+
         # 設定が更新されることを確認
         assert manager.get_config("system.version") == "2.0"
 
@@ -113,7 +113,7 @@ class TestConfigManager:
         config = {"system": {"name": "Test"}}
         manager = ConfigManager(config=config)
         backup = manager.create_backup()
-        
+
         assert "config" in backup
         assert "timestamp" in backup
         assert "config_file" in backup
@@ -123,13 +123,13 @@ class TestConfigManager:
         """バックアップからの復元テスト"""
         original_config = {"system": {"name": "Original"}}
         manager = ConfigManager(config=original_config)
-        
+
         backup_data = {
             "config": {"system": {"name": "Restored"}},
             "timestamp": "2023-01-01T00:00:00",
-            "config_file": "test.yaml"
+            "config_file": "test.yaml",
         }
-        
+
         result = manager.restore_from_backup(backup_data)
         assert result is True
         assert manager.get_config("system.name") == "Restored"
@@ -144,10 +144,10 @@ class TestConfigManager:
         """深いマージのテスト"""
         base = {"system": {"name": "Base", "version": "1.0"}}
         override = {"system": {"version": "2.0", "debug": True}}
-        
+
         manager = ConfigManager()
         manager._deep_merge(base, override)
-        
+
         assert base["system"]["name"] == "Base"
         assert base["system"]["version"] == "2.0"
         assert base["system"]["debug"] is True
@@ -156,26 +156,24 @@ class TestConfigManager:
         """環境別設定の適用テスト"""
         config = {
             "system": {"environment": "test"},
-            "environments": {
-                "test": {"system": {"debug": True}}
-            }
+            "environments": {"test": {"system": {"debug": True}}},
         }
         manager = ConfigManager(config=config)
         manager._apply_environment_config()
-        
+
         assert manager.get_config("system.debug") is True
 
     def test_load_config_file_not_exists(self):
         """設定ファイルが存在しない場合のテスト"""
-        with patch.object(ConfigManager, '_create_default_config') as mock_create:
+        with patch.object(ConfigManager, "_create_default_config") as mock_create:
             manager = ConfigManager(config_file="nonexistent.yaml")
             mock_create.assert_called_once()
 
     def test_load_config_file_exists(self):
         """設定ファイルが存在する場合のテスト"""
         test_config = {"system": {"name": "Test"}}
-        
-        with patch('builtins.open', mock_open(read_data=yaml.dump(test_config))):
-            with patch('os.path.exists', return_value=True):
+
+        with patch("builtins.open", mock_open(read_data=yaml.dump(test_config))):
+            with patch("os.path.exists", return_value=True):
                 manager = ConfigManager(config_file="test.yaml")
                 assert manager.config == test_config

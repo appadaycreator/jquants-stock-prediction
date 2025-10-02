@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import random
 
+
 def create_sample_stock_data():
     """サンプル株価データの作成"""
     sample_stocks = {
@@ -36,7 +37,7 @@ def create_sample_stock_data():
             "data_quality": "good",
             "created_at": (datetime.now() - timedelta(days=1)).isoformat(),
             "updated_at": datetime.now().isoformat(),
-            "last_trade_date": datetime.now().isoformat()
+            "last_trade_date": datetime.now().isoformat(),
         },
         "6758": {
             "name": "ソニーグループ",
@@ -61,7 +62,7 @@ def create_sample_stock_data():
             "data_quality": "good",
             "created_at": (datetime.now() - timedelta(days=2)).isoformat(),
             "updated_at": datetime.now().isoformat(),
-            "last_trade_date": datetime.now().isoformat()
+            "last_trade_date": datetime.now().isoformat(),
         },
         "9984": {
             "name": "ソフトバンクグループ",
@@ -86,16 +87,17 @@ def create_sample_stock_data():
             "data_quality": "good",
             "created_at": (datetime.now() - timedelta(days=3)).isoformat(),
             "updated_at": datetime.now().isoformat(),
-            "last_trade_date": datetime.now().isoformat()
-        }
+            "last_trade_date": datetime.now().isoformat(),
+        },
     }
-    
+
     return sample_stocks
+
 
 def generate_structured_sample_data():
     """構造化されたサンプルデータの生成"""
     sample_stocks = create_sample_stock_data()
-    
+
     # メインデータ構造
     structured_data = {
         "metadata": {
@@ -104,11 +106,11 @@ def generate_structured_sample_data():
             "data_source": "jquants",
             "total_stocks": len(sample_stocks),
             "structure_version": "2.0",
-            "update_type": "sample"
+            "update_type": "sample",
         },
-        "stocks": {}
+        "stocks": {},
     }
-    
+
     # 各銘柄の構造化
     for code, stock_info in sample_stocks.items():
         structured_data["stocks"][code] = {
@@ -119,12 +121,12 @@ def generate_structured_sample_data():
                 "last_price": stock_info["last_price"],
                 "change": stock_info["change"],
                 "change_percent": stock_info["change_percent"],
-                "updated_at": stock_info["updated_at"]
+                "updated_at": stock_info["updated_at"],
             },
             "volume": {
                 "current_volume": stock_info["volume"],
                 "average_volume": stock_info["volume"] * random.uniform(0.8, 1.2),
-                "volume_ratio": round(random.uniform(0.5, 2.0), 2)
+                "volume_ratio": round(random.uniform(0.5, 2.0), 2),
             },
             "technical_indicators": {
                 "sma_5": stock_info["sma_5"],
@@ -133,52 +135,53 @@ def generate_structured_sample_data():
                 "rsi": stock_info["rsi"],
                 "macd": stock_info["macd"],
                 "bollinger_upper": stock_info["bollinger_upper"],
-                "bollinger_lower": stock_info["bollinger_lower"]
+                "bollinger_lower": stock_info["bollinger_lower"],
             },
             "prediction": {
                 "predicted_price": stock_info["predicted_price"],
                 "confidence": stock_info["confidence"],
                 "model_used": "RandomForest",
-                "prediction_date": datetime.now().isoformat()
+                "prediction_date": datetime.now().isoformat(),
             },
             "risk_metrics": {
                 "volatility": stock_info["volatility"],
                 "beta": stock_info["beta"],
                 "sharpe_ratio": stock_info["sharpe_ratio"],
-                "max_drawdown": stock_info["max_drawdown"]
+                "max_drawdown": stock_info["max_drawdown"],
             },
             "metadata": {
                 "created_at": stock_info["created_at"],
                 "updated_at": stock_info["updated_at"],
                 "data_quality": stock_info["data_quality"],
-                "last_trade_date": stock_info["last_trade_date"]
-            }
+                "last_trade_date": stock_info["last_trade_date"],
+            },
         }
-    
+
     return structured_data
+
 
 def save_sample_data():
     """サンプルデータの保存"""
     # ディレクトリの作成
     data_dir = Path("docs/data")
     data_dir.mkdir(parents=True, exist_ok=True)
-    
+
     stocks_dir = data_dir / "stocks"
     stocks_dir.mkdir(exist_ok=True)
-    
+
     metadata_dir = data_dir / "metadata"
     metadata_dir.mkdir(exist_ok=True)
-    
+
     # 構造化データの生成
     structured_data = generate_structured_sample_data()
-    
+
     # メインファイルの保存
     main_file = data_dir / "stock_data.json"
-    with open(main_file, 'w', encoding='utf-8') as f:
+    with open(main_file, "w", encoding="utf-8") as f:
         json.dump(structured_data, f, ensure_ascii=False, indent=2)
-    
+
     print(f"メインファイル保存: {main_file}")
-    
+
     # 個別銘柄ファイルの保存
     for code, stock_info in structured_data["stocks"].items():
         individual_file = stocks_dir / f"{code}.json"
@@ -186,47 +189,49 @@ def save_sample_data():
             "metadata": {
                 "code": code,
                 "generated_at": datetime.now().isoformat(),
-                "version": "2.0"
+                "version": "2.0",
             },
-            "stock": stock_info
+            "stock": stock_info,
         }
-        
-        with open(individual_file, 'w', encoding='utf-8') as f:
+
+        with open(individual_file, "w", encoding="utf-8") as f:
             json.dump(individual_data, f, ensure_ascii=False, indent=2)
-        
+
         print(f"個別ファイル保存: {individual_file}")
-    
+
     # インデックスファイルの生成
     index_data = {
         "metadata": {
             "generated_at": datetime.now().isoformat(),
             "version": "2.0",
             "total_stocks": len(structured_data["stocks"]),
-            "last_updated": structured_data["metadata"]["generated_at"]
+            "last_updated": structured_data["metadata"]["generated_at"],
         },
-        "stocks": []
+        "stocks": [],
     }
-    
+
     for code, stock_info in structured_data["stocks"].items():
-        index_data["stocks"].append({
-            "code": code,
-            "name": stock_info["name"],
-            "sector": stock_info["sector"],
-            "last_price": stock_info["current_price"]["last_price"],
-            "change_percent": stock_info["current_price"]["change_percent"],
-            "updated_at": stock_info["current_price"]["updated_at"],
-            "file_path": f"stocks/{code}.json"
-        })
-    
+        index_data["stocks"].append(
+            {
+                "code": code,
+                "name": stock_info["name"],
+                "sector": stock_info["sector"],
+                "last_price": stock_info["current_price"]["last_price"],
+                "change_percent": stock_info["current_price"]["change_percent"],
+                "updated_at": stock_info["current_price"]["updated_at"],
+                "file_path": f"stocks/{code}.json",
+            }
+        )
+
     # 価格順でソート
     index_data["stocks"].sort(key=lambda x: x["last_price"], reverse=True)
-    
+
     index_file = data_dir / "index.json"
-    with open(index_file, 'w', encoding='utf-8') as f:
+    with open(index_file, "w", encoding="utf-8") as f:
         json.dump(index_data, f, ensure_ascii=False, indent=2)
-    
+
     print(f"インデックスファイル保存: {index_file}")
-    
+
     # メタデータファイルの生成
     basic_metadata = {
         "last_updated": structured_data["metadata"]["generated_at"],
@@ -234,23 +239,25 @@ def save_sample_data():
         "data_source": structured_data["metadata"]["data_source"],
         "version": structured_data["metadata"]["version"],
         "file_size": main_file.stat().st_size,
-        "update_status": "success"
+        "update_status": "success",
     }
-    
+
     metadata_file = metadata_dir / "basic.json"
-    with open(metadata_file, 'w', encoding='utf-8') as f:
+    with open(metadata_file, "w", encoding="utf-8") as f:
         json.dump(basic_metadata, f, ensure_ascii=False, indent=2)
-    
+
     print(f"メタデータファイル保存: {metadata_file}")
-    
+
     print("\n=== サンプルデータ生成完了 ===")
     print(f"総ファイル数: {len(list(data_dir.rglob('*.json')))}")
     print(f"総サイズ: {sum(f.stat().st_size for f in data_dir.rglob('*.json'))} bytes")
+
 
 def main():
     """メイン処理"""
     print("サンプルデータ生成開始...")
     save_sample_data()
+
 
 if __name__ == "__main__":
     main()

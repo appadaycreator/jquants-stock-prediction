@@ -7,8 +7,8 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import apiClient from "@/lib/enhanced-api-client";
-import cacheManager from "@/lib/enhanced-cache-manager";
-import errorHandler, { ErrorContext } from "@/lib/enhanced-error-handler";
+import optimizedCacheManager from "@/lib/optimized-cache-manager";
+import optimizedErrorHandler, { ErrorContext } from "@/lib/optimized-error-handler";
 
 interface TodaySummary {
   date: string;
@@ -69,7 +69,7 @@ export function useEnhancedTodayData(): UseEnhancedTodayDataReturn {
     try {
       // キャッシュから取得を試行
       if (useCache) {
-        const cachedData = await cacheManager.get<TodaySummary>("today_summary");
+        const cachedData = await optimizedCacheManager.get<TodaySummary>("today_summary");
         if (cachedData) {
           setData(cachedData);
           setFromCache(true);
@@ -119,7 +119,7 @@ export function useEnhancedTodayData(): UseEnhancedTodayDataReturn {
       setLastUpdated(mockData.lastUpdated);
       
       // キャッシュに保存
-      await cacheManager.set("today_summary", mockData, {
+      await optimizedCacheManager.set("today_summary", mockData, {
         ttl: 300000,
         tags: ["today", "summary"],
         priority: 0.9,
@@ -136,8 +136,8 @@ export function useEnhancedTodayData(): UseEnhancedTodayDataReturn {
         url: window.location.href,
       };
 
-      const classification = errorHandler.handleError(error, context);
-      setError(classification.userMessage);
+      await optimizedErrorHandler.handleError(error, context);
+      setError("データの取得に失敗しました。しばらく待ってから再試行してください。");
 
       // リトライカウントを増加
       retryCount.current += 1;

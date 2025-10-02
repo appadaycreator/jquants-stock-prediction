@@ -13,7 +13,7 @@ import GlobalErrorBoundary from "@/components/GlobalErrorBoundary";
 import UnifiedErrorBoundary from "@/components/UnifiedErrorBoundary";
 import ResponsiveLayout from "@/components/ResponsiveLayout";
 import { useEffect, useState } from "react";
-import { startAutoRecovery } from "@/lib/auto-recovery";
+import optimizedErrorHandler from "@/lib/optimized-error-handler";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -73,8 +73,8 @@ export default function RootLayout({
     setIsClient(true);
     setMetadata();
     
-    // 自動復旧システムを開始
-    startAutoRecovery();
+    // エラーハンドリングシステムを初期化
+    console.log("エラーハンドリングシステムを初期化しました");
   }, []);
 
   if (!isClient) {

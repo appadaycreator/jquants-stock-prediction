@@ -7,8 +7,8 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import apiClient from "@/lib/enhanced-api-client";
-import cacheManager from "@/lib/enhanced-cache-manager";
-import errorHandler, { ErrorContext } from "@/lib/enhanced-error-handler";
+import optimizedCacheManager from "@/lib/optimized-cache-manager";
+import optimizedErrorHandler, { ErrorContext } from "@/lib/optimized-error-handler";
 
 interface PersonalInvestmentData {
   portfolio: {
@@ -75,7 +75,7 @@ export function useEnhancedPersonalInvestment(): UseEnhancedPersonalInvestmentRe
     try {
       // キャッシュから取得を試行
       if (useCache) {
-        const cachedData = await cacheManager.get<PersonalInvestmentData>("personal_investment");
+        const cachedData = await optimizedCacheManager.get<PersonalInvestmentData>("personal_investment");
         if (cachedData) {
           setData(cachedData);
           setFromCache(true);
@@ -133,7 +133,7 @@ export function useEnhancedPersonalInvestment(): UseEnhancedPersonalInvestmentRe
       setLastUpdated(mockData.lastUpdated);
       
       // キャッシュに保存
-      await cacheManager.set("personal_investment", mockData, {
+      await optimizedCacheManager.set("personal_investment", mockData, {
         ttl: 600000,
         tags: ["personal", "investment", "portfolio"],
         priority: 0.9,
@@ -150,8 +150,8 @@ export function useEnhancedPersonalInvestment(): UseEnhancedPersonalInvestmentRe
         url: window.location.href,
       };
 
-      const classification = errorHandler.handleError(error, context);
-      setError(classification.userMessage);
+      await optimizedErrorHandler.handleError(error, context);
+      setError("データの取得に失敗しました。しばらく待ってから再試行してください。");
 
       // リトライカウントを増加
       retryCount.current += 1;
