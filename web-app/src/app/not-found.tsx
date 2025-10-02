@@ -3,8 +3,13 @@
  * ユーザーフレンドリーなエラーページとナビゲーション
  */
 
+"use client";
+
 import Link from 'next/link';
 import { Home, ArrowLeft, Search, HelpCircle } from 'lucide-react';
+
+// 動的レンダリングを強制
+export const dynamic = 'force-dynamic';
 
 export default function NotFound() {
   return (

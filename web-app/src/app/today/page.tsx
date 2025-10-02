@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+
+// 動的レンダリングを強制
+export const dynamic = 'force-dynamic';
 import Link from "next/link";
 import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
 import { useSignalWithFallback } from "@/hooks/useSignalWithFallback";

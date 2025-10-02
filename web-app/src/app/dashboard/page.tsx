@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState, Suspense } from "react";
+
+// 動的レンダリングを強制
+export const dynamic = 'force-dynamic';
 import { ErrorBoundary } from "react-error-boundary";
 import dynamic from "next/dynamic";
 import Link from "next/link";
