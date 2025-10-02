@@ -1,0 +1,79 @@
+name: Update Stock Data
+
+on:
+  schedule:
+    # 平日9時（JST 18時）と15時（JST 0時）に実行
+    - cron: '0 9 * * 1-5'  # 平日9時 UTC
+    - cron: '0 15 * * 1-5' # 平日15時 UTC
+  workflow_dispatch:  # 手動実行も可能
+  push:
+    paths:
+      - 'scripts/update_data.py'
+      - 'config_final.yaml'
+
+jobs:
+  update-stock-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Update stock data
+        env:
+          JQUANTS_EMAIL: ${{ secrets.JQUANTS_EMAIL }}
+          JQUANTS_PASSWORD: ${{ secrets.JQUANTS_PASSWORD }}
+          JQUANTS_ID_TOKEN: ${{ secrets.JQUANTS_ID_TOKEN }}
+        run: |
+          echo "Starting stock data update..."
+          python3 scripts/update_data.py
+          
+      - name: Check for changes
+        id: check-changes
+        run: |
+          if git diff --quiet docs/data/; then
+            echo "No changes detected"
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected"
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Commit and push changes
+        if: steps.check-changes.outputs.has-changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/data/
+          git commit -m "📊 Update stock data $(date '+%Y-%m-%d %H:%M:%S')"
+          git push
+          
+      - name: Create summary
+        run: |
+          echo "## 📊 Stock Data Update Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Update Time**: $(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_STEP_SUMMARY
+          echo "- **Changes Detected**: ${{ steps.check-changes.outputs.has-changes }}" >> $GITHUB_STEP_SUMMARY
+          if [ -f "docs/data/update_log.json" ]; then
+            echo "- **Updated Stocks**: $(jq -r '.updated_stocks | length' docs/data/update_log.json)" >> $GITHUB_STEP_SUMMARY
+            echo "- **New Stocks**: $(jq -r '.new_stocks | length' docs/data/update_log.json)" >> $GITHUB_STEP_SUMMARY
+          fi

@@ -12,6 +12,8 @@ interface JQuantsConfig {
   rateLimitDelay: number;
   enableDataValidation: boolean;
   enableQualityMonitoring: boolean;
+  autoTokenRefresh: boolean;
+  tokenRefreshThreshold: number; // トークン有効期限の閾値（時間）
 }
 
 interface StockData {
@@ -50,6 +52,9 @@ interface ApiMetrics {
   averageResponseTime: number;
   lastRequestTime: string;
   consecutiveFailures: number;
+  tokenRefreshCount: number;
+  lastTokenRefresh: string;
+  tokenExpiryTime: string;
 }
 
 interface DataQualityReport {
@@ -237,6 +242,9 @@ class QualityMonitor {
       averageResponseTime: 0,
       lastRequestTime: "",
       consecutiveFailures: 0,
+      tokenRefreshCount: 0,
+      lastTokenRefresh: "",
+      tokenExpiryTime: "",
     };
   }
 
@@ -344,6 +352,8 @@ class EnhancedJQuantsAdapter {
       rateLimitDelay: config.rateLimitDelay || 100,
       enableDataValidation: config.enableDataValidation !== false,
       enableQualityMonitoring: config.enableQualityMonitoring !== false,
+      autoTokenRefresh: config.autoTokenRefresh !== false,
+      tokenRefreshThreshold: config.tokenRefreshThreshold || 2, // 2時間前
     };
 
     this.rateLimiter = new RateLimiter(this.config.rateLimitDelay);

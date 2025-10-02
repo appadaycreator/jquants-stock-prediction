@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     if (!email || !password) {
       return NextResponse.json(
         { error: "メールアドレスとパスワードが必要です" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -37,9 +37,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { 
           error: "jQuants認証に失敗しました", 
-          details: errorData 
+          details: errorData, 
         },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -54,9 +54,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { 
           error: "リフレッシュトークンの取得に失敗しました",
-          details: authData
+          details: authData,
         },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -81,9 +81,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { 
           error: "IDトークンの取得に失敗しました", 
-          details: errorData 
+          details: errorData, 
         },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -98,9 +98,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { 
           error: "IDトークンの取得に失敗しました",
-          details: tokenData
+          details: tokenData,
         },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
       console.error("トークンテストエラー:", testResponse.status);
       return NextResponse.json(
         { error: "トークンテストに失敗しました" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -168,9 +168,9 @@ NODE_ENV=development
     return NextResponse.json(
       { 
         error: "トークン再発行処理中にエラーが発生しました",
-        details: error instanceof Error ? error.message : "不明なエラー"
+        details: error instanceof Error ? error.message : "不明なエラー",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

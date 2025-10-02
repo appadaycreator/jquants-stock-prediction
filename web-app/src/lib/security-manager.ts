@@ -13,6 +13,11 @@ interface SecurityConfig {
   maxLoginAttempts: number;
   passwordMinLength: number;
   enableAuditLog: boolean;
+  enableTokenEncryption: boolean;
+  enableRateLimiting: boolean;
+  maxRequestsPerMinute: number;
+  enableDataMasking: boolean;
+  enableSecureStorage: boolean;
 }
 
 interface SecurityHeaders {
@@ -49,6 +54,11 @@ class SecurityManager {
       maxLoginAttempts: 5,
       passwordMinLength: 8,
       enableAuditLog: true,
+      enableTokenEncryption: true,
+      enableRateLimiting: true,
+      maxRequestsPerMinute: 60,
+      enableDataMasking: true,
+      enableSecureStorage: true,
       ...config,
     };
 

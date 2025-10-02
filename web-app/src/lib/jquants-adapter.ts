@@ -410,7 +410,7 @@ class JQuantsAdapter {
         status: response.status,
         statusText: response.statusText,
         error: errorText,
-        params: { symbol, startDate, endDate }
+        params: { symbol, startDate, endDate },
       });
       throw new Error(`API取得失敗: HTTP ${response.status} - ${errorText}`);
     }
