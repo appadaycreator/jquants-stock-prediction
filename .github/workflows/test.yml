@@ -66,6 +66,9 @@ jobs:
         JQUANTS_PASSWORD: ${{ secrets.JQUANTS_PASSWORD }}
         JQUANTS_ID_TOKEN: ${{ secrets.JQUANTS_ID_TOKEN }}
       run: |
+        # 必要なディレクトリを確実に作成
+        mkdir -p logs data
+        ls -la logs
         pytest tests/integration/ -v --tb=short --maxfail=5 --durations=5
     
     - name: テストカバレッジのアップロード

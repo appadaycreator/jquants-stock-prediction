@@ -49,13 +49,26 @@ class TestIntegration:
         """ログディレクトリの自動作成テスト"""
         logs_dir = project_root / "logs"
         
-        # ログディレクトリが存在しない場合は作成
-        if not logs_dir.exists():
+        # ログディレクトリを強制的に作成
+        try:
             logs_dir.mkdir(parents=True, exist_ok=True)
+        except Exception as e:
+            pytest.fail(f"ログディレクトリの作成に失敗しました: {e}")
         
         # ログディレクトリが存在することを確認
-        assert logs_dir.exists(), "ログディレクトリが存在しません"
-        assert logs_dir.is_dir(), "ログディレクトリがディレクトリではありません"
+        assert logs_dir.exists(), f"ログディレクトリが存在しません: {logs_dir}"
+        assert logs_dir.is_dir(), f"ログディレクトリがディレクトリではありません: {logs_dir}"
+        
+        # ログディレクトリが作成されたことを確認
+        assert logs_dir.exists(), f"ログディレクトリの作成に失敗しました: {logs_dir}"
+        
+        # ログディレクトリに書き込み権限があることを確認
+        try:
+            test_file = logs_dir / "test.log"
+            test_file.write_text("test")
+            test_file.unlink()  # テストファイルを削除
+        except Exception as e:
+            pytest.fail(f"ログディレクトリに書き込み権限がありません: {e}")
     
     def test_project_structure(self):
         """プロジェクト構造の統合テスト"""
