@@ -1,38 +1,20 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-  // 静的エクスポートを無効化（APIルートを使用するため）
+  // 静的エクスポートを完全に無効化（APIルートを使用するため）
   // output: "export",
-  
-  // GitHub Pages用の設定（本番環境のみ）
-  ...(process.env.NODE_ENV === "production" && {
-    basePath: "/jquants-stock-prediction",
-    assetPrefix: "/jquants-stock-prediction",
-  }),
-  
-  // 開発環境ではbasePathを無効化
-  ...(process.env.NODE_ENV === "development" && {
-    basePath: "",
-    assetPrefix: "",
-  }),
   
   // 画像最適化設定
   images: {
-    unoptimized: true,
     formats: ["image/webp", "image/avif"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
-  
-  // 静的エクスポート用の設定（無効化）
-  // trailingSlash: true,
-  // skipTrailingSlashRedirect: true,
   
   // パフォーマンス最適化
   compress: true,
   poweredByHeader: false,
   
   // RSCペイロードエラーを解決するための設定
-  // プリフェッチを無効化
   onDemandEntries: {
     maxInactiveAge: 25 * 1000,
     pagesBufferLength: 2,
@@ -46,19 +28,12 @@ const nextConfig = {
     return 'build-' + Date.now();
   },
   
-  
-  
   // パッケージのトランスパイル設定（Next.js 15対応）
   transpilePackages: ["clsx", "tailwind-merge", "class-variance-authority"],
   
   // 実験的機能の設定
   experimental: {
     optimizePackageImports: ["lucide-react", "recharts"],
-    // 静的エクスポート用の設定（無効化）
-    // ...(process.env.NODE_ENV === "production" && {
-    //   staticGenerationRetryCount: 5,
-    //   disableOptimizedLoading: true,
-    // }),
     // Turbopackの設定を最適化
     turbo: {
       rules: {
@@ -115,29 +90,6 @@ const nextConfig = {
     
     return config;
   },
-  
-  // ヘッダー設定（output: exportでは使用不可）
-  // async headers() {
-  //   return [
-  //     {
-  //       source: "/(.*)",
-  //       headers: [
-  //         {
-  //           key: "X-Content-Type-Options",
-  //           value: "nosniff"
-  //         },
-  //         {
-  //           key: "X-Frame-Options",
-  //           value: "DENY"
-  //         },
-  //         {
-  //           key: "X-XSS-Protection",
-  //           value: "1; mode=block"
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // }
 };
 
 module.exports = nextConfig;
