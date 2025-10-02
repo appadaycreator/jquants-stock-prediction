@@ -391,10 +391,7 @@ function DashboardContent() {
 
   return (
     <>
-      <ChartDataProviderKiller />
-      <ChartDataProviderOverride>
-        <InfiniteLoopProtection componentId="dashboard-main">
-          <div className="min-h-screen bg-gray-50 pb-20 lg:pb-0">
+      <div className="min-h-screen bg-gray-50 pb-20 lg:pb-0">
             {/* モバイルナビゲーション */}
             <MobileNavigation 
               activeTab={activeTab} 
@@ -770,8 +767,6 @@ function DashboardContent() {
 
             {/* 簡素化のため不要なコンポーネントを削除 */}
           </div>
-        </InfiniteLoopProtection>
-      </ChartDataProviderOverride>
     </>
   );
 }

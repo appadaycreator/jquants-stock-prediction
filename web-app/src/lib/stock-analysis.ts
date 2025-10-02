@@ -14,6 +14,7 @@ export interface StockData {
   volume: number;
   marketCap: number;
   lastUpdated: string;
+  close: number;
 }
 
 export interface TechnicalIndicators {
@@ -302,6 +303,65 @@ function generateRecommendation(
 }
 
 /**
+ * モック株価データを生成
+ */
+function generateMockStockData(symbol: string, startDate: string, endDate: string): StockData[] {
+  const data: StockData[] = [];
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  
+  // ベース価格（銘柄によって異なる）
+  const basePrices: { [key: string]: number } = {
+    "7203": 2500, // トヨタ
+    "6758": 12000, // ソニー
+    "9984": 6000, // ソフトバンクグループ
+    "6861": 50000, // キーエンス
+    "4063": 15000, // 信越化学
+  };
+  
+  // 銘柄名のマッピング
+  const symbolNames: { [key: string]: string } = {
+    "7203": "トヨタ自動車",
+    "6758": "ソニーグループ",
+    "9984": "ソフトバンクグループ",
+    "6861": "キーエンス",
+    "4063": "信越化学工業",
+  };
+  
+  const basePrice = basePrices[symbol] || 1000;
+  const symbolName = symbolNames[symbol] || symbol;
+  let currentPrice = basePrice;
+  
+  // 日付を1日ずつ進めてデータを生成
+  for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
+    // 土日をスキップ
+    if (date.getDay() === 0 || date.getDay() === 6) continue;
+    
+    // ランダムな価格変動（-5%から+5%）
+    const changePercent = (Math.random() - 0.5) * 0.1;
+    const change = currentPrice * changePercent;
+    currentPrice = Math.max(currentPrice + change, basePrice * 0.5); // 最低価格を保証
+    
+    const volume = Math.floor(Math.random() * 1000000) + 100000;
+    const marketCap = currentPrice * volume * 0.1; // 簡易的な時価総額
+    
+    data.push({
+      symbol,
+      name: symbolName,
+      price: currentPrice,
+      change: change,
+      changePercent: changePercent * 100,
+      volume,
+      marketCap,
+      lastUpdated: date.toISOString(),
+      close: currentPrice,
+    });
+  }
+  
+  return data;
+}
+
+/**
  * 単一銘柄を分析
  */
 export async function analyzeStock(symbol: string, symbolName?: string): Promise<AnalysisResult | null> {
@@ -325,7 +385,13 @@ export async function analyzeStock(symbol: string, symbolName?: string): Promise
     let name = symbolName;
     if (!name) {
       // const symbols = await getAllSymbols();
-      const symbols = ["7203", "6758", "9984", "6861", "4063"];
+      const symbols = [
+        { code: "7203", name: "トヨタ自動車" },
+        { code: "6758", name: "ソニーグループ" },
+        { code: "9984", name: "ソフトバンクグループ" },
+        { code: "6861", name: "キーエンス" },
+        { code: "4063", name: "信越化学工業" },
+      ];
       const symbolInfo = symbols.find(s => s.code === symbol);
       name = symbolInfo?.name || symbol;
     }

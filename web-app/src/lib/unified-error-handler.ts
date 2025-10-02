@@ -435,4 +435,18 @@ export function getLocalizedErrorMessage(error: Error, locale: string = "ja"): s
   return "Unexpected error occurred";
 }
 
+// エラー情報の取得
+export function getErrorInfo(error: Error): ErrorInfo {
+  return unifiedErrorHandler.categorizeError(error);
+}
+
+// 最適化されたエラーハンドラー
+export const optimizedErrorHandler = {
+  handle: (error: Error, context?: ErrorContext) => unifiedErrorHandler.handleError(error, context),
+  categorize: (error: Error) => unifiedErrorHandler.categorizeError(error),
+  getHistory: () => unifiedErrorHandler.getErrorHistory(),
+  getStats: () => unifiedErrorHandler.getErrorStats(),
+  reset: () => unifiedErrorHandler.reset(),
+};
+
 export default unifiedErrorHandler;
