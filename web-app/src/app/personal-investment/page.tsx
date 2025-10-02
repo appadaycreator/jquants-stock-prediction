@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import { getLatestIndex, resolveBusinessDate, swrJson } from "@/lib/dataClient";
+import { useEnhancedPersonalInvestment, usePersonalInvestmentFallback } from "@/hooks/useEnhancedPersonalInvestment";
 import UserProfileForm from "@/components/personalization/UserProfileForm";
 import { useUserProfile } from "@/contexts/UserProfileContext";
 import { allocateEqualRiskBudget, AllocationResult, Candidate } from "@/lib/personalization/allocation";
+import EnhancedLoadingSpinner from "@/components/EnhancedLoadingSpinner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -124,6 +126,10 @@ export default function PersonalInvestmentDashboard() {
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [allocation, setAllocation] = useState<AllocationResult | null>(null);
+
+  // 強化された個人投資データ取得
+  const personalInvestmentData = useEnhancedPersonalInvestment();
+  const { fallbackData, fallbackTimestamp, saveFallbackData } = usePersonalInvestmentFallback();
   
   // カスタマイズ機能の状態
   const [showRiskSettings, setShowRiskSettings] = useState(false);

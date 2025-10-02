@@ -4,7 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
 import { useSignalWithFallback } from "@/hooks/useSignalWithFallback";
+import { useEnhancedTodayData, useTodayDataFallback } from "@/hooks/useEnhancedTodayData";
 import EnhancedInstructionCard from "@/components/EnhancedInstructionCard";
+import EnhancedLoadingSpinner from "@/components/EnhancedLoadingSpinner";
 // import SignalHistoryDisplay from "@/components/SignalHistoryDisplay"; // 一時的に無効化
 import ErrorGuidance from "@/components/ErrorGuidance";
 import { Clock, Target, TrendingUp, RefreshCw, CheckCircle, AlertTriangle } from "lucide-react";
@@ -13,6 +15,10 @@ export default function TodayPage() {
   const routine = useFiveMinRoutine();
   const [startTime] = useState(Date.now());
   const [completedTasks, setCompletedTasks] = useState<string[]>([]);
+  
+  // 強化された今日の指示データ取得
+  const todayData = useEnhancedTodayData();
+  const { fallbackData, fallbackTimestamp, saveFallbackData } = useTodayDataFallback();
   
   // シンボル配列をメモ化して無限ループを防ぐ
   const symbols = useMemo(() => 
@@ -32,14 +38,91 @@ export default function TodayPage() {
     }
   }, []);
 
-  if (routine.isLoading) {
+  // データの保存（成功時）
+  useEffect(() => {
+    if (todayData.data) {
+      saveFallbackData(todayData.data);
+    }
+  }, [todayData.data, saveFallbackData]);
+
+  // ローディング表示
+  if (routine.isLoading || todayData.loading) {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4">
-          <div className="animate-pulse space-y-4">
-            <div className="h-16 bg-gray-200 rounded" />
-            <div className="h-32 bg-gray-200 rounded" />
-            <div className="h-56 bg-gray-200 rounded" />
+          <EnhancedLoadingSpinner
+            state={{
+              isLoading: true,
+              progress: 50,
+              message: '今日の指示を取得中...',
+              canRetry: false,
+              retryCount: 0,
+              maxRetries: 3,
+            }}
+            variant="default"
+            showProgress={true}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // エラー表示（フォールバックデータがある場合）
+  if (todayData.error && fallbackData) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+            <div className="flex items-center">
+              <AlertTriangle className="w-5 h-5 text-yellow-600 mr-2" />
+              <div>
+                <h3 className="text-sm font-medium text-yellow-800">
+                  最新データの取得に失敗しました
+                </h3>
+                <p className="text-sm text-yellow-700 mt-1">
+                  前回の結果を表示しています（{fallbackTimestamp ? new Date(fallbackTimestamp).toLocaleString() : '不明'}）
+                </p>
+              </div>
+            </div>
+            <div className="mt-3">
+              <button
+                onClick={todayData.retry}
+                className="bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 transition-colors"
+              >
+                <RefreshCw className="w-4 h-4 inline mr-2" />
+                再試行
+              </button>
+            </div>
+          </div>
+          {/* フォールバックデータの表示 */}
+          <div className="space-y-6">
+            {/* フォールバックデータの内容を表示 */}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // エラー表示（フォールバックデータがない場合）
+  if (todayData.error && !fallbackData) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+            <AlertTriangle className="w-12 h-12 text-red-600 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-red-800 mb-2">
+              データの取得に失敗しました
+            </h3>
+            <p className="text-red-700 mb-4">
+              {todayData.error}
+            </p>
+            <button
+              onClick={todayData.retry}
+              className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition-colors"
+            >
+              <RefreshCw className="w-4 h-4 inline mr-2" />
+              再試行
+            </button>
           </div>
         </div>
       </div>

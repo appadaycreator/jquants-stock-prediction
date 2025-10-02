@@ -453,7 +453,14 @@ class TestEnhancedDataPipeline:
         # 5. 新しいカラムが適切な値を持っていることを確認
         new_columns = set(processed_data.columns) - set(original_data.columns)
         for col in new_columns:
-            assert not processed_data[col].isna().all()  # 全てNaNではない
+            # Price_Positionカラムは全てNaNになる可能性があるため、特別な処理
+            if "Price_Position" in col:
+                # Price_Positionカラムの場合は、NaNの割合をチェック
+                nan_ratio = processed_data[col].isna().sum() / len(processed_data)
+                # NaNの割合が100%でないことを確認（少なくとも一部の値は有効）
+                assert nan_ratio < 1.0, f"Column {col} is completely NaN"
+            else:
+                assert not processed_data[col].isna().all()  # 全てNaNではない
 
     def test_pipeline_with_stress_testing(self):
         """ストレステスト"""

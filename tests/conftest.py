@@ -81,12 +81,55 @@ def temp_csv_file():
 def sample_stock_data():
     """テスト用のサンプル株価データ"""
     import pandas as pd
+    import numpy as np
+    
+    # より現実的な株価データを生成（60日分）
+    np.random.seed(42)  # 再現可能な結果のため
+    dates = pd.date_range('2024-01-01', periods=60, freq='D')
+    
+    # ベース価格から開始してランダムウォークで価格を生成
+    base_price = 100.0
+    price_changes = np.random.normal(0, 0.02, 60)  # 2%の標準偏差
+    prices = [base_price]
+    
+    for change in price_changes[1:]:
+        new_price = prices[-1] * (1 + change)
+        prices.append(max(new_price, 1.0))  # 価格が負にならないように
+    
+    # High, Low, Closeを生成
+    highs = []
+    lows = []
+    closes = []
+    opens = []
+    
+    for i, price in enumerate(prices):
+        # 各日の価格変動を生成
+        daily_volatility = np.random.uniform(0.01, 0.03)  # 1-3%の日次ボラティリティ
+        open_price = prices[i-1] if i > 0 else price
+        
+        # High, Low, Closeの関係を正しく保つ
+        # High >= max(Open, Close), Low <= min(Open, Close)
+        close = price
+        high = max(open_price, close) * (1 + np.random.uniform(0, daily_volatility))
+        low = min(open_price, close) * (1 - np.random.uniform(0, daily_volatility))
+        
+        # 関係を保証
+        high = max(high, open_price, close)
+        low = min(low, open_price, close)
+        
+        highs.append(high)
+        lows.append(low)
+        closes.append(close)
+        opens.append(open_price)
+    
+    # Volumeを生成
+    volumes = np.random.randint(1000, 10000, 60)
     
     return pd.DataFrame({
-        'Date': pd.date_range('2024-01-01', periods=30, freq='D'),
-        'Open': [100.0, 101.0, 102.0, 103.0, 104.0, 105.0, 106.0, 107.0, 108.0, 109.0, 110.0, 111.0, 112.0, 113.0, 114.0, 115.0, 116.0, 117.0, 118.0, 119.0, 120.0, 121.0, 122.0, 123.0, 124.0, 125.0, 126.0, 127.0, 128.0, 129.0],
-        'High': [105.0, 106.0, 107.0, 108.0, 109.0, 110.0, 111.0, 112.0, 113.0, 114.0, 115.0, 116.0, 117.0, 118.0, 119.0, 120.0, 121.0, 122.0, 123.0, 124.0, 125.0, 126.0, 127.0, 128.0, 129.0, 130.0, 131.0, 132.0, 133.0, 134.0],
-        'Low': [95.0, 96.0, 97.0, 98.0, 99.0, 100.0, 101.0, 102.0, 103.0, 104.0, 105.0, 106.0, 107.0, 108.0, 109.0, 110.0, 111.0, 112.0, 113.0, 114.0, 115.0, 116.0, 117.0, 118.0, 119.0, 120.0, 121.0, 122.0, 123.0, 124.0],
-        'Close': [103.0, 104.0, 105.0, 106.0, 107.0, 108.0, 109.0, 110.0, 111.0, 112.0, 113.0, 114.0, 115.0, 116.0, 117.0, 118.0, 119.0, 120.0, 121.0, 122.0, 123.0, 124.0, 125.0, 126.0, 127.0, 128.0, 129.0, 130.0, 131.0, 132.0],
-        'Volume': [1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200, 3300, 3400, 3500, 3600, 3700, 3800, 3900]
+        'Date': dates,
+        'Open': opens,
+        'High': highs,
+        'Low': lows,
+        'Close': closes,
+        'Volume': volumes
     })

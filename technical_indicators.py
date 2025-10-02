@@ -363,12 +363,15 @@ class TechnicalIndicators:
 
             # 相対変化（％）
             result_df[f"Price_Change_Pct_{period}d"] = (
-                df["Close"].pct_change(period) * 100
+                df["Close"].pct_change(period, fill_method=None) * 100
             )
 
-            # ログリターン
-            result_df[f"Log_Return_{period}d"] = np.log(
-                df["Close"] / df["Close"].shift(period)
+            # ログリターン（ゼロ除算を防ぐ）
+            ratio = df["Close"] / df["Close"].shift(period)
+            result_df[f"Log_Return_{period}d"] = np.where(
+                ratio > 0,
+                np.log(ratio),
+                np.nan
             )
 
         return result_df
@@ -384,13 +387,21 @@ class TechnicalIndicators:
             high_max = df["High"].rolling(window=period).max()
             low_min = df["Low"].rolling(window=period).min()
 
-            result_df[f"Price_Position_{period}d"] = (
-                (df["Close"] - low_min) / (high_max - low_min) * 100
+            # ゼロ除算を防ぐため、high_max - low_minが0の場合はNaNを返す
+            price_range = high_max - low_min
+            result_df[f"Price_Position_{period}d"] = np.where(
+                price_range != 0,
+                (df["Close"] - low_min) / price_range * 100,
+                np.nan
             )
 
-            # 移動平均からの乖離
+            # 移動平均からの乖離（ゼロ除算を防ぐ）
             sma = df["Close"].rolling(window=period).mean()
-            result_df[f"SMA_Deviation_{period}d"] = (df["Close"] - sma) / sma * 100
+            result_df[f"SMA_Deviation_{period}d"] = np.where(
+                sma != 0,
+                (df["Close"] - sma) / sma * 100,
+                np.nan
+            )
 
         return result_df
 
