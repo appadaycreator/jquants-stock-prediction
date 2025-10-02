@@ -1,0 +1,420 @@
+{
+  "investigation_time": "2025-10-02T15:24:19.189857",
+  "total_endpoints": 20,
+  "successful_endpoints": 4,
+  "failed_endpoints": 16,
+  "results": [
+    {
+      "name": "上場銘柄一覧",
+      "url": "https://api.jquants.com/v1/listed/info",
+      "status_code": 200,
+      "success": true,
+      "response_size": 1544094,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:16 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "134440",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "24d93105-3af2-4b80-b46a-5f67335ffbc4",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkWbHCYNjMEjzQ=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a8f-6b2e83c061ecfbda1c607014"
+      },
+      "data_keys": [
+        "info"
+      ],
+      "data_sample": "{'info': [{'Date': '2025-07-10', 'Code': '13010', 'CompanyName': '極洋', 'CompanyNameEnglish': 'KYOKUYO CO.,LTD.', 'Sector17Code': '1', 'Sector17CodeName': '食品', 'Sector33Code': '0050', 'Sector33CodeName': '水産・農林業', 'ScaleCategory': 'TOPIX Small 2', 'MarketCode': '0111', 'MarketCodeName': 'プライム'}, {'Date': '2025-07-10', 'Code': '13050', 'CompanyName': '大和アセットマネジメント株式会社\\u3000ｉＦｒｅｅＥＴＦ\\u3000ＴＯＰＩＸ（年１回決算型）', 'CompanyNameEnglish': 'iFreeETF TOPIX (Yearly Dividend Type)', 'Sector17Code': '99', 'Sector17C..."
+    },
+    {
+      "name": "上場銘柄一覧（特定銘柄）",
+      "url": "https://api.jquants.com/v1/listed/info",
+      "status_code": 200,
+      "success": true,
+      "response_size": 356,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:16 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "242",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "bbf752f1-1e0f-4a41-ba3d-6ce0e9944e79",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkWnFi8tjMEe0w=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a90-4d6d350b32c5f433131351f0"
+      },
+      "data_keys": [
+        "info"
+      ],
+      "data_sample": "{'info': [{'Date': '2025-07-10', 'Code': '72030', 'CompanyName': 'トヨタ自動車', 'CompanyNameEnglish': 'TOYOTA MOTOR CORPORATION', 'Sector17Code': '6', 'Sector17CodeName': '自動車・輸送機', 'Sector33Code': '3700', 'Sector33CodeName': '輸送用機器', 'ScaleCategory': 'TOPIX Core30', 'MarketCode': '0111', 'MarketCodeName': 'プライム'}]}"
+    },
+    {
+      "name": "株価四本値",
+      "url": "https://api.jquants.com/v1/prices/daily_quotes",
+      "status_code": 400,
+      "success": false,
+      "response_size": 158,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "150",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "00c62930-d2ee-459f-84f0-9edb85ab9911",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkWuFfVtjMEZHg=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a91-24a171a33ab4e281641ec8ff"
+      },
+      "error_message": "{\"message\": \"Your subscription covers the following dates: 2023-07-10 ~ 2025-07-10. If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "前場四本値",
+      "url": "https://api.jquants.com/v1/prices/prices_am",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "2807363a-16a5-451d-929d-922cc8e19999",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkWvEZJNjMEfzw=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a91-245169ac68a36c2e64eb6f5e"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "投資部門別情報",
+      "url": "https://api.jquants.com/v1/markets/trades_spec",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "0fe70dcf-ea1f-4726-849b-a6b91bb93178",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkWxGhoNjMEh0A=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a91-75d916c9104074043a3d1bcb"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "信用取引週末残高",
+      "url": "https://api.jquants.com/v1/markets/weekly_margin_interest",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "999e2287-6e8b-40f8-a850-45a67781dbfc",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkWyEjGtjMEgrQ=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a91-7466bd5100cfe53032c56519"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "業種別空売り比率",
+      "url": "https://api.jquants.com/v1/markets/short_selling",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "a1dd3e2b-d923-4974-9b52-f885b7917177",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkWzGfotjMEZzg=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a91-0da384ce70ba6c9a2249bcba"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "空売り残高報告",
+      "url": "https://api.jquants.com/v1/markets/short_selling_positions",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "2f73cb3a-53c0-4ba2-8bb3-70c801a75e0e",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkW0GmxtjMENGw=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a91-7ba47b4a56a96383483b9622"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "日々公表信用取引残高",
+      "url": "https://api.jquants.com/v1/markets/daily_margin_interest",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "60e04eeb-677d-4269-9a2e-acc27da75041",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkW2H99tjMEJvg=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a91-53369f2116639652106499ee"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "売買内訳データ",
+      "url": "https://api.jquants.com/v1/markets/breakdown",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "cfe0d9d8-a10d-4480-a7f7-2bb832fa38ed",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkW3EyXtjMEUfw=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a91-439ea6601dd9ea975fd1def1"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "取引カレンダー",
+      "url": "https://api.jquants.com/v1/markets/trading_calendar",
+      "status_code": 400,
+      "success": false,
+      "response_size": 158,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "150",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "c9d553cb-5f92-4406-980f-778032add3a9",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkW4FwZtjMEXhw=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a92-71cd4a0c57d7ed7c66c11191"
+      },
+      "error_message": "{\"message\": \"Your subscription covers the following dates: 2023-07-10 ~ 2025-07-10. If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "指数四本値",
+      "url": "https://api.jquants.com/v1/indices",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "90f77366-b695-48a4-b7a2-50e53101ac90",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkW6E9aNjMEigw=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a92-59c76f0b2007aa365a2f938a"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "TOPIX指数四本値",
+      "url": "https://api.jquants.com/v1/indices/topix",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "d5f7fd2c-189b-483a-a19a-b78cabcd5d67",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkW7HFeNjMEnTQ=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a92-782f46b1630e6a0c5ff9c877"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "財務情報",
+      "url": "https://api.jquants.com/v1/fins/statements",
+      "status_code": 200,
+      "success": true,
+      "response_size": 36516,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "2641",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "8c85620c-75f5-49dd-ac98-56aa1ac42f53",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkW8HdpNjMEAzw=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a92-6a096b291bd7198f02b5fd61"
+      },
+      "data_keys": [
+        "statements"
+      ],
+      "data_sample": "{'statements': [{'DisclosedDate': '2023-08-01', 'DisclosedTime': '13:25:00', 'LocalCode': '72030', 'DisclosureNumber': '20230724525928', 'TypeOfDocument': '1QFinancialStatements_Consolidated_IFRS', 'TypeOfCurrentPeriod': '1Q', 'CurrentPeriodStartDate': '2023-04-01', 'CurrentPeriodEndDate': '2023-06-30', 'CurrentFiscalYearStartDate': '2023-04-01', 'CurrentFiscalYearEndDate': '2024-03-31', 'NextFiscalYearStartDate': '', 'NextFiscalYearEndDate': '', 'NetSales': '10546831000000', 'OperatingProfit': ..."
+    },
+    {
+      "name": "財務諸表(BS/PL)",
+      "url": "https://api.jquants.com/v1/fins/fs_details",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "b4624615-426f-4d42-9414-635b906bde72",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkW-HcXtjMEjzQ=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a92-76b5b4fa2323bca10878b39f"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "配当金情報",
+      "url": "https://api.jquants.com/v1/fins/dividend",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "55568ed2-7ee7-43bf-8823-2dd34d2df076",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkW_FpMNjMEGug=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a92-2ad1d6b70c87846b04d9a527"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "決算発表予定日",
+      "url": "https://api.jquants.com/v1/fins/announcement",
+      "status_code": 200,
+      "success": true,
+      "response_size": 41022,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:19 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "4239",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "0db8bf78-f351-4e99-a882-a1976865054d",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkXBFuKtjMEDHQ=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a92-078aef217eb4cfa514d66b4a"
+      },
+      "data_keys": [
+        "announcement"
+      ],
+      "data_sample": "{'announcement': [{'Date': '2025-08-14', 'Code': '55920', 'CompanyName': 'くすりの窓口', 'FiscalYear': '3月31日', 'SectorName': '情報・通信業', 'FiscalQuarter': '第１四半期', 'Section': 'グロース'}, {'Date': '2025-08-14', 'Code': '43760', 'CompanyName': 'くふうカンパニーホールディングス', 'FiscalYear': '9月30日', 'SectorName': '情報・通信業', 'FiscalQuarter': '第３四半期', 'Section': 'グロース'}, {'Date': '2025-08-14', 'Code': '366A0', 'CompanyName': 'ウェルネス・コミュニケーションズ', 'FiscalYear': '3月31日', 'SectorName': 'サービス業', 'FiscalQuarter': '第１四半期', 'Section'..."
+    },
+    {
+      "name": "日経225オプション四本値",
+      "url": "https://api.jquants.com/v1/option/index_option",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:19 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "a29a7f89-2f7f-424c-996e-16fe7308c030",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkXCEvkNjMEgrQ=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a93-67a3fc356c42f3570310e029"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "先物四本値",
+      "url": "https://api.jquants.com/v1/derivatives/futures",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:19 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "954c7adc-99ec-4f3b-82e8-e4020d612f7a",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkXEHEGNjMEC5g=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a93-603dace903632b0f32c1d874"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    },
+    {
+      "name": "オプション四本値",
+      "url": "https://api.jquants.com/v1/derivatives/options",
+      "status_code": 400,
+      "success": false,
+      "response_size": 136,
+      "headers": {
+        "Date": "Thu, 02 Oct 2025 06:24:19 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "135",
+        "Connection": "keep-alive",
+        "x-amzn-RequestId": "7d4acbe1-b0be-4291-83ed-72b49a37892b",
+        "Access-Control-Allow-Origin": "*",
+        "Content-Encoding": "gzip",
+        "Strict-Transport-Security": "max-age=31536000",
+        "x-amz-apigw-id": "RzkXFEBetjMEO6Q=",
+        "X-Amzn-Trace-Id": "Root=1-68de1a93-0eab42d3431a6990609f2423"
+      },
+      "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
+    }
+  ]
+}

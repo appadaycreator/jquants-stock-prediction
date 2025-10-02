@@ -190,22 +190,22 @@ export default function StockDataDisplay({
                 <div>
                   <span className="text-gray-600">現在価格:</span>
                   <span className="ml-2 font-medium">
-                    ¥{data.stocks[symbol].current_price?.last_price?.toLocaleString() || 'N/A'}
+                    ¥{(data.stocks[symbol] as any)?.current_price?.last_price?.toLocaleString() || 'N/A'}
                   </span>
                 </div>
                 <div>
                   <span className="text-gray-600">変動:</span>
                   <span className={`ml-2 font-medium ${
-                    (data.stocks[symbol].current_price?.change_percent || 0) >= 0 
+                    ((data.stocks[symbol] as any)?.current_price?.change_percent || 0) >= 0 
                       ? 'text-red-600' : 'text-blue-600'
                   }`}>
-                    {(data.stocks[symbol].current_price?.change_percent || 0).toFixed(2)}%
+                    {((data.stocks[symbol] as any)?.current_price?.change_percent || 0).toFixed(2)}%
                   </span>
                 </div>
                 <div>
                   <span className="text-gray-600">出来高:</span>
                   <span className="ml-2 font-medium">
-                    {(data.stocks[symbol].volume?.current_volume || 0).toLocaleString()}
+                    {((data.stocks[symbol] as any)?.volume?.current_volume || 0).toLocaleString()}
                   </span>
                 </div>
               </div>
@@ -225,28 +225,28 @@ export default function StockDataDisplay({
                         <h4 className="font-medium">{stock.name}</h4>
                         <p className="text-sm text-gray-600">{code}</p>
                       </div>
-                      <span className="text-sm text-gray-500">{stock.sector}</span>
+                      <span className="text-sm text-gray-500">{(stock as any).sector || 'N/A'}</span>
                     </div>
                     <div className="space-y-1 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600">価格:</span>
                         <span className="font-medium">
-                          ¥{stock.current_price?.last_price?.toLocaleString() || 'N/A'}
+                          ¥{(stock as any).current_price?.last_price?.toLocaleString() || 'N/A'}
                         </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">変動:</span>
                         <span className={`font-medium ${
-                          (stock.current_price?.change_percent || 0) >= 0 
+                          ((stock as any).current_price?.change_percent || 0) >= 0 
                             ? 'text-red-600' : 'text-blue-600'
                         }`}>
-                          {(stock.current_price?.change_percent || 0).toFixed(2)}%
+                          {((stock as any).current_price?.change_percent || 0).toFixed(2)}%
                         </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">出来高:</span>
                         <span className="font-medium">
-                          {(stock.volume?.current_volume || 0).toLocaleString()}
+                          {((stock as any).volume?.current_volume || 0).toLocaleString()}
                         </span>
                       </div>
                     </div>
@@ -278,7 +278,7 @@ export default function StockDataDisplay({
           </div>
           <div>
             <span className="text-gray-600">更新タイプ:</span>
-            <span className="ml-2 font-medium">{data.metadata?.update_type || 'N/A'}</span>
+            <span className="ml-2 font-medium">{(data.metadata as any)?.update_type || 'N/A'}</span>
           </div>
         </div>
       </div>

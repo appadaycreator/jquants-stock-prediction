@@ -182,7 +182,7 @@ export default function TestDataPage() {
               <h3 className="font-medium text-gray-800 mb-2">ファイル構成</h3>
               <ul className="text-gray-600 space-y-1">
                 <li>• /docs/data/stock_data.json (メインデータ)</li>
-                <li>• /docs/data/stocks/{code}.json (個別銘柄)</li>
+                <li>• /docs/data/stocks/銘柄コード.json (個別銘柄)</li>
                 <li>• /docs/data/index.json (インデックス)</li>
                 <li>• /docs/data/metadata/ (メタデータ)</li>
               </ul>
