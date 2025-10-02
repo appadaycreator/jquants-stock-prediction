@@ -1,6 +1,7 @@
 /**
  * 統一されたキャッシュマネージャー
  * アプリケーション全体で使用されるキャッシュ機能を提供
+ * 予測結果、モデル比較、データ品質管理を含む包括的なキャッシュシステム
  */
 
 export interface CacheOptions {
@@ -8,6 +9,35 @@ export interface CacheOptions {
   tags?: string[]; // Cache tags for invalidation
   priority?: number; // Cache priority (0-1)
   maxSize?: number; // Maximum cache size in bytes
+  compression?: boolean; // Enable compression for large data
+}
+
+// 予測結果キャッシュ用のデータ型
+export interface PredictionCacheData {
+  predictions: any[];
+  modelComparison: any[];
+  performance: {
+    mae: number;
+    rmse: number;
+    r2: number;
+  };
+  timestamp: string;
+  modelName: string;
+  parameters: Record<string, any>;
+}
+
+// モデル比較キャッシュ用のデータ型
+export interface ModelComparisonCacheData {
+  models: Array<{
+    name: string;
+    mae: number;
+    rmse: number;
+    r2: number;
+    type: string;
+  }>;
+  bestModel: string;
+  comparisonTimestamp: string;
+  parameters: Record<string, any>;
 }
 
 export interface CacheEntry<T = any> {
@@ -24,6 +54,13 @@ class UnifiedCacheManager {
   private maxSize = 50 * 1024 * 1024; // 50MB default
   private currentSize = 0;
   private cleanupInterval: NodeJS.Timeout | null = null;
+  private stats = {
+    hits: 0,
+    misses: 0,
+    sets: 0,
+    deletes: 0,
+    compressions: 0,
+  };
 
   constructor() {
     this.startCleanup();
@@ -34,17 +71,20 @@ class UnifiedCacheManager {
     const entry = this.cache.get(key);
     
     if (!entry) {
+      this.stats.misses++;
       return null;
     }
 
     // TTLチェック
     if (this.isExpired(entry)) {
       this.delete(key);
+      this.stats.misses++;
       return null;
     }
 
     // アクセス時間を更新
     entry.timestamp = Date.now();
+    this.stats.hits++;
     return entry.data as T;
   }
 
@@ -55,10 +95,20 @@ class UnifiedCacheManager {
       tags = [],
       priority = 0.5,
       maxSize = 1024 * 1024, // 1MBデフォルト
+      compression = false,
     } = options;
 
-    const serializedData = JSON.stringify(data);
-    const size = new Blob([serializedData]).size;
+    let processedData = data;
+    let serializedData = JSON.stringify(data);
+    let size = new Blob([serializedData]).size;
+
+    // 圧縮が有効でデータが大きい場合
+    if (compression && size > 1024) {
+      processedData = await this.compress(data);
+      serializedData = JSON.stringify(processedData);
+      size = new Blob([serializedData]).size;
+      this.stats.compressions++;
+    }
 
     if (size > maxSize) {
       console.warn(`Cache entry ${key} exceeds maximum size limit`);
@@ -71,7 +121,7 @@ class UnifiedCacheManager {
     }
 
     const entry: CacheEntry<T> = {
-      data,
+      data: processedData,
       timestamp: Date.now(),
       ttl,
       tags,
@@ -81,6 +131,7 @@ class UnifiedCacheManager {
 
     this.cache.set(key, entry);
     this.currentSize += size;
+    this.stats.sets++;
   }
 
   // キャッシュから削除
@@ -88,6 +139,7 @@ class UnifiedCacheManager {
     const entry = this.cache.get(key);
     if (entry) {
       this.currentSize -= entry.size;
+      this.stats.deletes++;
       return this.cache.delete(key);
     }
     return false;
@@ -120,12 +172,25 @@ class UnifiedCacheManager {
     count: number;
     maxSize: number;
     hitRate: number;
+    hits: number;
+    misses: number;
+    sets: number;
+    deletes: number;
+    compressions: number;
   } {
+    const totalRequests = this.stats.hits + this.stats.misses;
+    const hitRate = totalRequests > 0 ? this.stats.hits / totalRequests : 0;
+    
     return {
       size: this.currentSize,
       count: this.cache.size,
       maxSize: this.maxSize,
-      hitRate: 0, // TODO: 実装
+      hitRate: Math.round(hitRate * 100) / 100,
+      hits: this.stats.hits,
+      misses: this.stats.misses,
+      sets: this.stats.sets,
+      deletes: this.stats.deletes,
+      compressions: this.stats.compressions,
     };
   }
 
@@ -161,6 +226,48 @@ class UnifiedCacheManager {
         this.cache.delete(key);
       }
     }
+  }
+
+  // 予測結果のキャッシュ保存
+  async cachePrediction(
+    key: string,
+    data: PredictionCacheData,
+    options: CacheOptions = {}
+  ): Promise<void> {
+    await this.set(key, data, {
+      ...options,
+      tags: [...(options.tags || []), 'prediction'],
+      ttl: options.ttl || 24 * 60 * 60 * 1000, // 24時間
+    });
+  }
+
+  // 予測結果のキャッシュ取得
+  async getCachedPrediction(key: string): Promise<PredictionCacheData | null> {
+    return await this.get<PredictionCacheData>(key);
+  }
+
+  // モデル比較結果のキャッシュ保存
+  async cacheModelComparison(
+    key: string,
+    data: ModelComparisonCacheData,
+    options: CacheOptions = {}
+  ): Promise<void> {
+    await this.set(key, data, {
+      ...options,
+      tags: [...(options.tags || []), 'modelComparison'],
+      ttl: options.ttl || 24 * 60 * 60 * 1000, // 24時間
+    });
+  }
+
+  // モデル比較結果のキャッシュ取得
+  async getCachedModelComparison(key: string): Promise<ModelComparisonCacheData | null> {
+    return await this.get<ModelComparisonCacheData>(key);
+  }
+
+  // データ圧縮（簡易実装）
+  private async compress(data: any): Promise<any> {
+    // 実際の実装ではLZ4やGzipを使用
+    return data;
   }
 
   // リソースのクリーンアップ
