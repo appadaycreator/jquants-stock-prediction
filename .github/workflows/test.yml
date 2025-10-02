@@ -37,6 +37,12 @@ jobs:
         pip cache purge || echo "Cache purge completed"
         pip install --no-cache-dir -r requirements.txt
         pip install black==23.12.1 flake8==6.1.0
+        
+    - name: 必要なディレクトリの作成
+      run: |
+        mkdir -p logs
+        mkdir -p data
+        echo "必要なディレクトリを作成しました"
     
     - name: コードフォーマットのチェック
       run: |

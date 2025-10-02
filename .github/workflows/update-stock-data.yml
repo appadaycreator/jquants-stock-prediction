@@ -17,6 +17,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      actions: read
       
     steps:
       - name: Checkout repository
@@ -24,6 +25,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
+          persist-credentials: true
           
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -42,6 +44,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          
+      - name: Create required directories
+        run: |
+          mkdir -p logs
+          mkdir -p data
+          echo "Required directories created"
           
       - name: Update stock data
         env:
@@ -65,16 +73,26 @@ jobs:
           
       - name: Commit and push changes
         if: steps.check-changes.outputs.has-changes == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add docs/data/
           git commit -m "📊 Update stock data $(date '+%Y-%m-%d %H:%M:%S')"
-          git push origin HEAD:main || {
+          
+          # リモートURLをHTTPSに設定
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          
+          # プッシュの実行
+          if ! git push origin HEAD:main; then
             echo "Push failed, trying to pull and push again..."
             git pull origin main --rebase
-            git push origin HEAD:main
-          }
+            if ! git push origin HEAD:main; then
+              echo "Push failed after retry. Please check repository permissions."
+              exit 1
+            fi
+          fi
           
       - name: Create summary
         run: |

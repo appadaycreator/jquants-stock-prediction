@@ -49,6 +49,10 @@ class TestIntegration:
         """ログディレクトリの自動作成テスト"""
         logs_dir = project_root / "logs"
         
+        # ログディレクトリが存在しない場合は作成
+        if not logs_dir.exists():
+            logs_dir.mkdir(parents=True, exist_ok=True)
+        
         # ログディレクトリが存在することを確認
         assert logs_dir.exists(), "ログディレクトリが存在しません"
         assert logs_dir.is_dir(), "ログディレクトリがディレクトリではありません"

@@ -31,6 +31,12 @@ jobs:
         pip cache purge || echo "Cache purge completed"
         pip install --no-cache-dir -r requirements.txt
         
+    - name: Create required directories
+      run: |
+        mkdir -p logs
+        mkdir -p data
+        echo "Required directories created"
+        
     - name: Generate web data
       env:
         JQUANTS_EMAIL: ${{ secrets.JQUANTS_EMAIL }}
