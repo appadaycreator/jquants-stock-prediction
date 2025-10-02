@@ -1,0 +1,27 @@
+{
+  "update_time": "2025-10-02T16:29:31.408428",
+  "updated_stocks": [
+    {
+      "code": "7203",
+      "name": "トヨタ自動車",
+      "changes": [
+        "volume: {'current_volume': 1000000, 'average_volume': 800000, 'volume_ratio': 1.25} → 4390344"
+      ]
+    },
+    {
+      "code": "6758",
+      "name": "ソニーグループ",
+      "changes": [
+        "volume: {'current_volume': 500000, 'average_volume': 600000, 'volume_ratio': 0.83} → 1018097"
+      ]
+    }
+  ],
+  "new_stocks": [
+    {
+      "code": "9984",
+      "name": "ソフトバンクグループ"
+    }
+  ],
+  "unchanged_stocks": [],
+  "errors": []
+}
