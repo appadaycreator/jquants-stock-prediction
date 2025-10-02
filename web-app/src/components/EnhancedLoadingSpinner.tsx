@@ -3,6 +3,8 @@
  * プログレス表示、エラーハンドリング、自動リトライ機能を統合
  */
 
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { Loader2, AlertTriangle, RefreshCw, CheckCircle } from 'lucide-react';
 

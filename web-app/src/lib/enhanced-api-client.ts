@@ -132,10 +132,10 @@ class EnhancedApiClient {
     const requestPromise = this.executeWithRetry<T>(
       method,
       endpoint,
-      data,
-      params,
       retryOptions,
-      options.timeout || this.config.timeout
+      options.timeout || this.config.timeout,
+      data,
+      params
     );
 
     this.requestQueue.set(cacheKey, requestPromise);
@@ -168,16 +168,16 @@ class EnhancedApiClient {
   private async executeWithRetry<T>(
     method: string,
     endpoint: string,
-    data?: any,
-    params?: Record<string, any>,
     retryOptions: RetryOptions,
-    timeout: number
+    timeout: number,
+    data?: any,
+    params?: Record<string, any>
   ): Promise<T> {
     let lastError: Error | null = null;
 
     for (let attempt = 0; attempt <= retryOptions.maxRetries; attempt++) {
       try {
-        const response = await this.executeRequest(method, endpoint, data, params, timeout);
+        const response = await this.executeRequest(method, endpoint, timeout, data, params);
         return response;
       } catch (error) {
         lastError = error as Error;
@@ -203,9 +203,9 @@ class EnhancedApiClient {
   private async executeRequest(
     method: string,
     endpoint: string,
+    timeout: number,
     data?: any,
-    params?: Record<string, any>,
-    timeout: number
+    params?: Record<string, any>
   ): Promise<any> {
     const url = new URL(`${this.config.baseUrl}?endpoint=${endpoint}`);
     

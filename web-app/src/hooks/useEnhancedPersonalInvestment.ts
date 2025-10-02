@@ -3,6 +3,8 @@
  * 新しいAPIクライアントとエラーハンドリングを使用
  */
 
+"use client";
+
 import { useState, useEffect, useCallback } from 'react';
 import apiClient from '@/lib/enhanced-api-client';
 import cacheManager from '@/lib/enhanced-cache-manager';

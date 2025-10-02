@@ -3,6 +3,8 @@
  * 主要機能への直接アクセスを提供
  */
 
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
 import { 
@@ -123,7 +125,7 @@ export default function DashboardQuickActions({
       description: '本日の売買候補と投資指示を確認',
       icon: <Target className="w-8 h-8 text-blue-600" />,
       href: '/today',
-      status: todayData?.hasData ? 'success' : 'warning',
+      status: (todayData?.hasData ? 'success' : 'warning') as 'success' | 'warning' | 'error' | 'loading',
       badge: todayData?.signalCount ? `${todayData.signalCount}件` : undefined,
     },
     {
@@ -131,7 +133,7 @@ export default function DashboardQuickActions({
       description: '個人投資の状況と推奨銘柄を確認',
       icon: <DollarSign className="w-8 h-8 text-green-600" />,
       href: '/personal-investment',
-      status: personalInvestmentData?.hasData ? 'success' : 'warning',
+      status: (personalInvestmentData?.hasData ? 'success' : 'warning') as 'success' | 'warning' | 'error' | 'loading',
       badge: personalInvestmentData?.portfolioValue 
         ? `¥${personalInvestmentData.portfolioValue.toLocaleString()}`
         : undefined,
@@ -141,14 +143,14 @@ export default function DashboardQuickActions({
       description: '効率的な投資分析のためのステップガイド',
       icon: <Clock className="w-8 h-8 text-purple-600" />,
       href: '/five-min-routine',
-      status: 'success',
+      status: 'success' as 'success' | 'warning' | 'error' | 'loading',
     },
     {
       title: '詳細分析',
       description: '詳細な分析結果とチャートを確認',
       icon: <BarChart3 className="w-8 h-8 text-orange-600" />,
       href: '/dashboard',
-      status: 'success',
+      status: 'success' as 'success' | 'warning' | 'error' | 'loading',
     },
   ];
 

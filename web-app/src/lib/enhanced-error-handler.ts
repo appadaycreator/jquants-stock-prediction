@@ -236,8 +236,8 @@ class EnhancedErrorHandler {
     this.retryAttempts.set(retryKey, currentAttempts + 1);
 
     // リトライ遅延
-    if (classification.recovery.retryDelay) {
-      await new Promise(resolve => setTimeout(resolve, classification.recovery.retryDelay));
+    if (classification.recovery?.retryDelay) {
+      await new Promise(resolve => setTimeout(resolve, classification.recovery!.retryDelay));
     }
 
     return true;

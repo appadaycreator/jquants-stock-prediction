@@ -3,6 +3,8 @@
  * データの鮮度表示、自動更新、手動リフレッシュ機能を提供
  */
 
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { Clock, RefreshCw, AlertTriangle, CheckCircle, Info } from 'lucide-react';
 

@@ -3,6 +3,8 @@
  * 1日5分で完結する投資判断のためのガイドコンポーネント
  */
 
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, Clock, Target, TrendingUp, ArrowRight, X } from 'lucide-react';
 
