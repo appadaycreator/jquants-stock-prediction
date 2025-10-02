@@ -31,6 +31,12 @@ const navItems: NavItem[] = [
     shortLabel: "分析",
   },
   {
+    href: "/listed-data",
+    label: "銘柄一覧",
+    icon: "📋",
+    shortLabel: "銘柄",
+  },
+  {
     href: "/risk",
     label: "リスク管理",
     icon: "🛡️",

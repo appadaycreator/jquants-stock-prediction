@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { EnhancedJQuantsAdapter } from '@/lib/enhanced-jquants-adapter';
+import { useStockData } from '@/hooks/useStockData';
 
 interface ListedStock {
   code: string;
@@ -9,6 +11,10 @@ interface ListedStock {
   market: string;
   updated_at: string;
   file_path: string;
+  currentPrice?: number;
+  change?: number;
+  changePercent?: number;
+  volume?: number;
 }
 
 interface ListedData {
@@ -22,12 +28,24 @@ interface ListedData {
   stocks: ListedStock[];
 }
 
+type SortField = 'code' | 'name' | 'sector' | 'market' | 'currentPrice' | 'change' | 'volume';
+type SortDirection = 'asc' | 'desc';
+
 const ListedDataPage: React.FC = () => {
   const [data, setData] = useState<ListedData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSector, setSelectedSector] = useState('');
+  const [selectedMarket, setSelectedMarket] = useState('');
+  const [sortField, setSortField] = useState<SortField>('code');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(50);
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
+  const [volumeRange, setVolumeRange] = useState({ min: '', max: '' });
+  const [jquantsAdapter] = useState(() => new EnhancedJQuantsAdapter());
 
   useEffect(() => {
     fetchListedData();
@@ -36,12 +54,44 @@ const ListedDataPage: React.FC = () => {
   const fetchListedData = async () => {
     try {
       setLoading(true);
+      setError(null);
+      
+      // まずキャッシュされたデータを取得
       const response = await fetch('/data/listed_index.json');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const listedData = await response.json();
-      setData(listedData);
+      
+      // J-Quants APIから最新の銘柄一覧を取得
+      try {
+        const symbols = await jquantsAdapter.getAllSymbols();
+        if (symbols.length > 0) {
+          // APIから取得したデータで更新
+          const updatedStocks = listedData.stocks.map((stock: ListedStock) => {
+            const apiStock = symbols.find(s => s.code === stock.code);
+            return {
+              ...stock,
+              name: apiStock?.name || stock.name,
+              sector: apiStock?.sector || stock.sector,
+            };
+          });
+          
+          setData({
+            ...listedData,
+            stocks: updatedStocks,
+            metadata: {
+              ...listedData.metadata,
+              last_updated: new Date().toISOString(),
+            }
+          });
+        } else {
+          setData(listedData);
+        }
+      } catch (apiError) {
+        console.warn('J-Quants API取得に失敗、キャッシュデータを使用:', apiError);
+        setData(listedData);
+      }
     } catch (err) {
       console.error('Error fetching listed data:', err);
       setError('データの取得に失敗しました');
@@ -55,11 +105,73 @@ const ListedDataPage: React.FC = () => {
     return Array.from(new Set(data.stocks.map(stock => stock.sector))).sort();
   };
 
-  const filteredStocks = data?.stocks.filter(stock => {
-    const matchesSearch = stock.name.includes(searchTerm) || stock.code.includes(searchTerm);
-    const matchesSector = !selectedSector || stock.sector === selectedSector;
-    return matchesSearch && matchesSector;
-  }) || [];
+  const getUniqueMarkets = () => {
+    if (!data) return [];
+    return Array.from(new Set(data.stocks.map(stock => stock.market))).sort();
+  };
+
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+
+  const filteredAndSortedStocks = useMemo(() => {
+    if (!data) return [];
+
+    let filtered = data.stocks.filter(stock => {
+      const matchesSearch = stock.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                           stock.code.includes(searchTerm);
+      const matchesSector = !selectedSector || stock.sector === selectedSector;
+      const matchesMarket = !selectedMarket || stock.market === selectedMarket;
+      
+      // 価格フィルター
+      const matchesPrice = !priceRange.min || !priceRange.max || 
+        (stock.currentPrice && 
+         stock.currentPrice >= parseFloat(priceRange.min) && 
+         stock.currentPrice <= parseFloat(priceRange.max));
+      
+      // 出来高フィルター
+      const matchesVolume = !volumeRange.min || !volumeRange.max || 
+        (stock.volume && 
+         stock.volume >= parseFloat(volumeRange.min) && 
+         stock.volume <= parseFloat(volumeRange.max));
+
+      return matchesSearch && matchesSector && matchesMarket && matchesPrice && matchesVolume;
+    });
+
+    // ソート
+    filtered.sort((a, b) => {
+      let aValue: any = a[sortField];
+      let bValue: any = b[sortField];
+
+      if (sortField === 'currentPrice' || sortField === 'change' || sortField === 'volume') {
+        aValue = aValue || 0;
+        bValue = bValue || 0;
+      }
+
+      if (typeof aValue === 'string') {
+        aValue = aValue.toLowerCase();
+        bValue = bValue.toLowerCase();
+      }
+
+      if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    return filtered;
+  }, [data, searchTerm, selectedSector, selectedMarket, sortField, sortDirection, priceRange, volumeRange]);
+
+  const paginatedStocks = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredAndSortedStocks.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredAndSortedStocks, currentPage, itemsPerPage]);
+
+  const totalPages = Math.ceil(filteredAndSortedStocks.length / itemsPerPage);
 
   if (loading) {
     return (
@@ -124,7 +236,17 @@ const ListedDataPage: React.FC = () => {
 
       {/* 検索・フィルター */}
       <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-semibold">検索・フィルター</h2>
+          <button
+            onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+          >
+            {showAdvancedFilters ? '詳細フィルターを閉じる' : '詳細フィルターを開く'}
+          </button>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               検索 (銘柄名・コード)
@@ -152,48 +274,160 @@ const ListedDataPage: React.FC = () => {
               ))}
             </select>
           </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              市場
+            </label>
+            <select
+              value={selectedMarket}
+              onChange={(e) => setSelectedMarket(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">すべての市場</option>
+              {getUniqueMarkets().map(market => (
+                <option key={market} value={market}>{market}</option>
+              ))}
+            </select>
+          </div>
         </div>
+
+        {showAdvancedFilters && (
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  価格範囲 (円)
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="number"
+                    value={priceRange.min}
+                    onChange={(e) => setPriceRange(prev => ({ ...prev, min: e.target.value }))}
+                    placeholder="最小価格"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <input
+                    type="number"
+                    value={priceRange.max}
+                    onChange={(e) => setPriceRange(prev => ({ ...prev, max: e.target.value }))}
+                    placeholder="最大価格"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  出来高範囲
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="number"
+                    value={volumeRange.min}
+                    onChange={(e) => setVolumeRange(prev => ({ ...prev, min: e.target.value }))}
+                    placeholder="最小出来高"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <input
+                    type="number"
+                    value={volumeRange.max}
+                    onChange={(e) => setVolumeRange(prev => ({ ...prev, max: e.target.value }))}
+                    placeholder="最大出来高"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 銘柄一覧 */}
       <div className="bg-white rounded-lg shadow-md">
-        <div className="px-4 py-3 border-b border-gray-200">
+        <div className="px-4 py-3 border-b border-gray-200 flex justify-between items-center">
           <h2 className="text-xl font-semibold">
-            銘柄一覧 ({filteredStocks.length}件)
+            銘柄一覧 ({filteredAndSortedStocks.length}件)
           </h2>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-500">
+              {currentPage} / {totalPages} ページ
+            </span>
+            <button
+              onClick={fetchListedData}
+              className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              更新
+            </button>
+          </div>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th 
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('code')}
+                >
                   銘柄コード
+                  {sortField === 'code' && (
+                    <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                  )}
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th 
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('name')}
+                >
                   会社名
+                  {sortField === 'name' && (
+                    <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                  )}
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th 
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('sector')}
+                >
                   セクター
+                  {sortField === 'sector' && (
+                    <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                  )}
+                </th>
+                <th 
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                  onClick={() => handleSort('market')}
+                >
+                  市場
+                  {sortField === 'market' && (
+                    <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                  )}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  市場
+                  現在価格
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  出来高
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   更新日時
                 </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  アクション
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredStocks.map((stock) => (
+              {paginatedStocks.map((stock) => (
                 <tr key={stock.code} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     {stock.code}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {stock.name}
+                    <div className="max-w-xs truncate" title={stock.name}>
+                      {stock.name}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {stock.sector}
+                    <div className="max-w-xs truncate" title={stock.sector}>
+                      {stock.sector}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
@@ -205,14 +439,77 @@ const ListedDataPage: React.FC = () => {
                       {stock.market}
                     </span>
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {stock.currentPrice ? `¥${stock.currentPrice.toLocaleString()}` : '-'}
+                    {stock.change && stock.changePercent && (
+                      <div className={`text-xs ${stock.change >= 0 ? 'text-red-600' : 'text-green-600'}`}>
+                        {stock.change >= 0 ? '+' : ''}{stock.change.toLocaleString()} ({stock.changePercent >= 0 ? '+' : ''}{stock.changePercent.toFixed(2)}%)
+                      </div>
+                    )}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {stock.volume ? stock.volume.toLocaleString() : '-'}
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(stock.updated_at).toLocaleString('ja-JP')}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm">
+                    <button
+                      onClick={() => window.open(`/dashboard?symbol=${stock.code}`, '_blank')}
+                      className="text-blue-600 hover:text-blue-800 font-medium"
+                    >
+                      詳細
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+
+        {/* ページネーション */}
+        {totalPages > 1 && (
+          <div className="px-4 py-3 border-t border-gray-200 flex items-center justify-between">
+            <div className="flex items-center">
+              <span className="text-sm text-gray-700">
+                {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredAndSortedStocks.length)} / {filteredAndSortedStocks.length} 件
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => setCurrentPage(1)}
+                disabled={currentPage === 1}
+                className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                最初
+              </button>
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                前へ
+              </button>
+              <span className="px-3 py-1 text-sm bg-blue-500 text-white rounded">
+                {currentPage}
+              </span>
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                次へ
+              </button>
+              <button
+                onClick={() => setCurrentPage(totalPages)}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                最後
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -14,6 +14,7 @@ export default function Sidebar() {
     { name: "ホーム", href: "/", icon: "🏠" },
     { name: "今日のタスク", href: "/today", icon: "🎯" },
     { name: "詳細分析", href: "/dashboard", icon: "📊" },
+    { name: "銘柄一覧", href: "/listed-data", icon: "📋" },
     { name: "リスク管理", href: "/risk", icon: "🛡️" },
     { name: "設定", href: "/settings", icon: "⚙️" },
   ];
