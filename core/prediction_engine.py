@@ -17,8 +17,8 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # JSONデータ管理システムのインポート
-from json_data_manager import JSONDataManager
-from differential_updater import DifferentialUpdater
+from .json_data_manager import JSONDataManager
+from .differential_updater import DifferentialUpdater
 
 
 class PredictionEngine:

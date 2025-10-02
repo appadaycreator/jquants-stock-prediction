@@ -11,7 +11,7 @@ from typing import Dict, Any, List, Optional, Tuple
 import logging
 from pathlib import Path
 import hashlib
-from json_data_manager import JSONDataManager
+from .json_data_manager import JSONDataManager
 
 
 class DifferentialUpdater:
