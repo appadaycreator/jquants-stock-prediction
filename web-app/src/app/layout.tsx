@@ -10,6 +10,7 @@ import BottomNav from "@/components/mobile/BottomNav";
 import Sidebar from "@/components/desktop/Sidebar";
 import { UserProfileProvider } from "@/contexts/UserProfileContext";
 import GlobalErrorBoundary from "@/components/GlobalErrorBoundary";
+import UnifiedErrorBoundary from "@/components/UnifiedErrorBoundary";
 import ResponsiveLayout from "@/components/ResponsiveLayout";
 import { useEffect, useState } from "react";
 import { startAutoRecovery } from "@/lib/auto-recovery";
@@ -107,16 +108,18 @@ export default function RootLayout({
           <AccessibilityProvider>
             <SettingsProvider>
               <UserProfileProvider>
-                <GlobalErrorBoundary>
-                  <div id="root" className="theme-base">
-                    {/* レスポンシブレイアウト */}
-                    <ResponsiveLayout>
-                      {children}
-                    </ResponsiveLayout>
-                    <Sidebar />
-                    <BottomNav />
-                  </div>
-                </GlobalErrorBoundary>
+                <UnifiedErrorBoundary>
+                  <GlobalErrorBoundary>
+                    <div id="root" className="theme-base">
+                      {/* レスポンシブレイアウト */}
+                      <ResponsiveLayout>
+                        {children}
+                      </ResponsiveLayout>
+                      <Sidebar />
+                      <BottomNav />
+                    </div>
+                  </GlobalErrorBoundary>
+                </UnifiedErrorBoundary>
               </UserProfileProvider>
             </SettingsProvider>
           </AccessibilityProvider>

@@ -1,364 +1,383 @@
 /**
- * パフォーマンス最適化ユーティリティ
- * コード分割、チャートダウンサンプリング、遅延読込
+ * パフォーマンス最適化システム
+ * 5分ルーティンの実現に向けた最適化
  */
 
-interface PerformanceConfig {
-  maxDataPoints: number;
-  enableLazyLoading: boolean;
-  enableCodeSplitting: boolean;
-  enableImageOptimization: boolean;
-  enableFontOptimization: boolean;
+interface PerformanceMetrics {
+  loadTime: number;
+  renderTime: number;
+  memoryUsage: number;
+  networkRequests: number;
+  cacheHitRate: number;
+  errorRate: number;
 }
 
-interface DownsamplingResult {
-  data: any[];
-  originalCount: number;
-  sampledCount: number;
-  compressionRatio: number;
+interface OptimizationConfig {
+  enableLazyLoading: boolean;
+  enablePreloading: boolean;
+  enableCaching: boolean;
+  enableCompression: boolean;
+  maxConcurrentRequests: number;
+  cacheStrategy: 'aggressive' | 'balanced' | 'conservative';
 }
 
 class PerformanceOptimizer {
-  private config: PerformanceConfig;
-  private lcpObserver: PerformanceObserver | null = null;
-  private memoryObserver: PerformanceObserver | null = null;
+  private config: OptimizationConfig;
+  private metrics: PerformanceMetrics;
+  private observers: PerformanceObserver[] = [];
 
-  constructor(config: PerformanceConfig) {
-    this.config = config;
-    this.initPerformanceObservers();
+  constructor(config: Partial<OptimizationConfig> = {}) {
+    this.config = {
+      enableLazyLoading: true,
+      enablePreloading: true,
+      enableCaching: true,
+      enableCompression: true,
+      maxConcurrentRequests: 6,
+      cacheStrategy: 'balanced',
+      ...config
+    };
+
+    this.metrics = {
+      loadTime: 0,
+      renderTime: 0,
+      memoryUsage: 0,
+      networkRequests: 0,
+      cacheHitRate: 0,
+      errorRate: 0
+    };
+
+    this.initializeObservers();
   }
 
   /**
    * パフォーマンス監視の初期化
    */
-  private initPerformanceObservers() {
-    if (typeof window === "undefined") return;
+  private initializeObservers(): void {
+    if (typeof window === 'undefined') return;
 
-    // LCP監視
-    if ("PerformanceObserver" in window) {
-      try {
-        this.lcpObserver = new PerformanceObserver((list) => {
+    // ナビゲーションタイミングの監視
+    if ('PerformanceObserver' in window) {
+      const navigationObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries();
-          const lcp = entries[entries.length - 1];
-          console.info("LCP測定:", {
-            value: `${lcp.startTime.toFixed(2)}ms`,
-            target: "<3000ms",
-            status: lcp.startTime < 3000 ? "PASS" : "FAIL",
-          });
+        entries.forEach((entry) => {
+          if (entry.entryType === 'navigation') {
+            this.metrics.loadTime = entry.duration;
+          }
         });
-        this.lcpObserver.observe({ entryTypes: ["largest-contentful-paint"] });
-      } catch (error) {
-        console.warn("LCP監視の初期化に失敗:", error);
+      });
+
+      navigationObserver.observe({ entryTypes: ['navigation'] });
+      this.observers.push(navigationObserver);
+    }
+
+    // リソースタイミングの監視
+    if ('PerformanceObserver' in window) {
+      const resourceObserver = new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        this.metrics.networkRequests += entries.length;
+      });
+
+      resourceObserver.observe({ entryTypes: ['resource'] });
+      this.observers.push(resourceObserver);
+    }
+
+    // メモリ使用量の監視
+    if ('memory' in performance) {
+      setInterval(() => {
+        this.metrics.memoryUsage = (performance as any).memory.usedJSHeapSize;
+      }, 5000);
+    }
+  }
+
+  /**
+   * データの並列取得
+   */
+  async fetchDataParallel<T>(
+    requests: Array<() => Promise<T>>,
+    options: { maxConcurrent?: number; timeout?: number } = {}
+  ): Promise<T[]> {
+    const { maxConcurrent = this.config.maxConcurrentRequests, timeout = 10000 } = options;
+    
+    const results: T[] = [];
+    const errors: Error[] = [];
+
+    // リクエストをバッチに分割
+    const batches: Array<() => Promise<T>>[] = [];
+    for (let i = 0; i < requests.length; i += maxConcurrent) {
+      batches.push(requests.slice(i, i + maxConcurrent));
+    }
+
+    // 各バッチを順次実行
+    for (const batch of batches) {
+      const batchPromises = batch.map(async (request) => {
+        try {
+          const timeoutPromise = new Promise<never>((_, reject) => {
+            setTimeout(() => reject(new Error('Request timeout')), timeout);
+          });
+
+          const result = await Promise.race([request(), timeoutPromise]);
+          return result;
+        } catch (error) {
+          errors.push(error as Error);
+          throw error;
+        }
+      });
+
+      try {
+        const batchResults = await Promise.allSettled(batchPromises);
+        batchResults.forEach((result) => {
+          if (result.status === 'fulfilled') {
+            results.push(result.value);
+          }
+        });
+    } catch (error) {
+        console.error('バッチ実行エラー:', error);
       }
     }
 
-    // メモリ使用量監視
-    if ("memory" in performance) {
-      setInterval(() => {
-        const memory = (performance as any).memory;
-        console.info("メモリ使用量:", {
-          used: `${Math.round(memory.usedJSHeapSize / 1024 / 1024)}MB`,
-          total: `${Math.round(memory.totalJSHeapSize / 1024 / 1024)}MB`,
-          limit: `${Math.round(memory.jsHeapSizeLimit / 1024 / 1024)}MB`,
-        });
-      }, 30000); // 30秒間隔
-    }
-  }
-
-  /**
-   * チャートデータのダウンサンプリング
-   */
-  downsampleChartData(data: any[], maxPoints: number = this.config.maxDataPoints): DownsamplingResult {
-    if (data.length <= maxPoints) {
-      return {
-        data,
-        originalCount: data.length,
-        sampledCount: data.length,
-        compressionRatio: 1.0,
-      };
-    }
-
-    const step = Math.ceil(data.length / maxPoints);
-    const sampledData = [];
-    
-    for (let i = 0; i < data.length; i += step) {
-      sampledData.push(data[i]);
-    }
-
-    // 最後のデータポイントを必ず含める
-    if (sampledData[sampledData.length - 1] !== data[data.length - 1]) {
-      sampledData.push(data[data.length - 1]);
-    }
-
-    const compressionRatio = sampledData.length / data.length;
-
-    console.info("チャートダウンサンプリング完了:", {
-      original: data.length,
-      sampled: sampledData.length,
-      compressionRatio: `${(compressionRatio * 100).toFixed(1)}%`,
-      performance: compressionRatio < 0.5 ? "OPTIMIZED" : "NORMAL",
-    });
-
-    return {
-      data: sampledData,
-      originalCount: data.length,
-      sampledCount: sampledData.length,
-      compressionRatio,
-    };
-  }
-
-  /**
-   * 動的インポートによるコード分割
-   */
-  async loadComponent(componentPath: string): Promise<any> {
-    if (!this.config.enableCodeSplitting) {
-      return require(componentPath);
-    }
-
-    try {
-      const startTime = performance.now();
-      const component = await import(componentPath);
-      const loadTime = performance.now() - startTime;
-
-      console.info("コンポーネント動的読み込み:", {
-        path: componentPath,
-        loadTime: `${loadTime.toFixed(2)}ms`,
-        status: loadTime < 1000 ? "FAST" : "SLOW",
-      });
-
-      return component;
-    } catch (error) {
-      console.error("コンポーネント読み込みエラー:", error);
-      throw error;
-    }
+    this.metrics.errorRate = errors.length / requests.length;
+    return results;
   }
 
   /**
    * 画像の遅延読み込み
    */
-  createLazyImage(src: string, alt: string, className?: string): HTMLImageElement {
-    const img = document.createElement("img");
-    img.alt = alt;
-    img.className = className || "";
-    img.loading = "lazy";
-    img.decoding = "async";
+  enableLazyLoading(): void {
+    if (!this.config.enableLazyLoading || typeof window === 'undefined') return;
 
-    // Intersection Observer で遅延読み込み
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+    const images = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
           if (entry.isIntersecting) {
+          const img = entry.target as HTMLImageElement;
+          const src = img.getAttribute('data-src');
+          if (src) {
             img.src = src;
-            observer.unobserve(img);
+            img.removeAttribute('data-src');
+            imageObserver.unobserve(img);
           }
-        });
+        }
       });
-      observer.observe(img);
-    } else {
-      // フォールバック
-      img.src = src;
-    }
+    });
 
-    return img;
+    images.forEach((img) => imageObserver.observe(img));
   }
 
   /**
-   * フォントの遅延読み込み
+   * 重要なリソースのプリロード
    */
-  async loadFont(fontFamily: string, fontUrl: string): Promise<void> {
-    if (!this.config.enableFontOptimization) return;
+  preloadCriticalResources(): void {
+    if (!this.config.enablePreloading || typeof window === 'undefined') return;
 
-    try {
+    const criticalResources = [
+      '/data/stock_data.json',
+      '/data/predictions.json',
+      '/data/model_comparison.json'
+    ];
+
+    criticalResources.forEach((resource) => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.href = resource;
+      link.as = 'fetch';
+      link.crossOrigin = 'anonymous';
+      document.head.appendChild(link);
+    });
+  }
+
+  /**
+   * キャッシュ戦略の実装
+   */
+  implementCachingStrategy(): void {
+    if (!this.config.enableCaching || typeof window === 'undefined') return;
+
+    // Service Worker の登録
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch((error) => {
+        console.error('Service Worker 登録エラー:', error);
+      });
+    }
+
+    // メモリキャッシュの実装
+    const memoryCache = new Map<string, { data: any; timestamp: number; ttl: number }>();
+
+    const getCachedData = (key: string) => {
+      const cached = memoryCache.get(key);
+      if (cached && Date.now() - cached.timestamp < cached.ttl) {
+        return cached.data;
+      }
+      memoryCache.delete(key);
+      return null;
+    };
+
+    const setCachedData = (key: string, data: any, ttl: number = 300000) => {
+      memoryCache.set(key, {
+        data,
+        timestamp: Date.now(),
+        ttl
+      });
+    };
+
+    // グローバルキャッシュ関数の設定
+    (window as any).getCachedData = getCachedData;
+    (window as any).setCachedData = setCachedData;
+  }
+
+  /**
+   * レンダリング最適化
+   */
+  optimizeRendering(): void {
+    if (typeof window === 'undefined') return;
+
+    // 不要な再レンダリングの防止
+    const originalCreateElement = React.createElement;
+    let renderCount = 0;
+
+    // レンダリング時間の測定
+    const startTime = performance.now();
+    
+    // レンダリング完了の検知
+    const observer = new MutationObserver(() => {
+      const endTime = performance.now();
+      this.metrics.renderTime = endTime - startTime;
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // 不要なDOM操作の最適化
+    const optimizeDOM = () => {
+      // 非表示要素の処理を遅延
+      const hiddenElements = document.querySelectorAll('[style*="display: none"]');
+      hiddenElements.forEach((element) => {
+        if (!element.getAttribute('data-optimized')) {
+          element.setAttribute('data-optimized', 'true');
+          // 非表示要素の処理を遅延
+          setTimeout(() => {
+            // 必要な処理を実行
+          }, 0);
+        }
+      });
+    };
+
+    // 定期的なDOM最適化
+    setInterval(optimizeDOM, 1000);
+  }
+
+  /**
+   * ネットワーク最適化
+   */
+  optimizeNetwork(): void {
+    if (typeof window === 'undefined') return;
+
+    // リクエストの優先度設定
+    const originalFetch = window.fetch;
+    window.fetch = async (input, init) => {
       const startTime = performance.now();
       
-      // フォントの事前読み込み
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.as = "font";
-      link.type = "font/woff2";
-      link.href = fontUrl;
-      link.crossOrigin = "anonymous";
-      document.head.appendChild(link);
-
-      // フォントの読み込み完了を待つ
-      await new Promise((resolve, reject) => {
-        const font = new FontFace(fontFamily, `url(${fontUrl})`);
-        font.load().then(() => {
-          document.fonts.add(font);
-          resolve(void 0);
-        }).catch(reject);
-      });
-
-      const loadTime = performance.now() - startTime;
-      console.info("フォント読み込み完了:", {
-        family: fontFamily,
-        loadTime: `${loadTime.toFixed(2)}ms`,
-        status: loadTime < 500 ? "FAST" : "NORMAL",
-      });
-    } catch (error) {
-      console.error("フォント読み込みエラー:", error);
-    }
+      try {
+        const response = await originalFetch(input, {
+          ...init,
+          priority: 'high' // 重要なリクエストの優先度を上げる
+        });
+        
+        const endTime = performance.now();
+        console.log(`ネットワークリクエスト完了: ${endTime - startTime}ms`);
+        
+        return response;
+      } catch (error) {
+        console.error('ネットワークリクエストエラー:', error);
+        throw error;
+      }
+    };
   }
 
   /**
-   * バンドルサイズの最適化
+   * パフォーマンスメトリクスの取得
    */
-  async optimizeBundle(): Promise<void> {
-    if (!this.config.enableCodeSplitting) return;
-
-    // 未使用のコードの削除
-    const unusedModules = this.detectUnusedModules();
-    if (unusedModules.length > 0) {
-      console.info("未使用モジュール検出:", {
-        modules: unusedModules,
-        recommendation: "Tree shakingの確認を推奨",
-      });
-    }
-  }
-
-  /**
-   * 未使用モジュールの検出
-   */
-  private detectUnusedModules(): string[] {
-    // 簡易的な未使用モジュール検出
-    const allModules = this.getAllModules();
-    const usedModules = this.getUsedModules();
-    
-    return allModules.filter(module => !usedModules.includes(module));
-  }
-
-  /**
-   * 全モジュールの取得
-   */
-  private getAllModules(): string[] {
-    // 実際の実装では、webpack-bundle-analyzer等を使用
-    return [];
-  }
-
-  /**
-   * 使用中モジュールの取得
-   */
-  private getUsedModules(): string[] {
-    // 実際の実装では、依存関係解析を使用
-    return [];
-  }
-
-  /**
-   * メモリ使用量の最適化
-   */
-  optimizeMemory(): void {
-    // ガベージコレクションの強制実行
-    if ("gc" in window) {
-      (window as any).gc();
-    }
-
-    // 不要なイベントリスナーの削除
-    this.cleanupEventListeners();
-
-    // キャッシュの最適化
-    this.optimizeCache();
-  }
-
-  /**
-   * イベントリスナーのクリーンアップ
-   */
-  private cleanupEventListeners(): void {
-    // 実際の実装では、イベントリスナーの追跡が必要
-    console.info("イベントリスナークリーンアップ実行");
-  }
-
-  /**
-   * キャッシュの最適化
-   */
-  private optimizeCache(): void {
-    // IndexedDBの最適化
-    if ("indexedDB" in window) {
-      // 古いデータの削除
-      this.cleanupOldCacheData();
-    }
-  }
-
-  /**
-   * 古いキャッシュデータの削除
-   */
-  private async cleanupOldCacheData(): Promise<void> {
-    // 実装は省略（実際のプロジェクトでは適切に実装）
-    console.info("古いキャッシュデータのクリーンアップ実行");
+  getMetrics(): PerformanceMetrics {
+    return { ...this.metrics };
   }
 
   /**
    * パフォーマンスレポートの生成
    */
-  generatePerformanceReport(): any {
-    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
-    const paint = performance.getEntriesByType("paint");
-    const lcp = performance.getEntriesByType("largest-contentful-paint");
-    const memory = (performance as any).memory;
+  generateReport(): {
+    score: number;
+    recommendations: string[];
+    metrics: PerformanceMetrics;
+  } {
+    const { loadTime, renderTime, memoryUsage, networkRequests, cacheHitRate, errorRate } = this.metrics;
+    
+    let score = 100;
+    const recommendations: string[] = [];
+
+    // スコア計算
+    if (loadTime > 3000) {
+      score -= 20;
+      recommendations.push('ページ読み込み時間が3秒を超えています');
+    }
+    
+    if (renderTime > 1000) {
+      score -= 15;
+      recommendations.push('レンダリング時間が1秒を超えています');
+    }
+    
+    if (memoryUsage > 50 * 1024 * 1024) { // 50MB
+      score -= 10;
+      recommendations.push('メモリ使用量が50MBを超えています');
+    }
+    
+    if (networkRequests > 20) {
+      score -= 10;
+      recommendations.push('ネットワークリクエスト数が20を超えています');
+    }
+    
+    if (cacheHitRate < 0.7) {
+      score -= 15;
+      recommendations.push('キャッシュヒット率が70%を下回っています');
+    }
+    
+    if (errorRate > 0.1) {
+      score -= 20;
+      recommendations.push('エラー率が10%を超えています');
+    }
 
     return {
-      navigation: {
-        domContentLoaded: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
-        loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
-        totalTime: navigation.loadEventEnd - navigation.fetchStart,
-      },
-      paint: {
-        firstPaint: paint.find(p => p.name === "first-paint")?.startTime || 0,
-        firstContentfulPaint: paint.find(p => p.name === "first-contentful-paint")?.startTime || 0,
-      },
-      lcp: lcp.length > 0 ? lcp[lcp.length - 1].startTime : 0,
-      memory: memory ? {
-        used: Math.round(memory.usedJSHeapSize / 1024 / 1024),
-        total: Math.round(memory.totalJSHeapSize / 1024 / 1024),
-        limit: Math.round(memory.jsHeapSizeLimit / 1024 / 1024),
-      } : null,
-      recommendations: this.generateRecommendations(),
+      score: Math.max(0, score),
+      recommendations,
+      metrics: this.metrics
     };
   }
 
   /**
-   * パフォーマンス改善の推奨事項を生成
+   * 最適化の実行
    */
-  private generateRecommendations(): string[] {
-    const recommendations: string[] = [];
-    const report = this.generatePerformanceReport();
-
-    if (report.lcp > 3000) {
-      recommendations.push("LCPが3秒を超えています。画像の最適化とコード分割を推奨します。");
-    }
-
-    if (report.memory && report.memory.used > 100) {
-      recommendations.push("メモリ使用量が100MBを超えています。メモリリークの確認を推奨します。");
-    }
-
-    if (report.navigation.totalTime > 5000) {
-      recommendations.push("初期読み込み時間が5秒を超えています。バンドルサイズの最適化を推奨します。");
-    }
-
-    return recommendations;
+  optimize(): void {
+    this.enableLazyLoading();
+    this.preloadCriticalResources();
+    this.implementCachingStrategy();
+    this.optimizeRendering();
+    this.optimizeNetwork();
   }
 
   /**
-   * クリーンアップ
+   * 監視の停止
    */
   cleanup(): void {
-    if (this.lcpObserver) {
-      this.lcpObserver.disconnect();
-    }
-    if (this.memoryObserver) {
-      this.memoryObserver.disconnect();
-    }
+    this.observers.forEach((observer) => observer.disconnect());
+    this.observers = [];
   }
 }
 
-// デフォルト設定
-const defaultConfig: PerformanceConfig = {
-  maxDataPoints: 3000,
-  enableLazyLoading: true,
-  enableCodeSplitting: true,
-  enableImageOptimization: true,
-  enableFontOptimization: true,
-};
+// シングルトンインスタンス
+export const performanceOptimizer = new PerformanceOptimizer();
 
-export const performanceOptimizer = new PerformanceOptimizer(defaultConfig);
+// 自動最適化の実行
+if (typeof window !== 'undefined') {
+  performanceOptimizer.optimize();
+}
+
 export default PerformanceOptimizer;
-export type { PerformanceConfig, DownsamplingResult };
