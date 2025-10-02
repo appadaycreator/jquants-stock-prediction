@@ -14,7 +14,7 @@ class ConfigManager:
     """設定管理システム"""
 
     def __init__(
-        self, config_file: str = "config_unified.yaml", config: Dict[str, Any] = None
+        self, config_file: str = "config_final.yaml", config: Dict[str, Any] = None
     ):
         """初期化"""
         self.config_file = config_file
@@ -33,7 +33,7 @@ class ConfigManager:
             if os.path.exists(self.config_file):
                 with open(self.config_file, "r", encoding="utf-8") as f:
                     self.config = yaml.safe_load(f) or {}
-                print(f"✅ 設定ファイル読み込み完了: {self.config_file}")
+                # 設定ファイル読み込み完了
             else:
                 # デフォルト設定の作成
                 self._create_default_config()
@@ -42,7 +42,7 @@ class ConfigManager:
             self._apply_environment_config()
 
         except Exception as e:
-            print(f"❌ 設定ファイル読み込みエラー: {e}")
+            # 設定ファイル読み込みエラー - デフォルト設定を使用
             self._create_default_config()
 
     def _create_default_config(self) -> None:
@@ -147,18 +147,18 @@ class ConfigManager:
         try:
             with open(file_path, "w", encoding="utf-8") as f:
                 yaml.dump(self.config, f, default_flow_style=False, allow_unicode=True)
-            print(f"✅ 設定を保存しました: {file_path}")
+            # 設定保存完了
         except Exception as e:
-            print(f"❌ 設定保存エラー: {e}")
+            # 設定保存エラー
             raise
 
     def update_configuration(self, new_config: Dict[str, Any]) -> None:
         """システム設定の更新"""
         try:
             self.config.update(new_config)
-            print("✅ システム設定を更新しました")
+            # システム設定更新完了
         except Exception as e:
-            print(f"❌ 設定更新エラー: {e}")
+            # 設定更新エラー
             raise
 
     def validate_config(self, config: Dict[str, Any] = None) -> Dict[str, Any]:
@@ -195,10 +195,10 @@ class ConfigManager:
                 "timestamp": datetime.now().isoformat(),
                 "config_file": self.config_file,
             }
-            print("✅ 設定バックアップを作成しました")
+            # 設定バックアップ作成完了
             return backup_data
         except Exception as e:
-            print(f"❌ バックアップ作成エラー: {e}")
+            # バックアップ作成エラー
             raise
 
     def restore_from_backup(self, backup_data: Dict[str, Any]) -> bool:
@@ -206,9 +206,9 @@ class ConfigManager:
         try:
             if backup_data and "config" in backup_data:
                 self.config = backup_data["config"]
-                print("✅ バックアップから正常に復元されました")
+                # バックアップから正常に復元
                 return True
             return False
         except Exception as e:
-            print(f"❌ バックアップ復元エラー: {e}")
+            # バックアップ復元エラー
             return False

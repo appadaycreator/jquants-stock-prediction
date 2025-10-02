@@ -14,7 +14,8 @@ from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from typing import Dict, Any, Optional, List, Tuple
 from datetime import datetime
 import warnings
-warnings.filterwarnings('ignore')
+
+warnings.filterwarnings("ignore")
 
 # JSONデータ管理システムのインポート
 from .json_data_manager import JSONDataManager
@@ -32,7 +33,7 @@ class PredictionEngine:
 
         # 予測設定の取得
         self.prediction_config = self.config.get("prediction", {})
-        
+
         # JSONデータ管理システムの初期化
         data_dir = self.config.get("data_dir", "data")
         self.json_manager = JSONDataManager(data_dir, logger)
@@ -76,14 +77,14 @@ class PredictionEngine:
             total_size = len(X)
             train_size = int(total_size * 0.6)
             val_size = int(total_size * 0.2)
-            
+
             # 時系列順に分割
             X_train = X.iloc[:train_size]
             y_train = y.iloc[:train_size]
-            X_val = X.iloc[train_size:train_size + val_size]
-            y_val = y.iloc[train_size:train_size + val_size]
-            X_test = X.iloc[train_size + val_size:]
-            y_test = y.iloc[train_size + val_size:]
+            X_val = X.iloc[train_size : train_size + val_size]
+            y_val = y.iloc[train_size : train_size + val_size]
+            X_test = X.iloc[train_size + val_size :]
+            y_test = y.iloc[train_size + val_size :]
 
             if self.logger:
                 self.logger.log_info(
@@ -100,7 +101,14 @@ class PredictionEngine:
                 if self.logger:
                     self.logger.log_info("🔄 複数モデル比較を実行中...")
                 results = self._compare_models_with_validation(
-                    self.prediction_config, X_train, X_val, X_test, y_train, y_val, y_test, features
+                    self.prediction_config,
+                    X_train,
+                    X_val,
+                    X_test,
+                    y_train,
+                    y_val,
+                    y_test,
+                    features,
                 )
                 best_model_name = results.get("best_model", "random_forest")
             else:
@@ -150,18 +158,20 @@ class PredictionEngine:
                 )
             raise
 
-    def _detect_overfitting(self, train_r2: float, val_r2: float, test_r2: float) -> Dict[str, Any]:
+    def _detect_overfitting(
+        self, train_r2: float, val_r2: float, test_r2: float
+    ) -> Dict[str, Any]:
         """過学習検出機能"""
         try:
             # R²の差を計算
             train_val_diff = train_r2 - val_r2
             val_test_diff = val_r2 - test_r2
-            
+
             # 過学習の判定基準
             is_overfitting = False
             risk_level = "低"
             message = "正常"
-            
+
             # 高リスク: R² > 0.99
             if test_r2 > 0.99:
                 is_overfitting = True
@@ -181,7 +191,7 @@ class PredictionEngine:
             elif train_val_diff > 0.05:
                 risk_level = "低"
                 message = f"注意（訓練-検証差: {train_val_diff:.3f}）"
-            
+
             return {
                 "is_overfitting": is_overfitting,
                 "risk_level": risk_level,
@@ -190,9 +200,9 @@ class PredictionEngine:
                 "val_r2": val_r2,
                 "test_r2": test_r2,
                 "train_val_diff": train_val_diff,
-                "val_test_diff": val_test_diff
+                "val_test_diff": val_test_diff,
             }
-            
+
         except Exception as e:
             if self.logger:
                 self.logger.log_warning(f"過学習検出エラー: {e}")
@@ -204,7 +214,7 @@ class PredictionEngine:
                 "val_r2": 0.0,
                 "test_r2": 0.0,
                 "train_val_diff": 0.0,
-                "val_test_diff": 0.0
+                "val_test_diff": 0.0,
             }
 
     def _compare_models_with_validation(
@@ -226,34 +236,38 @@ class PredictionEngine:
                 try:
                     # モデル学習
                     model.fit(X_train, y_train)
-                    
+
                     # 各データセットでの予測
                     y_train_pred = model.predict(X_train)
                     y_val_pred = model.predict(X_val)
                     y_test_pred = model.predict(X_test)
-                    
+
                     # 評価指標の計算
                     train_r2 = r2_score(y_train, y_train_pred)
                     val_r2 = r2_score(y_val, y_val_pred)
                     test_r2 = r2_score(y_test, y_test_pred)
-                    
+
                     train_mae = mean_absolute_error(y_train, y_train_pred)
                     val_mae = mean_absolute_error(y_val, y_val_pred)
                     test_mae = mean_absolute_error(y_test, y_test_pred)
-                    
+
                     # 過学習検出
-                    overfitting_detection = self._detect_overfitting(train_r2, val_r2, test_r2)
-                    
-                    results.append({
-                        "model_name": name,
-                        "train_mae": train_mae,
-                        "val_mae": val_mae,
-                        "test_mae": test_mae,
-                        "train_r2": train_r2,
-                        "val_r2": val_r2,
-                        "test_r2": test_r2,
-                        "overfitting_detection": overfitting_detection
-                    })
+                    overfitting_detection = self._detect_overfitting(
+                        train_r2, val_r2, test_r2
+                    )
+
+                    results.append(
+                        {
+                            "model_name": name,
+                            "train_mae": train_mae,
+                            "val_mae": val_mae,
+                            "test_mae": test_mae,
+                            "train_r2": train_r2,
+                            "val_r2": val_r2,
+                            "test_r2": test_r2,
+                            "overfitting_detection": overfitting_detection,
+                        }
+                    )
 
                 except Exception as e:
                     if self.logger:
@@ -263,9 +277,13 @@ class PredictionEngine:
             if results:
                 # 過学習を考慮した最優秀モデル選択
                 # 検証データでのMAEが最小で、過学習リスクが低いモデルを選択
-                best_result = min(results, key=lambda x: (
-                    x["val_mae"] + (100 if x["overfitting_detection"]["is_overfitting"] else 0)
-                ))
+                best_result = min(
+                    results,
+                    key=lambda x: (
+                        x["val_mae"]
+                        + (100 if x["overfitting_detection"]["is_overfitting"] else 0)
+                    ),
+                )
                 model_name = best_result["model_name"]
                 val_mae = best_result["val_mae"]
                 if self.logger:
@@ -293,11 +311,11 @@ class PredictionEngine:
             # モデルの選択（過学習防止パラメータ付き）
             if model_name == "random_forest":
                 model = RandomForestRegressor(
-                    n_estimators=100, 
-                    random_state=42, 
+                    n_estimators=100,
+                    random_state=42,
                     max_depth=10,  # 深さ制限
                     min_samples_split=5,  # 分割最小サンプル数
-                    min_samples_leaf=2   # 葉最小サンプル数
+                    min_samples_leaf=2,  # 葉最小サンプル数
                 )
             elif model_name == "linear_regression":
                 model = LinearRegression()
@@ -307,11 +325,11 @@ class PredictionEngine:
                 model = Lasso(alpha=0.1)
             else:
                 model = RandomForestRegressor(
-                    n_estimators=100, 
-                    random_state=42, 
+                    n_estimators=100,
+                    random_state=42,
                     max_depth=10,
                     min_samples_split=5,
-                    min_samples_leaf=2
+                    min_samples_leaf=2,
                 )
 
             # モデル学習
@@ -326,22 +344,24 @@ class PredictionEngine:
             train_mae = mean_absolute_error(y_train, y_train_pred)
             val_mae = mean_absolute_error(y_val, y_val_pred)
             test_mae = mean_absolute_error(y_test, y_test_pred)
-            
+
             train_rmse = np.sqrt(mean_squared_error(y_train, y_train_pred))
             val_rmse = np.sqrt(mean_squared_error(y_val, y_val_pred))
             test_rmse = np.sqrt(mean_squared_error(y_test, y_test_pred))
-            
+
             train_r2 = r2_score(y_train, y_train_pred)
             val_r2 = r2_score(y_val, y_val_pred)
             test_r2 = r2_score(y_test, y_test_pred)
 
             # 過学習検出
             overfitting_detection = self._detect_overfitting(train_r2, val_r2, test_r2)
-            
+
             # R²の現実的な制限（最大0.95）
             if test_r2 > 0.95:
                 if self.logger:
-                    self.logger.log_warning(f"R²が高すぎます（{test_r2:.3f}）。0.95に制限します。")
+                    self.logger.log_warning(
+                        f"R²が高すぎます（{test_r2:.3f}）。0.95に制限します。"
+                    )
                 test_r2 = 0.95
 
             return {
@@ -359,8 +379,8 @@ class PredictionEngine:
                     "test_rmse": test_rmse,
                     "train_r2": train_r2,
                     "val_r2": val_r2,
-                    "test_r2": test_r2
-                }
+                    "test_r2": test_r2,
+                },
             }
 
         except Exception as e:

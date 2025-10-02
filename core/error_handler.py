@@ -119,72 +119,100 @@ class ErrorHandler:
         self, error: Exception, context: Dict[str, Any] = None
     ) -> None:
         """APIエラーの復旧"""
-        if self.logger:
-            self.logger.log_info("APIエラーの復旧を試行中...")
-        # APIエラーの復旧ロジック（リトライ、認証更新など）
-        if context and context.get("retry_count", 0) < 3:
-            if self.logger:
-                self.logger.log_info(
-                    f"APIリトライを実行: {context.get('retry_count', 0) + 1}回目"
-                )
-        else:
-            if self.logger:
-                self.logger.log_warning("API復旧の上限に達しました")
+        self._execute_recovery(
+            "API",
+            error,
+            context,
+            {
+                "retry_count": context.get("retry_count", 0) if context else 0,
+                "max_retries": 3,
+            },
+        )
 
     def _recover_file_error(
         self, error: Exception, context: Dict[str, Any] = None
     ) -> None:
         """ファイルエラーの復旧"""
-        if self.logger:
-            self.logger.log_info("ファイルエラーの復旧を試行中...")
-        # ファイルエラーの復旧ロジック（バックアップファイルの使用、権限修正など）
-        if context and context.get("file_path"):
-            if self.logger:
-                self.logger.log_info(f"ファイル復旧を試行: {context['file_path']}")
+        self._execute_recovery(
+            "ファイル",
+            error,
+            context,
+            {"file_path": context.get("file_path") if context else None},
+        )
 
     def _recover_data_processing_error(
         self, error: Exception, context: Dict[str, Any] = None
     ) -> None:
         """データ処理エラーの復旧"""
-        if self.logger:
-            self.logger.log_info("データ処理エラーの復旧を試行中...")
-        # データ処理エラーの復旧ロジック（データクリーニング、フォールバック処理など）
-        if context and context.get("operation"):
-            if self.logger:
-                self.logger.log_info(f"データ処理復旧を試行: {context['operation']}")
+        self._execute_recovery(
+            "データ処理",
+            error,
+            context,
+            {"operation": context.get("operation") if context else None},
+        )
 
     def _recover_model_error(
         self, error: Exception, context: Dict[str, Any] = None
     ) -> None:
         """モデルエラーの復旧"""
-        if self.logger:
-            self.logger.log_info("モデルエラーの復旧を試行中...")
-        # モデルエラーの復旧ロジック（デフォルトモデルの使用、パラメータ調整など）
-        if context and context.get("model_name"):
-            if self.logger:
-                self.logger.log_info(f"モデル復旧を試行: {context['model_name']}")
+        self._execute_recovery(
+            "モデル",
+            error,
+            context,
+            {"model_name": context.get("model_name") if context else None},
+        )
 
     def _recover_network_error(
         self, error: Exception, context: Dict[str, Any] = None
     ) -> None:
         """ネットワークエラーの復旧"""
-        if self.logger:
-            self.logger.log_info("ネットワークエラーの復旧を試行中...")
-        # ネットワークエラーの復旧ロジック（接続再試行、プロキシ設定など）
-        if context and context.get("url"):
-            if self.logger:
-                self.logger.log_info(f"ネットワーク復旧を試行: {context['url']}")
+        self._execute_recovery(
+            "ネットワーク",
+            error,
+            context,
+            {"url": context.get("url") if context else None},
+        )
 
     def _recover_authentication_error(
         self, error: Exception, context: Dict[str, Any] = None
     ) -> None:
         """認証エラーの復旧"""
+        self._execute_recovery(
+            "認証",
+            error,
+            context,
+            {"auth_type": context.get("auth_type") if context else None},
+        )
+
+    def _execute_recovery(
+        self,
+        error_type: str,
+        error: Exception,
+        context: Dict[str, Any],
+        recovery_params: Dict[str, Any],
+    ) -> None:
+        """共通復旧処理の実行"""
         if self.logger:
-            self.logger.log_info("認証エラーの復旧を試行中...")
-        # 認証エラーの復旧ロジック（トークン更新、認証情報再取得など）
-        if context and context.get("auth_type"):
-            if self.logger:
-                self.logger.log_info(f"認証復旧を試行: {context['auth_type']}")
+            self.logger.log_info(f"{error_type}エラーの復旧を試行中...")
+
+        # 復旧パラメータに基づく処理
+        for key, value in recovery_params.items():
+            if value and self.logger:
+                self.logger.log_info(f"{error_type}復旧を試行: {key}={value}")
+
+        # リトライ回数のチェック
+        if "retry_count" in recovery_params and "max_retries" in recovery_params:
+            retry_count = recovery_params["retry_count"]
+            max_retries = recovery_params["max_retries"]
+
+            if retry_count < max_retries:
+                if self.logger:
+                    self.logger.log_info(
+                        f"{error_type}リトライを実行: {retry_count + 1}回目"
+                    )
+            else:
+                if self.logger:
+                    self.logger.log_warning(f"{error_type}復旧の上限に達しました")
 
     def handle_model_error(
         self,
