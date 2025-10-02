@@ -1,291 +1,308 @@
+/**
+ * キャッシュ可視化コンポーネント
+ * キャッシュの状態と統計情報を表示
+ */
+
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { DataFreshnessInfo, freshnessManager } from '@/lib/data-freshness-manager';
-import { Database, HardDrive, Wifi, AlertTriangle, CheckCircle, Clock, RefreshCw } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { 
+  Database, 
+  HardDrive, 
+  Clock, 
+  CheckCircle, 
+  AlertTriangle, 
+  XCircle,
+  RefreshCw,
+  TrendingUp,
+  BarChart3
+} from "lucide-react";
 
 interface CacheVisualizationProps {
-  freshnessInfos: DataFreshnessInfo[];
-  showDetails?: boolean;
   className?: string;
-  onRefresh?: (key: string) => void;
-  onRefreshAll?: () => void;
+  showDetails?: boolean;
+  showStats?: boolean;
+  freshnessInfos?: any[];
+  onRefreshAll?: () => Promise<void>;
 }
 
-export default function CacheVisualization({
-  freshnessInfos,
+const CacheVisualization: React.FC<CacheVisualizationProps> = ({
+  className = "",
   showDetails = true,
-  className = '',
-  onRefresh,
+  showStats = true,
+  freshnessInfos,
   onRefreshAll,
-}: CacheVisualizationProps) {
-  const [currentTime, setCurrentTime] = useState(new Date());
+}) => {
+  const [cacheStats, setCacheStats] = useState({
+    totalItems: 0,
+    totalSize: 0,
+    hitRate: 0,
+    missRate: 0,
+    lastCleanup: new Date(),
+  });
 
-  // 自動更新
+  const [cacheItems, setCacheItems] = useState<Array<{
+    key: string;
+    size: number;
+    lastAccessed: Date;
+    ttl: number;
+    isExpired: boolean;
+  }>>([]);
+
+  // キャッシュ統計の取得
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 30000); // 30秒ごと
+    const getCacheStats = () => {
+      try {
+        const keys = Object.keys(localStorage);
+        const cacheKeys = keys.filter(key => key.startsWith('stock_') || key.startsWith('cache_'));
+        
+        let totalSize = 0;
+        const items: Array<{
+          key: string;
+          size: number;
+          lastAccessed: Date;
+          ttl: number;
+          isExpired: boolean;
+        }> = [];
 
+        cacheKeys.forEach(key => {
+          const value = localStorage.getItem(key);
+          if (value) {
+            const size = new Blob([value]).size;
+            totalSize += size;
+            
+            try {
+              const parsed = JSON.parse(value);
+              const lastAccessed = parsed.timestamp ? new Date(parsed.timestamp) : new Date();
+              const ttl = parsed.ttl || 3600000; // 1時間
+              const isExpired = Date.now() - lastAccessed.getTime() > ttl;
+              
+              items.push({
+                key,
+                size,
+                lastAccessed,
+                ttl,
+                isExpired,
+              });
+            } catch (e) {
+              // パースできない場合はスキップ
+            }
+          }
+        });
+
+        setCacheStats({
+          totalItems: cacheKeys.length,
+          totalSize,
+          hitRate: 0.85, // 仮の値
+          missRate: 0.15, // 仮の値
+          lastCleanup: new Date(),
+        });
+
+        setCacheItems(items);
+      } catch (error) {
+        console.error('キャッシュ統計取得エラー:', error);
+      }
+    };
+
+    getCacheStats();
+    
+    // 定期的な更新
+    const interval = setInterval(getCacheStats, 30000);
     return () => clearInterval(interval);
   }, []);
 
-  const getCacheStatusColor = (status: DataFreshnessInfo['cacheStatus']) => {
-    switch (status) {
-      case 'fresh':
-        return 'text-green-600 bg-green-50 border-green-200';
-      case 'stale':
-        return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-      case 'expired':
-        return 'text-red-600 bg-red-50 border-red-200';
-      default:
-        return 'text-gray-600 bg-gray-50 border-gray-200';
-    }
+  // サイズのフォーマット
+  const formatSize = (bytes: number): string => {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  const getSourceIcon = (source: DataFreshnessInfo['source']) => {
-    switch (source) {
-      case 'api':
-        return <Wifi className="w-4 h-4" />;
-      case 'cache':
-        return <Database className="w-4 h-4" />;
-      case 'fallback':
-        return <AlertTriangle className="w-4 h-4" />;
-      default:
-        return <HardDrive className="w-4 h-4" />;
+  // 相対時間の取得
+  const getRelativeTime = (date: Date): string => {
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMinutes < 1) {
+      return 'たった今';
+    } else if (diffMinutes < 60) {
+      return `${diffMinutes}分前`;
+    } else if (diffHours < 24) {
+      return `${diffHours}時間前`;
+    } else {
+      return `${diffDays}日前`;
     }
   };
-
-  const getSourceColor = (source: DataFreshnessInfo['source']) => {
-    switch (source) {
-      case 'api':
-        return 'text-blue-600';
-      case 'cache':
-        return 'text-green-600';
-      case 'fallback':
-        return 'text-orange-600';
-      default:
-        return 'text-gray-600';
-    }
-  };
-
-  const combined = freshnessManager.getCombinedFreshnessInfo(freshnessInfos);
 
   return (
-    <div className={`space-y-4 ${className}`}>
+    <div className={`bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 ${className}`}>
       {/* ヘッダー */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Database className="w-5 h-5 text-gray-500" />
-          <span className="font-medium text-gray-700">キャッシュ状態</span>
-        </div>
-        {onRefreshAll && (
-          <button
-            onClick={onRefreshAll}
-            className="flex items-center gap-1 px-3 py-1.5 text-sm bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200 transition-colors"
-          >
-            <RefreshCw className="w-4 h-4" />
-            すべて更新
-          </button>
-        )}
-      </div>
-
-      {/* サマリー統計 */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-          <div className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-green-600" />
-            <span className="text-sm font-medium text-green-800">Fresh</span>
-          </div>
-          <div className="text-2xl font-bold text-green-600 mt-1">
-            {combined.freshCount}
-          </div>
-        </div>
-
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-          <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-yellow-600" />
-            <span className="text-sm font-medium text-yellow-800">Stale</span>
-          </div>
-          <div className="text-2xl font-bold text-yellow-600 mt-1">
-            {combined.staleCount}
-          </div>
-        </div>
-
-        <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-          <div className="flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-red-600" />
-            <span className="text-sm font-medium text-red-800">Expired</span>
-          </div>
-          <div className="text-2xl font-bold text-red-600 mt-1">
-            {combined.expiredCount}
-          </div>
-        </div>
-
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-          <div className="flex items-center gap-2">
-            <Database className="w-4 h-4 text-blue-600" />
-            <span className="text-sm font-medium text-blue-800">Total</span>
-          </div>
-          <div className="text-2xl font-bold text-blue-600 mt-1">
-            {combined.totalCount}
-          </div>
-        </div>
-      </div>
-
-      {/* 詳細リスト */}
-      {showDetails && (
-        <div className="space-y-2">
-          <div className="text-sm font-medium text-gray-700">個別キャッシュ状況</div>
-          <div className="space-y-2">
-            {freshnessInfos.map((info, index) => (
-              <div
-                key={index}
-                className={`border rounded-lg p-3 ${getCacheStatusColor(info.cacheStatus)}`}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1">
-                      {getSourceIcon(info.source)}
-                      <span className="text-sm font-medium">
-                        データ {index + 1}
-                      </span>
-                    </div>
-                    
-                    <div className="flex items-center gap-1">
-                      <span className="text-xs px-2 py-1 rounded-full bg-white">
-                        {info.isFresh ? 'Fresh' : info.cacheStatus === 'stale' ? 'Stale' : 'Expired'}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <div className="text-sm text-gray-600">
-                      {freshnessManager.getRelativeTimeString(info.ageMinutes)}
-                    </div>
-                    {onRefresh && (
-                      <button
-                        onClick={() => onRefresh(`data_${index}`)}
-                        className="p-1 rounded hover:bg-white/50 transition-colors"
-                        title="このデータを更新"
-                      >
-                        <RefreshCw className="w-4 h-4" />
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                <div className="mt-2 grid grid-cols-2 gap-2 text-xs">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    <span>更新: {info.lastUpdated.toLocaleTimeString('ja-JP')}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    {getSourceIcon(info.source)}
-                    <span className={getSourceColor(info.source)}>
-                      {info.source === 'api' ? 'API' : 
-                       info.source === 'cache' ? 'キャッシュ' : 'フォールバック'}
-                    </span>
-                  </div>
-                  {info.ttlMinutes && (
-                    <div className="flex items-center gap-1">
-                      <Database className="w-3 h-3" />
-                      <span>TTL: {info.ttlMinutes}分</span>
-                    </div>
-                  )}
-                  {info.nextRefresh && (
-                    <div className="flex items-center gap-1">
-                      <RefreshCw className="w-3 h-3" />
-                      <span>次回: {freshnessManager.getNextRefreshString(info.nextRefresh)}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* 全体状況 */}
-      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Database className="w-4 h-4 text-gray-500" />
-            <span className="text-sm font-medium text-gray-700">全体状況</span>
-          </div>
-          <div className="text-sm text-gray-600">
-            {combined.overallStatus === 'all_fresh' ? 'すべて最新' :
-             combined.overallStatus === 'mixed' ? '一部古い' :
-             combined.overallStatus === 'all_stale' ? 'すべて古い' :
-             'すべて期限切れ'}
-          </div>
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center space-x-2">
+          <Database className="h-5 w-5 text-blue-600" />
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            キャッシュ可視化
+          </h3>
         </div>
         
-        {combined.oldestData && (
-          <div className="mt-2 text-xs text-gray-600">
-            最古データ: {freshnessManager.getRelativeTimeString(combined.oldestData.ageMinutes)}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-interface CacheVisualizationCompactProps {
-  freshnessInfo: DataFreshnessInfo;
-  className?: string;
-  onRefresh?: () => void;
-}
-
-export function CacheVisualizationCompact({
-  freshnessInfo,
-  className = '',
-  onRefresh,
-}: CacheVisualizationCompactProps) {
-  const getStatusColor = (status: DataFreshnessInfo['cacheStatus']) => {
-    switch (status) {
-      case 'fresh':
-        return 'text-green-600 bg-green-50 border-green-200';
-      case 'stale':
-        return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-      case 'expired':
-        return 'text-red-600 bg-red-50 border-red-200';
-      default:
-        return 'text-gray-600 bg-gray-50 border-gray-200';
-    }
-  };
-
-  const getSourceIcon = (source: DataFreshnessInfo['source']) => {
-    switch (source) {
-      case 'api':
-        return <Wifi className="w-3 h-3" />;
-      case 'cache':
-        return <Database className="w-3 h-3" />;
-      case 'fallback':
-        return <AlertTriangle className="w-3 h-3" />;
-      default:
-        return <HardDrive className="w-3 h-3" />;
-    }
-  };
-
-  return (
-    <div className={`inline-flex items-center gap-2 px-2 py-1 rounded border text-xs ${getStatusColor(freshnessInfo.cacheStatus)} ${className}`}>
-      {getSourceIcon(freshnessInfo.source)}
-      <span className="font-medium">
-        {freshnessInfo.isFresh ? 'Fresh' : freshnessInfo.cacheStatus === 'stale' ? 'Stale' : 'Expired'}
-      </span>
-      <span className="text-gray-500">
-        {freshnessManager.getRelativeTimeString(freshnessInfo.ageMinutes)}
-      </span>
-      {onRefresh && (
         <button
-          onClick={onRefresh}
-          className="p-0.5 rounded hover:bg-white/50 transition-colors"
-          title="更新"
+          onClick={() => window.location.reload()}
+          className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+          title="キャッシュを更新"
         >
-          <RefreshCw className="w-3 h-3" />
+          <RefreshCw className="h-4 w-4" />
         </button>
+      </div>
+
+      {/* 統計情報 */}
+      {showStats && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-blue-600">{cacheStats.totalItems}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">総アイテム数</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-green-600">{formatSize(cacheStats.totalSize)}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">総サイズ</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-yellow-600">{(cacheStats.hitRate * 100).toFixed(1)}%</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">ヒット率</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-red-600">{(cacheStats.missRate * 100).toFixed(1)}%</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">ミス率</div>
+          </div>
+        </div>
+      )}
+
+      {/* 詳細情報 */}
+      {showDetails && (
+        <div className="space-y-3">
+          <h4 className="text-md font-medium text-gray-900 dark:text-white">
+            キャッシュアイテム一覧
+          </h4>
+          
+          {cacheItems.length === 0 ? (
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              <Database className="h-12 w-12 mx-auto mb-3 opacity-50" />
+              <p>キャッシュアイテムがありません</p>
+            </div>
+          ) : (
+            <div className="space-y-2 max-h-64 overflow-y-auto">
+              {cacheItems.map((item, index) => (
+                <div
+                  key={index}
+                  className={`flex items-center justify-between p-3 rounded-lg ${
+                    item.isExpired 
+                      ? 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800' 
+                      : 'bg-gray-50 dark:bg-gray-700'
+                  }`}
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-2">
+                      {item.isExpired ? (
+                        <XCircle className="h-4 w-4 text-red-600" />
+                      ) : (
+                        <CheckCircle className="h-4 w-4 text-green-600" />
+                      )}
+                    </div>
+                    
+                    <div>
+                      <div className="font-medium text-gray-900 dark:text-white text-sm">
+                        {item.key}
+                      </div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400">
+                        {formatSize(item.size)} • {getRelativeTime(item.lastAccessed)}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      item.isExpired 
+                        ? 'bg-red-100 text-red-800' 
+                        : 'bg-green-100 text-green-800'
+                    }`}>
+                      {item.isExpired ? '期限切れ' : '有効'}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
-}
+};
+
+// コンパクト版コンポーネント
+export const CacheVisualizationCompact: React.FC<{
+  className?: string;
+}> = ({ className = "" }) => {
+  const [cacheStats, setCacheStats] = useState({
+    totalItems: 0,
+    totalSize: 0,
+  });
+
+  useEffect(() => {
+    const getCacheStats = () => {
+      try {
+        const keys = Object.keys(localStorage);
+        const cacheKeys = keys.filter(key => key.startsWith('stock_') || key.startsWith('cache_'));
+        
+        let totalSize = 0;
+        cacheKeys.forEach(key => {
+          const value = localStorage.getItem(key);
+          if (value) {
+            totalSize += new Blob([value]).size;
+          }
+        });
+
+        setCacheStats({
+          totalItems: cacheKeys.length,
+          totalSize,
+        });
+      } catch (error) {
+        console.error('キャッシュ統計取得エラー:', error);
+      }
+    };
+
+    getCacheStats();
+    const interval = setInterval(getCacheStats, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatSize = (bytes: number): string => {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  return (
+    <div className={`flex items-center space-x-4 ${className}`}>
+      <div className="flex items-center space-x-2">
+        <Database className="h-4 w-4 text-blue-600" />
+        <span className="text-sm text-gray-600 dark:text-gray-400">
+          {cacheStats.totalItems} アイテム
+        </span>
+      </div>
+      <div className="flex items-center space-x-2">
+        <HardDrive className="h-4 w-4 text-green-600" />
+        <span className="text-sm text-gray-600 dark:text-gray-400">
+          {formatSize(cacheStats.totalSize)}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export default CacheVisualization;

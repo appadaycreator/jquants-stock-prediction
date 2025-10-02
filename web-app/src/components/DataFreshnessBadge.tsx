@@ -1,179 +1,206 @@
+/**
+ * データ鮮度バッジコンポーネント
+ * リアルタイムデータの鮮度を視覚的に表示
+ */
+
 "use client";
 
-import React from 'react';
-import { DataFreshnessInfo, freshnessManager } from '@/lib/data-freshness-manager';
-import { Clock, RefreshCw, Database, Wifi, AlertTriangle } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { RefreshCw, Clock, CheckCircle, AlertTriangle, XCircle } from "lucide-react";
+import EnhancedDataFreshnessManager from "@/lib/enhanced-data-freshness-manager";
 
 interface DataFreshnessBadgeProps {
-  freshnessInfo: DataFreshnessInfo;
+  dataSourceId: string;
+  dataSourceName: string;
+  lastUpdated: Date | string | number;
+  source: 'api' | 'cache' | 'fallback';
+  ttlMinutes?: number;
+  onRefresh?: () => Promise<void>;
   showDetails?: boolean;
-  size?: 'sm' | 'md' | 'lg';
   className?: string;
-  onRefresh?: () => void;
 }
 
-export default function DataFreshnessBadge({
-  freshnessInfo,
-  showDetails = false,
-  size = 'md',
-  className = '',
+const DataFreshnessBadge: React.FC<DataFreshnessBadgeProps> = ({
+  dataSourceId,
+  dataSourceName,
+  lastUpdated,
+  source,
+  ttlMinutes,
   onRefresh,
-}: DataFreshnessBadgeProps) {
-  const badgeStyle = freshnessManager.getFreshnessBadgeStyle(freshnessInfo.cacheStatus);
-  const relativeTime = freshnessManager.getRelativeTimeString(freshnessInfo.ageMinutes);
-  const nextRefresh = freshnessInfo.nextRefresh 
-    ? freshnessManager.getNextRefreshString(freshnessInfo.nextRefresh)
-    : null;
+  showDetails = false,
+  className = "",
+}) => {
+  const [freshnessInfo, setFreshnessInfo] = useState<any>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
 
-  const sizeClasses = {
-    sm: 'text-xs px-2 py-1',
-    md: 'text-sm px-3 py-1.5',
-    lg: 'text-base px-4 py-2',
-  };
+  const freshnessManager = EnhancedDataFreshnessManager.getInstance();
 
-  const iconSize = {
-    sm: 'w-3 h-3',
-    md: 'w-4 h-4',
-    lg: 'w-5 h-5',
-  };
+  // 鮮度情報の更新
+  useEffect(() => {
+    const updateFreshnessInfo = () => {
+      const info = freshnessManager.getFreshnessInfo(lastUpdated, source, ttlMinutes);
+      setFreshnessInfo(info);
+    };
 
-  const getSourceIcon = () => {
-    switch (freshnessInfo.source) {
-      case 'api':
-        return <Wifi className={iconSize[size]} />;
-      case 'cache':
-        return <Database className={iconSize[size]} />;
-      case 'fallback':
-        return <AlertTriangle className={iconSize[size]} />;
-      default:
-        return <Clock className={iconSize[size]} />;
+    // 初回更新
+    updateFreshnessInfo();
+
+    // データソースの登録
+    freshnessManager.registerDataSource(
+      dataSourceId,
+      dataSourceName,
+      new Date(lastUpdated),
+      ttlMinutes,
+      source
+    );
+
+    // リフレッシュコールバックの登録
+    if (onRefresh) {
+      freshnessManager.registerRefreshCallback(dataSourceId, async () => {
+        if (onRefresh) {
+          await onRefresh();
+          setLastRefresh(new Date());
+        }
+      });
+    }
+
+    // 定期的な更新
+    const interval = setInterval(updateFreshnessInfo, 30000); // 30秒ごと
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [dataSourceId, dataSourceName, lastUpdated, source, ttlMinutes, onRefresh]);
+
+  // 手動リフレッシュ
+  const handleRefresh = async () => {
+    if (isRefreshing || !onRefresh) {
+      return;
+    }
+
+    try {
+      setIsRefreshing(true);
+      await freshnessManager.refreshDataSource(dataSourceId);
+      setLastRefresh(new Date());
+    } catch (error) {
+      console.error("リフレッシュエラー:", error);
+    } finally {
+      setIsRefreshing(false);
     }
   };
 
-  const getSourceText = () => {
-    switch (freshnessInfo.source) {
-      case 'api':
-        return 'API';
-      case 'cache':
-        return 'キャッシュ';
-      case 'fallback':
-        return 'フォールバック';
+  if (!freshnessInfo) {
+    return (
+      <div className={`inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 text-sm ${className}`}>
+        <Clock className="h-4 w-4" />
+        <span>読み込み中...</span>
+      </div>
+    );
+  }
+
+  // バッジの色とアイコンの決定
+  const getBadgeStyle = () => {
+    switch (freshnessInfo.cacheStatus) {
+      case 'fresh':
+        return {
+          bgColor: 'bg-green-100',
+          textColor: 'text-green-800',
+          icon: <CheckCircle className="h-4 w-4" />,
+          iconColor: 'text-green-600',
+        };
+      case 'stale':
+        return {
+          bgColor: 'bg-yellow-100',
+          textColor: 'text-yellow-800',
+          icon: <AlertTriangle className="h-4 w-4" />,
+          iconColor: 'text-yellow-600',
+        };
+      case 'expired':
+        return {
+          bgColor: 'bg-red-100',
+          textColor: 'text-red-800',
+          icon: <XCircle className="h-4 w-4" />,
+          iconColor: 'text-red-600',
+        };
       default:
-        return '不明';
+        return {
+          bgColor: 'bg-gray-100',
+          textColor: 'text-gray-800',
+          icon: <Clock className="h-4 w-4" />,
+          iconColor: 'text-gray-600',
+        };
     }
   };
+
+  const badgeStyle = getBadgeStyle();
+  const relativeTime = getRelativeTime(freshnessInfo.lastUpdated);
 
   return (
-    <div className={`inline-flex items-center gap-2 ${className}`}>
+    <div className={`inline-flex items-center space-x-2 ${className}`}>
       {/* メインバッジ */}
-      <div className={`inline-flex items-center gap-1.5 rounded-full border ${badgeStyle.className} ${sizeClasses[size]}`}>
-        <span className="text-xs">{badgeStyle.icon}</span>
-        <span className="font-medium">{badgeStyle.text}</span>
-        {getSourceIcon()}
+      <div className={`inline-flex items-center space-x-2 px-3 py-1 rounded-full ${badgeStyle.bgColor} ${badgeStyle.textColor} text-sm`}>
+        {badgeStyle.icon}
+        <span className="font-medium">{dataSourceName}</span>
+        <span className="text-xs opacity-75">
+          {freshnessInfo.cacheStatus.toUpperCase()}
+        </span>
       </div>
 
       {/* 詳細情報 */}
       {showDetails && (
-        <div className="flex items-center gap-2 text-sm text-gray-600">
-          <div className="flex items-center gap-1">
-            <Clock className="w-4 h-4" />
-            <span>{relativeTime}</span>
-          </div>
-          
-          <div className="flex items-center gap-1">
-            {getSourceIcon()}
-            <span>{getSourceText()}</span>
-          </div>
-
-          {nextRefresh && (
-            <div className="flex items-center gap-1">
-              <RefreshCw className="w-4 h-4" />
-              <span>{nextRefresh}</span>
-            </div>
-          )}
-
-          {onRefresh && (
-            <button
-              onClick={onRefresh}
-              className="ml-2 p-1 rounded hover:bg-gray-100 transition-colors"
-              title="データを更新"
-            >
-              <RefreshCw className="w-4 h-4" />
-            </button>
+        <div className="text-xs text-gray-600 dark:text-gray-400">
+          <div>最終更新: {relativeTime}</div>
+          <div>ソース: {source}</div>
+          {freshnessInfo.nextRefresh && (
+            <div>次回更新: {getRelativeTime(freshnessInfo.nextRefresh)}</div>
           )}
         </div>
       )}
-    </div>
-  );
-}
 
-interface DataFreshnessSummaryProps {
-  freshnessInfos: DataFreshnessInfo[];
-  onRefreshAll?: () => void;
-  className?: string;
-}
-
-export function DataFreshnessSummary({
-  freshnessInfos,
-  onRefreshAll,
-  className = '',
-}: DataFreshnessSummaryProps) {
-  const combined = freshnessManager.getCombinedFreshnessInfo(freshnessInfos);
-  
-  const getOverallBadgeStyle = () => {
-    switch (combined.overallStatus) {
-      case 'all_fresh':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'mixed':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'all_stale':
-        return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'all_expired':
-        return 'bg-red-100 text-red-800 border-red-200';
-      default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
-  };
-
-  const getOverallText = () => {
-    switch (combined.overallStatus) {
-      case 'all_fresh':
-        return 'すべて最新';
-      case 'mixed':
-        return '一部古い';
-      case 'all_stale':
-        return 'すべて古い';
-      case 'all_expired':
-        return 'すべて期限切れ';
-      default:
-        return '不明';
-    }
-  };
-
-  return (
-    <div className={`flex items-center gap-3 ${className}`}>
-      <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-medium ${getOverallBadgeStyle()}`}>
-        <span>{getOverallText()}</span>
-        <span className="text-xs">
-          ({combined.freshCount}/{combined.totalCount})
-        </span>
-      </div>
-
-      {combined.oldestData && (
-        <div className="text-sm text-gray-600">
-          最古: {freshnessManager.getRelativeTimeString(combined.oldestData.ageMinutes)}
-        </div>
-      )}
-
-      {onRefreshAll && (
+      {/* リフレッシュボタン */}
+      {onRefresh && (
         <button
-          onClick={onRefreshAll}
-          className="flex items-center gap-1 px-3 py-1.5 text-sm bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200 transition-colors"
+          onClick={handleRefresh}
+          disabled={isRefreshing}
+          className={`p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 ${
+            isRefreshing ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+          title="データを更新"
         >
-          <RefreshCw className="w-4 h-4" />
-          すべて更新
+          <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
         </button>
       )}
+
+      {/* 最終リフレッシュ時刻 */}
+      {lastRefresh && (
+        <div className="text-xs text-gray-500 dark:text-gray-400">
+          更新: {getRelativeTime(lastRefresh)}
+        </div>
+      )}
     </div>
   );
-}
+};
+
+// 相対時間の取得
+const getRelativeTime = (date: Date | string | number): string => {
+  const now = new Date();
+  const targetDate = new Date(date);
+  const diffMs = now.getTime() - targetDate.getTime();
+  const diffMinutes = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMinutes / 60);
+  const diffDays = Math.floor(diffHours / 24);
+
+  if (diffMinutes < 1) {
+    return 'たった今';
+  } else if (diffMinutes < 60) {
+    return `${diffMinutes}分前`;
+  } else if (diffHours < 24) {
+    return `${diffHours}時間前`;
+  } else {
+    return `${diffDays}日前`;
+  }
+};
+
+export default DataFreshnessBadge;
+export { default as DataFreshnessSummary } from './DataFreshnessSummary';

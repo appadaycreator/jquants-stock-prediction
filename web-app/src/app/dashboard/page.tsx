@@ -448,7 +448,7 @@ function DashboardContent() {
                         isLoading={isRefreshing}
                         lastRefresh={lastUpdateTime ? new Date(lastUpdateTime) : undefined}
                         refreshInterval={5} // 5分間隔で自動更新
-                        variant="primary"
+                        variant="default"
                         size="md"
                         showProgress={true}
                         showLastRefresh={true}

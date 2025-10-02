@@ -1,282 +1,275 @@
+/**
+ * 強化版リフレッシュボタンコンポーネント
+ * 通常更新、強制更新、再計算の機能を提供
+ */
+
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { RefreshCw, Download, Zap, AlertCircle, CheckCircle, Clock, Database } from 'lucide-react';
+import React, { useState } from "react";
+import { 
+  RefreshCw, 
+  RotateCcw, 
+  Zap, 
+  CheckCircle, 
+  AlertTriangle,
+  Clock
+} from "lucide-react";
 
-interface RefreshButtonProps {
-  onRefresh: () => Promise<void>;
+interface EnhancedRefreshButtonProps {
+  onRefresh?: () => Promise<void>;
   onForceRefresh?: () => Promise<void>;
+  onRecalculate?: () => Promise<void>;
   onRecompute?: () => Promise<void>;
   isLoading?: boolean;
-  lastRefresh?: Date;
-  refreshInterval?: number; // 自動更新間隔（分）
-  showProgress?: boolean;
+  lastUpdated?: Date | string | number;
+  lastRefresh?: Date | string | number;
+  showLastUpdated?: boolean;
   showLastRefresh?: boolean;
-  variant?: 'default' | 'primary' | 'secondary' | 'danger';
+  variant?: 'default' | 'compact' | 'full';
   size?: 'sm' | 'md' | 'lg';
+  showProgress?: boolean;
+  refreshInterval?: number;
   className?: string;
 }
 
-export default function EnhancedRefreshButton({
+const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
   onRefresh,
   onForceRefresh,
+  onRecalculate,
   onRecompute,
   isLoading = false,
+  lastUpdated,
   lastRefresh,
-  refreshInterval,
-  showProgress = true,
+  showLastUpdated = true,
   showLastRefresh = true,
   variant = 'default',
   size = 'md',
-  className = '',
-}: RefreshButtonProps) {
+  showProgress = false,
+  refreshInterval,
+  className = "",
+}) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isForceRefreshing, setIsForceRefreshing] = useState(false);
-  const [isRecomputing, setIsRecomputing] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [lastRefreshTime, setLastRefreshTime] = useState<Date | null>(lastRefresh || null);
-  const [autoRefreshCountdown, setAutoRefreshCountdown] = useState<number | null>(null);
+  const [isRecalculating, setIsRecalculating] = useState(false);
+  const [lastRefreshTime, setLastRefreshTime] = useState<Date | null>(null);
 
-  // 自動更新のカウントダウン
-  useEffect(() => {
-    if (!refreshInterval) return;
-
-    const interval = setInterval(() => {
-      setAutoRefreshCountdown(prev => {
-        if (prev === null) return refreshInterval * 60; // 秒に変換
-        if (prev <= 1) {
-          handleRefresh();
-          return refreshInterval * 60;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [refreshInterval]);
-
+  // 通常更新
   const handleRefresh = async () => {
-    if (isRefreshing) return;
-    
-    setIsRefreshing(true);
-    setProgress(0);
+    if (isRefreshing || !onRefresh) return;
     
     try {
-      // プログレスシミュレーション
-      const progressInterval = setInterval(() => {
-        setProgress(prev => {
-          if (prev >= 90) {
-            clearInterval(progressInterval);
-            return prev;
-          }
-          return prev + Math.random() * 20;
-        });
-      }, 200);
-
+      setIsRefreshing(true);
       await onRefresh();
-      
-      clearInterval(progressInterval);
-      setProgress(100);
       setLastRefreshTime(new Date());
-      
-      setTimeout(() => {
-        setProgress(0);
-      }, 1000);
     } catch (error) {
-      console.error('Refresh failed:', error);
+      console.error('リフレッシュエラー:', error);
     } finally {
       setIsRefreshing(false);
     }
   };
 
+  // 強制更新
   const handleForceRefresh = async () => {
     if (isForceRefreshing || !onForceRefresh) return;
     
-    setIsForceRefreshing(true);
     try {
+      setIsForceRefreshing(true);
       await onForceRefresh();
       setLastRefreshTime(new Date());
     } catch (error) {
-      console.error('Force refresh failed:', error);
+      console.error('強制リフレッシュエラー:', error);
     } finally {
       setIsForceRefreshing(false);
     }
   };
 
-  const handleRecompute = async () => {
-    if (isRecomputing || !onRecompute) return;
+  // 再計算
+  const handleRecalculate = async () => {
+    if (isRecalculating || !onRecalculate) return;
     
-    setIsRecomputing(true);
     try {
-      await onRecompute();
+      setIsRecalculating(true);
+      await onRecalculate();
       setLastRefreshTime(new Date());
     } catch (error) {
-      console.error('Recompute failed:', error);
+      console.error('再計算エラー:', error);
     } finally {
-      setIsRecomputing(false);
+      setIsRecalculating(false);
     }
   };
 
-  const getVariantStyles = () => {
-    switch (variant) {
-      case 'primary':
-        return 'bg-blue-600 text-white hover:bg-blue-700 border-blue-600';
-      case 'secondary':
-        return 'bg-gray-600 text-white hover:bg-gray-700 border-gray-600';
-      case 'danger':
-        return 'bg-red-600 text-white hover:bg-red-700 border-red-600';
-      default:
-        return 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300';
-    }
-  };
-
-  const getSizeStyles = () => {
-    switch (size) {
-      case 'sm':
-        return 'px-2 py-1 text-xs';
-      case 'lg':
-        return 'px-6 py-3 text-base';
-      default:
-        return 'px-4 py-2 text-sm';
-    }
-  };
-
-  const formatCountdown = (seconds: number): string => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
-
-  const formatLastRefresh = (date: Date): string => {
+  // 相対時間の取得
+  const getRelativeTime = (date: Date | string | number): string => {
     const now = new Date();
-    const diffMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
-    
-    if (diffMinutes < 1) return 'たった今';
-    if (diffMinutes < 60) return `${diffMinutes}分前`;
-    if (diffMinutes < 1440) return `${Math.floor(diffMinutes / 60)}時間前`;
-    return `${Math.floor(diffMinutes / 1440)}日前`;
+    const targetDate = new Date(date);
+    const diffMs = now.getTime() - targetDate.getTime();
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMinutes < 1) {
+      return 'たった今';
+    } else if (diffMinutes < 60) {
+      return `${diffMinutes}分前`;
+    } else if (diffHours < 24) {
+      return `${diffHours}時間前`;
+    } else {
+      return `${diffDays}日前`;
+    }
   };
 
-  return (
-    <div className={`space-y-2 ${className}`}>
-      {/* メインボタン群 */}
-      <div className="flex items-center gap-2">
-        {/* 通常更新 */}
+  // コンパクト版
+  if (variant === 'compact') {
+    return (
+      <div className={`flex items-center space-x-2 ${className}`}>
         <button
           onClick={handleRefresh}
-          disabled={isRefreshing || isForceRefreshing || isRecomputing}
-          className={`flex items-center gap-2 rounded border transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${getVariantStyles()} ${getSizeStyles()}`}
+          disabled={isRefreshing || isLoading}
+          className={`p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 ${
+            isRefreshing || isLoading ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
+          title="データを更新"
         >
-          <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-          <span>
-            {isRefreshing ? '更新中...' : '更新'}
-          </span>
+          <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
         </button>
-
-        {/* 強制更新 */}
-        {onForceRefresh && (
-          <button
-            onClick={handleForceRefresh}
-            disabled={isRefreshing || isForceRefreshing || isRecomputing}
-            className="flex items-center gap-2 px-3 py-2 text-sm bg-orange-100 text-orange-800 border border-orange-200 rounded hover:bg-orange-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <Zap className={`w-4 h-4 ${isForceRefreshing ? 'animate-pulse' : ''}`} />
-            <span>
-              {isForceRefreshing ? '強制更新中...' : '強制更新'}
-            </span>
-          </button>
-        )}
-
-        {/* 再計算 */}
-        {onRecompute && (
-          <button
-            onClick={handleRecompute}
-            disabled={isRefreshing || isForceRefreshing || isRecomputing}
-            className="flex items-center gap-2 px-3 py-2 text-sm bg-purple-100 text-purple-800 border border-purple-200 rounded hover:bg-purple-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <Download className={`w-4 h-4 ${isRecomputing ? 'animate-bounce' : ''}`} />
-            <span>
-              {isRecomputing ? '再計算中...' : '再計算'}
-            </span>
-          </button>
+        
+        {showLastUpdated && lastUpdated && (
+          <span className="text-xs text-gray-500 dark:text-gray-400">
+            {getRelativeTime(lastUpdated)}
+          </span>
         )}
       </div>
+    );
+  }
 
-      {/* プログレスバー */}
-      {showProgress && (isRefreshing || isForceRefreshing || isRecomputing) && (
-        <div className="w-full bg-gray-200 rounded-full h-2">
-          <div
-            className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
+  // フル版
+  if (variant === 'full') {
+    return (
+      <div className={`space-y-3 ${className}`}>
+        {/* ボタン群 */}
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={handleRefresh}
+            disabled={isRefreshing || isLoading}
+            className={`flex items-center space-x-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200 ${
+              isRefreshing || isLoading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+          >
+            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+            <span>{isRefreshing ? '更新中...' : '更新'}</span>
+          </button>
+          
+          {onForceRefresh && (
+            <button
+              onClick={handleForceRefresh}
+              disabled={isForceRefreshing || isLoading}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg bg-yellow-600 text-white hover:bg-yellow-700 transition-colors duration-200 ${
+                isForceRefreshing || isLoading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            >
+              <Zap className={`h-4 w-4 ${isForceRefreshing ? 'animate-pulse' : ''}`} />
+              <span>{isForceRefreshing ? '強制更新中...' : '強制更新'}</span>
+            </button>
+          )}
+          
+          {onRecalculate && (
+            <button
+              onClick={handleRecalculate}
+              disabled={isRecalculating || isLoading}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors duration-200 ${
+                isRecalculating || isLoading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            >
+              <RotateCcw className={`h-4 w-4 ${isRecalculating ? 'animate-spin' : ''}`} />
+              <span>{isRecalculating ? '再計算中...' : '再計算'}</span>
+            </button>
+          )}
         </div>
-      )}
-
-      {/* ステータス情報 */}
-      <div className="flex items-center justify-between text-sm text-gray-600">
-        <div className="flex items-center gap-4">
-          {/* 最終更新時刻 */}
-          {showLastRefresh && lastRefreshTime && (
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              <span>最終更新: {formatLastRefresh(lastRefreshTime)}</span>
+        
+        {/* ステータス表示 */}
+        <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400">
+          {showLastUpdated && lastUpdated && (
+            <div className="flex items-center space-x-1">
+              <Clock className="h-4 w-4" />
+              <span>最終更新: {getRelativeTime(lastUpdated)}</span>
             </div>
           )}
-
-          {/* 自動更新カウントダウン */}
-          {autoRefreshCountdown !== null && (
-            <div className="flex items-center gap-1">
-              <Database className="w-4 h-4" />
-              <span>次回自動更新: {formatCountdown(autoRefreshCountdown)}</span>
+          
+          {lastRefresh && (
+            <div className="flex items-center space-x-1">
+              <CheckCircle className="h-4 w-4 text-green-600" />
+              <span>更新完了: {getRelativeTime(lastRefresh)}</span>
             </div>
-          )}
-        </div>
-
-        {/* ステータスアイコン */}
-        <div className="flex items-center gap-1">
-          {isRefreshing || isForceRefreshing || isRecomputing ? (
-            <RefreshCw className="w-4 h-4 animate-spin text-blue-600" />
-          ) : lastRefreshTime ? (
-            <CheckCircle className="w-4 h-4 text-green-600" />
-          ) : (
-            <AlertCircle className="w-4 h-4 text-gray-400" />
           )}
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
-interface RefreshButtonGroupProps {
-  onRefresh: () => Promise<void>;
-  onForceRefresh?: () => Promise<void>;
-  onRecompute?: () => Promise<void>;
-  lastRefresh?: Date;
-  refreshInterval?: number;
-  className?: string;
-}
-
-export function RefreshButtonGroup({
-  onRefresh,
-  onForceRefresh,
-  onRecompute,
-  lastRefresh,
-  refreshInterval,
-  className = '',
-}: RefreshButtonGroupProps) {
+  // デフォルト版
   return (
-    <div className={`space-y-3 ${className}`}>
-      <EnhancedRefreshButton
-        onRefresh={onRefresh}
-        onForceRefresh={onForceRefresh}
-        onRecompute={onRecompute}
-        lastRefresh={lastRefresh}
-        refreshInterval={refreshInterval}
-        variant="primary"
-        size="md"
-        showProgress={true}
-        showLastRefresh={true}
-      />
+    <div className={`flex items-center space-x-2 ${className}`}>
+      <button
+        onClick={handleRefresh}
+        disabled={isRefreshing || isLoading}
+        className={`flex items-center space-x-2 px-3 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200 ${
+          isRefreshing || isLoading ? 'opacity-50 cursor-not-allowed' : ''
+        }`}
+      >
+        <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+        <span>{isRefreshing ? '更新中...' : '更新'}</span>
+      </button>
+      
+      {showLastUpdated && lastUpdated && (
+        <span className="text-sm text-gray-600 dark:text-gray-400">
+          {getRelativeTime(lastUpdated)}
+        </span>
+      )}
     </div>
   );
-}
+};
+
+// リフレッシュボタングループ
+export const RefreshButtonGroup: React.FC<{
+  onRefresh?: () => Promise<void>;
+  onForceRefresh?: () => Promise<void>;
+  onRecalculate?: () => Promise<void>;
+  isLoading?: boolean;
+  className?: string;
+}> = ({ onRefresh, onForceRefresh, onRecalculate, isLoading = false, className = "" }) => {
+  return (
+    <div className={`flex items-center space-x-2 ${className}`}>
+      {onRefresh && (
+        <EnhancedRefreshButton
+          onRefresh={onRefresh}
+          isLoading={isLoading}
+          variant="compact"
+        />
+      )}
+      
+      {onForceRefresh && (
+        <button
+          onClick={onForceRefresh}
+          disabled={isLoading}
+          className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+          title="強制更新"
+        >
+          <Zap className="h-4 w-4" />
+        </button>
+      )}
+      
+      {onRecalculate && (
+        <button
+          onClick={onRecalculate}
+          disabled={isLoading}
+          className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+          title="再計算"
+        >
+          <RotateCcw className="h-4 w-4" />
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default EnhancedRefreshButton;

@@ -1,227 +1,175 @@
+/**
+ * データタイムスタンプ表示コンポーネント
+ * データの最終更新時刻と相対時間を表示
+ */
+
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { DataFreshnessInfo, freshnessManager } from '@/lib/data-freshness-manager';
-import { Clock, Calendar, RefreshCw, AlertCircle, CheckCircle } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Clock, RefreshCw, Calendar, TrendingUp } from "lucide-react";
 
 interface DataTimestampDisplayProps {
-  freshnessInfo: DataFreshnessInfo;
-  showRelative?: boolean;
-  showAbsolute?: boolean;
-  showNextRefresh?: boolean;
-  autoUpdate?: boolean;
+  lastUpdated: Date | string | number;
+  source?: 'api' | 'cache' | 'fallback';
+  showRelativeTime?: boolean;
+  showAbsoluteTime?: boolean;
+  showNextUpdate?: boolean;
+  ttlMinutes?: number;
   className?: string;
-  onRefresh?: () => void;
 }
 
-export default function DataTimestampDisplay({
-  freshnessInfo,
-  showRelative = true,
-  showAbsolute = false,
-  showNextRefresh = true,
-  autoUpdate = true,
-  className = '',
-  onRefresh,
-}: DataTimestampDisplayProps) {
+const DataTimestampDisplay: React.FC<DataTimestampDisplayProps> = ({
+  lastUpdated,
+  source = 'cache',
+  showRelativeTime = true,
+  showAbsoluteTime = false,
+  showNextUpdate = false,
+  ttlMinutes = 60,
+  className = "",
+}) => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  // 自動更新（1分ごと）
-  useEffect(() => {
-    if (!autoUpdate) return;
-
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 60000); // 1分ごと
-
-    return () => clearInterval(interval);
-  }, [autoUpdate]);
-
-  const formatDateTime = (date: Date): string => {
-    return date.toLocaleString('ja-JP', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
-  };
-
-  const formatDate = (date: Date): string => {
-    return date.toLocaleDateString('ja-JP', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    });
-  };
-
-  const formatTime = (date: Date): string => {
-    return date.toLocaleTimeString('ja-JP', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
-  };
-
-  const relativeTime = freshnessManager.getRelativeTimeString(freshnessInfo.ageMinutes);
-  const nextRefresh = freshnessInfo.nextRefresh 
-    ? freshnessManager.getNextRefreshString(freshnessInfo.nextRefresh)
-    : null;
-
-  const getStatusIcon = () => {
-    if (freshnessInfo.isFresh) {
-      return <CheckCircle className="w-4 h-4 text-green-500" />;
-    } else if (freshnessInfo.cacheStatus === 'stale') {
-      return <AlertCircle className="w-4 h-4 text-yellow-500" />;
-    } else {
-      return <AlertCircle className="w-4 h-4 text-red-500" />;
-    }
-  };
-
-  return (
-    <div className={`space-y-2 ${className}`}>
-      {/* メイン表示 */}
-      <div className="flex items-center gap-2">
-        {getStatusIcon()}
-        <div className="flex items-center gap-1">
-          <Clock className="w-4 h-4 text-gray-500" />
-          <span className="text-sm font-medium text-gray-700">
-            最終更新: {showRelative ? relativeTime : formatDateTime(freshnessInfo.lastUpdated)}
-          </span>
-        </div>
-        {onRefresh && (
-          <button
-            onClick={onRefresh}
-            className="p-1 rounded hover:bg-gray-100 transition-colors"
-            title="データを更新"
-          >
-            <RefreshCw className="w-4 h-4 text-gray-500" />
-          </button>
-        )}
-      </div>
-
-      {/* 詳細情報 */}
-      {(showAbsolute || showNextRefresh) && (
-        <div className="pl-6 space-y-1 text-xs text-gray-600">
-          {showAbsolute && (
-            <div className="flex items-center gap-1">
-              <Calendar className="w-3 h-3" />
-              <span>日時: {formatDateTime(freshnessInfo.lastUpdated)}</span>
-            </div>
-          )}
-          
-          {showNextRefresh && nextRefresh && (
-            <div className="flex items-center gap-1">
-              <RefreshCw className="w-3 h-3" />
-              <span>次回更新: {nextRefresh}</span>
-            </div>
-          )}
-
-          <div className="flex items-center gap-1">
-            <span>経過時間: {freshnessInfo.ageMinutes}分</span>
-          </div>
-
-          {freshnessInfo.ttlMinutes && (
-            <div className="flex items-center gap-1">
-              <span>TTL: {freshnessInfo.ttlMinutes}分</span>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
-interface DataTimestampSummaryProps {
-  freshnessInfos: DataFreshnessInfo[];
-  showDetails?: boolean;
-  className?: string;
-  onRefreshAll?: () => void;
-}
-
-export function DataTimestampSummary({
-  freshnessInfos,
-  showDetails = false,
-  className = '',
-  onRefreshAll,
-}: DataTimestampSummaryProps) {
-  const [currentTime, setCurrentTime] = useState(new Date());
-
-  // 自動更新
+  // 現在時刻の更新
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
-    }, 60000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-  const combined = freshnessManager.getCombinedFreshnessInfo(freshnessInfos);
-  const oldestData = combined.oldestData;
-  const newestData = freshnessInfos.reduce((newest, current) => 
-    current.ageMinutes < newest.ageMinutes ? current : newest
-  );
+  const updateTime = new Date(lastUpdated);
+  const relativeTime = getRelativeTime(updateTime);
+  const absoluteTime = updateTime.toLocaleString('ja-JP');
+  const nextUpdate = new Date(updateTime.getTime() + (ttlMinutes * 60 * 1000));
+
+  // 相対時間の取得
+  function getRelativeTime(date: Date): string {
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMinutes < 1) {
+      return 'たった今';
+    } else if (diffMinutes < 60) {
+      return `${diffMinutes}分前`;
+    } else if (diffHours < 24) {
+      return `${diffHours}時間前`;
+    } else {
+      return `${diffDays}日前`;
+    }
+  }
+
+  // ソースアイコンの取得
+  const getSourceIcon = () => {
+    switch (source) {
+      case 'api':
+        return <TrendingUp className="h-4 w-4 text-green-600" />;
+      case 'cache':
+        return <Clock className="h-4 w-4 text-blue-600" />;
+      case 'fallback':
+        return <RefreshCw className="h-4 w-4 text-yellow-600" />;
+      default:
+        return <Clock className="h-4 w-4 text-gray-600" />;
+    }
+  };
+
+  // ソース色の取得
+  const getSourceColor = () => {
+    switch (source) {
+      case 'api':
+        return 'text-green-600';
+      case 'cache':
+        return 'text-blue-600';
+      case 'fallback':
+        return 'text-yellow-600';
+      default:
+        return 'text-gray-600';
+    }
+  };
 
   return (
-    <div className={`space-y-3 ${className}`}>
-      {/* サマリー */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Clock className="w-5 h-5 text-gray-500" />
-          <span className="font-medium text-gray-700">データ更新状況</span>
-        </div>
-        {onRefreshAll && (
-          <button
-            onClick={onRefreshAll}
-            className="flex items-center gap-1 px-3 py-1.5 text-sm bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200 transition-colors"
-          >
-            <RefreshCw className="w-4 h-4" />
-            すべて更新
-          </button>
+    <div className={`flex items-center space-x-2 ${className}`}>
+      {getSourceIcon()}
+      
+      <div className="flex flex-col">
+        {showRelativeTime && (
+          <div className="text-sm font-medium text-gray-900 dark:text-white">
+            {relativeTime}
+          </div>
         )}
+        
+        {showAbsoluteTime && (
+          <div className="text-xs text-gray-500 dark:text-gray-400">
+            {absoluteTime}
+          </div>
+        )}
+        
+        <div className="flex items-center space-x-1">
+          <span className={`text-xs ${getSourceColor()}`}>
+            {source.toUpperCase()}
+          </span>
+          {showNextUpdate && (
+            <>
+              <span className="text-xs text-gray-400">•</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400">
+                次回: {getRelativeTime(nextUpdate)}
+              </span>
+            </>
+          )}
+        </div>
       </div>
-
-      {/* 統計情報 */}
-      <div className="grid grid-cols-2 gap-4 text-sm">
-        <div className="space-y-1">
-          <div className="text-gray-600">最新データ</div>
-          <div className="font-medium">
-            {newestData ? freshnessManager.getRelativeTimeString(newestData.ageMinutes) : 'なし'}
-          </div>
-        </div>
-        <div className="space-y-1">
-          <div className="text-gray-600">最古データ</div>
-          <div className="font-medium">
-            {oldestData ? freshnessManager.getRelativeTimeString(oldestData.ageMinutes) : 'なし'}
-          </div>
-        </div>
-      </div>
-
-      {/* 詳細情報 */}
-      {showDetails && (
-        <div className="space-y-2">
-          <div className="text-sm font-medium text-gray-700">個別データ状況</div>
-          <div className="space-y-1">
-            {freshnessInfos.map((info, index) => (
-              <div key={index} className="flex items-center justify-between text-xs bg-gray-50 p-2 rounded">
-                <div className="flex items-center gap-2">
-                  <span className="font-medium">データ {index + 1}</span>
-                  <span className={`px-2 py-0.5 rounded text-xs ${
-                    info.isFresh ? 'bg-green-100 text-green-800' :
-                    info.cacheStatus === 'stale' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-red-100 text-red-800'
-                  }`}>
-                    {info.isFresh ? 'Fresh' : info.cacheStatus === 'stale' ? 'Stale' : 'Expired'}
-                  </span>
-                </div>
-                <div className="text-gray-600">
-                  {freshnessManager.getRelativeTimeString(info.ageMinutes)}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
-}
+};
+
+// サマリー版コンポーネント
+export const DataTimestampSummary: React.FC<{
+  lastUpdated: Date | string | number;
+  source?: 'api' | 'cache' | 'fallback';
+  className?: string;
+}> = ({ lastUpdated, source = 'cache', className = "" }) => {
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const updateTime = new Date(lastUpdated);
+  const relativeTime = getRelativeTime(updateTime);
+
+  function getRelativeTime(date: Date): string {
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMinutes < 1) {
+      return 'たった今';
+    } else if (diffMinutes < 60) {
+      return `${diffMinutes}分前`;
+    } else if (diffHours < 24) {
+      return `${diffHours}時間前`;
+    } else {
+      return `${diffDays}日前`;
+    }
+  }
+
+  return (
+    <div className={`flex items-center space-x-2 ${className}`}>
+      <Clock className="h-4 w-4 text-gray-600" />
+      <span className="text-sm text-gray-600 dark:text-gray-400">
+        最終更新: {relativeTime}
+      </span>
+    </div>
+  );
+};
+
+export default DataTimestampDisplay;
