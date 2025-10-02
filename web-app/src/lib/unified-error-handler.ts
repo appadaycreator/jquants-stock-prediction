@@ -1,5 +1,5 @@
 /**
- * 統一エラーハンドラー
+ * 統一エラーハンドラー（リファクタリング版）
  * 全エラーを一元管理し、適切な対応を実行
  */
 
@@ -21,103 +21,179 @@ export interface ErrorRecoveryAction {
   execute: () => Promise<boolean>;
 }
 
+export interface ErrorContext {
+  operation: string;
+  component: string;
+  timestamp: number;
+  userAgent?: string;
+  url?: string;
+}
+
+export interface ErrorClassification {
+  category: string;
+  severity: "low" | "medium" | "high" | "critical";
+  userMessage: string;
+  technicalMessage: string;
+  recovery?: {
+    autoRetry: boolean;
+    retryDelay: number;
+    maxRetries: number;
+  };
+}
+
+export interface ErrorRecovery {
+  autoRetry: boolean;
+  retryDelay: number;
+  maxRetries: number;
+  fallbackAction: string;
+}
+
 class UnifiedErrorHandler {
   private errorHistory: ErrorInfo[] = [];
   private recoveryActions: Map<string, ErrorRecoveryAction[]> = new Map();
   private isRecovering = false;
+  private errorCounts: Map<string, number> = new Map();
+  private lastErrorTime: Map<string, number> = new Map();
+  private maxErrorsPerMinute = 10;
 
   constructor() {
     this.initializeRecoveryActions();
   }
 
   /**
-   * エラーの分類と情報取得
+   * エラーの分類
    */
   categorizeError(error: Error): ErrorInfo {
-    const message = error.message.toLowerCase();
+    const errorMessage = error.message.toLowerCase();
     const stack = error.stack || "";
-    
-    let category: ErrorInfo["category"] = "unknown";
-    let severity: ErrorInfo["severity"] = "medium";
-    let userMessage = "予期しないエラーが発生しました";
-    let autoRetry = false;
-    let retryDelay = 2000;
-    let fallbackAction = "ページを再読み込みしてください";
 
     // ネットワークエラー
-    if (message.includes("network") || message.includes("fetch") || message.includes("connection") || 
-        message.includes("timeout") || message.includes("cors")) {
-      category = "network";
-      severity = "medium";
-      userMessage = "ネットワーク接続に問題があります。しばらく待ってから再試行してください。";
-      autoRetry = true;
-      retryDelay = 3000;
-      fallbackAction = "オフライン機能を使用するか、後でもう一度お試しください";
+    if (
+      errorMessage.includes("network") ||
+      errorMessage.includes("fetch") ||
+      errorMessage.includes("timeout") ||
+      errorMessage.includes("connection")
+    ) {
+      return {
+        category: "network",
+        severity: "medium",
+        message: error.message,
+        userMessage: "ネットワーク接続に問題があります。しばらく待ってから再試行してください。",
+        autoRetry: true,
+        retryDelay: 2000,
+        fallbackAction: "refresh",
+        timestamp: new Date().toISOString(),
+      };
     }
-    
+
     // APIエラー
-    else if (message.includes("api") || message.includes("endpoint") || message.includes("server")) {
-      category = "api";
-      severity = "high";
-      userMessage = "サーバーとの通信に問題があります。";
-      autoRetry = true;
-      retryDelay = 5000;
-      fallbackAction = "キャッシュされたデータを表示します";
+    if (
+      errorMessage.includes("api") ||
+      errorMessage.includes("http") ||
+      errorMessage.includes("status") ||
+      stack.includes("fetch")
+    ) {
+      return {
+        category: "api",
+        severity: "high",
+        message: error.message,
+        userMessage: "データの取得に失敗しました。しばらく待ってから再試行してください。",
+        autoRetry: true,
+        retryDelay: 3000,
+        fallbackAction: "fallback",
+        timestamp: new Date().toISOString(),
+      };
     }
-    
+
     // データエラー
-    else if (message.includes("data") || message.includes("json") || message.includes("parse") || 
-             message.includes("validation")) {
-      category = "data";
-      severity = "medium";
-      userMessage = "データの処理中に問題が発生しました。";
-      autoRetry = false;
-      fallbackAction = "デフォルトデータを表示します";
+    if (
+      errorMessage.includes("data") ||
+      errorMessage.includes("parse") ||
+      errorMessage.includes("json") ||
+      errorMessage.includes("format")
+    ) {
+      return {
+        category: "data",
+        severity: "medium",
+        message: error.message,
+        userMessage: "データの処理に問題があります。ページを再読み込みしてください。",
+        autoRetry: false,
+        retryDelay: 0,
+        fallbackAction: "refresh",
+        timestamp: new Date().toISOString(),
+      };
     }
-    
+
+    // バリデーションエラー
+    if (
+      errorMessage.includes("validation") ||
+      errorMessage.includes("invalid") ||
+      errorMessage.includes("required")
+    ) {
+      return {
+        category: "validation",
+        severity: "low",
+        message: error.message,
+        userMessage: "入力内容に問題があります。入力内容を確認してください。",
+        autoRetry: false,
+        retryDelay: 0,
+        fallbackAction: "none",
+        timestamp: new Date().toISOString(),
+      };
+    }
+
     // システムエラー
-    else if (message.includes("system") || message.includes("internal") || 
-             message.includes("unexpected")) {
-      category = "system";
-      severity = "high";
-      userMessage = "システム内部でエラーが発生しました。";
-      autoRetry = true;
-      retryDelay = 10000;
-      fallbackAction = "システムを再初期化します";
+    if (
+      errorMessage.includes("system") ||
+      errorMessage.includes("internal") ||
+      errorMessage.includes("server")
+    ) {
+      return {
+        category: "system",
+        severity: "critical",
+        message: error.message,
+        userMessage: "システムエラーが発生しました。管理者にお問い合わせください。",
+        autoRetry: false,
+        retryDelay: 0,
+        fallbackAction: "redirect",
+        timestamp: new Date().toISOString(),
+      };
     }
 
-    // 重大なエラー
-    if (message.includes("critical") || message.includes("fatal") || 
-        stack.includes("TypeError") || stack.includes("ReferenceError")) {
-      severity = "critical";
-      userMessage = "重大なエラーが発生しました。ページを再読み込みしてください。";
-      autoRetry = false;
-      fallbackAction = "ページを完全に再読み込みしてください";
-    }
-
+    // デフォルト（不明なエラー）
     return {
-      category,
-      severity,
+      category: "unknown",
+      severity: "medium",
       message: error.message,
-      userMessage,
-      autoRetry,
-      retryDelay,
-      fallbackAction,
+      userMessage: "予期しないエラーが発生しました。ページを再読み込みしてください。",
+      autoRetry: true,
+      retryDelay: 2000,
+      fallbackAction: "refresh",
       timestamp: new Date().toISOString(),
-      context: {
-        userAgent: typeof window !== "undefined" ? window.navigator.userAgent : "",
-        url: typeof window !== "undefined" ? window.location.href : "",
-        timestamp: Date.now(),
-      },
     };
   }
 
   /**
-   * エラーの処理
+   * エラーの処理（統合版）
    */
-  async handleError(error: Error): Promise<boolean> {
+  async handleError(error: Error, context?: ErrorContext): Promise<boolean> {
     const errorInfo = this.categorizeError(error);
     this.errorHistory.push(errorInfo);
+
+    // エラーの重複チェック
+    const errorKey = context ? `${context.operation}_${context.component}_${error.message}` : error.message;
+    const now = Date.now();
+    const lastTime = this.lastErrorTime.get(errorKey) || 0;
+    const errorCount = this.errorCounts.get(errorKey) || 0;
+
+    // 1分以内に同じエラーが10回以上発生した場合はログを制限
+    if (now - lastTime < 60000 && errorCount >= this.maxErrorsPerMinute) {
+      return false;
+    }
+
+    // エラーカウントを更新
+    this.errorCounts.set(errorKey, errorCount + 1);
+    this.lastErrorTime.set(errorKey, now);
 
     console.error("統一エラーハンドラー:", errorInfo);
 
@@ -131,7 +207,7 @@ class UnifiedErrorHandler {
 
     try {
       const recoveryActions = this.recoveryActions.get(errorInfo.category) || [];
-      
+
       for (const action of recoveryActions) {
         if (await action.execute()) {
           console.log(`復旧成功: ${action.description}`);
@@ -146,7 +222,6 @@ class UnifiedErrorHandler {
         this.isRecovering = false;
         return true;
       }
-
     } catch (recoveryError) {
       console.error("復旧処理エラー:", recoveryError);
     } finally {
@@ -166,19 +241,27 @@ class UnifiedErrorHandler {
         type: "retry",
         description: "ネットワーク接続の再試行",
         execute: async () => {
-          await new Promise(resolve => setTimeout(resolve, 2000));
-          return true;
+          // ネットワーク接続の確認
+          if (navigator.onLine) {
+            return true;
+          }
+          return false;
         },
       },
       {
         type: "clear-cache",
         description: "キャッシュのクリア",
         execute: async () => {
-          if ("caches" in window) {
-            const cacheNames = await caches.keys();
-            await Promise.all(cacheNames.map(name => caches.delete(name)));
+          try {
+            if ("caches" in window) {
+              const cacheNames = await caches.keys();
+              await Promise.all(cacheNames.map(name => caches.delete(name)));
+            }
+            return true;
+          } catch (error) {
+            console.error("キャッシュクリアエラー:", error);
+            return false;
           }
-          return true;
         },
       },
     ]);
@@ -189,15 +272,20 @@ class UnifiedErrorHandler {
         type: "retry",
         description: "API呼び出しの再試行",
         execute: async () => {
-          await new Promise(resolve => setTimeout(resolve, 3000));
-          return true;
+          // API接続の確認
+          try {
+            const response = await fetch("/api/health", { method: "HEAD" });
+            return response.ok;
+          } catch (error) {
+            return false;
+          }
         },
       },
       {
         type: "fallback",
         description: "フォールバックデータの使用",
         execute: async () => {
-          // フォールバックデータの読み込み
+          // フォールバックデータの確認
           return true;
         },
       },
@@ -206,10 +294,10 @@ class UnifiedErrorHandler {
     // データエラー用の復旧アクション
     this.recoveryActions.set("data", [
       {
-        type: "fallback",
-        description: "デフォルトデータの使用",
+        type: "refresh",
+        description: "ページの再読み込み",
         execute: async () => {
-          // デフォルトデータの読み込み
+          window.location.reload();
           return true;
         },
       },
@@ -218,12 +306,10 @@ class UnifiedErrorHandler {
     // システムエラー用の復旧アクション
     this.recoveryActions.set("system", [
       {
-        type: "refresh",
-        description: "ページの再読み込み",
+        type: "redirect",
+        description: "エラーページへのリダイレクト",
         execute: async () => {
-          if (typeof window !== "undefined") {
-            window.location.reload();
-          }
+          window.location.href = "/error";
           return true;
         },
       },
@@ -234,33 +320,29 @@ class UnifiedErrorHandler {
    * フォールバックアクションの実行
    */
   private async executeFallbackAction(errorInfo: ErrorInfo): Promise<boolean> {
-    try {
-      switch (errorInfo.category) {
-        case "network":
-          // オフライン機能の有効化
-          return true;
-        
-        case "api":
-          // キャッシュデータの使用
-          return true;
-        
-        case "data":
-          // デフォルトデータの使用
-          return true;
-        
-        case "system":
-          // ページの再読み込み
-          if (typeof window !== "undefined") {
-            window.location.reload();
+    switch (errorInfo.fallbackAction) {
+      case "refresh":
+        window.location.reload();
+        return true;
+      case "redirect":
+        window.location.href = "/error";
+        return true;
+      case "fallback":
+        // フォールバックデータの使用
+        return true;
+      case "clear-cache":
+        try {
+          if ("caches" in window) {
+            const cacheNames = await caches.keys();
+            await Promise.all(cacheNames.map(name => caches.delete(name)));
           }
           return true;
-        
-        default:
+        } catch (error) {
+          console.error("キャッシュクリアエラー:", error);
           return false;
-      }
-    } catch (error) {
-      console.error("フォールバックアクションエラー:", error);
-      return false;
+        }
+      default:
+        return false;
     }
   }
 
@@ -272,24 +354,84 @@ class UnifiedErrorHandler {
   }
 
   /**
-   * エラー履歴のクリア
+   * エラー統計の取得
    */
-  clearErrorHistory(): void {
-    this.errorHistory = [];
+  getErrorStats(): Record<string, number> {
+    const stats: Record<string, number> = {};
+    for (const [key, count] of this.errorCounts) {
+      stats[key] = count;
+    }
+    return stats;
   }
 
   /**
-   * 復旧状況の取得
+   * エラーハンドラーのリセット
    */
-  getRecoveryStatus(): { isRecovering: boolean; lastError?: ErrorInfo } {
-    return {
-      isRecovering: this.isRecovering,
-      lastError: this.errorHistory[this.errorHistory.length - 1],
-    };
+  reset(): void {
+    this.errorHistory = [];
+    this.errorCounts.clear();
+    this.lastErrorTime.clear();
+    this.isRecovering = false;
   }
 }
 
 // シングルトンインスタンス
 export const unifiedErrorHandler = new UnifiedErrorHandler();
 
-export default UnifiedErrorHandler;
+// エラーログの記録
+export function logError(error: Error, context?: Record<string, any>): void {
+  const errorInfo = unifiedErrorHandler.categorizeError(error);
+  const timestamp = new Date().toISOString();
+
+  const logEntry = {
+    timestamp,
+    category: errorInfo.category,
+    severity: errorInfo.severity,
+    message: error.message,
+    stack: error.stack,
+    context,
+    userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "unknown",
+    url: typeof window !== "undefined" ? window.location.href : "unknown",
+  };
+
+  // コンソールにログ出力
+  console.error("Unified Error:", logEntry);
+
+  // ローカルストレージにエラーログを保存（最新10件）
+  try {
+    const existingLogs = JSON.parse(localStorage.getItem("error_logs") || "[]");
+    const newLogs = [logEntry, ...existingLogs].slice(0, 10);
+    localStorage.setItem("error_logs", JSON.stringify(newLogs));
+  } catch (e) {
+    console.warn("Failed to save error log:", e);
+  }
+
+  // 重大なエラーの場合は追加の処理
+  if (errorInfo.severity === "critical") {
+    console.error("Critical error detected:", logEntry);
+  }
+}
+
+// エラーメッセージの国際化
+export function getLocalizedErrorMessage(error: Error, locale: string = "ja"): string {
+  const errorMessage = error.message.toLowerCase();
+
+  if (locale === "ja") {
+    if (errorMessage.includes("network")) return "ネットワーク接続に問題があります";
+    if (errorMessage.includes("timeout")) return "タイムアウトが発生しました";
+    if (errorMessage.includes("fetch")) return "データの取得に失敗しました";
+    if (errorMessage.includes("parse")) return "データの解析に失敗しました";
+    if (errorMessage.includes("validation")) return "入力内容に問題があります";
+    return "予期しないエラーが発生しました";
+  }
+
+  // 英語版
+  if (errorMessage.includes("network")) return "Network connection problem";
+  if (errorMessage.includes("timeout")) return "Timeout occurred";
+  if (errorMessage.includes("fetch")) return "Failed to fetch data";
+  if (errorMessage.includes("parse")) return "Failed to parse data";
+  if (errorMessage.includes("validation")) return "Input validation error";
+  return "Unexpected error occurred";
+}
+
+export default unifiedErrorHandler;
