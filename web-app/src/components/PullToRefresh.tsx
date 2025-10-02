@@ -100,7 +100,7 @@ export default function PullToRefresh({
   const shouldTrigger = pullDistance >= threshold;
 
   return (
-    <div ref={containerRef} className="relative overflow-auto">
+    <div ref={containerRef} className="relative overflow-auto mobile-scroll-y">
       {/* プルトゥリフレッシュインジケーター */}
       <div
         ref={pullIndicatorRef}

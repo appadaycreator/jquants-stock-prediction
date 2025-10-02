@@ -13,6 +13,19 @@ from data_validator import DataValidator
 from unified_system import get_unified_system, ErrorCategory
 from type_safe_validator import TypeSafeValidator
 
+# 統合エラーハンドリングシステムのインポート
+from unified_error_handling_system import (
+    get_unified_error_handler,
+    ErrorCategory as UnifiedErrorCategory,
+    ErrorSeverity,
+    error_handler,
+    error_context,
+    log_api_error,
+    log_data_error,
+    log_model_error,
+    log_file_error
+)
+
 # 設定を読み込み
 from config_loader import ConfigLoader
 
@@ -24,6 +37,9 @@ from unified_logging_config import get_data_logger, get_enhanced_logger
 
 logger = get_data_logger()
 enhanced_logger = get_enhanced_logger()
+
+# 統合エラーハンドリングシステムの初期化
+unified_error_handler = get_unified_error_handler()
 
 
 def validate_input_file(input_file):

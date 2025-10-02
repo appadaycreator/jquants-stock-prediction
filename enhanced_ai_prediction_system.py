@@ -43,6 +43,19 @@ import requests
 # 統合システムのインポート
 from unified_system import UnifiedSystem, ErrorCategory, LogLevel, LogCategory
 
+# 統合エラーハンドリングシステムのインポート
+from unified_error_handling_system import (
+    get_unified_error_handler,
+    ErrorCategory as UnifiedErrorCategory,
+    ErrorSeverity,
+    error_handler,
+    error_context,
+    log_api_error,
+    log_data_error,
+    log_model_error,
+    log_file_error
+)
+
 warnings.filterwarnings("ignore")
 
 

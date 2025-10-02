@@ -23,6 +23,19 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
 from unittest.mock import Mock
 
+# 統合エラーハンドリングシステムのインポート
+from unified_error_handling_system import (
+    get_unified_error_handler,
+    ErrorCategory as UnifiedErrorCategory,
+    ErrorSeverity,
+    error_handler,
+    error_context,
+    log_api_error,
+    log_data_error,
+    log_model_error,
+    log_file_error
+)
+
 # 警告を抑制
 warnings.filterwarnings("ignore", category=FutureWarning)
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -78,6 +91,9 @@ class UnifiedSystem:
         self.config = {}
         self.error_count = 0
         self.error_stats = {category.value: 0 for category in ErrorCategory}
+
+        # 統合エラーハンドリングシステムの初期化
+        self.unified_error_handler = get_unified_error_handler()
 
         # 設定の読み込み
         if config is not None:

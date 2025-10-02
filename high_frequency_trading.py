@@ -103,7 +103,9 @@ class HighFrequencyTrading:
             max_workers = config.get("performance", {}).get("max_workers", 4)
         except Exception:
             max_workers = 4
-        self.executor = get_unified_system().execute_parallel(max_workers)
+        # スレッドプールエグゼキューターを作成
+        from concurrent.futures import ThreadPoolExecutor
+        self.executor = ThreadPoolExecutor(max_workers=max_workers)
 
         logger.info("高頻度取引システムを初期化しました")
 
