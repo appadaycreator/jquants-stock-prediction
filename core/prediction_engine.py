@@ -45,118 +45,174 @@ class PredictionEngine:
             if self.logger:
                 self.logger.log_info("🚀 株価予測システム開始")
 
-            # 設定の取得
-            input_file = self.prediction_config.get(
-                "input_file", "processed_stock_data.csv"
+            # 設定の取得と検証
+            config = self._get_prediction_config()
+            
+            # データの読み込みと検証
+            df = self._load_and_validate_data(config["input_file"])
+            if df is None:
+                return self._create_error_result("データの読み込みに失敗しました")
+
+            # データの分割
+            X_train, X_val, X_test, y_train, y_val, y_test = self._split_data(
+                df, config["features"], config["target"]
             )
-            features = self.prediction_config.get(
-                "features",
-                [
-                    "SMA_5",
-                    "SMA_25",
-                    "SMA_50",
-                    "Close_lag_1",
-                    "Close_lag_5",
-                    "Close_lag_25",
-                ],
-            )
-            target = self.prediction_config.get("target", "Close")
-            test_size = self.prediction_config.get("test_size", 0.2)
-            random_state = self.prediction_config.get("random_state", 42)
 
-            # データの読み込み
-            if self.logger:
-                self.logger.log_info(f"データを読み込み中: {input_file}")
-            df = pd.read_csv(input_file)
-
-            # 特徴量と目的変数の準備
-            X = df[features]
-            y = df[target]
-
-            # 時系列データの適切な分割（学習60%・検証20%・テスト20%）
-            total_size = len(X)
-            train_size = int(total_size * 0.6)
-            val_size = int(total_size * 0.2)
-
-            # 時系列順に分割
-            X_train = X.iloc[:train_size]
-            y_train = y.iloc[:train_size]
-            X_val = X.iloc[train_size : train_size + val_size]
-            y_val = y.iloc[train_size : train_size + val_size]
-            X_test = X.iloc[train_size + val_size :]
-            y_test = y.iloc[train_size + val_size :]
-
-            if self.logger:
-                self.logger.log_info(
-                    f"訓練データ: {len(X_train)}行, 検証データ: {len(X_val)}行, テストデータ: {len(X_test)}行"
+            # モデル実行
+            if config["compare_models"]:
+                result = self._execute_model_comparison(
+                    X_train, X_val, X_test, y_train, y_val, y_test, config
                 )
-
-            # モデル設定の取得
-            model_selection = self.prediction_config.get("model_selection", {})
-            compare_models = model_selection.get("compare_models", False)
-            primary_model = model_selection.get("primary_model", "random_forest")
-
-            # モデル比較または単一モデル実行
-            if compare_models:
-                if self.logger:
-                    self.logger.log_info("🔄 複数モデル比較を実行中...")
-                results = self._compare_models_with_validation(
-                    self.prediction_config,
-                    X_train,
-                    X_val,
-                    X_test,
-                    y_train,
-                    y_val,
-                    y_test,
-                    features,
-                )
-                best_model_name = results.get("best_model", "random_forest")
             else:
-                if self.logger:
-                    self.logger.log_info(f"🎯 単一モデル実行: {primary_model}")
-                best_model_name = primary_model
-
-            # モデル学習と予測（過学習検出付き）
-            model_results = self._train_and_predict_with_validation(
-                best_model_name, X_train, X_val, X_test, y_train, y_val, y_test
-            )
-
-            # 結果の可視化
-            output_image = self.prediction_config.get("output", {}).get(
-                "image", "stock_prediction_result.png"
-            )
-            self._create_visualization(
-                y_test, model_results["predictions"], best_model_name, output_image
-            )
-
-            # 結果の保存（過学習検出結果を含む）
-            results = {
-                "model_name": best_model_name,
-                "mae": model_results["mae"],
-                "rmse": model_results["rmse"],
-                "r2": model_results["r2"],
-                "output_image": output_image,
-                "predictions_count": len(model_results["predictions"]),
-                "overfitting_detection": model_results.get("overfitting_detection", {}),
-                "validation_metrics": model_results.get("validation_metrics", {}),
-            }
-
-            mae = model_results["mae"]
-            r2 = model_results["r2"]
-            if self.logger:
-                self.logger.log_info(
-                    f"✅ 予測完了! モデル: {best_model_name}, "
-                    f"MAE: {mae:.4f}, R²: {r2:.4f}"
+                result = self._execute_single_model(
+                    config["primary_model"], X_train, X_val, X_test, y_train, y_val, y_test
                 )
 
-            return results
+            # 過学習検出
+            if config["overfitting_detection"]:
+                result["overfitting_detection"] = self._detect_overfitting(
+                    result.get("model_results", [{}])[0].get("train_r2", 0),
+                    result.get("model_results", [{}])[0].get("val_r2", 0),
+                    result.get("model_results", [{}])[0].get("test_r2", 0)
+                )
+
+            # 可視化
+            if result.get("model_results"):
+                self._create_visualization(
+                    y_test, result["model_results"][0]["predictions"], 
+                    result["best_model"], config["output_file"]
+                )
+
+            # 結果の統合
+            result.update({
+                "success": True,
+                "data_info": self._create_data_info(X_train, X_val, X_test, config),
+                "timestamp": datetime.now().isoformat(),
+            })
+
+            if self.logger:
+                self.logger.log_info("✅ 株価予測システム完了")
+
+            return result
 
         except Exception as e:
             if self.error_handler:
                 self.error_handler.handle_data_processing_error(
-                    e, "株価予測実行", {"input_file": input_file}
+                    e, "株価予測実行", {"input_file": config.get("input_file", "unknown")}
                 )
-            raise
+            return self._create_error_result(str(e))
+
+    def _get_prediction_config(self) -> Dict[str, Any]:
+        """予測設定の取得と検証"""
+        return {
+            "input_file": self.prediction_config.get("input_file", "processed_stock_data.csv"),
+            "features": self.prediction_config.get("features", [
+                "SMA_5", "SMA_25", "SMA_50", "Close_lag_1", "Close_lag_5", "Close_lag_25"
+            ]),
+            "target": self.prediction_config.get("target", "Close"),
+            "test_size": self.prediction_config.get("test_size", 0.2),
+            "random_state": self.prediction_config.get("random_state", 42),
+            "compare_models": self.prediction_config.get("model_selection", {}).get("compare_models", False),
+            "primary_model": self.prediction_config.get("model_selection", {}).get("primary_model", "random_forest"),
+            "overfitting_detection": self.prediction_config.get("overfitting_detection", True),
+            "output_file": self.prediction_config.get("output", {}).get("image", "stock_prediction_result.png")
+        }
+
+    def _load_and_validate_data(self, input_file: str) -> Optional[pd.DataFrame]:
+        """データの読み込みと検証"""
+        try:
+            if self.logger:
+                self.logger.log_info(f"データを読み込み中: {input_file}")
+            df = pd.read_csv(input_file)
+            
+            # データ検証
+            validation_result = self.validate_data(df)
+            if not validation_result["is_valid"]:
+                if self.logger:
+                    self.logger.log_warning(f"データ検証で問題を発見: {validation_result['issues']}")
+            
+            return df
+        except Exception as e:
+            if self.error_handler:
+                self.error_handler.handle_file_error(e, input_file, "データ読み込み")
+            return None
+
+    def _split_data(self, df: pd.DataFrame, features: List[str], target: str) -> Tuple:
+        """データの分割"""
+        X = df[features]
+        y = df[target]
+        
+        # 時系列データの適切な分割（学習60%・検証20%・テスト20%）
+        total_size = len(X)
+        train_size = int(total_size * 0.6)
+        val_size = int(total_size * 0.2)
+        
+        # 時系列順に分割
+        X_train = X.iloc[:train_size]
+        y_train = y.iloc[:train_size]
+        X_val = X.iloc[train_size:train_size + val_size]
+        y_val = y.iloc[train_size:train_size + val_size]
+        X_test = X.iloc[train_size + val_size:]
+        y_test = y.iloc[train_size + val_size:]
+        
+        if self.logger:
+            self.logger.log_info(
+                f"訓練データ: {len(X_train)}行, 検証データ: {len(X_val)}行, テストデータ: {len(X_test)}行"
+            )
+        
+        return X_train, X_val, X_test, y_train, y_val, y_test
+
+    def _execute_model_comparison(self, X_train, X_val, X_test, y_train, y_val, y_test, config: Dict[str, Any]) -> Dict[str, Any]:
+        """モデル比較の実行"""
+        if self.logger:
+            self.logger.log_info("🔄 複数モデル比較を実行中...")
+        
+        results = self._compare_models_with_validation(
+            self.prediction_config, X_train, X_val, X_test, y_train, y_val, y_test, config["features"]
+        )
+        
+        best_model_name = results.get("best_model", "random_forest")
+        model_results = self._train_and_predict_with_validation(
+            best_model_name, X_train, X_val, X_test, y_train, y_val, y_test
+        )
+        
+        return {
+            "best_model": best_model_name,
+            "model_results": [model_results],
+            "comparison_results": results.get("results", [])
+        }
+
+    def _execute_single_model(self, model_name: str, X_train, X_val, X_test, y_train, y_val, y_test) -> Dict[str, Any]:
+        """単一モデルの実行"""
+        if self.logger:
+            self.logger.log_info(f"🎯 単一モデル実行: {model_name}")
+        
+        model_results = self._train_and_predict_with_validation(
+            model_name, X_train, X_val, X_test, y_train, y_val, y_test
+        )
+        
+        return {
+            "best_model": model_name,
+            "model_results": [model_results]
+        }
+
+    def _create_data_info(self, X_train, X_val, X_test, config: Dict[str, Any]) -> Dict[str, Any]:
+        """データ情報の作成"""
+        return {
+            "train_size": len(X_train),
+            "val_size": len(X_val),
+            "test_size": len(X_test),
+            "features": config["features"],
+            "target": config["target"]
+        }
+
+    def _create_error_result(self, error_message: str) -> Dict[str, Any]:
+        """エラー結果の作成"""
+        return {
+            "success": False,
+            "error": error_message,
+            "timestamp": datetime.now().isoformat()
+        }
 
     def _detect_overfitting(
         self, train_r2: float, val_r2: float, test_r2: float
@@ -491,10 +547,10 @@ class PredictionEngine:
         try:
             # 日本語フォント設定
             try:
-                from font_config import setup_japanese_font
-
-                setup_japanese_font()
-            except ImportError:
+                import matplotlib.font_manager as fm
+                # 日本語フォントの設定
+                plt.rcParams['font.family'] = ['DejaVu Sans', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', 'Takao', 'IPAexGothic', 'IPAPGothic', 'VL PGothic', 'Noto Sans CJK JP']
+            except Exception:
                 if self.logger:
                     self.logger.log_warning("日本語フォント設定をスキップします")
 

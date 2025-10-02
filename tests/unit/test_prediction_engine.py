@@ -255,11 +255,11 @@ class TestPredictionEngine:
         with patch.object(engine, "_create_visualization"):
             result = engine.run_stock_prediction()
 
-            assert "model_name" in result
-            assert "mae" in result
-            assert "rmse" in result
-            assert "r2" in result
-            assert result["model_name"] == "random_forest"
+            assert "best_model" in result
+            assert "model_results" in result
+            assert "success" in result
+            assert result["best_model"] == "random_forest"
+            assert result["success"] is True
 
     @patch("pandas.read_csv")
     def test_run_stock_prediction_with_model_comparison(self, mock_read_csv):
@@ -307,10 +307,9 @@ class TestPredictionEngine:
         with patch.object(engine, "_create_visualization"):
             result = engine.run_stock_prediction()
 
-            assert "model_name" in result
-            assert "mae" in result
-            assert "rmse" in result
-            assert "r2" in result
+            assert "best_model" in result
+            assert "model_results" in result
+            assert "success" in result
 
     def test_run_stock_prediction_error(self):
         """株価予測実行のエラーテスト"""
@@ -325,10 +324,9 @@ class TestPredictionEngine:
         mock_error_handler = Mock()
         engine = PredictionEngine(config=config, error_handler=mock_error_handler)
 
-        with pytest.raises(FileNotFoundError):
-            engine.run_stock_prediction()
-
-        mock_error_handler.handle_data_processing_error.assert_called_once()
+        result = engine.run_stock_prediction()
+        assert result["success"] is False
+        assert "error" in result
 
     def test_create_visualization(self):
         """可視化作成のテスト"""
