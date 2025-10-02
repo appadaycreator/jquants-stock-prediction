@@ -31,42 +31,15 @@ export default function TokenReissuer({ onTokenUpdated }: TokenReissuerProps) {
     try {
       console.log("🔄 トークン再発行を開始...");
       
-      const response = await fetch("/api/jquants/reissue-token", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+      // 静的サイトモードでは、トークン再発行は利用できません
+      console.log("📝 静的サイトモード: トークン再発行は利用できません");
+      
+      setResult({
+        success: false,
+        message: "静的サイトモードでは、トークン再発行機能は利用できません。データは事前生成された静的ファイルから取得されます。",
       });
-
-      console.log("📡 APIレスポンス:", response.status, response.statusText);
-
-      const data = await response.json();
-      console.log("📦 レスポンスデータ:", data);
-
-      if (response.ok) {
-        setResult({
-          success: true,
-          message: data.message,
-          token: data.token?.idToken,
-        });
-        
-        // 親コンポーネントにトークンを通知
-        if (onTokenUpdated && data.token?.idToken) {
-          onTokenUpdated(data.token.idToken);
-        }
-      } else {
-        console.error("❌ APIエラー:", data);
-        setResult({
-          success: false,
-          message: data.error || "トークン再発行に失敗しました",
-        });
-      }
     } catch (error) {
-      console.error("❌ ネットワークエラー:", error);
+      console.error("❌ エラー:", error);
       setResult({
         success: false,
         message: `エラーが発生しました: ${error instanceof Error ? error.message : "不明なエラー"}`,

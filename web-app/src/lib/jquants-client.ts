@@ -9,7 +9,7 @@ class JQuantsClientFactory {
   private static instance: JQuantsAdapter | null = null;
 
   /**
-   * ブラウザからサーバーAPIを呼び出すヘルパー
+   * 静的データから取得するヘルパー（APIルートの代わり）
    */
   private static async callServer<T>(action: string, payload: Record<string, unknown> = {}): Promise<T> {
     if (typeof window === "undefined") {
@@ -20,18 +20,34 @@ class JQuantsClientFactory {
     const timeoutId = window.setTimeout(() => controller.abort(), 30_000);
 
     try {
-      const response = await fetch("/api/jquants", {
-        method: "POST",
+      // 静的データファイルから取得
+      let dataUrl: string;
+      
+      switch (action) {
+        case "getAllSymbols":
+        case "getMarketInfo":
+          dataUrl = "/data/listed_index.json";
+          break;
+        case "getStockPrices":
+          // 価格データは個別ファイルから取得する必要がある
+          return {
+            data: [],
+            message: "価格データは個別銘柄ファイルから取得してください"
+          } as T;
+        default:
+          dataUrl = "/data/listed_index.json";
+      }
+
+      const response = await fetch(dataUrl, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ action, payload }),
         signal: controller.signal,
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || `HTTP ${response.status}`);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
       return await response.json() as T;
