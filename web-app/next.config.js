@@ -1,10 +1,7 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-  // 基本設定 - 本番環境でのみ静的エクスポート
-  ...(process.env.NODE_ENV === "production" && {
-    output: "export",
-    distDir: "out",
-  }),
+  // 静的エクスポートを無効化（APIルートを使用するため）
+  // output: "export",
   
   // GitHub Pages用の設定（本番環境のみ）
   ...(process.env.NODE_ENV === "production" && {
@@ -26,9 +23,9 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   
-  // 静的エクスポート用の設定
-  trailingSlash: true,
-  skipTrailingSlashRedirect: true,
+  // 静的エクスポート用の設定（無効化）
+  // trailingSlash: true,
+  // skipTrailingSlashRedirect: true,
   
   // パフォーマンス最適化
   compress: true,
@@ -57,11 +54,11 @@ const nextConfig = {
   // 実験的機能の設定
   experimental: {
     optimizePackageImports: ["lucide-react", "recharts"],
-    // 静的エクスポート用の設定（本番環境のみ）
-    ...(process.env.NODE_ENV === "production" && {
-      staticGenerationRetryCount: 5,
-      disableOptimizedLoading: true,
-    }),
+    // 静的エクスポート用の設定（無効化）
+    // ...(process.env.NODE_ENV === "production" && {
+    //   staticGenerationRetryCount: 5,
+    //   disableOptimizedLoading: true,
+    // }),
     // Turbopackの設定を最適化
     turbo: {
       rules: {

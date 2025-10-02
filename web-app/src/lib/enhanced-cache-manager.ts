@@ -60,6 +60,12 @@ class EnhancedCacheManager {
    */
   private async initIndexedDB(): Promise<void> {
     if (!this.config.persistenceEnabled) return;
+    
+    // サーバーサイドではIndexedDBを使用しない
+    if (typeof window === 'undefined') {
+      console.warn('IndexedDBはクライアントサイドでのみ利用可能です');
+      return;
+    }
 
     return new Promise((resolve, reject) => {
       const request = indexedDB.open('enhanced_cache_db', 1);
@@ -102,8 +108,8 @@ class EnhancedCacheManager {
       return memoryItem.data;
     }
 
-    // IndexedDBから取得
-    if (this.db) {
+    // IndexedDBから取得（クライアントサイドのみ）
+    if (typeof window !== 'undefined' && this.db) {
       try {
         const dbItem = await this.getFromIndexedDB(key);
         if (dbItem && this.isValid(dbItem)) {
@@ -148,8 +154,8 @@ class EnhancedCacheManager {
     // メモリキャッシュに保存
     this.memoryCache.set(key, item);
 
-    // IndexedDBに保存
-    if (this.db) {
+    // IndexedDBに保存（クライアントサイドのみ）
+    if (typeof window !== 'undefined' && this.db) {
       try {
         await this.saveToIndexedDB(key, item);
       } catch (error) {
@@ -169,7 +175,7 @@ class EnhancedCacheManager {
   async delete(key: string): Promise<void> {
     this.memoryCache.delete(key);
     
-    if (this.db) {
+    if (typeof window !== 'undefined' && this.db) {
       try {
         await this.deleteFromIndexedDB(key);
       } catch (error) {
@@ -201,7 +207,7 @@ class EnhancedCacheManager {
   async clear(): Promise<void> {
     this.memoryCache.clear();
     
-    if (this.db) {
+    if (typeof window !== 'undefined' && this.db) {
       try {
         await this.clearIndexedDB();
       } catch (error) {
@@ -296,7 +302,7 @@ class EnhancedCacheManager {
    * IndexedDBからの取得
    */
   private async getFromIndexedDB(key: string): Promise<CacheItem<any> | null> {
-    if (!this.db) return null;
+    if (typeof window === 'undefined' || !this.db) return null;
 
     return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['cache'], 'readonly');
@@ -317,7 +323,7 @@ class EnhancedCacheManager {
    * IndexedDBへの保存
    */
   private async saveToIndexedDB(key: string, item: CacheItem<any>): Promise<void> {
-    if (!this.db) return;
+    if (typeof window === 'undefined' || !this.db) return;
 
     return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['cache'], 'readwrite');
@@ -333,7 +339,7 @@ class EnhancedCacheManager {
    * IndexedDBからの削除
    */
   private async deleteFromIndexedDB(key: string): Promise<void> {
-    if (!this.db) return;
+    if (typeof window === 'undefined' || !this.db) return;
 
     return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['cache'], 'readwrite');
@@ -349,7 +355,7 @@ class EnhancedCacheManager {
    * IndexedDBのクリア
    */
   private async clearIndexedDB(): Promise<void> {
-    if (!this.db) return;
+    if (typeof window === 'undefined' || !this.db) return;
 
     return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction(['cache'], 'readwrite');
