@@ -192,27 +192,24 @@ class ErrorHandler:
         recovery_params: Dict[str, Any],
     ) -> None:
         """共通復旧処理の実行"""
-        if self.logger:
-            self.logger.log_info(f"{error_type}エラーの復旧を試行中...")
+        if not self.logger:
+            return
+
+        self.logger.log_info(f"{error_type}エラーの復旧を試行中...")
 
         # 復旧パラメータに基づく処理
         for key, value in recovery_params.items():
-            if value and self.logger:
+            if value:
                 self.logger.log_info(f"{error_type}復旧を試行: {key}={value}")
 
         # リトライ回数のチェック
-        if "retry_count" in recovery_params and "max_retries" in recovery_params:
-            retry_count = recovery_params["retry_count"]
-            max_retries = recovery_params["max_retries"]
+        retry_count = recovery_params.get("retry_count", 0)
+        max_retries = recovery_params.get("max_retries", 3)
 
-            if retry_count < max_retries:
-                if self.logger:
-                    self.logger.log_info(
-                        f"{error_type}リトライを実行: {retry_count + 1}回目"
-                    )
-            else:
-                if self.logger:
-                    self.logger.log_warning(f"{error_type}復旧の上限に達しました")
+        if retry_count < max_retries:
+            self.logger.log_info(f"{error_type}リトライを実行: {retry_count + 1}回目")
+        else:
+            self.logger.log_warning(f"{error_type}復旧の上限に達しました")
 
     def handle_model_error(
         self,

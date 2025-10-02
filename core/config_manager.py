@@ -50,11 +50,17 @@ class ConfigManager:
         self.config = {
             "system": {
                 "name": "J-Quants株価予測システム",
-                "version": "2.0.0",
+                "version": "2.6.0",
                 "environment": "production",
                 "debug": False,
             },
-            "logging": {"level": "INFO", "file": "jquants.log", "console_output": True},
+            "logging": {
+                "level": "INFO",
+                "file": "jquants.log",
+                "console_output": True,
+                "max_file_size": "10MB",
+                "backup_count": 5,
+            },
             "security": {
                 "sensitive_keys": [
                     "password",
@@ -65,8 +71,14 @@ class ConfigManager:
                     "email",
                 ],
                 "mask_sensitive_data": True,
+                "encryption_enabled": False,
             },
-            "error_handling": {"unified_handler": True, "error_statistics": True},
+            "error_handling": {
+                "unified_handler": True,
+                "error_statistics": True,
+                "auto_recovery": True,
+                "max_recovery_attempts": 3,
+            },
             "prediction": {
                 "input_file": "processed_stock_data.csv",
                 "features": [
@@ -85,13 +97,16 @@ class ConfigManager:
                     "primary_model": "random_forest",
                 },
                 "output": {"image": "stock_prediction_result.png"},
+                "overfitting_detection": True,
+                "max_r2_score": 0.95,
             },
             "performance_optimization": {
                 "memory_limit_mb": 2048,
                 "chunk_size": 10000,
-                "max_workers": None,
+                "max_workers": 4,
                 "use_cache": True,
                 "use_parallel": True,
+                "cache_ttl": 3600,
             },
         }
 

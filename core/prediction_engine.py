@@ -167,6 +167,9 @@ class PredictionEngine:
             train_val_diff = train_r2 - val_r2
             val_test_diff = val_r2 - test_r2
 
+            # 設定から最大R²スコアを取得
+            max_r2 = self.prediction_config.get("max_r2_score", 0.95)
+
             # 過学習の判定基準
             is_overfitting = False
             risk_level = "低"
@@ -177,11 +180,11 @@ class PredictionEngine:
                 is_overfitting = True
                 risk_level = "高"
                 message = f"高リスク（R² = {test_r2:.3f} > 0.99）"
-            # 中リスク: R² > 0.95
-            elif test_r2 > 0.95:
+            # 中リスク: R² > 設定値
+            elif test_r2 > max_r2:
                 is_overfitting = True
                 risk_level = "中"
-                message = f"中リスク（R² = {test_r2:.3f} > 0.95）"
+                message = f"中リスク（R² = {test_r2:.3f} > {max_r2}）"
             # 過学習疑い: 訓練と検証の差が大きい
             elif train_val_diff > 0.1:
                 is_overfitting = True
@@ -201,6 +204,7 @@ class PredictionEngine:
                 "test_r2": test_r2,
                 "train_val_diff": train_val_diff,
                 "val_test_diff": val_test_diff,
+                "max_r2_threshold": max_r2,
             }
 
         except Exception as e:
@@ -215,6 +219,7 @@ class PredictionEngine:
                 "test_r2": 0.0,
                 "train_val_diff": 0.0,
                 "val_test_diff": 0.0,
+                "max_r2_threshold": 0.95,
             }
 
     def _compare_models_with_validation(
@@ -356,13 +361,14 @@ class PredictionEngine:
             # 過学習検出
             overfitting_detection = self._detect_overfitting(train_r2, val_r2, test_r2)
 
-            # R²の現実的な制限（最大0.95）
-            if test_r2 > 0.95:
+            # R²の現実的な制限（設定値に基づく）
+            max_r2 = self.prediction_config.get("max_r2_score", 0.95)
+            if test_r2 > max_r2:
                 if self.logger:
                     self.logger.log_warning(
-                        f"R²が高すぎます（{test_r2:.3f}）。0.95に制限します。"
+                        f"R²が高すぎます（{test_r2:.3f}）。{max_r2}に制限します。"
                     )
-                test_r2 = 0.95
+                test_r2 = max_r2
 
             return {
                 "predictions": y_test_pred,
