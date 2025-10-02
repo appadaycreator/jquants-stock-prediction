@@ -1,7 +1,16 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   // GitHub Pages用の静的エクスポート設定
-  output: "export",
+  // output: "export", // 一時的にコメントアウトしてテスト
+  
+  // 環境変数をクライアントサイドで利用可能にする
+  env: {
+    NEXT_PUBLIC_JQUANTS_EMAIL: process.env.NEXT_PUBLIC_JQUANTS_EMAIL,
+    NEXT_PUBLIC_JQUANTS_PASSWORD: process.env.NEXT_PUBLIC_JQUANTS_PASSWORD,
+    NEXT_PUBLIC_JQUANTS_ID_TOKEN: process.env.NEXT_PUBLIC_JQUANTS_ID_TOKEN,
+    NEXT_PUBLIC_JQUANTS_BASE_URL: process.env.NEXT_PUBLIC_JQUANTS_BASE_URL,
+    NEXT_PUBLIC_JQUANTS_TIMEOUT: process.env.NEXT_PUBLIC_JQUANTS_TIMEOUT,
+  },
   
   // 静的生成を無効化（動的レンダリングを強制）
   // output: "standalone",

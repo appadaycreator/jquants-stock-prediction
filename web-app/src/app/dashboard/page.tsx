@@ -6,11 +6,10 @@ import { useEffect, useState, Suspense } from "react";
 export const dynamic = "force-dynamic";
 import { ErrorBoundary } from "react-error-boundary";
 import dynamicImport from "next/dynamic";
-import Link from "next/link";
 import { SettingsProvider } from "../../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../../hooks/useAnalysisWithSettings";
 import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
-import UIUXIntegration from "../../components/UIUXIntegration";
+import { useRealDashboardData } from "@/hooks/useRealDashboardData";
 import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock, Cpu, Info } from "lucide-react";
 import { MODEL_DEFINITIONS } from "@/data/modelDefinitions";
 import { getCacheMeta } from "@/lib/fetcher";
@@ -153,8 +152,14 @@ function DashboardContent() {
   // 5分ルーティンフック
   const routine = useFiveMinRoutine();
 
+  // 実際のダッシュボードデータフック
+  const realDashboard = useRealDashboardData();
+
   // サンプルデータフック
   const sampleData = useSampleData();
+
+  // 実データ使用フラグ
+  const [useRealData, setUseRealData] = useState(true);
 
   useEffect(() => {
     const initializeDashboard = async () => {
@@ -442,11 +447,14 @@ function DashboardContent() {
                     {/* 更新ボタン群 */}
                     <div className="flex items-center gap-2">
                       <EnhancedRefreshButton
-                        onRefresh={handleRefresh}
-                        onForceRefresh={handleForceRefresh}
-                        onRecompute={handleRecompute}
-                        isLoading={isRefreshing}
-                        lastRefresh={lastUpdateTime ? new Date(lastUpdateTime) : undefined}
+                        onRefresh={useRealData ? realDashboard.actions.refresh : handleRefresh}
+                        onForceRefresh={useRealData ? realDashboard.actions.refresh : handleForceRefresh}
+                        onRecompute={useRealData ? realDashboard.actions.refresh : handleRecompute}
+                        isLoading={useRealData ? realDashboard.isLoading : isRefreshing}
+                        lastRefresh={useRealData 
+                          ? (realDashboard.lastUpdated ? new Date(realDashboard.lastUpdated) : undefined)
+                          : (lastUpdateTime ? new Date(lastUpdateTime) : undefined)
+                        }
                         refreshInterval={5} // 5分間隔で自動更新
                         variant="default"
                         size="md"
@@ -489,6 +497,32 @@ function DashboardContent() {
                 </nav>
               </div>
 
+              {/* データソース切り替えボタン */}
+              <div className="mb-6 flex justify-center">
+                <div className="bg-white rounded-lg p-2 shadow-sm border flex">
+                  <button
+                    onClick={() => setUseRealData(true)}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                      useRealData 
+                        ? "bg-blue-600 text-white" 
+                        : "text-gray-600 hover:text-gray-900"
+                    }`}
+                  >
+                    実データ (JQuants)
+                  </button>
+                  <button
+                    onClick={() => setUseRealData(false)}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                      !useRealData 
+                        ? "bg-blue-600 text-white" 
+                        : "text-gray-600 hover:text-gray-900"
+                    }`}
+                  >
+                    サンプルデータ
+                  </button>
+                </div>
+              </div>
+
               {/* タブコンテンツ */}
               {activeTab === "overview" && (
                 <div className="space-y-6" data-guide-target="overview">
@@ -496,12 +530,20 @@ function DashboardContent() {
                   <div className="bg-white rounded-lg shadow p-6">
                     <div className="flex items-center justify-between mb-4">
                       <h2 className="text-lg font-semibold text-gray-900">システム状況</h2>
-                      {/* データ鮮度表示 */}
-                      {freshnessInfos.length > 0 && (
-                        <DataFreshnessSummary
-                          freshnessInfos={freshnessInfos}
-                          onRefreshAll={handleRefresh}
-                        />
+                      {/* 接続ステータス表示（実データモード時） */}
+                      {useRealData && realDashboard.connectionStatus && (
+                        <div className={`flex items-center px-3 py-1 rounded-lg text-sm ${
+                          realDashboard.connectionStatus.success 
+                            ? "bg-green-50 text-green-800" 
+                            : "bg-red-50 text-red-800"
+                        }`}>
+                          {realDashboard.connectionStatus.success ? (
+                            <CheckCircle className="w-4 h-4 mr-2" />
+                          ) : (
+                            <AlertTriangle className="w-4 h-4 mr-2" />
+                          )}
+                          JQuants API: {realDashboard.connectionStatus.success ? "接続中" : "エラー"}
+                        </div>
                       )}
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -511,7 +553,9 @@ function DashboardContent() {
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-900">システム状態</p>
-                          <p className="text-sm text-green-600">正常稼働中</p>
+                          <p className="text-sm text-green-600">
+                            {useRealData && realDashboard.connectionStatus?.success ? "JQuants接続中" : "正常稼働中"}
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
@@ -520,7 +564,12 @@ function DashboardContent() {
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-900">データ更新</p>
-                          <p className="text-sm text-gray-600">{lastUpdateTime || "未更新"}</p>
+                          <p className="text-sm text-gray-600">
+                            {useRealData 
+                              ? (realDashboard.lastUpdated ? new Date(realDashboard.lastUpdated).toLocaleString("ja-JP") : "未更新")
+                              : (lastUpdateTime || "未更新")
+                            }
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
@@ -528,14 +577,55 @@ function DashboardContent() {
                           <Cpu className="h-8 w-8 text-purple-500" />
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-900">モデル状態</p>
-                          <p className="text-sm text-gray-600">学習済み</p>
+                          <p className="text-sm font-medium text-gray-900">分析銘柄数</p>
+                          <p className="text-sm text-gray-600">
+                            {useRealData && realDashboard.marketSummary 
+                              ? `${realDashboard.marketSummary.analyzedSymbols}/${realDashboard.marketSummary.totalSymbols}件`
+                              : "学習済み"
+                            }
+                          </p>
                         </div>
                       </div>
                     </div>
                     
-                    {/* 詳細なキャッシュ状態 */}
-                    {freshnessInfos.length > 0 && (
+                    {/* 実データの場合は市場サマリーを表示 */}
+                    {useRealData && realDashboard.marketSummary && (
+                      <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-green-600">
+                            {realDashboard.marketSummary.recommendations.STRONG_BUY + realDashboard.marketSummary.recommendations.BUY}
+                          </div>
+                          <div className="text-sm text-gray-600">買い推奨</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-blue-600">
+                            {realDashboard.marketSummary.recommendations.HOLD}
+                          </div>
+                          <div className="text-sm text-gray-600">ホールド</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-red-600">
+                            {realDashboard.marketSummary.recommendations.SELL + realDashboard.marketSummary.recommendations.STRONG_SELL}
+                          </div>
+                          <div className="text-sm text-gray-600">売り推奨</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-green-600">
+                            {realDashboard.marketSummary.topGainers.length}
+                          </div>
+                          <div className="text-sm text-gray-600">上昇銘柄</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-red-600">
+                            {realDashboard.marketSummary.topLosers.length}
+                          </div>
+                          <div className="text-sm text-gray-600">下落銘柄</div>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* 詳細なキャッシュ状態（サンプルデータ時のみ） */}
+                    {!useRealData && freshnessInfos.length > 0 && (
                       <div className="mt-6">
                         <CacheVisualization
                           freshnessInfos={freshnessInfos}

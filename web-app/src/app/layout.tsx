@@ -103,14 +103,14 @@ export default function RootLayout({
 
   return (
     <html lang="ja">
-      <body className={inter.className}>
+      <body className={`${inter.className} theme-base`}>
         <ThemeProvider>
           <AccessibilityProvider>
             <SettingsProvider>
               <UserProfileProvider>
                 <UnifiedErrorBoundary>
                   <GlobalErrorBoundary>
-                    <div id="root" className="theme-base">
+                    <div id="root">
                       {/* レスポンシブレイアウト */}
                       <ResponsiveLayout>
                         {children}

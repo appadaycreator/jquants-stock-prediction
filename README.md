@@ -15,6 +15,7 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 **✅ 大規模データ処理最適化実装完了:**
 **✅ 今日の指示・シグナル取得エラー解消実装完了:**
 **✅ モデル比較・分析タブの情報拡充実装完了:**
+**✅ jQuants IDトークン再発行システム実装完了:**
 
 ### 1. **ダークモード対応**
 - **テーマ切り替え**: ライト/ダーク/自動の3つのテーマモードを提供
@@ -42,6 +43,7 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 - **IndexedDBキャッシュ**: 日足データの差分更新、直近7日は常時再取得
 - **1クリック更新**: トークン設定後は1クリックで最新データを取得
 - **レート制限耐性**: キャッシュ機能によりAPI呼び出し回数を削減
+- **トークン再発行システム**: 24時間で期限切れになるIDトークンの自動再発行機能
 
 ### 5. **状態と例外の観測性（Observability）**
 - **通信エラー集計**: タイムアウト、ネットワークエラー、HTTPエラーの統計出力
@@ -1210,10 +1212,46 @@ GitHub Actionsで自動実行する場合、Secrets and VariablesでJ-Quantsの�
    JQUANTS_ID_TOKEN: your_id_token
    ```
 
-3. **JQUANTS_ID_TOKENの取得方法**
-   - J-Quants APIにログインしてIDトークンを取得
-   - または、既存の認証フローで取得したIDトークンを使用
+3. **JQUants IDトークンの取得・再発行方法**
+
+   **方法A: Webインターフェースを使用（推奨）**
+   ```bash
+   # Webアプリを起動
+   cd web-app
+   npm run dev
+   
+   # ブラウザで http://localhost:3000/token-reissue にアクセス
+   # 認証情報を入力してトークンを再発行
+   ```
+
+   **方法B: コマンドラインスクリプトを使用**
+   ```bash
+   # 仮想環境を作成・アクティベート
+   python3 -m venv venv_token
+   source venv_token/bin/activate
+   
+   # 必要なライブラリをインストール
+   pip install requests
+   
+   # トークン再発行スクリプトを実行
+   python3 reissue_jquants_token.py
+   ```
+
+   **方法C: 手動でAPIを呼び出し**
+   ```bash
+   # Step 1: リフレッシュトークンを取得
+   curl -X POST "https://api.jquants.com/v1/token/auth_user" \
+     -H "Content-Type: application/json" \
+     -d '{"mailaddress": "your_email@example.com", "password": "your_password"}'
+   
+   # Step 2: IDトークンを取得（上記のレスポンスからrefreshTokenを取得）
+   curl -X POST "https://api.jquants.com/v1/token/auth_refresh" \
+     -H "Content-Type: application/json" \
+     -d '{"refreshtoken": "your_refresh_token_here"}'
+   ```
+
    - IDトークンは24時間有効です
+   - 定期的な再発行が必要です
 
 4. **GitHub Actionsでの自動実行**
    - プッシュ時に自動的にデータ取得・分析・デプロイが実行されます

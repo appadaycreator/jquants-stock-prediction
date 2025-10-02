@@ -178,22 +178,22 @@ export default function LazyChart({
   const importChartLibrary = useCallback(async (chartType: string) => {
     const startTime = performance.now();
 
-    let module;
+    let chartModule;
     switch (chartType) {
       case "line":
-        module = await import("chart.js");
+        chartModule = await import("chart.js");
         break;
       case "candlestick":
-        module = await import("lightweight-charts");
+        chartModule = await import("lightweight-charts");
         break;
       case "volume":
-        module = await import("chart.js");
+        chartModule = await import("chart.js");
         break;
       case "technical":
-        module = await import("chart.js");
+        chartModule = await import("chart.js");
         break;
       default:
-        module = await import("chart.js");
+        chartModule = await import("chart.js");
     }
 
     const loadTime = performance.now() - startTime;
@@ -203,7 +203,7 @@ export default function LazyChart({
       status: loadTime < 500 ? "FAST" : "NORMAL",
     });
 
-    return module;
+    return chartModule;
   }, []);
 
   // チャートの再描画
@@ -403,22 +403,22 @@ export function useLazyChart() {
 async function importChartLibrary(type: string) {
   const startTime = performance.now();
 
-  let module;
+  let chartModule;
   switch (type) {
     case "line":
-      module = await import("chart.js");
+      chartModule = await import("chart.js");
       break;
     case "candlestick":
-      module = await import("lightweight-charts");
+      chartModule = await import("lightweight-charts");
       break;
     case "volume":
-      module = await import("chart.js");
+      chartModule = await import("chart.js");
       break;
     case "technical":
-      module = await import("chart.js");
+      chartModule = await import("chart.js");
       break;
     default:
-      module = await import("chart.js");
+      chartModule = await import("chart.js");
   }
 
   const loadTime = performance.now() - startTime;
@@ -428,5 +428,5 @@ async function importChartLibrary(type: string) {
     status: loadTime < 500 ? "FAST" : "NORMAL",
   });
 
-  return module;
+  return chartModule;
 }
