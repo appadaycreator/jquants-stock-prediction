@@ -155,7 +155,7 @@ class DeploymentPrecheckSystem:
             # 主要ファイルのインポートチェック
             main_files = [
                 "unified_system.py",
-                "unified_jquants_system.py",
+                # "unified_jquants_system.py",  # 削除済み
                 "enhanced_ai_prediction_system.py"
             ]
             

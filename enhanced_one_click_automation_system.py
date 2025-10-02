@@ -183,11 +183,11 @@ class EnhancedOneClickAutomationSystem:
 
         try:
             # 統合J-Quantsシステム
-            from unified_jquants_system import UnifiedJQuantsSystem
+            from unified_system import UnifiedSystem
 
-            systems["jquants"] = UnifiedJQuantsSystem()
+            systems["jquants"] = UnifiedSystem()
         except ImportError:
-            logger.warning("UnifiedJQuantsSystemのインポートに失敗")
+            logger.warning("UnifiedSystemのインポートに失敗")
 
         try:
             # Web分析ランナー

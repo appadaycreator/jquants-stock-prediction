@@ -40,7 +40,7 @@ class WebAnalysisRunner:
         try:
             # ステップ1: 最適化されたデータ取得（キャッシュ活用）
             logger.info("ステップ1: 最適化データ取得中...")
-            from unified_jquants_system import UnifiedJQuantsSystem
+            from unified_system import UnifiedSystem
 
             system = UnifiedJQuantsSystem()
             today = datetime.now().strftime("%Y%m%d")
@@ -109,7 +109,7 @@ class WebAnalysisRunner:
         try:
             # ステップ1: 統合システムの実行
             logger.info("ステップ1: 統合J-Quantsシステム実行中...")
-            from unified_jquants_system import UnifiedJQuantsSystem
+            from unified_system import UnifiedSystem
 
             system = UnifiedJQuantsSystem()
             today = datetime.now().strftime("%Y%m%d")
