@@ -50,14 +50,14 @@ interface RiskCustomizationSettings {
 
 const riskCustomizationStore = {
   getSettings: () => {
-    const stored = localStorage.getItem('risk-customization');
+    const stored = localStorage.getItem("risk-customization");
     return stored ? JSON.parse(stored) : {
       riskTolerance: { maxDrawdown: 0.1, volatilityTolerance: 0.2, varTolerance: 0.05 },
       targetReturn: { annual: 0.08, monthly: 0.006, riskAdjusted: true },
       notifications: { riskAlerts: true, returnAlerts: true, drawdownAlerts: true },
-      display: { showRiskMetrics: true, showReturnMetrics: true, showAlerts: true }
+      display: { showRiskMetrics: true, showReturnMetrics: true, showAlerts: true },
     };
-  }
+  },
 };
 
 interface RiskSettingsPanelProps {

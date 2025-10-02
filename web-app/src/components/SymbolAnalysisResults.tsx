@@ -50,7 +50,7 @@ export default function SymbolAnalysisResults({ selectedSymbols }: SymbolAnalysi
       setLoading(true);
       setError(null);
       
-      const response = await fetch("./data/symbol_analysis_results.json");
+      const response = await fetch("/data/symbol_analysis_results.json");
       if (!response.ok) {
         throw new Error("分析結果が見つかりません");
       }

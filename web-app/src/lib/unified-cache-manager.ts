@@ -232,11 +232,11 @@ class UnifiedCacheManager {
   async cachePrediction(
     key: string,
     data: PredictionCacheData,
-    options: CacheOptions = {}
+    options: CacheOptions = {},
   ): Promise<void> {
     await this.set(key, data, {
       ...options,
-      tags: [...(options.tags || []), 'prediction'],
+      tags: [...(options.tags || []), "prediction"],
       ttl: options.ttl || 24 * 60 * 60 * 1000, // 24時間
     });
   }
@@ -250,11 +250,11 @@ class UnifiedCacheManager {
   async cacheModelComparison(
     key: string,
     data: ModelComparisonCacheData,
-    options: CacheOptions = {}
+    options: CacheOptions = {},
   ): Promise<void> {
     await this.set(key, data, {
       ...options,
-      tags: [...(options.tags || []), 'modelComparison'],
+      tags: [...(options.tags || []), "modelComparison"],
       ttl: options.ttl || 24 * 60 * 60 * 1000, // 24時間
     });
   }

@@ -62,9 +62,9 @@ export default function ReportsPage() {
     try {
       // 統合データソースからデータを取得
       const [modelRes, marketInsightsRes, riskAssessmentRes] = await Promise.all([
-        fetch("./data/unified_model_comparison.json"),
-        fetch("./data/market_insights.json"),
-        fetch("./data/risk_assessment.json"),
+        fetch("/data/unified_model_comparison.json"),
+        fetch("/data/market_insights.json"),
+        fetch("/data/risk_assessment.json"),
       ]);
 
       const modelData = await modelRes.json();

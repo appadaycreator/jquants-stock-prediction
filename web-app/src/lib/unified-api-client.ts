@@ -23,7 +23,7 @@ class UnifiedApiClient {
   private baseURL: string;
   private defaultConfig: ApiRequestConfig;
 
-  constructor(baseURL: string = '/api') {
+  constructor(baseURL: string = "/api") {
     this.baseURL = baseURL;
     this.defaultConfig = {
       timeout: 10000,
@@ -36,22 +36,22 @@ class UnifiedApiClient {
 
   // GET リクエスト
   async get<T = any>(url: string, config: ApiRequestConfig = {}): Promise<ApiResponse<T>> {
-    return this.request<T>('GET', url, undefined, config);
+    return this.request<T>("GET", url, undefined, config);
   }
 
   // POST リクエスト
   async post<T = any>(url: string, data?: any, config: ApiRequestConfig = {}): Promise<ApiResponse<T>> {
-    return this.request<T>('POST', url, data, config);
+    return this.request<T>("POST", url, data, config);
   }
 
   // PUT リクエスト
   async put<T = any>(url: string, data?: any, config: ApiRequestConfig = {}): Promise<ApiResponse<T>> {
-    return this.request<T>('PUT', url, data, config);
+    return this.request<T>("PUT", url, data, config);
   }
 
   // DELETE リクエスト
   async delete<T = any>(url: string, config: ApiRequestConfig = {}): Promise<ApiResponse<T>> {
-    return this.request<T>('DELETE', url, undefined, config);
+    return this.request<T>("DELETE", url, undefined, config);
   }
 
   // 汎用リクエストメソッド
@@ -59,7 +59,7 @@ class UnifiedApiClient {
     method: string,
     url: string,
     data?: any,
-    config: ApiRequestConfig = {}
+    config: ApiRequestConfig = {},
   ): Promise<ApiResponse<T>> {
     const mergedConfig = { ...this.defaultConfig, ...config };
     const fullUrl = this.buildUrl(url);
@@ -80,7 +80,7 @@ class UnifiedApiClient {
       }
     }
     
-    throw lastError || new Error('Request failed');
+    throw lastError || new Error("Request failed");
   }
 
   // 実際のHTTPリクエストを実行
@@ -88,7 +88,7 @@ class UnifiedApiClient {
     method: string,
     url: string,
     data?: any,
-    config: ApiRequestConfig
+    config: ApiRequestConfig,
   ): Promise<ApiResponse<T>> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), config.timeout);
@@ -97,7 +97,7 @@ class UnifiedApiClient {
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           ...config.headers,
         },
         body: data ? JSON.stringify(data) : undefined,
@@ -126,10 +126,10 @@ class UnifiedApiClient {
 
   // URLを構築
   private buildUrl(url: string): string {
-    if (url.startsWith('http')) {
+    if (url.startsWith("http")) {
       return url;
     }
-    return `${this.baseURL}${url.startsWith('/') ? url : `/${url}`}`;
+    return `${this.baseURL}${url.startsWith("/") ? url : `/${url}`}`;
   }
 
   // ヘッダーを抽出
@@ -153,12 +153,12 @@ class UnifiedApiClient {
       // フロントエンドが動作しているということは、基本的な接続は成功している
       return {
         success: true,
-        message: 'Frontend connection successful',
+        message: "Frontend connection successful",
       };
     } catch (error) {
       return {
         success: false,
-        message: `Connection failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        message: `Connection failed: ${error instanceof Error ? error.message : "Unknown error"}`,
       };
     }
   }

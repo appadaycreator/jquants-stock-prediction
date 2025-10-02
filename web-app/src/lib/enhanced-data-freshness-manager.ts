@@ -57,7 +57,7 @@ class EnhancedDataFreshnessManager {
     lastUpdated: Date,
     ttlMinutes?: number,
     source: "api" | "cache" | "fallback" = "api",
-    refreshCallback?: () => Promise<void>
+    refreshCallback?: () => Promise<void>,
   ): void {
     this.dataSources.set(id, {
       id,
@@ -86,7 +86,7 @@ class EnhancedDataFreshnessManager {
   public getFreshnessInfo(
     lastUpdated: Date | string | number,
     source: "api" | "cache" | "fallback" = "api",
-    ttlMinutes?: number
+    ttlMinutes?: number,
   ): FreshnessInfo {
     const now = new Date();
     const lastUpdatedDate = new Date(lastUpdated);
@@ -139,7 +139,7 @@ class EnhancedDataFreshnessManager {
     return this.getFreshnessInfo(
       dataSource.lastUpdated,
       dataSource.source,
-      dataSource.ttlMinutes
+      dataSource.ttlMinutes,
     );
   }
 

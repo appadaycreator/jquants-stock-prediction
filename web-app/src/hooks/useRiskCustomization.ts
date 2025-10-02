@@ -3,7 +3,7 @@
  * リスク管理設定の状態管理と操作を提供
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 // risk-customization-store は削除され、統合設定管理を使用
 // 一時的にローカル状態管理に変更
 interface RiskCustomizationSettings {
@@ -36,30 +36,30 @@ const riskCustomizationStore = {
       riskTolerance: { maxDrawdown: 0.1, volatilityTolerance: 0.2, varTolerance: 0.05 },
       targetReturn: { annual: 0.08, monthly: 0.006, riskAdjusted: true },
       notifications: { riskAlerts: true, returnAlerts: true, drawdownAlerts: true },
-      display: { showRiskMetrics: true, showReturnMetrics: true, showAlerts: true }
+      display: { showRiskMetrics: true, showReturnMetrics: true, showAlerts: true },
     },
     isLoading: false,
     error: null,
-    lastUpdated: new Date().toISOString()
+    lastUpdated: new Date().toISOString(),
   }),
   subscribe: (callback: () => void) => () => {},
   updateSettings: (settings: Partial<RiskCustomizationSettings>) => {
     // ローカルストレージに保存
-    localStorage.setItem('risk-customization', JSON.stringify(settings));
+    localStorage.setItem("risk-customization", JSON.stringify(settings));
   },
   saveToLocalStorage: () => {},
   resetSettings: () => {
-    localStorage.removeItem('risk-customization');
+    localStorage.removeItem("risk-customization");
   },
   getSettings: () => {
-    const stored = localStorage.getItem('risk-customization');
+    const stored = localStorage.getItem("risk-customization");
     return stored ? JSON.parse(stored) : {
       riskTolerance: { maxDrawdown: 0.1, volatilityTolerance: 0.2, varTolerance: 0.05 },
       targetReturn: { annual: 0.08, monthly: 0.006, riskAdjusted: true },
       notifications: { riskAlerts: true, returnAlerts: true, drawdownAlerts: true },
-      display: { showRiskMetrics: true, showReturnMetrics: true, showAlerts: true }
+      display: { showRiskMetrics: true, showReturnMetrics: true, showAlerts: true },
     };
-  }
+  },
 };
 
 export function useRiskCustomization() {
