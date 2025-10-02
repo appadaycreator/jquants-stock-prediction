@@ -14,12 +14,16 @@ on:
 jobs:
   update-stock-data:
     runs-on: ubuntu-latest
-    
+    permissions:
+      contents: write
+      pull-requests: write
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
           
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -66,7 +70,11 @@ jobs:
           git config --local user.name "GitHub Action"
           git add docs/data/
           git commit -m "📊 Update stock data $(date '+%Y-%m-%d %H:%M:%S')"
-          git push
+          git push origin HEAD:main || {
+            echo "Push failed, trying to pull and push again..."
+            git pull origin main --rebase
+            git push origin HEAD:main
+          }
           
       - name: Create summary
         run: |

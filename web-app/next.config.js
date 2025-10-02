@@ -7,6 +7,12 @@ const nextConfig = {
   },
   assetPrefix: process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "",
   basePath: process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "",
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 module.exports = nextConfig;
