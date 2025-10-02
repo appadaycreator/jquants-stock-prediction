@@ -449,4 +449,6 @@ export const optimizedErrorHandler = {
   reset: () => unifiedErrorHandler.reset(),
 };
 
+// 明示的なエクスポートは不要（既に関数としてエクスポート済み）
+
 export default unifiedErrorHandler;

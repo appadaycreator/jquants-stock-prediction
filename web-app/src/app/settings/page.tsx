@@ -128,14 +128,19 @@ export default function SettingsPage() {
       const res = await fetch("/api/risk-settings", { cache: "no-store" });
       
       if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
+        if (res.status === 404) {
+          console.warn("リスク設定APIが見つかりません。デフォルト設定を使用します。");
+        } else {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+      } else {
+        const json = await res.json();
+        setRiskSettings(json);
+        return; // 成功した場合はここで終了
       }
-      
-      const json = await res.json();
-      setRiskSettings(json);
     } catch (e) {
       console.error("リスク設定読み込みエラー:", e);
-      // デフォルト設定を使用
+      // エラーが発生した場合はデフォルト設定を使用
       setRiskSettings({
         riskTolerance: "medium",
         maxLossPercentage: 5,
@@ -201,17 +206,31 @@ export default function SettingsPage() {
         showMessage("最大損失率は 0 < p <= 0.5 で指定してください", "error");
         return;
       }
+      
       const resp = await fetch("/api/risk-settings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(riskSettings),
       });
-      const json = await resp.json();
-      if (!resp.ok || json?.ok === false) {
-        const errText = json?.errors?.join("\n") || "保存に失敗しました";
+      
+      if (!resp.ok) {
+        if (resp.status === 404) {
+          showMessage("リスク設定APIが見つかりません。設定は保存されませんでした。", "error");
+          return;
+        }
+        const errorData = await resp.json().catch(() => ({}));
+        const errText = errorData?.error || `HTTP error! status: ${resp.status}`;
         showMessage(errText, "error");
         return;
       }
+      
+      const json = await resp.json();
+      if (json?.success === false) {
+        const errText = json?.error || "保存に失敗しました";
+        showMessage(errText, "error");
+        return;
+      }
+      
       setRiskSettings(json.settings || json);
       showMessage("リスク設定を保存し即時適用しました", "success");
     } catch (e) {

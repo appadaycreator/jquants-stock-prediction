@@ -153,22 +153,66 @@ export default function RiskDashboard() {
         fetch("/data/risk_recommendations.json"),
       ]);
 
-      const overviewData = await overviewRes.json();
-      const positionsData = await positionsRes.json();
-      const metricsData = await metricsRes.json();
-      const performanceData = await performanceRes.json();
-      const alertsData = await alertsRes.json();
-      const recommendationsData = await recommendationsRes.json();
+      // 各レスポンスのステータスをチェック
+      if (!overviewRes.ok) {
+        console.warn("ポートフォリオ概要データの読み込みに失敗:", overviewRes.status);
+      }
+      if (!positionsRes.ok) {
+        console.warn("ポジションデータの読み込みに失敗:", positionsRes.status);
+      }
+      if (!metricsRes.ok) {
+        console.warn("リスクメトリクスデータの読み込みに失敗:", metricsRes.status);
+      }
+      if (!performanceRes.ok) {
+        console.warn("パフォーマンスデータの読み込みに失敗:", performanceRes.status);
+      }
+      if (!alertsRes.ok) {
+        console.warn("アラートデータの読み込みに失敗:", alertsRes.status);
+      }
+      if (!recommendationsRes.ok) {
+        console.warn("推奨データの読み込みに失敗:", recommendationsRes.status);
+      }
 
-      setPortfolioOverview(overviewData);
-      setPositions(positionsData);
-      setRiskMetricsChart(metricsData);
-      setPositionPerformanceChart(performanceData);
-      setRiskAlerts(alertsData);
-      setRecommendations(recommendationsData);
+      // 成功したレスポンスのみを処理
+      if (overviewRes.ok) {
+        const overviewData = await overviewRes.json();
+        setPortfolioOverview(overviewData);
+      }
+      
+      if (positionsRes.ok) {
+        const positionsData = await positionsRes.json();
+        setPositions(positionsData);
+      }
+      
+      if (metricsRes.ok) {
+        const metricsData = await metricsRes.json();
+        setRiskMetricsChart(metricsData);
+      }
+      
+      if (performanceRes.ok) {
+        const performanceData = await performanceRes.json();
+        setPositionPerformanceChart(performanceData);
+      }
+      
+      if (alertsRes.ok) {
+        const alertsData = await alertsRes.json();
+        setRiskAlerts(alertsData);
+      }
+      
+      if (recommendationsRes.ok) {
+        const recommendationsData = await recommendationsRes.json();
+        setRecommendations(recommendationsData);
+      }
       
     } catch (error) {
       console.error("リスクデータの読み込みエラー:", error);
+      // エラーが発生した場合でも、デフォルト値を設定
+      setPortfolioOverview(null);
+      setPositions([]);
+      setRiskMetricsChart(null);
+      setPositionPerformanceChart(null);
+      setRiskAlerts([]);
+      setRecommendations([]);
     } finally {
       setLoading(false);
     }
@@ -219,6 +263,37 @@ export default function RiskDashboard() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  // データが存在しない場合の表示
+  if (!portfolioOverview && positions.length === 0 && riskAlerts.length === 0 && recommendations.length === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-6">
+        <div className="w-full">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">🛡️ リスク管理ダッシュボード</h1>
+            <p className="text-gray-600">現在のポジション状況、損切りライン、リスクレベルを可視化</p>
+          </div>
+          
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="text-center">
+              <AlertTriangle className="h-16 w-16 text-yellow-500 mx-auto mb-4" />
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">データが見つかりません</h2>
+              <p className="text-gray-600 mb-4">
+                リスク管理データの読み込みに失敗しました。<br />
+                データファイルが存在することを確認してください。
+              </p>
+              <button 
+                onClick={loadRiskData}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                再読み込み
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -368,8 +443,15 @@ export default function RiskDashboard() {
                   <CardTitle>現在のポジション</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
-                    {positions.map((position) => (
+                  {positions.length === 0 ? (
+                    <div className="text-center py-8">
+                      <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                      <p className="text-gray-600">ポジションデータがありません</p>
+                      <p className="text-sm text-gray-500">データの読み込みを確認してください</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {positions.map((position) => (
                       <div
                         key={position.symbol}
                         className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer"
@@ -416,8 +498,9 @@ export default function RiskDashboard() {
                           </div>
                         )}
                       </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
@@ -496,8 +579,15 @@ export default function RiskDashboard() {
                 <CardTitle>リスク管理推奨事項</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {recommendations.map((rec) => (
+                {recommendations.length === 0 ? (
+                  <div className="text-center py-8">
+                    <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-600">推奨事項データがありません</p>
+                    <p className="text-sm text-gray-500">データの読み込みを確認してください</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {recommendations.map((rec) => (
                     <div key={rec.id} className="border rounded-lg p-4">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -510,8 +600,9 @@ export default function RiskDashboard() {
                         </Badge>
                       </div>
                     </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
