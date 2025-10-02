@@ -13,12 +13,12 @@ import os
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-from test_jquants_data_preprocessing import (
+from jquants_data_preprocessing import (
     validate_input_file,
     load_and_clean_data,
     engineer_basic_features,
 )
-from test_unified_system import FileError
+from unified_system import FileError
 
 
 class TestDataPreprocessing:
@@ -154,7 +154,7 @@ class TestDataPreprocessing:
         if "Date" in result.columns:
             assert pd.api.types.is_datetime64_any_dtype(result["Date"])
 
-    @patch("test_jquants_data_preprocessing.logger")
+    @patch("jquants_data_preprocessing.logger")
     def test_engineer_basic_features_logging(self, mock_logger, sample_stock_data):
         """ログ出力のテスト"""
         engineer_basic_features(sample_stock_data)
