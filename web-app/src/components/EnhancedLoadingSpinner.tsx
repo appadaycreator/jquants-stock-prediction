@@ -5,7 +5,7 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Loader2, AlertTriangle, RefreshCw, CheckCircle } from 'lucide-react';
 
 interface LoadingState {
@@ -217,7 +217,7 @@ export function useLoadingState(initialMessage: string = '読み込み中...') {
     maxRetries: 3,
   });
 
-  const startLoading = (message: string = initialMessage) => {
+  const startLoading = useCallback((message: string = initialMessage) => {
     setState(prev => ({
       ...prev,
       isLoading: true,
@@ -226,26 +226,26 @@ export function useLoadingState(initialMessage: string = '読み込み中...') {
       error: undefined,
       canRetry: false,
     }));
-  };
+  }, [initialMessage]);
 
-  const updateProgress = (progress: number, message?: string) => {
+  const updateProgress = useCallback((progress: number, message?: string) => {
     setState(prev => ({
       ...prev,
       progress: Math.min(100, Math.max(0, progress)),
       message: message || prev.message,
     }));
-  };
+  }, []);
 
-  const setError = (error: string, canRetry: boolean = true) => {
+  const setError = useCallback((error: string, canRetry: boolean = true) => {
     setState(prev => ({
       ...prev,
       isLoading: false,
       error,
       canRetry,
     }));
-  };
+  }, []);
 
-  const setSuccess = (message: string = '完了') => {
+  const setSuccess = useCallback((message: string = '完了') => {
     setState(prev => ({
       ...prev,
       isLoading: false,
@@ -254,9 +254,9 @@ export function useLoadingState(initialMessage: string = '読み込み中...') {
       error: undefined,
       canRetry: false,
     }));
-  };
+  }, []);
 
-  const retry = () => {
+  const retry = useCallback(() => {
     setState(prev => ({
       ...prev,
       isLoading: true,
@@ -265,9 +265,9 @@ export function useLoadingState(initialMessage: string = '読み込み中...') {
       retryCount: prev.retryCount + 1,
       canRetry: prev.retryCount < prev.maxRetries,
     }));
-  };
+  }, []);
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setState({
       isLoading: false,
       progress: 0,
@@ -276,7 +276,7 @@ export function useLoadingState(initialMessage: string = '読み込み中...') {
       retryCount: 0,
       maxRetries: 3,
     });
-  };
+  }, [initialMessage]);
 
   return {
     state,

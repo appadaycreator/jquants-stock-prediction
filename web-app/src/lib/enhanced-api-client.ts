@@ -40,7 +40,7 @@ class EnhancedApiClient {
 
   constructor(config: Partial<ApiClientConfig> = {}) {
     this.config = {
-      baseUrl: config.baseUrl || '/api/proxy',
+      baseUrl: config.baseUrl || (typeof window !== 'undefined' ? `${window.location.origin}/api/proxy` : 'http://localhost:3000/api/proxy'),
       timeout: config.timeout || 30000,
       maxRetries: config.maxRetries || 3,
       retryDelay: config.retryDelay || 1000,
@@ -207,12 +207,14 @@ class EnhancedApiClient {
     data?: any,
     params?: Record<string, any>
   ): Promise<any> {
-    const url = new URL(`${this.config.baseUrl}?endpoint=${endpoint}`);
+    // プロキシエンドポイントの構築
+    const proxyUrl = new URL(this.config.baseUrl);
+    proxyUrl.searchParams.append('endpoint', endpoint);
     
     // パラメータの追加
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
-        url.searchParams.append(key, String(value));
+        proxyUrl.searchParams.append(key, String(value));
       });
     }
 
@@ -220,7 +222,7 @@ class EnhancedApiClient {
     const timeoutId = setTimeout(() => controller.abort(), timeout);
 
     try {
-      const response = await fetch(url.toString(), {
+      const response = await fetch(proxyUrl.toString(), {
         method,
         headers: {
           'Content-Type': 'application/json',

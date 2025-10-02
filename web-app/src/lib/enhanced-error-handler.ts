@@ -62,11 +62,11 @@ class EnhancedErrorHandler {
     this.errorCounts.set(errorKey, errorCount + 1);
     this.lastErrorTime.set(errorKey, now);
     
-    // コンソールにログ出力（一時的に無効化）
-    // this.logError(error, context, classification);
+    // コンソールにログ出力
+    this.logError(error, context, classification);
     
-    // ユーザー通知（一時的に無効化）
-    // this.notifyUser(classification, context);
+    // ユーザー通知
+    this.notifyUser(classification, context);
     
     return classification;
   }
