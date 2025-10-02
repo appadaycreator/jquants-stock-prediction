@@ -276,7 +276,8 @@ def engineer_basic_features(df):
 
     # 空のDataFrameチェック
     if df.empty:
-        raise KeyError("Empty dataframe")
+        logger.warning("⚠️ 空のデータフレームが渡されました。空のデータフレームを返します。")
+        return df
 
     # 基本的な移動平均（技術指標と重複回避）
     basic_sma_windows = preprocessing_config.get("sma_windows", [5, 10, 25, 50])

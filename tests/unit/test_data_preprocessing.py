@@ -158,8 +158,9 @@ class TestDataPreprocessing:
         """空のデータフレームの処理テスト"""
         empty_df = pd.DataFrame()
 
-        with pytest.raises(ValueError):
-            engineer_basic_features(empty_df)
+        result = engineer_basic_features(empty_df)
+        assert result.empty
+        assert len(result) == 0
 
     def test_preprocess_data_single_row(self):
         """1行のデータフレームの処理テスト"""
