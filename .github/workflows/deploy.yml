@@ -7,14 +7,18 @@ on:
 
 # GitHub Pagesのデプロイに必要な権限を設定
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
+# 同時実行を制限
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment: github-pages
     
     steps:
     - name: Checkout
@@ -49,64 +53,34 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        
-    - name: Clear all caches
-      run: |
-        cd web-app
-        # すべてのキャッシュとビルドファイルを完全にクリア
-        rm -rf node_modules package-lock.json .next dist out
-        npm cache clean --force
-        # システムキャッシュもクリア
-        sudo apt-get clean
-        sudo apt-get autoclean
-        sudo apt-get autoremove -y
-        # ファイルのタイムスタンプを更新して変更を確実に反映
-        find src -name "*.tsx" -o -name "*.ts" | xargs touch
-        # 強制的にファイルシステムを同期
-        sync
-        # 追加のキャッシュクリア
-        rm -rf ~/.npm ~/.cache/npm ~/.cache/node
-        # 環境変数でキャッシュを無効化
-        export NPM_CONFIG_CACHE=false
-        export NEXT_BUILD_CACHE=false
-        export NPM_CONFIG_UPDATE_NOTIFIER=false
+        cache: 'npm'
+        cache-dependency-path: 'web-app/package-lock.json'
         
     - name: Install Node.js dependencies
       run: |
         cd web-app
-        # 依存関係を再インストール（キャッシュ完全無効化）
-        npm install --legacy-peer-deps --no-cache --no-optional --no-audit --no-fund
-        npm install react-is --save --no-cache --no-optional
+        npm ci --legacy-peer-deps
         
     - name: Build web application
       run: |
         cd web-app
-        # ビルド前の完全なクリーンアップ
-        npm run clean
-        rm -rf .next dist out
-        # ファイルのタイムスタンプを更新
-        find src -name "*.tsx" -o -name "*.ts" | xargs touch
-        # 環境変数を明示的に設定（キャッシュ完全無効化）
-        export NODE_ENV=production
-        export NEXT_TELEMETRY_DISABLED=1
-        export NEXT_BUILD_CACHE=false
-        export NPM_CONFIG_CACHE=false
-        export NPM_CONFIG_UPDATE_NOTIFIER=false
-        # 強制的にファイルシステムを同期
-        sync
-        # ビルド実行（キャッシュ無効化）
         npm run build
         
-    - name: Copy built files to docs directory
-      run: |
-        cp -r web-app/out/* docs/
-        echo "Files copied to docs directory"
-        
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs
-        cname: # カスタムドメインがある場合はここに設定
-        force_orphan: true
+        path: ./web-app/out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
