@@ -19,6 +19,7 @@ project_root = Path(__file__).parent.parent
 sys.path.append(str(project_root))
 
 # ログ設定
+os.makedirs('logs', exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
