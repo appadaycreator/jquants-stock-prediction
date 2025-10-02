@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "code": "18010",
+    "generated_at": "2025-10-02T15:54:37.896061",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18010",
+    "name": "大成建設",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "listed_info": {
+      "Date": "2025-07-10",
+      "Code": "18010",
+      "CompanyName": "大成建設",
+      "CompanyNameEnglish": "TAISEI CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-02T15:54:37.873718",
+      "updated_at": "2025-10-02T15:54:37.873719",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api"
+    }
+  }
+}

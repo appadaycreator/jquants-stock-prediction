@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "code": "14910",
+    "generated_at": "2025-10-02T15:54:37.886187",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14910",
+    "name": "中外鉱業",
+    "sector": "鉄鋼・非鉄",
+    "market": "スタンダード",
+    "listed_info": {
+      "Date": "2025-07-10",
+      "Code": "14910",
+      "CompanyName": "中外鉱業",
+      "CompanyNameEnglish": "Chugai Mining Co.,Ltd.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-02T15:54:37.873616",
+      "updated_at": "2025-10-02T15:54:37.873617",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api"
+    }
+  }
+}

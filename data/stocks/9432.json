@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "code": "9432",
+    "generated_at": "2025-10-02T15:07:44.579403",
+    "version": "2.0"
+  },
+  "stock": {
+    "code": "9432",
+    "name": "日本電信電話",
+    "sector": "情報通信",
+    "current_price": {
+      "last_price": 17653.02,
+      "change": 312.369999999999,
+      "change_percent": 3.75,
+      "updated_at": "2025-10-02"
+    },
+    "volume": {
+      "current_volume": 582885,
+      "average_volume": 966247.0,
+      "volume_ratio": 0.85
+    },
+    "technical_indicators": {
+      "sma_5": 17024.2,
+      "sma_25": 16015.37,
+      "sma_75": 16015.37,
+      "rsi": 39.75,
+      "macd": 5.47,
+      "bollinger_upper": 16335.67,
+      "bollinger_lower": 15695.06
+    },
+    "prediction": {
+      "predicted_price": 18139.05,
+      "confidence": 0.77,
+      "model_used": "SampleModel",
+      "prediction_date": "2025-10-02T15:07:44.576934"
+    },
+    "risk_metrics": {
+      "volatility": 0.338,
+      "beta": 0.83,
+      "sharpe_ratio": 1.36,
+      "max_drawdown": -0.281
+    },
+    "metadata": {
+      "created_at": "2025-10-02T15:07:44.576936",
+      "updated_at": "2025-10-02T15:07:44.576936",
+      "data_quality": "sample",
+      "last_trade_date": "2025-10-02"
+    }
+  }
+}

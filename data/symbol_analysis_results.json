@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-09-29T16:08:54.684632",
+  "selected_symbols": [
+    "7203.T"
+  ],
+  "summary": {
+    "total_data_points": 244,
+    "avg_price": 2654.650242539703,
+    "total_volume": 6944525500,
+    "performance": {
+      "7203.T": {
+        "return": 16.680539340992055,
+        "volatility": 0.3455282743438443
+      }
+    },
+    "analysis_date": "2025-09-29T16:08:55.306221"
+  },
+  "analysis_results": {
+    "7203.T": {
+      "symbol": "7203.T",
+      "stats": {
+        "current_price": 2870.0,
+        "change_percent": -1.8635664216105317,
+        "volume": 24786300,
+        "high_52w": 3115.145960560108,
+        "low_52w": 2192.7594827601065,
+        "volatility": 0.3455282743438443
+      },
+      "technical": {
+        "rsi": 43.15970704554209,
+        "macd": 29.34068115157652,
+        "bb_percent": 0.457635007490428,
+        "sma_5": 2903.062158203125,
+        "sma_25": 2876.524677734375
+      },
+      "signals": {
+        "rsi_signal": "NEUTRAL",
+        "macd_signal": "SELL",
+        "bb_signal": "NEUTRAL",
+        "overall_signal": "NEUTRAL",
+        "confidence": 0.5
+      },
+      "data_points": 244
+    }
+  },
+  "errors": []
+}

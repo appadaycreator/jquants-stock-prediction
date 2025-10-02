@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "code": "13830",
+    "generated_at": "2025-10-02T15:54:37.880690",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "13830",
+    "name": "ベルグアース",
+    "sector": "食品",
+    "market": "スタンダード",
+    "listed_info": {
+      "Date": "2025-07-10",
+      "Code": "13830",
+      "CompanyName": "ベルグアース",
+      "CompanyNameEnglish": "Berg Earth co.,ltd.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "0050",
+      "Sector33CodeName": "水産・農林業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-02T15:54:37.873544",
+      "updated_at": "2025-10-02T15:54:37.873545",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api"
+    }
+  }
+}

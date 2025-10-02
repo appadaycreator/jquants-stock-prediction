@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "code": "17980",
+    "generated_at": "2025-10-02T15:54:37.895407",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "17980",
+    "name": "守谷商会",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "listed_info": {
+      "Date": "2025-07-10",
+      "Code": "17980",
+      "CompanyName": "守谷商会",
+      "CompanyNameEnglish": "MORIYA CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-02T15:54:37.873714",
+      "updated_at": "2025-10-02T15:54:37.873715",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api"
+    }
+  }
+}
