@@ -1,5 +1,5 @@
 {
-  "investigation_time": "2025-10-02T15:24:19.189857",
+  "investigation_time": "2025-10-02T15:55:03.600995",
   "total_endpoints": 20,
   "successful_endpoints": 4,
   "failed_endpoints": 16,
@@ -11,16 +11,16 @@
       "success": true,
       "response_size": 1544094,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:16 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:00 GMT",
         "Content-Type": "application/json",
         "Content-Length": "134440",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "24d93105-3af2-4b80-b46a-5f67335ffbc4",
+        "x-amzn-RequestId": "ed7be662-f3f0-4801-934a-9be043386ed5",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkWbHCYNjMEjzQ=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a8f-6b2e83c061ecfbda1c607014"
+        "x-amz-apigw-id": "Rzo2kGcQtjMEY9g=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c3-45461ef30bd4ea7368cfb1e9"
       },
       "data_keys": [
         "info"
@@ -34,16 +34,16 @@
       "success": true,
       "response_size": 356,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:16 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:01 GMT",
         "Content-Type": "application/json",
         "Content-Length": "242",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "bbf752f1-1e0f-4a41-ba3d-6ce0e9944e79",
+        "x-amzn-RequestId": "6bc3c7e1-d8d1-4600-ab0a-9a0ac7adc2f8",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkWnFi8tjMEe0w=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a90-4d6d350b32c5f433131351f0"
+        "x-amz-apigw-id": "Rzo2wHj2NjMECTg=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c4-728dc8f92cda32027a1abc58"
       },
       "data_keys": [
         "info"
@@ -57,16 +57,16 @@
       "success": false,
       "response_size": 158,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:01 GMT",
         "Content-Type": "application/json",
         "Content-Length": "150",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "00c62930-d2ee-459f-84f0-9edb85ab9911",
+        "x-amzn-RequestId": "1d861aa1-c618-41cd-8802-8096cbd66af3",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkWuFfVtjMEZHg=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a91-24a171a33ab4e281641ec8ff"
+        "x-amz-apigw-id": "Rzo23GwHNjMEBPA=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c5-24bee15b1e63bc8a4c86f821"
       },
       "error_message": "{\"message\": \"Your subscription covers the following dates: 2023-07-10 ~ 2025-07-10. If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -77,16 +77,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:01 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "2807363a-16a5-451d-929d-922cc8e19999",
+        "x-amzn-RequestId": "6d31cb82-c902-484c-97ec-07d427c18eec",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkWvEZJNjMEfzw=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a91-245169ac68a36c2e64eb6f5e"
+        "x-amz-apigw-id": "Rzo25EoEtjMEKwg=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c5-77b7d8d9074e36be25af19ee"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -97,16 +97,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:01 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "0fe70dcf-ea1f-4726-849b-a6b91bb93178",
+        "x-amzn-RequestId": "fe00c179-7d36-45b7-9788-db3ec0deed7f",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkWxGhoNjMEh0A=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a91-75d916c9104074043a3d1bcb"
+        "x-amz-apigw-id": "Rzo26GBftjMEPBQ=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c5-28d9fb7c76c3cd4f5dfb7b21"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -117,16 +117,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:01 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "999e2287-6e8b-40f8-a850-45a67781dbfc",
+        "x-amzn-RequestId": "e7448ca3-7d88-4fb8-bac0-be044f720ab6",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkWyEjGtjMEgrQ=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a91-7466bd5100cfe53032c56519"
+        "x-amz-apigw-id": "Rzo27GMmtjMEP4w=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c5-2d2ea6a72eb65f536829fb00"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -137,16 +137,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:01 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "a1dd3e2b-d923-4974-9b52-f885b7917177",
+        "x-amzn-RequestId": "6dc51b8f-0d7c-41ed-a9f5-9ca4fbd35c58",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkWzGfotjMEZzg=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a91-0da384ce70ba6c9a2249bcba"
+        "x-amz-apigw-id": "Rzo28Hl0tjMEV5g=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c5-3f21b9647607b0c6622f0708"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -157,16 +157,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:01 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "2f73cb3a-53c0-4ba2-8bb3-70c801a75e0e",
+        "x-amzn-RequestId": "99c503d3-1e5f-47ec-aed0-d01a23694b58",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkW0GmxtjMENGw=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a91-7ba47b4a56a96383483b9622"
+        "x-amz-apigw-id": "Rzo29GagNjMEHhA=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c5-6f10b7886927b55f31fd5217"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -177,16 +177,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:17 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:01 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "60e04eeb-677d-4269-9a2e-acc27da75041",
+        "x-amzn-RequestId": "667731bc-e390-41ad-a4f7-9deaf410e611",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkW2H99tjMEJvg=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a91-53369f2116639652106499ee"
+        "x-amz-apigw-id": "Rzo2_HrLtjMEp-g=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c5-358e294f2129089833201ad8"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -197,16 +197,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:02 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "cfe0d9d8-a10d-4480-a7f7-2bb832fa38ed",
+        "x-amzn-RequestId": "3cc7133d-e08d-4ac5-9888-1caa9e071e7e",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkW3EyXtjMEUfw=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a91-439ea6601dd9ea975fd1def1"
+        "x-amz-apigw-id": "Rzo3AGqitjMECUQ=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c6-316b5c69121015a64d254803"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -217,16 +217,16 @@
       "success": false,
       "response_size": 158,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:02 GMT",
         "Content-Type": "application/json",
         "Content-Length": "150",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "c9d553cb-5f92-4406-980f-778032add3a9",
+        "x-amzn-RequestId": "2048b29c-646a-4d60-b4e2-ba27e9dc3524",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkW4FwZtjMEXhw=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a92-71cd4a0c57d7ed7c66c11191"
+        "x-amz-apigw-id": "Rzo3BHnJNjMEbaQ=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c6-2bc0bdfb619e2223614e68fd"
       },
       "error_message": "{\"message\": \"Your subscription covers the following dates: 2023-07-10 ~ 2025-07-10. If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -237,16 +237,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:02 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "90f77366-b695-48a4-b7a2-50e53101ac90",
+        "x-amzn-RequestId": "0ab6b17d-056c-4211-9107-ce220f6f5661",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkW6E9aNjMEigw=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a92-59c76f0b2007aa365a2f938a"
+        "x-amz-apigw-id": "Rzo3DGOptjMEApg=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c6-4dce969b5447515f767038de"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -257,16 +257,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:02 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "d5f7fd2c-189b-483a-a19a-b78cabcd5d67",
+        "x-amzn-RequestId": "fec6eef7-fff3-4154-8d84-b926577fc876",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkW7HFeNjMEnTQ=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a92-782f46b1630e6a0c5ff9c877"
+        "x-amz-apigw-id": "Rzo3EE7OtjMEN7g=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c6-12588e3d79df6768457444f9"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -277,16 +277,16 @@
       "success": true,
       "response_size": 36516,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:02 GMT",
         "Content-Type": "application/json",
         "Content-Length": "2641",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "8c85620c-75f5-49dd-ac98-56aa1ac42f53",
+        "x-amzn-RequestId": "8ce986c8-edb9-4cca-9cad-e8e79f332e38",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkW8HdpNjMEAzw=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a92-6a096b291bd7198f02b5fd61"
+        "x-amz-apigw-id": "Rzo3FHkdtjMEQ4Q=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c6-21ec77667480a94b7081ccbb"
       },
       "data_keys": [
         "statements"
@@ -300,16 +300,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:02 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "b4624615-426f-4d42-9414-635b906bde72",
+        "x-amzn-RequestId": "54484751-d44f-438b-a729-1f453358a2fe",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkW-HcXtjMEjzQ=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a92-76b5b4fa2323bca10878b39f"
+        "x-amz-apigw-id": "Rzo3HHBJtjMEfQQ=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c6-6149cf9f39d1197c1d86c4ea"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -320,16 +320,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:18 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:02 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "55568ed2-7ee7-43bf-8823-2dd34d2df076",
+        "x-amzn-RequestId": "6480ff06-fa85-479d-8cb3-b56560b14e07",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkW_FpMNjMEGug=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a92-2ad1d6b70c87846b04d9a527"
+        "x-amz-apigw-id": "Rzo3IGXytjMEZ_w=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c6-182ec6664556fb1340ecff5d"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -340,16 +340,16 @@
       "success": true,
       "response_size": 41022,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:19 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:03 GMT",
         "Content-Type": "application/json",
         "Content-Length": "4239",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "0db8bf78-f351-4e99-a882-a1976865054d",
+        "x-amzn-RequestId": "df830b82-6fd4-4991-8288-9d8cbc40091b",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkXBFuKtjMEDHQ=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a92-078aef217eb4cfa514d66b4a"
+        "x-amz-apigw-id": "Rzo3JF-UNjMEhyg=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c6-1a8b439b42f42c47245165e9"
       },
       "data_keys": [
         "announcement"
@@ -363,16 +363,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:19 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:03 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "a29a7f89-2f7f-424c-996e-16fe7308c030",
+        "x-amzn-RequestId": "df137228-6442-4622-b770-c0be7518b660",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkXCEvkNjMEgrQ=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a93-67a3fc356c42f3570310e029"
+        "x-amz-apigw-id": "Rzo3LETeNjMEroA=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c7-5f7c4b891a4206365787c069"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -383,16 +383,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:19 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:03 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "954c7adc-99ec-4f3b-82e8-e4020d612f7a",
+        "x-amzn-RequestId": "196ecd3e-a6f3-4f3f-9410-fd468d092447",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkXEHEGNjMEC5g=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a93-603dace903632b0f32c1d874"
+        "x-amz-apigw-id": "Rzo3NGzhtjMEvpA=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c7-5c86200429328b3b1243aefe"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     },
@@ -403,16 +403,16 @@
       "success": false,
       "response_size": 136,
       "headers": {
-        "Date": "Thu, 02 Oct 2025 06:24:19 GMT",
+        "Date": "Thu, 02 Oct 2025 06:55:03 GMT",
         "Content-Type": "application/json",
         "Content-Length": "135",
         "Connection": "keep-alive",
-        "x-amzn-RequestId": "7d4acbe1-b0be-4291-83ed-72b49a37892b",
+        "x-amzn-RequestId": "f2a81abd-8ed7-4498-83b9-ecfa7a815697",
         "Access-Control-Allow-Origin": "*",
         "Content-Encoding": "gzip",
         "Strict-Transport-Security": "max-age=31536000",
-        "x-amz-apigw-id": "RzkXFEBetjMEO6Q=",
-        "X-Amzn-Trace-Id": "Root=1-68de1a93-0eab42d3431a6990609f2423"
+        "x-amz-apigw-id": "Rzo3PHJHtjMEiQg=",
+        "X-Amzn-Trace-Id": "Root=1-68de21c7-53ad3e2b4fefdf376d9de521"
       },
       "error_message": "{\"message\": \"This API is not available on your subscription.  If you want more data, please check other plans:https://jpx-jquants.com/\"}"
     }

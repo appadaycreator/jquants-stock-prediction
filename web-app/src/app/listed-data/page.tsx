@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from 'react';
-import { EnhancedJQuantsAdapter } from '@/lib/enhanced-jquants-adapter';
-import { useStockData } from '@/hooks/useStockData';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import EnhancedJQuantsAdapter from '@/lib/enhanced-jquants-adapter';
 
 interface ListedStock {
   code: string;
@@ -47,11 +46,7 @@ const ListedDataPage: React.FC = () => {
   const [volumeRange, setVolumeRange] = useState({ min: '', max: '' });
   const [jquantsAdapter] = useState(() => new EnhancedJQuantsAdapter());
 
-  useEffect(() => {
-    fetchListedData();
-  }, []);
-
-  const fetchListedData = async () => {
+  const fetchListedData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -98,26 +93,30 @@ const ListedDataPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [jquantsAdapter]);
 
-  const getUniqueSectors = () => {
+  useEffect(() => {
+    fetchListedData();
+  }, [fetchListedData]);
+
+  const getUniqueSectors = useCallback(() => {
     if (!data) return [];
     return Array.from(new Set(data.stocks.map(stock => stock.sector))).sort();
-  };
+  }, [data]);
 
-  const getUniqueMarkets = () => {
+  const getUniqueMarkets = useCallback(() => {
     if (!data) return [];
     return Array.from(new Set(data.stocks.map(stock => stock.market))).sort();
-  };
+  }, [data]);
 
-  const handleSort = (field: SortField) => {
+  const handleSort = useCallback((field: SortField) => {
     if (sortField === field) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
       setSortField(field);
       setSortDirection('asc');
     }
-  };
+  }, [sortField, sortDirection]);
 
   const filteredAndSortedStocks = useMemo(() => {
     if (!data) return [];

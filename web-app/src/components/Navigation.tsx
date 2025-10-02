@@ -13,6 +13,7 @@ import {
   Calendar,
   Clock,
   AlertCircle,
+  List,
 } from "lucide-react";
 
 interface NavigationProps {
@@ -50,6 +51,12 @@ export default function Navigation({
       label: "今日の投資指示", 
       icon: Calendar,
       description: "本日の売買候補と指示",
+    },
+    { 
+      href: "/listed-data", 
+      label: "銘柄一覧", 
+      icon: List,
+      description: "上場銘柄検索・分析",
     },
     { 
       href: "/reports", 

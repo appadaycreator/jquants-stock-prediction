@@ -7,9 +7,14 @@ jQuants API上場銘柄一覧取得スクリプト
 import requests
 import json
 import os
+import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 import logging
+
+# 認証管理クラスのインポート
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from jquants_auth_manager import JQuantsAuthManager
 
 # ログ設定
 logging.basicConfig(
@@ -33,9 +38,13 @@ class ListedInfoFetcher:
         log_dir = Path("logs")
         log_dir.mkdir(exist_ok=True)
         
-        self.id_token = os.getenv("JQUANTS_ID_TOKEN")
+        # 認証管理クラスを初期化
+        self.auth_manager = JQuantsAuthManager()
+        
+        # 有効なトークンを取得
+        self.id_token = self.auth_manager.get_valid_token()
         if not self.id_token:
-            raise ValueError("JQUANTS_ID_TOKEN が設定されていません")
+            raise ValueError("有効なIDトークンの取得に失敗しました")
     
     def fetch_listed_info(self, date=None, code=None):
         """上場銘柄一覧を取得"""

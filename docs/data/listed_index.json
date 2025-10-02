@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "generated_at": "2025-10-02T15:18:47.850997",
+    "generated_at": "2025-10-02T15:54:37.897161",
     "version": "2.0",
     "total_stocks": 100,
-    "last_updated": "2025-10-02T15:18:47.837666",
+    "last_updated": "2025-10-02T15:54:37.871467",
     "data_type": "listed_info"
   },
   "stocks": [
@@ -12,7 +12,7 @@
       "name": "住石ホールディングス",
       "sector": "エネルギー資源",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839149",
+      "updated_at": "2025-10-02T15:54:37.873623",
       "file_path": "stocks/15140_listed.json"
     },
     {
@@ -20,7 +20,7 @@
       "name": "日鉄鉱業",
       "sector": "エネルギー資源",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839151",
+      "updated_at": "2025-10-02T15:54:37.873624",
       "file_path": "stocks/15150_listed.json"
     },
     {
@@ -28,7 +28,7 @@
       "name": "石油資源開発",
       "sector": "エネルギー資源",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839168",
+      "updated_at": "2025-10-02T15:54:37.873643",
       "file_path": "stocks/16620_listed.json"
     },
     {
@@ -36,7 +36,7 @@
       "name": "ＩＮＰＥＸ",
       "sector": "エネルギー資源",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839163",
+      "updated_at": "2025-10-02T15:54:37.873637",
       "file_path": "stocks/16050_listed.json"
     },
     {
@@ -44,7 +44,7 @@
       "name": "Ｋ＆Ｏエナジーグループ",
       "sector": "エネルギー資源",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839169",
+      "updated_at": "2025-10-02T15:54:37.873645",
       "file_path": "stocks/16630_listed.json"
     },
     {
@@ -52,7 +52,7 @@
       "name": "コロンビア・ワークス",
       "sector": "不動産",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839138",
+      "updated_at": "2025-10-02T15:54:37.873610",
       "file_path": "stocks/146A0_listed.json"
     },
     {
@@ -60,7 +60,7 @@
       "name": "タスキホールディングス",
       "sector": "不動産",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839171",
+      "updated_at": "2025-10-02T15:54:37.873648",
       "file_path": "stocks/166A0_listed.json"
     },
     {
@@ -68,7 +68,7 @@
       "name": "ｆａｎｔａｓｉｓｔａ",
       "sector": "不動産",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839225",
+      "updated_at": "2025-10-02T15:54:37.873705",
       "file_path": "stocks/17830_listed.json"
     },
     {
@@ -76,7 +76,7 @@
       "name": "ｒｏｂｏｔ　ｈｏｍｅ",
       "sector": "不動産",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839119",
+      "updated_at": "2025-10-02T15:54:37.873581",
       "file_path": "stocks/14350_listed.json"
     },
     {
@@ -84,7 +84,7 @@
       "name": "Ｖｅｒｉｔａｓ　Ｉｎ　Ｓｉｌｉｃｏ",
       "sector": "医薬品",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839063",
+      "updated_at": "2025-10-02T15:54:37.873506",
       "file_path": "stocks/130A0_listed.json"
     },
     {
@@ -92,7 +92,7 @@
       "name": "リョーサン菱洋ホールディングス",
       "sector": "商社・卸売",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839173",
+      "updated_at": "2025-10-02T15:54:37.873650",
       "file_path": "stocks/167A0_listed.json"
     },
     {
@@ -100,7 +100,7 @@
       "name": "トライアルホールディングス",
       "sector": "小売",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839105",
+      "updated_at": "2025-10-02T15:54:37.873564",
       "file_path": "stocks/141A0_listed.json"
     },
     {
@@ -108,7 +108,7 @@
       "name": "光フードサービス",
       "sector": "小売",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839091",
+      "updated_at": "2025-10-02T15:54:37.873549",
       "file_path": "stocks/138A0_listed.json"
     },
     {
@@ -116,7 +116,7 @@
       "name": "インターライフホールディングス",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839101",
+      "updated_at": "2025-10-02T15:54:37.873559",
       "file_path": "stocks/14180_listed.json"
     },
     {
@@ -124,7 +124,7 @@
       "name": "ウエストホールディングス",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839095",
+      "updated_at": "2025-10-02T15:54:37.873553",
       "file_path": "stocks/14070_listed.json"
     },
     {
@@ -132,7 +132,7 @@
       "name": "エムビーエス",
       "sector": "建設・資材",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839093",
+      "updated_at": "2025-10-02T15:54:37.873551",
       "file_path": "stocks/14010_listed.json"
     },
     {
@@ -140,7 +140,7 @@
       "name": "オリエンタル白石",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839226",
+      "updated_at": "2025-10-02T15:54:37.873707",
       "file_path": "stocks/17860_listed.json"
     },
     {
@@ -148,7 +148,7 @@
       "name": "オーテック",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839196",
+      "updated_at": "2025-10-02T15:54:37.873674",
       "file_path": "stocks/17360_listed.json"
     },
     {
@@ -156,7 +156,7 @@
       "name": "キャンディル",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839131",
+      "updated_at": "2025-10-02T15:54:37.873601",
       "file_path": "stocks/14460_listed.json"
     },
     {
@@ -164,7 +164,7 @@
       "name": "グリーンエナジー＆カンパニー",
       "sector": "建設・資材",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839121",
+      "updated_at": "2025-10-02T15:54:37.873583",
       "file_path": "stocks/14360_listed.json"
     },
     {
@@ -172,7 +172,7 @@
       "name": "コムシスホールディングス",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839187",
+      "updated_at": "2025-10-02T15:54:37.873666",
       "file_path": "stocks/17210_listed.json"
     },
     {
@@ -180,7 +180,7 @@
       "name": "コーアツ工業",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839199",
+      "updated_at": "2025-10-02T15:54:37.873677",
       "file_path": "stocks/17430_listed.json"
     },
     {
@@ -188,7 +188,7 @@
       "name": "サンヨーホームズ",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839107",
+      "updated_at": "2025-10-02T15:54:37.873565",
       "file_path": "stocks/14200_listed.json"
     },
     {
@@ -196,7 +196,7 @@
       "name": "ショーボンドホールディングス",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839097",
+      "updated_at": "2025-10-02T15:54:37.873555",
       "file_path": "stocks/14140_listed.json"
     },
     {
@@ -204,7 +204,7 @@
       "name": "シンクレイヤ",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839192",
+      "updated_at": "2025-10-02T15:54:37.873670",
       "file_path": "stocks/17240_listed.json"
     },
     {
@@ -212,7 +212,7 @@
       "name": "ソネック",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839211",
+      "updated_at": "2025-10-02T15:54:37.873691",
       "file_path": "stocks/17680_listed.json"
     },
     {
@@ -220,7 +220,7 @@
       "name": "タマホーム",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839103",
+      "updated_at": "2025-10-02T15:54:37.873561",
       "file_path": "stocks/14190_listed.json"
     },
     {
@@ -228,7 +228,7 @@
       "name": "ダイセキ環境ソリューション",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839178",
+      "updated_at": "2025-10-02T15:54:37.873656",
       "file_path": "stocks/17120_listed.json"
     },
     {
@@ -236,7 +236,7 @@
       "name": "ナカボーテック",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839228",
+      "updated_at": "2025-10-02T15:54:37.873708",
       "file_path": "stocks/17870_listed.json"
     },
     {
@@ -244,7 +244,7 @@
       "name": "ニッソウ",
       "sector": "建設・資材",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839129",
+      "updated_at": "2025-10-02T15:54:37.873600",
       "file_path": "stocks/14440_listed.json"
     },
     {
@@ -252,7 +252,7 @@
       "name": "ビーアールホールディングス",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839194",
+      "updated_at": "2025-10-02T15:54:37.873672",
       "file_path": "stocks/17260_listed.json"
     },
     {
@@ -260,7 +260,7 @@
       "name": "ファーストコーポレーション",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839112",
+      "updated_at": "2025-10-02T15:54:37.873571",
       "file_path": "stocks/14300_listed.json"
     },
     {
@@ -268,7 +268,7 @@
       "name": "ベステラ",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839115",
+      "updated_at": "2025-10-02T15:54:37.873577",
       "file_path": "stocks/14330_listed.json"
     },
     {
@@ -276,7 +276,7 @@
       "name": "マサル",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839233",
+      "updated_at": "2025-10-02T15:54:37.873713",
       "file_path": "stocks/17950_listed.json"
     },
     {
@@ -284,7 +284,7 @@
       "name": "ミライト・ワン",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839099",
+      "updated_at": "2025-10-02T15:54:37.873557",
       "file_path": "stocks/14170_listed.json"
     },
     {
@@ -292,7 +292,7 @@
       "name": "ヤマウラ",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839223",
+      "updated_at": "2025-10-02T15:54:37.873703",
       "file_path": "stocks/17800_listed.json"
     },
     {
@@ -300,7 +300,7 @@
       "name": "ワイ・ティー・エル・コーポレーション・バーハッド",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839217",
+      "updated_at": "2025-10-02T15:54:37.873696",
       "file_path": "stocks/17730_listed.json"
     },
     {
@@ -308,7 +308,7 @@
       "name": "三井住建道路",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839220",
+      "updated_at": "2025-10-02T15:54:37.873699",
       "file_path": "stocks/17760_listed.json"
     },
     {
@@ -316,7 +316,7 @@
       "name": "三東工業社",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839230",
+      "updated_at": "2025-10-02T15:54:37.873710",
       "file_path": "stocks/17880_listed.json"
     },
     {
@@ -324,7 +324,7 @@
       "name": "創建エース",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839201",
+      "updated_at": "2025-10-02T15:54:37.873679",
       "file_path": "stocks/17570_listed.json"
     },
     {
@@ -332,7 +332,7 @@
       "name": "大成建設",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839238",
+      "updated_at": "2025-10-02T15:54:37.873719",
       "file_path": "stocks/18010_listed.json"
     },
     {
@@ -340,7 +340,7 @@
       "name": "大本組",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839231",
+      "updated_at": "2025-10-02T15:54:37.873712",
       "file_path": "stocks/17930_listed.json"
     },
     {
@@ -348,7 +348,7 @@
       "name": "大林組",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839240",
+      "updated_at": "2025-10-02T15:54:37.873720",
       "file_path": "stocks/18020_listed.json"
     },
     {
@@ -356,7 +356,7 @@
       "name": "太洋基礎工業",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839203",
+      "updated_at": "2025-10-02T15:54:37.873681",
       "file_path": "stocks/17580_listed.json"
     },
     {
@@ -364,7 +364,7 @@
       "name": "守谷商会",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839235",
+      "updated_at": "2025-10-02T15:54:37.873715",
       "file_path": "stocks/17980_listed.json"
     },
     {
@@ -372,7 +372,7 @@
       "name": "安藤・間",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839184",
+      "updated_at": "2025-10-02T15:54:37.873663",
       "file_path": "stocks/17190_listed.json"
     },
     {
@@ -380,7 +380,7 @@
       "name": "岐阜造園",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839122",
+      "updated_at": "2025-10-02T15:54:37.873593",
       "file_path": "stocks/14380_listed.json"
     },
     {
@@ -388,7 +388,7 @@
       "name": "工藤建設",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839208",
+      "updated_at": "2025-10-02T15:54:37.873686",
       "file_path": "stocks/17640_listed.json"
     },
     {
@@ -396,7 +396,7 @@
       "name": "技研ホールディングス",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839127",
+      "updated_at": "2025-10-02T15:54:37.873598",
       "file_path": "stocks/14430_listed.json"
     },
     {
@@ -404,7 +404,7 @@
       "name": "日本アクア",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839109",
+      "updated_at": "2025-10-02T15:54:37.873567",
       "file_path": "stocks/14290_listed.json"
     },
     {
@@ -412,7 +412,7 @@
       "name": "日本電技",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839189",
+      "updated_at": "2025-10-02T15:54:37.873668",
       "file_path": "stocks/17230_listed.json"
     },
     {
@@ -420,7 +420,7 @@
       "name": "東建コーポレーション",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839210",
+      "updated_at": "2025-10-02T15:54:37.873688",
       "file_path": "stocks/17660_listed.json"
     },
     {
@@ -428,7 +428,7 @@
       "name": "東急建設",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839186",
+      "updated_at": "2025-10-02T15:54:37.873665",
       "file_path": "stocks/17200_listed.json"
     },
     {
@@ -436,7 +436,7 @@
       "name": "清水建設",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839242",
+      "updated_at": "2025-10-02T15:54:37.873722",
       "file_path": "stocks/18030_listed.json"
     },
     {
@@ -444,7 +444,7 @@
       "name": "第一カッター興業",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839179",
+      "updated_at": "2025-10-02T15:54:37.873658",
       "file_path": "stocks/17160_listed.json"
     },
     {
@@ -452,7 +452,7 @@
       "name": "第一建設工業",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839237",
+      "updated_at": "2025-10-02T15:54:37.873717",
       "file_path": "stocks/17990_listed.json"
     },
     {
@@ -460,7 +460,7 @@
       "name": "美樹工業",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839183",
+      "updated_at": "2025-10-02T15:54:37.873661",
       "file_path": "stocks/17180_listed.json"
     },
     {
@@ -468,7 +468,7 @@
       "name": "藤田エンジニアリング",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839216",
+      "updated_at": "2025-10-02T15:54:37.873695",
       "file_path": "stocks/17700_listed.json"
     },
     {
@@ -476,7 +476,7 @@
       "name": "高松コンストラクショングループ",
       "sector": "建設・資材",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839207",
+      "updated_at": "2025-10-02T15:54:37.873684",
       "file_path": "stocks/17620_listed.json"
     },
     {
@@ -484,7 +484,7 @@
       "name": "ＪＥＳＣＯホールディングス",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839117",
+      "updated_at": "2025-10-02T15:54:37.873578",
       "file_path": "stocks/14340_listed.json"
     },
     {
@@ -492,7 +492,7 @@
       "name": "Ｌｉｂ　Ｗｏｒｋ",
       "sector": "建設・資材",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839114",
+      "updated_at": "2025-10-02T15:54:37.873573",
       "file_path": "stocks/14310_listed.json"
     },
     {
@@ -500,7 +500,7 @@
       "name": "ＳＡＡＦホールディングス",
       "sector": "建設・資材",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839133",
+      "updated_at": "2025-10-02T15:54:37.873603",
       "file_path": "stocks/14470_listed.json"
     },
     {
@@ -508,7 +508,7 @@
       "name": "ＳＤＳホールディングス",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839176",
+      "updated_at": "2025-10-02T15:54:37.873654",
       "file_path": "stocks/17110_listed.json"
     },
     {
@@ -516,7 +516,7 @@
       "name": "ＴＡＮＡＫＥＮ",
       "sector": "建設・資材",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839134",
+      "updated_at": "2025-10-02T15:54:37.873605",
       "file_path": "stocks/14500_listed.json"
     },
     {
@@ -524,7 +524,7 @@
       "name": "アズパートナーズ",
       "sector": "情報通信・サービスその他",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839164",
+      "updated_at": "2025-10-02T15:54:37.873639",
       "file_path": "stocks/160A0_listed.json"
     },
     {
@@ -532,7 +532,7 @@
       "name": "イシン",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839126",
+      "updated_at": "2025-10-02T15:54:37.873596",
       "file_path": "stocks/143A0_listed.json"
     },
     {
@@ -540,7 +540,7 @@
       "name": "イタミアート",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839174",
+      "updated_at": "2025-10-02T15:54:37.873652",
       "file_path": "stocks/168A0_listed.json"
     },
     {
@@ -548,7 +548,7 @@
       "name": "カウリス",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839156",
+      "updated_at": "2025-10-02T15:54:37.873630",
       "file_path": "stocks/153A0_listed.json"
     },
     {
@@ -556,7 +556,7 @@
       "name": "グリーンモンスター",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839161",
+      "updated_at": "2025-10-02T15:54:37.873635",
       "file_path": "stocks/157A0_listed.json"
     },
     {
@@ -564,7 +564,7 @@
       "name": "シンカ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839145",
+      "updated_at": "2025-10-02T15:54:37.873619",
       "file_path": "stocks/149A0_listed.json"
     },
     {
@@ -572,7 +572,7 @@
       "name": "ジンジブ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839110",
+      "updated_at": "2025-10-02T15:54:37.873569",
       "file_path": "stocks/142A0_listed.json"
     },
     {
@@ -580,7 +580,7 @@
       "name": "ソラコム",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839139",
+      "updated_at": "2025-10-02T15:54:37.873612",
       "file_path": "stocks/147A0_listed.json"
     },
     {
@@ -588,7 +588,7 @@
       "name": "ダイブ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839154",
+      "updated_at": "2025-10-02T15:54:37.873628",
       "file_path": "stocks/151A0_listed.json"
     },
     {
@@ -596,7 +596,7 @@
       "name": "ハッチ・ワーク",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839141",
+      "updated_at": "2025-10-02T15:54:37.873613",
       "file_path": "stocks/148A0_listed.json"
     },
     {
@@ -604,7 +604,7 @@
       "name": "ハンモック",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839197",
+      "updated_at": "2025-10-02T15:54:37.873675",
       "file_path": "stocks/173A0_listed.json"
     },
     {
@@ -612,7 +612,7 @@
       "name": "マテリアルグループ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839159",
+      "updated_at": "2025-10-02T15:54:37.873634",
       "file_path": "stocks/156A0_listed.json"
     },
     {
@@ -620,7 +620,7 @@
       "name": "三井松島ホールディングス",
       "sector": "情報通信・サービスその他",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839153",
+      "updated_at": "2025-10-02T15:54:37.873626",
       "file_path": "stocks/15180_listed.json"
     },
     {
@@ -628,7 +628,7 @@
       "name": "情報戦略テクノロジー",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839157",
+      "updated_at": "2025-10-02T15:54:37.873632",
       "file_path": "stocks/155A0_listed.json"
     },
     {
@@ -636,7 +636,7 @@
       "name": "明豊ファシリティワークス",
       "sector": "情報通信・サービスその他",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839181",
+      "updated_at": "2025-10-02T15:54:37.873659",
       "file_path": "stocks/17170_listed.json"
     },
     {
@@ -644,7 +644,7 @@
       "name": "Ｃｏｃｏｌｉｖｅ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839081",
+      "updated_at": "2025-10-02T15:54:37.873537",
       "file_path": "stocks/137A0_listed.json"
     },
     {
@@ -652,7 +652,7 @@
       "name": "ＪＳＨ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839147",
+      "updated_at": "2025-10-02T15:54:37.873620",
       "file_path": "stocks/150A0_listed.json"
     },
     {
@@ -660,7 +660,7 @@
       "name": "Ｌ　ｉｓ　Ｂ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839136",
+      "updated_at": "2025-10-02T15:54:37.873607",
       "file_path": "stocks/145A0_listed.json"
     },
     {
@@ -668,7 +668,7 @@
       "name": "ＶＲＡＩＮ　Ｓｏｌｕｔｉｏｎ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839071",
+      "updated_at": "2025-10-02T15:54:37.873526",
       "file_path": "stocks/135A0_listed.json"
     },
     {
@@ -676,7 +676,7 @@
       "name": "Ｗｉｌｌ　Ｓｍａｒｔ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839205",
+      "updated_at": "2025-10-02T15:54:37.873683",
       "file_path": "stocks/175A0_listed.json"
     },
     {
@@ -684,7 +684,7 @@
       "name": "コージンバイオ",
       "sector": "素材・化学",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839222",
+      "updated_at": "2025-10-02T15:54:37.873701",
       "file_path": "stocks/177A0_listed.json"
     },
     {
@@ -692,7 +692,7 @@
       "name": "ＳＢＩレオスひふみ",
       "sector": "金融（除く銀行）",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839166",
+      "updated_at": "2025-10-02T15:54:37.873641",
       "file_path": "stocks/165A0_listed.json"
     },
     {
@@ -700,7 +700,7 @@
       "name": "中外鉱業",
       "sector": "鉄鋼・非鉄",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839144",
+      "updated_at": "2025-10-02T15:54:37.873617",
       "file_path": "stocks/14910_listed.json"
     },
     {
@@ -708,7 +708,7 @@
       "name": "レジル",
       "sector": "電気・ガス",
       "market": "グロース",
-      "updated_at": "2025-10-02T15:18:47.839213",
+      "updated_at": "2025-10-02T15:54:37.873693",
       "file_path": "stocks/176A0_listed.json"
     },
     {
@@ -716,7 +716,7 @@
       "name": "アクシーズ",
       "sector": "食品",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839084",
+      "updated_at": "2025-10-02T15:54:37.873541",
       "file_path": "stocks/13810_listed.json"
     },
     {
@@ -724,7 +724,7 @@
       "name": "カネコ種苗",
       "sector": "食品",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839075",
+      "updated_at": "2025-10-02T15:54:37.873531",
       "file_path": "stocks/13760_listed.json"
     },
     {
@@ -732,7 +732,7 @@
       "name": "サカタのタネ",
       "sector": "食品",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839077",
+      "updated_at": "2025-10-02T15:54:37.873533",
       "file_path": "stocks/13770_listed.json"
     },
     {
@@ -740,7 +740,7 @@
       "name": "ニッスイ",
       "sector": "食品",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839066",
+      "updated_at": "2025-10-02T15:54:37.873518",
       "file_path": "stocks/13320_listed.json"
     },
     {
@@ -748,7 +748,7 @@
       "name": "ベルグアース",
       "sector": "食品",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839088",
+      "updated_at": "2025-10-02T15:54:37.873545",
       "file_path": "stocks/13830_listed.json"
     },
     {
@@ -756,7 +756,7 @@
       "name": "ホクト",
       "sector": "食品",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839079",
+      "updated_at": "2025-10-02T15:54:37.873535",
       "file_path": "stocks/13790_listed.json"
     },
     {
@@ -764,7 +764,7 @@
       "name": "ホクリヨウ",
       "sector": "食品",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839090",
+      "updated_at": "2025-10-02T15:54:37.873547",
       "file_path": "stocks/13840_listed.json"
     },
     {
@@ -772,7 +772,7 @@
       "name": "ホーブ",
       "sector": "食品",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839086",
+      "updated_at": "2025-10-02T15:54:37.873543",
       "file_path": "stocks/13820_listed.json"
     },
     {
@@ -780,7 +780,7 @@
       "name": "マルハニチロ",
       "sector": "食品",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839068",
+      "updated_at": "2025-10-02T15:54:37.873524",
       "file_path": "stocks/13330_listed.json"
     },
     {
@@ -788,7 +788,7 @@
       "name": "ユキグニファクトリー",
       "sector": "食品",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839073",
+      "updated_at": "2025-10-02T15:54:37.873528",
       "file_path": "stocks/13750_listed.json"
     },
     {
@@ -796,7 +796,7 @@
       "name": "極洋",
       "sector": "食品",
       "market": "プライム",
-      "updated_at": "2025-10-02T15:18:47.839057",
+      "updated_at": "2025-10-02T15:54:37.873500",
       "file_path": "stocks/13010_listed.json"
     },
     {
@@ -804,7 +804,7 @@
       "name": "秋川牧園",
       "sector": "食品",
       "market": "スタンダード",
-      "updated_at": "2025-10-02T15:18:47.839082",
+      "updated_at": "2025-10-02T15:54:37.873539",
       "file_path": "stocks/13800_listed.json"
     }
   ]

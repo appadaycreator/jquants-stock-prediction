@@ -13,6 +13,7 @@ import {
   Settings,
   BookOpen,
   Shield,
+  List,
 } from "lucide-react";
 
 export default function LandingPage() {
@@ -147,6 +148,17 @@ export default function LandingPage() {
               <div>
                 <div className="font-medium text-gray-900">詳細分析</div>
                 <div className="text-sm text-gray-600">ダッシュボード</div>
+              </div>
+            </Link>
+
+            <Link
+              href="/listed-data"
+              className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+            >
+              <List className="h-6 w-6 text-purple-600" />
+              <div>
+                <div className="font-medium text-gray-900">銘柄一覧</div>
+                <div className="text-sm text-gray-600">上場銘柄検索</div>
               </div>
             </Link>
 

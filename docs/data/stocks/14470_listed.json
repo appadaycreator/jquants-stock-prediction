@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14470",
-    "generated_at": "2025-10-02T15:18:47.845107",
+    "generated_at": "2025-10-02T15:54:37.885537",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -24,8 +24,8 @@
       "MarketCodeName": "グロース"
     },
     "metadata": {
-      "created_at": "2025-10-02T15:18:47.839132",
-      "updated_at": "2025-10-02T15:18:47.839133",
+      "created_at": "2025-10-02T15:54:37.873603",
+      "updated_at": "2025-10-02T15:54:37.873603",
       "data_quality": "jquants_official",
       "source": "listed_info_api"
     }

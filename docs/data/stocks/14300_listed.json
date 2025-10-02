@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14300",
-    "generated_at": "2025-10-02T15:18:47.843821",
+    "generated_at": "2025-10-02T15:54:37.884317",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -24,8 +24,8 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-02T15:18:47.839111",
-      "updated_at": "2025-10-02T15:18:47.839112",
+      "created_at": "2025-10-02T15:54:37.873571",
+      "updated_at": "2025-10-02T15:54:37.873571",
       "data_quality": "jquants_official",
       "source": "listed_info_api"
     }

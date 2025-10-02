@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "146A0",
-    "generated_at": "2025-10-02T15:18:47.845370",
+    "generated_at": "2025-10-02T15:54:37.885815",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -24,8 +24,8 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-02T15:18:47.839137",
-      "updated_at": "2025-10-02T15:18:47.839138",
+      "created_at": "2025-10-02T15:54:37.873609",
+      "updated_at": "2025-10-02T15:54:37.873610",
       "data_quality": "jquants_official",
       "source": "listed_info_api"
     }
