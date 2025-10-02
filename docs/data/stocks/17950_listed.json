@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "code": "17950",
+    "generated_at": "2025-10-02T15:18:47.850433",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "17950",
+    "name": "マサル",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "listed_info": {
+      "Date": "2025-07-10",
+      "Code": "17950",
+      "CompanyName": "マサル",
+      "CompanyNameEnglish": "MASARU CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-02T15:18:47.839233",
+      "updated_at": "2025-10-02T15:18:47.839233",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api"
+    }
+  }
+}
