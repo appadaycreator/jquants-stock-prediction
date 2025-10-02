@@ -2,7 +2,7 @@
 
 import React, { useCallback, useMemo, useState, useEffect } from "react";
 import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary";
-import EnhancedErrorHandler from "@/components/EnhancedErrorHandler";
+// EnhancedErrorHandler は削除され、統合エラーハンドラーを使用
 
 type UnifiedApiError = {
   error_code: string;

@@ -19,9 +19,7 @@ import DataTimestampDisplay, { DataTimestampSummary } from "@/components/DataTim
 import CacheVisualization, { CacheVisualizationCompact } from "@/components/CacheVisualization";
 import EnhancedRefreshButton, { RefreshButtonGroup } from "@/components/EnhancedRefreshButton";
 import { NotificationService } from "@/lib/notification/NotificationService";
-import UnifiedErrorHandler from "@/components/UnifiedErrorHandler";
-import { getErrorInfo, logError } from "@/lib/error-handler";
-import { errorLogger, setupGlobalErrorHandling } from "@/lib/error-logger";
+import { getErrorInfo, logError } from "@/lib/unified-error-handler";
 import { performanceMonitor, usePerformanceMonitor } from "@/lib/performance-monitor";
 import { useGuideShortcuts } from "@/lib/guide/shortcut";
 import { enrichWithIndicators, sliceByRange } from "@/lib/indicators";
@@ -61,7 +59,7 @@ const PeriodSelector = dynamicImport(() => import("../../components/PeriodSelect
 const ParallelUpdateManager = dynamicImport(() => import("../../components/ParallelUpdateManager"), { ssr: false });
 const RoutineDashboard = dynamicImport(() => import("../../components/RoutineDashboard"), { ssr: false });
 const SideDetailPanel = dynamicImport(() => import("@/components/SideDetailPanel"), { ssr: false });
-const EnhancedErrorHandler = dynamicImport(() => import("../../components/EnhancedErrorHandler"), { ssr: false });
+// EnhancedErrorHandler は削除され、統合エラーハンドラーを使用
 const ChartErrorBoundary = dynamicImport(() => import("../../components/ChartErrorBoundary"), { ssr: false });
 const Tooltip = dynamicImport(() => import("../../components/Tooltip").then(mod => ({ default: mod.default })), { ssr: false });
 const UserGuide = dynamicImport(() => import("../../components/UserGuide"), { ssr: false });

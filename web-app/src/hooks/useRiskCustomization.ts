@@ -4,10 +4,63 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { 
-  RiskCustomizationSettings, 
-  riskCustomizationStore 
-} from '@/lib/risk-customization-store';
+// risk-customization-store は削除され、統合設定管理を使用
+// 一時的にローカル状態管理に変更
+interface RiskCustomizationSettings {
+  riskTolerance: {
+    maxDrawdown: number;
+    volatilityTolerance: number;
+    varTolerance: number;
+  };
+  targetReturn: {
+    annual: number;
+    monthly: number;
+    riskAdjusted: boolean;
+  };
+  notifications: {
+    riskAlerts: boolean;
+    returnAlerts: boolean;
+    drawdownAlerts: boolean;
+  };
+  display: {
+    showRiskMetrics: boolean;
+    showReturnMetrics: boolean;
+    showAlerts: boolean;
+  };
+}
+
+// 簡易的なローカルストレージベースの実装
+const riskCustomizationStore = {
+  getState: () => ({
+    settings: {
+      riskTolerance: { maxDrawdown: 0.1, volatilityTolerance: 0.2, varTolerance: 0.05 },
+      targetReturn: { annual: 0.08, monthly: 0.006, riskAdjusted: true },
+      notifications: { riskAlerts: true, returnAlerts: true, drawdownAlerts: true },
+      display: { showRiskMetrics: true, showReturnMetrics: true, showAlerts: true }
+    },
+    isLoading: false,
+    error: null,
+    lastUpdated: new Date().toISOString()
+  }),
+  subscribe: (callback: () => void) => () => {},
+  updateSettings: (settings: Partial<RiskCustomizationSettings>) => {
+    // ローカルストレージに保存
+    localStorage.setItem('risk-customization', JSON.stringify(settings));
+  },
+  saveToLocalStorage: () => {},
+  resetSettings: () => {
+    localStorage.removeItem('risk-customization');
+  },
+  getSettings: () => {
+    const stored = localStorage.getItem('risk-customization');
+    return stored ? JSON.parse(stored) : {
+      riskTolerance: { maxDrawdown: 0.1, volatilityTolerance: 0.2, varTolerance: 0.05 },
+      targetReturn: { annual: 0.08, monthly: 0.006, riskAdjusted: true },
+      notifications: { riskAlerts: true, returnAlerts: true, drawdownAlerts: true },
+      display: { showRiskMetrics: true, showReturnMetrics: true, showAlerts: true }
+    };
+  }
+};
 
 export function useRiskCustomization() {
   const [state, setState] = useState(riskCustomizationStore.getState());
