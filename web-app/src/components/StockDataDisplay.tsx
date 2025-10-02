@@ -3,9 +3,9 @@
  * 実装したキャッシュ機能とデータ取得機能のテスト用
  */
 
-import React, { useState, useEffect } from 'react';
-import { useStockData } from '@/hooks/useStockData';
-import { StockDataResponse } from '@/lib/enhancedDataCache';
+import React, { useState, useEffect } from "react";
+import { useStockData } from "@/hooks/useStockData";
+import { StockDataResponse } from "@/lib/enhancedDataCache";
 
 interface StockDataDisplayProps {
   symbol?: string;
@@ -16,7 +16,7 @@ interface StockDataDisplayProps {
 export default function StockDataDisplay({ 
   symbol, 
   autoRefresh = false, 
-  showCacheStats = false 
+  showCacheStats = false, 
 }: StockDataDisplayProps) {
   const {
     data,
@@ -29,14 +29,14 @@ export default function StockDataDisplay({
     startAutoRefresh,
     stopAutoRefresh,
     isRetrying,
-    canRetry
+    canRetry,
   } = useStockData({
     symbol,
     autoRefresh,
     refreshInterval: 30000,
     enableFallback: true,
-    onError: (error) => console.error('データ取得エラー:', error),
-    onDataUpdate: (data) => console.log('データ更新:', data)
+    onError: (error) => console.error("データ取得エラー:", error),
+    onDataUpdate: (data) => console.log("データ更新:", data),
   });
 
   const [cacheStats, setCacheStats] = useState<any>(null);
@@ -48,7 +48,7 @@ export default function StockDataDisplay({
         totalItems: 5,
         validItems: 4,
         expiredItems: 1,
-        totalSize: 1024 * 1024 // 1MB
+        totalSize: 1024 * 1024, // 1MB
       };
       setCacheStats(stats);
     }
@@ -106,13 +106,13 @@ export default function StockDataDisplay({
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold">
-              {symbol ? `銘柄 ${symbol}` : '全銘柄データ'}
+              {symbol ? `銘柄 ${symbol}` : "全銘柄データ"}
             </h2>
             <p className="text-sm text-gray-600">
-              最終更新: {lastUpdated ? new Date(lastUpdated).toLocaleString() : '不明'}
+              最終更新: {lastUpdated ? new Date(lastUpdated).toLocaleString() : "不明"}
             </p>
             <p className="text-sm text-gray-500">
-              データソース: {source === 'cache' ? 'キャッシュ' : source === 'api' ? 'API' : 'フォールバック'}
+              データソース: {source === "cache" ? "キャッシュ" : source === "api" ? "API" : "フォールバック"}
             </p>
           </div>
           <div className="flex space-x-2">
@@ -190,14 +190,14 @@ export default function StockDataDisplay({
                 <div>
                   <span className="text-gray-600">現在価格:</span>
                   <span className="ml-2 font-medium">
-                    ¥{(data.stocks[symbol] as any)?.current_price?.last_price?.toLocaleString() || 'N/A'}
+                    ¥{(data.stocks[symbol] as any)?.current_price?.last_price?.toLocaleString() || "N/A"}
                   </span>
                 </div>
                 <div>
                   <span className="text-gray-600">変動:</span>
                   <span className={`ml-2 font-medium ${
                     ((data.stocks[symbol] as any)?.current_price?.change_percent || 0) >= 0 
-                      ? 'text-red-600' : 'text-blue-600'
+                      ? "text-red-600" : "text-blue-600"
                   }`}>
                     {((data.stocks[symbol] as any)?.current_price?.change_percent || 0).toFixed(2)}%
                   </span>
@@ -225,20 +225,20 @@ export default function StockDataDisplay({
                         <h4 className="font-medium">{stock.name}</h4>
                         <p className="text-sm text-gray-600">{code}</p>
                       </div>
-                      <span className="text-sm text-gray-500">{(stock as any).sector || 'N/A'}</span>
+                      <span className="text-sm text-gray-500">{(stock as any).sector || "N/A"}</span>
                     </div>
                     <div className="space-y-1 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600">価格:</span>
                         <span className="font-medium">
-                          ¥{(stock as any).current_price?.last_price?.toLocaleString() || 'N/A'}
+                          ¥{(stock as any).current_price?.last_price?.toLocaleString() || "N/A"}
                         </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">変動:</span>
                         <span className={`font-medium ${
                           ((stock as any).current_price?.change_percent || 0) >= 0 
-                            ? 'text-red-600' : 'text-blue-600'
+                            ? "text-red-600" : "text-blue-600"
                         }`}>
                           {((stock as any).current_price?.change_percent || 0).toFixed(2)}%
                         </span>
@@ -270,15 +270,15 @@ export default function StockDataDisplay({
           </div>
           <div>
             <span className="text-gray-600">データソース:</span>
-            <span className="ml-2 font-medium">{data.metadata?.data_source || 'N/A'}</span>
+            <span className="ml-2 font-medium">{data.metadata?.data_source || "N/A"}</span>
           </div>
           <div>
             <span className="text-gray-600">バージョン:</span>
-            <span className="ml-2 font-medium">{data.metadata?.version || 'N/A'}</span>
+            <span className="ml-2 font-medium">{data.metadata?.version || "N/A"}</span>
           </div>
           <div>
             <span className="text-gray-600">更新タイプ:</span>
-            <span className="ml-2 font-medium">{(data.metadata as any)?.update_type || 'N/A'}</span>
+            <span className="ml-2 font-medium">{(data.metadata as any)?.update_type || "N/A"}</span>
           </div>
         </div>
       </div>

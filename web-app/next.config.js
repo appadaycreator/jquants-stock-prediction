@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  output: "export",
   trailingSlash: true,
   images: {
-    unoptimized: true
+    unoptimized: true,
   },
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '',
-  basePath: process.env.NODE_ENV === 'production' ? '/jquants-stock-prediction' : '',
-}
+  assetPrefix: process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "",
+  basePath: process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "",
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

@@ -426,7 +426,7 @@ class EnhancedJQuantsAdapter {
         // ここでは基本的な構造を返す
         return {
           data: [],
-          message: "価格データは個別銘柄ファイルから取得してください"
+          message: "価格データは個別銘柄ファイルから取得してください",
         } as T;
       } else {
         dataUrl = "/data/listed_index.json";

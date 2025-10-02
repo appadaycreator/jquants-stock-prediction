@@ -3,15 +3,15 @@
  * キャッシュ、フォールバック、エラーハンドリングを統合
  */
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { EnhancedDataCache, StockDataResponse } from '@/lib/enhancedDataCache';
+import { useState, useEffect, useCallback, useRef } from "react";
+import { EnhancedDataCache, StockDataResponse } from "@/lib/enhancedDataCache";
 
 export interface UseStockDataState {
   data: StockDataResponse | null;
   loading: boolean;
   error: string | null;
   lastUpdated: string | null;
-  source: 'cache' | 'api' | 'fallback' | null;
+  source: "cache" | "api" | "fallback" | null;
   retryCount: number;
 }
 
@@ -31,7 +31,7 @@ export function useStockData(options: UseStockDataOptions = {}) {
     refreshInterval = 30000, // 30秒
     enableFallback = true,
     onError,
-    onDataUpdate
+    onDataUpdate,
   } = options;
 
   const [state, setState] = useState<UseStockDataState>({
@@ -40,7 +40,7 @@ export function useStockData(options: UseStockDataOptions = {}) {
     error: null,
     lastUpdated: null,
     source: null,
-    retryCount: 0
+    retryCount: 0,
   });
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -56,7 +56,7 @@ export function useStockData(options: UseStockDataOptions = {}) {
       const data = await EnhancedDataCache.getData(symbol, forceRefresh);
       
       if (data) {
-        const source = forceRefresh ? 'api' : 'cache';
+        const source = forceRefresh ? "api" : "cache";
         setState(prev => ({
           ...prev,
           data,
@@ -64,21 +64,21 @@ export function useStockData(options: UseStockDataOptions = {}) {
           error: null,
           lastUpdated: data.metadata.last_updated,
           source,
-          retryCount: 0
+          retryCount: 0,
         }));
         
         onDataUpdate?.(data);
       } else {
-        throw new Error('データを取得できませんでした');
+        throw new Error("データを取得できませんでした");
       }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '不明なエラー';
+      const errorMessage = error instanceof Error ? error.message : "不明なエラー";
       
       setState(prev => ({
         ...prev,
         loading: false,
         error: errorMessage,
-        retryCount: prev.retryCount + 1
+        retryCount: prev.retryCount + 1,
       }));
       
       onError?.(errorMessage);
@@ -186,14 +186,14 @@ export function useStockData(options: UseStockDataOptions = {}) {
     startAutoRefresh,
     stopAutoRefresh,
     isRetrying: state.retryCount > 0,
-    canRetry: state.retryCount < 3
+    canRetry: state.retryCount < 3,
   };
 }
 
 /**
  * 複数銘柄のデータを取得するフック
  */
-export function useMultipleStockData(symbols: string[], options: Omit<UseStockDataOptions, 'symbol'> = {}) {
+export function useMultipleStockData(symbols: string[], options: Omit<UseStockDataOptions, "symbol"> = {}) {
   const [results, setResults] = useState<Record<string, UseStockDataState>>({});
   const [overallState, setOverallState] = useState<{
     loading: boolean;
@@ -204,7 +204,7 @@ export function useMultipleStockData(symbols: string[], options: Omit<UseStockDa
     loading: false,
     error: null,
     completed: 0,
-    total: symbols.length
+    total: symbols.length,
   });
 
   const fetchAllData = useCallback(async () => {
@@ -218,7 +218,7 @@ export function useMultipleStockData(symbols: string[], options: Omit<UseStockDa
         return { 
           symbol, 
           data: null, 
-          error: error instanceof Error ? error.message : '不明なエラー' 
+          error: error instanceof Error ? error.message : "不明なエラー", 
         };
       }
     });
@@ -235,8 +235,8 @@ export function useMultipleStockData(symbols: string[], options: Omit<UseStockDa
         loading: false,
         error,
         lastUpdated: data?.metadata.last_updated || null,
-        source: data ? 'api' : null,
-        retryCount: 0
+        source: data ? "api" : null,
+        retryCount: 0,
       };
       
       if (data) completed++;
@@ -246,9 +246,9 @@ export function useMultipleStockData(symbols: string[], options: Omit<UseStockDa
     setResults(newResults);
     setOverallState({
       loading: false,
-      error: hasError ? '一部のデータ取得に失敗しました' : null,
+      error: hasError ? "一部のデータ取得に失敗しました" : null,
       completed,
-      total: symbols.length
+      total: symbols.length,
     });
   }, [symbols]);
 
@@ -261,6 +261,6 @@ export function useMultipleStockData(symbols: string[], options: Omit<UseStockDa
   return {
     results,
     overallState,
-    refresh: fetchAllData
+    refresh: fetchAllData,
   };
 }

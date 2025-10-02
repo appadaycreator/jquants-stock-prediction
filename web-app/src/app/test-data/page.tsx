@@ -3,21 +3,21 @@
  * 実装した機能の動作確認用
  */
 
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import StockDataDisplay from '@/components/StockDataDisplay';
+import React, { useState } from "react";
+import StockDataDisplay from "@/components/StockDataDisplay";
 
 export default function TestDataPage() {
-  const [selectedSymbol, setSelectedSymbol] = useState<string>('');
+  const [selectedSymbol, setSelectedSymbol] = useState<string>("");
   const [autoRefresh, setAutoRefresh] = useState<boolean>(false);
   const [showCacheStats, setShowCacheStats] = useState<boolean>(true);
 
   const symbols = [
-    { code: '', name: '全銘柄' },
-    { code: '7203', name: 'トヨタ自動車' },
-    { code: '6758', name: 'ソニーグループ' },
-    { code: '9984', name: 'ソフトバンクグループ' }
+    { code: "", name: "全銘柄" },
+    { code: "7203", name: "トヨタ自動車" },
+    { code: "6758", name: "ソニーグループ" },
+    { code: "9984", name: "ソフトバンクグループ" },
   ];
 
   return (

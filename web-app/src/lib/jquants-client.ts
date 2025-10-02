@@ -32,7 +32,7 @@ class JQuantsClientFactory {
           // 価格データは個別ファイルから取得する必要がある
           return {
             data: [],
-            message: "価格データは個別銘柄ファイルから取得してください"
+            message: "価格データは個別銘柄ファイルから取得してください",
           } as T;
         default:
           dataUrl = "/data/listed_index.json";

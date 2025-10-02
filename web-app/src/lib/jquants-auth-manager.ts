@@ -14,9 +14,9 @@ interface AuthResponse {
 }
 
 export class JQuantsAuthManager {
-  private static readonly AUTH_URL = 'https://api.jquants.com/v1/token/auth_user';
-  private static readonly REFRESH_URL = 'https://api.jquants.com/v1/token/auth_refresh';
-  private static readonly TEST_URL = 'https://api.jquants.com/v1/listed/info';
+  private static readonly AUTH_URL = "https://api.jquants.com/v1/token/auth_user";
+  private static readonly REFRESH_URL = "https://api.jquants.com/v1/token/auth_refresh";
+  private static readonly TEST_URL = "https://api.jquants.com/v1/listed/info";
   private static readonly TOKEN_EXPIRY_BUFFER = 300; // 5分前から更新
 
   /**
@@ -24,13 +24,13 @@ export class JQuantsAuthManager {
    */
   private isTokenExpired(token: string): boolean {
     try {
-      const parts = token.split('.');
+      const parts = token.split(".");
       if (parts.length !== 3) return true;
 
       const payload = parts[1];
       const missingPadding = payload.length % 4;
       const paddedPayload = missingPadding 
-        ? payload + '='.repeat(4 - missingPadding)
+        ? payload + "=".repeat(4 - missingPadding)
         : payload;
 
       const decodedPayload = JSON.parse(atob(paddedPayload));
@@ -39,7 +39,7 @@ export class JQuantsAuthManager {
 
       return (expTimestamp - currentTimestamp) < JQuantsAuthManager.TOKEN_EXPIRY_BUFFER;
     } catch (error) {
-      console.error('トークン解析エラー:', error);
+      console.error("トークン解析エラー:", error);
       return true;
     }
   }
@@ -51,14 +51,14 @@ export class JQuantsAuthManager {
     try {
       const response = await fetch(JQuantsAuthManager.TEST_URL, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       });
 
       return response.ok;
     } catch (error) {
-      console.error('APIテストエラー:', error);
+      console.error("APIテストエラー:", error);
       return false;
     }
   }
@@ -68,18 +68,18 @@ export class JQuantsAuthManager {
    */
   private async getNewTokens(email: string, password: string): Promise<AuthTokens | null> {
     try {
-      console.log('新しいトークンを取得中...');
+      console.log("新しいトークンを取得中...");
 
       // 認証リクエスト
       const authResponse = await fetch(JQuantsAuthManager.AUTH_URL, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           mailaddress: email,
-          password: password
-        })
+          password: password,
+        }),
       });
 
       if (!authResponse.ok) {
@@ -90,20 +90,20 @@ export class JQuantsAuthManager {
       const refreshToken = authResult.refreshToken;
 
       if (!refreshToken) {
-        throw new Error('リフレッシュトークンの取得に失敗しました');
+        throw new Error("リフレッシュトークンの取得に失敗しました");
       }
 
-      console.log('リフレッシュトークンを取得しました');
+      console.log("リフレッシュトークンを取得しました");
 
       // IDトークンを取得
       const refreshResponse = await fetch(JQuantsAuthManager.REFRESH_URL, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          refreshtoken: refreshToken
-        })
+          refreshtoken: refreshToken,
+        }),
       });
 
       if (!refreshResponse.ok) {
@@ -114,18 +114,18 @@ export class JQuantsAuthManager {
       const idToken = refreshResult.idToken;
 
       if (!idToken) {
-        throw new Error('IDトークンの取得に失敗しました');
+        throw new Error("IDトークンの取得に失敗しました");
       }
 
-      console.log('IDトークンを取得しました');
+      console.log("IDトークンを取得しました");
 
       return {
         idToken,
-        refreshToken
+        refreshToken,
       };
 
     } catch (error) {
-      console.error('認証エラー:', error);
+      console.error("認証エラー:", error);
       return null;
     }
   }
@@ -135,16 +135,16 @@ export class JQuantsAuthManager {
    */
   private async refreshIdToken(refreshToken: string): Promise<string | null> {
     try {
-      console.log('リフレッシュトークンでIDトークンを更新中...');
+      console.log("リフレッシュトークンでIDトークンを更新中...");
 
       const response = await fetch(JQuantsAuthManager.REFRESH_URL, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          refreshtoken: refreshToken
-        })
+          refreshtoken: refreshToken,
+        }),
       });
 
       if (!response.ok) {
@@ -155,15 +155,15 @@ export class JQuantsAuthManager {
       const newIdToken = result.idToken;
 
       if (newIdToken) {
-        console.log('IDトークンの更新に成功しました');
+        console.log("IDトークンの更新に成功しました");
         return newIdToken;
       } else {
-        console.error('IDトークンの更新に失敗しました');
+        console.error("IDトークンの更新に失敗しました");
         return null;
       }
 
     } catch (error) {
-      console.error('トークン更新エラー:', error);
+      console.error("トークン更新エラー:", error);
       return null;
     }
   }
@@ -178,7 +178,7 @@ export class JQuantsAuthManager {
     const password = process.env.NEXT_PUBLIC_JQUANTS_PASSWORD;
 
     if (!currentIdToken) {
-      console.warn('IDトークンが設定されていません');
+      console.warn("IDトークンが設定されていません");
       return null;
     }
 
@@ -186,19 +186,19 @@ export class JQuantsAuthManager {
     if (!this.isTokenExpired(currentIdToken)) {
       const isApiValid = await this.testTokenWithAPI(currentIdToken);
       if (isApiValid) {
-        console.log('現在のトークンは有効です');
+        console.log("現在のトークンは有効です");
         return currentIdToken;
       }
     }
 
     // 2. リフレッシュトークンで更新を試行
     if (currentRefreshToken) {
-      console.log('リフレッシュトークンで更新を試行...');
+      console.log("リフレッシュトークンで更新を試行...");
       const newIdToken = await this.refreshIdToken(currentRefreshToken);
       if (newIdToken) {
         const isApiValid = await this.testTokenWithAPI(newIdToken);
         if (isApiValid) {
-          console.log('リフレッシュトークンでの更新に成功しました');
+          console.log("リフレッシュトークンでの更新に成功しました");
           return newIdToken;
         }
       }
@@ -206,18 +206,18 @@ export class JQuantsAuthManager {
 
     // 3. メールアドレスとパスワードで新規取得
     if (email && password) {
-      console.log('メールアドレスとパスワードで新規認証を試行...');
+      console.log("メールアドレスとパスワードで新規認証を試行...");
       const newTokens = await this.getNewTokens(email, password);
       if (newTokens) {
         const isApiValid = await this.testTokenWithAPI(newTokens.idToken);
         if (isApiValid) {
-          console.log('新規認証に成功しました');
+          console.log("新規認証に成功しました");
           return newTokens.idToken;
         }
       }
     }
 
-    console.error('すべての認証方法が失敗しました');
+    console.error("すべての認証方法が失敗しました");
     return null;
   }
 
