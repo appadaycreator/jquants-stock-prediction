@@ -33,6 +33,9 @@ class EnhancedErrorHandler {
   private errorLog: Array<{ error: Error; context: ErrorContext; classification: ErrorClassification }> = [];
   private retryAttempts: Map<string, number> = new Map();
   private maxRetryAttempts = 3;
+  private errorCounts: Map<string, number> = new Map();
+  private lastErrorTime: Map<string, number> = new Map();
+  private maxErrorsPerMinute = 10; // 1分間に最大10回まで
 
   /**
    * エラーの分類と処理
@@ -40,14 +43,30 @@ class EnhancedErrorHandler {
   handleError(error: Error, context: ErrorContext): ErrorClassification {
     const classification = this.classifyError(error, context);
     
+    // エラーの重複チェック
+    const errorKey = `${context.operation}_${context.component}_${error.message}`;
+    const now = Date.now();
+    const lastTime = this.lastErrorTime.get(errorKey) || 0;
+    const errorCount = this.errorCounts.get(errorKey) || 0;
+    
+    // 1分以内に同じエラーが10回以上発生した場合はログを制限
+    if (now - lastTime < 60000 && errorCount >= this.maxErrorsPerMinute) {
+      // ログを出力せずに分類のみ返す
+      return classification;
+    }
+    
     // エラーログに記録
     this.errorLog.push({ error, context, classification });
     
-    // コンソールにログ出力
-    this.logError(error, context, classification);
+    // エラーカウントを更新
+    this.errorCounts.set(errorKey, errorCount + 1);
+    this.lastErrorTime.set(errorKey, now);
     
-    // ユーザー通知
-    this.notifyUser(classification, context);
+    // コンソールにログ出力（一時的に無効化）
+    // this.logError(error, context, classification);
+    
+    // ユーザー通知（一時的に無効化）
+    // this.notifyUser(classification, context);
     
     return classification;
   }
@@ -163,22 +182,37 @@ class EnhancedErrorHandler {
    * エラーログの出力
    */
   private logError(error: Error, context: ErrorContext, classification: ErrorClassification): void {
-    const logData = {
-      error: {
-        name: error.name,
-        message: error.message,
-        stack: error.stack,
-      },
-      context,
-      classification,
-      timestamp: new Date().toISOString(),
-    };
+    const errorKey = `${context.operation}_${context.component}_${error.message}`;
+    const errorCount = this.errorCounts.get(errorKey) || 0;
+    
+    // 簡潔なログ出力
+    if (errorCount === 1) {
+      console.error(`[Error Handler] ${context.operation} in ${context.component}: ${error.message}`);
+    } else if (errorCount <= 5) {
+      console.warn(`[Error Handler] ${context.operation} in ${context.component}: ${error.message} (${errorCount}回目)`);
+    } else if (errorCount === 6) {
+      console.warn(`[Error Handler] ${context.operation} in ${context.component}: エラーが頻繁に発生しています。ログを制限します。`);
+    }
+    
+    // 詳細ログは最初の1回のみ
+    if (errorCount === 1) {
+      const logData = {
+        error: {
+          name: error.name,
+          message: error.message,
+          stack: error.stack,
+        },
+        context,
+        classification,
+        timestamp: new Date().toISOString(),
+      };
 
-    console.error('Enhanced Error Handler:', logData);
+      console.error('Enhanced Error Handler:', logData);
 
-    // 本番環境では外部ログサービスに送信
-    if (process.env.NODE_ENV === 'production') {
-      this.sendToLogService(logData);
+      // 本番環境では外部ログサービスに送信
+      if (process.env.NODE_ENV === 'production') {
+        this.sendToLogService(logData);
+      }
     }
   }
 
@@ -296,6 +330,36 @@ class EnhancedErrorHandler {
    */
   resetRetryCounters(): void {
     this.retryAttempts.clear();
+  }
+
+  /**
+   * エラーカウンターのリセット
+   */
+  resetErrorCounters(): void {
+    this.errorCounts.clear();
+    this.lastErrorTime.clear();
+  }
+
+  /**
+   * 全カウンターのリセット
+   */
+  resetAllCounters(): void {
+    this.retryAttempts.clear();
+    this.errorCounts.clear();
+    this.lastErrorTime.clear();
+    this.errorLog = [];
+  }
+
+  /**
+   * デバッグ用：エラーカウンターの状態を取得
+   */
+  getDebugInfo(): any {
+    return {
+      errorCounts: Object.fromEntries(this.errorCounts),
+      lastErrorTime: Object.fromEntries(this.lastErrorTime),
+      retryAttempts: Object.fromEntries(this.retryAttempts),
+      totalErrors: this.errorLog.length,
+    };
   }
 }
 

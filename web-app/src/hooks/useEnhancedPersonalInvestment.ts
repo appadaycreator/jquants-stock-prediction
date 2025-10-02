@@ -150,13 +150,13 @@ export function useEnhancedPersonalInvestment(): UseEnhancedPersonalInvestmentRe
       setError(classification.userMessage);
       setLoadingError(classification.userMessage);
 
-      // 自動復旧の試行
-      if (classification.recovery?.autoRetry) {
-        const canRetry = await errorHandler.attemptRecovery(classification, context);
-        if (canRetry) {
-          setTimeout(() => fetchPersonalInvestmentData(false), classification.recovery?.retryDelay || 2000);
-        }
-      }
+      // 自動復旧は無効化（無限ループを防ぐ）
+      // if (classification.recovery?.autoRetry) {
+      //   const canRetry = await errorHandler.attemptRecovery(classification, context);
+      //   if (canRetry) {
+      //     setTimeout(() => fetchPersonalInvestmentData(false), classification.recovery?.retryDelay || 2000);
+      //   }
+      // }
     }
   }, [startLoading, setSuccess, setLoadingError]);
 
