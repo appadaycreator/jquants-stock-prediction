@@ -350,27 +350,27 @@ class OptimizedSettingsManager {
    */
   private initializeValidationRules(): void {
     this.validationRules.set("prediction.period", (value) => 
-      typeof value === "number" && value >= 1 && value <= 365
+      typeof value === "number" && value >= 1 && value <= 365,
     );
     
     this.validationRules.set("prediction.models", (value) => 
-      Array.isArray(value) && value.length > 0
+      Array.isArray(value) && value.length > 0,
     );
     
     this.validationRules.set("prediction.features", (value) => 
-      Array.isArray(value) && value.length > 0
+      Array.isArray(value) && value.length > 0,
     );
     
     this.validationRules.set("risk.maxDrawdown", (value) => 
-      typeof value === "number" && value >= 0 && value <= 100
+      typeof value === "number" && value >= 0 && value <= 100,
     );
     
     this.validationRules.set("risk.volatility", (value) => 
-      typeof value === "number" && value >= 0 && value <= 100
+      typeof value === "number" && value >= 0 && value <= 100,
     );
     
     this.validationRules.set("risk.var", (value) => 
-      typeof value === "number" && value >= 0 && value <= 100
+      typeof value === "number" && value >= 0 && value <= 100,
     );
   }
 

@@ -7,8 +7,8 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import apiClient from "@/lib/enhanced-api-client";
-import optimizedCacheManager from "@/lib/optimized-cache-manager";
-import optimizedErrorHandler, { ErrorContext } from "@/lib/optimized-error-handler";
+import { optimizedCacheManager } from "@/lib/optimized-cache-manager";
+import { optimizedErrorHandler, ErrorContext } from "@/lib/optimized-error-handler";
 
 interface TodaySummary {
   date: string;

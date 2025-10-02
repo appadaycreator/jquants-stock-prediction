@@ -323,7 +323,7 @@ class OptimizedErrorHandler {
   private calculateRecoverySuccessRate(): number {
     const totalRecoveryAttempts = Array.from(this.recoveryAttempts.values()).reduce((sum, attempts) => sum + attempts, 0);
     const successfulRecoveries = this.errorHistory.filter(error => 
-      this.recoveryAttempts.has(`${error.category}_${error.message}`)
+      this.recoveryAttempts.has(`${error.category}_${error.message}`),
     ).length;
 
     return totalRecoveryAttempts > 0 ? (successfulRecoveries / totalRecoveryAttempts) * 100 : 0;

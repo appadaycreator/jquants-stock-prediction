@@ -211,6 +211,16 @@ class ErrorHandler:
         else:
             self.logger.log_warning(f"{error_type}復旧の上限に達しました")
 
+    def get_health_status(self) -> Dict[str, Any]:
+        """システムヘルス状況の取得"""
+        return {
+            "error_count": self.error_count,
+            "error_stats": self.error_stats,
+            "recovery_attempts": self.recovery_attempts,
+            "status": "healthy" if self.error_count < 10 else "warning",
+            "timestamp": datetime.now().isoformat(),
+        }
+
     def handle_model_error(
         self,
         error: Exception,

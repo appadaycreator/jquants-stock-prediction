@@ -498,7 +498,8 @@ class PredictionEngine:
                 if self.logger:
                     self.logger.log_warning("日本語フォント設定をスキップします")
 
-            plt.figure(figsize=(15, 8))
+            # 高解像度対応
+            plt.figure(figsize=(15, 8), dpi=100)
 
             # メインプロット
             plt.subplot(2, 2, 1)
@@ -543,7 +544,7 @@ class PredictionEngine:
             plt.grid(True, alpha=0.3)
 
             plt.tight_layout()
-            plt.savefig(output_file, dpi=300, bbox_inches="tight")
+            plt.savefig(output_file, dpi=300, bbox_inches="tight", facecolor='white')
             plt.close()  # メモリ節約のため
 
             if self.logger:
@@ -552,6 +553,16 @@ class PredictionEngine:
         except Exception as e:
             if self.error_handler:
                 self.error_handler.handle_file_error(e, output_file, "可視化保存")
+
+    def get_model_performance_metrics(self) -> Dict[str, Any]:
+        """モデルパフォーマンス指標の取得"""
+        return {
+            "supported_models": ["random_forest", "linear_regression", "ridge", "lasso"],
+            "overfitting_detection": True,
+            "validation_enabled": True,
+            "performance_optimization": True,
+            "timestamp": datetime.now().isoformat(),
+        }
 
     def validate_data(self, data: pd.DataFrame) -> Dict[str, Any]:
         """データの検証"""

@@ -50,7 +50,7 @@ class ConfigManager:
         self.config = {
             "system": {
                 "name": "J-Quants株価予測システム",
-                "version": "2.6.0",
+                "version": "2.8.0",
                 "environment": "production",
                 "debug": False,
             },
@@ -107,6 +107,8 @@ class ConfigManager:
                 "use_cache": True,
                 "use_parallel": True,
                 "cache_ttl": 3600,
+                "enable_compression": True,
+                "optimize_memory": True,
             },
         }
 
