@@ -20,6 +20,8 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // 静的エクスポート時の設定
+  distDir: isProd ? 'docs' : '.next',
   // 静的アセットのパス設定
   async headers() {
     return [

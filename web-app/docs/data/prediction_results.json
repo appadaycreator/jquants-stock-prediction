@@ -1,282 +1,97 @@
-[
-  {
-    "Actual": 1945.52,
-    "Predicted": 1929.7271999999998,
-    "Residuals": 15.79280000000017
-  },
-  {
-    "Actual": 1376.26,
-    "Predicted": 1377.5301999999997,
-    "Residuals": -1.2701999999997042
-  },
-  {
-    "Actual": 4434.25,
-    "Predicted": 4493.2198000000035,
-    "Residuals": -58.96980000000349
-  },
-  {
-    "Actual": 3807.53,
-    "Predicted": 3806.929600000003,
-    "Residuals": 0.6003999999970802
-  },
-  {
-    "Actual": 4409.57,
-    "Predicted": 4463.590800000003,
-    "Residuals": -54.020800000002964
-  },
-  {
-    "Actual": 1464.26,
-    "Predicted": 1476.7103000000006,
-    "Residuals": -12.450300000000652
-  },
-  {
-    "Actual": 1375.21,
-    "Predicted": 1386.2982000000002,
-    "Residuals": -11.088200000000143
-  },
-  {
-    "Actual": 3982.58,
-    "Predicted": 3994.309900000004,
-    "Residuals": -11.729900000003909
-  },
-  {
-    "Actual": 1389.84,
-    "Predicted": 1398.5657999999994,
-    "Residuals": -8.72579999999948
-  },
-  {
-    "Actual": 3896.85,
-    "Predicted": 3875.0473999999995,
-    "Residuals": 21.80260000000044
-  },
-  {
-    "Actual": 1296.69,
-    "Predicted": 1309.5764,
-    "Residuals": -12.886399999999867
-  },
-  {
-    "Actual": 3753.53,
-    "Predicted": 3763.4932000000035,
-    "Residuals": -9.963200000003326
-  },
-  {
-    "Actual": 3534.17,
-    "Predicted": 3538.1398999999988,
-    "Residuals": -3.969899999998688
-  },
-  {
-    "Actual": 1929.1,
-    "Predicted": 1968.3561999999981,
-    "Residuals": -39.256199999998216
-  },
-  {
-    "Actual": 3728.8,
-    "Predicted": 3754.0274000000018,
-    "Residuals": -25.22740000000158
-  },
-  {
-    "Actual": 3689.07,
-    "Predicted": 3700.4224999999988,
-    "Residuals": -11.3524999999986
-  },
-  {
-    "Actual": 1911.39,
-    "Predicted": 1928.0460000000007,
-    "Residuals": -16.65600000000063
-  },
-  {
-    "Actual": 1952.52,
-    "Predicted": 1933.1114999999984,
-    "Residuals": 19.408500000001595
-  },
-  {
-    "Actual": 1327.53,
-    "Predicted": 1317.2937000000002,
-    "Residuals": 10.236299999999801
-  },
-  {
-    "Actual": 1420.36,
-    "Predicted": 1450.3443,
-    "Residuals": -29.984300000000076
-  },
-  {
-    "Actual": 1944.04,
-    "Predicted": 1930.1679999999992,
-    "Residuals": 13.872000000000753
-  },
-  {
-    "Actual": 3748.36,
-    "Predicted": 3707.260199999998,
-    "Residuals": 41.09980000000223
-  },
-  {
-    "Actual": 1862.56,
-    "Predicted": 1872.5416,
-    "Residuals": -9.981600000000071
-  },
-  {
-    "Actual": 1393.49,
-    "Predicted": 1402.2126999999996,
-    "Residuals": -8.722699999999577
-  },
-  {
-    "Actual": 1422.88,
-    "Predicted": 1440.5393000000008,
-    "Residuals": -17.659300000000712
-  },
-  {
-    "Actual": 1815.25,
-    "Predicted": 1868.3466999999987,
-    "Residuals": -53.09669999999869
-  },
-  {
-    "Actual": 3696.01,
-    "Predicted": 3731.7858,
-    "Residuals": -35.77579999999989
-  },
-  {
-    "Actual": 4371.17,
-    "Predicted": 4363.607000000001,
-    "Residuals": 7.562999999999192
-  },
-  {
-    "Actual": 1423.91,
-    "Predicted": 1414.4953000000003,
-    "Residuals": 9.414699999999812
-  },
-  {
-    "Actual": 2074.48,
-    "Predicted": 2055.2601999999974,
-    "Residuals": 19.21980000000258
-  },
-  {
-    "Actual": 4463.56,
-    "Predicted": 4432.0032999999985,
-    "Residuals": 31.55670000000191
-  },
-  {
-    "Actual": 1358.46,
-    "Predicted": 1346.0790999999992,
-    "Residuals": 12.380900000000793
-  },
-  {
-    "Actual": 1409.51,
-    "Predicted": 1402.7068999999997,
-    "Residuals": 6.803100000000313
-  },
-  {
-    "Actual": 2022.06,
-    "Predicted": 2034.0319999999972,
-    "Residuals": -11.971999999997252
-  },
-  {
-    "Actual": 1908.09,
-    "Predicted": 1906.7256000000007,
-    "Residuals": 1.3643999999992502
-  },
-  {
-    "Actual": 1897.36,
-    "Predicted": 1889.4275999999995,
-    "Residuals": 7.932400000000371
-  },
-  {
-    "Actual": 4315.16,
-    "Predicted": 4331.896400000003,
-    "Residuals": -16.736400000003414
-  },
-  {
-    "Actual": 3919.66,
-    "Predicted": 3907.0614000000032,
-    "Residuals": 12.598599999996623
-  },
-  {
-    "Actual": 4686.24,
-    "Predicted": 4639.9421999999995,
-    "Residuals": 46.29780000000028
-  },
-  {
-    "Actual": 3728.97,
-    "Predicted": 3705.6167999999975,
-    "Residuals": 23.35320000000229
-  },
-  {
-    "Actual": 4857.27,
-    "Predicted": 4896.1510000000035,
-    "Residuals": -38.88100000000304
-  },
-  {
-    "Actual": 4496.8,
-    "Predicted": 4506.1788,
-    "Residuals": -9.3787999999995
-  },
-  {
-    "Actual": 5166.93,
-    "Predicted": 5032.527400000005,
-    "Residuals": 134.4025999999949
-  },
-  {
-    "Actual": 2004.13,
-    "Predicted": 1993.6969999999974,
-    "Residuals": 10.433000000002721
-  },
-  {
-    "Actual": 1328.64,
-    "Predicted": 1342.650499999999,
-    "Residuals": -14.010499999998956
-  },
-  {
-    "Actual": 4489.36,
-    "Predicted": 4511.172600000002,
-    "Residuals": -21.81260000000202
-  },
-  {
-    "Actual": 1425.22,
-    "Predicted": 1412.4136000000005,
-    "Residuals": 12.806399999999485
-  },
-  {
-    "Actual": 4380.06,
-    "Predicted": 4468.6933000000045,
-    "Residuals": -88.63330000000406
-  },
-  {
-    "Actual": 3892.52,
-    "Predicted": 3902.6197,
-    "Residuals": -10.099700000000212
-  },
-  {
-    "Actual": 1516.26,
-    "Predicted": 1499.4141999999993,
-    "Residuals": 16.845800000000736
-  },
-  {
-    "Actual": 4687.91,
-    "Predicted": 4648.195600000001,
-    "Residuals": 39.71439999999893
-  },
-  {
-    "Actual": 1376.79,
-    "Predicted": 1382.683799999999,
-    "Residuals": -5.893799999999146
-  },
-  {
-    "Actual": 1396.91,
-    "Predicted": 1396.3297999999998,
-    "Residuals": 0.5802000000003318
-  },
-  {
-    "Actual": 2007.35,
-    "Predicted": 1991.7351999999973,
-    "Residuals": 15.61480000000256
-  },
-  {
-    "Actual": 3909.96,
-    "Predicted": 3911.0028000000007,
-    "Residuals": -1.042800000000625
-  },
-  {
-    "Actual": 1972.29,
-    "Predicted": 1985.721399999998,
-    "Residuals": -13.43139999999812
+{
+  "data": [
+    {
+      "date": "2024-01-01",
+      "symbol": "7203",
+      "y_true": 1945.52,
+      "y_pred": 1929.73,
+      "confidence": 0.85,
+      "model_version": "v1.2.0"
+    },
+    {
+      "date": "2024-01-02",
+      "symbol": "7203",
+      "y_true": 1376.26,
+      "y_pred": 1377.53,
+      "confidence": 0.82,
+      "model_version": "v1.2.0"
+    },
+    {
+      "date": "2024-01-03",
+      "symbol": "7203",
+      "y_true": 4434.25,
+      "y_pred": 4493.22,
+      "confidence": 0.88,
+      "model_version": "v1.2.0"
+    },
+    {
+      "date": "2024-01-04",
+      "symbol": "7203",
+      "y_true": 3807.53,
+      "y_pred": 3806.93,
+      "confidence": 0.79,
+      "model_version": "v1.2.0"
+    },
+    {
+      "date": "2024-01-05",
+      "symbol": "7203",
+      "y_true": 4409.57,
+      "y_pred": 4463.59,
+      "confidence": 0.91,
+      "model_version": "v1.2.0"
+    },
+    {
+      "date": "2024-01-01",
+      "symbol": "6758",
+      "y_true": 1464.26,
+      "y_pred": 1476.71,
+      "confidence": 0.87,
+      "model_version": "v1.2.0"
+    },
+    {
+      "date": "2024-01-02",
+      "symbol": "6758",
+      "y_true": 1375.21,
+      "y_pred": 1386.30,
+      "confidence": 0.84,
+      "model_version": "v1.2.0"
+    },
+    {
+      "date": "2024-01-03",
+      "symbol": "6758",
+      "y_true": 3982.58,
+      "y_pred": 3994.31,
+      "confidence": 0.89,
+      "model_version": "v1.2.0"
+    },
+    {
+      "date": "2024-01-04",
+      "symbol": "6758",
+      "y_true": 1389.84,
+      "y_pred": 1398.57,
+      "confidence": 0.86,
+      "model_version": "v1.2.0"
+    },
+    {
+      "date": "2024-01-05",
+      "symbol": "6758",
+      "y_true": 3896.85,
+      "y_pred": 3875.05,
+      "confidence": 0.92,
+      "model_version": "v1.2.0"
+    }
+  ],
+  "meta": {
+    "model": "LSTM_Stock_Predictor_v1.2.0",
+    "generatedAt": "2024-01-06T10:30:00Z",
+    "totalPredictions": 10,
+    "modelAccuracy": 0.87,
+    "lastTrainingDate": "2024-01-05T23:59:59Z",
+    "features": [
+      "price_momentum",
+      "volume_trend",
+      "technical_indicators",
+      "market_sentiment"
+    ]
   }
-]
+}

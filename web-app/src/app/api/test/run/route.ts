@@ -5,13 +5,10 @@ import path from "path";
 
 const execAsync = promisify(exec);
 
-// APIルート用の設定
-export const dynamic = 'force-dynamic';
-
 export async function POST(request: NextRequest) {
   console.log("Test run API called");
   
-  // GitHub Pages（静的ホスティング）ではAPIルートが動作しないため、フォールバック
+  // 静的エクスポート時はAPIルートを無効化
   if (process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production') {
     return NextResponse.json({
       success: false,
@@ -69,7 +66,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  // GitHub Pages（静的ホスティング）ではAPIルートが動作しないため、フォールバック
+  // 静的エクスポート時はAPIルートを無効化
   if (process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production') {
     return NextResponse.json({
       success: false,

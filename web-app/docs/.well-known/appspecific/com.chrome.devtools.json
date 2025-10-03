@@ -1,0 +1,19 @@
+{
+  "name": "J-Quants Stock Prediction System",
+  "version": "2.0.0",
+  "description": "AI-powered stock prediction system with model retraining and optimization",
+  "features": [
+    "Real-time stock analysis",
+    "Model comparison and visualization",
+    "Automated model retraining",
+    "Hyperparameter customization",
+    "Performance caching",
+    "Notification system"
+  ],
+  "endpoints": {
+    "model-health": "/api/model-health",
+    "today-actions": "/api/today-actions",
+    "yesterday-summary": "/api/yesterday-summary"
+  },
+  "status": "active"
+}

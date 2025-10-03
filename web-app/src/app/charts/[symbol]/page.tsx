@@ -7,6 +7,7 @@ import Link from 'next/link';
 import StockChart from '@/components/StockChart';
 import { Button } from '@/components/ui/button';
 
+
 interface ChartData {
   timestamp: number;
   open: number;
