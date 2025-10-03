@@ -135,7 +135,7 @@ class DataValidator {
       required: true,
     },
     code: {
-      format: /^\d{4}$/,
+      format: /^\d{4,5}$/,
       required: true,
     },
   };

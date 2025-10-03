@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { X, TrendingUp, TrendingDown, BarChart3, DollarSign, Calendar } from "lucide-react";
+import { formatStockCode } from "@/lib/stock-code-utils";
 
 interface StockData {
   code: string;
@@ -284,7 +285,7 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
             <h2 className="text-2xl font-bold text-gray-900">
               {stockData?.name || "銘柄詳細"}
             </h2>
-            <p className="text-gray-600">銘柄コード: {symbol}</p>
+            <p className="text-gray-600">銘柄コード: {formatStockCode(symbol)}</p>
           </div>
           <button
             onClick={onClose}

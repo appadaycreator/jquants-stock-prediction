@@ -6,6 +6,7 @@ import React, { useState, useEffect, useMemo, useCallback } from "react";
 import EnhancedJQuantsAdapter from "@/lib/enhanced-jquants-adapter";
 import StockDetailModal from "@/components/StockDetailModal";
 import StockSearchInput from "@/components/StockSearchInput";
+import { formatStockCode } from "@/lib/stock-code-utils";
 
 interface ListedStock {
   code: string;
@@ -159,7 +160,7 @@ const ListedDataPage: React.FC = () => {
 
     let filtered = data.stocks.filter(stock => {
       const normalizedName = normalizeText(stock.name);
-      const normalizedCode = normalizeText(stock.code);
+      const normalizedCode = normalizeText(formatStockCode(stock.code));
       const matchesSearch = normalizedName.includes(normalizedSearchTerm) || 
                            normalizedCode.includes(normalizedSearchTerm);
       const matchesSector = !selectedSector || stock.sector === selectedSector;
@@ -498,7 +499,7 @@ const ListedDataPage: React.FC = () => {
               {paginatedStocks.map((stock) => (
                 <tr key={stock.code} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {stock.code}
+                    {formatStockCode(stock.code)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     <div className="max-w-xs truncate" title={stock.name}>
@@ -545,7 +546,7 @@ const ListedDataPage: React.FC = () => {
                         setIsModalOpen(true);
                       }}
                       className="text-blue-600 hover:text-blue-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
-                      aria-label={`${stock.name} (${stock.code}) の詳細を表示`}
+                      aria-label={`${stock.name} (${formatStockCode(stock.code)}) の詳細を表示`}
                     >
                       詳細
                     </button>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { TrendingUp, TrendingDown, Minus, AlertTriangle, CheckCircle, Clock, Target, Shield, BarChart3, ExternalLink } from "lucide-react";
 import { SignalCategoryTooltip, ConfidenceTooltip } from "./SignalTooltip";
+import { formatStockCode } from "@/lib/stock-code-utils";
 
 interface InstructionCardProps {
   symbol: string;
@@ -149,7 +150,7 @@ export default function InstructionCard({
           <div className="flex items-center space-x-3">
             {getRecommendationIcon()}
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">{symbol}</h3>
+              <h3 className="text-lg font-semibold text-gray-900">{formatStockCode(symbol)}</h3>
               {name && <p className="text-sm text-gray-600">{name}</p>}
             </div>
           </div>

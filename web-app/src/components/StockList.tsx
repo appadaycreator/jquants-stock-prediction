@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, Filter, SortAsc, SortDesc, TrendingUp, TrendingDown, Eye } from 'lucide-react';
+import { Search, Filter, SortAsc, SortDesc, TrendingUp, TrendingDown, Eye, ExternalLink } from 'lucide-react';
+import { formatStockCode } from '@/lib/stock-code-utils';
+import { openMinkabuLink, isMinkabuLinkAvailable } from '@/lib/minkabu-utils';
 
 interface Stock {
   code: string;
@@ -253,12 +255,23 @@ export const StockList: React.FC<StockListProps> = ({
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {paginatedStocks.map((stock) => (
-                <tr key={stock.code} className="hover:bg-gray-50">
+                <tr key={formatStockCode(stock.code)} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {stock.code}
+                    {formatStockCode(stock.code)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {stock.name}
+                    <div className="flex items-center space-x-2">
+                      <span>{stock.name}</span>
+                      {isMinkabuLinkAvailable(stock.code) && (
+                        <button
+                          onClick={() => openMinkabuLink(stock.code)}
+                          className="text-orange-600 hover:text-orange-900"
+                          title="みんかぶで詳細を見る"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     ¥{stock.price.toLocaleString()}
@@ -306,6 +319,16 @@ export const StockList: React.FC<StockListProps> = ({
                       >
                         ウォッチ
                       </button>
+                      {isMinkabuLinkAvailable(stock.code) && (
+                        <button
+                          onClick={() => openMinkabuLink(stock.code)}
+                          className="text-orange-600 hover:text-orange-900 flex items-center space-x-1"
+                          title="みんかぶで詳細を見る"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          <span>みんかぶ</span>
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>

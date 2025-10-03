@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from "react";
 import { useStockData } from "@/hooks/useStockData";
 import type { StockDataResponse } from "@/hooks/useStockData";
+import { formatStockCode } from "@/lib/stock-code-utils";
 
 interface StockDataDisplayProps {
   symbol?: string;
@@ -223,7 +224,7 @@ export default function StockDataDisplay({
                     <div className="flex justify-between items-start mb-2">
                       <div>
                         <h4 className="font-medium">{stock.name}</h4>
-                        <p className="text-sm text-gray-600">{code}</p>
+                        <p className="text-sm text-gray-600">{formatStockCode(code)}</p>
                       </div>
                       <span className="text-sm text-gray-500">{(stock as any).sector || "N/A"}</span>
                     </div>

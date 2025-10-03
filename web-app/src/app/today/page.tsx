@@ -13,6 +13,7 @@ import EnhancedLoadingSpinner from "@/components/EnhancedLoadingSpinner";
 // import SignalHistoryDisplay from "@/components/SignalHistoryDisplay"; // 一時的に無効化
 import ErrorGuidance from "@/components/ErrorGuidance";
 import { Clock, TrendingUp, RefreshCw, CheckCircle, AlertTriangle, Target } from "lucide-react";
+import { formatStockCode } from "@/lib/stock-code-utils";
 
 export default function TodayPage() {
   const routine = useFiveMinRoutine();
@@ -338,7 +339,7 @@ export default function TodayPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="font-semibold text-gray-900">
-                        {h.symbol}
+                        {formatStockCode(h.symbol)}
                         {h.name && h.name !== h.symbol && (
                           <span className="ml-2 text-sm text-gray-600">({h.name})</span>
                         )}
