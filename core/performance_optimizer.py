@@ -70,18 +70,26 @@ class PerformanceOptimizer:
             pass
 
     def _monitoring_loop(self, interval: int):
-        """監視ループ（最適化版）"""
+        """監視ループ（究極最適化版）"""
         consecutive_errors = 0
         max_consecutive_errors = 5
-        
+        last_optimization_time = 0
+        optimization_interval = 300  # 5分ごとに最適化実行
+
         while self.monitoring_active:
             try:
+                current_time = time.time()
                 metrics = self.collect_system_metrics()
                 self.metrics_history.append(metrics)
 
                 # パフォーマンス問題の検出
                 self._detect_performance_issues(metrics)
-                
+
+                # 定期的な最適化実行
+                if current_time - last_optimization_time > optimization_interval:
+                    self._execute_optimization()
+                    last_optimization_time = current_time
+
                 # エラーカウンターをリセット
                 consecutive_errors = 0
 
@@ -95,13 +103,13 @@ class PerformanceOptimizer:
                 consecutive_errors += 1
                 if self.logger:
                     self.logger.log_warning(f"監視ループエラー ({consecutive_errors}/{max_consecutive_errors}): {e}")
-                
+
                 # 連続エラーが上限に達した場合は監視を停止
                 if consecutive_errors >= max_consecutive_errors:
                     if self.logger:
                         self.logger.log_error("連続エラーが上限に達したため、監視を停止します")
                     break
-                
+
                 # エラー時は短い間隔でリトライ
                 try:
                     time.sleep(min(interval, 5))
@@ -168,6 +176,74 @@ class PerformanceOptimizer:
             )
 
         return metrics
+
+    def _execute_optimization(self):
+        """最適化の実行（究極最適化版）"""
+        try:
+            if not self.optimization_enabled:
+                return
+
+            # メモリ最適化
+            self._optimize_memory()
+            
+            # ガベージコレクション
+            self._optimize_garbage_collection()
+            
+            # キャッシュ最適化
+            self._optimize_cache()
+            
+            if self.logger:
+                self.logger.log_info("定期的な最適化を実行しました")
+                
+        except Exception as e:
+            if self.logger:
+                self.logger.log_warning(f"最適化実行エラー: {e}")
+
+    def _optimize_memory(self):
+        """メモリ最適化"""
+        try:
+            # メモリ使用量の確認
+            memory_percent = psutil.virtual_memory().percent
+            
+            if memory_percent > 80:
+                # メモリ使用量が高い場合の最適化
+                gc.collect()
+                
+                if self.logger:
+                    self.logger.log_info(f"メモリ最適化を実行しました（使用率: {memory_percent:.1f}%）")
+                    
+        except Exception as e:
+            if self.logger:
+                self.logger.log_warning(f"メモリ最適化エラー: {e}")
+
+    def _optimize_garbage_collection(self):
+        """ガベージコレクション最適化"""
+        try:
+            # ガベージコレクションの実行
+            collected = gc.collect()
+            
+            if collected > 0 and self.logger:
+                self.logger.log_info(f"ガベージコレクションを実行しました（回収オブジェクト数: {collected}）")
+                
+        except Exception as e:
+            if self.logger:
+                self.logger.log_warning(f"ガベージコレクション最適化エラー: {e}")
+
+    def _optimize_cache(self):
+        """キャッシュ最適化"""
+        try:
+            # 古いメトリクスデータの削除
+            if len(self.metrics_history) > 500:
+                # 古いデータを削除（最新500件を保持）
+                for _ in range(len(self.metrics_history) - 500):
+                    self.metrics_history.popleft()
+                    
+            if self.logger:
+                self.logger.log_info("キャッシュ最適化を実行しました")
+                
+        except Exception as e:
+            if self.logger:
+                self.logger.log_warning(f"キャッシュ最適化エラー: {e}")
 
     def _detect_performance_issues(self, metrics: Dict[str, Any]):
         """パフォーマンス問題の検出"""
