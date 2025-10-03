@@ -20,7 +20,7 @@ sys.path.append(str(project_root))
 
 # 認証管理クラスのインポート
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from jquants_auth_manager import JQuantsAuthManager
+from jquants_auth_manager_final import JQuantsAuthManagerFinal
 
 # ログ設定
 os.makedirs("logs", exist_ok=True)
@@ -44,7 +44,7 @@ class JQuantsAPISyncer:
         self.listed_index_file = self.docs_data_dir / "listed_index.json"
         
         # 認証管理クラスを初期化
-        self.auth_manager = JQuantsAuthManager()
+        self.auth_manager = JQuantsAuthManagerFinal()
         
         # 有効なトークンを取得
         self.id_token = self.auth_manager.get_valid_token()
