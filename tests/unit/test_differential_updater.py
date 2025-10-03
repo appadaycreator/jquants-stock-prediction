@@ -138,14 +138,20 @@ class TestDifferentialUpdater:
         assert result.unchanged_count == 0
 
     @patch("core.differential_updater.JSONDataManager")
-    def test_update_stock_data_success(self, mock_json_manager):
+    @patch("core.differential_updater.DataValidator")
+    def test_update_stock_data_success(self, mock_validator, mock_json_manager):
         """株価データ更新テスト（成功）"""
         mock_manager = Mock()
         mock_json_manager.return_value = mock_manager
         mock_manager.get_stock_data.return_value = []
         mock_manager.save_stock_data.return_value = True
 
+        mock_validator_instance = Mock()
+        mock_validator.return_value = mock_validator_instance
+        mock_validator_instance.validate_stock_data.return_value = {"is_valid": True, "issues": []}
+
         self.updater.json_manager = mock_manager
+        self.updater.validator = mock_validator_instance
 
         test_data = [
             {
@@ -166,14 +172,20 @@ class TestDifferentialUpdater:
         assert "timestamp" in result
 
     @patch("core.differential_updater.JSONDataManager")
-    def test_update_stock_data_failure(self, mock_json_manager):
+    @patch("core.differential_updater.DataValidator")
+    def test_update_stock_data_failure(self, mock_validator, mock_json_manager):
         """株価データ更新テスト（失敗）"""
         mock_manager = Mock()
         mock_json_manager.return_value = mock_manager
         mock_manager.get_stock_data.return_value = []
         mock_manager.save_stock_data.return_value = False
 
+        mock_validator_instance = Mock()
+        mock_validator.return_value = mock_validator_instance
+        mock_validator_instance.validate_stock_data.return_value = {"is_valid": True, "issues": []}
+
         self.updater.json_manager = mock_manager
+        self.updater.validator = mock_validator_instance
 
         test_data = [
             {
@@ -532,8 +544,8 @@ class TestDifferentialUpdater:
             result = self.updater.batch_update(updates)
 
             assert result["success"] is True
-            assert result["total_updates"] == 2
-            assert result["success_count"] == 2
+            assert result["total"] == 2
+            assert result["successful"] == 2
 
     def test_batch_update_partial_failure(self):
         """バッチ更新の部分失敗テスト"""
@@ -571,9 +583,9 @@ class TestDifferentialUpdater:
             result = self.updater.batch_update(updates)
 
             assert result["success"] is False
-            assert result["total_updates"] == 2
-            assert result["success_count"] == 1
-            assert result["error_count"] == 1
+            assert result["total"] == 2
+            assert result["successful"] == 1
+            assert result["failed"] == 1
 
     def test_batch_update_exception_handling(self):
         """バッチ更新の例外処理テスト"""

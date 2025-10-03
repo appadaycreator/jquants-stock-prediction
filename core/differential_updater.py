@@ -27,6 +27,35 @@ class UpdateStatus(Enum):
 
 
 @dataclass
+class ValidationResult:
+    """検証結果クラス"""
+    is_valid: bool
+    issues: List[str]
+    warnings: List[str] = None
+    data_quality_score: float = 1.0
+    
+    def __post_init__(self):
+        if self.warnings is None:
+            self.warnings = []
+
+
+@dataclass
+class UpdateStats:
+    """更新統計クラス"""
+    total_updates: int = 0
+    successful_updates: int = 0
+    failed_updates: int = 0
+    validation_errors: int = 0
+    total_processing_time: float = 0.0
+    last_update_time: Optional[str] = None
+    data_sources: Dict[str, int] = None
+    
+    def __post_init__(self):
+        if self.data_sources is None:
+            self.data_sources = {}
+
+
+@dataclass
 class UpdateConfig:
     """更新設定クラス"""
 
@@ -131,34 +160,52 @@ class DiffCalculator:
         self, existing_data: List[Dict[str, Any]], new_data: List[Dict[str, Any]]
     ) -> Dict[str, int]:
         """差分カウントの計算"""
-        existing_dict = {item["date"]: item for item in existing_data}
-        new_dict = {item["date"]: item for item in new_data}
+        try:
+            # データ構造の正規化（date vs Date）
+            def normalize_item(item):
+                normalized = {}
+                for key, value in item.items():
+                    if key.lower() == 'date':
+                        normalized['date'] = value
+                    else:
+                        normalized[key.lower()] = value
+                return normalized
+            
+            existing_normalized = [normalize_item(item) for item in existing_data]
+            new_normalized = [normalize_item(item) for item in new_data]
+            
+            existing_dict = {item.get("date", ""): item for item in existing_normalized}
+            new_dict = {item.get("date", ""): item for item in new_normalized}
 
-        added = 0
-        updated = 0
-        removed = 0
-        unchanged = 0
+            added = 0
+            updated = 0
+            removed = 0
+            unchanged = 0
 
-        # 新規追加と更新の判定
-        for date, new_item in new_dict.items():
-            if date not in existing_dict:
-                added += 1
-            elif self._has_changes(existing_dict[date], new_item):
-                updated += 1
-            else:
-                unchanged += 1
+            # 新規追加と更新の判定
+            for date, new_item in new_dict.items():
+                if date not in existing_dict:
+                    added += 1
+                elif self._has_changes(existing_dict[date], new_item):
+                    updated += 1
+                else:
+                    unchanged += 1
 
-        # 削除の判定
-        for date in existing_dict:
-            if date not in new_dict:
-                removed += 1
+            # 削除の判定
+            for date in existing_dict:
+                if date not in new_dict:
+                    removed += 1
 
-        return {
-            "added": added,
-            "updated": updated,
-            "removed": removed,
-            "unchanged": unchanged,
-        }
+            return {
+                "added": added,
+                "updated": updated,
+                "removed": removed,
+                "unchanged": unchanged,
+            }
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"差分カウント計算エラー: {e}")
+            return {"added": 0, "updated": 0, "removed": 0, "unchanged": 0}
 
     def _has_changes(self, existing: Dict[str, Any], new: Dict[str, Any]) -> bool:
         """変更の有無を判定"""
@@ -241,6 +288,9 @@ class DifferentialUpdater:
         self.hash_calculator = DataHashCalculator()
         self.diff_calculator = DiffCalculator(self.logger)
         self.validator = DataValidator(self.logger)
+        
+        # 統計情報の初期化
+        self.update_stats = UpdateStats()
 
     def update_stock_data(
         self, symbol: str, new_data: List[Dict[str, Any]], source: str = "api"
@@ -248,11 +298,16 @@ class DifferentialUpdater:
         """株価データの差分更新"""
         try:
             # データ検証
-            validation_result = self.validator.validate_update_data(new_data, symbol)
+            import pandas as pd
+            df = pd.DataFrame(new_data)
+            validation_result = self.validator.validate_stock_data(df)
             if not validation_result["is_valid"]:
                 return {
+                    "success": False,
                     "status": UpdateStatus.VALIDATION_ERROR.value,
+                    "symbol": symbol,
                     "error": f"データ検証失敗: {validation_result['issues']}",
+                    "timestamp": datetime.now().isoformat(),
                 }
 
             # 既存データの取得
@@ -273,7 +328,9 @@ class DifferentialUpdater:
                     self._log_diff_update(symbol, diff_result, source)
                     
                     return {
+                        "success": True,
                         "status": UpdateStatus.SUCCESS.value,
+                        "symbol": symbol,
                         "diff": {
                             "added": diff_result.added_count,
                             "updated": diff_result.updated_count,
@@ -282,25 +339,35 @@ class DifferentialUpdater:
                         },
                         "processing_time": diff_result.processing_time,
                         "data_hash": diff_result.data_hash,
+                        "timestamp": datetime.now().isoformat(),
                     }
                 else:
                     return {
+                        "success": False,
                         "status": UpdateStatus.FAILED.value,
+                        "symbol": symbol,
                         "error": "データ保存に失敗",
+                        "timestamp": datetime.now().isoformat(),
                     }
             else:
                 return {
+                    "success": True,
                     "status": UpdateStatus.SUCCESS.value,
+                    "symbol": symbol,
                     "diff": {"added": 0, "updated": 0, "removed": 0, "unchanged": 0},
                     "message": "変更なし",
+                    "timestamp": datetime.now().isoformat(),
                 }
 
         except Exception as e:
             if self.logger:
                 self.logger.error(f"差分更新エラー {symbol}: {e}")
             return {
+                "success": False,
                 "status": UpdateStatus.FAILED.value,
+                "symbol": symbol,
                 "error": str(e),
+                "timestamp": datetime.now().isoformat(),
             }
 
     def _log_diff_update(self, symbol: str, diff_result: DiffResult, source: str) -> None:
@@ -413,6 +480,296 @@ class DifferentialUpdater:
                 unique_data.append(item)
 
         return unique_data
+
+    def _normalize_data_for_diff(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """差分用データ正規化"""
+        try:
+            if not data:
+                return []
+            
+            normalized = []
+            for item in data:
+                normalized_item = {}
+                for key, value in item.items():
+                    # 数値フィールドの正規化
+                    if key.lower() in ['open', 'high', 'low', 'close', 'volume']:
+                        try:
+                            normalized_item[key.lower()] = float(value)
+                        except (ValueError, TypeError):
+                            normalized_item[key.lower()] = 0.0
+                    else:
+                        normalized_item[key.lower()] = value
+                
+                # 不足しているフィールドをデフォルト値で補完
+                required_fields = ['open', 'high', 'low', 'close', 'volume']
+                for field in required_fields:
+                    if field not in normalized_item:
+                        normalized_item[field] = 0.0
+                
+                normalized.append(normalized_item)
+            return normalized
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"データ正規化エラー: {e}")
+            return data
+
+    def _items_different(self, item1: Dict[str, Any], item2: Dict[str, Any]) -> bool:
+        """アイテム差分判定"""
+        try:
+            # 主要フィールドの比較（大文字小文字を考慮）
+            key_fields = ['date', 'code', 'open', 'high', 'low', 'close', 'volume']
+            for field in key_fields:
+                # 大文字小文字を考慮してフィールドを検索
+                field_variants = [field, field.capitalize(), field.upper()]
+                for variant in field_variants:
+                    if variant in item1 and variant in item2:
+                        if item1[variant] != item2[variant]:
+                            return True
+                        break
+                    elif variant in item1 or variant in item2:
+                        return True
+            return False
+        except Exception:
+            return True
+
+    def _identify_changes(self, old_item: Dict[str, Any], new_item: Dict[str, Any]) -> List[str]:
+        """変更識別"""
+        try:
+            changes = []
+            # 大文字小文字を考慮してフィールドを比較
+            for key in old_item:
+                # 大文字小文字のバリエーションをチェック
+                key_variants = [key, key.lower(), key.capitalize(), key.upper()]
+                for variant in key_variants:
+                    if variant in new_item and old_item[key] != new_item[variant]:
+                        changes.append(f"{key.lower()}: {old_item[key]} -> {new_item[variant]}")
+                        break
+            return changes
+        except Exception:
+            return []
+
+    def _validate_data_integrity(self, new_data: List[Dict[str, Any]], existing_data: List[Dict[str, Any]]) -> ValidationResult:
+        """データ整合性検証"""
+        try:
+            issues = []
+            warnings = []
+            
+            # 基本検証
+            if not new_data:
+                issues.append("データが空です")
+                return ValidationResult(is_valid=False, issues=issues)
+            
+            # 価格の整合性チェック
+            for item in new_data:
+                if 'open' in item and 'high' in item and 'low' in item and 'close' in item:
+                    try:
+                        open_price = float(item['open'])
+                        high_price = float(item['high'])
+                        low_price = float(item['low'])
+                        close_price = float(item['close'])
+                        
+                        # 高値・安値の整合性
+                        if high_price < max(open_price, close_price):
+                            issues.append(f"高値が不正: {item}")
+                        if low_price > min(open_price, close_price):
+                            issues.append(f"安値が不正: {item}")
+                        
+                        # 負の価格チェック
+                        if any(price < 0 for price in [open_price, high_price, low_price, close_price]):
+                            issues.append(f"負の価格: {item}")
+                            
+                    except (ValueError, TypeError):
+                        issues.append(f"価格データが無効: {item}")
+            
+            return ValidationResult(is_valid=len(issues) == 0, issues=issues, warnings=warnings)
+        except Exception as e:
+            return ValidationResult(is_valid=False, issues=[str(e)])
+
+    def _calculate_comprehensive_diff(self, existing_data: List[Dict[str, Any]], new_data: List[Dict[str, Any]]) -> DiffResult:
+        """包括的差分計算"""
+        return self.diff_calculator.calculate_comprehensive_diff(existing_data, new_data)
+
+    def _calculate_diff_counts(self, old_data: List[Dict[str, Any]], new_data: List[Dict[str, Any]]) -> Dict[str, int]:
+        """差分カウント計算"""
+        return self.diff_calculator._calculate_diff_counts(old_data, new_data)
+
+    def _is_significant_change(self, diff_counts: Dict[str, int]) -> bool:
+        """重要な変更判定"""
+        return self.diff_calculator._is_significant_change(diff_counts)
+
+    def _calculate_data_hash(self, data: List[Dict[str, Any]]) -> str:
+        """データハッシュ計算"""
+        return self.hash_calculator.calculate_data_hash(data)
+    
+    def _calculate_hash(self, data: Any) -> str:
+        """ハッシュ計算（単一データ用）"""
+        return self.hash_calculator.calculate_data_hash([data] if data else [])
+
+    def _get_record_key(self, record: Dict[str, Any]) -> str:
+        """レコードキー取得"""
+        try:
+            date = record.get('date', '')
+            code = record.get('code', '')
+            return f"{code}_{date}"
+        except Exception:
+            return ""
+
+    def _has_record_changed(self, old_record: Dict[str, Any], new_record: Dict[str, Any]) -> bool:
+        """レコード変更判定"""
+        return self._items_different(old_record, new_record)
+
+    def _create_success_result(self, symbol: str, diff_result: DiffResult, processing_time: float, retry_count: int) -> Dict[str, Any]:
+        """成功結果作成"""
+        return {
+            "status": UpdateStatus.SUCCESS.value,
+            "symbol": symbol,
+            "diff": {
+                "added": diff_result.added_count,
+                "updated": diff_result.updated_count,
+                "removed": diff_result.removed_count,
+                "unchanged": diff_result.unchanged_count,
+            },
+            "processing_time": processing_time,
+            "retry_count": retry_count,
+            "data_hash": diff_result.data_hash,
+        }
+
+    def _create_error_result(self, symbol: str, status: UpdateStatus, error_message: str) -> Dict[str, Any]:
+        """エラー結果作成"""
+        return {
+            "status": status.value,
+            "symbol": symbol,
+            "error": error_message,
+            "timestamp": datetime.now().isoformat(),
+        }
+
+    def batch_update(self, updates: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """バッチ更新"""
+        try:
+            results = []
+            successful = 0
+            failed = 0
+            
+            for update in updates:
+                symbol = update.get("symbol")
+                data = update.get("data", [])
+                source = update.get("source", "batch")
+                
+                result = self.update_stock_data(symbol, data, source)
+                results.append(result)
+                
+                if result.get("success") is True:
+                    successful += 1
+                else:
+                    failed += 1
+            
+            return {
+                "success": failed == 0,
+                "status": "completed",
+                "total": len(updates),
+                "successful": successful,
+                "failed": failed,
+                "results": results,
+            }
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"バッチ更新エラー: {e}")
+            return {"success": False, "status": "error", "error": str(e)}
+
+    def get_update_history(self, symbol: str = None, limit: int = 100) -> List[Dict[str, Any]]:
+        """更新履歴取得"""
+        try:
+            diff_log = self.json_manager.get_diff_log()
+            
+            if symbol:
+                filtered_log = [entry for entry in diff_log if entry.get("symbol") == symbol]
+            else:
+                filtered_log = diff_log
+            
+            # 最新順にソート
+            filtered_log.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
+            
+            return filtered_log[:limit]
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"更新履歴取得エラー: {e}")
+            return []
+    
+    def get_update_statistics(self) -> Dict[str, Any]:
+        """更新統計取得"""
+        try:
+            return {
+                "total_updates": self.update_stats.total_updates,
+                "successful_updates": self.update_stats.successful_updates,
+                "failed_updates": self.update_stats.failed_updates,
+                "validation_errors": self.update_stats.validation_errors,
+                "total_processing_time": self.update_stats.total_processing_time,
+                "last_update_time": self.update_stats.last_update_time,
+                "data_sources": self.update_stats.data_sources
+            }
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"更新統計取得エラー: {e}")
+            return {}
+    
+    def optimize_data_structure(self, symbol: str) -> Dict[str, Any]:
+        """データ構造最適化"""
+        try:
+            # データの取得
+            data = self.json_manager.get_stock_data(symbol)
+            if not data:
+                return {"success": False, "message": "データが見つかりません"}
+            
+            # 重複削除
+            optimized_data = self._remove_duplicates(data)
+            
+            # データの保存
+            success = self.json_manager.save_stock_data(symbol, optimized_data, "optimization")
+            
+            return {
+                "success": success,
+                "original_count": len(data),
+                "optimized_count": len(optimized_data),
+                "removed_duplicates": len(data) - len(optimized_data)
+            }
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"データ構造最適化エラー: {e}")
+            return {"success": False, "error": str(e)}
+    
+    def _create_backup_dir(self, symbol: str) -> Path:
+        """バックアップディレクトリ作成"""
+        try:
+            backup_dir = self.data_dir / "backups" / symbol
+            backup_dir.mkdir(parents=True, exist_ok=True)
+            return backup_dir
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"バックアップディレクトリ作成エラー: {e}")
+            raise
+    
+    def _create_backup(self, symbol: str, data: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """データバックアップ作成"""
+        try:
+            backup_dir = self._create_backup_dir(symbol)
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            backup_file = backup_dir / f"backup_{timestamp}.json"
+            
+            with open(backup_file, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            
+            return {
+                "success": True,
+                "backup_file": str(backup_file),
+                "timestamp": timestamp
+            }
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"バックアップ作成エラー: {e}")
+            return {
+                "success": False,
+                "error": str(e)
+            }
 
 
 # 使用例

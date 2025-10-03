@@ -164,8 +164,34 @@ export function LightweightChart({
     minValue: number,
     valueRange: number
   ) => {
+    // グラデーション背景
+    const gradient = ctx.createLinearGradient(0, padding, 0, padding + chartHeight);
+    gradient.addColorStop(0, `${color}20`);
+    gradient.addColorStop(1, `${color}05`);
+    
+    // エリア塗りつぶし
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    data.forEach((point, index) => {
+      const x = padding + (chartWidth / (data.length - 1)) * index;
+      const y = padding + chartHeight - ((point.value - minValue) / valueRange) * chartHeight;
+      
+      if (index === 0) {
+        ctx.moveTo(x, padding + chartHeight);
+        ctx.lineTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    });
+    ctx.lineTo(padding + chartWidth, padding + chartHeight);
+    ctx.closePath();
+    ctx.fill();
+    
+    // ライン描画
     ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 3;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 10;
     ctx.beginPath();
     
     data.forEach((point, index) => {
@@ -180,6 +206,7 @@ export function LightweightChart({
     });
     
     ctx.stroke();
+    ctx.shadowBlur = 0;
   };
 
   const drawCandlestickChart = (
@@ -191,15 +218,34 @@ export function LightweightChart({
     minValue: number,
     valueRange: number
   ) => {
-    const barWidth = chartWidth / data.length * 0.8;
+    const barWidth = chartWidth / data.length * 0.6;
     
     data.forEach((point, index) => {
       const x = padding + (chartWidth / data.length) * index + (chartWidth / data.length - barWidth) / 2;
       const y = padding + chartHeight - ((point.value - minValue) / valueRange) * chartHeight;
       
-      // ローソク足の描画（簡略化）
-      ctx.fillStyle = point.value >= 0 ? '#10b981' : '#ef4444';
-      ctx.fillRect(x, y, barWidth, 2);
+      // 改良されたローソク足の描画
+      const isPositive = point.value >= 0;
+      const candleColor = isPositive ? '#10b981' : '#ef4444';
+      
+      // 影効果
+      ctx.shadowColor = candleColor;
+      ctx.shadowBlur = 5;
+      ctx.shadowOffsetX = 2;
+      ctx.shadowOffsetY = 2;
+      
+      // ローソク足本体
+      ctx.fillStyle = candleColor;
+      ctx.fillRect(x, y - 2, barWidth, 4);
+      
+      // 境界線
+      ctx.strokeStyle = isPositive ? '#059669' : '#dc2626';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x, y - 2, barWidth, 4);
+      
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
     });
   };
 
@@ -217,8 +263,18 @@ export function LightweightChart({
       const barWidth = chartWidth / data.length * 0.8;
       const barHeight = ((point.volume || 0) / maxVolume) * chartHeight;
       
-      ctx.fillStyle = color;
+      // グラデーション効果
+      const gradient = ctx.createLinearGradient(0, padding + chartHeight - barHeight, 0, padding + chartHeight);
+      gradient.addColorStop(0, `${color}80`);
+      gradient.addColorStop(1, `${color}40`);
+      
+      ctx.fillStyle = gradient;
       ctx.fillRect(x, padding + chartHeight - barHeight, barWidth, barHeight);
+      
+      // 境界線
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x, padding + chartHeight - barHeight, barWidth, barHeight);
     });
   };
 
@@ -306,11 +362,24 @@ export function LightweightChart({
       />
       
       {hoveredPoint && (
-        <div className="absolute top-2 left-2 bg-white rounded-lg shadow-lg p-2 text-sm">
-          <div className="font-medium">価格: ¥{hoveredPoint.value.toLocaleString()}</div>
-          <div className="text-gray-600">
-            {new Date(hoveredPoint.time).toLocaleDateString()}
+        <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-3 text-sm border border-gray-200">
+          <div className="flex items-center space-x-2 mb-2">
+            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+            <div className="font-semibold text-gray-900">¥{hoveredPoint.value.toLocaleString()}</div>
           </div>
+          <div className="text-gray-600 text-xs">
+            {new Date(hoveredPoint.time).toLocaleDateString('ja-JP', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+              weekday: 'short'
+            })}
+          </div>
+          {hoveredPoint.volume && (
+            <div className="text-gray-500 text-xs mt-1">
+              出来高: {hoveredPoint.volume.toLocaleString()}
+            </div>
+          )}
         </div>
       )}
     </div>

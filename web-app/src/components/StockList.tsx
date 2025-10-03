@@ -249,6 +249,9 @@ export const StockList: React.FC<StockListProps> = ({
                   </div>
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  チャート
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   アクション
                 </th>
               </tr>
@@ -297,6 +300,19 @@ export const StockList: React.FC<StockListProps> = ({
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRiskColor(stock.riskLevel)}`}>
                       {stock.riskLevel}
                     </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button
+                      onClick={() => {
+                        // チャートページに遷移
+                        window.location.href = `/analysis?code=${stock.code}`;
+                      }}
+                      className="text-green-600 hover:text-green-900 flex items-center space-x-1"
+                      title="チャートを表示"
+                    >
+                      <TrendingUp className="w-4 h-4" />
+                      <span>チャート</span>
+                    </button>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div className="flex items-center space-x-2">

@@ -21,7 +21,9 @@ class TestPerformanceBenchmarks:
 
     def test_differential_updater_performance(self):
         """差分更新システムのパフォーマンステスト"""
-        updater = DifferentialUpdater()
+        import tempfile
+        temp_dir = tempfile.mkdtemp()
+        updater = DifferentialUpdater(temp_dir)
 
         # 大量データでのテスト
         large_data = [
@@ -95,7 +97,9 @@ class TestPerformanceBenchmarks:
         initial_memory = psutil.Process().memory_info().rss / 1024 / 1024  # MB
 
         # 大量データでのメモリ使用量テスト
-        updater = DifferentialUpdater()
+        import tempfile
+        temp_dir = tempfile.mkdtemp()
+        updater = DifferentialUpdater(temp_dir)
         large_data = [
             {"date": f"2024-01-{i:02d}", "code": "1234", "close": 100 + i}
             for i in range(1, 1001)
@@ -119,7 +123,9 @@ class TestPerformanceBenchmarks:
 
         def process_data_batch(batch_data):
             """データバッチの処理"""
-            updater = DifferentialUpdater()
+            import tempfile
+            temp_dir = tempfile.mkdtemp()
+            updater = DifferentialUpdater(temp_dir)
             return updater._calculate_comprehensive_diff(batch_data, batch_data)
 
         # データをバッチに分割
@@ -152,7 +158,9 @@ class TestPerformanceBenchmarks:
 
     def test_caching_performance(self):
         """キャッシュ機能のパフォーマンステスト"""
-        updater = DifferentialUpdater()
+        import tempfile
+        temp_dir = tempfile.mkdtemp()
+        updater = DifferentialUpdater(temp_dir)
 
         # 同じデータでの繰り返し処理
         test_data = [
@@ -177,7 +185,9 @@ class TestPerformanceBenchmarks:
 
     def test_error_handling_performance(self):
         """エラーハンドリングのパフォーマンステスト"""
-        updater = DifferentialUpdater()
+        import tempfile
+        temp_dir = tempfile.mkdtemp()
+        updater = DifferentialUpdater(temp_dir)
 
         # 無効なデータでの処理
         invalid_data = [
@@ -199,7 +209,9 @@ class TestPerformanceBenchmarks:
 
     def test_large_dataset_performance(self):
         """大規模データセットでのパフォーマンステスト"""
-        updater = DifferentialUpdater()
+        import tempfile
+        temp_dir = tempfile.mkdtemp()
+        updater = DifferentialUpdater(temp_dir)
 
         # 大規模データセット（10,000レコード）
         large_dataset = [
@@ -229,7 +241,9 @@ class TestPerformanceBenchmarks:
 
     def test_memory_efficiency(self):
         """メモリ効率のテスト"""
-        updater = DifferentialUpdater()
+        import tempfile
+        temp_dir = tempfile.mkdtemp()
+        updater = DifferentialUpdater(temp_dir)
 
         # メモリ使用量の測定
         initial_memory = psutil.Process().memory_info().rss / 1024 / 1024
@@ -257,7 +271,9 @@ class TestPerformanceBenchmarks:
         process = psutil.Process()
         initial_cpu = process.cpu_percent()
 
-        updater = DifferentialUpdater()
+        import tempfile
+        temp_dir = tempfile.mkdtemp()
+        updater = DifferentialUpdater(temp_dir)
         large_data = [
             {
                 "date": f"2024-01-{i:02d}",
@@ -337,7 +353,9 @@ class TestPerformanceBenchmarks:
 
     def test_algorithm_complexity(self):
         """アルゴリズムの計算量テスト"""
-        updater = DifferentialUpdater()
+        import tempfile
+        temp_dir = tempfile.mkdtemp()
+        updater = DifferentialUpdater(temp_dir)
 
         # 異なるサイズのデータセットでの処理時間測定
         sizes = [100, 500, 1000, 2000]
@@ -375,7 +393,9 @@ class TestPerformanceBenchmarks:
 
     def test_resource_cleanup_performance(self):
         """リソースクリーンアップのパフォーマンステスト"""
-        updater = DifferentialUpdater()
+        import tempfile
+        temp_dir = tempfile.mkdtemp()
+        updater = DifferentialUpdater(temp_dir)
 
         # 大量のリソースを作成
         for i in range(100):
@@ -404,7 +424,9 @@ class TestPerformanceBenchmarks:
 
         def simulate_user(user_id):
             """ユーザーシミュレーション"""
-            updater = DifferentialUpdater()
+            import tempfile
+        temp_dir = tempfile.mkdtemp()
+        updater = DifferentialUpdater(temp_dir)
             data = [
                 {"date": f"2024-01-{i:02d}", "code": f"{user_id:04d}", "close": 100 + i}
                 for i in range(1, 101)

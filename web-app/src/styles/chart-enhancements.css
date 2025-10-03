@@ -1,0 +1,127 @@
+/* チャートの見栄えを向上させるスタイル */
+
+/* チャートコンテナの基本スタイル */
+.chart-container {
+  position: relative;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+/* ローソク足のホバー効果 */
+.candle-group:hover {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+  transition: all 0.2s ease;
+}
+
+/* チャートコントロールボタン */
+.chart-control-btn {
+  @apply px-3 py-1 text-xs bg-white/80 backdrop-blur-sm rounded-md shadow-sm hover:bg-white transition-all duration-200;
+}
+
+.chart-control-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.chart-control-btn:active {
+  transform: translateY(0);
+}
+
+/* ツールチップのアニメーション */
+.chart-tooltip {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* モバイルチャートのタッチターゲット */
+.mobile-touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* チャートのローディング状態 */
+.chart-loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .chart-container {
+    border-radius: 8px;
+    margin: 0 -1rem;
+  }
+  
+  .chart-control-btn {
+    @apply px-2 py-1 text-xs;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-container {
+    border-radius: 6px;
+  }
+  
+  .mobile-touch-target {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+  .chart-container {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  }
+  
+  .chart-control-btn {
+    @apply bg-gray-800/80 text-white hover:bg-gray-700;
+  }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+  .chart-container {
+    border: 2px solid #000;
+  }
+  
+  .chart-control-btn {
+    border: 1px solid #000;
+  }
+}
+
+/* アニメーション軽減設定 */
+@media (prefers-reduced-motion: reduce) {
+  .candle-group,
+  .chart-control-btn,
+  .chart-tooltip {
+    transition: none;
+    animation: none;
+  }
+}

@@ -491,6 +491,12 @@ const ListedDataPage: React.FC = () => {
                   更新日時
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  チャート
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  みんかぶ
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   アクション
                 </th>
               </tr>
@@ -538,6 +544,31 @@ const ListedDataPage: React.FC = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(stock.updated_at).toLocaleString("ja-JP")}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm">
+                    <button
+                      onClick={() => {
+                        // チャートページに遷移
+                        window.location.href = `/analysis?code=${stock.code}`;
+                      }}
+                      className="text-green-600 hover:text-green-800 font-medium focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 rounded px-2 py-1"
+                      aria-label={`${stock.name} (${formatStockCode(stock.code)}) のチャートを表示`}
+                    >
+                      チャート
+                    </button>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm">
+                    <button
+                      onClick={() => {
+                        // みんかぶのリンクを開く
+                        const minkabuUrl = `https://minkabu.jp/stock/${stock.code}`;
+                        window.open(minkabuUrl, '_blank', 'noopener,noreferrer');
+                      }}
+                      className="text-orange-600 hover:text-orange-800 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 py-1"
+                      aria-label={`${stock.name} (${formatStockCode(stock.code)}) のみんかぶページを開く`}
+                    >
+                      みんかぶ
+                    </button>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <button

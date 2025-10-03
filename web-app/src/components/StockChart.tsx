@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { X, TrendingUp, Calendar, BarChart3 } from 'lucide-react';
+import UltimateChart from './charts/UltimateChart';
 
 interface CandleData {
   time: string;
@@ -41,6 +42,10 @@ export const StockChart: React.FC<StockChartProps> = ({
     long: number[];
   }>({ short: [], medium: [], long: [] });
   const [hoveredData, setHoveredData] = useState<CandleData | null>(null);
+  const [zoom, setZoom] = useState(1);
+  const [panX, setPanX] = useState(0);
+  const [showVolume, setShowVolume] = useState(false);
+  const [chartType, setChartType] = useState<'candlestick' | 'line'>('candlestick');
   const chartRef = useRef<HTMLDivElement>(null);
 
   const periods = [
@@ -100,7 +105,7 @@ export const StockChart: React.FC<StockChartProps> = ({
 
   }, [data, selectedPeriod]);
 
-  // チャートの描画（簡易版）
+  // チャートの描画（改良版）
   const renderChart = () => {
     console.log('renderChart called - chartData length:', chartData.length);
     
@@ -113,14 +118,72 @@ export const StockChart: React.FC<StockChartProps> = ({
     const minPrice = Math.min(...chartData.map(d => d.low));
     const priceRange = maxPrice - minPrice;
     const chartHeight = height;
-    const chartWidth = 800;
+    const chartWidth = Math.max(800, window.innerWidth * 0.9); // レスポンシブ幅
     
     console.log('Chart dimensions:', { chartHeight, chartWidth, maxPrice, minPrice, priceRange });
 
     return (
-      <div className="relative">
-        <svg width={chartWidth} height={chartHeight} className="w-full h-full">
-          {/* ローソク足の描画 */}
+      <div className="relative bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-4 shadow-lg overflow-hidden">
+        {/* チャートコントロール */}
+        <div className="absolute top-2 right-2 z-10 flex space-x-2">
+          <button
+            onClick={() => setChartType(chartType === 'candlestick' ? 'line' : 'candlestick')}
+            className="px-3 py-1 text-xs bg-white/80 backdrop-blur-sm rounded-md shadow-sm hover:bg-white transition-colors"
+          >
+            {chartType === 'candlestick' ? '線グラフ' : 'ローソク足'}
+          </button>
+          <button
+            onClick={() => setShowVolume(!showVolume)}
+            className={`px-3 py-1 text-xs rounded-md shadow-sm transition-colors ${
+              showVolume ? 'bg-blue-500 text-white' : 'bg-white/80 backdrop-blur-sm hover:bg-white'
+            }`}
+          >
+            出来高
+          </button>
+          <button
+            onClick={() => setZoom(1)}
+            className="px-3 py-1 text-xs bg-white/80 backdrop-blur-sm rounded-md hover:bg-white transition-colors"
+          >
+            リセット
+          </button>
+        </div>
+        
+        <svg 
+          width={chartWidth} 
+          height={chartHeight} 
+          className="w-full h-full" 
+          viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+          style={{ transform: `scale(${zoom}) translateX(${panX}px)` }}
+        >
+          {/* 背景グリッド */}
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" strokeWidth="0.5" opacity="0.3"/>
+            </pattern>
+            <linearGradient id="bullGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#10b981" stopOpacity="0.8"/>
+              <stop offset="100%" stopColor="#059669" stopOpacity="0.6"/>
+            </linearGradient>
+            <linearGradient id="bearGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#ef4444" stopOpacity="0.8"/>
+              <stop offset="100%" stopColor="#dc2626" stopOpacity="0.6"/>
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          
+          {/* 背景グリッド */}
+          <rect width="100%" height="100%" fill="url(#grid)"/>
+          
+          {/* 価格帯の背景色 */}
+          <rect x="0" y="0" width={chartWidth} height={chartHeight} fill="rgba(255,255,255,0.8)"/>
+          
+          {/* ローソク足の描画（改良版） */}
           {chartData.map((candle, index) => {
             const x = (index / (chartData.length - 1)) * chartWidth;
             const bodyTop = ((maxPrice - Math.max(candle.open, candle.close)) / priceRange) * chartHeight;
@@ -128,89 +191,161 @@ export const StockChart: React.FC<StockChartProps> = ({
             const wickTop = ((maxPrice - candle.high) / priceRange) * chartHeight;
             const wickBottom = ((maxPrice - candle.low) / priceRange) * chartHeight;
             const isGreen = candle.close > candle.open;
+            const bodyHeight = Math.max(2, bodyBottom - bodyTop);
+            const candleWidth = Math.max(3, chartWidth / chartData.length * 0.6);
 
             return (
-              <g key={index}>
-                {/* ヒゲ */}
+              <g key={index} className="candle-group">
+                {/* ヒゲ（改良版） */}
                 <line
                   x1={x}
                   y1={wickTop}
                   x2={x}
                   y2={wickBottom}
                   stroke={isGreen ? '#10b981' : '#ef4444'}
-                  strokeWidth="1"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  filter="url(#glow)"
                 />
-                {/* 実体 */}
+                {/* 実体（改良版） */}
                 <rect
-                  x={x - 2}
+                  x={x - candleWidth/2}
                   y={bodyTop}
-                  width="4"
-                  height={Math.max(1, bodyBottom - bodyTop)}
-                  fill={isGreen ? '#10b981' : '#ef4444'}
+                  width={candleWidth}
+                  height={bodyHeight}
+                  fill={isGreen ? 'url(#bullGradient)' : 'url(#bearGradient)'}
+                  stroke={isGreen ? '#059669' : '#dc2626'}
+                  strokeWidth="1"
+                  rx="1"
+                  ry="1"
+                  filter="url(#glow)"
+                />
+                {/* ホバー効果用の透明な領域 */}
+                <rect
+                  x={x - candleWidth/2 - 5}
+                  y={wickTop - 5}
+                  width={candleWidth + 10}
+                  height={wickBottom - wickTop + 10}
+                  fill="transparent"
+                  onMouseEnter={() => setHoveredData(candle)}
+                  onMouseLeave={() => setHoveredData(null)}
+                  style={{ cursor: 'pointer' }}
                 />
               </g>
             );
           })}
 
-          {/* 移動平均線 */}
+          {/* 移動平均線（線として描画） */}
           {movingAverages.short.map((ma, index) => {
-            if (isNaN(ma)) return null;
-            const x = (index / (chartData.length - 1)) * chartWidth;
-            const y = ((maxPrice - ma) / priceRange) * chartHeight;
+            if (isNaN(ma) || index === 0) return null;
+            const x1 = ((index - 1) / (chartData.length - 1)) * chartWidth;
+            const x2 = (index / (chartData.length - 1)) * chartWidth;
+            const y1 = ((maxPrice - movingAverages.short[index - 1]) / priceRange) * chartHeight;
+            const y2 = ((maxPrice - ma) / priceRange) * chartHeight;
             return (
-              <circle
-                key={`short-${index}`}
-                cx={x}
-                cy={y}
-                r="1"
-                fill="#3b82f6"
+              <line
+                key={`short-line-${index}`}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                stroke="#3b82f6"
+                strokeWidth="2"
+                strokeDasharray="5,5"
+                opacity="0.8"
+                filter="url(#glow)"
               />
             );
           })}
 
           {movingAverages.medium.map((ma, index) => {
-            if (isNaN(ma)) return null;
-            const x = (index / (chartData.length - 1)) * chartWidth;
-            const y = ((maxPrice - ma) / priceRange) * chartHeight;
+            if (isNaN(ma) || index === 0) return null;
+            const x1 = ((index - 1) / (chartData.length - 1)) * chartWidth;
+            const x2 = (index / (chartData.length - 1)) * chartWidth;
+            const y1 = ((maxPrice - movingAverages.medium[index - 1]) / priceRange) * chartHeight;
+            const y2 = ((maxPrice - ma) / priceRange) * chartHeight;
             return (
-              <circle
-                key={`medium-${index}`}
-                cx={x}
-                cy={y}
-                r="1"
-                fill="#f59e0b"
+              <line
+                key={`medium-line-${index}`}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                stroke="#f59e0b"
+                strokeWidth="2"
+                strokeDasharray="8,4"
+                opacity="0.8"
+                filter="url(#glow)"
               />
             );
           })}
 
           {movingAverages.long.map((ma, index) => {
-            if (isNaN(ma)) return null;
-            const x = (index / (chartData.length - 1)) * chartWidth;
-            const y = ((maxPrice - ma) / priceRange) * chartHeight;
+            if (isNaN(ma) || index === 0) return null;
+            const x1 = ((index - 1) / (chartData.length - 1)) * chartWidth;
+            const x2 = (index / (chartData.length - 1)) * chartWidth;
+            const y1 = ((maxPrice - movingAverages.long[index - 1]) / priceRange) * chartHeight;
+            const y2 = ((maxPrice - ma) / priceRange) * chartHeight;
             return (
-              <circle
-                key={`long-${index}`}
-                cx={x}
-                cy={y}
-                r="1"
-                fill="#8b5cf6"
+              <line
+                key={`long-line-${index}`}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                stroke="#8b5cf6"
+                strokeWidth="2"
+                strokeDasharray="12,6"
+                opacity="0.8"
+                filter="url(#glow)"
               />
             );
           })}
         </svg>
 
-        {/* ツールチップ */}
+        {/* 改良されたツールチップ */}
         {hoveredData && (
-          <div className="absolute top-4 left-4 bg-white border border-gray-200 rounded-lg p-3 shadow-lg">
-            <div className="text-sm font-medium text-gray-900">
-              {new Date(hoveredData.time).toLocaleDateString('ja-JP')}
+          <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm border border-gray-200 rounded-xl p-4 shadow-2xl max-w-xs">
+            <div className="flex items-center space-x-2 mb-3">
+              <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+              <div className="text-sm font-semibold text-gray-900">
+                {new Date(hoveredData.time).toLocaleDateString('ja-JP', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                  weekday: 'short'
+                })}
+              </div>
             </div>
-            <div className="text-xs text-gray-600 space-y-1">
-              <div>始値: ¥{hoveredData.open.toLocaleString()}</div>
-              <div>高値: ¥{hoveredData.high.toLocaleString()}</div>
-              <div>安値: ¥{hoveredData.low.toLocaleString()}</div>
-              <div>終値: ¥{hoveredData.close.toLocaleString()}</div>
-              <div>出来高: {hoveredData.volume.toLocaleString()}</div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-green-50 rounded-lg p-2">
+                <div className="text-xs text-green-600 font-medium">始値</div>
+                <div className="text-sm font-bold text-green-800">¥{hoveredData.open.toLocaleString()}</div>
+              </div>
+              <div className="bg-red-50 rounded-lg p-2">
+                <div className="text-xs text-red-600 font-medium">終値</div>
+                <div className="text-sm font-bold text-red-800">¥{hoveredData.close.toLocaleString()}</div>
+              </div>
+              <div className="bg-blue-50 rounded-lg p-2">
+                <div className="text-xs text-blue-600 font-medium">高値</div>
+                <div className="text-sm font-bold text-blue-800">¥{hoveredData.high.toLocaleString()}</div>
+              </div>
+              <div className="bg-purple-50 rounded-lg p-2">
+                <div className="text-xs text-purple-600 font-medium">安値</div>
+                <div className="text-sm font-bold text-purple-800">¥{hoveredData.low.toLocaleString()}</div>
+              </div>
+            </div>
+            <div className="mt-3 pt-3 border-t border-gray-200">
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-gray-600">出来高</span>
+                <span className="text-sm font-semibold text-gray-900">{hoveredData.volume.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between items-center mt-1">
+                <span className="text-xs text-gray-600">変動率</span>
+                <span className={`text-sm font-semibold ${hoveredData.close > hoveredData.open ? 'text-green-600' : 'text-red-600'}`}>
+                  {((hoveredData.close - hoveredData.open) / hoveredData.open * 100).toFixed(2)}%
+                </span>
+              </div>
             </div>
           </div>
         )}
@@ -350,8 +485,8 @@ export const StockChart: React.FC<StockChartProps> = ({
     );
   }
 
-  // ページ内表示用のレンダリング
-  console.log('Rendering inline chart (isOpen is not true)');
+  // ページ内表示用のレンダリング（UltimateChartを使用）
+  console.log('Rendering inline chart with UltimateChart');
   return (
     <div className="w-full">
       {/* 期間選択 */}
@@ -376,8 +511,7 @@ export const StockChart: React.FC<StockChartProps> = ({
         </div>
       </div>
 
-      {/* チャートエリア */}
-      <div className="relative">
+      {/* UltimateChartを使用 */}
         {isLoading ? (
           <div className="flex items-center justify-center h-64">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
@@ -398,41 +532,29 @@ export const StockChart: React.FC<StockChartProps> = ({
             </div>
           </div>
         ) : (
-          <div>
-            {renderChart()}
-            {hoveredData && (
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="bg-white rounded-lg p-4 text-center">
-                    <div className="text-lg font-bold text-gray-900">
-                      ¥{chartData[chartData.length - 1]?.close.toLocaleString() || '--'}
-                    </div>
-                    <div className="text-sm text-gray-600">現在価格</div>
-                  </div>
-                  <div className="bg-white rounded-lg p-4 text-center">
-                    <div className="text-lg font-bold text-gray-900">
-                      {chartData.length}日
-                    </div>
-                    <div className="text-sm text-gray-600">データ期間</div>
-                  </div>
-                  <div className="bg-white rounded-lg p-4 text-center">
-                    <div className="text-lg font-bold text-gray-900">
-                      ¥{Math.max(...chartData.map(d => d.high)).toLocaleString()}
-                    </div>
-                    <div className="text-sm text-gray-600">期間最高値</div>
-                  </div>
-                  <div className="bg-white rounded-lg p-4 text-center">
-                    <div className="text-lg font-bold text-gray-900">
-                      ¥{Math.min(...chartData.map(d => d.low)).toLocaleString()}
-                    </div>
-                    <div className="text-sm text-gray-600">期間最安値</div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+        <UltimateChart
+          data={chartData.map(d => ({
+            time: new Date(d.time).getTime(),
+            open: d.open,
+            high: d.high,
+            low: d.low,
+            close: d.close,
+            volume: d.volume
+          }))}
+          symbol={symbol}
+          height={height}
+          enableAllModes={true}
+          onDataPointClick={(data) => {
+            console.log('Data point clicked:', data);
+          }}
+          onExport={(format) => {
+            console.log('Exporting chart as:', format);
+          }}
+          onShare={() => {
+            console.log('Sharing chart');
+          }}
+        />
+      )}
     </div>
   );
 };

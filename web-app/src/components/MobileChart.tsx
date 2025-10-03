@@ -160,9 +160,10 @@ export default function MobileChart({
     ctx.translate(panX, panY);
     ctx.scale(zoom, zoom);
 
-    // グリッド線の描画
-    ctx.strokeStyle = "#e5e7eb";
+    // 改良されたグリッド線の描画
+    ctx.strokeStyle = "#e2e8f0";
     ctx.lineWidth = 1;
+    ctx.setLineDash([2, 2]);
     for (let i = 0; i <= 5; i++) {
       const y = padding + (chartHeight / 5) * i;
       ctx.beginPath();
@@ -170,10 +171,37 @@ export default function MobileChart({
       ctx.lineTo(padding + chartWidth, y);
       ctx.stroke();
     }
+    ctx.setLineDash([]);
 
-    // 価格ラインの描画
+    // 改良された価格ラインの描画
+    // グラデーション背景
+    const gradient = ctx.createLinearGradient(0, padding, 0, padding + chartHeight);
+    gradient.addColorStop(0, "rgba(37, 99, 235, 0.1)");
+    gradient.addColorStop(1, "rgba(37, 99, 235, 0.05)");
+    
+    // エリア塗りつぶし
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    values.forEach((value, index) => {
+      const x = padding + (chartWidth / (values.length - 1)) * index;
+      const y = padding + chartHeight - ((value - minValue) / valueRange) * chartHeight;
+      
+      if (index === 0) {
+        ctx.moveTo(x, padding + chartHeight);
+        ctx.lineTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    });
+    ctx.lineTo(padding + chartWidth, padding + chartHeight);
+    ctx.closePath();
+    ctx.fill();
+    
+    // ライン描画
     ctx.strokeStyle = "#2563eb";
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 3;
+    ctx.shadowColor = "#2563eb";
+    ctx.shadowBlur = 8;
     ctx.beginPath();
 
     values.forEach((value, index) => {
@@ -188,29 +216,36 @@ export default function MobileChart({
     });
 
     ctx.stroke();
+    ctx.shadowBlur = 0;
 
-    // データポイントの描画
+    // 改良されたデータポイントの描画
     ctx.fillStyle = "#2563eb";
+    ctx.shadowColor = "#2563eb";
+    ctx.shadowBlur = 4;
     values.forEach((value, index) => {
       const x = padding + (chartWidth / (values.length - 1)) * index;
       const y = padding + chartHeight - ((value - minValue) / valueRange) * chartHeight;
       
       ctx.beginPath();
-      ctx.arc(x, y, 3, 0, 2 * Math.PI);
+      ctx.arc(x, y, 4, 0, 2 * Math.PI);
       ctx.fill();
     });
+    ctx.shadowBlur = 0;
 
     ctx.restore();
 
-    // Y軸ラベルの描画
-    ctx.fillStyle = "#6b7280";
-    ctx.font = "12px sans-serif";
+    // 改良されたY軸ラベルの描画
+    ctx.fillStyle = "#4b5563";
+    ctx.font = "bold 11px sans-serif";
     ctx.textAlign = "right";
+    ctx.shadowColor = "rgba(255, 255, 255, 0.8)";
+    ctx.shadowBlur = 2;
     for (let i = 0; i <= 5; i++) {
       const value = minValue + (valueRange / 5) * (5 - i);
       const y = padding + (chartHeight / 5) * i;
-      ctx.fillText(value.toFixed(0), padding - 10, y + 4);
+      ctx.fillText(`¥${value.toFixed(0)}`, padding - 15, y + 4);
     }
+    ctx.shadowBlur = 0;
 
   }, [data, zoom, panX, panY]);
 

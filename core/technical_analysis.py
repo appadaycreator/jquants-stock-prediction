@@ -112,6 +112,9 @@ class TechnicalAnalysis:
     @staticmethod
     def obv(close: pd.Series, volume: pd.Series) -> pd.Series:
         """OBV（On-Balance Volume）"""
+        if len(close) == 0 or len(volume) == 0:
+            return pd.Series(dtype=float)
+        
         obv = pd.Series(index=close.index, dtype=float)
         obv.iloc[0] = volume.iloc[0]
         

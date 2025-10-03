@@ -14,6 +14,7 @@ import {
   AlertTriangle,
   Info,
   Eye,
+  ExternalLink,
 } from "lucide-react";
 
 interface WatchlistItem {
@@ -212,6 +213,31 @@ export default function WatchlistPage() {
                     </Badge>
                   </div>
                   <div className="flex items-center space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        // チャートページに遷移
+                        window.location.href = `/analysis?code=${item.symbol}`;
+                      }}
+                      className="text-green-600 hover:text-green-800 hover:bg-green-50"
+                    >
+                      <TrendingUp className="h-4 w-4 mr-1" />
+                      チャート
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        // みんかぶのリンクを開く
+                        const minkabuUrl = `https://minkabu.jp/stock/${item.symbol}`;
+                        window.open(minkabuUrl, '_blank', 'noopener,noreferrer');
+                      }}
+                      className="text-orange-600 hover:text-orange-800 hover:bg-orange-50"
+                    >
+                      <ExternalLink className="h-4 w-4 mr-1" />
+                      みんかぶ
+                    </Button>
                     <Button
                       variant="outline"
                       size="sm"
