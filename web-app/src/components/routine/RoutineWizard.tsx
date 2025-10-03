@@ -17,8 +17,10 @@ import {
   AlertTriangle,
   Play,
   Pause,
-  RotateCcw
+  RotateCcw,
+  HelpCircle
 } from 'lucide-react';
+import IndicatorTooltip, { StockIndicatorTooltip } from '@/components/ranking/IndicatorTooltip';
 
 interface RoutineStep {
   id: string;
@@ -421,15 +423,13 @@ export default function RoutineWizard() {
                   
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
                     {candidate.indicators.map((indicator, idx) => (
-                      <div key={idx} className="text-xs">
-                        <div className="font-medium">{indicator.name}</div>
-                        <div className={`${
-                          indicator.status === 'good' ? 'text-green-600' :
-                          indicator.status === 'warning' ? 'text-yellow-600' : 'text-red-600'
-                        }`}>
-                          {indicator.value} / {indicator.threshold}
-                        </div>
-                      </div>
+                      <StockIndicatorTooltip
+                        key={idx}
+                        name={indicator.name}
+                        value={indicator.value}
+                        threshold={indicator.threshold}
+                        status={indicator.status}
+                      />
                     ))}
                   </div>
 

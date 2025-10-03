@@ -31,6 +31,38 @@ export interface RankingConfig {
     weight: number;
     threshold: number;
   }[];
+  rules: {
+    liquidity: {
+      enabled: boolean;
+      percentile: number; // 70%分位
+    };
+    trend: {
+      enabled: boolean;
+      weeks13vs26: boolean;
+      returnPercentile: number; // 40%分位
+    };
+    valuation: {
+      enabled: boolean;
+      pbrPercentile: number; // 中央値以下
+      perPercentile: number; // 40%分位
+    };
+    quality: {
+      enabled: boolean;
+      roePercentile: number; // 40%分位
+    };
+    exclusions: {
+      enabled: boolean;
+      excludeNonTSE: boolean;
+      excludeSpecialAttention: boolean;
+      excludeEarningsDay: boolean;
+      excludeLimitUp: boolean;
+    };
+  };
+  weights: {
+    trend: number; // 0.4
+    valuation: number; // 0.3
+    quality: number; // 0.3
+  };
 }
 
 export class RankerService {
@@ -45,11 +77,43 @@ export class RankerService {
       { name: 'PE_Ratio', weight: 0.1, threshold: 15 },
       { name: 'PB_Ratio', weight: 0.1, threshold: 1.2 },
       { name: 'ROE', weight: 0.1, threshold: 0.1 }
-    ]
+    ],
+    rules: {
+      liquidity: {
+        enabled: true,
+        percentile: 70 // 前日出来高が上位70%分位以上
+      },
+      trend: {
+        enabled: true,
+        weeks13vs26: true, // 13週＞26週
+        returnPercentile: 40 // 直近20営業日リターンが上位40%分位
+      },
+      valuation: {
+        enabled: true,
+        pbrPercentile: 50, // PBRが市場中央値以下
+        perPercentile: 40 // PERが分位下位40%
+      },
+      quality: {
+        enabled: true,
+        roePercentile: 40 // ROEが上位40%
+      },
+      exclusions: {
+        enabled: true,
+        excludeNonTSE: true,
+        excludeSpecialAttention: true,
+        excludeEarningsDay: true,
+        excludeLimitUp: true
+      }
+    },
+    weights: {
+      trend: 0.4,
+      valuation: 0.3,
+      quality: 0.3
+    }
   };
 
   /**
-   * 本日の買い候補を生成
+   * 本日の買い候補を生成（ルールベース版）
    */
   static async generateCandidates(config?: Partial<RankingConfig>): Promise<CandidateStock[]> {
     try {
@@ -58,9 +122,15 @@ export class RankerService {
       // 株価データを取得
       const stockData = await RankerService.fetchStockData();
       
-      // 各銘柄をスコアリング
-      const scoredStocks = stockData.map(stock => 
-        RankerService.calculateStockScore(stock, finalConfig)
+      // 除外条件を適用
+      const filteredStocks = RankerService.applyExclusionRules(stockData, finalConfig);
+      
+      // 分位計算
+      const percentiles = RankerService.calculatePercentiles(filteredStocks);
+      
+      // 各銘柄をルールベースでスコアリング
+      const scoredStocks = filteredStocks.map(stock => 
+        RankerService.calculateRuleBasedScore(stock, finalConfig, percentiles)
       );
 
       // スコア順にソート
@@ -105,21 +175,173 @@ export class RankerService {
   }
 
   /**
-   * 銘柄のスコア計算
+   * 除外条件の適用
    */
-  private static calculateStockScore(stock: any, config: RankingConfig): CandidateStock {
-    const indicators: StockIndicator[] = [];
-    let totalScore = 0;
+  private static applyExclusionRules(stocks: any[], config: RankingConfig): any[] {
+    if (!config.rules.exclusions.enabled) {
+      return stocks;
+    }
 
-    // 各指標を計算
-    config.indicators.forEach(indicatorConfig => {
-      const indicator = RankerService.calculateIndicator(stock, indicatorConfig);
-      indicators.push(indicator);
-      totalScore += indicator.value * indicator.weight;
+    return stocks.filter(stock => {
+      // 東証以外を除外
+      if (config.rules.exclusions.excludeNonTSE && !stock.isTSE) {
+        return false;
+      }
+
+      // 特別注意銘柄を除外
+      if (config.rules.exclusions.excludeSpecialAttention && stock.specialAttention) {
+        return false;
+      }
+
+      // 決算当日を除外
+      if (config.rules.exclusions.excludeEarningsDay && stock.isEarningsDay) {
+        return false;
+      }
+
+      // ストップ高直後を除外
+      if (config.rules.exclusions.excludeLimitUp && stock.isLimitUp) {
+        return false;
+      }
+
+      return true;
     });
+  }
 
-    // 理由を生成
-    const reason = RankerService.generateReason(indicators);
+  /**
+   * 分位計算
+   */
+  private static calculatePercentiles(stocks: any[]): {
+    volume: number;
+    return20: number;
+    pbr: number;
+    per: number;
+    roe: number;
+  } {
+    const volumes = stocks.map(s => s.volume).filter(v => v != null);
+    const returns20 = stocks.map(s => s.return20).filter(r => r != null);
+    const pbrs = stocks.map(s => s.pbr).filter(p => p != null);
+    const pers = stocks.map(s => s.per).filter(p => p != null);
+    const roes = stocks.map(s => s.roe).filter(r => r != null);
+
+    return {
+      volume: RankerService.calculatePercentile(volumes, 70),
+      return20: RankerService.calculatePercentile(returns20, 40),
+      pbr: RankerService.calculatePercentile(pbrs, 50),
+      per: RankerService.calculatePercentile(pers, 40),
+      roe: RankerService.calculatePercentile(roes, 40)
+    };
+  }
+
+  /**
+   * 分位値計算
+   */
+  private static calculatePercentile(values: number[], percentile: number): number {
+    if (values.length === 0) return 0;
+    const sorted = values.sort((a, b) => a - b);
+    const index = Math.ceil((percentile / 100) * sorted.length) - 1;
+    return sorted[Math.max(0, index)];
+  }
+
+  /**
+   * ルールベーススコア計算
+   */
+  private static calculateRuleBasedScore(
+    stock: any, 
+    config: RankingConfig, 
+    percentiles: any
+  ): CandidateStock {
+    const indicators: StockIndicator[] = [];
+    let trendScore = 0;
+    let valuationScore = 0;
+    let qualityScore = 0;
+    const reasons: string[] = [];
+
+    // 流動性チェック
+    if (config.rules.liquidity.enabled) {
+      const volumePass = stock.volume >= percentiles.volume;
+      if (volumePass) {
+        reasons.push('流動性良好（出来高上位70%）');
+      }
+    }
+
+    // トレンドスコア
+    if (config.rules.trend.enabled) {
+      let trendReasons: string[] = [];
+      
+      // 13週＞26週
+      if (config.rules.trend.weeks13vs26 && stock.weeks13 > stock.weeks26) {
+        trendScore += 0.5;
+        trendReasons.push('13週移動平均＞26週移動平均');
+      }
+
+      // 直近20営業日リターン
+      if (stock.return20 >= percentiles.return20) {
+        trendScore += 0.5;
+        trendReasons.push('直近20営業日リターン良好');
+      }
+
+      if (trendReasons.length > 0) {
+        reasons.push(`トレンド良好（${trendReasons.join('、')}）`);
+      }
+
+      indicators.push({
+        name: 'トレンド',
+        value: trendScore,
+        threshold: 0.5,
+        weight: config.weights.trend,
+        status: trendScore >= 0.5 ? 'good' : 'bad'
+      });
+    }
+
+    // バリュエーションスコア
+    if (config.rules.valuation.enabled) {
+      let valuationReasons: string[] = [];
+
+      // PBRが市場中央値以下
+      if (stock.pbr <= percentiles.pbr) {
+        valuationScore += 0.5;
+        valuationReasons.push('PBRが市場中央値以下');
+      }
+
+      // PERが分位下位40%
+      if (stock.per <= percentiles.per) {
+        valuationScore += 0.5;
+        valuationReasons.push('PERが分位下位40%');
+      }
+
+      if (valuationReasons.length > 0) {
+        reasons.push(`バリュー良好（${valuationReasons.join('、')}）`);
+      }
+
+      indicators.push({
+        name: 'バリュー',
+        value: valuationScore,
+        threshold: 0.5,
+        weight: config.weights.valuation,
+        status: valuationScore >= 0.5 ? 'good' : 'bad'
+      });
+    }
+
+    // クオリティスコア
+    if (config.rules.quality.enabled) {
+      if (stock.roe >= percentiles.roe) {
+        qualityScore = 1.0;
+        reasons.push('ROEが上位40%');
+      }
+
+      indicators.push({
+        name: 'クオリティ',
+        value: qualityScore,
+        threshold: 0.5,
+        weight: config.weights.quality,
+        status: qualityScore >= 0.5 ? 'good' : 'bad'
+      });
+    }
+
+    // 総合スコア計算
+    const totalScore = (trendScore * config.weights.trend) + 
+                      (valuationScore * config.weights.valuation) + 
+                      (qualityScore * config.weights.quality);
 
     return {
       code: stock.code,
@@ -127,10 +349,10 @@ export class RankerService {
       price: stock.price,
       change: stock.change,
       changePercent: stock.changePercent,
-      reason,
+      reason: reasons.join('、'),
       indicators,
       score: totalScore,
-      rank: 0 // 後で設定
+      rank: 0
     };
   }
 
