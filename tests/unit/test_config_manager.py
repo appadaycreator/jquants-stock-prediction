@@ -248,7 +248,7 @@ class TestConfigManager:
         """バックアップ作成の例外処理テスト"""
         manager = ConfigManager()
         # 実際のメソッドを呼び出して例外を発生させる
-        with patch.object(manager, 'config', side_effect=Exception("Backup error")):
+        with patch.object(manager, 'save_config', side_effect=Exception("Backup error")):
             # 例外が発生することを確認
             try:
                 manager.create_backup()
@@ -260,7 +260,7 @@ class TestConfigManager:
         """バックアップ復元の例外処理テスト"""
         manager = ConfigManager()
         # 実際のメソッドを呼び出して例外を発生させる
-        with patch.object(manager, 'config', side_effect=Exception("Restore error")):
+        with patch.object(manager, 'save_config', side_effect=Exception("Restore error")):
             # 例外が発生することを確認
             try:
                 result = manager.restore_from_backup({"config": {"test": "value"}})
