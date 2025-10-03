@@ -287,6 +287,26 @@ class JSONDataManager:
 
         self._save_json(self.diff_log_file, diff_log)
 
+    def save_data(self, filename: str, data: List[Dict[str, Any]]) -> bool:
+        """
+        データの保存
+        
+        Args:
+            filename: 保存先ファイル名
+            data: 保存するデータ
+            
+        Returns:
+            bool: 保存成功フラグ
+        """
+        try:
+            file_path = self.data_dir / filename
+            self._save_json(file_path, data)
+            self.logger.info(f"データ保存完了: {file_path}")
+            return True
+        except Exception as e:
+            self.logger.error(f"データ保存失敗: {filename} - {str(e)}")
+            return False
+
     def get_stock_data(
         self,
         symbol: str,

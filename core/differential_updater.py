@@ -294,10 +294,14 @@ class DifferentialUpdater:
     def _calculate_diff_counts(
         self, existing_data: List[Dict[str, Any]], new_data: List[Dict[str, Any]]
     ) -> Dict[str, int]:
-        """差分カウントの計算"""
-        # 既存データのキーセット
-        existing_keys = {self._get_record_key(record) for record in existing_data}
-        new_keys = {self._get_record_key(record) for record in new_data}
+        """差分カウントの計算（最適化版）"""
+        # データを辞書に変換してO(1)アクセスを実現
+        existing_dict = {self._get_record_key(record): record for record in existing_data}
+        new_dict = {self._get_record_key(record): record for record in new_data}
+        
+        # キーセットの計算
+        existing_keys = set(existing_dict.keys())
+        new_keys = set(new_dict.keys())
         
         # 追加されたレコード
         added_keys = new_keys - existing_keys
@@ -313,13 +317,12 @@ class DifferentialUpdater:
         unchanged_count = 0
         
         for key in common_keys:
-            existing_record = self._find_record_by_key(existing_data, key)
-            new_record = self._find_record_by_key(new_data, key)
-            if existing_record and new_record:
-                if self._has_record_changed(existing_record, new_record):
-                    updated_count += 1
-                else:
-                    unchanged_count += 1
+            existing_record = existing_dict[key]
+            new_record = new_dict[key]
+            if self._has_record_changed(existing_record, new_record):
+                updated_count += 1
+            else:
+                unchanged_count += 1
         
         return {
             "added": added_count,
@@ -351,12 +354,6 @@ class DifferentialUpdater:
         symbol_key = record.get('Code', record.get('code', ''))
         return f"{symbol_key}_{date_key}"
     
-    def _find_record_by_key(self, data: List[Dict[str, Any]], key: str) -> Optional[Dict[str, Any]]:
-        """キーによるレコード検索"""
-        for record in data:
-            if self._get_record_key(record) == key:
-                return record
-        return None
     
     def _has_record_changed(self, old_record: Dict[str, Any], new_record: Dict[str, Any]) -> bool:
         """レコードの変更判定"""
