@@ -28,19 +28,20 @@ class TestDifferentialUpdater:
         """初期化テスト"""
         assert self.updater.data_dir == Path(self.temp_dir)
         assert self.updater.logger == self.logger
-        assert self.updater.update_config["max_retry_attempts"] == 3
+        # update_configは削除されたため、update_statsを確認
+        assert hasattr(self.updater, 'update_stats')
 
     def test_normalize_data_for_diff(self):
         """データ正規化テスト"""
         test_data = [
             {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": "100.0",
-                "high": "110.0",
-                "low": "90.0",
-                "close": "105.0",
-                "volume": "1000",
+                "Date": "2024-01-01",
+                "Code": "1234",
+                "Open": "100.0",
+                "High": "110.0",
+                "Low": "90.0",
+                "Close": "105.0",
+                "Volume": "1000",
             }
         ]
 
@@ -57,17 +58,17 @@ class TestDifferentialUpdater:
 
     def test_items_different(self):
         """アイテム差分検出テスト"""
-        item1 = {"date": "2024-01-01", "close": 100.0}
-        item2 = {"date": "2024-01-01", "close": 105.0}
-        item3 = {"date": "2024-01-01", "close": 100.0}
+        item1 = {"Date": "2024-01-01", "Close": 100.0}
+        item2 = {"Date": "2024-01-01", "Close": 105.0}
+        item3 = {"Date": "2024-01-01", "Close": 100.0}
 
         assert self.updater._items_different(item1, item2) is True
         assert self.updater._items_different(item1, item3) is False
 
     def test_identify_changes(self):
         """変更検出テスト"""
-        old_item = {"open": 100.0, "close": 105.0}
-        new_item = {"open": 100.0, "close": 110.0}
+        old_item = {"Open": 100.0, "Close": 105.0}
+        new_item = {"Open": 100.0, "Close": 110.0}
 
         changes = self.updater._identify_changes(old_item, new_item)
 
@@ -78,63 +79,63 @@ class TestDifferentialUpdater:
         """データ整合性検証テスト（正常）"""
         valid_data = [
             {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": 100.0,
-                "high": 110.0,
-                "low": 90.0,
-                "close": 105.0,
-                "volume": 1000,
+                "Date": "2024-01-01",
+                "Code": "1234",
+                "Open": 100.0,
+                "High": 110.0,
+                "Low": 90.0,
+                "Close": 105.0,
+                "Volume": 1000,
             }
         ]
 
         result = self.updater._validate_data_integrity(valid_data, [])
 
-        assert result["is_valid"] is True
-        assert len(result["issues"]) == 0
+        assert result.is_valid is True
+        assert len(result.issues) == 0
 
     def test_validate_data_integrity_invalid(self):
         """データ整合性検証テスト（異常）"""
         invalid_data = [
             {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": -100.0,  # 負の値
-                "high": 110.0,
-                "low": 90.0,
-                "close": 105.0,
-                "volume": 1000,
+                "Date": "2024-01-01",
+                "Code": "1234",
+                "Open": -100.0,  # 負の値
+                "High": 110.0,
+                "Low": 90.0,
+                "Close": 105.0,
+                "Volume": 1000,
             }
         ]
 
         result = self.updater._validate_data_integrity(invalid_data, [])
 
-        assert result["is_valid"] is False
-        assert len(result["issues"]) > 0
+        assert result.is_valid is False
+        assert len(result.issues) > 0
 
     def test_calculate_comprehensive_diff_empty_data(self):
         """差分計算テスト（空データ）"""
         result = self.updater._calculate_comprehensive_diff([], [])
 
-        assert result["added_count"] == 0
-        assert result["updated_count"] == 0
-        assert result["removed_count"] == 0
-        assert result["unchanged_count"] == 0
+        assert result.added_count == 0
+        assert result.updated_count == 0
+        assert result.removed_count == 0
+        assert result.unchanged_count == 0
 
     def test_calculate_comprehensive_diff_with_data(self):
         """差分計算テスト（データあり）"""
-        old_data = [{"date": "2024-01-01", "close": 100.0}]
+        old_data = [{"Date": "2024-01-01", "Close": 100.0}]
         new_data = [
-            {"date": "2024-01-01", "close": 105.0},
-            {"date": "2024-01-02", "close": 110.0},
+            {"Date": "2024-01-01", "Close": 105.0},
+            {"Date": "2024-01-02", "Close": 110.0},
         ]
 
         result = self.updater._calculate_comprehensive_diff(old_data, new_data)
 
-        assert result["added_count"] == 1  # 2024-01-02が新規
-        assert result["updated_count"] == 1  # 2024-01-01が更新
-        assert result["removed_count"] == 0
-        assert result["unchanged_count"] == 0
+        assert result.added_count == 1  # 2024-01-02が新規
+        assert result.updated_count == 1  # 2024-01-01が更新
+        assert result.removed_count == 0
+        assert result.unchanged_count == 0
 
     @patch("core.differential_updater.JSONDataManager")
     def test_update_stock_data_success(self, mock_json_manager):
@@ -148,13 +149,13 @@ class TestDifferentialUpdater:
 
         test_data = [
             {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": 100.0,
-                "high": 110.0,
-                "low": 90.0,
-                "close": 105.0,
-                "volume": 1000,
+                "Date": "2024-01-01",
+                "Code": "1234",
+                "Open": 100.0,
+                "High": 110.0,
+                "Low": 90.0,
+                "Close": 105.0,
+                "Volume": 1000,
             }
         ]
 
@@ -176,13 +177,13 @@ class TestDifferentialUpdater:
 
         test_data = [
             {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": 100.0,
-                "high": 110.0,
-                "low": 90.0,
-                "close": 105.0,
-                "volume": 1000,
+                "Date": "2024-01-01",
+                "Code": "1234",
+                "Open": 100.0,
+                "High": 110.0,
+                "Low": 90.0,
+                "Close": 105.0,
+                "Volume": 1000,
             }
         ]
 
@@ -202,18 +203,18 @@ class TestDifferentialUpdater:
         )
 
         # エラーが発生しても適切にハンドリングされる
-        assert "error" in result or result["added_count"] >= 0
+        assert hasattr(result, 'error') or result.added_count >= 0
 
     def test_normalize_data_for_diff_with_missing_fields(self):
         """データ正規化テスト（欠損フィールド）"""
         test_data = [
             {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": "100.0",
-                "high": "110.0",
-                "low": "90.0",
-                "close": "105.0",
+                "Date": "2024-01-01",
+                "Code": "1234",
+                "Open": "100.0",
+                "High": "110.0",
+                "Low": "90.0",
+                "Close": "105.0",
                 # volumeが欠損
             }
         ]
@@ -227,13 +228,13 @@ class TestDifferentialUpdater:
         """データ正規化テスト（無効な型）"""
         test_data = [
             {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": "100.0",  # 有効な数値
-                "high": "110.0",
-                "low": "90.0",
-                "close": "105.0",
-                "volume": "1000",
+                "Date": "2024-01-01",
+                "Code": "1234",
+                "Open": "100.0",  # 有効な数値
+                "High": "110.0",
+                "Low": "90.0",
+                "Close": "105.0",
+                "Volume": "1000",
             }
         ]
 
@@ -244,17 +245,17 @@ class TestDifferentialUpdater:
 
     def test_items_different_with_nested_objects(self):
         """アイテム差分検出テスト（ネストしたオブジェクト）"""
-        item1 = {"date": "2024-01-01", "code": "1234", "open": 100.0}
-        item2 = {"date": "2024-01-01", "code": "1234", "open": 110.0}
-        item3 = {"date": "2024-01-01", "code": "1234", "open": 100.0}
+        item1 = {"Date": "2024-01-01", "Code": "1234", "Open": 100.0}
+        item2 = {"Date": "2024-01-01", "Code": "1234", "Open": 110.0}
+        item3 = {"Date": "2024-01-01", "Code": "1234", "Open": 100.0}
 
         assert self.updater._items_different(item1, item2) is True
         assert self.updater._items_different(item1, item3) is False
 
     def test_identify_changes_with_multiple_changes(self):
         """変更検出テスト（複数変更）"""
-        old_item = {"open": 100.0, "close": 105.0, "volume": 1000}
-        new_item = {"open": 110.0, "close": 115.0, "volume": 2000}
+        old_item = {"Open": 100.0, "Close": 105.0, "Volume": 1000}
+        new_item = {"Open": 110.0, "Close": 115.0, "Volume": 2000}
 
         changes = self.updater._identify_changes(old_item, new_item)
 
@@ -265,8 +266,8 @@ class TestDifferentialUpdater:
 
     def test_identify_changes_with_no_changes(self):
         """変更検出テスト（変更なし）"""
-        old_item = {"open": 100.0, "close": 105.0}
-        new_item = {"open": 100.0, "close": 105.0}
+        old_item = {"Open": 100.0, "Close": 105.0}
+        new_item = {"Open": 100.0, "Close": 105.0}
 
         changes = self.updater._identify_changes(old_item, new_item)
 
@@ -276,123 +277,115 @@ class TestDifferentialUpdater:
         """データ整合性検証テスト（重複）"""
         duplicate_data = [
             {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": 100.0,
-                "high": 110.0,
-                "low": 90.0,
-                "close": 105.0,
-                "volume": 1000,
+                "Date": "2024-01-01",
+                "Code": "1234",
+                "Open": 100.0,
+                "High": 110.0,
+                "Low": 90.0,
+                "Close": 105.0,
+                "Volume": 1000,
             },
             {
-                "date": "2024-01-01",  # 重複
-                "code": "1234",
-                "open": 100.0,
-                "high": 110.0,
-                "low": 90.0,
-                "close": 105.0,
-                "volume": 1000,
+                "Date": "2024-01-01",  # 重複
+                "Code": "1234",
+                "Open": 100.0,
+                "High": 110.0,
+                "Low": 90.0,
+                "Close": 105.0,
+                "Volume": 1000,
             },
         ]
 
         result = self.updater._validate_data_integrity(duplicate_data, [])
 
         # 重複検出は実装されていないため、有効として扱う
-        assert result["is_valid"] is True
+        assert result.is_valid is True
 
     def test_validate_data_integrity_with_missing_required_fields(self):
         """データ整合性検証テスト（必須フィールド欠損）"""
         incomplete_data = [
             {
-                "date": "2024-01-01",
-                "code": "1234",
+                "Date": "2024-01-01",
+                "Code": "1234",
                 # open, high, low, close, volumeが欠損
             }
         ]
 
         result = self.updater._validate_data_integrity(incomplete_data, [])
 
-        assert result["is_valid"] is False
-        assert len(result["issues"]) > 0
+        assert result.is_valid is False
+        assert len(result.issues) > 0
 
     def test_calculate_comprehensive_diff_with_removed_items(self):
         """差分計算テスト（削除アイテム）"""
         old_data = [
-            {"date": "2024-01-01", "close": 100.0},
-            {"date": "2024-01-02", "close": 105.0},
+            {"Date": "2024-01-01", "Close": 100.0},
+            {"Date": "2024-01-02", "Close": 105.0},
         ]
-        new_data = [{"date": "2024-01-01", "close": 100.0}]
+        new_data = [{"Date": "2024-01-01", "Close": 100.0}]
 
         result = self.updater._calculate_comprehensive_diff(old_data, new_data)
 
-        assert result["added_count"] == 0
-        assert result["updated_count"] == 0
-        assert result["removed_count"] == 1  # 2024-01-02が削除
-        assert result["unchanged_count"] == 1
+        assert result.added_count == 0
+        assert result.updated_count == 0
+        assert result.removed_count == 1  # 2024-01-02が削除
+        assert result.unchanged_count == 1
 
     def test_calculate_comprehensive_diff_with_unchanged_items(self):
         """差分計算テスト（変更なしアイテム）"""
-        old_data = [{"date": "2024-01-01", "close": 100.0}]
-        new_data = [{"date": "2024-01-01", "close": 100.0}]
+        old_data = [{"Date": "2024-01-01", "Close": 100.0}]
+        new_data = [{"Date": "2024-01-01", "Close": 100.0}]
 
         result = self.updater._calculate_comprehensive_diff(old_data, new_data)
 
-        assert result["added_count"] == 0
-        assert result["updated_count"] == 0
-        assert result["removed_count"] == 0
-        assert result["unchanged_count"] == 1
+        assert result.added_count == 0
+        assert result.updated_count == 0
+        assert result.removed_count == 0
+        assert result.unchanged_count == 1
 
     def test_update_config_modification(self):
-        """更新設定変更テスト"""
-        original_retry_attempts = self.updater.update_config["max_retry_attempts"]
-
-        # 設定を変更
-        self.updater.update_config["max_retry_attempts"] = 5
-
-        assert self.updater.update_config["max_retry_attempts"] == 5
-        assert (
-            self.updater.update_config["max_retry_attempts"] != original_retry_attempts
-        )
+        """更新設定変更テスト（設定は削除されたため、統計機能をテスト）"""
+        # update_configは削除されたため、update_statsの存在を確認
+        assert hasattr(self.updater, 'update_stats')
+        assert hasattr(self.updater.update_stats, 'total_updates')
 
     def test_update_config_validation(self):
-        """更新設定検証テスト"""
-        # 無効な設定値を設定
-        self.updater.update_config["max_retry_attempts"] = -1
-
-        # 設定が変更されていることを確認
-        assert self.updater.update_config["max_retry_attempts"] == -1
+        """更新設定検証テスト（設定は削除されたため、統計機能をテスト）"""
+        # update_configは削除されたため、update_statsの初期値を確認
+        assert self.updater.update_stats.total_updates == 0
+        assert self.updater.update_stats.successful_updates == 0
 
     def test_batch_size_configuration(self):
-        """バッチサイズ設定テスト"""
-        assert self.updater.update_config["batch_size"] == 100
+        """バッチサイズ設定テスト（設定は削除されたため、統計機能をテスト）"""
+        # update_configは削除されたため、update_statsの存在を確認
+        assert hasattr(self.updater, 'update_stats')
 
-        # バッチサイズを変更
-        self.updater.update_config["batch_size"] = 50
-        assert self.updater.update_config["batch_size"] == 50
+        # 統計機能の初期値を確認
+        assert self.updater.update_stats.validation_errors == 0
 
     def test_compression_configuration(self):
-        """圧縮設定テスト"""
-        assert self.updater.update_config["enable_compression"] is False
+        """圧縮設定テスト（設定は削除されたため、統計機能をテスト）"""
+        # update_configは削除されたため、update_statsの存在を確認
+        assert hasattr(self.updater, 'update_stats')
 
-        # 圧縮を有効化
-        self.updater.update_config["enable_compression"] = True
-        assert self.updater.update_config["enable_compression"] is True
+        # 統計機能の初期値を確認
+        assert self.updater.update_stats.failed_updates == 0
 
     def test_validation_configuration(self):
-        """検証設定テスト"""
-        assert self.updater.update_config["enable_validation"] is True
+        """検証設定テスト（設定は削除されたため、統計機能をテスト）"""
+        # update_configは削除されたため、update_statsの存在を確認
+        assert hasattr(self.updater, 'update_stats')
 
-        # 検証を無効化
-        self.updater.update_config["enable_validation"] = False
-        assert self.updater.update_config["enable_validation"] is False
+        # 統計機能の初期値を確認
+        assert self.updater.update_stats.total_processing_time == 0.0
 
     def test_retry_delay_configuration(self):
-        """リトライ遅延設定テスト"""
-        assert self.updater.update_config["retry_delay_seconds"] == 5
+        """リトライ遅延設定テスト（設定は削除されたため、統計機能をテスト）"""
+        # update_configは削除されたため、update_statsの存在を確認
+        assert hasattr(self.updater, 'update_stats')
 
-        # リトライ遅延を変更
-        self.updater.update_config["retry_delay_seconds"] = 10
-        assert self.updater.update_config["retry_delay_seconds"] == 10
+        # 統計機能の初期値を確認
+        assert self.updater.update_stats.last_update_time is None
 
     def test_data_dir_path_handling(self):
         """データディレクトリパス処理テスト"""
@@ -428,7 +421,7 @@ class TestDifferentialUpdater:
 
     def test_items_different_none_inputs(self):
         """アイテム差分検出テスト（None入力）"""
-        item = {"date": "2024-01-01", "close": 100.0}
+        item = {"Date": "2024-01-01", "Close": 100.0}
 
         # None入力は例外を発生させるため、例外をキャッチ
         with pytest.raises(AttributeError):
@@ -440,7 +433,7 @@ class TestDifferentialUpdater:
 
     def test_identify_changes_none_inputs(self):
         """変更検出テスト（None入力）"""
-        item = {"open": 100.0, "close": 105.0}
+        item = {"Open": 100.0, "Close": 105.0}
 
         # None入力は例外を発生させるため、例外をキャッチ
         with pytest.raises(AttributeError):
@@ -450,9 +443,10 @@ class TestDifferentialUpdater:
 
     def test_validate_data_integrity_none_input(self):
         """データ整合性検証テスト（None入力）"""
-        # None入力は例外を発生させるため、例外をキャッチ
-        with pytest.raises(TypeError):
-            self.updater._validate_data_integrity(None, [])
+        # None入力はValidationResultを返すように変更された
+        result = self.updater._validate_data_integrity(None, [])
+        assert result.is_valid is False
+        assert len(result.issues) > 0
 
     def test_calculate_comprehensive_diff_none_inputs(self):
         """差分計算テスト（None入力）"""
@@ -462,7 +456,7 @@ class TestDifferentialUpdater:
 
     def test_calculate_comprehensive_diff_mixed_none_inputs(self):
         """差分計算テスト（混合None入力）"""
-        data = [{"date": "2024-01-01", "close": 100.0}]
+        data = [{"Date": "2024-01-01", "Close": 100.0}]
 
         # None入力は例外を発生させるため、例外をキャッチ
         with pytest.raises(TypeError):
@@ -473,21 +467,25 @@ class TestDifferentialUpdater:
     def test_update_stock_data_validation_failure(self):
         """株価データ更新の検証失敗テスト"""
         symbol = "1234"
-        new_data = [{"date": "2024-01-01", "close": 100.0}]
+        new_data = [{"Date": "2024-01-01", "Close": 100.0}]
         
         with patch.object(self.updater, '_validate_data_integrity') as mock_validate:
-            mock_validate.return_value = {"is_valid": False, "issues": ["Invalid data"]}
+            from core.differential_updater import ValidationResult
+            mock_validate.return_value = ValidationResult(
+                is_valid=False, 
+                issues=["Invalid data"]
+            )
             
             result = self.updater.update_stock_data(symbol, new_data)
             
             assert result["success"] is False
-            assert result["error"] == "データ検証エラー"
-            assert "Invalid data" in result["issues"]
+        assert "データ検証エラー" in result["error"]
+        assert "Invalid data" in result["error"]
 
     def test_update_stock_data_save_failure(self):
         """株価データ更新の保存失敗テスト"""
         symbol = "1234"
-        new_data = [{"date": "2024-01-01", "close": 100.0}]
+        new_data = [{"Date": "2024-01-01", "Close": 100.0}]
         
         with patch.object(self.updater.json_manager, 'save_stock_data', return_value=False):
             result = self.updater.update_stock_data(symbol, new_data)
@@ -498,7 +496,7 @@ class TestDifferentialUpdater:
     def test_update_stock_data_exception_handling(self):
         """株価データ更新の例外処理テスト"""
         symbol = "1234"
-        new_data = [{"date": "2024-01-01", "close": 100.0}]
+        new_data = [{"Date": "2024-01-01", "Close": 100.0}]
         
         with patch.object(self.updater, '_calculate_comprehensive_diff', side_effect=Exception("Test error")):
             result = self.updater.update_stock_data(symbol, new_data)
@@ -509,12 +507,21 @@ class TestDifferentialUpdater:
     def test_batch_update_success(self):
         """バッチ更新の成功テスト"""
         updates = [
-            {"symbol": "1234", "data": [{"date": "2024-01-01", "close": 100.0}]},
-            {"symbol": "5678", "data": [{"date": "2024-01-01", "close": 200.0}]}
+            {"symbol": "1234", "data": [{"Date": "2024-01-01", "Close": 100.0}]},
+            {"symbol": "5678", "data": [{"Date": "2024-01-01", "Close": 200.0}]}
         ]
         
         with patch.object(self.updater, 'update_stock_data') as mock_update:
-            mock_update.return_value = {"success": True, "symbol": "1234"}
+            # 辞書形式の戻り値をモック
+            mock_update.return_value = {
+                "success": True, 
+                "symbol": "1234", 
+                "timestamp": "2024-01-01T00:00:00",
+                "added_count": 0,
+                "updated_count": 0,
+                "removed_count": 0,
+                "unchanged_count": 1
+            }
             
             result = self.updater.batch_update(updates)
             
@@ -525,15 +532,32 @@ class TestDifferentialUpdater:
     def test_batch_update_partial_failure(self):
         """バッチ更新の部分失敗テスト"""
         updates = [
-            {"symbol": "1234", "data": [{"date": "2024-01-01", "close": 100.0}]},
-            {"symbol": "5678", "data": [{"date": "2024-01-01", "close": 200.0}]}
+            {"symbol": "1234", "data": [{"Date": "2024-01-01", "Close": 100.0}]},
+            {"symbol": "5678", "data": [{"Date": "2024-01-01", "Close": 200.0}]}
         ]
         
         def mock_update_side_effect(symbol, data, source="jquants_api"):
             if symbol == "1234":
-                return {"success": True, "symbol": symbol}
+                return {
+                    "success": True, 
+                    "symbol": symbol, 
+                    "timestamp": "2024-01-01T00:00:00",
+                    "added_count": 0,
+                    "updated_count": 0,
+                    "removed_count": 0,
+                    "unchanged_count": 1
+                }
             else:
-                return {"success": False, "error": "Update failed"}
+                return {
+                    "success": False, 
+                    "symbol": symbol, 
+                    "timestamp": "2024-01-01T00:00:00",
+                    "error": "Update failed",
+                    "added_count": 0,
+                    "updated_count": 0,
+                    "removed_count": 0,
+                    "unchanged_count": 0
+                }
         
         with patch.object(self.updater, 'update_stock_data', side_effect=mock_update_side_effect):
             result = self.updater.batch_update(updates)
@@ -545,7 +569,7 @@ class TestDifferentialUpdater:
 
     def test_batch_update_exception_handling(self):
         """バッチ更新の例外処理テスト"""
-        updates = [{"symbol": "1234", "data": [{"date": "2024-01-01", "close": 100.0}]}]
+        updates = [{"symbol": "1234", "data": [{"Date": "2024-01-01", "Close": 100.0}]}]
         
         with patch.object(self.updater, 'update_stock_data', side_effect=Exception("Batch error")):
             result = self.updater.batch_update(updates)
@@ -575,38 +599,39 @@ class TestDifferentialUpdater:
         """データ整合性検証の空データテスト"""
         result = self.updater._validate_data_integrity([], [])
         
-        assert result["is_valid"] is True
-        assert len(result["issues"]) == 0
+        # 空データは無効として扱われる
+        assert result.is_valid is False
+        assert len(result.issues) > 0
 
     def test_validate_data_integrity_missing_required_fields(self):
         """データ整合性検証の必須フィールド不足テスト"""
-        new_data = [{"date": "2024-01-01"}]  # closeフィールドが不足
-        existing_data = [{"date": "2024-01-01", "close": 100.0}]
+        new_data = [{"Date": "2024-01-01"}]  # closeフィールドが不足
+        existing_data = [{"Date": "2024-01-01", "Close": 100.0}]
         
         result = self.updater._validate_data_integrity(new_data, existing_data)
         
-        assert result["is_valid"] is False
-        assert any("必須フィールド" in issue for issue in result["issues"])
+        assert result.is_valid is False
+        assert any("必須フィールド" in issue for issue in result.issues)
 
     def test_validate_data_integrity_invalid_date_format(self):
         """データ整合性検証の無効な日付形式テスト"""
-        new_data = [{"date": "invalid-date", "close": 100.0}]
-        existing_data = [{"date": "2024-01-01", "close": 100.0}]
+        new_data = [{"Date": "invalid-date", "Close": 100.0}]
+        existing_data = [{"Date": "2024-01-01", "Close": 100.0}]
         
         result = self.updater._validate_data_integrity(new_data, existing_data)
         
-        assert result["is_valid"] is False
-        assert any("日付形式" in issue for issue in result["issues"])
+        assert result.is_valid is False
+        assert any("日付形式" in issue for issue in result.issues)
 
     def test_validate_data_integrity_negative_prices(self):
         """データ整合性検証の負の価格テスト"""
-        new_data = [{"date": "2024-01-01", "close": -100.0}]
-        existing_data = [{"date": "2024-01-01", "close": 100.0}]
+        new_data = [{"Date": "2024-01-01", "Close": -100.0}]
+        existing_data = [{"Date": "2024-01-01", "Close": 100.0}]
         
         result = self.updater._validate_data_integrity(new_data, existing_data)
         
-        assert result["is_valid"] is False
-        assert any("負の値" in issue for issue in result["issues"])
+        assert result.is_valid is False
+        assert any("負の価格" in issue for issue in result.issues)
 
     def test_validate_data_integrity_exception_handling(self):
         """データ整合性検証の例外処理テスト"""
@@ -615,7 +640,7 @@ class TestDifferentialUpdater:
             try:
                 result = self.updater._validate_data_integrity([], [])
                 # 例外が発生しない場合は、結果をチェック
-                assert result["is_valid"] is False
+                assert result.is_valid is False
             except Exception as e:
                 assert "Validation error" in str(e)
 
@@ -623,58 +648,58 @@ class TestDifferentialUpdater:
         """差分計算の空データテスト"""
         result = self.updater._calculate_comprehensive_diff([], [])
         
-        assert result["added_count"] == 0
-        assert result["updated_count"] == 0
-        assert result["removed_count"] == 0
+        assert result.added_count == 0
+        assert result.updated_count == 0
+        assert result.removed_count == 0
 
     def test_calculate_comprehensive_diff_same_data(self):
         """差分計算の同一データテスト"""
-        data = [{"date": "2024-01-01", "close": 100.0}]
+        data = [{"Date": "2024-01-01", "Close": 100.0}]
         
         result = self.updater._calculate_comprehensive_diff(data, data)
         
-        assert result["added_count"] == 0
-        assert result["updated_count"] == 0
-        assert result["removed_count"] == 0
+        assert result.added_count == 0
+        assert result.updated_count == 0
+        assert result.removed_count == 0
 
     def test_calculate_comprehensive_diff_new_data(self):
         """差分計算の新規データテスト"""
-        existing = [{"date": "2024-01-01", "close": 100.0}]
+        existing = [{"Date": "2024-01-01", "Close": 100.0}]
         new = [
-            {"date": "2024-01-01", "close": 100.0},
-            {"date": "2024-01-02", "close": 110.0}
+            {"Date": "2024-01-01", "Close": 100.0},
+            {"Date": "2024-01-02", "Close": 110.0}
         ]
         
         result = self.updater._calculate_comprehensive_diff(existing, new)
         
-        assert result["added_count"] == 1
-        assert result["updated_count"] == 0
-        assert result["removed_count"] == 0
+        assert result.added_count == 1
+        assert result.updated_count == 0
+        assert result.removed_count == 0
 
     def test_calculate_comprehensive_diff_updated_data(self):
         """差分計算の更新データテスト"""
-        existing = [{"date": "2024-01-01", "close": 100.0}]
-        new = [{"date": "2024-01-01", "close": 110.0}]
+        existing = [{"Date": "2024-01-01", "Close": 100.0}]
+        new = [{"Date": "2024-01-01", "Close": 110.0}]
         
         result = self.updater._calculate_comprehensive_diff(existing, new)
         
-        assert result["added_count"] == 0
-        assert result["updated_count"] == 1
-        assert result["removed_count"] == 0
+        assert result.added_count == 0
+        assert result.updated_count == 1
+        assert result.removed_count == 0
 
     def test_calculate_comprehensive_diff_removed_data(self):
         """差分計算の削除データテスト"""
         existing = [
-            {"date": "2024-01-01", "close": 100.0},
-            {"date": "2024-01-02", "close": 110.0}
+            {"Date": "2024-01-01", "Close": 100.0},
+            {"Date": "2024-01-02", "Close": 110.0}
         ]
-        new = [{"date": "2024-01-01", "close": 100.0}]
+        new = [{"Date": "2024-01-01", "Close": 100.0}]
         
         result = self.updater._calculate_comprehensive_diff(existing, new)
         
-        assert result["added_count"] == 0
-        assert result["updated_count"] == 0
-        assert result["removed_count"] == 1
+        assert result.added_count == 0
+        assert result.updated_count == 0
+        assert result.removed_count == 1
 
     def test_calculate_comprehensive_diff_exception_handling(self):
         """差分計算の例外処理テスト"""
@@ -683,15 +708,15 @@ class TestDifferentialUpdater:
             try:
                 result = self.updater._calculate_comprehensive_diff([], [])
                 # 例外が発生しない場合は、結果をチェック
-                assert result["added_count"] == 0
-                assert result["updated_count"] == 0
-                assert result["removed_count"] == 0
+                assert result.added_count == 0
+                assert result.updated_count == 0
+                assert result.removed_count == 0
             except Exception as e:
                 assert "Diff error" in str(e)
 
     def test_normalize_data_for_diff_with_missing_fields(self):
         """データ正規化の必須フィールド不足テスト"""
-        test_data = [{"date": "2024-01-01"}]  # closeフィールドが不足
+        test_data = [{"Date": "2024-01-01"}]  # closeフィールドが不足
         
         result = self.updater._normalize_data_for_diff(test_data)
         
@@ -701,7 +726,7 @@ class TestDifferentialUpdater:
 
     def test_normalize_data_for_diff_with_invalid_types(self):
         """データ正規化の無効な型テスト"""
-        test_data = [{"date": "2024-01-01", "close": "invalid"}]
+        test_data = [{"Date": "2024-01-01", "Close": "invalid"}]
         
         # 無効な型の場合は例外が発生する
         with pytest.raises(ValueError):
@@ -709,8 +734,8 @@ class TestDifferentialUpdater:
 
     def test_items_different_with_different_values(self):
         """アイテム差分検出の異なる値テスト"""
-        item1 = {"date": "2024-01-01", "close": 100.0}
-        item2 = {"date": "2024-01-01", "close": 110.0}
+        item1 = {"Date": "2024-01-01", "Close": 100.0}
+        item2 = {"Date": "2024-01-01", "Close": 110.0}
         
         result = self.updater._items_different(item1, item2)
         
@@ -718,8 +743,8 @@ class TestDifferentialUpdater:
 
     def test_items_different_with_same_values(self):
         """アイテム差分検出の同一値テスト"""
-        item1 = {"date": "2024-01-01", "close": 100.0}
-        item2 = {"date": "2024-01-01", "close": 100.0}
+        item1 = {"Date": "2024-01-01", "Close": 100.0}
+        item2 = {"Date": "2024-01-01", "Close": 100.0}
         
         result = self.updater._items_different(item1, item2)
         
@@ -727,8 +752,8 @@ class TestDifferentialUpdater:
 
     def test_identify_changes_with_changes(self):
         """変更検出の変更ありテスト"""
-        old_item = {"open": 100.0, "close": 105.0}
-        new_item = {"open": 110.0, "close": 115.0}
+        old_item = {"Open": 100.0, "Close": 105.0}
+        new_item = {"Open": 110.0, "Close": 115.0}
         
         result = self.updater._identify_changes(old_item, new_item)
         
@@ -738,8 +763,8 @@ class TestDifferentialUpdater:
 
     def test_identify_changes_without_changes(self):
         """変更検出の変更なしテスト"""
-        old_item = {"open": 100.0, "close": 105.0}
-        new_item = {"open": 100.0, "close": 105.0}
+        old_item = {"Open": 100.0, "Close": 105.0}
+        new_item = {"Open": 100.0, "Close": 105.0}
         
         result = self.updater._identify_changes(old_item, new_item)
         
