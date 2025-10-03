@@ -1,1 +1,0 @@
-{"status":"ok","timestamp":"2025-10-03T22:01:25.213Z","environment":{"nodeEnv":"production","hasIdToken":true,"hasRefreshToken":false,"hasEmail":true,"hasPassword":true,"envVars":{"JQUANTS_ID_TOKEN":"***設定済み***","JQUANTS_REFRESH_TOKEN":"未設定","JQUANTS_EMAIL":"***設定済み***","JQUANTS_PASSWORD":"***設定済み***"}},"api":{"jquantsProxy":"/api/jquants-proxy","health":"/api/health"}}

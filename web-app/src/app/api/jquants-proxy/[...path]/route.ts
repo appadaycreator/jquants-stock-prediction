@@ -68,6 +68,28 @@ class RateLimiter {
 
 const rateLimiter = RateLimiter.getInstance();
 
+function generateAuthRecommendations(envVars: Record<string, boolean>): string[] {
+  const recommendations: string[] = [];
+
+  if (!envVars.hasIdToken && !envVars.hasEmail) {
+    recommendations.push('JQUANTS_ID_TOKEN または JQUANTS_EMAIL を設定してください');
+  }
+
+  if (envVars.hasEmail && !envVars.hasPassword) {
+    recommendations.push('JQUANTS_PASSWORD を設定してください');
+  }
+
+  if (envVars.hasPublicIdToken || envVars.hasPublicEmail) {
+    recommendations.push('NEXT_PUBLIC_* 環境変数は機密情報を含むため、サーバーサイドでは使用しないでください');
+  }
+
+  if (recommendations.length === 0) {
+    recommendations.push('認証設定は正常です');
+  }
+
+  return recommendations;
+}
+
 function isAllowedPath(path: string): boolean {
   return ALLOWED_PATHS.some(allowedPath => path.startsWith(allowedPath));
 }
@@ -131,17 +153,24 @@ async function handleProxyRequest(
     const authToken = await authManager.getValidToken();
 
     if (!authToken) {
+      const envVars = {
+        hasIdToken: !!process.env.JQUANTS_ID_TOKEN,
+        hasRefreshToken: !!process.env.JQUANTS_REFRESH_TOKEN,
+        hasEmail: !!process.env.JQUANTS_EMAIL,
+        hasPassword: !!process.env.JQUANTS_PASSWORD,
+        hasPublicIdToken: !!process.env.NEXT_PUBLIC_JQUANTS_ID_TOKEN,
+        hasPublicRefreshToken: !!process.env.NEXT_PUBLIC_JQUANTS_REFRESH_TOKEN,
+        hasPublicEmail: !!process.env.NEXT_PUBLIC_JQUANTS_EMAIL,
+        hasPublicPassword: !!process.env.NEXT_PUBLIC_JQUANTS_PASSWORD,
+      };
+      
       console.error('認証トークンの取得に失敗しました', {
         path,
         method,
         clientIp,
         timestamp: new Date().toISOString(),
-        envVars: {
-          hasIdToken: !!process.env.JQUANTS_ID_TOKEN,
-          hasRefreshToken: !!process.env.JQUANTS_REFRESH_TOKEN,
-          hasEmail: !!process.env.JQUANTS_EMAIL,
-          hasPassword: !!process.env.JQUANTS_PASSWORD
-        }
+        envVars,
+        recommendations: generateAuthRecommendations(envVars)
       });
       return NextResponse.json(
         { 
@@ -149,12 +178,8 @@ async function handleProxyRequest(
           message: '認証トークンの取得に失敗しました。環境変数を確認してください。',
           retry_hint: 'check_credentials',
           debug: {
-            envVars: {
-              hasIdToken: !!process.env.JQUANTS_ID_TOKEN,
-              hasRefreshToken: !!process.env.JQUANTS_REFRESH_TOKEN,
-              hasEmail: !!process.env.JQUANTS_EMAIL,
-              hasPassword: !!process.env.JQUANTS_PASSWORD
-            }
+            envVars,
+            recommendations: generateAuthRecommendations(envVars)
           }
         },
         { status: 401 }
