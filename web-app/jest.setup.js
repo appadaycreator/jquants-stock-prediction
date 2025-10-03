@@ -128,7 +128,6 @@ if (typeof console !== "undefined") {
 jest.mock("next/server", () => {
   try {
     // Prefer real NextResponse if available to preserve behavior
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const actual = require("next/server");
     class MockNextRequest {
       constructor(input) {

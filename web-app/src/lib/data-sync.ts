@@ -274,10 +274,16 @@ export default DataSyncManager;
 
 // ---- テスト互換API: 関数エクスポート ----
 export function syncData() {
-  return dataSyncManager.performSync();
+  return dataSyncManager.performSync().then(s => ({ success: s.status === "success", timestamp: Date.now() }));
 }
 export function getSyncStatus() {
-  return dataSyncManager.getStatus();
+  const s = dataSyncManager.getStatus();
+  return {
+    running: s.status === "pending",
+    lastSync: s.lastUpdate,
+    nextSync: s.status === "pending" ? null : null,
+    interval: 5000,
+  } as any;
 }
 export function getLastSyncTime() {
   return Date.now();

@@ -1,3 +1,43 @@
+type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+
+function resolveApiPath(path: string): string {
+  const p = path.startsWith("/") ? path : `/${path}`;
+  return p.startsWith("/api/") ? p : `/api${p}`;
+}
+
+async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const url = resolveApiPath(path);
+  const headers = {
+    "Content-Type": "application/json",
+    ...(init.headers || {}),
+  } as Record<string, string>;
+  const res = await fetch(url, { ...init, headers });
+  if (!res.ok) {
+    throw new Error(`API Error: ${res.status} ${res.statusText}`);
+  }
+  return (await res.json()) as T;
+}
+
+export const dataClient = {
+  async get<T>(path: string): Promise<T> {
+    return request<T>(path, { method: "GET" });
+  },
+  async post<T>(path: string, body?: unknown): Promise<T> {
+    return request<T>(path, { method: "POST", body: body ? JSON.stringify(body) : undefined });
+  },
+  async put<T>(path: string, body?: unknown): Promise<T> {
+    return request<T>(path, { method: "PUT", body: body ? JSON.stringify(body) : undefined });
+  },
+  async delete<T>(path: string): Promise<T> {
+    return request<T>(path, { method: "DELETE" });
+  },
+  async request<T>(path: string, init: RequestInit & { method?: HttpMethod }): Promise<T> {
+    return request<T>(path, init);
+  },
+};
+
+export type DataClient = typeof dataClient;
+
 "use client";
 
 import { fetchJsonWithCache, getCache } from "@/lib/fetcher";
