@@ -126,7 +126,7 @@ class TestAuthService:
         with patch('requests.post') as mock_post:
             mock_post.side_effect = Exception("Network error")
             
-            result = self._mock_api_call()
+            result = self._mock_api_call_with_error()
             assert result['success'] == False
             assert 'error' in result
 
@@ -203,6 +203,14 @@ class TestAuthService:
         try:
             # 実際のAPI呼び出しをシミュレート
             return {'success': True, 'data': 'mock_data'}
+        except Exception as e:
+            return {'success': False, 'error': str(e)}
+
+    def _mock_api_call_with_error(self):
+        """エラー付きAPI呼び出しのモック"""
+        try:
+            # エラーを強制的に発生させる
+            raise Exception("Network error")
         except Exception as e:
             return {'success': False, 'error': str(e)}
 

@@ -304,10 +304,10 @@ class TestJQuantsTokenTester(unittest.TestCase):
     def test_print_summary(self):
         """サマリー表示のテスト"""
         results = [
-            TestResultData(
+            JQuantsTestResultData(
                 "成功テスト", "https://api.example.com/success", 200, True, 100, {}
             ),
-            TestResultData(
+            JQuantsTestResultData(
                 "失敗テスト",
                 "https://api.example.com/failure",
                 404,
@@ -330,7 +330,7 @@ class TestJQuantsTokenTester(unittest.TestCase):
     def test_save_results(self, mock_json_dump, mock_open):
         """結果保存のテスト"""
         results = [
-            TestResultData("テスト", "https://api.example.com/test", 200, True, 100, {})
+            JQuantsTestResultData("テスト", "https://api.example.com/test", 200, True, 100, {})
         ]
 
         self.tester.save_results(results, "test_output.json")
@@ -351,7 +351,7 @@ class TestTestJquantsTokenFunction(unittest.TestCase):
         """トークンテスト成功のテスト"""
         # モックテスターの設定
         mock_tester = Mock()
-        mock_result = TestResultData(
+        mock_result = JQuantsTestResultData(
             "テスト", "https://api.example.com/test", 200, True, 100, {}
         )
         mock_tester.test_all_endpoints.return_value = [mock_result]
@@ -377,7 +377,7 @@ class TestTestJquantsTokenFunction(unittest.TestCase):
         """トークンテスト失敗のテスト"""
         # モックテスターの設定
         mock_tester = Mock()
-        mock_result = TestResultData(
+        mock_result = JQuantsTestResultData(
             "テスト", "https://api.example.com/test", 404, False, 0, {}
         )
         mock_tester.test_all_endpoints.return_value = [mock_result]

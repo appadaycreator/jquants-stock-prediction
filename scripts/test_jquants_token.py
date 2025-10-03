@@ -255,7 +255,7 @@ def test_jquants_token() -> bool:
 
     # 成功判定
     successful_tests = [r for r in results if r.success]
-    return None
+    return len(successful_tests) > 0
 
 
 if __name__ == "__main__":
