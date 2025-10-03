@@ -9,9 +9,6 @@ import {
   RefreshCw, 
   AlertCircle, 
   CheckCircle, 
-  Clock,
-  TrendingUp,
-  TrendingDown,
   Activity,
 } from "lucide-react";
 
@@ -54,7 +51,6 @@ export default function BatchUpdateController({
     errors: [],
   });
   const [worker, setWorker] = useState<Worker | null>(null);
-  const [results, setResults] = useState<any[]>([]);
   const [showErrors, setShowErrors] = useState(false);
   const workerRef = useRef<Worker | null>(null);
 
@@ -82,7 +78,7 @@ export default function BatchUpdateController({
               setProgress(payload.progress);
               onProgressChange(payload.progress);
             }
-            onUpdateComplete(results);
+            onUpdateComplete([]);
             break;
           case "ERROR":
             console.error("Worker error:", payload?.error);
@@ -129,7 +125,6 @@ export default function BatchUpdateController({
       estimatedTimeRemaining: 0,
       errors: [],
     });
-    setResults([]);
     setIsRunning(true);
     setIsPaused(false);
 
@@ -175,7 +170,6 @@ export default function BatchUpdateController({
       estimatedTimeRemaining: 0,
       errors: [],
     });
-    setResults([]);
   };
 
   const formatTime = (seconds: number): string => {

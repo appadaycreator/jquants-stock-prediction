@@ -21,6 +21,8 @@ import { usePerformanceMonitor } from "@/lib/performance-monitor";
 import { DEFAULT_CHECKLIST_ITEMS, type ChecklistItem } from "@/components/guide/Checklist";
 import { SampleDataProvider, useSampleData } from "@/components/SampleDataProvider";
 import AnalysisExecutionPanel from "@/components/AnalysisExecutionPanel";
+import { UnifiedErrorBoundary } from "@/components/UnifiedErrorBoundary";
+import { TourProvider } from "@/components/guide/TourProvider";
 
 // 動的インポートでコンポーネントを遅延読み込み
 const MobileNavigation = dynamicImport(() => import("../../components/MobileNavigation"), { ssr: false });
@@ -705,7 +707,7 @@ export default function Dashboard() {
   return (
     <ErrorBoundary
       fallbackRender={({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) => (
-        <UnifiedErrorHandler
+        <UnifiedErrorBoundary
           error={error}
         />
       )}

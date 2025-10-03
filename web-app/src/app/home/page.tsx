@@ -6,18 +6,7 @@ import MobileOptimizedDashboard from "@/components/MobileOptimizedDashboard";
 import EnhancedFiveMinRoutine from "@/components/EnhancedFiveMinRoutine";
 import { 
   Smartphone, 
-  Target, 
-  TrendingUp, 
   Clock, 
-  Zap,
-  Eye,
-  BarChart3,
-  CheckCircle,
-  AlertTriangle,
-  RefreshCw,
-  Play,
-  Pause,
-  RotateCcw,
   Home,
   Settings,
 } from "lucide-react";
@@ -55,9 +44,6 @@ export default function HomePage() {
     router.push("/settings");
   };
 
-  const handleRoutineStart = () => {
-    setCurrentView("routine");
-  };
 
   const handleBackToDashboard = () => {
     setCurrentView("dashboard");
