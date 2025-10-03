@@ -1,0 +1,45 @@
+{
+  "test_time": "2025-10-04T06:55:55.698070",
+  "token_preview": "eyJraWQiOiJHQXNvU2xxUzMyUktLT2lVYm1xcjU3ekdYNE1TVF...",
+  "total_tests": 3,
+  "successful_tests": 0,
+  "failed_tests": 3,
+  "results": [
+    {
+      "name": "上場企業情報",
+      "url": "https://api.jquants.com/v1/listed/info",
+      "status_code": 401,
+      "success": false,
+      "response_size": 55,
+      "data_keys": null,
+      "data_sample": null,
+      "error_message": "{\"message\":\"The incoming token is invalid or expired.\"}",
+      "json_error": false,
+      "error": null
+    },
+    {
+      "name": "銘柄一覧",
+      "url": "https://api.jquants.com/v1/markets/stock/list",
+      "status_code": 403,
+      "success": false,
+      "response_size": 114,
+      "data_keys": null,
+      "data_sample": null,
+      "error_message": "{\"message\":\"Something is wrong with your request. Please check the reference:https://jpx.gitbook.io/j-quants-ja/\"}",
+      "json_error": false,
+      "error": null
+    },
+    {
+      "name": "市場情報",
+      "url": "https://api.jquants.com/v1/markets/market",
+      "status_code": 403,
+      "success": false,
+      "response_size": 114,
+      "data_keys": null,
+      "data_sample": null,
+      "error_message": "{\"message\":\"Something is wrong with your request. Please check the reference:https://jpx.gitbook.io/j-quants-ja/\"}",
+      "json_error": false,
+      "error": null
+    }
+  ]
+}

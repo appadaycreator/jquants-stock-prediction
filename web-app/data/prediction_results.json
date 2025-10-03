@@ -3,80 +3,80 @@
     {
       "date": "2024-01-01",
       "symbol": "7203",
-      "y_true": 1945.52,
-      "y_pred": 1929.73,
+      "y_true": 103.0,
+      "y_pred": 105.2,
       "confidence": 0.85,
       "model_version": "v1.2.0"
     },
     {
       "date": "2024-01-02",
       "symbol": "7203",
-      "y_true": 1376.26,
-      "y_pred": 1377.53,
+      "y_true": 106.0,
+      "y_pred": 108.1,
       "confidence": 0.82,
       "model_version": "v1.2.0"
     },
     {
       "date": "2024-01-03",
       "symbol": "7203",
-      "y_true": 4434.25,
-      "y_pred": 4493.22,
+      "y_true": 108.0,
+      "y_pred": 110.5,
       "confidence": 0.88,
       "model_version": "v1.2.0"
     },
     {
       "date": "2024-01-04",
       "symbol": "7203",
-      "y_true": 3807.53,
-      "y_pred": 3806.93,
+      "y_true": 110.0,
+      "y_pred": 112.3,
       "confidence": 0.79,
       "model_version": "v1.2.0"
     },
     {
       "date": "2024-01-05",
       "symbol": "7203",
-      "y_true": 4409.57,
-      "y_pred": 4463.59,
+      "y_true": 113.0,
+      "y_pred": 115.1,
       "confidence": 0.91,
       "model_version": "v1.2.0"
     },
     {
       "date": "2024-01-01",
       "symbol": "6758",
-      "y_true": 1464.26,
-      "y_pred": 1476.71,
+      "y_true": 2550.0,
+      "y_pred": 2580.5,
       "confidence": 0.87,
       "model_version": "v1.2.0"
     },
     {
       "date": "2024-01-02",
       "symbol": "6758",
-      "y_true": 1375.21,
-      "y_pred": 1386.30,
+      "y_true": 2600.0,
+      "y_pred": 2635.2,
       "confidence": 0.84,
       "model_version": "v1.2.0"
     },
     {
       "date": "2024-01-03",
       "symbol": "6758",
-      "y_true": 3982.58,
-      "y_pred": 3994.31,
+      "y_true": 2650.0,
+      "y_pred": 2680.8,
       "confidence": 0.89,
       "model_version": "v1.2.0"
     },
     {
       "date": "2024-01-04",
       "symbol": "6758",
-      "y_true": 1389.84,
-      "y_pred": 1398.57,
+      "y_true": 2700.0,
+      "y_pred": 2735.1,
       "confidence": 0.86,
       "model_version": "v1.2.0"
     },
     {
       "date": "2024-01-05",
       "symbol": "6758",
-      "y_true": 3896.85,
-      "y_pred": 3875.05,
+      "y_true": 2750.0,
+      "y_pred": 2785.3,
       "confidence": 0.92,
       "model_version": "v1.2.0"
     }

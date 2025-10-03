@@ -74,9 +74,9 @@ const PredictionsView = memo(function PredictionsView({ onError }: PredictionsVi
 
       // 複数のデータを並列取得（エラーバウンダリで隔離）
       const data = await fetchMultiple({
-        predictions: "./data/prediction_results.json",
-        stockData: "./data/stock_data.json",
-        modelComparison: "./data/unified_model_comparison.json",
+        predictions: "/data/prediction_results.json",
+        stockData: "/data/stock_data.json",
+        modelComparison: "/data/unified_model_comparison.json",
       }, {
         signal: controller.signal,
         timeout: 10000,

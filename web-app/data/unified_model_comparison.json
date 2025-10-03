@@ -1,0 +1,105 @@
+[
+  {
+    "model_name": "LSTM_Stock_Predictor_v1.2.0",
+    "model_type": "LSTM",
+    "accuracy": 0.87,
+    "mae": 2.34,
+    "rmse": 3.12,
+    "r2_score": 0.89,
+    "training_time": "2.5 hours",
+    "inference_time": "0.05 seconds",
+    "memory_usage": "1.2 GB",
+    "last_updated": "2024-01-06T10:30:00Z",
+    "status": "active",
+    "performance_metrics": {
+      "precision": 0.85,
+      "recall": 0.88,
+      "f1_score": 0.86,
+      "auc": 0.91
+    },
+    "hyperparameters": {
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "epochs": 100,
+      "hidden_units": 128,
+      "dropout_rate": 0.2
+    }
+  },
+  {
+    "model_name": "Random_Forest_v1.1.0",
+    "model_type": "Random Forest",
+    "accuracy": 0.82,
+    "mae": 2.89,
+    "rmse": 3.67,
+    "r2_score": 0.84,
+    "training_time": "45 minutes",
+    "inference_time": "0.02 seconds",
+    "memory_usage": "0.8 GB",
+    "last_updated": "2024-01-05T15:20:00Z",
+    "status": "active",
+    "performance_metrics": {
+      "precision": 0.81,
+      "recall": 0.83,
+      "f1_score": 0.82,
+      "auc": 0.87
+    },
+    "hyperparameters": {
+      "n_estimators": 100,
+      "max_depth": 10,
+      "min_samples_split": 5,
+      "min_samples_leaf": 2,
+      "random_state": 42
+    }
+  },
+  {
+    "model_name": "XGBoost_v1.0.5",
+    "model_type": "XGBoost",
+    "accuracy": 0.85,
+    "mae": 2.56,
+    "rmse": 3.28,
+    "r2_score": 0.86,
+    "training_time": "1.2 hours",
+    "inference_time": "0.03 seconds",
+    "memory_usage": "0.9 GB",
+    "last_updated": "2024-01-04T12:15:00Z",
+    "status": "active",
+    "performance_metrics": {
+      "precision": 0.83,
+      "recall": 0.86,
+      "f1_score": 0.84,
+      "auc": 0.89
+    },
+    "hyperparameters": {
+      "n_estimators": 200,
+      "max_depth": 6,
+      "learning_rate": 0.1,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8
+    }
+  },
+  {
+    "model_name": "Linear_Regression_v1.0.0",
+    "model_type": "Linear Regression",
+    "accuracy": 0.78,
+    "mae": 3.45,
+    "rmse": 4.12,
+    "r2_score": 0.79,
+    "training_time": "5 minutes",
+    "inference_time": "0.01 seconds",
+    "memory_usage": "0.1 GB",
+    "last_updated": "2024-01-03T09:45:00Z",
+    "status": "baseline",
+    "performance_metrics": {
+      "precision": 0.76,
+      "recall": 0.78,
+      "f1_score": 0.77,
+      "auc": 0.82
+    },
+    "hyperparameters": {
+      "fit_intercept": true,
+      "normalize": false,
+      "copy_X": true,
+      "n_jobs": -1
+    }
+  }
+]

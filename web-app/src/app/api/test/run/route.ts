@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { exec } from "child_process";
 import { promisify } from "util";
+import path from "path";
 
 const execAsync = promisify(exec);
 
-// 静的エクスポート用の設定
-export const dynamic = 'force-static';
+// APIルート用の設定
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
+  console.log("Test run API called");
+  
   // GitHub Pages（静的ホスティング）ではAPIルートが動作しないため、フォールバック
   if (process.env.NODE_ENV === 'production') {
     return NextResponse.json({
@@ -18,25 +21,34 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { testType = "all" } = await request.json();
+    const body = await request.json();
+    const { testType = "all" } = body;
+    console.log("Test type:", testType);
+    
+    const projectRoot = process.cwd().replace("/web-app", "");
+    console.log("Working directory:", projectRoot);
     
     let command: string;
+    const pythonPath = path.join(projectRoot, "venv", "bin", "python");
     switch (testType) {
       case "coverage":
-        command = "python -m pytest --cov=. --cov-report=json --cov-report=html";
+        command = `${pythonPath} -m pytest --cov=. --cov-report=json --cov-report=html`;
         break;
       case "watch":
-        command = "python -m pytest --watch";
+        command = `${pythonPath} -m pytest --watch`;
         break;
       default:
-        command = "python -m pytest";
+        command = `${pythonPath} -m pytest`;
     }
 
+    console.log("Executing command:", command);
+
     const { stdout, stderr } = await execAsync(command, {
-      cwd: process.cwd().replace("/web-app", ""), // プロジェクトルートに移動
+      cwd: projectRoot, // プロジェクトルートに移動
       timeout: 300000, // 5分のタイムアウト
     });
 
+    console.log("Command executed successfully");
     return NextResponse.json({
       success: true,
       output: stdout,
@@ -49,6 +61,7 @@ export async function POST(request: NextRequest) {
       {
         success: false,
         error: error instanceof Error ? error.message : "Unknown error",
+        details: error instanceof Error ? error.stack : undefined,
       },
       { status: 500 },
     );

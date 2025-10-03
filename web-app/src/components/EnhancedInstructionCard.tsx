@@ -40,6 +40,20 @@ export default function InstructionCard({
   const [expanded, setExpanded] = useState(false);
   const [selectedQuantity, setSelectedQuantity] = useState(0.25);
 
+  // チャート表示ハンドラー
+  const handleChartDisplay = (symbol: string) => {
+    try {
+      // チャートページへの遷移
+      const chartUrl = `/charts/${symbol}`;
+      window.open(chartUrl, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+    } catch (error) {
+      console.error('チャート表示エラー:', error);
+      // フォールバック: 新しいタブでチャートを開く
+      const fallbackUrl = `https://finance.yahoo.com/quote/${symbol}`;
+      window.open(fallbackUrl, '_blank');
+    }
+  };
+
   const getRecommendationIcon = () => {
     switch (recommendation) {
       case "STRONG_BUY":
@@ -200,7 +214,10 @@ export default function InstructionCard({
         {/* アクションボタン */}
         <div className="flex items-center justify-between">
           {getActionButtons()}
-          <button className="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+          <button 
+            className="text-blue-600 hover:text-blue-800 text-sm flex items-center transition-colors duration-200"
+            onClick={() => handleChartDisplay(symbol)}
+          >
             <ExternalLink className="h-4 w-4 mr-1" />
             チャート表示
           </button>

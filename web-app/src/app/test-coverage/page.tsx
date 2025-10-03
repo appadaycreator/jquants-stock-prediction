@@ -44,7 +44,7 @@ export default function TestCoveragePage() {
     setTestResult(null);
 
     try {
-      const response = await fetch("/api/test/run", {
+      const response = await fetch("/api/test/run/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export default function TestCoveragePage() {
     setCoverageStats(null);
 
     try {
-      const response = await fetch("/api/test/run");
+      const response = await fetch("/api/test/run/");
       const result = await response.json();
       
       // 静的ホスティング環境でのエラーハンドリング
