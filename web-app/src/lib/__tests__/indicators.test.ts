@@ -144,6 +144,6 @@ describe("indicators", () => {
       const adx = calculateADX([1, 2], [1, 2], [1, 2], 14);
       expect(adx).toHaveLength(2);
     });
-  });
+  }),
 });
 

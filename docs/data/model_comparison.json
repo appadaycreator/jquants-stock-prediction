@@ -1,9 +1,0 @@
-[
-  {
-    "model_name": "primary_model",
-    "model_type": "Random Forest",
-    "mae": 21.36381250000039,
-    "rmse": 31.12826261772495,
-    "r2": 0.9994275441935184
-  }
-]

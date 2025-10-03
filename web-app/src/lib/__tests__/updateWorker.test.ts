@@ -156,6 +156,6 @@ describe("updateWorker", () => {
       const history = getUpdateWorkerHistory();
       expect(history).toHaveLength(0);
     });
-  });
+  }),
 });
 

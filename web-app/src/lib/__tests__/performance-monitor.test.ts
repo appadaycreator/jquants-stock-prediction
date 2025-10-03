@@ -177,5 +177,5 @@ describe("performance-monitor", () => {
     it("handles invalid data", () => {
       expect(() => importPerformanceData("invalid")).toThrow();
     });
-  });
+  }),
 });

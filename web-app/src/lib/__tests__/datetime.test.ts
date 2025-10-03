@@ -121,6 +121,6 @@ describe("datetime", () => {
       const end = new Date("2024-01-16"); // Tuesday
       expect(getBusinessDays(start, end)).toBe(2); // Monday and Tuesday
     });
-  });
+  }),
 });
 

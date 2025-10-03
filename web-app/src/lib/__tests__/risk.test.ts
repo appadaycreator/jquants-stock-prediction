@@ -148,6 +148,6 @@ describe("risk", () => {
       const kurtosis = calculateKurtosis([]);
       expect(kurtosis).toBe(0);
     });
-  });
+  }),
 });
 

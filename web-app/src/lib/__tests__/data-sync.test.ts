@@ -156,6 +156,6 @@ describe("data-sync", () => {
       const strategy = getSyncStrategy();
       expect(typeof strategy).toBe("string");
     });
-  });
+  }),
 });
 
