@@ -1,7 +1,18 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef, useMemo } from "react";
-import { frontendMemoryOptimizer } from "@/lib/frontend-memory-optimizer";
+// フロント最適化ユーティリティが存在しない環境向けフォールバック
+let frontendMemoryOptimizer: any = {
+  downsampleChartData: (data: any[], _max: number) => data,
+  getCurrentMemoryUsage: () => 0,
+  optimizeMemory: () => void 0,
+};
+// 動的importで存在する場合に上書き
+import("@/lib/frontend-memory-optimizer").then(mod => {
+  if (mod && (mod as any).frontendMemoryOptimizer) {
+    frontendMemoryOptimizer = (mod as any).frontendMemoryOptimizer;
+  }
+}).catch(() => {});
 
 interface LazyChartProps {
   data: any[];
@@ -172,7 +183,7 @@ export default function LazyChart({
     };
 
     loadChart();
-  }, [chartState.isVisible, chartState.isLoaded, chartState.isLoading, optimizedData, type, height, width, onLoadStart, onLoadComplete, onError, importChartLibrary]);
+  }, [chartState.isVisible, chartState.isLoaded, chartState.isLoading, optimizedData, type, height, width, onLoadStart, onLoadComplete, onError]);
 
   // チャートライブラリの動的読み込み
   const importChartLibrary = useCallback(async (chartType: string) => {

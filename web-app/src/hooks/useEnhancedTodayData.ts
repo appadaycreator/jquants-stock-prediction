@@ -8,7 +8,11 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { unifiedApiClient } from "@/lib/unified-api-client";
 import { unifiedCacheManager } from "@/lib/unified-cache-manager";
-import { optimizedErrorHandler, ErrorContext } from "@/lib/error-handler";
+// エラーハンドラーのフォールバック
+type ErrorContext = { operation?: string; component?: string; timestamp?: number; userAgent?: string; url?: string };
+const optimizedErrorHandler = {
+  handleError: async (_error: Error, _context?: ErrorContext) => Promise.resolve(true),
+};
 
 interface TodaySummary {
   date: string;

@@ -389,7 +389,7 @@ export async function analyzeStock(symbol: string, symbolName?: string): Promise
     }
 
     // 銘柄名を取得（提供されていない場合）
-    let name = symbolName;
+    let name: string = symbolName || symbol;
     if (!name) {
       try {
         // 全銘柄データから銘柄名を取得
@@ -412,7 +412,7 @@ export async function analyzeStock(symbol: string, symbolName?: string): Promise
         }
       } catch (error) {
         console.warn("銘柄名の取得に失敗しました:", error);
-        name = symbol;
+      name = symbol;
       }
     }
 

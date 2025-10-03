@@ -27,6 +27,7 @@ import { useRiskCustomization } from "@/hooks/useRiskCustomization";
 // 一時的にローカル状態管理に変更
 interface RiskCustomizationSettings {
   riskTolerance: {
+    level?: "VERY_LOW" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH" | "CRITICAL";
     maxDrawdown: number;
     volatilityTolerance: number;
     varTolerance: number;
@@ -40,11 +41,19 @@ interface RiskCustomizationSettings {
     riskAlerts: boolean;
     returnAlerts: boolean;
     drawdownAlerts: boolean;
+    targetPriceReached?: boolean;
+    stopLossTriggered?: boolean;
+    riskLevelChanged?: boolean;
+    dailySummary?: boolean;
   };
   display: {
     showRiskMetrics: boolean;
     showReturnMetrics: boolean;
     showAlerts: boolean;
+    showRiskDetails?: boolean;
+    showRecommendationReasons?: boolean;
+    showTechnicalIndicators?: boolean;
+    showSentimentAnalysis?: boolean;
   };
 }
 
@@ -217,7 +226,7 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
               </SelectContent>
             </Select>
             <p className="text-sm text-gray-600">
-              {getRiskLevelDescription(localSettings.riskTolerance.level)}
+              {getRiskLevelDescription((localSettings.riskTolerance.level as string) || "MEDIUM")}
             </p>
           </div>
 

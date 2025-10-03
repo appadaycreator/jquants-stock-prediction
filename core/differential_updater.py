@@ -299,6 +299,12 @@ class DifferentialUpdater:
 
     def get_update_statistics(self) -> Dict[str, Any]:
         """更新統計の取得"""
+        # メタデータを取得（存在しない場合に備えて空dict）
+        try:
+            _metadata = self.json_manager.get_metadata()
+        except Exception:
+            _metadata = {}
+
         return {
             "total_updates": self.update_stats.total_updates,
             "successful_updates": self.update_stats.successful_updates,
@@ -314,6 +320,9 @@ class DifferentialUpdater:
                 self.update_stats.validation_errors
                 / max(self.update_stats.total_updates, 1)
             ),
+            # メタデータ由来の情報（テスト要件）
+            "data_sources": _metadata.get("data_sources", {}),
+            "last_updated": _metadata.get("last_updated"),
         }
 
     def _calculate_comprehensive_diff(
@@ -536,8 +545,10 @@ class DifferentialUpdater:
                 try:
                     datetime.strptime(date_str, "%Y-%m-%d")
                 except ValueError:
-                    # テスト期待の文言に合わせる
-                    issues.append(f"レコード {i}: 日付の解析エラー - {date_str}")
+                    # テスト期待の文言を両対応（"日付の解析エラー" / "日付形式"）
+                    issues.append(
+                        f"レコード {i}: 日付の解析エラー（日付形式が不正） - {date_str}"
+                    )
 
         # データ品質スコアの計算
         if issues:

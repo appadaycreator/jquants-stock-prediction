@@ -43,7 +43,7 @@ export function usePerformance(options: UsePerformanceOptions = {}) {
     if (!enableMonitoring) return;
 
     const interval = setInterval(() => {
-      const performanceReport = performanceMonitor.generateReport();
+      const performanceReport: any = performanceMonitor.generateReport();
       setReport(performanceReport);
       
       if (performanceReport.score < 70) {
@@ -59,7 +59,9 @@ export function usePerformance(options: UsePerformanceOptions = {}) {
     setIsOptimizing(true);
     
     try {
-      performanceMonitor.optimize();
+      if (typeof (performanceMonitor as any).optimize === "function") {
+        (performanceMonitor as any).optimize();
+      }
       
       // 最適化後のメトリクス更新
       const updatedMetrics = performanceMonitor.getMetrics();

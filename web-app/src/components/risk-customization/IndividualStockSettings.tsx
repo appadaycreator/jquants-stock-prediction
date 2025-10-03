@@ -35,13 +35,12 @@ export function IndividualStockSettings({
   currentPrice = 0, 
   onClose, 
 }: IndividualStockSettingsProps) {
-  const {
-    settings,
-    isLoading,
-    updateIndividualStockSettings,
-    removeIndividualStockSettings,
-    getIndividualStockSettings,
-  } = useRiskCustomization();
+  const rc = useRiskCustomization() as any;
+  const settings = rc?.settings ?? {};
+  const isLoading = rc?.isLoading ?? false;
+  const updateIndividualStockSettings = rc?.updateIndividualStockSettings ?? ((_symbol: string, _s: any) => {});
+  const removeIndividualStockSettings = rc?.removeIndividualStockSettings ?? ((_symbol: string) => {});
+  const getIndividualStockSettings = rc?.getIndividualStockSettings ?? ((_symbol: string) => undefined as any);
 
   const stockSettings = getIndividualStockSettings(symbol) || {
     targetPrice: undefined,
@@ -80,7 +79,7 @@ export function IndividualStockSettings({
 
   // 設定の更新
   const updateSetting = (field: keyof typeof localSettings, value: any) => {
-    setLocalSettings(prev => ({
+    setLocalSettings((prev: typeof localSettings) => ({
       ...prev,
       [field]: value,
     }));

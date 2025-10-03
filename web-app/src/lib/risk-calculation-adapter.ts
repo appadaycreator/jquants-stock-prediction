@@ -334,7 +334,7 @@ export class RiskCalculationAdapter {
       "CRITICAL": { drawdown: 0.1, volatility: 0.2, correlation: 0.4, base: 0.3 },
     };
     
-    return weightProfiles[level];
+    return weightProfiles[(level as keyof typeof weightProfiles) || "MEDIUM"];
   }
 
   /**

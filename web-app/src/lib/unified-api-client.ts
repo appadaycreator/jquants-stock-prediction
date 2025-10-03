@@ -87,7 +87,7 @@ class UnifiedApiClient {
   private async executeRequest<T>(
     method: string,
     url: string,
-    data?: any,
+    data: any | undefined,
     config: ApiRequestConfig,
   ): Promise<ApiResponse<T>> {
     const controller = new AbortController();

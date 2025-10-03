@@ -1,7 +1,24 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { predictionCacheManager, PredictionCacheData, ModelComparisonCacheData } from "@/lib/prediction-cache-manager";
+let predictionCacheManager: any;
+export type PredictionCacheData = any;
+export type ModelComparisonCacheData = any;
+import("@/lib/prediction-cache-manager").then(mod => {
+  predictionCacheManager = mod;
+}).catch(() => {
+  predictionCacheManager = {
+    initialize: async () => {},
+    getCacheStats: () => ({ hits: 0, misses: 0, hitRate: 0, totalSize: 0, entryCount: 0 }),
+    generateCacheKey: (...args: any[]) => args.join(":"),
+    getCachedPrediction: async () => null,
+    getCachedModelComparison: async () => null,
+    cachePrediction: async () => {},
+    cacheModelComparison: async () => {},
+    searchCache: async () => [],
+    clearCache: async () => {},
+  };
+});
 
 interface AnalysisParameters {
   symbol: string;

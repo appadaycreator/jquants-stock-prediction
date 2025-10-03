@@ -71,8 +71,8 @@ const DataFreshnessDashboard: React.FC<DataFreshnessDashboardProps> = ({
 
     try {
       setIsRefreshing(true);
-      const result = await freshnessManager.refreshAllDataSources();
-      console.info(`リフレッシュ完了: 成功 ${result.success}件, 失敗 ${result.failed}件`);
+      await freshnessManager.refreshAllDataSources();
+      console.info("リフレッシュ完了: 全データソース更新リクエストを送信しました");
     } catch (error) {
       console.error("リフレッシュエラー:", error);
     } finally {

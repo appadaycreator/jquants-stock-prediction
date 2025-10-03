@@ -59,7 +59,9 @@ export function RecommendationDetails({
   sentimentAnalysis,
   onClose,
 }: RecommendationDetailsProps) {
-  const { settings, getIndividualStockSettings } = useRiskCustomization();
+  const rc = useRiskCustomization() as any;
+  const settings = rc?.settings ?? { riskTolerance: { maxDrawdown: 0.1, volatilityTolerance: 0.2, varTolerance: 0.05 }, targetReturn: { annual: 0.08, monthly: 0.006, riskAdjusted: true }, individualStockSettings: {} };
+  const getIndividualStockSettings = rc?.getIndividualStockSettings ?? ((_s: string) => undefined as any);
   const [activeTab, setActiveTab] = useState<"overview" | "technical" | "sentiment" | "risk">("overview");
 
   const stockSettings = getIndividualStockSettings(symbol);
