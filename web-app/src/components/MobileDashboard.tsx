@@ -15,6 +15,7 @@ import {
   ArrowUp,
   ArrowDown,
   Minus,
+  Target,
 } from "lucide-react";
 // import MobileChart from "./MobileChart"; // 一時的に無効化
 import { parseToJst } from "@/lib/datetime";

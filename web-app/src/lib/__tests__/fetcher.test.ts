@@ -2,15 +2,14 @@
  * データフェッチユーティリティのテスト
  */
 
-// import { describe, it, expect, vi, beforeEach } from "vitest";
 import { fetchJson, fetchMultiple, AppError } from "../fetcher";
 
 // fetchのモック
-global.fetch = vi.fn();
+global.fetch = jest.fn();
 
 describe("fetcher utilities", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    jest.clearAllMocks();
   });
 
   describe("fetchJson", () => {
@@ -19,9 +18,9 @@ describe("fetcher utilities", () => {
       (global.fetch as any).mockResolvedValueOnce({
         ok: true,
         headers: {
-          get: vi.fn().mockReturnValue("application/json"),
+          get: jest.fn().mockReturnValue("application/json"),
         },
-        json: vi.fn().mockResolvedValueOnce(mockData),
+        json: jest.fn().mockResolvedValueOnce(mockData),
       });
 
       const result = await fetchJson("/test-url");
@@ -62,9 +61,9 @@ describe("fetcher utilities", () => {
         .mockResolvedValueOnce({
           ok: true,
           headers: {
-            get: vi.fn().mockReturnValue("application/json"),
+            get: jest.fn().mockReturnValue("application/json"),
           },
-          json: vi.fn().mockResolvedValueOnce({ success: true }),
+          json: jest.fn().mockResolvedValueOnce({ success: true }),
         });
 
       const result = await fetchJson("/test-url", { retries: 3 });
@@ -76,7 +75,7 @@ describe("fetcher utilities", () => {
       (global.fetch as any).mockResolvedValueOnce({
         ok: true,
         headers: {
-          get: vi.fn().mockReturnValue("text/html"),
+          get: jest.fn().mockReturnValue("text/html"),
         },
       });
 
@@ -89,13 +88,13 @@ describe("fetcher utilities", () => {
       (global.fetch as any)
         .mockResolvedValueOnce({
           ok: true,
-          headers: { get: vi.fn().mockReturnValue("application/json") },
-          json: vi.fn().mockResolvedValueOnce({ data1: "value1" }),
+          headers: { get: jest.fn().mockReturnValue("application/json") },
+          json: jest.fn().mockResolvedValueOnce({ data1: "value1" }),
         })
         .mockResolvedValueOnce({
           ok: true,
-          headers: { get: vi.fn().mockReturnValue("application/json") },
-          json: vi.fn().mockResolvedValueOnce({ data2: "value2" }),
+          headers: { get: jest.fn().mockReturnValue("application/json") },
+          json: jest.fn().mockResolvedValueOnce({ data2: "value2" }),
         });
 
       const result = await fetchMultiple({
@@ -113,8 +112,8 @@ describe("fetcher utilities", () => {
       (global.fetch as any)
         .mockResolvedValueOnce({
           ok: true,
-          headers: { get: vi.fn().mockReturnValue("application/json") },
-          json: vi.fn().mockResolvedValueOnce({ data1: "value1" }),
+          headers: { get: jest.fn().mockReturnValue("application/json") },
+          json: jest.fn().mockResolvedValueOnce({ data1: "value1" }),
         })
         .mockRejectedValueOnce(new Error("Network error"));
 

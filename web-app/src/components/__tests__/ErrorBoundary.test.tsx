@@ -2,7 +2,6 @@
  * ErrorBoundaryコンポーネントのテスト
  */
 
-// import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { ErrorBoundary } from "../ErrorBoundary";
 
@@ -27,7 +26,7 @@ describe("ErrorBoundary", () => {
 
   it("エラーが発生した場合にフォールバックを表示する", () => {
     // コンソールエラーを抑制
-    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
     render(
       <ErrorBoundary>
@@ -58,7 +57,7 @@ describe("ErrorBoundary", () => {
     const originalEnv = process.env.NODE_ENV;
     process.env.NODE_ENV = "development";
 
-    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
     render(
       <ErrorBoundary>
@@ -73,7 +72,7 @@ describe("ErrorBoundary", () => {
   });
 
   it("再試行ボタンが動作する", () => {
-    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
     render(
       <ErrorBoundary>
@@ -94,8 +93,8 @@ describe("ErrorBoundary", () => {
   });
 
   it("onErrorコールバックを呼び出す", () => {
-    const onError = vi.fn();
-    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const onError = jest.fn();
+    const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
     render(
       <ErrorBoundary onError={onError}>

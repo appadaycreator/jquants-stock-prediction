@@ -12,7 +12,7 @@ import EnhancedInstructionCard from "@/components/EnhancedInstructionCard";
 import EnhancedLoadingSpinner from "@/components/EnhancedLoadingSpinner";
 // import SignalHistoryDisplay from "@/components/SignalHistoryDisplay"; // 一時的に無効化
 import ErrorGuidance from "@/components/ErrorGuidance";
-import { Clock, TrendingUp, RefreshCw, CheckCircle, AlertTriangle } from "lucide-react";
+import { Clock, TrendingUp, RefreshCw, CheckCircle, AlertTriangle, Target } from "lucide-react";
 
 export default function TodayPage() {
   const routine = useFiveMinRoutine();

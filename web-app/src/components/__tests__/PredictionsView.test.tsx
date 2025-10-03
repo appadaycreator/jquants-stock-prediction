@@ -2,13 +2,12 @@
  * PredictionsViewコンポーネントのテスト
  */
 
-// import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import PredictionsView from "../PredictionsView";
 
 // モック
-vi.mock("../../lib/fetcher", () => ({
-  fetchMultiple: vi.fn(),
+jest.mock("../../lib/fetcher", () => ({
+  fetchMultiple: jest.fn(),
   AppError: class AppError extends Error {
     constructor(message: string, public code: string, public status?: number) {
       super(message);
@@ -17,21 +16,21 @@ vi.mock("../../lib/fetcher", () => ({
   },
 }));
 
-vi.mock("../../lib/datetime", () => ({
-  parseToJst: vi.fn((date: string) => ({ isValid: true, toFormat: () => date })),
-  jstLabel: vi.fn((dt: any) => dt.toFormat ? dt.toFormat() : "2024-01-01"),
+jest.mock("../../lib/datetime", () => ({
+  parseToJst: jest.fn((date: string) => ({ isValid: true, toFormat: () => date })),
+  jstLabel: jest.fn((dt: any) => dt.toFormat ? dt.toFormat() : "2024-01-01"),
 }));
 
-vi.mock("../../lib/metrics", () => ({
-  mae: vi.fn(() => 10.5),
-  rmse: vi.fn(() => 15.2),
-  r2: vi.fn(() => 0.85),
-  detectOverfitting: vi.fn(() => ({
+jest.mock("../../lib/metrics", () => ({
+  mae: jest.fn(() => 10.5),
+  rmse: jest.fn(() => 15.2),
+  r2: jest.fn(() => 0.85),
+  detectOverfitting: jest.fn(() => ({
     isOverfitting: false,
     riskLevel: "低" as const,
     message: "低リスク",
   })),
-  compareModels: vi.fn(() => ({
+  compareModels: jest.fn(() => ({
     maeImprovement: 15.5,
     rmseImprovement: 12.3,
     r2Improvement: 0.1,
@@ -39,22 +38,22 @@ vi.mock("../../lib/metrics", () => ({
   })),
 }));
 
-vi.mock("../../lib/logger", () => ({
+jest.mock("../../lib/logger", () => ({
   fetcherLogger: {
-    info: vi.fn(),
-    error: vi.fn(),
+    info: jest.fn(),
+    error: jest.fn(),
   },
   metricsLogger: {
-    info: vi.fn(),
+    info: jest.fn(),
   },
 }));
 
 describe("PredictionsView", () => {
-  const mockFetchMultiple = vi.fn();
-  const mockOnError = vi.fn();
+  const mockFetchMultiple = jest.fn();
+  const mockOnError = jest.fn();
 
   beforeEach(() => {
-    vi.clearAllMocks();
+    jest.clearAllMocks();
     const { fetchMultiple } = require("../../lib/fetcher");
     fetchMultiple.mockImplementation(mockFetchMultiple);
   });

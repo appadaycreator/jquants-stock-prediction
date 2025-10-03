@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Play, BarChart3, Target, Clock, CheckCircle, AlertTriangle, RefreshCw, Settings, Database } from "lucide-react";
+import { Play, BarChart3, Target, Clock, CheckCircle, AlertTriangle, RefreshCw, Database } from "lucide-react";
 
 interface AnalysisExecutionPanelProps {
   onAnalysisStart?: () => void;
-  onAnalysisComplete?: (result: any) => void;
+  onAnalysisComplete?: () => void;
   onDataUpdateStart?: () => void;
-  onDataUpdateComplete?: (result: any) => void;
+  onDataUpdateComplete?: () => void;
   className?: string;
 }
 
@@ -95,7 +95,7 @@ export default function AnalysisExecutionPanel({
 
       // 完了
       setAnalysisSteps(prev => prev.map(step => ({ ...step, status: "completed" })));
-      onAnalysisComplete?.({ success: true, message: "分析が完了しました" });
+      onAnalysisComplete?.();
 
     } catch (error) {
       console.error("分析実行エラー:", error);
@@ -115,7 +115,7 @@ export default function AnalysisExecutionPanel({
     try {
       // データ更新のシミュレーション
       await new Promise(resolve => setTimeout(resolve, 3000));
-      onDataUpdateComplete?.({ success: true, message: "データ更新が完了しました" });
+      onDataUpdateComplete?.();
     } catch (error) {
       console.error("データ更新エラー:", error);
     } finally {
