@@ -2,7 +2,7 @@
  * 日付処理ユーティリティのテスト
  */
 
-import { describe, it, expect } from "vitest";
+// import { describe, it, expect } from "vitest";
 import { parseToJst, jstLabel, normalizeDateString, formatDate, createChartDateArray } from "../datetime";
 
 describe("datetime utilities", () => {

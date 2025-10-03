@@ -71,7 +71,7 @@ const DataFreshnessBadge: React.FC<DataFreshnessBadgeProps> = ({
     return () => {
       clearInterval(interval);
     };
-  }, [dataSourceId, dataSourceName, lastUpdated, source, ttlMinutes, onRefresh]);
+  }, [dataSourceId, dataSourceName, lastUpdated, source, ttlMinutes, onRefresh, freshnessManager]);
 
   // 手動リフレッシュ
   const handleRefresh = async () => {

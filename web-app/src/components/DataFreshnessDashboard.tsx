@@ -61,7 +61,7 @@ const DataFreshnessDashboard: React.FC<DataFreshnessDashboardProps> = ({
     return () => {
       clearInterval(interval);
     };
-  }, [showSystemHealth]);
+  }, [showSystemHealth, freshnessManager]);
 
   // 全データソースのリフレッシュ
   const handleRefreshAll = async () => {

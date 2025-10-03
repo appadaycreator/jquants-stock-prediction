@@ -189,7 +189,7 @@ const EnhancedHelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose }) => {
       
       return matchesSearch && matchesCategory && matchesDifficulty;
     });
-  }, [searchQuery, selectedCategory, selectedDifficulty]);
+  }, [searchQuery, selectedCategory, selectedDifficulty, tutorialSteps]);
 
   const toggleSection = (sectionId: string) => {
     const newExpanded = new Set(expandedSections);

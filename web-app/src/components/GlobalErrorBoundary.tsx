@@ -118,7 +118,7 @@ function FallbackUI({ error, resetErrorBoundary }: { error: Error; resetErrorBou
       console.log("Recovery completed without reset to prevent loop");
       setIsAutoRetrying(false);
     }, delay);
-  }, [errorCategory, retryCount, isAutoRetrying, resetErrorBoundary]);
+  }, [errorCategory, retryCount, isAutoRetrying]);
 
   const message = useMemo(() => {
     try {

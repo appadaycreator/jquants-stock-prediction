@@ -2,7 +2,7 @@
  * データフェッチユーティリティのテスト
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+// import { describe, it, expect, vi, beforeEach } from "vitest";
 import { fetchJson, fetchMultiple, AppError } from "../fetcher";
 
 // fetchのモック

@@ -10,67 +10,21 @@ import { SettingsProvider } from "../../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../../hooks/useAnalysisWithSettings";
 import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
 import { useRealDashboardData } from "@/hooks/useRealDashboardData";
-import { TrendingUp, TrendingDown, BarChart3, Target, Database, CheckCircle, Play, Settings, RefreshCw, BookOpen, Shield, AlertTriangle, X, DollarSign, User, HelpCircle, Clock, Cpu, Info } from "lucide-react";
-import { MODEL_DEFINITIONS } from "@/data/modelDefinitions";
+import { TrendingUp, BarChart3, Database, CheckCircle, AlertTriangle, X, Cpu } from "lucide-react";
 import { getCacheMeta } from "@/lib/fetcher";
 import { freshnessManager, DataFreshnessInfo } from "@/lib/data-freshness-manager";
-import DataFreshnessBadge, { DataFreshnessSummary } from "@/components/DataFreshnessBadge";
-import DataTimestampDisplay, { DataTimestampSummary } from "@/components/DataTimestampDisplay";
-import CacheVisualization, { CacheVisualizationCompact } from "@/components/CacheVisualization";
-import EnhancedRefreshButton, { RefreshButtonGroup } from "@/components/EnhancedRefreshButton";
+import { DataFreshnessSummary } from "@/components/DataFreshnessBadge";
+import CacheVisualization from "@/components/CacheVisualization";
+import EnhancedRefreshButton from "@/components/EnhancedRefreshButton";
 import { NotificationService } from "@/lib/notification/NotificationService";
-import { getErrorInfo, logError } from "@/lib/unified-error-handler";
-import { performanceMonitor, usePerformanceMonitor } from "@/lib/performance-monitor";
-import { useGuideShortcuts } from "@/lib/guide/shortcut";
-import { enrichWithIndicators, sliceByRange } from "@/lib/indicators";
-import { guideStore } from "@/lib/guide/guideStore";
-import { parseToJst } from "@/lib/datetime";
-import JQuantsAdapter from "@/lib/jquants-adapter";
+import { usePerformanceMonitor } from "@/lib/performance-monitor";
 import { DEFAULT_CHECKLIST_ITEMS, type ChecklistItem } from "@/components/guide/Checklist";
-import FirstTimeTutorial from "@/components/FirstTimeTutorial";
 import { SampleDataProvider, useSampleData } from "@/components/SampleDataProvider";
-import EnhancedDataUpdateManager from "@/components/EnhancedDataUpdateManager";
 import AnalysisExecutionPanel from "@/components/AnalysisExecutionPanel";
-import LoadingOverlay from "@/components/LoadingOverlay";
-import AnalysisGuide from "@/components/AnalysisGuide";
-import ModelDetailModal from "@/components/ModelDetailModal";
-import ChartDataErrorBoundary from "@/components/ChartDataErrorBoundary";
-import FeatureAnalysisPanel from "@/components/FeatureAnalysisPanel";
-import { DataPlaceholder, MetricPlaceholder, ChartPlaceholder } from "@/components/PlaceholderComponents";
-import TutorialSystem from "@/components/TutorialSystem";
 
 // 動的インポートでコンポーネントを遅延読み込み
-const Navigation = dynamicImport(() => import("../../components/Navigation"), { ssr: false });
 const MobileNavigation = dynamicImport(() => import("../../components/MobileNavigation"), { ssr: false });
-const BottomNav = dynamicImport(() => import("../../components/mobile/BottomNav"), { ssr: false });
-const MobileDashboard = dynamicImport(() => import("../../components/MobileDashboard"), { ssr: false });
-const MobileOptimizedDashboard = dynamicImport(() => import("../../components/MobileOptimizedDashboard"), { ssr: false });
-const PullToRefresh = dynamicImport(() => import("../../components/PullToRefresh"), { ssr: false });
-const SymbolSelector = dynamicImport(() => import("../../components/SymbolSelector"), { ssr: false });
-const SymbolAnalysisResults = dynamicImport(() => import("../../components/SymbolAnalysisResults"), { ssr: false });
-const OneClickAnalysis = dynamicImport(() => import("../../components/OneClickAnalysis"), { ssr: false });
-const StockMonitoringManager = dynamicImport(() => import("../../components/StockMonitoringManager"), { ssr: false });
-const RealtimeSignalDisplay = dynamicImport(() => import("../../components/RealtimeSignalDisplay"), { ssr: false });
-const NotificationSettings = dynamicImport(() => import("../../components/NotificationSettings"), { ssr: false });
-const MobileFirstDashboard = dynamicImport(() => import("../../components/MobileFirstDashboard"), { ssr: false });
-const WatchlistManager = dynamicImport(() => import("../../components/WatchlistManager"), { ssr: false });
-const JudgmentPanel = dynamicImport(() => import("../../components/JudgmentPanel"), { ssr: false });
-const PeriodSelector = dynamicImport(() => import("../../components/PeriodSelector"), { ssr: false });
-const ParallelUpdateManager = dynamicImport(() => import("../../components/ParallelUpdateManager"), { ssr: false });
-const RoutineDashboard = dynamicImport(() => import("../../components/RoutineDashboard"), { ssr: false });
-const SideDetailPanel = dynamicImport(() => import("@/components/SideDetailPanel"), { ssr: false });
-// EnhancedErrorHandler は削除され、統合エラーハンドラーを使用
-const ChartErrorBoundary = dynamicImport(() => import("../../components/ChartErrorBoundary"), { ssr: false });
-const Tooltip = dynamicImport(() => import("../../components/Tooltip").then(mod => ({ default: mod.default })), { ssr: false });
-const UserGuide = dynamicImport(() => import("../../components/UserGuide"), { ssr: false });
-const TourProvider = dynamicImport(() => import("../../components/guide/TourProvider").then(mod => ({ default: mod.TourProvider })), { ssr: false });
-const MetricTooltip = dynamicImport(() => import("../../components/guide/Tooltip").then(mod => ({ default: mod.MetricTooltip })), { ssr: false });
-const SimpleTooltip = dynamicImport(() => import("../../components/guide/Tooltip").then(mod => ({ default: mod.SimpleTooltip })), { ssr: false });
-const Checklist = dynamicImport(() => import("../../components/guide/Checklist"), { ssr: false });
-const ChecklistBadge = dynamicImport(() => import("../../components/guide/Checklist").then(mod => ({ default: mod.ChecklistBadge })), { ssr: false });
-const GlossaryModal = dynamicImport(() => import("../../components/guide/GlossaryModal"), { ssr: false });
-const HelpModal = dynamicImport(() => import("../../components/guide/HelpModal"), { ssr: false });
-const NextUpdateIndicator = dynamicImport(() => import("@/components/NextUpdateIndicator"), { ssr: false });
+// 動的インポートは必要に応じて追加
 
 // 型定義
 interface StockData {
@@ -111,22 +65,9 @@ interface CacheMeta {
 
 function DashboardContent() {
   const [activeTab, setActiveTab] = useState("overview");
-  const [stockData, setStockData] = useState<StockData[]>([]);
-  const [modelComparison, setModelComparison] = useState<ModelComparison[]>([]);
-  const [summary, setSummary] = useState<any>(null);
-  const [performanceMetrics, setPerformanceMetrics] = useState<any>(null);
-  const [marketInsights, setMarketInsights] = useState<any>(null);
-  const [riskAssessment, setRiskAssessment] = useState<any>(null);
-  const [featureAnalysis, setFeatureAnalysis] = useState<any>(null);
   const [lastUpdateTime, setLastUpdateTime] = useState<string>("");
-  const [refreshStatus, setRefreshStatus] = useState<string>("");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [showAnalysisModal, setShowAnalysisModal] = useState(false);
-  const [showSettingsModal, setShowSettingsModal] = useState(false);
-  const [showStockMonitoring, setShowStockMonitoring] = useState(false);
-  const [showModelDetail, setShowModelDetail] = useState(false);
-  const [selectedModel, setSelectedModel] = useState<ModelComparison | null>(null);
-  const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>(DEFAULT_CHECKLIST_ITEMS);
   const [cacheMeta, setCacheMeta] = useState<CacheMeta>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -141,17 +82,8 @@ function DashboardContent() {
   // ガイドショートカット（簡素化）
   // useGuideShortcuts();
 
-  // 分析フック
-  const analysis = useAnalysisWithSettings();
-
-  // 5分ルーティンフック
-  const routine = useFiveMinRoutine();
-
   // 実際のダッシュボードデータフック
   const realDashboard = useRealDashboardData();
-
-  // サンプルデータフック
-  const sampleData = useSampleData();
 
   // 実データ使用フラグ
   const [useRealData, setUseRealData] = useState(true);

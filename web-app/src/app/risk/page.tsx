@@ -27,7 +27,6 @@ import {
   TrendingDown, 
   AlertTriangle, 
   DollarSign, 
-  Target,
   Activity,
   AlertCircle,
   CheckCircle,

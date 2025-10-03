@@ -172,7 +172,7 @@ export default function LazyChart({
     };
 
     loadChart();
-  }, [chartState.isVisible, chartState.isLoaded, chartState.isLoading, optimizedData, type, height, width, onLoadStart, onLoadComplete, onError]);
+  }, [chartState.isVisible, chartState.isLoaded, chartState.isLoading, optimizedData, type, height, width, onLoadStart, onLoadComplete, onError, importChartLibrary]);
 
   // チャートライブラリの動的読み込み
   const importChartLibrary = useCallback(async (chartType: string) => {

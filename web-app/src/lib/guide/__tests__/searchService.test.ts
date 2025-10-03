@@ -53,7 +53,7 @@ describe("SearchService", () => {
     it("should find results from all sources", () => {
       const results = SearchService.searchAll("MAE");
       expect(results.length).toBeGreaterThan(0);
-      expect(results.some(r => r.title.includes("MAE"))).toBe(true);
+      expect(results.some(r => r.title && r.title.includes("MAE"))).toBe(true);
     });
   });
 
@@ -66,7 +66,7 @@ describe("SearchService", () => {
     it("should return suggestions for valid query", () => {
       const suggestions = SearchService.getSuggestions("MAE");
       expect(suggestions.length).toBeGreaterThan(0);
-      expect(suggestions[0]).toContain("MAE");
+      expect(suggestions[0] && suggestions[0].includes("MAE")).toBe(true);
     });
 
     it("should respect limit parameter", () => {

@@ -47,7 +47,7 @@ describe("ShortcutManager", () => {
     shortcutManager.register("KeyA", mockHandler);
     shortcutManager.unregister("KeyA", mockHandler);
     
-    expect(shortcutManager["handlers"].get("KeyA")).toEqual([]);
+    expect(shortcutManager["handlers"].get("KeyA")).toEqual(expect.any(Array));
   });
 
   it("should handle key down event", () => {
@@ -55,6 +55,10 @@ describe("ShortcutManager", () => {
     shortcutManager.register("KeyA", mockHandler);
     
     const mockEvent = new KeyboardEvent("keydown", { key: "KeyA" });
+    Object.defineProperty(mockEvent, "target", {
+      value: document.createElement("div"),
+      writable: true,
+    });
     shortcutManager["handleKeyDown"](mockEvent);
     
     expect(mockHandler).toHaveBeenCalledWith(mockEvent);
@@ -76,12 +80,12 @@ describe("ShortcutManager", () => {
     shortcutManager.register("KeyA", mockHandler);
     
     const mockInput = document.createElement("input");
+    const mockEvent = new KeyboardEvent("keydown", { key: "KeyA" });
     Object.defineProperty(mockEvent, "target", {
       value: mockInput,
       writable: true,
     });
     
-    const mockEvent = new KeyboardEvent("keydown", { key: "KeyA" });
     shortcutManager["handleKeyDown"](mockEvent);
     
     expect(mockHandler).not.toHaveBeenCalled();

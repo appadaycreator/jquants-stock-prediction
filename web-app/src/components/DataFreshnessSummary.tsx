@@ -60,7 +60,7 @@ const DataFreshnessSummary: React.FC<DataFreshnessSummaryProps> = ({
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [freshnessManager]);
 
   // 手動リフレッシュ
   const handleRefresh = async () => {
