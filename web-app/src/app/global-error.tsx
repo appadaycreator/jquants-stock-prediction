@@ -9,8 +9,8 @@ export default function GlobalError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  const [retryCount, setRetryCount] = useState(0);
-  const [isRetrying, setIsRetrying] = useState(false);
+  const [retryCount] = useState(0);
+  const [isRetrying] = useState(false);
   const [errorType, setErrorType] = useState<"rsc" | "network" | "data" | "unknown">("unknown");
 
   useEffect(() => {

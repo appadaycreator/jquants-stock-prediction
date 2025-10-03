@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense, useCallback } from "react";
 
 // 動的レンダリングを強制
 export const dynamic = "force-dynamic";
