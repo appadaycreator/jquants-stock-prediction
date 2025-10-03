@@ -155,39 +155,49 @@ describe("useStockSuggestions", () => {
   });
 
   it("新しいクエリで前のリクエストがキャンセルされる", async () => {
-    const abortController = new AbortController();
+    // AbortController をグローバルモックして、abort 呼び出しを検証する
+    const originalAbortController = global.AbortController;
     const mockAbort = jest.fn();
-    abortController.abort = mockAbort;
+    class MockAbortController {
+      signal: any = {};
+      abort = mockAbort;
+    }
+    // @ts-ignore
+    global.AbortController = MockAbortController as any;
 
-    // 最初のリクエストを遅延させる
-    (fetch as jest.Mock).mockImplementationOnce(() => 
-      new Promise((resolve) => setTimeout(() => resolve({
-        ok: true,
-        json: () => Promise.resolve({ suggestions: [] }),
-      }), 1000)),
-    );
+    try {
+      // 最初のリクエストを遅延させる
+      (fetch as jest.Mock).mockImplementationOnce(() => 
+        new Promise((resolve) => setTimeout(() => resolve({
+          ok: true,
+          json: () => Promise.resolve({ suggestions: [] }),
+        }), 1000)),
+      );
 
-    const { result } = renderHook(() => useStockSuggestions());
+      const { result } = renderHook(() => useStockSuggestions());
 
-    act(() => {
-      result.current.handleQueryChange("test1");
-    });
+      act(() => {
+        result.current.handleQueryChange("test1");
+      });
 
-    act(() => {
-      jest.advanceTimersByTime(300);
-    });
+      act(() => {
+        jest.advanceTimersByTime(300);
+      });
 
-    // 新しいクエリを送信
-    act(() => {
-      result.current.handleQueryChange("test2");
-    });
+      // 新しいクエリを送信
+      act(() => {
+        result.current.handleQueryChange("test2");
+      });
 
-    act(() => {
-      jest.advanceTimersByTime(300);
-    });
+      act(() => {
+        jest.advanceTimersByTime(300);
+      });
 
-    // 前のリクエストがキャンセルされることを確認
-    expect(mockAbort).toHaveBeenCalled();
+      expect(mockAbort).toHaveBeenCalled();
+    } finally {
+      // @ts-ignore 復元
+      global.AbortController = originalAbortController as any;
+    }
   });
 
   it("コンポーネントのアンマウント時にリクエストがキャンセルされる", () => {

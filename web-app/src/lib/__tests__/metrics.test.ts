@@ -15,6 +15,7 @@ Object.defineProperty(window, "performance", {
 describe("metrics", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    metrics.clearMetrics();
   });
   describe("startTimer", () => {
     it("starts a timer", () => {

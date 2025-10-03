@@ -3,33 +3,10 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import StockSearchInput from "@/components/StockSearchInput";
 
-// useStockSuggestionsフックをモック
+// useStockSuggestionsフックをモック（テスト毎に戻り値を差し替え）
+let mockHookReturn: any;
 jest.mock("@/hooks/useStockSuggestions", () => ({
-  useStockSuggestions: () => ({
-    suggestions: [
-      {
-        code: "7203",
-        name: "トヨタ自動車",
-        sector: "自動車",
-        market: "プライム",
-        displayText: "トヨタ自動車 (7203)",
-      },
-      {
-        code: "6758",
-        name: "ソニーグループ",
-        sector: "電気機器",
-        market: "プライム",
-        displayText: "ソニーグループ (6758)",
-      },
-    ],
-    isLoading: false,
-    error: null,
-    showSuggestions: true,
-    handleQueryChange: jest.fn(),
-    clearSuggestions: jest.fn(),
-    hideSuggestions: jest.fn(),
-    fetchSuggestions: jest.fn(),
-  }),
+  useStockSuggestions: () => mockHookReturn,
 }));
 
 describe("StockSearchInput", () => {
@@ -41,6 +18,32 @@ describe("StockSearchInput", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    // デフォルトのモック値（サジェッション2件、ローディングなし、エラーなし）
+    mockHookReturn = {
+      suggestions: [
+        {
+          code: "7203",
+          name: "トヨタ自動車",
+          sector: "自動車",
+          market: "プライム",
+          displayText: "トヨタ自動車 (7203)",
+        },
+        {
+          code: "6758",
+          name: "ソニーグループ",
+          sector: "電気機器",
+          market: "プライム",
+          displayText: "ソニーグループ (6758)",
+        },
+      ],
+      isLoading: false,
+      error: null,
+      showSuggestions: true,
+      handleQueryChange: jest.fn(),
+      clearSuggestions: jest.fn(),
+      hideSuggestions: jest.fn(),
+      fetchSuggestions: jest.fn(),
+    };
   });
 
   it("正しくレンダリングされる", () => {
@@ -183,9 +186,9 @@ describe("StockSearchInput", () => {
 
   it("カスタムクラス名が適用される", () => {
     render(<StockSearchInput {...defaultProps} className="custom-class" />);
-    
-    const container = screen.getByPlaceholderText("銘柄名またはコードを入力...").closest(".relative");
-    expect(container).toHaveClass("custom-class");
+    // ルート要素に custom-class が付与されている
+    const root = screen.getByPlaceholderText("銘柄名またはコードを入力...").parentElement?.parentElement;
+    expect(root).toHaveClass("custom-class");
   });
 
   it("onSearchが呼ばれる", async () => {
@@ -201,42 +204,25 @@ describe("StockSearchInput", () => {
   });
 
   it("ローディング状態が表示される", () => {
-    // ローディング状態をモック
-    jest.doMock("@/hooks/useStockSuggestions", () => ({
-      useStockSuggestions: () => ({
-        suggestions: [],
-        isLoading: true,
-        error: null,
-        showSuggestions: true,
-        handleQueryChange: jest.fn(),
-        clearSuggestions: jest.fn(),
-        hideSuggestions: jest.fn(),
-        fetchSuggestions: jest.fn(),
-      }),
-    }));
-
+    mockHookReturn = {
+      ...mockHookReturn,
+      suggestions: [],
+      isLoading: true,
+      showSuggestions: true,
+    };
     render(<StockSearchInput {...defaultProps} value="テスト" />);
-    
     expect(screen.getByText("検索中...")).toBeInTheDocument();
   });
 
   it("エラー状態が表示される", () => {
-    // エラー状態をモック
-    jest.doMock("@/hooks/useStockSuggestions", () => ({
-      useStockSuggestions: () => ({
-        suggestions: [],
-        isLoading: false,
-        error: "エラーが発生しました",
-        showSuggestions: true,
-        handleQueryChange: jest.fn(),
-        clearSuggestions: jest.fn(),
-        hideSuggestions: jest.fn(),
-        fetchSuggestions: jest.fn(),
-      }),
-    }));
-
+    mockHookReturn = {
+      ...mockHookReturn,
+      suggestions: [],
+      isLoading: false,
+      error: "エラーが発生しました",
+      showSuggestions: true,
+    };
     render(<StockSearchInput {...defaultProps} value="テスト" />);
-    
     expect(screen.getByText("エラーが発生しました")).toBeInTheDocument();
   });
 });

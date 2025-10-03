@@ -113,7 +113,10 @@ export async function GET(request: NextRequest) {
         displayText: `${stock.name} (${stock.code})`,
       }));
 
-    let suggestions: SuggestionItem[] = [...startsWithMatches, ...partialMatches];
+    // 前方一致が1件以上ある場合は、部分一致は除外する（テスト仕様に合わせる）
+    let suggestions: SuggestionItem[] = startsWithMatches.length > 0
+      ? startsWithMatches
+      : [...partialMatches];
 
     // コードで始まるものを優先し、その後名前で始まるものを並べる
     suggestions.sort((a, b) => {
