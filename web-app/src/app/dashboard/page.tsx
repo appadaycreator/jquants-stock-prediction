@@ -121,12 +121,11 @@ function DashboardContent() {
         } catch (_) {}
       }
       setLastUpdateTime(new Date().toLocaleString("ja-JP"));
-      updateFreshnessInfos();
     } catch (err) {
       console.error("データ読み込みエラー:", err);
       setError("データの読み込みに失敗しました");
     }
-  }, [cacheMeta]);
+  }, []);
 
   useEffect(() => {
     const initializeDashboard = async () => {
@@ -186,6 +185,12 @@ function DashboardContent() {
 
     initializeDashboard();
   }, [loadDashboardData]);
+
+  // cacheMeta 変更時に鮮度情報だけを更新（関数の安定性確保で無限ループ回避）
+  useEffect(() => {
+    updateFreshnessInfos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cacheMeta]);
 
   // 市場データの分析
   const analyzeMarketData = async (stocksData: any) => {
