@@ -113,9 +113,19 @@ class ListedInfoFetcher:
     def get_stock_price_data(self, code, days=7):
         """個別銘柄の価格データ取得"""
         try:
-            # 日付範囲の計算
-            end_date = datetime.now()
-            start_date = end_date - timedelta(days=days)
+            # サブスクリプション期間内の日付を使用（2023-07-11 ~ 2025-07-11）
+            # 現在の日付が範囲外の場合は、サブスクリプション期間内の最新日付を使用
+            subscription_end = datetime(2025, 7, 11)
+            current_date = datetime.now()
+            
+            if current_date > subscription_end:
+                # サブスクリプション期間内の最新日付を使用
+                end_date = subscription_end
+                start_date = end_date - timedelta(days=days)
+            else:
+                # 現在の日付が範囲内の場合は通常通り
+                end_date = current_date
+                start_date = end_date - timedelta(days=days)
 
             start_str = start_date.strftime("%Y-%m-%d")
             end_str = end_date.strftime("%Y-%m-%d")
@@ -226,20 +236,20 @@ class ListedInfoFetcher:
 
         # 構造化データの作成（バッチ処理対応）
         batch_size = 10  # バッチサイズを設定
-        # テスト用に最初の100銘柄のみ処理
-        test_stocks = selected_stocks[:100]
+        # テスト用に最初の10銘柄のみ処理
+        test_stocks = selected_stocks[:10]
         logger.info(f"テスト用に最初の{len(test_stocks)}銘柄を処理します")
         for i, stock in enumerate(test_stocks):
             code = stock["code"]
             logger.info(f"処理中: {i+1}/{len(test_stocks)} - {stock['name']} ({code})")
             
-            # 価格データの取得を一時的に無効化（テスト用）
+            # 価格データの取得（修正版）
             price_data = None
-            # try:
-            #     price_data = self.get_stock_price_data(code)
-            # except Exception as e:
-            #     logger.warning(f"銘柄 {code} の価格データ取得に失敗: {e}")
-            #     price_data = None
+            try:
+                price_data = self.get_stock_price_data(code)
+            except Exception as e:
+                logger.warning(f"銘柄 {code} の価格データ取得に失敗: {e}")
+                price_data = None
             
             processed_data["stocks"][code] = {
                 "code": code,

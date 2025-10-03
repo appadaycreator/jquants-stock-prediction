@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13200",
-    "generated_at": "2025-10-03T15:15:50.111766",
+    "generated_at": "2025-10-03T15:17:36.864764",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経２２５（年１回決算型）",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:40.646132",
+    "currentPrice": 40620.0,
+    "change": -350.0,
+    "changePercent": -0.8542836221625579,
+    "volume": 28641,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13200",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:40.646136",
-      "updated_at": "2025-10-03T15:15:40.646138",
+      "created_at": "2025-10-03T15:17:36.757888",
+      "updated_at": "2025-10-03T15:17:36.757894",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

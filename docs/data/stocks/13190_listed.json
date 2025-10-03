@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13190",
-    "generated_at": "2025-10-03T15:15:50.111585",
+    "generated_at": "2025-10-03T15:17:36.864488",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -14,7 +14,7 @@
     "change": null,
     "changePercent": null,
     "volume": null,
-    "updated_at": "2025-10-03T15:15:40.437747",
+    "updated_at": "2025-10-03T15:17:36.248275",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13190",
@@ -29,8 +29,8 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:40.437751",
-      "updated_at": "2025-10-03T15:15:40.437752",
+      "created_at": "2025-10-03T15:17:36.248281",
+      "updated_at": "2025-10-03T15:17:36.248282",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
       "price_data_available": false

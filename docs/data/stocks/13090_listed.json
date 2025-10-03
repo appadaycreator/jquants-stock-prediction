@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13090",
-    "generated_at": "2025-10-03T15:15:50.111310",
+    "generated_at": "2025-10-03T15:17:36.864223",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＣｈｉｎａＡＭＣ・中国株式・上証５０連動型上場投信",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:40.128027",
+    "currentPrice": 45420.0,
+    "change": 540.0,
+    "changePercent": 1.2032085561497325,
+    "volume": 132,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13090",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:40.128031",
-      "updated_at": "2025-10-03T15:15:40.128033",
+      "created_at": "2025-10-03T15:17:35.430409",
+      "updated_at": "2025-10-03T15:17:35.430412",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }
