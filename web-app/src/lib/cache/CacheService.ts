@@ -47,6 +47,11 @@ export class CacheService {
   }
 
   private async initDB(): Promise<void> {
+    // サーバーサイドでは何もしない
+    if (typeof window === 'undefined' || typeof indexedDB === 'undefined') {
+      return Promise.resolve();
+    }
+    
     return new Promise((resolve, reject) => {
       const request = indexedDB.open('StockCacheDB', 1);
       
@@ -119,6 +124,11 @@ export class CacheService {
    * キャッシュからデータを取得
    */
   async get<T>(key: string, allowExpired: boolean = false): Promise<T | null> {
+    // サーバーサイドでは常にnullを返す
+    if (typeof window === 'undefined' || typeof indexedDB === 'undefined') {
+      return Promise.resolve(null);
+    }
+    
     if (!this.db) {
       await this.initDB();
     }
@@ -161,6 +171,11 @@ export class CacheService {
     ttl: number = this.config.defaultTTL, 
     version: string = '1.0'
   ): Promise<void> {
+    // サーバーサイドでは何もしない
+    if (typeof window === 'undefined' || typeof indexedDB === 'undefined') {
+      return Promise.resolve();
+    }
+    
     if (!this.db) {
       await this.initDB();
     }

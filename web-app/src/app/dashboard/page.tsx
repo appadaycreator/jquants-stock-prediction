@@ -103,12 +103,7 @@ function DashboardContent() {
   // 実データ使用フラグ
   const [useRealData, setUseRealData] = useState(true);
 
-  // ダッシュボードデータのリフレッシュ
-  const handleRefresh = useCallback(() => {
-    if (realDashboard.actions?.refresh) {
-      realDashboard.actions.refresh();
-    }
-  }, [realDashboard.actions]);
+  // ダッシュボードデータのリフレッシュ（削除 - 下で再定義）
   
   // 全銘柄データの状態
   const [allStocksData, setAllStocksData] = useState<any>(null);
@@ -381,11 +376,17 @@ function DashboardContent() {
     setFreshnessInfos(infos);
   };
 
-  const handleRefresh = async () => {
+  const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
     setRefreshStatus("更新中...");
     
     try {
+      // 実データのリフレッシュ
+      if (realDashboard.actions?.refresh) {
+        realDashboard.actions.refresh();
+      }
+      
+      // ダッシュボードデータの再読み込み
       await loadDashboardData();
       setRefreshStatus("更新完了");
       setTimeout(() => setRefreshStatus(""), 2000);
@@ -395,7 +396,7 @@ function DashboardContent() {
     } finally {
       setIsRefreshing(false);
     }
-  };
+  }, [realDashboard.actions, loadDashboardData]);
 
   const handleForceRefresh = async () => {
     setIsRefreshing(true);
