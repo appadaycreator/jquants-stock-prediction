@@ -433,10 +433,12 @@ class JSONDataManager:
         """
         try:
             if days_to_keep <= 0:
-                return
-                
-            cutoff_date = datetime.now() - timedelta(days=days_to_keep)
-            cutoff_str = cutoff_date.strftime("%Y-%m-%d")
+                # 全てのデータを削除
+                cutoff_date = datetime.now()
+                cutoff_str = cutoff_date.strftime("%Y-%m-%d")
+            else:
+                cutoff_date = datetime.now() - timedelta(days=days_to_keep)
+                cutoff_str = cutoff_date.strftime("%Y-%m-%d")
 
             # 株価データのクリーンアップ
             stock_data = self._load_json(self.stock_data_file, {})
