@@ -14,7 +14,7 @@ class Logger {
   private level: LogLevel;
   private context: string;
 
-  constructor(context: string = "App", level: LogLevel = LogLevel.INFO) {
+  constructor(context: string = "App", level: LogLevel = LogLevel.DEBUG) {
     this.context = context;
     this.level = level;
   }

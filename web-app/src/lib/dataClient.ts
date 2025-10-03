@@ -1,3 +1,5 @@
+"use client";
+
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
 function resolveApiPath(path: string): string {
@@ -38,9 +40,7 @@ export const dataClient = {
 
 export type DataClient = typeof dataClient;
 
-"use client";
-
-import { fetchJsonWithCache, getCache } from "@/lib/fetcher";
+import { fetchJsonWithCache } from "@/lib/fetcher";
 
 export type LatestIndex = {
   latest: string; // YYYYMMDD

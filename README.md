@@ -2136,6 +2136,33 @@ git push origin main
 - Settings → Pages → Source: "Deploy from a branch"
 - Branch: "main", Folder: "/docs"
 
+### AI 接続エラー（ECONNRESET）の対処
+
+Cursor/VS Code 拡張の AI 呼び出しで `ConnectError: [aborted] read ECONNRESET` が発生する場合の手順です。
+
+- まず試すこと
+  - Cursor を再起動（Command+Q→起動）またはウィンドウ再読み込み（Command+R）
+  - 別回線（テザリング/他Wi‑Fi）で再試行、VPN/社内プロキシ/ゼロトラストを一時無効化
+  - macOS の日時自動設定をオン（TLS 失敗対策）
+  - Settings > Account で再ログイン、Settings > AI で別プロバイダ/モデルに切替
+  - 送信コンテキストを縮小（巨大テキスト/画像を減らす）
+
+- ネットワーク確認（ターミナル）
+  ```bash
+  nslookup api.openai.com || nslookup api.anthropic.com
+  curl -I https://api.openai.com  --max-time 10
+  env | grep -i '^https\?_' || true # プロキシ環境変数の有無
+  openssl s_client -connect api.openai.com:443 -servername api.openai.com -showcerts </dev/null 2>/dev/null | head -n 30
+  ```
+
+- Cursor 側の確認
+  - Settings > Network の「Use system proxy」をオン/オフ切替して挙動比較
+  - `~/Library/Application Support/Cursor/logs/` の同時刻ログを確認
+
+- 再発防止（チーム横展開）
+  - 社内プロキシや証明書ポリシーが原因の場合、この節を参照するよう周知
+  - 必要に応じて社内ルート証明書をキーチェーンで「常に信頼」に設定
+
 ## 📖 個別銘柄選択・監視機能の使用方法
 
 ### 1. Webインターフェースでの銘柄選択

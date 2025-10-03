@@ -27,6 +27,7 @@ class DataSyncManager {
   private config: DataSyncConfig;
   private status: DataSyncStatus;
   private syncTimer: NodeJS.Timeout | null = null;
+  private running: boolean = false;
 
   constructor(config: Partial<DataSyncConfig> = {}) {
     this.config = {
@@ -55,6 +56,8 @@ class DataSyncManager {
    * データ同期の開始
    */
   startSync(): void {
+    if (this.running) return;
+    this.running = true;
     if (this.config.autoSync) {
       this.syncTimer = setInterval(() => {
         this.performSync();
@@ -70,6 +73,7 @@ class DataSyncManager {
       clearInterval(this.syncTimer);
       this.syncTimer = null;
     }
+    this.running = false;
   }
 
   /**
@@ -299,9 +303,8 @@ export function stopSync() {
   dataSyncManager.stopSync();
 }
 export function isSyncRunning() {
-  // 非公開だが、ステータスで代理判断
-  const s = dataSyncManager.getStatus();
-  return s.status === "pending" || s.status === "success";
+  // running フラグで判定
+  return (dataSyncManager as any).running === true;
 }
 let syncErrors: string[] = [];
 export function getSyncErrors() { return syncErrors; }

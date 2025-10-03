@@ -175,7 +175,7 @@ export default function StockSearchInput({
   }, [value]);
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={className ? `${className} relative` : "relative"}>
       <div className="relative">
         <input
           ref={inputRef}
@@ -189,6 +189,7 @@ export default function StockSearchInput({
           disabled={disabled}
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
           autoComplete="off"
+          autoFocus={true}
         />
         
         {/* クリアボタン */}
@@ -216,13 +217,11 @@ export default function StockSearchInput({
             {suggestions.map((suggestion, index) => (
               <li
                 key={`${suggestion.code}-${index}`}
-                className={`px-3 py-2 cursor-pointer hover:bg-gray-100 ${
-                  index === selectedIndex ? "bg-blue-100 text-blue-900" : "text-gray-900"
-                }`}
+                className={`px-3 py-2 cursor-pointer ${index === selectedIndex ? "bg-blue-100 text-blue-900" : "hover:bg-gray-100 text-gray-900"}`}
                 onClick={() => handleSuggestionClick(suggestion)}
               >
                 <div className="flex flex-col">
-                  <div className="font-medium">{suggestion.displayText}</div>
+                  <div className={`font-medium ${index === selectedIndex ? "bg-blue-100" : ""}`}>{suggestion.displayText}</div>
                   <div className="text-sm text-gray-500">
                     {suggestion.sector} • {suggestion.market}
                   </div>

@@ -363,7 +363,9 @@ function incrementCounter(key: string, by: number = 1) {
 }
 
 function decrementCounter(key: string, by: number = 1) {
-  counters.set(key, (counters.get(key) ?? 0) - by);
+  const current = counters.get(key) ?? 0;
+  const next = current - by;
+  counters.set(key, next);
 }
 
 function getCounter(key: string): number {
