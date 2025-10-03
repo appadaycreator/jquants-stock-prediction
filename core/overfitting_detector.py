@@ -46,7 +46,7 @@ class OverfittingDetector:
                 risk_level = "中"
                 message = f"中リスク（R² = {test_r2:.3f} > {max_r2_threshold}）"
             # 過学習疑い: 訓練と検証の差が大きい
-            elif train_val_diff > 0.1:
+            elif train_val_diff >= 0.1:
                 is_overfitting = True
                 risk_level = "中"
                 message = f"過学習疑い（訓練-検証差: {train_val_diff:.3f}）"

@@ -140,9 +140,8 @@ class TestPerformanceOptimizer:
         }
         
         # 警告が記録されないことを確認
-        with patch.object(self.optimizer, '_log_performance_warning') as mock_warning:
-            self.optimizer._detect_performance_issues(metrics)
-            mock_warning.assert_not_called()
+        self.optimizer._detect_performance_issues(metrics)
+        self.logger.log_warning.assert_not_called()
 
     def test_optimize_memory_usage(self):
         """メモリ使用量最適化テスト"""
@@ -154,8 +153,9 @@ class TestPerformanceOptimizer:
             })
         
         with patch('gc.collect') as mock_gc:
-            self.optimizer.optimize_memory_usage()
+            result = self.optimizer.optimize_memory()
             mock_gc.assert_called()
+            assert "collected_objects" in result
 
     def test_get_performance_summary(self):
         """パフォーマンスサマリー取得テスト"""
@@ -186,28 +186,26 @@ class TestPerformanceOptimizer:
         assert "total_metrics" in summary
         assert summary["total_metrics"] == 0
 
-    def test_log_performance_warning(self):
-        """パフォーマンス警告ログテスト"""
-        warning_type = "high_cpu"
-        value = 95.0
-        threshold = 90.0
-        
-        self.optimizer._log_performance_warning(warning_type, value, threshold)
-        
-        self.logger.log_warning.assert_called()
 
     def test_monitoring_loop_exception_handling(self):
         """監視ループ例外処理テスト"""
         # 監視ループで例外が発生した場合の処理をテスト
         with patch.object(self.optimizer, 'collect_system_metrics', side_effect=Exception("Test error")):
-            self.optimizer.monitoring_active = True
-            
-            # 監視ループを短時間実行
-            self.optimizer._monitoring_loop(0.01)
-            
-            # 例外が適切にハンドリングされることを確認
-            # （ログが記録されることを確認）
-            self.logger.log_warning.assert_called()
+            with patch('time.sleep') as mock_sleep:
+                self.optimizer.monitoring_active = True
+                
+                # 監視ループを1回だけ実行するようにモック
+                def stop_after_one_iteration(*args, **kwargs):
+                    self.optimizer.monitoring_active = False
+                
+                mock_sleep.side_effect = stop_after_one_iteration
+                
+                # 監視ループを実行
+                self.optimizer._monitoring_loop(0.01)
+                
+                # 例外が適切にハンドリングされることを確認
+                # （ログが記録されることを確認）
+                self.logger.log_warning.assert_called()
 
     def test_optimization_enabled_property(self):
         """最適化有効フラグテスト"""

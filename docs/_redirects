@@ -1,0 +1,23 @@
+# GitHub Pages用のリダイレクト設定
+# RSCファイル（React Server Components）の404エラーを解決
+
+# ルートパスの処理
+/ /index.html 200
+
+# 各ページのリダイレクト（相対パス対応）
+/reports /reports/index.html 200
+/settings /settings/index.html 200
+/usage /usage/index.html 200
+/risk /risk/index.html 200
+/personal-investment /personal-investment/index.html 200
+
+# RSCファイルのリダイレクト（Next.js App Router用）
+/index.txt /index.html 200
+/reports.txt /reports/index.html 200
+/settings.txt /settings/index.html 200
+
+# RSCパラメータ付きファイルの処理
+/*.txt /index.html 200
+
+# SPA用のフォールバック（相対パス対応）
+/* /index.html 200

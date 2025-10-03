@@ -204,7 +204,7 @@ class JSONDataManager:
         metadata["data_sources"][symbol] = {
             "source": source,
             "last_updated": datetime.now().isoformat(),
-            "total_records": diff_result["total_new"],
+            "total_records": diff_result.get("total_new", 0),
             "last_diff": diff_result,
         }
 
@@ -493,6 +493,19 @@ class JSONDataManager:
         except Exception as e:
             self.logger.error(f"統計取得エラー: {e}")
             return {}
+
+    def get_all_symbols(self) -> List[str]:
+        """全銘柄コードの取得"""
+        try:
+            stock_data = self._load_json(self.stock_data_file, {})
+            return list(stock_data.keys())
+        except Exception as e:
+            self.logger.error(f"銘柄コード取得エラー: {e}")
+            return []
+
+    def get_data_statistics(self) -> Dict[str, Any]:
+        """データ統計の取得（テスト互換性のため）"""
+        return self.get_statistics()
 
 
 # 使用例

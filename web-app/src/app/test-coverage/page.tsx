@@ -69,7 +69,7 @@ export default function TestCoveragePage() {
     setCoverageStats(null);
 
     try {
-      const response = await fetch("/api/test/coverage");
+      const response = await fetch("/api/test/run");
       const result = await response.json();
       
       if (result.success && result.stats) {

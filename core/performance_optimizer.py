@@ -119,14 +119,17 @@ class PerformanceOptimizer:
             # CPU使用率のチェック
             if metrics.get("cpu_percent", 0) > 90:
                 issues.append(f"CPU使用率が高すぎます: {metrics['cpu_percent']:.1f}%")
+                self._log_performance_warning("high_cpu", metrics['cpu_percent'], 90.0)
 
             # メモリ使用率のチェック
             if metrics.get("memory_percent", 0) > 90:
                 issues.append(f"メモリ使用率が高すぎます: {metrics['memory_percent']:.1f}%")
+                self._log_performance_warning("high_memory", metrics['memory_percent'], 90.0)
 
             # ディスク使用率のチェック
             if metrics.get("disk_percent", 0) > 90:
                 issues.append(f"ディスク使用率が高すぎます: {metrics['disk_percent']:.1f}%")
+                self._log_performance_warning("high_disk", metrics['disk_percent'], 90.0)
 
             if issues:
                 if self.logger:
@@ -139,6 +142,11 @@ class PerformanceOptimizer:
         except Exception as e:
             if self.logger:
                 self.logger.log_warning(f"パフォーマンス問題検出エラー: {e}")
+
+    def _log_performance_warning(self, warning_type: str, value: float, threshold: float):
+        """パフォーマンス警告ログ"""
+        if self.logger:
+            self.logger.log_warning(f"パフォーマンス警告: {warning_type} = {value:.1f}% (閾値: {threshold:.1f}%)")
 
     def _auto_optimize(self, issues: List[str]):
         """自動最適化の実行"""
@@ -172,25 +180,23 @@ class PerformanceOptimizer:
         """パフォーマンスサマリーの取得"""
         try:
             if not self.metrics_history:
-                return {"message": "メトリクス履歴がありません"}
+                return {
+                    "average_cpu": 0,
+                    "average_memory": 0,
+                    "average_disk": 0,
+                    "total_metrics": 0
+                }
 
-            # 最新のメトリクス
-            latest_metrics = self.metrics_history[-1]
-            
             # 平均値の計算
             cpu_values = [m.get("cpu_percent", 0) for m in self.metrics_history if "cpu_percent" in m]
             memory_values = [m.get("memory_percent", 0) for m in self.metrics_history if "memory_percent" in m]
             disk_values = [m.get("disk_percent", 0) for m in self.metrics_history if "disk_percent" in m]
 
             return {
-                "current_metrics": latest_metrics,
-                "average_cpu_percent": sum(cpu_values) / len(cpu_values) if cpu_values else 0,
-                "average_memory_percent": sum(memory_values) / len(memory_values) if memory_values else 0,
-                "average_disk_percent": sum(disk_values) / len(disk_values) if disk_values else 0,
-                "total_measurements": len(self.metrics_history),
-                "monitoring_active": self.monitoring_active,
-                "optimization_enabled": self.optimization_enabled,
-                "summary_timestamp": datetime.now().isoformat()
+                "average_cpu": sum(cpu_values) / len(cpu_values) if cpu_values else 0,
+                "average_memory": sum(memory_values) / len(memory_values) if memory_values else 0,
+                "average_disk": sum(disk_values) / len(disk_values) if disk_values else 0,
+                "total_metrics": len(self.metrics_history)
             }
 
         except Exception as e:
@@ -213,6 +219,10 @@ class PerformanceOptimizer:
             if self.error_handler:
                 self.error_handler.handle_system_error(e, "メモリ最適化")
             return {"error": str(e)}
+
+    def optimize_memory_usage(self):
+        """メモリ使用量最適化（テスト互換性のため）"""
+        return self.optimize_memory()
 
     def get_optimization_recommendations(self) -> List[str]:
         """最適化推奨事項の取得"""
