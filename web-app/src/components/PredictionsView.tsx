@@ -3,11 +3,11 @@
  * エラーハンドリング、スキーマ検証、UI安定化
  */
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { fetchJson, fetchMultiple, AppError } from "@/lib/fetcher";
 import { PredictionResponse, StockData, ModelComparison } from "@/lib/schema";
 import { parseToJst, jstLabel } from "@/lib/datetime";
-import { mae, rmse, r2, detectOverfitting, evaluateBaseline, compareModels, timeSeriesSplitEvaluation, walkForwardEvaluation } from "@/lib/metrics";
+import { mae, rmse, r2, detectOverfitting, evaluateBaseline, compareModels } from "@/lib/metrics";
 import { fetcherLogger, metricsLogger } from "@/lib/logger";
 import ErrorPanel from "./ErrorPanel";
 import { PredictionsViewSkeleton } from "./Skeletons/LoadingSkeleton";
@@ -41,7 +41,7 @@ interface KpiData {
   };
 }
 
-export default function PredictionsView({ onError }: PredictionsViewProps) {
+const PredictionsView = memo(function PredictionsView({ onError }: PredictionsViewProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<AppError | null>(null);
   const [predictions, setPredictions] = useState<PredictionData[]>([]);
@@ -448,4 +448,6 @@ export default function PredictionsView({ onError }: PredictionsViewProps) {
       </div>
     </div>
   );
-}
+});
+
+export default PredictionsView;
