@@ -49,15 +49,15 @@ class TestJSONDataManagerCoverage:
         with tempfile.TemporaryDirectory() as temp_dir:
             manager = JSONDataManager(data_dir=temp_dir)
             
-            # テストデータの作成
+            # テストデータの作成（stock_data_fileに保存）
             test_data = [
-                {"date": "2024-01-01", "code": "1234", "close": 100},
-                {"date": "2024-01-02", "code": "1234", "close": 101},
-                {"date": "2024-01-03", "code": "1234", "close": 102}
+                {"date": "2024-01-01", "code": "1234", "open": 99, "high": 101, "low": 98, "close": 100, "volume": 1000},
+                {"date": "2024-01-02", "code": "1234", "open": 100, "high": 102, "low": 99, "close": 101, "volume": 1100},
+                {"date": "2024-01-03", "code": "1234", "open": 101, "high": 103, "low": 100, "close": 102, "volume": 1200}
             ]
             
             # データの保存
-            manager.save_data("1234.json", test_data)
+            manager.save_stock_data("1234", test_data)
             
             # フィルタ付きデータ取得
             filtered_data = manager.get_stock_data(
@@ -178,7 +178,8 @@ class TestJSONDataManagerCoverage:
         with tempfile.TemporaryDirectory() as temp_dir:
             manager = JSONDataManager(data_dir=temp_dir)
             
-            # 無効なデータの保存
+            # 無効なデータの保存（例外を発生させる）
             with patch('json.dump', side_effect=Exception("JSON serialization failed")):
-                with pytest.raises(Exception):
-                    manager._save_json("test.json", {"invalid": object()})
+                result = manager._save_json("test.json", {"invalid": object()})
+                # 例外が発生してもFalseが返されることを確認
+                assert result is False

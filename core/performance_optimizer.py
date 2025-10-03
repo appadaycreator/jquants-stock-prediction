@@ -147,50 +147,58 @@ class PerformanceOptimizer:
     def _detect_performance_issues(self, metrics: Dict[str, Any]):
         """パフォーマンス問題の検出"""
         try:
-            issues = []
-
-            # CPU使用率のチェック
-            if metrics.get("cpu_percent", 0) > 90:
-                issues.append(f"CPU使用率が高すぎます: {metrics['cpu_percent']:.1f}%")
-                self._log_performance_warning("high_cpu", metrics["cpu_percent"], 90.0)
-
-            # メモリ使用率のチェック
-            if metrics.get("memory_percent", 0) > 90:
-                issues.append(
-                    f"メモリ使用率が高すぎます: {metrics['memory_percent']:.1f}%"
-                )
-                self._log_performance_warning(
-                    "high_memory", metrics["memory_percent"], 90.0
-                )
-
-            # ディスク使用率のチェック
-            if metrics.get("disk_percent", 0) > 90:
-                issues.append(
-                    f"ディスク使用率が高すぎます: {metrics['disk_percent']:.1f}%"
-                )
-                self._log_performance_warning(
-                    "high_disk", metrics["disk_percent"], 90.0
-                )
-
+            issues = self._check_resource_usage(metrics)
+            
             if issues:
-                if self.logger:
-                    self.logger.log_warning(
-                        f"パフォーマンス問題を検出: {', '.join(issues)}"
-                    )
-
-                # 自動最適化の実行
-                if self.optimization_enabled:
-                    for issue in issues:
-                        if "メモリ" in issue:
-                            self._auto_optimize("memory_cleanup")
-                        elif "CPU" in issue:
-                            self._auto_optimize("cpu_optimization")
-                        else:
-                            self._auto_optimize("unknown_issue")
+                self._log_performance_issues(issues)
+                self._execute_auto_optimization(issues)
 
         except Exception as e:
             if self.logger:
                 self.logger.log_warning(f"パフォーマンス問題検出エラー: {e}")
+
+    def _check_resource_usage(self, metrics: Dict[str, Any]) -> List[str]:
+        """リソース使用量のチェック"""
+        issues = []
+        thresholds = {"cpu": 90, "memory": 90, "disk": 90}
+        
+        # CPU使用率のチェック
+        cpu_percent = metrics.get("cpu_percent", 0)
+        if cpu_percent > thresholds["cpu"]:
+            issues.append(f"CPU使用率が高すぎます: {cpu_percent:.1f}%")
+            self._log_performance_warning("high_cpu", cpu_percent, thresholds["cpu"])
+
+        # メモリ使用率のチェック
+        memory_percent = metrics.get("memory_percent", 0)
+        if memory_percent > thresholds["memory"]:
+            issues.append(f"メモリ使用率が高すぎます: {memory_percent:.1f}%")
+            self._log_performance_warning("high_memory", memory_percent, thresholds["memory"])
+
+        # ディスク使用率のチェック
+        disk_percent = metrics.get("disk_percent", 0)
+        if disk_percent > thresholds["disk"]:
+            issues.append(f"ディスク使用率が高すぎます: {disk_percent:.1f}%")
+            self._log_performance_warning("high_disk", disk_percent, thresholds["disk"])
+        
+        return issues
+
+    def _log_performance_issues(self, issues: List[str]) -> None:
+        """パフォーマンス問題のログ出力"""
+        if self.logger:
+            self.logger.log_warning(f"パフォーマンス問題を検出: {', '.join(issues)}")
+
+    def _execute_auto_optimization(self, issues: List[str]) -> None:
+        """自動最適化の実行"""
+        if not self.optimization_enabled:
+            return
+            
+        for issue in issues:
+            if "メモリ" in issue:
+                self._auto_optimize("memory_cleanup")
+            elif "CPU" in issue:
+                self._auto_optimize("cpu_optimization")
+            else:
+                self._auto_optimize("unknown_issue")
 
     def _log_performance_warning(
         self, warning_type: str, value: float, threshold: float

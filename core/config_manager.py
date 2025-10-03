@@ -240,3 +240,33 @@ class ConfigManager:
             return False
         except Exception as e:
             return False
+
+    def get_nested_config(self, key: str) -> Any:
+        """ネストされた設定値の取得"""
+        try:
+            keys = key.split(".")
+            value = self.config
+            
+            for k in keys:
+                if isinstance(value, dict) and k in value:
+                    value = value[k]
+                else:
+                    return None
+            return value
+        except Exception:
+            return None
+
+    def set_nested_config(self, key: str, value: Any) -> None:
+        """ネストされた設定値の設定"""
+        try:
+            keys = key.split(".")
+            config = self.config
+            
+            for k in keys[:-1]:
+                if k not in config:
+                    config[k] = {}
+                config = config[k]
+            
+            config[keys[-1]] = value
+        except Exception as e:
+            raise

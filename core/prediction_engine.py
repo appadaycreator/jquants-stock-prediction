@@ -56,54 +56,19 @@ class PredictionEngine:
                 return self._create_error_result("データの読み込みに失敗しました")
 
             # データの分割
-            X_train, X_val, X_test, y_train, y_val, y_test = self._split_data(
-                df, config["features"], config["target"]
-            )
+            data_splits = self._split_data(df, config["features"], config["target"])
 
             # モデル実行
-            if config["compare_models"]:
-                result = self._execute_model_comparison(
-                    X_train, X_val, X_test, y_train, y_val, y_test, config
-                )
-            else:
-                result = self._execute_single_model(
-                    config["primary_model"],
-                    X_train,
-                    X_val,
-                    X_test,
-                    y_train,
-                    y_val,
-                    y_test,
-                )
+            result = self._execute_model_training(data_splits, config)
 
             # 過学習検出
-            if config["overfitting_detection"]:
-                result["overfitting_detection"] = (
-                    self.overfitting_detector.detect_overfitting(
-                        result.get("model_results", [{}])[0].get("train_r2", 0),
-                        result.get("model_results", [{}])[0].get("val_r2", 0),
-                        result.get("model_results", [{}])[0].get("test_r2", 0),
-                        config.get("max_r2_score", 0.95),
-                    )
-                )
+            result = self._add_overfitting_detection(result, config)
 
             # 可視化
-            if result.get("model_results"):
-                self.visualization_manager.create_prediction_visualization(
-                    y_test,
-                    result["model_results"][0]["predictions"],
-                    result["best_model"],
-                    config["output_file"],
-                )
+            self._create_visualizations(result, data_splits, config)
 
             # 結果の統合
-            result.update(
-                {
-                    "success": True,
-                    "data_info": self._create_data_info(X_train, X_val, X_test, config),
-                    "timestamp": datetime.now().isoformat(),
-                }
-            )
+            result = self._finalize_result(result, data_splits, config)
 
             if self.logger:
                 self.logger.log_info("✅ 株価予測システム完了")
@@ -118,6 +83,64 @@ class PredictionEngine:
                     {"input_file": config.get("input_file", "unknown")},
                 )
             return self._create_error_result(str(e))
+
+    def _execute_model_training(self, data_splits: Tuple, config: Dict[str, Any]) -> Dict[str, Any]:
+        """モデル学習の実行"""
+        X_train, X_val, X_test, y_train, y_val, y_test = data_splits
+        
+        if config["compare_models"]:
+            return self._execute_model_comparison(
+                X_train, X_val, X_test, y_train, y_val, y_test, config
+            )
+        else:
+            return self._execute_single_model(
+                config["primary_model"],
+                X_train, X_val, X_test, y_train, y_val, y_test,
+            )
+
+    def _add_overfitting_detection(self, result: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, Any]:
+        """過学習検出の追加"""
+        if config["overfitting_detection"]:
+            result["overfitting_detection"] = (
+                self.overfitting_detector.detect_overfitting(
+                    result.get("model_results", [{}])[0].get("train_r2", 0),
+                    result.get("model_results", [{}])[0].get("val_r2", 0),
+                    result.get("model_results", [{}])[0].get("test_r2", 0),
+                    config.get("max_r2_score", 0.95),
+                )
+            )
+        return result
+
+    def _create_visualizations(self, result: Dict[str, Any], data_splits: Tuple, config: Dict[str, Any]) -> None:
+        """可視化の作成"""
+        if result.get("model_results"):
+            X_train, X_val, X_test, y_train, y_val, y_test = data_splits
+            self.visualization_manager.create_prediction_visualization(
+                y_test,
+                result["model_results"][0]["predictions"],
+                result["best_model"],
+                config["output_file"],
+            )
+
+    def _finalize_result(self, result: Dict[str, Any], data_splits: Tuple, config: Dict[str, Any]) -> Dict[str, Any]:
+        """結果の最終化"""
+        X_train, X_val, X_test, y_train, y_val, y_test = data_splits
+        result.update({
+            "success": True,
+            "data_info": self._create_data_info(X_train, X_val, X_test, config),
+            "timestamp": datetime.now().isoformat(),
+        })
+        return result
+
+    def _create_data_info(self, X_train: np.ndarray, X_val: np.ndarray, X_test: np.ndarray, config: Dict[str, Any]) -> Dict[str, Any]:
+        """データ情報の作成"""
+        return {
+            "train_size": len(X_train),
+            "val_size": len(X_val),
+            "test_size": len(X_test),
+            "features": config.get("features", []),
+            "target": config.get("target", "close"),
+        }
 
     def _get_prediction_config(self) -> Dict[str, Any]:
         """予測設定の取得と検証"""

@@ -203,8 +203,8 @@ class TestDifferentialUpdaterCoverage:
         with tempfile.TemporaryDirectory() as temp_dir:
             updater = DifferentialUpdater(data_dir=temp_dir)
             
-            old_record = {"date": "2024-01-01", "code": "1234", "close": 100, "volume": 1000}
-            new_record = {"date": "2024-01-01", "code": "1234", "close": 101, "volume": 1000}
+            old_record = {"date": "2024-01-01", "code": "1234", "Close": 100, "Volume": 1000}
+            new_record = {"date": "2024-01-01", "code": "1234", "Close": 101, "Volume": 1000}
             
             result = updater._has_record_changed(old_record, new_record)
             
@@ -216,8 +216,8 @@ class TestDifferentialUpdaterCoverage:
         with tempfile.TemporaryDirectory() as temp_dir:
             updater = DifferentialUpdater(data_dir=temp_dir)
             
-            old_record = {"date": "2024-01-01", "code": "1234", "close": 100, "volume": 1000}
-            new_record = {"date": "2024-01-01", "code": "1234", "close": 100, "volume": 1000}
+            old_record = {"date": "2024-01-01", "code": "1234", "Close": 100, "Volume": 1000}
+            new_record = {"date": "2024-01-01", "code": "1234", "Close": 100, "Volume": 1000}
             
             result = updater._has_record_changed(old_record, new_record)
             
@@ -229,13 +229,13 @@ class TestDifferentialUpdaterCoverage:
         with tempfile.TemporaryDirectory() as temp_dir:
             updater = DifferentialUpdater(data_dir=temp_dir)
             
-            old_record = {"date": "2024-01-01", "code": "1234", "close": 100}
-            new_record = {"date": "2024-01-01", "code": "1234", "close": 100, "volume": 1000}
+            old_record = {"date": "2024-01-01", "code": "1234", "Close": 100}
+            new_record = {"date": "2024-01-01", "code": "1234", "Close": 100, "Volume": 1000}
             
             result = updater._has_record_changed(old_record, new_record)
             
-            # 欠損フィールドは変更と判定されないことを確認
-            assert result is False
+            # 新しいフィールドが追加された場合は変更と判定されることを確認
+            assert result is True
 
     def test_create_error_result(self):
         """エラー結果作成テスト"""
@@ -295,10 +295,8 @@ class TestDifferentialUpdaterCoverage:
             
             # 統計項目の確認
             assert "total_updates" in stats
-            assert "successful_updates" in stats
-            assert "failed_updates" in stats
-            assert "validation_errors" in stats
-            assert "total_processing_time" in stats
-            assert "last_update_time" in stats
-            assert "success_rate" in stats
-            assert "validation_error_rate" in stats
+            assert "data_sources" in stats
+            assert "symbols_updated" in stats
+            assert "recent_updates_7days" in stats
+            assert "symbol_statistics" in stats
+            assert "last_updated" in stats

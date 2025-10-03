@@ -110,36 +110,15 @@ class ModelManager:
     ) -> Dict[str, Any]:
         """複数モデルの比較"""
         try:
-            results = []
-
-            for model_name in self.model_definitions.keys():
-                try:
-                    model = self.train_model(model_name, X_train, y_train)
-                    evaluation = self.evaluate_model(
-                        model, X_train, X_val, X_test, y_train, y_val, y_test
-                    )
-                    evaluation["model_name"] = model_name
-                    results.append(evaluation)
-                except Exception as e:
-                    if self.logger:
-                        self.logger.log_warning(
-                            f"モデル {model_name} の学習に失敗: {e}"
-                        )
-                    continue
-
+            results = self._train_and_evaluate_models(
+                X_train, X_val, X_test, y_train, y_val, y_test
+            )
+            
             if results:
                 best_result = self._select_best_model(results)
-                return {
-                    "best_model": best_result["model_name"],
-                    "results": results,
-                    "comparison_timestamp": datetime.now().isoformat(),
-                }
+                return self._create_comparison_result(best_result, results)
             else:
-                if self.logger:
-                    self.logger.log_warning(
-                        "有効なモデルが見つかりませんでした。デフォルトモデルを使用します。"
-                    )
-                return {"best_model": "random_forest", "results": []}
+                return self._create_fallback_result()
 
         except Exception as e:
             if self.error_handler:
@@ -158,6 +137,45 @@ class ModelManager:
             )
 
         return best_result
+
+    def _train_and_evaluate_models(
+        self, X_train, X_val, X_test, y_train, y_val, y_test
+    ) -> List[Dict]:
+        """モデルの学習と評価"""
+        results = []
+        
+        for model_name in self.model_definitions.keys():
+            try:
+                model = self.train_model(model_name, X_train, y_train)
+                evaluation = self.evaluate_model(
+                    model, X_train, X_val, X_test, y_train, y_val, y_test
+                )
+                evaluation["model_name"] = model_name
+                results.append(evaluation)
+            except Exception as e:
+                if self.logger:
+                    self.logger.log_warning(
+                        f"モデル {model_name} の学習に失敗: {e}"
+                    )
+                continue
+        
+        return results
+
+    def _create_comparison_result(self, best_result: Dict, results: List[Dict]) -> Dict[str, Any]:
+        """比較結果の作成"""
+        return {
+            "best_model": best_result["model_name"],
+            "results": results,
+            "comparison_timestamp": datetime.now().isoformat(),
+        }
+
+    def _create_fallback_result(self) -> Dict[str, Any]:
+        """フォールバック結果の作成"""
+        if self.logger:
+            self.logger.log_warning(
+                "有効なモデルが見つかりませんでした。デフォルトモデルを使用します。"
+            )
+        return {"best_model": "random_forest", "results": []}
 
     def get_supported_models(self) -> List[str]:
         """サポートされているモデル一覧の取得"""
