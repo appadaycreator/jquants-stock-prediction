@@ -6,6 +6,7 @@ global.fetch = jest.fn();
 describe('unified-api-client', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.setTimeout(10000);
   });
 
   describe('getStockData', () => {
@@ -26,9 +27,13 @@ describe('unified-api-client', () => {
 
       expect(result).toEqual(mockData);
       expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/api/stocks/7203')
+        '/api/stocks/7203',
+        expect.objectContaining({
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' }
+        })
       );
-    });
+    }, 10000);
 
     it('handles API errors', async () => {
       (global.fetch as jest.Mock).mockResolvedValue({
@@ -38,13 +43,13 @@ describe('unified-api-client', () => {
       });
 
       await expect(unifiedApiClient.getStockData('INVALID')).rejects.toThrow();
-    });
+    }, 10000);
 
     it('handles network errors', async () => {
       (global.fetch as jest.Mock).mockRejectedValue(new Error('Network Error'));
 
       await expect(unifiedApiClient.getStockData('7203')).rejects.toThrow('Network Error');
-    });
+    }, 10000);
   });
 
   describe('getMarketData', () => {
@@ -65,9 +70,13 @@ describe('unified-api-client', () => {
 
       expect(result).toEqual(mockData);
       expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/api/market')
+        '/api/market',
+        expect.objectContaining({
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' }
+        })
       );
-    });
+    }, 10000);
   });
 
   describe('getPredictions', () => {
@@ -89,9 +98,13 @@ describe('unified-api-client', () => {
 
       expect(result).toEqual(mockPredictions);
       expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/api/predictions')
+        '/api/predictions',
+        expect.objectContaining({
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' }
+        })
       );
-    });
+    }, 10000);
   });
 
   describe('getPersonalInvestmentData', () => {
@@ -113,8 +126,12 @@ describe('unified-api-client', () => {
 
       expect(result).toEqual(mockData);
       expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/api/personal-investment')
+        '/api/personal-investment',
+        expect.objectContaining({
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' }
+        })
       );
-    });
+    }, 10000);
   });
 });

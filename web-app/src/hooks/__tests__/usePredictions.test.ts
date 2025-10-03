@@ -15,7 +15,7 @@ describe('usePredictions', () => {
     const { result } = renderHook(() => usePredictions());
     
     expect(result.current.predictions).toEqual([]);
-    expect(result.current.isLoading).toBe(false);
+    expect(result.current.isLoading).toBe(true); // 初期状態ではローディング中
     expect(result.current.error).toBe(null);
     expect(typeof result.current.refetch).toBe('function');
   });

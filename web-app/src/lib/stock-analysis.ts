@@ -15,6 +15,7 @@ export interface StockData {
   marketCap: number;
   lastUpdated: string;
   close: number;
+  date?: string; // 日付フィールドを追加
 }
 
 export interface TechnicalIndicators {
@@ -355,6 +356,7 @@ export function generateMockStockData(symbol: string, startDate: string, endDate
       marketCap,
       lastUpdated: date.toISOString(),
       close: currentPrice,
+      date: date.toISOString().split('T')[0], // 日付フィールドを追加
     });
   }
   

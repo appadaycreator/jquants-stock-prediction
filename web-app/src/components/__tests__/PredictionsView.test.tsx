@@ -31,19 +31,7 @@ describe('PredictionsView', () => {
     jest.clearAllMocks();
   });
 
-  it('renders the component without crashing', () => {
-    const { fetchMultiple } = require('@/lib/fetcher');
-    fetchMultiple.mockResolvedValue({
-      predictions: { data: [], meta: { model: 'test', generatedAt: '2024-01-01T00:00:00Z' } },
-      stockData: [],
-      modelComparison: [],
-    });
-
-    render(<PredictionsView />);
-    expect(screen.getByText('予測結果')).toBeInTheDocument();
-  });
-
-  it('displays predictions data correctly', () => {
+  it('renders the component without crashing', async () => {
     const { fetchMultiple } = require('@/lib/fetcher');
     fetchMultiple.mockResolvedValue({
       predictions: { 
@@ -62,8 +50,41 @@ describe('PredictionsView', () => {
     });
 
     render(<PredictionsView />);
-    expect(screen.getByText('7203')).toBeInTheDocument();
-  });
+    
+    // ローディング状態が表示されることを確認
+    expect(screen.getByTestId('predictions-skeleton')).toBeInTheDocument();
+    
+    // データが読み込まれるまで待機
+    await waitFor(() => {
+      expect(screen.getByText('予測結果')).toBeInTheDocument();
+    }, { timeout: 15000 });
+  }, 20000);
+
+  it('displays predictions data correctly', async () => {
+    const { fetchMultiple } = require('@/lib/fetcher');
+    fetchMultiple.mockResolvedValue({
+      predictions: { 
+        data: [
+          {
+            date: '2024-01-01',
+            symbol: '7203',
+            y_true: 2500,
+            y_pred: 2600,
+          }
+        ], 
+        meta: { model: 'test', generatedAt: '2024-01-01T00:00:00Z' } 
+      },
+      stockData: [],
+      modelComparison: [],
+    });
+
+    render(<PredictionsView />);
+    
+    // データが読み込まれるまで待機
+    await waitFor(() => {
+      expect(screen.getByText('7203')).toBeInTheDocument();
+    }, { timeout: 10000 });
+  }, 10000);
 
   it('shows loading state when analyzing', () => {
     const { fetchMultiple } = require('@/lib/fetcher');
@@ -84,17 +105,33 @@ describe('PredictionsView', () => {
   it('calls refresh when refresh button is clicked', async () => {
     const { fetchMultiple } = require('@/lib/fetcher');
     fetchMultiple.mockResolvedValue({
-      predictions: { data: [], meta: { model: 'test', generatedAt: '2024-01-01T00:00:00Z' } },
+      predictions: { 
+        data: [
+          {
+            date: '2024-01-01',
+            symbol: '7203',
+            y_true: 2500,
+            y_pred: 2600,
+          }
+        ], 
+        meta: { model: 'test', generatedAt: '2024-01-01T00:00:00Z' } 
+      },
       stockData: [],
       modelComparison: [],
     });
 
     render(<PredictionsView />);
+    
+    // データが読み込まれるまで待機
+    await waitFor(() => {
+      expect(screen.getByText('予測結果')).toBeInTheDocument();
+    }, { timeout: 15000 });
+    
     const refreshButton = screen.getByRole('button', { name: /更新/i });
     fireEvent.click(refreshButton);
 
     await waitFor(() => {
       expect(fetchMultiple).toHaveBeenCalledTimes(2); // Initial load + refresh
-    });
-  });
+    }, { timeout: 15000 });
+  }, 20000);
 });

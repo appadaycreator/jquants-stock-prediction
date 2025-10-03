@@ -135,9 +135,11 @@ class UnifiedApiClient {
   // ヘッダーを抽出
   private extractHeaders(response: Response): Record<string, string> {
     const headers: Record<string, string> = {};
-    response.headers.forEach((value, key) => {
-      headers[key] = value;
-    });
+    if (response.headers && typeof response.headers.forEach === 'function') {
+      response.headers.forEach((value, key) => {
+        headers[key] = value;
+      });
+    }
     return headers;
   }
 

@@ -35,7 +35,12 @@ export function useRealDashboardData() {
       setState(prev => ({ ...prev, connectionStatus }));
 
       if (!connectionStatus.success) {
-        throw new Error(`API接続失敗: ${connectionStatus.message}`);
+        setState(prev => ({ 
+          ...prev, 
+          isLoading: false, 
+          error: `API接続失敗: ${connectionStatus.message}` 
+        }));
+        return;
       }
 
       // 2. 市場サマリーを生成
@@ -43,7 +48,12 @@ export function useRealDashboardData() {
       const marketSummary = await generateMarketSummary();
 
       if (!marketSummary) {
-        throw new Error("市場サマリーの生成に失敗しました");
+        setState(prev => ({ 
+          ...prev, 
+          isLoading: false, 
+          error: "市場サマリーの生成に失敗しました" 
+        }));
+        return;
       }
 
       const lastUpdated = new Date().toISOString();
