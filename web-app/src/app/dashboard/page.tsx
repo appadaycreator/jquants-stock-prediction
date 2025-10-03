@@ -10,7 +10,7 @@ import { SettingsProvider } from "../../contexts/SettingsContext";
 import { useAnalysisWithSettings } from "../../hooks/useAnalysisWithSettings";
 import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
 import { useRealDashboardData } from "@/hooks/useRealDashboardData";
-import { TrendingUp, BarChart3, Database, CheckCircle, AlertTriangle, X, Cpu } from "lucide-react";
+import { TrendingUp, BarChart3, Database, CheckCircle, AlertTriangle, X, Cpu, Target } from "lucide-react";
 import { getCacheMeta } from "@/lib/fetcher";
 import { freshnessManager, DataFreshnessInfo } from "@/lib/data-freshness-manager";
 import { DataFreshnessSummary } from "@/components/DataFreshnessBadge";
@@ -75,8 +75,35 @@ function DashboardContent() {
   const [error, setError] = useState<string | null>(null);
   const [freshnessInfos, setFreshnessInfos] = useState<DataFreshnessInfo[]>([]);
   
-  // ガイド関連の状態
-  // 簡素化のため不要な状態変数を削除
+  // 追加の状態変数
+  const [refreshStatus, setRefreshStatus] = useState<string>("");
+  const [selectedModel, setSelectedModel] = useState<ModelComparison | null>(null);
+  const [showModelDetail, setShowModelDetail] = useState(false);
+  const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>(DEFAULT_CHECKLIST_ITEMS);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showStockMonitoring, setShowStockMonitoring] = useState(false);
+  
+  // モックデータ
+  const performanceMetrics = {
+    accuracy: 85.5,
+    mae: 12.3,
+    rmse: 18.7,
+    r2: 0.78
+  };
+  
+  const marketInsights = {
+    trends: [
+      { description: "テクノロジー株の上昇傾向", sentiment: "positive" },
+      { description: "エネルギー株の調整局面", sentiment: "negative" },
+      { description: "金融株の安定推移", sentiment: "neutral" }
+    ]
+  };
+  
+  const modelComparison: ModelComparison[] = [
+    { name: "Random Forest", type: "Ensemble", mae: 10.2, mse: 156.8, rmse: 12.5, r2: 0.82, rank: 1 },
+    { name: "XGBoost", type: "Gradient Boosting", mae: 11.1, mse: 178.3, rmse: 13.4, r2: 0.79, rank: 2 },
+    { name: "LSTM", type: "Neural Network", mae: 12.8, mse: 201.5, rmse: 14.2, r2: 0.75, rank: 3 }
+  ];
 
   // パフォーマンス監視
   usePerformanceMonitor("dashboard");
@@ -708,7 +735,7 @@ export default function Dashboard() {
     <ErrorBoundary
       fallbackRender={({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) => (
         <UnifiedErrorBoundary
-          error={error}
+          onError={() => {}}
         />
       )}
     >

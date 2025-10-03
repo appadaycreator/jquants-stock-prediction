@@ -1,21 +1,9 @@
 import { renderHook, act } from '@testing-library/react';
 import { usePredictions } from '../usePredictions';
 
-// Mock the unifiedApiClient
-jest.mock('@/lib/unified-api-client', () => ({
-  unifiedApiClient: {
-    getPredictions: jest.fn(),
-  },
-}));
-
-// Mock the useAnalysisWithSettings hook
-jest.mock('../useAnalysisWithSettings', () => ({
-  useAnalysisWithSettings: () => ({
-    runAnalysisWithSettings: jest.fn(),
-    isAnalyzing: false,
-    analysisProgress: 0,
-    analysisStatus: 'idle',
-  }),
+// Mock the fetchJson function
+jest.mock('@/lib/fetcher', () => ({
+  fetchJson: jest.fn(),
 }));
 
 describe('usePredictions', () => {
@@ -29,29 +17,31 @@ describe('usePredictions', () => {
     expect(result.current.predictions).toEqual([]);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.error).toBe(null);
-    expect(typeof result.current.refreshPredictions).toBe('function');
+    expect(typeof result.current.refetch).toBe('function');
   });
 
   it('handles successful prediction fetch', async () => {
     const mockPredictions = [
       {
         symbol: '7203',
-        companyName: 'トヨタ自動車',
-        prediction: 'BUY',
+        name: 'トヨタ自動車',
+        currentPrice: 2500,
+        predictedPrice: 2600,
         confidence: 0.85,
-        price: 2500,
-        change: 0.05,
+        recommendation: 'BUY',
+        timeframe: '1週間',
+        lastUpdated: '2024-01-01T00:00:00Z',
       },
     ];
 
-    const { unifiedApiClient } = require('@/lib/unified-api-client');
-    unifiedApiClient.getPredictions.mockResolvedValue(mockPredictions);
+    const { fetchJson } = require('@/lib/fetcher');
+    fetchJson.mockResolvedValue({
+      predictions: mockPredictions,
+      lastUpdated: '2024-01-01T00:00:00Z',
+      totalPredictions: 1,
+    });
 
     const { result } = renderHook(() => usePredictions());
-
-    act(() => {
-      result.current.refreshPredictions();
-    });
 
     await act(async () => {
       await new Promise(resolve => setTimeout(resolve, 0));
@@ -63,14 +53,10 @@ describe('usePredictions', () => {
   });
 
   it('handles API errors gracefully', async () => {
-    const { unifiedApiClient } = require('@/lib/unified-api-client');
-    unifiedApiClient.getPredictions.mockRejectedValue(new Error('API Error'));
+    const { fetchJson } = require('@/lib/fetcher');
+    fetchJson.mockRejectedValue(new Error('API Error'));
 
     const { result } = renderHook(() => usePredictions());
-
-    act(() => {
-      result.current.refreshPredictions();
-    });
 
     await act(async () => {
       await new Promise(resolve => setTimeout(resolve, 0));
@@ -82,23 +68,23 @@ describe('usePredictions', () => {
   });
 
   it('sets loading state during fetch', async () => {
-    const { unifiedApiClient } = require('@/lib/unified-api-client');
+    const { fetchJson } = require('@/lib/fetcher');
     let resolvePromise;
     const promise = new Promise(resolve => {
       resolvePromise = resolve;
     });
-    unifiedApiClient.getPredictions.mockReturnValue(promise);
+    fetchJson.mockReturnValue(promise);
 
     const { result } = renderHook(() => usePredictions());
-
-    act(() => {
-      result.current.refreshPredictions();
-    });
 
     expect(result.current.isLoading).toBe(true);
 
     act(() => {
-      resolvePromise([]);
+      resolvePromise({
+        predictions: [],
+        lastUpdated: '2024-01-01T00:00:00Z',
+        totalPredictions: 0,
+      });
     });
 
     await act(async () => {

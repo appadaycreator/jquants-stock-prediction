@@ -42,12 +42,12 @@ export default function FiveMinRoutinePage() {
 
   const handleTutorialComplete = () => {
     console.log("チュートリアル完了");
-    setShowTutorial(false);
+    // チュートリアル完了時の処理
   };
 
   const handleTutorialSkip = () => {
     console.log("チュートリアルスキップ");
-    setShowTutorial(false);
+    // チュートリアルスキップ時の処理
   };
 
   return (

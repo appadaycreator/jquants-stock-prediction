@@ -162,6 +162,30 @@ class UnifiedApiClient {
       };
     }
   }
+
+  // 株価データ取得
+  async getStockData(symbol: string): Promise<any> {
+    const response = await this.get(`/stocks/${symbol}`);
+    return response.data;
+  }
+
+  // 市場データ取得
+  async getMarketData(): Promise<any> {
+    const response = await this.get('/market');
+    return response.data;
+  }
+
+  // 予測データ取得
+  async getPredictions(): Promise<any> {
+    const response = await this.get('/predictions');
+    return response.data;
+  }
+
+  // 個人投資データ取得
+  async getPersonalInvestmentData(): Promise<any> {
+    const response = await this.get('/personal-investment');
+    return response.data;
+  }
 }
 
 // シングルトンインスタンス

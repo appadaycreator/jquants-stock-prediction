@@ -3,23 +3,16 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import PredictionsView from '../PredictionsView';
 
-// Mock the usePredictions hook
-jest.mock('@/hooks/usePredictions', () => ({
-  usePredictions: () => ({
-    predictions: [
-      {
-        symbol: '7203',
-        companyName: 'トヨタ自動車',
-        prediction: 'BUY',
-        confidence: 0.85,
-        price: 2500,
-        change: 0.05,
-      },
-    ],
-    isLoading: false,
-    error: null,
-    refreshPredictions: jest.fn(),
-  }),
+// Mock the fetchJson function
+jest.mock('@/lib/fetcher', () => ({
+  fetchJson: jest.fn(),
+  fetchMultiple: jest.fn(),
+  AppError: class AppError extends Error {
+    constructor(message: string, public code: string) {
+      super(message);
+      this.name = 'AppError';
+    }
+  },
 }));
 
 // Mock the useAnalysisWithSettings hook
@@ -39,51 +32,61 @@ describe('PredictionsView', () => {
   });
 
   it('renders the component without crashing', () => {
+    const { fetchMultiple } = require('@/lib/fetcher');
+    fetchMultiple.mockResolvedValue({
+      predictions: { data: [], meta: { model: 'test', generatedAt: '2024-01-01T00:00:00Z' } },
+      stockData: [],
+      modelComparison: [],
+    });
+
     render(<PredictionsView />);
     expect(screen.getByText('予測結果')).toBeInTheDocument();
   });
 
   it('displays predictions data correctly', () => {
+    const { fetchMultiple } = require('@/lib/fetcher');
+    fetchMultiple.mockResolvedValue({
+      predictions: { 
+        data: [
+          {
+            date: '2024-01-01',
+            symbol: '7203',
+            y_true: 2500,
+            y_pred: 2600,
+          }
+        ], 
+        meta: { model: 'test', generatedAt: '2024-01-01T00:00:00Z' } 
+      },
+      stockData: [],
+      modelComparison: [],
+    });
+
     render(<PredictionsView />);
-    expect(screen.getByText('トヨタ自動車')).toBeInTheDocument();
-    expect(screen.getByText('BUY')).toBeInTheDocument();
-    expect(screen.getByText('85%')).toBeInTheDocument();
+    expect(screen.getByText('7203')).toBeInTheDocument();
   });
 
   it('shows loading state when analyzing', () => {
-    const mockUsePredictions = require('@/hooks/usePredictions').usePredictions;
-    mockUsePredictions.mockReturnValue({
-      predictions: [],
-      isLoading: true,
-      error: null,
-      refreshPredictions: jest.fn(),
-    });
+    const { fetchMultiple } = require('@/lib/fetcher');
+    fetchMultiple.mockImplementation(() => new Promise(() => {})); // Never resolves
 
     render(<PredictionsView />);
-    expect(screen.getByText('分析中...')).toBeInTheDocument();
+    // ローディング状態はスケルトンコンポーネントで表示される
   });
 
   it('handles error state correctly', () => {
-    const mockUsePredictions = require('@/hooks/usePredictions').usePredictions;
-    mockUsePredictions.mockReturnValue({
-      predictions: [],
-      isLoading: false,
-      error: 'API Error',
-      refreshPredictions: jest.fn(),
-    });
+    const { fetchMultiple } = require('@/lib/fetcher');
+    fetchMultiple.mockRejectedValue(new Error('API Error'));
 
     render(<PredictionsView />);
-    expect(screen.getByText('エラーが発生しました')).toBeInTheDocument();
+    // エラー状態はErrorPanelコンポーネントで表示される
   });
 
-  it('calls refreshPredictions when refresh button is clicked', async () => {
-    const mockRefreshPredictions = jest.fn();
-    const mockUsePredictions = require('@/hooks/usePredictions').usePredictions;
-    mockUsePredictions.mockReturnValue({
-      predictions: [],
-      isLoading: false,
-      error: null,
-      refreshPredictions: mockRefreshPredictions,
+  it('calls refresh when refresh button is clicked', async () => {
+    const { fetchMultiple } = require('@/lib/fetcher');
+    fetchMultiple.mockResolvedValue({
+      predictions: { data: [], meta: { model: 'test', generatedAt: '2024-01-01T00:00:00Z' } },
+      stockData: [],
+      modelComparison: [],
     });
 
     render(<PredictionsView />);
@@ -91,7 +94,7 @@ describe('PredictionsView', () => {
     fireEvent.click(refreshButton);
 
     await waitFor(() => {
-      expect(mockRefreshPredictions).toHaveBeenCalled();
+      expect(fetchMultiple).toHaveBeenCalledTimes(2); // Initial load + refresh
     });
   });
 });

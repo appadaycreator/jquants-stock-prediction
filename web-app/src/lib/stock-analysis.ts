@@ -305,7 +305,7 @@ function generateRecommendation(
 /**
  * モック株価データを生成
  */
-function generateMockStockData(symbol: string, startDate: string, endDate: string): StockData[] {
+export function generateMockStockData(symbol: string, startDate: string, endDate: string): StockData[] {
   const data: StockData[] = [];
   const start = new Date(startDate);
   const end = new Date(endDate);
@@ -366,6 +366,11 @@ function generateMockStockData(symbol: string, startDate: string, endDate: strin
  */
 export async function analyzeStock(symbol: string, symbolName?: string): Promise<AnalysisResult | null> {
   try {
+    // 無効なシンボルの場合はnullを返す
+    if (!symbol || symbol.trim() === '') {
+      return null;
+    }
+
     // サブスクリプション期間内の日付を使用（2023-07-10 ~ 2025-07-10）
     const subscriptionEnd = new Date("2025-07-10");
     const today = new Date();
