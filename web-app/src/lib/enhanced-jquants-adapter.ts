@@ -365,6 +365,10 @@ class EnhancedJQuantsAdapter {
    * IndexedDBの初期化（強化版）
    */
   private async initDB(): Promise<void> {
+    if (typeof indexedDB === "undefined") {
+      // SSR/ビルド時などIndexedDB未定義環境ではスキップ
+      return Promise.resolve();
+    }
     return new Promise((resolve, reject) => {
       const request = indexedDB.open(this.DB_NAME, this.DB_VERSION);
       

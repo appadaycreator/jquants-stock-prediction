@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import EnhancedJQuantsAdapter from "@/lib/enhanced-jquants-adapter";
 import StockDetailModal from "@/components/StockDetailModal";
@@ -48,7 +50,7 @@ const ListedDataPage: React.FC = () => {
   const [volumeRange, setVolumeRange] = useState({ min: "", max: "" });
   const [selectedStock, setSelectedStock] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [jquantsAdapter] = useState(() => new EnhancedJQuantsAdapter());
+  const [jquantsAdapter, setJquantsAdapter] = useState<EnhancedJQuantsAdapter | null>(null);
 
   const fetchListedData = useCallback(async () => {
     try {
@@ -64,6 +66,8 @@ const ListedDataPage: React.FC = () => {
       
       // J-Quants APIから最新の銘柄一覧を取得
       try {
+        // アダプタ未初期化ならスキップ（後続のuseEffectで初期化）
+        if (!jquantsAdapter) throw new Error("adapter_not_ready");
         const symbols = await jquantsAdapter.getAllSymbols();
         if (symbols.length > 0) {
           // APIから取得したデータで更新
@@ -98,6 +102,11 @@ const ListedDataPage: React.FC = () => {
       setLoading(false);
     }
   }, [jquantsAdapter]);
+
+  useEffect(() => {
+    // クライアント側でのみIndexedDBを使用するため遅延初期化
+    setJquantsAdapter(new EnhancedJQuantsAdapter());
+  }, []);
 
   useEffect(() => {
     fetchListedData();

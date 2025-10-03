@@ -1,18 +1,18 @@
 "use client";
 
-import { useMemo } from "react";
+export const dynamic = "force-dynamic";
+
+import { Suspense, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import SymbolAnalysisResults from "@/components/SymbolAnalysisResults";
 
-interface AnalysisPageProps {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}
-
-export default function AnalysisPage({ searchParams }: AnalysisPageProps) {
-  const symbolParam = searchParams?.symbol;
+function AnalysisInner() {
+  const sp = useSearchParams();
+  const symbolParam = sp.getAll("symbol");
 
   const selectedSymbols = useMemo(() => {
-    if (!symbolParam) return [] as string[];
-    return Array.isArray(symbolParam) ? symbolParam.filter(Boolean) as string[] : [symbolParam];
+    if (!symbolParam || symbolParam.length === 0) return [] as string[];
+    return symbolParam.filter(Boolean) as string[];
   }, [symbolParam]);
 
   return (
@@ -22,7 +22,7 @@ export default function AnalysisPage({ searchParams }: AnalysisPageProps) {
         <a href="/analysis-history" className="text-sm text-blue-700 underline">分析履歴</a>
       </div>
 
-      {!symbolParam && (
+      {selectedSymbols.length === 0 && (
         <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded">
           銘柄コードが指定されていません。銘柄一覧やダッシュボードから銘柄を選択して詳細分析に遷移してください。
         </div>
@@ -33,6 +33,14 @@ export default function AnalysisPage({ searchParams }: AnalysisPageProps) {
         <SymbolAnalysisResults selectedSymbols={selectedSymbols} />
       </div>
     </div>
+  );
+}
+
+export default function AnalysisPage() {
+  return (
+    <Suspense fallback={<div className="p-4">読み込み中...</div>}>
+      <AnalysisInner />
+    </Suspense>
   );
 }
 
