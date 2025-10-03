@@ -1,0 +1,42 @@
+{
+  "id": "analysis_1759220917354",
+  "type": "full_analysis",
+  "symbols": [
+    "7203.T",
+    "6758.T",
+    "6861.T"
+  ],
+  "timeframe": "1d",
+  "status": "completed",
+  "timestamp": "2025-09-30T08:28:37.354Z",
+  "results": {
+    "totalSymbols": 3,
+    "successfulPredictions": 3,
+    "averageAccuracy": 0.85,
+    "topPerformers": [
+      {
+        "symbol": "7203.T",
+        "predictedReturn": "-0.49",
+        "confidence": "0.97",
+        "recommendation": "buy"
+      },
+      {
+        "symbol": "6758.T",
+        "predictedReturn": "-1.19",
+        "confidence": "0.94",
+        "recommendation": "buy"
+      },
+      {
+        "symbol": "6861.T",
+        "predictedReturn": "-1.51",
+        "confidence": "0.93",
+        "recommendation": "buy"
+      }
+    ],
+    "marketInsights": {
+      "volatility": "medium",
+      "trend": "bullish",
+      "riskLevel": "moderate"
+    }
+  }
+}

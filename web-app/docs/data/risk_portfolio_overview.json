@@ -1,0 +1,14 @@
+{
+  "timestamp": "2024-01-15T09:00:00Z",
+  "account_value": 1000000,
+  "portfolio_value": 1050000,
+  "total_exposure": 950000,
+  "total_unrealized_pnl": 50000,
+  "risk_level": "中程度",
+  "risk_color": "yellow",
+  "risk_score": 6.5,
+  "max_drawdown": -8.2,
+  "var_95": -3.5,
+  "sharpe_ratio": 1.8,
+  "should_reduce_risk": false
+}

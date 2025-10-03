@@ -1,0 +1,9 @@
+{
+  "model_name": "Random Forest",
+  "mae": 21.36381250000039,
+  "rmse": 31.12826261772495,
+  "r2": 0.9994275441935184,
+  "data_points": 56,
+  "train_size": 220,
+  "test_size": 56
+}

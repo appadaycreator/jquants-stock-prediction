@@ -1,11 +1,18 @@
 /** @type {import('next').NextConfig} */
+const repo = 'jquants-stock-prediction';
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig = {
-  trailingSlash: true,
-  images: {
-    unoptimized: true,
+  output: 'export',
+  basePath: isProd ? `/${repo}` : '',
+  assetPrefix: isProd ? `https://appadaycreator.github.io/${repo}/` : '',
+  images: { 
+    unoptimized: true 
   },
-  assetPrefix: process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "",
-  basePath: process.env.NODE_ENV === "production" ? "/jquants-stock-prediction" : "",
+  trailingSlash: true,
+  experimental: { 
+    instrumentationHook: false 
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
