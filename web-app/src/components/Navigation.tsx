@@ -65,6 +65,12 @@ export default function Navigation({
       description: "詳細レポート",
     },
     { 
+      href: "/analysis-history", 
+      label: "分析履歴", 
+      icon: BarChart3,
+      description: "詳細分析の履歴一覧",
+    },
+    { 
       href: "/settings", 
       label: "設定", 
       icon: Settings,

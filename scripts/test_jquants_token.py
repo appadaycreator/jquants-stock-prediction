@@ -15,6 +15,7 @@ from enum import Enum
 
 class TestResult(Enum):
     """テスト結果列挙型"""
+
     SUCCESS = "success"
     FAILURE = "failure"
     TIMEOUT = "timeout"
@@ -25,6 +26,7 @@ class TestResult(Enum):
 @dataclass
 class EndpointConfig:
     """エンドポイント設定クラス"""
+
     name: str
     url: str
     description: str
@@ -34,6 +36,7 @@ class EndpointConfig:
 @dataclass
 class TestResultData:
     """テスト結果データクラス"""
+
     name: str
     url: str
     status_code: int
@@ -49,11 +52,11 @@ class TestResultData:
 
 class JQuantsTokenTester:
     """jQuantsトークンテスタークラス（リファクタリング版）"""
-    
+
     def __init__(self, id_token: str):
         """
         初期化
-        
+
         Args:
             id_token: jQuants IDトークン
         """
@@ -64,7 +67,7 @@ class JQuantsTokenTester:
             "User-Agent": "jQuants-Stock-Prediction/1.0",
         }
         self.endpoints = self._get_default_endpoints()
-    
+
     def _get_default_endpoints(self) -> List[EndpointConfig]:
         """デフォルトエンドポイントの取得"""
         return [
@@ -84,20 +87,18 @@ class JQuantsTokenTester:
                 description="市場の基本情報を取得",
             ),
         ]
-    
+
     def test_single_endpoint(self, endpoint: EndpointConfig) -> TestResultData:
         """単一エンドポイントのテスト"""
         print(f"\n🔍 テスト中: {endpoint.name}")
         print(f"📡 URL: {endpoint.url}")
         print(f"📝 説明: {endpoint.description}")
-        
+
         try:
             response = requests.get(
-                endpoint.url, 
-                headers=self.headers, 
-                timeout=endpoint.timeout
+                endpoint.url, headers=self.headers, timeout=endpoint.timeout
             )
-            
+
             result = TestResultData(
                 name=endpoint.name,
                 url=endpoint.url,
@@ -106,7 +107,7 @@ class JQuantsTokenTester:
                 response_size=len(response.content),
                 headers=dict(response.headers),
             )
-            
+
             if response.status_code == 200:
                 print(f"✅ 成功: HTTP {response.status_code}")
                 self._process_successful_response(response, result)
@@ -114,39 +115,41 @@ class JQuantsTokenTester:
                 print(f"❌ エラー: HTTP {response.status_code}")
                 print(f"📄 レスポンス: {response.text[:200]}...")
                 result.error_message = response.text[:200]
-            
+
             return result
-            
+
         except requests.exceptions.Timeout:
             print(f"⏰ タイムアウト: {endpoint.timeout}秒でタイムアウト")
             return self._create_error_result(endpoint, "TIMEOUT", "Timeout")
-            
+
         except requests.exceptions.RequestException as e:
             print(f"🚫 リクエストエラー: {e}")
             return self._create_error_result(endpoint, "ERROR", str(e))
-            
+
         except Exception as e:
             print(f"💥 予期しないエラー: {e}")
             return self._create_error_result(endpoint, "EXCEPTION", str(e))
-    
-    def _process_successful_response(self, response: requests.Response, result: TestResultData) -> None:
+
+    def _process_successful_response(
+        self, response: requests.Response, result: TestResultData
+    ) -> None:
         """成功レスポンスの処理"""
         try:
             data = response.json()
             if isinstance(data, dict):
                 result.data_keys = list(data.keys())
                 result.data_sample = (
-                    str(data)[:200] + "..."
-                    if len(str(data)) > 200
-                    else str(data)
+                    str(data)[:200] + "..." if len(str(data)) > 200 else str(data)
                 )
             print(f"📊 データキー: {result.data_keys}")
             print(f"📄 データサンプル: {result.data_sample}")
         except json.JSONDecodeError:
             print(f"⚠️ JSON解析エラー: {response.text[:100]}...")
             result.json_error = True
-    
-    def _create_error_result(self, endpoint: EndpointConfig, status_code: str, error: str) -> TestResultData:
+
+    def _create_error_result(
+        self, endpoint: EndpointConfig, status_code: str, error: str
+    ) -> TestResultData:
         """エラー結果の作成"""
         return TestResultData(
             name=endpoint.name,
@@ -157,45 +160,49 @@ class JQuantsTokenTester:
             headers={},
             error=error,
         )
-    
+
     def test_all_endpoints(self) -> List[TestResultData]:
         """全エンドポイントのテスト"""
         results = []
-        
+
         for endpoint in self.endpoints:
             result = self.test_single_endpoint(endpoint)
             results.append(result)
-        
+
         return results
-    
+
     def print_summary(self, results: List[TestResultData]) -> None:
         """結果サマリーの表示"""
         print(f"\n📊 テスト結果サマリー")
         print(f"=" * 50)
-        
+
         successful_tests = [r for r in results if r.success]
         failed_tests = [r for r in results if not r.success]
-        
+
         print(f"✅ 成功: {len(successful_tests)}/{len(results)}")
         print(f"❌ 失敗: {len(failed_tests)}/{len(results)}")
-        
+
         if successful_tests:
             print(f"\n✅ 成功したエンドポイント:")
             for result in successful_tests:
                 print(f"  - {result.name}: HTTP {result.status_code}")
-        
+
         if failed_tests:
             print(f"\n❌ 失敗したエンドポイント:")
             for result in failed_tests:
                 print(f"  - {result.name}: {result.status_code}")
                 if result.error_message:
                     print(f"    エラー: {result.error_message}")
-    
-    def save_results(self, results: List[TestResultData], output_file: str = "jquants_token_test_results.json") -> None:
+
+    def save_results(
+        self,
+        results: List[TestResultData],
+        output_file: str = "jquants_token_test_results.json",
+    ) -> None:
         """結果の保存"""
         successful_tests = [r for r in results if r.success]
         failed_tests = [r for r in results if not r.success]
-        
+
         output_data = {
             "test_time": datetime.now().isoformat(),
             "token_preview": self.id_token[:50] + "...",
@@ -218,34 +225,34 @@ class JQuantsTokenTester:
                 for r in results
             ],
         }
-        
+
         with open(output_file, "w", encoding="utf-8") as f:
             json.dump(output_data, f, ensure_ascii=False, indent=2)
-        
+
         print(f"\n💾 詳細結果を保存: {output_file}")
 
 
 def test_jquants_token() -> bool:
     """jQuants APIトークンのテスト（リファクタリング版）"""
-    
+
     # 環境変数からトークンを取得
     id_token = os.getenv("JQUANTS_ID_TOKEN")
-    
+
     if not id_token:
         print("❌ JQUANTS_ID_TOKEN が設定されていません")
         return False
-    
+
     print(f"🔍 トークンテスト開始: {datetime.now().isoformat()}")
     print(f"📋 使用トークン: {id_token[:50]}...")
-    
+
     # テスターの初期化と実行
     tester = JQuantsTokenTester(id_token)
     results = tester.test_all_endpoints()
-    
+
     # 結果の表示と保存
     tester.print_summary(results)
     tester.save_results(results)
-    
+
     # 成功判定
     successful_tests = [r for r in results if r.success]
     return len(successful_tests) > 0

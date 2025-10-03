@@ -102,6 +102,21 @@ npm run start
 npm run export
 ```
 
+### ✅ ポートフォリオ/ウォッチリストの見方
+
+- **ページ**: `ポートフォリオ` → `/portfolio`, `ウォッチリスト` → `/watchlist`
+  - サイドバー（デスクトップ）/ボトムナビ（モバイル）から遷移可能。
+  - 直接アクセス: `http://localhost:3000/portfolio`, `http://localhost:3000/watchlist`
+- **保存場所（ブラウザ）**:
+  - ポートフォリオ: `localStorage` キー `user_portfolio`
+  - ウォッチリスト: `localStorage` キー `user_watchlist`
+- **追加手順**:
+  - 銘柄詳細から「ポートフォリオに追加」「ウォッチリストに追加」を実行。
+  - 実装: `src/components/StockDetailModal.tsx`（`handleAddToPortfolio`/`handleAddToWatchlist`）。
+- **表示実装**:
+  - `src/app/portfolio/page.tsx` と `src/app/watchlist/page.tsx` がクライアント側で読み込み・表示。
+  - 空の場合は案内と `銘柄一覧を見る` ボタンを表示。
+
 ### 開発ワークフロー
 
 #### データ更新付き開発

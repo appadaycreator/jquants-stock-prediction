@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { NextRequest, NextResponse } from "next/server";
+import fs from "fs";
+import path from "path";
 
 interface ListedStock {
   code: string;
@@ -33,30 +33,30 @@ interface SuggestionItem {
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const query = searchParams.get('q');
-    const limit = parseInt(searchParams.get('limit') || '10');
+    const query = searchParams.get("q");
+    const limit = parseInt(searchParams.get("limit") || "10");
 
     if (!query || query.trim().length < 1) {
       return NextResponse.json({ suggestions: [] });
     }
 
     // データファイルのパス
-    const dataPath = path.join(process.cwd(), 'public', 'data', 'listed_index.json');
+    const dataPath = path.join(process.cwd(), "public", "data", "listed_index.json");
     
     // ファイルが存在するかチェック
     if (!fs.existsSync(dataPath)) {
       return NextResponse.json({ 
-        error: 'データファイルが見つかりません' 
+        error: "データファイルが見つかりません", 
       }, { status: 404 });
     }
 
     // データを読み込み
-    const rawData = fs.readFileSync(dataPath, 'utf8');
+    const rawData = fs.readFileSync(dataPath, "utf8");
     const data: ListedData = JSON.parse(rawData);
 
     if (!data.stocks || !Array.isArray(data.stocks)) {
       return NextResponse.json({ 
-        error: 'データ形式が正しくありません' 
+        error: "データ形式が正しくありません", 
       }, { status: 500 });
     }
 
@@ -70,8 +70,8 @@ export async function GET(request: NextRequest) {
         // 全角英字を半角に変換
         .replace(/[Ａ-Ｚａ-ｚ]/g, (match) => String.fromCharCode(match.charCodeAt(0) - 0xFEE0))
         // 全角記号を半角に変換
-        .replace(/[（）]/g, (match) => match === '（' ? '(' : ')')
-        .replace(/[　]/g, ' '); // 全角スペースを半角に変換
+        .replace(/[（）]/g, (match) => match === "（" ? "(" : ")")
+        .replace(/[　]/g, " "); // 全角スペースを半角に変換
     };
 
     const normalizedQuery = normalizeText(query);
@@ -90,7 +90,7 @@ export async function GET(request: NextRequest) {
         name: stock.name,
         sector: stock.sector,
         market: stock.market,
-        displayText: `${stock.name} (${stock.code})`
+        displayText: `${stock.name} (${stock.code})`,
       }))
       .slice(0, limit);
 
@@ -110,19 +110,19 @@ export async function GET(request: NextRequest) {
       if (!aNameMatch && bNameMatch && !aCodeMatch && !bCodeMatch) return 1;
       
       // 同じ条件の場合は名前順でソート
-      return a.name.localeCompare(b.name, 'ja');
+      return a.name.localeCompare(b.name, "ja");
     });
 
     return NextResponse.json({ 
       suggestions,
       total: suggestions.length,
-      query: query
+      query: query,
     });
 
   } catch (error) {
-    console.error('Suggestions API error:', error);
+    console.error("Suggestions API error:", error);
     return NextResponse.json({ 
-      error: 'サジェッションの取得に失敗しました' 
+      error: "サジェッションの取得に失敗しました", 
     }, { status: 500 });
   }
 }

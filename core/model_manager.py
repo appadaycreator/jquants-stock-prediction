@@ -113,7 +113,7 @@ class ModelManager:
             results = self._train_and_evaluate_models(
                 X_train, X_val, X_test, y_train, y_val, y_test
             )
-            
+
             if results:
                 best_result = self._select_best_model(results)
                 return self._create_comparison_result(best_result, results)
@@ -143,7 +143,7 @@ class ModelManager:
     ) -> List[Dict]:
         """モデルの学習と評価"""
         results = []
-        
+
         for model_name in self.model_definitions.keys():
             try:
                 model = self.train_model(model_name, X_train, y_train)
@@ -154,14 +154,14 @@ class ModelManager:
                 results.append(evaluation)
             except Exception as e:
                 if self.logger:
-                    self.logger.log_warning(
-                        f"モデル {model_name} の学習に失敗: {e}"
-                    )
+                    self.logger.log_warning(f"モデル {model_name} の学習に失敗: {e}")
                 continue
-        
+
         return results
 
-    def _create_comparison_result(self, best_result: Dict, results: List[Dict]) -> Dict[str, Any]:
+    def _create_comparison_result(
+        self, best_result: Dict, results: List[Dict]
+    ) -> Dict[str, Any]:
         """比較結果の作成"""
         return {
             "best_model": best_result["model_name"],

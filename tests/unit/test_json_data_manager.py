@@ -279,7 +279,7 @@ class TestJSONDataManager:
         """JSON保存エラーハンドリングテスト"""
         # 無効なパスでエラーを発生させる
         invalid_file = Path("/invalid/path/that/does/not/exist.json")
-        
+
         result = self.manager._save_json(invalid_file, {"test": "data"})
         assert result is False
 
@@ -288,7 +288,7 @@ class TestJSONDataManager:
         invalid_json_file = self.manager.data_dir / "invalid.json"
         with open(invalid_json_file, "w") as f:
             f.write("invalid json content")
-        
+
         result = self.manager._load_json(invalid_json_file, "default_value")
         assert result == "default_value"
 
@@ -297,7 +297,7 @@ class TestJSONDataManager:
         # 循環参照を含むデータでエラーを発生させる
         circular_data = {}
         circular_data["self"] = circular_data
-        
+
         result = self.manager._calculate_hash(circular_data)
         # エラーが発生してもハッシュ値は返される
         assert isinstance(result, str)
@@ -316,7 +316,7 @@ class TestJSONDataManager:
                 "volume": 1000,
             }
         ]
-        
+
         result = self.manager._normalize_stock_data(invalid_data)
         # 無効なデータは除外される
         assert len(result) == 0
@@ -330,7 +330,7 @@ class TestJSONDataManager:
                 # 必須フィールドが不足
             }
         ]
-        
+
         result = self.manager._normalize_stock_data(incomplete_data)
         # 必須フィールド不足のデータは除外される
         assert len(result) == 0
@@ -356,7 +356,7 @@ class TestJSONDataManager:
                 "low": 100.0,
                 "close": 110.0,
                 "volume": 1200,
-            }
+            },
         ]
         self.manager.save_stock_data("1234", test_data)
 
@@ -386,7 +386,7 @@ class TestJSONDataManager:
                 "low": 100.0,
                 "close": 110.0,
                 "volume": 1200,
-            }
+            },
         ]
         self.manager.save_stock_data("1234", test_data)
 
@@ -423,7 +423,7 @@ class TestJSONDataManager:
         # 無効なパスでエラーを発生させる
         invalid_path = Path("/invalid/path/that/does/not/exist.json")
         test_data = {"test": "data"}
-        
+
         result = self.manager._save_json(invalid_path, test_data)
         assert result is False
 
@@ -433,7 +433,7 @@ class TestJSONDataManager:
         invalid_json_file = self.manager.data_dir / "invalid.json"
         with open(invalid_json_file, "w") as f:
             f.write("invalid json content")
-        
+
         result = self.manager._load_json(invalid_json_file, "default")
         assert result == "default"
 
@@ -442,7 +442,7 @@ class TestJSONDataManager:
         # 循環参照を含むデータでエラーを発生させる
         circular_data = {}
         circular_data["self"] = circular_data
-        
+
         result = self.manager._calculate_hash(circular_data)
         # エラーが発生してもハッシュ値は返される
         assert isinstance(result, str)
@@ -453,7 +453,7 @@ class TestJSONDataManager:
         # ロガーを無効にしてエラーを発生させる
         self.manager.logger = None
         test_data = [{"date": "2024-01-01", "close": 100.0}]
-        
+
         result = self.manager.save_stock_data("1234", test_data)
         assert result is True
 
@@ -467,10 +467,10 @@ class TestJSONDataManager:
         test_data = [
             {"date": "2024-01-01", "close": 100.0},
             {"date": "2024-01-02", "close": 110.0},
-            {"date": "2024-01-03", "close": 120.0}
+            {"date": "2024-01-03", "close": 120.0},
         ]
         self.manager.save_stock_data("1234", test_data)
-        
+
         # 日付範囲外のデータを取得
         result = self.manager.get_stock_data("1234", "2024-01-05", "2024-01-10")
         assert result == []
@@ -484,7 +484,7 @@ class TestJSONDataManager:
         """制限0での最新データ取得テスト"""
         test_data = [{"date": "2024-01-01", "close": 100.0}]
         self.manager.save_stock_data("1234", test_data)
-        
+
         result = self.manager.get_latest_data("1234", 0)
         assert result == []
 
@@ -514,6 +514,7 @@ class TestJSONDataManager:
         """例外発生時のメタデータ取得テスト"""
         # データディレクトリを削除してエラーを発生させる
         import shutil
+
         shutil.rmtree(self.manager.data_dir)
 
         metadata = self.manager.get_metadata()
@@ -535,12 +536,12 @@ class TestJSONDataManager:
                 "high": 110.0,
                 "low": 95.0,
                 "close": 105.0,
-                "volume": 1000
+                "volume": 1000,
             }
         ]
         result = self.manager.save_stock_data("1234", test_data, "test_source")
         assert result is True
-        
+
         # 追加されたソースを確認
         metadata = self.manager.get_metadata()
         sources = metadata.get("data_sources", {})
@@ -550,9 +551,20 @@ class TestJSONDataManager:
         """例外発生時の株価データ保存テスト"""
         # データディレクトリを削除してエラーを発生させる
         import shutil
+
         shutil.rmtree(self.manager.data_dir)
 
-        test_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 95.0, "close": 105.0, "volume": 1000}]
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
         result = self.manager.save_stock_data("1234", test_data)
         assert result is False
 
@@ -572,12 +584,12 @@ class TestJSONDataManager:
                 "high": 110.0,
                 "low": 95.0,
                 "close": 105.0,
-                "volume": 1000
+                "volume": 1000,
             }
         ]
         result = self.manager.save_stock_data("1234", test_data)
         assert result is True
-        
+
         # 更新履歴を確認
         metadata = self.manager.get_metadata()
         history = metadata.get("update_history", [])
@@ -587,9 +599,20 @@ class TestJSONDataManager:
         """例外発生時の株価データ保存で更新記録作成テスト"""
         # データディレクトリを削除してエラーを発生させる
         import shutil
+
         shutil.rmtree(self.manager.data_dir)
 
-        test_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 95.0, "close": 105.0, "volume": 1000}]
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
         result = self.manager.save_stock_data("1234", test_data)
         assert result is False
 
@@ -603,10 +626,10 @@ class TestJSONDataManager:
                 "high": 110.0,
                 "low": 95.0,
                 "close": 105.0,
-                "volume": "1000"  # 文字列
+                "volume": "1000",  # 文字列
             }
         ]
-        
+
         normalized = self.manager._normalize_stock_data(raw_data)
         assert len(normalized) == 1
         assert normalized[0]["open"] == 100.0
@@ -622,7 +645,7 @@ class TestJSONDataManager:
                 "high": 110.0,
                 "low": 95.0,
                 "close": 105.0,
-                "volume": 1000
+                "volume": 1000,
             }
         ]
 
@@ -647,7 +670,7 @@ class TestJSONDataManager:
         """例外発生時の正規化テスト"""
         # 無効なデータ型でエラーを発生させる
         invalid_data = "not a list"
-        
+
         normalized = self.manager._normalize_stock_data(invalid_data)
         assert normalized == []
 
@@ -655,10 +678,10 @@ class TestJSONDataManager:
         """データ統計取得テスト"""
         test_data = [
             {"date": "2024-01-01", "close": 100.0},
-            {"date": "2024-01-02", "close": 110.0}
+            {"date": "2024-01-02", "close": 110.0},
         ]
         self.manager.save_stock_data("1234", test_data)
-        
+
         stats = self.manager.get_data_statistics()
         assert "total_symbols" in stats
         assert "total_records" in stats
@@ -668,6 +691,7 @@ class TestJSONDataManager:
         """例外発生時のデータ統計取得テスト"""
         # データディレクトリを削除してエラーを発生させる
         import shutil
+
         shutil.rmtree(self.manager.data_dir)
 
         stats = self.manager.get_data_statistics()
@@ -675,7 +699,17 @@ class TestJSONDataManager:
 
     def test_export_data(self):
         """データエクスポートテスト"""
-        test_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 95.0, "close": 105.0, "volume": 1000}]
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
         self.manager.save_stock_data("1234", test_data)
 
         export_path = self.manager.data_dir / "export.json"
@@ -693,9 +727,19 @@ class TestJSONDataManager:
     def test_export_data_file_creation(self):
         """データエクスポートファイル作成テスト"""
         # エクスポートファイルを作成
-        test_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 95.0, "close": 105.0, "volume": 1000}]
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
         self.manager.save_stock_data("1234", test_data)
-        
+
         export_path = self.manager.data_dir / "import.json"
         result = self.manager.export_data("1234", str(export_path))
         assert result is True
@@ -717,18 +761,38 @@ class TestJSONDataManager:
     def test_get_all_symbols(self):
         """全銘柄コード取得テスト"""
         # テストデータを保存
-        test_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 95.0, "close": 105.0, "volume": 1000}]
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
         self.manager.save_stock_data("1234", test_data)
-        
+
         symbols = self.manager.get_all_symbols()
         assert "1234" in symbols
 
     def test_get_incremental_data(self):
         """差分データ取得テスト"""
         # テストデータを保存
-        test_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 95.0, "close": 105.0, "volume": 1000}]
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
         self.manager.save_stock_data("1234", test_data)
-        
+
         incremental = self.manager.get_incremental_data("1234")
         assert "is_full_update" in incremental
         assert "data" in incremental
@@ -736,27 +800,57 @@ class TestJSONDataManager:
     def test_get_diff_log(self):
         """差分ログ取得テスト"""
         # テストデータを保存して差分ログを生成
-        test_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 95.0, "close": 105.0, "volume": 1000}]
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
         self.manager.save_stock_data("1234", test_data)
-        
+
         diff_log = self.manager.get_diff_log()
         assert isinstance(diff_log, list)
 
     def test_get_diff_log_with_symbol(self):
         """特定銘柄の差分ログ取得テスト"""
         # テストデータを保存して差分ログを生成
-        test_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 95.0, "close": 105.0, "volume": 1000}]
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
         self.manager.save_stock_data("1234", test_data)
-        
+
         diff_log = self.manager.get_diff_log("1234")
         assert isinstance(diff_log, list)
 
     def test_get_diff_log_with_limit(self):
         """制限付き差分ログ取得テスト"""
         # テストデータを保存して差分ログを生成
-        test_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 95.0, "close": 105.0, "volume": 1000}]
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
         self.manager.save_stock_data("1234", test_data)
-        
+
         diff_log = self.manager.get_diff_log(limit=5)
         assert isinstance(diff_log, list)
         assert len(diff_log) <= 5
@@ -766,7 +860,7 @@ class TestJSONDataManager:
         # 無効なデータでハッシュ計算をテスト
         invalid_data = {"circular": None}
         invalid_data["circular"] = invalid_data  # 循環参照
-        
+
         hash_value = self.manager._calculate_hash(invalid_data)
         assert isinstance(hash_value, str)
         assert len(hash_value) > 0
@@ -784,7 +878,7 @@ class TestJSONDataManager:
         invalid_file = self.manager.data_dir / "invalid.json"
         with open(invalid_file, "w") as f:
             f.write("invalid json content")
-        
+
         result = self.manager._load_json(invalid_file, {"default": "value"})
         assert result == {"default": "value"}
 
@@ -802,7 +896,7 @@ class TestJSONDataManager:
         """新規データでの差分計算テスト"""
         old_data = []
         new_data = [{"date": "2024-01-01", "close": 100.0}]
-        
+
         diff = self.manager._calculate_diff(old_data, new_data)
         assert diff["added_count"] == 1
         assert diff["updated_count"] == 0
@@ -812,7 +906,7 @@ class TestJSONDataManager:
         """更新データでの差分計算テスト"""
         old_data = [{"date": "2024-01-01", "close": 100.0}]
         new_data = [{"date": "2024-01-01", "close": 110.0}]
-        
+
         diff = self.manager._calculate_diff(old_data, new_data)
         assert diff["added_count"] == 0
         assert diff["updated_count"] == 1
@@ -822,7 +916,7 @@ class TestJSONDataManager:
         """削除データでの差分計算テスト"""
         old_data = [{"date": "2024-01-01", "close": 100.0}]
         new_data = []
-        
+
         diff = self.manager._calculate_diff(old_data, new_data)
         assert diff["added_count"] == 0
         assert diff["updated_count"] == 0
@@ -838,10 +932,10 @@ class TestJSONDataManager:
                 "high": 110.0,
                 "low": 95.0,
                 "close": 105.0,
-                "volume": None
+                "volume": None,
             }
         ]
-        
+
         normalized = self.manager._normalize_stock_data(data_with_none)
         assert len(normalized) == 1
         assert normalized[0]["open"] == 0.0
@@ -857,10 +951,10 @@ class TestJSONDataManager:
                 "high": "110.0",
                 "low": "95.0",
                 "close": "105.0",
-                "volume": "1000"
+                "volume": "1000",
             }
         ]
-        
+
         normalized = self.manager._normalize_stock_data(data_with_strings)
         assert len(normalized) == 1
         assert normalized[0]["open"] == 100.5
@@ -873,9 +967,19 @@ class TestJSONDataManager:
 
     def test_get_latest_data_with_zero_days(self):
         """0日での最新データ取得テスト"""
-        test_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 95.0, "close": 105.0, "volume": 1000}]
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
         self.manager.save_stock_data("1234", test_data)
-        
+
         data = self.manager.get_latest_data("1234", days=0)
         assert data == []
 
@@ -887,11 +991,27 @@ class TestJSONDataManager:
     def test_get_stock_data_with_date_filter(self):
         """日付フィルターでの株価データ取得テスト"""
         test_data = [
-            {"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 95.0, "close": 105.0, "volume": 1000},
-            {"date": "2024-01-02", "code": "1234", "open": 105.0, "high": 115.0, "low": 100.0, "close": 110.0, "volume": 1200}
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            },
+            {
+                "date": "2024-01-02",
+                "code": "1234",
+                "open": 105.0,
+                "high": 115.0,
+                "low": 100.0,
+                "close": 110.0,
+                "volume": 1200,
+            },
         ]
         self.manager.save_stock_data("1234", test_data)
-        
+
         data = self.manager.get_stock_data("1234", start_date="2024-01-02")
         assert len(data) == 1
         assert data[0]["date"] == "2024-01-02"
@@ -899,11 +1019,27 @@ class TestJSONDataManager:
     def test_get_stock_data_with_end_date_filter(self):
         """終了日フィルターでの株価データ取得テスト"""
         test_data = [
-            {"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 95.0, "close": 105.0, "volume": 1000},
-            {"date": "2024-01-02", "code": "1234", "open": 105.0, "high": 115.0, "low": 100.0, "close": 110.0, "volume": 1200}
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            },
+            {
+                "date": "2024-01-02",
+                "code": "1234",
+                "open": 105.0,
+                "high": 115.0,
+                "low": 100.0,
+                "close": 110.0,
+                "volume": 1200,
+            },
         ]
         self.manager.save_stock_data("1234", test_data)
-        
+
         data = self.manager.get_stock_data("1234", end_date="2024-01-01")
         assert len(data) == 1
         assert data[0]["date"] == "2024-01-01"

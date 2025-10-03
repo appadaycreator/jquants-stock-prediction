@@ -54,7 +54,7 @@ class ConfigManager:
             "prediction": self._get_prediction_config(),
             "performance_optimization": self._get_performance_config(),
         }
-    
+
     def _get_system_config(self) -> Dict[str, Any]:
         """システム設定の取得"""
         return {
@@ -63,7 +63,7 @@ class ConfigManager:
             "environment": "production",
             "debug": False,
         }
-    
+
     def _get_logging_config(self) -> Dict[str, Any]:
         """ログ設定の取得"""
         return {
@@ -73,17 +73,15 @@ class ConfigManager:
             "max_file_size": "10MB",
             "backup_count": 5,
         }
-    
+
     def _get_security_config(self) -> Dict[str, Any]:
         """セキュリティ設定の取得"""
         return {
-            "sensitive_keys": [
-                "password", "token", "key", "secret", "auth", "email"
-            ],
+            "sensitive_keys": ["password", "token", "key", "secret", "auth", "email"],
             "mask_sensitive_data": True,
             "encryption_enabled": False,
         }
-    
+
     def _get_error_handling_config(self) -> Dict[str, Any]:
         """エラーハンドリング設定の取得"""
         return {
@@ -92,14 +90,18 @@ class ConfigManager:
             "auto_recovery": True,
             "max_recovery_attempts": 3,
         }
-    
+
     def _get_prediction_config(self) -> Dict[str, Any]:
         """予測設定の取得"""
         return {
             "input_file": "processed_stock_data.csv",
             "features": [
-                "SMA_5", "SMA_25", "SMA_50",
-                "Close_lag_1", "Close_lag_5", "Close_lag_25"
+                "SMA_5",
+                "SMA_25",
+                "SMA_50",
+                "Close_lag_1",
+                "Close_lag_5",
+                "Close_lag_25",
             ],
             "target": "Close",
             "test_size": 0.2,
@@ -112,7 +114,7 @@ class ConfigManager:
             "overfitting_detection": True,
             "max_r2_score": 0.95,
         }
-    
+
     def _get_performance_config(self) -> Dict[str, Any]:
         """パフォーマンス設定の取得"""
         return {
@@ -178,7 +180,7 @@ class ConfigManager:
         try:
             # 出力ディレクトリの作成
             os.makedirs(os.path.dirname(file_path), exist_ok=True)
-            
+
             with open(file_path, "w", encoding="utf-8") as f:
                 yaml.dump(self.config, f, default_flow_style=False, allow_unicode=True)
         except Exception as e:
@@ -234,7 +236,11 @@ class ConfigManager:
     def restore_from_backup(self, backup_data: Dict[str, Any]) -> bool:
         """バックアップからの復元"""
         try:
-            if backup_data and isinstance(backup_data, dict) and "config" in backup_data:
+            if (
+                backup_data
+                and isinstance(backup_data, dict)
+                and "config" in backup_data
+            ):
                 self.config = backup_data["config"]
                 return True
             return False
@@ -246,7 +252,7 @@ class ConfigManager:
         try:
             keys = key.split(".")
             value = self.config
-            
+
             for k in keys:
                 if isinstance(value, dict) and k in value:
                     value = value[k]
@@ -261,12 +267,12 @@ class ConfigManager:
         try:
             keys = key.split(".")
             config = self.config
-            
+
             for k in keys[:-1]:
                 if k not in config:
                     config[k] = {}
                 config = config[k]
-            
+
             config[keys[-1]] = value
         except Exception as e:
             raise

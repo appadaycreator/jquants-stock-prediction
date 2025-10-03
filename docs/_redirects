@@ -6,6 +6,7 @@
 
 # 各ページのリダイレクト（相対パス対応）
 /reports /reports/index.html 200
+/analysis-history /analysis-history/index.html 200
 /settings /settings/index.html 200
 /usage /usage/index.html 200
 /risk /risk/index.html 200

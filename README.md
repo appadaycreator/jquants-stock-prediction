@@ -1216,6 +1216,34 @@ npm run build
 npm run start
 ```
 
+### 4. ポートフォリオ/ウォッチリストの見方（追加）
+
+- **閲覧ページ**: `ポートフォリオ` は `/portfolio`、`ウォッチリスト` は `/watchlist` に用意済みです。
+  - サイドバーのナビ（`web-app/src/components/desktop/Sidebar.tsx`）やモバイル下部ナビ（`web-app/src/components/mobile/BottomNav.tsx`）から遷移できます。
+  - 直接URLでもアクセス可: `http://localhost:3000/portfolio`, `http://localhost:3000/watchlist`。
+- **データの保存先**: ブラウザのローカルストレージ。
+  - ポートフォリオ: `user_portfolio`
+  - ウォッチリスト: `user_watchlist`
+- **追加方法**: 銘柄詳細モーダルから「ポートフォリオに追加」「ウォッチリストに追加」。
+  - 実装参照: `web-app/src/components/StockDetailModal.tsx`
+- **ページ実装**: 以下のClient Componentがローカルストレージから読み込み表示します。
+  - `web-app/src/app/portfolio/page.tsx`
+  - `web-app/src/app/watchlist/page.tsx`
+- **空のとき**: 空の場合はガイダンスと「銘柄一覧を見る」ボタンが表示されます。
+
+### 5. 分析履歴（新規）
+
+- **閲覧ページ**: `/analysis-history` で「詳細分析」の履歴を一覧表示します。
+  - ナビゲーション（`web-app/src/components/Navigation.tsx`）の「分析履歴」から遷移できます。
+  - 直接URLでもアクセス可: `http://localhost:3000/analysis-history`。
+- **データの保存先**: ブラウザのローカルストレージ `analysis_history`。
+  - 生成元: 銘柄の `詳細分析を実行` 実行時に `StockDetailModal.tsx` が追記します。
+- **主な表示項目**: 銘柄名/コード、分析日時、推奨（BUY/SELL/HOLD）、信頼度、リスク（低/中/高）、理由一覧。
+- **便利機能**:
+  - 検索（銘柄コード/名称）・リスクフィルタ
+  - 履歴全消去ボタン（ローカルのみ）
+  - 銘柄詳細ページへのリンク（新規タブ）
+
 ### 3. 主要機能
 
 #### ダッシュボード

@@ -12,7 +12,7 @@ import {
   Trash2,
   RefreshCw,
   AlertTriangle,
-  Info
+  Info,
 } from "lucide-react";
 
 interface PortfolioItem {
@@ -39,11 +39,11 @@ export default function PortfolioPage() {
 
   const loadPortfolio = () => {
     try {
-      const portfolioData = JSON.parse(localStorage.getItem('user_portfolio') || '[]');
+      const portfolioData = JSON.parse(localStorage.getItem("user_portfolio") || "[]");
       setPortfolio(portfolioData);
     } catch (error) {
-      console.error('ポートフォリオ読み込みエラー:', error);
-      setMessage('ポートフォリオの読み込みに失敗しました');
+      console.error("ポートフォリオ読み込みエラー:", error);
+      setMessage("ポートフォリオの読み込みに失敗しました");
     } finally {
       setLoading(false);
     }
@@ -53,11 +53,11 @@ export default function PortfolioPage() {
     try {
       const updatedPortfolio = portfolio.filter(item => item.symbol !== symbol);
       setPortfolio(updatedPortfolio);
-      localStorage.setItem('user_portfolio', JSON.stringify(updatedPortfolio));
+      localStorage.setItem("user_portfolio", JSON.stringify(updatedPortfolio));
       setMessage(`${symbol} をポートフォリオから削除しました`);
     } catch (error) {
-      console.error('ポートフォリオ削除エラー:', error);
-      setMessage('ポートフォリオからの削除に失敗しました');
+      console.error("ポートフォリオ削除エラー:", error);
+      setMessage("ポートフォリオからの削除に失敗しました");
     }
   };
 
@@ -121,9 +121,9 @@ export default function PortfolioPage() {
       {/* メッセージ */}
       {message && (
         <div className={`p-4 rounded-lg ${
-          message.includes('失敗') 
-            ? 'bg-red-100 text-red-800 border border-red-200' 
-            : 'bg-green-100 text-green-800 border border-green-200'
+          message.includes("失敗") 
+            ? "bg-red-100 text-red-800 border border-red-200" 
+            : "bg-green-100 text-green-800 border border-green-200"
         }`}>
           {message}
         </div>
@@ -187,7 +187,7 @@ export default function PortfolioPage() {
               <h3 className="text-lg font-semibold text-gray-900 mb-2">ポートフォリオが空です</h3>
               <p className="text-gray-600 mb-4">銘柄詳細ページから銘柄をポートフォリオに追加してください</p>
               <Button 
-                onClick={() => window.location.href = '/listed-data'}
+                onClick={() => window.location.href = "/listed-data"}
                 className="bg-blue-600 text-white hover:bg-blue-700"
               >
                 銘柄一覧を見る

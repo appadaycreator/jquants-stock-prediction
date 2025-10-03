@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from "react";
 
 interface SuggestionItem {
   code: string;
@@ -24,7 +24,7 @@ export function useStockSuggestions(options: UseStockSuggestionsOptions = {}) {
   const {
     debounceMs = 300,
     minQueryLength = 1,
-    maxSuggestions = 10
+    maxSuggestions = 10,
   } = options;
 
   const [suggestions, setSuggestions] = useState<SuggestionItem[]>([]);
@@ -56,7 +56,7 @@ export function useStockSuggestions(options: UseStockSuggestionsOptions = {}) {
     try {
       const response = await fetch(
         `/api/listed-data/suggestions?q=${encodeURIComponent(query)}&limit=${maxSuggestions}`,
-        { signal: abortControllerRef.current.signal }
+        { signal: abortControllerRef.current.signal },
       );
 
       if (!response.ok) {
@@ -67,13 +67,13 @@ export function useStockSuggestions(options: UseStockSuggestionsOptions = {}) {
       setSuggestions(data.suggestions);
       setShowSuggestions(true);
     } catch (err) {
-      if (err instanceof Error && err.name === 'AbortError') {
+      if (err instanceof Error && err.name === "AbortError") {
         // リクエストがキャンセルされた場合は何もしない
         return;
       }
       
-      console.error('Suggestions fetch error:', err);
-      setError('サジェッションの取得に失敗しました');
+      console.error("Suggestions fetch error:", err);
+      setError("サジェッションの取得に失敗しました");
       setSuggestions([]);
       setShowSuggestions(false);
     } finally {
@@ -128,6 +128,6 @@ export function useStockSuggestions(options: UseStockSuggestionsOptions = {}) {
     handleQueryChange,
     clearSuggestions,
     hideSuggestions,
-    fetchSuggestions
+    fetchSuggestions,
   };
 }

@@ -53,10 +53,10 @@ class JSONDataManager:
         """JSONファイルの保存（最適化版）"""
         try:
             # 一時ファイルに保存してからリネーム（アトミック操作）
-            temp_path = file_path.with_suffix('.tmp')
+            temp_path = file_path.with_suffix(".tmp")
             with open(temp_path, "w", encoding="utf-8") as f:
                 # メモリ効率を考慮したJSON保存
-                json.dump(data, f, ensure_ascii=False, indent=2, separators=(',', ':'))
+                json.dump(data, f, ensure_ascii=False, indent=2, separators=(",", ":"))
             temp_path.replace(file_path)
             return True
         except Exception as e:
@@ -84,7 +84,9 @@ class JSONDataManager:
         """データのハッシュ値を計算（最適化版）"""
         try:
             # メモリ効率を考慮したハッシュ計算
-            data_str = json.dumps(data, sort_keys=True, ensure_ascii=False, separators=(',', ':'))
+            data_str = json.dumps(
+                data, sort_keys=True, ensure_ascii=False, separators=(",", ":")
+            )
             return hashlib.md5(data_str.encode("utf-8")).hexdigest()
         except Exception as e:
             if self.logger:
@@ -153,7 +155,7 @@ class JSONDataManager:
 
                 # データ型の変換と検証
                 normalized_item = self._convert_data_types(item)
-                
+
                 # 追加フィールドがあれば保持
                 normalized_item.update(self._extract_additional_fields(item))
 
@@ -167,7 +169,7 @@ class JSONDataManager:
         normalized.sort(key=lambda x: x["date"])
 
         return normalized
-    
+
     def _validate_required_fields(self, item: Dict[str, Any]) -> bool:
         """必須フィールドの検証"""
         required_fields = ["date", "code", "open", "high", "low", "close", "volume"]
@@ -176,7 +178,7 @@ class JSONDataManager:
                 self.logger.warning(f"必須フィールドが不足: {item}")
             return False
         return True
-    
+
     def _convert_data_types(self, item: Dict[str, Any]) -> Dict[str, Any]:
         """データ型の変換"""
         return {
@@ -188,7 +190,7 @@ class JSONDataManager:
             "close": float(item["close"]) if item["close"] is not None else 0.0,
             "volume": int(item["volume"]) if item["volume"] is not None else 0,
         }
-    
+
     def _extract_additional_fields(self, item: Dict[str, Any]) -> Dict[str, Any]:
         """追加フィールドの抽出"""
         additional_fields = {}
@@ -292,11 +294,11 @@ class JSONDataManager:
     def save_data(self, filename: str, data: List[Dict[str, Any]]) -> bool:
         """
         データの保存
-        
+
         Args:
             filename: 保存先ファイル名
             data: 保存するデータ
-            
+
         Returns:
             bool: 保存成功フラグ
         """
@@ -485,7 +487,8 @@ class JSONDataManager:
             for symbol, data in stock_data.items():
                 if isinstance(data, list):
                     cleaned_symbol_data = [
-                        item for item in data 
+                        item
+                        for item in data
                         if isinstance(item, dict) and item.get("date", "") >= cutoff_str
                     ]
                     if cleaned_symbol_data:
@@ -526,11 +529,11 @@ class JSONDataManager:
         """
         try:
             data = self.get_stock_data(symbol)
-            
+
             if not data:
                 self.logger.warning(f"エクスポート対象データがありません: {symbol}")
                 return False
-                
+
             metadata = self.get_metadata()
 
             export_data = {
@@ -542,6 +545,7 @@ class JSONDataManager:
 
             # 出力ディレクトリの作成
             import os
+
             os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
             with open(output_file, "w", encoding="utf-8") as f:

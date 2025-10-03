@@ -77,15 +77,15 @@ export interface MarketAnalysis {
  */
 export async function getAllStocks(): Promise<StockInfo[]> {
   try {
-    const response = await fetch('/data/listed_index.json');
+    const response = await fetch("/data/listed_index.json");
     if (!response.ok) {
-      throw new Error('銘柄データの取得に失敗しました');
+      throw new Error("銘柄データの取得に失敗しました");
     }
     
     const data = await response.json();
     return data.stocks || [];
   } catch (error) {
-    console.error('全銘柄データの取得エラー:', error);
+    console.error("全銘柄データの取得エラー:", error);
     return [];
   }
 }
@@ -134,9 +134,9 @@ export function calculateStockScore(stock: StockInfo, sectorPerformance: Record<
 
   // 市場区分スコア (20%)
   const marketScore = {
-    'プライム': 80,
-    'スタンダード': 60,
-    'グロース': 40,
+    "プライム": 80,
+    "スタンダード": 60,
+    "グロース": 40,
   }[stock.market] || 50;
   score += marketScore * 0.2;
 
@@ -213,7 +213,7 @@ export function analyzeStock(stock: StockInfo, sectorPerformance: Record<string,
   const score = calculateStockScore(stock, sectorPerformance);
   const { recommendation, confidence, reasons, riskLevel } = generateRecommendation(
     score,
-    stock.changePercent || 0
+    stock.changePercent || 0,
   );
 
   // テクニカル指標の生成（実際の運用では実データを使用）
@@ -313,7 +313,7 @@ export async function analyzeMarket(): Promise<MarketAnalysis> {
  */
 export async function getRecommendedStocks(
   limit: number = 20,
-  recommendation?: AnalysisResult["recommendation"]
+  recommendation?: AnalysisResult["recommendation"],
 ): Promise<AnalysisResult[]> {
   const stocks = await getAllStocks();
   const sectorPerformance = analyzeSectorPerformance(stocks);

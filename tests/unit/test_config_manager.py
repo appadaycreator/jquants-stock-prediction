@@ -182,7 +182,9 @@ class TestConfigManager:
         """設定ファイル読み込みエラーのテスト"""
         with patch("os.path.exists", return_value=True):
             with patch("builtins.open", mock_open(read_data="invalid yaml")):
-                with patch.object(ConfigManager, "_create_default_config") as mock_create:
+                with patch.object(
+                    ConfigManager, "_create_default_config"
+                ) as mock_create:
                     manager = ConfigManager(config_file="test.yaml")
                     mock_create.assert_called_once()
 
@@ -219,11 +221,14 @@ class TestConfigManager:
     def test_validate_config_exception(self):
         """設定検証の例外処理テスト"""
         manager = ConfigManager()
-        with patch.object(manager, 'config', side_effect=Exception("Test error")):
+        with patch.object(manager, "config", side_effect=Exception("Test error")):
             result = manager.validate_config()
             assert result["is_valid"] is False
             # 実際のエラーメッセージをチェック
-            assert "api_key" in result["issues"][0] or "設定検証エラー" in result["issues"][0]
+            assert (
+                "api_key" in result["issues"][0]
+                or "設定検証エラー" in result["issues"][0]
+            )
 
     def test_save_config_exception(self):
         """設定保存の例外処理テスト"""
@@ -297,7 +302,7 @@ class TestConfigManager:
         """環境設定が見つからない場合のテスト"""
         config = {
             "system": {"environment": "nonexistent"},
-            "environments": {"test": {"system": {"debug": True}}}
+            "environments": {"test": {"system": {"debug": True}}},
         }
         manager = ConfigManager(config=config)
         manager._apply_environment_config()

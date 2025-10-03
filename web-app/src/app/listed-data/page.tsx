@@ -142,8 +142,8 @@ const ListedDataPage: React.FC = () => {
         // 全角英字を半角に変換
         .replace(/[Ａ-Ｚａ-ｚ]/g, (match) => String.fromCharCode(match.charCodeAt(0) - 0xFEE0))
         // 全角記号を半角に変換
-        .replace(/[（）]/g, (match) => match === '（' ? '(' : ')')
-        .replace(/[　]/g, ' '); // 全角スペースを半角に変換
+        .replace(/[（）]/g, (match) => match === "（" ? "(" : ")")
+        .replace(/[　]/g, " "); // 全角スペースを半角に変換
     };
 
     const normalizedSearchTerm = normalizeText(searchTerm);

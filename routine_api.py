@@ -26,6 +26,7 @@ from flask import Flask, jsonify, request
 
 class JobStatus(Enum):
     """ジョブステータス列挙型"""
+
     QUEUED = "queued"
     RUNNING = "running"
     SUCCEEDED = "succeeded"
@@ -34,11 +35,11 @@ class JobStatus(Enum):
 
 class JobRecord:
     """ジョブ記録クラス（リファクタリング版）"""
-    
+
     def __init__(self, job_id: str, client_token: Optional[str] = None):
         """
         ジョブ記録の初期化
-        
+
         Args:
             job_id: ジョブID
             client_token: クライアントトークン
@@ -66,9 +67,14 @@ class JobRecord:
             "error": self.error,
             "stepsCompleted": self.steps_completed,
         }
-    
-    def update_status(self, status: JobStatus, progress: Optional[int] = None, 
-                     error: Optional[str] = None, result_url: Optional[str] = None) -> None:
+
+    def update_status(
+        self,
+        status: JobStatus,
+        progress: Optional[int] = None,
+        error: Optional[str] = None,
+        result_url: Optional[str] = None,
+    ) -> None:
         """ステータスの更新"""
         self.status = status
         if progress is not None:
@@ -78,7 +84,7 @@ class JobRecord:
         if result_url is not None:
             self.result_url = result_url
         self.updated_at = int(time.time() * 1000)
-    
+
     def add_completed_step(self, step_name: str) -> None:
         """完了したステップの追加"""
         if step_name not in self.steps_completed:
@@ -87,44 +93,44 @@ class JobRecord:
 
 class JobManager:
     """ジョブ管理クラス（リファクタリング版）"""
-    
+
     def __init__(self):
         """初期化"""
         self._jobs: Dict[str, JobRecord] = {}
         self._client_to_job: Dict[str, str] = {}
         self._lock = threading.Lock()
         self._logger = logging.getLogger(__name__)
-    
+
     def create_job(self, client_token: Optional[str] = None) -> JobRecord:
         """新しいジョブの作成"""
         job_id = f"job_{int(time.time()*1000)}_{uuid.uuid4().hex[:6]}"
         job = JobRecord(job_id, client_token)
-        
+
         with self._lock:
             self._jobs[job_id] = job
             if client_token:
                 self._client_to_job[client_token] = job_id
-        
+
         return job
-    
+
     def get_job(self, job_id: str) -> Optional[JobRecord]:
         """ジョブの取得"""
         with self._lock:
             return self._jobs.get(job_id)
-    
+
     def get_job_by_client_token(self, client_token: str) -> Optional[JobRecord]:
         """クライアントトークンによるジョブの取得"""
         with self._lock:
             job_id = self._client_to_job.get(client_token)
             return self._jobs.get(job_id) if job_id else None
-    
+
     def update_job(self, job_id: str, **kwargs) -> bool:
         """ジョブの更新"""
         with self._lock:
             job = self._jobs.get(job_id)
             if not job:
                 return False
-            
+
             for key, value in kwargs.items():
                 if hasattr(job, key):
                     setattr(job, key, value)
@@ -134,12 +140,12 @@ class JobManager:
 
 class PipelineExecutor:
     """パイプライン実行クラス（リファクタリング版）"""
-    
+
     def __init__(self, job_manager: JobManager):
         """初期化"""
         self.job_manager = job_manager
         self.logger = logging.getLogger(__name__)
-    
+
     def run_today_pipeline(self, job_id: str) -> None:
         """今日のルーティンパイプラインの実行"""
         steps = [
@@ -152,7 +158,9 @@ class PipelineExecutor:
         ]
 
         # ジョブの開始
-        if not self.job_manager.update_job(job_id, status=JobStatus.RUNNING, progress=5):
+        if not self.job_manager.update_job(
+            job_id, status=JobStatus.RUNNING, progress=5
+        ):
             self.logger.error(f"ジョブ {job_id} が見つかりません")
             return
 
@@ -171,27 +179,23 @@ class PipelineExecutor:
                 result_url=f"/data/{date_str}/dashboard_summary.json",
             )
             self.logger.info(f"ジョブ {job_id} が正常に完了しました")
-            
+
         except Exception as e:
             self.logger.error(f"ジョブ {job_id} の実行中にエラーが発生: {str(e)}")
-            self.job_manager.update_job(
-                job_id,
-                status=JobStatus.FAILED,
-                error=str(e)
-            )
-    
+            self.job_manager.update_job(job_id, status=JobStatus.FAILED, error=str(e))
+
     def _execute_step(self, step_name: str, step_key: str) -> None:
         """ステップの実行"""
         self.logger.info(f"ステップ実行: {step_name}")
         self._run_subprocess(step_key)
-    
+
     def _update_progress(self, job_id: str, progress: int, step_name: str) -> None:
         """進捗の更新"""
         job = self.job_manager.get_job(job_id)
         if job:
             job.update_status(JobStatus.RUNNING, progress=min(99, progress))
             job.add_completed_step(step_name)
-    
+
     def _run_subprocess(self, step: str) -> None:
         """
         既存のPythonスクリプトを呼び出すためのプレースホルダ。
@@ -221,17 +225,15 @@ def run_today():
 
         # 新しいジョブの作成
         job = job_manager.create_job(client_token)
-        
+
         # バックグラウンドでパイプライン実行
         thread = threading.Thread(
-            target=pipeline_executor.run_today_pipeline, 
-            args=(job.id,), 
-            daemon=True
+            target=pipeline_executor.run_today_pipeline, args=(job.id,), daemon=True
         )
         thread.start()
 
         return jsonify({"job_id": job.id})
-        
+
     except Exception as e:
         return jsonify({"error": f"ジョブ作成エラー: {str(e)}"}), 500
 
@@ -244,7 +246,7 @@ def get_job(job_id: str):
         if not job:
             return jsonify({"error": "ジョブが見つかりません"}), 404
         return jsonify(job.to_dict())
-        
+
     except Exception as e:
         return jsonify({"error": f"ジョブ取得エラー: {str(e)}"}), 500
 
@@ -252,11 +254,13 @@ def get_job(job_id: str):
 @app.get("/routine/health")
 def health_check():
     """ヘルスチェックエンドポイント"""
-    return jsonify({
-        "status": "healthy",
-        "timestamp": datetime.now().isoformat(),
-        "active_jobs": len(job_manager._jobs)
-    })
+    return jsonify(
+        {
+            "status": "healthy",
+            "timestamp": datetime.now().isoformat(),
+            "active_jobs": len(job_manager._jobs),
+        }
+    )
 
 
 if __name__ == "__main__":

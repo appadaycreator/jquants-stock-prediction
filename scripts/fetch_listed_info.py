@@ -76,22 +76,24 @@ class ListedInfoFetcher:
             while page_count < max_pages:
                 if pagination_key:
                     params["pagination_key"] = pagination_key
-                
+
                 response = requests.get(url, headers=headers, params=params, timeout=30)
 
                 if response.status_code == 200:
                     data = response.json()
-                    page_info = data.get('info', [])
+                    page_info = data.get("info", [])
                     all_info.extend(page_info)
-                    
-                    logger.info(f"ページ {page_count + 1} 取得成功: {len(page_info)}銘柄 (累計: {len(all_info)}銘柄)")
-                    
+
+                    logger.info(
+                        f"ページ {page_count + 1} 取得成功: {len(page_info)}銘柄 (累計: {len(all_info)}銘柄)"
+                    )
+
                     # ページングキーをチェック
-                    pagination_key = data.get('pagination_key')
+                    pagination_key = data.get("pagination_key")
                     if not pagination_key:
                         logger.info("ページング完了")
                         break
-                    
+
                     page_count += 1
                 else:
                     logger.error(f"取得エラー: HTTP {response.status_code}")
@@ -117,7 +119,7 @@ class ListedInfoFetcher:
             # 現在の日付が範囲外の場合は、サブスクリプション期間内の最新日付を使用
             subscription_end = datetime(2025, 7, 11)
             current_date = datetime.now()
-            
+
             if current_date > subscription_end:
                 # サブスクリプション期間内の最新日付を使用
                 end_date = subscription_end
@@ -138,29 +140,37 @@ class ListedInfoFetcher:
             params = {"code": code, "from": start_str, "to": end_str}
 
             response = requests.get(url, headers=headers, params=params, timeout=30)
-            
+
             # HTTPステータスコードの詳細チェック
             if response.status_code == 200:
                 data = response.json()
                 quotes = data.get("daily_quotes", [])
-                
+
                 if quotes:
                     latest_quote = quotes[-1]
                     # データの妥当性チェック
                     close_price = latest_quote.get("Close")
                     open_price = latest_quote.get("Open")
                     volume = latest_quote.get("Volume")
-                    
+
                     if close_price is not None and close_price > 0:
-                        change = float(close_price) - float(open_price) if open_price else 0
-                        change_percent = (change / float(open_price)) * 100 if open_price and open_price != 0 else 0
-                        
+                        change = (
+                            float(close_price) - float(open_price) if open_price else 0
+                        )
+                        change_percent = (
+                            (change / float(open_price)) * 100
+                            if open_price and open_price != 0
+                            else 0
+                        )
+
                         return {
                             "current_price": float(close_price),
                             "change": change,
                             "change_percent": change_percent,
                             "volume": int(volume) if volume else 0,
-                            "updated_at": latest_quote.get("Date", datetime.now().isoformat()),
+                            "updated_at": latest_quote.get(
+                                "Date", datetime.now().isoformat()
+                            ),
                         }
                     else:
                         logger.warning(f"銘柄 {code}: 無効な価格データ")
@@ -174,6 +184,7 @@ class ListedInfoFetcher:
             elif response.status_code == 429:
                 logger.warning(f"銘柄 {code}: レート制限 (429) - 待機後に再試行")
                 import time
+
                 time.sleep(60)  # 1分待機
                 return None
             else:
@@ -241,8 +252,10 @@ class ListedInfoFetcher:
         logger.info(f"全銘柄を処理します: {len(target_stocks)}銘柄")
         for i, stock in enumerate(target_stocks):
             code = stock["code"]
-            logger.info(f"処理中: {i+1}/{len(target_stocks)} - {stock['name']} ({code})")
-            
+            logger.info(
+                f"処理中: {i+1}/{len(target_stocks)} - {stock['name']} ({code})"
+            )
+
             # 価格データの取得（修正版）
             price_data = None
             try:
@@ -250,7 +263,7 @@ class ListedInfoFetcher:
             except Exception as e:
                 logger.warning(f"銘柄 {code} の価格データ取得に失敗: {e}")
                 price_data = None
-            
+
             processed_data["stocks"][code] = {
                 "code": code,
                 "name": stock["name"],
@@ -260,7 +273,11 @@ class ListedInfoFetcher:
                 "change": price_data["change"] if price_data else None,
                 "changePercent": price_data["change_percent"] if price_data else None,
                 "volume": price_data["volume"] if price_data else None,
-                "updated_at": price_data["updated_at"] if price_data else datetime.now().isoformat(),
+                "updated_at": (
+                    price_data["updated_at"]
+                    if price_data
+                    else datetime.now().isoformat()
+                ),
                 "listed_info": stock["raw_data"],
                 "metadata": {
                     "created_at": datetime.now().isoformat(),
@@ -270,9 +287,10 @@ class ListedInfoFetcher:
                     "price_data_available": price_data is not None,
                 },
             }
-            
+
             # API制限を考慮した待機（レート制限対応）
             import time
+
             time.sleep(0.1)  # 1000リクエスト/時間制限に基づく最適化
 
         processed_data["metadata"]["total_stocks"] = len(processed_data["stocks"])

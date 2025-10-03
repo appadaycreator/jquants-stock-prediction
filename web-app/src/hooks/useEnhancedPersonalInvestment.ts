@@ -89,7 +89,7 @@ export function useEnhancedPersonalInvestment(): UseEnhancedPersonalInvestmentRe
       
       try {
         // 全銘柄データを取得
-        const response = await fetch('/data/listed_index.json');
+        const response = await fetch("/data/listed_index.json");
         if (response.ok) {
           const allStocksData = await response.json();
           const stocks = allStocksData.stocks || [];
@@ -136,10 +136,10 @@ export function useEnhancedPersonalInvestment(): UseEnhancedPersonalInvestmentRe
             lastUpdated: new Date().toISOString(),
           };
         } else {
-          throw new Error('全銘柄データの取得に失敗');
+          throw new Error("全銘柄データの取得に失敗");
         }
       } catch (error) {
-        console.warn('全銘柄データの取得に失敗、フォールバックデータを使用:', error);
+        console.warn("全銘柄データの取得に失敗、フォールバックデータを使用:", error);
         
         // フォールバック: 元のモックデータ
         mockData = {

@@ -1,6 +1,7 @@
 """
 ModelManagerのユニットテスト
 """
+
 import pytest
 import pandas as pd
 import numpy as np
@@ -46,7 +47,7 @@ class TestModelManager:
         """サポートされているモデル一覧取得テスト"""
         mm = ModelManager()
         models = mm.get_supported_models()
-        
+
         assert isinstance(models, list)
         assert len(models) > 0
         assert "random_forest" in models
@@ -57,7 +58,7 @@ class TestModelManager:
     def test_get_model_success(self):
         """モデル取得成功テスト"""
         mm = ModelManager()
-        
+
         model = mm.get_model("random_forest")
         assert model is not None
         assert hasattr(model, "fit")
@@ -145,7 +146,7 @@ class TestModelManager:
         mm = ModelManager()
 
         X_test = pd.DataFrame({"feature1": [1, 2]})
-        
+
         with pytest.raises(Exception):
             mm.make_predictions(None, X_test)
 
@@ -154,7 +155,7 @@ class TestModelManager:
         mm = ModelManager()
 
         model = mm.get_model("random_forest")
-        
+
         with pytest.raises(Exception):
             mm.make_predictions(model, None)
 
@@ -174,7 +175,9 @@ class TestModelManager:
 
         model = mm.train_model("random_forest", X_train, y_train)
 
-        evaluation = mm.evaluate_model(model, X_train, X_val, X_test, y_train, y_val, y_test)
+        evaluation = mm.evaluate_model(
+            model, X_train, X_val, X_test, y_train, y_val, y_test
+        )
 
         assert isinstance(evaluation, dict)
         assert "metrics" in evaluation
@@ -200,7 +203,7 @@ class TestModelManager:
         mm = ModelManager()
 
         model = mm.get_model("random_forest")
-        
+
         with pytest.raises(Exception):
             mm.evaluate_model(model, None, None, None, None, None, None)
 
@@ -321,7 +324,9 @@ class TestModelManager:
         # 各モデルタイプをテスト
         for model_name in ["random_forest", "linear_regression", "ridge", "lasso"]:
             trained_model = mm.train_model(model_name, X_train, y_train)
-            evaluation = mm.evaluate_model(trained_model, X_train, X_val, X_test, y_train, y_val, y_test)
+            evaluation = mm.evaluate_model(
+                trained_model, X_train, X_val, X_test, y_train, y_val, y_test
+            )
             assert isinstance(evaluation, dict)
             assert "metrics" in evaluation
             assert "predictions" in evaluation

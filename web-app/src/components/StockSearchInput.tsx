@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useStockSuggestions } from '@/hooks/useStockSuggestions';
+import React, { useState, useRef, useEffect } from "react";
+import { useStockSuggestions } from "@/hooks/useStockSuggestions";
 
 interface SuggestionItem {
   code: string;
@@ -24,7 +24,7 @@ export default function StockSearchInput({
   onSearch,
   placeholder = "銘柄名またはコードを入力...",
   className = "",
-  disabled = false
+  disabled = false,
 }: StockSearchInputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -40,11 +40,11 @@ export default function StockSearchInput({
     showSuggestions,
     handleQueryChange,
     clearSuggestions,
-    hideSuggestions
+    hideSuggestions,
   } = useStockSuggestions({
     debounceMs: 300,
     minQueryLength: 1,
-    maxSuggestions: 10
+    maxSuggestions: 10,
   });
 
   // 入力値が変更された時の処理
@@ -75,7 +75,7 @@ export default function StockSearchInput({
   // キーボードイベントの処理
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!showSuggestions || suggestions.length === 0) {
-      if (e.key === 'Enter' && onSearch) {
+      if (e.key === "Enter" && onSearch) {
         e.preventDefault();
         onSearch(value);
       }
@@ -83,19 +83,19 @@ export default function StockSearchInput({
     }
 
     switch (e.key) {
-      case 'ArrowDown':
+      case "ArrowDown":
         e.preventDefault();
         setSelectedIndex(prev => 
-          prev < suggestions.length - 1 ? prev + 1 : 0
+          prev < suggestions.length - 1 ? prev + 1 : 0,
         );
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
         setSelectedIndex(prev => 
-          prev > 0 ? prev - 1 : suggestions.length - 1
+          prev > 0 ? prev - 1 : suggestions.length - 1,
         );
         break;
-      case 'Enter':
+      case "Enter":
         e.preventDefault();
         if (selectedIndex >= 0 && selectedIndex < suggestions.length) {
           selectSuggestion(suggestions[selectedIndex]);
@@ -103,7 +103,7 @@ export default function StockSearchInput({
           onSearch(value);
         }
         break;
-      case 'Escape':
+      case "Escape":
         e.preventDefault();
         hideSuggestions();
         setSelectedIndex(-1);
@@ -131,7 +131,7 @@ export default function StockSearchInput({
 
   // クリアボタン
   const handleClear = () => {
-    onChange('');
+    onChange("");
     clearSuggestions();
     setSelectedIndex(-1);
     inputRef.current?.focus();
@@ -143,8 +143,8 @@ export default function StockSearchInput({
       const selectedElement = listRef.current.children[selectedIndex] as HTMLElement;
       if (selectedElement) {
         selectedElement.scrollIntoView({
-          block: 'nearest',
-          behavior: 'smooth'
+          block: "nearest",
+          behavior: "smooth",
         });
       }
     }
@@ -164,8 +164,8 @@ export default function StockSearchInput({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [hideSuggestions]);
 
   return (
@@ -211,7 +211,7 @@ export default function StockSearchInput({
               <li
                 key={`${suggestion.code}-${index}`}
                 className={`px-3 py-2 cursor-pointer hover:bg-gray-100 ${
-                  index === selectedIndex ? 'bg-blue-100 text-blue-900' : 'text-gray-900'
+                  index === selectedIndex ? "bg-blue-100 text-blue-900" : "text-gray-900"
                 }`}
                 onClick={() => handleSuggestionClick(suggestion)}
               >

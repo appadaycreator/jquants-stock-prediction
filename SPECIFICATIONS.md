@@ -84,6 +84,33 @@ jquants-stock-prediction/
 - **レスポンシブ**: モバイル対応
 - **アクセシビリティ**: WCAG 2.1 AA準拠
 
+#### 3.3.1 ポートフォリオ/ウォッチリスト閲覧仕様（追加）
+- **ルート**:
+  - ポートフォリオ: `/portfolio`
+  - ウォッチリスト: `/watchlist`
+- **ナビゲーション**:
+  - デスクトップ: サイドバー `ポートフォリオ`/`ウォッチリスト`
+  - モバイル: ボトムナビ `ポートフォリオ`/`ウォッチリスト`
+- **データ保存先**（クライアント）:
+  - `localStorage` キー: `user_portfolio`, `user_watchlist`
+- **追加元**: 銘柄詳細モーダル（`StockDetailModal.tsx`）から追加操作
+- **表示実装**: `web-app/src/app/portfolio/page.tsx`, `web-app/src/app/watchlist/page.tsx`
+
+#### 3.3.2 分析履歴閲覧仕様（新規）
+- **ルート**: `/analysis-history`
+- **目的**: 銘柄ごとの「詳細分析」実行履歴を一覧表示し、後から参照できるようにする
+- **データ保存先**（クライアント）: `localStorage` キー `analysis_history`
+  - 追記元: `web-app/src/components/StockDetailModal.tsx` の `handleRunDetailedAnalysis`
+- **表示項目**:
+  - 銘柄名/コード、分析日時、推奨（BUY/SELL/HOLD）、信頼度(%)、リスク（低/中/高）、理由リスト
+- **操作**:
+  - 検索: 銘柄コード/名称のインクリメンタルフィルタ
+  - リスクフィルタ: すべて/低/中/高
+  - 履歴全消去: ローカルストレージの該当キーを削除
+  - 銘柄詳細への遷移: `/stock/{symbol}` を新規タブで開く
+- **実装**: `web-app/src/app/analysis-history/page.tsx`（Client Component）
+- **ナビゲーション**: `Navigation.tsx` に「分析履歴」を追加済み
+
 ### 3.4 リスク分析機能
 - **VaR計算**: 1日、1週間、1ヶ月
 - **最大ドローダウン**: ポートフォリオ全体

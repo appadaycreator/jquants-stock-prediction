@@ -16,14 +16,12 @@ class TestJSONDataManagerAdditionalCoverage:
     def setup_method(self):
         """テスト前の準備"""
         self.temp_dir = tempfile.mkdtemp()
-        self.manager = JSONDataManager(
-            data_dir=self.temp_dir,
-            logger=Mock()
-        )
+        self.manager = JSONDataManager(data_dir=self.temp_dir, logger=Mock())
 
     def teardown_method(self):
         """テスト後のクリーンアップ"""
         import shutil
+
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     def test_save_stock_data_with_validation_error(self):
@@ -36,10 +34,10 @@ class TestJSONDataManagerAdditionalCoverage:
                 "High": 110.0,
                 "Low": 95.0,
                 "Close": 105.0,
-                "Volume": 1000
+                "Volume": 1000,
             }
         ]
-        
+
         result = self.manager.save_stock_data("1234", invalid_data, "test_source")
         assert isinstance(result, bool)
 
@@ -53,10 +51,10 @@ class TestJSONDataManagerAdditionalCoverage:
                 "High": "110.0",
                 "Low": "95.0",
                 "Close": "105.0",
-                "Volume": "1000"
+                "Volume": "1000",
             }
         ]
-        
+
         result = self.manager.save_stock_data("1234", data_with_strings, "test_source")
         assert isinstance(result, bool)
 
@@ -71,10 +69,10 @@ class TestJSONDataManagerAdditionalCoverage:
                 "Low": 95.0,
                 "Close": 105.0,
                 "Volume": 1000,
-                "ExtraField": "extra_value"
+                "ExtraField": "extra_value",
             }
         ]
-        
+
         result = self.manager.save_stock_data("1234", data_with_extra, "test_source")
         assert isinstance(result, bool)
 
@@ -141,74 +139,74 @@ class TestJSONDataManagerAdditionalCoverage:
 
     def test_error_handling_in_save_data_with_io_error(self):
         """IOエラーでのデータ保存テスト"""
-        with patch('builtins.open', side_effect=IOError("IO Error")):
+        with patch("builtins.open", side_effect=IOError("IO Error")):
             result = self.manager.save_data("test.json", [{"test": "data"}])
             assert isinstance(result, bool)
 
     def test_error_handling_in_save_stock_data_with_io_error(self):
         """IOエラーでの株価データ保存テスト"""
-        with patch('builtins.open', side_effect=IOError("IO Error")):
+        with patch("builtins.open", side_effect=IOError("IO Error")):
             stock_data = [{"Code": "1234", "Date": "2024-01-01"}]
             result = self.manager.save_stock_data("1234", stock_data, "test_source")
             assert isinstance(result, bool)
 
     def test_error_handling_in_get_stock_data_with_io_error(self):
         """IOエラーでの株価データ取得テスト"""
-        with patch('builtins.open', side_effect=IOError("IO Error")):
+        with patch("builtins.open", side_effect=IOError("IO Error")):
             result = self.manager.get_stock_data("1234")
             assert isinstance(result, list)
 
     def test_error_handling_in_get_latest_data_with_io_error(self):
         """IOエラーでの最新データ取得テスト"""
-        with patch('builtins.open', side_effect=IOError("IO Error")):
+        with patch("builtins.open", side_effect=IOError("IO Error")):
             result = self.manager.get_latest_data("1234", days=30)
             assert isinstance(result, list)
 
     def test_error_handling_in_get_incremental_data_with_io_error(self):
         """IOエラーでの増分データ取得テスト"""
-        with patch('builtins.open', side_effect=IOError("IO Error")):
+        with patch("builtins.open", side_effect=IOError("IO Error")):
             result = self.manager.get_incremental_data("1234", "2024-01-01")
             assert isinstance(result, dict)
 
     def test_error_handling_in_export_data_with_io_error(self):
         """IOエラーでのデータエクスポートテスト"""
-        with patch('builtins.open', side_effect=IOError("IO Error")):
+        with patch("builtins.open", side_effect=IOError("IO Error")):
             result = self.manager.export_data("1234", "test_export.json")
             assert isinstance(result, bool)
 
     def test_error_handling_in_cleanup_old_data_with_io_error(self):
         """IOエラーでの古いデータクリーンアップテスト"""
-        with patch('builtins.open', side_effect=IOError("IO Error")):
+        with patch("builtins.open", side_effect=IOError("IO Error")):
             result = self.manager.cleanup_old_data(days_to_keep=30)
             assert isinstance(result, bool)
 
     def test_error_handling_in_get_statistics_with_io_error(self):
         """IOエラーでの統計情報取得テスト"""
-        with patch('builtins.open', side_effect=IOError("IO Error")):
+        with patch("builtins.open", side_effect=IOError("IO Error")):
             result = self.manager.get_statistics()
             assert isinstance(result, dict)
 
     def test_error_handling_in_get_data_statistics_with_io_error(self):
         """IOエラーでのデータ統計取得テスト"""
-        with patch('builtins.open', side_effect=IOError("IO Error")):
+        with patch("builtins.open", side_effect=IOError("IO Error")):
             result = self.manager.get_data_statistics()
             assert isinstance(result, dict)
 
     def test_error_handling_in_get_all_symbols_with_io_error(self):
         """IOエラーでの全シンボル取得テスト"""
-        with patch('builtins.open', side_effect=IOError("IO Error")):
+        with patch("builtins.open", side_effect=IOError("IO Error")):
             result = self.manager.get_all_symbols()
             assert isinstance(result, list)
 
     def test_error_handling_in_get_metadata_with_io_error(self):
         """IOエラーでのメタデータ取得テスト"""
-        with patch('builtins.open', side_effect=IOError("IO Error")):
+        with patch("builtins.open", side_effect=IOError("IO Error")):
             result = self.manager.get_metadata()
             assert isinstance(result, dict)
 
     def test_error_handling_in_get_diff_log_with_io_error(self):
         """IOエラーでの差分ログ取得テスト"""
-        with patch('builtins.open', side_effect=IOError("IO Error")):
+        with patch("builtins.open", side_effect=IOError("IO Error")):
             result = self.manager.get_diff_log()
             assert isinstance(result, list)
 
@@ -217,11 +215,11 @@ class TestJSONDataManagerAdditionalCoverage:
         incomplete_data = [
             {
                 "Code": "1234",
-                "Date": "2024-01-01"
+                "Date": "2024-01-01",
                 # 他の必須フィールドが不足
             }
         ]
-        
+
         normalized = self.manager._normalize_stock_data(incomplete_data)
         assert isinstance(normalized, list)
 
@@ -237,12 +235,12 @@ class TestJSONDataManagerAdditionalCoverage:
             "date": "2024-01-01",
             "code": "1234",
             "open": "100.0",  # 文字列
-            "high": 110.0,    # 数値
-            "low": "95.0",    # 文字列
-            "close": 105.0,   # 数値
-            "volume": "1000"   # 文字列
+            "high": 110.0,  # 数値
+            "low": "95.0",  # 文字列
+            "close": 105.0,  # 数値
+            "volume": "1000",  # 文字列
         }
-        
+
         converted = self.manager._convert_data_types(mixed_data)
         assert isinstance(converted, dict)
 
@@ -257,9 +255,9 @@ class TestJSONDataManagerAdditionalCoverage:
             "Close": 105.0,
             "Volume": 1000,
             "ExtraField1": "value1",
-            "ExtraField2": "value2"
+            "ExtraField2": "value2",
         }
-        
+
         extracted = self.manager._extract_additional_fields(data_with_extra)
         assert isinstance(extracted, dict)
 
@@ -285,7 +283,7 @@ class TestJSONDataManagerAdditionalCoverage:
         symbol = "1234"
         source = "new_source"
         diff_result = {"added": 1, "updated": 0, "removed": 0}
-        
+
         # メタデータ更新（エラーが発生しないことを確認）
         try:
             self.manager._update_metadata(symbol, source, diff_result)
@@ -297,7 +295,7 @@ class TestJSONDataManagerAdditionalCoverage:
         """有効なデータでの差分ログ記録テスト"""
         symbol = "1234"
         diff_result = {"added": 1, "updated": 0, "removed": 0}
-        
+
         # 差分ログ記録（エラーが発生しないことを確認）
         try:
             self.manager._log_diff(symbol, diff_result)
@@ -309,9 +307,9 @@ class TestJSONDataManagerAdditionalCoverage:
         """既存ファイルでのメタデータ初期化テスト"""
         # 既存のメタデータファイルを作成
         existing_metadata = {"created_at": "2024-01-01", "version": "1.0"}
-        with open(self.manager.metadata_file, 'w') as f:
+        with open(self.manager.metadata_file, "w") as f:
             json.dump(existing_metadata, f)
-        
+
         # メタデータ初期化（エラーが発生しないことを確認）
         try:
             self.manager._initialize_metadata()

@@ -18,6 +18,10 @@ import time
 project_root = Path(__file__).parent.parent
 sys.path.append(str(project_root))
 
+# 必要モジュールのインポート（リンター対応）
+from core.config_manager import ConfigManager
+from core.error_handler import ErrorHandler
+
 # ログ設定
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
@@ -45,20 +49,22 @@ class InitialDataFetcher:
         # jQuants API設定
         self.base_url = "https://api.jquants.com/v1"
         self._setup_credentials()
-        
+
         # 設定管理の初期化
         self.config_manager = ConfigManager()
-        
+
         # エラーハンドラーの初期化
         self.error_handler = ErrorHandler()
-        
+
         # セッション管理
         self.session = requests.Session()
-        self.session.headers.update({
-            "Content-Type": "application/json",
-            "User-Agent": "jQuants-Stock-Prediction/1.0",
-        })
-    
+        self.session.headers.update(
+            {
+                "Content-Type": "application/json",
+                "User-Agent": "jQuants-Stock-Prediction/1.0",
+            }
+        )
+
     def _setup_credentials(self) -> None:
         """認証情報の設定"""
         self.email = os.getenv("JQUANTS_EMAIL")

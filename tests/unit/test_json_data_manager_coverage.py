@@ -16,14 +16,12 @@ class TestJSONDataManagerCoverage:
     def setup_method(self):
         """テスト前の準備"""
         self.temp_dir = tempfile.mkdtemp()
-        self.manager = JSONDataManager(
-            data_dir=self.temp_dir,
-            logger=Mock()
-        )
+        self.manager = JSONDataManager(data_dir=self.temp_dir, logger=Mock())
 
     def teardown_method(self):
         """テスト後のクリーンアップ"""
         import shutil
+
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     def test_initialization(self):
@@ -49,7 +47,7 @@ class TestJSONDataManagerCoverage:
                 "High": 110.0,
                 "Low": 95.0,
                 "Close": 105.0,
-                "Volume": 1000
+                "Volume": 1000,
             }
         ]
         result = self.manager.save_stock_data("1234", stock_data, "test_source")
@@ -65,7 +63,7 @@ class TestJSONDataManagerCoverage:
                 "High": 110.0,
                 "Low": 95.0,
                 "Close": 105.0,
-                "Volume": 1000
+                "Volume": 1000,
             }
         ]
         self.manager.save_stock_data("1234", stock_data, "test_source")
@@ -82,7 +80,7 @@ class TestJSONDataManagerCoverage:
                 "High": 110.0,
                 "Low": 95.0,
                 "Close": 105.0,
-                "Volume": 1000
+                "Volume": 1000,
             }
         ]
         self.manager.save_stock_data("1234", stock_data, "test_source")
@@ -99,7 +97,7 @@ class TestJSONDataManagerCoverage:
                 "High": 110.0,
                 "Low": 95.0,
                 "Close": 105.0,
-                "Volume": 1000
+                "Volume": 1000,
             }
         ]
         self.manager.save_stock_data("1234", stock_data, "test_source")
@@ -150,7 +148,7 @@ class TestJSONDataManagerCoverage:
                 "High": 110.0,
                 "Low": 95.0,
                 "Close": 105.0,
-                "Volume": 1000
+                "Volume": 1000,
             }
         ]
         self.manager.save_stock_data("1234", stock_data, "test_source")
@@ -159,13 +157,13 @@ class TestJSONDataManagerCoverage:
 
     def test_error_handling_in_save(self):
         """保存時のエラーハンドリングテスト"""
-        with patch('builtins.open', side_effect=PermissionError("Permission denied")):
+        with patch("builtins.open", side_effect=PermissionError("Permission denied")):
             result = self.manager.save_data("test.json", [{"test": "data"}])
             assert isinstance(result, bool)
 
     def test_error_handling_in_save_stock_data(self):
         """株価データ保存時のエラーハンドリングテスト"""
-        with patch('builtins.open', side_effect=PermissionError("Permission denied")):
+        with patch("builtins.open", side_effect=PermissionError("Permission denied")):
             stock_data = [{"Code": "1234", "Date": "2024-01-01"}]
             result = self.manager.save_stock_data("1234", stock_data, "test_source")
             assert result is False
@@ -186,7 +184,7 @@ class TestJSONDataManagerCoverage:
                 "High": "110.0",
                 "Low": "95.0",
                 "Close": "105.0",
-                "Volume": "1000"
+                "Volume": "1000",
             }
         ]
         result = self.manager.save_stock_data("1234", stock_data, "test_source")
@@ -205,11 +203,11 @@ class TestJSONDataManagerCoverage:
         """JSON保存・読み込みテスト"""
         test_data = {"test": "value", "number": 123}
         file_path = self.manager.data_dir / "test.json"
-        
+
         # 保存テスト
         result = self.manager._save_json(file_path, test_data)
         assert result is True
-        
+
         # 読み込みテスト
         loaded_data = self.manager._load_json(file_path)
         assert loaded_data == test_data

@@ -72,9 +72,9 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
         setError(null);
         
         // 全銘柄データから該当銘柄を検索
-        const response = await fetch('/data/listed_index.json');
+        const response = await fetch("/data/listed_index.json");
         if (!response.ok) {
-          throw new Error('銘柄データの取得に失敗しました');
+          throw new Error("銘柄データの取得に失敗しました");
         }
         
         const data = await response.json();
@@ -98,7 +98,7 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
           reasons: [
             "テクニカル分析で上昇トレンドを確認",
             "RSIが適正範囲内",
-            "ボリンジャーバンド内での価格推移"
+            "ボリンジャーバンド内での価格推移",
           ],
           riskLevel: Math.random() > 0.5 ? "MEDIUM" : Math.random() > 0.3 ? "LOW" : "HIGH",
           targetPrice: Math.floor(Math.random() * 1000) + (stock.currentPrice || 2000),
@@ -124,8 +124,8 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
         setAnalysisResult(mockAnalysis);
         
       } catch (err) {
-        console.error('銘柄データの取得エラー:', err);
-        setError(err instanceof Error ? err.message : '不明なエラーが発生しました');
+        console.error("銘柄データの取得エラー:", err);
+        setError(err instanceof Error ? err.message : "不明なエラーが発生しました");
       } finally {
         setLoading(false);
       }
@@ -143,13 +143,13 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
     
     try {
       // ローカルストレージからポートフォリオを取得
-      const portfolio = JSON.parse(localStorage.getItem('user_portfolio') || '[]');
+      const portfolio = JSON.parse(localStorage.getItem("user_portfolio") || "[]");
       
       // 既に追加されているかチェック
       const existingIndex = portfolio.findIndex((item: any) => item.symbol === symbol);
       
       if (existingIndex >= 0) {
-        setActionMessage('この銘柄は既にポートフォリオに追加されています');
+        setActionMessage("この銘柄は既にポートフォリオに追加されています");
         return;
       }
       
@@ -164,17 +164,17 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
         targetPrice: analysisResult.targetPrice,
         riskLevel: analysisResult.riskLevel,
         recommendation: analysisResult.recommendation,
-        confidence: analysisResult.confidence
+        confidence: analysisResult.confidence,
       };
       
       portfolio.push(newItem);
-      localStorage.setItem('user_portfolio', JSON.stringify(portfolio));
+      localStorage.setItem("user_portfolio", JSON.stringify(portfolio));
       
       setActionMessage(`${stockData.name} (${symbol}) をポートフォリオに追加しました`);
       
     } catch (error) {
-      console.error('ポートフォリオ追加エラー:', error);
-      setActionMessage('ポートフォリオへの追加に失敗しました');
+      console.error("ポートフォリオ追加エラー:", error);
+      setActionMessage("ポートフォリオへの追加に失敗しました");
     } finally {
       setIsAddingToPortfolio(false);
     }
@@ -189,13 +189,13 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
     
     try {
       // ローカルストレージからウォッチリストを取得
-      const watchlist = JSON.parse(localStorage.getItem('user_watchlist') || '[]');
+      const watchlist = JSON.parse(localStorage.getItem("user_watchlist") || "[]");
       
       // 既に追加されているかチェック
       const existingIndex = watchlist.findIndex((item: any) => item.symbol === symbol);
       
       if (existingIndex >= 0) {
-        setActionMessage('この銘柄は既にウォッチリストに追加されています');
+        setActionMessage("この銘柄は既にウォッチリストに追加されています");
         return;
       }
       
@@ -210,17 +210,17 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
         targetPrice: analysisResult.targetPrice,
         riskLevel: analysisResult.riskLevel,
         recommendation: analysisResult.recommendation,
-        confidence: analysisResult.confidence
+        confidence: analysisResult.confidence,
       };
       
       watchlist.push(newItem);
-      localStorage.setItem('user_watchlist', JSON.stringify(watchlist));
+      localStorage.setItem("user_watchlist", JSON.stringify(watchlist));
       
       setActionMessage(`${stockData.name} (${symbol}) をウォッチリストに追加しました`);
       
     } catch (error) {
-      console.error('ウォッチリスト追加エラー:', error);
-      setActionMessage('ウォッチリストへの追加に失敗しました');
+      console.error("ウォッチリスト追加エラー:", error);
+      setActionMessage("ウォッチリストへの追加に失敗しました");
     } finally {
       setIsAddingToWatchlist(false);
     }
@@ -238,7 +238,7 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       // 分析結果をローカルストレージに保存
-      const analysisHistory = JSON.parse(localStorage.getItem('analysis_history') || '[]');
+      const analysisHistory = JSON.parse(localStorage.getItem("analysis_history") || "[]");
       
       const analysisRecord = {
         symbol: symbol,
@@ -250,7 +250,7 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
         riskLevel: analysisResult.riskLevel,
         targetPrice: analysisResult.targetPrice,
         technicalIndicators: analysisResult.technicalIndicators,
-        reasons: analysisResult.reasons
+        reasons: analysisResult.reasons,
       };
       
       analysisHistory.unshift(analysisRecord);
@@ -260,13 +260,14 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
         analysisHistory.splice(100);
       }
       
-      localStorage.setItem('analysis_history', JSON.stringify(analysisHistory));
+      localStorage.setItem("analysis_history", JSON.stringify(analysisHistory));
       
-      setActionMessage(`${stockData.name} (${symbol}) の詳細分析が完了しました`);
+      setActionMessage(`${stockData.name} (${symbol}) の詳細分析が完了しました。` +
+        " \u003ca href=\"/analysis-history\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline text-blue-700\"\u003e分析履歴を見る\u003c/a\u003e");
       
     } catch (error) {
-      console.error('詳細分析エラー:', error);
-      setActionMessage('詳細分析の実行に失敗しました');
+      console.error("詳細分析エラー:", error);
+      setActionMessage("詳細分析の実行に失敗しました");
     } finally {
       setIsRunningAnalysis(false);
     }
@@ -281,7 +282,7 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
         <div className="flex items-center justify-between p-6 border-b">
           <div>
             <h2 className="text-2xl font-bold text-gray-900">
-              {stockData?.name || '銘柄詳細'}
+              {stockData?.name || "銘柄詳細"}
             </h2>
             <p className="text-gray-600">銘柄コード: {symbol}</p>
           </div>
@@ -307,7 +308,7 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
               <div className="text-center">
                 <div className="text-red-500 text-6xl mb-4">⚠️</div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">エラーが発生しました</h3>
-                <p className="text-gray-600 mb-4">{error || '銘柄データが見つかりません'}</p>
+                <p className="text-gray-600 mb-4">{error || "銘柄データが見つかりません"}</p>
                 <button
                   onClick={onClose}
                   className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
@@ -335,27 +336,27 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">前日比</p>
-                        <div className={`flex items-center ${analysisResult.priceChange >= 0 ? 'text-red-600' : 'text-green-600'}`}>
+                        <div className={`flex items-center ${analysisResult.priceChange >= 0 ? "text-red-600" : "text-green-600"}`}>
                           {analysisResult.priceChange >= 0 ? (
                             <TrendingUp className="w-4 h-4 mr-1" />
                           ) : (
                             <TrendingDown className="w-4 h-4 mr-1" />
                           )}
                           <span className="text-lg font-semibold">
-                            {analysisResult.priceChange >= 0 ? '+' : ''}{analysisResult.priceChange.toLocaleString()}
+                            {analysisResult.priceChange >= 0 ? "+" : ""}{analysisResult.priceChange.toLocaleString()}
                           </span>
                         </div>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">前日比率</p>
-                        <p className={`text-lg font-semibold ${analysisResult.priceChangePercent >= 0 ? 'text-red-600' : 'text-green-600'}`}>
-                          {analysisResult.priceChangePercent >= 0 ? '+' : ''}{analysisResult.priceChangePercent.toFixed(2)}%
+                        <p className={`text-lg font-semibold ${analysisResult.priceChangePercent >= 0 ? "text-red-600" : "text-green-600"}`}>
+                          {analysisResult.priceChangePercent >= 0 ? "+" : ""}{analysisResult.priceChangePercent.toFixed(2)}%
                         </p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">出来高</p>
                         <p className="text-lg font-semibold text-gray-900">
-                          {stockData.volume ? stockData.volume.toLocaleString() : 'N/A'}
+                          {stockData.volume ? stockData.volume.toLocaleString() : "N/A"}
                         </p>
                       </div>
                     </div>
@@ -492,11 +493,11 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
                     {/* アクションメッセージ */}
                     {actionMessage && (
                       <div className={`mb-4 p-3 rounded-lg text-sm ${
-                        actionMessage.includes('失敗') || actionMessage.includes('既に') 
-                          ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' 
-                          : 'bg-green-100 text-green-800 border border-green-200'
+                        actionMessage.includes("失敗") || actionMessage.includes("既に") 
+                          ? "bg-yellow-100 text-yellow-800 border border-yellow-200" 
+                          : "bg-green-100 text-green-800 border border-green-200"
                       }`}>
-                        {actionMessage}
+                        <span dangerouslySetInnerHTML={{ __html: actionMessage }} />
                       </div>
                     )}
                     
@@ -506,21 +507,21 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
                         className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={isAddingToPortfolio}
                       >
-                        {isAddingToPortfolio ? '追加中...' : 'ポートフォリオに追加'}
+                        {isAddingToPortfolio ? "追加中..." : "ポートフォリオに追加"}
                       </button>
                       <button 
                         onClick={() => handleAddToWatchlist()}
                         className="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={isAddingToWatchlist}
                       >
-                        {isAddingToWatchlist ? '追加中...' : 'ウォッチリストに追加'}
+                        {isAddingToWatchlist ? "追加中..." : "ウォッチリストに追加"}
                       </button>
                       <button 
                         onClick={() => handleRunDetailedAnalysis()}
                         className="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={isRunningAnalysis}
                       >
-                        {isRunningAnalysis ? '分析中...' : '詳細分析を実行'}
+                        {isRunningAnalysis ? "分析中..." : "詳細分析を実行"}
                       </button>
                     </div>
                   </div>

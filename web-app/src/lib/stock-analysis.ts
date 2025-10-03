@@ -393,7 +393,7 @@ export async function analyzeStock(symbol: string, symbolName?: string): Promise
     if (!name) {
       try {
         // 全銘柄データから銘柄名を取得
-        const response = await fetch('/data/listed_index.json');
+        const response = await fetch("/data/listed_index.json");
         if (response.ok) {
           const data = await response.json();
           const symbolInfo = data.stocks?.find((s: any) => s.code === symbol);
@@ -411,7 +411,7 @@ export async function analyzeStock(symbol: string, symbolName?: string): Promise
           name = symbolInfo?.name || symbol;
         }
       } catch (error) {
-        console.warn('銘柄名の取得に失敗しました:', error);
+        console.warn("銘柄名の取得に失敗しました:", error);
         name = symbol;
       }
     }

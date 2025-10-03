@@ -13,7 +13,7 @@ import {
   RefreshCw,
   AlertTriangle,
   Info,
-  Eye
+  Eye,
 } from "lucide-react";
 
 interface WatchlistItem {
@@ -40,11 +40,11 @@ export default function WatchlistPage() {
 
   const loadWatchlist = () => {
     try {
-      const watchlistData = JSON.parse(localStorage.getItem('user_watchlist') || '[]');
+      const watchlistData = JSON.parse(localStorage.getItem("user_watchlist") || "[]");
       setWatchlist(watchlistData);
     } catch (error) {
-      console.error('ウォッチリスト読み込みエラー:', error);
-      setMessage('ウォッチリストの読み込みに失敗しました');
+      console.error("ウォッチリスト読み込みエラー:", error);
+      setMessage("ウォッチリストの読み込みに失敗しました");
     } finally {
       setLoading(false);
     }
@@ -54,11 +54,11 @@ export default function WatchlistPage() {
     try {
       const updatedWatchlist = watchlist.filter(item => item.symbol !== symbol);
       setWatchlist(updatedWatchlist);
-      localStorage.setItem('user_watchlist', JSON.stringify(updatedWatchlist));
+      localStorage.setItem("user_watchlist", JSON.stringify(updatedWatchlist));
       setMessage(`${symbol} をウォッチリストから削除しました`);
     } catch (error) {
-      console.error('ウォッチリスト削除エラー:', error);
-      setMessage('ウォッチリストからの削除に失敗しました');
+      console.error("ウォッチリスト削除エラー:", error);
+      setMessage("ウォッチリストからの削除に失敗しました");
     }
   };
 
@@ -122,9 +122,9 @@ export default function WatchlistPage() {
       {/* メッセージ */}
       {message && (
         <div className={`p-4 rounded-lg ${
-          message.includes('失敗') 
-            ? 'bg-red-100 text-red-800 border border-red-200' 
-            : 'bg-green-100 text-green-800 border border-green-200'
+          message.includes("失敗") 
+            ? "bg-red-100 text-red-800 border border-red-200" 
+            : "bg-green-100 text-green-800 border border-green-200"
         }`}>
           {message}
         </div>
@@ -188,7 +188,7 @@ export default function WatchlistPage() {
               <h3 className="text-lg font-semibold text-gray-900 mb-2">ウォッチリストが空です</h3>
               <p className="text-gray-600 mb-4">銘柄詳細ページから銘柄をウォッチリストに追加してください</p>
               <Button 
-                onClick={() => window.location.href = '/listed-data'}
+                onClick={() => window.location.href = "/listed-data"}
                 className="bg-blue-600 text-white hover:bg-blue-700"
               >
                 銘柄一覧を見る

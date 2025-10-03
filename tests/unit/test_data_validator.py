@@ -376,10 +376,12 @@ class TestDataValidator:
 
     def test_validate_data_small_dataset(self):
         """小さなデータセットの検証テスト"""
-        small_data = pd.DataFrame({
-            "col1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],  # 10行（警告レベル）
-            "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-        })
+        small_data = pd.DataFrame(
+            {
+                "col1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],  # 10行（警告レベル）
+                "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+            }
+        )
         result = self.validator.validate_data(small_data)
         # 10行は警告レベルなので有効
         assert result["is_valid"] is True
@@ -387,29 +389,28 @@ class TestDataValidator:
 
     def test_validate_data_very_small_dataset(self):
         """非常に小さなデータセットの検証テスト"""
-        very_small_data = pd.DataFrame({
-            "col1": [1, 2, 3],  # 3行（エラーレベル）
-            "col2": [10, 20, 30]
-        })
+        very_small_data = pd.DataFrame(
+            {"col1": [1, 2, 3], "col2": [10, 20, 30]}  # 3行（エラーレベル）
+        )
         result = self.validator.validate_data(very_small_data)
         assert result["is_valid"] is False
         assert any("データが少なすぎます" in issue for issue in result["issues"])
 
     def test_validate_data_single_column(self):
         """単一列のデータの検証テスト"""
-        single_col_data = pd.DataFrame({
-            "col1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        })
+        single_col_data = pd.DataFrame({"col1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]})
         result = self.validator.validate_data(single_col_data)
         assert result["is_valid"] is False
         assert any("列数が少なすぎます" in issue for issue in result["issues"])
 
     def test_validate_data_with_missing_values(self):
         """欠損値を含むデータの検証テスト"""
-        data_with_missing = pd.DataFrame({
-            "col1": [1, 2, np.nan, 4, 5, 6, 7, 8, 9, 10],
-            "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-        })
+        data_with_missing = pd.DataFrame(
+            {
+                "col1": [1, 2, np.nan, 4, 5, 6, 7, 8, 9, 10],
+                "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+            }
+        )
         result = self.validator.validate_data(data_with_missing)
         # 10%の欠損値は警告レベルなので有効
         assert result["is_valid"] is True
@@ -418,73 +419,99 @@ class TestDataValidator:
 
     def test_validate_data_with_high_missing_ratio(self):
         """高欠損率のデータの検証テスト"""
-        data_with_high_missing = pd.DataFrame({
-            "col1": [1, 2, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan],  # 80%欠損
-            "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-        })
+        data_with_high_missing = pd.DataFrame(
+            {
+                "col1": [
+                    1,
+                    2,
+                    np.nan,
+                    np.nan,
+                    np.nan,
+                    np.nan,
+                    np.nan,
+                    np.nan,
+                    np.nan,
+                    np.nan,
+                ],  # 80%欠損
+                "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+            }
+        )
         result = self.validator.validate_data(data_with_high_missing)
         assert result["is_valid"] is False
         assert any("欠損値が多すぎます" in issue for issue in result["issues"])
 
     def test_validate_data_with_inf_values(self):
         """無限値を含むデータの検証テスト"""
-        data_with_inf = pd.DataFrame({
-            "col1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            "col2": [10, 20, np.inf, 40, 50, 60, 70, 80, 90, 100]
-        })
+        data_with_inf = pd.DataFrame(
+            {
+                "col1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                "col2": [10, 20, np.inf, 40, 50, 60, 70, 80, 90, 100],
+            }
+        )
         result = self.validator.validate_data(data_with_inf)
         assert result["is_valid"] is False
         assert any("無限値が含まれています" in issue for issue in result["issues"])
 
     def test_validate_data_with_zero_variance(self):
         """ゼロ分散のデータの検証テスト"""
-        data_with_zero_var = pd.DataFrame({
-            "col1": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # 全て同じ値
-            "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-        })
+        data_with_zero_var = pd.DataFrame(
+            {
+                "col1": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],  # 全て同じ値
+                "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+            }
+        )
         result = self.validator.validate_data(data_with_zero_var)
         assert result["is_valid"] is True
         assert any("分散が0です" in warning for warning in result["warnings"])
 
     def test_validate_data_with_duplicates(self):
         """重複を含むデータの検証テスト"""
-        data_with_duplicates = pd.DataFrame({
-            "col1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-        })
+        data_with_duplicates = pd.DataFrame(
+            {
+                "col1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+            }
+        )
         # 重複行を追加
-        data_with_duplicates = pd.concat([data_with_duplicates, data_with_duplicates.iloc[[0, 1]]], ignore_index=True)
+        data_with_duplicates = pd.concat(
+            [data_with_duplicates, data_with_duplicates.iloc[[0, 1]]], ignore_index=True
+        )
         result = self.validator.validate_data(data_with_duplicates)
         assert result["is_valid"] is True
         assert any("重複行が" in warning for warning in result["warnings"])
 
     def test_validate_data_with_datetime_columns(self):
         """日付列を含むデータの検証テスト"""
-        data_with_datetime = pd.DataFrame({
-            "date": pd.date_range("2024-01-01", periods=10),
-            "col1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-        })
+        data_with_datetime = pd.DataFrame(
+            {
+                "date": pd.date_range("2024-01-01", periods=10),
+                "col1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+            }
+        )
         result = self.validator.validate_data(data_with_datetime)
         assert result["is_valid"] is True
         # 日付列があるので警告は出ない
 
     def test_validate_data_without_datetime_columns(self):
         """日付列を含まないデータの検証テスト"""
-        data_without_datetime = pd.DataFrame({
-            "col1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-        })
+        data_without_datetime = pd.DataFrame(
+            {
+                "col1": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                "col2": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+            }
+        )
         result = self.validator.validate_data(data_without_datetime)
         assert result["is_valid"] is True
-        assert any("日付列が見つかりません" in warning for warning in result["warnings"])
+        assert any(
+            "日付列が見つかりません" in warning for warning in result["warnings"]
+        )
 
     def test_validate_features_missing_features(self):
         """不足している特徴量の検証テスト"""
-        data = pd.DataFrame({
-            "feature1": [1, 2, 3, 4, 5],
-            "feature2": [10, 20, 30, 40, 50]
-        })
+        data = pd.DataFrame(
+            {"feature1": [1, 2, 3, 4, 5], "feature2": [10, 20, 30, 40, 50]}
+        )
         features = ["feature1", "feature2", "missing_feature"]
         result = self.validator.validate_features(data, features)
         assert result["is_valid"] is False
@@ -492,10 +519,9 @@ class TestDataValidator:
 
     def test_validate_features_valid_features(self):
         """有効な特徴量の検証テスト"""
-        data = pd.DataFrame({
-            "feature1": [1, 2, 3, 4, 5],
-            "feature2": [10, 20, 30, 40, 50]
-        })
+        data = pd.DataFrame(
+            {"feature1": [1, 2, 3, 4, 5], "feature2": [10, 20, 30, 40, 50]}
+        )
         features = ["feature1", "feature2"]
         result = self.validator.validate_features(data, features)
         assert result["is_valid"] is True
@@ -503,21 +529,24 @@ class TestDataValidator:
 
     def test_validate_features_non_numeric_features(self):
         """非数値特徴量の検証テスト"""
-        data = pd.DataFrame({
-            "feature1": ["a", "b", "c", "d", "e"],  # 文字列
-            "feature2": [10, 20, 30, 40, 50]
-        })
+        data = pd.DataFrame(
+            {
+                "feature1": ["a", "b", "c", "d", "e"],  # 文字列
+                "feature2": [10, 20, 30, 40, 50],
+            }
+        )
         features = ["feature1", "feature2"]
         result = self.validator.validate_features(data, features)
         assert result["is_valid"] is False
-        assert any("数値型ではありません" in issue for issue in result["quality_issues"])
+        assert any(
+            "数値型ではありません" in issue for issue in result["quality_issues"]
+        )
 
     def test_validate_features_with_missing_values(self):
         """欠損値を含む特徴量の検証テスト"""
-        data = pd.DataFrame({
-            "feature1": [1, 2, np.nan, 4, 5],
-            "feature2": [10, 20, 30, 40, 50]
-        })
+        data = pd.DataFrame(
+            {"feature1": [1, 2, np.nan, 4, 5], "feature2": [10, 20, 30, 40, 50]}
+        )
         features = ["feature1", "feature2"]
         result = self.validator.validate_features(data, features)
         assert result["is_valid"] is False
@@ -525,20 +554,18 @@ class TestDataValidator:
 
     def test_validate_target_missing_target(self):
         """不足しているターゲット変数の検証テスト"""
-        data = pd.DataFrame({
-            "feature1": [1, 2, 3, 4, 5],
-            "feature2": [10, 20, 30, 40, 50]
-        })
+        data = pd.DataFrame(
+            {"feature1": [1, 2, 3, 4, 5], "feature2": [10, 20, 30, 40, 50]}
+        )
         result = self.validator.validate_target(data, "missing_target")
         assert result["is_valid"] is False
         assert "見つかりません" in result["message"]
 
     def test_validate_target_valid_target(self):
         """有効なターゲット変数の検証テスト"""
-        data = pd.DataFrame({
-            "feature1": [1, 2, 3, 4, 5],
-            "target": [10, 20, 30, 40, 50]
-        })
+        data = pd.DataFrame(
+            {"feature1": [1, 2, 3, 4, 5], "target": [10, 20, 30, 40, 50]}
+        )
         result = self.validator.validate_target(data, "target")
         assert result["is_valid"] is True
         assert result["target_type"] == "int64"
@@ -546,33 +573,33 @@ class TestDataValidator:
 
     def test_validate_target_with_missing_values(self):
         """欠損値を含むターゲット変数の検証テスト"""
-        data = pd.DataFrame({
-            "feature1": [1, 2, 3, 4, 5],
-            "target": [10, 20, np.nan, 40, 50]
-        })
+        data = pd.DataFrame(
+            {"feature1": [1, 2, 3, 4, 5], "target": [10, 20, np.nan, 40, 50]}
+        )
         result = self.validator.validate_target(data, "target")
         assert result["is_valid"] is False
         assert "欠損値があります" in result["message"]
 
     def test_validate_target_with_inf_values(self):
         """無限値を含むターゲット変数の検証テスト"""
-        data = pd.DataFrame({
-            "feature1": [1, 2, 3, 4, 5],
-            "target": [10, 20, np.inf, 40, 50]
-        })
+        data = pd.DataFrame(
+            {"feature1": [1, 2, 3, 4, 5], "target": [10, 20, np.inf, 40, 50]}
+        )
         result = self.validator.validate_target(data, "target")
         assert result["is_valid"] is False
         assert "無限値があります" in result["message"]
 
     def test_get_validation_summary(self):
         """検証サマリーの取得テスト"""
-        data = pd.DataFrame({
-            "date": pd.date_range("2024-01-01", periods=5),
-            "col1": [1, 2, 3, 4, 5],
-            "col2": [10, 20, 30, 40, 50]
-        })
+        data = pd.DataFrame(
+            {
+                "date": pd.date_range("2024-01-01", periods=5),
+                "col1": [1, 2, 3, 4, 5],
+                "col2": [10, 20, 30, 40, 50],
+            }
+        )
         result = self.validator.get_validation_summary(data)
-        
+
         assert "data_shape" in result
         assert "columns" in result
         assert "dtypes" in result
@@ -580,7 +607,7 @@ class TestDataValidator:
         assert "numeric_columns" in result
         assert "datetime_columns" in result
         assert "timestamp" in result
-        
+
         assert result["data_shape"] == (5, 3)
         assert "date" in result["datetime_columns"]
         assert "col1" in result["numeric_columns"]

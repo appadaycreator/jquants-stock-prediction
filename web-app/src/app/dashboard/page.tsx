@@ -21,6 +21,9 @@ import { SampleDataProvider } from "@/components/SampleDataProvider";
 import AnalysisExecutionPanel from "@/components/AnalysisExecutionPanel";
 import UnifiedErrorBoundary from "@/components/UnifiedErrorBoundary";
 import { TourProvider } from "@/components/guide/TourProvider";
+import PredictionsView from "@/components/PredictionsView";
+import OneClickAnalysis from "@/components/OneClickAnalysis";
+import SymbolAnalysisResults from "@/components/SymbolAnalysisResults";
 
 // 動的インポートでコンポーネントを遅延読み込み
 const MobileNavigation = dynamicImport(() => import("../../components/MobileNavigation"), { ssr: false });
@@ -98,6 +101,7 @@ function DashboardContent() {
   // 全銘柄データの状態
   const [allStocksData, setAllStocksData] = useState<any>(null);
   const [marketAnalysis, setMarketAnalysis] = useState<any>(null);
+  const [selectedSymbols, setSelectedSymbols] = useState<string[]>([]);
 
   useEffect(() => {
     const initializeDashboard = async () => {
@@ -161,7 +165,7 @@ function DashboardContent() {
   const loadDashboardData = async () => {
     try {
       // 全銘柄データを取得
-      const response = await fetch('/data/listed_index.json');
+      const response = await fetch("/data/listed_index.json");
       if (response.ok) {
         const stocksData = await response.json();
         setAllStocksData(stocksData);
@@ -169,6 +173,14 @@ function DashboardContent() {
         // 市場分析を実行
         const analysis = await analyzeMarketData(stocksData);
         setMarketAnalysis(analysis);
+
+        // デフォルト選択: トップゲイナー上位の銘柄
+        try {
+          const defaultSymbols = (analysis?.topGainers || []).slice(0, 10).map((s: any) => s.symbol);
+          if (defaultSymbols.length > 0) setSelectedSymbols(defaultSymbols);
+        } catch (_) {
+          // no-op
+        }
       }
       
       setLastUpdateTime(new Date().toLocaleString("ja-JP"));
@@ -188,7 +200,7 @@ function DashboardContent() {
     
     // 価格変動のある銘柄をフィルタリング
     const stocksWithPriceData = stocks.filter((stock: any) => 
-      stock.currentPrice && stock.changePercent !== undefined
+      stock.currentPrice && stock.changePercent !== undefined,
     );
     
     // セクター別パフォーマンス分析
@@ -271,9 +283,9 @@ function DashboardContent() {
     
     // 市場区分スコア (20%)
     const marketScore = {
-      'プライム': 80,
-      'スタンダード': 60,
-      'グロース': 40,
+      "プライム": 80,
+      "スタンダード": 60,
+      "グロース": 40,
     }[stock.market] || 50;
     score += marketScore * 0.2;
     
@@ -792,12 +804,21 @@ function DashboardContent() {
 
               {activeTab === "analysis" && (
                 <div className="space-y-6" data-guide-target="analysis-features">
+                  {/* ワンクリック分析ランチャー */}
                   <div className="bg-white rounded-lg shadow p-6">
-                    <h2 className="text-lg font-semibold text-gray-900 mb-4">分析機能</h2>
-                    <div className="text-center py-8">
-                      <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-600">分析機能は準備中です</p>
+                    <h2 className="text-lg font-semibold text-gray-900 mb-4">ワンクリック分析</h2>
+                    <OneClickAnalysis />
+                  </div>
+
+                  {/* 銘柄別分析結果（デフォルトはトップゲイナーを選択）*/}
+                  <div className="bg-white rounded-lg shadow p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="text-lg font-semibold text-gray-900">銘柄別分析結果</h2>
+                      <div className="text-sm text-gray-500">
+                        {selectedSymbols.length > 0 ? `${selectedSymbols.length}銘柄を表示中` : "対象銘柄を選択してください"}
+                      </div>
                     </div>
+                    <SymbolAnalysisResults selectedSymbols={selectedSymbols} />
                   </div>
                 </div>
               )}
@@ -848,10 +869,7 @@ function DashboardContent() {
                 <div className="space-y-6">
                   <div className="bg-white rounded-lg shadow p-6">
                     <h2 className="text-lg font-semibold text-gray-900 mb-4">予測結果</h2>
-                    <div className="text-center py-8">
-                      <TrendingUp className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-600">予測機能は準備中です</p>
-                    </div>
+                    <PredictionsView />
                   </div>
                 </div>
               )}
