@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 }
 
 const JQUANTS_API_BASE = 'https://api.jquants.com/v1';
-const ALLOWED_PATHS = ['/token/', '/prices/'];
+const ALLOWED_PATHS = ['/token/', '/prices/', '/listed/'];
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1分
 const RATE_LIMIT_MAX_REQUESTS = 100; // 1分間に100リクエスト
 
@@ -131,18 +131,38 @@ async function handleProxyRequest(
     const authToken = await authManager.getValidToken();
 
     if (!authToken) {
-      console.error('認証トークンの取得に失敗しました');
+      console.error('認証トークンの取得に失敗しました', {
+        path,
+        method,
+        clientIp,
+        timestamp: new Date().toISOString(),
+        envVars: {
+          hasIdToken: !!process.env.JQUANTS_ID_TOKEN,
+          hasRefreshToken: !!process.env.JQUANTS_REFRESH_TOKEN,
+          hasEmail: !!process.env.JQUANTS_EMAIL,
+          hasPassword: !!process.env.JQUANTS_PASSWORD
+        }
+      });
       return NextResponse.json(
         { 
           error: 'Authentication failed',
           message: '認証トークンの取得に失敗しました。環境変数を確認してください。',
-          retry_hint: 'check_credentials'
+          retry_hint: 'check_credentials',
+          debug: {
+            envVars: {
+              hasIdToken: !!process.env.JQUANTS_ID_TOKEN,
+              hasRefreshToken: !!process.env.JQUANTS_REFRESH_TOKEN,
+              hasEmail: !!process.env.JQUANTS_EMAIL,
+              hasPassword: !!process.env.JQUANTS_PASSWORD
+            }
+          }
         },
         { status: 401 }
       );
     }
 
     // J-Quants APIへのリクエスト（認証ヘッダー付き）
+    console.log(`J-Quants API呼び出し: ${method} ${fullUrl}`);
     const response = await fetch(fullUrl, {
       method,
       headers: {
@@ -159,13 +179,21 @@ async function handleProxyRequest(
     
     try {
       jsonData = JSON.parse(responseData);
-    } catch {
+    } catch (parseError) {
+      console.warn('JSON解析エラー:', parseError, 'Response:', responseData.substring(0, 200));
       jsonData = { data: responseData };
     }
 
     // エラーハンドリング
     if (!response.ok) {
-      console.error(`J-Quants API Error: ${response.status} ${response.statusText}`);
+      console.error(`J-Quants API Error: ${response.status} ${response.statusText}`, {
+        url: fullUrl,
+        method,
+        path,
+        clientIp,
+        responseData: responseData.substring(0, 500),
+        timestamp: new Date().toISOString()
+      });
       
       // 特定のエラーコードに対する処理
       switch (response.status) {
@@ -230,12 +258,23 @@ async function handleProxyRequest(
     });
 
   } catch (error) {
-    console.error('プロキシエラー:', error);
+    console.error('プロキシエラー:', {
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+      path,
+      method,
+      clientIp,
+      timestamp: new Date().toISOString()
+    });
     return NextResponse.json(
       { 
         error: 'Proxy error',
         message: 'プロキシエラーが発生しました',
-        retry_hint: 'check_connection'
+        retry_hint: 'check_connection',
+        debug: {
+          errorType: error instanceof Error ? error.constructor.name : 'Unknown',
+          message: error instanceof Error ? error.message : String(error)
+        }
       },
       { status: 500 }
     );

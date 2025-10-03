@@ -172,10 +172,10 @@ export class JQuantsAuthManager {
    * 有効なIDトークンを取得（必要に応じて更新）
    */
   async getValidToken(): Promise<string | null> {
-    const currentIdToken = process.env.NEXT_PUBLIC_JQUANTS_ID_TOKEN;
-    const currentRefreshToken = process.env.NEXT_PUBLIC_JQUANTS_REFRESH_TOKEN;
-    const email = process.env.NEXT_PUBLIC_JQUANTS_EMAIL;
-    const password = process.env.NEXT_PUBLIC_JQUANTS_PASSWORD;
+    const currentIdToken = process.env.JQUANTS_ID_TOKEN || process.env.NEXT_PUBLIC_JQUANTS_ID_TOKEN;
+    const currentRefreshToken = process.env.JQUANTS_REFRESH_TOKEN || process.env.NEXT_PUBLIC_JQUANTS_REFRESH_TOKEN;
+    const email = process.env.JQUANTS_EMAIL || process.env.NEXT_PUBLIC_JQUANTS_EMAIL;
+    const password = process.env.JQUANTS_PASSWORD || process.env.NEXT_PUBLIC_JQUANTS_PASSWORD;
 
     if (!currentIdToken) {
       console.warn("IDトークンが設定されていません");
@@ -225,7 +225,7 @@ export class JQuantsAuthManager {
    * トークンの有効性をチェック
    */
   async isTokenValid(): Promise<boolean> {
-    const currentIdToken = process.env.NEXT_PUBLIC_JQUANTS_ID_TOKEN;
+    const currentIdToken = process.env.JQUANTS_ID_TOKEN || process.env.NEXT_PUBLIC_JQUANTS_ID_TOKEN;
     
     if (!currentIdToken) {
       return false;

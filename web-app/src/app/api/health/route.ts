@@ -1,26 +1,40 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 
-// 静的エクスポート用の設定
-export const dynamic = "force-static";
-
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    return NextResponse.json(
-      {
-        status: "ok",
-        message: "API is healthy",
-        timestamp: new Date().toISOString(),
+    const health = {
+      status: 'ok',
+      timestamp: new Date().toISOString(),
+      environment: {
+        nodeEnv: process.env.NODE_ENV,
+        hasIdToken: !!process.env.JQUANTS_ID_TOKEN,
+        hasRefreshToken: !!process.env.JQUANTS_REFRESH_TOKEN,
+        hasEmail: !!process.env.JQUANTS_EMAIL,
+        hasPassword: !!process.env.JQUANTS_PASSWORD,
+        // デバッグ用（実際の値は表示しない）
+        envVars: {
+          JQUANTS_ID_TOKEN: process.env.JQUANTS_ID_TOKEN ? '***設定済み***' : '未設定',
+          JQUANTS_REFRESH_TOKEN: process.env.JQUANTS_REFRESH_TOKEN ? '***設定済み***' : '未設定',
+          JQUANTS_EMAIL: process.env.JQUANTS_EMAIL ? '***設定済み***' : '未設定',
+          JQUANTS_PASSWORD: process.env.JQUANTS_PASSWORD ? '***設定済み***' : '未設定',
+        }
       },
-      { status: 200 },
-    );
+      api: {
+        jquantsProxy: '/api/jquants-proxy',
+        health: '/api/health'
+      }
+    };
+
+    return NextResponse.json(health, { status: 200 });
   } catch (error) {
+    console.error('ヘルスチェックエラー:', error);
     return NextResponse.json(
-      {
-        status: "error",
-        message: "API health check failed",
-        error: error instanceof Error ? error.message : "Unknown error",
+      { 
+        status: 'error',
+        error: error instanceof Error ? error.message : String(error),
+        timestamp: new Date().toISOString()
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
