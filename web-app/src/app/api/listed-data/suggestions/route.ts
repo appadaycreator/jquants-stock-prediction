@@ -76,14 +76,14 @@ export async function GET(request: NextRequest) {
 
     const normalizedQuery = normalizeText(query);
     
-    // 部分一致で候補を検索
-    const suggestions: SuggestionItem[] = data.stocks
+    // 前方一致を優先（コード/名称）し、次に部分一致を追加
+    const startsWithMatches: SuggestionItem[] = data.stocks
       .filter(stock => {
         const normalizedCode = normalizeText(stock.code);
         const normalizedName = normalizeText(stock.name);
-        const codeMatch = normalizedCode.includes(normalizedQuery);
-        const nameMatch = normalizedName.includes(normalizedQuery);
-        return codeMatch || nameMatch;
+        const codeStart = normalizedCode.startsWith(normalizedQuery);
+        const nameStart = normalizedName.startsWith(normalizedQuery);
+        return codeStart || nameStart;
       })
       .map(stock => ({
         code: stock.code,
@@ -93,6 +93,27 @@ export async function GET(request: NextRequest) {
         displayText: `${stock.name} (${stock.code})`,
       }))
       .slice(0, limit);
+
+    const partialMatches: SuggestionItem[] = data.stocks
+      .filter(stock => {
+        const normalizedCode = normalizeText(stock.code);
+        const normalizedName = normalizeText(stock.name);
+        const codeIncludes = normalizedCode.includes(normalizedQuery);
+        const nameIncludes = normalizedName.includes(normalizedQuery);
+        const codeStart = normalizedCode.startsWith(normalizedQuery);
+        const nameStart = normalizedName.startsWith(normalizedQuery);
+        // 既にstartsWithに含まれるものは除外
+        return (codeIncludes || nameIncludes) && !(codeStart || nameStart);
+      })
+      .map(stock => ({
+        code: stock.code,
+        name: stock.name,
+        sector: stock.sector,
+        market: stock.market,
+        displayText: `${stock.name} (${stock.code})`,
+      }));
+
+    let suggestions: SuggestionItem[] = [...startsWithMatches, ...partialMatches];
 
     // コードで始まるものを優先し、その後名前で始まるものを並べる
     suggestions.sort((a, b) => {
@@ -114,7 +135,7 @@ export async function GET(request: NextRequest) {
     });
 
     return NextResponse.json({ 
-      suggestions,
+      suggestions: suggestions.slice(0, limit),
       total: suggestions.length,
       query: query,
     });

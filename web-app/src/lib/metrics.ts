@@ -338,7 +338,16 @@ const histograms = new Map<string, Histogram>();
 
 function startTimer(name: string) {
   const start = performance.now();
-  return { stop: () => performance.now() - start };
+  if ((performance as any).mark) {
+    (performance as any).mark(`${name}-start`);
+  }
+  return { stop: () => {
+    const duration = performance.now() - start;
+    if ((performance as any).measure) {
+      try { (performance as any).measure(`${name}-duration`, `${name}-start`); } catch {}
+    }
+    return duration;
+  } };
 }
 
 async function measureTime<T>(name: string, fn: () => Promise<T> | T): Promise<T> {
@@ -354,7 +363,7 @@ function incrementCounter(key: string, by: number = 1) {
 }
 
 function decrementCounter(key: string, by: number = 1) {
-  counters.set(key, Math.max(0, (counters.get(key) ?? 0) - by));
+  counters.set(key, (counters.get(key) ?? 0) - by);
 }
 
 function getCounter(key: string): number {

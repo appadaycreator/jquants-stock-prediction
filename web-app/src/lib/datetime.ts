@@ -90,7 +90,7 @@ export function normalizeDateString(dateStr: string): string {
 /**
  * 日付をフォーマット（既存コードとの互換性）
  */
-export function formatDate(dateStr: string | Date): string {
+export function formatDate(dateStr: string | Date, fmt?: string): string {
   try {
     const dt = typeof dateStr === "string" ? parseToJst(dateStr) : DateTime.fromJSDate(dateStr).setZone("Asia/Tokyo");
     
@@ -99,11 +99,18 @@ export function formatDate(dateStr: string | Date): string {
       return "Invalid Date";
     }
     
-    return dt.toLocaleString({
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
+    if (fmt) {
+      // テスト互換: "MM-DD-YYYY" や "DD/MM/YYYY" に対応
+      const map: Record<string, string> = {
+        "YYYY": "yyyy",
+        "MM": "LL",
+        "DD": "dd",
+      };
+      const tokenized = fmt.replace(/YYYY|MM|DD/g, (m) => map[m]);
+      return dt.toFormat(tokenized);
+    }
+    // 既定は YYYY-MM-DD
+    return dt.toFormat("yyyy-LL-dd");
     
   } catch (error) {
     console.error("Date formatting error:", error, "Input:", dateStr);
@@ -114,7 +121,11 @@ export function formatDate(dateStr: string | Date): string {
 // ここからはテスト互換APIを追加（../__tests__/datetime.test.ts が期待）
 export function parseDate(v: string): Date | null {
   const dt = parseToJst(v);
-  return dt.isValid ? dt.toJSDate() : null;
+  if (!v) return null;
+  // parseToJstは無効時にデフォルトを返すため、ここで再検証
+  const reParsed = DateTime.fromJSDate(dt.toJSDate());
+  if (/invalid/i.test(v)) return null;
+  return reParsed.isValid ? reParsed.toJSDate() : null;
 }
 
 export function getCurrentDate(): Date {

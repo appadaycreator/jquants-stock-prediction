@@ -31,25 +31,25 @@ class Logger {
 
   debug(message: any, ...args: any[]): void {
     if (this.shouldLog(LogLevel.DEBUG)) {
-      console.debug(message);
+      console.debug(message, ...args);
     }
   }
 
   info(message: any, ...args: any[]): void {
     if (this.shouldLog(LogLevel.INFO)) {
-      console.info(message);
+      console.info(message, ...args);
     }
   }
 
   warn(message: any, ...args: any[]): void {
     if (this.shouldLog(LogLevel.WARN)) {
-      console.warn(message);
+      console.warn(message, ...args);
     }
   }
 
   error(message: any, ...args: any[]): void {
     if (this.shouldLog(LogLevel.ERROR)) {
-      console.error(message);
+      console.error(message, ...args);
     }
   }
 
