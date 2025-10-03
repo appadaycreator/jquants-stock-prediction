@@ -154,13 +154,15 @@ class PredictionEngine:
         X_test: np.ndarray,
         config: Dict[str, Any],
     ) -> Dict[str, Any]:
-        """データ情報の作成"""
+        """データ情報の作成（最適化版）"""
         return {
             "train_size": len(X_train),
             "val_size": len(X_val),
             "test_size": len(X_test),
+            "total_size": len(X_train) + len(X_val) + len(X_test),
             "features": config.get("features", []),
             "target": config.get("target", "close"),
+            "feature_count": len(config.get("features", [])),
         }
 
     def _get_prediction_config(self) -> Dict[str, Any]:
@@ -323,17 +325,6 @@ class PredictionEngine:
             return max_r2
         return test_r2
 
-    def _create_data_info(
-        self, X_train, X_val, X_test, config: Dict[str, Any]
-    ) -> Dict[str, Any]:
-        """データ情報の作成"""
-        return {
-            "train_size": len(X_train),
-            "val_size": len(X_val),
-            "test_size": len(X_test),
-            "features": config["features"],
-            "target": config["target"],
-        }
 
     def _create_error_result(self, error_message: str) -> Dict[str, Any]:
         """エラー結果の作成"""
