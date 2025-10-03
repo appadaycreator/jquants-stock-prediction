@@ -161,7 +161,7 @@ class TestPredictionEngine:
         engine = PredictionEngine()
         data = pd.DataFrame({"feature1": [1, 2, 3]})
 
-        with pytest.raises(ValueError, match="No model"):
+        with pytest.raises(ValueError, match="モデルが初期化されていません"):
             engine.make_predictions(None, data)
 
     def test_make_predictions_none_data(self):

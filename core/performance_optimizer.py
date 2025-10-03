@@ -80,10 +80,17 @@ class PerformanceOptimizer:
                 self._detect_performance_issues(metrics)
 
                 time.sleep(interval)
+            except KeyboardInterrupt:
+                # キーボード割り込みの場合は正常終了
+                break
             except Exception as e:
                 if self.logger:
                     self.logger.log_warning(f"監視ループエラー: {e}")
-                time.sleep(interval)
+                # エラー時は短い間隔でリトライ
+                try:
+                    time.sleep(min(interval, 5))
+                except Exception:
+                    break
 
     def collect_system_metrics(self) -> Dict[str, Any]:
         """システムメトリクスの収集"""

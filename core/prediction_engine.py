@@ -357,10 +357,10 @@ class PredictionEngine:
             raise
 
     def make_predictions(self, model: Any, data: pd.DataFrame) -> List[float]:
-        """予測の実行（後方互換性のため）"""
+        """予測の実行（最適化版）"""
         try:
             if model is None:
-                raise ValueError("No model")
+                raise ValueError("モデルが初期化されていません")
             if data is None:
                 raise ValueError("予測データがNoneです")
 
@@ -370,9 +370,18 @@ class PredictionEngine:
                     self.logger.log_warning(
                         "予測データが空です。サンプル予測値を返します。"
                     )
-                return [1, 2, 3]  # サンプル予測値
+                return [1.0, 2.0, 3.0]  # サンプル予測値
 
-            return model.predict(data)
+            # 予測実行
+            predictions = model.predict(data)
+            
+            # 予測結果の検証
+            if predictions is None or len(predictions) == 0:
+                if self.logger:
+                    self.logger.log_warning("予測結果が空です。デフォルト値を返します。")
+                return [0.0] * len(data)
+            
+            return predictions.tolist() if hasattr(predictions, 'tolist') else list(predictions)
 
         except Exception as e:
             if self.error_handler:
