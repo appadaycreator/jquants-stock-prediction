@@ -1,0 +1,181 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+const JQUANTS_API_BASE = 'https://api.jquants.com/v1';
+const ALLOWED_PATHS = ['/token/', '/prices/'];
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1分
+const RATE_LIMIT_MAX_REQUESTS = 100; // 1分間に100リクエスト
+
+// 簡易レート制限（本番環境ではRedis等を使用）
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+
+function isAllowedPath(path: string): boolean {
+  return ALLOWED_PATHS.some(allowedPath => path.startsWith(allowedPath));
+}
+
+function checkRateLimit(clientIp: string): boolean {
+  const now = Date.now();
+  const clientData = rateLimitMap.get(clientIp);
+
+  if (!clientData || now > clientData.resetTime) {
+    rateLimitMap.set(clientIp, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    return true;
+  }
+
+  if (clientData.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return false;
+  }
+
+  clientData.count++;
+  return true;
+}
+
+function getClientIp(request: NextRequest): string {
+  const forwarded = request.headers.get('x-forwarded-for');
+  const realIp = request.headers.get('x-real-ip');
+  const remoteAddr = request.headers.get('x-remote-addr');
+  
+  return forwarded?.split(',')[0] || realIp || remoteAddr || 'unknown';
+}
+
+export async function GET(request: NextRequest, { params }: { params: { path: string[] } }) {
+  return handleProxyRequest(request, params.path, 'GET');
+}
+
+export async function POST(request: NextRequest, { params }: { params: { path: string[] } }) {
+  return handleProxyRequest(request, params.path, 'POST');
+}
+
+async function handleProxyRequest(
+  request: NextRequest,
+  pathSegments: string[],
+  method: string
+) {
+  try {
+    const path = '/' + pathSegments.join('/');
+    const clientIp = getClientIp(request);
+
+    // パス許可チェック
+    if (!isAllowedPath(path)) {
+      return NextResponse.json(
+        { error: 'Forbidden path' },
+        { status: 403 }
+      );
+    }
+
+    // レート制限チェック
+    if (!checkRateLimit(clientIp)) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded' },
+        { status: 429 }
+      );
+    }
+
+    // リクエストボディの取得
+    let body: string | undefined;
+    if (method === 'POST') {
+      body = await request.text();
+    }
+
+    // クエリパラメータの取得
+    const searchParams = request.nextUrl.searchParams;
+    const queryString = searchParams.toString();
+    const fullUrl = `${JQUANTS_API_BASE}${path}${queryString ? '?' + queryString : ''}`;
+
+    // J-Quants APIへのリクエスト
+    const response = await fetch(fullUrl, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': 'J-Quants-Stock-Prediction/1.0',
+      },
+      body,
+    });
+
+    // レスポンスの処理
+    const responseData = await response.text();
+    let jsonData;
+    
+    try {
+      jsonData = JSON.parse(responseData);
+    } catch {
+      jsonData = { data: responseData };
+    }
+
+    // エラーハンドリング
+    if (!response.ok) {
+      console.error(`J-Quants API Error: ${response.status} ${response.statusText}`);
+      
+      // 特定のエラーコードに対する処理
+      switch (response.status) {
+        case 401:
+          return NextResponse.json(
+            { 
+              error: 'Authentication failed',
+              message: '認証に失敗しました。トークンを更新してください。',
+              retry_hint: 'refresh_token'
+            },
+            { status: 401 }
+          );
+        case 403:
+          return NextResponse.json(
+            { 
+              error: 'Access forbidden',
+              message: 'アクセスが拒否されました。',
+              retry_hint: 'check_permissions'
+            },
+            { status: 403 }
+          );
+        case 429:
+          return NextResponse.json(
+            { 
+              error: 'Rate limit exceeded',
+              message: 'レート制限に達しました。しばらく待ってから再試行してください。',
+              retry_hint: 'wait_and_retry'
+            },
+            { status: 429 }
+          );
+        case 500:
+        case 502:
+        case 503:
+        case 504:
+          return NextResponse.json(
+            { 
+              error: 'Server error',
+              message: 'サーバーエラーが発生しました。',
+              retry_hint: 'retry_later'
+            },
+            { status: response.status }
+          );
+        default:
+          return NextResponse.json(
+            { 
+              error: 'API error',
+              message: `API エラー: ${response.status}`,
+              retry_hint: 'check_status'
+            },
+            { status: response.status }
+          );
+      }
+    }
+
+    return NextResponse.json(jsonData, {
+      status: response.status,
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      },
+    });
+
+  } catch (error) {
+    console.error('プロキシエラー:', error);
+    return NextResponse.json(
+      { 
+        error: 'Proxy error',
+        message: 'プロキシエラーが発生しました',
+        retry_hint: 'check_connection'
+      },
+      { status: 500 }
+    );
+  }
+}
