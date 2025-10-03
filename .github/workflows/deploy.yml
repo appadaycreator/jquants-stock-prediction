@@ -66,10 +66,28 @@ jobs:
         cd web-app
         npm ci --legacy-peer-deps
         
+    - name: Prepare for static build
+      run: |
+        cd web-app
+        # APIルートを一時的に移動
+        if [ -d "src/app/api" ]; then
+          mv src/app/api temp_api
+          echo "APIルートを一時的に移動しました"
+        fi
+        
     - name: Build web application
       run: |
         cd web-app
-        npm run export
+        NODE_ENV=production npx next build
+        
+    - name: Restore API routes
+      run: |
+        cd web-app
+        # APIルートを復元
+        if [ -d "temp_api" ]; then
+          mv temp_api src/app/api
+          echo "APIルートを復元しました"
+        fi
         
     - name: Setup Pages
       uses: actions/configure-pages@v4
