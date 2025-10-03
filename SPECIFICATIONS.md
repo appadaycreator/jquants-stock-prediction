@@ -115,6 +115,15 @@ jquants-stock-prediction/
 - **実装**: `web-app/src/app/analysis-history/page.tsx`（Client Component）
 - **ナビゲーション**: `Navigation.tsx` に「分析履歴」を追加済み
 
+#### 3.3.3 詳細分析ページ（新規）
+- **ルート**: `/analysis`
+- **目的**: 指定した銘柄の詳細分析結果を表示
+- **クエリ**: `symbol`（複数可）
+  - 例: `/analysis?symbol=7203` または `/analysis?symbol=7203&symbol=6758`
+- **表示**: `SymbolAnalysisResults` を利用して銘柄別分析を表示
+- **実装**: `web-app/src/app/analysis/page.tsx`
+- **静的配信**: `docs/_redirects` に `/analysis /analysis/index.html 200` を追加し、GitHub Pages での直接アクセス404を防止
+
 ### 3.4 リスク分析機能
 - **VaR計算**: 1日、1週間、1ヶ月
 - **最大ドローダウン**: ポートフォリオ全体

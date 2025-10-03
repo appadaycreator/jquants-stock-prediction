@@ -843,7 +843,8 @@ class DifferentialUpdater:
             recent_updates = [
                 entry
                 for entry in diff_log
-                if datetime.fromisoformat(entry["timestamp"]) > datetime.now() - timedelta(days=7)
+                if datetime.fromisoformat(entry["timestamp"])
+                > datetime.now() - timedelta(days=7)
             ]
 
             recent_count = len(recent_updates)

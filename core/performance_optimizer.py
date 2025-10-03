@@ -251,24 +251,7 @@ class PerformanceOptimizer:
             if self.logger:
                 self.logger.log_error(f"ディスク最適化エラー: {e}")
 
-    def _auto_optimize(self, optimization_type: str) -> None:
-        """自動最適化の実行"""
-        try:
-            if optimization_type == "memory_cleanup":
-                gc.collect()
-            elif optimization_type == "cpu_optimization":
-                # CPU最適化の実装
-                gc.collect()
-            elif optimization_type == "general_optimization":
-                # 一般的な最適化
-                gc.collect()
-
-            if self.logger:
-                self.logger.log_info(f"自動最適化を実行: {optimization_type}")
-        except Exception as e:
-            if self.logger:
-                self.logger.log_error(f"自動最適化エラー: {e}")
-                self._auto_optimize("general_optimization")
+    # 旧実装の重複 _auto_optimize は削除し、後段の包括版に統一
 
     def _log_performance_warning(
         self, warning_type: str, value: float, threshold: float
