@@ -78,7 +78,19 @@ jobs:
     - name: Build web application
       run: |
         cd web-app
-        NODE_ENV=production npx next build
+        NODE_ENV=production npm run build
+        
+    - name: Copy build output to docs directory
+      run: |
+        cd web-app
+        # outディレクトリからdocsディレクトリにコピー
+        if [ -d "out" ]; then
+          rm -rf docs
+          cp -r out docs
+          echo "Build output copied to docs directory"
+        else
+          echo "Warning: out directory not found"
+        fi
         
     - name: Restore API routes
       run: |
@@ -95,7 +107,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: ./web-app/out
+        path: ./web-app/docs
 
   deploy:
     environment:

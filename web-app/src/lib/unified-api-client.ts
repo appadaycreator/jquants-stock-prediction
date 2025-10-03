@@ -152,7 +152,7 @@ class UnifiedApiClient {
   async testConnection(): Promise<{ success: boolean; message: string }> {
     try {
       // J-Quants APIプロキシの接続テスト
-      const response = await fetch("/api/health", {
+      const response = await fetch("/api/health/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

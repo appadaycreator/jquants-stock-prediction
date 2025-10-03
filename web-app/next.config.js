@@ -22,6 +22,8 @@ const nextConfig = {
   },
   // 静的エクスポート時の設定
   distDir: isProd ? 'docs' : '.next',
+  // 静的エクスポート時の出力ディレクトリを設定
+  ...(isProd && { output: 'export' }),
   // 静的アセットのパス設定
   async headers() {
     return [
@@ -50,12 +52,7 @@ const nextConfig = {
     if (isProd) {
       return [];
     }
-    return [
-      {
-        source: '/api/:path*',
-        destination: '/api/:path*',
-      },
-    ];
+    return [];
   },
 };
 
