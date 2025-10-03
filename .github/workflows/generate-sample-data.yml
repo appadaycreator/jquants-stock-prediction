@@ -30,7 +30,7 @@ jobs:
         python generate_sample_cache_data.py
         
     - name: Upload sample data artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: sample-cache-data
         path: docs/data/
