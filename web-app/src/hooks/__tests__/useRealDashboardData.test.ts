@@ -1,9 +1,12 @@
 import { renderHook, act } from "@testing-library/react";
 import { useRealDashboardData } from "../useRealDashboardData";
 
-// Mock the fetchJson function
-jest.mock("@/lib/fetcher", () => ({
-  fetchJson: jest.fn(),
+// Mock the unifiedApiClient and stock-analysis functions
+jest.mock("@/lib/unified-api-client", () => ({
+  testConnection: jest.fn(),
+}));
+jest.mock("@/lib/stock-analysis", () => ({
+  generateMarketSummary: jest.fn(),
 }));
 
 describe("useRealDashboardData", () => {
@@ -21,24 +24,19 @@ describe("useRealDashboardData", () => {
   });
 
   it("handles successful data fetch", async () => {
-    const mockData = {
-      summary: {
-        totalStocks: 100,
-        analyzedStocks: 50,
-        lastUpdated: "2024-01-01T00:00:00Z",
-      },
-      predictions: [
-        {
-          symbol: "7203",
-          name: "トヨタ自動車",
-          recommendation: "BUY",
-          confidence: 0.8,
-        },
-      ],
-    };
+    const { testConnection } = require("@/lib/unified-api-client");
+    const { generateMarketSummary } = require("@/lib/stock-analysis");
 
-    const { fetchJson } = require("@/lib/fetcher");
-    fetchJson.mockResolvedValue(mockData);
+    testConnection.mockResolvedValue({ success: true, message: "Connected" });
+    const mockData = {
+      analyzedSymbols: 15,
+      recommendations: { BUY: 10, HOLD: 5, SELL: 2 },
+      topGainers: [],
+      topLosers: [],
+      totalSymbols: 15,
+      lastUpdated: "2024-01-01T00:00:00Z",
+    };
+    generateMarketSummary.mockResolvedValue(mockData);
 
     const { result } = renderHook(() => useRealDashboardData());
 
@@ -52,8 +50,11 @@ describe("useRealDashboardData", () => {
   });
 
   it("handles API errors gracefully", async () => {
-    const { fetchJson } = require("@/lib/fetcher");
-    fetchJson.mockRejectedValue(new Error("API Error"));
+    const { testConnection } = require("@/lib/unified-api-client");
+    const { generateMarketSummary } = require("@/lib/stock-analysis");
+
+    testConnection.mockResolvedValue({ success: true, message: "Connected" });
+    generateMarketSummary.mockRejectedValue(new Error("API Error"));
 
     const { result } = renderHook(() => useRealDashboardData());
 
@@ -67,8 +68,18 @@ describe("useRealDashboardData", () => {
   });
 
   it("refetches data when refetch is called", async () => {
-    const { fetchJson } = require("@/lib/fetcher");
-    fetchJson.mockResolvedValue({ data: "test" });
+    const { testConnection } = require("@/lib/unified-api-client");
+    const { generateMarketSummary } = require("@/lib/stock-analysis");
+
+    testConnection.mockResolvedValue({ success: true, message: "Connected" });
+    generateMarketSummary.mockResolvedValue({
+      analyzedSymbols: 15,
+      recommendations: { BUY: 10, HOLD: 5, SELL: 2 },
+      topGainers: [],
+      topLosers: [],
+      totalSymbols: 15,
+      lastUpdated: "2024-01-01T00:00:00Z",
+    });
 
     const { result } = renderHook(() => useRealDashboardData());
 
@@ -76,32 +87,39 @@ describe("useRealDashboardData", () => {
       await new Promise(resolve => setTimeout(resolve, 0));
     });
 
-    expect(fetchJson).toHaveBeenCalledTimes(1);
+    expect(generateMarketSummary).toHaveBeenCalledTimes(1);
 
     await act(async () => {
       result.current.actions.refresh();
     });
 
-    expect(fetchJson).toHaveBeenCalledTimes(2);
+    expect(generateMarketSummary).toHaveBeenCalledTimes(2);
   });
 
   it("sets loading state during fetch", async () => {
-    const { fetchJson } = require("@/lib/fetcher");
+    const { testConnection } = require("@/lib/unified-api-client");
+    const { generateMarketSummary } = require("@/lib/stock-analysis");
+
+    testConnection.mockResolvedValue({ success: true, message: "Connected" });
     let resolvePromise;
     const promise = new Promise(resolve => {
       resolvePromise = resolve;
     });
-    fetchJson.mockReturnValue(promise);
+    generateMarketSummary.mockReturnValue(promise);
 
     const { result } = renderHook(() => useRealDashboardData());
 
     expect(result.current.isLoading).toBe(true);
 
-    act(() => {
-      resolvePromise({ data: "test" });
-    });
-
     await act(async () => {
+      resolvePromise({
+        analyzedSymbols: 15,
+        recommendations: { BUY: 10, HOLD: 5, SELL: 2 },
+        topGainers: [],
+        topLosers: [],
+        totalSymbols: 15,
+        lastUpdated: "2024-01-01T00:00:00Z",
+      });
       await promise;
     });
 

@@ -1,14 +1,17 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import ThemeToggle from "../ThemeToggle";
+import { ThemeToggle } from "../ThemeToggle";
 
-// Mock the useTheme hook
-jest.mock("@/contexts/ThemeContext", () => ({
-  useTheme: () => ({
-    theme: "light",
-    setTheme: jest.fn(),
-  }),
+// ThemeContext のモック
+const mockThemeContext = {
+  theme: "light",
+  setTheme: jest.fn(),
+  toggleTheme: jest.fn(),
+};
+
+jest.mock("../../contexts/ThemeContext", () => ({
+  useTheme: () => mockThemeContext,
 }));
 
 describe("ThemeToggle", () => {
@@ -16,37 +19,33 @@ describe("ThemeToggle", () => {
     jest.clearAllMocks();
   });
 
-  it("renders the component without crashing", () => {
+  it("renders the theme toggle button", () => {
     render(<ThemeToggle />);
-    expect(screen.getAllByRole("button")).toHaveLength(3);
+    
+    const toggleButton = screen.getByRole("button");
+    expect(toggleButton).toBeInTheDocument();
   });
 
-  it("displays the correct icon for light theme", () => {
+  it("displays current theme", () => {
     render(<ThemeToggle />);
-    // The component should render a sun icon for light theme
-    expect(screen.getAllByRole("button")).toHaveLength(3);
+    
+    expect(screen.getByText("ライト")).toBeInTheDocument();
   });
 
-  it("handles theme toggle click", () => {
+  it("calls toggleTheme when clicked", () => {
     render(<ThemeToggle />);
-    const toggleButtons = screen.getAllByRole("button");
-    expect(toggleButtons).toHaveLength(3);
     
-    // Test that buttons are clickable
-    fireEvent.click(toggleButtons[0]);
-    fireEvent.click(toggleButtons[1]);
-    fireEvent.click(toggleButtons[2]);
+    const toggleButton = screen.getByRole("button");
+    fireEvent.click(toggleButton);
+    
+    expect(mockThemeContext.toggleTheme).toHaveBeenCalledTimes(1);
   });
 
-  it("toggles between light and dark themes", () => {
+  it("shows dark theme when theme is dark", () => {
+    mockThemeContext.theme = "dark";
+    
     render(<ThemeToggle />);
-    const toggleButtons = screen.getAllByRole("button");
     
-    // Test all button interactions
-    toggleButtons.forEach(button => {
-      fireEvent.click(button);
-    });
-    
-    expect(toggleButtons).toHaveLength(3);
+    expect(screen.getByText("ダーク")).toBeInTheDocument();
   });
 });

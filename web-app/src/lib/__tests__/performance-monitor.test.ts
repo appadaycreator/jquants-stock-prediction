@@ -1,98 +1,181 @@
-/**
- * パフォーマンスモニターのテスト
- */
+import { 
+  startPerformanceMonitoring, 
+  stopPerformanceMonitoring, 
+  getPerformanceMetrics,
+  getPerformanceReport,
+  clearPerformanceMetrics,
+  setPerformanceThresholds,
+  getPerformanceThresholds,
+  isPerformanceMonitoringActive,
+  getPerformanceAlerts,
+  clearPerformanceAlerts,
+  exportPerformanceData,
+  importPerformanceData
+} from "../performance-monitor";
 
-import { performanceMonitor } from "../performance-monitor";
-
-// モックの設定
+// Performance API のモック
 const mockPerformance = {
   now: jest.fn(() => Date.now()),
   mark: jest.fn(),
   measure: jest.fn(),
-  getEntriesByType: jest.fn(() => []),
   getEntriesByName: jest.fn(() => []),
-  memory: {
-    usedJSHeapSize: 1000000,
-    totalJSHeapSize: 2000000,
-    jsHeapSizeLimit: 4000000,
-  },
+  getEntriesByType: jest.fn(() => []),
+  clearMarks: jest.fn(),
+  clearMeasures: jest.fn(),
 };
 
-// PerformanceObserverのモック
-const mockPerformanceObserver = jest.fn().mockImplementation((callback) => ({
-  observe: jest.fn(),
-  disconnect: jest.fn(),
-}));
-
-// グローバルオブジェクトのモック
-Object.defineProperty(global, "performance", {
+Object.defineProperty(window, "performance", {
   value: mockPerformance,
-  writable: true,
 });
 
-Object.defineProperty(global, "PerformanceObserver", {
-  value: mockPerformanceObserver,
-  writable: true,
-});
-
-describe("PerformanceMonitor", () => {
+describe("performance-monitor", () => {
   beforeEach(() => {
-    // テスト前にモニターをリセット（resetメソッドが存在しない場合はスキップ）
-    if (typeof performanceMonitor.reset === "function") {
-      performanceMonitor.reset();
-    }
+    jest.clearAllMocks();
   });
 
-  describe("getMetrics", () => {
-    it("メトリクスを正しく取得する", () => {
-      const metrics = performanceMonitor.getMetrics();
-      
-      expect(metrics).toBeDefined();
-      expect(typeof metrics.loadTime).toBe("number");
-      expect(typeof metrics.renderTime).toBe("number");
-      expect(typeof metrics.memoryUsage.used).toBe("number");
-      expect(typeof metrics.componentCount).toBe("number");
+  describe("startPerformanceMonitoring", () => {
+    it("starts performance monitoring", () => {
+      startPerformanceMonitoring();
+      expect(isPerformanceMonitoringActive()).toBe(true);
+    });
+
+    it("handles already active monitoring", () => {
+      startPerformanceMonitoring();
+      startPerformanceMonitoring(); // Should not throw
+      expect(isPerformanceMonitoringActive()).toBe(true);
     });
   });
 
-  describe("generateReport", () => {
-    it("レポートを正しく生成する", () => {
-      const report = performanceMonitor.generateReport();
-      
-      expect(report).toBeDefined();
-      expect(typeof report).toBe("string");
-      expect(report).toContain("パフォーマンスレポート");
+  describe("stopPerformanceMonitoring", () => {
+    it("stops performance monitoring", () => {
+      startPerformanceMonitoring();
+      stopPerformanceMonitoring();
+      expect(isPerformanceMonitoringActive()).toBe(false);
+    });
+
+    it("handles already stopped monitoring", () => {
+      stopPerformanceMonitoring(); // Should not throw
+      expect(isPerformanceMonitoringActive()).toBe(false);
     });
   });
 
-  describe("optimizePerformance", () => {
-    it("最適化を正しく実行する", () => {
-      expect(() => {
-        performanceMonitor.optimizePerformance();
-      }).not.toThrow();
+  describe("getPerformanceMetrics", () => {
+    it("returns performance metrics", () => {
+      const metrics = getPerformanceMetrics();
+      expect(metrics).toHaveProperty("cpu");
+      expect(metrics).toHaveProperty("memory");
+      expect(metrics).toHaveProperty("network");
+      expect(metrics).toHaveProperty("rendering");
+    });
+
+    it("includes timing information", () => {
+      const metrics = getPerformanceMetrics();
+      expect(metrics).toHaveProperty("timing");
+      expect(metrics.timing).toHaveProperty("domContentLoaded");
+      expect(metrics.timing).toHaveProperty("loadComplete");
     });
   });
 
-  describe("reset", () => {
-    it("モニターを正しくリセットする", () => {
-      performanceMonitor.optimizePerformance();
-      
-      // resetメソッドが存在しない場合はスキップ
-      expect(true).toBe(true);
+  describe("getPerformanceReport", () => {
+    it("generates performance report", () => {
+      const report = getPerformanceReport();
+      expect(report).toHaveProperty("summary");
+      expect(report).toHaveProperty("metrics");
+      expect(report).toHaveProperty("recommendations");
+    });
+
+    it("includes performance score", () => {
+      const report = getPerformanceReport();
+      expect(report.summary).toHaveProperty("score");
+      expect(report.summary.score).toBeGreaterThanOrEqual(0);
+      expect(report.summary.score).toBeLessThanOrEqual(100);
     });
   });
 
-  describe("SSR環境での動作", () => {
-    it("windowが未定義でもエラーが発生しない", () => {
-      const originalWindow = global.window;
-      delete (global as any).window;
+  describe("clearPerformanceMetrics", () => {
+    it("clears performance metrics", () => {
+      clearPerformanceMetrics();
+      const metrics = getPerformanceMetrics();
+      expect(metrics.cpu.usage).toBe(0);
+      expect(metrics.memory.used).toBe(0);
+    });
+  });
+
+  describe("setPerformanceThresholds", () => {
+    it("sets performance thresholds", () => {
+      const thresholds = {
+        cpu: 80,
+        memory: 90,
+        network: 1000,
+        rendering: 16,
+      };
+      setPerformanceThresholds(thresholds);
+      expect(getPerformanceThresholds()).toEqual(thresholds);
+    });
+
+    it("validates threshold values", () => {
+      expect(() => setPerformanceThresholds({ cpu: -1 })).toThrow();
+      expect(() => setPerformanceThresholds({ cpu: 101 })).toThrow();
+    });
+  });
+
+  describe("getPerformanceThresholds", () => {
+    it("returns current thresholds", () => {
+      const thresholds = getPerformanceThresholds();
+      expect(thresholds).toHaveProperty("cpu");
+      expect(thresholds).toHaveProperty("memory");
+      expect(thresholds).toHaveProperty("network");
+      expect(thresholds).toHaveProperty("rendering");
+    });
+  });
+
+  describe("isPerformanceMonitoringActive", () => {
+    it("returns monitoring status", () => {
+      const active = isPerformanceMonitoringActive();
+      expect(typeof active).toBe("boolean");
+    });
+  });
+
+  describe("getPerformanceAlerts", () => {
+    it("returns performance alerts", () => {
+      const alerts = getPerformanceAlerts();
+      expect(Array.isArray(alerts)).toBe(true);
+    });
+  });
+
+  describe("clearPerformanceAlerts", () => {
+    it("clears performance alerts", () => {
+      clearPerformanceAlerts();
+      const alerts = getPerformanceAlerts();
+      expect(alerts).toHaveLength(0);
+    });
+  });
+
+  describe("exportPerformanceData", () => {
+    it("exports performance data", () => {
+      const data = exportPerformanceData();
+      expect(typeof data).toBe("string");
       
-      expect(() => {
-        const { performanceMonitor } = require("../performance-monitor");
-        expect(performanceMonitor).toBeDefined();
-      }).not.toThrow();
+      const parsed = JSON.parse(data);
+      expect(parsed).toHaveProperty("metrics");
+      expect(parsed).toHaveProperty("timestamp");
+    });
+  });
+
+  describe("importPerformanceData", () => {
+    it("imports performance data", () => {
+      const data = {
+        metrics: { cpu: { usage: 50 } },
+        timestamp: Date.now(),
+      };
+      importPerformanceData(JSON.stringify(data));
       
-      global.window = originalWindow;
+      const metrics = getPerformanceMetrics();
+      expect(metrics.cpu.usage).toBe(50);
+    });
+
+    it("handles invalid data", () => {
+      expect(() => importPerformanceData("invalid")).toThrow();
     });
   });
 });

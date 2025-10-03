@@ -5,26 +5,14 @@ describe("schema validation", () => {
   describe("stockDataSchema", () => {
     it("validates correct stock data", () => {
       const validStockData = {
-        symbol: "7203",
-        name: "トヨタ自動車",
-        price: 2500,
-        change: 50,
-        changePercent: 2.04,
+        date: "2024-01-01",
+        close: 2500,
         volume: 1000000,
-        marketCap: 1000000000000,
-        pe: 15.5,
-        pb: 1.2,
-        dividend: 100,
-        dividendYield: 4.0,
-        high52w: 3000,
-        low52w: 2000,
-        sector: "自動車",
-        industry: "自動車製造",
-        employees: 370000,
-        founded: 1937,
-        description: "自動車製造会社",
-        website: "https://toyota.co.jp",
-        logo: "https://example.com/logo.png",
+        sma_5: 2450,
+        sma_10: 2400,
+        sma_25: 2350,
+        sma_50: 2300,
+        predicted: 2600,
       };
 
       expect(() => StockData.parse(validStockData)).not.toThrow();
@@ -32,10 +20,9 @@ describe("schema validation", () => {
 
     it("rejects invalid stock data", () => {
       const invalidStockData = {
-        symbol: "",
-        name: "",
-        price: -100,
-        change: "invalid",
+        date: "",
+        close: -100,
+        volume: "invalid",
       };
 
       expect(() => StockData.parse(invalidStockData)).toThrow();
