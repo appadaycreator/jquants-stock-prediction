@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic";
 import { Suspense, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import SymbolAnalysisResults from "@/components/SymbolAnalysisResults";
+import ErrorBoundaryComponent from "@/components/ErrorBoundary";
 
 function AnalysisInner() {
   const sp = useSearchParams();
@@ -38,9 +39,22 @@ function AnalysisInner() {
 
 export default function AnalysisPage() {
   return (
-    <Suspense fallback={<div className="p-4">読み込み中...</div>}>
-      <AnalysisInner />
-    </Suspense>
+    <ErrorBoundaryComponent
+      onError={(error, errorInfo) => {
+        console.error("Analysis page error:", error, errorInfo);
+      }}
+    >
+      <Suspense fallback={
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">詳細分析を読み込み中...</p>
+          </div>
+        </div>
+      }>
+        <AnalysisInner />
+      </Suspense>
+    </ErrorBoundaryComponent>
   );
 }
 

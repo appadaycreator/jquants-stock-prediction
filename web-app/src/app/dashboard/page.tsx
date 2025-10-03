@@ -24,6 +24,8 @@ import { TourProvider } from "@/components/guide/TourProvider";
 import PredictionsView from "@/components/PredictionsView";
 import OneClickAnalysis from "@/components/OneClickAnalysis";
 import SymbolAnalysisResults from "@/components/SymbolAnalysisResults";
+import DashboardWidgets from "@/components/DashboardWidgets";
+import ErrorBoundaryComponent from "@/components/ErrorBoundary";
 
 // 動的インポートでコンポーネントを遅延読み込み
 const MobileNavigation = dynamicImport(() => import("../../components/MobileNavigation"), { ssr: false });
@@ -100,6 +102,13 @@ function DashboardContent() {
 
   // 実データ使用フラグ
   const [useRealData, setUseRealData] = useState(true);
+
+  // ダッシュボードデータのリフレッシュ
+  const handleRefresh = useCallback(() => {
+    if (realDashboard.actions?.refresh) {
+      realDashboard.actions.refresh();
+    }
+  }, [realDashboard.actions]);
   
   // 全銘柄データの状態
   const [allStocksData, setAllStocksData] = useState<any>(null);
@@ -583,6 +592,17 @@ function DashboardContent() {
               {/* タブコンテンツ */}
               {activeTab === "overview" && (
                 <div className="space-y-6" data-guide-target="overview">
+                  {/* ダッシュボードウィジェット */}
+                  <DashboardWidgets
+                    performanceMetrics={performanceMetrics}
+                    marketInsights={marketInsights}
+                    modelComparison={modelComparison}
+                    isLoading={useRealData ? realDashboard.isLoading : isLoading}
+                    error={useRealData ? realDashboard.error : error}
+                    onRetry={handleRefresh}
+                    isSampleData={!useRealData || (realDashboard.marketSummary?.analyzedSymbols || 0) <= 5}
+                  />
+                  
                   {/* システム状況 */}
                   <div className="bg-white rounded-lg shadow p-6">
                     <div className="flex items-center justify-between mb-4">

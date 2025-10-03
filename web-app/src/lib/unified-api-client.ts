@@ -151,16 +151,29 @@ class UnifiedApiClient {
   // 接続テスト
   async testConnection(): Promise<{ success: boolean; message: string }> {
     try {
-      // シンプルな接続テスト - 実際のAPIエンドポイントに依存しない
-      // フロントエンドが動作しているということは、基本的な接続は成功している
+      // J-Quants APIプロキシの接続テスト
+      const response = await fetch("/api/health", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const healthData = await response.json();
+      
       return {
         success: true,
-        message: "Frontend connection successful",
+        message: `API接続成功: ${healthData.status}`,
       };
     } catch (error) {
+      console.error("API接続テストエラー:", error);
       return {
         success: false,
-        message: `Connection failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+        message: `API接続失敗: ${error instanceof Error ? error.message : "Unknown error"}`,
       };
     }
   }
