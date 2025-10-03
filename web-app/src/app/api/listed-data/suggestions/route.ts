@@ -62,11 +62,11 @@ export async function GET(request: NextRequest) {
 
     const queryLower = query.toLowerCase().trim();
     
-    // 前方一致で候補を検索
+    // 部分一致で候補を検索
     const suggestions: SuggestionItem[] = data.stocks
       .filter(stock => {
-        const codeMatch = stock.code.toLowerCase().startsWith(queryLower);
-        const nameMatch = stock.name.toLowerCase().startsWith(queryLower);
+        const codeMatch = stock.code.toLowerCase().includes(queryLower);
+        const nameMatch = stock.name.toLowerCase().includes(queryLower);
         return codeMatch || nameMatch;
       })
       .map(stock => ({
@@ -82,9 +82,16 @@ export async function GET(request: NextRequest) {
     suggestions.sort((a, b) => {
       const aCodeMatch = a.code.toLowerCase().startsWith(queryLower);
       const bCodeMatch = b.code.toLowerCase().startsWith(queryLower);
+      const aNameMatch = a.name.toLowerCase().startsWith(queryLower);
+      const bNameMatch = b.name.toLowerCase().startsWith(queryLower);
       
+      // コードで始まるものを最優先
       if (aCodeMatch && !bCodeMatch) return -1;
       if (!aCodeMatch && bCodeMatch) return 1;
+      
+      // 名前で始まるものを次に優先
+      if (aNameMatch && !bNameMatch && !aCodeMatch && !bCodeMatch) return -1;
+      if (!aNameMatch && bNameMatch && !aCodeMatch && !bCodeMatch) return 1;
       
       // 同じ条件の場合は名前順でソート
       return a.name.localeCompare(b.name, 'ja');
