@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, BarChart3, Target, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import { staticApiClient } from '@/lib/api/StaticApiClient';
 
 interface PerformanceSummary {
   modelAccuracy: number;
@@ -50,11 +51,17 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
   error
 }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [isStaticSite, setIsStaticSite] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
+
+    // 静的サイト検出
+    if (typeof window !== 'undefined') {
+      setIsStaticSite(staticApiClient.isStaticSiteMode());
+    }
 
     return () => clearInterval(timer);
   }, []);
@@ -81,6 +88,13 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
           <span className="font-medium">データの読み込みに失敗しました</span>
         </div>
         <p className="text-red-600 mt-2">{error.message}</p>
+        {isStaticSite && (
+          <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+            <p className="text-blue-800 text-sm">
+              静的サイトモード: サンプルデータを表示中
+            </p>
+          </div>
+        )}
       </div>
     );
   }

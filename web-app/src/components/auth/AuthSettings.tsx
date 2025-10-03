@@ -74,6 +74,23 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
 
   const checkAuthStatus = async () => {
     try {
+      // 静的サイトの場合はモック状態を返す
+      if (typeof window !== 'undefined' && 
+          (window.location.hostname.includes('github.io') || 
+           window.location.hostname.includes('netlify.app') || 
+           window.location.hostname.includes('vercel.app'))) {
+        const mockStatus = {
+          isConnected: true,
+          tokenType: 'id' as const,
+          expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+          timeRemaining: 24 * 60 * 60,
+          lastUpdate: new Date().toISOString(),
+        };
+        setAuthStatus(mockStatus);
+        onAuthChange?.(mockStatus);
+        return;
+      }
+
       const response = await fetch('/api/auth/status');
       const data = await response.json();
       
@@ -83,6 +100,21 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
       }
     } catch (error) {
       console.error('認証状態の確認に失敗:', error);
+      // エラー時も静的サイトの場合はモック状態を返す
+      if (typeof window !== 'undefined' && 
+          (window.location.hostname.includes('github.io') || 
+           window.location.hostname.includes('netlify.app') || 
+           window.location.hostname.includes('vercel.app'))) {
+        const mockStatus = {
+          isConnected: true,
+          tokenType: 'id' as const,
+          expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+          timeRemaining: 24 * 60 * 60,
+          lastUpdate: new Date().toISOString(),
+        };
+        setAuthStatus(mockStatus);
+        onAuthChange?.(mockStatus);
+      }
     }
   };
 
@@ -92,6 +124,16 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
     setSuccess(null);
 
     try {
+      // 静的サイトの場合はモック成功を返す
+      if (typeof window !== 'undefined' && 
+          (window.location.hostname.includes('github.io') || 
+           window.location.hostname.includes('netlify.app') || 
+           window.location.hostname.includes('vercel.app'))) {
+        setSuccess('静的サイトモード: モック接続成功');
+        await checkAuthStatus();
+        return;
+      }
+
       const response = await fetch('/api/auth/test', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -107,7 +149,16 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
         setError(data.message || '接続テストに失敗しました');
       }
     } catch (error) {
-      setError('接続テスト中にエラーが発生しました');
+      // エラー時も静的サイトの場合は成功として扱う
+      if (typeof window !== 'undefined' && 
+          (window.location.hostname.includes('github.io') || 
+           window.location.hostname.includes('netlify.app') || 
+           window.location.hostname.includes('vercel.app'))) {
+        setSuccess('静的サイトモード: エラー時もモック成功');
+        await checkAuthStatus();
+      } else {
+        setError('接続テスト中にエラーが発生しました');
+      }
     } finally {
       setIsLoading(false);
     }
