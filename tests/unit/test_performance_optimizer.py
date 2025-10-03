@@ -208,3 +208,213 @@ class TestPerformanceOptimizer:
 
         # 履歴が制限されていることを確認
         assert len(self.optimizer.metrics_history) == 1000
+
+    def test_start_monitoring_with_error(self):
+        """監視開始エラーハンドリングテスト"""
+        # エラーハンドラーなしでテスト
+        optimizer = PerformanceOptimizer(self.logger, None)
+        
+        with patch('threading.Thread') as mock_thread:
+            mock_thread.side_effect = Exception("Thread creation failed")
+            
+            # エラーが発生しても例外が発生しないことを確認
+            try:
+                optimizer.start_monitoring()
+            except Exception:
+                pytest.fail("Exception should be handled gracefully")
+
+    def test_stop_monitoring_when_not_active(self):
+        """非アクティブ時の監視停止テスト"""
+        self.optimizer.monitoring_active = False
+        self.optimizer.monitoring_thread = None
+        
+        # エラーが発生しないことを確認
+        self.optimizer.stop_monitoring()
+
+    def test_collect_system_metrics_with_psutil_error(self):
+        """psutilエラー時のメトリクス収集テスト"""
+        with patch('psutil.cpu_percent') as mock_cpu:
+            mock_cpu.side_effect = Exception("psutil error")
+            
+            metrics = self.optimizer.collect_system_metrics()
+            
+            # エラー情報が含まれることを確認
+            assert "error" in metrics
+            assert "timestamp" in metrics
+
+    def test_detect_performance_issues_high_cpu(self):
+        """高CPU使用率の検出テスト"""
+        metrics = {
+            "cpu_percent": 95.0,
+            "memory_percent": 50.0,
+            "disk_percent": 30.0
+        }
+        
+        with patch.object(self.optimizer, '_log_performance_warning') as mock_warning:
+            self.optimizer._detect_performance_issues(metrics)
+            
+            # 警告が記録されることを確認
+            mock_warning.assert_called_with("high_cpu", 95.0, 90.0)
+
+    def test_detect_performance_issues_high_memory(self):
+        """高メモリ使用率の検出テスト"""
+        metrics = {
+            "cpu_percent": 50.0,
+            "memory_percent": 95.0,
+            "disk_percent": 30.0
+        }
+        
+        with patch.object(self.optimizer, '_log_performance_warning') as mock_warning:
+            self.optimizer._detect_performance_issues(metrics)
+            
+            # 警告が記録されることを確認
+            mock_warning.assert_called_with("high_memory", 95.0, 90.0)
+
+    def test_detect_performance_issues_high_disk(self):
+        """高ディスク使用率の検出テスト"""
+        metrics = {
+            "cpu_percent": 50.0,
+            "memory_percent": 50.0,
+            "disk_percent": 95.0
+        }
+        
+        with patch.object(self.optimizer, '_log_performance_warning') as mock_warning:
+            self.optimizer._detect_performance_issues(metrics)
+            
+            # 警告が記録されることを確認
+            mock_warning.assert_called_with("high_disk", 95.0, 90.0)
+
+    def test_detect_performance_issues_with_exception(self):
+        """パフォーマンス問題検出時の例外処理テスト"""
+        metrics = {"invalid": "data"}
+        
+        with patch.object(self.optimizer, '_log_performance_warning') as mock_warning:
+            mock_warning.side_effect = Exception("Warning failed")
+            
+            # 例外が発生しても処理が継続されることを確認
+            try:
+                self.optimizer._detect_performance_issues(metrics)
+            except Exception:
+                pytest.fail("Exception should be handled gracefully")
+
+    def test_auto_optimize_memory_issue(self):
+        """メモリ問題の自動最適化テスト"""
+        issues = ["メモリ使用率が高すぎます: 95.0%"]
+        
+        with patch('gc.collect') as mock_gc:
+            self.optimizer._auto_optimize(issues)
+            
+            # ガベージコレクションが実行されることを確認
+            mock_gc.assert_called_once()
+
+    def test_auto_optimize_cpu_issue(self):
+        """CPU問題の自動最適化テスト"""
+        issues = ["CPU使用率が高すぎます: 95.0%"]
+        
+        with patch('psutil.Process') as mock_process:
+            mock_process_instance = Mock()
+            mock_process.return_value = mock_process_instance
+            
+            self.optimizer._auto_optimize(issues)
+            
+            # プロセス優先度調整が試行されることを確認
+            mock_process_instance.nice.assert_called_with(10)
+
+    def test_auto_optimize_with_exception(self):
+        """自動最適化時の例外処理テスト"""
+        issues = ["テスト問題"]
+        
+        with patch('gc.collect') as mock_gc:
+            mock_gc.side_effect = Exception("GC failed")
+            
+            # 例外が発生しても処理が継続されることを確認
+            try:
+                self.optimizer._auto_optimize(issues)
+            except Exception:
+                pytest.fail("Exception should be handled gracefully")
+
+    def test_get_performance_summary_empty_history(self):
+        """空の履歴でのパフォーマンスサマリー取得テスト"""
+        self.optimizer.metrics_history.clear()
+        
+        summary = self.optimizer.get_performance_summary()
+        
+        assert summary["total_metrics"] == 0
+        assert summary["average_cpu"] == 0.0
+        assert summary["average_memory"] == 0.0
+
+    def test_get_performance_summary_with_data(self):
+        """データありでのパフォーマンスサマリー取得テスト"""
+        # テストデータを追加
+        self.optimizer.metrics_history.extend([
+            {"cpu_percent": 50.0, "memory_percent": 60.0, "timestamp": "2024-01-01T00:00:00"},
+            {"cpu_percent": 70.0, "memory_percent": 80.0, "timestamp": "2024-01-01T01:00:00"},
+        ])
+        
+        summary = self.optimizer.get_performance_summary()
+        
+        assert summary["total_metrics"] == 2
+        assert summary["average_cpu"] == 60.0
+        assert summary["average_memory"] == 70.0
+
+    def test_get_performance_summary_with_exception(self):
+        """パフォーマンスサマリー取得時の例外処理テスト"""
+        # 無効なデータを含む履歴
+        self.optimizer.metrics_history.append({"invalid": "data"})
+        
+        # 例外が発生しても処理が継続されることを確認
+        try:
+            summary = self.optimizer.get_performance_summary()
+            assert "total_metrics" in summary
+        except Exception:
+            pytest.fail("Exception should be handled gracefully")
+
+    def test_log_performance_warning(self):
+        """パフォーマンス警告ログテスト"""
+        with patch.object(self.logger, 'log_warning') as mock_warning:
+            self.optimizer._log_performance_warning("test_warning", 85.0, 80.0)
+            
+            # 警告ログが記録されることを確認
+            mock_warning.assert_called_once()
+            call_args = mock_warning.call_args[0][0]
+            assert "test_warning" in call_args
+            assert "85.0" in call_args
+            assert "80.0" in call_args
+
+    def test_log_performance_warning_without_logger(self):
+        """ロガーなしでのパフォーマンス警告テスト"""
+        optimizer = PerformanceOptimizer(None, None)
+        
+        # エラーが発生しないことを確認
+        try:
+            optimizer._log_performance_warning("test_warning", 85.0, 80.0)
+        except Exception:
+            pytest.fail("Exception should not occur without logger")
+
+    def test_monitoring_loop_with_exception(self):
+        """監視ループでの例外処理テスト"""
+        with patch.object(self.optimizer, 'collect_system_metrics') as mock_collect:
+            mock_collect.side_effect = Exception("Collection failed")
+            
+            # 監視を開始
+            self.optimizer.start_monitoring(interval=0.1)
+            time.sleep(0.2)  # 少し待機
+            
+            # エラーが発生しても監視が継続されることを確認
+            assert self.optimizer.monitoring_active is True
+            
+            # クリーンアップ
+            self.optimizer.stop_monitoring()
+
+    def test_optimization_enabled_property(self):
+        """最適化有効フラグのテスト"""
+        # デフォルト値の確認
+        assert self.optimizer.optimization_enabled is True
+        
+        # 無効化
+        self.optimizer.optimization_enabled = False
+        assert self.optimizer.optimization_enabled is False
+        
+        # 有効化
+        self.optimizer.optimization_enabled = True
+        assert self.optimizer.optimization_enabled is True

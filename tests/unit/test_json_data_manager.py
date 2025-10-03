@@ -268,3 +268,146 @@ class TestJSONDataManager:
         assert "total_records" in result
         assert "last_updated" in result
         assert result["total_symbols"] == 1
+
+    def test_save_json_error_handling(self):
+        """JSON保存エラーハンドリングテスト"""
+        # 無効なパスでエラーを発生させる
+        invalid_file = Path("/invalid/path/that/does/not/exist.json")
+        
+        result = self.manager._save_json(invalid_file, {"test": "data"})
+        assert result is False
+
+    def test_load_json_with_invalid_json(self):
+        """無効なJSONファイルの読み込みテスト"""
+        invalid_json_file = self.manager.data_dir / "invalid.json"
+        with open(invalid_json_file, "w") as f:
+            f.write("invalid json content")
+        
+        result = self.manager._load_json(invalid_json_file, "default_value")
+        assert result == "default_value"
+
+    def test_calculate_hash_with_error(self):
+        """ハッシュ計算エラーハンドリングテスト"""
+        # 循環参照を含むデータでエラーを発生させる
+        circular_data = {}
+        circular_data["self"] = circular_data
+        
+        result = self.manager._calculate_hash(circular_data)
+        # エラーが発生してもハッシュ値は返される
+        assert isinstance(result, str)
+        assert len(result) > 0
+
+    def test_normalize_stock_data_with_invalid_data(self):
+        """無効なデータの正規化テスト"""
+        invalid_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": "invalid_number",  # 無効な数値
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
+        
+        result = self.manager._normalize_stock_data(invalid_data)
+        # 無効なデータは除外される
+        assert len(result) == 0
+
+    def test_normalize_stock_data_missing_fields(self):
+        """必須フィールド不足のデータ正規化テスト"""
+        incomplete_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                # 必須フィールドが不足
+            }
+        ]
+        
+        result = self.manager._normalize_stock_data(incomplete_data)
+        # 必須フィールド不足のデータは除外される
+        assert len(result) == 0
+
+    def test_get_stock_data_with_filters(self):
+        """フィルタ付き株価データ取得テスト"""
+        # テストデータの準備
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            },
+            {
+                "date": "2024-01-02",
+                "code": "1234",
+                "open": 105.0,
+                "high": 115.0,
+                "low": 100.0,
+                "close": 110.0,
+                "volume": 1200,
+            }
+        ]
+        self.manager.save_stock_data("1234", test_data)
+
+        # 日付フィルタテスト
+        filtered_data = self.manager.get_stock_data("1234", "2024-01-02", "2024-01-02")
+        assert len(filtered_data) == 1
+        assert filtered_data[0]["date"] == "2024-01-02"
+
+    def test_get_latest_data(self):
+        """最新データ取得テスト"""
+        # テストデータの準備
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            },
+            {
+                "date": "2024-01-02",
+                "code": "1234",
+                "open": 105.0,
+                "high": 115.0,
+                "low": 100.0,
+                "close": 110.0,
+                "volume": 1200,
+            }
+        ]
+        self.manager.save_stock_data("1234", test_data)
+
+        latest_data = self.manager.get_latest_data("1234", 1)
+        assert len(latest_data) == 1
+        assert latest_data[0]["date"] == "2024-01-02"
+
+    def test_cleanup_old_data(self):
+        """古いデータクリーンアップテスト"""
+        # テストデータの準備
+        test_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 95.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
+        self.manager.save_stock_data("1234", test_data)
+
+        # データクリーンアップ
+        result = self.manager.cleanup_old_data(days_to_keep=0)  # 全てのデータを削除
+        assert result is True
+
+        # データが削除されたことを確認
+        data = self.manager.get_stock_data("1234")
+        assert len(data) == 0

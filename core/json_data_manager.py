@@ -457,12 +457,16 @@ class JSONDataManager:
             ]
             self._save_json(self.diff_log_file, cleaned_log)
 
-            self.logger.info(
-                f"データクリーンアップ完了: {days_to_keep}日以前のデータを削除"
-            )
+            if self.logger:
+                self.logger.info(
+                    f"データクリーンアップ完了: {days_to_keep}日以前のデータを削除"
+                )
+            return True
 
         except Exception as e:
-            self.logger.error(f"データクリーンアップエラー: {e}")
+            if self.logger:
+                self.logger.error(f"データクリーンアップエラー: {e}")
+            return False
 
     def export_data(self, symbol: str, output_file: str) -> bool:
         """
