@@ -146,7 +146,7 @@ class ConfigManager:
                 base[key] = value
 
     def get_config(self, key: str = None, default: Any = None) -> Any:
-        """設定値の取得"""
+        """設定値の取得（最適化版）"""
         if key is None:
             return self.config
 
@@ -155,9 +155,11 @@ class ConfigManager:
 
         try:
             for k in keys:
+                if not isinstance(value, dict):
+                    return default
                 value = value[k]
             return value
-        except (KeyError, TypeError):
+        except (KeyError, TypeError, AttributeError):
             return default
 
     def set_config(self, key: str, value: Any) -> None:

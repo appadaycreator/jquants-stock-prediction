@@ -70,7 +70,10 @@ class PerformanceOptimizer:
             pass
 
     def _monitoring_loop(self, interval: int):
-        """監視ループ"""
+        """監視ループ（最適化版）"""
+        consecutive_errors = 0
+        max_consecutive_errors = 5
+        
         while self.monitoring_active:
             try:
                 metrics = self.collect_system_metrics()
@@ -78,14 +81,27 @@ class PerformanceOptimizer:
 
                 # パフォーマンス問題の検出
                 self._detect_performance_issues(metrics)
+                
+                # エラーカウンターをリセット
+                consecutive_errors = 0
 
                 time.sleep(interval)
             except KeyboardInterrupt:
                 # キーボード割り込みの場合は正常終了
+                if self.logger:
+                    self.logger.log_info("監視ループがキーボード割り込みにより終了しました")
                 break
             except Exception as e:
+                consecutive_errors += 1
                 if self.logger:
-                    self.logger.log_warning(f"監視ループエラー: {e}")
+                    self.logger.log_warning(f"監視ループエラー ({consecutive_errors}/{max_consecutive_errors}): {e}")
+                
+                # 連続エラーが上限に達した場合は監視を停止
+                if consecutive_errors >= max_consecutive_errors:
+                    if self.logger:
+                        self.logger.log_error("連続エラーが上限に達したため、監視を停止します")
+                    break
+                
                 # エラー時は短い間隔でリトライ
                 try:
                     time.sleep(min(interval, 5))
