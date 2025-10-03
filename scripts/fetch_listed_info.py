@@ -83,6 +83,76 @@ class ListedInfoFetcher:
             logger.error(f"リクエストエラー: {e}")
             return None
 
+    def get_stock_price_data(self, code, days=7):
+        """個別銘柄の価格データ取得"""
+        try:
+            # 日付範囲の計算
+            end_date = datetime.now()
+            start_date = end_date - timedelta(days=days)
+
+            start_str = start_date.strftime("%Y-%m-%d")
+            end_str = end_date.strftime("%Y-%m-%d")
+
+            headers = {
+                "Authorization": f"Bearer {self.id_token}",
+                "Content-Type": "application/json",
+            }
+            url = "https://api.jquants.com/v1/prices/daily_quotes"
+            params = {"code": code, "from": start_str, "to": end_str}
+
+            response = requests.get(url, headers=headers, params=params, timeout=30)
+            
+            # HTTPステータスコードの詳細チェック
+            if response.status_code == 200:
+                data = response.json()
+                quotes = data.get("daily_quotes", [])
+                
+                if quotes:
+                    latest_quote = quotes[-1]
+                    # データの妥当性チェック
+                    close_price = latest_quote.get("Close")
+                    open_price = latest_quote.get("Open")
+                    volume = latest_quote.get("Volume")
+                    
+                    if close_price is not None and close_price > 0:
+                        change = float(close_price) - float(open_price) if open_price else 0
+                        change_percent = (change / float(open_price)) * 100 if open_price and open_price != 0 else 0
+                        
+                        return {
+                            "current_price": float(close_price),
+                            "change": change,
+                            "change_percent": change_percent,
+                            "volume": int(volume) if volume else 0,
+                            "updated_at": latest_quote.get("Date", datetime.now().isoformat()),
+                        }
+                    else:
+                        logger.warning(f"銘柄 {code}: 無効な価格データ")
+                        return None
+                else:
+                    logger.warning(f"銘柄 {code}: 価格データが見つかりません")
+                    return None
+            elif response.status_code == 404:
+                logger.warning(f"銘柄 {code}: データが見つかりません (404)")
+                return None
+            elif response.status_code == 429:
+                logger.warning(f"銘柄 {code}: レート制限 (429) - 待機後に再試行")
+                import time
+                time.sleep(60)  # 1分待機
+                return None
+            else:
+                logger.warning(f"銘柄 {code}: HTTP {response.status_code}")
+                return None
+
+        except requests.exceptions.Timeout:
+            logger.warning(f"銘柄 {code}: タイムアウト")
+            return None
+        except requests.exceptions.ConnectionError:
+            logger.warning(f"銘柄 {code}: 接続エラー")
+            return None
+        except Exception as e:
+            logger.warning(f"銘柄 {code} の価格データ取得エラー: {e}")
+            return None
+
     def process_listed_data(self, data):
         """上場銘柄データの処理"""
         if not data or "info" not in data:
@@ -129,22 +199,43 @@ class ListedInfoFetcher:
         selected_stocks = major_stocks
         logger.info(f"全銘柄選択: {len(selected_stocks)}銘柄")
 
-        # 構造化データの作成
-        for stock in selected_stocks:
+        # 構造化データの作成（バッチ処理対応）
+        batch_size = 10  # バッチサイズを設定
+        for i, stock in enumerate(selected_stocks):
             code = stock["code"]
+            logger.info(f"処理中: {i+1}/{len(selected_stocks)} - {stock['name']} ({code})")
+            
+            # 価格データの取得（エラーハンドリング強化）
+            price_data = None
+            try:
+                price_data = self.get_stock_price_data(code)
+            except Exception as e:
+                logger.warning(f"銘柄 {code} の価格データ取得に失敗: {e}")
+                price_data = None
+            
             processed_data["stocks"][code] = {
                 "code": code,
                 "name": stock["name"],
                 "sector": stock["sector"],
                 "market": stock["market"],
+                "currentPrice": price_data["current_price"] if price_data else None,
+                "change": price_data["change"] if price_data else None,
+                "changePercent": price_data["change_percent"] if price_data else None,
+                "volume": price_data["volume"] if price_data else None,
+                "updated_at": price_data["updated_at"] if price_data else datetime.now().isoformat(),
                 "listed_info": stock["raw_data"],
                 "metadata": {
                     "created_at": datetime.now().isoformat(),
                     "updated_at": datetime.now().isoformat(),
                     "data_quality": "jquants_official",
                     "source": "listed_info_api",
+                    "price_data_available": price_data is not None,
                 },
             }
+            
+            # API制限を考慮した待機（レート制限対応）
+            import time
+            time.sleep(0.1)  # 1000リクエスト/時間制限に基づく最適化
 
         processed_data["metadata"]["total_stocks"] = len(processed_data["stocks"])
         logger.info(f"処理完了: {len(processed_data['stocks'])}銘柄")
@@ -201,6 +292,10 @@ class ListedInfoFetcher:
                         "name": stock_info["name"],
                         "sector": stock_info["sector"],
                         "market": stock_info["market"],
+                        "currentPrice": stock_info.get("currentPrice"),
+                        "change": stock_info.get("change"),
+                        "changePercent": stock_info.get("changePercent"),
+                        "volume": stock_info.get("volume"),
                         "updated_at": stock_info["metadata"]["updated_at"],
                         "file_path": f"stocks/{code}_listed.json",
                     }

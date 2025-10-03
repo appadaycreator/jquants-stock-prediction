@@ -491,7 +491,9 @@ const ListedDataPage: React.FC = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {stock.currentPrice ? `¥${stock.currentPrice.toLocaleString()}` : "-"}
+                    {stock.currentPrice ? `¥${stock.currentPrice.toLocaleString()}` : (
+                      <span className="text-gray-400 italic">データ取得中...</span>
+                    )}
                     {stock.change && stock.changePercent && (
                       <div className={`text-xs ${stock.change >= 0 ? "text-red-600" : "text-green-600"}`}>
                         {stock.change >= 0 ? "+" : ""}{stock.change.toLocaleString()} ({stock.changePercent >= 0 ? "+" : ""}{stock.changePercent.toFixed(2)}%)
@@ -499,7 +501,9 @@ const ListedDataPage: React.FC = () => {
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {stock.volume ? stock.volume.toLocaleString() : "-"}
+                    {stock.volume ? stock.volume.toLocaleString() : (
+                      <span className="text-gray-400 italic">データ取得中...</span>
+                    )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(stock.updated_at).toLocaleString("ja-JP")}

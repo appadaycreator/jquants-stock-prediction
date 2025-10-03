@@ -11,17 +11,17 @@ export async function POST(request: NextRequest) {
     let command: string;
     switch (testType) {
       case "coverage":
-        command = "npm run test:coverage";
+        command = "python -m pytest --cov=. --cov-report=json --cov-report=html";
         break;
       case "watch":
-        command = "npm run test:watch";
+        command = "python -m pytest --watch";
         break;
       default:
-        command = "npm test";
+        command = "python -m pytest";
     }
 
     const { stdout, stderr } = await execAsync(command, {
-      cwd: process.cwd(),
+      cwd: process.cwd().replace('/web-app', ''), // プロジェクトルートに移動
       timeout: 300000, // 5分のタイムアウト
     });
 
@@ -49,7 +49,7 @@ export async function GET() {
     const fs = await import("fs/promises");
     const path = await import("path");
     
-    const coveragePath = path.join(process.cwd(), "coverage", "coverage-final.json");
+    const coveragePath = path.join(process.cwd().replace('/web-app', ''), "coverage", "coverage.json");
     
     try {
       const coverageData = await fs.readFile(coveragePath, "utf-8");
@@ -82,6 +82,35 @@ export async function GET() {
 }
 
 function calculateCoverageStats(coverage: any) {
+  // pytest-covの出力形式に合わせて修正
+  if (coverage.totals) {
+    // 新しい形式（pytest-cov 4.0+）
+    const totals = coverage.totals;
+    return {
+      statements: {
+        total: totals.num_statements || 0,
+        covered: totals.covered_lines || 0,
+        percentage: totals.percent_covered || 0,
+      },
+      branches: {
+        total: totals.num_branches || 0,
+        covered: totals.covered_branches || 0,
+        percentage: totals.percent_covered_display || 0,
+      },
+      functions: {
+        total: totals.num_functions || 0,
+        covered: totals.covered_functions || 0,
+        percentage: totals.percent_covered_display || 0,
+      },
+      lines: {
+        total: totals.num_statements || 0,
+        covered: totals.covered_lines || 0,
+        percentage: totals.percent_covered || 0,
+      },
+    };
+  }
+
+  // フォールバック: 従来の形式
   let totalStatements = 0;
   let coveredStatements = 0;
   let totalBranches = 0;

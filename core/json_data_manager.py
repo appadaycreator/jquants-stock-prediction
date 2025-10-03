@@ -55,7 +55,8 @@ class JSONDataManager:
             # 一時ファイルに保存してからリネーム（アトミック操作）
             temp_path = file_path.with_suffix('.tmp')
             with open(temp_path, "w", encoding="utf-8") as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
+                # メモリ効率を考慮したJSON保存
+                json.dump(data, f, ensure_ascii=False, indent=2, separators=(',', ':'))
             temp_path.replace(file_path)
             return True
         except Exception as e:
@@ -82,7 +83,8 @@ class JSONDataManager:
     def _calculate_hash(self, data: Any) -> str:
         """データのハッシュ値を計算（最適化版）"""
         try:
-            data_str = json.dumps(data, sort_keys=True, ensure_ascii=False)
+            # メモリ効率を考慮したハッシュ計算
+            data_str = json.dumps(data, sort_keys=True, ensure_ascii=False, separators=(',', ':'))
             return hashlib.md5(data_str.encode("utf-8")).hexdigest()
         except Exception as e:
             if self.logger:

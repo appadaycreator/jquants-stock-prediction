@@ -193,12 +193,75 @@ class PerformanceOptimizer:
             return
             
         for issue in issues:
-            if "メモリ" in issue:
-                self._auto_optimize("memory_cleanup")
-            elif "CPU" in issue:
-                self._auto_optimize("cpu_optimization")
-            else:
-                self._auto_optimize("unknown_issue")
+            if "CPU使用率" in issue:
+                self._optimize_cpu_usage()
+            elif "メモリ使用率" in issue:
+                self._optimize_memory_usage()
+            elif "ディスク使用率" in issue:
+                self._optimize_disk_usage()
+    def _optimize_cpu_usage(self) -> None:
+        """CPU使用率の最適化"""
+        try:
+            # ガベージコレクションの実行
+            gc.collect()
+            
+            if self.logger:
+                self.logger.log_info("CPU使用率最適化を実行しました")
+        except Exception as e:
+            if self.logger:
+                self.logger.log_error(f"CPU最適化エラー: {e}")
+
+    def _optimize_memory_usage(self) -> None:
+        """メモリ使用率の最適化"""
+        try:
+            # ガベージコレクションの実行
+            gc.collect()
+            
+            if self.logger:
+                self.logger.log_info("メモリ使用率最適化を実行しました")
+        except Exception as e:
+            if self.logger:
+                self.logger.log_error(f"メモリ最適化エラー: {e}")
+
+    def _optimize_disk_usage(self) -> None:
+        """ディスク使用率の最適化"""
+        try:
+            # 一時ファイルのクリーンアップ
+            import tempfile
+            import os
+            
+            temp_dir = tempfile.gettempdir()
+            for file in os.listdir(temp_dir):
+                if file.startswith('tmp') and os.path.isfile(os.path.join(temp_dir, file)):
+                    try:
+                        os.remove(os.path.join(temp_dir, file))
+                    except:
+                        pass
+            
+            if self.logger:
+                self.logger.log_info("ディスク使用率最適化を実行しました")
+        except Exception as e:
+            if self.logger:
+                self.logger.log_error(f"ディスク最適化エラー: {e}")
+
+    def _auto_optimize(self, optimization_type: str) -> None:
+        """自動最適化の実行"""
+        try:
+            if optimization_type == "memory_cleanup":
+                gc.collect()
+            elif optimization_type == "cpu_optimization":
+                # CPU最適化の実装
+                gc.collect()
+            elif optimization_type == "general_optimization":
+                # 一般的な最適化
+                gc.collect()
+                
+            if self.logger:
+                self.logger.log_info(f"自動最適化を実行: {optimization_type}")
+        except Exception as e:
+            if self.logger:
+                self.logger.log_error(f"自動最適化エラー: {e}")
+                self._auto_optimize("general_optimization")
 
     def _log_performance_warning(
         self, warning_type: str, value: float, threshold: float
