@@ -1,4 +1,24 @@
 import "@testing-library/jest-dom";
+// Web API ポリフィル（NextRequestで必要）
+// Node18 では存在するが、Jest環境で未定義の場合があるため最小実装を用意
+if (typeof global.Request === "undefined") {
+  // 極小のRequestポリフィル（URLのみ使用）
+  // NextRequestはコンストラクタでURL文字列を受け取れるため最低限でOK
+  // @ts-ignore
+  global.Request = class {
+    constructor(input, _init) {
+      this.url = typeof input === "string" ? input : input?.url ?? "";
+    }
+  };
+}
+if (typeof global.Headers === "undefined") {
+  // @ts-ignore
+  global.Headers = class {};
+}
+if (typeof global.Response === "undefined") {
+  // @ts-ignore
+  global.Response = class {};
+}
 
 // Mock Next.js router
 jest.mock("next/router", () => ({

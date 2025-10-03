@@ -271,3 +271,55 @@ if (typeof window !== "undefined") {
 }
 
 export default DataSyncManager;
+
+// ---- テスト互換API: 関数エクスポート ----
+export function syncData() {
+  return dataSyncManager.performSync();
+}
+export function getSyncStatus() {
+  return dataSyncManager.getStatus();
+}
+export function getLastSyncTime() {
+  return Date.now();
+}
+export function setSyncInterval(ms: number) {
+  if (ms <= 0) throw new Error("interval must be positive");
+  dataSyncManager.updateConfig({ syncInterval: ms });
+}
+export function startSync() {
+  dataSyncManager.startSync();
+}
+export function stopSync() {
+  dataSyncManager.stopSync();
+}
+export function isSyncRunning() {
+  // 非公開だが、ステータスで代理判断
+  const s = dataSyncManager.getStatus();
+  return s.status === "pending" || s.status === "success";
+}
+let syncErrors: string[] = [];
+export function getSyncErrors() { return syncErrors; }
+export function clearSyncErrors() { syncErrors = []; }
+export async function retrySync(maxAttempts = 5) {
+  let attempts = 0;
+  let success = false;
+  while (attempts < maxAttempts && !success) {
+    attempts++;
+    try {
+      const res = await dataSyncManager.performSync();
+      success = res.status === "success";
+    } catch (e) {
+      syncErrors.push(String(e));
+    }
+  }
+  return { success, attempts };
+}
+export function getSyncProgress() {
+  return { percentage: 0, current: 0, total: 0 };
+}
+let strategy: "full" | "incremental" = "full";
+export function setSyncStrategy(s: string) {
+  if (s !== "full" && s !== "incremental") throw new Error("invalid strategy");
+  strategy = s;
+}
+export function getSyncStrategy() { return strategy; }

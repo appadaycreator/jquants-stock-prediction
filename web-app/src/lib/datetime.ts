@@ -90,9 +90,9 @@ export function normalizeDateString(dateStr: string): string {
 /**
  * 日付をフォーマット（既存コードとの互換性）
  */
-export function formatDate(dateStr: string): string {
+export function formatDate(dateStr: string | Date): string {
   try {
-    const dt = parseToJst(dateStr);
+    const dt = typeof dateStr === "string" ? parseToJst(dateStr) : DateTime.fromJSDate(dateStr).setZone("Asia/Tokyo");
     
     if (!dt.isValid) {
       console.error("Invalid date format:", dateStr);
@@ -109,6 +109,51 @@ export function formatDate(dateStr: string): string {
     console.error("Date formatting error:", error, "Input:", dateStr);
     return "Invalid Date";
   }
+}
+
+// ここからはテスト互換APIを追加（../__tests__/datetime.test.ts が期待）
+export function parseDate(v: string): Date | null {
+  const dt = parseToJst(v);
+  return dt.isValid ? dt.toJSDate() : null;
+}
+
+export function getCurrentDate(): Date {
+  return new Date();
+}
+
+export function addDays(date: Date, days: number): Date {
+  const dt = DateTime.fromJSDate(date).plus({ days });
+  return dt.toJSDate();
+}
+
+export function subtractDays(date: Date, days: number): Date {
+  const dt = DateTime.fromJSDate(date).minus({ days });
+  return dt.toJSDate();
+}
+
+export function getDaysBetween(a: Date, b: Date): number {
+  const da = DateTime.fromJSDate(a).startOf("day");
+  const db = DateTime.fromJSDate(b).startOf("day");
+  return Math.abs(Math.round(db.diff(da, "days").days));
+}
+
+export function isWeekend(date: Date): boolean {
+  const d = DateTime.fromJSDate(date).weekday; // 1=Mon..7=Sun
+  return d === 6 || d === 7;
+}
+
+export function getBusinessDays(start: Date, end: Date): number {
+  const s = DateTime.fromJSDate(start).startOf("day");
+  const e = DateTime.fromJSDate(end).startOf("day");
+  let days = 0;
+  const step = s <= e ? 1 : -1;
+  let cur = s;
+  while ((step > 0 && cur <= e) || (step < 0 && cur >= e)) {
+    const wd = cur.weekday; // 6=Sat,7=Sun
+    if (wd !== 6 && wd !== 7) days++;
+    cur = cur.plus({ days: step });
+  }
+  return days;
 }
 
 /**

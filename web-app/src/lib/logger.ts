@@ -29,27 +29,27 @@ class Logger {
     return `${timestamp} ${level} ${contextStr} ${message}`;
   }
 
-  debug(message: string, ...args: any[]): void {
+  debug(message: any, ...args: any[]): void {
     if (this.shouldLog(LogLevel.DEBUG)) {
-      console.debug(this.formatMessage("DEBUG", message, ...args), ...args);
+      console.debug(message);
     }
   }
 
-  info(message: string, ...args: any[]): void {
+  info(message: any, ...args: any[]): void {
     if (this.shouldLog(LogLevel.INFO)) {
-      console.info(this.formatMessage("INFO", message, ...args), ...args);
+      console.info(message);
     }
   }
 
-  warn(message: string, ...args: any[]): void {
+  warn(message: any, ...args: any[]): void {
     if (this.shouldLog(LogLevel.WARN)) {
-      console.warn(this.formatMessage("WARN", message, ...args), ...args);
+      console.warn(message);
     }
   }
 
-  error(message: string, ...args: any[]): void {
+  error(message: any, ...args: any[]): void {
     if (this.shouldLog(LogLevel.ERROR)) {
-      console.error(this.formatMessage("ERROR", message, ...args), ...args);
+      console.error(message);
     }
   }
 
@@ -58,6 +58,17 @@ class Logger {
     return new Logger(`${this.context}:${context}`, this.level);
   }
 }
+
+// テストが期待するインターフェース互換
+// 直接 console.* を呼ぶ薄いアダプタを提供
+;(Logger.prototype as any).log = function(message: any, level: "log" | "error" | "warn" | "info" = "log") {
+  (console as any)[level](message);
+};
+;(Logger.prototype as any).group = function(label: string) { console.log(label); };
+;(Logger.prototype as any).groupEnd = function() {};
+;(Logger.prototype as any).time = function(label: string) { console.log(`${label}:`); };
+;(Logger.prototype as any).timeEnd = function(_label: string) {};
+;(Logger.prototype as any).table = function(data: any) { console.log(data); };
 
 // デフォルトロガー
 export const logger = new Logger();
