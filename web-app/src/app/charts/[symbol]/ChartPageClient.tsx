@@ -15,6 +15,15 @@ interface ChartData {
   volume: number;
 }
 
+interface CandleData {
+  time: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
 interface StockInfo {
   symbol: string;
   name: string;
@@ -31,7 +40,7 @@ interface ChartPageClientProps {
 
 export default function ChartPageClient({ symbol }: ChartPageClientProps) {
   const [stockInfo, setStockInfo] = useState<StockInfo | null>(null);
-  const [chartData, setChartData] = useState<ChartData[]>([]);
+  const [chartData, setChartData] = useState<CandleData[]>([]);
   const [timeframe, setTimeframe] = useState<'1d' | '1w' | '1m' | '3m' | '6m' | '1y'>('1m');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -111,7 +120,17 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
         const mockData = generateMockData(symbol, timeframe);
         const mockStockInfo = generateMockStockInfo(symbol);
         
-        setChartData(mockData);
+        // StockChartコンポーネント用にデータ形式を変換
+        const convertedData = mockData.map(item => ({
+          time: new Date(item.timestamp).toISOString(),
+          open: item.open,
+          high: item.high,
+          low: item.low,
+          close: item.close,
+          volume: item.volume
+        }));
+        
+        setChartData(convertedData);
         setStockInfo(mockStockInfo);
         
         // 静的エクスポートモードではAPIルートは使用しない

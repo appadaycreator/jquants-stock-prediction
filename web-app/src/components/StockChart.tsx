@@ -15,19 +15,23 @@ interface CandleData {
 interface StockChartProps {
   symbol: string;
   data: CandleData[];
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
   isLoading?: boolean;
   error?: Error | null;
+  timeframe?: string;
+  height?: number;
 }
 
 export const StockChart: React.FC<StockChartProps> = ({
   symbol,
   data,
-  isOpen,
+  isOpen = true,
   onClose,
   isLoading = false,
-  error
+  error,
+  timeframe,
+  height = 400
 }) => {
   const [selectedPeriod, setSelectedPeriod] = useState('1M');
   const [chartData, setChartData] = useState<CandleData[]>([]);
@@ -96,7 +100,7 @@ export const StockChart: React.FC<StockChartProps> = ({
     const maxPrice = Math.max(...chartData.map(d => d.high));
     const minPrice = Math.min(...chartData.map(d => d.low));
     const priceRange = maxPrice - minPrice;
-    const chartHeight = 300;
+    const chartHeight = height;
     const chartWidth = 800;
 
     return (
@@ -200,48 +204,51 @@ export const StockChart: React.FC<StockChartProps> = ({
     );
   };
 
-  if (!isOpen) return null;
+  // モーダル形式の場合のみisOpenをチェック
+  if (isOpen === false) return null;
 
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-hidden">
-        {/* ヘッダー */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <div className="flex items-center space-x-3">
-            <BarChart3 className="w-6 h-6 text-blue-600" />
-            <h2 className="text-xl font-semibold text-gray-900">
-              {symbol} チャート
-            </h2>
+  // モーダル形式のレンダリング
+  if (isOpen === true) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-hidden">
+          {/* ヘッダー */}
+          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+            <div className="flex items-center space-x-3">
+              <BarChart3 className="w-6 h-6 text-blue-600" />
+              <h2 className="text-xl font-semibold text-gray-900">
+                {symbol} チャート
+              </h2>
+            </div>
+            <button
+              onClick={onClose}
+              className="text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
           </div>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            <X className="w-6 h-6" />
-          </button>
-        </div>
 
-        {/* 期間選択 */}
-        <div className="p-4 border-b border-gray-200">
-          <div className="flex items-center space-x-4">
-            <Calendar className="w-5 h-5 text-gray-500" />
-            <div className="flex space-x-2">
-              {periods.map((period) => (
-                <button
-                  key={period.value}
-                  onClick={() => setSelectedPeriod(period.value)}
-                  className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-                    selectedPeriod === period.value
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {period.label}
-                </button>
-              ))}
+          {/* 期間選択 */}
+          <div className="p-4 border-b border-gray-200">
+            <div className="flex items-center space-x-4">
+              <Calendar className="w-5 h-5 text-gray-500" />
+              <div className="flex space-x-2">
+                {periods.map((period) => (
+                  <button
+                    key={period.value}
+                    onClick={() => setSelectedPeriod(period.value)}
+                    className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                      selectedPeriod === period.value
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {period.label}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
         {/* チャートエリア */}
         <div className="p-6">
@@ -317,6 +324,92 @@ export const StockChart: React.FC<StockChartProps> = ({
             </div>
           )}
         </div>
+      </div>
+    </div>
+    );
+  }
+
+  // ページ内表示用のレンダリング
+  return (
+    <div className="w-full">
+      {/* 期間選択 */}
+      <div className="mb-4">
+        <div className="flex items-center space-x-4">
+          <Calendar className="w-5 h-5 text-gray-500" />
+          <div className="flex space-x-2">
+            {periods.map((period) => (
+              <button
+                key={period.value}
+                onClick={() => setSelectedPeriod(period.value)}
+                className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                  selectedPeriod === period.value
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {period.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* チャートエリア */}
+      <div className="relative">
+        {isLoading ? (
+          <div className="flex items-center justify-center h-64">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <span className="ml-2 text-gray-600">読み込み中...</span>
+          </div>
+        ) : error ? (
+          <div className="flex items-center justify-center h-64 text-red-600">
+            <div className="text-center">
+              <div className="text-lg font-semibold mb-2">エラーが発生しました</div>
+              <div className="text-sm">{error.message}</div>
+            </div>
+          </div>
+        ) : chartData.length === 0 ? (
+          <div className="flex items-center justify-center h-64 text-gray-500">
+            <div className="text-center">
+              <div className="text-lg font-semibold mb-2">データがありません</div>
+              <div className="text-sm">チャートデータを取得できませんでした</div>
+            </div>
+          </div>
+        ) : (
+          <div>
+            {renderChart()}
+            {hoveredData && (
+              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="bg-white rounded-lg p-4 text-center">
+                    <div className="text-lg font-bold text-gray-900">
+                      ¥{chartData[chartData.length - 1]?.close.toLocaleString() || '--'}
+                    </div>
+                    <div className="text-sm text-gray-600">現在価格</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 text-center">
+                    <div className="text-lg font-bold text-gray-900">
+                      {chartData.length}日
+                    </div>
+                    <div className="text-sm text-gray-600">データ期間</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 text-center">
+                    <div className="text-lg font-bold text-gray-900">
+                      ¥{Math.max(...chartData.map(d => d.high)).toLocaleString()}
+                    </div>
+                    <div className="text-sm text-gray-600">期間最高値</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 text-center">
+                    <div className="text-lg font-bold text-gray-900">
+                      ¥{Math.min(...chartData.map(d => d.low)).toLocaleString()}
+                    </div>
+                    <div className="text-sm text-gray-600">期間最安値</div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

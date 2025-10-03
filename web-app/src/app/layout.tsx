@@ -16,6 +16,11 @@ export const metadata = {
   title: "J-Quants株価予測システム",
   description: "J-Quants APIを使用した株価予測システム - モバイル最適化された投資判断支援ツール",
   keywords: ["株価","予測","J-Quants","機械学習","データ分析","投資"],
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
   openGraph: {
     title: "J-Quants株価予測システム",
     description: "J-Quants APIを使用した株価予測システム - モバイル最適化された投資判断支援ツール",
