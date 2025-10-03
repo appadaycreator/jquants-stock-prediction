@@ -127,9 +127,8 @@ class JQuantsAuthManager:
             logger.info("リフレッシュトークンを取得しました")
 
             # IDトークンを取得
-            refresh_data = {"refreshtoken": refresh_token}
             refresh_response = requests.post(
-                self.refresh_url, json=refresh_data, timeout=30
+                f"{self.refresh_url}?refreshtoken={refresh_token}", timeout=30
             )
             refresh_response.raise_for_status()
 
@@ -160,8 +159,9 @@ class JQuantsAuthManager:
         try:
             logger.info("リフレッシュトークンでIDトークンを更新中...")
 
-            refresh_data = {"refreshtoken": self.refresh_token}
-            response = requests.post(self.refresh_url, json=refresh_data, timeout=30)
+            response = requests.post(
+                f"{self.refresh_url}?refreshtoken={self.refresh_token}", timeout=30
+            )
             response.raise_for_status()
 
             result = response.json()

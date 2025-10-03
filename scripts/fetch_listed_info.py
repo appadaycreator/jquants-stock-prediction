@@ -49,7 +49,7 @@ class ListedInfoFetcher:
             raise ValueError("有効なIDトークンの取得に失敗しました")
 
     def fetch_listed_info(self, date=None, code=None):
-        """上場銘柄一覧を取得"""
+        """上場銘柄一覧を取得（ページング対応）"""
         url = "https://api.jquants.com/v1/listed/info"
 
         headers = {
@@ -67,16 +67,43 @@ class ListedInfoFetcher:
         logger.info(f"上場銘柄一覧取得開始: {url}")
         logger.info(f"パラメータ: {params}")
 
-        try:
-            response = requests.get(url, headers=headers, params=params, timeout=30)
+        all_info = []
+        pagination_key = None
+        page_count = 0
+        max_pages = 50  # 最大ページ数を制限
 
-            if response.status_code == 200:
-                data = response.json()
-                logger.info(f"取得成功: {len(data.get('info', []))}銘柄")
-                return data
+        try:
+            while page_count < max_pages:
+                if pagination_key:
+                    params["pagination_key"] = pagination_key
+                
+                response = requests.get(url, headers=headers, params=params, timeout=30)
+
+                if response.status_code == 200:
+                    data = response.json()
+                    page_info = data.get('info', [])
+                    all_info.extend(page_info)
+                    
+                    logger.info(f"ページ {page_count + 1} 取得成功: {len(page_info)}銘柄 (累計: {len(all_info)}銘柄)")
+                    
+                    # ページングキーをチェック
+                    pagination_key = data.get('pagination_key')
+                    if not pagination_key:
+                        logger.info("ページング完了")
+                        break
+                    
+                    page_count += 1
+                else:
+                    logger.error(f"取得エラー: HTTP {response.status_code}")
+                    logger.error(f"レスポンス: {response.text}")
+                    break
+
+            if all_info:
+                result = {"info": all_info}
+                logger.info(f"全ページ取得成功: 総計 {len(all_info)}銘柄")
+                return result
             else:
-                logger.error(f"取得エラー: HTTP {response.status_code}")
-                logger.error(f"レスポンス: {response.text}")
+                logger.error("データが取得できませんでした")
                 return None
 
         except requests.exceptions.RequestException as e:
@@ -175,28 +202,26 @@ class ListedInfoFetcher:
             "stocks": {},
         }
 
-        # 主要銘柄の選択（時価総額上位など）
-        major_stocks = []
+        # 全銘柄を選択（制限を解除）
+        all_stocks = []
         for stock in info_list:
             code = stock.get("Code", "")
             name = stock.get("CompanyName", "")
             sector = stock.get("Sector17CodeName", "")
             market = stock.get("MarketCodeName", "")
 
-            # 主要市場の銘柄を選択
-            if market in ["プライム", "スタンダード", "グロース"]:
-                major_stocks.append(
-                    {
-                        "code": code,
-                        "name": name,
-                        "sector": sector,
-                        "market": market,
-                        "raw_data": stock,
-                    }
-                )
+            # すべての銘柄を選択（市場制限を解除）
+            all_stocks.append(
+                {
+                    "code": code,
+                    "name": name,
+                    "sector": sector,
+                    "market": market,
+                    "raw_data": stock,
+                }
+            )
 
-        # 全銘柄を選択（制限を解除）
-        selected_stocks = major_stocks
+        selected_stocks = all_stocks
         logger.info(f"全銘柄選択: {len(selected_stocks)}銘柄")
 
         # 構造化データの作成（バッチ処理対応）
