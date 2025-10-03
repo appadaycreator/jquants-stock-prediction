@@ -37,16 +37,16 @@ const navItems: NavItem[] = [
     shortLabel: "銘柄",
   },
   {
-    href: "/risk",
-    label: "リスク管理",
-    icon: "🛡️",
-    shortLabel: "リスク",
+    href: "/portfolio",
+    label: "ポートフォリオ",
+    icon: "💼",
+    shortLabel: "ポート",
   },
   {
-    href: "/settings",
-    label: "設定",
-    icon: "⚙️",
-    shortLabel: "設定",
+    href: "/watchlist",
+    label: "ウォッチリスト",
+    icon: "👁️",
+    shortLabel: "ウォッチ",
   },
 ];
 

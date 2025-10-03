@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import EnhancedJQuantsAdapter from "@/lib/enhanced-jquants-adapter";
+import StockDetailModal from "@/components/StockDetailModal";
 import StockSearchInput from "@/components/StockSearchInput";
 
 interface ListedStock {
@@ -45,6 +46,8 @@ const ListedDataPage: React.FC = () => {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const [volumeRange, setVolumeRange] = useState({ min: "", max: "" });
+  const [selectedStock, setSelectedStock] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [jquantsAdapter] = useState(() => new EnhancedJQuantsAdapter());
 
   const fetchListedData = useCallback(async () => {
@@ -528,9 +531,12 @@ const ListedDataPage: React.FC = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <button
-                      onClick={() => window.open(`/stock/${stock.code}`, "_blank")}
+                      onClick={() => {
+                        setSelectedStock(stock.code);
+                        setIsModalOpen(true);
+                      }}
                       className="text-blue-600 hover:text-blue-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
-                      aria-label={`${stock.name} (${stock.code}) の詳細ページを新しいタブで開く`}
+                      aria-label={`${stock.name} (${stock.code}) の詳細を表示`}
                     >
                       詳細
                     </button>
@@ -589,6 +595,18 @@ const ListedDataPage: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* 銘柄詳細モーダル */}
+      {selectedStock && (
+        <StockDetailModal
+          symbol={selectedStock}
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedStock(null);
+          }}
+        />
+      )}
     </div>
   );
 };

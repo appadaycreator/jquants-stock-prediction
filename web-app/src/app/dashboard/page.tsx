@@ -94,6 +94,10 @@ function DashboardContent() {
 
   // 実データ使用フラグ
   const [useRealData, setUseRealData] = useState(true);
+  
+  // 全銘柄データの状態
+  const [allStocksData, setAllStocksData] = useState<any>(null);
+  const [marketAnalysis, setMarketAnalysis] = useState<any>(null);
 
   useEffect(() => {
     const initializeDashboard = async () => {
@@ -156,8 +160,17 @@ function DashboardContent() {
 
   const loadDashboardData = async () => {
     try {
-      // ここで実際のデータ読み込み処理を実装
-      // 簡素化のため基本的なデータのみ設定
+      // 全銘柄データを取得
+      const response = await fetch('/data/listed_index.json');
+      if (response.ok) {
+        const stocksData = await response.json();
+        setAllStocksData(stocksData);
+        
+        // 市場分析を実行
+        const analysis = await analyzeMarketData(stocksData);
+        setMarketAnalysis(analysis);
+      }
+      
       setLastUpdateTime(new Date().toLocaleString("ja-JP"));
       
       // 鮮度情報の更新
@@ -166,6 +179,122 @@ function DashboardContent() {
       console.error("データ読み込みエラー:", err);
       setError("データの読み込みに失敗しました");
     }
+  };
+
+  // 市場データの分析
+  const analyzeMarketData = async (stocksData: any) => {
+    const stocks = stocksData.stocks || [];
+    const totalStocks = stocks.length;
+    
+    // 価格変動のある銘柄をフィルタリング
+    const stocksWithPriceData = stocks.filter((stock: any) => 
+      stock.currentPrice && stock.changePercent !== undefined
+    );
+    
+    // セクター別パフォーマンス分析
+    const sectorPerformance: Record<string, number> = {};
+    const sectorData: Record<string, { total: number; count: number }> = {};
+    
+    stocksWithPriceData.forEach((stock: any) => {
+      if (stock.sector && stock.changePercent !== undefined) {
+        if (!sectorData[stock.sector]) {
+          sectorData[stock.sector] = { total: 0, count: 0 };
+        }
+        sectorData[stock.sector].total += stock.changePercent;
+        sectorData[stock.sector].count += 1;
+      }
+    });
+    
+    Object.entries(sectorData).forEach(([sector, data]) => {
+      sectorPerformance[sector] = data.count > 0 ? data.total / data.count : 0;
+    });
+    
+    // 投資推奨の分析
+    const recommendations = {
+      STRONG_BUY: 0,
+      BUY: 0,
+      HOLD: 0,
+      SELL: 0,
+      STRONG_SELL: 0,
+    };
+    
+    stocksWithPriceData.forEach((stock: any) => {
+      const score = calculateStockScore(stock, sectorPerformance);
+      const recommendation = generateRecommendation(score, stock.changePercent || 0);
+      recommendations[recommendation.recommendation]++;
+    });
+    
+    // トップゲイナー・ローザー
+    const topGainers = stocksWithPriceData
+      .sort((a: any, b: any) => (b.changePercent || 0) - (a.changePercent || 0))
+      .slice(0, 10)
+      .map((stock: any) => ({
+        symbol: stock.code,
+        name: stock.name,
+        changePercent: stock.changePercent || 0,
+      }));
+    
+    const topLosers = stocksWithPriceData
+      .sort((a: any, b: any) => (a.changePercent || 0) - (b.changePercent || 0))
+      .slice(0, 10)
+      .map((stock: any) => ({
+        symbol: stock.code,
+        name: stock.name,
+        changePercent: stock.changePercent || 0,
+      }));
+    
+    return {
+      totalStocks,
+      analyzedStocks: stocksWithPriceData.length,
+      recommendations,
+      topGainers,
+      topLosers,
+      sectorPerformance,
+    };
+  };
+  
+  // 個別銘柄のスコア計算
+  const calculateStockScore = (stock: any, sectorPerformance: Record<string, number>): number => {
+    let score = 0;
+    
+    // 価格変動スコア (40%)
+    if (stock.changePercent !== undefined) {
+      const priceScore = Math.max(0, Math.min(100, 50 + stock.changePercent * 2));
+      score += priceScore * 0.4;
+    }
+    
+    // セクターパフォーマンススコア (30%)
+    if (stock.sector && sectorPerformance[stock.sector] !== undefined) {
+      const sectorScore = Math.max(0, Math.min(100, 50 + sectorPerformance[stock.sector] * 2));
+      score += sectorScore * 0.3;
+    }
+    
+    // 市場区分スコア (20%)
+    const marketScore = {
+      'プライム': 80,
+      'スタンダード': 60,
+      'グロース': 40,
+    }[stock.market] || 50;
+    score += marketScore * 0.2;
+    
+    // 出来高スコア (10%)
+    if (stock.volume !== undefined) {
+      const volumeScore = Math.min(100, Math.log10(stock.volume + 1) * 10);
+      score += volumeScore * 0.1;
+    }
+    
+    return Math.max(0, Math.min(100, score));
+  };
+  
+  // 投資推奨の生成
+  const generateRecommendation = (score: number, changePercent: number): {
+    recommendation: "STRONG_BUY" | "BUY" | "HOLD" | "SELL" | "STRONG_SELL";
+  } => {
+    if (score >= 80) return { recommendation: "STRONG_BUY" };
+    if (score >= 65) return { recommendation: "BUY" };
+    if (score >= 45) return { recommendation: "HOLD" };
+    if (score >= 25) return { recommendation: "SELL" };
+    return { recommendation: "STRONG_SELL" };
   };
 
   const updateFreshnessInfos = () => {
@@ -495,7 +624,9 @@ function DashboardContent() {
                         <div>
                           <p className="text-sm font-medium text-gray-900">分析銘柄数</p>
                           <p className="text-sm text-gray-600">
-                            {useRealData && realDashboard.marketSummary 
+                            {marketAnalysis 
+                              ? `${marketAnalysis.analyzedStocks}/${marketAnalysis.totalStocks}件`
+                              : useRealData && realDashboard.marketSummary 
                               ? `${realDashboard.marketSummary.analyzedSymbols}/${realDashboard.marketSummary.totalSymbols}件`
                               : "学習済み"
                             }
@@ -504,8 +635,44 @@ function DashboardContent() {
                       </div>
                     </div>
                     
-                    {/* 実データの場合は市場サマリーを表示 */}
-                    {useRealData && realDashboard.marketSummary && (
+                    {/* 全銘柄データの市場サマリーを表示 */}
+                    {marketAnalysis && (
+                      <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-green-600">
+                            {marketAnalysis.recommendations.STRONG_BUY + marketAnalysis.recommendations.BUY}
+                          </div>
+                          <div className="text-sm text-gray-600">買い推奨</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-blue-600">
+                            {marketAnalysis.recommendations.HOLD}
+                          </div>
+                          <div className="text-sm text-gray-600">ホールド</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-red-600">
+                            {marketAnalysis.recommendations.SELL + marketAnalysis.recommendations.STRONG_SELL}
+                          </div>
+                          <div className="text-sm text-gray-600">売り推奨</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-green-600">
+                            {marketAnalysis.topGainers.length}
+                          </div>
+                          <div className="text-sm text-gray-600">上昇銘柄</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-red-600">
+                            {marketAnalysis.topLosers.length}
+                          </div>
+                          <div className="text-sm text-gray-600">下落銘柄</div>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* フォールバック: 実データの場合は市場サマリーを表示 */}
+                    {!marketAnalysis && useRealData && realDashboard.marketSummary && (
                       <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-4">
                         <div className="text-center">
                           <div className="text-2xl font-bold text-green-600">
@@ -577,8 +744,31 @@ function DashboardContent() {
                     </div>
                   )}
 
-                  {/* 市場インサイト */}
-                  {marketInsights && (
+                  {/* セクター別パフォーマンス */}
+                  {marketAnalysis && marketAnalysis.sectorPerformance && (
+                    <div className="bg-white rounded-lg shadow p-6">
+                      <h2 className="text-lg font-semibold text-gray-900 mb-4">セクター別パフォーマンス</h2>
+                      <div className="space-y-3">
+                        {Object.entries(marketAnalysis.sectorPerformance)
+                          .sort(([,a], [,b]) => b - a)
+                          .slice(0, 10)
+                          .map(([sector, performance], index) => (
+                          <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <span className="text-sm text-gray-700">{sector}</span>
+                            <span className={`text-sm font-medium ${
+                              performance > 0 ? "text-green-600" : 
+                              performance < 0 ? "text-red-600" : "text-gray-600"
+                            }`}>
+                              {performance > 0 ? "+" : ""}{performance.toFixed(2)}%
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* フォールバック: 市場インサイト */}
+                  {!marketAnalysis && marketInsights && (
                     <div className="bg-white rounded-lg shadow p-6">
                       <h2 className="text-lg font-semibold text-gray-900 mb-4">市場インサイト</h2>
                       <div className="space-y-3">
