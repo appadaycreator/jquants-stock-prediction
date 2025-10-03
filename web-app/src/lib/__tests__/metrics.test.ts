@@ -1,5 +1,4 @@
 import { metrics } from "../metrics";
-
 // Performance API のモック
 const mockPerformance = {
   now: jest.fn(() => Date.now()),
@@ -10,16 +9,13 @@ const mockPerformance = {
   clearMarks: jest.fn(),
   clearMeasures: jest.fn(),
 };
-
 Object.defineProperty(window, "performance", {
   value: mockPerformance,
 });
-
 describe("metrics", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
-
   describe("startTimer", () => {
     it("starts a timer", () => {
       const timer = metrics.startTimer("test-timer");
@@ -27,7 +23,6 @@ describe("metrics", () => {
       expect(typeof timer.stop).toBe("function");
     });
   });
-
   describe("measureTime", () => {
     it("measures execution time", async () => {
       const result = await metrics.measureTime("test-measure", async () => {
@@ -40,7 +35,6 @@ describe("metrics", () => {
       expect(mockPerformance.measure).toHaveBeenCalled();
     });
   });
-
   describe("incrementCounter", () => {
     it("increments a counter", () => {
       metrics.incrementCounter("test-counter");
@@ -50,7 +44,6 @@ describe("metrics", () => {
       expect(metrics.getCounter("test-counter")).toBe(2);
     });
   });
-
   describe("decrementCounter", () => {
     it("decrements a counter", () => {
       metrics.incrementCounter("test-counter", 5);
@@ -58,14 +51,12 @@ describe("metrics", () => {
       expect(metrics.getCounter("test-counter")).toBe(4);
     });
   });
-
   describe("setGauge", () => {
     it("sets a gauge value", () => {
       metrics.setGauge("test-gauge", 100);
       expect(metrics.getGauge("test-gauge")).toBe(100);
     });
   });
-
   describe("addHistogram", () => {
     it("adds a histogram value", () => {
       metrics.addHistogram("test-histogram", 50);
@@ -73,7 +64,6 @@ describe("metrics", () => {
       expect(histogram.values).toContain(50);
     });
   });
-
   describe("getAllMetrics", () => {
     it("returns all metrics", () => {
       metrics.incrementCounter("test-counter");
@@ -84,7 +74,6 @@ describe("metrics", () => {
       expect(allMetrics.gauges).toHaveProperty("test-gauge");
     });
   });
-
   describe("clearMetrics", () => {
     it("clears all metrics", () => {
       metrics.incrementCounter("test-counter");
@@ -96,7 +85,6 @@ describe("metrics", () => {
       expect(metrics.getGauge("test-gauge")).toBe(0);
     });
   });
-
   describe("exportMetrics", () => {
     it("exports metrics in JSON format", () => {
       metrics.incrementCounter("test-counter");
@@ -111,4 +99,3 @@ describe("metrics", () => {
     });
   });
 });
-

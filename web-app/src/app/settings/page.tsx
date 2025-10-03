@@ -21,7 +21,6 @@ export default function SettingsPage() {
   const [riskLoading, setRiskLoading] = useState(false);
   const [riskSaving, setRiskSaving] = useState(false);
   const [configPreview, setConfigPreview] = useState<string>("");
-  const [envPreview, setEnvPreview] = useState<string>("");
   const [validationResult, setValidationResult] = useState<any | null>(null);
   const [isValidating, setIsValidating] = useState(false);
 

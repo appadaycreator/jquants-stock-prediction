@@ -1,5 +1,4 @@
 import { analyzeStock, generateMarketSummary } from "../stock-analysis";
-
 // Mock the unifiedApiClient
 jest.mock("../unified-api-client", () => ({
   unifiedApiClient: {
@@ -7,27 +6,22 @@ jest.mock("../unified-api-client", () => ({
     getMarketData: jest.fn(),
   },
 }));
-
 describe("stock-analysis", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
-
   describe("analyzeStock", () => {
     it("returns null for invalid symbol", async () => {
       const result = await analyzeStock("");
       expect(result).toBeNull();
     });
-
     it("handles API errors gracefully", async () => {
       const { unifiedApiClient } = require("../unified-api-client");
       unifiedApiClient.getStockData.mockRejectedValue(new Error("API Error"));
-
       const result = await analyzeStock("7203");
       // APIエラーでも分析結果は返される（エラーハンドリングが実装されているため）
       expect(result).toBeDefined();
     });
-
     it("processes valid stock data", async () => {
       const mockStockData = {
         symbol: "7203",
@@ -51,10 +45,8 @@ describe("stock-analysis", () => {
         website: "https://toyota.co.jp",
         logo: "https://example.com/logo.png",
       };
-
       const { unifiedApiClient } = require("../unified-api-client");
       unifiedApiClient.getStockData.mockResolvedValue(mockStockData);
-
       const result = await analyzeStock("7203", "トヨタ自動車");
       
       expect(result).toBeDefined();
@@ -62,7 +54,6 @@ describe("stock-analysis", () => {
       expect(result?.name).toBe("トヨタ自動車");
     });
   });
-
   describe("generateMarketSummary", () => {
     it("generates market summary with analyzed symbols", async () => {
       const mockAnalysisResults = [
@@ -87,7 +78,6 @@ describe("stock-analysis", () => {
           riskLevel: "低",
         },
       ];
-
       const result = await generateMarketSummary();
       
       expect(result).toBeDefined();
@@ -96,7 +86,6 @@ describe("stock-analysis", () => {
       expect(result.topGainers).toBeDefined();
       expect(result.topLosers).toBeDefined();
     });
-
     it("handles empty analysis results", async () => {
       const result = await generateMarketSummary();
       
@@ -106,7 +95,6 @@ describe("stock-analysis", () => {
       expect(result.topGainers).toBeDefined();
       expect(result.topLosers).toBeDefined();
     });
-
     it("categorizes recommendations correctly", async () => {
       const result = await generateMarketSummary();
       
@@ -117,7 +105,6 @@ describe("stock-analysis", () => {
       }
     });
   });
-
   describe("generateMockStockData", () => {
     it("generates mock data for given parameters", () => {
       const { generateMockStockData } = require("../stock-analysis");

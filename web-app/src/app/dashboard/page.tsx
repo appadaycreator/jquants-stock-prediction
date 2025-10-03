@@ -7,8 +7,6 @@ export const dynamic = "force-dynamic";
 import { ErrorBoundary } from "react-error-boundary";
 import dynamicImport from "next/dynamic";
 import { SettingsProvider } from "../../contexts/SettingsContext";
-import { useAnalysisWithSettings } from "../../hooks/useAnalysisWithSettings";
-import { useFiveMinRoutine } from "@/hooks/useFiveMinRoutine";
 import { useRealDashboardData } from "@/hooks/useRealDashboardData";
 import { TrendingUp, BarChart3, Database, CheckCircle, AlertTriangle, X, Cpu, Target } from "lucide-react";
 import { getCacheMeta } from "@/lib/fetcher";
@@ -19,7 +17,7 @@ import EnhancedRefreshButton from "@/components/EnhancedRefreshButton";
 import { NotificationService } from "@/lib/notification/NotificationService";
 import { usePerformanceMonitor } from "@/lib/performance-monitor";
 import { DEFAULT_CHECKLIST_ITEMS, type ChecklistItem } from "@/components/guide/Checklist";
-import { SampleDataProvider, useSampleData } from "@/components/SampleDataProvider";
+import { SampleDataProvider } from "@/components/SampleDataProvider";
 import AnalysisExecutionPanel from "@/components/AnalysisExecutionPanel";
 import UnifiedErrorBoundary from "@/components/UnifiedErrorBoundary";
 import { TourProvider } from "@/components/guide/TourProvider";
@@ -29,19 +27,6 @@ const MobileNavigation = dynamicImport(() => import("../../components/MobileNavi
 // 動的インポートは必要に応じて追加
 
 // 型定義
-interface StockData {
-  date: string
-  code?: string
-  open?: number
-  high?: number
-  low?: number
-  close?: number
-  volume?: number
-  sma_5?: number
-  sma_10?: number
-  sma_25?: number
-  sma_50?: number
-}
 
 interface ModelComparison {
   name: string
@@ -75,13 +60,6 @@ function DashboardContent() {
   const [error, setError] = useState<string | null>(null);
   const [freshnessInfos, setFreshnessInfos] = useState<DataFreshnessInfo[]>([]);
   
-  // 追加の状態変数
-  const [refreshStatus, setRefreshStatus] = useState<string>("");
-  const [selectedModel, setSelectedModel] = useState<ModelComparison | null>(null);
-  const [showModelDetail, setShowModelDetail] = useState(false);
-  const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>(DEFAULT_CHECKLIST_ITEMS);
-  const [showSettingsModal, setShowSettingsModal] = useState(false);
-  const [showStockMonitoring, setShowStockMonitoring] = useState(false);
   
   // モックデータ
   const performanceMetrics = {
@@ -174,7 +152,7 @@ function DashboardContent() {
     };
 
     initializeDashboard();
-  }, []);
+  }, [loadDashboardData]);
 
   const loadDashboardData = async () => {
     try {
@@ -191,7 +169,6 @@ function DashboardContent() {
   };
 
   const updateFreshnessInfos = () => {
-    const now = new Date();
     const infos: DataFreshnessInfo[] = [];
 
     // 各データソースの鮮度情報を生成
@@ -304,20 +281,6 @@ function DashboardContent() {
     }
   };
 
-  const handleModelClick = (model: ModelComparison) => {
-    setSelectedModel(model);
-    setShowModelDetail(true);
-  };
-
-  const handleChecklistToggle = (itemId: string) => {
-    setChecklistItems(prev => 
-      prev.map(item => 
-        item.id === itemId 
-          ? { ...item, completed: !item.completed }
-          : item,
-      ),
-    );
-  };
 
   if (isLoading) {
     return (
@@ -733,7 +696,7 @@ function DashboardContent() {
 export default function Dashboard() {
   return (
     <ErrorBoundary
-      fallbackRender={({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) => (
+      fallbackRender={() => (
         <UnifiedErrorBoundary
           onError={() => {}}
         />

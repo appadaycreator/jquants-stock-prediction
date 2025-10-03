@@ -1,15 +1,12 @@
 /**
  * エラーハンドラーのテスト
  */
-
 import { errorHandler, logError, getLocalizedErrorMessage, getErrorInfo } from "../error-handler";
-
 describe("ErrorHandler", () => {
   beforeEach(() => {
     // テスト前にエラーハンドラーをリセット
     errorHandler.reset();
   });
-
   describe("categorizeError", () => {
     it("ネットワークエラーを正しく分類する", () => {
       const networkError = new Error("Network request failed");
@@ -20,7 +17,6 @@ describe("ErrorHandler", () => {
       expect(errorInfo.autoRetry).toBe(true);
       expect(errorInfo.retryDelay).toBe(3000);
     });
-
     it("APIエラーを正しく分類する", () => {
       const apiError = new Error("HTTP 404: Not Found");
       const errorInfo = errorHandler.categorizeError(apiError);
@@ -29,7 +25,6 @@ describe("ErrorHandler", () => {
       expect(errorInfo.severity).toBe("high");
       expect(errorInfo.autoRetry).toBe(false);
     });
-
     it("データエラーを正しく分類する", () => {
       const dataError = new Error("JSON parse error");
       const errorInfo = errorHandler.categorizeError(dataError);
@@ -38,7 +33,6 @@ describe("ErrorHandler", () => {
       expect(errorInfo.severity).toBe("medium");
       expect(errorInfo.autoRetry).toBe(true);
     });
-
     it("バリデーションエラーを正しく分類する", () => {
       const validationError = new Error("Validation failed: required field missing");
       const errorInfo = errorHandler.categorizeError(validationError);
@@ -47,7 +41,6 @@ describe("ErrorHandler", () => {
       expect(errorInfo.severity).toBe("low");
       expect(errorInfo.autoRetry).toBe(false);
     });
-
     it("システムエラーを正しく分類する", () => {
       const systemError = new Error("Internal system error");
       const errorInfo = errorHandler.categorizeError(systemError);
@@ -56,7 +49,6 @@ describe("ErrorHandler", () => {
       expect(errorInfo.severity).toBe("critical");
       expect(errorInfo.autoRetry).toBe(false);
     });
-
     it("未知のエラーを正しく分類する", () => {
       const unknownError = new Error("Some random error");
       const errorInfo = errorHandler.categorizeError(unknownError);
@@ -66,7 +58,6 @@ describe("ErrorHandler", () => {
       expect(errorInfo.autoRetry).toBe(false);
     });
   });
-
   describe("handleError", () => {
     it("エラーを正しく処理する", async () => {
       const error = new Error("Test error");
@@ -74,7 +65,6 @@ describe("ErrorHandler", () => {
       
       expect(typeof result).toBe("boolean");
     });
-
     it("重複エラーを制限する", async () => {
       const error = new Error("Duplicate error");
       
@@ -87,7 +77,6 @@ describe("ErrorHandler", () => {
       expect(history.length).toBeLessThanOrEqual(15);
     });
   });
-
   describe("getErrorHistory", () => {
     it("エラー履歴を正しく取得する", () => {
       const error = new Error("Test error");
@@ -97,7 +86,6 @@ describe("ErrorHandler", () => {
       expect(Array.isArray(history)).toBe(true);
     });
   });
-
   describe("getErrorStats", () => {
     it("エラー統計を正しく取得する", async () => {
       const error1 = new Error("Network error");
@@ -112,7 +100,6 @@ describe("ErrorHandler", () => {
       expect(stats.byCategory.api).toBe(1);
     });
   });
-
   describe("reset", () => {
     it("エラーハンドラーを正しくリセットする", () => {
       const error = new Error("Test error");
@@ -125,7 +112,6 @@ describe("ErrorHandler", () => {
     });
   });
 });
-
 describe("logError", () => {
   it("エラーログを正しく記録する", () => {
     const error = new Error("Test error");
@@ -141,7 +127,6 @@ describe("logError", () => {
     consoleSpy.mockRestore();
   });
 });
-
 describe("getLocalizedErrorMessage", () => {
   it("日本語エラーメッセージを正しく取得する", () => {
     const error = new Error("Network error");
@@ -151,7 +136,6 @@ describe("getLocalizedErrorMessage", () => {
     expect(message.length).toBeGreaterThan(0);
   });
 });
-
 describe("getErrorInfo", () => {
   it("エラー情報を正しく取得する", () => {
     const error = new Error("Test error");

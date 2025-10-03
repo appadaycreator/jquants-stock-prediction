@@ -41,14 +41,14 @@ export default function LogsPage() {
 
   useEffect(() => {
     fetchLogs();
-  }, [level, source, requestId, limit]);
+  }, [fetchLogs, level, source, requestId, limit]);
 
   useEffect(() => {
     if (autoRefresh) {
       timerRef.current = setInterval(fetchLogs, 5000);
     }
     return () => timerRef.current && clearInterval(timerRef.current);
-  }, [autoRefresh, level, source, requestId, limit]);
+  }, [autoRefresh, fetchLogs, level, source, requestId, limit]);
 
   const filtered = useMemo(() => {
     const kw = q.trim().toLowerCase();

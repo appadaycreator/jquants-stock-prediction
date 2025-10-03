@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { SettingsProvider } from "../../contexts/SettingsContext";
 import FiveMinRoutine from "../../components/FiveMinRoutine";
 import TutorialSystem from "../../components/TutorialSystem";

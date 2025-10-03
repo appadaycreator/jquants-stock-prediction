@@ -1,14 +1,11 @@
 import { unifiedApiClient } from "../unified-api-client";
-
 // Mock the fetch function
 global.fetch = jest.fn();
-
 describe("unified-api-client", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.setTimeout(10000);
   });
-
   describe("getStockData", () => {
     it("fetches stock data successfully", async () => {
       const mockData = {
@@ -17,14 +14,11 @@ describe("unified-api-client", () => {
         price: 2500,
         change: 0.05,
       };
-
       (global.fetch as jest.Mock).mockResolvedValue({
         ok: true,
         json: () => Promise.resolve(mockData),
       });
-
       const result = await unifiedApiClient.getStockData("7203");
-
       expect(result).toEqual(mockData);
       expect(global.fetch).toHaveBeenCalledWith(
         "/api/stocks/7203",
@@ -34,24 +28,19 @@ describe("unified-api-client", () => {
         }),
       );
     }, 10000);
-
     it("handles API errors", async () => {
       (global.fetch as jest.Mock).mockResolvedValue({
         ok: false,
         status: 404,
         statusText: "Not Found",
       });
-
       await expect(unifiedApiClient.getStockData("INVALID")).rejects.toThrow();
     }, 10000);
-
     it("handles network errors", async () => {
       (global.fetch as jest.Mock).mockRejectedValue(new Error("Network Error"));
-
       await expect(unifiedApiClient.getStockData("7203")).rejects.toThrow("Network Error");
     }, 10000);
   });
-
   describe("getMarketData", () => {
     it("fetches market data successfully", async () => {
       const mockData = {
@@ -60,14 +49,11 @@ describe("unified-api-client", () => {
           { name: "日経平均", value: 30000, change: 0.02 },
         ],
       };
-
       (global.fetch as jest.Mock).mockResolvedValue({
         ok: true,
         json: () => Promise.resolve(mockData),
       });
-
       const result = await unifiedApiClient.getMarketData();
-
       expect(result).toEqual(mockData);
       expect(global.fetch).toHaveBeenCalledWith(
         "/api/market",
@@ -78,7 +64,6 @@ describe("unified-api-client", () => {
       );
     }, 10000);
   });
-
   describe("getPredictions", () => {
     it("fetches predictions successfully", async () => {
       const mockPredictions = [
@@ -88,14 +73,11 @@ describe("unified-api-client", () => {
           confidence: 0.85,
         },
       ];
-
       (global.fetch as jest.Mock).mockResolvedValue({
         ok: true,
         json: () => Promise.resolve(mockPredictions),
       });
-
       const result = await unifiedApiClient.getPredictions();
-
       expect(result).toEqual(mockPredictions);
       expect(global.fetch).toHaveBeenCalledWith(
         "/api/predictions",
@@ -106,7 +88,6 @@ describe("unified-api-client", () => {
       );
     }, 10000);
   });
-
   describe("getPersonalInvestmentData", () => {
     it("fetches personal investment data successfully", async () => {
       const mockData = {
@@ -116,14 +97,11 @@ describe("unified-api-client", () => {
           { symbol: "7203", value: 500000, weight: 0.5 },
         ],
       };
-
       (global.fetch as jest.Mock).mockResolvedValue({
         ok: true,
         json: () => Promise.resolve(mockData),
       });
-
       const result = await unifiedApiClient.getPersonalInvestmentData();
-
       expect(result).toEqual(mockData);
       expect(global.fetch).toHaveBeenCalledWith(
         "/api/personal-investment",

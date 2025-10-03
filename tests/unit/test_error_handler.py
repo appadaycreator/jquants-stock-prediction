@@ -225,6 +225,7 @@ class TestErrorHandler:
         error = ValueError("Test error")
         handler._attempt_error_recovery(error, ErrorCategory.API_ERROR)
 
+        # 自動復旧が無効化されている場合、復旧処理は実行されない
         mock_logger.log_info.assert_called_with("自動復旧が無効化されています")
 
     def test_recovery_max_attempts_reached(self):

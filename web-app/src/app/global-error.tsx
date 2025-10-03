@@ -42,44 +42,6 @@ export default function GlobalError({
     // }
   }, [error, errorType]);
 
-  const handleAutoRetry = () => {
-    if (isRetrying || retryCount >= 3) return;
-    
-    setIsRetrying(true);
-    setRetryCount(prev => prev + 1);
-    
-    console.log(`Retry attempt ${retryCount + 1}/3`);
-    
-    // 指数バックオフでリトライ
-    const delay = Math.min(2000 * Math.pow(2, retryCount), 10000);
-    
-    setTimeout(() => {
-      // キャッシュをクリアしてリロード
-      if ("caches" in window) {
-        caches.keys().then(names => {
-          names.forEach(name => {
-            caches.delete(name);
-          });
-        });
-      }
-      
-      // ローカルストレージのキャッシュをクリア
-      try {
-        const keys = Object.keys(localStorage);
-        keys.forEach(key => {
-          if (key.startsWith("app_cache:") || key.startsWith("next:")) {
-            localStorage.removeItem(key);
-          }
-        });
-      } catch (e) {
-        console.warn("Failed to clear localStorage cache:", e);
-      }
-      
-      // リロードを無効化してループを防止
-      // window.location.reload();
-      console.log("Recovery completed without reload to prevent loop");
-    }, delay);
-  };
 
   const getErrorMessage = () => {
     switch (errorType) {

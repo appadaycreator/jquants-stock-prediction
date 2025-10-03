@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { settingsSchema } from "../settingsSchema";
-
 describe("settingsSchema", () => {
   describe("validates correct settings", () => {
     it("validates complete settings object", () => {
@@ -48,10 +47,8 @@ describe("settingsSchema", () => {
           debugging: false,
         },
       };
-
       expect(() => settingsSchema.parse(validSettings)).not.toThrow();
     });
-
     it("validates minimal settings object", () => {
       const minimalSettings = {
         theme: "light",
@@ -97,11 +94,9 @@ describe("settingsSchema", () => {
           debugging: false,
         },
       };
-
       expect(() => settingsSchema.parse(minimalSettings)).not.toThrow();
     });
   });
-
   describe("rejects invalid settings", () => {
     it("rejects invalid theme", () => {
       const invalidSettings = {
@@ -148,10 +143,8 @@ describe("settingsSchema", () => {
           debugging: false,
         },
       };
-
       expect(() => settingsSchema.parse(invalidSettings)).toThrow();
     });
-
     it("rejects invalid language", () => {
       const invalidSettings = {
         theme: "light",
@@ -197,10 +190,8 @@ describe("settingsSchema", () => {
           debugging: false,
         },
       };
-
       expect(() => settingsSchema.parse(invalidSettings)).toThrow();
     });
-
     it("rejects invalid session timeout", () => {
       const invalidSettings = {
         theme: "light",
@@ -246,10 +237,8 @@ describe("settingsSchema", () => {
           debugging: false,
         },
       };
-
       expect(() => settingsSchema.parse(invalidSettings)).toThrow();
     });
-
     it("rejects invalid API timeout", () => {
       const invalidSettings = {
         theme: "light",
@@ -295,9 +284,7 @@ describe("settingsSchema", () => {
           debugging: false,
         },
       };
-
       expect(() => settingsSchema.parse(invalidSettings)).toThrow();
     });
   });
 });
-

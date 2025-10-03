@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import Navigation from "@/components/Navigation";
 import { FileText, Download, TrendingUp, BarChart, PieChart, BookOpen } from "lucide-react";
 

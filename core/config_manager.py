@@ -33,7 +33,6 @@ class ConfigManager:
             if os.path.exists(self.config_file):
                 with open(self.config_file, "r", encoding="utf-8") as f:
                     self.config = yaml.safe_load(f) or {}
-                # 設定ファイル読み込み完了
             else:
                 # デフォルト設定の作成
                 self._create_default_config()
@@ -163,14 +162,11 @@ class ConfigManager:
 
         try:
             # 出力ディレクトリの作成
-            import os
             os.makedirs(os.path.dirname(file_path), exist_ok=True)
             
             with open(file_path, "w", encoding="utf-8") as f:
                 yaml.dump(self.config, f, default_flow_style=False, allow_unicode=True)
-            # 設定保存完了
         except Exception as e:
-            # 設定保存エラー
             raise
 
     def update_configuration(self, new_config: Dict[str, Any]) -> None:
@@ -179,9 +175,7 @@ class ConfigManager:
             if new_config is None:
                 return
             self.config.update(new_config)
-            # システム設定更新完了
         except Exception as e:
-            # 設定更新エラー
             raise
 
     def validate_config(self, config: Dict[str, Any] = None) -> Dict[str, Any]:
@@ -218,10 +212,8 @@ class ConfigManager:
                 "timestamp": datetime.now().isoformat(),
                 "config_file": self.config_file,
             }
-            # 設定バックアップ作成完了
             return backup_data
         except Exception as e:
-            # バックアップ作成エラー
             raise
 
     def restore_from_backup(self, backup_data: Dict[str, Any]) -> bool:
@@ -229,9 +221,7 @@ class ConfigManager:
         try:
             if backup_data and isinstance(backup_data, dict) and "config" in backup_data:
                 self.config = backup_data["config"]
-                # バックアップから正常に復元
                 return True
             return False
         except Exception as e:
-            # バックアップ復元エラー
             return False

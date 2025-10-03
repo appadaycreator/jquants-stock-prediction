@@ -13,12 +13,10 @@ import {
   RefreshCw,
   Play,
   Pause,
-  StopCircle,
   BarChart3,
   TrendingUp,
   Database,
   Cpu,
-  Zap,
 } from "lucide-react";
 
 // 分析状況の型定義

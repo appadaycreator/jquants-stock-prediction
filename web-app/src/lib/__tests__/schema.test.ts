@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { StockData, PredictionPoint, DashboardSummary } from "../schema";
-
 describe("schema validation", () => {
   describe("stockDataSchema", () => {
     it("validates correct stock data", () => {
@@ -14,21 +13,17 @@ describe("schema validation", () => {
         sma_50: 2300,
         predicted: 2600,
       };
-
       expect(() => StockData.parse(validStockData)).not.toThrow();
     });
-
     it("rejects invalid stock data", () => {
       const invalidStockData = {
         date: "",
         close: -100,
         volume: "invalid",
       };
-
       expect(() => StockData.parse(invalidStockData)).toThrow();
     });
   });
-
   describe("predictionPoint", () => {
     it("validates correct prediction data", () => {
       const validPrediction = {
@@ -37,10 +32,8 @@ describe("schema validation", () => {
         y_true: 2500,
         y_pred: 2600,
       };
-
       expect(() => PredictionPoint.parse(validPrediction)).not.toThrow();
     });
-
     it("rejects invalid prediction data", () => {
       const invalidPrediction = {
         date: "",
@@ -48,11 +41,9 @@ describe("schema validation", () => {
         y_true: "invalid",
         y_pred: "invalid",
       };
-
       expect(() => PredictionPoint.parse(invalidPrediction)).toThrow();
     });
   });
-
   describe("dashboardSummary", () => {
     it("validates correct dashboard data", () => {
       const validDashboardData = {
@@ -66,16 +57,13 @@ describe("schema validation", () => {
           rmse: 150,
         },
       };
-
       expect(() => DashboardSummary.parse(validDashboardData)).not.toThrow();
     });
-
     it("rejects invalid dashboard data", () => {
       const invalidDashboardData = {
         total_stocks: -1, // Invalid negative number
         total_predictions: "invalid",
       };
-
       expect(() => DashboardSummary.parse(invalidDashboardData)).toThrow();
     });
   });

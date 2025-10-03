@@ -5,7 +5,6 @@ import React, { useState, useEffect } from "react";
 // 動的レンダリングを強制
 export const dynamic = "force-dynamic";
 import { getLatestIndex, resolveBusinessDate, swrJson } from "@/lib/dataClient";
-import { useEnhancedPersonalInvestment } from "@/hooks/useEnhancedPersonalInvestment";
 import UserProfileForm from "@/components/personalization/UserProfileForm";
 import { useUserProfile } from "@/contexts/UserProfileContext";
 import { allocateEqualRiskBudget, AllocationResult, Candidate } from "@/lib/personalization/allocation";
@@ -29,7 +28,6 @@ import {
   AlertTriangle,
   Settings,
 } from "lucide-react";
-import { useRiskCustomization } from "@/hooks/useRiskCustomization";
 import { RiskSettingsPanel } from "@/components/risk-customization/RiskSettingsPanel";
 // import { IndividualStockSettings } from "@/components/risk-customization/IndividualStockSettings";
 // import { RecommendationDetails } from "@/components/risk-customization/RecommendationDetails";
@@ -120,7 +118,7 @@ export default function PersonalInvestmentDashboard() {
       const interval = setInterval(loadDashboardData, 30000); // 30秒ごと
       return () => clearInterval(interval);
     }
-  }, [autoRefresh, loadDashboardData]);
+  }, [autoRefresh]);
 
   const loadDashboardData = async () => {
     try {

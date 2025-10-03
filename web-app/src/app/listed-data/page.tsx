@@ -389,7 +389,6 @@ const ListedDataPage: React.FC = () => {
                 <th 
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onClick={() => handleSort("code")}
-                  role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
@@ -397,7 +396,6 @@ const ListedDataPage: React.FC = () => {
                       handleSort("code");
                     }
                   }}
-                  aria-sort={sortField === "code" ? (sortDirection === "asc" ? "ascending" : "descending") : "none"}
                 >
                   銘柄コード
                   {sortField === "code" && (
@@ -407,7 +405,6 @@ const ListedDataPage: React.FC = () => {
                 <th 
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onClick={() => handleSort("name")}
-                  role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
@@ -415,7 +412,6 @@ const ListedDataPage: React.FC = () => {
                       handleSort("name");
                     }
                   }}
-                  aria-sort={sortField === "name" ? (sortDirection === "asc" ? "ascending" : "descending") : "none"}
                 >
                   会社名
                   {sortField === "name" && (
@@ -425,7 +421,6 @@ const ListedDataPage: React.FC = () => {
                 <th 
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onClick={() => handleSort("sector")}
-                  role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
@@ -433,7 +428,6 @@ const ListedDataPage: React.FC = () => {
                       handleSort("sector");
                     }
                   }}
-                  aria-sort={sortField === "sector" ? (sortDirection === "asc" ? "ascending" : "descending") : "none"}
                 >
                   セクター
                   {sortField === "sector" && (
@@ -443,7 +437,6 @@ const ListedDataPage: React.FC = () => {
                 <th 
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onClick={() => handleSort("market")}
-                  role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
@@ -451,7 +444,6 @@ const ListedDataPage: React.FC = () => {
                       handleSort("market");
                     }
                   }}
-                  aria-sort={sortField === "market" ? (sortDirection === "asc" ? "ascending" : "descending") : "none"}
                 >
                   市場
                   {sortField === "market" && (
