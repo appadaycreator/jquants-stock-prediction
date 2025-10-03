@@ -1,50 +1,56 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { AuthService, AuthCredentials } from '@/lib/auth/AuthService';
+import { JQuantsAuthManager } from '@/lib/jquants-auth-manager';
 
-export async function POST(request: NextRequest) {
+/**
+ * 認証テスト用APIエンドポイント
+ * GET /api/auth/test
+ */
+export async function GET(request: NextRequest) {
   try {
-    const body = await request.json();
-    const credentials: AuthCredentials = {
-      email: body.email,
-      password: body.password,
-      refreshToken: body.refreshToken,
-    };
-
-    // 入力検証
-    if (!credentials.email && !credentials.password && !credentials.refreshToken) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: '認証情報が不足しています',
-        },
-        { status: 400 }
-      );
-    }
-
-    // 接続テスト
-    const isConnected = await AuthService.testConnection(credentials);
+    const authManager = new JQuantsAuthManager();
     
-    if (isConnected) {
-      return NextResponse.json({
-        success: true,
-        message: '接続テストが成功しました',
-      });
-    } else {
+    // トークンの有効性をチェック
+    const isValid = await authManager.isTokenValid();
+    
+    if (!isValid) {
       return NextResponse.json(
-        {
-          success: false,
-          message: '接続テストに失敗しました。認証情報を確認してください。',
+        { 
+          error: 'Authentication failed',
+          message: '認証トークンが無効です',
+          retry_hint: 'refresh_token'
         },
         { status: 401 }
       );
     }
+
+    // 有効なトークンを取得
+    const token = await authManager.getValidToken();
+    
+    if (!token) {
+      return NextResponse.json(
+        { 
+          error: 'Token retrieval failed',
+          message: 'トークンの取得に失敗しました',
+          retry_hint: 'check_credentials'
+        },
+        { status: 401 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: '認証が成功しました',
+      token_length: token.length,
+      timestamp: new Date().toISOString()
+    });
+
   } catch (error) {
-    console.error('接続テストエラー:', error);
+    console.error('認証テストエラー:', error);
     return NextResponse.json(
-      {
-        success: false,
-        message: '接続テスト中にエラーが発生しました',
-        error: error instanceof Error ? error.message : 'Unknown error',
+      { 
+        error: 'Authentication test failed',
+        message: '認証テストに失敗しました',
+        retry_hint: 'check_credentials'
       },
       { status: 500 }
     );

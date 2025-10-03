@@ -44,8 +44,21 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 **✅ アクションメモ機能完了:**
 **✅ RankerService分離完了:**
 **✅ IndexedDBメモ保存完了:**
+**✅ API認証エラー（401）修正完了:**
+**✅ 認証ヘッダー実装完了:**
+**✅ トークン管理機能追加完了:**
+**✅ リトライ機能実装完了:**
+**✅ エラーハンドリング改善完了:**
 
-### 1. **コアモジュールリファクタリング完了**
+### 1. **API認証エラー（401）修正完了**
+- **認証ヘッダー実装**: J-Quants APIへのリクエストにAuthorizationヘッダーを追加
+- **トークン管理機能**: JQuantsAuthManagerを使用した自動トークン取得・更新機能
+- **リトライ機能**: 認証エラー時の自動リトライ機能（最大3回、指数バックオフ）
+- **エラーハンドリング改善**: 401エラーの詳細なエラーメッセージとリトライヒント
+- **APIプロキシ修正**: サーバーサイドでの認証処理とトークン管理
+- **DataFetcher修正**: リトライ機能付きAPI呼び出しとフォールバック機能
+
+### 2. **コアモジュールリファクタリング完了**
 - **PredictionEngine最適化**: `run_stock_prediction`メソッドを分割し、`_execute_model_training`, `_add_overfitting_detection`, `_create_visualizations`, `_finalize_result`に分割
 - **ModelManager最適化**: `compare_models`メソッドを分割し、`_train_and_evaluate_models`, `_create_comparison_result`, `_create_fallback_result`に分割
 - **PerformanceOptimizer最適化**: `_detect_performance_issues`メソッドを分割し、`_check_resource_usage`, `_log_performance_issues`, `_execute_auto_optimization`に分割
@@ -1585,7 +1598,35 @@ python3 config_loader.py
 source venv/bin/activate
 ```
 
-#### 2. 統合システムでの処理実行（v2.1推奨）
+#### 2. J-Quants API認証設定（修正版）
+```bash
+# 環境変数の設定
+cp env.example .env
+
+# .envファイルを編集して認証情報を設定
+# 方法1: 直接IDトークンを設定（推奨・最も簡単）
+JQUANTS_ID_TOKEN=your_actual_id_token_here
+
+# 方法2: メール/パスワードで自動認証
+JQUANTS_EMAIL=your_email@example.com
+JQUANTS_PASSWORD=your_password
+
+# Webアプリ用の環境変数設定
+cd web-app
+cp env.sample .env.local
+# .env.localファイルを編集して認証情報を設定
+```
+
+#### 3. 認証テスト
+```bash
+# 認証の確認
+curl http://localhost:3000/api/auth/test
+
+# トークンリフレッシュ
+curl -X POST http://localhost:3000/api/auth/refresh
+```
+
+#### 4. 統合システムでの処理実行（v2.1推奨）
 ```bash
 # 統合システムで全処理を実行
 python3 unified_system.py

@@ -51,6 +51,58 @@ export class DataFetcher {
     }
   };
 
+  private static readonly MAX_RETRIES = 3;
+  private static readonly RETRY_DELAY = 1000; // 1秒
+
+  /**
+   * リトライ機能付きAPI呼び出し
+   */
+  private static async fetchWithRetry(
+    url: string,
+    options: RequestInit = {},
+    retries: number = this.MAX_RETRIES
+  ): Promise<Response> {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const response = await fetch(url, options);
+        
+        // 成功時は即座に返す
+        if (response.ok) {
+          return response;
+        }
+
+        // 401エラーの場合は認証エラーとして扱い、リトライしない
+        if (response.status === 401) {
+          console.error(`認証エラー (401): ${url}`);
+          throw new Error(`認証エラー: ${response.status}`);
+        }
+
+        // その他のエラーはリトライ
+        if (attempt < retries) {
+          console.warn(`API呼び出し失敗 (${response.status}): ${url}, リトライ ${attempt}/${retries}`);
+          await this.delay(this.RETRY_DELAY * attempt);
+        } else {
+          throw new Error(`API呼び出し失敗: ${response.status}`);
+        }
+      } catch (error) {
+        if (attempt === retries) {
+          throw error;
+        }
+        console.warn(`API呼び出しエラー: ${url}, リトライ ${attempt}/${retries}`, error);
+        await this.delay(this.RETRY_DELAY * attempt);
+      }
+    }
+    
+    throw new Error('最大リトライ回数に達しました');
+  }
+
+  /**
+   * 遅延処理
+   */
+  private static delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   /**
    * 日足データの取得（キャッシュ付き）
    */
@@ -64,17 +116,13 @@ export class DataFetcher {
       cacheKey,
       async () => {
         try {
-          // 実際のAPI呼び出し
-          const response = await fetch('/api/jquants-proxy/prices/daily_quotes', {
+          // リトライ機能付きAPI呼び出し
+          const response = await this.fetchWithRetry('/api/jquants-proxy/prices/daily_quotes', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
             },
           });
-
-          if (!response.ok) {
-            throw new Error(`API呼び出し失敗: ${response.status}`);
-          }
 
           const data = await response.json();
           return data.daily_quotes || [];
@@ -104,17 +152,13 @@ export class DataFetcher {
       cacheKey,
       async () => {
         try {
-          // 実際のAPI呼び出し
-          const response = await fetch('/api/jquants-proxy/prices/listed_info', {
+          // リトライ機能付きAPI呼び出し
+          const response = await this.fetchWithRetry('/api/jquants-proxy/prices/listed_info', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
             },
           });
-
-          if (!response.ok) {
-            throw new Error(`API呼び出し失敗: ${response.status}`);
-          }
 
           const data = await response.json();
           return data.listed_info || [];

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { JQuantsAuthManager } from '@/lib/jquants-auth-manager';
 
 // 静的生成用のパラメータ
 export async function generateStaticParams() {
@@ -125,12 +126,29 @@ async function handleProxyRequest(
     const queryString = searchParams.toString();
     const fullUrl = `${JQUANTS_API_BASE}${path}${queryString ? '?' + queryString : ''}`;
 
-    // J-Quants APIへのリクエスト
+    // 認証トークンの取得
+    const authManager = new JQuantsAuthManager();
+    const authToken = await authManager.getValidToken();
+
+    if (!authToken) {
+      console.error('認証トークンの取得に失敗しました');
+      return NextResponse.json(
+        { 
+          error: 'Authentication failed',
+          message: '認証トークンの取得に失敗しました。環境変数を確認してください。',
+          retry_hint: 'check_credentials'
+        },
+        { status: 401 }
+      );
+    }
+
+    // J-Quants APIへのリクエスト（認証ヘッダー付き）
     const response = await fetch(fullUrl, {
       method,
       headers: {
         'Content-Type': 'application/json',
         'User-Agent': 'J-Quants-Stock-Prediction/1.0',
+        'Authorization': `Bearer ${authToken}`,
       },
       body,
     });

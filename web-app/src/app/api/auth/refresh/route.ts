@@ -1,32 +1,42 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { AuthService } from '@/lib/auth/AuthService';
+import { JQuantsAuthManager } from '@/lib/jquants-auth-manager';
 
+/**
+ * トークンリフレッシュ用APIエンドポイント
+ * POST /api/auth/refresh
+ */
 export async function POST(request: NextRequest) {
   try {
-    // 自動更新の実行
-    const success = await AuthService.autoRefresh();
+    const authManager = new JQuantsAuthManager();
     
-    if (success) {
-      return NextResponse.json({
-        success: true,
-        message: 'トークンの更新が成功しました',
-      });
-    } else {
+    // 新しいトークンを取得
+    const newToken = await authManager.getValidToken();
+    
+    if (!newToken) {
       return NextResponse.json(
-        {
-          success: false,
+        { 
+          error: 'Token refresh failed',
           message: 'トークンの更新に失敗しました',
+          retry_hint: 'check_credentials'
         },
         { status: 401 }
       );
     }
+
+    return NextResponse.json({
+      success: true,
+      message: 'トークンの更新に成功しました',
+      token_length: newToken.length,
+      timestamp: new Date().toISOString()
+    });
+
   } catch (error) {
-    console.error('トークン更新エラー:', error);
+    console.error('トークンリフレッシュエラー:', error);
     return NextResponse.json(
-      {
-        success: false,
-        message: 'トークンの更新中にエラーが発生しました',
-        error: error instanceof Error ? error.message : 'Unknown error',
+      { 
+        error: 'Token refresh failed',
+        message: 'トークンの更新に失敗しました',
+        retry_hint: 'check_credentials'
       },
       { status: 500 }
     );
