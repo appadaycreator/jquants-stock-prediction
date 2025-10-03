@@ -146,27 +146,14 @@ class JSONDataManager:
         for item in data:
             try:
                 # 必須フィールドの検証
-                required_fields = ["date", "code", "open", "high", "low", "close", "volume"]
-                if not all(field in item for field in required_fields):
-                    if self.logger:
-                        self.logger.warning(f"必須フィールドが不足: {item}")
+                if not self._validate_required_fields(item):
                     continue
 
                 # データ型の変換と検証
-                normalized_item = {
-                    "date": str(item["date"]),
-                    "code": str(item["code"]),
-                    "open": float(item["open"]) if item["open"] is not None else 0.0,
-                    "high": float(item["high"]) if item["high"] is not None else 0.0,
-                    "low": float(item["low"]) if item["low"] is not None else 0.0,
-                    "close": float(item["close"]) if item["close"] is not None else 0.0,
-                    "volume": int(item["volume"]) if item["volume"] is not None else 0,
-                }
-
+                normalized_item = self._convert_data_types(item)
+                
                 # 追加フィールドがあれば保持
-                for key, value in item.items():
-                    if key not in normalized_item:
-                        normalized_item[key] = value
+                normalized_item.update(self._extract_additional_fields(item))
 
                 normalized.append(normalized_item)
             except (ValueError, TypeError) as e:
@@ -178,6 +165,35 @@ class JSONDataManager:
         normalized.sort(key=lambda x: x["date"])
 
         return normalized
+    
+    def _validate_required_fields(self, item: Dict[str, Any]) -> bool:
+        """必須フィールドの検証"""
+        required_fields = ["date", "code", "open", "high", "low", "close", "volume"]
+        if not all(field in item for field in required_fields):
+            if self.logger:
+                self.logger.warning(f"必須フィールドが不足: {item}")
+            return False
+        return True
+    
+    def _convert_data_types(self, item: Dict[str, Any]) -> Dict[str, Any]:
+        """データ型の変換"""
+        return {
+            "date": str(item["date"]),
+            "code": str(item["code"]),
+            "open": float(item["open"]) if item["open"] is not None else 0.0,
+            "high": float(item["high"]) if item["high"] is not None else 0.0,
+            "low": float(item["low"]) if item["low"] is not None else 0.0,
+            "close": float(item["close"]) if item["close"] is not None else 0.0,
+            "volume": int(item["volume"]) if item["volume"] is not None else 0,
+        }
+    
+    def _extract_additional_fields(self, item: Dict[str, Any]) -> Dict[str, Any]:
+        """追加フィールドの抽出"""
+        additional_fields = {}
+        for key, value in item.items():
+            if key not in ["date", "code", "open", "high", "low", "close", "volume"]:
+                additional_fields[key] = value
+        return additional_fields
 
     def _calculate_diff(
         self, old_data: List[Dict[str, Any]], new_data: List[Dict[str, Any]]

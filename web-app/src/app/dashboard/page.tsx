@@ -16,7 +16,7 @@ import CacheVisualization from "@/components/CacheVisualization";
 import EnhancedRefreshButton from "@/components/EnhancedRefreshButton";
 import { NotificationService } from "@/lib/notification/NotificationService";
 import { usePerformanceMonitor } from "@/lib/performance-monitor";
-import { DEFAULT_CHECKLIST_ITEMS, type ChecklistItem } from "@/components/guide/Checklist";
+// import { DEFAULT_CHECKLIST_ITEMS, type ChecklistItem } from "@/components/guide/Checklist";
 import { SampleDataProvider } from "@/components/SampleDataProvider";
 import AnalysisExecutionPanel from "@/components/AnalysisExecutionPanel";
 import UnifiedErrorBoundary from "@/components/UnifiedErrorBoundary";

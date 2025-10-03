@@ -109,6 +109,10 @@ class DifferentialUpdater:
         
         # 統計情報
         self.update_stats = UpdateStats()
+        
+        # キャッシュの初期化
+        self._data_cache: Dict[str, List[Dict[str, Any]]] = {}
+        self._cache_timestamps: Dict[str, datetime] = {}
 
     def update_stock_data(
         self, symbol: str, new_data: List[Dict[str, Any]], source: str = "jquants_api"
@@ -268,11 +272,29 @@ class DifferentialUpdater:
         existing_hash = self._calculate_data_hash(existing_data)
         new_hash = self._calculate_data_hash(new_data)
         
-        # 基本的な差分計算
-        added_count = 0
-        updated_count = 0
-        removed_count = 0
+        # 差分計算の実行
+        diff_counts = self._calculate_diff_counts(existing_data, new_data)
         
+        # 処理時間の計算
+        processing_time = (datetime.now() - start_time).total_seconds()
+        
+        # 重要な変更の判定
+        is_significant_change = self._is_significant_change(diff_counts)
+        
+        return DiffResult(
+            added_count=diff_counts["added"],
+            updated_count=diff_counts["updated"],
+            removed_count=diff_counts["removed"],
+            unchanged_count=diff_counts["unchanged"],
+            processing_time=processing_time,
+            data_hash=new_hash,
+            is_significant_change=is_significant_change
+        )
+    
+    def _calculate_diff_counts(
+        self, existing_data: List[Dict[str, Any]], new_data: List[Dict[str, Any]]
+    ) -> Dict[str, int]:
+        """差分カウントの計算"""
         # 既存データのキーセット
         existing_keys = {self._get_record_key(record) for record in existing_data}
         new_keys = {self._get_record_key(record) for record in new_data}
@@ -287,7 +309,9 @@ class DifferentialUpdater:
         
         # 更新されたレコードと変更なしレコード
         common_keys = existing_keys & new_keys
+        updated_count = 0
         unchanged_count = 0
+        
         for key in common_keys:
             existing_record = self._find_record_by_key(existing_data, key)
             new_record = self._find_record_by_key(new_data, key)
@@ -297,24 +321,23 @@ class DifferentialUpdater:
                 else:
                     unchanged_count += 1
         
-        processing_time = (datetime.now() - start_time).total_seconds()
+        return {
+            "added": added_count,
+            "updated": updated_count,
+            "removed": removed_count,
+            "unchanged": unchanged_count
+        }
+    
+    def _is_significant_change(self, diff_counts: Dict[str, int]) -> bool:
+        """重要な変更の判定"""
+        total_changes = diff_counts["added"] + diff_counts["removed"] + diff_counts["updated"]
+        total_records = sum(diff_counts.values())
         
-        # 重要な変更の判定
-        is_significant_change = (
-            added_count > 0 or 
-            removed_count > 0 or 
-            updated_count > len(common_keys) * 0.1  # 10%以上の更新
-        )
-        
-        return DiffResult(
-            added_count=added_count,
-            updated_count=updated_count,
-            removed_count=removed_count,
-            unchanged_count=unchanged_count,
-            processing_time=processing_time,
-            data_hash=new_hash,
-            is_significant_change=is_significant_change,
-        )
+        if total_records == 0:
+            return False
+            
+        change_ratio = total_changes / total_records
+        return change_ratio > 0.1  # 10%以上の変更
     
     def _calculate_data_hash(self, data: List[Dict[str, Any]]) -> str:
         """データハッシュの計算"""

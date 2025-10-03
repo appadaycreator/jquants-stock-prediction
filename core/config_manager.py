@@ -47,68 +47,83 @@ class ConfigManager:
     def _create_default_config(self) -> None:
         """デフォルト設定の作成"""
         self.config = {
-            "system": {
-                "name": "J-Quants株価予測システム",
-                "version": "2.8.0",
-                "environment": "production",
-                "debug": False,
+            "system": self._get_system_config(),
+            "logging": self._get_logging_config(),
+            "security": self._get_security_config(),
+            "error_handling": self._get_error_handling_config(),
+            "prediction": self._get_prediction_config(),
+            "performance_optimization": self._get_performance_config(),
+        }
+    
+    def _get_system_config(self) -> Dict[str, Any]:
+        """システム設定の取得"""
+        return {
+            "name": "J-Quants株価予測システム",
+            "version": "2.8.0",
+            "environment": "production",
+            "debug": False,
+        }
+    
+    def _get_logging_config(self) -> Dict[str, Any]:
+        """ログ設定の取得"""
+        return {
+            "level": "INFO",
+            "file": "jquants.log",
+            "console_output": True,
+            "max_file_size": "10MB",
+            "backup_count": 5,
+        }
+    
+    def _get_security_config(self) -> Dict[str, Any]:
+        """セキュリティ設定の取得"""
+        return {
+            "sensitive_keys": [
+                "password", "token", "key", "secret", "auth", "email"
+            ],
+            "mask_sensitive_data": True,
+            "encryption_enabled": False,
+        }
+    
+    def _get_error_handling_config(self) -> Dict[str, Any]:
+        """エラーハンドリング設定の取得"""
+        return {
+            "unified_handler": True,
+            "error_statistics": True,
+            "auto_recovery": True,
+            "max_recovery_attempts": 3,
+        }
+    
+    def _get_prediction_config(self) -> Dict[str, Any]:
+        """予測設定の取得"""
+        return {
+            "input_file": "processed_stock_data.csv",
+            "features": [
+                "SMA_5", "SMA_25", "SMA_50",
+                "Close_lag_1", "Close_lag_5", "Close_lag_25"
+            ],
+            "target": "Close",
+            "test_size": 0.2,
+            "random_state": 42,
+            "model_selection": {
+                "compare_models": False,
+                "primary_model": "random_forest",
             },
-            "logging": {
-                "level": "INFO",
-                "file": "jquants.log",
-                "console_output": True,
-                "max_file_size": "10MB",
-                "backup_count": 5,
-            },
-            "security": {
-                "sensitive_keys": [
-                    "password",
-                    "token",
-                    "key",
-                    "secret",
-                    "auth",
-                    "email",
-                ],
-                "mask_sensitive_data": True,
-                "encryption_enabled": False,
-            },
-            "error_handling": {
-                "unified_handler": True,
-                "error_statistics": True,
-                "auto_recovery": True,
-                "max_recovery_attempts": 3,
-            },
-            "prediction": {
-                "input_file": "processed_stock_data.csv",
-                "features": [
-                    "SMA_5",
-                    "SMA_25",
-                    "SMA_50",
-                    "Close_lag_1",
-                    "Close_lag_5",
-                    "Close_lag_25",
-                ],
-                "target": "Close",
-                "test_size": 0.2,
-                "random_state": 42,
-                "model_selection": {
-                    "compare_models": False,
-                    "primary_model": "random_forest",
-                },
-                "output": {"image": "stock_prediction_result.png"},
-                "overfitting_detection": True,
-                "max_r2_score": 0.95,
-            },
-            "performance_optimization": {
-                "memory_limit_mb": 2048,
-                "chunk_size": 10000,
-                "max_workers": 4,
-                "use_cache": True,
-                "use_parallel": True,
-                "cache_ttl": 3600,
-                "enable_compression": True,
-                "optimize_memory": True,
-            },
+            "output": {"image": "stock_prediction_result.png"},
+            "overfitting_detection": True,
+            "max_r2_score": 0.95,
+        }
+    
+    def _get_performance_config(self) -> Dict[str, Any]:
+        """パフォーマンス設定の取得"""
+        return {
+            "memory_limit_mb": 2048,
+            "chunk_size": 10000,
+            "max_workers": 4,
+            "use_cache": True,
+            "use_parallel": True,
+            "cache_ttl": 3600,
+            "enable_compression": True,
+            "optimize_memory": True,
         }
 
     def _apply_environment_config(self) -> None:
