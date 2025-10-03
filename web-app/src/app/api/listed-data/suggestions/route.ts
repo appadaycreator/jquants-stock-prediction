@@ -60,13 +60,29 @@ export async function GET(request: NextRequest) {
       }, { status: 500 });
     }
 
-    const queryLower = query.toLowerCase().trim();
+    // 全角・半角を統一した検索用の関数
+    const normalizeText = (text: string): string => {
+      return text
+        .toLowerCase()
+        .trim()
+        // 全角数字を半角に変換
+        .replace(/[０-９]/g, (match) => String.fromCharCode(match.charCodeAt(0) - 0xFEE0))
+        // 全角英字を半角に変換
+        .replace(/[Ａ-Ｚａ-ｚ]/g, (match) => String.fromCharCode(match.charCodeAt(0) - 0xFEE0))
+        // 全角記号を半角に変換
+        .replace(/[（）]/g, (match) => match === '（' ? '(' : ')')
+        .replace(/[　]/g, ' '); // 全角スペースを半角に変換
+    };
+
+    const normalizedQuery = normalizeText(query);
     
     // 部分一致で候補を検索
     const suggestions: SuggestionItem[] = data.stocks
       .filter(stock => {
-        const codeMatch = stock.code.toLowerCase().includes(queryLower);
-        const nameMatch = stock.name.toLowerCase().includes(queryLower);
+        const normalizedCode = normalizeText(stock.code);
+        const normalizedName = normalizeText(stock.name);
+        const codeMatch = normalizedCode.includes(normalizedQuery);
+        const nameMatch = normalizedName.includes(normalizedQuery);
         return codeMatch || nameMatch;
       })
       .map(stock => ({
@@ -80,10 +96,10 @@ export async function GET(request: NextRequest) {
 
     // コードで始まるものを優先し、その後名前で始まるものを並べる
     suggestions.sort((a, b) => {
-      const aCodeMatch = a.code.toLowerCase().startsWith(queryLower);
-      const bCodeMatch = b.code.toLowerCase().startsWith(queryLower);
-      const aNameMatch = a.name.toLowerCase().startsWith(queryLower);
-      const bNameMatch = b.name.toLowerCase().startsWith(queryLower);
+      const aCodeMatch = normalizeText(a.code).startsWith(normalizedQuery);
+      const bCodeMatch = normalizeText(b.code).startsWith(normalizedQuery);
+      const aNameMatch = normalizeText(a.name).startsWith(normalizedQuery);
+      const bNameMatch = normalizeText(b.name).startsWith(normalizedQuery);
       
       // コードで始まるものを最優先
       if (aCodeMatch && !bCodeMatch) return -1;

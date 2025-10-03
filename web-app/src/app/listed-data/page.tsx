@@ -129,9 +129,27 @@ const ListedDataPage: React.FC = () => {
     const minVolume = volumeRange.min ? parseFloat(volumeRange.min) : null;
     const maxVolume = volumeRange.max ? parseFloat(volumeRange.max) : null;
 
+    // 全角・半角を統一した検索用の関数
+    const normalizeText = (text: string): string => {
+      return text
+        .toLowerCase()
+        .trim()
+        // 全角数字を半角に変換
+        .replace(/[０-９]/g, (match) => String.fromCharCode(match.charCodeAt(0) - 0xFEE0))
+        // 全角英字を半角に変換
+        .replace(/[Ａ-Ｚａ-ｚ]/g, (match) => String.fromCharCode(match.charCodeAt(0) - 0xFEE0))
+        // 全角記号を半角に変換
+        .replace(/[（）]/g, (match) => match === '（' ? '(' : ')')
+        .replace(/[　]/g, ' '); // 全角スペースを半角に変換
+    };
+
+    const normalizedSearchTerm = normalizeText(searchTerm);
+
     let filtered = data.stocks.filter(stock => {
-      const matchesSearch = stock.name.toLowerCase().includes(searchTermLower) || 
-                           stock.code.includes(searchTerm);
+      const normalizedName = normalizeText(stock.name);
+      const normalizedCode = normalizeText(stock.code);
+      const matchesSearch = normalizedName.includes(normalizedSearchTerm) || 
+                           normalizedCode.includes(normalizedSearchTerm);
       const matchesSector = !selectedSector || stock.sector === selectedSector;
       const matchesMarket = !selectedMarket || stock.market === selectedMarket;
       
