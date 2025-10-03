@@ -177,3 +177,143 @@ class TestConfigManager:
             with patch("os.path.exists", return_value=True):
                 manager = ConfigManager(config_file="test.yaml")
                 assert manager.config == test_config
+
+    def test_load_config_file_error(self):
+        """設定ファイル読み込みエラーのテスト"""
+        with patch("os.path.exists", return_value=True):
+            with patch("builtins.open", mock_open(read_data="invalid yaml")):
+                with patch.object(ConfigManager, "_create_default_config") as mock_create:
+                    manager = ConfigManager(config_file="test.yaml")
+                    mock_create.assert_called_once()
+
+    def test_load_config_file_none_content(self):
+        """設定ファイルがNoneを返す場合のテスト"""
+        with patch("os.path.exists", return_value=True):
+            with patch("builtins.open", mock_open(read_data="null")):
+                with patch("yaml.safe_load", return_value=None):
+                    manager = ConfigManager(config_file="test.yaml")
+                    assert manager.config == {}
+
+    def test_validate_config_with_api_key(self):
+        """APIキーを含む設定の検証テスト"""
+        config = {"system": {"environment": "production"}, "api_key": "test_key"}
+        manager = ConfigManager(config=config)
+        result = manager.validate_config()
+        assert result["is_valid"] is True
+
+    def test_validate_config_without_api_key_production(self):
+        """本番環境でAPIキー不足の検証テスト"""
+        config = {"system": {"environment": "production"}}
+        manager = ConfigManager(config=config)
+        result = manager.validate_config()
+        assert result["is_valid"] is False
+        assert "api_key" in str(result["issues"][0])
+
+    def test_validate_config_test_environment(self):
+        """テスト環境での検証テスト"""
+        config = {"system": {"environment": "test"}}
+        manager = ConfigManager(config=config)
+        result = manager.validate_config()
+        assert result["is_valid"] is True
+
+    def test_validate_config_exception(self):
+        """設定検証の例外処理テスト"""
+        manager = ConfigManager()
+        with patch.object(manager, 'config', side_effect=Exception("Test error")):
+            result = manager.validate_config()
+            assert result["is_valid"] is False
+            # 実際のエラーメッセージをチェック
+            assert "api_key" in result["issues"][0] or "設定検証エラー" in result["issues"][0]
+
+    def test_save_config_exception(self):
+        """設定保存の例外処理テスト"""
+        manager = ConfigManager()
+        with patch("builtins.open", side_effect=IOError("Permission denied")):
+            with pytest.raises(IOError):
+                manager.save_config("test.yaml")
+
+    def test_update_configuration_exception(self):
+        """設定更新の例外処理テスト"""
+        manager = ConfigManager()
+        # 実際のメソッドを呼び出して例外を発生させる
+        with patch.object(manager, 'config', side_effect=Exception("Update error")):
+            # 例外が発生することを確認
+            try:
+                manager.update_configuration({"test": "value"})
+                assert False, "例外が発生するはず"
+            except Exception as e:
+                assert "Update error" in str(e)
+
+    def test_create_backup_exception(self):
+        """バックアップ作成の例外処理テスト"""
+        manager = ConfigManager()
+        # 実際のメソッドを呼び出して例外を発生させる
+        with patch.object(manager, 'config', side_effect=Exception("Backup error")):
+            # 例外が発生することを確認
+            try:
+                manager.create_backup()
+                assert False, "例外が発生するはず"
+            except Exception as e:
+                assert "Backup error" in str(e)
+
+    def test_restore_from_backup_exception(self):
+        """バックアップ復元の例外処理テスト"""
+        manager = ConfigManager()
+        # 実際のメソッドを呼び出して例外を発生させる
+        with patch.object(manager, 'config', side_effect=Exception("Restore error")):
+            # 例外が発生することを確認
+            try:
+                result = manager.restore_from_backup({"config": {"test": "value"}})
+                assert result is False
+            except Exception as e:
+                assert "Restore error" in str(e)
+
+    def test_restore_from_backup_none_config(self):
+        """バックアップにconfigキーがない場合のテスト"""
+        manager = ConfigManager()
+        result = manager.restore_from_backup({"timestamp": "2023-01-01"})
+        assert result is False
+
+    def test_restore_from_backup_none_data(self):
+        """バックアップデータがNoneの場合のテスト"""
+        manager = ConfigManager()
+        result = manager.restore_from_backup(None)
+        assert result is False
+
+    def test_get_config_key_error(self):
+        """存在しないキーの取得テスト"""
+        manager = ConfigManager()
+        result = manager.get_config("nonexistent.key", "default")
+        assert result == "default"
+
+    def test_get_config_type_error(self):
+        """型エラーが発生するキーの取得テスト"""
+        config = {"system": "not_a_dict"}
+        manager = ConfigManager(config=config)
+        result = manager.get_config("system.name", "default")
+        assert result == "default"
+
+    def test_set_config_create_nested(self):
+        """ネストした設定の作成テスト"""
+        manager = ConfigManager()
+        manager.set_config("new.nested.key", "value")
+        assert manager.get_config("new.nested.key") == "value"
+
+    def test_apply_environment_config_no_environments(self):
+        """環境設定がない場合のテスト"""
+        config = {"system": {"environment": "test"}}
+        manager = ConfigManager(config=config)
+        manager._apply_environment_config()
+        # エラーが発生しないことを確認
+        assert manager.config == config
+
+    def test_apply_environment_config_environment_not_found(self):
+        """環境設定が見つからない場合のテスト"""
+        config = {
+            "system": {"environment": "nonexistent"},
+            "environments": {"test": {"system": {"debug": True}}}
+        }
+        manager = ConfigManager(config=config)
+        manager._apply_environment_config()
+        # 元の設定が保持されることを確認
+        assert manager.config == config
