@@ -298,15 +298,13 @@ class DifferentialUpdater:
         """株価データの差分更新"""
         try:
             # データ検証
-            import pandas as pd
-            df = pd.DataFrame(new_data)
-            validation_result = self.validator.validate_stock_data(df)
-            if not validation_result["is_valid"]:
+            validation_result = self._validate_data_integrity(new_data, [])
+            if not validation_result.is_valid:
                 return {
                     "success": False,
                     "status": UpdateStatus.VALIDATION_ERROR.value,
                     "symbol": symbol,
-                    "error": f"データ検証失敗: {validation_result['issues']}",
+                    "error": f"データ検証失敗: {validation_result.issues}",
                     "timestamp": datetime.now().isoformat(),
                 }
 
@@ -559,27 +557,81 @@ class DifferentialUpdater:
                 issues.append("データが空です")
                 return ValidationResult(is_valid=False, issues=issues)
             
-            # 価格の整合性チェック
-            for item in new_data:
-                if 'open' in item and 'high' in item and 'low' in item and 'close' in item:
-                    try:
-                        open_price = float(item['open'])
-                        high_price = float(item['high'])
-                        low_price = float(item['low'])
-                        close_price = float(item['close'])
+            # 各データアイテムの検証
+            for i, item in enumerate(new_data):
+                try:
+                    # 必須フィールドのチェック
+                    required_fields = ['date', 'code', 'open', 'high', 'low', 'close', 'volume']
+                    missing_fields = []
+                    for field in required_fields:
+                        # 大文字小文字を考慮
+                        field_variants = [field, field.capitalize(), field.upper()]
+                        found = False
+                        for variant in field_variants:
+                            if variant in item:
+                                found = True
+                                break
+                        if not found:
+                            missing_fields.append(field)
+                    
+                    if missing_fields:
+                        issues.append(f"アイテム{i}: 必須フィールドが不足: {missing_fields}")
+                        continue
+                    
+                    # 価格データの検証
+                    # 大文字小文字を考慮して価格データを取得
+                    open_price = None
+                    high_price = None
+                    low_price = None
+                    close_price = None
+                    volume = None
+                    
+                    for key, value in item.items():
+                        if key.lower() == 'open':
+                            open_price = float(value)
+                        elif key.lower() == 'high':
+                            high_price = float(value)
+                        elif key.lower() == 'low':
+                            low_price = float(value)
+                        elif key.lower() == 'close':
+                            close_price = float(value)
+                        elif key.lower() == 'volume':
+                            volume = float(value)
+                    
+                    if open_price is not None and high_price is not None and low_price is not None and close_price is not None:
+                        # 負の価格チェック
+                        if any(price < 0 for price in [open_price, high_price, low_price, close_price]):
+                            issues.append(f"アイテム{i}: 負の価格が検出されました")
                         
                         # 高値・安値の整合性
                         if high_price < max(open_price, close_price):
-                            issues.append(f"高値が不正: {item}")
+                            issues.append(f"アイテム{i}: 高値が不正です")
                         if low_price > min(open_price, close_price):
-                            issues.append(f"安値が不正: {item}")
+                            issues.append(f"アイテム{i}: 安値が不正です")
                         
-                        # 負の価格チェック
-                        if any(price < 0 for price in [open_price, high_price, low_price, close_price]):
-                            issues.append(f"負の価格: {item}")
+                        # 極端な価格変動のチェック
+                        if existing_data:
+                            for existing_item in existing_data:
+                                if existing_item.get('date') == item.get('date') or existing_item.get('Date') == item.get('date'):
+                                    try:
+                                        existing_close = None
+                                        for key, value in existing_item.items():
+                                            if key.lower() == 'close':
+                                                existing_close = float(value)
+                                                break
+                                        
+                                        if existing_close is not None:
+                                            price_change = abs(close_price - existing_close) / existing_close
+                                            if price_change > 0.5:  # 50%以上の変動
+                                                warnings.append(f"アイテム{i}: 極端な価格変動が検出されました ({price_change:.2%})")
+                                    except (ValueError, TypeError):
+                                        pass
+                                    break
                             
-                    except (ValueError, TypeError):
-                        issues.append(f"価格データが無効: {item}")
+                except (ValueError, TypeError) as e:
+                    issues.append(f"アイテム{i}: 価格データの解析エラー: {e}")
+                except Exception as e:
+                    issues.append(f"アイテム{i}: 検証エラー: {e}")
             
             return ValidationResult(is_valid=len(issues) == 0, issues=issues, warnings=warnings)
         except Exception as e:
@@ -770,6 +822,10 @@ class DifferentialUpdater:
                 "success": False,
                 "error": str(e)
             }
+    
+    def _backup_data(self, symbol: str, data: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """データバックアップ（エイリアス）"""
+        return self._create_backup(symbol, data)
 
 
 # 使用例
