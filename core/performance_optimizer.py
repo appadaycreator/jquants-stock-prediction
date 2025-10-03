@@ -29,6 +29,8 @@ class PerformanceOptimizer:
         """パフォーマンス監視の開始"""
         try:
             if self.monitoring_active:
+                if self.logger:
+                    self.logger.log_info("パフォーマンス監視は既に開始されています")
                 return
 
             self.monitoring_active = True
@@ -45,6 +47,9 @@ class PerformanceOptimizer:
         except Exception as e:
             if self.error_handler:
                 self.error_handler.handle_system_error(e, "パフォーマンス監視開始")
+            else:
+                if self.logger:
+                    self.logger.log_error(f"パフォーマンス監視開始エラー: {e}")
             raise
 
     def stop_monitoring(self):

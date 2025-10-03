@@ -64,7 +64,7 @@ jobs:
     - name: Build web application
       run: |
         cd web-app
-        npm run build
+        npm run export
         
     - name: Setup Pages
       uses: actions/configure-pages@v4

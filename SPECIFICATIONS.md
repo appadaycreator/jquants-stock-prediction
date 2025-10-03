@@ -161,6 +161,7 @@ jquants-stock-prediction/
 - **目標カバレッジ**: 90%以上
 - **実行頻度**: コミット時
 - **ツール**: pytest, Jest
+- **設定**: Jest設定ファイルでcoverageThresholdを80%に設定
 
 ### 9.2 統合テスト
 - **APIテスト**: 全エンドポイント

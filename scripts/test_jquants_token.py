@@ -165,7 +165,7 @@ def test_jquants_token():
 
     print(f"\n💾 詳細結果を保存: {output_file}")
 
-    return len(successful_tests) > 0
+    assert len(successful_tests) > 0, "トークンテストが失敗しました"
 
 
 if __name__ == "__main__":

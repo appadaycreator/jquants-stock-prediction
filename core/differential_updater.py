@@ -118,58 +118,75 @@ class DifferentialUpdater:
         """包括的な差分計算"""
         start_time = datetime.now()
 
-        # データの正規化
-        old_normalized = self._normalize_data_for_diff(old_data)
-        new_normalized = self._normalize_data_for_diff(new_data)
+        try:
+            # データの正規化
+            old_normalized = self._normalize_data_for_diff(old_data)
+            new_normalized = self._normalize_data_for_diff(new_data)
 
-        # インデックスの作成
-        old_index = {item["date"]: item for item in old_normalized}
-        new_index = {item["date"]: item for item in new_normalized}
+            # インデックスの作成
+            old_index = {item["date"]: item for item in old_normalized}
+            new_index = {item["date"]: item for item in new_normalized}
 
-        # 差分の計算
-        added = []
-        updated = []
-        removed = []
-        unchanged = []
+            # 差分の計算
+            added = []
+            updated = []
+            removed = []
+            unchanged = []
 
-        # 新規追加・更新の検出
-        for date, new_item in new_index.items():
-            if date not in old_index:
-                added.append(new_item)
-            else:
-                old_item = old_index[date]
-                if self._items_different(old_item, new_item):
-                    updated.append(
-                        {
-                            "date": date,
-                            "old": old_item,
-                            "new": new_item,
-                            "changes": self._identify_changes(old_item, new_item),
-                        }
-                    )
+            # 新規追加・更新の検出
+            for date, new_item in new_index.items():
+                if date not in old_index:
+                    added.append(new_item)
                 else:
-                    unchanged.append(new_item)
+                    old_item = old_index[date]
+                    if self._items_different(old_item, new_item):
+                        updated.append(
+                            {
+                                "date": date,
+                                "old": old_item,
+                                "new": new_item,
+                                "changes": self._identify_changes(old_item, new_item),
+                            }
+                        )
+                    else:
+                        unchanged.append(new_item)
 
-        # 削除の検出
-        for date, old_item in old_index.items():
-            if date not in new_index:
-                removed.append(old_item)
+            # 削除の検出
+            for date, old_item in old_index.items():
+                if date not in new_index:
+                    removed.append(old_item)
 
-        processing_time = (datetime.now() - start_time).total_seconds()
+            processing_time = (datetime.now() - start_time).total_seconds()
 
-        return {
-            "added_count": len(added),
-            "updated_count": len(updated),
-            "removed_count": len(removed),
-            "unchanged_count": len(unchanged),
-            "added": added,
-            "updated": updated,
-            "removed": removed,
-            "unchanged": unchanged,
-            "total_old": len(old_data),
-            "total_new": len(new_data),
-            "processing_time": processing_time,
-        }
+            return {
+                "added_count": len(added),
+                "updated_count": len(updated),
+                "removed_count": len(removed),
+                "unchanged_count": len(unchanged),
+                "added": added,
+                "updated": updated,
+                "removed": removed,
+                "unchanged": unchanged,
+                "total_old": len(old_data),
+                "total_new": len(new_data),
+                "processing_time": processing_time,
+            }
+        except Exception as e:
+            self.logger.error(f"差分計算エラー: {e}")
+            return {
+                "added_count": 0,
+                "updated_count": 0,
+                "removed_count": 0,
+                "unchanged_count": 0,
+                "added": [],
+                "updated": [],
+                "removed": [],
+                "unchanged": [],
+                "total_old": len(old_data),
+                "total_new": len(new_data),
+                "processing_time": 0,
+                "error": str(e),
+            }
 
     def _normalize_data_for_diff(
         self, data: List[Dict[str, Any]]
