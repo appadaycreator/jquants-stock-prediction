@@ -33,10 +33,10 @@ export async function GET() {
     
     console.log("Returning default settings:", defaultSettings);
     return NextResponse.json(defaultSettings);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error in GET /api/risk-settings:", error);
     return NextResponse.json(
-      { error: "Internal server error", details: error.message },
+      { error: "Internal server error", details: error instanceof Error ? error.message : String(error) },
       { status: 500 },
     );
   }
@@ -46,10 +46,10 @@ export async function POST() {
   try {
     console.log("POST /api/risk-settings called");
     return NextResponse.json({ message: "Settings saved successfully" });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error in POST /api/risk-settings:", error);
     return NextResponse.json(
-      { error: "Internal server error", details: error.message },
+      { error: "Internal server error", details: error instanceof Error ? error.message : String(error) },
       { status: 500 },
     );
   }

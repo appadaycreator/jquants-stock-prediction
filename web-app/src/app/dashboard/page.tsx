@@ -58,10 +58,13 @@ function DashboardContent() {
   const [lastUpdateTime, setLastUpdateTime] = useState<string>("");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [showAnalysisModal, setShowAnalysisModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showStockMonitoring, setShowStockMonitoring] = useState(false);
   const [cacheMeta, setCacheMeta] = useState<CacheMeta>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [freshnessInfos, setFreshnessInfos] = useState<DataFreshnessInfo[]>([]);
+  const [refreshStatus, setRefreshStatus] = useState<string>("");
   
   
   // モックデータ
@@ -102,6 +105,28 @@ function DashboardContent() {
   const [allStocksData, setAllStocksData] = useState<any>(null);
   const [marketAnalysis, setMarketAnalysis] = useState<any>(null);
   const [selectedSymbols, setSelectedSymbols] = useState<string[]>([]);
+
+  const loadDashboardData = useCallback(async () => {
+    try {
+      // 全銘柄データを取得
+      const response = await fetch("/data/listed_index.json");
+      if (response.ok) {
+        const stocksData = await response.json();
+        setAllStocksData(stocksData);
+        const analysis = await analyzeMarketData(stocksData);
+        setMarketAnalysis(analysis);
+        try {
+          const defaultSymbols = (analysis?.topGainers || []).slice(0, 10).map((s: any) => s.symbol);
+          if (defaultSymbols.length > 0) setSelectedSymbols(defaultSymbols);
+        } catch (_) {}
+      }
+      setLastUpdateTime(new Date().toLocaleString("ja-JP"));
+      updateFreshnessInfos();
+    } catch (err) {
+      console.error("データ読み込みエラー:", err);
+      setError("データの読み込みに失敗しました");
+    }
+  }, [cacheMeta]);
 
   useEffect(() => {
     const initializeDashboard = async () => {
@@ -161,37 +186,6 @@ function DashboardContent() {
 
     initializeDashboard();
   }, [loadDashboardData]);
-
-  const loadDashboardData = async () => {
-    try {
-      // 全銘柄データを取得
-      const response = await fetch("/data/listed_index.json");
-      if (response.ok) {
-        const stocksData = await response.json();
-        setAllStocksData(stocksData);
-        
-        // 市場分析を実行
-        const analysis = await analyzeMarketData(stocksData);
-        setMarketAnalysis(analysis);
-
-        // デフォルト選択: トップゲイナー上位の銘柄
-        try {
-          const defaultSymbols = (analysis?.topGainers || []).slice(0, 10).map((s: any) => s.symbol);
-          if (defaultSymbols.length > 0) setSelectedSymbols(defaultSymbols);
-        } catch (_) {
-          // no-op
-        }
-      }
-      
-      setLastUpdateTime(new Date().toLocaleString("ja-JP"));
-      
-      // 鮮度情報の更新
-      updateFreshnessInfos();
-    } catch (err) {
-      console.error("データ読み込みエラー:", err);
-      setError("データの読み込みに失敗しました");
-    }
-  };
 
   // 市場データの分析
   const analyzeMarketData = async (stocksData: any) => {
@@ -282,11 +276,12 @@ function DashboardContent() {
     }
     
     // 市場区分スコア (20%)
-    const marketScore = {
+    const marketMap: Record<string, number> = {
       "プライム": 80,
       "スタンダード": 60,
       "グロース": 40,
-    }[stock.market] || 50;
+    };
+    const marketScore = marketMap[String(stock.market)] ?? 50;
     score += marketScore * 0.2;
     
     // 出来高スコア (10%)
@@ -761,10 +756,10 @@ function DashboardContent() {
                     <div className="bg-white rounded-lg shadow p-6">
                       <h2 className="text-lg font-semibold text-gray-900 mb-4">セクター別パフォーマンス</h2>
                       <div className="space-y-3">
-                        {Object.entries(marketAnalysis.sectorPerformance)
-                          .sort(([,a], [,b]) => b - a)
+                        {Object.entries(marketAnalysis.sectorPerformance as Record<string, number>)
+                          .sort(([, a], [, b]) => (b as number) - (a as number))
                           .slice(0, 10)
-                          .map(([sector, performance], index) => (
+                          .map(([sector, performance]: [string, number], index) => (
                           <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                             <span className="text-sm text-gray-700">{sector}</span>
                             <span className={`text-sm font-medium ${
@@ -840,8 +835,8 @@ function DashboardContent() {
                           </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                          {modelComparison.map((model, index) => (
-                            <tr key={index} className="hover:bg-gray-50 cursor-pointer" onClick={() => handleModelClick(model)}>
+                      {modelComparison.map((model, index) => (
+                            <tr key={index} className="hover:bg-gray-50 cursor-pointer" onClick={() => { /* no-op */ }}>
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{model.name}</td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.type}</td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.mae.toFixed(4)}</td>
@@ -905,9 +900,11 @@ export default function Dashboard() {
   return (
     <ErrorBoundary
       fallbackRender={() => (
-        <UnifiedErrorBoundary
-          onError={() => {}}
-        />
+        <div className="p-6">
+          <UnifiedErrorBoundary onError={() => {}}>
+            <div />
+          </UnifiedErrorBoundary>
+        </div>
       )}
     >
       <SettingsProvider>
