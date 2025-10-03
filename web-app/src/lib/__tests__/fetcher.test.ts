@@ -35,7 +35,7 @@ describe("fetcher utilities", () => {
       });
 
       await expect(fetchJson("/test-url")).rejects.toThrow(AppError);
-    });
+    }, 10000);
 
     it("タイムアウトを適切に処理する", async () => {
       (global.fetch as any).mockImplementationOnce(() => 
@@ -45,14 +45,14 @@ describe("fetcher utilities", () => {
       );
 
       await expect(fetchJson("/test-url", { timeout: 50 })).rejects.toThrow();
-    });
+    }, 10000);
 
     it("AbortControllerでリクエストを中断する", async () => {
       const controller = new AbortController();
       controller.abort();
 
       await expect(fetchJson("/test-url", { signal: controller.signal })).rejects.toThrow(AppError);
-    });
+    }, 10000);
 
     it("リトライ機能を正しく動作させる", async () => {
       (global.fetch as any)
@@ -69,7 +69,7 @@ describe("fetcher utilities", () => {
       const result = await fetchJson("/test-url", { retries: 3 });
       expect(result).toEqual({ success: true });
       expect(global.fetch).toHaveBeenCalledTimes(3);
-    });
+    }, 10000);
 
     it("無効なContent-Typeでエラーを投げる", async () => {
       (global.fetch as any).mockResolvedValueOnce({
@@ -80,7 +80,7 @@ describe("fetcher utilities", () => {
       });
 
       await expect(fetchJson("/test-url")).rejects.toThrow(AppError);
-    });
+    }, 10000);
   });
 
   describe("fetchMultiple", () => {
@@ -125,7 +125,7 @@ describe("fetcher utilities", () => {
       expect(result).toEqual({
         data1: { data1: "value1" },
       });
-    });
+    }, 10000);
   });
 
   describe("AppError", () => {

@@ -74,7 +74,8 @@ describe("ErrorBoundary", () => {
   it("再試行ボタンが動作する", () => {
     const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
-    render(
+    // 最初はエラーを投げるコンポーネント
+    const { rerender } = render(
       <ErrorBoundary>
         <ThrowError shouldThrow={true} />
       </ErrorBoundary>,
@@ -86,7 +87,14 @@ describe("ErrorBoundary", () => {
     // 再試行ボタンをクリック
     retryButton.click();
 
-    // エラー状態がリセットされることを確認
+    // エラーを投げないコンポーネントに変更
+    rerender(
+      <ErrorBoundary>
+        <ThrowError shouldThrow={false} />
+      </ErrorBoundary>,
+    );
+
+    // 正常なコンテンツが表示されることを確認
     expect(screen.getByText("正常なコンテンツ")).toBeInTheDocument();
 
     consoleSpy.mockRestore();

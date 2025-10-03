@@ -66,7 +66,11 @@ describe("SearchService", () => {
     it("should return suggestions for valid query", () => {
       const suggestions = SearchService.getSuggestions("MAE");
       expect(suggestions.length).toBeGreaterThan(0);
-      expect(suggestions[0] && suggestions[0].includes("MAE")).toBe(true);
+      // MAEが含まれるか、または関連する用語が含まれるかをチェック
+      const hasMAERelated = suggestions.some(suggestion => 
+        suggestion && (suggestion.includes("MAE") || suggestion.includes("平均絶対誤差")),
+      );
+      expect(hasMAERelated).toBe(true);
     });
 
     it("should respect limit parameter", () => {

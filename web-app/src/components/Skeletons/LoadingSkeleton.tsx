@@ -68,7 +68,7 @@ export function KpiCardSkeleton() {
 
 export function PredictionsViewSkeleton() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-testid="predictions-skeleton">
       {/* ヘッダー */}
       <div className="flex justify-between items-center">
         <Skeleton className="h-8 w-48" />

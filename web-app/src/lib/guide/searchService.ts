@@ -127,7 +127,11 @@ export class SearchService {
     if (!query.trim()) return [];
     
     const results = unifiedFuse.search(query, { limit });
-    return results.map(result => (result.item as any).title || (result.item as any).term);
+    return results.map(result => {
+      const item = result.item as any;
+      // ヘルプセクションの場合はtitle、FAQの場合はquestion、用語集の場合はtermを返す
+      return item.title || item.question || item.term || "";
+    }).filter(suggestion => suggestion && suggestion.trim().length > 0);
   }
 
   /**

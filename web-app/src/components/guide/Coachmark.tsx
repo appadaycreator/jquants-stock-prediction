@@ -167,7 +167,9 @@ export default function Coachmark({
           left: tooltipPosition.left,
           zIndex: 1001,
         }}
-        {...accessibilityUtils.generateAriaAttributes("tour")}
+        role="dialog"
+        aria-labelledby="coachmark-title"
+        aria-describedby="coachmark-description"
       >
         {/* ヘッダー */}
         <div className="flex justify-between items-start mb-3">

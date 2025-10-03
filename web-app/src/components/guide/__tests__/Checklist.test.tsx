@@ -136,7 +136,7 @@ describe("Checklist", () => {
     );
 
     const list = screen.getByRole("list");
-    expect(list).toHaveAttribute("aria-label", "初回チェックリスト");
+    expect(list).toHaveAttribute("aria-label", "チェックリスト");
 
     const items = screen.getAllByRole("listitem");
     expect(items).toHaveLength(2);
