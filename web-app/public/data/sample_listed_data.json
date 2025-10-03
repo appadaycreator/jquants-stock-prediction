@@ -1,0 +1,75 @@
+{
+  "listed_data": [
+    {
+      "code": "7203",
+      "name": "トヨタ自動車",
+      "market": "東証プライム",
+      "sector17_code": "15",
+      "sector17_name": "自動車",
+      "sector33_code": "1510",
+      "sector33_name": "自動車",
+      "scale_code": "10",
+      "scale_name": "大型",
+      "listing_date": "1949-05-16",
+      "close_date": null
+    },
+    {
+      "code": "6758",
+      "name": "ソニーグループ",
+      "market": "東証プライム",
+      "sector17_code": "9",
+      "sector17_name": "電気機器",
+      "sector33_code": "9050",
+      "sector33_name": "電気機器",
+      "scale_code": "10",
+      "scale_name": "大型",
+      "listing_date": "1958-12-23",
+      "close_date": null
+    },
+    {
+      "code": "9984",
+      "name": "ソフトバンクグループ",
+      "market": "東証プライム",
+      "sector17_code": "18",
+      "sector17_name": "情報・通信",
+      "sector33_code": "1850",
+      "sector33_name": "情報・通信",
+      "scale_code": "10",
+      "scale_name": "大型",
+      "listing_date": "1994-12-19",
+      "close_date": null
+    },
+    {
+      "code": "6861",
+      "name": "キーエンス",
+      "market": "東証プライム",
+      "sector17_code": "9",
+      "sector17_name": "電気機器",
+      "sector33_code": "9050",
+      "sector33_name": "電気機器",
+      "scale_code": "10",
+      "scale_name": "大型",
+      "listing_date": "1989-12-21",
+      "close_date": null
+    },
+    {
+      "code": "4063",
+      "name": "信越化学工業",
+      "market": "東証プライム",
+      "sector17_code": "3",
+      "sector17_name": "化学",
+      "sector33_code": "3050",
+      "sector33_name": "化学",
+      "scale_code": "10",
+      "scale_name": "大型",
+      "listing_date": "1949-05-16",
+      "close_date": null
+    }
+  ],
+  "metadata": {
+    "generated_at": "2025-10-04T01:38:06.708832",
+    "type": "listed_data",
+    "ttl": "7d",
+    "version": "1.0"
+  }
+}

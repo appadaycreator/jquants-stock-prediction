@@ -1,6 +1,8 @@
 'use client';
 
 import { cacheService } from './CacheService';
+import { sampleDataProvider } from '../providers/SampleDataProvider';
+import { SampleDataValidator } from '../validators/sample-data-validator';
 
 export interface StockData {
   code: string;
@@ -181,36 +183,49 @@ export class DataFetcher {
    */
   private static async getSampleDailyQuotes(): Promise<StockData[]> {
     try {
-      const response = await fetch('/docs/data/sample_daily_quotes.json');
-      if (response.ok) {
-        const data = await response.json();
-        return data.daily_quotes || [];
+      const sampleData = await sampleDataProvider.getDailyQuotes();
+      
+      // バリデーション実行
+      const validation = SampleDataValidator.validateDailyQuotes(sampleData);
+      if (!validation.isValid) {
+        console.warn('サンプル日足データのバリデーションエラー:', validation.errors);
       }
+
+      // データ変換
+      return sampleData.daily_quotes.map(quote => ({
+        code: quote.code,
+        name: quote.name,
+        price: quote.close,
+        change: quote.close - quote.open,
+        changePercent: quote.change_percent,
+        volume: quote.volume,
+        timestamp: quote.timestamp
+      }));
     } catch (error) {
       console.error('サンプル日足データ取得エラー:', error);
+      
+      // 最終フォールバック: ハードコードされたサンプルデータ
+      return [
+        {
+          code: '7203',
+          name: 'トヨタ自動車',
+          price: 2500,
+          change: 50,
+          changePercent: 2.04,
+          volume: 1000000,
+          timestamp: new Date().toISOString()
+        },
+        {
+          code: '6758',
+          name: 'ソニーグループ',
+          price: 12000,
+          change: -100,
+          changePercent: -0.83,
+          volume: 500000,
+          timestamp: new Date().toISOString()
+        }
+      ];
     }
-
-    // 最終フォールバック: ハードコードされたサンプルデータ
-    return [
-      {
-        code: '7203',
-        name: 'トヨタ自動車',
-        price: 2500,
-        change: 50,
-        changePercent: 2.04,
-        volume: 1000000,
-        timestamp: new Date().toISOString()
-      },
-      {
-        code: '6758',
-        name: 'ソニーグループ',
-        price: 12000,
-        change: -100,
-        changePercent: -0.83,
-        volume: 500000,
-        timestamp: new Date().toISOString()
-      }
-    ];
   }
 
   /**
@@ -218,32 +233,43 @@ export class DataFetcher {
    */
   private static async getSampleListedData(): Promise<ListedData[]> {
     try {
-      const response = await fetch('/docs/data/sample_listed_data.json');
-      if (response.ok) {
-        const data = await response.json();
-        return data.listed_data || [];
+      const sampleData = await sampleDataProvider.getListedData();
+      
+      // バリデーション実行
+      const validation = SampleDataValidator.validateListedData(sampleData);
+      if (!validation.isValid) {
+        console.warn('サンプル上場銘柄データのバリデーションエラー:', validation.errors);
       }
+
+      // データ変換
+      return sampleData.listed_data.map(stock => ({
+        code: stock.code,
+        name: stock.name,
+        market: stock.market,
+        sector: stock.sector17_name,
+        listingDate: stock.listing_date
+      }));
     } catch (error) {
       console.error('サンプル上場銘柄データ取得エラー:', error);
+      
+      // 最終フォールバック: ハードコードされたサンプルデータ
+      return [
+        {
+          code: '7203',
+          name: 'トヨタ自動車',
+          market: '東証プライム',
+          sector: '自動車',
+          listingDate: '1949-05-16'
+        },
+        {
+          code: '6758',
+          name: 'ソニーグループ',
+          market: '東証プライム',
+          sector: '電気機器',
+          listingDate: '1958-12-23'
+        }
+      ];
     }
-
-    // 最終フォールバック: ハードコードされたサンプルデータ
-    return [
-      {
-        code: '7203',
-        name: 'トヨタ自動車',
-        market: '東証プライム',
-        sector: '自動車',
-        listingDate: '1949-05-16'
-      },
-      {
-        code: '6758',
-        name: 'ソニーグループ',
-        market: '東証プライム',
-        sector: '電気機器',
-        listingDate: '1958-12-23'
-      }
-    ];
   }
 
   /**
