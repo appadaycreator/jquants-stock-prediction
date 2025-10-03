@@ -1,0 +1,44 @@
+{
+  "financial_data": [
+    {
+      "code": "7203",
+      "name": "トヨタ自動車",
+      "fiscal_year": "2024",
+      "fiscal_period": "FY",
+      "revenue": 37200000,
+      "operating_income": 5000000,
+      "ordinary_income": 4800000,
+      "net_income": 3500000,
+      "total_assets": 75000000,
+      "total_equity": 25000000,
+      "roe": 14.0,
+      "roa": 4.7,
+      "per": 12.5,
+      "pbr": 1.2,
+      "timestamp": "2025-10-04T01:38:06.708812"
+    },
+    {
+      "code": "6758",
+      "name": "ソニーグループ",
+      "fiscal_year": "2024",
+      "fiscal_period": "FY",
+      "revenue": 12000000,
+      "operating_income": 1200000,
+      "ordinary_income": 1100000,
+      "net_income": 800000,
+      "total_assets": 25000000,
+      "total_equity": 8000000,
+      "roe": 10.0,
+      "roa": 3.2,
+      "per": 15.0,
+      "pbr": 1.5,
+      "timestamp": "2025-10-04T01:38:06.708814"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2025-10-04T01:38:06.708832",
+    "type": "financial_data",
+    "ttl": "7d",
+    "version": "1.0"
+  }
+}

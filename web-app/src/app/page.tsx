@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { cacheInitializer } from "@/lib/cache/CacheInitializer";
 
 // 動的レンダリングを強制
 export const dynamic = "force-dynamic";
@@ -21,9 +22,24 @@ import {
 
 export default function LandingPage() {
   const [isClient, setIsClient] = useState(false);
+  const [cacheReady, setCacheReady] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    
+    // キャッシュシステムの初期化
+    const initializeCache = async () => {
+      try {
+        await cacheInitializer.initialize();
+        setCacheReady(true);
+        console.log('✅ キャッシュシステム準備完了');
+      } catch (error) {
+        console.error('❌ キャッシュシステム初期化エラー:', error);
+        setCacheReady(true); // エラーでもアプリは続行
+      }
+    };
+
+    initializeCache();
   }, []);
 
   if (!isClient) {
