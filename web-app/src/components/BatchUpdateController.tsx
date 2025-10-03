@@ -101,7 +101,7 @@ export default function BatchUpdateController({
         workerInstance.terminate();
       };
     }
-  }, [onUpdateComplete, onProgressChange, results]);
+  }, [onUpdateComplete, onProgressChange]);
 
   const generateTasks = (symbols: string[]): UpdateTask[] => {
     return symbols.map((symbol, index) => ({

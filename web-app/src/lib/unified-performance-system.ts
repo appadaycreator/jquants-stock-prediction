@@ -3,10 +3,11 @@
  * フロントエンドメモリ最適化、チャート遅延読み込み、段階的データ読み込み、キャッシュ最適化を統合
  */
 
-import { frontendMemoryOptimizer } from "./frontend-memory-optimizer";
-import { progressiveDataLoader } from "./progressive-data-loader";
-import { optimizedCacheStrategy } from "./optimized-cache-strategy";
-import { performanceValidator } from "./performance-validator";
+// 依存モジュールは存在しないため最小スタブに差し替え
+import { frontendMemoryOptimizer } from "./stubs/frontend-memory-optimizer";
+import { progressiveDataLoader } from "./stubs/progressive-data-loader";
+import { optimizedCacheStrategy } from "./stubs/optimized-cache-strategy";
+import { performanceValidator } from "./stubs/performance-validator";
 
 interface UnifiedPerformanceConfig {
   enableMemoryOptimization: boolean;

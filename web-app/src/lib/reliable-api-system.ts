@@ -5,7 +5,8 @@
 
 import EnhancedJQuantsAdapter, { JQuantsConfig, StockData, ApiMetrics, DataQualityReport } from "./enhanced-jquants-adapter";
 import DataQualityMonitor, { QualityMetrics, QualityReport } from "./data-quality-monitor";
-import OptimizedCacheManager, { CacheConfig } from "./optimized-cache-manager";
+// 実体が無いためスタブに置換
+import OptimizedCacheManager, { CacheConfig } from "./stubs/optimized-cache-manager";
 
 interface ReliableApiSystemConfig {
   jquants: Partial<JQuantsConfig>;

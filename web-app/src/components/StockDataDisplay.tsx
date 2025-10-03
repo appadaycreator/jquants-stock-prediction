@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useStockData } from "@/hooks/useStockData";
-import { StockDataResponse } from "@/lib/enhancedDataCache";
+import type { StockDataResponse } from "@/hooks/useStockData";
 
 interface StockDataDisplayProps {
   symbol?: string;

@@ -7,14 +7,25 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { unifiedCacheManager } from "@/lib/unified-cache-manager";
 
 export interface StockDataResponse {
-  symbol: string;
-  name: string;
-  price: number;
-  change: number;
-  changePercent: number;
-  volume: number;
-  marketCap: number;
-  lastUpdated: string;
+  // 複数銘柄表示用
+  stocks?: Record<string, any>;
+  // 単一銘柄表示用の最低限フィールド
+  symbol?: string;
+  name?: string;
+  price?: number;
+  change?: number;
+  changePercent?: number;
+  volume?: number;
+  marketCap?: number;
+  lastUpdated?: string;
+  // メタデータ
+  metadata?: {
+    last_updated?: string;
+    total_stocks?: number;
+    data_source?: string;
+    version?: string;
+    [key: string]: any;
+  };
 }
 
 export interface UseStockDataState {
@@ -73,7 +84,7 @@ export function useStockData(options: UseStockDataOptions = {}) {
           data,
           loading: false,
           error: null,
-          lastUpdated: data.metadata.last_updated,
+          lastUpdated: data.metadata?.last_updated ?? null,
           source,
           retryCount: 0,
         }));
@@ -245,7 +256,7 @@ export function useMultipleStockData(symbols: string[], options: Omit<UseStockDa
         data,
         loading: false,
         error,
-        lastUpdated: data?.metadata.last_updated || null,
+        lastUpdated: data?.metadata?.last_updated || null,
         source: data ? "api" : null,
         retryCount: 0,
       };

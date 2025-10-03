@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { Search, X, Check, TrendingUp } from "lucide-react";
-import JQuantsAdapter from "@/lib/jquants-adapter";
+// adapterはgetAllSymbolsを提供する任意の実装を受け取る
+type SymbolsAdapter = {
+  getAllSymbols: () => Promise<Array<{ code: string; name: string; sector?: string }>>;
+};
 
 // 主要日本株の銘柄データ
 const JAPANESE_STOCKS = [
@@ -33,7 +36,7 @@ interface SymbolSelectorProps {
   onSymbolsChange: (symbols: string[]) => void;
   onAnalysis: (symbols: string[]) => void;
   isAnalyzing?: boolean;
-  adapter?: JQuantsAdapter | null;
+  adapter?: SymbolsAdapter | null;
 }
 
 export default function SymbolSelector({
@@ -59,13 +62,13 @@ export default function SymbolSelector({
       try {
         const list = await adapter.getAllSymbols();
         // APIからの戻り値をUI用に整形
-        const mapped = list.map((s) => ({
+        const mapped = list.map((s: { code: string; name?: string; sector?: string }) => ({
           code: s.code,
           name: s.name || s.code,
           sector: s.sector || "-",
         }));
         // 有効データのみ
-        const valid = mapped.filter((s) => s.code && s.name);
+        const valid = mapped.filter((s: { code?: string; name?: string }) => s.code && s.name);
         if (valid.length > 0) {
           setAllStocks(valid);
           setFilteredStocks(valid);

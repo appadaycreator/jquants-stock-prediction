@@ -3,7 +3,26 @@
  * 既存のリスク計算ロジックをユーザーのカスタマイズ設定に合わせて調整
  */
 
-import { RiskCustomizationSettings } from "./risk-customization-store";
+// 外部ストアが存在しないためローカル定義に切り替え
+export interface RiskCustomizationSettings {
+  riskTolerance: {
+    level?: "VERY_LOW" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH" | "CRITICAL";
+    maxDrawdown: number;
+    volatilityTolerance: number;
+    varTolerance: number;
+  };
+  targetReturn: {
+    annual: number;
+    monthly: number;
+    riskAdjusted: boolean;
+  };
+  individualStockSettings: Record<string, {
+    riskLevel?: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
+    targetPrice?: number;
+    stopLossPrice?: number;
+    maxPositionSize?: number;
+  }>;
+}
 
 export interface RiskMetrics {
   portfolio_value: number;
@@ -149,7 +168,7 @@ export class RiskCalculationAdapter {
       "CRITICAL": 2.0,
     };
 
-    const multiplier = levelMultipliers[level];
+    const multiplier = levelMultipliers[level as keyof typeof levelMultipliers] ?? 1.0;
 
     return {
       maxDrawdown: maxDrawdown * multiplier,
@@ -204,7 +223,7 @@ export class RiskCalculationAdapter {
     };
 
     if (stockSettings.riskLevel) {
-      adjustedScore *= riskLevelMultipliers[stockSettings.riskLevel];
+      adjustedScore *= riskLevelMultipliers[stockSettings.riskLevel as keyof typeof riskLevelMultipliers] ?? 1.0;
     }
 
     // ポジションサイズによる調整
