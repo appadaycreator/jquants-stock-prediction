@@ -5,6 +5,7 @@ import { ArrowLeft, Download, Share2, Maximize2, Settings } from 'lucide-react';
 import Link from 'next/link';
 import StockChart from '@/components/StockChart';
 import { Button } from '@/components/ui/button';
+import { formatStockCode } from '@/lib/stock-code-utils';
 
 interface ChartData {
   timestamp: number;
@@ -217,9 +218,9 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
               </Link>
               <div>
                 <h1 className="text-xl font-semibold text-gray-900">
-                  {stockInfo?.name || symbol}
+                  {stockInfo?.name || formatStockCode(symbol)}
                 </h1>
-                <p className="text-sm text-gray-600">{symbol}</p>
+                <p className="text-sm text-gray-600">{formatStockCode(symbol)}</p>
               </div>
             </div>
             
@@ -298,7 +299,7 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
         <div className="bg-white rounded-lg shadow-sm border">
           <div className="p-4">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">
-              {symbol} 株価チャート ({timeframe})
+              {formatStockCode(symbol)} 株価チャート ({timeframe})
             </h2>
             <div className="h-96">
               <StockChart
