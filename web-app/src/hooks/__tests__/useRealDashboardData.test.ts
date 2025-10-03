@@ -1,22 +1,22 @@
-import { renderHook, act } from '@testing-library/react';
-import { useRealDashboardData } from '../useRealDashboardData';
+import { renderHook, act } from "@testing-library/react";
+import { useRealDashboardData } from "../useRealDashboardData";
 
 // Mock the testConnection function
-jest.mock('@/lib/jquants-adapter', () => ({
+jest.mock("@/lib/jquants-adapter", () => ({
   testConnection: jest.fn(),
 }));
 
 // Mock the generateMarketSummary function
-jest.mock('@/lib/stock-analysis', () => ({
+jest.mock("@/lib/stock-analysis", () => ({
   generateMarketSummary: jest.fn(),
 }));
 
-describe('useRealDashboardData', () => {
+describe("useRealDashboardData", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('initializes with loading state', () => {
+  it("initializes with loading state", () => {
     const { result } = renderHook(() => useRealDashboardData());
     
     expect(result.current.isLoading).toBe(true);
@@ -27,19 +27,19 @@ describe('useRealDashboardData', () => {
     expect(result.current.analysisResults).toEqual([]);
   });
 
-  it('provides refresh function', () => {
+  it("provides refresh function", () => {
     const { result } = renderHook(() => useRealDashboardData());
     
-    expect(typeof result.current.actions.refresh).toBe('function');
+    expect(typeof result.current.actions.refresh).toBe("function");
   });
 
-  it('handles successful connection test', async () => {
-    const { testConnection } = require('@/lib/jquants-adapter');
-    const { generateMarketSummary } = require('@/lib/stock-analysis');
+  it("handles successful connection test", async () => {
+    const { testConnection } = require("@/lib/jquants-adapter");
+    const { generateMarketSummary } = require("@/lib/stock-analysis");
     
-    testConnection.mockResolvedValue({ success: true, message: 'Connected' });
+    testConnection.mockResolvedValue({ success: true, message: "Connected" });
     generateMarketSummary.mockResolvedValue({
-      analyzedSymbols: ['7203', '6758'],
+      analyzedSymbols: ["7203", "6758"],
       recommendations: { BUY: 2, SELL: 0 },
       topGainers: [],
       topLosers: [],
@@ -53,14 +53,14 @@ describe('useRealDashboardData', () => {
 
     expect(result.current.isLoading).toBe(false);
     expect(result.current.error).toBe(null);
-    expect(result.current.connectionStatus).toEqual({ success: true, message: 'Connected' });
+    expect(result.current.connectionStatus).toEqual({ success: true, message: "Connected" });
     expect(result.current.marketSummary).toBeDefined();
   });
 
-  it('handles connection failure', async () => {
-    const { testConnection } = require('@/lib/jquants-adapter');
+  it("handles connection failure", async () => {
+    const { testConnection } = require("@/lib/jquants-adapter");
     
-    testConnection.mockResolvedValue({ success: false, message: 'Connection failed' });
+    testConnection.mockResolvedValue({ success: false, message: "Connection failed" });
 
     const { result } = renderHook(() => useRealDashboardData());
     
@@ -69,14 +69,14 @@ describe('useRealDashboardData', () => {
     });
 
     expect(result.current.isLoading).toBe(false);
-    expect(result.current.error).toBe('API接続失敗: Connection failed');
+    expect(result.current.error).toBe("API接続失敗: Connection failed");
   });
 
-  it('handles market summary generation failure', async () => {
-    const { testConnection } = require('@/lib/jquants-adapter');
-    const { generateMarketSummary } = require('@/lib/stock-analysis');
+  it("handles market summary generation failure", async () => {
+    const { testConnection } = require("@/lib/jquants-adapter");
+    const { generateMarketSummary } = require("@/lib/stock-analysis");
     
-    testConnection.mockResolvedValue({ success: true, message: 'Connected' });
+    testConnection.mockResolvedValue({ success: true, message: "Connected" });
     generateMarketSummary.mockResolvedValue(null);
 
     const { result } = renderHook(() => useRealDashboardData());
@@ -86,13 +86,13 @@ describe('useRealDashboardData', () => {
     });
 
     expect(result.current.isLoading).toBe(false);
-    expect(result.current.error).toBe('市場サマリーの生成に失敗しました');
+    expect(result.current.error).toBe("市場サマリーの生成に失敗しました");
   });
 
-  it('handles unexpected errors', async () => {
-    const { testConnection } = require('@/lib/jquants-adapter');
+  it("handles unexpected errors", async () => {
+    const { testConnection } = require("@/lib/jquants-adapter");
     
-    testConnection.mockRejectedValue(new Error('Unexpected error'));
+    testConnection.mockRejectedValue(new Error("Unexpected error"));
 
     const { result } = renderHook(() => useRealDashboardData());
     
@@ -101,16 +101,16 @@ describe('useRealDashboardData', () => {
     });
 
     expect(result.current.isLoading).toBe(false);
-    expect(result.current.error).toBe('Unexpected error');
+    expect(result.current.error).toBe("Unexpected error");
   });
 
-  it('updates lastUpdated timestamp on successful refresh', async () => {
-    const { testConnection } = require('@/lib/jquants-adapter');
-    const { generateMarketSummary } = require('@/lib/stock-analysis');
+  it("updates lastUpdated timestamp on successful refresh", async () => {
+    const { testConnection } = require("@/lib/jquants-adapter");
+    const { generateMarketSummary } = require("@/lib/stock-analysis");
     
-    testConnection.mockResolvedValue({ success: true, message: 'Connected' });
+    testConnection.mockResolvedValue({ success: true, message: "Connected" });
     generateMarketSummary.mockResolvedValue({
-      analyzedSymbols: ['7203'],
+      analyzedSymbols: ["7203"],
       recommendations: { BUY: 1 },
       topGainers: [],
       topLosers: [],

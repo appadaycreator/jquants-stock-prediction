@@ -23,6 +23,7 @@ export default function Sidebar() {
     { name: "個人投資", href: "/personal-investment", icon: "💼" },
     { name: "レポート", href: "/reports", icon: "📈" },
     { name: "分析状況", href: "/analysis-progress", icon: "🔄" },
+    { name: "テストカバレッジ", href: "/test-coverage", icon: "🧪" },
   ];
 
   // ローカルストレージから状態を復元

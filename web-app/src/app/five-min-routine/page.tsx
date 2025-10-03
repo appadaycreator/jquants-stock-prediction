@@ -1,24 +1,19 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { SettingsProvider } from "../../contexts/SettingsContext";
 import FiveMinRoutine from "../../components/FiveMinRoutine";
 import TutorialSystem from "../../components/TutorialSystem";
 import { useTutorial } from "../../components/TutorialSystem";
 import { 
   ArrowLeft, 
-  Home, 
   Settings, 
-  BarChart3, 
   Target, 
-  Shield,
-  RefreshCw,
 } from "lucide-react";
 import Link from "next/link";
 
 export default function FiveMinRoutinePage() {
-  const [showTutorial, setShowTutorial] = useState(false);
-  const { showTutorial: tutorialVisible, showTutorialAgain, hideTutorial } = useTutorial();
+  const { showTutorial: tutorialVisible, showTutorialAgain } = useTutorial();
 
   const handleAnalysisClick = () => {
     // 分析実行ページに遷移

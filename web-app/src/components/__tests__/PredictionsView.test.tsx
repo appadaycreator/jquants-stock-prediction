@@ -1,150 +1,97 @@
-/**
- * PredictionsViewコンポーネントのテスト
- */
+import React from 'react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import PredictionsView from '../PredictionsView';
 
-import { render, screen, waitFor } from "@testing-library/react";
-import PredictionsView from "../PredictionsView";
-
-// モック
-jest.mock("../../lib/fetcher", () => ({
-  fetchMultiple: jest.fn(),
-  AppError: class AppError extends Error {
-    constructor(message: string, public code: string, public status?: number) {
-      super(message);
-      this.name = "AppError";
-    }
-  },
+// Mock the usePredictions hook
+jest.mock('@/hooks/usePredictions', () => ({
+  usePredictions: () => ({
+    predictions: [
+      {
+        symbol: '7203',
+        companyName: 'トヨタ自動車',
+        prediction: 'BUY',
+        confidence: 0.85,
+        price: 2500,
+        change: 0.05,
+      },
+    ],
+    isLoading: false,
+    error: null,
+    refreshPredictions: jest.fn(),
+  }),
 }));
 
-jest.mock("../../lib/datetime", () => ({
-  parseToJst: jest.fn((date: string) => ({ isValid: true, toFormat: () => date })),
-  jstLabel: jest.fn((dt: any) => dt.toFormat ? dt.toFormat() : "2024-01-01"),
+// Mock the useAnalysisWithSettings hook
+jest.mock('@/hooks/useAnalysisWithSettings', () => ({
+  useAnalysisWithSettings: () => ({
+    runAnalysisWithSettings: jest.fn(),
+    isAnalyzing: false,
+    analysisProgress: 0,
+    analysisStatus: 'idle',
+    getAnalysisDescription: jest.fn(() => 'Test analysis'),
+  }),
 }));
 
-jest.mock("../../lib/metrics", () => ({
-  mae: jest.fn(() => 10.5),
-  rmse: jest.fn(() => 15.2),
-  r2: jest.fn(() => 0.85),
-  detectOverfitting: jest.fn(() => ({
-    isOverfitting: false,
-    riskLevel: "低" as const,
-    message: "低リスク",
-  })),
-  compareModels: jest.fn(() => ({
-    maeImprovement: 15.5,
-    rmseImprovement: 12.3,
-    r2Improvement: 0.1,
-    isBetter: true,
-  })),
-}));
-
-jest.mock("../../lib/logger", () => ({
-  fetcherLogger: {
-    info: jest.fn(),
-    error: jest.fn(),
-  },
-  metricsLogger: {
-    info: jest.fn(),
-  },
-}));
-
-describe("PredictionsView", () => {
-  const mockFetchMultiple = jest.fn();
-  const mockOnError = jest.fn();
-
+describe('PredictionsView', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    const { fetchMultiple } = require("../../lib/fetcher");
-    fetchMultiple.mockImplementation(mockFetchMultiple);
   });
 
-  it("ローディング状態を表示する", () => {
-    mockFetchMultiple.mockImplementation(() => new Promise(() => {})); // 永続的にpending
-
-    render(<PredictionsView onError={mockOnError} />);
-    
-    // スケルトンコンポーネントが表示されることを確認
-    expect(screen.getByTestId("predictions-skeleton")).toBeInTheDocument();
+  it('renders the component without crashing', () => {
+    render(<PredictionsView />);
+    expect(screen.getByText('予測結果')).toBeInTheDocument();
   });
 
-  it("正常なデータを表示する", async () => {
-    const mockData = {
-      predictions: {
-        meta: { model: "Test Model", generatedAt: "2024-01-01T00:00:00Z" },
-        data: [
-          { date: "2024-01-01", symbol: "7203", y_true: 100, y_pred: 105 },
-          { date: "2024-01-02", symbol: "7203", y_true: 110, y_pred: 108 },
-        ],
-      },
-      stockData: [
-        { date: "2024-01-01", close: 100, sma_5: 98, sma_10: 95, sma_25: 90, sma_50: 85, volume: 1000000 },
-      ],
-      modelComparison: [
-        { model_name: "Test Model", model_type: "Linear", mae: 10, rmse: 15, r2: 0.85, rank: 1 },
-      ],
-    };
+  it('displays predictions data correctly', () => {
+    render(<PredictionsView />);
+    expect(screen.getByText('トヨタ自動車')).toBeInTheDocument();
+    expect(screen.getByText('BUY')).toBeInTheDocument();
+    expect(screen.getByText('85%')).toBeInTheDocument();
+  });
 
-    mockFetchMultiple.mockResolvedValue(mockData);
-
-    render(<PredictionsView onError={mockOnError} />);
-
-    await waitFor(() => {
-      expect(screen.getByText("予測結果")).toBeInTheDocument();
+  it('shows loading state when analyzing', () => {
+    const mockUsePredictions = require('@/hooks/usePredictions').usePredictions;
+    mockUsePredictions.mockReturnValue({
+      predictions: [],
+      isLoading: true,
+      error: null,
+      refreshPredictions: jest.fn(),
     });
 
-    // モデル名が表示されることを確認（テキストが分割されている可能性を考慮）
-    expect(screen.getByText(/Test Model/)).toBeInTheDocument();
-    expect(screen.getByText("MAE")).toBeInTheDocument();
-    expect(screen.getByText("RMSE")).toBeInTheDocument();
-    expect(screen.getByText("R²")).toBeInTheDocument();
+    render(<PredictionsView />);
+    expect(screen.getByText('分析中...')).toBeInTheDocument();
   });
 
-  it("エラー状態を表示する", async () => {
-    const error = new Error("Network error");
-    mockFetchMultiple.mockRejectedValue(error);
-
-    render(<PredictionsView onError={mockOnError} />);
-
-    await waitFor(() => {
-      expect(screen.getByText(/データの読み込みに失敗しました/)).toBeInTheDocument();
+  it('handles error state correctly', () => {
+    const mockUsePredictions = require('@/hooks/usePredictions').usePredictions;
+    mockUsePredictions.mockReturnValue({
+      predictions: [],
+      isLoading: false,
+      error: 'API Error',
+      refreshPredictions: jest.fn(),
     });
+
+    render(<PredictionsView />);
+    expect(screen.getByText('エラーが発生しました')).toBeInTheDocument();
   });
 
-  it("再試行ボタンが動作する", async () => {
-    const error = new Error("Network error");
-    mockFetchMultiple.mockRejectedValueOnce(error);
-
-    render(<PredictionsView onError={mockOnError} />);
-
-    await waitFor(() => {
-      expect(screen.getByText(/データの読み込みに失敗しました/)).toBeInTheDocument();
+  it('calls refreshPredictions when refresh button is clicked', async () => {
+    const mockRefreshPredictions = jest.fn();
+    const mockUsePredictions = require('@/hooks/usePredictions').usePredictions;
+    mockUsePredictions.mockReturnValue({
+      predictions: [],
+      isLoading: false,
+      error: null,
+      refreshPredictions: mockRefreshPredictions,
     });
 
-    // 再試行ボタンをクリック
-    const retryButton = screen.getByText("再試行");
-    expect(retryButton).toBeInTheDocument();
-  });
+    render(<PredictionsView />);
+    const refreshButton = screen.getByRole('button', { name: /更新/i });
+    fireEvent.click(refreshButton);
 
-  it("過学習警告を表示する", async () => {
-    const mockData = {
-      predictions: {
-        meta: { model: "Test Model", generatedAt: "2024-01-01T00:00:00Z" },
-        data: [{ date: "2024-01-01", symbol: "7203", y_true: 100, y_pred: 105 }],
-      },
-      stockData: [],
-      modelComparison: [],
-    };
-
-    mockFetchMultiple.mockResolvedValue(mockData);
-
-    render(<PredictionsView onError={mockOnError} />);
-
-    // データが読み込まれるまで待機
     await waitFor(() => {
-      expect(screen.getByText(/Test Model/)).toBeInTheDocument();
+      expect(mockRefreshPredictions).toHaveBeenCalled();
     });
-
-    // 予測結果が表示されることを確認
-    expect(screen.getByText("予測結果")).toBeInTheDocument();
   });
 });

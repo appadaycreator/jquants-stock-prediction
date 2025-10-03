@@ -131,6 +131,14 @@ export default function BottomNav() {
                   <span>🔄</span>
                   <span>分析状況</span>
                 </Link>
+                <Link
+                  href="/test-coverage"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span>🧪</span>
+                  <span>テストカバレッジ</span>
+                </Link>
               </div>
             </div>
           </div>
@@ -177,6 +185,13 @@ export default function BottomNav() {
             >
               <span className="text-lg">🔄</span>
               <span className="font-medium">分析状況</span>
+            </Link>
+            <Link
+              href="/test-coverage"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+            >
+              <span className="text-lg">🧪</span>
+              <span className="font-medium">テストカバレッジ</span>
             </Link>
           </div>
         </div>

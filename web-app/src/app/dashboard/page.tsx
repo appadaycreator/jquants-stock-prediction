@@ -21,7 +21,7 @@ import { usePerformanceMonitor } from "@/lib/performance-monitor";
 import { DEFAULT_CHECKLIST_ITEMS, type ChecklistItem } from "@/components/guide/Checklist";
 import { SampleDataProvider, useSampleData } from "@/components/SampleDataProvider";
 import AnalysisExecutionPanel from "@/components/AnalysisExecutionPanel";
-import { UnifiedErrorBoundary } from "@/components/UnifiedErrorBoundary";
+import UnifiedErrorBoundary from "@/components/UnifiedErrorBoundary";
 import { TourProvider } from "@/components/guide/TourProvider";
 
 // 動的インポートでコンポーネントを遅延読み込み

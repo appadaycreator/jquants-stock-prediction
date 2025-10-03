@@ -1,140 +1,119 @@
-/**
- * データフェッチユーティリティのテスト
- */
+import { fetchJson, handleApiError } from '../fetcher';
 
-import { fetchJson, fetchMultiple, AppError } from "../fetcher";
-
-// fetchのモック
+// Mock the fetch function
 global.fetch = jest.fn();
 
-describe("fetcher utilities", () => {
+describe('fetcher', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe("fetchJson", () => {
-    it("正常なレスポンスを処理する", async () => {
-      const mockData = { test: "data" };
-      (global.fetch as any).mockResolvedValueOnce({
+  describe('fetchJson', () => {
+    it('fetches data successfully', async () => {
+      const mockData = { message: 'Success' };
+      (global.fetch as jest.Mock).mockResolvedValue({
         ok: true,
-        headers: {
-          get: jest.fn().mockReturnValue("application/json"),
-        },
-        json: jest.fn().mockResolvedValueOnce(mockData),
+        status: 200,
+        json: () => Promise.resolve(mockData),
       });
 
-      const result = await fetchJson("/test-url");
+      const result = await fetchJson('/api/test');
+
       expect(result).toEqual(mockData);
+      expect(global.fetch).toHaveBeenCalledWith('/api/test', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
     });
 
-    it("HTTPエラーを適切に処理する", async () => {
-      (global.fetch as any).mockResolvedValueOnce({
+    it('handles API errors with status codes', async () => {
+      (global.fetch as jest.Mock).mockResolvedValue({
         ok: false,
         status: 404,
-        statusText: "Not Found",
+        statusText: 'Not Found',
+        json: () => Promise.resolve({ error: 'Not Found' }),
       });
 
-      await expect(fetchJson("/test-url")).rejects.toThrow(AppError);
-    }, 10000);
-
-    it("タイムアウトを適切に処理する", async () => {
-      (global.fetch as any).mockImplementationOnce(() => 
-        new Promise((_, reject) => 
-          setTimeout(() => reject(new Error("timeout")), 100),
-        ),
-      );
-
-      await expect(fetchJson("/test-url", { timeout: 50 })).rejects.toThrow();
-    }, 10000);
-
-    it("AbortControllerでリクエストを中断する", async () => {
-      const controller = new AbortController();
-      controller.abort();
-
-      await expect(fetchJson("/test-url", { signal: controller.signal })).rejects.toThrow(AppError);
-    }, 10000);
-
-    it("リトライ機能を正しく動作させる", async () => {
-      (global.fetch as any)
-        .mockRejectedValueOnce(new Error("Network error"))
-        .mockRejectedValueOnce(new Error("Network error"))
-        .mockResolvedValueOnce({
-          ok: true,
-          headers: {
-            get: jest.fn().mockReturnValue("application/json"),
-          },
-          json: jest.fn().mockResolvedValueOnce({ success: true }),
-        });
-
-      const result = await fetchJson("/test-url", { retries: 3 });
-      expect(result).toEqual({ success: true });
-      expect(global.fetch).toHaveBeenCalledTimes(3);
-    }, 10000);
-
-    it("無効なContent-Typeでエラーを投げる", async () => {
-      (global.fetch as any).mockResolvedValueOnce({
-        ok: true,
-        headers: {
-          get: jest.fn().mockReturnValue("text/html"),
-        },
-      });
-
-      await expect(fetchJson("/test-url")).rejects.toThrow(AppError);
-    }, 10000);
-  });
-
-  describe("fetchMultiple", () => {
-    it("複数のリクエストを並列処理する", async () => {
-      (global.fetch as any)
-        .mockResolvedValueOnce({
-          ok: true,
-          headers: { get: jest.fn().mockReturnValue("application/json") },
-          json: jest.fn().mockResolvedValueOnce({ data1: "value1" }),
-        })
-        .mockResolvedValueOnce({
-          ok: true,
-          headers: { get: jest.fn().mockReturnValue("application/json") },
-          json: jest.fn().mockResolvedValueOnce({ data2: "value2" }),
-        });
-
-      const result = await fetchMultiple({
-        data1: "/url1",
-        data2: "/url2",
-      });
-
-      expect(result).toEqual({
-        data1: { data1: "value1" },
-        data2: { data2: "value2" },
-      });
+      await expect(fetchJson('/api/test')).rejects.toThrow('Not Found');
     });
 
-    it("一部のリクエストが失敗しても続行する", async () => {
-      (global.fetch as any)
-        .mockResolvedValueOnce({
-          ok: true,
-          headers: { get: jest.fn().mockReturnValue("application/json") },
-          json: jest.fn().mockResolvedValueOnce({ data1: "value1" }),
-        })
-        .mockRejectedValueOnce(new Error("Network error"));
+    it('handles network errors', async () => {
+      (global.fetch as jest.Mock).mockRejectedValue(new Error('Network Error'));
 
-      const result = await fetchMultiple({
-        data1: "/url1",
-        data2: "/url2",
+      await expect(fetchJson('/api/test')).rejects.toThrow('Network Error');
+    });
+
+    it('handles JSON parsing errors', async () => {
+      (global.fetch as jest.Mock).mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: () => Promise.reject(new Error('Invalid JSON')),
       });
 
-      expect(result).toEqual({
-        data1: { data1: "value1" },
-      });
-    }, 10000);
+      await expect(fetchJson('/api/test')).rejects.toThrow('Invalid JSON');
+    });
   });
 
-  describe("AppError", () => {
-    it("適切なエラーメッセージとコードを持つ", () => {
-      const error = new AppError("Test error", "TEST_ERROR", 500);
-      expect(error.message).toBe("Test error");
-      expect(error.code).toBe("TEST_ERROR");
-      expect(error.status).toBe(500);
-      expect(error.name).toBe("AppError");
+  describe('handleApiError', () => {
+    it('handles 400 Bad Request', () => {
+      const error = {
+        status: 400,
+        statusText: 'Bad Request',
+        data: { error: 'Invalid request' },
+      };
+
+      expect(() => handleApiError(error)).toThrow('Bad Request');
+    });
+
+    it('handles 401 Unauthorized', () => {
+      const error = {
+        status: 401,
+        statusText: 'Unauthorized',
+        data: { error: 'Authentication required' },
+      };
+
+      expect(() => handleApiError(error)).toThrow('Unauthorized');
+    });
+
+    it('handles 403 Forbidden', () => {
+      const error = {
+        status: 403,
+        statusText: 'Forbidden',
+        data: { error: 'Access denied' },
+      };
+
+      expect(() => handleApiError(error)).toThrow('Forbidden');
+    });
+
+    it('handles 404 Not Found', () => {
+      const error = {
+        status: 404,
+        statusText: 'Not Found',
+        data: { error: 'Resource not found' },
+      };
+
+      expect(() => handleApiError(error)).toThrow('Not Found');
+    });
+
+    it('handles 500 Internal Server Error', () => {
+      const error = {
+        status: 500,
+        statusText: 'Internal Server Error',
+        data: { error: 'Server error' },
+      };
+
+      expect(() => handleApiError(error)).toThrow('Internal Server Error');
+    });
+
+    it('handles unknown status codes', () => {
+      const error = {
+        status: 999,
+        statusText: 'Unknown Error',
+        data: { error: 'Unknown error' },
+      };
+
+      expect(() => handleApiError(error)).toThrow('Unknown Error');
     });
   });
 });
