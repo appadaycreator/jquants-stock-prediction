@@ -1,0 +1,51 @@
+{
+  "id": "trade_1759220925634",
+  "type": "recommended_actions",
+  "confirmBeforeExecute": true,
+  "status": "executed",
+  "timestamp": "2025-09-30T08:28:45.634Z",
+  "orders": [
+    {
+      "symbol": "7203.T",
+      "name": "トヨタ自動車",
+      "action": "buy",
+      "quantity": 100,
+      "price": 2400,
+      "totalValue": 240000,
+      "status": "filled",
+      "executionTime": "2025-09-30T08:28:45.634Z"
+    },
+    {
+      "symbol": "6758.T",
+      "name": "ソニーグループ",
+      "action": "hold",
+      "quantity": 0,
+      "price": 0,
+      "totalValue": 0,
+      "status": "no_action",
+      "reason": "推奨アクションなし"
+    },
+    {
+      "symbol": "6861.T",
+      "name": "キーエンス",
+      "action": "sell",
+      "quantity": 50,
+      "price": 46000,
+      "totalValue": 2300000,
+      "status": "filled",
+      "executionTime": "2025-09-30T08:28:45.634Z"
+    }
+  ],
+  "summary": {
+    "totalOrders": 3,
+    "executedOrders": 2,
+    "totalValue": 2540000,
+    "estimatedProfit": 150000,
+    "riskLevel": "moderate"
+  },
+  "nextActions": [
+    "ポジション監視",
+    "ストップロス設定",
+    "利益確定目標設定"
+  ]
+}

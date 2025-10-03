@@ -1,0 +1,38 @@
+[
+  {
+    "id": "alert_001",
+    "type": "warning",
+    "title": "リスクスコア上昇",
+    "message": "ポートフォリオのリスクスコアが6.5に上昇しました。リスク管理の見直しを検討してください。",
+    "timestamp": "2024-01-15T08:30:00Z",
+    "priority": "high",
+    "color": "yellow"
+  },
+  {
+    "id": "alert_002",
+    "type": "error",
+    "title": "ストップロス接近",
+    "message": "ソニーグループ（6758.T）の価格がストップロス価格に接近しています。",
+    "timestamp": "2024-01-15T09:15:00Z",
+    "priority": "critical",
+    "color": "red"
+  },
+  {
+    "id": "alert_003",
+    "type": "info",
+    "title": "利益確定機会",
+    "message": "トヨタ自動車（7203.T）が利益確定価格に近づいています。",
+    "timestamp": "2024-01-15T10:00:00Z",
+    "priority": "medium",
+    "color": "blue"
+  },
+  {
+    "id": "alert_004",
+    "type": "success",
+    "title": "リスク管理完了",
+    "message": "キーエンス（6861.T）のリスク管理設定が適切に機能しています。",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "priority": "low",
+    "color": "green"
+  }
+]

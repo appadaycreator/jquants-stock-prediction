@@ -1,0 +1,42 @@
+[
+  {
+    "id": "rec_001",
+    "type": "risk_reduction",
+    "title": "ポートフォリオのリスク分散",
+    "description": "現在のリスクスコアが6.5と高めです。ポートフォリオの分散投資を検討し、リスクを軽減することをお勧めします。",
+    "priority": "high",
+    "action": "ポートフォリオの再配分を検討"
+  },
+  {
+    "id": "rec_002",
+    "type": "position_management",
+    "title": "ソニーグループのポジション見直し",
+    "description": "ソニーグループ（6758.T）の価格がストップロスに近づいています。ポジションサイズの縮小または損切りを検討してください。",
+    "priority": "critical",
+    "action": "ポジションサイズの縮小または損切りを検討"
+  },
+  {
+    "id": "rec_003",
+    "type": "profit_taking",
+    "title": "トヨタ自動車の利益確定",
+    "description": "トヨタ自動車（7203.T）が利益確定価格に近づいています。利益確定を検討することをお勧めします。",
+    "priority": "medium",
+    "action": "利益確定のタイミングを検討"
+  },
+  {
+    "id": "rec_004",
+    "type": "risk_monitoring",
+    "title": "リスク監視の強化",
+    "description": "市場のボラティリティが高まっています。より頻繁なリスク監視とポジション管理をお勧めします。",
+    "priority": "medium",
+    "action": "リスク監視の頻度を上げる"
+  },
+  {
+    "id": "rec_005",
+    "type": "diversification",
+    "title": "セクター分散の改善",
+    "description": "現在のポートフォリオは自動車・エレクトロニクスセクターに集中しています。他のセクターへの分散投資を検討してください。",
+    "priority": "low",
+    "action": "他のセクターへの投資を検討"
+  }
+]

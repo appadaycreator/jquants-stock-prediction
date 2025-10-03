@@ -1,0 +1,131 @@
+{
+  "generated_at": "2025-01-27T08:59:30+09:00",
+  "market_phase": "preopen",
+  "overview": {
+    "buy_candidates": 3,
+    "sell_candidates": 2,
+    "warnings": 1
+  },
+  "candidates": [
+    {
+      "symbol": "7203",
+      "name": "トヨタ自動車",
+      "recommendation": "BUY",
+      "confidence": 0.78,
+      "rationale": [
+        "短期トレンド転換 +25MA 上抜け",
+        "出来高増 +20%",
+        "決算予想上振れコンセンサス"
+      ],
+      "entry": 3500,
+      "take_profit": 3700,
+      "stop_loss": 3420,
+      "time_horizon": "D3",
+      "detail_paths": {
+        "prediction": "/predictions?symbol=7203",
+        "analysis": "/analysis?symbol=7203"
+      }
+    },
+    {
+      "symbol": "6758",
+      "name": "ソニーグループ",
+      "recommendation": "STRONG_BUY",
+      "confidence": 0.85,
+      "rationale": [
+        "AI関連事業の成長期待",
+        "ゲーム事業の回復基調",
+        "株価が52週安値圏で割安"
+      ],
+      "entry": 12500,
+      "take_profit": 13500,
+      "stop_loss": 12000,
+      "time_horizon": "1W",
+      "detail_paths": {
+        "prediction": "/predictions?symbol=6758",
+        "analysis": "/analysis?symbol=6758"
+      }
+    },
+    {
+      "symbol": "9984",
+      "name": "ソフトバンクグループ",
+      "recommendation": "SELL",
+      "confidence": 0.72,
+      "rationale": [
+        "AI関連株の調整局面",
+        "投資先の評価減リスク",
+        "金利上昇による負債コスト増"
+      ],
+      "entry": 6500,
+      "take_profit": 6200,
+      "stop_loss": 6800,
+      "time_horizon": "D1",
+      "detail_paths": {
+        "prediction": "/predictions?symbol=9984",
+        "analysis": "/analysis?symbol=9984"
+      }
+    },
+    {
+      "symbol": "4063",
+      "name": "信越化学工業",
+      "recommendation": "HOLD",
+      "confidence": 0.65,
+      "rationale": [
+        "半導体材料需要の回復待ち",
+        "中国市場の不透明感",
+        "業績は底打ちの兆し"
+      ],
+      "entry": 18500,
+      "take_profit": 19500,
+      "stop_loss": 18000,
+      "time_horizon": "2W",
+      "detail_paths": {
+        "prediction": "/predictions?symbol=4063",
+        "analysis": "/analysis?symbol=4063"
+      }
+    },
+    {
+      "symbol": "6861",
+      "name": "キーエンス",
+      "recommendation": "STRONG_SELL",
+      "confidence": 0.88,
+      "rationale": [
+        "製造業の設備投資減速",
+        "中国市場の需要減少",
+        "高PER水準での調整圧力"
+      ],
+      "entry": 45000,
+      "take_profit": 42000,
+      "stop_loss": 46000,
+      "time_horizon": "1W",
+      "detail_paths": {
+        "prediction": "/predictions?symbol=6861",
+        "analysis": "/analysis?symbol=6861"
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "symbol": "9984",
+      "type": "volatility",
+      "message": "直近高ボラティリティでリスク上昇",
+      "action": "ポジション縮小を検討"
+    }
+  ],
+  "todos": [
+    {
+      "type": "order",
+      "title": "買い候補2件の発注判断",
+      "count": 2
+    },
+    {
+      "type": "review",
+      "title": "損切り見直し",
+      "count": 1
+    },
+    {
+      "type": "monitor",
+      "title": "要注意銘柄の監視",
+      "count": 1
+    }
+  ]
+}
