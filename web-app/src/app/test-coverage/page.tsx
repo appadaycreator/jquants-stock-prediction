@@ -65,9 +65,11 @@ export default function TestCoveragePage() {
         setTestResult(result);
       }
     } catch (error) {
+      console.error("Test execution error:", error);
       setTestResult({
         success: false,
         error: error instanceof Error ? error.message : "Unknown error",
+        testType: testType,
       });
     } finally {
       setIsRunning(false);
@@ -77,6 +79,7 @@ export default function TestCoveragePage() {
   const generateCoverage = async () => {
     setIsRunning(true);
     setCoverageStats(null);
+    setTestResult(null);
 
     try {
       const response = await fetch("/api/test/run/");
@@ -87,17 +90,28 @@ export default function TestCoveragePage() {
         setTestResult({
           success: false,
           error: "この機能はGitHub Pages（静的ホスティング）では利用できません。ローカル環境でテストを実行してください。",
+          testType: "coverage_analysis",
         });
       } else if (result.success && result.stats) {
         setCoverageStats(result.stats);
-        setTestResult(result);
+        setTestResult({
+          success: true,
+          stats: result.stats,
+          testType: "coverage_analysis",
+        });
       } else {
-        setTestResult(result);
+        setTestResult({
+          success: false,
+          error: result.message || "カバレッジデータの取得に失敗しました。",
+          testType: "coverage_analysis",
+        });
       }
     } catch (error) {
+      console.error("Coverage generation error:", error);
       setTestResult({
         success: false,
         error: error instanceof Error ? error.message : "Unknown error",
+        testType: "coverage_analysis",
       });
     } finally {
       setIsRunning(false);
@@ -243,7 +257,27 @@ export default function TestCoveragePage() {
         </TabsContent>
 
         <TabsContent value="coverage" className="space-y-4">
-          {coverageStats ? (
+          {isRunning && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <RefreshCw className="h-5 w-5 animate-spin text-blue-600" />
+                  カバレッジ分析中...
+                </CardTitle>
+                <CardDescription>
+                  カバレッジデータを分析しています。しばらくお待ちください。
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center space-x-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                  <span className="text-sm text-muted-foreground">分析中...</span>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {coverageStats && !isRunning ? (
             <div className="space-y-4">
               <Card>
                 <CardHeader>
@@ -271,17 +305,37 @@ export default function TestCoveragePage() {
                 </CardContent>
               </Card>
             </div>
-          ) : (
+          ) : !isRunning ? (
             <Alert>
               <BarChart3 className="h-4 w-4" />
               <AlertDescription>
                 カバレッジデータがありません。「カバレッジ分析」ボタンをクリックしてデータを生成してください。
               </AlertDescription>
             </Alert>
-          )}
+          ) : null}
         </TabsContent>
 
         <TabsContent value="results" className="space-y-4">
+          {isRunning && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <RefreshCw className="h-5 w-5 animate-spin text-blue-600" />
+                  実行中...
+                </CardTitle>
+                <CardDescription>
+                  テストを実行しています。しばらくお待ちください。
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center space-x-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                  <span className="text-sm text-muted-foreground">処理中...</span>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {testResult && (
             <Card>
               <CardHeader>

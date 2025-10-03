@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   console.log("Test run API called");
   
   // GitHub Pages（静的ホスティング）ではAPIルートが動作しないため、フォールバック
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production') {
     return NextResponse.json({
       success: false,
       error: "APIルートは静的ホスティング環境では利用できません。ローカル環境でテストを実行してください。",
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   // GitHub Pages（静的ホスティング）ではAPIルートが動作しないため、フォールバック
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production') {
     return NextResponse.json({
       success: false,
       error: "APIルートは静的ホスティング環境では利用できません。ローカル環境でテストを実行してください。",
