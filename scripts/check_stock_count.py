@@ -64,7 +64,7 @@ def check_stock_count():
                 "markets": markets,
                 "check_timestamp": datetime.now().isoformat(),
             }
-            
+
             with open(data_dir / "stock_count_stats.json", "w", encoding="utf-8") as f:
                 json.dump(stats, f, ensure_ascii=False, indent=2)
 

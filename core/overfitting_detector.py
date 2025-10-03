@@ -18,11 +18,11 @@ class OverfittingDetector:
         self.detection_history = []
 
     def detect_overfitting(
-        self, 
-        train_r2: float, 
-        val_r2: float, 
+        self,
+        train_r2: float,
+        val_r2: float,
         test_r2: float,
-        max_r2_threshold: float = 0.95
+        max_r2_threshold: float = 0.95,
     ) -> Dict[str, Any]:
         """過学習検出機能"""
         try:
@@ -65,7 +65,7 @@ class OverfittingDetector:
                 "train_val_diff": train_val_diff,
                 "val_test_diff": val_test_diff,
                 "max_r2_threshold": max_r2_threshold,
-                "detection_timestamp": datetime.now().isoformat()
+                "detection_timestamp": datetime.now().isoformat(),
             }
 
             # 検出履歴に追加
@@ -86,7 +86,7 @@ class OverfittingDetector:
                 "train_val_diff": 0.0,
                 "val_test_diff": 0.0,
                 "max_r2_threshold": max_r2_threshold,
-                "detection_timestamp": datetime.now().isoformat()
+                "detection_timestamp": datetime.now().isoformat(),
             }
 
     def analyze_overfitting_trend(self) -> Dict[str, Any]:
@@ -97,15 +97,25 @@ class OverfittingDetector:
 
             # 最近の検出結果を分析
             recent_detections = self.detection_history[-10:]  # 最近10回
-            
+
             overfitting_count = sum(1 for d in recent_detections if d["is_overfitting"])
-            high_risk_count = sum(1 for d in recent_detections if d["risk_level"] == "高")
-            medium_risk_count = sum(1 for d in recent_detections if d["risk_level"] == "中")
+            high_risk_count = sum(
+                1 for d in recent_detections if d["risk_level"] == "高"
+            )
+            medium_risk_count = sum(
+                1 for d in recent_detections if d["risk_level"] == "中"
+            )
 
             # 平均R²スコア
-            avg_train_r2 = sum(d["train_r2"] for d in recent_detections) / len(recent_detections)
-            avg_val_r2 = sum(d["val_r2"] for d in recent_detections) / len(recent_detections)
-            avg_test_r2 = sum(d["test_r2"] for d in recent_detections) / len(recent_detections)
+            avg_train_r2 = sum(d["train_r2"] for d in recent_detections) / len(
+                recent_detections
+            )
+            avg_val_r2 = sum(d["val_r2"] for d in recent_detections) / len(
+                recent_detections
+            )
+            avg_test_r2 = sum(d["test_r2"] for d in recent_detections) / len(
+                recent_detections
+            )
 
             return {
                 "total_detections": len(self.detection_history),
@@ -116,7 +126,7 @@ class OverfittingDetector:
                 "average_train_r2": avg_train_r2,
                 "average_val_r2": avg_val_r2,
                 "average_test_r2": avg_test_r2,
-                "trend_analysis_timestamp": datetime.now().isoformat()
+                "trend_analysis_timestamp": datetime.now().isoformat(),
             }
 
         except Exception as e:
@@ -124,28 +134,33 @@ class OverfittingDetector:
                 self.error_handler.handle_validation_error(e)
             return {"error": str(e)}
 
-    def get_overfitting_recommendations(self, detection_result: Dict[str, Any]) -> List[str]:
+    def get_overfitting_recommendations(
+        self, detection_result: Dict[str, Any]
+    ) -> List[str]:
         """過学習対策の推奨事項"""
         recommendations = []
 
         if detection_result["risk_level"] == "高":
-            recommendations.extend([
-                "データの正規化・標準化を実施してください",
-                "より多くのデータを収集してください",
-                "特徴量選択を検討してください",
-                "正則化パラメータを調整してください"
-            ])
+            recommendations.extend(
+                [
+                    "データの正規化・標準化を実施してください",
+                    "より多くのデータを収集してください",
+                    "特徴量選択を検討してください",
+                    "正則化パラメータを調整してください",
+                ]
+            )
         elif detection_result["risk_level"] == "中":
-            recommendations.extend([
-                "クロスバリデーションを実施してください",
-                "早期停止を検討してください",
-                "ドロップアウトを適用してください"
-            ])
+            recommendations.extend(
+                [
+                    "クロスバリデーションを実施してください",
+                    "早期停止を検討してください",
+                    "ドロップアウトを適用してください",
+                ]
+            )
         elif detection_result["train_val_diff"] > 0.05:
-            recommendations.extend([
-                "モデルの複雑さを減らしてください",
-                "データ拡張を検討してください"
-            ])
+            recommendations.extend(
+                ["モデルの複雑さを減らしてください", "データ拡張を検討してください"]
+            )
 
         return recommendations
 
@@ -161,14 +176,16 @@ class OverfittingDetector:
             return {"message": "検出履歴がありません"}
 
         total_detections = len(self.detection_history)
-        overfitting_detections = sum(1 for d in self.detection_history if d["is_overfitting"])
-        
+        overfitting_detections = sum(
+            1 for d in self.detection_history if d["is_overfitting"]
+        )
+
         risk_levels = [d["risk_level"] for d in self.detection_history]
         risk_distribution = {
             "高": risk_levels.count("高"),
             "中": risk_levels.count("中"),
             "低": risk_levels.count("低"),
-            "不明": risk_levels.count("不明")
+            "不明": risk_levels.count("不明"),
         }
 
         return {
@@ -176,7 +193,15 @@ class OverfittingDetector:
             "overfitting_detections": overfitting_detections,
             "overfitting_rate": overfitting_detections / total_detections,
             "risk_distribution": risk_distribution,
-            "first_detection": self.detection_history[0]["detection_timestamp"] if self.detection_history else None,
-            "last_detection": self.detection_history[-1]["detection_timestamp"] if self.detection_history else None,
-            "statistics_timestamp": datetime.now().isoformat()
+            "first_detection": (
+                self.detection_history[0]["detection_timestamp"]
+                if self.detection_history
+                else None
+            ),
+            "last_detection": (
+                self.detection_history[-1]["detection_timestamp"]
+                if self.detection_history
+                else None
+            ),
+            "statistics_timestamp": datetime.now().isoformat(),
         }

@@ -35,14 +35,14 @@ class PerformanceOptimizer:
 
             self.monitoring_active = True
             self.monitoring_thread = threading.Thread(
-                target=self._monitoring_loop, 
-                args=(interval,), 
-                daemon=True
+                target=self._monitoring_loop, args=(interval,), daemon=True
             )
             self.monitoring_thread.start()
 
             if self.logger:
-                self.logger.log_info(f"パフォーマンス監視を開始しました（間隔: {interval}秒）")
+                self.logger.log_info(
+                    f"パフォーマンス監視を開始しました（間隔: {interval}秒）"
+                )
 
         except Exception as e:
             if self.error_handler:
@@ -67,10 +67,10 @@ class PerformanceOptimizer:
             try:
                 metrics = self.collect_system_metrics()
                 self.metrics_history.append(metrics)
-                
+
                 # パフォーマンス問題の検出
                 self._detect_performance_issues(metrics)
-                
+
                 time.sleep(interval)
             except Exception as e:
                 if self.logger:
@@ -82,17 +82,17 @@ class PerformanceOptimizer:
         try:
             # CPU使用率
             cpu_percent = psutil.cpu_percent(interval=1)
-            
+
             # メモリ使用量
             memory = psutil.virtual_memory()
-            
+
             # ディスク使用量
-            disk = psutil.disk_usage('/')
-            
+            disk = psutil.disk_usage("/")
+
             # プロセス情報
             process = psutil.Process()
             process_memory = process.memory_info()
-            
+
             return {
                 "timestamp": datetime.now().isoformat(),
                 "cpu_percent": cpu_percent,
@@ -104,7 +104,7 @@ class PerformanceOptimizer:
                 "disk_percent": (disk.used / disk.total) * 100,
                 "process_memory_rss": process_memory.rss,
                 "process_memory_vms": process_memory.vms,
-                "process_cpu_percent": process.cpu_percent()
+                "process_cpu_percent": process.cpu_percent(),
             }
         except Exception as e:
             if self.error_handler:
@@ -119,22 +119,32 @@ class PerformanceOptimizer:
             # CPU使用率のチェック
             if metrics.get("cpu_percent", 0) > 90:
                 issues.append(f"CPU使用率が高すぎます: {metrics['cpu_percent']:.1f}%")
-                self._log_performance_warning("high_cpu", metrics['cpu_percent'], 90.0)
+                self._log_performance_warning("high_cpu", metrics["cpu_percent"], 90.0)
 
             # メモリ使用率のチェック
             if metrics.get("memory_percent", 0) > 90:
-                issues.append(f"メモリ使用率が高すぎます: {metrics['memory_percent']:.1f}%")
-                self._log_performance_warning("high_memory", metrics['memory_percent'], 90.0)
+                issues.append(
+                    f"メモリ使用率が高すぎます: {metrics['memory_percent']:.1f}%"
+                )
+                self._log_performance_warning(
+                    "high_memory", metrics["memory_percent"], 90.0
+                )
 
             # ディスク使用率のチェック
             if metrics.get("disk_percent", 0) > 90:
-                issues.append(f"ディスク使用率が高すぎます: {metrics['disk_percent']:.1f}%")
-                self._log_performance_warning("high_disk", metrics['disk_percent'], 90.0)
+                issues.append(
+                    f"ディスク使用率が高すぎます: {metrics['disk_percent']:.1f}%"
+                )
+                self._log_performance_warning(
+                    "high_disk", metrics["disk_percent"], 90.0
+                )
 
             if issues:
                 if self.logger:
-                    self.logger.log_warning(f"パフォーマンス問題を検出: {', '.join(issues)}")
-                
+                    self.logger.log_warning(
+                        f"パフォーマンス問題を検出: {', '.join(issues)}"
+                    )
+
                 # 自動最適化の実行
                 if self.optimization_enabled:
                     self._auto_optimize(issues)
@@ -143,10 +153,14 @@ class PerformanceOptimizer:
             if self.logger:
                 self.logger.log_warning(f"パフォーマンス問題検出エラー: {e}")
 
-    def _log_performance_warning(self, warning_type: str, value: float, threshold: float):
+    def _log_performance_warning(
+        self, warning_type: str, value: float, threshold: float
+    ):
         """パフォーマンス警告ログ"""
         if self.logger:
-            self.logger.log_warning(f"パフォーマンス警告: {warning_type} = {value:.1f}% (閾値: {threshold:.1f}%)")
+            self.logger.log_warning(
+                f"パフォーマンス警告: {warning_type} = {value:.1f}% (閾値: {threshold:.1f}%)"
+            )
 
     def _auto_optimize(self, issues: List[str]):
         """自動最適化の実行"""
@@ -170,7 +184,9 @@ class PerformanceOptimizer:
 
             if optimizations:
                 if self.logger:
-                    self.logger.log_info(f"自動最適化を実行: {', '.join(optimizations)}")
+                    self.logger.log_info(
+                        f"自動最適化を実行: {', '.join(optimizations)}"
+                    )
 
         except Exception as e:
             if self.logger:
@@ -184,19 +200,35 @@ class PerformanceOptimizer:
                     "average_cpu": 0,
                     "average_memory": 0,
                     "average_disk": 0,
-                    "total_metrics": 0
+                    "total_metrics": 0,
                 }
 
             # 平均値の計算
-            cpu_values = [m.get("cpu_percent", 0) for m in self.metrics_history if "cpu_percent" in m]
-            memory_values = [m.get("memory_percent", 0) for m in self.metrics_history if "memory_percent" in m]
-            disk_values = [m.get("disk_percent", 0) for m in self.metrics_history if "disk_percent" in m]
+            cpu_values = [
+                m.get("cpu_percent", 0)
+                for m in self.metrics_history
+                if "cpu_percent" in m
+            ]
+            memory_values = [
+                m.get("memory_percent", 0)
+                for m in self.metrics_history
+                if "memory_percent" in m
+            ]
+            disk_values = [
+                m.get("disk_percent", 0)
+                for m in self.metrics_history
+                if "disk_percent" in m
+            ]
 
             return {
                 "average_cpu": sum(cpu_values) / len(cpu_values) if cpu_values else 0,
-                "average_memory": sum(memory_values) / len(memory_values) if memory_values else 0,
-                "average_disk": sum(disk_values) / len(disk_values) if disk_values else 0,
-                "total_metrics": len(self.metrics_history)
+                "average_memory": (
+                    sum(memory_values) / len(memory_values) if memory_values else 0
+                ),
+                "average_disk": (
+                    sum(disk_values) / len(disk_values) if disk_values else 0
+                ),
+                "total_metrics": len(self.metrics_history),
             }
 
         except Exception as e:
@@ -209,11 +241,16 @@ class PerformanceOptimizer:
         try:
             # ガベージコレクション
             collected = gc.collect()
-            
-            if self.logger:
-                self.logger.log_info(f"メモリ最適化完了: {collected}個のオブジェクトを回収")
 
-            return {"collected_objects": collected, "timestamp": datetime.now().isoformat()}
+            if self.logger:
+                self.logger.log_info(
+                    f"メモリ最適化完了: {collected}個のオブジェクトを回収"
+                )
+
+            return {
+                "collected_objects": collected,
+                "timestamp": datetime.now().isoformat(),
+            }
 
         except Exception as e:
             if self.error_handler:
@@ -235,15 +272,21 @@ class PerformanceOptimizer:
 
             # CPU推奨事項
             if latest_metrics.get("cpu_percent", 0) > 80:
-                recommendations.append("CPU使用率が高いです。処理の並列化を検討してください")
+                recommendations.append(
+                    "CPU使用率が高いです。処理の並列化を検討してください"
+                )
 
             # メモリ推奨事項
             if latest_metrics.get("memory_percent", 0) > 80:
-                recommendations.append("メモリ使用率が高いです。データのバッチ処理を検討してください")
+                recommendations.append(
+                    "メモリ使用率が高いです。データのバッチ処理を検討してください"
+                )
 
             # ディスク推奨事項
             if latest_metrics.get("disk_percent", 0) > 80:
-                recommendations.append("ディスク使用率が高いです。古いログファイルの削除を検討してください")
+                recommendations.append(
+                    "ディスク使用率が高いです。古いログファイルの削除を検討してください"
+                )
 
             if not recommendations:
                 recommendations.append("現在のパフォーマンスは良好です")
@@ -267,10 +310,10 @@ class PerformanceOptimizer:
             return {
                 "cpu_count": psutil.cpu_count(),
                 "memory_total": psutil.virtual_memory().total,
-                "disk_total": psutil.disk_usage('/').total,
+                "disk_total": psutil.disk_usage("/").total,
                 "python_version": f"{psutil.sys.version_info.major}.{psutil.sys.version_info.minor}.{psutil.sys.version_info.micro}",
                 "platform": psutil.sys.platform,
-                "timestamp": datetime.now().isoformat()
+                "timestamp": datetime.now().isoformat(),
             }
         except Exception as e:
             if self.error_handler:

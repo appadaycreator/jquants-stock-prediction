@@ -49,7 +49,7 @@ class PredictionEngine:
 
             # 設定の取得と検証
             config = self._get_prediction_config()
-            
+
             # データの読み込みと検証
             df = self._load_and_validate_data(config["input_file"])
             if df is None:
@@ -67,31 +67,43 @@ class PredictionEngine:
                 )
             else:
                 result = self._execute_single_model(
-                    config["primary_model"], X_train, X_val, X_test, y_train, y_val, y_test
+                    config["primary_model"],
+                    X_train,
+                    X_val,
+                    X_test,
+                    y_train,
+                    y_val,
+                    y_test,
                 )
 
             # 過学習検出
             if config["overfitting_detection"]:
-                result["overfitting_detection"] = self.overfitting_detector.detect_overfitting(
-                    result.get("model_results", [{}])[0].get("train_r2", 0),
-                    result.get("model_results", [{}])[0].get("val_r2", 0),
-                    result.get("model_results", [{}])[0].get("test_r2", 0),
-                    config.get("max_r2_score", 0.95)
+                result["overfitting_detection"] = (
+                    self.overfitting_detector.detect_overfitting(
+                        result.get("model_results", [{}])[0].get("train_r2", 0),
+                        result.get("model_results", [{}])[0].get("val_r2", 0),
+                        result.get("model_results", [{}])[0].get("test_r2", 0),
+                        config.get("max_r2_score", 0.95),
+                    )
                 )
 
             # 可視化
             if result.get("model_results"):
                 self.visualization_manager.create_prediction_visualization(
-                    y_test, result["model_results"][0]["predictions"], 
-                    result["best_model"], config["output_file"]
+                    y_test,
+                    result["model_results"][0]["predictions"],
+                    result["best_model"],
+                    config["output_file"],
                 )
 
             # 結果の統合
-            result.update({
-                "success": True,
-                "data_info": self._create_data_info(X_train, X_val, X_test, config),
-                "timestamp": datetime.now().isoformat(),
-            })
+            result.update(
+                {
+                    "success": True,
+                    "data_info": self._create_data_info(X_train, X_val, X_test, config),
+                    "timestamp": datetime.now().isoformat(),
+                }
+            )
 
             if self.logger:
                 self.logger.log_info("✅ 株価予測システム完了")
@@ -101,25 +113,45 @@ class PredictionEngine:
         except Exception as e:
             if self.error_handler:
                 self.error_handler.handle_data_processing_error(
-                    e, "株価予測実行", {"input_file": config.get("input_file", "unknown")}
+                    e,
+                    "株価予測実行",
+                    {"input_file": config.get("input_file", "unknown")},
                 )
             return self._create_error_result(str(e))
 
     def _get_prediction_config(self) -> Dict[str, Any]:
         """予測設定の取得と検証"""
         return {
-            "input_file": self.prediction_config.get("input_file", "processed_stock_data.csv"),
-            "features": self.prediction_config.get("features", [
-                "SMA_5", "SMA_25", "SMA_50", "Close_lag_1", "Close_lag_5", "Close_lag_25"
-            ]),
+            "input_file": self.prediction_config.get(
+                "input_file", "processed_stock_data.csv"
+            ),
+            "features": self.prediction_config.get(
+                "features",
+                [
+                    "SMA_5",
+                    "SMA_25",
+                    "SMA_50",
+                    "Close_lag_1",
+                    "Close_lag_5",
+                    "Close_lag_25",
+                ],
+            ),
             "target": self.prediction_config.get("target", "Close"),
             "test_size": self.prediction_config.get("test_size", 0.2),
             "random_state": self.prediction_config.get("random_state", 42),
-            "compare_models": self.prediction_config.get("model_selection", {}).get("compare_models", False),
-            "primary_model": self.prediction_config.get("model_selection", {}).get("primary_model", "random_forest"),
-            "overfitting_detection": self.prediction_config.get("overfitting_detection", True),
-            "output_file": self.prediction_config.get("output", {}).get("image", "stock_prediction_result.png"),
-            "max_r2_score": self.prediction_config.get("max_r2_score", 0.95)
+            "compare_models": self.prediction_config.get("model_selection", {}).get(
+                "compare_models", False
+            ),
+            "primary_model": self.prediction_config.get("model_selection", {}).get(
+                "primary_model", "random_forest"
+            ),
+            "overfitting_detection": self.prediction_config.get(
+                "overfitting_detection", True
+            ),
+            "output_file": self.prediction_config.get("output", {}).get(
+                "image", "stock_prediction_result.png"
+            ),
+            "max_r2_score": self.prediction_config.get("max_r2_score", 0.95),
         }
 
     def _load_and_validate_data(self, input_file: str) -> Optional[pd.DataFrame]:
@@ -127,15 +159,17 @@ class PredictionEngine:
         try:
             if self.logger:
                 self.logger.log_info(f"データを読み込み中: {input_file}")
-            
+
             df = pd.read_csv(input_file)
-            
+
             # データ検証
             validation_result = self.data_validator.validate_data(df)
             if not validation_result["is_valid"]:
                 if self.logger:
-                    self.logger.log_warning(f"データ検証で問題を発見: {validation_result['issues']}")
-            
+                    self.logger.log_warning(
+                        f"データ検証で問題を発見: {validation_result['issues']}"
+                    )
+
             return df
         except Exception as e:
             if self.error_handler:
@@ -146,60 +180,61 @@ class PredictionEngine:
         """データの分割"""
         X = df[features]
         y = df[target]
-        
+
         # 時系列データの適切な分割（学習60%・検証20%・テスト20%）
         total_size = len(X)
         train_size = int(total_size * 0.6)
         val_size = int(total_size * 0.2)
-        
+
         # 時系列順に分割
         X_train = X.iloc[:train_size]
         y_train = y.iloc[:train_size]
-        X_val = X.iloc[train_size:train_size + val_size]
-        y_val = y.iloc[train_size:train_size + val_size]
-        X_test = X.iloc[train_size + val_size:]
-        y_test = y.iloc[train_size + val_size:]
-        
+        X_val = X.iloc[train_size : train_size + val_size]
+        y_val = y.iloc[train_size : train_size + val_size]
+        X_test = X.iloc[train_size + val_size :]
+        y_test = y.iloc[train_size + val_size :]
+
         if self.logger:
             self.logger.log_info(
                 f"訓練データ: {len(X_train)}行, 検証データ: {len(X_val)}行, テストデータ: {len(X_test)}行"
             )
-        
+
         return X_train, X_val, X_test, y_train, y_val, y_test
 
-    def _execute_model_comparison(self, X_train, X_val, X_test, y_train, y_val, y_test, config: Dict[str, Any]) -> Dict[str, Any]:
+    def _execute_model_comparison(
+        self, X_train, X_val, X_test, y_train, y_val, y_test, config: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """モデル比較の実行"""
         if self.logger:
             self.logger.log_info("🔄 複数モデル比較を実行中...")
-        
+
         comparison_result = self.model_manager.compare_models(
             X_train, X_val, X_test, y_train, y_val, y_test
         )
-        
+
         best_model_name = comparison_result.get("best_model", "random_forest")
         model_results = self._train_and_predict_with_validation(
             best_model_name, X_train, X_val, X_test, y_train, y_val, y_test
         )
-        
+
         return {
             "best_model": best_model_name,
             "model_results": [model_results],
-            "comparison_results": comparison_result.get("results", [])
+            "comparison_results": comparison_result.get("results", []),
         }
 
-    def _execute_single_model(self, model_name: str, X_train, X_val, X_test, y_train, y_val, y_test) -> Dict[str, Any]:
+    def _execute_single_model(
+        self, model_name: str, X_train, X_val, X_test, y_train, y_val, y_test
+    ) -> Dict[str, Any]:
         """単一モデルの実行"""
         if self.logger:
             self.logger.log_info(f"🎯 単一モデル実行: {model_name}")
-        
+
         model_results = self._train_and_predict_with_validation(
             model_name, X_train, X_val, X_test, y_train, y_val, y_test
         )
-        
-        return {
-            "best_model": model_name,
-            "model_results": [model_results]
-        }
+
+        return {"best_model": model_name, "model_results": [model_results]}
 
     def _train_and_predict_with_validation(
         self, model_name: str, X_train, X_val, X_test, y_train, y_val, y_test
@@ -208,7 +243,7 @@ class PredictionEngine:
         try:
             # モデルの学習
             model = self.model_manager.train_model(model_name, X_train, y_train)
-            
+
             # モデルの評価
             evaluation = self.model_manager.evaluate_model(
                 model, X_train, X_val, X_test, y_train, y_val, y_test
@@ -244,14 +279,16 @@ class PredictionEngine:
             return max_r2
         return test_r2
 
-    def _create_data_info(self, X_train, X_val, X_test, config: Dict[str, Any]) -> Dict[str, Any]:
+    def _create_data_info(
+        self, X_train, X_val, X_test, config: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """データ情報の作成"""
         return {
             "train_size": len(X_train),
             "val_size": len(X_val),
             "test_size": len(X_test),
             "features": config["features"],
-            "target": config["target"]
+            "target": config["target"],
         }
 
     def _create_error_result(self, error_message: str) -> Dict[str, Any]:
@@ -259,7 +296,7 @@ class PredictionEngine:
         return {
             "success": False,
             "error": error_message,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
 
     def validate_data(self, data: pd.DataFrame) -> Dict[str, Any]:
@@ -317,11 +354,15 @@ class PredictionEngine:
             "timestamp": datetime.now().isoformat(),
         }
 
-    def _detect_overfitting(self, train_r2: float, val_r2: float, test_r2: float) -> Dict[str, Any]:
+    def _detect_overfitting(
+        self, train_r2: float, val_r2: float, test_r2: float
+    ) -> Dict[str, Any]:
         """過学習検出（後方互換性のため）"""
         return self.overfitting_detector.detect_overfitting(train_r2, val_r2, test_r2)
 
-    def _create_visualization(self, y_test, y_pred, model_name: str, output_file: str) -> None:
+    def _create_visualization(
+        self, y_test, y_pred, model_name: str, output_file: str
+    ) -> None:
         """可視化の作成（後方互換性のため）"""
         self.visualization_manager.create_prediction_visualization(
             y_test, y_pred, model_name, output_file
@@ -333,5 +374,5 @@ class PredictionEngine:
             "model_info": self.model_manager.get_model_info(),
             "visualization_info": self.visualization_manager.get_visualization_info(),
             "overfitting_statistics": self.overfitting_detector.get_detection_statistics(),
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }

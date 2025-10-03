@@ -32,19 +32,19 @@ class TestDifferentialUpdaterEnhanced:
             {
                 "symbol": "7203",
                 "data": [{"date": "2024-01-01", "close": 100.0}],
-                "source": "jquants_api"
+                "source": "jquants_api",
             },
             {
                 "symbol": "6758",
                 "data": [{"date": "2024-01-01", "close": 200.0}],
-                "source": "jquants_api"
-            }
+                "source": "jquants_api",
+            },
         ]
-        
-        with patch.object(self.updater, 'update_stock_data') as mock_update:
+
+        with patch.object(self.updater, "update_stock_data") as mock_update:
             mock_update.return_value = {"success": True, "symbol": "test"}
             result = self.updater.batch_update(updates)
-            
+
             assert result["success"] is True
             assert result["total_updates"] == 2
             assert result["success_count"] == 2
@@ -56,22 +56,22 @@ class TestDifferentialUpdaterEnhanced:
             {
                 "symbol": "7203",
                 "data": [{"date": "2024-01-01", "close": 100.0}],
-                "source": "jquants_api"
+                "source": "jquants_api",
             },
             {
                 "symbol": "6758",
                 "data": [{"date": "2024-01-01", "close": 200.0}],
-                "source": "jquants_api"
-            }
+                "source": "jquants_api",
+            },
         ]
-        
-        with patch.object(self.updater, 'update_stock_data') as mock_update:
+
+        with patch.object(self.updater, "update_stock_data") as mock_update:
             mock_update.side_effect = [
                 {"success": True, "symbol": "7203"},
-                {"success": False, "error": "Test error", "symbol": "6758"}
+                {"success": False, "error": "Test error", "symbol": "6758"},
             ]
             result = self.updater.batch_update(updates)
-            
+
             assert result["success"] is False  # エラーがある場合はFalse
             assert result["total_updates"] == 2
             assert result["success_count"] == 1
@@ -83,14 +83,14 @@ class TestDifferentialUpdaterEnhanced:
             {
                 "symbol": "7203",
                 "data": [{"date": "2024-01-01", "close": 100.0}],
-                "source": "jquants_api"
+                "source": "jquants_api",
             }
         ]
-        
-        with patch.object(self.updater, 'update_stock_data') as mock_update:
+
+        with patch.object(self.updater, "update_stock_data") as mock_update:
             mock_update.return_value = {"success": False, "error": "Test error"}
             result = self.updater.batch_update(updates)
-            
+
             assert result["success"] is False
             assert result["total_updates"] == 1
             assert result["success_count"] == 0
@@ -99,7 +99,7 @@ class TestDifferentialUpdaterEnhanced:
     def test_batch_update_empty_list(self):
         """バッチ更新テスト（空リスト）"""
         result = self.updater.batch_update([])
-        
+
         assert result["success"] is True
         assert result["total_updates"] == 0
         assert result["success_count"] == 0
@@ -116,10 +116,10 @@ class TestDifferentialUpdaterEnhanced:
                 "high": 110.0,
                 "low": 90.0,
                 "close": 105.0,
-                "volume": 1000
+                "volume": 1000,
             }
         ]
-        
+
         result = self.updater._validate_data_integrity(valid_data, [])
         assert result["is_valid"] is True
         assert len(result["issues"]) == 0
@@ -133,10 +133,10 @@ class TestDifferentialUpdaterEnhanced:
                 "high": 110.0,
                 "low": 90.0,
                 "close": 105.0,
-                "volume": 1000
+                "volume": 1000,
             }
         ]
-        
+
         result = self.updater._validate_data_integrity(invalid_data, [])
         assert result["is_valid"] is False
         assert len(result["issues"]) > 0
@@ -150,10 +150,10 @@ class TestDifferentialUpdaterEnhanced:
                 "high": 110.0,
                 "low": 90.0,
                 "close": 105.0,
-                "volume": 1000
+                "volume": 1000,
             }
         ]
-        
+
         result = self.updater._validate_data_integrity(invalid_date_data, [])
         assert result["is_valid"] is False
         assert len(result["issues"]) > 0
@@ -167,10 +167,10 @@ class TestDifferentialUpdaterEnhanced:
                 "high": 90.0,  # 高値が始値より低い
                 "low": 110.0,  # 安値が始値より高い
                 "close": 105.0,
-                "volume": 1000
+                "volume": 1000,
             }
         ]
-        
+
         result = self.updater._validate_data_integrity(invalid_price_data, [])
         assert result["is_valid"] is False
         assert len(result["issues"]) > 0
@@ -180,11 +180,11 @@ class TestDifferentialUpdaterEnhanced:
         duplicate_data = [
             {"date": "2024-01-01", "close": 100.0},
             {"date": "2024-01-01", "close": 100.0},  # 重複
-            {"date": "2024-01-02", "close": 105.0}
+            {"date": "2024-01-02", "close": 105.0},
         ]
-        
+
         result = self.updater._remove_duplicates(duplicate_data)
-        
+
         assert len(result) == 2
         assert result[0]["date"] == "2024-01-01"
         assert result[1]["date"] == "2024-01-02"
@@ -198,9 +198,9 @@ class TestDifferentialUpdaterEnhanced:
         """重複削除テスト（重複なし）"""
         unique_data = [
             {"date": "2024-01-01", "close": 100.0},
-            {"date": "2024-01-02", "close": 105.0}
+            {"date": "2024-01-02", "close": 105.0},
         ]
-        
+
         result = self.updater._remove_duplicates(unique_data)
         assert len(result) == 2
         assert result == unique_data
@@ -210,10 +210,14 @@ class TestDifferentialUpdaterEnhanced:
         symbol = "7203"
         data = [{"date": "2024-01-01", "close": 100.0}]
         source = "jquants_api"
-        
+
         # 統合テストとしてupdate_stock_dataをテスト
-        with patch.object(self.updater.json_manager, 'save_stock_data', return_value=True):
-            with patch.object(self.updater.json_manager, 'get_stock_data', return_value=[]):
+        with patch.object(
+            self.updater.json_manager, "save_stock_data", return_value=True
+        ):
+            with patch.object(
+                self.updater.json_manager, "get_stock_data", return_value=[]
+            ):
                 result = self.updater.update_stock_data(symbol, data, source)
                 # 成功することを確認（実際の実装に依存）
                 assert isinstance(result, dict)
@@ -222,7 +226,7 @@ class TestDifferentialUpdaterEnhanced:
     def test_get_update_statistics_empty(self):
         """更新統計取得テスト（空データ）"""
         result = self.updater.get_update_statistics()
-        
+
         assert result["total_updates"] == 0
         assert result["symbols_updated"] == 0
         assert result["recent_updates_7days"] == 0
@@ -235,29 +239,21 @@ class TestDifferentialUpdaterEnhanced:
             {
                 "timestamp": "2024-01-01T10:00:00",
                 "symbol": "7203",
-                "diff": {
-                    "added_count": 1,
-                    "updated_count": 0,
-                    "removed_count": 0
-                }
+                "diff": {"added_count": 1, "updated_count": 0, "removed_count": 0},
             },
             {
                 "timestamp": "2024-01-02T10:00:00",
                 "symbol": "6758",
-                "diff": {
-                    "added_count": 2,
-                    "updated_count": 1,
-                    "removed_count": 0
-                }
-            }
+                "diff": {"added_count": 2, "updated_count": 1, "removed_count": 0},
+            },
         ]
-        
+
         diff_log_file = self.updater.data_dir / "diff_log.json"
-        with open(diff_log_file, 'w', encoding='utf-8') as f:
+        with open(diff_log_file, "w", encoding="utf-8") as f:
             json.dump(diff_log, f, ensure_ascii=False, indent=2)
-        
+
         result = self.updater.get_update_statistics()
-        
+
         assert result["total_updates"] == 2
         assert result["symbols_updated"] == 2
         assert "7203" in result["symbol_statistics"]
@@ -303,10 +299,10 @@ class TestDifferentialUpdaterEnhanced:
                 "high": "110.0",
                 "low": "90.0",
                 "close": "105.0",
-                "volume": "1000"
+                "volume": "1000",
             }
         ]
-        
+
         result = self.updater._normalize_data_for_diff(data_with_none)
         assert len(result) == 1
         assert result[0]["open"] == 0.0  # Noneは0.0に変換
@@ -365,7 +361,7 @@ class TestDifferentialUpdaterEnhanced:
         """update_stock_dataのエラーハンドリングテスト"""
         # 無効なデータでのテスト
         invalid_data = None
-        
+
         result = self.updater.update_stock_data("7203", invalid_data)
         assert result["success"] is False
         assert "error" in result
@@ -374,7 +370,7 @@ class TestDifferentialUpdaterEnhanced:
         """batch_updateのエラーハンドリングテスト"""
         # 無効な更新データ
         invalid_updates = None
-        
+
         with pytest.raises(TypeError):
             self.updater.batch_update(invalid_updates)
 
@@ -382,9 +378,9 @@ class TestDifferentialUpdaterEnhanced:
         """get_update_statisticsのエラーハンドリングテスト"""
         # 破損した差分ログファイルの作成
         diff_log_file = self.updater.data_dir / "diff_log.json"
-        with open(diff_log_file, 'w', encoding='utf-8') as f:
+        with open(diff_log_file, "w", encoding="utf-8") as f:
             f.write("invalid json")
-        
+
         result = self.updater.get_update_statistics()
         # エラー時はデフォルト値を持つ辞書を返す
         assert isinstance(result, dict)

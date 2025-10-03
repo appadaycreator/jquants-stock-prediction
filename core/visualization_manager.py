@@ -27,23 +27,30 @@ class VisualizationManager:
         """matplotlibの設定"""
         try:
             import matplotlib.font_manager as fm
+
             # 日本語フォントの設定
-            plt.rcParams['font.family'] = [
-                'DejaVu Sans', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', 
-                'Takao', 'IPAexGothic', 'IPAPGothic', 'VL PGothic', 
-                'Noto Sans CJK JP'
+            plt.rcParams["font.family"] = [
+                "DejaVu Sans",
+                "Hiragino Sans",
+                "Yu Gothic",
+                "Meiryo",
+                "Takao",
+                "IPAexGothic",
+                "IPAPGothic",
+                "VL PGothic",
+                "Noto Sans CJK JP",
             ]
         except Exception:
             if self.logger:
                 self.logger.log_warning("日本語フォント設定をスキップします")
 
     def create_prediction_visualization(
-        self, 
-        y_test: pd.Series, 
-        y_pred: np.ndarray, 
-        model_name: str, 
+        self,
+        y_test: pd.Series,
+        y_pred: np.ndarray,
+        model_name: str,
         output_file: str,
-        title: str = "株価予測結果"
+        title: str = "株価予測結果",
     ) -> bool:
         """予測結果の可視化"""
         try:
@@ -66,8 +73,7 @@ class VisualizationManager:
             plt.subplot(2, 2, 2)
             plt.scatter(y_test, y_pred, alpha=0.6, color="green")
             plt.plot(
-                [y_test.min(), y_test.max()], 
-                [y_test.min(), y_test.max()], "r--", lw=2
+                [y_test.min(), y_test.max()], [y_test.min(), y_test.max()], "r--", lw=2
             )
             plt.xlabel("実際の株価")
             plt.ylabel("予測株価")
@@ -94,7 +100,7 @@ class VisualizationManager:
             plt.grid(True, alpha=0.3)
 
             plt.tight_layout()
-            plt.savefig(output_file, dpi=300, bbox_inches="tight", facecolor='white')
+            plt.savefig(output_file, dpi=300, bbox_inches="tight", facecolor="white")
             plt.close()  # メモリ節約のため
 
             if self.logger:
@@ -108,10 +114,10 @@ class VisualizationManager:
             return False
 
     def create_model_comparison_chart(
-        self, 
-        comparison_results: List[Dict], 
+        self,
+        comparison_results: List[Dict],
         output_file: str,
-        title: str = "モデル比較結果"
+        title: str = "モデル比較結果",
     ) -> bool:
         """モデル比較チャートの作成"""
         try:
@@ -119,15 +125,22 @@ class VisualizationManager:
                 return False
 
             # データの準備
-            model_names = [r.get("model_name", f"Model_{i}") for i, r in enumerate(comparison_results)]
-            mae_scores = [r.get("metrics", {}).get("test_mae", 0) for r in comparison_results]
-            r2_scores = [r.get("metrics", {}).get("test_r2", 0) for r in comparison_results]
+            model_names = [
+                r.get("model_name", f"Model_{i}")
+                for i, r in enumerate(comparison_results)
+            ]
+            mae_scores = [
+                r.get("metrics", {}).get("test_mae", 0) for r in comparison_results
+            ]
+            r2_scores = [
+                r.get("metrics", {}).get("test_r2", 0) for r in comparison_results
+            ]
 
             plt.figure(figsize=(12, 6), dpi=100)
 
             # MAE比較
             plt.subplot(1, 2, 1)
-            bars1 = plt.bar(model_names, mae_scores, color='skyblue', alpha=0.7)
+            bars1 = plt.bar(model_names, mae_scores, color="skyblue", alpha=0.7)
             plt.title("MAE比較")
             plt.ylabel("MAE")
             plt.xticks(rotation=45)
@@ -135,12 +148,17 @@ class VisualizationManager:
 
             # バーの上に値を表示
             for bar, score in zip(bars1, mae_scores):
-                plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.001,
-                        f'{score:.4f}', ha='center', va='bottom')
+                plt.text(
+                    bar.get_x() + bar.get_width() / 2,
+                    bar.get_height() + 0.001,
+                    f"{score:.4f}",
+                    ha="center",
+                    va="bottom",
+                )
 
             # R²比較
             plt.subplot(1, 2, 2)
-            bars2 = plt.bar(model_names, r2_scores, color='lightcoral', alpha=0.7)
+            bars2 = plt.bar(model_names, r2_scores, color="lightcoral", alpha=0.7)
             plt.title("R²比較")
             plt.ylabel("R²")
             plt.xticks(rotation=45)
@@ -148,15 +166,22 @@ class VisualizationManager:
 
             # バーの上に値を表示
             for bar, score in zip(bars2, r2_scores):
-                plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.001,
-                        f'{score:.4f}', ha='center', va='bottom')
+                plt.text(
+                    bar.get_x() + bar.get_width() / 2,
+                    bar.get_height() + 0.001,
+                    f"{score:.4f}",
+                    ha="center",
+                    va="bottom",
+                )
 
             plt.tight_layout()
-            plt.savefig(output_file, dpi=300, bbox_inches="tight", facecolor='white')
+            plt.savefig(output_file, dpi=300, bbox_inches="tight", facecolor="white")
             plt.close()
 
             if self.logger:
-                self.logger.log_info(f"📊 モデル比較チャートを '{output_file}' に保存しました")
+                self.logger.log_info(
+                    f"📊 モデル比較チャートを '{output_file}' に保存しました"
+                )
 
             return True
 
@@ -166,10 +191,10 @@ class VisualizationManager:
             return False
 
     def create_performance_metrics_chart(
-        self, 
-        metrics: Dict[str, float], 
+        self,
+        metrics: Dict[str, float],
         output_file: str,
-        title: str = "パフォーマンス指標"
+        title: str = "パフォーマンス指標",
     ) -> bool:
         """パフォーマンス指標チャートの作成"""
         try:
@@ -178,7 +203,7 @@ class VisualizationManager:
             metric_values = list(metrics.values())
 
             plt.figure(figsize=(10, 6), dpi=100)
-            bars = plt.bar(metric_names, metric_values, color='lightgreen', alpha=0.7)
+            bars = plt.bar(metric_names, metric_values, color="lightgreen", alpha=0.7)
             plt.title(title)
             plt.ylabel("値")
             plt.xticks(rotation=45)
@@ -186,30 +211,39 @@ class VisualizationManager:
 
             # バーの上に値を表示
             for bar, value in zip(bars, metric_values):
-                plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.001,
-                        f'{value:.4f}', ha='center', va='bottom')
+                plt.text(
+                    bar.get_x() + bar.get_width() / 2,
+                    bar.get_height() + 0.001,
+                    f"{value:.4f}",
+                    ha="center",
+                    va="bottom",
+                )
 
             plt.tight_layout()
-            plt.savefig(output_file, dpi=300, bbox_inches="tight", facecolor='white')
+            plt.savefig(output_file, dpi=300, bbox_inches="tight", facecolor="white")
             plt.close()
 
             if self.logger:
-                self.logger.log_info(f"📈 パフォーマンス指標を '{output_file}' に保存しました")
+                self.logger.log_info(
+                    f"📈 パフォーマンス指標を '{output_file}' に保存しました"
+                )
 
             return True
 
         except Exception as e:
             if self.error_handler:
-                self.error_handler.handle_file_error(e, output_file, "パフォーマンス指標可視化")
+                self.error_handler.handle_file_error(
+                    e, output_file, "パフォーマンス指標可視化"
+                )
             return False
 
     def create_time_series_plot(
-        self, 
-        data: pd.DataFrame, 
-        date_column: str, 
-        value_column: str, 
+        self,
+        data: pd.DataFrame,
+        date_column: str,
+        value_column: str,
         output_file: str,
-        title: str = "時系列データ"
+        title: str = "時系列データ",
     ) -> bool:
         """時系列プロットの作成"""
         try:
@@ -220,13 +254,15 @@ class VisualizationManager:
             plt.ylabel("値")
             plt.grid(True, alpha=0.3)
             plt.xticks(rotation=45)
-            
+
             plt.tight_layout()
-            plt.savefig(output_file, dpi=300, bbox_inches="tight", facecolor='white')
+            plt.savefig(output_file, dpi=300, bbox_inches="tight", facecolor="white")
             plt.close()
 
             if self.logger:
-                self.logger.log_info(f"📅 時系列プロットを '{output_file}' に保存しました")
+                self.logger.log_info(
+                    f"📅 時系列プロットを '{output_file}' に保存しました"
+                )
 
             return True
 
@@ -241,5 +277,5 @@ class VisualizationManager:
             "supported_formats": ["png", "jpg", "svg", "pdf"],
             "default_dpi": 300,
             "default_figure_size": (15, 8),
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }

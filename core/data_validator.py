@@ -50,7 +50,7 @@ class DataValidator:
                 "validation_timestamp": datetime.now().isoformat(),
                 "message": (
                     "データ検証成功" if len(issues) == 0 else "データ検証で問題を発見"
-                )
+                ),
             }
 
         except Exception as e:
@@ -81,7 +81,7 @@ class DataValidator:
         warnings = []
 
         numeric_columns = data.select_dtypes(include=[np.number]).columns
-        
+
         for col in numeric_columns:
             # 欠損値のチェック
             missing_ratio = data[col].isnull().sum() / len(data)
@@ -106,7 +106,7 @@ class DataValidator:
         warnings = []
 
         # 日付列のチェック
-        date_columns = data.select_dtypes(include=['datetime64']).columns
+        date_columns = data.select_dtypes(include=["datetime64"]).columns
         if len(date_columns) == 0:
             warnings.append("日付列が見つかりません")
 
@@ -117,22 +117,24 @@ class DataValidator:
 
         return {"issues": issues, "warnings": warnings}
 
-    def validate_features(self, data: pd.DataFrame, features: List[str]) -> Dict[str, Any]:
+    def validate_features(
+        self, data: pd.DataFrame, features: List[str]
+    ) -> Dict[str, Any]:
         """特徴量の検証"""
         try:
             missing_features = [f for f in features if f not in data.columns]
-            
+
             if missing_features:
                 return {
                     "is_valid": False,
                     "missing_features": missing_features,
-                    "message": f"不足している特徴量: {missing_features}"
+                    "message": f"不足している特徴量: {missing_features}",
                 }
 
             # 特徴量の品質チェック
             quality_issues = []
             for feature in features:
-                if data[feature].dtype not in ['int64', 'float64']:
+                if data[feature].dtype not in ["int64", "float64"]:
                     quality_issues.append(f"特徴量 '{feature}' が数値型ではありません")
                 elif data[feature].isnull().any():
                     quality_issues.append(f"特徴量 '{feature}' に欠損値があります")
@@ -141,7 +143,11 @@ class DataValidator:
                 "is_valid": len(quality_issues) == 0,
                 "quality_issues": quality_issues,
                 "feature_count": len(features),
-                "message": "特徴量検証成功" if len(quality_issues) == 0 else "特徴量に問題があります"
+                "message": (
+                    "特徴量検証成功"
+                    if len(quality_issues) == 0
+                    else "特徴量に問題があります"
+                ),
             }
 
         except Exception as e:
@@ -155,35 +161,38 @@ class DataValidator:
             if target not in data.columns:
                 return {
                     "is_valid": False,
-                    "message": f"ターゲット変数 '{target}' が見つかりません"
+                    "message": f"ターゲット変数 '{target}' が見つかりません",
                 }
 
             target_data = data[target]
-            
+
             # 基本チェック
             if target_data.isnull().any():
                 return {
                     "is_valid": False,
-                    "message": "ターゲット変数に欠損値があります"
+                    "message": "ターゲット変数に欠損値があります",
                 }
 
             if np.isinf(target_data).any():
                 return {
                     "is_valid": False,
-                    "message": "ターゲット変数に無限値があります"
+                    "message": "ターゲット変数に無限値があります",
                 }
 
             return {
                 "is_valid": True,
                 "target_type": str(target_data.dtype),
                 "target_range": [float(target_data.min()), float(target_data.max())],
-                "message": "ターゲット変数検証成功"
+                "message": "ターゲット変数検証成功",
             }
 
         except Exception as e:
             if self.error_handler:
                 self.error_handler.handle_validation_error(e)
-            return {"is_valid": False, "issues": [f"ターゲット変数検証エラー: {str(e)}"]}
+            return {
+                "is_valid": False,
+                "issues": [f"ターゲット変数検証エラー: {str(e)}"],
+            }
 
     def validate_stock_data(self, data: pd.DataFrame) -> Dict[str, Any]:
         """株価データの検証"""
@@ -194,7 +203,7 @@ class DataValidator:
                     "errors": ["データが空です"],
                     "warnings": [],
                     "data_quality_score": 0,
-                    "validation_timestamp": datetime.now().isoformat()
+                    "validation_timestamp": datetime.now().isoformat(),
                 }
 
             errors = []
@@ -202,8 +211,10 @@ class DataValidator:
             quality_score = 100
 
             # 必須カラムのチェック
-            required_columns = ['date', 'open', 'high', 'low', 'close', 'volume']
-            missing_columns = [col for col in required_columns if col not in data.columns]
+            required_columns = ["date", "open", "high", "low", "close", "volume"]
+            missing_columns = [
+                col for col in required_columns if col not in data.columns
+            ]
             if missing_columns:
                 errors.append(f"必須カラムが不足: {missing_columns}")
                 quality_score -= 20
@@ -211,7 +222,7 @@ class DataValidator:
             # データ型のチェック
             for col in required_columns:
                 if col in data.columns:
-                    if col == 'date':
+                    if col == "date":
                         # 日付列のチェック
                         try:
                             pd.to_datetime(data[col])
@@ -225,7 +236,7 @@ class DataValidator:
                             quality_score -= 10
 
             # 負の価格のチェック
-            price_columns = ['open', 'high', 'low', 'close']
+            price_columns = ["open", "high", "low", "close"]
             for col in price_columns:
                 if col in data.columns:
                     if (data[col] < 0).any():
@@ -236,17 +247,17 @@ class DataValidator:
                         quality_score -= 10
 
             # 高値・安値の整合性チェック
-            if 'high' in data.columns and 'low' in data.columns:
-                if (data['high'] < data['low']).any():
+            if "high" in data.columns and "low" in data.columns:
+                if (data["high"] < data["low"]).any():
                     errors.append("高値・安値の整合性がありません（high < low）")
                     quality_score -= 15
 
             # ボリュームのチェック
-            if 'volume' in data.columns:
-                if (data['volume'] < 0).any():
+            if "volume" in data.columns:
+                if (data["volume"] < 0).any():
                     errors.append("負のボリュームが含まれています")
                     quality_score -= 10
-                if (data['volume'] == 0).any():
+                if (data["volume"] == 0).any():
                     warnings.append("ゼロボリュームが含まれています")
                     quality_score -= 5
 
@@ -264,21 +275,27 @@ class DataValidator:
                     quality_score -= 15
 
             # 重複日付のチェック
-            if 'date' in data.columns:
-                if data['date'].duplicated().any():
+            if "date" in data.columns:
+                if data["date"].duplicated().any():
                     errors.append("重複日付が含まれています")
                     quality_score -= 10
 
             # 外れ値のチェック（簡易版）
             for col in price_columns:
-                if col in data.columns and len(data) > 3:  # データが少なすぎる場合はスキップ
+                if (
+                    col in data.columns and len(data) > 3
+                ):  # データが少なすぎる場合はスキップ
                     Q1 = data[col].quantile(0.25)
                     Q3 = data[col].quantile(0.75)
                     IQR = Q3 - Q1
                     if IQR > 0:  # IQRが0でない場合のみ
-                        outliers = data[(data[col] < Q1 - 1.5 * IQR) | (data[col] > Q3 + 1.5 * IQR)]
+                        outliers = data[
+                            (data[col] < Q1 - 1.5 * IQR) | (data[col] > Q3 + 1.5 * IQR)
+                        ]
                         if len(outliers) > 0:
-                            warnings.append(f"外れ値が検出されました: {col} ({len(outliers)}件)")
+                            warnings.append(
+                                f"外れ値が検出されました: {col} ({len(outliers)}件)"
+                            )
                             quality_score -= 5
 
             # データ数が少ない場合の警告
@@ -291,7 +308,7 @@ class DataValidator:
                 "errors": errors,
                 "warnings": warnings,
                 "data_quality_score": max(0, quality_score),
-                "validation_timestamp": datetime.now().isoformat()
+                "validation_timestamp": datetime.now().isoformat(),
             }
 
         except Exception as e:
@@ -302,7 +319,7 @@ class DataValidator:
                 "errors": [f"検証エラー: {str(e)}"],
                 "warnings": [],
                 "data_quality_score": 0,
-                "validation_timestamp": datetime.now().isoformat()
+                "validation_timestamp": datetime.now().isoformat(),
             }
 
     def get_validation_summary(self, data: pd.DataFrame) -> Dict[str, Any]:
@@ -313,9 +330,13 @@ class DataValidator:
                 "columns": list(data.columns),
                 "dtypes": data.dtypes.to_dict(),
                 "missing_values": data.isnull().sum().to_dict(),
-                "numeric_columns": list(data.select_dtypes(include=[np.number]).columns),
-                "datetime_columns": list(data.select_dtypes(include=['datetime64']).columns),
-                "timestamp": datetime.now().isoformat()
+                "numeric_columns": list(
+                    data.select_dtypes(include=[np.number]).columns
+                ),
+                "datetime_columns": list(
+                    data.select_dtypes(include=["datetime64"]).columns
+                ),
+                "timestamp": datetime.now().isoformat(),
             }
         except Exception as e:
             if self.error_handler:

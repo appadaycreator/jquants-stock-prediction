@@ -22,18 +22,19 @@ class TestLoggingManager:
             "logging": {
                 "level": "INFO",
                 "console_output": True,
-                "file": os.path.join(self.temp_dir, "test.log")
+                "file": os.path.join(self.temp_dir, "test.log"),
             },
             "security": {
                 "mask_sensitive_data": True,
-                "sensitive_keys": ["password", "token", "key"]
-            }
+                "sensitive_keys": ["password", "token", "key"],
+            },
         }
         self.logging_manager = LoggingManager("TestModule", self.config)
 
     def teardown_method(self):
         """テスト後のクリーンアップ"""
         import shutil
+
         shutil.rmtree(self.temp_dir)
 
     def test_initialization(self):
@@ -45,25 +46,25 @@ class TestLoggingManager:
 
     def test_log_info(self):
         """情報ログのテスト"""
-        with patch.object(self.logging_manager.logger, 'info') as mock_info:
+        with patch.object(self.logging_manager.logger, "info") as mock_info:
             self.logging_manager.log_info("テストメッセージ")
             mock_info.assert_called()
 
     def test_log_warning(self):
         """警告ログのテスト"""
-        with patch.object(self.logging_manager.logger, 'warning') as mock_warning:
+        with patch.object(self.logging_manager.logger, "warning") as mock_warning:
             self.logging_manager.log_warning("警告メッセージ")
             mock_warning.assert_called()
 
     def test_log_debug(self):
         """デバッグログのテスト"""
-        with patch.object(self.logging_manager.logger, 'debug') as mock_debug:
+        with patch.object(self.logging_manager.logger, "debug") as mock_debug:
             self.logging_manager.log_debug("デバッグメッセージ")
             mock_debug.assert_called()
 
     def test_log_error(self):
         """エラーログのテスト"""
-        with patch.object(self.logging_manager.logger, 'error') as mock_error:
+        with patch.object(self.logging_manager.logger, "error") as mock_error:
             error = ValueError("テストエラー")
             self.logging_manager.log_error(error, "テストコンテキスト")
             mock_error.assert_called()
@@ -83,7 +84,7 @@ class TestLoggingManager:
             "username": "user123",
             "password": "secret123",
             "token": "abc456",
-            "normal_data": "value"
+            "normal_data": "value",
         }
         masked = self.logging_manager._mask_sensitive_data(data)
         assert masked["username"] == "user123"
@@ -93,7 +94,7 @@ class TestLoggingManager:
 
     def test_log_with_category(self):
         """カテゴリ付きログのテスト"""
-        with patch.object(self.logging_manager.logger, 'info') as mock_info:
+        with patch.object(self.logging_manager.logger, "info") as mock_info:
             self.logging_manager.log_info("APIログ", LogCategory.API)
             mock_info.assert_called()
             # カテゴリが含まれていることを確認
@@ -102,13 +103,13 @@ class TestLoggingManager:
 
     def test_log_with_kwargs(self):
         """追加情報付きログのテスト"""
-        with patch.object(self.logging_manager.logger, 'info') as mock_info:
+        with patch.object(self.logging_manager.logger, "info") as mock_info:
             self.logging_manager.log_info("テスト", additional_info="value")
             mock_info.assert_called()
 
     def test_set_log_level(self):
         """ログレベルの設定テスト"""
-        with patch.object(self.logging_manager.logger, 'setLevel') as mock_set_level:
+        with patch.object(self.logging_manager.logger, "setLevel") as mock_set_level:
             self.logging_manager.set_log_level(LogLevel.DEBUG)
             mock_set_level.assert_called()
 
@@ -120,66 +121,68 @@ class TestLoggingManager:
     def test_add_handler(self):
         """ハンドラーの追加テスト"""
         handler = logging.StreamHandler()
-        with patch.object(self.logging_manager.logger, 'addHandler') as mock_add:
+        with patch.object(self.logging_manager.logger, "addHandler") as mock_add:
             self.logging_manager.add_handler(handler)
             mock_add.assert_called_with(handler)
 
     def test_remove_handler(self):
         """ハンドラーの削除テスト"""
         handler = logging.StreamHandler()
-        with patch.object(self.logging_manager.logger, 'removeHandler') as mock_remove:
+        with patch.object(self.logging_manager.logger, "removeHandler") as mock_remove:
             self.logging_manager.remove_handler(handler)
             mock_remove.assert_called_with(handler)
 
     def test_clear_handlers(self):
         """ハンドラーのクリアテスト"""
-        with patch.object(self.logging_manager.logger, 'handlers') as mock_handlers:
+        with patch.object(self.logging_manager.logger, "handlers") as mock_handlers:
             mock_handlers.clear = Mock()
             self.logging_manager.clear_handlers()
             mock_handlers.clear.assert_called()
 
     def test_log_error_with_traceback(self):
         """トレースバック付きエラーログのテスト"""
-        with patch.object(self.logging_manager.logger, 'error') as mock_error:
+        with patch.object(self.logging_manager.logger, "error") as mock_error:
             error = ValueError("テストエラー")
-            self.logging_manager.log_error(error, "テストコンテキスト", include_traceback=True)
+            self.logging_manager.log_error(
+                error, "テストコンテキスト", include_traceback=True
+            )
             # エラーメッセージとトレースバックの両方が呼ばれることを確認
             assert mock_error.call_count >= 2
 
     def test_log_error_without_traceback(self):
         """トレースバックなしエラーログのテスト"""
-        with patch.object(self.logging_manager.logger, 'error') as mock_error:
+        with patch.object(self.logging_manager.logger, "error") as mock_error:
             error = ValueError("テストエラー")
-            self.logging_manager.log_error(error, "テストコンテキスト", include_traceback=False)
+            self.logging_manager.log_error(
+                error, "テストコンテキスト", include_traceback=False
+            )
             mock_error.assert_called()
 
     def test_log_error_with_additional_info(self):
         """追加情報付きエラーログのテスト"""
-        with patch.object(self.logging_manager.logger, 'error') as mock_error:
+        with patch.object(self.logging_manager.logger, "error") as mock_error:
             error = ValueError("テストエラー")
             additional_info = {"key": "value", "password": "secret"}
-            self.logging_manager.log_error(error, "テストコンテキスト", additional_info=additional_info)
+            self.logging_manager.log_error(
+                error, "テストコンテキスト", additional_info=additional_info
+            )
             mock_error.assert_called()
 
     def test_log_error_different_levels(self):
         """異なるレベルのエラーログのテスト"""
         error = ValueError("テストエラー")
-        
-        with patch.object(self.logging_manager.logger, 'debug') as mock_debug:
+
+        with patch.object(self.logging_manager.logger, "debug") as mock_debug:
             self.logging_manager.log_error(error, "テスト", level=LogLevel.DEBUG)
             mock_debug.assert_called()
 
-        with patch.object(self.logging_manager.logger, 'critical') as mock_critical:
+        with patch.object(self.logging_manager.logger, "critical") as mock_critical:
             self.logging_manager.log_error(error, "テスト", level=LogLevel.CRITICAL)
             mock_critical.assert_called()
 
     def test_sensitive_keys_configuration(self):
         """機密キーの設定テスト"""
-        custom_config = {
-            "security": {
-                "sensitive_keys": ["custom_key", "secret"]
-            }
-        }
+        custom_config = {"security": {"sensitive_keys": ["custom_key", "secret"]}}
         manager = LoggingManager("Test", custom_config)
         assert "custom_key" in manager.sensitive_keys
         assert "secret" in manager.sensitive_keys
@@ -190,9 +193,7 @@ class TestLoggingManager:
             "user": {
                 "name": "test",
                 "password": "secret",
-                "nested": {
-                    "token": "abc123"
-                }
+                "nested": {"token": "abc123"},
             }
         }
         masked = self.logging_manager._mask_sensitive_data(data)
@@ -204,12 +205,7 @@ class TestLoggingManager:
         """ログファイルの作成テスト"""
         # 新しいログファイルパスでテスト
         log_file = os.path.join(self.temp_dir, "new_test.log")
-        config = {
-            "logging": {
-                "level": "INFO",
-                "file": log_file
-            }
-        }
+        config = {"logging": {"level": "INFO", "file": log_file}}
         manager = LoggingManager("Test", config)
         assert os.path.exists(log_file)
 
@@ -219,7 +215,7 @@ class TestLoggingManager:
         config = {
             "logging": {
                 "level": "INFO",
-                "file": os.path.join(self.temp_dir, "test.log")
+                "file": os.path.join(self.temp_dir, "test.log"),
             }
         }
         manager = LoggingManager("Test", config)
@@ -231,11 +227,15 @@ class TestLoggingManager:
         config = {
             "logging": {
                 "console_output": False,
-                "file": os.path.join(self.temp_dir, "test.log")
+                "file": os.path.join(self.temp_dir, "test.log"),
             }
         }
         manager = LoggingManager("Test", config)
         # コンソールハンドラー（stdout/stderr）が追加されていないことを確認
-        console_handlers = [h for h in manager.logger.handlers 
-                          if isinstance(h, logging.StreamHandler) and h.stream in [sys.stdout, sys.stderr]]
+        console_handlers = [
+            h
+            for h in manager.logger.handlers
+            if isinstance(h, logging.StreamHandler)
+            and h.stream in [sys.stdout, sys.stderr]
+        ]
         assert len(console_handlers) == 0

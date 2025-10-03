@@ -26,8 +26,11 @@ class ModelManager:
         """モデル定義の取得"""
         return {
             "random_forest": RandomForestRegressor(
-                n_estimators=100, random_state=42, max_depth=10,
-                min_samples_split=5, min_samples_leaf=2
+                n_estimators=100,
+                random_state=42,
+                max_depth=10,
+                min_samples_split=5,
+                min_samples_leaf=2,
             ),
             "linear_regression": LinearRegression(),
             "ridge": Ridge(alpha=1.0),
@@ -36,7 +39,9 @@ class ModelManager:
 
     def get_model(self, model_name: str) -> Any:
         """指定されたモデルの取得"""
-        return self.model_definitions.get(model_name, self.model_definitions["random_forest"])
+        return self.model_definitions.get(
+            model_name, self.model_definitions["random_forest"]
+        )
 
     def train_model(self, model_name: str, X_train, y_train) -> Any:
         """モデルの学習"""
@@ -58,23 +63,25 @@ class ModelManager:
                 self.error_handler.handle_model_error(e, "予測", "実行")
             raise
 
-    def evaluate_model(self, model: Any, X_train, X_val, X_test, y_train, y_val, y_test) -> Dict[str, Any]:
+    def evaluate_model(
+        self, model: Any, X_train, X_val, X_test, y_train, y_val, y_test
+    ) -> Dict[str, Any]:
         """モデルの評価"""
         try:
             # 各データセットでの予測
             predictions = {
                 "train": self.make_predictions(model, X_train),
                 "val": self.make_predictions(model, X_val),
-                "test": self.make_predictions(model, X_test)
+                "test": self.make_predictions(model, X_test),
             }
 
             # 評価指標の計算
             metrics = self._calculate_metrics(y_train, y_val, y_test, predictions)
-            
+
             return {
                 "predictions": predictions,
                 "metrics": metrics,
-                "model_name": type(model).__name__
+                "model_name": type(model).__name__,
             }
 
         except Exception as e:
@@ -82,7 +89,9 @@ class ModelManager:
                 self.error_handler.handle_model_error(e, "評価", "実行")
             raise
 
-    def _calculate_metrics(self, y_train, y_val, y_test, predictions: Dict[str, np.ndarray]) -> Dict[str, float]:
+    def _calculate_metrics(
+        self, y_train, y_val, y_test, predictions: Dict[str, np.ndarray]
+    ) -> Dict[str, float]:
         """評価指標の計算"""
         return {
             "train_mae": mean_absolute_error(y_train, predictions["train"]),
@@ -96,20 +105,26 @@ class ModelManager:
             "test_r2": r2_score(y_test, predictions["test"]),
         }
 
-    def compare_models(self, X_train, X_val, X_test, y_train, y_val, y_test) -> Dict[str, Any]:
+    def compare_models(
+        self, X_train, X_val, X_test, y_train, y_val, y_test
+    ) -> Dict[str, Any]:
         """複数モデルの比較"""
         try:
             results = []
-            
+
             for model_name in self.model_definitions.keys():
                 try:
                     model = self.train_model(model_name, X_train, y_train)
-                    evaluation = self.evaluate_model(model, X_train, X_val, X_test, y_train, y_val, y_test)
+                    evaluation = self.evaluate_model(
+                        model, X_train, X_val, X_test, y_train, y_val, y_test
+                    )
                     evaluation["model_name"] = model_name
                     results.append(evaluation)
                 except Exception as e:
                     if self.logger:
-                        self.logger.log_warning(f"モデル {model_name} の学習に失敗: {e}")
+                        self.logger.log_warning(
+                            f"モデル {model_name} の学習に失敗: {e}"
+                        )
                     continue
 
             if results:
@@ -117,11 +132,13 @@ class ModelManager:
                 return {
                     "best_model": best_result["model_name"],
                     "results": results,
-                    "comparison_timestamp": datetime.now().isoformat()
+                    "comparison_timestamp": datetime.now().isoformat(),
                 }
             else:
                 if self.logger:
-                    self.logger.log_warning("有効なモデルが見つかりませんでした。デフォルトモデルを使用します。")
+                    self.logger.log_warning(
+                        "有効なモデルが見つかりませんでした。デフォルトモデルを使用します。"
+                    )
                 return {"best_model": "random_forest", "results": []}
 
         except Exception as e:
@@ -133,13 +150,13 @@ class ModelManager:
         """最優秀モデルの選択"""
         # 検証データでのMAEが最小のモデルを選択
         best_result = min(results, key=lambda x: x["metrics"]["val_mae"])
-        
+
         if self.logger:
             self.logger.log_info(
                 f"🏆 最優秀モデル: {best_result['model_name']} "
                 f"(検証MAE: {best_result['metrics']['val_mae']:.4f})"
             )
-        
+
         return best_result
 
     def get_supported_models(self) -> List[str]:
@@ -151,5 +168,5 @@ class ModelManager:
         return {
             "supported_models": self.get_supported_models(),
             "model_count": len(self.model_definitions),
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
