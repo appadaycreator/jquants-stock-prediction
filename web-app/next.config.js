@@ -32,10 +32,22 @@ const nextConfig = {
           },
         ],
       },
+      {
+        source: '/favicon.ico',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
     ];
   },
-  // APIルートの設定
+  // APIルートの設定（静的エクスポート時は無効）
   async rewrites() {
+    if (isProd) {
+      return [];
+    }
     return [
       {
         source: '/api/:path*',

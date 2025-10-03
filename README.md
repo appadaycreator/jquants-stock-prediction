@@ -1796,6 +1796,14 @@ npm run dev  # 開発サーバー起動（http://localhost:3000）
   - レイアウトファイルのmetadata設定修正
   - Navigationコンポーネントでのprefetch=false設定
 - **統合エラーハンドリング**: デプロイメントエラーの自動検出と修正
+- **APIエンドポイント修正**: 静的ホスティング環境でのAPIルート制限対応
+  - `/api/test/run` エンドポイントの静的エクスポート対応
+  - 本番環境での適切なエラーメッセージ表示
+  - テストカバレッジページのUI改善
+- **favicon.ico修正**: GitHub Pagesでの適切なパス設定
+  - ルートディレクトリへのfavicon.ico配置
+  - 適切なキャッシュヘッダー設定
+  - 404エラーページの改善
 
 **従来の方法 (非推奨)**
 - Source: "Deploy from a branch" + "/docs" フォルダは権限エラーの原因
@@ -2361,7 +2369,7 @@ Cursor/VS Code 拡張の AI 呼び出しで `ConnectError: [aborted] read ECONNR
 
 ### v2.1.1 (2024-12-19)
 - **GitHub Actionsテストエラー修正**: `concurrent-futures`パッケージの依存関係問題を解決
-- **requirements.txt最適化**: Python 3.12対応の依存関係に更新、pandas-ta>=0.4.67b0対応
+- **requirements.txt最適化**: Python 3.12対応の依存関係に更新、pandas-ta依存関係を自作実装に置換
 - **GitHub Actions設定改善**: キャッシュクリアと依存関係インストールの最適化
 - **セキュリティパッケージ追加**: `safety`と`bandit`をrequirements.txtに追加
 

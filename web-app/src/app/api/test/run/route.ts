@@ -4,7 +4,19 @@ import { promisify } from "util";
 
 const execAsync = promisify(exec);
 
+// 静的エクスポート用の設定
+export const dynamic = 'force-static';
+
 export async function POST(request: NextRequest) {
+  // GitHub Pages（静的ホスティング）ではAPIルートが動作しないため、フォールバック
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json({
+      success: false,
+      error: "APIルートは静的ホスティング環境では利用できません。ローカル環境でテストを実行してください。",
+      testType: "static_hosting_unsupported",
+    }, { status: 400 });
+  }
+
   try {
     const { testType = "all" } = await request.json();
     
@@ -44,6 +56,14 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
+  // GitHub Pages（静的ホスティング）ではAPIルートが動作しないため、フォールバック
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json({
+      success: false,
+      error: "APIルートは静的ホスティング環境では利用できません。ローカル環境でテストを実行してください。",
+    }, { status: 400 });
+  }
+
   try {
     // カバレッジレポートの読み込み
     const fs = await import("fs/promises");

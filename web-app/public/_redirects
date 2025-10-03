@@ -1,8 +1,11 @@
-# Netlify用リダイレクト設定
+# GitHub Pages用リダイレクト設定
 # SPAルーティング対応
 
 # 静的アセットのリダイレクト
 /_next/static/* /_next/static/:splat 200
+
+# favicon.icoのリダイレクト
+/favicon.ico /favicon.ico 200
 
 # APIルートのリダイレクト（静的サイトでは動作しない）
 /api/* /404.html 404

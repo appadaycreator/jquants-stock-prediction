@@ -53,7 +53,17 @@ export default function TestCoveragePage() {
       });
 
       const result = await response.json();
-      setTestResult(result);
+      
+      // 静的ホスティング環境でのエラーハンドリング
+      if (result.error && result.error.includes("静的ホスティング環境")) {
+        setTestResult({
+          success: false,
+          error: "この機能はGitHub Pages（静的ホスティング）では利用できません。ローカル環境でテストを実行してください。",
+          testType: "static_hosting_unsupported",
+        });
+      } else {
+        setTestResult(result);
+      }
     } catch (error) {
       setTestResult({
         success: false,
@@ -72,7 +82,13 @@ export default function TestCoveragePage() {
       const response = await fetch("/api/test/run");
       const result = await response.json();
       
-      if (result.success && result.stats) {
+      // 静的ホスティング環境でのエラーハンドリング
+      if (result.error && result.error.includes("静的ホスティング環境")) {
+        setTestResult({
+          success: false,
+          error: "この機能はGitHub Pages（静的ホスティング）では利用できません。ローカル環境でテストを実行してください。",
+        });
+      } else if (result.success && result.stats) {
         setCoverageStats(result.stats);
         setTestResult(result);
       } else {

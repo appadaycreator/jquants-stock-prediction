@@ -49,5 +49,6 @@ bandit>=1.7.0
 
 # 個別銘柄バックテストシステム用
 scipy>=1.10.0
-# pandas-ta: Python 3.12対応版（2024年12月更新）
-pandas-ta==0.4.67b0
+
+# テクニカル分析（自作実装を使用）
+# pandas-taは利用せず、core/technical_analysis.pyの自作実装を使用
