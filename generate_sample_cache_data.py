@@ -11,6 +11,10 @@ from pathlib import Path
 from typing import Dict, Any, List
 import logging
 
+# ログディレクトリの作成
+log_dir = Path("logs")
+log_dir.mkdir(exist_ok=True)
+
 # ログ設定
 logging.basicConfig(
     level=logging.INFO,
@@ -29,10 +33,6 @@ class SampleCacheDataGenerator:
     def __init__(self):
         self.data_dir = Path("docs/data")
         self.data_dir.mkdir(parents=True, exist_ok=True)
-        
-        # ログディレクトリの作成
-        log_dir = Path("logs")
-        log_dir.mkdir(exist_ok=True)
 
     def generate_sample_daily_quotes(self) -> List[Dict[str, Any]]:
         """サンプル日足データの生成"""

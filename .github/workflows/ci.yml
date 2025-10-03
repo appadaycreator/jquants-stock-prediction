@@ -40,7 +40,9 @@ jobs:
         
     - name: Create required directories
       run: |
-        mkdir -p logs data
+        mkdir -p logs
+        mkdir -p data
+        mkdir -p docs/data
         echo "Required directories created"
     
     - name: Code formatting check

@@ -39,6 +39,7 @@ jobs:
       run: |
         mkdir -p logs
         mkdir -p data
+        mkdir -p docs/data
         echo "Required directories created"
         
     - name: Generate web data

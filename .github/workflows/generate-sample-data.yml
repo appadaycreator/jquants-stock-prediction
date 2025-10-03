@@ -25,6 +25,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests
         
+    - name: Create required directories
+      run: |
+        mkdir -p logs
+        mkdir -p docs/data
+        echo "Required directories created"
+        
     - name: Generate sample cache data
       run: |
         python generate_sample_cache_data.py
