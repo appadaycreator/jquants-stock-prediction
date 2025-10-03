@@ -432,6 +432,9 @@ class JSONDataManager:
             days_to_keep: 保持日数
         """
         try:
+            if days_to_keep <= 0:
+                return
+                
             cutoff_date = datetime.now() - timedelta(days=days_to_keep)
             cutoff_str = cutoff_date.strftime("%Y-%m-%d")
 
@@ -440,11 +443,13 @@ class JSONDataManager:
             cleaned_data = {}
 
             for symbol, data in stock_data.items():
-                cleaned_symbol_data = [
-                    item for item in data if item["date"] >= cutoff_str
-                ]
-                if cleaned_symbol_data:
-                    cleaned_data[symbol] = cleaned_symbol_data
+                if isinstance(data, list):
+                    cleaned_symbol_data = [
+                        item for item in data 
+                        if isinstance(item, dict) and item.get("date", "") >= cutoff_str
+                    ]
+                    if cleaned_symbol_data:
+                        cleaned_data[symbol] = cleaned_symbol_data
 
             self._save_json(self.stock_data_file, cleaned_data)
 
@@ -481,6 +486,11 @@ class JSONDataManager:
         """
         try:
             data = self.get_stock_data(symbol)
+            
+            if not data:
+                self.logger.warning(f"エクスポート対象データがありません: {symbol}")
+                return False
+                
             metadata = self.get_metadata()
 
             export_data = {
@@ -489,6 +499,10 @@ class JSONDataManager:
                 "metadata": metadata.get("data_sources", {}).get(symbol, {}),
                 "data": data,
             }
+
+            # 出力ディレクトリの作成
+            import os
+            os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
             with open(output_file, "w", encoding="utf-8") as f:
                 json.dump(export_data, f, ensure_ascii=False, indent=2)

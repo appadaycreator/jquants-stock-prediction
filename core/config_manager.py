@@ -162,6 +162,10 @@ class ConfigManager:
             file_path = self.config_file
 
         try:
+            # 出力ディレクトリの作成
+            import os
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            
             with open(file_path, "w", encoding="utf-8") as f:
                 yaml.dump(self.config, f, default_flow_style=False, allow_unicode=True)
             # 設定保存完了
@@ -172,6 +176,8 @@ class ConfigManager:
     def update_configuration(self, new_config: Dict[str, Any]) -> None:
         """システム設定の更新"""
         try:
+            if new_config is None:
+                return
             self.config.update(new_config)
             # システム設定更新完了
         except Exception as e:
@@ -208,7 +214,7 @@ class ConfigManager:
         """設定バックアップの作成"""
         try:
             backup_data = {
-                "config": self.config.copy(),
+                "config": self.config.copy() if self.config else {},
                 "timestamp": datetime.now().isoformat(),
                 "config_file": self.config_file,
             }
@@ -221,7 +227,7 @@ class ConfigManager:
     def restore_from_backup(self, backup_data: Dict[str, Any]) -> bool:
         """バックアップからの復元"""
         try:
-            if backup_data and "config" in backup_data:
+            if backup_data and isinstance(backup_data, dict) and "config" in backup_data:
                 self.config = backup_data["config"]
                 # バックアップから正常に復元
                 return True
