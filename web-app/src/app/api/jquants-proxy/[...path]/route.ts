@@ -1,5 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// 静的生成用のパラメータ
+export async function generateStaticParams() {
+  return [
+    { path: ['token', 'auth_user'] },
+    { path: ['token', 'auth_refresh'] },
+    { path: ['prices', 'daily_quotes'] },
+    { path: ['prices', 'weekly_quotes'] },
+    { path: ['prices', 'monthly_quotes'] }
+  ];
+}
+
 const JQUANTS_API_BASE = 'https://api.jquants.com/v1';
 const ALLOWED_PATHS = ['/token/', '/prices/'];
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1分
