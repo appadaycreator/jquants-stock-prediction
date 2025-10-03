@@ -4,7 +4,7 @@
  */
 
 import React, { Component, ErrorInfo, ReactNode } from "react";
-import { unifiedErrorHandler, ErrorInfo as ErrorInfoType } from "../lib/unified-error-handler";
+import { errorHandler, ErrorInfo as ErrorInfoType } from "../lib/error-handler";
 import { 
   AlertTriangle, 
   RefreshCw, 
@@ -55,7 +55,7 @@ class UnifiedErrorBoundary extends Component<Props, State> {
     console.error("統一エラーバウンダリ:", error, errorInfo);
     
     // エラーの処理
-    unifiedErrorHandler.handleError(error).then((recovered) => {
+    errorHandler.handleError(error).then((recovered) => {
       if (recovered) {
         this.setState({
           hasError: false,
@@ -64,7 +64,7 @@ class UnifiedErrorBoundary extends Component<Props, State> {
           isRecovering: false,
         });
       } else {
-        const errorInfoType = unifiedErrorHandler.categorizeError(error);
+        const errorInfoType = errorHandler.categorizeError(error);
         this.setState({
           errorInfo: errorInfoType,
           isRecovering: false,

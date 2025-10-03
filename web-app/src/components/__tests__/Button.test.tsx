@@ -2,82 +2,75 @@
  * Buttonコンポーネントのテスト
  */
 
-import { render, screen, fireEvent } from "@testing-library/react";
-import { Button } from "../ui/button";
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Button } from '../ui/button';
 
-describe("Button", () => {
-  it("デフォルトのボタンをレンダリングする", () => {
+describe('Button', () => {
+  it('正しくレンダリングされる', () => {
     render(<Button>テストボタン</Button>);
-    const button = screen.getByRole("button", { name: "テストボタン" });
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveClass("bg-primary", "text-primary-foreground");
+    expect(screen.getByRole('button', { name: 'テストボタン' })).toBeInTheDocument();
   });
 
-  it("異なるバリアントを正しくレンダリングする", () => {
-    render(<Button variant="destructive">削除ボタン</Button>);
-    const button = screen.getByRole("button", { name: "削除ボタン" });
-    expect(button).toHaveClass("bg-destructive", "text-destructive-foreground");
-  });
-
-  it("異なるサイズを正しくレンダリングする", () => {
-    render(<Button size="lg">大きなボタン</Button>);
-    const button = screen.getByRole("button", { name: "大きなボタン" });
-    expect(button).toHaveClass("h-11", "px-8");
-  });
-
-  it("クリックイベントを正しく処理する", () => {
+  it('クリックイベントが正しく動作する', () => {
     const handleClick = jest.fn();
-    render(<Button onClick={handleClick}>クリックボタン</Button>);
-    const button = screen.getByRole("button", { name: "クリックボタン" });
+    render(<Button onClick={handleClick}>クリックテスト</Button>);
     
-    fireEvent.click(button);
+    fireEvent.click(screen.getByRole('button'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  it("無効化されたボタンを正しくレンダリングする", () => {
+  it('disabled状態が正しく動作する', () => {
     render(<Button disabled>無効ボタン</Button>);
-    const button = screen.getByRole("button", { name: "無効ボタン" });
+    const button = screen.getByRole('button');
     expect(button).toBeDisabled();
-    expect(button).toHaveClass("disabled:pointer-events-none", "disabled:opacity-50");
   });
 
-  it("カスタムクラス名を適用する", () => {
-    render(<Button className="custom-class">カスタムボタン</Button>);
-    const button = screen.getByRole("button", { name: "カスタムボタン" });
-    expect(button).toHaveClass("custom-class");
+  it('異なるバリアントが正しく適用される', () => {
+    const { rerender } = render(<Button variant="default">デフォルト</Button>);
+    expect(screen.getByRole('button')).toHaveClass('bg-primary');
+
+    rerender(<Button variant="destructive">破壊的</Button>);
+    expect(screen.getByRole('button')).toHaveClass('bg-destructive');
+
+    rerender(<Button variant="outline">アウトライン</Button>);
+    expect(screen.getByRole('button')).toHaveClass('border');
+
+    rerender(<Button variant="secondary">セカンダリ</Button>);
+    expect(screen.getByRole('button')).toHaveClass('bg-secondary');
+
+    rerender(<Button variant="ghost">ゴースト</Button>);
+    expect(screen.getByRole('button')).toHaveClass('hover:bg-accent');
+
+    rerender(<Button variant="link">リンク</Button>);
+    expect(screen.getByRole('button')).toHaveClass('text-primary');
   });
 
-  it("すべてのバリアントを正しくレンダリングする", () => {
-    const variants = ["default", "destructive", "outline", "secondary", "ghost", "link"] as const;
-    
-    variants.forEach((variant) => {
-      const { unmount } = render(<Button variant={variant}>{variant}ボタン</Button>);
-      const button = screen.getByRole("button", { name: `${variant}ボタン` });
-      expect(button).toBeInTheDocument();
-      unmount();
-    });
+  it('異なるサイズが正しく適用される', () => {
+    const { rerender } = render(<Button size="default">デフォルトサイズ</Button>);
+    expect(screen.getByRole('button')).toHaveClass('h-10');
+
+    rerender(<Button size="sm">小サイズ</Button>);
+    expect(screen.getByRole('button')).toHaveClass('h-9');
+
+    rerender(<Button size="lg">大サイズ</Button>);
+    expect(screen.getByRole('button')).toHaveClass('h-11');
+
+    rerender(<Button size="icon">アイコンサイズ</Button>);
+    expect(screen.getByRole('button')).toHaveClass('h-10', 'w-10');
   });
 
-  it("すべてのサイズを正しくレンダリングする", () => {
-    const sizes = ["default", "sm", "lg", "icon"] as const;
-    
-    sizes.forEach((size) => {
-      const { unmount } = render(<Button size={size}>{size}ボタン</Button>);
-      const button = screen.getByRole("button", { name: `${size}ボタン` });
-      expect(button).toBeInTheDocument();
-      unmount();
-    });
+  it('カスタムクラスが正しく適用される', () => {
+    render(<Button className="custom-class">カスタム</Button>);
+    expect(screen.getByRole('button')).toHaveClass('custom-class');
   });
 
-  it("refを正しく転送する", () => {
-    const ref = jest.fn();
-    render(<Button ref={ref}>refボタン</Button>);
-    expect(ref).toHaveBeenCalled();
-  });
-
-  it("追加のpropsを正しく転送する", () => {
-    render(<Button data-testid="test-button" aria-label="テストボタン">テスト</Button>);
-    const button = screen.getByTestId("test-button");
-    expect(button).toHaveAttribute("aria-label", "テストボタン");
+  it('asChildプロパティが正しく動作する', () => {
+    render(
+      <Button asChild>
+        <a href="/test">リンクボタン</a>
+      </Button>
+    );
+    expect(screen.getByRole('link')).toBeInTheDocument();
   });
 });

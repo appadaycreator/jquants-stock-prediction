@@ -51,6 +51,11 @@ class PerformanceMonitor {
   }
 
   private initializeMonitoring(): void {
+    // SSR環境では実行しない
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     // パフォーマンスエントリの監視
     if ("PerformanceObserver" in window) {
       const observer = new PerformanceObserver((list) => {
@@ -98,6 +103,11 @@ class PerformanceMonitor {
   }
 
   private startMemoryMonitoring(): void {
+    // SSR環境では実行しない
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     if ("memory" in performance) {
       setInterval(() => {
         const memory = (performance as any).memory;
@@ -122,6 +132,11 @@ class PerformanceMonitor {
   }
 
   private estimateBundleSize(): void {
+    // SSR環境では実行しない
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     // スクリプトタグからバンドルサイズを推定
     const scripts = document.querySelectorAll("script[src]");
     let totalSize = 0;

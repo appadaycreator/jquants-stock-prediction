@@ -8,7 +8,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { unifiedApiClient } from "@/lib/unified-api-client";
 import { unifiedCacheManager } from "@/lib/unified-cache-manager";
-import { optimizedErrorHandler, ErrorContext } from "@/lib/unified-error-handler";
+import { optimizedErrorHandler, ErrorContext } from "@/lib/error-handler";
 
 interface TodaySummary {
   date: string;

@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
-import { performanceOptimizer } from "../lib/performance-optimizer";
+import { performanceMonitor } from "../lib/performance-monitor";
 
 interface UsePerformanceOptions {
   enableMonitoring?: boolean;
@@ -14,7 +14,7 @@ interface UsePerformanceOptions {
 }
 
 export function usePerformance(options: UsePerformanceOptions = {}) {
-  const [metrics, setMetrics] = useState(performanceOptimizer.getMetrics());
+  const [metrics, setMetrics] = useState(performanceMonitor.getMetrics());
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [report, setReport] = useState<any>(null);
 
@@ -30,7 +30,7 @@ export function usePerformance(options: UsePerformanceOptions = {}) {
     if (!enableMonitoring) return;
 
     const interval = setInterval(() => {
-      const currentMetrics = performanceOptimizer.getMetrics();
+      const currentMetrics = performanceMonitor.getMetrics();
       setMetrics(currentMetrics);
       onPerformanceChange?.(currentMetrics);
     }, 1000); // 1秒ごとに更新
@@ -43,7 +43,7 @@ export function usePerformance(options: UsePerformanceOptions = {}) {
     if (!enableMonitoring) return;
 
     const interval = setInterval(() => {
-      const performanceReport = performanceOptimizer.generateReport();
+      const performanceReport = performanceMonitor.generateReport();
       setReport(performanceReport);
       
       if (performanceReport.score < 70) {
@@ -59,14 +59,14 @@ export function usePerformance(options: UsePerformanceOptions = {}) {
     setIsOptimizing(true);
     
     try {
-      performanceOptimizer.optimize();
+      performanceMonitor.optimize();
       
       // 最適化後のメトリクス更新
-      const updatedMetrics = performanceOptimizer.getMetrics();
+      const updatedMetrics = performanceMonitor.getMetrics();
       setMetrics(updatedMetrics);
       
       // レポートの再生成
-      const updatedReport = performanceOptimizer.generateReport();
+      const updatedReport = performanceMonitor.generateReport();
       setReport(updatedReport);
       
     } catch (error) {
