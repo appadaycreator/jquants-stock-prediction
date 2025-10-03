@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15780",
+    "generated_at": "2025-10-03T15:21:01.224366",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15780",
+    "name": "日興アセットマネジメント株式会社　上場インデックスファンド日経２２５（ミニ）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 3160.0,
+    "change": -13.0,
+    "changePercent": -0.40970690198550264,
+    "volume": 1475,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15780",
+      "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド日経２２５（ミニ）",
+      "CompanyNameEnglish": "Listed Index Fund Nikkei 225 (Mini)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:48.835177",
+      "updated_at": "2025-10-03T15:20:48.835179",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

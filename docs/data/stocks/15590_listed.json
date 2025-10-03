@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15590",
+    "generated_at": "2025-10-03T15:21:01.223080",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15590",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　タイ株式ＳＥＴ５０指数連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 3119.0,
+    "change": 30.0,
+    "changePercent": 0.9711880867594691,
+    "volume": 105,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15590",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　タイ株式ＳＥＴ５０指数連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS Thai Stock SET50 Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:45.387203",
+      "updated_at": "2025-10-03T15:20:45.387206",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

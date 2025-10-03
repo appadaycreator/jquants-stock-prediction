@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "16530",
+    "generated_at": "2025-10-03T15:21:01.228293",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "16530",
+    "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＭＳＣＩジャパンＥＳＧセレクト・リーダーズ指数",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 3612.0,
+    "change": -16.0,
+    "changePercent": -0.4410143329658214,
+    "volume": 2880,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "16530",
+      "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＭＳＣＩジャパンＥＳＧセレクト・リーダーズ指数",
+      "CompanyNameEnglish": "iFreeETF MSCI Japan ESG Select Leaders Index",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:59.781829",
+      "updated_at": "2025-10-03T15:20:59.781831",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

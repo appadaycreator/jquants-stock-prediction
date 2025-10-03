@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "16580",
+    "generated_at": "2025-10-03T15:21:01.228994",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "16580",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　ＭＳＣＩ　新興国株　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2991.0,
+    "change": -8.0,
+    "changePercent": -0.266755585195065,
+    "volume": 5413,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "16580",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　ＭＳＣＩ　新興国株　ＥＴＦ",
+      "CompanyNameEnglish": "iShares Core MSCI Emerging Markets IMI ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:21:01.093891",
+      "updated_at": "2025-10-03T15:21:01.093894",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

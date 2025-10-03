@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15990",
+    "generated_at": "2025-10-03T15:21:01.225532",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15990",
+    "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＪＰＸ日経４００",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 26020.0,
+    "change": 165.0,
+    "changePercent": 0.6381744343453877,
+    "volume": 29,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15990",
+      "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＪＰＸ日経４００",
+      "CompanyNameEnglish": "iFreeETF JPX-Nikkei400",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:52.529682",
+      "updated_at": "2025-10-03T15:20:52.529685",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

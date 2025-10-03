@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "164A0",
+    "generated_at": "2025-10-03T15:21:01.227993",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "164A0",
+    "name": "アップルパーク",
+    "sector": "不動産",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:20:59.002158",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "164A0",
+      "CompanyName": "アップルパーク",
+      "CompanyNameEnglish": "Applepark.CO.,LTD.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:59.002162",
+      "updated_at": "2025-10-03T15:20:59.002163",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "159A0",
+    "generated_at": "2025-10-03T15:21:01.225617",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "159A0",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸプライム１５０指数連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 528.1,
+    "change": -1.8999999999999773,
+    "changePercent": -0.35849056603773155,
+    "volume": 4690,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "159A0",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸプライム１５０指数連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS JPX Prime 150 Index Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:52.775912",
+      "updated_at": "2025-10-03T15:20:52.775915",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

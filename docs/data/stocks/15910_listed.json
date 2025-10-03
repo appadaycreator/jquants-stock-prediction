@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15910",
+    "generated_at": "2025-10-03T15:21:01.224992",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15910",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸ日経インデックス４００連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 25610.0,
+    "change": 20.0,
+    "changePercent": 0.07815552950371239,
+    "volume": 995,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15910",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸ日経インデックス４００連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS JPX-Nikkei Index 400 Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:50.756209",
+      "updated_at": "2025-10-03T15:20:50.756213",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

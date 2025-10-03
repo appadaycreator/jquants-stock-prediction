@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15180",
+    "generated_at": "2025-10-03T15:21:01.218151",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15180",
+    "name": "三井松島ホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 5100.0,
+    "change": -30.0,
+    "changePercent": -0.5847953216374269,
+    "volume": 39700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15180",
+      "CompanyName": "三井松島ホールディングス",
+      "CompanyNameEnglish": "MITSUI MATSUSHIMA HOLDINGS CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:40.818457",
+      "updated_at": "2025-10-03T15:20:40.818460",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

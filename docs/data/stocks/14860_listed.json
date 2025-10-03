@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14860",
+    "generated_at": "2025-10-03T15:21:01.216465",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14860",
+    "name": "日興アセットマネジメント株式会社　上場インデックスファンド米国債券（為替ヘッジなし）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 22510.0,
+    "change": 80.0,
+    "changePercent": 0.3566651805617477,
+    "volume": 312,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14860",
+      "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド米国債券（為替ヘッジなし）",
+      "CompanyNameEnglish": "Listed Index Fund US Bond (No Currency Hedge)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:36.090610",
+      "updated_at": "2025-10-03T15:20:36.090615",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15500",
+    "generated_at": "2025-10-03T15:21:01.222434",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15500",
+    "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　海外株式（ＭＳＣＩコクサイ）上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 6183.0,
+    "change": -2.0,
+    "changePercent": -0.03233629749393695,
+    "volume": 3390,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15500",
+      "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　海外株式（ＭＳＣＩコクサイ）上場投信",
+      "CompanyNameEnglish": "MAXIS Global Equity (MSCI Kokusai) ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:43.965115",
+      "updated_at": "2025-10-03T15:20:43.965117",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

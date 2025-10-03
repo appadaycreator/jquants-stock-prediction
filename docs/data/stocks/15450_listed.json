@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15450",
+    "generated_at": "2025-10-03T15:21:01.221984",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15450",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＮＡＳＤＡＱ−１００（為替ヘッジなし）連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 33890.0,
+    "change": 20.0,
+    "changePercent": 0.059049306170652495,
+    "volume": 32372,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15450",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＮＡＳＤＡＱ−１００（為替ヘッジなし）連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS NASDAQ-100(R) (Unhedged) Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:42.934089",
+      "updated_at": "2025-10-03T15:20:42.934091",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

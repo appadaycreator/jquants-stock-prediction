@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15540",
+    "generated_at": "2025-10-03T15:21:01.222722",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15540",
+    "name": "日興アセットマネジメント株式会社　上場インデックスファンド世界株式（ＭＳＣＩ　ＡＣＷＩ）除く日本",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 5116.0,
+    "change": -1.0,
+    "changePercent": -0.019542700801250732,
+    "volume": 8803,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15540",
+      "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド世界株式（ＭＳＣＩ　ＡＣＷＩ）除く日本",
+      "CompanyNameEnglish": "Listed Index Fund World Equity (MSCI ACWI) ex Japan",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:44.519796",
+      "updated_at": "2025-10-03T15:20:44.519798",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

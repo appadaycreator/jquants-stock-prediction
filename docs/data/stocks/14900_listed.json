@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14900",
+    "generated_at": "2025-10-03T15:21:01.216978",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14900",
+    "name": "日興アセットマネジメント株式会社　上場インデックスファンドＭＳＣＩ日本株高配当低ボラティリティ（βヘッジ）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 7466.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 41,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14900",
+      "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンドＭＳＣＩ日本株高配当低ボラティリティ（βヘッジ）",
+      "CompanyNameEnglish": "Listed Index Fund MSCI Japan Equity High Dividend Low Volatility (Beta Hedged)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:37.450178",
+      "updated_at": "2025-10-03T15:20:37.450185",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

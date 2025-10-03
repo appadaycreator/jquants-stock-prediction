@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15950",
+    "generated_at": "2025-10-03T15:21:01.225266",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15950",
+    "name": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　東証ＲＥＩＴ指数",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1842.5,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 49790,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15950",
+      "CompanyName": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　東証ＲＥＩＴ指数",
+      "CompanyNameEnglish": "NZAM ETF J-REIT Index",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:51.686694",
+      "updated_at": "2025-10-03T15:20:51.686710",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

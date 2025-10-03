@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14840",
+    "generated_at": "2025-10-03T15:21:01.216289",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14840",
+    "name": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　ＪＰＸ／Ｓ＆Ｐ　設備・人材投資指数",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2837.0,
+    "change": -18.5,
+    "changePercent": -0.6478725267028541,
+    "volume": 210,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14840",
+      "CompanyName": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　ＪＰＸ／Ｓ＆Ｐ　設備・人材投資指数",
+      "CompanyNameEnglish": "One ETF JPX/S&P CAPEX & Human Capital Index",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:35.567006",
+      "updated_at": "2025-10-03T15:20:35.567011",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

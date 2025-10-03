@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15790",
+    "generated_at": "2025-10-03T15:21:01.224463",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15790",
+    "name": "シンプレクス・アセット・マネジメント株式会社　日経平均ブル２倍上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 290.0,
+    "change": -4.899999999999977,
+    "changePercent": -1.6615801966768322,
+    "volume": 29993850,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15790",
+      "CompanyName": "シンプレクス・アセット・マネジメント株式会社　日経平均ブル２倍上場投信",
+      "CompanyNameEnglish": "Nikkei 225 Bull 2x ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:49.104259",
+      "updated_at": "2025-10-03T15:20:49.104262",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

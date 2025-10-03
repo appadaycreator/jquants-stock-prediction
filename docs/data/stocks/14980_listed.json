@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14980",
+    "generated_at": "2025-10-03T15:21:01.217631",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14980",
+    "name": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　ＥＳＧ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 22140.0,
+    "change": -25.0,
+    "changePercent": -0.11279043537108054,
+    "volume": 56,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14980",
+      "CompanyName": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　ＥＳＧ",
+      "CompanyNameEnglish": "One ETF ESG",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:39.264416",
+      "updated_at": "2025-10-03T15:20:39.264420",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

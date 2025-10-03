@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "163A0",
+    "generated_at": "2025-10-03T15:21:01.227901",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "163A0",
+    "name": "三菱ＵＦＪ証券ホールディングス株式会社　半導体フォーカス　日本株（ネットリターン）ＥＴＮ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 9119.0,
+    "change": 34.0,
+    "changePercent": 0.37424325811777653,
+    "volume": 8646,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "163A0",
+      "CompanyName": "三菱ＵＦＪ証券ホールディングス株式会社　半導体フォーカス　日本株（ネットリターン）ＥＴＮ",
+      "CompanyNameEnglish": "Semiconductor Focus Japan Equity Net Return ETN",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:58.728107",
+      "updated_at": "2025-10-03T15:20:58.728109",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

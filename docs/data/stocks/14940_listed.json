@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14940",
+    "generated_at": "2025-10-03T15:21:01.217243",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14940",
+    "name": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　高配当日本株",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 33060.0,
+    "change": 150.0,
+    "changePercent": 0.4557885141294439,
+    "volume": 825,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14940",
+      "CompanyName": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　高配当日本株",
+      "CompanyNameEnglish": "One ETF High Dividend Japan Equity",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:38.231815",
+      "updated_at": "2025-10-03T15:20:38.231818",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

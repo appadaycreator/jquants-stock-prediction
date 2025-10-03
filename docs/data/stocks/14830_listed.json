@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14830",
+    "generated_at": "2025-10-03T15:21:01.216201",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14830",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＪＰＸ／Ｓ＆Ｐ設備・人材投資　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2886.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 11,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14830",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＪＰＸ／Ｓ＆Ｐ設備・人材投資　ＥＴＦ",
+      "CompanyNameEnglish": "iShares JPX/S&P CAPEX & Human Capital ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:35.307981",
+      "updated_at": "2025-10-03T15:20:35.307985",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

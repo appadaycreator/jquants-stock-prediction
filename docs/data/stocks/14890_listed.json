@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14890",
+    "generated_at": "2025-10-03T15:21:01.216789",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14890",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　日経平均高配当株５０指数連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2284.0,
+    "change": 16.0,
+    "changePercent": 0.7054673721340388,
+    "volume": 450895,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14890",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　日経平均高配当株５０指数連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS Nikkei 225 High Dividend Yield Stock 50 Index Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:36.930047",
+      "updated_at": "2025-10-03T15:20:36.930049",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

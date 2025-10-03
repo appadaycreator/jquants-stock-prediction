@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15800",
+    "generated_at": "2025-10-03T15:21:01.224643",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15800",
+    "name": "シンプレクス・アセット・マネジメント株式会社　日経平均ベア上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1450.0,
+    "change": 11.5,
+    "changePercent": 0.7994438651372958,
+    "volume": 151030,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15800",
+      "CompanyName": "シンプレクス・アセット・マネジメント株式会社　日経平均ベア上場投信",
+      "CompanyNameEnglish": "Nikkei 225 Bear -1x ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:49.731436",
+      "updated_at": "2025-10-03T15:20:49.731438",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15470",
+    "generated_at": "2025-10-03T15:21:01.222171",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15470",
+    "name": "日興アセットマネジメント株式会社　上場インデックスファンド米国株式（Ｓ＆Ｐ５００）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 10015.0,
+    "change": 10.0,
+    "changePercent": 0.09995002498750624,
+    "volume": 26119,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15470",
+      "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド米国株式（Ｓ＆Ｐ５００）",
+      "CompanyNameEnglish": "Listed Index Fund US Equity (S&P500)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:43.452366",
+      "updated_at": "2025-10-03T15:20:43.452369",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

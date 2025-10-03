@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "generated_at": "2025-10-03T15:18:32.834953",
+    "generated_at": "2025-10-03T15:20:05.080026",
     "version": "2.0",
     "data_source": "jquants_listed_info",
-    "total_stocks": 100,
+    "total_stocks": 200,
     "structure_version": "2.0",
     "update_type": "listed_info"
   },
@@ -32,8 +32,8 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:33.002919",
-        "updated_at": "2025-10-03T15:18:33.002924",
+        "created_at": "2025-10-03T15:20:05.258033",
+        "updated_at": "2025-10-03T15:20:05.258039",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -63,8 +63,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:33.270535",
-        "updated_at": "2025-10-03T15:18:33.270538",
+        "created_at": "2025-10-03T15:20:05.515468",
+        "updated_at": "2025-10-03T15:20:05.515471",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -94,8 +94,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:33.548018",
-        "updated_at": "2025-10-03T15:18:33.548021",
+        "created_at": "2025-10-03T15:20:05.767789",
+        "updated_at": "2025-10-03T15:20:05.767792",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -125,8 +125,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:33.820957",
-        "updated_at": "2025-10-03T15:18:33.820961",
+        "created_at": "2025-10-03T15:20:06.021426",
+        "updated_at": "2025-10-03T15:20:06.021429",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -156,8 +156,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:34.086222",
-        "updated_at": "2025-10-03T15:18:34.086225",
+        "created_at": "2025-10-03T15:20:06.305944",
+        "updated_at": "2025-10-03T15:20:06.305949",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -187,8 +187,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:34.340256",
-        "updated_at": "2025-10-03T15:18:34.340261",
+        "created_at": "2025-10-03T15:20:06.572134",
+        "updated_at": "2025-10-03T15:20:06.572139",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -218,8 +218,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:34.599162",
-        "updated_at": "2025-10-03T15:18:34.599168",
+        "created_at": "2025-10-03T15:20:06.819323",
+        "updated_at": "2025-10-03T15:20:06.819326",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -234,7 +234,7 @@
       "change": null,
       "changePercent": null,
       "volume": null,
-      "updated_at": "2025-10-03T15:18:34.853782",
+      "updated_at": "2025-10-03T15:20:07.070784",
       "listed_info": {
         "Date": "2025-07-11",
         "Code": "13190",
@@ -249,8 +249,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:34.853794",
-        "updated_at": "2025-10-03T15:18:34.853797",
+        "created_at": "2025-10-03T15:20:07.070789",
+        "updated_at": "2025-10-03T15:20:07.070790",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": false
@@ -265,7 +265,7 @@
       "change": null,
       "changePercent": null,
       "volume": null,
-      "updated_at": "2025-10-03T15:18:35.124364",
+      "updated_at": "2025-10-03T15:20:07.324135",
       "listed_info": {
         "Date": "2025-07-11",
         "Code": "131A0",
@@ -280,8 +280,8 @@
         "MarketCodeName": "TOKYO PRO MARKET"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:35.124370",
-        "updated_at": "2025-10-03T15:18:35.124371",
+        "created_at": "2025-10-03T15:20:07.324142",
+        "updated_at": "2025-10-03T15:20:07.324143",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": false
@@ -311,8 +311,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:35.408637",
-        "updated_at": "2025-10-03T15:18:35.408644",
+        "created_at": "2025-10-03T15:20:07.599803",
+        "updated_at": "2025-10-03T15:20:07.599809",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -342,8 +342,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:35.680937",
-        "updated_at": "2025-10-03T15:18:35.680940",
+        "created_at": "2025-10-03T15:20:07.882750",
+        "updated_at": "2025-10-03T15:20:07.882753",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -373,8 +373,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:35.946755",
-        "updated_at": "2025-10-03T15:18:35.946758",
+        "created_at": "2025-10-03T15:20:08.133674",
+        "updated_at": "2025-10-03T15:20:08.133677",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -404,8 +404,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:36.209217",
-        "updated_at": "2025-10-03T15:18:36.209222",
+        "created_at": "2025-10-03T15:20:08.401161",
+        "updated_at": "2025-10-03T15:20:08.401163",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -435,8 +435,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:36.455111",
-        "updated_at": "2025-10-03T15:18:36.455117",
+        "created_at": "2025-10-03T15:20:08.656080",
+        "updated_at": "2025-10-03T15:20:08.656086",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -466,8 +466,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:36.720825",
-        "updated_at": "2025-10-03T15:18:36.720829",
+        "created_at": "2025-10-03T15:20:08.919637",
+        "updated_at": "2025-10-03T15:20:08.919640",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -497,8 +497,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:36.983658",
-        "updated_at": "2025-10-03T15:18:36.983661",
+        "created_at": "2025-10-03T15:20:09.179627",
+        "updated_at": "2025-10-03T15:20:09.179629",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -513,7 +513,7 @@
       "change": null,
       "changePercent": null,
       "volume": null,
-      "updated_at": "2025-10-03T15:18:37.246933",
+      "updated_at": "2025-10-03T15:20:09.447760",
       "listed_info": {
         "Date": "2025-07-11",
         "Code": "132A0",
@@ -528,8 +528,8 @@
         "MarketCodeName": "TOKYO PRO MARKET"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:37.246937",
-        "updated_at": "2025-10-03T15:18:37.246938",
+        "created_at": "2025-10-03T15:20:09.447764",
+        "updated_at": "2025-10-03T15:20:09.447765",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": false
@@ -559,8 +559,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:37.509124",
-        "updated_at": "2025-10-03T15:18:37.509127",
+        "created_at": "2025-10-03T15:20:09.707114",
+        "updated_at": "2025-10-03T15:20:09.707120",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -590,8 +590,8 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:37.777936",
-        "updated_at": "2025-10-03T15:18:37.777939",
+        "created_at": "2025-10-03T15:20:10.035080",
+        "updated_at": "2025-10-03T15:20:10.035083",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -621,8 +621,8 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:38.036629",
-        "updated_at": "2025-10-03T15:18:38.036635",
+        "created_at": "2025-10-03T15:20:10.295901",
+        "updated_at": "2025-10-03T15:20:10.295904",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -652,8 +652,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:38.286701",
-        "updated_at": "2025-10-03T15:18:38.286703",
+        "created_at": "2025-10-03T15:20:10.555134",
+        "updated_at": "2025-10-03T15:20:10.555136",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -683,8 +683,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:38.555196",
-        "updated_at": "2025-10-03T15:18:38.555201",
+        "created_at": "2025-10-03T15:20:10.818780",
+        "updated_at": "2025-10-03T15:20:10.818783",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -714,8 +714,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:38.822212",
-        "updated_at": "2025-10-03T15:18:38.822217",
+        "created_at": "2025-10-03T15:20:11.082002",
+        "updated_at": "2025-10-03T15:20:11.082005",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -745,8 +745,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:39.088711",
-        "updated_at": "2025-10-03T15:18:39.088717",
+        "created_at": "2025-10-03T15:20:11.334255",
+        "updated_at": "2025-10-03T15:20:11.334258",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -776,8 +776,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:39.337926",
-        "updated_at": "2025-10-03T15:18:39.337930",
+        "created_at": "2025-10-03T15:20:11.610884",
+        "updated_at": "2025-10-03T15:20:11.610887",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -807,8 +807,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:39.617617",
-        "updated_at": "2025-10-03T15:18:39.617619",
+        "created_at": "2025-10-03T15:20:11.871378",
+        "updated_at": "2025-10-03T15:20:11.871384",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -823,7 +823,7 @@
       "change": null,
       "changePercent": null,
       "volume": null,
-      "updated_at": "2025-10-03T15:18:39.861278",
+      "updated_at": "2025-10-03T15:20:12.128511",
       "listed_info": {
         "Date": "2025-07-11",
         "Code": "134A0",
@@ -838,8 +838,8 @@
         "MarketCodeName": "TOKYO PRO MARKET"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:39.861283",
-        "updated_at": "2025-10-03T15:18:39.861284",
+        "created_at": "2025-10-03T15:20:12.128515",
+        "updated_at": "2025-10-03T15:20:12.128515",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": false
@@ -869,8 +869,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:40.137389",
-        "updated_at": "2025-10-03T15:18:40.137393",
+        "created_at": "2025-10-03T15:20:12.399399",
+        "updated_at": "2025-10-03T15:20:12.399405",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -900,8 +900,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:40.400187",
-        "updated_at": "2025-10-03T15:18:40.400190",
+        "created_at": "2025-10-03T15:20:12.669218",
+        "updated_at": "2025-10-03T15:20:12.669220",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -931,8 +931,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:40.676038",
-        "updated_at": "2025-10-03T15:18:40.676042",
+        "created_at": "2025-10-03T15:20:12.927732",
+        "updated_at": "2025-10-03T15:20:12.927736",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -962,8 +962,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:40.926802",
-        "updated_at": "2025-10-03T15:18:40.926806",
+        "created_at": "2025-10-03T15:20:13.213346",
+        "updated_at": "2025-10-03T15:20:13.213349",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -993,8 +993,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:41.197316",
-        "updated_at": "2025-10-03T15:18:41.197318",
+        "created_at": "2025-10-03T15:20:13.482664",
+        "updated_at": "2025-10-03T15:20:13.482668",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1024,8 +1024,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:41.456862",
-        "updated_at": "2025-10-03T15:18:41.456867",
+        "created_at": "2025-10-03T15:20:13.735823",
+        "updated_at": "2025-10-03T15:20:13.735827",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1055,8 +1055,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:41.729169",
-        "updated_at": "2025-10-03T15:18:41.729172",
+        "created_at": "2025-10-03T15:20:14.014066",
+        "updated_at": "2025-10-03T15:20:14.014068",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1086,8 +1086,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:42.006052",
-        "updated_at": "2025-10-03T15:18:42.006056",
+        "created_at": "2025-10-03T15:20:14.275560",
+        "updated_at": "2025-10-03T15:20:14.275564",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1117,8 +1117,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:42.276536",
-        "updated_at": "2025-10-03T15:18:42.276540",
+        "created_at": "2025-10-03T15:20:14.541078",
+        "updated_at": "2025-10-03T15:20:14.541083",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1148,8 +1148,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:42.528178",
-        "updated_at": "2025-10-03T15:18:42.528181",
+        "created_at": "2025-10-03T15:20:14.827745",
+        "updated_at": "2025-10-03T15:20:14.827747",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1179,8 +1179,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:42.794462",
-        "updated_at": "2025-10-03T15:18:42.794465",
+        "created_at": "2025-10-03T15:20:15.099803",
+        "updated_at": "2025-10-03T15:20:15.099809",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1195,7 +1195,7 @@
       "change": null,
       "changePercent": null,
       "volume": null,
-      "updated_at": "2025-10-03T15:18:43.119422",
+      "updated_at": "2025-10-03T15:20:15.361466",
       "listed_info": {
         "Date": "2025-07-11",
         "Code": "136A0",
@@ -1210,8 +1210,8 @@
         "MarketCodeName": "TOKYO PRO MARKET"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:43.119426",
-        "updated_at": "2025-10-03T15:18:43.119427",
+        "created_at": "2025-10-03T15:20:15.361470",
+        "updated_at": "2025-10-03T15:20:15.361471",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": false
@@ -1241,8 +1241,8 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:43.369783",
-        "updated_at": "2025-10-03T15:18:43.369785",
+        "created_at": "2025-10-03T15:20:15.632635",
+        "updated_at": "2025-10-03T15:20:15.632639",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1272,8 +1272,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:43.630863",
-        "updated_at": "2025-10-03T15:18:43.630866",
+        "created_at": "2025-10-03T15:20:15.888877",
+        "updated_at": "2025-10-03T15:20:15.888882",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1303,8 +1303,8 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:43.913743",
-        "updated_at": "2025-10-03T15:18:43.913745",
+        "created_at": "2025-10-03T15:20:16.146951",
+        "updated_at": "2025-10-03T15:20:16.146953",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1334,8 +1334,8 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:44.189134",
-        "updated_at": "2025-10-03T15:18:44.189138",
+        "created_at": "2025-10-03T15:20:16.401906",
+        "updated_at": "2025-10-03T15:20:16.401909",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1365,8 +1365,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:44.452965",
-        "updated_at": "2025-10-03T15:18:44.452968",
+        "created_at": "2025-10-03T15:20:16.658277",
+        "updated_at": "2025-10-03T15:20:16.658282",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1396,8 +1396,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:44.711289",
-        "updated_at": "2025-10-03T15:18:44.711293",
+        "created_at": "2025-10-03T15:20:16.932678",
+        "updated_at": "2025-10-03T15:20:16.932681",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1427,8 +1427,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:44.973953",
-        "updated_at": "2025-10-03T15:18:44.973957",
+        "created_at": "2025-10-03T15:20:17.188608",
+        "updated_at": "2025-10-03T15:20:17.188612",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1458,8 +1458,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:45.235949",
-        "updated_at": "2025-10-03T15:18:45.235952",
+        "created_at": "2025-10-03T15:20:17.440776",
+        "updated_at": "2025-10-03T15:20:17.440780",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1489,8 +1489,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:45.568186",
-        "updated_at": "2025-10-03T15:18:45.568194",
+        "created_at": "2025-10-03T15:20:17.700919",
+        "updated_at": "2025-10-03T15:20:17.700922",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1520,8 +1520,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:45.984377",
-        "updated_at": "2025-10-03T15:18:45.984387",
+        "created_at": "2025-10-03T15:20:17.970440",
+        "updated_at": "2025-10-03T15:20:17.970443",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1551,8 +1551,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:46.478003",
-        "updated_at": "2025-10-03T15:18:46.478044",
+        "created_at": "2025-10-03T15:20:18.258516",
+        "updated_at": "2025-10-03T15:20:18.258520",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1582,8 +1582,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:46.750832",
-        "updated_at": "2025-10-03T15:18:46.750850",
+        "created_at": "2025-10-03T15:20:18.534667",
+        "updated_at": "2025-10-03T15:20:18.534670",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1613,8 +1613,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:47.026967",
-        "updated_at": "2025-10-03T15:18:47.026970",
+        "created_at": "2025-10-03T15:20:18.807078",
+        "updated_at": "2025-10-03T15:20:18.807083",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1644,8 +1644,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:47.276314",
-        "updated_at": "2025-10-03T15:18:47.276317",
+        "created_at": "2025-10-03T15:20:19.079396",
+        "updated_at": "2025-10-03T15:20:19.079398",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1660,7 +1660,7 @@
       "change": null,
       "changePercent": null,
       "volume": null,
-      "updated_at": "2025-10-03T15:18:47.524767",
+      "updated_at": "2025-10-03T15:20:19.352381",
       "listed_info": {
         "Date": "2025-07-11",
         "Code": "139A0",
@@ -1675,8 +1675,8 @@
         "MarketCodeName": "TOKYO PRO MARKET"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:47.524771",
-        "updated_at": "2025-10-03T15:18:47.524772",
+        "created_at": "2025-10-03T15:20:19.352385",
+        "updated_at": "2025-10-03T15:20:19.352386",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": false
@@ -1706,8 +1706,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:47.787228",
-        "updated_at": "2025-10-03T15:18:47.787231",
+        "created_at": "2025-10-03T15:20:19.659930",
+        "updated_at": "2025-10-03T15:20:19.659944",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1737,8 +1737,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:48.041496",
-        "updated_at": "2025-10-03T15:18:48.041500",
+        "created_at": "2025-10-03T15:20:20.978527",
+        "updated_at": "2025-10-03T15:20:20.979904",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1768,8 +1768,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:48.316979",
-        "updated_at": "2025-10-03T15:18:48.316984",
+        "created_at": "2025-10-03T15:20:21.570605",
+        "updated_at": "2025-10-03T15:20:21.570648",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1799,8 +1799,8 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:48.575379",
-        "updated_at": "2025-10-03T15:18:48.575386",
+        "created_at": "2025-10-03T15:20:21.886033",
+        "updated_at": "2025-10-03T15:20:21.886047",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1830,8 +1830,8 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:48.840750",
-        "updated_at": "2025-10-03T15:18:48.840755",
+        "created_at": "2025-10-03T15:20:22.187382",
+        "updated_at": "2025-10-03T15:20:22.187386",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1861,8 +1861,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:49.102273",
-        "updated_at": "2025-10-03T15:18:49.102276",
+        "created_at": "2025-10-03T15:20:23.419909",
+        "updated_at": "2025-10-03T15:20:23.419922",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1892,8 +1892,8 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:49.373754",
-        "updated_at": "2025-10-03T15:18:49.373767",
+        "created_at": "2025-10-03T15:20:24.009505",
+        "updated_at": "2025-10-03T15:20:24.009522",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1923,8 +1923,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:49.638847",
-        "updated_at": "2025-10-03T15:18:49.638853",
+        "created_at": "2025-10-03T15:20:24.418536",
+        "updated_at": "2025-10-03T15:20:24.418552",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1954,8 +1954,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:49.881900",
-        "updated_at": "2025-10-03T15:18:49.881905",
+        "created_at": "2025-10-03T15:20:24.807481",
+        "updated_at": "2025-10-03T15:20:24.807600",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -1985,8 +1985,8 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:50.131269",
-        "updated_at": "2025-10-03T15:18:50.131276",
+        "created_at": "2025-10-03T15:20:25.053814",
+        "updated_at": "2025-10-03T15:20:25.053817",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2016,8 +2016,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:50.436824",
-        "updated_at": "2025-10-03T15:18:50.436853",
+        "created_at": "2025-10-03T15:20:25.323858",
+        "updated_at": "2025-10-03T15:20:25.323863",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2047,8 +2047,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:50.699754",
-        "updated_at": "2025-10-03T15:18:50.699756",
+        "created_at": "2025-10-03T15:20:25.579830",
+        "updated_at": "2025-10-03T15:20:25.579833",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2078,8 +2078,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:50.982570",
-        "updated_at": "2025-10-03T15:18:50.982577",
+        "created_at": "2025-10-03T15:20:25.833840",
+        "updated_at": "2025-10-03T15:20:25.833844",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2094,7 +2094,7 @@
       "change": null,
       "changePercent": null,
       "volume": null,
-      "updated_at": "2025-10-03T15:18:51.226556",
+      "updated_at": "2025-10-03T15:20:26.100176",
       "listed_info": {
         "Date": "2025-07-11",
         "Code": "14320",
@@ -2109,8 +2109,8 @@
         "MarketCodeName": "TOKYO PRO MARKET"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:51.226565",
-        "updated_at": "2025-10-03T15:18:51.226566",
+        "created_at": "2025-10-03T15:20:26.100180",
+        "updated_at": "2025-10-03T15:20:26.100181",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": false
@@ -2140,8 +2140,8 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:51.721616",
-        "updated_at": "2025-10-03T15:18:51.721632",
+        "created_at": "2025-10-03T15:20:26.366439",
+        "updated_at": "2025-10-03T15:20:26.366446",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2171,8 +2171,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:52.089493",
-        "updated_at": "2025-10-03T15:18:52.089507",
+        "created_at": "2025-10-03T15:20:26.642926",
+        "updated_at": "2025-10-03T15:20:26.642930",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2202,8 +2202,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:52.354698",
-        "updated_at": "2025-10-03T15:18:52.354703",
+        "created_at": "2025-10-03T15:20:26.920894",
+        "updated_at": "2025-10-03T15:20:26.920897",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2233,8 +2233,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:52.626554",
-        "updated_at": "2025-10-03T15:18:52.626557",
+        "created_at": "2025-10-03T15:20:27.161374",
+        "updated_at": "2025-10-03T15:20:27.161376",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2264,8 +2264,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:52.884933",
-        "updated_at": "2025-10-03T15:18:52.884939",
+        "created_at": "2025-10-03T15:20:27.409140",
+        "updated_at": "2025-10-03T15:20:27.409144",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2295,8 +2295,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:53.154122",
-        "updated_at": "2025-10-03T15:18:53.154127",
+        "created_at": "2025-10-03T15:20:27.673323",
+        "updated_at": "2025-10-03T15:20:27.673327",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2326,8 +2326,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:53.599691",
-        "updated_at": "2025-10-03T15:18:53.599709",
+        "created_at": "2025-10-03T15:20:27.927087",
+        "updated_at": "2025-10-03T15:20:27.927090",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2357,8 +2357,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:53.920636",
-        "updated_at": "2025-10-03T15:18:53.920641",
+        "created_at": "2025-10-03T15:20:28.180670",
+        "updated_at": "2025-10-03T15:20:28.180672",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2373,7 +2373,7 @@
       "change": null,
       "changePercent": null,
       "volume": null,
-      "updated_at": "2025-10-03T15:18:54.179395",
+      "updated_at": "2025-10-03T15:20:28.432777",
       "listed_info": {
         "Date": "2025-07-11",
         "Code": "14450",
@@ -2388,8 +2388,8 @@
         "MarketCodeName": "TOKYO PRO MARKET"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:54.179401",
-        "updated_at": "2025-10-03T15:18:54.179402",
+        "created_at": "2025-10-03T15:20:28.432780",
+        "updated_at": "2025-10-03T15:20:28.432781",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": false
@@ -2419,8 +2419,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:54.468307",
-        "updated_at": "2025-10-03T15:18:54.468311",
+        "created_at": "2025-10-03T15:20:28.697850",
+        "updated_at": "2025-10-03T15:20:28.697890",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2450,8 +2450,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:54.769886",
-        "updated_at": "2025-10-03T15:18:54.769915",
+        "created_at": "2025-10-03T15:20:28.945365",
+        "updated_at": "2025-10-03T15:20:28.945368",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2466,7 +2466,7 @@
       "change": null,
       "changePercent": null,
       "volume": null,
-      "updated_at": "2025-10-03T15:18:55.027999",
+      "updated_at": "2025-10-03T15:20:29.199693",
       "listed_info": {
         "Date": "2025-07-11",
         "Code": "144A0",
@@ -2481,8 +2481,8 @@
         "MarketCodeName": "TOKYO PRO MARKET"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:55.028005",
-        "updated_at": "2025-10-03T15:18:55.028005",
+        "created_at": "2025-10-03T15:20:29.199698",
+        "updated_at": "2025-10-03T15:20:29.199698",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": false
@@ -2512,8 +2512,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:55.292102",
-        "updated_at": "2025-10-03T15:18:55.292111",
+        "created_at": "2025-10-03T15:20:29.454226",
+        "updated_at": "2025-10-03T15:20:29.454229",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2528,7 +2528,7 @@
       "change": null,
       "changePercent": null,
       "volume": null,
-      "updated_at": "2025-10-03T15:18:55.557207",
+      "updated_at": "2025-10-03T15:20:29.763491",
       "listed_info": {
         "Date": "2025-07-11",
         "Code": "14520",
@@ -2543,8 +2543,8 @@
         "MarketCodeName": "TOKYO PRO MARKET"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:55.557212",
-        "updated_at": "2025-10-03T15:18:55.557213",
+        "created_at": "2025-10-03T15:20:29.763495",
+        "updated_at": "2025-10-03T15:20:29.763496",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": false
@@ -2574,8 +2574,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:55.820666",
-        "updated_at": "2025-10-03T15:18:55.820679",
+        "created_at": "2025-10-03T15:20:30.025329",
+        "updated_at": "2025-10-03T15:20:30.025333",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2605,8 +2605,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:56.100731",
-        "updated_at": "2025-10-03T15:18:56.100734",
+        "created_at": "2025-10-03T15:20:30.281083",
+        "updated_at": "2025-10-03T15:20:30.281085",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2636,8 +2636,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:56.356615",
-        "updated_at": "2025-10-03T15:18:56.356622",
+        "created_at": "2025-10-03T15:20:30.533347",
+        "updated_at": "2025-10-03T15:20:30.533351",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2667,8 +2667,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:56.627199",
-        "updated_at": "2025-10-03T15:18:56.627202",
+        "created_at": "2025-10-03T15:20:30.787678",
+        "updated_at": "2025-10-03T15:20:30.787681",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2698,8 +2698,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:56.872951",
-        "updated_at": "2025-10-03T15:18:56.872956",
+        "created_at": "2025-10-03T15:20:31.053363",
+        "updated_at": "2025-10-03T15:20:31.053365",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2729,8 +2729,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:57.139961",
-        "updated_at": "2025-10-03T15:18:57.140012",
+        "created_at": "2025-10-03T15:20:31.304422",
+        "updated_at": "2025-10-03T15:20:31.304425",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2760,8 +2760,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:57.398531",
-        "updated_at": "2025-10-03T15:18:57.398534",
+        "created_at": "2025-10-03T15:20:31.576489",
+        "updated_at": "2025-10-03T15:20:31.576493",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2791,8 +2791,8 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:57.655676",
-        "updated_at": "2025-10-03T15:18:57.655681",
+        "created_at": "2025-10-03T15:20:31.857955",
+        "updated_at": "2025-10-03T15:20:31.857959",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2822,8 +2822,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:57.912286",
-        "updated_at": "2025-10-03T15:18:57.912290",
+        "created_at": "2025-10-03T15:20:32.119455",
+        "updated_at": "2025-10-03T15:20:32.119459",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2853,8 +2853,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:58.194199",
-        "updated_at": "2025-10-03T15:18:58.194201",
+        "created_at": "2025-10-03T15:20:32.408233",
+        "updated_at": "2025-10-03T15:20:32.408245",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2884,8 +2884,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:58.518483",
-        "updated_at": "2025-10-03T15:18:58.518486",
+        "created_at": "2025-10-03T15:20:32.680986",
+        "updated_at": "2025-10-03T15:20:32.680989",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2915,8 +2915,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:58.794000",
-        "updated_at": "2025-10-03T15:18:58.794002",
+        "created_at": "2025-10-03T15:20:32.932131",
+        "updated_at": "2025-10-03T15:20:32.932133",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2946,8 +2946,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:59.060078",
-        "updated_at": "2025-10-03T15:18:59.060080",
+        "created_at": "2025-10-03T15:20:33.202927",
+        "updated_at": "2025-10-03T15:20:33.202930",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -2977,8 +2977,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:59.334128",
-        "updated_at": "2025-10-03T15:18:59.334131",
+        "created_at": "2025-10-03T15:20:33.460249",
+        "updated_at": "2025-10-03T15:20:33.460252",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -3008,8 +3008,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:59.606806",
-        "updated_at": "2025-10-03T15:18:59.606810",
+        "created_at": "2025-10-03T15:20:33.718121",
+        "updated_at": "2025-10-03T15:20:33.718123",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -3039,8 +3039,8 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:18:59.861735",
-        "updated_at": "2025-10-03T15:18:59.861738",
+        "created_at": "2025-10-03T15:20:33.990972",
+        "updated_at": "2025-10-03T15:20:33.990976",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -3070,8 +3070,8 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:19:00.119461",
-        "updated_at": "2025-10-03T15:19:00.119463",
+        "created_at": "2025-10-03T15:20:34.248175",
+        "updated_at": "2025-10-03T15:20:34.248180",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": true
@@ -3086,7 +3086,7 @@
       "change": null,
       "changePercent": null,
       "volume": null,
-      "updated_at": "2025-10-03T15:19:00.381455",
+      "updated_at": "2025-10-03T15:20:34.518931",
       "listed_info": {
         "Date": "2025-07-11",
         "Code": "14800",
@@ -3101,11 +3101,3111 @@
         "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-03T15:19:00.381459",
-        "updated_at": "2025-10-03T15:19:00.381460",
+        "created_at": "2025-10-03T15:20:34.518935",
+        "updated_at": "2025-10-03T15:20:34.518936",
         "data_quality": "jquants_official",
         "source": "listed_info_api",
         "price_data_available": false
+      }
+    },
+    "14810": {
+      "code": "14810",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンド日本経済貢献株",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 2883.0,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "volume": 2,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14810",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド日本経済貢献株",
+        "CompanyNameEnglish": "Listed Index Fund Japanese Economy Contributor Stocks",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:34.781404",
+        "updated_at": "2025-10-03T15:20:34.781407",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14820": {
+      "code": "14820",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　米国債７−１０年　ＥＴＦ（為替ヘッジあり）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 1628.0,
+      "change": -2.0,
+      "changePercent": -0.1226993865030675,
+      "volume": 17224,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14820",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　米国債７−１０年　ＥＴＦ（為替ヘッジあり）",
+        "CompanyNameEnglish": "iShares Core 7-10 Year US Treasury Bond JPY Hedged ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:35.039491",
+        "updated_at": "2025-10-03T15:20:35.039497",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14830": {
+      "code": "14830",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＪＰＸ／Ｓ＆Ｐ設備・人材投資　ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 2886.0,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "volume": 11,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14830",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＪＰＸ／Ｓ＆Ｐ設備・人材投資　ＥＴＦ",
+        "CompanyNameEnglish": "iShares JPX/S&P CAPEX & Human Capital ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:35.307981",
+        "updated_at": "2025-10-03T15:20:35.307985",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14840": {
+      "code": "14840",
+      "name": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　ＪＰＸ／Ｓ＆Ｐ　設備・人材投資指数",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 2837.0,
+      "change": -18.5,
+      "changePercent": -0.6478725267028541,
+      "volume": 210,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14840",
+        "CompanyName": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　ＪＰＸ／Ｓ＆Ｐ　設備・人材投資指数",
+        "CompanyNameEnglish": "One ETF JPX/S&P CAPEX & Human Capital Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:35.567006",
+        "updated_at": "2025-10-03T15:20:35.567011",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14850": {
+      "code": "14850",
+      "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　ＪＡＰＡＮ　設備・人材積極投資企業２００上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:20:35.838667",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14850",
+        "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　ＪＡＰＡＮ　設備・人材積極投資企業２００上場投信",
+        "CompanyNameEnglish": "MAXIS JAPAN Proactive Investment in Physical and Human Capital 200 Index ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:35.838673",
+        "updated_at": "2025-10-03T15:20:35.838674",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14860": {
+      "code": "14860",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンド米国債券（為替ヘッジなし）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 22510.0,
+      "change": 80.0,
+      "changePercent": 0.3566651805617477,
+      "volume": 312,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14860",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド米国債券（為替ヘッジなし）",
+        "CompanyNameEnglish": "Listed Index Fund US Bond (No Currency Hedge)",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:36.090610",
+        "updated_at": "2025-10-03T15:20:36.090615",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14870": {
+      "code": "14870",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンド米国債券（為替ヘッジあり）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 12545.0,
+      "change": 30.0,
+      "changePercent": 0.23971234518577705,
+      "volume": 727,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14870",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド米国債券（為替ヘッジあり）",
+        "CompanyNameEnglish": "Listed Index Fund US Bond (Currency Hedge)",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:36.356053",
+        "updated_at": "2025-10-03T15:20:36.356059",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14880": {
+      "code": "14880",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　東証ＲＥＩＴ指数",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 1855.0,
+      "change": 3.0,
+      "changePercent": 0.16198704103671707,
+      "volume": 26881,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14880",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　東証ＲＥＩＴ指数",
+        "CompanyNameEnglish": "iFreeETF Tokyo Stock Exchange REIT Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:36.616135",
+        "updated_at": "2025-10-03T15:20:36.616137",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14890": {
+      "code": "14890",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　日経平均高配当株５０指数連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 2284.0,
+      "change": 16.0,
+      "changePercent": 0.7054673721340388,
+      "volume": 450895,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14890",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　日経平均高配当株５０指数連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS Nikkei 225 High Dividend Yield Stock 50 Index Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:36.930047",
+        "updated_at": "2025-10-03T15:20:36.930049",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "148A0": {
+      "code": "148A0",
+      "name": "ハッチ・ワーク",
+      "sector": "情報通信・サービスその他",
+      "market": "グロース",
+      "currentPrice": 2210.0,
+      "change": -57.0,
+      "changePercent": -2.514336127040141,
+      "volume": 12600,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "148A0",
+        "CompanyName": "ハッチ・ワーク",
+        "CompanyNameEnglish": "HATCH WORK CO.,LTD.",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "5250",
+        "Sector33CodeName": "情報･通信業",
+        "ScaleCategory": "-",
+        "MarketCode": "0113",
+        "MarketCodeName": "グロース"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:37.192252",
+        "updated_at": "2025-10-03T15:20:37.192256",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14900": {
+      "code": "14900",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンドＭＳＣＩ日本株高配当低ボラティリティ（βヘッジ）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 7466.0,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "volume": 41,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14900",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンドＭＳＣＩ日本株高配当低ボラティリティ（βヘッジ）",
+        "CompanyNameEnglish": "Listed Index Fund MSCI Japan Equity High Dividend Low Volatility (Beta Hedged)",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:37.450178",
+        "updated_at": "2025-10-03T15:20:37.450185",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14910": {
+      "code": "14910",
+      "name": "中外鉱業",
+      "sector": "鉄鋼・非鉄",
+      "market": "スタンダード",
+      "currentPrice": 59.0,
+      "change": 4.0,
+      "changePercent": 7.2727272727272725,
+      "volume": 17640600,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14910",
+        "CompanyName": "中外鉱業",
+        "CompanyNameEnglish": "Chugai Mining Co.,Ltd.",
+        "Sector17Code": "7",
+        "Sector17CodeName": "鉄鋼・非鉄",
+        "Sector33Code": "3500",
+        "Sector33CodeName": "非鉄金属",
+        "ScaleCategory": "-",
+        "MarketCode": "0112",
+        "MarketCodeName": "スタンダード"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:37.708908",
+        "updated_at": "2025-10-03T15:20:37.708913",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14930": {
+      "code": "14930",
+      "name": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　ＪＰＸ日経中小型",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 19600.0,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "volume": 132,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14930",
+        "CompanyName": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　ＪＰＸ日経中小型",
+        "CompanyNameEnglish": "One ETF JPX-Nikkei Mid Small",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:37.960446",
+        "updated_at": "2025-10-03T15:20:37.960450",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14940": {
+      "code": "14940",
+      "name": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　高配当日本株",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 33060.0,
+      "change": 150.0,
+      "changePercent": 0.4557885141294439,
+      "volume": 825,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14940",
+        "CompanyName": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　高配当日本株",
+        "CompanyNameEnglish": "One ETF High Dividend Japan Equity",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:38.231815",
+        "updated_at": "2025-10-03T15:20:38.231818",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14950": {
+      "code": "14950",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンドアジアリート",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 10440.0,
+      "change": -5.0,
+      "changePercent": -0.04786979415988511,
+      "volume": 550,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14950",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンドアジアリート",
+        "CompanyNameEnglish": "Listed Index Fund Asian REIT",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:38.487936",
+        "updated_at": "2025-10-03T15:20:38.487939",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14960": {
+      "code": "14960",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米ドル建て投資適格社債　ＥＴＦ（為替ヘッジあり）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 1734.0,
+      "change": -4.0,
+      "changePercent": -0.23014959723820483,
+      "volume": 10237,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14960",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米ドル建て投資適格社債　ＥＴＦ（為替ヘッジあり）",
+        "CompanyNameEnglish": "iShares USD Investment Grade Corporate Bond JPY Hedged ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:38.750471",
+        "updated_at": "2025-10-03T15:20:38.750474",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14970": {
+      "code": "14970",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米ドル建てハイイールド社債　ＥＴＦ（為替ヘッジあり）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 1816.0,
+      "change": -1.0,
+      "changePercent": -0.0550357732526142,
+      "volume": 30565,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14970",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米ドル建てハイイールド社債　ＥＴＦ（為替ヘッジあり）",
+        "CompanyNameEnglish": "iShares USD High Yield Corporate Bond JPY Hedged ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:39.015011",
+        "updated_at": "2025-10-03T15:20:39.015014",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14980": {
+      "code": "14980",
+      "name": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　ＥＳＧ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 22140.0,
+      "change": -25.0,
+      "changePercent": -0.11279043537108054,
+      "volume": 56,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14980",
+        "CompanyName": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　ＥＳＧ",
+        "CompanyNameEnglish": "One ETF ESG",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:39.264416",
+        "updated_at": "2025-10-03T15:20:39.264420",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "14990": {
+      "code": "14990",
+      "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ日本株高配当７０マーケットニュートラル上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 9075.0,
+      "change": 43.0,
+      "changePercent": 0.4760850310008858,
+      "volume": 479,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14990",
+        "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ日本株高配当７０マーケットニュートラル上場投信",
+        "CompanyNameEnglish": "MAXIS Japan Equity High Dividend 70 Market Neutral ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:39.524767",
+        "updated_at": "2025-10-03T15:20:39.524771",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "149A0": {
+      "code": "149A0",
+      "name": "シンカ",
+      "sector": "情報通信・サービスその他",
+      "market": "グロース",
+      "currentPrice": 1067.0,
+      "change": -3.0,
+      "changePercent": -0.2803738317757009,
+      "volume": 6700,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "149A0",
+        "CompanyName": "シンカ",
+        "CompanyNameEnglish": "Thinca Co.,Ltd.",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "5250",
+        "Sector33CodeName": "情報･通信業",
+        "ScaleCategory": "-",
+        "MarketCode": "0113",
+        "MarketCodeName": "グロース"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:39.785197",
+        "updated_at": "2025-10-03T15:20:39.785199",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "150A0": {
+      "code": "150A0",
+      "name": "ＪＳＨ",
+      "sector": "情報通信・サービスその他",
+      "market": "グロース",
+      "currentPrice": 442.0,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "volume": 4000,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "150A0",
+        "CompanyName": "ＪＳＨ",
+        "CompanyNameEnglish": "JSH Co.,Ltd.",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "9050",
+        "Sector33CodeName": "サービス業",
+        "ScaleCategory": "-",
+        "MarketCode": "0113",
+        "MarketCodeName": "グロース"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:40.046447",
+        "updated_at": "2025-10-03T15:20:40.046450",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15140": {
+      "code": "15140",
+      "name": "住石ホールディングス",
+      "sector": "エネルギー資源",
+      "market": "スタンダード",
+      "currentPrice": 607.0,
+      "change": 6.0,
+      "changePercent": 0.9983361064891847,
+      "volume": 126000,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15140",
+        "CompanyName": "住石ホールディングス",
+        "CompanyNameEnglish": "Sumiseki Holdings,Inc.",
+        "Sector17Code": "2",
+        "Sector17CodeName": "エネルギー資源",
+        "Sector33Code": "1050",
+        "Sector33CodeName": "鉱業",
+        "ScaleCategory": "TOPIX Small 1",
+        "MarketCode": "0112",
+        "MarketCodeName": "スタンダード"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:40.299973",
+        "updated_at": "2025-10-03T15:20:40.299976",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15150": {
+      "code": "15150",
+      "name": "日鉄鉱業",
+      "sector": "エネルギー資源",
+      "market": "プライム",
+      "currentPrice": 7460.0,
+      "change": -50.0,
+      "changePercent": -0.6657789613848202,
+      "volume": 37500,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15150",
+        "CompanyName": "日鉄鉱業",
+        "CompanyNameEnglish": "Nittetsu Mining Co.,Ltd.",
+        "Sector17Code": "2",
+        "Sector17CodeName": "エネルギー資源",
+        "Sector33Code": "1050",
+        "Sector33CodeName": "鉱業",
+        "ScaleCategory": "TOPIX Small 1",
+        "MarketCode": "0111",
+        "MarketCodeName": "プライム"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:40.555652",
+        "updated_at": "2025-10-03T15:20:40.555659",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15180": {
+      "code": "15180",
+      "name": "三井松島ホールディングス",
+      "sector": "情報通信・サービスその他",
+      "market": "プライム",
+      "currentPrice": 5100.0,
+      "change": -30.0,
+      "changePercent": -0.5847953216374269,
+      "volume": 39700,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15180",
+        "CompanyName": "三井松島ホールディングス",
+        "CompanyNameEnglish": "MITSUI MATSUSHIMA HOLDINGS CO.,LTD.",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "3800",
+        "Sector33CodeName": "その他製品",
+        "ScaleCategory": "TOPIX Small 1",
+        "MarketCode": "0111",
+        "MarketCodeName": "プライム"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:40.818457",
+        "updated_at": "2025-10-03T15:20:40.818460",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "151A0": {
+      "code": "151A0",
+      "name": "ダイブ",
+      "sector": "情報通信・サービスその他",
+      "market": "グロース",
+      "currentPrice": 913.0,
+      "change": -6.0,
+      "changePercent": -0.6528835690968444,
+      "volume": 10200,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "151A0",
+        "CompanyName": "ダイブ",
+        "CompanyNameEnglish": "Dive Inc.",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "9050",
+        "Sector33CodeName": "サービス業",
+        "ScaleCategory": "-",
+        "MarketCode": "0113",
+        "MarketCodeName": "グロース"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:41.072253",
+        "updated_at": "2025-10-03T15:20:41.072258",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "152A0": {
+      "code": "152A0",
+      "name": "オプティ",
+      "sector": "商社・卸売",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:20:41.335292",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "152A0",
+        "CompanyName": "オプティ",
+        "CompanyNameEnglish": "OPTY CO.,LTD.",
+        "Sector17Code": "13",
+        "Sector17CodeName": "商社・卸売",
+        "Sector33Code": "6050",
+        "Sector33CodeName": "卸売業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:41.335295",
+        "updated_at": "2025-10-03T15:20:41.335296",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "153A0": {
+      "code": "153A0",
+      "name": "カウリス",
+      "sector": "情報通信・サービスその他",
+      "market": "グロース",
+      "currentPrice": 1705.0,
+      "change": 20.0,
+      "changePercent": 1.1869436201780417,
+      "volume": 258200,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "153A0",
+        "CompanyName": "カウリス",
+        "CompanyNameEnglish": "Caulis Inc.",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "5250",
+        "Sector33CodeName": "情報･通信業",
+        "ScaleCategory": "-",
+        "MarketCode": "0113",
+        "MarketCodeName": "グロース"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:41.601982",
+        "updated_at": "2025-10-03T15:20:41.601986",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15400": {
+      "code": "15400",
+      "name": "三菱ＵＦＪ信託銀行株式会社　純金上場信託（現物国内保管型）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 14830.0,
+      "change": 120.0,
+      "changePercent": 0.8157715839564922,
+      "volume": 205414,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15400",
+        "CompanyName": "三菱ＵＦＪ信託銀行株式会社　純金上場信託（現物国内保管型）",
+        "CompanyNameEnglish": "Japan Physical Gold ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:41.868303",
+        "updated_at": "2025-10-03T15:20:41.868306",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15410": {
+      "code": "15410",
+      "name": "三菱ＵＦＪ信託銀行株式会社　純プラチナ上場信託（現物国内保管型）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 5949.0,
+      "change": -15.0,
+      "changePercent": -0.2515090543259557,
+      "volume": 66164,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15410",
+        "CompanyName": "三菱ＵＦＪ信託銀行株式会社　純プラチナ上場信託（現物国内保管型）",
+        "CompanyNameEnglish": "Japan Physical Platinum ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:42.132871",
+        "updated_at": "2025-10-03T15:20:42.132876",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15420": {
+      "code": "15420",
+      "name": "三菱ＵＦＪ信託銀行株式会社　純銀上場信託（現物国内保管型）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 16300.0,
+      "change": 250.0,
+      "changePercent": 1.557632398753894,
+      "volume": 45643,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15420",
+        "CompanyName": "三菱ＵＦＪ信託銀行株式会社　純銀上場信託（現物国内保管型）",
+        "CompanyNameEnglish": "Japan Physical Silver ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:42.387960",
+        "updated_at": "2025-10-03T15:20:42.387963",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15430": {
+      "code": "15430",
+      "name": "三菱ＵＦＪ信託銀行株式会社　純パラジウム上場信託（現物国内保管型）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 47600.0,
+      "change": 400.0,
+      "changePercent": 0.847457627118644,
+      "volume": 2116,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15430",
+        "CompanyName": "三菱ＵＦＪ信託銀行株式会社　純パラジウム上場信託（現物国内保管型）",
+        "CompanyNameEnglish": "Japan Physical Palladium ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:42.645875",
+        "updated_at": "2025-10-03T15:20:42.645878",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15450": {
+      "code": "15450",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＮＡＳＤＡＱ−１００（為替ヘッジなし）連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 33890.0,
+      "change": 20.0,
+      "changePercent": 0.059049306170652495,
+      "volume": 32372,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15450",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＮＡＳＤＡＱ−１００（為替ヘッジなし）連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS NASDAQ-100(R) (Unhedged) Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:42.934089",
+        "updated_at": "2025-10-03T15:20:42.934091",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15460": {
+      "code": "15460",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ダウ・ジョーンズ工業株３０種平均株価（為替ヘッジなし）連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 64080.0,
+      "change": -30.0,
+      "changePercent": -0.04679457182966776,
+      "volume": 2015,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15460",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ダウ・ジョーンズ工業株３０種平均株価（為替ヘッジなし）連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS DJIA (Unhedged) Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:43.193173",
+        "updated_at": "2025-10-03T15:20:43.193176",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15470": {
+      "code": "15470",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンド米国株式（Ｓ＆Ｐ５００）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 10015.0,
+      "change": 10.0,
+      "changePercent": 0.09995002498750624,
+      "volume": 26119,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15470",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド米国株式（Ｓ＆Ｐ５００）",
+        "CompanyNameEnglish": "Listed Index Fund US Equity (S&P500)",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:43.452366",
+        "updated_at": "2025-10-03T15:20:43.452369",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "154A0": {
+      "code": "154A0",
+      "name": "ＧＡＩＡ",
+      "sector": "金融（除く銀行）",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:20:43.705963",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "154A0",
+        "CompanyName": "ＧＡＩＡ",
+        "CompanyNameEnglish": "GAIA Inc.",
+        "Sector17Code": "16",
+        "Sector17CodeName": "金融（除く銀行）",
+        "Sector33Code": "7200",
+        "Sector33CodeName": "その他金融業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:43.705970",
+        "updated_at": "2025-10-03T15:20:43.705971",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "15500": {
+      "code": "15500",
+      "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　海外株式（ＭＳＣＩコクサイ）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 6183.0,
+      "change": -2.0,
+      "changePercent": -0.03233629749393695,
+      "volume": 3390,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15500",
+        "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　海外株式（ＭＳＣＩコクサイ）上場投信",
+        "CompanyNameEnglish": "MAXIS Global Equity (MSCI Kokusai) ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:43.965115",
+        "updated_at": "2025-10-03T15:20:43.965117",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15510": {
+      "code": "15510",
+      "name": "シンプレクス・アセット・マネジメント株式会社　東証スタンダードＴＯＰ２０ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 5790.0,
+      "change": 20.0,
+      "changePercent": 0.34662045060658575,
+      "volume": 1040,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15510",
+        "CompanyName": "シンプレクス・アセット・マネジメント株式会社　東証スタンダードＴＯＰ２０ＥＴＦ",
+        "CompanyNameEnglish": "TSE Standard Top 20 ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:44.239840",
+        "updated_at": "2025-10-03T15:20:44.239845",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15540": {
+      "code": "15540",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンド世界株式（ＭＳＣＩ　ＡＣＷＩ）除く日本",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 5116.0,
+      "change": -1.0,
+      "changePercent": -0.019542700801250732,
+      "volume": 8803,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15540",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド世界株式（ＭＳＣＩ　ＡＣＷＩ）除く日本",
+        "CompanyNameEnglish": "Listed Index Fund World Equity (MSCI ACWI) ex Japan",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:44.519796",
+        "updated_at": "2025-10-03T15:20:44.519798",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15550": {
+      "code": "15550",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンド豪州リート（Ｓ＆Ｐ／ＡＳＸ２００　Ａ−ＲＥＩＴ）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 2305.0,
+      "change": -4.0,
+      "changePercent": -0.17323516673884798,
+      "volume": 883,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15550",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド豪州リート（Ｓ＆Ｐ／ＡＳＸ２００　Ａ−ＲＥＩＴ）",
+        "CompanyNameEnglish": "Listed Index Fund Australian REIT (S&P/ASX200 A-REIT)",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:44.867776",
+        "updated_at": "2025-10-03T15:20:44.867779",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15570": {
+      "code": "15570",
+      "name": "ステート・ストリート・グローバル・アドバイザーズ・トラスト・カンパニー　ＳＰＤＲ　Ｓ＆Ｐ５００　ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 91760.0,
+      "change": 200.0,
+      "changePercent": 0.218435998252512,
+      "volume": 1782,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15570",
+        "CompanyName": "ステート・ストリート・グローバル・アドバイザーズ・トラスト・カンパニー　ＳＰＤＲ　Ｓ＆Ｐ５００　ＥＴＦ",
+        "CompanyNameEnglish": "SPDR S&P500 ETF Trust",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:45.127024",
+        "updated_at": "2025-10-03T15:20:45.127030",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15590": {
+      "code": "15590",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　タイ株式ＳＥＴ５０指数連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 3119.0,
+      "change": 30.0,
+      "changePercent": 0.9711880867594691,
+      "volume": 105,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15590",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　タイ株式ＳＥＴ５０指数連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS Thai Stock SET50 Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:45.387203",
+        "updated_at": "2025-10-03T15:20:45.387206",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "155A0": {
+      "code": "155A0",
+      "name": "情報戦略テクノロジー",
+      "sector": "情報通信・サービスその他",
+      "market": "グロース",
+      "currentPrice": 490.0,
+      "change": 3.0,
+      "changePercent": 0.6160164271047228,
+      "volume": 7000,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "155A0",
+        "CompanyName": "情報戦略テクノロジー",
+        "CompanyNameEnglish": "Information Strategy and Technology Co.,Ltd.",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "5250",
+        "Sector33CodeName": "情報･通信業",
+        "ScaleCategory": "-",
+        "MarketCode": "0113",
+        "MarketCodeName": "グロース"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:45.644824",
+        "updated_at": "2025-10-03T15:20:45.644826",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15600": {
+      "code": "15600",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＦＴＳＥブルサ・マレーシアＫＬＣＩ連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 5199.0,
+      "change": 40.0,
+      "changePercent": 0.7753440589261484,
+      "volume": 100,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15600",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＦＴＳＥブルサ・マレーシアＫＬＣＩ連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS FTSE Bursa Malaysia KLCI Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:45.912153",
+        "updated_at": "2025-10-03T15:20:45.912158",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15630": {
+      "code": "15630",
+      "name": "シンプレクス・アセット・マネジメント株式会社　東証グロース・コアＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 2453.0,
+      "change": 1.0,
+      "changePercent": 0.040783034257748776,
+      "volume": 12803,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15630",
+        "CompanyName": "シンプレクス・アセット・マネジメント株式会社　東証グロース・コアＥＴＦ",
+        "CompanyNameEnglish": "TSE Growth Core ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:46.248977",
+        "updated_at": "2025-10-03T15:20:46.248980",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15660": {
+      "code": "15660",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンド新興国債券",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 49910.0,
+      "change": 230.0,
+      "changePercent": 0.4629629629629629,
+      "volume": 730,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15660",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド新興国債券",
+        "CompanyNameEnglish": "Listed Index Fund Emerging Bond",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:46.508130",
+        "updated_at": "2025-10-03T15:20:46.508134",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15680": {
+      "code": "15680",
+      "name": "シンプレクス・アセット・マネジメント株式会社　ＴＯＰＩＸブル２倍上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 489.8,
+      "change": -1.5,
+      "changePercent": -0.3053124363932424,
+      "volume": 4800830,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15680",
+        "CompanyName": "シンプレクス・アセット・マネジメント株式会社　ＴＯＰＩＸブル２倍上場投信",
+        "CompanyNameEnglish": "TOPIX Bull 2x ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:46.757859",
+        "updated_at": "2025-10-03T15:20:46.757863",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15690": {
+      "code": "15690",
+      "name": "シンプレクス・アセット・マネジメント株式会社　ＴＯＰＩＸベア上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 1141.0,
+      "change": 1.5,
+      "changePercent": 0.13163668275559456,
+      "volume": 21690,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15690",
+        "CompanyName": "シンプレクス・アセット・マネジメント株式会社　ＴＯＰＩＸベア上場投信",
+        "CompanyNameEnglish": "TOPIX Bear -1x ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:47.000588",
+        "updated_at": "2025-10-03T15:20:47.000591",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "156A0": {
+      "code": "156A0",
+      "name": "マテリアルグループ",
+      "sector": "情報通信・サービスその他",
+      "market": "グロース",
+      "currentPrice": 761.0,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "volume": 98400,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "156A0",
+        "CompanyName": "マテリアルグループ",
+        "CompanyNameEnglish": "Material Group Inc.",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "9050",
+        "Sector33CodeName": "サービス業",
+        "ScaleCategory": "-",
+        "MarketCode": "0113",
+        "MarketCodeName": "グロース"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:47.263899",
+        "updated_at": "2025-10-03T15:20:47.263902",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15700": {
+      "code": "15700",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ日経平均レバレッジ・インデックス連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 26940.0,
+      "change": -445.0,
+      "changePercent": -1.624977177286836,
+      "volume": 3804162,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15700",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ日経平均レバレッジ・インデックス連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS Nikkei 225 Leveraged Index Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:47.529706",
+        "updated_at": "2025-10-03T15:20:47.529709",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15710": {
+      "code": "15710",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ日経平均インバース・インデックス連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 546.0,
+      "change": 4.0,
+      "changePercent": 0.7380073800738007,
+      "volume": 463375,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15710",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ日経平均インバース・インデックス連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS Nikkei 225 Inverse Index Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:47.776126",
+        "updated_at": "2025-10-03T15:20:47.776130",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15720": {
+      "code": "15720",
+      "name": "シンプレクス・アセット・マネジメント株式会社　中国Ｈ株ブル２倍上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 7261.0,
+      "change": 223.0,
+      "changePercent": 3.1685137823245237,
+      "volume": 17140,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15720",
+        "CompanyName": "シンプレクス・アセット・マネジメント株式会社　中国Ｈ株ブル２倍上場投信",
+        "CompanyNameEnglish": "China Bull 2x HSCEI ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:48.044953",
+        "updated_at": "2025-10-03T15:20:48.044955",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15730": {
+      "code": "15730",
+      "name": "シンプレクス・アセット・マネジメント株式会社　中国Ｈ株ベア上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 7658.0,
+      "change": -77.0,
+      "changePercent": -0.9954751131221719,
+      "volume": 290,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15730",
+        "CompanyName": "シンプレクス・アセット・マネジメント株式会社　中国Ｈ株ベア上場投信",
+        "CompanyNameEnglish": "China Bear -1x HSCEI ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:48.318218",
+        "updated_at": "2025-10-03T15:20:48.318221",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15770": {
+      "code": "15770",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　野村日本株高配当７０連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 39090.0,
+      "change": 130.0,
+      "changePercent": 0.3336755646817248,
+      "volume": 1553,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15770",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　野村日本株高配当７０連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS Nomura Japan Equity High Dividend 70 Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:48.566847",
+        "updated_at": "2025-10-03T15:20:48.566851",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15780": {
+      "code": "15780",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンド日経２２５（ミニ）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 3160.0,
+      "change": -13.0,
+      "changePercent": -0.40970690198550264,
+      "volume": 1475,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15780",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド日経２２５（ミニ）",
+        "CompanyNameEnglish": "Listed Index Fund Nikkei 225 (Mini)",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:48.835177",
+        "updated_at": "2025-10-03T15:20:48.835179",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15790": {
+      "code": "15790",
+      "name": "シンプレクス・アセット・マネジメント株式会社　日経平均ブル２倍上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 290.0,
+      "change": -4.899999999999977,
+      "changePercent": -1.6615801966768322,
+      "volume": 29993850,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15790",
+        "CompanyName": "シンプレクス・アセット・マネジメント株式会社　日経平均ブル２倍上場投信",
+        "CompanyNameEnglish": "Nikkei 225 Bull 2x ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:49.104259",
+        "updated_at": "2025-10-03T15:20:49.104262",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "157A0": {
+      "code": "157A0",
+      "name": "グリーンモンスター",
+      "sector": "情報通信・サービスその他",
+      "market": "グロース",
+      "currentPrice": 504.0,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "volume": 8900,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "157A0",
+        "CompanyName": "グリーンモンスター",
+        "CompanyNameEnglish": "Green Monster Inc.",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "9050",
+        "Sector33CodeName": "サービス業",
+        "ScaleCategory": "-",
+        "MarketCode": "0113",
+        "MarketCodeName": "グロース"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:49.465063",
+        "updated_at": "2025-10-03T15:20:49.465066",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15800": {
+      "code": "15800",
+      "name": "シンプレクス・アセット・マネジメント株式会社　日経平均ベア上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 1450.0,
+      "change": 11.5,
+      "changePercent": 0.7994438651372958,
+      "volume": 151030,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15800",
+        "CompanyName": "シンプレクス・アセット・マネジメント株式会社　日経平均ベア上場投信",
+        "CompanyNameEnglish": "Nikkei 225 Bear -1x ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:49.731436",
+        "updated_at": "2025-10-03T15:20:49.731438",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15850": {
+      "code": "15850",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸ　Ｅｘ−Ｆｉｎａｎｃｉａｌｓ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:20:49.984366",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15850",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸ　Ｅｘ−Ｆｉｎａｎｃｉａｌｓ",
+        "CompanyNameEnglish": "iFreeETF TOPIX Ex-Financials",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:49.984370",
+        "updated_at": "2025-10-03T15:20:49.984371",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "15860": {
+      "code": "15860",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンドＴＯＰＩＸ　Ｅｘ−Ｆｉｎａｎｃｉａｌｓ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 2223.0,
+      "change": -2.0,
+      "changePercent": -0.0898876404494382,
+      "volume": 41,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15860",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンドＴＯＰＩＸ　Ｅｘ−Ｆｉｎａｎｃｉａｌｓ",
+        "CompanyNameEnglish": "Listed Index Fund TOPIX Ex-Financials",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:50.239262",
+        "updated_at": "2025-10-03T15:20:50.239281",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "158A0": {
+      "code": "158A0",
+      "name": "エクセリ",
+      "sector": "小売",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:20:50.501217",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "158A0",
+        "CompanyName": "エクセリ",
+        "CompanyNameEnglish": "Exseli Co,Ltd.",
+        "Sector17Code": "14",
+        "Sector17CodeName": "小売",
+        "Sector33Code": "6100",
+        "Sector33CodeName": "小売業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:50.501220",
+        "updated_at": "2025-10-03T15:20:50.501221",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "15910": {
+      "code": "15910",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸ日経インデックス４００連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 25610.0,
+      "change": 20.0,
+      "changePercent": 0.07815552950371239,
+      "volume": 995,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15910",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸ日経インデックス４００連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS JPX-Nikkei Index 400 Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:50.756209",
+        "updated_at": "2025-10-03T15:20:50.756213",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15920": {
+      "code": "15920",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンドＪＰＸ日経インデックス４００",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 2343.0,
+      "change": -6.0,
+      "changePercent": -0.2554278416347382,
+      "volume": 1353,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15920",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンドＪＰＸ日経インデックス４００",
+        "CompanyNameEnglish": "Listed Index Fund JPX-Nikkei Index 400",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:51.020284",
+        "updated_at": "2025-10-03T15:20:51.020286",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15930": {
+      "code": "15930",
+      "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　ＪＰＸ日経インデックス４００上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 26465.0,
+      "change": 15.0,
+      "changePercent": 0.05671077504725897,
+      "volume": 1442,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15930",
+        "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　ＪＰＸ日経インデックス４００上場投信",
+        "CompanyNameEnglish": "MAXIS JPX-Nikkei Index 400 ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:51.346253",
+        "updated_at": "2025-10-03T15:20:51.346257",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15950": {
+      "code": "15950",
+      "name": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　東証ＲＥＩＴ指数",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 1842.5,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "volume": 49790,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15950",
+        "CompanyName": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　東証ＲＥＩＴ指数",
+        "CompanyNameEnglish": "NZAM ETF J-REIT Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:51.686694",
+        "updated_at": "2025-10-03T15:20:51.686710",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15960": {
+      "code": "15960",
+      "name": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　ＴＯＰＩＸ　Ｅｘ−Ｆｉｎａｎｃｉａｌｓ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:20:52.013520",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15960",
+        "CompanyName": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　ＴＯＰＩＸ　Ｅｘ−Ｆｉｎａｎｃｉａｌｓ",
+        "CompanyNameEnglish": "NZAM ETF TOPIX Ex-Financials",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:52.013524",
+        "updated_at": "2025-10-03T15:20:52.013525",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "15970": {
+      "code": "15970",
+      "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　Ｊリート上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 1844.5,
+      "change": 0.5,
+      "changePercent": 0.027114967462039046,
+      "volume": 19210,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15970",
+        "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　Ｊリート上場投信",
+        "CompanyNameEnglish": "MAXIS J-REIT ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:52.264896",
+        "updated_at": "2025-10-03T15:20:52.264900",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "15990": {
+      "code": "15990",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＪＰＸ日経４００",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 26020.0,
+      "change": 165.0,
+      "changePercent": 0.6381744343453877,
+      "volume": 29,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "15990",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＪＰＸ日経４００",
+        "CompanyNameEnglish": "iFreeETF JPX-Nikkei400",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:52.529682",
+        "updated_at": "2025-10-03T15:20:52.529685",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "159A0": {
+      "code": "159A0",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸプライム１５０指数連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 528.1,
+      "change": -1.8999999999999773,
+      "changePercent": -0.35849056603773155,
+      "volume": 4690,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "159A0",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸプライム１５０指数連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS JPX Prime 150 Index Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:52.775912",
+        "updated_at": "2025-10-03T15:20:52.775915",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16050": {
+      "code": "16050",
+      "name": "ＩＮＰＥＸ",
+      "sector": "エネルギー資源",
+      "market": "プライム",
+      "currentPrice": 2073.0,
+      "change": -0.5,
+      "changePercent": -0.024113817217265493,
+      "volume": 4712300,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16050",
+        "CompanyName": "ＩＮＰＥＸ",
+        "CompanyNameEnglish": "INPEX CORPORATION",
+        "Sector17Code": "2",
+        "Sector17CodeName": "エネルギー資源",
+        "Sector33Code": "1050",
+        "Sector33CodeName": "鉱業",
+        "ScaleCategory": "TOPIX Mid400",
+        "MarketCode": "0111",
+        "MarketCodeName": "プライム"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:53.041517",
+        "updated_at": "2025-10-03T15:20:53.041522",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "160A0": {
+      "code": "160A0",
+      "name": "アズパートナーズ",
+      "sector": "情報通信・サービスその他",
+      "market": "スタンダード",
+      "currentPrice": 2712.0,
+      "change": 79.0,
+      "changePercent": 3.000379794910748,
+      "volume": 20600,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "160A0",
+        "CompanyName": "アズパートナーズ",
+        "CompanyNameEnglish": "As Partners CO.,LTD.",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "9050",
+        "Sector33CodeName": "サービス業",
+        "ScaleCategory": "-",
+        "MarketCode": "0112",
+        "MarketCodeName": "スタンダード"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:53.290665",
+        "updated_at": "2025-10-03T15:20:53.290667",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16150": {
+      "code": "16150",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　東証銀行業株価指数連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 416.4,
+      "change": 6.399999999999977,
+      "changePercent": 1.560975609756092,
+      "volume": 5415100,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16150",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　東証銀行業株価指数連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX Banks Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:53.553216",
+        "updated_at": "2025-10-03T15:20:53.553219",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16170": {
+      "code": "16170",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　食品（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 38230.0,
+      "change": -110.0,
+      "changePercent": -0.28690662493479396,
+      "volume": 931,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16170",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　食品（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 FOODS ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:53.803390",
+        "updated_at": "2025-10-03T15:20:53.803393",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16180": {
+      "code": "16180",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　エネルギー資源（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 20845.0,
+      "change": 95.0,
+      "changePercent": 0.45783132530120485,
+      "volume": 1176,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16180",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　エネルギー資源（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 ENERGY RESOURCES ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:54.065834",
+        "updated_at": "2025-10-03T15:20:54.065837",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16190": {
+      "code": "16190",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　建設・資材（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 33950.0,
+      "change": -90.0,
+      "changePercent": -0.26439482961222094,
+      "volume": 759,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16190",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　建設・資材（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 CONSTRUCTION & MATERIALS ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:54.305262",
+        "updated_at": "2025-10-03T15:20:54.305264",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "161A0": {
+      "code": "161A0",
+      "name": "三葉",
+      "sector": "情報通信・サービスその他",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:20:54.547223",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "161A0",
+        "CompanyName": "三葉",
+        "CompanyNameEnglish": "Mitsuba Co.,Ltd.",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "9050",
+        "Sector33CodeName": "サービス業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:54.547227",
+        "updated_at": "2025-10-03T15:20:54.547228",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "16200": {
+      "code": "16200",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　素材・化学（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 28835.0,
+      "change": 25.0,
+      "changePercent": 0.08677542519958348,
+      "volume": 1035,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16200",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　素材・化学（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 RAW MATERIALS & CHEMICALS ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:54.809426",
+        "updated_at": "2025-10-03T15:20:54.809432",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16210": {
+      "code": "16210",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　医薬品（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 25380.0,
+      "change": 185.0,
+      "changePercent": 0.7342726731494345,
+      "volume": 1129,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16210",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　医薬品（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 PHARMACEUTICAL ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:55.067651",
+        "updated_at": "2025-10-03T15:20:55.067653",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16220": {
+      "code": "16220",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　自動車・輸送機（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 29695.0,
+      "change": 55.0,
+      "changePercent": 0.18556005398110662,
+      "volume": 827,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16220",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　自動車・輸送機（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 AUTOMOBILES TRANSPORTATION EQUIPMENT ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:55.317842",
+        "updated_at": "2025-10-03T15:20:55.317845",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16230": {
+      "code": "16230",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　鉄鋼・非鉄（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 28670.0,
+      "change": -50.0,
+      "changePercent": -0.17409470752089137,
+      "volume": 681,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16230",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　鉄鋼・非鉄（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 STEEL & NONFERROUS ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:55.583745",
+        "updated_at": "2025-10-03T15:20:55.583748",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16240": {
+      "code": "16240",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　機械（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 65290.0,
+      "change": -200.0,
+      "changePercent": -0.30539013589861047,
+      "volume": 468,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16240",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　機械（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 MACHINERY ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:55.837802",
+        "updated_at": "2025-10-03T15:20:55.837805",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16250": {
+      "code": "16250",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　電機・精密（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 38720.0,
+      "change": -280.0,
+      "changePercent": -0.717948717948718,
+      "volume": 1175,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16250",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　電機・精密（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 ELECTRIC & PRECISION INSTRUMENTS ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:56.085222",
+        "updated_at": "2025-10-03T15:20:56.085224",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16260": {
+      "code": "16260",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　情報通信・サービスその他（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 39990.0,
+      "change": -310.0,
+      "changePercent": -0.7692307692307693,
+      "volume": 514,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16260",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　情報通信・サービスその他（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 IT & SERVICES,OTHERS ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:56.344642",
+        "updated_at": "2025-10-03T15:20:56.344644",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16270": {
+      "code": "16270",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　電力・ガス（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 8555.0,
+      "change": -105.0,
+      "changePercent": -1.212471131639723,
+      "volume": 4469,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16270",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　電力・ガス（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 ELECTRIC POWER & GAS ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:56.640357",
+        "updated_at": "2025-10-03T15:20:56.640361",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16280": {
+      "code": "16280",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　運輸・物流（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 19760.0,
+      "change": 40.0,
+      "changePercent": 0.2028397565922921,
+      "volume": 1028,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16280",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　運輸・物流（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 TRANSPORTATION & LOGISTICS ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:56.907472",
+        "updated_at": "2025-10-03T15:20:56.907477",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16290": {
+      "code": "16290",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　商社・卸売（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 88400.0,
+      "change": 230.0,
+      "changePercent": 0.2608597028467733,
+      "volume": 1114,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16290",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　商社・卸売（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 COMMERCIAL & WHOLESALE TRADE ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:57.175960",
+        "updated_at": "2025-10-03T15:20:57.175963",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "162A0": {
+      "code": "162A0",
+      "name": "三菱ＵＦＪ証券ホールディングス株式会社　ＡＩセレクトメガトレンド　日本株（ネットリターン）ＥＴＮ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 10225.0,
+      "change": 40.0,
+      "changePercent": 0.39273441335297005,
+      "volume": 186,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "162A0",
+        "CompanyName": "三菱ＵＦＪ証券ホールディングス株式会社　ＡＩセレクトメガトレンド　日本株（ネットリターン）ＥＴＮ",
+        "CompanyNameEnglish": "AI Select Megatrend Japan Equity Net Return ETN",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:57.444949",
+        "updated_at": "2025-10-03T15:20:57.444951",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16300": {
+      "code": "16300",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　小売（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 33740.0,
+      "change": -200.0,
+      "changePercent": -0.5892751915144373,
+      "volume": 2600,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16300",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　小売（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 RETAIL TRADE ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:57.691579",
+        "updated_at": "2025-10-03T15:20:57.691582",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16310": {
+      "code": "16310",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　銀行（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 22090.0,
+      "change": 280.0,
+      "changePercent": 1.2838147638697845,
+      "volume": 7210,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16310",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　銀行（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 BANKS ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:57.956768",
+        "updated_at": "2025-10-03T15:20:57.956772",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16320": {
+      "code": "16320",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　金融（除く銀行）（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 29300.0,
+      "change": 310.0,
+      "changePercent": 1.0693342531907555,
+      "volume": 1975,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16320",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　金融（除く銀行）（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 FINANCIALS (EX BANKS) ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:58.205706",
+        "updated_at": "2025-10-03T15:20:58.205710",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16330": {
+      "code": "16330",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　不動産（ＴＯＰＩＸ−１７）上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 42360.0,
+      "change": -50.0,
+      "changePercent": -0.11789672247111531,
+      "volume": 137,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16330",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　不動産（ＴＯＰＩＸ−１７）上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 REAL ESTATE ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:58.458275",
+        "updated_at": "2025-10-03T15:20:58.458280",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "163A0": {
+      "code": "163A0",
+      "name": "三菱ＵＦＪ証券ホールディングス株式会社　半導体フォーカス　日本株（ネットリターン）ＥＴＮ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 9119.0,
+      "change": 34.0,
+      "changePercent": 0.37424325811777653,
+      "volume": 8646,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "163A0",
+        "CompanyName": "三菱ＵＦＪ証券ホールディングス株式会社　半導体フォーカス　日本株（ネットリターン）ＥＴＮ",
+        "CompanyNameEnglish": "Semiconductor Focus Japan Equity Net Return ETN",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:58.728107",
+        "updated_at": "2025-10-03T15:20:58.728109",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "164A0": {
+      "code": "164A0",
+      "name": "アップルパーク",
+      "sector": "不動産",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:20:59.002158",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "164A0",
+        "CompanyName": "アップルパーク",
+        "CompanyNameEnglish": "Applepark.CO.,LTD.",
+        "Sector17Code": "17",
+        "Sector17CodeName": "不動産",
+        "Sector33Code": "8050",
+        "Sector33CodeName": "不動産業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:59.002162",
+        "updated_at": "2025-10-03T15:20:59.002163",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "16510": {
+      "code": "16510",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸ高配当４０指数",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 2130.0,
+      "change": 10.0,
+      "changePercent": 0.4716981132075472,
+      "volume": 9675,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16510",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸ高配当４０指数",
+        "CompanyNameEnglish": "iFreeETF TOPIX High Dividend Yield 40 Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:59.263367",
+        "updated_at": "2025-10-03T15:20:59.263370",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16520": {
+      "code": "16520",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＭＳＣＩ日本株女性活躍指数（ＷＩＮ）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 3360.0,
+      "change": 0.0,
+      "changePercent": 0.0,
+      "volume": 30,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16520",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＭＳＣＩ日本株女性活躍指数（ＷＩＮ）",
+        "CompanyNameEnglish": "iFreeETF MSCI Japan Empowering Women Index (WIN)",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:59.525824",
+        "updated_at": "2025-10-03T15:20:59.525828",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16530": {
+      "code": "16530",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＭＳＣＩジャパンＥＳＧセレクト・リーダーズ指数",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 3612.0,
+      "change": -16.0,
+      "changePercent": -0.4410143329658214,
+      "volume": 2880,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16530",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＭＳＣＩジャパンＥＳＧセレクト・リーダーズ指数",
+        "CompanyNameEnglish": "iFreeETF MSCI Japan ESG Select Leaders Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:20:59.781829",
+        "updated_at": "2025-10-03T15:20:59.781831",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16540": {
+      "code": "16540",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＦＴＳＥ　Ｂｌｏｓｓｏｍ　Ｊａｐａｎ　Ｉｎｄｅｘ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:21:00.052191",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16540",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＦＴＳＥ　Ｂｌｏｓｓｏｍ　Ｊａｐａｎ　Ｉｎｄｅｘ",
+        "CompanyNameEnglish": "iFreeETF FTSE Blossom Japan Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:21:00.052195",
+        "updated_at": "2025-10-03T15:21:00.052196",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "16550": {
+      "code": "16550",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　Ｓ＆Ｐ　５００　米国株　ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 664.8,
+      "change": 0.599999999999909,
+      "changePercent": 0.0903342366756864,
+      "volume": 2525350,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16550",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　Ｓ＆Ｐ　５００　米国株　ＥＴＦ",
+        "CompanyNameEnglish": "iShares S&P 500 ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:21:00.314599",
+        "updated_at": "2025-10-03T15:21:00.314602",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16560": {
+      "code": "16560",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　米国債７−１０年　ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 290.6,
+      "change": 1.2000000000000455,
+      "changePercent": 0.4146510020732707,
+      "volume": 37390,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16560",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　米国債７−１０年　ＥＴＦ",
+        "CompanyNameEnglish": "iShares Core 7-10 Year US Treasury Bond ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:21:00.554270",
+        "updated_at": "2025-10-03T15:21:00.554272",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16570": {
+      "code": "16570",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　ＭＳＣＩ　先進国株（除く日本）ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 5581.0,
+      "change": 9.0,
+      "changePercent": 0.1615218951902369,
+      "volume": 601,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16570",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　ＭＳＣＩ　先進国株（除く日本）ＥＴＦ",
+        "CompanyNameEnglish": "iShares Core MSCI Kokusai ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:21:00.823638",
+        "updated_at": "2025-10-03T15:21:00.823642",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
+      }
+    },
+    "16580": {
+      "code": "16580",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　ＭＳＣＩ　新興国株　ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": 2991.0,
+      "change": -8.0,
+      "changePercent": -0.266755585195065,
+      "volume": 5413,
+      "updated_at": "2025-07-11",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "16580",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　ＭＳＣＩ　新興国株　ＥＴＦ",
+        "CompanyNameEnglish": "iShares Core MSCI Emerging Markets IMI ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:21:01.093891",
+        "updated_at": "2025-10-03T15:21:01.093894",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": true
       }
     }
   }

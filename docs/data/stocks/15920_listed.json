@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15920",
+    "generated_at": "2025-10-03T15:21:01.225081",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15920",
+    "name": "日興アセットマネジメント株式会社　上場インデックスファンドＪＰＸ日経インデックス４００",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2343.0,
+    "change": -6.0,
+    "changePercent": -0.2554278416347382,
+    "volume": 1353,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15920",
+      "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンドＪＰＸ日経インデックス４００",
+      "CompanyNameEnglish": "Listed Index Fund JPX-Nikkei Index 400",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:51.020284",
+      "updated_at": "2025-10-03T15:20:51.020286",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

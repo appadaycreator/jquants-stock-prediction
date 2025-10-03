@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "16320",
+    "generated_at": "2025-10-03T15:21:01.227707",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "16320",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　金融（除く銀行）（ＴＯＰＩＸ−１７）上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 29300.0,
+    "change": 310.0,
+    "changePercent": 1.0693342531907555,
+    "volume": 1975,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "16320",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　金融（除く銀行）（ＴＯＰＩＸ−１７）上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS TOPIX-17 FINANCIALS (EX BANKS) ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:58.205706",
+      "updated_at": "2025-10-03T15:20:58.205710",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

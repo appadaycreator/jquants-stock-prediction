@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15140",
+    "generated_at": "2025-10-03T15:21:01.217977",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15140",
+    "name": "住石ホールディングス",
+    "sector": "エネルギー資源",
+    "market": "スタンダード",
+    "currentPrice": 607.0,
+    "change": 6.0,
+    "changePercent": 0.9983361064891847,
+    "volume": 126000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15140",
+      "CompanyName": "住石ホールディングス",
+      "CompanyNameEnglish": "Sumiseki Holdings,Inc.",
+      "Sector17Code": "2",
+      "Sector17CodeName": "エネルギー資源",
+      "Sector33Code": "1050",
+      "Sector33CodeName": "鉱業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:40.299973",
+      "updated_at": "2025-10-03T15:20:40.299976",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

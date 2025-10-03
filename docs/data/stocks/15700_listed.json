@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "15700",
+    "generated_at": "2025-10-03T15:21:01.223902",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "15700",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ日経平均レバレッジ・インデックス連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 26940.0,
+    "change": -445.0,
+    "changePercent": -1.624977177286836,
+    "volume": 3804162,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "15700",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ日経平均レバレッジ・インデックス連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS Nikkei 225 Leveraged Index Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:47.529706",
+      "updated_at": "2025-10-03T15:20:47.529709",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

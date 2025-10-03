@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14970",
+    "generated_at": "2025-10-03T15:21:01.217544",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14970",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米ドル建てハイイールド社債　ＥＴＦ（為替ヘッジあり）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1816.0,
+    "change": -1.0,
+    "changePercent": -0.0550357732526142,
+    "volume": 30565,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14970",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米ドル建てハイイールド社債　ＥＴＦ（為替ヘッジあり）",
+      "CompanyNameEnglish": "iShares USD High Yield Corporate Bond JPY Hedged ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:20:39.015011",
+      "updated_at": "2025-10-03T15:20:39.015014",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

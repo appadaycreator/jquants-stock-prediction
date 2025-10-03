@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13800",
-    "generated_at": "2025-10-03T15:19:00.499243",
+    "generated_at": "2025-10-03T15:21:01.211020",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -29,8 +29,8 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:18:44.711289",
-      "updated_at": "2025-10-03T15:18:44.711293",
+      "created_at": "2025-10-03T15:20:16.932678",
+      "updated_at": "2025-10-03T15:20:16.932681",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
       "price_data_available": true
