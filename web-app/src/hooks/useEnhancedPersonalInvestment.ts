@@ -6,7 +6,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { unifiedApiClient } from "@/lib/unified-api-client";
+import { getApiClient } from "@/lib/api-client-factory";
 import { unifiedCacheManager } from "@/lib/unified-cache-manager";
 // 統一エラーハンドラーが未存在でも動作するフォールバック
 type ErrorContext = { operation?: string; component?: string; timestamp?: number; userAgent?: string; url?: string };

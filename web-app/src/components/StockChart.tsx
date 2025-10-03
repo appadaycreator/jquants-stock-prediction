@@ -26,7 +26,7 @@ interface StockChartProps {
 export const StockChart: React.FC<StockChartProps> = ({
   symbol,
   data,
-  isOpen = true,
+  isOpen,
   onClose,
   isLoading = false,
   error,
@@ -66,7 +66,13 @@ export const StockChart: React.FC<StockChartProps> = ({
 
   // データの処理
   useEffect(() => {
-    if (data.length === 0) return;
+    console.log('StockChart useEffect - data length:', data.length);
+    console.log('StockChart useEffect - selectedPeriod:', selectedPeriod);
+    
+    if (data.length === 0) {
+      console.log('No data available');
+      return;
+    }
 
     // 期間に応じたデータのフィルタリング
     const now = new Date();
@@ -81,6 +87,7 @@ export const StockChart: React.FC<StockChartProps> = ({
     const cutoffDate = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
     
     const filteredData = data.filter(d => new Date(d.time) >= cutoffDate);
+    console.log('Filtered data length:', filteredData.length);
     setChartData(filteredData);
 
     // 移動平均線の計算
@@ -95,13 +102,20 @@ export const StockChart: React.FC<StockChartProps> = ({
 
   // チャートの描画（簡易版）
   const renderChart = () => {
-    if (chartData.length === 0) return null;
+    console.log('renderChart called - chartData length:', chartData.length);
+    
+    if (chartData.length === 0) {
+      console.log('No chart data to render');
+      return null;
+    }
 
     const maxPrice = Math.max(...chartData.map(d => d.high));
     const minPrice = Math.min(...chartData.map(d => d.low));
     const priceRange = maxPrice - minPrice;
     const chartHeight = height;
     const chartWidth = 800;
+    
+    console.log('Chart dimensions:', { chartHeight, chartWidth, maxPrice, minPrice, priceRange });
 
     return (
       <div className="relative">
@@ -204,11 +218,18 @@ export const StockChart: React.FC<StockChartProps> = ({
     );
   };
 
-  // モーダル形式の場合のみisOpenをチェック
-  if (isOpen === false) return null;
+  // デバッグログ
+  console.log('StockChart render - isOpen:', isOpen, 'typeof isOpen:', typeof isOpen);
 
-  // モーダル形式のレンダリング
+  // モーダル形式の場合のみisOpenをチェック
+  if (isOpen === false) {
+    console.log('isOpen is false, returning null');
+    return null;
+  }
+
+  // モーダル形式のレンダリング（isOpenが明示的にtrueの場合のみ）
   if (isOpen === true) {
+    console.log('isOpen is true, rendering modal');
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-hidden">
@@ -330,6 +351,7 @@ export const StockChart: React.FC<StockChartProps> = ({
   }
 
   // ページ内表示用のレンダリング
+  console.log('Rendering inline chart (isOpen is not true)');
   return (
     <div className="w-full">
       {/* 期間選択 */}

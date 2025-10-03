@@ -3,7 +3,7 @@
  * 技術指標の計算と投資推奨の生成
  */
 
-import { unifiedApiClient } from "./unified-api-client";
+import { getApiClient } from "./api-client-factory";
 
 export interface StockData {
   symbol: string;
@@ -475,9 +475,40 @@ export async function analyzeMultipleStocks(symbols: string[]): Promise<Analysis
 }
 
 /**
- * 人気銘柄リストを取得
+ * 人気銘柄リストを取得（全銘柄から選択）
  */
-export function getPopularSymbols(): string[] {
+export async function getPopularSymbols(): Promise<string[]> {
+  try {
+    // 全銘柄一覧を取得
+    const { getAllSymbols } = await import("@/lib/jquants-adapter");
+    const allSymbols = await getAllSymbols();
+    
+    if (allSymbols.length === 0) {
+      console.warn("全銘柄取得失敗、デフォルト銘柄を使用");
+      return getDefaultSymbols();
+    }
+    
+    console.log(`全銘柄取得完了: ${allSymbols.length}件`);
+    
+    // 全銘柄から分析対象を選択（最大4000件）
+    const maxSymbols = Math.min(4000, allSymbols.length);
+    const selectedSymbols = allSymbols
+      .slice(0, maxSymbols)
+      .map(symbol => symbol.code);
+    
+    console.log(`分析対象銘柄: ${selectedSymbols.length}件`);
+    return selectedSymbols;
+    
+  } catch (error) {
+    console.warn("全銘柄取得エラー、デフォルト銘柄を使用:", error);
+    return getDefaultSymbols();
+  }
+}
+
+/**
+ * デフォルト銘柄リスト（フォールバック用）
+ */
+function getDefaultSymbols(): string[] {
   return [
     "7203", // トヨタ
     "6758", // ソニー
@@ -502,7 +533,7 @@ export function getPopularSymbols(): string[] {
  */
 export async function generateMarketSummary(symbolsToAnalyze?: string[]): Promise<MarketSummary | null> {
   try {
-    const symbols = symbolsToAnalyze || getPopularSymbols();
+    const symbols = symbolsToAnalyze || await getPopularSymbols();
     console.log(`市場サマリー生成開始: ${symbols.length}銘柄を分析`);
     
     const analysisResults = await analyzeMultipleStocks(symbols);

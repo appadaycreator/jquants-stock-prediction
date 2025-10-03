@@ -130,6 +130,10 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
           volume: item.volume
         }));
         
+        console.log('Generated mock data:', mockData.length, 'items');
+        console.log('Converted data:', convertedData.length, 'items');
+        console.log('Sample data:', convertedData.slice(0, 3));
+        
         setChartData(convertedData);
         setStockInfo(mockStockInfo);
         
@@ -302,6 +306,8 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
                 symbol={symbol}
                 timeframe={timeframe}
                 height={400}
+                isLoading={loading}
+                error={error ? new Error(error) : null}
               />
             </div>
           </div>

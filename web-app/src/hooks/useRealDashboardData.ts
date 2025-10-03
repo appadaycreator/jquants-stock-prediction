@@ -3,7 +3,7 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import { testConnection } from "@/lib/unified-api-client";
+import { testConnection } from "@/lib/api-client-factory";
 import { generateMarketSummary, type AnalysisResult, type MarketSummary } from "@/lib/stock-analysis";
 
 export interface RealDashboardState {

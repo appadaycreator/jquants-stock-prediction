@@ -3,7 +3,7 @@
  */
 
 import { useCallback, useEffect, useState } from "react";
-import { testConnection } from "@/lib/unified-api-client";
+import { testConnection } from "@/lib/api-client-factory";
 import { analyzeMultipleStocks, getPopularSymbols, type AnalysisResult } from "@/lib/stock-analysis";
 
 // サンプルデータ生成関数
@@ -291,18 +291,33 @@ export function useRealTodayData() {
         
         if (!connectionStatus.success) {
           console.warn("API接続失敗、サンプルデータを使用します:", connectionStatus.message);
-          throw new Error(`API接続失敗: ${connectionStatus.message}`);
+          // 静的サイトの場合はエラーを投げずにサンプルデータを使用
+          if (connectionStatus.message.includes('静的サイトモード')) {
+            console.log("静的サイトモード: サンプルデータを使用します");
+          } else {
+            throw new Error(`API接続失敗: ${connectionStatus.message}`);
+          }
         }
       } catch (error) {
         console.warn("接続テストエラー、サンプルデータを使用します:", error);
-        throw error;
+        // 静的サイトの場合はエラーを投げずにサンプルデータを使用
+        if (error instanceof Error && error.message.includes('静的サイトモード')) {
+          console.log("静的サイトモード: サンプルデータを使用します");
+        } else {
+          throw error;
+        }
       }
 
       // 2. 全銘柄一覧を取得
       console.log("銘柄一覧取得中...");
       let availableSymbols: { code: string; name: string; sector?: string }[];
       try {
-        // availableSymbols = await getAllSymbols();
+        const { getAllSymbols } = await import("@/lib/jquants-adapter");
+        availableSymbols = await getAllSymbols();
+        console.log(`全銘柄取得完了: ${availableSymbols.length}件`);
+        setState(prev => ({ ...prev, availableSymbols }));
+      } catch (error) {
+        console.warn("銘柄一覧取得エラー、サンプルデータを使用します:", error);
         availableSymbols = [
           { code: "7203", name: "トヨタ自動車" },
           { code: "6758", name: "ソニーグループ" },
@@ -311,18 +326,15 @@ export function useRealTodayData() {
           { code: "4063", name: "信越化学工業" },
         ];
         setState(prev => ({ ...prev, availableSymbols }));
-      } catch (error) {
-        console.warn("銘柄一覧取得エラー、サンプルデータを使用します:", error);
-        availableSymbols = [];
-        setState(prev => ({ ...prev, availableSymbols }));
       }
 
       // 3. 人気銘柄を分析
       console.log("株価分析実行中...");
-      const popularSymbols = getPopularSymbols();
+      const popularSymbols = await getPopularSymbols();
       let analysisResults: AnalysisResult[];
       try {
         analysisResults = await analyzeMultipleStocks(popularSymbols);
+        console.log(`株価分析完了: ${analysisResults.length}件の結果`);
       } catch (error) {
         console.warn("株価分析エラー、サンプルデータを使用します:", error);
         analysisResults = [];

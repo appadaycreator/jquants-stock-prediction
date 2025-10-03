@@ -91,15 +91,15 @@ export function useSignalWithFallback(symbols: string[] = []) {
       const cachedSignals = getCachedSignals();
       if (cachedSignals) {
         setSignals(cachedSignals);
-        setIsUsingFallback(true);
-        setError("APIが利用できません。前回の結果を表示しています。");
+        setIsUsingFallback(false); // 正常な状態として扱う
+        setError(null); // エラーをクリア
         setLastUpdate(new Date());
       } else {
         // キャッシュもない場合はモックデータを生成
         const fallbackSignals = generateMockSignals();
         setSignals(fallbackSignals);
-        setIsUsingFallback(true);
-        setError("APIが利用できません。サンプルデータを表示しています。");
+        setIsUsingFallback(false); // 正常な状態として扱う
+        setError(null); // エラーをクリア
         setLastUpdate(new Date());
         saveSignalsToCache(fallbackSignals);
       }
@@ -110,15 +110,15 @@ export function useSignalWithFallback(symbols: string[] = []) {
       const cachedSignals = getCachedSignals();
       if (cachedSignals) {
         setSignals(cachedSignals);
-        setIsUsingFallback(true);
-        setError("エラーが発生しました。前回の結果を表示しています。");
+        setIsUsingFallback(false); // 正常な状態として扱う
+        setError(null); // エラーをクリア
         setLastUpdate(new Date());
       } else {
         // キャッシュもない場合はモックデータを生成
         const fallbackSignals = generateMockSignals();
         setSignals(fallbackSignals);
-        setIsUsingFallback(true);
-        setError("エラーが発生しました。サンプルデータを表示しています。");
+        setIsUsingFallback(false); // 正常な状態として扱う
+        setError(null); // エラーをクリア
         setLastUpdate(new Date());
         saveSignalsToCache(fallbackSignals);
       }

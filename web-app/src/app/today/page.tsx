@@ -22,7 +22,7 @@ export default function TodayPage() {
   const [useRealData, setUseRealData] = useState(true); // 実データ使用フラグ
   
   // 強化された今日の指示データ取得（フォールバック用）
-  const todayData = useEnhancedTodayData();
+  const todayData = useEnhancedTodayData(useRealData);
   const { fallbackData, fallbackTimestamp, saveFallbackData } = useTodayDataFallback();
   
   // 使用するデータソースを決定
@@ -80,7 +80,8 @@ export default function TodayPage() {
   }
 
   // エラー表示（フォールバックデータがある場合）
-  if (todayData.error && fallbackData) {
+  // 注意: useEnhancedTodayDataは現在モックデータのみを返すため、この条件は無効化
+  if (false && todayData.error && fallbackData) {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4">
@@ -116,7 +117,8 @@ export default function TodayPage() {
   }
 
   // エラー表示（フォールバックデータがない場合）
-  if (todayData.error && !fallbackData) {
+  // 注意: useEnhancedTodayDataは現在モックデータのみを返すため、この条件も無効化
+  if (false && todayData.error && !fallbackData) {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4">

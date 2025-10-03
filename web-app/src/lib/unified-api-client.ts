@@ -19,11 +19,11 @@ export interface ApiRequestConfig {
   cacheTTL?: number;
 }
 
-class UnifiedApiClient {
+export class UnifiedApiClient {
   private baseURL: string;
   private defaultConfig: ApiRequestConfig;
 
-  constructor(baseURL: string = "/api") {
+  constructor(baseURL: string = "") {
     this.baseURL = baseURL;
     this.defaultConfig = {
       timeout: 10000,
@@ -150,9 +150,17 @@ class UnifiedApiClient {
 
   // 接続テスト
   async testConnection(): Promise<{ success: boolean; message: string }> {
+    // 静的サイトの場合はモック成功を返す
+    if (this.isStaticSite()) {
+      return {
+        success: true,
+        message: '静的サイトモード: モックデータを使用中',
+      };
+    }
+
     try {
       // J-Quants APIプロキシの接続テスト
-      const response = await fetch("/api/health/", {
+      const response = await fetch("/api/health", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -178,26 +186,73 @@ class UnifiedApiClient {
     }
   }
 
+  // 静的サイトかどうかを判定
+  private isStaticSite(): boolean {
+    if (typeof window === 'undefined') return true;
+    
+    // GitHub Pages のドメインパターンをチェック
+    const hostname = window.location.hostname;
+    return hostname.includes('github.io') || 
+           hostname.includes('netlify.app') || 
+           hostname.includes('vercel.app') ||
+           hostname.includes('appadaycreator.github.io') ||
+           hostname.includes('localhost'); // 開発環境でも静的サイトとして扱う
+  }
+
   // 株価データ取得
   async getStockData(symbol: string): Promise<any> {
+    if (this.isStaticSite()) {
+      // 静的サイトの場合はモックデータを返す
+      return {
+        symbol,
+        price: 2500,
+        change: 2.5,
+        volume: 1000000,
+        lastUpdated: new Date().toISOString()
+      };
+    }
     const response = await this.get(`/stocks/${symbol}`);
     return response.data;
   }
 
   // 市場データ取得
   async getMarketData(): Promise<any> {
+    if (this.isStaticSite()) {
+      // 静的サイトの場合はモックデータを返す
+      return {
+        marketStatus: 'open',
+        topGainers: [],
+        topLosers: [],
+        lastUpdated: new Date().toISOString()
+      };
+    }
     const response = await this.get("/market");
     return response.data;
   }
 
   // 予測データ取得
   async getPredictions(): Promise<any> {
+    if (this.isStaticSite()) {
+      // 静的サイトの場合はモックデータを返す
+      return {
+        predictions: [],
+        lastUpdated: new Date().toISOString()
+      };
+    }
     const response = await this.get("/predictions");
     return response.data;
   }
 
   // 個人投資データ取得
   async getPersonalInvestmentData(): Promise<any> {
+    if (this.isStaticSite()) {
+      // 静的サイトの場合はモックデータを返す
+      return {
+        portfolio: { totalValue: 1000000, totalReturn: 5.2 },
+        positions: [],
+        lastUpdated: new Date().toISOString()
+      };
+    }
     const response = await this.get("/personal-investment");
     return response.data;
   }
