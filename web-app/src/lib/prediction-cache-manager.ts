@@ -70,7 +70,7 @@ export async function clearCache(_type?: "prediction" | "comparison"): Promise<v
   hits = 0; misses = 0;
 }
 
-export default {
+const api = {
   initialize,
   getCacheStats,
   generateCacheKey,
@@ -81,5 +81,7 @@ export default {
   searchCache,
   clearCache,
 };
+
+export default api;
 
 
