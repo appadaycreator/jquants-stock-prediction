@@ -19,7 +19,7 @@ class DataValidator:
         self.error_handler = error_handler
 
     def validate_data(self, data: pd.DataFrame) -> Dict[str, Any]:
-        """データの検証"""
+        """データの検証（最適化版）"""
         try:
             if data is None or len(data) == 0:
                 return {"is_valid": False, "issues": ["データが空です"]}
@@ -42,11 +42,15 @@ class DataValidator:
             issues.extend(time_series_validation["issues"])
             warnings.extend(time_series_validation["warnings"])
 
+            # データ品質スコアの計算
+            quality_score = self._calculate_data_quality_score(data, issues, warnings)
+
             return {
                 "is_valid": len(issues) == 0,
                 "issues": issues,
                 "warnings": warnings,
                 "data_shape": data.shape,
+                "data_quality_score": quality_score,
                 "validation_timestamp": datetime.now().isoformat(),
                 "message": (
                     "データ検証成功" if len(issues) == 0 else "データ検証で問題を発見"
@@ -56,7 +60,12 @@ class DataValidator:
         except Exception as e:
             if self.error_handler:
                 self.error_handler.handle_validation_error(e)
-            return {"is_valid": False, "issues": [f"データ検証エラー: {str(e)}"]}
+            return {
+                "is_valid": False, 
+                "issues": [f"データ検証エラー: {str(e)}"],
+                "data_quality_score": 0,
+                "validation_timestamp": datetime.now().isoformat()
+            }
 
     def _validate_basic_structure(self, data: pd.DataFrame) -> Dict[str, List[str]]:
         """基本構造の検証"""
@@ -342,3 +351,26 @@ class DataValidator:
             if self.error_handler:
                 self.error_handler.handle_validation_error(e)
             return {"error": str(e)}
+
+    def _calculate_data_quality_score(self, data: pd.DataFrame, issues: List[str], warnings: List[str]) -> float:
+        """データ品質スコアの計算（最適化版）"""
+        try:
+            base_score = 100.0
+            
+            # 問題による減点
+            issue_penalty = len(issues) * 10.0
+            warning_penalty = len(warnings) * 5.0
+            
+            # データサイズによる加点
+            size_bonus = min(20.0, len(data) / 10.0)
+            
+            # 欠損値による減点
+            missing_penalty = (data.isnull().sum().sum() / (len(data) * len(data.columns))) * 50.0
+            
+            # 最終スコアの計算
+            final_score = max(0.0, base_score - issue_penalty - warning_penalty - missing_penalty + size_bonus)
+            
+            return round(final_score, 1)
+            
+        except Exception:
+            return 0.0
