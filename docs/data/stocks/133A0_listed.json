@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "133A0",
+    "generated_at": "2025-10-03T15:15:50.112758",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "133A0",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　超短期米国債　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:41.786079",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "133A0",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　超短期米国債　ＥＴＦ",
+      "CompanyNameEnglish": "Global X Ultra Short-Term T-Bill ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:41.786084",
+      "updated_at": "2025-10-03T15:15:41.786085",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

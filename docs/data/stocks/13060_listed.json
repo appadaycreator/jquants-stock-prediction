@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "13060",
+    "generated_at": "2025-10-03T15:15:50.111099",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "13060",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＴＯＰＩＸ連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:39.921514",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "13060",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＴＯＰＩＸ連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS TOPIX Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:39.921519",
+      "updated_at": "2025-10-03T15:15:39.921520",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

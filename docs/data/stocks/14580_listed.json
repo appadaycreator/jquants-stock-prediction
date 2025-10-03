@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14580",
+    "generated_at": "2025-10-03T15:15:50.118858",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14580",
+    "name": "楽天投信投資顧問株式会社　楽天ＥＴＦ‐日経レバレッジ指数連動型",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:48.440242",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14580",
+      "CompanyName": "楽天投信投資顧問株式会社　楽天ＥＴＦ‐日経レバレッジ指数連動型",
+      "CompanyNameEnglish": "Rakuten ETF - Nikkei 225 Leveraged Index",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:48.440248",
+      "updated_at": "2025-10-03T15:15:48.440249",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

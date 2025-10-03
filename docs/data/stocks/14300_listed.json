@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14300",
+    "generated_at": "2025-10-03T15:15:50.117004",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14300",
+    "name": "ファーストコーポレーション",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:46.458121",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14300",
+      "CompanyName": "ファーストコーポレーション",
+      "CompanyNameEnglish": "First-corporation Inc.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:46.458127",
+      "updated_at": "2025-10-03T15:15:46.458128",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14790",
+    "generated_at": "2025-10-03T15:15:50.120240",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14790",
+    "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＭＳＣＩ日本株人材設備投資指数",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:49.795193",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14790",
+      "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＭＳＣＩ日本株人材設備投資指数",
+      "CompanyNameEnglish": "iFreeETF MSCI Japan Human and Physical Investment Index",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:49.795197",
+      "updated_at": "2025-10-03T15:15:49.795198",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

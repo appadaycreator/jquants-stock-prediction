@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14520",
+    "generated_at": "2025-10-03T15:15:50.118603",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14520",
+    "name": "横浜ライト工業",
+    "sector": "建設・資材",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:48.127891",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14520",
+      "CompanyName": "横浜ライト工業",
+      "CompanyNameEnglish": "YOKOHAMA WRIGHT Industries Co.,LTD",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:48.127895",
+      "updated_at": "2025-10-03T15:15:48.127896",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

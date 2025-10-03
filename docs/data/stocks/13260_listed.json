@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "13260",
+    "generated_at": "2025-10-03T15:15:50.112127",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "13260",
+    "name": "ワールド・ゴールド・トラスト・サービシズ・エルエルシー　ＳＰＤＲゴールド・シェア",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:41.061931",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "13260",
+      "CompanyName": "ワールド・ゴールド・トラスト・サービシズ・エルエルシー　ＳＰＤＲゴールド・シェア",
+      "CompanyNameEnglish": "SPDR Gold Shares",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:41.061935",
+      "updated_at": "2025-10-03T15:15:41.061936",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

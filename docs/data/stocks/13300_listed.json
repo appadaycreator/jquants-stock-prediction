@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "13300",
+    "generated_at": "2025-10-03T15:15:50.112498",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "13300",
+    "name": "日興アセットマネジメント株式会社　　上場インデックスファンド２２５",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:41.476648",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "13300",
+      "CompanyName": "日興アセットマネジメント株式会社　　上場インデックスファンド２２５",
+      "CompanyNameEnglish": "Listed Index Fund 225",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:41.476653",
+      "updated_at": "2025-10-03T15:15:41.476654",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

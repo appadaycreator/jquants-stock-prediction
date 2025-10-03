@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "13200",
+    "generated_at": "2025-10-03T15:15:50.111766",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "13200",
+    "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経２２５（年１回決算型）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:40.646132",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "13200",
+      "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経２２５（年１回決算型）",
+      "CompanyNameEnglish": "iFreeETF Nikkei225 (Yearly Dividend Type)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:40.646136",
+      "updated_at": "2025-10-03T15:15:40.646138",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

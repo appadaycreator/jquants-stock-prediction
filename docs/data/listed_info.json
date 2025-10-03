@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2025-10-02T15:18:47.837666",
+    "generated_at": "2025-10-03T15:15:39.711469",
     "version": "2.0",
     "data_source": "jquants_listed_info",
     "total_stocks": 100,
@@ -13,8 +13,13 @@
       "name": "極洋",
       "sector": "食品",
       "market": "プライム",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:39.712769",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "13010",
         "CompanyName": "極洋",
         "CompanyNameEnglish": "KYOKUYO CO.,LTD.",
@@ -27,10 +32,135 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839054",
-        "updated_at": "2025-10-02T15:18:47.839057",
+        "created_at": "2025-10-03T15:15:39.712772",
+        "updated_at": "2025-10-03T15:15:39.712773",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13050": {
+      "code": "13050",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸ（年１回決算型）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:39.817855",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13050",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸ（年１回決算型）",
+        "CompanyNameEnglish": "iFreeETF TOPIX (Yearly Dividend Type)",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:39.817860",
+        "updated_at": "2025-10-03T15:15:39.817861",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13060": {
+      "code": "13060",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＴＯＰＩＸ連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:39.921514",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13060",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＴＯＰＩＸ連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:39.921519",
+        "updated_at": "2025-10-03T15:15:39.921520",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13080": {
+      "code": "13080",
+      "name": "日興アセットマネジメント株式会社　　上場インデックスファンドＴＯＰＩＸ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:40.022927",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13080",
+        "CompanyName": "日興アセットマネジメント株式会社　　上場インデックスファンドＴＯＰＩＸ",
+        "CompanyNameEnglish": "Listed Index Fund TOPIX",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:40.022932",
+        "updated_at": "2025-10-03T15:15:40.022933",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13090": {
+      "code": "13090",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＣｈｉｎａＡＭＣ・中国株式・上証５０連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:40.128027",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13090",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＣｈｉｎａＡＭＣ・中国株式・上証５０連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS ChinaAMC SSE50 Index Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:40.128031",
+        "updated_at": "2025-10-03T15:15:40.128033",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "130A0": {
@@ -38,8 +168,13 @@
       "name": "Ｖｅｒｉｔａｓ　Ｉｎ　Ｓｉｌｉｃｏ",
       "sector": "医薬品",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:40.228555",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "130A0",
         "CompanyName": "Ｖｅｒｉｔａｓ　Ｉｎ　Ｓｉｌｉｃｏ",
         "CompanyNameEnglish": "Veritas In Silico Inc.",
@@ -52,10 +187,383 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839061",
-        "updated_at": "2025-10-02T15:18:47.839063",
+        "created_at": "2025-10-03T15:15:40.228559",
+        "updated_at": "2025-10-03T15:15:40.228561",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13110": {
+      "code": "13110",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＴＯＰＩＸ　Ｃｏｒｅ　３０連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:40.332618",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13110",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＴＯＰＩＸ　Ｃｏｒｅ　３０連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS TOPIX Core 30 Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:40.332623",
+        "updated_at": "2025-10-03T15:15:40.332624",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13190": {
+      "code": "13190",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　日経３００株価指数連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:40.437747",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13190",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　日経３００株価指数連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS Nikkei 300 Index Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:40.437751",
+        "updated_at": "2025-10-03T15:15:40.437752",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "131A0": {
+      "code": "131A0",
+      "name": "ＣＣＮグループ",
+      "sector": "情報通信・サービスその他",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:40.541034",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "131A0",
+        "CompanyName": "ＣＣＮグループ",
+        "CompanyNameEnglish": "CCN Group Corporation",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "5250",
+        "Sector33CodeName": "情報･通信業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:40.541038",
+        "updated_at": "2025-10-03T15:15:40.541039",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13200": {
+      "code": "13200",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経２２５（年１回決算型）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:40.646132",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13200",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経２２５（年１回決算型）",
+        "CompanyNameEnglish": "iFreeETF Nikkei225 (Yearly Dividend Type)",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:40.646136",
+        "updated_at": "2025-10-03T15:15:40.646138",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13210": {
+      "code": "13210",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　日経２２５連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:40.750337",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13210",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　日経２２５連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS Nikkei 225 Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:40.750341",
+        "updated_at": "2025-10-03T15:15:40.750342",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13220": {
+      "code": "13220",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンド中国Ａ株（パンダ）Ｅ　Ｆｕｎｄ　ＣＳＩ３００",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:40.854282",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13220",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド中国Ａ株（パンダ）Ｅ　Ｆｕｎｄ　ＣＳＩ３００",
+        "CompanyNameEnglish": "Listed Index Fund China A Share (Panda) E Fund CSI300",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:40.854286",
+        "updated_at": "2025-10-03T15:15:40.854287",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13250": {
+      "code": "13250",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ブラジル株式指数・ボベスパ連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:40.956839",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13250",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ブラジル株式指数・ボベスパ連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS Ibovespa Linked Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:40.956843",
+        "updated_at": "2025-10-03T15:15:40.956844",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13260": {
+      "code": "13260",
+      "name": "ワールド・ゴールド・トラスト・サービシズ・エルエルシー　ＳＰＤＲゴールド・シェア",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:41.061931",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13260",
+        "CompanyName": "ワールド・ゴールド・トラスト・サービシズ・エルエルシー　ＳＰＤＲゴールド・シェア",
+        "CompanyNameEnglish": "SPDR Gold Shares",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:41.061935",
+        "updated_at": "2025-10-03T15:15:41.061936",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13280": {
+      "code": "13280",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　金価格連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:41.167027",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13280",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　金価格連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS Gold Price Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:41.167031",
+        "updated_at": "2025-10-03T15:15:41.167032",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13290": {
+      "code": "13290",
+      "name": "ブラックロック・ジャパン株式会社　　ｉシェアーズ・コア　日経２２５　ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:41.270068",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13290",
+        "CompanyName": "ブラックロック・ジャパン株式会社　　ｉシェアーズ・コア　日経２２５　ＥＴＦ",
+        "CompanyNameEnglish": "iShares Core Nikkei 225 ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:41.270072",
+        "updated_at": "2025-10-03T15:15:41.270073",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "132A0": {
+      "code": "132A0",
+      "name": "アイエヌホールディングス",
+      "sector": "運輸・物流",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:41.371558",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "132A0",
+        "CompanyName": "アイエヌホールディングス",
+        "CompanyNameEnglish": "IN Holdings Co.,LTD.",
+        "Sector17Code": "12",
+        "Sector17CodeName": "運輸・物流",
+        "Sector33Code": "5050",
+        "Sector33CodeName": "陸運業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:41.371564",
+        "updated_at": "2025-10-03T15:15:41.371565",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13300": {
+      "code": "13300",
+      "name": "日興アセットマネジメント株式会社　　上場インデックスファンド２２５",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:41.476648",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13300",
+        "CompanyName": "日興アセットマネジメント株式会社　　上場インデックスファンド２２５",
+        "CompanyNameEnglish": "Listed Index Fund 225",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:41.476653",
+        "updated_at": "2025-10-03T15:15:41.476654",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "13320": {
@@ -63,8 +571,13 @@
       "name": "ニッスイ",
       "sector": "食品",
       "market": "プライム",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:41.578542",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "13320",
         "CompanyName": "ニッスイ",
         "CompanyNameEnglish": "Nissui Corporation",
@@ -77,10 +590,11 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839065",
-        "updated_at": "2025-10-02T15:18:47.839066",
+        "created_at": "2025-10-03T15:15:41.578547",
+        "updated_at": "2025-10-03T15:15:41.578548",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "13330": {
@@ -88,8 +602,13 @@
       "name": "マルハニチロ",
       "sector": "食品",
       "market": "プライム",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:41.683630",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "13330",
         "CompanyName": "マルハニチロ",
         "CompanyNameEnglish": "Maruha Nichiro Corporation",
@@ -102,10 +621,321 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839067",
-        "updated_at": "2025-10-02T15:18:47.839068",
+        "created_at": "2025-10-03T15:15:41.683635",
+        "updated_at": "2025-10-03T15:15:41.683636",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "133A0": {
+      "code": "133A0",
+      "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　超短期米国債　ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:41.786079",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "133A0",
+        "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　超短期米国債　ＥＴＦ",
+        "CompanyNameEnglish": "Global X Ultra Short-Term T-Bill ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:41.786084",
+        "updated_at": "2025-10-03T15:15:41.786085",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13430": {
+      "code": "13430",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　東証ＲＥＩＴ　指数連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:41.886774",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13430",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　東証ＲＥＩＴ　指数連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS REIT INDEX ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:41.886778",
+        "updated_at": "2025-10-03T15:15:41.886779",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13450": {
+      "code": "13450",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンドＪリート（東証ＲＥＩＴ指数）隔月分配型",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:41.991874",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13450",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンドＪリート（東証ＲＥＩＴ指数）隔月分配型",
+        "CompanyNameEnglish": "Listed Index Fund J-REIT (Tokyo Stock Exchange REIT Index)Bi-Monthly Dividend Payment Type",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:41.991878",
+        "updated_at": "2025-10-03T15:15:41.991879",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13460": {
+      "code": "13460",
+      "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　日経２２５上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:42.091981",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13460",
+        "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　日経２２５上場投信",
+        "CompanyNameEnglish": "MAXIS NIKKEI 225 ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:42.091983",
+        "updated_at": "2025-10-03T15:15:42.091984",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13480": {
+      "code": "13480",
+      "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　トピックス上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:42.196364",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13480",
+        "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　トピックス上場投信",
+        "CompanyNameEnglish": "MAXIS TOPIX ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:42.196368",
+        "updated_at": "2025-10-03T15:15:42.196369",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13490": {
+      "code": "13490",
+      "name": "ステート・ストリート・グローバル・アドバイザーズ・シンガポール・リミテッド　ＡＢＦ汎アジア債券インデックス・ファンド",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:42.301461",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13490",
+        "CompanyName": "ステート・ストリート・グローバル・アドバイザーズ・シンガポール・リミテッド　ＡＢＦ汎アジア債券インデックス・ファンド",
+        "CompanyNameEnglish": "ABF PAN ASIA BOND INDEX FUND",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:42.301465",
+        "updated_at": "2025-10-03T15:15:42.301466",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "134A0": {
+      "code": "134A0",
+      "name": "アプライズ",
+      "sector": "情報通信・サービスその他",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:42.402940",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "134A0",
+        "CompanyName": "アプライズ",
+        "CompanyNameEnglish": "UPraise,Inc",
+        "Sector17Code": "10",
+        "Sector17CodeName": "情報通信・サービスその他",
+        "Sector33Code": "9050",
+        "Sector33CodeName": "サービス業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:42.402944",
+        "updated_at": "2025-10-03T15:15:42.402945",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13560": {
+      "code": "13560",
+      "name": "シンプレクス・アセット・マネジメント株式会社　ＴＯＰＩＸベア２倍上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:42.508065",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13560",
+        "CompanyName": "シンプレクス・アセット・マネジメント株式会社　ＴＯＰＩＸベア２倍上場投信",
+        "CompanyNameEnglish": "TOPIX Bear -2x ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:42.508069",
+        "updated_at": "2025-10-03T15:15:42.508070",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13570": {
+      "code": "13570",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　日経平均ダブルインバース・インデックス連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:42.613152",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13570",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　日経平均ダブルインバース・インデックス連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS Nikkei 225 Double Inverse Index Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:42.613155",
+        "updated_at": "2025-10-03T15:15:42.613156",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13580": {
+      "code": "13580",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンド日経レバレッジ指数",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:42.718243",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13580",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド日経レバレッジ指数",
+        "CompanyNameEnglish": "Listed Index Fund Nikkei Leveraged Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:42.718247",
+        "updated_at": "2025-10-03T15:15:42.718248",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "135A0": {
@@ -113,8 +943,13 @@
       "name": "ＶＲＡＩＮ　Ｓｏｌｕｔｉｏｎ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:42.820115",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "135A0",
         "CompanyName": "ＶＲＡＩＮ　Ｓｏｌｕｔｉｏｎ",
         "CompanyNameEnglish": "VRAIN Solution,Inc.",
@@ -127,10 +962,259 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839070",
-        "updated_at": "2025-10-02T15:18:47.839071",
+        "created_at": "2025-10-03T15:15:42.820119",
+        "updated_at": "2025-10-03T15:15:42.820120",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13600": {
+      "code": "13600",
+      "name": "シンプレクス・アセット・マネジメント株式会社　日経平均ベア２倍上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:42.924183",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13600",
+        "CompanyName": "シンプレクス・アセット・マネジメント株式会社　日経平均ベア２倍上場投信",
+        "CompanyNameEnglish": "Nikkei225 Bear -2x ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:42.924187",
+        "updated_at": "2025-10-03T15:15:42.924188",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13640": {
+      "code": "13640",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＪＰＸ日経４００　ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:43.024449",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13640",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＪＰＸ日経４００　ＥＴＦ",
+        "CompanyNameEnglish": "iShares JPX-Nikkei 400 ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:43.024453",
+        "updated_at": "2025-10-03T15:15:43.024454",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13650": {
+      "code": "13650",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経平均レバレッジ・インデックス",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:43.128576",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13650",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経平均レバレッジ・インデックス",
+        "CompanyNameEnglish": "iFreeETF Nikkei225 Leveraged Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:43.128579",
+        "updated_at": "2025-10-03T15:15:43.128580",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13660": {
+      "code": "13660",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経平均ダブルインバース・インデックス",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:43.230875",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13660",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経平均ダブルインバース・インデックス",
+        "CompanyNameEnglish": "iFreeETF Nikkei225 Double Inverse Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:43.230880",
+        "updated_at": "2025-10-03T15:15:43.230881",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13670": {
+      "code": "13670",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸレバレッジ（２倍）指数",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:43.335981",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13670",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸレバレッジ（２倍）指数",
+        "CompanyNameEnglish": "iFreeETF TOPIX Leveraged (2x) Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:43.335986",
+        "updated_at": "2025-10-03T15:15:43.335988",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13680": {
+      "code": "13680",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸダブルインバース（−２倍）指数",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:43.436809",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13680",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸダブルインバース（−２倍）指数",
+        "CompanyNameEnglish": "iFreeETF TOPIX Double Inverse (-2x) Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:43.436813",
+        "updated_at": "2025-10-03T15:15:43.436814",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13690": {
+      "code": "13690",
+      "name": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　日経２２５",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:43.541329",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13690",
+        "CompanyName": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　日経２２５",
+        "CompanyNameEnglish": "One ETF Nikkei225",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:43.541335",
+        "updated_at": "2025-10-03T15:15:43.541336",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "136A0": {
+      "code": "136A0",
+      "name": "三興商事",
+      "sector": "建設・資材",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:43.641658",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "136A0",
+        "CompanyName": "三興商事",
+        "CompanyNameEnglish": "Sankosyoji Co.,Ltd.",
+        "Sector17Code": "3",
+        "Sector17CodeName": "建設・資材",
+        "Sector33Code": "2050",
+        "Sector33CodeName": "建設業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:43.641663",
+        "updated_at": "2025-10-03T15:15:43.641664",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "13750": {
@@ -138,8 +1222,13 @@
       "name": "ユキグニファクトリー",
       "sector": "食品",
       "market": "プライム",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:43.745209",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "13750",
         "CompanyName": "ユキグニファクトリー",
         "CompanyNameEnglish": "YUKIGUNI FACTORY CO.,LTD.",
@@ -152,10 +1241,11 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839072",
-        "updated_at": "2025-10-02T15:18:47.839073",
+        "created_at": "2025-10-03T15:15:43.745213",
+        "updated_at": "2025-10-03T15:15:43.745214",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "13760": {
@@ -163,8 +1253,13 @@
       "name": "カネコ種苗",
       "sector": "食品",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:43.849807",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "13760",
         "CompanyName": "カネコ種苗",
         "CompanyNameEnglish": "KANEKO SEEDS CO.,LTD.",
@@ -177,10 +1272,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839075",
-        "updated_at": "2025-10-02T15:18:47.839075",
+        "created_at": "2025-10-03T15:15:43.849812",
+        "updated_at": "2025-10-03T15:15:43.849813",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "13770": {
@@ -188,8 +1284,13 @@
       "name": "サカタのタネ",
       "sector": "食品",
       "market": "プライム",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:43.953411",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "13770",
         "CompanyName": "サカタのタネ",
         "CompanyNameEnglish": "SAKATA SEED CORPORATION",
@@ -202,10 +1303,11 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839076",
-        "updated_at": "2025-10-02T15:18:47.839077",
+        "created_at": "2025-10-03T15:15:43.953416",
+        "updated_at": "2025-10-03T15:15:43.953417",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "13790": {
@@ -213,8 +1315,13 @@
       "name": "ホクト",
       "sector": "食品",
       "market": "プライム",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:44.058511",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "13790",
         "CompanyName": "ホクト",
         "CompanyNameEnglish": "HOKUTO CORPORATION",
@@ -227,10 +1334,11 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839078",
-        "updated_at": "2025-10-02T15:18:47.839079",
+        "created_at": "2025-10-03T15:15:44.058516",
+        "updated_at": "2025-10-03T15:15:44.058517",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "137A0": {
@@ -238,8 +1346,13 @@
       "name": "Ｃｏｃｏｌｉｖｅ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:44.162553",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "137A0",
         "CompanyName": "Ｃｏｃｏｌｉｖｅ",
         "CompanyNameEnglish": "Cocolive,Inc.",
@@ -252,10 +1365,11 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839080",
-        "updated_at": "2025-10-02T15:18:47.839081",
+        "created_at": "2025-10-03T15:15:44.162557",
+        "updated_at": "2025-10-03T15:15:44.162558",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "13800": {
@@ -263,8 +1377,13 @@
       "name": "秋川牧園",
       "sector": "食品",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:44.267642",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "13800",
         "CompanyName": "秋川牧園",
         "CompanyNameEnglish": "AKIKAWA FOODS & FARMS CO.,LTD.",
@@ -277,10 +1396,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839082",
-        "updated_at": "2025-10-02T15:18:47.839082",
+        "created_at": "2025-10-03T15:15:44.267646",
+        "updated_at": "2025-10-03T15:15:44.267647",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "13810": {
@@ -288,8 +1408,13 @@
       "name": "アクシーズ",
       "sector": "食品",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:44.372332",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "13810",
         "CompanyName": "アクシーズ",
         "CompanyNameEnglish": "AXYZ CO.,Ltd.",
@@ -302,10 +1427,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839084",
-        "updated_at": "2025-10-02T15:18:47.839084",
+        "created_at": "2025-10-03T15:15:44.372337",
+        "updated_at": "2025-10-03T15:15:44.372339",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "13820": {
@@ -313,8 +1439,13 @@
       "name": "ホーブ",
       "sector": "食品",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:44.476207",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "13820",
         "CompanyName": "ホーブ",
         "CompanyNameEnglish": "HOB Co.,Ltd.",
@@ -327,10 +1458,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839085",
-        "updated_at": "2025-10-02T15:18:47.839086",
+        "created_at": "2025-10-03T15:15:44.476211",
+        "updated_at": "2025-10-03T15:15:44.476212",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "13830": {
@@ -338,8 +1470,13 @@
       "name": "ベルグアース",
       "sector": "食品",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:44.581333",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "13830",
         "CompanyName": "ベルグアース",
         "CompanyNameEnglish": "Berg Earth co.,ltd.",
@@ -352,10 +1489,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839087",
-        "updated_at": "2025-10-02T15:18:47.839088",
+        "created_at": "2025-10-03T15:15:44.581339",
+        "updated_at": "2025-10-03T15:15:44.581340",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "13840": {
@@ -363,8 +1501,13 @@
       "name": "ホクリヨウ",
       "sector": "食品",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:44.686429",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "13840",
         "CompanyName": "ホクリヨウ",
         "CompanyNameEnglish": "Hokuryo Co.,Ltd.",
@@ -377,10 +1520,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839089",
-        "updated_at": "2025-10-02T15:18:47.839090",
+        "created_at": "2025-10-03T15:15:44.686433",
+        "updated_at": "2025-10-03T15:15:44.686434",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "138A0": {
@@ -388,8 +1532,13 @@
       "name": "光フードサービス",
       "sector": "小売",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:44.791547",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "138A0",
         "CompanyName": "光フードサービス",
         "CompanyNameEnglish": "Hikari Food Service Co.,Ltd.",
@@ -402,10 +1551,135 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839091",
-        "updated_at": "2025-10-02T15:18:47.839091",
+        "created_at": "2025-10-03T15:15:44.791552",
+        "updated_at": "2025-10-03T15:15:44.791553",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13970": {
+      "code": "13970",
+      "name": "三井住友ＤＳアセットマネジメント株式会社　ＳＭＤＡＭ　日経２２５上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:44.895077",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13970",
+        "CompanyName": "三井住友ＤＳアセットマネジメント株式会社　ＳＭＤＡＭ　日経２２５上場投信",
+        "CompanyNameEnglish": "SMDAM NIKKEI225 ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:44.895081",
+        "updated_at": "2025-10-03T15:15:44.895083",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13980": {
+      "code": "13980",
+      "name": "三井住友ＤＳアセットマネジメント株式会社　ＳＭＤＡＭ　東証ＲＥＩＴ指数上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:45.000165",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13980",
+        "CompanyName": "三井住友ＤＳアセットマネジメント株式会社　ＳＭＤＡＭ　東証ＲＥＩＴ指数上場投信",
+        "CompanyNameEnglish": "SMDAM REIT Index ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:45.000170",
+        "updated_at": "2025-10-03T15:15:45.000171",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "13990": {
+      "code": "13990",
+      "name": "日興アセットマネジメント株式会社　上場インデックスファンドＭＳＣＩ日本株高配当低ボラティリティ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:45.105102",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "13990",
+        "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンドＭＳＣＩ日本株高配当低ボラティリティ",
+        "CompanyNameEnglish": "Listed Index Fund MSCI Japan Equity High Dividend Low Volatility",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:45.105106",
+        "updated_at": "2025-10-03T15:15:45.105107",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "139A0": {
+      "code": "139A0",
+      "name": "東日本地所",
+      "sector": "不動産",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:45.207470",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "139A0",
+        "CompanyName": "東日本地所",
+        "CompanyNameEnglish": "Higashinihon Jisho Co.,Ltd.",
+        "Sector17Code": "17",
+        "Sector17CodeName": "不動産",
+        "Sector33Code": "8050",
+        "Sector33CodeName": "不動産業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:45.207475",
+        "updated_at": "2025-10-03T15:15:45.207476",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14010": {
@@ -413,8 +1687,13 @@
       "name": "エムビーエス",
       "sector": "建設・資材",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:45.311914",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14010",
         "CompanyName": "エムビーエス",
         "CompanyNameEnglish": "mbs,inc.",
@@ -427,10 +1706,11 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839092",
-        "updated_at": "2025-10-02T15:18:47.839093",
+        "created_at": "2025-10-03T15:15:45.311918",
+        "updated_at": "2025-10-03T15:15:45.311920",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14070": {
@@ -438,8 +1718,13 @@
       "name": "ウエストホールディングス",
       "sector": "建設・資材",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:45.417019",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14070",
         "CompanyName": "ウエストホールディングス",
         "CompanyNameEnglish": "West Holdings Corporation",
@@ -452,10 +1737,42 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839094",
-        "updated_at": "2025-10-02T15:18:47.839095",
+        "created_at": "2025-10-03T15:15:45.417022",
+        "updated_at": "2025-10-03T15:15:45.417023",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "140A0": {
+      "code": "140A0",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　米国１０年国債先物インバース",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:45.519358",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "140A0",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　米国１０年国債先物インバース",
+        "CompanyNameEnglish": "iFreeETF 10-Year U.S. Treasury Note Futures Inverse",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:45.519362",
+        "updated_at": "2025-10-03T15:15:45.519364",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14140": {
@@ -463,8 +1780,13 @@
       "name": "ショーボンドホールディングス",
       "sector": "建設・資材",
       "market": "プライム",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:45.624479",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14140",
         "CompanyName": "ショーボンドホールディングス",
         "CompanyNameEnglish": "SHO-BOND Holdings Co.,Ltd.",
@@ -477,10 +1799,11 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839097",
-        "updated_at": "2025-10-02T15:18:47.839097",
+        "created_at": "2025-10-03T15:15:45.624483",
+        "updated_at": "2025-10-03T15:15:45.624484",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14170": {
@@ -488,8 +1811,13 @@
       "name": "ミライト・ワン",
       "sector": "建設・資材",
       "market": "プライム",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:45.729577",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14170",
         "CompanyName": "ミライト・ワン",
         "CompanyNameEnglish": "MIRAIT ONE Corporation",
@@ -502,10 +1830,11 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839098",
-        "updated_at": "2025-10-02T15:18:47.839099",
+        "created_at": "2025-10-03T15:15:45.729582",
+        "updated_at": "2025-10-03T15:15:45.729583",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14180": {
@@ -513,8 +1842,13 @@
       "name": "インターライフホールディングス",
       "sector": "建設・資材",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:45.834668",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14180",
         "CompanyName": "インターライフホールディングス",
         "CompanyNameEnglish": "INTERLIFE HOLDINGS CO.,LTD.",
@@ -527,10 +1861,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839100",
-        "updated_at": "2025-10-02T15:18:47.839101",
+        "created_at": "2025-10-03T15:15:45.834672",
+        "updated_at": "2025-10-03T15:15:45.834673",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14190": {
@@ -538,8 +1873,13 @@
       "name": "タマホーム",
       "sector": "建設・資材",
       "market": "プライム",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:45.937984",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14190",
         "CompanyName": "タマホーム",
         "CompanyNameEnglish": "Tama Home Co.,Ltd.",
@@ -552,10 +1892,11 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839102",
-        "updated_at": "2025-10-02T15:18:47.839103",
+        "created_at": "2025-10-03T15:15:45.937988",
+        "updated_at": "2025-10-03T15:15:45.937989",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "141A0": {
@@ -563,8 +1904,13 @@
       "name": "トライアルホールディングス",
       "sector": "小売",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:46.040255",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "141A0",
         "CompanyName": "トライアルホールディングス",
         "CompanyNameEnglish": "TRIAL Holdings,Inc.",
@@ -577,10 +1923,11 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839104",
-        "updated_at": "2025-10-02T15:18:47.839105",
+        "created_at": "2025-10-03T15:15:46.040261",
+        "updated_at": "2025-10-03T15:15:46.040262",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14200": {
@@ -588,8 +1935,13 @@
       "name": "サンヨーホームズ",
       "sector": "建設・資材",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:46.145197",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14200",
         "CompanyName": "サンヨーホームズ",
         "CompanyNameEnglish": "Sanyo Homes Corporation",
@@ -602,10 +1954,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839106",
-        "updated_at": "2025-10-02T15:18:47.839107",
+        "created_at": "2025-10-03T15:15:46.145201",
+        "updated_at": "2025-10-03T15:15:46.145202",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14290": {
@@ -613,8 +1966,13 @@
       "name": "日本アクア",
       "sector": "建設・資材",
       "market": "プライム",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:46.250227",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14290",
         "CompanyName": "日本アクア",
         "CompanyNameEnglish": "Nippon Aqua Co.,Ltd.",
@@ -627,10 +1985,11 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839108",
-        "updated_at": "2025-10-02T15:18:47.839109",
+        "created_at": "2025-10-03T15:15:46.250231",
+        "updated_at": "2025-10-03T15:15:46.250231",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "142A0": {
@@ -638,8 +1997,13 @@
       "name": "ジンジブ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:46.352997",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "142A0",
         "CompanyName": "ジンジブ",
         "CompanyNameEnglish": "JINJIB Co.,Ltd.",
@@ -652,10 +2016,11 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839110",
-        "updated_at": "2025-10-02T15:18:47.839110",
+        "created_at": "2025-10-03T15:15:46.353001",
+        "updated_at": "2025-10-03T15:15:46.353002",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14300": {
@@ -663,8 +2028,13 @@
       "name": "ファーストコーポレーション",
       "sector": "建設・資材",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:46.458121",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14300",
         "CompanyName": "ファーストコーポレーション",
         "CompanyNameEnglish": "First-corporation Inc.",
@@ -677,10 +2047,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839111",
-        "updated_at": "2025-10-02T15:18:47.839112",
+        "created_at": "2025-10-03T15:15:46.458127",
+        "updated_at": "2025-10-03T15:15:46.458128",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14310": {
@@ -688,8 +2059,13 @@
       "name": "Ｌｉｂ　Ｗｏｒｋ",
       "sector": "建設・資材",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:46.563219",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14310",
         "CompanyName": "Ｌｉｂ　Ｗｏｒｋ",
         "CompanyNameEnglish": "Lib Work Co.,Ltd.",
@@ -702,10 +2078,42 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839113",
-        "updated_at": "2025-10-02T15:18:47.839114",
+        "created_at": "2025-10-03T15:15:46.563224",
+        "updated_at": "2025-10-03T15:15:46.563225",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14320": {
+      "code": "14320",
+      "name": "動力",
+      "sector": "建設・資材",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:46.668313",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14320",
+        "CompanyName": "動力",
+        "CompanyNameEnglish": "DORYOKU Co.,Ltd.",
+        "Sector17Code": "3",
+        "Sector17CodeName": "建設・資材",
+        "Sector33Code": "2050",
+        "Sector33CodeName": "建設業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:46.668317",
+        "updated_at": "2025-10-03T15:15:46.668318",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14330": {
@@ -713,8 +2121,13 @@
       "name": "ベステラ",
       "sector": "建設・資材",
       "market": "プライム",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:46.773415",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14330",
         "CompanyName": "ベステラ",
         "CompanyNameEnglish": "BESTERRA CO.,LTD",
@@ -727,10 +2140,11 @@
         "MarketCodeName": "プライム"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839115",
-        "updated_at": "2025-10-02T15:18:47.839115",
+        "created_at": "2025-10-03T15:15:46.773420",
+        "updated_at": "2025-10-03T15:15:46.773421",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14340": {
@@ -738,8 +2152,13 @@
       "name": "ＪＥＳＣＯホールディングス",
       "sector": "建設・資材",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:46.873803",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14340",
         "CompanyName": "ＪＥＳＣＯホールディングス",
         "CompanyNameEnglish": "JESCO Holdings,Inc.",
@@ -752,10 +2171,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839117",
-        "updated_at": "2025-10-02T15:18:47.839117",
+        "created_at": "2025-10-03T15:15:46.873807",
+        "updated_at": "2025-10-03T15:15:46.873808",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14350": {
@@ -763,8 +2183,13 @@
       "name": "ｒｏｂｏｔ　ｈｏｍｅ",
       "sector": "不動産",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:46.978051",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14350",
         "CompanyName": "ｒｏｂｏｔ　ｈｏｍｅ",
         "CompanyNameEnglish": "robot home Inc.",
@@ -777,10 +2202,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839118",
-        "updated_at": "2025-10-02T15:18:47.839119",
+        "created_at": "2025-10-03T15:15:46.978054",
+        "updated_at": "2025-10-03T15:15:46.978055",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14360": {
@@ -788,8 +2214,13 @@
       "name": "グリーンエナジー＆カンパニー",
       "sector": "建設・資材",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:47.083145",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14360",
         "CompanyName": "グリーンエナジー＆カンパニー",
         "CompanyNameEnglish": "GreenEnergy & Company Inc.",
@@ -802,10 +2233,11 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839120",
-        "updated_at": "2025-10-02T15:18:47.839121",
+        "created_at": "2025-10-03T15:15:47.083150",
+        "updated_at": "2025-10-03T15:15:47.083151",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14380": {
@@ -813,8 +2245,13 @@
       "name": "岐阜造園",
       "sector": "建設・資材",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:47.188251",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14380",
         "CompanyName": "岐阜造園",
         "CompanyNameEnglish": "Gifu landscape architect Co.,Ltd.",
@@ -827,10 +2264,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839122",
-        "updated_at": "2025-10-02T15:18:47.839122",
+        "created_at": "2025-10-03T15:15:47.188255",
+        "updated_at": "2025-10-03T15:15:47.188256",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "143A0": {
@@ -838,8 +2276,13 @@
       "name": "イシン",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:47.291334",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "143A0",
         "CompanyName": "イシン",
         "CompanyNameEnglish": "Ishin Co.,Ltd.",
@@ -852,10 +2295,11 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839125",
-        "updated_at": "2025-10-02T15:18:47.839126",
+        "created_at": "2025-10-03T15:15:47.291340",
+        "updated_at": "2025-10-03T15:15:47.291341",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14430": {
@@ -863,8 +2307,13 @@
       "name": "技研ホールディングス",
       "sector": "建設・資材",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:47.396443",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14430",
         "CompanyName": "技研ホールディングス",
         "CompanyNameEnglish": "Giken Holdings Co.,Ltd.",
@@ -877,10 +2326,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839127",
-        "updated_at": "2025-10-02T15:18:47.839127",
+        "created_at": "2025-10-03T15:15:47.396447",
+        "updated_at": "2025-10-03T15:15:47.396448",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14440": {
@@ -888,8 +2338,13 @@
       "name": "ニッソウ",
       "sector": "建設・資材",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:47.501536",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14440",
         "CompanyName": "ニッソウ",
         "CompanyNameEnglish": "Nissou Co.,Ltd.",
@@ -902,10 +2357,42 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839128",
-        "updated_at": "2025-10-02T15:18:47.839129",
+        "created_at": "2025-10-03T15:15:47.501541",
+        "updated_at": "2025-10-03T15:15:47.501542",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14450": {
+      "code": "14450",
+      "name": "ひかりホールディングス",
+      "sector": "建設・資材",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:47.606648",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14450",
+        "CompanyName": "ひかりホールディングス",
+        "CompanyNameEnglish": "Hikari Holdings Co.,Ltd.",
+        "Sector17Code": "3",
+        "Sector17CodeName": "建設・資材",
+        "Sector33Code": "2050",
+        "Sector33CodeName": "建設業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:47.606653",
+        "updated_at": "2025-10-03T15:15:47.606654",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14460": {
@@ -913,8 +2400,13 @@
       "name": "キャンディル",
       "sector": "建設・資材",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:47.709935",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14460",
         "CompanyName": "キャンディル",
         "CompanyNameEnglish": "CANDEAL Co.,Ltd.",
@@ -927,10 +2419,11 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839130",
-        "updated_at": "2025-10-02T15:18:47.839131",
+        "created_at": "2025-10-03T15:15:47.709939",
+        "updated_at": "2025-10-03T15:15:47.709940",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14470": {
@@ -938,8 +2431,13 @@
       "name": "ＳＡＡＦホールディングス",
       "sector": "建設・資材",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:47.814276",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14470",
         "CompanyName": "ＳＡＡＦホールディングス",
         "CompanyNameEnglish": "SAAF Holdings Co.,Ltd.",
@@ -952,10 +2450,42 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839132",
-        "updated_at": "2025-10-02T15:18:47.839133",
+        "created_at": "2025-10-03T15:15:47.814280",
+        "updated_at": "2025-10-03T15:15:47.814281",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "144A0": {
+      "code": "144A0",
+      "name": "エネルギーパワー",
+      "sector": "建設・資材",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:47.919378",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "144A0",
+        "CompanyName": "エネルギーパワー",
+        "CompanyNameEnglish": "ENERGY POWER CO.,Ltd.",
+        "Sector17Code": "3",
+        "Sector17CodeName": "建設・資材",
+        "Sector33Code": "2050",
+        "Sector33CodeName": "建設業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:47.919382",
+        "updated_at": "2025-10-03T15:15:47.919384",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "14500": {
@@ -963,8 +2493,13 @@
       "name": "ＴＡＮＡＫＥＮ",
       "sector": "建設・資材",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:48.022796",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "14500",
         "CompanyName": "ＴＡＮＡＫＥＮ",
         "CompanyNameEnglish": "TANAKEN Inc.",
@@ -977,10 +2512,166 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839134",
-        "updated_at": "2025-10-02T15:18:47.839134",
+        "created_at": "2025-10-03T15:15:48.022801",
+        "updated_at": "2025-10-03T15:15:48.022802",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14520": {
+      "code": "14520",
+      "name": "横浜ライト工業",
+      "sector": "建設・資材",
+      "market": "TOKYO PRO MARKET",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:48.127891",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14520",
+        "CompanyName": "横浜ライト工業",
+        "CompanyNameEnglish": "YOKOHAMA WRIGHT Industries Co.,LTD",
+        "Sector17Code": "3",
+        "Sector17CodeName": "建設・資材",
+        "Sector33Code": "2050",
+        "Sector33CodeName": "建設業",
+        "ScaleCategory": "-",
+        "MarketCode": "0105",
+        "MarketCodeName": "TOKYO PRO MARKET"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:48.127895",
+        "updated_at": "2025-10-03T15:15:48.127896",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14560": {
+      "code": "14560",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経平均インバース・インデックス",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:48.232985",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14560",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経平均インバース・インデックス",
+        "CompanyNameEnglish": "iFreeETF Nikkei225 Inverse Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:48.232990",
+        "updated_at": "2025-10-03T15:15:48.232991",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14570": {
+      "code": "14570",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸインバース（−１倍）指数",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:48.336717",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14570",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸインバース（−１倍）指数",
+        "CompanyNameEnglish": "iFreeETF TOPIX Inverse (-1x) Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:48.336722",
+        "updated_at": "2025-10-03T15:15:48.336723",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14580": {
+      "code": "14580",
+      "name": "楽天投信投資顧問株式会社　楽天ＥＴＦ‐日経レバレッジ指数連動型",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:48.440242",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14580",
+        "CompanyName": "楽天投信投資顧問株式会社　楽天ＥＴＦ‐日経レバレッジ指数連動型",
+        "CompanyNameEnglish": "Rakuten ETF - Nikkei 225 Leveraged Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:48.440248",
+        "updated_at": "2025-10-03T15:15:48.440249",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14590": {
+      "code": "14590",
+      "name": "楽天投信投資顧問株式会社　楽天ＥＴＦ‐日経ダブルインバース指数連動型",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:48.541600",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14590",
+        "CompanyName": "楽天投信投資顧問株式会社　楽天ＥＴＦ‐日経ダブルインバース指数連動型",
+        "CompanyNameEnglish": "Rakuten ETF - Nikkei 225 Double Inverse Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:48.541604",
+        "updated_at": "2025-10-03T15:15:48.541605",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "145A0": {
@@ -988,8 +2679,13 @@
       "name": "Ｌ　ｉｓ　Ｂ",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:48.643143",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "145A0",
         "CompanyName": "Ｌ　ｉｓ　Ｂ",
         "CompanyNameEnglish": "L is B Corp.",
@@ -1002,10 +2698,73 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839135",
-        "updated_at": "2025-10-02T15:18:47.839136",
+        "created_at": "2025-10-03T15:15:48.643147",
+        "updated_at": "2025-10-03T15:15:48.643148",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14660": {
+      "code": "14660",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＪＰＸ日経４００ダブルインバース・インデックス",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:48.748250",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14660",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＪＰＸ日経４００ダブルインバース・インデックス",
+        "CompanyNameEnglish": "iFreeETF JPX-Nikkei400 Double Inverse (-2x) Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:48.748254",
+        "updated_at": "2025-10-03T15:15:48.748255",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14690": {
+      "code": "14690",
+      "name": "シンプレクス・アセット・マネジメント株式会社　ＪＰＸ日経４００ベア２倍上場投信（ダブルインバース）",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:48.853440",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14690",
+        "CompanyName": "シンプレクス・アセット・マネジメント株式会社　ＪＰＸ日経４００ベア２倍上場投信（ダブルインバース）",
+        "CompanyNameEnglish": "JPX-Nikkei 400 Bear -2x Double Inverse ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:48.853443",
+        "updated_at": "2025-10-03T15:15:48.853444",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "146A0": {
@@ -1013,8 +2772,13 @@
       "name": "コロンビア・ワークス",
       "sector": "不動産",
       "market": "スタンダード",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:48.957828",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "146A0",
         "CompanyName": "コロンビア・ワークス",
         "CompanyNameEnglish": "Columbia Works Inc.",
@@ -1027,10 +2791,259 @@
         "MarketCodeName": "スタンダード"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839137",
-        "updated_at": "2025-10-02T15:18:47.839138",
+        "created_at": "2025-10-03T15:15:48.957833",
+        "updated_at": "2025-10-03T15:15:48.957834",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14720": {
+      "code": "14720",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸ日経４００ダブルインバース・インデックス連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:49.062920",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14720",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸ日経４００ダブルインバース・インデックス連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS JPX-Nikkei 400 Double Inverse Index Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:49.062924",
+        "updated_at": "2025-10-03T15:15:49.062925",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14730": {
+      "code": "14730",
+      "name": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　トピックス",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:49.168009",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14730",
+        "CompanyName": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　トピックス",
+        "CompanyNameEnglish": "One ETF TOPIX",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:49.168013",
+        "updated_at": "2025-10-03T15:15:49.168015",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14740": {
+      "code": "14740",
+      "name": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　ＪＰＸ日経４００",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:49.271320",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14740",
+        "CompanyName": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　ＪＰＸ日経４００",
+        "CompanyNameEnglish": "One ETF JPX-Nikkei 400",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:49.271323",
+        "updated_at": "2025-10-03T15:15:49.271324",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14750": {
+      "code": "14750",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　ＴＯＰＩＸ　ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:49.376442",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14750",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　ＴＯＰＩＸ　ＥＴＦ",
+        "CompanyNameEnglish": "iShares Core TOPIX ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:49.376446",
+        "updated_at": "2025-10-03T15:15:49.376447",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14760": {
+      "code": "14760",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　Ｊリート　ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:49.479834",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14760",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　Ｊリート　ＥＴＦ",
+        "CompanyNameEnglish": "iShares Core Japan REIT ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:49.479838",
+        "updated_at": "2025-10-03T15:15:49.479839",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14770": {
+      "code": "14770",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＭＳＣＩ　日本株最小分散　ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:49.584931",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14770",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＭＳＣＩ　日本株最小分散　ＥＴＦ",
+        "CompanyNameEnglish": "iShares MSCI Japan Minimum Volatility (ex-REITs) ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:49.584936",
+        "updated_at": "2025-10-03T15:15:49.584937",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14780": {
+      "code": "14780",
+      "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＭＳＣＩ　ジャパン高配当利回り　ＥＴＦ",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:49.690034",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14780",
+        "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＭＳＣＩ　ジャパン高配当利回り　ＥＴＦ",
+        "CompanyNameEnglish": "iShares MSCI Japan High Dividend ETF",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:49.690038",
+        "updated_at": "2025-10-03T15:15:49.690039",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
+      }
+    },
+    "14790": {
+      "code": "14790",
+      "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＭＳＣＩ日本株人材設備投資指数",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:49.795193",
+      "listed_info": {
+        "Date": "2025-07-11",
+        "Code": "14790",
+        "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＭＳＣＩ日本株人材設備投資指数",
+        "CompanyNameEnglish": "iFreeETF MSCI Japan Human and Physical Investment Index",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
+        "ScaleCategory": "-",
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
+      },
+      "metadata": {
+        "created_at": "2025-10-03T15:15:49.795197",
+        "updated_at": "2025-10-03T15:15:49.795198",
+        "data_quality": "jquants_official",
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
     "147A0": {
@@ -1038,8 +3051,13 @@
       "name": "ソラコム",
       "sector": "情報通信・サービスその他",
       "market": "グロース",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:49.899321",
       "listed_info": {
-        "Date": "2025-07-10",
+        "Date": "2025-07-11",
         "Code": "147A0",
         "CompanyName": "ソラコム",
         "CompanyNameEnglish": "SORACOM,INC.",
@@ -1052,1460 +3070,42 @@
         "MarketCodeName": "グロース"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839139",
-        "updated_at": "2025-10-02T15:18:47.839139",
+        "created_at": "2025-10-03T15:15:49.899325",
+        "updated_at": "2025-10-03T15:15:49.899326",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     },
-    "148A0": {
-      "code": "148A0",
-      "name": "ハッチ・ワーク",
-      "sector": "情報通信・サービスその他",
-      "market": "グロース",
+    "14800": {
+      "code": "14800",
+      "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　野村企業価値分配指数連動型上場投信",
+      "sector": "その他",
+      "market": "その他",
+      "currentPrice": null,
+      "change": null,
+      "changePercent": null,
+      "volume": null,
+      "updated_at": "2025-10-03T15:15:50.004515",
       "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "148A0",
-        "CompanyName": "ハッチ・ワーク",
-        "CompanyNameEnglish": "HATCH WORK CO.,LTD.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "5250",
-        "Sector33CodeName": "情報･通信業",
+        "Date": "2025-07-11",
+        "Code": "14800",
+        "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　野村企業価値分配指数連動型上場投信",
+        "CompanyNameEnglish": "NEXT FUNDS Nomura Enterprise Value Allocation Index Exchange Traded Fund",
+        "Sector17Code": "99",
+        "Sector17CodeName": "その他",
+        "Sector33Code": "9999",
+        "Sector33CodeName": "その他",
         "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
+        "MarketCode": "0109",
+        "MarketCodeName": "その他"
       },
       "metadata": {
-        "created_at": "2025-10-02T15:18:47.839140",
-        "updated_at": "2025-10-02T15:18:47.839141",
+        "created_at": "2025-10-03T15:15:50.004519",
+        "updated_at": "2025-10-03T15:15:50.004520",
         "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "14910": {
-      "code": "14910",
-      "name": "中外鉱業",
-      "sector": "鉄鋼・非鉄",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "14910",
-        "CompanyName": "中外鉱業",
-        "CompanyNameEnglish": "Chugai Mining Co.,Ltd.",
-        "Sector17Code": "7",
-        "Sector17CodeName": "鉄鋼・非鉄",
-        "Sector33Code": "3500",
-        "Sector33CodeName": "非鉄金属",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839143",
-        "updated_at": "2025-10-02T15:18:47.839144",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "149A0": {
-      "code": "149A0",
-      "name": "シンカ",
-      "sector": "情報通信・サービスその他",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "149A0",
-        "CompanyName": "シンカ",
-        "CompanyNameEnglish": "Thinca Co.,Ltd.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "5250",
-        "Sector33CodeName": "情報･通信業",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839145",
-        "updated_at": "2025-10-02T15:18:47.839145",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "150A0": {
-      "code": "150A0",
-      "name": "ＪＳＨ",
-      "sector": "情報通信・サービスその他",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "150A0",
-        "CompanyName": "ＪＳＨ",
-        "CompanyNameEnglish": "JSH Co.,Ltd.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "9050",
-        "Sector33CodeName": "サービス業",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839146",
-        "updated_at": "2025-10-02T15:18:47.839147",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "15140": {
-      "code": "15140",
-      "name": "住石ホールディングス",
-      "sector": "エネルギー資源",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "15140",
-        "CompanyName": "住石ホールディングス",
-        "CompanyNameEnglish": "Sumiseki Holdings,Inc.",
-        "Sector17Code": "2",
-        "Sector17CodeName": "エネルギー資源",
-        "Sector33Code": "1050",
-        "Sector33CodeName": "鉱業",
-        "ScaleCategory": "TOPIX Small 1",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839148",
-        "updated_at": "2025-10-02T15:18:47.839149",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "15150": {
-      "code": "15150",
-      "name": "日鉄鉱業",
-      "sector": "エネルギー資源",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "15150",
-        "CompanyName": "日鉄鉱業",
-        "CompanyNameEnglish": "Nittetsu Mining Co.,Ltd.",
-        "Sector17Code": "2",
-        "Sector17CodeName": "エネルギー資源",
-        "Sector33Code": "1050",
-        "Sector33CodeName": "鉱業",
-        "ScaleCategory": "TOPIX Small 1",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839150",
-        "updated_at": "2025-10-02T15:18:47.839151",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "15180": {
-      "code": "15180",
-      "name": "三井松島ホールディングス",
-      "sector": "情報通信・サービスその他",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "15180",
-        "CompanyName": "三井松島ホールディングス",
-        "CompanyNameEnglish": "MITSUI MATSUSHIMA HOLDINGS CO.,LTD.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "3800",
-        "Sector33CodeName": "その他製品",
-        "ScaleCategory": "TOPIX Small 1",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839152",
-        "updated_at": "2025-10-02T15:18:47.839153",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "151A0": {
-      "code": "151A0",
-      "name": "ダイブ",
-      "sector": "情報通信・サービスその他",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "151A0",
-        "CompanyName": "ダイブ",
-        "CompanyNameEnglish": "Dive Inc.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "9050",
-        "Sector33CodeName": "サービス業",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839154",
-        "updated_at": "2025-10-02T15:18:47.839154",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "153A0": {
-      "code": "153A0",
-      "name": "カウリス",
-      "sector": "情報通信・サービスその他",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "153A0",
-        "CompanyName": "カウリス",
-        "CompanyNameEnglish": "Caulis Inc.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "5250",
-        "Sector33CodeName": "情報･通信業",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839155",
-        "updated_at": "2025-10-02T15:18:47.839156",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "155A0": {
-      "code": "155A0",
-      "name": "情報戦略テクノロジー",
-      "sector": "情報通信・サービスその他",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "155A0",
-        "CompanyName": "情報戦略テクノロジー",
-        "CompanyNameEnglish": "Information Strategy and Technology Co.,Ltd.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "5250",
-        "Sector33CodeName": "情報･通信業",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839157",
-        "updated_at": "2025-10-02T15:18:47.839157",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "156A0": {
-      "code": "156A0",
-      "name": "マテリアルグループ",
-      "sector": "情報通信・サービスその他",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "156A0",
-        "CompanyName": "マテリアルグループ",
-        "CompanyNameEnglish": "Material Group Inc.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "9050",
-        "Sector33CodeName": "サービス業",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839158",
-        "updated_at": "2025-10-02T15:18:47.839159",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "157A0": {
-      "code": "157A0",
-      "name": "グリーンモンスター",
-      "sector": "情報通信・サービスその他",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "157A0",
-        "CompanyName": "グリーンモンスター",
-        "CompanyNameEnglish": "Green Monster Inc.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "9050",
-        "Sector33CodeName": "サービス業",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839160",
-        "updated_at": "2025-10-02T15:18:47.839161",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "16050": {
-      "code": "16050",
-      "name": "ＩＮＰＥＸ",
-      "sector": "エネルギー資源",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "16050",
-        "CompanyName": "ＩＮＰＥＸ",
-        "CompanyNameEnglish": "INPEX CORPORATION",
-        "Sector17Code": "2",
-        "Sector17CodeName": "エネルギー資源",
-        "Sector33Code": "1050",
-        "Sector33CodeName": "鉱業",
-        "ScaleCategory": "TOPIX Mid400",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839162",
-        "updated_at": "2025-10-02T15:18:47.839163",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "160A0": {
-      "code": "160A0",
-      "name": "アズパートナーズ",
-      "sector": "情報通信・サービスその他",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "160A0",
-        "CompanyName": "アズパートナーズ",
-        "CompanyNameEnglish": "As Partners CO.,LTD.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "9050",
-        "Sector33CodeName": "サービス業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839164",
-        "updated_at": "2025-10-02T15:18:47.839164",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "165A0": {
-      "code": "165A0",
-      "name": "ＳＢＩレオスひふみ",
-      "sector": "金融（除く銀行）",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "165A0",
-        "CompanyName": "ＳＢＩレオスひふみ",
-        "CompanyNameEnglish": "SBI RHEOS HIFUMI Inc.",
-        "Sector17Code": "16",
-        "Sector17CodeName": "金融（除く銀行）",
-        "Sector33Code": "7100",
-        "Sector33CodeName": "証券･商品先物取引業",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839165",
-        "updated_at": "2025-10-02T15:18:47.839166",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "16620": {
-      "code": "16620",
-      "name": "石油資源開発",
-      "sector": "エネルギー資源",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "16620",
-        "CompanyName": "石油資源開発",
-        "CompanyNameEnglish": "Japan Petroleum Exploration Co.,Ltd.",
-        "Sector17Code": "2",
-        "Sector17CodeName": "エネルギー資源",
-        "Sector33Code": "1050",
-        "Sector33CodeName": "鉱業",
-        "ScaleCategory": "TOPIX Small 1",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839167",
-        "updated_at": "2025-10-02T15:18:47.839168",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "16630": {
-      "code": "16630",
-      "name": "Ｋ＆Ｏエナジーグループ",
-      "sector": "エネルギー資源",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "16630",
-        "CompanyName": "Ｋ＆Ｏエナジーグループ",
-        "CompanyNameEnglish": "K&O Energy Group Inc.",
-        "Sector17Code": "2",
-        "Sector17CodeName": "エネルギー資源",
-        "Sector33Code": "1050",
-        "Sector33CodeName": "鉱業",
-        "ScaleCategory": "TOPIX Small 1",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839169",
-        "updated_at": "2025-10-02T15:18:47.839169",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "166A0": {
-      "code": "166A0",
-      "name": "タスキホールディングス",
-      "sector": "不動産",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "166A0",
-        "CompanyName": "タスキホールディングス",
-        "CompanyNameEnglish": "TASUKI Holdings Inc.",
-        "Sector17Code": "17",
-        "Sector17CodeName": "不動産",
-        "Sector33Code": "8050",
-        "Sector33CodeName": "不動産業",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839170",
-        "updated_at": "2025-10-02T15:18:47.839171",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "167A0": {
-      "code": "167A0",
-      "name": "リョーサン菱洋ホールディングス",
-      "sector": "商社・卸売",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "167A0",
-        "CompanyName": "リョーサン菱洋ホールディングス",
-        "CompanyNameEnglish": "Ryoyo Ryosan Holdings,Inc.",
-        "Sector17Code": "13",
-        "Sector17CodeName": "商社・卸売",
-        "Sector33Code": "6050",
-        "Sector33CodeName": "卸売業",
-        "ScaleCategory": "TOPIX Small 1",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839172",
-        "updated_at": "2025-10-02T15:18:47.839173",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "168A0": {
-      "code": "168A0",
-      "name": "イタミアート",
-      "sector": "情報通信・サービスその他",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "168A0",
-        "CompanyName": "イタミアート",
-        "CompanyNameEnglish": "itamiarts inc.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "3800",
-        "Sector33CodeName": "その他製品",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839174",
-        "updated_at": "2025-10-02T15:18:47.839174",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17110": {
-      "code": "17110",
-      "name": "ＳＤＳホールディングス",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17110",
-        "CompanyName": "ＳＤＳホールディングス",
-        "CompanyNameEnglish": "SDS HOLDINGS Co.,Ltd.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839175",
-        "updated_at": "2025-10-02T15:18:47.839176",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17120": {
-      "code": "17120",
-      "name": "ダイセキ環境ソリューション",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17120",
-        "CompanyName": "ダイセキ環境ソリューション",
-        "CompanyNameEnglish": "Daiseki Eco.Solution Co.,Ltd.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839177",
-        "updated_at": "2025-10-02T15:18:47.839178",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17160": {
-      "code": "17160",
-      "name": "第一カッター興業",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17160",
-        "CompanyName": "第一カッター興業",
-        "CompanyNameEnglish": "DAI-ICHI CUTTER KOGYO K.K.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "TOPIX Small 2",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839179",
-        "updated_at": "2025-10-02T15:18:47.839179",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17170": {
-      "code": "17170",
-      "name": "明豊ファシリティワークス",
-      "sector": "情報通信・サービスその他",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17170",
-        "CompanyName": "明豊ファシリティワークス",
-        "CompanyNameEnglish": "Meiho Facility Works Ltd.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "9050",
-        "Sector33CodeName": "サービス業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839180",
-        "updated_at": "2025-10-02T15:18:47.839181",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17180": {
-      "code": "17180",
-      "name": "美樹工業",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17180",
-        "CompanyName": "美樹工業",
-        "CompanyNameEnglish": "MIKIKOGYO CO.,LTD.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839182",
-        "updated_at": "2025-10-02T15:18:47.839183",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17190": {
-      "code": "17190",
-      "name": "安藤・間",
-      "sector": "建設・資材",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17190",
-        "CompanyName": "安藤・間",
-        "CompanyNameEnglish": "HAZAMA ANDO CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "TOPIX Small 1",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839184",
-        "updated_at": "2025-10-02T15:18:47.839184",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17200": {
-      "code": "17200",
-      "name": "東急建設",
-      "sector": "建設・資材",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17200",
-        "CompanyName": "東急建設",
-        "CompanyNameEnglish": "TOKYU CONSTRUCTION CO., LTD.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "TOPIX Small 1",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839185",
-        "updated_at": "2025-10-02T15:18:47.839186",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17210": {
-      "code": "17210",
-      "name": "コムシスホールディングス",
-      "sector": "建設・資材",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17210",
-        "CompanyName": "コムシスホールディングス",
-        "CompanyNameEnglish": "COMSYS Holdings Corporation",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "TOPIX Mid400",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839187",
-        "updated_at": "2025-10-02T15:18:47.839187",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17230": {
-      "code": "17230",
-      "name": "日本電技",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17230",
-        "CompanyName": "日本電技",
-        "CompanyNameEnglish": "NIHON DENGI CO.,LTD.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839188",
-        "updated_at": "2025-10-02T15:18:47.839189",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17240": {
-      "code": "17240",
-      "name": "シンクレイヤ",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17240",
-        "CompanyName": "シンクレイヤ",
-        "CompanyNameEnglish": "SYNCLAYER INC.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839190",
-        "updated_at": "2025-10-02T15:18:47.839192",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17260": {
-      "code": "17260",
-      "name": "ビーアールホールディングス",
-      "sector": "建設・資材",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17260",
-        "CompanyName": "ビーアールホールディングス",
-        "CompanyNameEnglish": "Br.Holdings Corporation",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "TOPIX Small 2",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839193",
-        "updated_at": "2025-10-02T15:18:47.839194",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17360": {
-      "code": "17360",
-      "name": "オーテック",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17360",
-        "CompanyName": "オーテック",
-        "CompanyNameEnglish": "OTEC CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839195",
-        "updated_at": "2025-10-02T15:18:47.839196",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "173A0": {
-      "code": "173A0",
-      "name": "ハンモック",
-      "sector": "情報通信・サービスその他",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "173A0",
-        "CompanyName": "ハンモック",
-        "CompanyNameEnglish": "Hammock Inc.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "5250",
-        "Sector33CodeName": "情報･通信業",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839197",
-        "updated_at": "2025-10-02T15:18:47.839197",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17430": {
-      "code": "17430",
-      "name": "コーアツ工業",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17430",
-        "CompanyName": "コーアツ工業",
-        "CompanyNameEnglish": "KOATSU KOGYO CO.,LTD.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839198",
-        "updated_at": "2025-10-02T15:18:47.839199",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17570": {
-      "code": "17570",
-      "name": "創建エース",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17570",
-        "CompanyName": "創建エース",
-        "CompanyNameEnglish": "Souken Ace Co.,Ltd.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839200",
-        "updated_at": "2025-10-02T15:18:47.839201",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17580": {
-      "code": "17580",
-      "name": "太洋基礎工業",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17580",
-        "CompanyName": "太洋基礎工業",
-        "CompanyNameEnglish": "Taiyo Kisokogyo Co.,Ltd.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839203",
-        "updated_at": "2025-10-02T15:18:47.839203",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "175A0": {
-      "code": "175A0",
-      "name": "Ｗｉｌｌ　Ｓｍａｒｔ",
-      "sector": "情報通信・サービスその他",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "175A0",
-        "CompanyName": "Ｗｉｌｌ　Ｓｍａｒｔ",
-        "CompanyNameEnglish": "Will Smart Co.,LTD.",
-        "Sector17Code": "10",
-        "Sector17CodeName": "情報通信・サービスその他",
-        "Sector33Code": "5250",
-        "Sector33CodeName": "情報･通信業",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839204",
-        "updated_at": "2025-10-02T15:18:47.839205",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17620": {
-      "code": "17620",
-      "name": "高松コンストラクショングループ",
-      "sector": "建設・資材",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17620",
-        "CompanyName": "高松コンストラクショングループ",
-        "CompanyNameEnglish": "TAKAMATSU CONSTRUCTION GROUP CO.,LTD.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "TOPIX Small 2",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839206",
-        "updated_at": "2025-10-02T15:18:47.839207",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17640": {
-      "code": "17640",
-      "name": "工藤建設",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17640",
-        "CompanyName": "工藤建設",
-        "CompanyNameEnglish": "KUDO CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839207",
-        "updated_at": "2025-10-02T15:18:47.839208",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17660": {
-      "code": "17660",
-      "name": "東建コーポレーション",
-      "sector": "建設・資材",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17660",
-        "CompanyName": "東建コーポレーション",
-        "CompanyNameEnglish": "TOKEN CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "TOPIX Small 1",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839209",
-        "updated_at": "2025-10-02T15:18:47.839210",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17680": {
-      "code": "17680",
-      "name": "ソネック",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17680",
-        "CompanyName": "ソネック",
-        "CompanyNameEnglish": "SONEC CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839211",
-        "updated_at": "2025-10-02T15:18:47.839211",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "176A0": {
-      "code": "176A0",
-      "name": "レジル",
-      "sector": "電気・ガス",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "176A0",
-        "CompanyName": "レジル",
-        "CompanyNameEnglish": "Rezil Inc.",
-        "Sector17Code": "11",
-        "Sector17CodeName": "電気・ガス",
-        "Sector33Code": "4050",
-        "Sector33CodeName": "電気･ガス業",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839212",
-        "updated_at": "2025-10-02T15:18:47.839213",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17700": {
-      "code": "17700",
-      "name": "藤田エンジニアリング",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17700",
-        "CompanyName": "藤田エンジニアリング",
-        "CompanyNameEnglish": "FUJITA ENGINEERING CO.,LTD.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839215",
-        "updated_at": "2025-10-02T15:18:47.839216",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17730": {
-      "code": "17730",
-      "name": "ワイ・ティー・エル・コーポレーション・バーハッド",
-      "sector": "建設・資材",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17730",
-        "CompanyName": "ワイ・ティー・エル・コーポレーション・バーハッド",
-        "CompanyNameEnglish": "YTL Corporation Berhad",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839217",
-        "updated_at": "2025-10-02T15:18:47.839217",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17760": {
-      "code": "17760",
-      "name": "三井住建道路",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17760",
-        "CompanyName": "三井住建道路",
-        "CompanyNameEnglish": "SUMIKEN MITSUI ROAD CO., LTD.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839219",
-        "updated_at": "2025-10-02T15:18:47.839220",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "177A0": {
-      "code": "177A0",
-      "name": "コージンバイオ",
-      "sector": "素材・化学",
-      "market": "グロース",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "177A0",
-        "CompanyName": "コージンバイオ",
-        "CompanyNameEnglish": "Kohjin Bio Co.,Ltd.",
-        "Sector17Code": "4",
-        "Sector17CodeName": "素材・化学",
-        "Sector33Code": "3200",
-        "Sector33CodeName": "化学",
-        "ScaleCategory": "-",
-        "MarketCode": "0113",
-        "MarketCodeName": "グロース"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839221",
-        "updated_at": "2025-10-02T15:18:47.839222",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17800": {
-      "code": "17800",
-      "name": "ヤマウラ",
-      "sector": "建設・資材",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17800",
-        "CompanyName": "ヤマウラ",
-        "CompanyNameEnglish": "YAMAURA CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "TOPIX Small 2",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839223",
-        "updated_at": "2025-10-02T15:18:47.839223",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17830": {
-      "code": "17830",
-      "name": "ｆａｎｔａｓｉｓｔａ",
-      "sector": "不動産",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17830",
-        "CompanyName": "ｆａｎｔａｓｉｓｔａ",
-        "CompanyNameEnglish": "Fantasista Co.,Ltd.",
-        "Sector17Code": "17",
-        "Sector17CodeName": "不動産",
-        "Sector33Code": "8050",
-        "Sector33CodeName": "不動産業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839224",
-        "updated_at": "2025-10-02T15:18:47.839225",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17860": {
-      "code": "17860",
-      "name": "オリエンタル白石",
-      "sector": "建設・資材",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17860",
-        "CompanyName": "オリエンタル白石",
-        "CompanyNameEnglish": "Oriental Shiraishi Corporation",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "TOPIX Small 2",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839226",
-        "updated_at": "2025-10-02T15:18:47.839226",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17870": {
-      "code": "17870",
-      "name": "ナカボーテック",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17870",
-        "CompanyName": "ナカボーテック",
-        "CompanyNameEnglish": "Nakabohtec Corrosion Protecting Co.,Ltd.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839227",
-        "updated_at": "2025-10-02T15:18:47.839228",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17880": {
-      "code": "17880",
-      "name": "三東工業社",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17880",
-        "CompanyName": "三東工業社",
-        "CompanyNameEnglish": "SANTO CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839229",
-        "updated_at": "2025-10-02T15:18:47.839230",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17930": {
-      "code": "17930",
-      "name": "大本組",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17930",
-        "CompanyName": "大本組",
-        "CompanyNameEnglish": "OHMOTO GUMI CO.,LTD.",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839231",
-        "updated_at": "2025-10-02T15:18:47.839231",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17950": {
-      "code": "17950",
-      "name": "マサル",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17950",
-        "CompanyName": "マサル",
-        "CompanyNameEnglish": "MASARU CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839233",
-        "updated_at": "2025-10-02T15:18:47.839233",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17980": {
-      "code": "17980",
-      "name": "守谷商会",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17980",
-        "CompanyName": "守谷商会",
-        "CompanyNameEnglish": "MORIYA CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839234",
-        "updated_at": "2025-10-02T15:18:47.839235",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "17990": {
-      "code": "17990",
-      "name": "第一建設工業",
-      "sector": "建設・資材",
-      "market": "スタンダード",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "17990",
-        "CompanyName": "第一建設工業",
-        "CompanyNameEnglish": "DAIICHI KENSETSU CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "-",
-        "MarketCode": "0112",
-        "MarketCodeName": "スタンダード"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839236",
-        "updated_at": "2025-10-02T15:18:47.839237",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "18010": {
-      "code": "18010",
-      "name": "大成建設",
-      "sector": "建設・資材",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "18010",
-        "CompanyName": "大成建設",
-        "CompanyNameEnglish": "TAISEI CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "TOPIX Mid400",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839238",
-        "updated_at": "2025-10-02T15:18:47.839238",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "18020": {
-      "code": "18020",
-      "name": "大林組",
-      "sector": "建設・資材",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "18020",
-        "CompanyName": "大林組",
-        "CompanyNameEnglish": "OBAYASHI CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "TOPIX Mid400",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839239",
-        "updated_at": "2025-10-02T15:18:47.839240",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
-      }
-    },
-    "18030": {
-      "code": "18030",
-      "name": "清水建設",
-      "sector": "建設・資材",
-      "market": "プライム",
-      "listed_info": {
-        "Date": "2025-07-10",
-        "Code": "18030",
-        "CompanyName": "清水建設",
-        "CompanyNameEnglish": "SHIMIZU CORPORATION",
-        "Sector17Code": "3",
-        "Sector17CodeName": "建設・資材",
-        "Sector33Code": "2050",
-        "Sector33CodeName": "建設業",
-        "ScaleCategory": "TOPIX Mid400",
-        "MarketCode": "0111",
-        "MarketCodeName": "プライム"
-      },
-      "metadata": {
-        "created_at": "2025-10-02T15:18:47.839241",
-        "updated_at": "2025-10-02T15:18:47.839242",
-        "data_quality": "jquants_official",
-        "source": "listed_info_api"
+        "source": "listed_info_api",
+        "price_data_available": false
       }
     }
   }

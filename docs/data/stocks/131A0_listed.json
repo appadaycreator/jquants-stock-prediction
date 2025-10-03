@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "131A0",
+    "generated_at": "2025-10-03T15:15:50.111673",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "131A0",
+    "name": "ＣＣＮグループ",
+    "sector": "情報通信・サービスその他",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:40.541034",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "131A0",
+      "CompanyName": "ＣＣＮグループ",
+      "CompanyNameEnglish": "CCN Group Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:40.541038",
+      "updated_at": "2025-10-03T15:15:40.541039",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

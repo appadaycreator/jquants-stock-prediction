@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14170",
+    "generated_at": "2025-10-03T15:15:50.116128",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14170",
+    "name": "ミライト・ワン",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:45.729577",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14170",
+      "CompanyName": "ミライト・ワン",
+      "CompanyNameEnglish": "MIRAIT ONE Corporation",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:45.729582",
+      "updated_at": "2025-10-03T15:15:45.729583",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

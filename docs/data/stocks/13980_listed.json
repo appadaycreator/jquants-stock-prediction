@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "13980",
+    "generated_at": "2025-10-03T15:15:50.115511",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "13980",
+    "name": "三井住友ＤＳアセットマネジメント株式会社　ＳＭＤＡＭ　東証ＲＥＩＴ指数上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:45.000165",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "13980",
+      "CompanyName": "三井住友ＤＳアセットマネジメント株式会社　ＳＭＤＡＭ　東証ＲＥＩＴ指数上場投信",
+      "CompanyNameEnglish": "SMDAM REIT Index ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:45.000170",
+      "updated_at": "2025-10-03T15:15:45.000171",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

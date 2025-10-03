@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "13250",
+    "generated_at": "2025-10-03T15:15:50.112028",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "13250",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ブラジル株式指数・ボベスパ連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:40.956839",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "13250",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ブラジル株式指数・ボベスパ連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS Ibovespa Linked Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:40.956843",
+      "updated_at": "2025-10-03T15:15:40.956844",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

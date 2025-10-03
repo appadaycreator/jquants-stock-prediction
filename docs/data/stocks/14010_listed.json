@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14010",
+    "generated_at": "2025-10-03T15:15:50.115785",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14010",
+    "name": "エムビーエス",
+    "sector": "建設・資材",
+    "market": "グロース",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:45.311914",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14010",
+      "CompanyName": "エムビーエス",
+      "CompanyNameEnglish": "mbs,inc.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:45.311918",
+      "updated_at": "2025-10-03T15:15:45.311920",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

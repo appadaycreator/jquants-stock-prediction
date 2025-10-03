@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "13750",
+    "generated_at": "2025-10-03T15:15:50.114459",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "13750",
+    "name": "ユキグニファクトリー",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:43.745209",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "13750",
+      "CompanyName": "ユキグニファクトリー",
+      "CompanyNameEnglish": "YUKIGUNI FACTORY CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "0050",
+      "Sector33CodeName": "水産・農林業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:43.745213",
+      "updated_at": "2025-10-03T15:15:43.745214",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

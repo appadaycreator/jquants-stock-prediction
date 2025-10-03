@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "14140",
+    "generated_at": "2025-10-03T15:15:50.116038",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "14140",
+    "name": "ショーボンドホールディングス",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:15:45.624479",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "14140",
+      "CompanyName": "ショーボンドホールディングス",
+      "CompanyNameEnglish": "SHO-BOND Holdings Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:15:45.624483",
+      "updated_at": "2025-10-03T15:15:45.624484",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}
