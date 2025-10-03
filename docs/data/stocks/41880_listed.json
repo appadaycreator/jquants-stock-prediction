@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "41880",
+    "generated_at": "2025-10-03T15:45:05.859429",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "41880",
+    "name": "三菱ケミカルグループ",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 782.3,
+    "change": 1.599999999999909,
+    "changePercent": 0.20494428077365298,
+    "volume": 5834100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "41880",
+      "CompanyName": "三菱ケミカルグループ",
+      "CompanyNameEnglish": "Mitsubishi Chemical Group Corporation",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:21.701585",
+      "updated_at": "2025-10-03T15:32:21.701590",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62890",
+    "generated_at": "2025-10-03T15:45:05.967696",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62890",
+    "name": "技研製作所",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1385.0,
+    "change": 19.0,
+    "changePercent": 1.390922401171303,
+    "volume": 148600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62890",
+      "CompanyName": "技研製作所",
+      "CompanyNameEnglish": "GIKEN LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:43.618545",
+      "updated_at": "2025-10-03T15:36:43.618547",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

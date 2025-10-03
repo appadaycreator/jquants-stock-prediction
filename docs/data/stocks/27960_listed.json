@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "27960",
+    "generated_at": "2025-10-03T15:45:05.775534",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "27960",
+    "name": "ファーマライズホールディングス",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 496.0,
+    "change": -3.0,
+    "changePercent": -0.6012024048096193,
+    "volume": 14100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "27960",
+      "CompanyName": "ファーマライズホールディングス",
+      "CompanyNameEnglish": "Pharmarise Holdings Corporation",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:10.130533",
+      "updated_at": "2025-10-03T15:28:10.130535",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

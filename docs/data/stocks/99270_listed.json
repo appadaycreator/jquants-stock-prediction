@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "99270",
+    "generated_at": "2025-10-03T15:45:06.208964",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "99270",
+    "name": "ワットマン",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 771.0,
+    "change": -5.0,
+    "changePercent": -0.6443298969072164,
+    "volume": 1000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "99270",
+      "CompanyName": "ワットマン",
+      "CompanyNameEnglish": "WATT MANN CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:54.599292",
+      "updated_at": "2025-10-03T15:44:54.599300",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

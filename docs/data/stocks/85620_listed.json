@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "85620",
+    "generated_at": "2025-10-03T15:45:06.137821",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "85620",
+    "name": "福島銀行",
+    "sector": "銀行",
+    "market": "スタンダード",
+    "currentPrice": 225.0,
+    "change": 3.0,
+    "changePercent": 1.3513513513513513,
+    "volume": 95000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "85620",
+      "CompanyName": "福島銀行",
+      "CompanyNameEnglish": "THE FUKUSHIMA BANK,LTD.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:11.752494",
+      "updated_at": "2025-10-03T15:42:11.752503",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

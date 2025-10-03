@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64720",
+    "generated_at": "2025-10-03T15:45:05.981402",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64720",
+    "name": "ＮＴＮ",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 244.9,
+    "change": 2.9000000000000057,
+    "changePercent": 1.1983471074380188,
+    "volume": 4061700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64720",
+      "CompanyName": "ＮＴＮ",
+      "CompanyNameEnglish": "NTN CORPORATION",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:14.762249",
+      "updated_at": "2025-10-03T15:37:14.762252",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69320",
+    "generated_at": "2025-10-03T15:45:06.033091",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69320",
+    "name": "遠藤照明",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 2367.0,
+    "change": -111.0,
+    "changePercent": -4.479418886198547,
+    "volume": 133400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69320",
+      "CompanyName": "遠藤照明",
+      "CompanyNameEnglish": "ENDO Lighting Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:25.350035",
+      "updated_at": "2025-10-03T15:38:25.350037",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

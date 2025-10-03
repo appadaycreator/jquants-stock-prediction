@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "36460",
+    "generated_at": "2025-10-03T15:45:05.826601",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "36460",
+    "name": "駅探",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 374.0,
+    "change": -2.0,
+    "changePercent": -0.5319148936170213,
+    "volume": 5400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "36460",
+      "CompanyName": "駅探",
+      "CompanyNameEnglish": "Ekitan & Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:52.473239",
+      "updated_at": "2025-10-03T15:30:52.473244",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

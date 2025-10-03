@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72260",
+    "generated_at": "2025-10-03T15:45:06.070580",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72260",
+    "name": "極東開発工業",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 2571.0,
+    "change": 3.0,
+    "changePercent": 0.11682242990654204,
+    "volume": 114900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72260",
+      "CompanyName": "極東開発工業",
+      "CompanyNameEnglish": "KYOKUTO KAIHATSU KOGYO CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:13.405329",
+      "updated_at": "2025-10-03T15:39:13.405331",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

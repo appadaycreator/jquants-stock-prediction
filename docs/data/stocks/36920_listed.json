@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "36920",
+    "generated_at": "2025-10-03T15:45:05.830451",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "36920",
+    "name": "ＦＦＲＩセキュリティ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 5380.0,
+    "change": -60.0,
+    "changePercent": -1.1029411764705883,
+    "volume": 306900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "36920",
+      "CompanyName": "ＦＦＲＩセキュリティ",
+      "CompanyNameEnglish": "FFRI Security,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:04.595612",
+      "updated_at": "2025-10-03T15:31:04.595615",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

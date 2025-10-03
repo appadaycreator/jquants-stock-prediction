@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "84730",
+    "generated_at": "2025-10-03T15:45:06.136726",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "84730",
+    "name": "ＳＢＩホールディングス",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 5418.0,
+    "change": 63.0,
+    "changePercent": 1.1764705882352942,
+    "volume": 4140800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "84730",
+      "CompanyName": "ＳＢＩホールディングス",
+      "CompanyNameEnglish": "SBI Holdings,Inc.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:07.754707",
+      "updated_at": "2025-10-03T15:42:07.754722",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

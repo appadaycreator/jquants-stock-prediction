@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28610",
+    "generated_at": "2025-10-03T15:45:05.780272",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28610",
+    "name": "日興アセットマネジメント株式会社　上場インデックスファンドフランス国債（為替ヘッジなし）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 5552.0,
+    "change": 15.0,
+    "changePercent": 0.2709048221058335,
+    "volume": 200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28610",
+      "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンドフランス国債（為替ヘッジなし）",
+      "CompanyNameEnglish": "Listed Index Fund France Government Bond (No Currency Hedge)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:24.084406",
+      "updated_at": "2025-10-03T15:28:24.084408",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

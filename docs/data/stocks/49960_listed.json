@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49960",
+    "generated_at": "2025-10-03T15:45:05.907173",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49960",
+    "name": "クミアイ化学工業",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 805.0,
+    "change": -1.0,
+    "changePercent": -0.12406947890818859,
+    "volume": 200400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49960",
+      "CompanyName": "クミアイ化学工業",
+      "CompanyNameEnglish": "KUMIAI CHEMICAL INDUSTRY CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:22.237597",
+      "updated_at": "2025-10-03T15:34:22.237599",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "60800",
+    "generated_at": "2025-10-03T15:45:05.956222",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "60800",
+    "name": "Ｍ＆Ａキャピタルパートナーズ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2954.0,
+    "change": -14.0,
+    "changePercent": -0.4716981132075472,
+    "volume": 82500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "60800",
+      "CompanyName": "Ｍ＆Ａキャピタルパートナーズ",
+      "CompanyNameEnglish": "M&A Capital Partners Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:09.536804",
+      "updated_at": "2025-10-03T15:36:09.536806",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

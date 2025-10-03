@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "81270",
+    "generated_at": "2025-10-03T15:45:06.124729",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "81270",
+    "name": "ヤマトインターナショナル",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 392.0,
+    "change": -4.0,
+    "changePercent": -1.0101010101010102,
+    "volume": 37300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "81270",
+      "CompanyName": "ヤマトインターナショナル",
+      "CompanyNameEnglish": "YAMATO INTERNATIONAL INC.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:31.849662",
+      "updated_at": "2025-10-03T15:41:31.849678",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

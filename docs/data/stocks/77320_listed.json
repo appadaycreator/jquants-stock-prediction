@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77320",
+    "generated_at": "2025-10-03T15:45:06.100496",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77320",
+    "name": "トプコン",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 3259.0,
+    "change": -1.0,
+    "changePercent": -0.030674846625766874,
+    "volume": 405100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77320",
+      "CompanyName": "トプコン",
+      "CompanyNameEnglish": "TOPCON CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:27.965958",
+      "updated_at": "2025-10-03T15:40:27.965969",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

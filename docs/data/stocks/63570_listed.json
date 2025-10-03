@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63570",
+    "generated_at": "2025-10-03T15:45:05.973397",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63570",
+    "name": "三精テクノロジーズ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1592.0,
+    "change": 17.0,
+    "changePercent": 1.0793650793650795,
+    "volume": 75900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63570",
+      "CompanyName": "三精テクノロジーズ",
+      "CompanyNameEnglish": "Sansei Technologies,Inc.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:55.467960",
+      "updated_at": "2025-10-03T15:36:55.467962",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

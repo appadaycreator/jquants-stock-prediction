@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25935",
+    "generated_at": "2025-10-03T15:45:05.763503",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25935",
+    "name": "伊藤園（優先株式）",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 1772.0,
+    "change": -5.0,
+    "changePercent": -0.28137310073157007,
+    "volume": 23400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25935",
+      "CompanyName": "伊藤園（優先株式）",
+      "CompanyNameEnglish": "ITO EN,LTD. (shares of preferred stock)",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:36.851234",
+      "updated_at": "2025-10-03T15:27:36.851246",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

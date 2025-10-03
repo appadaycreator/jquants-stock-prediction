@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "47510",
+    "generated_at": "2025-10-03T15:45:05.896849",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "47510",
+    "name": "サイバーエージェント",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1493.5,
+    "change": -21.0,
+    "changePercent": -1.3865962363816442,
+    "volume": 4109500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "47510",
+      "CompanyName": "サイバーエージェント",
+      "CompanyNameEnglish": "CyberAgent,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:53.131459",
+      "updated_at": "2025-10-03T15:33:53.131465",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

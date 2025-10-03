@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62300",
+    "generated_at": "2025-10-03T15:45:05.964250",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62300",
+    "name": "ＳＡＮＥＩ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 2036.0,
+    "change": -6.0,
+    "changePercent": -0.2938295788442703,
+    "volume": 1700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62300",
+      "CompanyName": "ＳＡＮＥＩ",
+      "CompanyNameEnglish": "SANEI LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:33.605577",
+      "updated_at": "2025-10-03T15:36:33.605579",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "380A0",
+    "generated_at": "2025-10-03T15:45:05.836640",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "380A0",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　チャイナテック　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1038.0,
+    "change": 17.0,
+    "changePercent": 1.665034280117532,
+    "volume": 95034,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "380A0",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　チャイナテック　ＥＴＦ",
+      "CompanyNameEnglish": "Global X China Tech ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:20.897875",
+      "updated_at": "2025-10-03T15:31:20.897877",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

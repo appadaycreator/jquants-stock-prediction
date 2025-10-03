@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22440",
+    "generated_at": "2025-10-03T15:45:05.739415",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22440",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ＵＳ　テック・トップ２０　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2544.0,
+    "change": 3.0,
+    "changePercent": 0.11806375442739078,
+    "volume": 272543,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22440",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ＵＳ　テック・トップ２０　ＥＴＦ",
+      "CompanyNameEnglish": "Global X US Tech Top 20 ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:37.757662",
+      "updated_at": "2025-10-03T15:26:37.757666",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

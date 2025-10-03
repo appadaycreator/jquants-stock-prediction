@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59010",
+    "generated_at": "2025-10-03T15:45:05.941387",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59010",
+    "name": "東洋製罐グループホールディングス",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 2938.5,
+    "change": -11.5,
+    "changePercent": -0.3898305084745763,
+    "volume": 264000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59010",
+      "CompanyName": "東洋製罐グループホールディングス",
+      "CompanyNameEnglish": "Toyo Seikan Group Holdings,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:40.184545",
+      "updated_at": "2025-10-03T15:35:40.184547",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

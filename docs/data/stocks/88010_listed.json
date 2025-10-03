@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "88010",
+    "generated_at": "2025-10-03T15:45:06.142404",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "88010",
+    "name": "三井不動産",
+    "sector": "不動産",
+    "market": "プライム",
+    "currentPrice": 1375.0,
+    "change": -9.0,
+    "changePercent": -0.6502890173410405,
+    "volume": 6296900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "88010",
+      "CompanyName": "三井不動産",
+      "CompanyNameEnglish": "Mitsui Fudosan Co.,Ltd.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:26.595108",
+      "updated_at": "2025-10-03T15:42:26.595126",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19050",
+    "generated_at": "2025-10-03T15:45:05.717323",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19050",
+    "name": "テノックス",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1190.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 2500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19050",
+      "CompanyName": "テノックス",
+      "CompanyNameEnglish": "TENOX CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:40.154698",
+      "updated_at": "2025-10-03T15:25:40.154700",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

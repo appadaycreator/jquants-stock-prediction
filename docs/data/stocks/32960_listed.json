@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32960",
+    "generated_at": "2025-10-03T15:45:05.806866",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32960",
+    "name": "日本リート投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 90300.0,
+    "change": 100.0,
+    "changePercent": 0.11086474501108648,
+    "volume": 3613,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32960",
+      "CompanyName": "日本リート投資法人",
+      "CompanyNameEnglish": "NIPPON REIT Investment Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:49.017816",
+      "updated_at": "2025-10-03T15:29:49.017819",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

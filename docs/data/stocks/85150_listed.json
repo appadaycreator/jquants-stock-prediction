@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "85150",
+    "generated_at": "2025-10-03T15:45:06.136960",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "85150",
+    "name": "アイフル",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 442.0,
+    "change": 6.0,
+    "changePercent": 1.3761467889908259,
+    "volume": 3027700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "85150",
+      "CompanyName": "アイフル",
+      "CompanyNameEnglish": "AIFUL CORPORATION",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:08.593993",
+      "updated_at": "2025-10-03T15:42:08.594005",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

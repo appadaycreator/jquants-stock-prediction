@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "27900",
+    "generated_at": "2025-10-03T15:45:05.775225",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "27900",
+    "name": "ナフコ",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 1825.0,
+    "change": 32.0,
+    "changePercent": 1.7847183491355272,
+    "volume": 18500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "27900",
+      "CompanyName": "ナフコ",
+      "CompanyNameEnglish": "NAFCO Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:09.027687",
+      "updated_at": "2025-10-03T15:28:09.027689",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

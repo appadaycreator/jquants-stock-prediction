@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "85220",
+    "generated_at": "2025-10-03T15:45:06.137119",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "85220",
+    "name": "名古屋銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 8670.0,
+    "change": 70.0,
+    "changePercent": 0.813953488372093,
+    "volume": 81400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "85220",
+      "CompanyName": "名古屋銀行",
+      "CompanyNameEnglish": "The Bank of Nagoya,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:09.143066",
+      "updated_at": "2025-10-03T15:42:09.143078",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "47360",
+    "generated_at": "2025-10-03T15:45:05.896368",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "47360",
+    "name": "日本ラッド",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 761.0,
+    "change": -2.0,
+    "changePercent": -0.2621231979030144,
+    "volume": 4400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "47360",
+      "CompanyName": "日本ラッド",
+      "CompanyNameEnglish": "Nippon RAD Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:51.767654",
+      "updated_at": "2025-10-03T15:33:51.767656",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20670",
+    "generated_at": "2025-10-03T15:45:05.727981",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20670",
+    "name": "ノムラ・ヨーロッパ・ファイナンス・エヌ・ブイ　ＮＥＸＴ　ＮＯＴＥＳ　野村ＡＩビジネス７０（ネットリターン）ＥＴＮ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 20350.0,
+    "change": 35.0,
+    "changePercent": 0.17228648781688408,
+    "volume": 4,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20670",
+      "CompanyName": "ノムラ・ヨーロッパ・ファイナンス・エヌ・ブイ　ＮＥＸＴ　ＮＯＴＥＳ　野村ＡＩビジネス７０（ネットリターン）ＥＴＮ",
+      "CompanyNameEnglish": "NEXT NOTES AI Companies 70,Net Total Return ETN",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:06.576372",
+      "updated_at": "2025-10-03T15:26:06.576376",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77290",
+    "generated_at": "2025-10-03T15:45:06.100248",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77290",
+    "name": "東京精密",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 9626.0,
+    "change": 12.0,
+    "changePercent": 0.1248179737882255,
+    "volume": 217300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77290",
+      "CompanyName": "東京精密",
+      "CompanyNameEnglish": "TOKYO SEIMITSU CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:27.089511",
+      "updated_at": "2025-10-03T15:40:27.089522",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

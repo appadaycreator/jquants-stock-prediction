@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "46330",
+    "generated_at": "2025-10-03T15:45:05.890159",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "46330",
+    "name": "サカタインクス",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 2053.0,
+    "change": 28.0,
+    "changePercent": 1.3827160493827162,
+    "volume": 247800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "46330",
+      "CompanyName": "サカタインクス",
+      "CompanyNameEnglish": "SAKATA INX CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:37.730319",
+      "updated_at": "2025-10-03T15:33:37.730324",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32950",
+    "generated_at": "2025-10-03T15:45:05.806791",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32950",
+    "name": "ヒューリックリート投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 159100.0,
+    "change": 400.0,
+    "changePercent": 0.2520478890989288,
+    "volume": 2566,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32950",
+      "CompanyName": "ヒューリックリート投資法人",
+      "CompanyNameEnglish": "Hulic Reit,Inc.",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:48.758810",
+      "updated_at": "2025-10-03T15:29:48.758815",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

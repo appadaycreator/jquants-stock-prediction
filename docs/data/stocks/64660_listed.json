@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64660",
+    "generated_at": "2025-10-03T15:45:05.980972",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64660",
+    "name": "ＴＶＥ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 2145.0,
+    "change": -5.0,
+    "changePercent": -0.23255813953488372,
+    "volume": 700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64660",
+      "CompanyName": "ＴＶＥ",
+      "CompanyNameEnglish": "TVE Co.,Ltd.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:13.162746",
+      "updated_at": "2025-10-03T15:37:13.162748",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

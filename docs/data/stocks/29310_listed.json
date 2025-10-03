@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29310",
+    "generated_at": "2025-10-03T15:45:05.785256",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29310",
+    "name": "ユーグレナ",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 414.0,
+    "change": 5.0,
+    "changePercent": 1.2224938875305624,
+    "volume": 836200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29310",
+      "CompanyName": "ユーグレナ",
+      "CompanyNameEnglish": "Euglena Co.,Ltd.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:37.212830",
+      "updated_at": "2025-10-03T15:28:37.212833",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

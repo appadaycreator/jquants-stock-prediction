@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "53810",
+    "generated_at": "2025-10-03T15:45:05.921836",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "53810",
+    "name": "Ｍｉｐｏｘ",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 515.0,
+    "change": -10.0,
+    "changePercent": -1.9047619047619049,
+    "volume": 81800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "53810",
+      "CompanyName": "Ｍｉｐｏｘ",
+      "CompanyNameEnglish": "Mipox Corporation",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:58.930746",
+      "updated_at": "2025-10-03T15:34:58.930748",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

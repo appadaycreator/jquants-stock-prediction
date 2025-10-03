@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25240",
+    "generated_at": "2025-10-03T15:45:05.758463",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25240",
+    "name": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　ＴＯＰＩＸ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2920.5,
+    "change": 4.0,
+    "changePercent": 0.13715069432539004,
+    "volume": 2160,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25240",
+      "CompanyName": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　ＴＯＰＩＸ",
+      "CompanyNameEnglish": "NZAM ETF TOPIX",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:25.082604",
+      "updated_at": "2025-10-03T15:27:25.082606",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

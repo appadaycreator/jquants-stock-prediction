@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25970",
+    "generated_at": "2025-10-03T15:45:05.763713",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25970",
+    "name": "ユニカフェ",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 921.0,
+    "change": 1.0,
+    "changePercent": 0.10869565217391304,
+    "volume": 2700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25970",
+      "CompanyName": "ユニカフェ",
+      "CompanyNameEnglish": "UNICAFE INC.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:37.374968",
+      "updated_at": "2025-10-03T15:27:37.374970",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

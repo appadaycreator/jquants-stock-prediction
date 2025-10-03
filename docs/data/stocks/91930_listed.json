@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "91930",
+    "generated_at": "2025-10-03T15:45:06.172232",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "91930",
+    "name": "東京汽船",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 942.0,
+    "change": 26.0,
+    "changePercent": 2.8384279475982535,
+    "volume": 30000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "91930",
+      "CompanyName": "東京汽船",
+      "CompanyNameEnglish": "Tokyo Kisen Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:11.986221",
+      "updated_at": "2025-10-03T15:43:11.986232",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

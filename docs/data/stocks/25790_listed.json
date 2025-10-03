@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25790",
+    "generated_at": "2025-10-03T15:45:05.762656",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25790",
+    "name": "コカ・コーラ　ボトラーズジャパンホールディングス",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 2261.0,
+    "change": -15.5,
+    "changePercent": -0.6808697562047001,
+    "volume": 622100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25790",
+      "CompanyName": "コカ・コーラ　ボトラーズジャパンホールディングス",
+      "CompanyNameEnglish": "Coca-Cola Bottlers Japan Holdings Inc.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:34.376001",
+      "updated_at": "2025-10-03T15:27:34.376004",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

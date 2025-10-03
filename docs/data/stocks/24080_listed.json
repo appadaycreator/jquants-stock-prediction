@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "24080",
+    "generated_at": "2025-10-03T15:45:05.748253",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "24080",
+    "name": "ＫＧ情報",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 614.0,
+    "change": -1.0,
+    "changePercent": -0.16260162601626016,
+    "volume": 4400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "24080",
+      "CompanyName": "ＫＧ情報",
+      "CompanyNameEnglish": "KG Intelligence CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:05.141124",
+      "updated_at": "2025-10-03T15:27:05.141129",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

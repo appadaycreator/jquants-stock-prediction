@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "87050",
+    "generated_at": "2025-10-03T15:45:06.140544",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "87050",
+    "name": "日産証券グループ",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 165.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 173700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "87050",
+      "CompanyName": "日産証券グループ",
+      "CompanyNameEnglish": "Nissan Securities Group Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:20.072113",
+      "updated_at": "2025-10-03T15:42:20.072124",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

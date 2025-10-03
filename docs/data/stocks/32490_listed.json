@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32490",
+    "generated_at": "2025-10-03T15:45:05.804405",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32490",
+    "name": "産業ファンド投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 122800.0,
+    "change": 700.0,
+    "changePercent": 0.5733005733005733,
+    "volume": 5926,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32490",
+      "CompanyName": "産業ファンド投資法人",
+      "CompanyNameEnglish": "Industrial & Infrastructure Fund Investment Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:40.722631",
+      "updated_at": "2025-10-03T15:29:40.722640",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

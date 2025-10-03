@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "47460",
+    "generated_at": "2025-10-03T15:45:05.896702",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "47460",
+    "name": "東計電算",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 3870.0,
+    "change": 10.0,
+    "changePercent": 0.2590673575129534,
+    "volume": 7500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "47460",
+      "CompanyName": "東計電算",
+      "CompanyNameEnglish": "Toukei Computer Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:52.549288",
+      "updated_at": "2025-10-03T15:33:52.549291",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

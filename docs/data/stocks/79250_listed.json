@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79250",
+    "generated_at": "2025-10-03T15:45:06.112765",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79250",
+    "name": "前澤化成工業",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 1800.0,
+    "change": 14.0,
+    "changePercent": 0.7838745800671892,
+    "volume": 30700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79250",
+      "CompanyName": "前澤化成工業",
+      "CompanyNameEnglish": "MAEZAWA KASEI INDUSTRIES CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:55.795393",
+      "updated_at": "2025-10-03T15:40:55.795400",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31870",
+    "generated_at": "2025-10-03T15:45:05.800992",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31870",
+    "name": "ミラタップ",
+    "sector": "小売",
+    "market": "グロース",
+    "currentPrice": 349.0,
+    "change": -1.0,
+    "changePercent": -0.2857142857142857,
+    "volume": 5400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31870",
+      "CompanyName": "ミラタップ",
+      "CompanyNameEnglish": "miratap inc.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:28.566103",
+      "updated_at": "2025-10-03T15:29:28.566116",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

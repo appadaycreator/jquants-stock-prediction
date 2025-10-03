@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75210",
+    "generated_at": "2025-10-03T15:45:06.090022",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75210",
+    "name": "ムサシ",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 1831.0,
+    "change": -23.0,
+    "changePercent": -1.2405609492988134,
+    "volume": 10800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75210",
+      "CompanyName": "ムサシ",
+      "CompanyNameEnglish": "MUSASHI CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:57.339791",
+      "updated_at": "2025-10-03T15:39:57.339793",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

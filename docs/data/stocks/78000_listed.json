@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78000",
+    "generated_at": "2025-10-03T15:45:06.105047",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78000",
+    "name": "アミファ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 635.0,
+    "change": -1.0,
+    "changePercent": -0.15723270440251574,
+    "volume": 700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78000",
+      "CompanyName": "アミファ",
+      "CompanyNameEnglish": "Amifa Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:37.436507",
+      "updated_at": "2025-10-03T15:40:37.436512",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

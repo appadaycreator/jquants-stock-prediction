@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63670",
+    "generated_at": "2025-10-03T15:45:05.974257",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63670",
+    "name": "ダイキン工業",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 19095.0,
+    "change": 600.0,
+    "changePercent": 3.2441200324412,
+    "volume": 2347400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63670",
+      "CompanyName": "ダイキン工業",
+      "CompanyNameEnglish": "DAIKIN INDUSTRIES,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Core30",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:57.722535",
+      "updated_at": "2025-10-03T15:36:57.722538",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

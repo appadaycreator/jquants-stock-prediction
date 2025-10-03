@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "24180",
+    "generated_at": "2025-10-03T15:45:05.748665",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "24180",
+    "name": "ツカダ・グローバルホールディング",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 586.0,
+    "change": 16.0,
+    "changePercent": 2.807017543859649,
+    "volume": 160100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "24180",
+      "CompanyName": "ツカダ・グローバルホールディング",
+      "CompanyNameEnglish": "TSUKADA GLOBAL HOLDINGS Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:06.747821",
+      "updated_at": "2025-10-03T15:27:06.747823",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

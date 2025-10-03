@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "17660",
+    "generated_at": "2025-10-03T15:45:05.705079",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "17660",
+    "name": "東建コーポレーション",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 14070.0,
+    "change": 70.0,
+    "changePercent": 0.5,
+    "volume": 10300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "17660",
+      "CompanyName": "東建コーポレーション",
+      "CompanyNameEnglish": "TOKEN CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:19.233967",
+      "updated_at": "2025-10-03T15:25:19.233973",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

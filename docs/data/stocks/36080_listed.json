@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "36080",
+    "generated_at": "2025-10-03T15:45:05.824434",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "36080",
+    "name": "ＴＳＩホールディングス",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 1134.0,
+    "change": -6.0,
+    "changePercent": -0.5263157894736842,
+    "volume": 124400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "36080",
+      "CompanyName": "ＴＳＩホールディングス",
+      "CompanyNameEnglish": "TSI HOLDINGS CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:46.008421",
+      "updated_at": "2025-10-03T15:30:46.008424",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

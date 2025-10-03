@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75620",
+    "generated_at": "2025-10-03T15:45:06.091812",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75620",
+    "name": "安楽亭",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 7250.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75620",
+      "CompanyName": "安楽亭",
+      "CompanyNameEnglish": "ANRAKUTEI Co.,Ltd",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:02.671342",
+      "updated_at": "2025-10-03T15:40:02.671344",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

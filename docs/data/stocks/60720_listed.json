@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "60720",
+    "generated_at": "2025-10-03T15:45:05.955886",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "60720",
+    "name": "地盤ネットホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 181.0,
+    "change": -1.0,
+    "changePercent": -0.5494505494505495,
+    "volume": 942300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "60720",
+      "CompanyName": "地盤ネットホールディングス",
+      "CompanyNameEnglish": "Jibannet Holdings Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:08.457044",
+      "updated_at": "2025-10-03T15:36:08.457046",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

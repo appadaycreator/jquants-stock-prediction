@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "217A0",
+    "generated_at": "2025-10-03T15:45:05.735404",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "217A0",
+    "name": "サポート",
+    "sector": "情報通信・サービスその他",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:26:26.235116",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "217A0",
+      "CompanyName": "サポート",
+      "CompanyNameEnglish": "SUPPORT Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:26.235121",
+      "updated_at": "2025-10-03T15:26:26.235122",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

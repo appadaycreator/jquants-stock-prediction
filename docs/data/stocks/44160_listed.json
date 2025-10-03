@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44160",
+    "generated_at": "2025-10-03T15:45:05.874404",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44160",
+    "name": "Ｔｒｕｅ　Ｄａｔａ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 930.0,
+    "change": 7.0,
+    "changePercent": 0.7583965330444203,
+    "volume": 42400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44160",
+      "CompanyName": "Ｔｒｕｅ　Ｄａｔａ",
+      "CompanyNameEnglish": "True Data Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:59.470263",
+      "updated_at": "2025-10-03T15:32:59.470273",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

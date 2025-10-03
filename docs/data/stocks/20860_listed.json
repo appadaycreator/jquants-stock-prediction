@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20860",
+    "generated_at": "2025-10-03T15:45:05.729500",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20860",
+    "name": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　Ｓ＆Ｐ５００（為替ヘッジあり）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2595.0,
+    "change": 3.5,
+    "changePercent": 0.13505691684352691,
+    "volume": 8900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20860",
+      "CompanyName": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　Ｓ＆Ｐ５００（為替ヘッジあり）",
+      "CompanyNameEnglish": "NZAM ETF S&P500 (JPY Hedged)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:10.586353",
+      "updated_at": "2025-10-03T15:26:10.586356",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

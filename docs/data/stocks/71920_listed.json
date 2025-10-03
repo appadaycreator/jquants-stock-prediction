@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71920",
+    "generated_at": "2025-10-03T15:45:06.066230",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71920",
+    "name": "日本モーゲージサービス",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 421.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 21200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71920",
+      "CompanyName": "日本モーゲージサービス",
+      "CompanyNameEnglish": "Mortgage Service Japan Limited",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:07.996987",
+      "updated_at": "2025-10-03T15:39:07.996989",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

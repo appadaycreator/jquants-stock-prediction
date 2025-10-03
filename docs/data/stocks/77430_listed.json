@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77430",
+    "generated_at": "2025-10-03T15:45:06.101093",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77430",
+    "name": "シード",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 471.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 52200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77430",
+      "CompanyName": "シード",
+      "CompanyNameEnglish": "SEED CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:30.048889",
+      "updated_at": "2025-10-03T15:40:30.048903",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

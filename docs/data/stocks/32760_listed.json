@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32760",
+    "generated_at": "2025-10-03T15:45:05.805389",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32760",
+    "name": "ＪＰＭＣ",
+    "sector": "不動産",
+    "market": "プライム",
+    "currentPrice": 1176.0,
+    "change": -5.0,
+    "changePercent": -0.42337002540220153,
+    "volume": 15100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32760",
+      "CompanyName": "ＪＰＭＣ",
+      "CompanyNameEnglish": "Japan Property Management Center Co.,Ltd.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:43.567891",
+      "updated_at": "2025-10-03T15:29:43.567901",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

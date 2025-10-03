@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63350",
+    "generated_at": "2025-10-03T15:45:05.972105",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63350",
+    "name": "東京機械製作所",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 386.0,
+    "change": 3.0,
+    "changePercent": 0.7832898172323759,
+    "volume": 3400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63350",
+      "CompanyName": "東京機械製作所",
+      "CompanyNameEnglish": "TOKYO KIKAI SEISAKUSHO,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:51.627244",
+      "updated_at": "2025-10-03T15:36:51.627246",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

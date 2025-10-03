@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66660",
+    "generated_at": "2025-10-03T15:45:05.994841",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66660",
+    "name": "リバーエレテック",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 505.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 52500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66660",
+      "CompanyName": "リバーエレテック",
+      "CompanyNameEnglish": "RIVER ELETEC CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:48.694796",
+      "updated_at": "2025-10-03T15:37:48.694798",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

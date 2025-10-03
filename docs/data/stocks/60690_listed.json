@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "60690",
+    "generated_at": "2025-10-03T15:45:05.955636",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "60690",
+    "name": "トレンダーズ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 935.0,
+    "change": 2.0,
+    "changePercent": 0.21436227224008575,
+    "volume": 180200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "60690",
+      "CompanyName": "トレンダーズ",
+      "CompanyNameEnglish": "Trenders,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:07.612325",
+      "updated_at": "2025-10-03T15:36:07.612327",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

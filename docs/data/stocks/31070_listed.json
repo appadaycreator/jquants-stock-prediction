@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31070",
+    "generated_at": "2025-10-03T15:45:05.795835",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31070",
+    "name": "ダイワボウホールディングス",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 2667.5,
+    "change": 9.5,
+    "changePercent": 0.35741158765989467,
+    "volume": 291200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31070",
+      "CompanyName": "ダイワボウホールディングス",
+      "CompanyNameEnglish": "Daiwabo Holdings Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:11.242173",
+      "updated_at": "2025-10-03T15:29:11.242175",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "55890",
+    "generated_at": "2025-10-03T15:45:05.926853",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "55890",
+    "name": "オートサーバー",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2418.0,
+    "change": -11.0,
+    "changePercent": -0.4528612597776863,
+    "volume": 5000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "55890",
+      "CompanyName": "オートサーバー",
+      "CompanyNameEnglish": "AUTOSERVER CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:14.982595",
+      "updated_at": "2025-10-03T15:35:14.982597",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

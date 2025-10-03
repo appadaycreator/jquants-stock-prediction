@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75200",
+    "generated_at": "2025-10-03T15:45:06.089939",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75200",
+    "name": "エコス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 2554.0,
+    "change": -6.0,
+    "changePercent": -0.234375,
+    "volume": 32000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75200",
+      "CompanyName": "エコス",
+      "CompanyNameEnglish": "Eco's Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:57.070413",
+      "updated_at": "2025-10-03T15:39:57.070415",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64160",
+    "generated_at": "2025-10-03T15:45:05.977514",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64160",
+    "name": "桂川電機",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 666.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64160",
+      "CompanyName": "桂川電機",
+      "CompanyNameEnglish": "KATSURAGAWA ELECTRIC CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:06.007302",
+      "updated_at": "2025-10-03T15:37:06.007304",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "21620",
+    "generated_at": "2025-10-03T15:45:05.734443",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "21620",
+    "name": "ｎｍｓ　ホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 495.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 44300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "21620",
+      "CompanyName": "ｎｍｓ　ホールディングス",
+      "CompanyNameEnglish": "nms Holdings Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:23.613944",
+      "updated_at": "2025-10-03T15:26:23.613949",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

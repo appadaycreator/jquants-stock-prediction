@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "76250",
+    "generated_at": "2025-10-03T15:45:06.095342",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "76250",
+    "name": "グローバルダイニング",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 336.0,
+    "change": -1.0,
+    "changePercent": -0.2967359050445104,
+    "volume": 4000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "76250",
+      "CompanyName": "グローバルダイニング",
+      "CompanyNameEnglish": "GLOBAL-DINING,INC.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:12.484750",
+      "updated_at": "2025-10-03T15:40:12.484752",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

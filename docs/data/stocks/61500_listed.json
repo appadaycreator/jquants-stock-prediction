@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "61500",
+    "generated_at": "2025-10-03T15:45:05.959725",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "61500",
+    "name": "タケダ機械",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 2909.0,
+    "change": 25.0,
+    "changePercent": 0.8668515950069348,
+    "volume": 2900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "61500",
+      "CompanyName": "タケダ機械",
+      "CompanyNameEnglish": "TAKEDA MACHINERY CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:19.839858",
+      "updated_at": "2025-10-03T15:36:19.839860",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

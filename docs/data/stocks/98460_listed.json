@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "98460",
+    "generated_at": "2025-10-03T15:45:06.206109",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "98460",
+    "name": "天満屋ストア",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 968.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 5500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "98460",
+      "CompanyName": "天満屋ストア",
+      "CompanyNameEnglish": "TENMAYA STORE CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:45.513712",
+      "updated_at": "2025-10-03T15:44:45.513716",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

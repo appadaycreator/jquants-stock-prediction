@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78140",
+    "generated_at": "2025-10-03T15:45:06.106600",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78140",
+    "name": "日本創発グループ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 527.0,
+    "change": 3.0,
+    "changePercent": 0.5725190839694656,
+    "volume": 18800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78140",
+      "CompanyName": "日本創発グループ",
+      "CompanyNameEnglish": "JAPAN Creative Platform Group Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:36.735716",
+      "updated_at": "2025-10-03T15:40:36.735729",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "70770",
+    "generated_at": "2025-10-03T15:45:06.056243",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "70770",
+    "name": "ＡＬｉＮＫインターネット",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 1052.0,
+    "change": -4.0,
+    "changePercent": -0.3787878787878788,
+    "volume": 5200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "70770",
+      "CompanyName": "ＡＬｉＮＫインターネット",
+      "CompanyNameEnglish": "ALiNK Internet,INC.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:48.333103",
+      "updated_at": "2025-10-03T15:38:48.333105",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

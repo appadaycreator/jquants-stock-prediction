@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "55420",
+    "generated_at": "2025-10-03T15:45:05.925102",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "55420",
+    "name": "新報国マテリアル",
+    "sector": "鉄鋼・非鉄",
+    "market": "スタンダード",
+    "currentPrice": 781.0,
+    "change": -9.0,
+    "changePercent": -1.139240506329114,
+    "volume": 14800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "55420",
+      "CompanyName": "新報国マテリアル",
+      "CompanyNameEnglish": "Shinhokoku Material Corp.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3450",
+      "Sector33CodeName": "鉄鋼",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:10.120410",
+      "updated_at": "2025-10-03T15:35:10.120411",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

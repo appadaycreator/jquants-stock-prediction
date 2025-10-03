@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "70140",
+    "generated_at": "2025-10-03T15:45:06.045480",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "70140",
+    "name": "名村造船所",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 2887.0,
+    "change": -143.0,
+    "changePercent": -4.7194719471947195,
+    "volume": 3543600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "70140",
+      "CompanyName": "名村造船所",
+      "CompanyNameEnglish": "Namura Shipbuilding Co.,Ltd.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:36.708361",
+      "updated_at": "2025-10-03T15:38:36.708363",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

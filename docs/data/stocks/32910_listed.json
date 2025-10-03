@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32910",
+    "generated_at": "2025-10-03T15:45:05.806499",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32910",
+    "name": "飯田グループホールディングス",
+    "sector": "不動産",
+    "market": "プライム",
+    "currentPrice": 2101.5,
+    "change": 11.5,
+    "changePercent": 0.5502392344497608,
+    "volume": 343700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32910",
+      "CompanyName": "飯田グループホールディングス",
+      "CompanyNameEnglish": "Iida Group Holdings Co.,Ltd.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:47.667983",
+      "updated_at": "2025-10-03T15:29:47.667989",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "48380",
+    "generated_at": "2025-10-03T15:45:05.900243",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "48380",
+    "name": "スペースシャワーＳＫＩＹＡＫＩホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 527.0,
+    "change": 5.0,
+    "changePercent": 0.9578544061302682,
+    "volume": 13000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "48380",
+      "CompanyName": "スペースシャワーＳＫＩＹＡＫＩホールディングス",
+      "CompanyNameEnglish": "SPACE SHOWER SKIYAKI HOLDINGS INC.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:03.111307",
+      "updated_at": "2025-10-03T15:34:03.111312",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

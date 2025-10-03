@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "97330",
+    "generated_at": "2025-10-03T15:45:06.201212",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "97330",
+    "name": "ナガセ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1906.0,
+    "change": -8.0,
+    "changePercent": -0.41797283176593525,
+    "volume": 8900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "97330",
+      "CompanyName": "ナガセ",
+      "CompanyNameEnglish": "Nagase Brothers Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:30.321845",
+      "updated_at": "2025-10-03T15:44:30.321855",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

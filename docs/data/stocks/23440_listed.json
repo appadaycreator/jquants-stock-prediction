@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "23440",
+    "generated_at": "2025-10-03T15:45:05.745306",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "23440",
+    "name": "平安レイサービス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 900.0,
+    "change": -2.0,
+    "changePercent": -0.22172949002217296,
+    "volume": 4600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "23440",
+      "CompanyName": "平安レイサービス",
+      "CompanyNameEnglish": "HEIAN CEREMONY SERVICE CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:54.935021",
+      "updated_at": "2025-10-03T15:26:54.935025",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49350",
+    "generated_at": "2025-10-03T15:45:05.904915",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49350",
+    "name": "リベルタ",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 2379.0,
+    "change": -51.0,
+    "changePercent": -2.0987654320987654,
+    "volume": 3150800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49350",
+      "CompanyName": "リベルタ",
+      "CompanyNameEnglish": "LIBERTA CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:15.297855",
+      "updated_at": "2025-10-03T15:34:15.297858",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

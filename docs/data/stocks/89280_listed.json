@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "89280",
+    "generated_at": "2025-10-03T15:45:06.148492",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "89280",
+    "name": "穴吹興産",
+    "sector": "不動産",
+    "market": "スタンダード",
+    "currentPrice": 2021.0,
+    "change": -2.0,
+    "changePercent": -0.09886307464162135,
+    "volume": 6700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "89280",
+      "CompanyName": "穴吹興産",
+      "CompanyNameEnglish": "ANABUKI KOSAN INC.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:37.286502",
+      "updated_at": "2025-10-03T15:42:37.286517",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

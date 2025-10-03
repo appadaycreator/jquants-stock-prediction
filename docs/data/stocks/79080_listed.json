@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79080",
+    "generated_at": "2025-10-03T15:45:06.111517",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79080",
+    "name": "きもと",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 230.0,
+    "change": 2.0,
+    "changePercent": 0.8771929824561403,
+    "volume": 135000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79080",
+      "CompanyName": "きもと",
+      "CompanyNameEnglish": "KIMOTO CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:52.256436",
+      "updated_at": "2025-10-03T15:40:52.256445",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

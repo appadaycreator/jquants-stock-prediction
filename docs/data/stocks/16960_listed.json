@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "16960",
+    "generated_at": "2025-10-03T15:45:05.702506",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "16960",
+    "name": "ウィズダムツリー・コモディティ・セキュリティーズ・リミテッド　ＷｉｓｄｏｍＴｒｅｅ　とうもろこし上場投資信託",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2712.0,
+    "change": 3.0,
+    "changePercent": 0.11074197120708748,
+    "volume": 1537,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "16960",
+      "CompanyName": "ウィズダムツリー・コモディティ・セキュリティーズ・リミテッド　ＷｉｓｄｏｍＴｒｅｅ　とうもろこし上場投資信託",
+      "CompanyNameEnglish": "WisdomTree Corn",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:12.134462",
+      "updated_at": "2025-10-03T15:25:12.134465",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

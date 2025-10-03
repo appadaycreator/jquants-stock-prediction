@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59150",
+    "generated_at": "2025-10-03T15:45:05.943344",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59150",
+    "name": "駒井ハルテック",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1550.0,
+    "change": 2.0,
+    "changePercent": 0.12919896640826875,
+    "volume": 2700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59150",
+      "CompanyName": "駒井ハルテック",
+      "CompanyNameEnglish": "KOMAIHALTEC Inc.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:42.031466",
+      "updated_at": "2025-10-03T15:35:42.031468",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

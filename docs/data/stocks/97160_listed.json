@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "97160",
+    "generated_at": "2025-10-03T15:45:06.200476",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "97160",
+    "name": "乃村工藝社",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 881.0,
+    "change": -32.0,
+    "changePercent": -3.5049288061336252,
+    "volume": 1671000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "97160",
+      "CompanyName": "乃村工藝社",
+      "CompanyNameEnglish": "NOMURA Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:27.864739",
+      "updated_at": "2025-10-03T15:44:27.864749",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "98430",
+    "generated_at": "2025-10-03T15:45:06.205940",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "98430",
+    "name": "ニトリホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 13595.0,
+    "change": -10.0,
+    "changePercent": -0.0735023888276369,
+    "volume": 681100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "98430",
+      "CompanyName": "ニトリホールディングス",
+      "CompanyNameEnglish": "Nitori Holdings Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:44.829676",
+      "updated_at": "2025-10-03T15:44:44.829690",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

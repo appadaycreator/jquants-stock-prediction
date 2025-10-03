@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79910",
+    "generated_at": "2025-10-03T15:45:06.116751",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79910",
+    "name": "マミヤ・オーピー",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1468.0,
+    "change": 23.0,
+    "changePercent": 1.591695501730104,
+    "volume": 69500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79910",
+      "CompanyName": "マミヤ・オーピー",
+      "CompanyNameEnglish": "MAMIYA-OP CO.,LTD",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:08.932071",
+      "updated_at": "2025-10-03T15:41:08.932089",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

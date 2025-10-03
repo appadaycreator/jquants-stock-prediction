@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45030",
+    "generated_at": "2025-10-03T15:45:05.882105",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45030",
+    "name": "アステラス製薬",
+    "sector": "医薬品",
+    "market": "プライム",
+    "currentPrice": 1406.5,
+    "change": 4.5,
+    "changePercent": 0.3209700427960057,
+    "volume": 7687400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45030",
+      "CompanyName": "アステラス製薬",
+      "CompanyNameEnglish": "Astellas Pharma Inc.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:16.789068",
+      "updated_at": "2025-10-03T15:33:16.789070",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

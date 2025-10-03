@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33060",
+    "generated_at": "2025-10-03T15:45:05.807649",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33060",
+    "name": "日本製麻",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 698.0,
+    "change": -1.0,
+    "changePercent": -0.14306151645207438,
+    "volume": 1600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33060",
+      "CompanyName": "日本製麻",
+      "CompanyNameEnglish": "THE NIHON SEIMA CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:50.647951",
+      "updated_at": "2025-10-03T15:29:50.647961",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

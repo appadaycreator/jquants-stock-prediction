@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "60920",
+    "generated_at": "2025-10-03T15:45:05.957372",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "60920",
+    "name": "エンバイオ・ホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 641.0,
+    "change": 3.0,
+    "changePercent": 0.4702194357366771,
+    "volume": 5000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "60920",
+      "CompanyName": "エンバイオ・ホールディングス",
+      "CompanyNameEnglish": "EnBio Holdings,Inc",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:12.594006",
+      "updated_at": "2025-10-03T15:36:12.594009",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

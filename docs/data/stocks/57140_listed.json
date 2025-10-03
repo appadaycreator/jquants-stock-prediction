@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "57140",
+    "generated_at": "2025-10-03T15:45:05.930607",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "57140",
+    "name": "ＤＯＷＡホールディングス",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 4830.0,
+    "change": -33.0,
+    "changePercent": -0.6785934608266502,
+    "volume": 169700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "57140",
+      "CompanyName": "ＤＯＷＡホールディングス",
+      "CompanyNameEnglish": "DOWA HOLDINGS CO.,LTD.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:25.489205",
+      "updated_at": "2025-10-03T15:35:25.489207",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

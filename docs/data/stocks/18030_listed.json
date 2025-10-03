@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18030",
+    "generated_at": "2025-10-03T15:45:05.710292",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18030",
+    "name": "清水建設",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1611.5,
+    "change": -28.0,
+    "changePercent": -1.7078377554132356,
+    "volume": 2206500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18030",
+      "CompanyName": "清水建設",
+      "CompanyNameEnglish": "SHIMIZU CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:25.391054",
+      "updated_at": "2025-10-03T15:25:25.391060",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

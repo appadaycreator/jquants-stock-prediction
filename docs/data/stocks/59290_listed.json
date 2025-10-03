@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59290",
+    "generated_at": "2025-10-03T15:45:05.944450",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59290",
+    "name": "三和ホールディングス",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 4621.0,
+    "change": -115.0,
+    "changePercent": -2.428209459459459,
+    "volume": 432100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59290",
+      "CompanyName": "三和ホールディングス",
+      "CompanyNameEnglish": "Sanwa Holdings Corporation",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:43.665822",
+      "updated_at": "2025-10-03T15:35:43.665824",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

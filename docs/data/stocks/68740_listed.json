@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "68740",
+    "generated_at": "2025-10-03T15:45:06.027359",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "68740",
+    "name": "協立電機",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 2145.0,
+    "change": 14.0,
+    "changePercent": 0.656968559361802,
+    "volume": 9900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "68740",
+      "CompanyName": "協立電機",
+      "CompanyNameEnglish": "KYORITSU ELECTRIC CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:17.023835",
+      "updated_at": "2025-10-03T15:38:17.023838",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

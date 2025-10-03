@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26290",
+    "generated_at": "2025-10-03T15:45:05.766105",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26290",
+    "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　中国グレーターベイエリア・イノベーション１００（ＧＢＡ１００）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2991.0,
+    "change": 23.0,
+    "changePercent": 0.7749326145552561,
+    "volume": 631,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26290",
+      "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　中国グレーターベイエリア・イノベーション１００（ＧＢＡ１００）",
+      "CompanyNameEnglish": "iFreeETF China GBA100",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:41.662440",
+      "updated_at": "2025-10-03T15:27:41.662443",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

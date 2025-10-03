@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39650",
+    "generated_at": "2025-10-03T15:45:05.846325",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39650",
+    "name": "キャピタル・アセット・プランニング",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 768.0,
+    "change": -4.0,
+    "changePercent": -0.5181347150259068,
+    "volume": 1700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39650",
+      "CompanyName": "キャピタル・アセット・プランニング",
+      "CompanyNameEnglish": "Capital Asset Planning,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:48.878175",
+      "updated_at": "2025-10-03T15:31:48.878179",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

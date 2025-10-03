@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26070",
+    "generated_at": "2025-10-03T15:45:05.764000",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26070",
+    "name": "不二製油",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 2722.0,
+    "change": -30.0,
+    "changePercent": -1.0901162790697674,
+    "volume": 212600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26070",
+      "CompanyName": "不二製油",
+      "CompanyNameEnglish": "FUJI OIL CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:37.885151",
+      "updated_at": "2025-10-03T15:27:37.885156",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

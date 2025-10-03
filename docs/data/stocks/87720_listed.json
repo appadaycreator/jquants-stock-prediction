@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "87720",
+    "generated_at": "2025-10-03T15:45:06.141940",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "87720",
+    "name": "アサックス",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 720.0,
+    "change": 8.0,
+    "changePercent": 1.1235955056179776,
+    "volume": 18100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "87720",
+      "CompanyName": "アサックス",
+      "CompanyNameEnglish": "ASAX CO.,LTD.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:24.890672",
+      "updated_at": "2025-10-03T15:42:24.890680",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

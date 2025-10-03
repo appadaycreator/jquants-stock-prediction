@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64820",
+    "generated_at": "2025-10-03T15:45:05.981956",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64820",
+    "name": "ＹＵＳＨＩＮ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 603.0,
+    "change": 10.0,
+    "changePercent": 1.6863406408094435,
+    "volume": 63900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64820",
+      "CompanyName": "ＹＵＳＨＩＮ",
+      "CompanyNameEnglish": "Yushin Company",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:16.397747",
+      "updated_at": "2025-10-03T15:37:16.397749",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

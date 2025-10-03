@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "21340",
+    "generated_at": "2025-10-03T15:45:05.732684",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "21340",
+    "name": "北浜キャピタルパートナーズ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 87.0,
+    "change": -2.0,
+    "changePercent": -2.247191011235955,
+    "volume": 35752900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "21340",
+      "CompanyName": "北浜キャピタルパートナーズ",
+      "CompanyNameEnglish": "Kitahama Capital Partners Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:19.039152",
+      "updated_at": "2025-10-03T15:26:19.039163",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

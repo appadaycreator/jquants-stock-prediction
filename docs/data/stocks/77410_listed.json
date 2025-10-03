@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77410",
+    "generated_at": "2025-10-03T15:45:06.101007",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77410",
+    "name": "ＨＯＹＡ",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 17840.0,
+    "change": -210.0,
+    "changePercent": -1.1634349030470914,
+    "volume": 1544600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77410",
+      "CompanyName": "ＨＯＹＡ",
+      "CompanyNameEnglish": "HOYA CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "TOPIX Core30",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:29.756666",
+      "updated_at": "2025-10-03T15:40:29.756676",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

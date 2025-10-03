@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71980",
+    "generated_at": "2025-10-03T15:45:06.066398",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71980",
+    "name": "ＳＢＩアルヒ",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 836.0,
+    "change": 15.0,
+    "changePercent": 1.8270401948842874,
+    "volume": 143800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71980",
+      "CompanyName": "ＳＢＩアルヒ",
+      "CompanyNameEnglish": "SBI ARUHI Corporation",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:08.560440",
+      "updated_at": "2025-10-03T15:39:08.560442",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

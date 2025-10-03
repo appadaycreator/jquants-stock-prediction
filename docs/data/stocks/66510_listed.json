@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66510",
+    "generated_at": "2025-10-03T15:45:05.993800",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66510",
+    "name": "日東工業",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 3275.0,
+    "change": 5.0,
+    "changePercent": 0.1529051987767584,
+    "volume": 78900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66510",
+      "CompanyName": "日東工業",
+      "CompanyNameEnglish": "NITTO KOGYO CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:45.860068",
+      "updated_at": "2025-10-03T15:37:45.860070",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

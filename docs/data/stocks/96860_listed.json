@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "96860",
+    "generated_at": "2025-10-03T15:45:06.199147",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "96860",
+    "name": "東洋テック",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1390.0,
+    "change": -5.0,
+    "changePercent": -0.35842293906810035,
+    "volume": 5100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "96860",
+      "CompanyName": "東洋テック",
+      "CompanyNameEnglish": "TOYO TEC CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:23.022414",
+      "updated_at": "2025-10-03T15:44:23.022418",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

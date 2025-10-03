@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "81980",
+    "generated_at": "2025-10-03T15:45:06.128033",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "81980",
+    "name": "マックスバリュ東海",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 3210.0,
+    "change": 40.0,
+    "changePercent": 1.2618296529968454,
+    "volume": 11300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "81980",
+      "CompanyName": "マックスバリュ東海",
+      "CompanyNameEnglish": "Maxvalu Tokai Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:42.199332",
+      "updated_at": "2025-10-03T15:41:42.199346",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

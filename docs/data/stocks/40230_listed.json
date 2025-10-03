@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40230",
+    "generated_at": "2025-10-03T15:45:05.850119",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40230",
+    "name": "クレハ",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 3310.0,
+    "change": 15.0,
+    "changePercent": 0.4552352048558422,
+    "volume": 344200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40230",
+      "CompanyName": "クレハ",
+      "CompanyNameEnglish": "KUREHA CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:59.411508",
+      "updated_at": "2025-10-03T15:31:59.411510",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

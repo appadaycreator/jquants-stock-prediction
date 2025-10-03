@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45750",
+    "generated_at": "2025-10-03T15:45:05.886922",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45750",
+    "name": "キャンバス",
+    "sector": "医薬品",
+    "market": "グロース",
+    "currentPrice": 1043.0,
+    "change": 33.0,
+    "changePercent": 3.2673267326732676,
+    "volume": 308200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45750",
+      "CompanyName": "キャンバス",
+      "CompanyNameEnglish": "CanBas Co.,Ltd.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:27.992366",
+      "updated_at": "2025-10-03T15:33:27.992369",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

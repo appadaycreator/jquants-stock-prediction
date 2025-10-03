@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "198A0",
+    "generated_at": "2025-10-03T15:45:05.723560",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "198A0",
+    "name": "ＰｏｓｔＰｒｉｍｅ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 735.0,
+    "change": -9.0,
+    "changePercent": -1.2096774193548387,
+    "volume": 117500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "198A0",
+      "CompanyName": "ＰｏｓｔＰｒｉｍｅ",
+      "CompanyNameEnglish": "PostPrime Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:53.461825",
+      "updated_at": "2025-10-03T15:25:53.461831",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

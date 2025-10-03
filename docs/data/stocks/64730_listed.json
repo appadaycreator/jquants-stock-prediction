@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64730",
+    "generated_at": "2025-10-03T15:45:05.981491",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64730",
+    "name": "ジェイテクト",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1244.0,
+    "change": -5.5,
+    "changePercent": -0.4401760704281713,
+    "volume": 1401600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64730",
+      "CompanyName": "ジェイテクト",
+      "CompanyNameEnglish": "JTEKT Corporation",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:15.019822",
+      "updated_at": "2025-10-03T15:37:15.019824",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

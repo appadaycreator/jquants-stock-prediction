@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18080",
+    "generated_at": "2025-10-03T15:45:05.710454",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18080",
+    "name": "長谷工コーポレーション",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 2216.0,
+    "change": 13.5,
+    "changePercent": 0.6129398410896708,
+    "volume": 814700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18080",
+      "CompanyName": "長谷工コーポレーション",
+      "CompanyNameEnglish": "HASEKO Corporation",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:25.903367",
+      "updated_at": "2025-10-03T15:25:25.903370",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

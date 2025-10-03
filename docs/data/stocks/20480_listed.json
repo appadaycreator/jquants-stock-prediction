@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20480",
+    "generated_at": "2025-10-03T15:45:05.727184",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20480",
+    "name": "ノムラ・ヨーロッパ・ファイナンス・エヌ・ブイ　ＮＥＸＴ　ＮＯＴＥＳ　野村日本株高配当７０（ドルヘッジ、ネットリターン）ＥＴＮ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 32240.0,
+    "change": -30.0,
+    "changePercent": -0.09296560272699102,
+    "volume": 5,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20480",
+      "CompanyName": "ノムラ・ヨーロッパ・ファイナンス・エヌ・ブイ　ＮＥＸＴ　ＮＯＴＥＳ　野村日本株高配当７０（ドルヘッジ、ネットリターン）ＥＴＮ",
+      "CompanyNameEnglish": "NEXT NOTES Nomura Japan Equity High Dividend 70,Net Total Return US Dollar Hedged Index ETN",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:04.083296",
+      "updated_at": "2025-10-03T15:26:04.083306",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

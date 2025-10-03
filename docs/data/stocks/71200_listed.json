@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71200",
+    "generated_at": "2025-10-03T15:45:06.061371",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71200",
+    "name": "ＳＨＩＮＫＯ",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 2318.0,
+    "change": 8.0,
+    "changePercent": 0.3463203463203463,
+    "volume": 2200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71200",
+      "CompanyName": "ＳＨＩＮＫＯ",
+      "CompanyNameEnglish": "SHINKO Inc.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:56.894917",
+      "updated_at": "2025-10-03T15:38:56.894919",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

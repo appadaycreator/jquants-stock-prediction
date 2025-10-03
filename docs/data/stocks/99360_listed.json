@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "99360",
+    "generated_at": "2025-10-03T15:45:06.209446",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "99360",
+    "name": "王将フードサービス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 3605.0,
+    "change": -20.0,
+    "changePercent": -0.5517241379310345,
+    "volume": 75200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "99360",
+      "CompanyName": "王将フードサービス",
+      "CompanyNameEnglish": "OHSHO FOOD SERVICE CORP.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:56.445316",
+      "updated_at": "2025-10-03T15:44:56.445328",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33600",
+    "generated_at": "2025-10-03T15:45:05.809942",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33600",
+    "name": "シップヘルスケアホールディングス",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 2035.0,
+    "change": -24.0,
+    "changePercent": -1.165614375910636,
+    "volume": 358200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33600",
+      "CompanyName": "シップヘルスケアホールディングス",
+      "CompanyNameEnglish": "SHIP HEALTHCARE HOLDINGS,INC.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:58.321685",
+      "updated_at": "2025-10-03T15:29:58.321687",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

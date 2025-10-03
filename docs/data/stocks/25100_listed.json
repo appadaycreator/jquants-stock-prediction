@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25100",
+    "generated_at": "2025-10-03T15:45:05.756879",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25100",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　国内債券・ＮＯＭＵＲＡ−ＢＰＩ総合連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 867.5,
+    "change": -0.39999999999997726,
+    "changePercent": -0.04608825901601305,
+    "volume": 39820,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25100",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　国内債券・ＮＯＭＵＲＡ−ＢＰＩ総合連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS Japan Bond NOMURA-BPI Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:20.677456",
+      "updated_at": "2025-10-03T15:27:20.677460",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

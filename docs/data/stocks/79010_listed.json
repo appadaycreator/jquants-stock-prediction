@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79010",
+    "generated_at": "2025-10-03T15:45:06.111287",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79010",
+    "name": "マツモト",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 818.0,
+    "change": 22.0,
+    "changePercent": 2.763819095477387,
+    "volume": 6700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79010",
+      "CompanyName": "マツモト",
+      "CompanyNameEnglish": "MATSUMOTO INC.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:51.389326",
+      "updated_at": "2025-10-03T15:40:51.389343",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

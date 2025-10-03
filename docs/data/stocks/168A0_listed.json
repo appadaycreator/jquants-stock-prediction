@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "168A0",
+    "generated_at": "2025-10-03T15:45:05.701954",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "168A0",
+    "name": "イタミアート",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 1049.0,
+    "change": 15.0,
+    "changePercent": 1.4506769825918762,
+    "volume": 1600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "168A0",
+      "CompanyName": "イタミアート",
+      "CompanyNameEnglish": "itamiarts inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:09.988663",
+      "updated_at": "2025-10-03T15:25:09.988667",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

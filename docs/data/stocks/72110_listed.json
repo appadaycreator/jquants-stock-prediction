@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72110",
+    "generated_at": "2025-10-03T15:45:06.067855",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72110",
+    "name": "三菱自動車工業",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 409.8,
+    "change": 1.8000000000000114,
+    "changePercent": 0.44117647058823806,
+    "volume": 7191500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72110",
+      "CompanyName": "三菱自動車工業",
+      "CompanyNameEnglish": "MITSUBISHI MOTORS CORPORATION",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:10.475214",
+      "updated_at": "2025-10-03T15:39:10.475217",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

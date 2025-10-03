@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31130",
+    "generated_at": "2025-10-03T15:45:05.796251",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31130",
+    "name": "ＵＮＩＶＡ・Ｏａｋホールディングス",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 88.0,
+    "change": 2.0,
+    "changePercent": 2.3255813953488373,
+    "volume": 716800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31130",
+      "CompanyName": "ＵＮＩＶＡ・Ｏａｋホールディングス",
+      "CompanyNameEnglish": "UNIVA Oak Holdings Limited",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:12.697632",
+      "updated_at": "2025-10-03T15:29:12.697639",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

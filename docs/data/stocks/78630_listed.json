@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78630",
+    "generated_at": "2025-10-03T15:45:06.109307",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78630",
+    "name": "平賀",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1026.0,
+    "change": -4.0,
+    "changePercent": -0.3883495145631068,
+    "volume": 3200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78630",
+      "CompanyName": "平賀",
+      "CompanyNameEnglish": "HIRAGA CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:45.229918",
+      "updated_at": "2025-10-03T15:40:45.229933",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

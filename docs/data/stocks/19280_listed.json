@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19280",
+    "generated_at": "2025-10-03T15:45:05.718336",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19280",
+    "name": "積水ハウス",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 3148.0,
+    "change": -28.0,
+    "changePercent": -0.8816120906801008,
+    "volume": 3173500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19280",
+      "CompanyName": "積水ハウス",
+      "CompanyNameEnglish": "Sekisui House,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:42.550585",
+      "updated_at": "2025-10-03T15:25:42.550588",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19390",
+    "generated_at": "2025-10-03T15:45:05.718888",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19390",
+    "name": "四電工",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1294.0,
+    "change": -1.0,
+    "changePercent": -0.07722007722007722,
+    "volume": 63500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19390",
+      "CompanyName": "四電工",
+      "CompanyNameEnglish": "YONDENKO CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:44.159506",
+      "updated_at": "2025-10-03T15:25:44.159509",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

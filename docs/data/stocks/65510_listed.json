@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "65510",
+    "generated_at": "2025-10-03T15:45:05.986582",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "65510",
+    "name": "ツナググループ・ホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 635.0,
+    "change": -3.0,
+    "changePercent": -0.4702194357366771,
+    "volume": 20100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "65510",
+      "CompanyName": "ツナググループ・ホールディングス",
+      "CompanyNameEnglish": "TSUNAGU GROUP HOLDINGS Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:29.702000",
+      "updated_at": "2025-10-03T15:37:29.702002",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

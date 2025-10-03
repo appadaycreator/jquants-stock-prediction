@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "36330",
+    "generated_at": "2025-10-03T15:45:05.825644",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "36330",
+    "name": "ＧＭＯペパボ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1523.0,
+    "change": 3.0,
+    "changePercent": 0.19736842105263158,
+    "volume": 2900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "36330",
+      "CompanyName": "ＧＭＯペパボ",
+      "CompanyNameEnglish": "GMO Pepabo,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:49.970961",
+      "updated_at": "2025-10-03T15:30:49.970963",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

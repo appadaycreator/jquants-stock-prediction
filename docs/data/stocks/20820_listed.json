@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20820",
+    "generated_at": "2025-10-03T15:45:05.728995",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20820",
+    "name": "シンプレクス・アセット・マネジメント株式会社　投資家経営者一心同体ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1151.0,
+    "change": 1.0,
+    "changePercent": 0.08695652173913043,
+    "volume": 86,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20820",
+      "CompanyName": "シンプレクス・アセット・マネジメント株式会社　投資家経営者一心同体ＥＴＦ",
+      "CompanyNameEnglish": "Investor-Management Unite as One ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:09.510490",
+      "updated_at": "2025-10-03T15:26:09.510494",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

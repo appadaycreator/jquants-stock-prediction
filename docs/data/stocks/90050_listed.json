@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90050",
+    "generated_at": "2025-10-03T15:45:06.157731",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90050",
+    "name": "東急",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 1682.0,
+    "change": -5.5,
+    "changePercent": -0.3259259259259259,
+    "volume": 1398900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90050",
+      "CompanyName": "東急",
+      "CompanyNameEnglish": "TOKYU CORPORATION",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:48.746505",
+      "updated_at": "2025-10-03T15:42:48.746515",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

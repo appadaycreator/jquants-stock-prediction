@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "68190",
+    "generated_at": "2025-10-03T15:45:06.018982",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "68190",
+    "name": "伊豆シャボテンリゾート",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 500.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 9700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "68190",
+      "CompanyName": "伊豆シャボテンリゾート",
+      "CompanyNameEnglish": "Izu Shaboten Resort Co.,Ltd",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:08.074395",
+      "updated_at": "2025-10-03T15:38:08.074396",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40160",
+    "generated_at": "2025-10-03T15:45:05.849507",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40160",
+    "name": "ＭＩＴホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 880.0,
+    "change": -6.0,
+    "changePercent": -0.6772009029345373,
+    "volume": 6500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40160",
+      "CompanyName": "ＭＩＴホールディングス",
+      "CompanyNameEnglish": "MIT Holdings CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:57.862919",
+      "updated_at": "2025-10-03T15:31:57.862923",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

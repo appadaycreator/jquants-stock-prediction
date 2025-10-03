@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26260",
+    "generated_at": "2025-10-03T15:45:05.765821",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26260",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　デジタル・イノベーション−日本株式　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2744.0,
+    "change": -42.0,
+    "changePercent": -1.507537688442211,
+    "volume": 618,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26260",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　デジタル・イノベーション−日本株式　ＥＴＦ",
+      "CompanyNameEnglish": "Global X Digital Innovation Japan ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:40.881314",
+      "updated_at": "2025-10-03T15:27:40.881316",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

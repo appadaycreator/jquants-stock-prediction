@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "51620",
+    "generated_at": "2025-10-03T15:45:05.913774",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "51620",
+    "name": "朝日ラバー",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 616.0,
+    "change": 8.0,
+    "changePercent": 1.3157894736842104,
+    "volume": 2700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "51620",
+      "CompanyName": "朝日ラバー",
+      "CompanyNameEnglish": "ASAHI RUBBER INC.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3350",
+      "Sector33CodeName": "ゴム製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:38.918425",
+      "updated_at": "2025-10-03T15:34:38.918427",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

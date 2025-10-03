@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49660",
+    "generated_at": "2025-10-03T15:45:05.905701",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49660",
+    "name": "上村工業",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 9490.0,
+    "change": 140.0,
+    "changePercent": 1.4973262032085561,
+    "volume": 14500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49660",
+      "CompanyName": "上村工業",
+      "CompanyNameEnglish": "C.Uyemura & Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:17.443872",
+      "updated_at": "2025-10-03T15:34:17.443875",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

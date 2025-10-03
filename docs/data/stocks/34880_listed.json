@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34880",
+    "generated_at": "2025-10-03T15:45:05.818762",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34880",
+    "name": "ザイマックス・リート投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 113500.0,
+    "change": 800.0,
+    "changePercent": 0.709849157054126,
+    "volume": 672,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34880",
+      "CompanyName": "ザイマックス・リート投資法人",
+      "CompanyNameEnglish": "XYMAX REIT Investment Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:27.679632",
+      "updated_at": "2025-10-03T15:30:27.679635",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64300",
+    "generated_at": "2025-10-03T15:45:05.979327",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64300",
+    "name": "ダイコク電機",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 2125.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 41500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64300",
+      "CompanyName": "ダイコク電機",
+      "CompanyNameEnglish": "DAIKOKU DENKI CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:08.297805",
+      "updated_at": "2025-10-03T15:37:08.297807",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78500",
+    "generated_at": "2025-10-03T15:45:06.108678",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78500",
+    "name": "総合商研",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 869.0,
+    "change": -3.0,
+    "changePercent": -0.34403669724770647,
+    "volume": 6500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78500",
+      "CompanyName": "総合商研",
+      "CompanyNameEnglish": "SOUGOU SHOUKEN CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:43.530683",
+      "updated_at": "2025-10-03T15:40:43.530698",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

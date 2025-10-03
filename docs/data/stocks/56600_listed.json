@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "56600",
+    "generated_at": "2025-10-03T15:45:05.929196",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "56600",
+    "name": "神鋼鋼線工業",
+    "sector": "鉄鋼・非鉄",
+    "market": "スタンダード",
+    "currentPrice": 1351.0,
+    "change": 13.0,
+    "changePercent": 0.9715994020926756,
+    "volume": 900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "56600",
+      "CompanyName": "神鋼鋼線工業",
+      "CompanyNameEnglish": "KOBELCO WIRE COMPANY,LTD.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3450",
+      "Sector33CodeName": "鉄鋼",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:22.306542",
+      "updated_at": "2025-10-03T15:35:22.306544",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

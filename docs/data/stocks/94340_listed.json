@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "94340",
+    "generated_at": "2025-10-03T15:45:06.188495",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "94340",
+    "name": "ソフトバンク",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 216.8,
+    "change": -0.19999999999998863,
+    "changePercent": -0.09216589861750628,
+    "volume": 57510000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "94340",
+      "CompanyName": "ソフトバンク",
+      "CompanyNameEnglish": "SoftBank Corp.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Core30",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:54.901063",
+      "updated_at": "2025-10-03T15:43:54.901078",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "212A0",
+    "generated_at": "2025-10-03T15:45:05.732523",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "212A0",
+    "name": "フィットイージー",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2273.0,
+    "change": -4.0,
+    "changePercent": -0.1756697408871322,
+    "volume": 88400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "212A0",
+      "CompanyName": "フィットイージー",
+      "CompanyNameEnglish": "FIT EASY Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:18.475604",
+      "updated_at": "2025-10-03T15:26:18.475609",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

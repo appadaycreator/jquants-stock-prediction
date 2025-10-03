@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "68100",
+    "generated_at": "2025-10-03T15:45:06.016574",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "68100",
+    "name": "マクセル",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 1836.0,
+    "change": -26.0,
+    "changePercent": -1.3963480128893664,
+    "volume": 102600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "68100",
+      "CompanyName": "マクセル",
+      "CompanyNameEnglish": "Maxell,Ltd.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:07.100407",
+      "updated_at": "2025-10-03T15:38:07.100409",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

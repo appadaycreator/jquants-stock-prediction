@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "73270",
+    "generated_at": "2025-10-03T15:45:06.076158",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "73270",
+    "name": "第四北越フィナンシャルグループ",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 3520.0,
+    "change": 25.0,
+    "changePercent": 0.7153075822603719,
+    "volume": 181100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "73270",
+      "CompanyName": "第四北越フィナンシャルグループ",
+      "CompanyNameEnglish": "Daishi Hokuetsu Financial Group,Inc.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:28.455611",
+      "updated_at": "2025-10-03T15:39:28.455613",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

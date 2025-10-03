@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59180",
+    "generated_at": "2025-10-03T15:45:05.943543",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59180",
+    "name": "瀧上工業",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:35:42.304698",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59180",
+      "CompanyName": "瀧上工業",
+      "CompanyNameEnglish": "The Takigami Steel Construction Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:42.304703",
+      "updated_at": "2025-10-03T15:35:42.304705",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

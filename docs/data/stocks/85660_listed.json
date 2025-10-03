@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "85660",
+    "generated_at": "2025-10-03T15:45:06.138018",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "85660",
+    "name": "リコーリース",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 5470.0,
+    "change": 60.0,
+    "changePercent": 1.1090573012939002,
+    "volume": 45700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "85660",
+      "CompanyName": "リコーリース",
+      "CompanyNameEnglish": "RICOH LEASING COMPANY,LTD.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:12.362732",
+      "updated_at": "2025-10-03T15:42:12.362744",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

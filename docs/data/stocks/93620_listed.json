@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93620",
+    "generated_at": "2025-10-03T15:45:06.184485",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93620",
+    "name": "兵機海運",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 3585.0,
+    "change": 40.0,
+    "changePercent": 1.1283497884344147,
+    "volume": 1000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93620",
+      "CompanyName": "兵機海運",
+      "CompanyNameEnglish": "HYOKI KAIUN KAISHA,LTD.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:44.717510",
+      "updated_at": "2025-10-03T15:43:44.717515",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

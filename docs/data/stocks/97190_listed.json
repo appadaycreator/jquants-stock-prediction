@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "97190",
+    "generated_at": "2025-10-03T15:45:06.200557",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "97190",
+    "name": "ＳＣＳＫ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 4115.0,
+    "change": -51.0,
+    "changePercent": -1.2241958713394143,
+    "volume": 1042100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "97190",
+      "CompanyName": "ＳＣＳＫ",
+      "CompanyNameEnglish": "SCSK Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:28.213829",
+      "updated_at": "2025-10-03T15:44:28.213838",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

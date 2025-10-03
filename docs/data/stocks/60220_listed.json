@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "60220",
+    "generated_at": "2025-10-03T15:45:05.952896",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "60220",
+    "name": "赤阪鐵工所",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 2465.0,
+    "change": -122.0,
+    "changePercent": -4.71588712794743,
+    "volume": 7000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "60220",
+      "CompanyName": "赤阪鐵工所",
+      "CompanyNameEnglish": "Akasaka Diesels Ltd.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:58.492211",
+      "updated_at": "2025-10-03T15:35:58.492213",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

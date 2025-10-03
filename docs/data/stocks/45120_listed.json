@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45120",
+    "generated_at": "2025-10-03T15:45:05.882332",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45120",
+    "name": "わかもと製薬",
+    "sector": "医薬品",
+    "market": "スタンダード",
+    "currentPrice": 290.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 36900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45120",
+      "CompanyName": "わかもと製薬",
+      "CompanyNameEnglish": "WAKAMOTO PHARMACEUTICAL CO.,LTD.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:17.588545",
+      "updated_at": "2025-10-03T15:33:17.588548",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

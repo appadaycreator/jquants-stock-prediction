@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79860",
+    "generated_at": "2025-10-03T15:45:06.116147",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79860",
+    "name": "日本アイ・エス・ケイ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1637.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79860",
+      "CompanyName": "日本アイ・エス・ケイ",
+      "CompanyNameEnglish": "NIHON ISK Company,Limited",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:07.504820",
+      "updated_at": "2025-10-03T15:41:07.504829",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

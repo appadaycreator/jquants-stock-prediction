@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28760",
+    "generated_at": "2025-10-03T15:45:05.781772",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28760",
+    "name": "デルソーレ",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 409.0,
+    "change": -1.0,
+    "changePercent": -0.24390243902439024,
+    "volume": 3400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28760",
+      "CompanyName": "デルソーレ",
+      "CompanyNameEnglish": "Delsole Corporation",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:28.369389",
+      "updated_at": "2025-10-03T15:28:28.370648",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

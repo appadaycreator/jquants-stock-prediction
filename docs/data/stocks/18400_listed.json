@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18400",
+    "generated_at": "2025-10-03T15:45:05.712106",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18400",
+    "name": "土屋ホールディングス",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 232.0,
+    "change": -2.0,
+    "changePercent": -0.8547008547008548,
+    "volume": 11700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18400",
+      "CompanyName": "土屋ホールディングス",
+      "CompanyNameEnglish": "TSUCHIYA HOLDINGS CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:31.024548",
+      "updated_at": "2025-10-03T15:25:31.024552",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59970",
+    "generated_at": "2025-10-03T15:45:05.952280",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59970",
+    "name": "協立エアテック",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 606.0,
+    "change": 6.0,
+    "changePercent": 1.0,
+    "volume": 1300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59970",
+      "CompanyName": "協立エアテック",
+      "CompanyNameEnglish": "KYORITSU AIR TECH INC.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:56.853600",
+      "updated_at": "2025-10-03T15:35:56.853602",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

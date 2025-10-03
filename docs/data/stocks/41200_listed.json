@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "41200",
+    "generated_at": "2025-10-03T15:45:05.857407",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "41200",
+    "name": "スガイ化学工業",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:32:15.346990",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "41200",
+      "CompanyName": "スガイ化学工業",
+      "CompanyNameEnglish": "SUGAI CHEMICAL INDUSTRY CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:15.346997",
+      "updated_at": "2025-10-03T15:32:15.346998",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

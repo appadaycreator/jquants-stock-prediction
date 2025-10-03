@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "98780",
+    "generated_at": "2025-10-03T15:45:06.207157",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "98780",
+    "name": "セキド",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 1271.0,
+    "change": -67.0,
+    "changePercent": -5.007473841554559,
+    "volume": 474100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "98780",
+      "CompanyName": "セキド",
+      "CompanyNameEnglish": "SEKIDO CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:49.114696",
+      "updated_at": "2025-10-03T15:44:49.114706",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69270",
+    "generated_at": "2025-10-03T15:45:06.032421",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69270",
+    "name": "ヘリオス　テクノ　ホールディング",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 831.0,
+    "change": 6.0,
+    "changePercent": 0.7272727272727273,
+    "volume": 242200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69270",
+      "CompanyName": "ヘリオス　テクノ　ホールディング",
+      "CompanyNameEnglish": "Helios Techno Holding Co.,Ltd.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:24.257048",
+      "updated_at": "2025-10-03T15:38:24.257050",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

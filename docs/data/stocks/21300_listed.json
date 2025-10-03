@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "21300",
+    "generated_at": "2025-10-03T15:45:05.732602",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "21300",
+    "name": "メンバーズ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1180.0,
+    "change": -15.0,
+    "changePercent": -1.2552301255230125,
+    "volume": 23600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "21300",
+      "CompanyName": "メンバーズ",
+      "CompanyNameEnglish": "Members Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:18.756538",
+      "updated_at": "2025-10-03T15:26:18.756541",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13770",
-    "generated_at": "2025-10-03T15:21:01.210646",
+    "generated_at": "2025-10-03T15:45:05.677892",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -29,8 +29,8 @@
       "MarketCodeName": "プライム"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:20:16.146951",
-      "updated_at": "2025-10-03T15:20:16.146953",
+      "created_at": "2025-10-03T15:24:20.188454",
+      "updated_at": "2025-10-03T15:24:20.188457",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
       "price_data_available": true

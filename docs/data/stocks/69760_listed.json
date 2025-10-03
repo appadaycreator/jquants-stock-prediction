@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69760",
+    "generated_at": "2025-10-03T15:45:06.039956",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69760",
+    "name": "太陽誘電",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2630.5,
+    "change": 5.5,
+    "changePercent": 0.20952380952380953,
+    "volume": 1512200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69760",
+      "CompanyName": "太陽誘電",
+      "CompanyNameEnglish": "TAIYO YUDEN CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:31.535216",
+      "updated_at": "2025-10-03T15:38:31.535218",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

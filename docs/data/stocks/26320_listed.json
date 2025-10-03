@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26320",
+    "generated_at": "2025-10-03T15:45:05.766474",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26320",
+    "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳナスダック１００上場投信（為替ヘッジあり）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 14385.0,
+    "change": -60.0,
+    "changePercent": -0.4153686396677051,
+    "volume": 5372,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26320",
+      "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳナスダック１００上場投信（為替ヘッジあり）",
+      "CompanyNameEnglish": "MAXIS NASDAQ100 ETF (JPY Hedged)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:42.765260",
+      "updated_at": "2025-10-03T15:27:42.765262",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

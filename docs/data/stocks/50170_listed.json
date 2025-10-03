@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "50170",
+    "generated_at": "2025-10-03T15:45:05.907942",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "50170",
+    "name": "富士石油",
+    "sector": "エネルギー資源",
+    "market": "プライム",
+    "currentPrice": 324.0,
+    "change": 5.0,
+    "changePercent": 1.5673981191222568,
+    "volume": 389700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "50170",
+      "CompanyName": "富士石油",
+      "CompanyNameEnglish": "Fuji Oil Company,Ltd.",
+      "Sector17Code": "2",
+      "Sector17CodeName": "エネルギー資源",
+      "Sector33Code": "3300",
+      "Sector33CodeName": "石油･石炭製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:24.734648",
+      "updated_at": "2025-10-03T15:34:24.734650",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

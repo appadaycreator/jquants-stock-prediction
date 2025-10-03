@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67520",
+    "generated_at": "2025-10-03T15:45:06.004240",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67520",
+    "name": "パナソニック　ホールディングス",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 1448.0,
+    "change": -14.0,
+    "changePercent": -0.957592339261286,
+    "volume": 9429400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67520",
+      "CompanyName": "パナソニック　ホールディングス",
+      "CompanyNameEnglish": "Panasonic Holdings Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:58.663007",
+      "updated_at": "2025-10-03T15:37:58.663009",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

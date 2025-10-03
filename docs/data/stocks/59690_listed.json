@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59690",
+    "generated_at": "2025-10-03T15:45:05.949150",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59690",
+    "name": "ロブテックス",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1202.0,
+    "change": -52.0,
+    "changePercent": -4.146730462519936,
+    "volume": 1900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59690",
+      "CompanyName": "ロブテックス",
+      "CompanyNameEnglish": "LOBTEX Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:51.100573",
+      "updated_at": "2025-10-03T15:35:51.100575",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

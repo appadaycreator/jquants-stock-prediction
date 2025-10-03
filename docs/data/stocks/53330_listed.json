@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "53330",
+    "generated_at": "2025-10-03T15:45:05.919387",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "53330",
+    "name": "日本碍子",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1828.5,
+    "change": -6.5,
+    "changePercent": -0.35422343324250677,
+    "volume": 686900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "53330",
+      "CompanyName": "日本碍子",
+      "CompanyNameEnglish": "NGK INSULATORS,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:55.219118",
+      "updated_at": "2025-10-03T15:34:55.219120",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

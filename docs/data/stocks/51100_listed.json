@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "51100",
+    "generated_at": "2025-10-03T15:45:05.912231",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "51100",
+    "name": "住友ゴム工業",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 1676.5,
+    "change": -5.0,
+    "changePercent": -0.29735355337496283,
+    "volume": 713900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "51100",
+      "CompanyName": "住友ゴム工業",
+      "CompanyNameEnglish": "Sumitomo Rubber Industries,Ltd.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3350",
+      "Sector33CodeName": "ゴム製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:34.018863",
+      "updated_at": "2025-10-03T15:34:34.018865",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

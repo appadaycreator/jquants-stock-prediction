@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64700",
+    "generated_at": "2025-10-03T15:45:05.981224",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64700",
+    "name": "大豊工業",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 573.0,
+    "change": 5.0,
+    "changePercent": 0.8802816901408451,
+    "volume": 48000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64700",
+      "CompanyName": "大豊工業",
+      "CompanyNameEnglish": "TAIHO KOGYO CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:14.204185",
+      "updated_at": "2025-10-03T15:37:14.204201",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

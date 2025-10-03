@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "46290",
+    "generated_at": "2025-10-03T15:45:05.890007",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "46290",
+    "name": "大伸化学",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 1530.0,
+    "change": 19.0,
+    "changePercent": 1.257445400397088,
+    "volume": 200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "46290",
+      "CompanyName": "大伸化学",
+      "CompanyNameEnglish": "DAISHIN CHEMICAL CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:37.209465",
+      "updated_at": "2025-10-03T15:33:37.209467",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

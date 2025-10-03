@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25120",
+    "generated_at": "2025-10-03T15:45:05.757044",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25120",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　外国債券・ＦＴＳＥ世界国債インデックス（除く日本・為替ヘッジあり）連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 760.4,
+    "change": -1.5,
+    "changePercent": -0.19687623047644048,
+    "volume": 12220,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25120",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　外国債券・ＦＴＳＥ世界国債インデックス（除く日本・為替ヘッジあり）連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS International Bond FTSE World Government Bond Index (ex Japan Yen-Hedged) Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:21.226971",
+      "updated_at": "2025-10-03T15:27:21.226974",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

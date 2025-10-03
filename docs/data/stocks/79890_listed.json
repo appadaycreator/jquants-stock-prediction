@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79890",
+    "generated_at": "2025-10-03T15:45:06.116596",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79890",
+    "name": "立川ブラインド工業",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1733.0,
+    "change": 22.0,
+    "changePercent": 1.2857977790765636,
+    "volume": 11600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79890",
+      "CompanyName": "立川ブラインド工業",
+      "CompanyNameEnglish": "TACHIKAWA CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:08.365908",
+      "updated_at": "2025-10-03T15:41:08.365917",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

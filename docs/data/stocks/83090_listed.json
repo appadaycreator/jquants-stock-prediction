@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "83090",
+    "generated_at": "2025-10-03T15:45:06.131543",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "83090",
+    "name": "三井住友トラストグループ",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 3905.0,
+    "change": 5.0,
+    "changePercent": 0.1282051282051282,
+    "volume": 1996500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "83090",
+      "CompanyName": "三井住友トラストグループ",
+      "CompanyNameEnglish": "Sumitomo Mitsui Trust Group,Inc.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:54.161155",
+      "updated_at": "2025-10-03T15:41:54.161162",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

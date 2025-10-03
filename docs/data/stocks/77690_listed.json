@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77690",
+    "generated_at": "2025-10-03T15:45:06.101988",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77690",
+    "name": "リズム",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 3025.0,
+    "change": 5.0,
+    "changePercent": 0.16556291390728478,
+    "volume": 91000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77690",
+      "CompanyName": "リズム",
+      "CompanyNameEnglish": "RHYTHM CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:33.029275",
+      "updated_at": "2025-10-03T15:40:33.029287",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25690",
+    "generated_at": "2025-10-03T15:45:05.762422",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25690",
+    "name": "日興アセットマネジメント株式会社　上場インデックスファンド米国株式（ＮＡＳＤＡＱ１００）為替ヘッジあり",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 3453.0,
+    "change": -9.0,
+    "changePercent": -0.25996533795493937,
+    "volume": 15637,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25690",
+      "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド米国株式（ＮＡＳＤＡＱ１００）為替ヘッジあり",
+      "CompanyNameEnglish": "Listed Index Fund US Equity (NASDAQ100) Currency Hedge",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:33.607062",
+      "updated_at": "2025-10-03T15:27:33.607068",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

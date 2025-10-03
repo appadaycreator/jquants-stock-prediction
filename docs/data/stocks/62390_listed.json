@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62390",
+    "generated_at": "2025-10-03T15:45:05.964824",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62390",
+    "name": "ナガオカ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1357.0,
+    "change": -10.0,
+    "changePercent": -0.7315288953913679,
+    "volume": 2900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62390",
+      "CompanyName": "ナガオカ",
+      "CompanyNameEnglish": "NAGAOKA INTERNATIONAL CORPORATION",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:35.633348",
+      "updated_at": "2025-10-03T15:36:35.633350",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

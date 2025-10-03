@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "94360",
+    "generated_at": "2025-10-03T15:45:06.188851",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "94360",
+    "name": "沖縄セルラー電話",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 5020.0,
+    "change": 30.0,
+    "changePercent": 0.6012024048096193,
+    "volume": 45700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "94360",
+      "CompanyName": "沖縄セルラー電話",
+      "CompanyNameEnglish": "OKINAWA CELLULAR TELEPHONE COMPANY",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:56.208231",
+      "updated_at": "2025-10-03T15:43:56.208246",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

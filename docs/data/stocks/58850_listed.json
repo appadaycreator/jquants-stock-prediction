@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "58850",
+    "generated_at": "2025-10-03T15:45:05.939736",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "58850",
+    "name": "ジーデップ・アドバンス",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 3585.0,
+    "change": 195.0,
+    "changePercent": 5.752212389380531,
+    "volume": 417300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "58850",
+      "CompanyName": "ジーデップ・アドバンス",
+      "CompanyNameEnglish": "GDEP ADVANCE,Inc.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:37.528657",
+      "updated_at": "2025-10-03T15:35:37.528659",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

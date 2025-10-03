@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93640",
+    "generated_at": "2025-10-03T15:45:06.184638",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93640",
+    "name": "上組",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 4048.0,
+    "change": -23.0,
+    "changePercent": -0.5649717514124294,
+    "volume": 258500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93640",
+      "CompanyName": "上組",
+      "CompanyNameEnglish": "Kamigumi Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:45.313630",
+      "updated_at": "2025-10-03T15:43:45.313639",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

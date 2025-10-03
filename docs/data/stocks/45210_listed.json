@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45210",
+    "generated_at": "2025-10-03T15:45:05.882612",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45210",
+    "name": "科研製薬",
+    "sector": "医薬品",
+    "market": "プライム",
+    "currentPrice": 3775.0,
+    "change": 18.0,
+    "changePercent": 0.47910566941708804,
+    "volume": 110300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45210",
+      "CompanyName": "科研製薬",
+      "CompanyNameEnglish": "KAKEN PHARMACEUTICAL CO.,LTD.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:18.377432",
+      "updated_at": "2025-10-03T15:33:18.377435",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

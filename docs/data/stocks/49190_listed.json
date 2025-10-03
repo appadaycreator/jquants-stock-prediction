@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49190",
+    "generated_at": "2025-10-03T15:45:05.903834",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49190",
+    "name": "ミルボン",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 2434.0,
+    "change": -2.0,
+    "changePercent": -0.08210180623973727,
+    "volume": 99300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49190",
+      "CompanyName": "ミルボン",
+      "CompanyNameEnglish": "Milbon Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:11.825697",
+      "updated_at": "2025-10-03T15:34:11.825699",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

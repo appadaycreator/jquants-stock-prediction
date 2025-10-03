@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26440",
+    "generated_at": "2025-10-03T15:45:05.767595",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26440",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　半導体関連−日本株式　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1980.0,
+    "change": 9.0,
+    "changePercent": 0.45662100456621,
+    "volume": 803285,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26440",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　半導体関連−日本株式　ＥＴＦ",
+      "CompanyNameEnglish": "Global X Japan Semiconductor ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:46.385516",
+      "updated_at": "2025-10-03T15:27:46.385529",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

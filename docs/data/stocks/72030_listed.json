@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72030",
+    "generated_at": "2025-10-03T15:45:06.067036",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72030",
+    "name": "トヨタ自動車",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 2508.0,
+    "change": 6.5,
+    "changePercent": 0.25984409354387367,
+    "volume": 25922800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72030",
+      "CompanyName": "トヨタ自動車",
+      "CompanyNameEnglish": "TOYOTA MOTOR CORPORATION",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Core30",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:09.672166",
+      "updated_at": "2025-10-03T15:39:09.672168",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59330",
+    "generated_at": "2025-10-03T15:45:05.945870",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59330",
+    "name": "アルインコ",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1028.0,
+    "change": 6.0,
+    "changePercent": 0.5870841487279843,
+    "volume": 9800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59330",
+      "CompanyName": "アルインコ",
+      "CompanyNameEnglish": "ALINCO INCORPORATED",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:44.465698",
+      "updated_at": "2025-10-03T15:35:44.465700",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

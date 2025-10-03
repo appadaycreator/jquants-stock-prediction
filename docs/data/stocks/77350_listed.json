@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77350",
+    "generated_at": "2025-10-03T15:45:06.100747",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77350",
+    "name": "ＳＣＲＥＥＮホールディングス",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 11980.0,
+    "change": -150.0,
+    "changePercent": -1.2366034624896949,
+    "volume": 1050100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77350",
+      "CompanyName": "ＳＣＲＥＥＮホールディングス",
+      "CompanyNameEnglish": "SCREEN Holdings Co.,Ltd.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:28.896643",
+      "updated_at": "2025-10-03T15:40:28.896652",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

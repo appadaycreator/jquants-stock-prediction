@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92200",
+    "generated_at": "2025-10-03T15:45:06.174233",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92200",
+    "name": "エフビー介護サービス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1045.0,
+    "change": -16.0,
+    "changePercent": -1.5080113100848256,
+    "volume": 400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92200",
+      "CompanyName": "エフビー介護サービス",
+      "CompanyNameEnglish": "FB CARE SERVICE CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:16.136255",
+      "updated_at": "2025-10-03T15:43:16.136264",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

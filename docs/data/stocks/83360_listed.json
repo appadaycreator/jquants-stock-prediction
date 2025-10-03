@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "83360",
+    "generated_at": "2025-10-03T15:45:06.131871",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "83360",
+    "name": "武蔵野銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 3505.0,
+    "change": 40.0,
+    "changePercent": 1.1544011544011543,
+    "volume": 97500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "83360",
+      "CompanyName": "武蔵野銀行",
+      "CompanyNameEnglish": "The Musashino Bank,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:55.458561",
+      "updated_at": "2025-10-03T15:41:55.458573",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67550",
+    "generated_at": "2025-10-03T15:45:06.007510",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67550",
+    "name": "富士通ゼネラル",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2798.0,
+    "change": 1.0,
+    "changePercent": 0.03575259206292456,
+    "volume": 140900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67550",
+      "CompanyName": "富士通ゼネラル",
+      "CompanyNameEnglish": "FUJITSU GENERAL LIMITED",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:59.457476",
+      "updated_at": "2025-10-03T15:37:59.457478",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

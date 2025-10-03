@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "35290",
+    "generated_at": "2025-10-03T15:45:05.820462",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "35290",
+    "name": "アツギ",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 1235.0,
+    "change": -13.0,
+    "changePercent": -1.0416666666666665,
+    "volume": 22900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "35290",
+      "CompanyName": "アツギ",
+      "CompanyNameEnglish": "ATSUGI CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:33.117737",
+      "updated_at": "2025-10-03T15:30:33.117747",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

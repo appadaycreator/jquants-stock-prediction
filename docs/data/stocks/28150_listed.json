@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28150",
+    "generated_at": "2025-10-03T15:45:05.776646",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28150",
+    "name": "アリアケジャパン",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 6530.0,
+    "change": -50.0,
+    "changePercent": -0.7598784194528876,
+    "volume": 38500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28150",
+      "CompanyName": "アリアケジャパン",
+      "CompanyNameEnglish": "ARIAKE JAPAN Co.,Ltd.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:14.065194",
+      "updated_at": "2025-10-03T15:28:14.065197",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26590",
+    "generated_at": "2025-10-03T15:45:05.768520",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26590",
+    "name": "サンエー",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 2954.0,
+    "change": -17.0,
+    "changePercent": -0.572197913160552,
+    "volume": 109900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26590",
+      "CompanyName": "サンエー",
+      "CompanyNameEnglish": "SAN-A CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:49.749485",
+      "updated_at": "2025-10-03T15:27:49.749488",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

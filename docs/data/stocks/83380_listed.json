@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "83380",
+    "generated_at": "2025-10-03T15:45:06.132028",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "83380",
+    "name": "筑波銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 246.0,
+    "change": 3.0,
+    "changePercent": 1.2345679012345678,
+    "volume": 1158900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "83380",
+      "CompanyName": "筑波銀行",
+      "CompanyNameEnglish": "Tsukuba Bank,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:56.032441",
+      "updated_at": "2025-10-03T15:41:56.032450",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

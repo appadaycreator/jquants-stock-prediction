@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "54800",
+    "generated_at": "2025-10-03T15:45:05.923938",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "54800",
+    "name": "日本冶金工業",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 4115.0,
+    "change": 25.0,
+    "changePercent": 0.6112469437652812,
+    "volume": 90400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "54800",
+      "CompanyName": "日本冶金工業",
+      "CompanyNameEnglish": "Nippon Yakin kogyo Co.,Ltd.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3450",
+      "Sector33CodeName": "鉄鋼",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:05.832489",
+      "updated_at": "2025-10-03T15:35:05.832491",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

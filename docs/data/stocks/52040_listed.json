@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "52040",
+    "generated_at": "2025-10-03T15:45:05.914782",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "52040",
+    "name": "石塚硝子",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 2549.0,
+    "change": 39.0,
+    "changePercent": 1.5537848605577689,
+    "volume": 4000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "52040",
+      "CompanyName": "石塚硝子",
+      "CompanyNameEnglish": "ISHIZUKA GLASS CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:42.340866",
+      "updated_at": "2025-10-03T15:34:42.340868",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

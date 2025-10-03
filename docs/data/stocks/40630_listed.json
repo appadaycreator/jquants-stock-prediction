@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40630",
+    "generated_at": "2025-10-03T15:45:05.852502",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40630",
+    "name": "信越化学工業",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 4695.0,
+    "change": -25.0,
+    "changePercent": -0.5296610169491525,
+    "volume": 6152000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40630",
+      "CompanyName": "信越化学工業",
+      "CompanyNameEnglish": "Shin-Etsu Chemical Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Core30",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:06.591004",
+      "updated_at": "2025-10-03T15:32:06.591007",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

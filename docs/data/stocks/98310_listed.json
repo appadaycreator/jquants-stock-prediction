@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "98310",
+    "generated_at": "2025-10-03T15:45:06.205398",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "98310",
+    "name": "ヤマダホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 457.1,
+    "change": -2.7999999999999545,
+    "changePercent": -0.6088280060882703,
+    "volume": 3103700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "98310",
+      "CompanyName": "ヤマダホールディングス",
+      "CompanyNameEnglish": "YAMADA HOLDINGS CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:42.370676",
+      "updated_at": "2025-10-03T15:44:42.370690",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "55350",
+    "generated_at": "2025-10-03T15:45:05.924801",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "55350",
+    "name": "ミガロホールディングス",
+    "sector": "不動産",
+    "market": "プライム",
+    "currentPrice": 985.0,
+    "change": -13.0,
+    "changePercent": -1.3026052104208417,
+    "volume": 468900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "55350",
+      "CompanyName": "ミガロホールディングス",
+      "CompanyNameEnglish": "MIGALO HOLDINGS Inc.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:08.729402",
+      "updated_at": "2025-10-03T15:35:08.729404",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

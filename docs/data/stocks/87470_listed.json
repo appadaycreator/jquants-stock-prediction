@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "87470",
+    "generated_at": "2025-10-03T15:45:06.141524",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "87470",
+    "name": "豊トラスティ証券",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 1524.0,
+    "change": -17.0,
+    "changePercent": -1.1031797534068788,
+    "volume": 1100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "87470",
+      "CompanyName": "豊トラスティ証券",
+      "CompanyNameEnglish": "YUTAKA TRUSTY SECURITIES CO.,LTD.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:23.469399",
+      "updated_at": "2025-10-03T15:42:23.469410",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

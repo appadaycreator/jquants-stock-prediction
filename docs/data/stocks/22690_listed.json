@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22690",
+    "generated_at": "2025-10-03T15:45:05.741453",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22690",
+    "name": "明治ホールディングス",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 3115.0,
+    "change": 23.0,
+    "changePercent": 0.7438551099611902,
+    "volume": 904400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22690",
+      "CompanyName": "明治ホールディングス",
+      "CompanyNameEnglish": "Meiji Holdings Co.,Ltd.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:43.897081",
+      "updated_at": "2025-10-03T15:26:43.897084",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

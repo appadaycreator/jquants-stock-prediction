@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "42040",
+    "generated_at": "2025-10-03T15:45:05.860653",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "42040",
+    "name": "積水化学工業",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 2566.0,
+    "change": -5.5,
+    "changePercent": -0.21388294769589733,
+    "volume": 1449300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "42040",
+      "CompanyName": "積水化学工業",
+      "CompanyNameEnglish": "Sekisui Chemical Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:25.128640",
+      "updated_at": "2025-10-03T15:32:25.128644",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

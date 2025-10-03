@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33410",
+    "generated_at": "2025-10-03T15:45:05.809101",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33410",
+    "name": "日本調剤",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 3105.0,
+    "change": 25.0,
+    "changePercent": 0.8116883116883116,
+    "volume": 76600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33410",
+      "CompanyName": "日本調剤",
+      "CompanyNameEnglish": "NIHON CHOUZAI Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:54.983601",
+      "updated_at": "2025-10-03T15:29:54.983605",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

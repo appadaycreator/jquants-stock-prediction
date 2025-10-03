@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92010",
+    "generated_at": "2025-10-03T15:45:06.172312",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92010",
+    "name": "日本航空",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 2963.0,
+    "change": 17.0,
+    "changePercent": 0.5770536320434487,
+    "volume": 2501400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92010",
+      "CompanyName": "日本航空",
+      "CompanyNameEnglish": "Japan Airlines Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5150",
+      "Sector33CodeName": "空運業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:12.264980",
+      "updated_at": "2025-10-03T15:43:12.264998",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

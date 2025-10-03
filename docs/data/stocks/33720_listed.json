@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33720",
+    "generated_at": "2025-10-03T15:45:05.810457",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33720",
+    "name": "関門海",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 239.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 5200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33720",
+      "CompanyName": "関門海",
+      "CompanyNameEnglish": "KANMONKAI Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:59.934385",
+      "updated_at": "2025-10-03T15:29:59.934389",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

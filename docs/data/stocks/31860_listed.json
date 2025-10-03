@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31860",
+    "generated_at": "2025-10-03T15:45:05.800916",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31860",
+    "name": "ネクステージ",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 1944.0,
+    "change": 24.0,
+    "changePercent": 1.25,
+    "volume": 1416100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31860",
+      "CompanyName": "ネクステージ",
+      "CompanyNameEnglish": "NEXTAGE Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:28.293873",
+      "updated_at": "2025-10-03T15:29:28.293880",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

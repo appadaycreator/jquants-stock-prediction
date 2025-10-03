@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "80070",
+    "generated_at": "2025-10-03T15:45:06.117540",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "80070",
+    "name": "高島",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 1592.0,
+    "change": 22.0,
+    "changePercent": 1.4012738853503186,
+    "volume": 150700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "80070",
+      "CompanyName": "高島",
+      "CompanyNameEnglish": "Takashima & Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:11.899637",
+      "updated_at": "2025-10-03T15:41:11.899653",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

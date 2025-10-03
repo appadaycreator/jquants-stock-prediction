@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "89120",
+    "generated_at": "2025-10-03T15:45:06.146040",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "89120",
+    "name": "エリアクエスト",
+    "sector": "不動産",
+    "market": "スタンダード",
+    "currentPrice": 163.0,
+    "change": -2.0,
+    "changePercent": -1.2121212121212122,
+    "volume": 38200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "89120",
+      "CompanyName": "エリアクエスト",
+      "CompanyNameEnglish": "Area Quest Inc.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:34.590643",
+      "updated_at": "2025-10-03T15:42:34.590654",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

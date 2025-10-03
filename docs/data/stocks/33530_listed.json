@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33530",
+    "generated_at": "2025-10-03T15:45:05.809546",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33530",
+    "name": "メディカル一光グループ",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 2800.0,
+    "change": 132.0,
+    "changePercent": 4.94752623688156,
+    "volume": 23000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33530",
+      "CompanyName": "メディカル一光グループ",
+      "CompanyNameEnglish": "Medical Ikkou Group Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:56.924811",
+      "updated_at": "2025-10-03T15:29:56.924817",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

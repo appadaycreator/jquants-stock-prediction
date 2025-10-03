@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39580",
+    "generated_at": "2025-10-03T15:45:05.845845",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39580",
+    "name": "笹徳印刷",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 530.0,
+    "change": -3.0,
+    "changePercent": -0.5628517823639775,
+    "volume": 5600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39580",
+      "CompanyName": "笹徳印刷",
+      "CompanyNameEnglish": "Sasatoku Printing Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:47.555307",
+      "updated_at": "2025-10-03T15:31:47.555311",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

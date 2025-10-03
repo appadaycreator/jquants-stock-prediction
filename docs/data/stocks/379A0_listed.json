@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "379A0",
+    "generated_at": "2025-10-03T15:45:05.836164",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "379A0",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　Ｓ＆Ｐ５００　ＥＴＦ（ダイナミック・プロテクション）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1053.0,
+    "change": 5.0,
+    "changePercent": 0.4770992366412214,
+    "volume": 3780,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "379A0",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　Ｓ＆Ｐ５００　ＥＴＦ（ダイナミック・プロテクション）",
+      "CompanyNameEnglish": "Global X S&P 500 ETF (Dynamic Protection)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:19.259880",
+      "updated_at": "2025-10-03T15:31:19.259885",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

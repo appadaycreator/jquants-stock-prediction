@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "99410",
+    "generated_at": "2025-10-03T15:45:06.209531",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "99410",
+    "name": "太洋物産",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 999.0,
+    "change": 5.0,
+    "changePercent": 0.5030181086519114,
+    "volume": 3500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "99410",
+      "CompanyName": "太洋物産",
+      "CompanyNameEnglish": "TAIYO BUSSAN KAISHA,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:56.744708",
+      "updated_at": "2025-10-03T15:44:56.744722",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33910",
+    "generated_at": "2025-10-03T15:45:05.811472",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33910",
+    "name": "ツルハホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 11380.0,
+    "change": 155.0,
+    "changePercent": 1.380846325167038,
+    "volume": 244100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33910",
+      "CompanyName": "ツルハホールディングス",
+      "CompanyNameEnglish": "TSURUHA HOLDINGS INC.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:02.354798",
+      "updated_at": "2025-10-03T15:30:02.354802",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

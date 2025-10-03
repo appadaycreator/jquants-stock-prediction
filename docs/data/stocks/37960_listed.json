@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "37960",
+    "generated_at": "2025-10-03T15:45:05.835588",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "37960",
+    "name": "いい生活",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 488.0,
+    "change": 1.0,
+    "changePercent": 0.20533880903490762,
+    "volume": 1600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "37960",
+      "CompanyName": "いい生活",
+      "CompanyNameEnglish": "e-Seikatsu Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:18.483029",
+      "updated_at": "2025-10-03T15:31:18.483033",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

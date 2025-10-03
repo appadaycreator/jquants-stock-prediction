@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "70210",
+    "generated_at": "2025-10-03T15:45:06.045648",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "70210",
+    "name": "ニッチツ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1968.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 1100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "70210",
+      "CompanyName": "ニッチツ",
+      "CompanyNameEnglish": "NITCHITSU CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:37.266095",
+      "updated_at": "2025-10-03T15:38:37.266097",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

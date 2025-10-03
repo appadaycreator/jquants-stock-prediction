@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "99780",
+    "generated_at": "2025-10-03T15:45:06.210723",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "99780",
+    "name": "文教堂グループホールディングス",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 57.0,
+    "change": -2.0,
+    "changePercent": -3.389830508474576,
+    "volume": 459800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "99780",
+      "CompanyName": "文教堂グループホールディングス",
+      "CompanyNameEnglish": "BUNKYODO GROUP HOLDINGS CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:45:00.967885",
+      "updated_at": "2025-10-03T15:45:00.967894",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

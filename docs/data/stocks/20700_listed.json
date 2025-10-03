@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20700",
+    "generated_at": "2025-10-03T15:45:05.728289",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20700",
+    "name": "三菱ＵＦＪ証券ホールディングス株式会社　スマートＥＳＧ３０女性活躍（ネットリターン）ＥＴＮ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:26:07.633652",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20700",
+      "CompanyName": "三菱ＵＦＪ証券ホールディングス株式会社　スマートＥＳＧ３０女性活躍（ネットリターン）ＥＴＮ",
+      "CompanyNameEnglish": "Smart ESG 30 Empowering Women Net Return ETN",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:07.633657",
+      "updated_at": "2025-10-03T15:26:07.633658",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

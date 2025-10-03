@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "346A0",
+    "generated_at": "2025-10-03T15:45:05.817134",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "346A0",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　Ｓ＆Ｐ　５００　半導体・半導体製造装置３５％キャップ指数連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2558.0,
+    "change": 8.0,
+    "changePercent": 0.3137254901960784,
+    "volume": 34759,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "346A0",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　Ｓ＆Ｐ　５００　半導体・半導体製造装置３５％キャップ指数連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS S&P 500 Semiconductors & Semiconductor Equipment (Industry Group) 35% Capped Index Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:21.585923",
+      "updated_at": "2025-10-03T15:30:21.585926",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

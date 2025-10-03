@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45400",
+    "generated_at": "2025-10-03T15:45:05.883886",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45400",
+    "name": "ツムラ",
+    "sector": "医薬品",
+    "market": "プライム",
+    "currentPrice": 3552.0,
+    "change": -14.0,
+    "changePercent": -0.3925967470555244,
+    "volume": 467400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45400",
+      "CompanyName": "ツムラ",
+      "CompanyNameEnglish": "TSUMURA & CO.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:21.670039",
+      "updated_at": "2025-10-03T15:33:21.670042",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

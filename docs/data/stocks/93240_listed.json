@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93240",
+    "generated_at": "2025-10-03T15:45:06.181436",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93240",
+    "name": "安田倉庫",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 1832.0,
+    "change": 7.0,
+    "changePercent": 0.3835616438356164,
+    "volume": 24900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93240",
+      "CompanyName": "安田倉庫",
+      "CompanyNameEnglish": "Yasuda Logistics Corporation",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:35.670506",
+      "updated_at": "2025-10-03T15:43:35.670522",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

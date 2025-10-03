@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32790",
+    "generated_at": "2025-10-03T15:45:05.805539",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32790",
+    "name": "アクティビア・プロパティーズ投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 124800.0,
+    "change": 400.0,
+    "changePercent": 0.3215434083601286,
+    "volume": 5171,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32790",
+      "CompanyName": "アクティビア・プロパティーズ投資法人",
+      "CompanyNameEnglish": "Activia Properties Inc.",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:44.118697",
+      "updated_at": "2025-10-03T15:29:44.118704",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

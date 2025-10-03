@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39480",
+    "generated_at": "2025-10-03T15:45:05.844894",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39480",
+    "name": "光ビジネスフォーム",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 1225.0,
+    "change": -15.0,
+    "changePercent": -1.2096774193548387,
+    "volume": 13600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39480",
+      "CompanyName": "光ビジネスフォーム",
+      "CompanyNameEnglish": "HIKARI BUSINESS FORM CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:45.877262",
+      "updated_at": "2025-10-03T15:31:45.877265",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

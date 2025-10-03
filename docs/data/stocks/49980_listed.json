@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49980",
+    "generated_at": "2025-10-03T15:45:05.907388",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49980",
+    "name": "フマキラー",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 1102.0,
+    "change": 6.0,
+    "changePercent": 0.5474452554744526,
+    "volume": 14500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49980",
+      "CompanyName": "フマキラー",
+      "CompanyNameEnglish": "FUMAKILLA LIMITED",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:22.846451",
+      "updated_at": "2025-10-03T15:34:22.846498",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

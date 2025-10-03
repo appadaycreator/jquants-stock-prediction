@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "86170",
+    "generated_at": "2025-10-03T15:45:06.139355",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "86170",
+    "name": "光世証券",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 429.0,
+    "change": 1.0,
+    "changePercent": 0.23364485981308408,
+    "volume": 10400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "86170",
+      "CompanyName": "光世証券",
+      "CompanyNameEnglish": "The Kosei Securities Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:17.114138",
+      "updated_at": "2025-10-03T15:42:17.114153",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90810",
+    "generated_at": "2025-10-03T15:45:06.166206",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90810",
+    "name": "神奈川中央交通",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 3500.0,
+    "change": -5.0,
+    "changePercent": -0.14265335235378032,
+    "volume": 10000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90810",
+      "CompanyName": "神奈川中央交通",
+      "CompanyNameEnglish": "Kanagawa Chuo Kotsu Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:02.121410",
+      "updated_at": "2025-10-03T15:43:02.121422",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

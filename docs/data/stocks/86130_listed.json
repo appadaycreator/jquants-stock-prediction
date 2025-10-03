@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "86130",
+    "generated_at": "2025-10-03T15:45:06.139116",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "86130",
+    "name": "丸三証券",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 913.0,
+    "change": 6.0,
+    "changePercent": 0.6615214994487321,
+    "volume": 218400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "86130",
+      "CompanyName": "丸三証券",
+      "CompanyNameEnglish": "Marusan Securities Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:16.231195",
+      "updated_at": "2025-10-03T15:42:16.231204",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

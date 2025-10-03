@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59920",
+    "generated_at": "2025-10-03T15:45:05.952126",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59920",
+    "name": "中央発條",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1955.0,
+    "change": 72.0,
+    "changePercent": 3.8236856080722257,
+    "volume": 102100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59920",
+      "CompanyName": "中央発條",
+      "CompanyNameEnglish": "CHUO SPRING CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:56.254344",
+      "updated_at": "2025-10-03T15:35:56.254346",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

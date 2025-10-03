@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "61370",
+    "generated_at": "2025-10-03T15:45:05.958797",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "61370",
+    "name": "小池酸素工業",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1288.0,
+    "change": -40.0,
+    "changePercent": -3.0120481927710845,
+    "volume": 43700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "61370",
+      "CompanyName": "小池酸素工業",
+      "CompanyNameEnglish": "KOIKE SANSO KOGYO CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:17.002665",
+      "updated_at": "2025-10-03T15:36:17.002667",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

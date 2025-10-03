@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43070",
+    "generated_at": "2025-10-03T15:45:05.867499",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43070",
+    "name": "野村総合研究所",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 5292.0,
+    "change": -88.0,
+    "changePercent": -1.6356877323420074,
+    "volume": 1125100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43070",
+      "CompanyName": "野村総合研究所",
+      "CompanyNameEnglish": "Nomura Research Institute,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:39.779785",
+      "updated_at": "2025-10-03T15:32:39.779788",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

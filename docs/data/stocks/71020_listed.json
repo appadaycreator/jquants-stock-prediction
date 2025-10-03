@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71020",
+    "generated_at": "2025-10-03T15:45:06.059028",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71020",
+    "name": "日本車輌製造",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 2068.0,
+    "change": -17.0,
+    "changePercent": -0.815347721822542,
+    "volume": 3000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71020",
+      "CompanyName": "日本車輌製造",
+      "CompanyNameEnglish": "NIPPON SHARYO,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:54.113874",
+      "updated_at": "2025-10-03T15:38:54.113876",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

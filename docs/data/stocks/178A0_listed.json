@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "178A0",
+    "generated_at": "2025-10-03T15:45:05.708580",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "178A0",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　革新的優良企業　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1234.0,
+    "change": 5.0,
+    "changePercent": 0.40683482506102525,
+    "volume": 15135,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "178A0",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　革新的優良企業　ＥＴＦ",
+      "CompanyNameEnglish": "Global X Innovative Bluechip Top 10+ ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:22.920504",
+      "updated_at": "2025-10-03T15:25:22.920507",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

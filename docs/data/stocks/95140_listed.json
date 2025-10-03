@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "95140",
+    "generated_at": "2025-10-03T15:45:06.191953",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "95140",
+    "name": "エフオン",
+    "sector": "電気・ガス",
+    "market": "スタンダード",
+    "currentPrice": 331.0,
+    "change": 6.0,
+    "changePercent": 1.8461538461538463,
+    "volume": 51800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "95140",
+      "CompanyName": "エフオン",
+      "CompanyNameEnglish": "EF-ON INC.",
+      "Sector17Code": "11",
+      "Sector17CodeName": "電気・ガス",
+      "Sector33Code": "4050",
+      "Sector33CodeName": "電気･ガス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:04.660256",
+      "updated_at": "2025-10-03T15:44:04.660262",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

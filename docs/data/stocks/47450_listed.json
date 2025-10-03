@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "47450",
+    "generated_at": "2025-10-03T15:45:05.896623",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "47450",
+    "name": "東京個別指導学院",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 357.0,
+    "change": -1.0,
+    "changePercent": -0.27932960893854747,
+    "volume": 94700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "47450",
+      "CompanyName": "東京個別指導学院",
+      "CompanyNameEnglish": "Tokyo Individualized Educational Institute,INC.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:52.284872",
+      "updated_at": "2025-10-03T15:33:52.284875",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

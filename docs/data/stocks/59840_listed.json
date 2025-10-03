@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59840",
+    "generated_at": "2025-10-03T15:45:05.951410",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59840",
+    "name": "兼房",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 661.0,
+    "change": -7.0,
+    "changePercent": -1.0479041916167664,
+    "volume": 11800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59840",
+      "CompanyName": "兼房",
+      "CompanyNameEnglish": "KANEFUSA CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:53.849917",
+      "updated_at": "2025-10-03T15:35:53.849919",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

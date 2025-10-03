@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33190",
+    "generated_at": "2025-10-03T15:45:05.808041",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33190",
+    "name": "ゴルフダイジェスト・オンライン",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 427.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 56900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33190",
+      "CompanyName": "ゴルフダイジェスト・オンライン",
+      "CompanyNameEnglish": "Golf Digest Online Inc.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:52.062971",
+      "updated_at": "2025-10-03T15:29:52.062975",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

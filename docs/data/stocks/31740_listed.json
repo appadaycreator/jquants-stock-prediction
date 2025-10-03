@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31740",
+    "generated_at": "2025-10-03T15:45:05.799848",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31740",
+    "name": "ハピネス・アンド・ディ",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 730.0,
+    "change": 2.0,
+    "changePercent": 0.27472527472527475,
+    "volume": 1800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31740",
+      "CompanyName": "ハピネス・アンド・ディ",
+      "CompanyNameEnglish": "Happiness and D Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:24.258327",
+      "updated_at": "2025-10-03T15:29:24.258343",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

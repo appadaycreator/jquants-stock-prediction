@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "51250",
+    "generated_at": "2025-10-03T15:45:05.912458",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "51250",
+    "name": "ファインズ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 538.0,
+    "change": -1.0,
+    "changePercent": -0.1855287569573284,
+    "volume": 8800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "51250",
+      "CompanyName": "ファインズ",
+      "CompanyNameEnglish": "Fines inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:34.831580",
+      "updated_at": "2025-10-03T15:34:34.831582",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

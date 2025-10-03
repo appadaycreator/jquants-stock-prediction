@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "50360",
+    "generated_at": "2025-10-03T15:45:05.909421",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "50360",
+    "name": "日本ビジネスシステムズ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1402.0,
+    "change": -18.0,
+    "changePercent": -1.267605633802817,
+    "volume": 56300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "50360",
+      "CompanyName": "日本ビジネスシステムズ",
+      "CompanyNameEnglish": "Japan Business Systems,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:29.378821",
+      "updated_at": "2025-10-03T15:34:29.378823",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

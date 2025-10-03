@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "94680",
+    "generated_at": "2025-10-03T15:45:06.189825",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "94680",
+    "name": "ＫＡＤＯＫＡＷＡ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 3837.0,
+    "change": -93.0,
+    "changePercent": -2.366412213740458,
+    "volume": 524300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "94680",
+      "CompanyName": "ＫＡＤＯＫＡＷＡ",
+      "CompanyNameEnglish": "KADOKAWA CORPORATION",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:59.462584",
+      "updated_at": "2025-10-03T15:43:59.462597",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

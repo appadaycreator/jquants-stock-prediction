@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22820",
+    "generated_at": "2025-10-03T15:45:05.741844",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22820",
+    "name": "日本ハム",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 4891.0,
+    "change": -17.0,
+    "changePercent": -0.3463732681336593,
+    "volume": 432800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22820",
+      "CompanyName": "日本ハム",
+      "CompanyNameEnglish": "NH Foods Ltd.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:45.231941",
+      "updated_at": "2025-10-03T15:26:45.231945",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

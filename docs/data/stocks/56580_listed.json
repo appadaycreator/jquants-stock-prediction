@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "56580",
+    "generated_at": "2025-10-03T15:45:05.929043",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "56580",
+    "name": "日亜鋼業",
+    "sector": "鉄鋼・非鉄",
+    "market": "スタンダード",
+    "currentPrice": 307.0,
+    "change": -2.0,
+    "changePercent": -0.6472491909385114,
+    "volume": 31900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "56580",
+      "CompanyName": "日亜鋼業",
+      "CompanyNameEnglish": "NICHIA STEEL WORKS,LTD.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3450",
+      "Sector33CodeName": "鉄鋼",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:21.752145",
+      "updated_at": "2025-10-03T15:35:21.752147",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

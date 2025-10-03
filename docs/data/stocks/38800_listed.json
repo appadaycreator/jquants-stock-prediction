@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "38800",
+    "generated_at": "2025-10-03T15:45:05.840004",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "38800",
+    "name": "大王製紙",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 860.0,
+    "change": 14.0,
+    "changePercent": 1.6548463356973995,
+    "volume": 265700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "38800",
+      "CompanyName": "大王製紙",
+      "CompanyNameEnglish": "Daio Paper Corporation",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:32.307032",
+      "updated_at": "2025-10-03T15:31:32.307043",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

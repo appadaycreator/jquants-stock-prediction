@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79900",
+    "generated_at": "2025-10-03T15:45:06.116673",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79900",
+    "name": "グローブライド",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2202.0,
+    "change": 43.0,
+    "changePercent": 1.9916628068550255,
+    "volume": 71000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79900",
+      "CompanyName": "グローブライド",
+      "CompanyNameEnglish": "GLOBERIDE,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:08.644799",
+      "updated_at": "2025-10-03T15:41:08.644810",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

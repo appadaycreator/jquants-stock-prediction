@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "82910",
+    "generated_at": "2025-10-03T15:45:06.130897",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "82910",
+    "name": "日産東京販売ホールディングス",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 498.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 101500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "82910",
+      "CompanyName": "日産東京販売ホールディングス",
+      "CompanyNameEnglish": "NISSAN TOKYO SALES HOLDINGS CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:52.597596",
+      "updated_at": "2025-10-03T15:41:52.597611",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

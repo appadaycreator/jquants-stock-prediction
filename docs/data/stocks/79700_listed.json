@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79700",
+    "generated_at": "2025-10-03T15:45:06.115076",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79700",
+    "name": "信越ポリマー",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 1705.0,
+    "change": 1.0,
+    "changePercent": 0.05868544600938967,
+    "volume": 101200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79700",
+      "CompanyName": "信越ポリマー",
+      "CompanyNameEnglish": "Shin-Etsu Polymer Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:03.889786",
+      "updated_at": "2025-10-03T15:41:03.889802",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

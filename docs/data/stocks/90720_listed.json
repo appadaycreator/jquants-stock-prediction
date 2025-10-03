@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90720",
+    "generated_at": "2025-10-03T15:45:06.165744",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90720",
+    "name": "ニッコンホールディングス",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 3237.0,
+    "change": 1.0,
+    "changePercent": 0.030902348578491962,
+    "volume": 214100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90720",
+      "CompanyName": "ニッコンホールディングス",
+      "CompanyNameEnglish": "NIKKON Holdings Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:00.659632",
+      "updated_at": "2025-10-03T15:43:00.659641",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

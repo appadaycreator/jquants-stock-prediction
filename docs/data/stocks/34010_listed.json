@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34010",
+    "generated_at": "2025-10-03T15:45:05.812231",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34010",
+    "name": "帝人",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 1243.5,
+    "change": 21.0,
+    "changePercent": 1.7177914110429449,
+    "volume": 1259000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34010",
+      "CompanyName": "帝人",
+      "CompanyNameEnglish": "TEIJIN LIMITED",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:04.513259",
+      "updated_at": "2025-10-03T15:30:04.513262",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

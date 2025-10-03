@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32820",
+    "generated_at": "2025-10-03T15:45:05.805765",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32820",
+    "name": "コンフォリア・レジデンシャル投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 290400.0,
+    "change": -1600.0,
+    "changePercent": -0.547945205479452,
+    "volume": 1741,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32820",
+      "CompanyName": "コンフォリア・レジデンシャル投資法人",
+      "CompanyNameEnglish": "Comforia Residential REIT,Inc",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:45.046606",
+      "updated_at": "2025-10-03T15:29:45.046615",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

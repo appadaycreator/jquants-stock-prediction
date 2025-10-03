@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93510",
+    "generated_at": "2025-10-03T15:45:06.184076",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93510",
+    "name": "東洋埠頭",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 1408.0,
+    "change": 12.0,
+    "changePercent": 0.8595988538681949,
+    "volume": 8200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93510",
+      "CompanyName": "東洋埠頭",
+      "CompanyNameEnglish": "TOYO WHARF & WAREHOUSE CO.,LTD.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:42.228736",
+      "updated_at": "2025-10-03T15:43:42.228741",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

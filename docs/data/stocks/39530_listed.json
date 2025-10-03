@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39530",
+    "generated_at": "2025-10-03T15:45:05.845591",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39530",
+    "name": "大村紙業",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 805.0,
+    "change": -5.0,
+    "changePercent": -0.6172839506172839,
+    "volume": 5000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39530",
+      "CompanyName": "大村紙業",
+      "CompanyNameEnglish": "OHMURA SHIGYO CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:46.668345",
+      "updated_at": "2025-10-03T15:31:46.668347",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

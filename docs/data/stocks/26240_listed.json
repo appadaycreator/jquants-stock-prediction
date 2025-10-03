@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26240",
+    "generated_at": "2025-10-03T15:45:05.765659",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26240",
+    "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経２２５（年４回決算型）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 3977.0,
+    "change": -29.0,
+    "changePercent": -0.7239141288067897,
+    "volume": 531,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26240",
+      "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経２２５（年４回決算型）",
+      "CompanyNameEnglish": "iFreeETF Nikkei225 (Quarterly Dividend Type)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:40.299051",
+      "updated_at": "2025-10-03T15:27:40.299053",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

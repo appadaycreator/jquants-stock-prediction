@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "80600",
+    "generated_at": "2025-10-03T15:45:06.120774",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "80600",
+    "name": "キヤノンマーケティングジャパン",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 5072.0,
+    "change": -33.0,
+    "changePercent": -0.6464250734573947,
+    "volume": 84900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "80600",
+      "CompanyName": "キヤノンマーケティングジャパン",
+      "CompanyNameEnglish": "Canon Marketing Japan Inc.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:21.573452",
+      "updated_at": "2025-10-03T15:41:21.573463",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

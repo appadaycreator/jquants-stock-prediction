@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "86240",
+    "generated_at": "2025-10-03T15:45:06.139678",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "86240",
+    "name": "いちよし証券",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 793.0,
+    "change": 4.0,
+    "changePercent": 0.5069708491761723,
+    "volume": 139000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "86240",
+      "CompanyName": "いちよし証券",
+      "CompanyNameEnglish": "Ichiyoshi Securities Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:17.685463",
+      "updated_at": "2025-10-03T15:42:17.685477",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

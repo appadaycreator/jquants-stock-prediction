@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49570",
+    "generated_at": "2025-10-03T15:45:05.905293",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49570",
+    "name": "ヤスハラケミカル",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 798.0,
+    "change": -1.0,
+    "changePercent": -0.1251564455569462,
+    "volume": 800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49570",
+      "CompanyName": "ヤスハラケミカル",
+      "CompanyNameEnglish": "YASUHARA CHEMICAL CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:16.654672",
+      "updated_at": "2025-10-03T15:34:16.654676",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

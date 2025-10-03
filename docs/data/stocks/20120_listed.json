@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20120",
+    "generated_at": "2025-10-03T15:45:05.724612",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20120",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米国債０−３ヶ月　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 214.5,
+    "change": 1.3000000000000114,
+    "changePercent": 0.609756097560981,
+    "volume": 15060,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20120",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米国債０−３ヶ月　ＥＴＦ",
+      "CompanyNameEnglish": "iShares 0-3 Month US Treasury Bond ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:56.703531",
+      "updated_at": "2025-10-03T15:25:56.703533",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

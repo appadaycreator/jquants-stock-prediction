@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77620",
+    "generated_at": "2025-10-03T15:45:06.101910",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77620",
+    "name": "シチズン時計",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 856.0,
+    "change": -3.0,
+    "changePercent": -0.3492433061699651,
+    "volume": 975700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77620",
+      "CompanyName": "シチズン時計",
+      "CompanyNameEnglish": "Citizen Watch Co.,Ltd.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:32.732991",
+      "updated_at": "2025-10-03T15:40:32.733008",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

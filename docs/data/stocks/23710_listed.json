@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "23710",
+    "generated_at": "2025-10-03T15:45:05.746366",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "23710",
+    "name": "カカクコム",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2615.0,
+    "change": -36.0,
+    "changePercent": -1.3579781214635986,
+    "volume": 443800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "23710",
+      "CompanyName": "カカクコム",
+      "CompanyNameEnglish": "Kakaku.com,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:59.317942",
+      "updated_at": "2025-10-03T15:26:59.317949",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

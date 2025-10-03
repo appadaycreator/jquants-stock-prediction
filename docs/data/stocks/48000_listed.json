@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "48000",
+    "generated_at": "2025-10-03T15:45:05.898748",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "48000",
+    "name": "オリコン",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 771.0,
+    "change": 1.0,
+    "changePercent": 0.12987012987012986,
+    "volume": 8200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "48000",
+      "CompanyName": "オリコン",
+      "CompanyNameEnglish": "Oricon Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:58.619763",
+      "updated_at": "2025-10-03T15:33:58.619766",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

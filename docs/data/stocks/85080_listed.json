@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "85080",
+    "generated_at": "2025-10-03T15:45:06.136804",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "85080",
+    "name": "Ｊトラスト",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 453.0,
+    "change": 11.0,
+    "changePercent": 2.48868778280543,
+    "volume": 483100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "85080",
+      "CompanyName": "Ｊトラスト",
+      "CompanyNameEnglish": "J Trust Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:08.039815",
+      "updated_at": "2025-10-03T15:42:08.039828",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

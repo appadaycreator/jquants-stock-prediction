@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43980",
+    "generated_at": "2025-10-03T15:45:05.873542",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43980",
+    "name": "ブロードバンドセキュリティ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1219.0,
+    "change": -66.0,
+    "changePercent": -5.136186770428015,
+    "volume": 29200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43980",
+      "CompanyName": "ブロードバンドセキュリティ",
+      "CompanyNameEnglish": "BroadBand Security,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:56.444010",
+      "updated_at": "2025-10-03T15:32:56.444013",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62460",
+    "generated_at": "2025-10-03T15:45:05.965064",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62460",
+    "name": "テクノスマート",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1621.0,
+    "change": 7.0,
+    "changePercent": 0.43370508054522927,
+    "volume": 6000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62460",
+      "CompanyName": "テクノスマート",
+      "CompanyNameEnglish": "Techno Smart Corp.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:36.439800",
+      "updated_at": "2025-10-03T15:36:36.439802",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "368A0",
+    "generated_at": "2025-10-03T15:45:05.830043",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "368A0",
+    "name": "北里コーポレーション",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 1880.0,
+    "change": -24.0,
+    "changePercent": -1.2605042016806722,
+    "volume": 1111800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "368A0",
+      "CompanyName": "北里コーポレーション",
+      "CompanyNameEnglish": "Kitazato Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:03.784769",
+      "updated_at": "2025-10-03T15:31:03.784772",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

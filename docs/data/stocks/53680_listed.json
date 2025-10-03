@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "53680",
+    "generated_at": "2025-10-03T15:45:05.921685",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "53680",
+    "name": "日本インシュレーション",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1018.0,
+    "change": -13.0,
+    "changePercent": -1.2609117361784674,
+    "volume": 58300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "53680",
+      "CompanyName": "日本インシュレーション",
+      "CompanyNameEnglish": "JAPAN INSULATION CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:58.411389",
+      "updated_at": "2025-10-03T15:34:58.411391",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

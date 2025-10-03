@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "61250",
+    "generated_at": "2025-10-03T15:45:05.958489",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "61250",
+    "name": "岡本工作機械製作所",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 4620.0,
+    "change": -10.0,
+    "changePercent": -0.21598272138228944,
+    "volume": 7800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "61250",
+      "CompanyName": "岡本工作機械製作所",
+      "CompanyNameEnglish": "OKAMOTO MACHINE TOOL WORKS,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:15.829095",
+      "updated_at": "2025-10-03T15:36:15.829097",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

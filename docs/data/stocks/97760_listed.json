@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "97760",
+    "generated_at": "2025-10-03T15:45:06.203167",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "97760",
+    "name": "札幌臨床検査センター",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1010.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "97760",
+      "CompanyName": "札幌臨床検査センター",
+      "CompanyNameEnglish": "SAPPORO CLINICAL LABORATORY INC.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:36.343013",
+      "updated_at": "2025-10-03T15:44:36.343021",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

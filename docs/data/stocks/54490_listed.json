@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "54490",
+    "generated_at": "2025-10-03T15:45:05.923184",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "54490",
+    "name": "大阪製鐵",
+    "sector": "鉄鋼・非鉄",
+    "market": "スタンダード",
+    "currentPrice": 2892.0,
+    "change": -34.0,
+    "changePercent": -1.1619958988380041,
+    "volume": 50800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "54490",
+      "CompanyName": "大阪製鐵",
+      "CompanyNameEnglish": "OSAKA STEEL CO.,LTD.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3450",
+      "Sector33CodeName": "鉄鋼",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:03.659514",
+      "updated_at": "2025-10-03T15:35:03.659517",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

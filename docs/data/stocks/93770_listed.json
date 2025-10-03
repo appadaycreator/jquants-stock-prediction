@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93770",
+    "generated_at": "2025-10-03T15:45:06.185573",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93770",
+    "name": "エージーピー",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 1532.0,
+    "change": -2.0,
+    "changePercent": -0.1303780964797914,
+    "volume": 18400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93770",
+      "CompanyName": "エージーピー",
+      "CompanyNameEnglish": "AGP CORPORATION",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:47.404182",
+      "updated_at": "2025-10-03T15:43:47.404190",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

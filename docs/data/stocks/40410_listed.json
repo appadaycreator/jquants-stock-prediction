@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40410",
+    "generated_at": "2025-10-03T15:45:05.850704",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40410",
+    "name": "日本曹達",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 3285.0,
+    "change": -10.0,
+    "changePercent": -0.30349013657056145,
+    "volume": 175600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40410",
+      "CompanyName": "日本曹達",
+      "CompanyNameEnglish": "Nippon Soda Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:01.290174",
+      "updated_at": "2025-10-03T15:32:01.290177",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

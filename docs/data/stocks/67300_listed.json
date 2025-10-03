@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67300",
+    "generated_at": "2025-10-03T15:45:05.998521",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67300",
+    "name": "アクセル",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 966.0,
+    "change": -13.0,
+    "changePercent": -1.3278855975485189,
+    "volume": 23100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67300",
+      "CompanyName": "アクセル",
+      "CompanyNameEnglish": "AXELL CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:55.125275",
+      "updated_at": "2025-10-03T15:37:55.125277",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

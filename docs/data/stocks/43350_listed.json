@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43350",
+    "generated_at": "2025-10-03T15:45:05.869176",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43350",
+    "name": "ＩＰＳホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1151.0,
+    "change": -2.0,
+    "changePercent": -0.17346053772766695,
+    "volume": 1900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43350",
+      "CompanyName": "ＩＰＳホールディングス",
+      "CompanyNameEnglish": "IPS HOLDINGS CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:43.509787",
+      "updated_at": "2025-10-03T15:32:43.509790",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

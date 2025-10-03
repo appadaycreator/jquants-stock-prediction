@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "54760",
+    "generated_at": "2025-10-03T15:45:05.923751",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "54760",
+    "name": "日本高周波鋼業",
+    "sector": "鉄鋼・非鉄",
+    "market": "スタンダード",
+    "currentPrice": 405.0,
+    "change": 4.0,
+    "changePercent": 0.997506234413965,
+    "volume": 43300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "54760",
+      "CompanyName": "日本高周波鋼業",
+      "CompanyNameEnglish": "Nippon Koshuha Steel Co.,Ltd.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3450",
+      "Sector33CodeName": "鉄鋼",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:05.576875",
+      "updated_at": "2025-10-03T15:35:05.576877",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

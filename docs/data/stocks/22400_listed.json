@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22400",
+    "generated_at": "2025-10-03T15:45:05.739023",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22400",
+    "name": "日興アセットマネジメント株式会社　上場インデックスファンドＳ＆Ｐ５００先物インバース",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 6397.0,
+    "change": 30.0,
+    "changePercent": 0.47117951939689023,
+    "volume": 1059,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22400",
+      "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンドＳ＆Ｐ５００先物インバース",
+      "CompanyNameEnglish": "Listed Index Fund S&P500 Futures Inverse",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:36.733453",
+      "updated_at": "2025-10-03T15:26:36.733456",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

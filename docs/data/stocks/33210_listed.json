@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33210",
+    "generated_at": "2025-10-03T15:45:05.808402",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33210",
+    "name": "ミタチ産業",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 1216.0,
+    "change": 7.0,
+    "changePercent": 0.5789909015715468,
+    "volume": 45400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33210",
+      "CompanyName": "ミタチ産業",
+      "CompanyNameEnglish": "MITACHI CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:52.854930",
+      "updated_at": "2025-10-03T15:29:52.854934",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

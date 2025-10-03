@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59050",
+    "generated_at": "2025-10-03T15:45:05.941861",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59050",
+    "name": "日本製罐",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1372.0,
+    "change": -23.0,
+    "changePercent": -1.6487455197132617,
+    "volume": 4600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59050",
+      "CompanyName": "日本製罐",
+      "CompanyNameEnglish": "NIHON SEIKAN K.K.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:40.968679",
+      "updated_at": "2025-10-03T15:35:40.968681",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

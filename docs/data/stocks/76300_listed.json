@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "76300",
+    "generated_at": "2025-10-03T15:45:06.095516",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "76300",
+    "name": "壱番屋",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 922.0,
+    "change": 4.0,
+    "changePercent": 0.4357298474945534,
+    "volume": 336500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "76300",
+      "CompanyName": "壱番屋",
+      "CompanyNameEnglish": "ICHIBANYA CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:13.128892",
+      "updated_at": "2025-10-03T15:40:13.128894",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

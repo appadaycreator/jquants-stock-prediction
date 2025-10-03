@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31030",
+    "generated_at": "2025-10-03T15:45:05.795385",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31030",
+    "name": "ユニチカ",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 181.0,
+    "change": -1.0,
+    "changePercent": -0.5494505494505495,
+    "volume": 764800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31030",
+      "CompanyName": "ユニチカ",
+      "CompanyNameEnglish": "UNITIKA LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:10.168356",
+      "updated_at": "2025-10-03T15:29:10.168358",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

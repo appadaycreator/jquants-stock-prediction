@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66430",
+    "generated_at": "2025-10-03T15:45:05.993366",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66430",
+    "name": "戸上電機製作所",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 3565.0,
+    "change": 5.0,
+    "changePercent": 0.1404494382022472,
+    "volume": 2600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66430",
+      "CompanyName": "戸上電機製作所",
+      "CompanyNameEnglish": "Togami Electric Mfg.Co.,Ltd.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:44.446821",
+      "updated_at": "2025-10-03T15:37:44.446823",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

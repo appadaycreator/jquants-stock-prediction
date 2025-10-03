@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26430",
+    "generated_at": "2025-10-03T15:45:05.767514",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26430",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＭＳＣＩジャパンカントリー指数（セレクト）連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2941.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26430",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＭＳＣＩジャパンカントリー指数（セレクト）連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS MSCI Japan Country Selection Index Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:46.047951",
+      "updated_at": "2025-10-03T15:27:46.047956",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

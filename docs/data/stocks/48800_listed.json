@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "48800",
+    "generated_at": "2025-10-03T15:45:05.900969",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "48800",
+    "name": "セルソース",
+    "sector": "医薬品",
+    "market": "プライム",
+    "currentPrice": 736.0,
+    "change": 44.0,
+    "changePercent": 6.358381502890173,
+    "volume": 107000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "48800",
+      "CompanyName": "セルソース",
+      "CompanyNameEnglish": "CellSource Co.,Ltd.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:05.350711",
+      "updated_at": "2025-10-03T15:34:05.350714",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

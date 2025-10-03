@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18120",
+    "generated_at": "2025-10-03T15:45:05.710785",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18120",
+    "name": "鹿島建設",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 3733.0,
+    "change": -27.0,
+    "changePercent": -0.7180851063829787,
+    "volume": 1203900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18120",
+      "CompanyName": "鹿島建設",
+      "CompanyNameEnglish": "KAJIMA CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:26.970324",
+      "updated_at": "2025-10-03T15:25:26.970327",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

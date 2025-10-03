@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "46240",
+    "generated_at": "2025-10-03T15:45:05.889618",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "46240",
+    "name": "イサム塗料",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 3400.0,
+    "change": 70.0,
+    "changePercent": 2.1021021021021022,
+    "volume": 600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "46240",
+      "CompanyName": "イサム塗料",
+      "CompanyNameEnglish": "Isamu Paint Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:35.788647",
+      "updated_at": "2025-10-03T15:33:35.788650",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

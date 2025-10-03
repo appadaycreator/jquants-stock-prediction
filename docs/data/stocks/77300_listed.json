@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77300",
+    "generated_at": "2025-10-03T15:45:06.100335",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77300",
+    "name": "マニー",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 1224.5,
+    "change": 7.5,
+    "changePercent": 0.6162695152013147,
+    "volume": 544700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77300",
+      "CompanyName": "マニー",
+      "CompanyNameEnglish": "MANI,INC.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:27.382807",
+      "updated_at": "2025-10-03T15:40:27.382819",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

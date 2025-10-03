@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66330",
+    "generated_at": "2025-10-03T15:45:05.992756",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66330",
+    "name": "ＣＧＳホールディングス",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 312.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 1000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66330",
+      "CompanyName": "ＣＧＳホールディングス",
+      "CompanyNameEnglish": "CGS HOLDINGS INC.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:43.104583",
+      "updated_at": "2025-10-03T15:37:43.104585",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

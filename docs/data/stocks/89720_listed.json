@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "89720",
+    "generated_at": "2025-10-03T15:45:06.154807",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "89720",
+    "name": "ＫＤＸ不動産投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 154600.0,
+    "change": -100.0,
+    "changePercent": -0.06464124111182934,
+    "volume": 10432,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "89720",
+      "CompanyName": "ＫＤＸ不動産投資法人",
+      "CompanyNameEnglish": "KDX Realty Investment Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:44.640635",
+      "updated_at": "2025-10-03T15:42:44.640645",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

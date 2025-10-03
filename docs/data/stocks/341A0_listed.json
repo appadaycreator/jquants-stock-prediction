@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "341A0",
+    "generated_at": "2025-10-03T15:45:05.813028",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "341A0",
+    "name": "トヨコー",
+    "sector": "建設・資材",
+    "market": "グロース",
+    "currentPrice": 2593.0,
+    "change": -87.0,
+    "changePercent": -3.2462686567164183,
+    "volume": 954600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "341A0",
+      "CompanyName": "トヨコー",
+      "CompanyNameEnglish": "TOYOKOH Inc.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:07.251353",
+      "updated_at": "2025-10-03T15:30:07.251361",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

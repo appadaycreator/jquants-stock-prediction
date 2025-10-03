@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "85580",
+    "generated_at": "2025-10-03T15:45:06.137742",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "85580",
+    "name": "東和銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 759.0,
+    "change": 15.0,
+    "changePercent": 2.0161290322580645,
+    "volume": 116100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "85580",
+      "CompanyName": "東和銀行",
+      "CompanyNameEnglish": "THE TOWA BANK,LTD.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:11.452387",
+      "updated_at": "2025-10-03T15:42:11.452392",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "65940",
+    "generated_at": "2025-10-03T15:45:05.990713",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "65940",
+    "name": "ニデック",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2708.5,
+    "change": 8.5,
+    "changePercent": 0.3148148148148148,
+    "volume": 3873500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "65940",
+      "CompanyName": "ニデック",
+      "CompanyNameEnglish": "NIDEC CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:37.899003",
+      "updated_at": "2025-10-03T15:37:37.899012",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

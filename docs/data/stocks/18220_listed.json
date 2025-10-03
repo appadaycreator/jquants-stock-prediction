@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18220",
+    "generated_at": "2025-10-03T15:45:05.711444",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18220",
+    "name": "大豊建設",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 812.0,
+    "change": -4.0,
+    "changePercent": -0.49019607843137253,
+    "volume": 112900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18220",
+      "CompanyName": "大豊建設",
+      "CompanyNameEnglish": "DAIHO CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:28.832914",
+      "updated_at": "2025-10-03T15:25:28.832917",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

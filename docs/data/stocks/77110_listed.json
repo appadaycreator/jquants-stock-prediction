@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77110",
+    "generated_at": "2025-10-03T15:45:06.098958",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77110",
+    "name": "助川電気工業",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 2250.0,
+    "change": -60.0,
+    "changePercent": -2.5974025974025974,
+    "volume": 91400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77110",
+      "CompanyName": "助川電気工業",
+      "CompanyNameEnglish": "SUKEGAWA ELECTRIC CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:23.230135",
+      "updated_at": "2025-10-03T15:40:23.230139",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

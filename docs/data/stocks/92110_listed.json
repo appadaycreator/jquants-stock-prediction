@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92110",
+    "generated_at": "2025-10-03T15:45:06.173534",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92110",
+    "name": "エフ・コード",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 2393.0,
+    "change": 40.0,
+    "changePercent": 1.6999575010624732,
+    "volume": 230400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92110",
+      "CompanyName": "エフ・コード",
+      "CompanyNameEnglish": "f-code Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:13.465089",
+      "updated_at": "2025-10-03T15:43:13.465098",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

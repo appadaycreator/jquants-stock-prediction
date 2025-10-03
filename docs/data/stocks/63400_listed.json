@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63400",
+    "generated_at": "2025-10-03T15:45:05.972505",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63400",
+    "name": "澁谷工業",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 3360.0,
+    "change": 10.0,
+    "changePercent": 0.2985074626865672,
+    "volume": 12800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63400",
+      "CompanyName": "澁谷工業",
+      "CompanyNameEnglish": "SHIBUYA CORPORATION",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:52.982224",
+      "updated_at": "2025-10-03T15:36:52.982226",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

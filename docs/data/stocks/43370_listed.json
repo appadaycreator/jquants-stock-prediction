@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43370",
+    "generated_at": "2025-10-03T15:45:05.869257",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43370",
+    "name": "ぴあ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2830.0,
+    "change": -17.0,
+    "changePercent": -0.597119775201967,
+    "volume": 13500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43370",
+      "CompanyName": "ぴあ",
+      "CompanyNameEnglish": "PIA CORPORATION",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:43.763521",
+      "updated_at": "2025-10-03T15:32:43.763524",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

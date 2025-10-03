@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "91300",
+    "generated_at": "2025-10-03T15:45:06.167670",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "91300",
+    "name": "共栄タンカー",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 1004.0,
+    "change": 2.0,
+    "changePercent": 0.19960079840319359,
+    "volume": 20200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "91300",
+      "CompanyName": "共栄タンカー",
+      "CompanyNameEnglish": "KYOEI TANKER CO.,LTD.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5100",
+      "Sector33CodeName": "海運業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:05.696461",
+      "updated_at": "2025-10-03T15:43:05.696471",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

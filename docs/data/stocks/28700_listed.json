@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28700",
+    "generated_at": "2025-10-03T15:45:05.781147",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28700",
+    "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＮＡＳＤＡＱ１００ダブルインバース",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 13200.0,
+    "change": 100.0,
+    "changePercent": 0.7633587786259541,
+    "volume": 14405,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28700",
+      "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＮＡＳＤＡＱ１００ダブルインバース",
+      "CompanyNameEnglish": "iFreeETF NASDAQ100 Double Inverse (-2x)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:27.003649",
+      "updated_at": "2025-10-03T15:28:27.003652",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

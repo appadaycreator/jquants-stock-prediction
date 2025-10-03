@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18130",
+    "generated_at": "2025-10-03T15:45:05.710869",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18130",
+    "name": "不動テトラ",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 2281.0,
+    "change": -3.0,
+    "changePercent": -0.13134851138353765,
+    "volume": 54000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18130",
+      "CompanyName": "不動テトラ",
+      "CompanyNameEnglish": "Fudo Tetra Corporation",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:27.226553",
+      "updated_at": "2025-10-03T15:25:27.226559",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

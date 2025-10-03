@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "48200",
+    "generated_at": "2025-10-03T15:45:05.899556",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "48200",
+    "name": "イーエムシステムズ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 732.0,
+    "change": -2.0,
+    "changePercent": -0.2724795640326975,
+    "volume": 107100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "48200",
+      "CompanyName": "イーエムシステムズ",
+      "CompanyNameEnglish": "EM SYSTEMS CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:01.155148",
+      "updated_at": "2025-10-03T15:34:01.155152",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

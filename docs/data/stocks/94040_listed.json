@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "94040",
+    "generated_at": "2025-10-03T15:45:06.186173",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "94040",
+    "name": "日本テレビホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 3038.0,
+    "change": -23.0,
+    "changePercent": -0.7513884351519112,
+    "volume": 625600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "94040",
+      "CompanyName": "日本テレビホールディングス",
+      "CompanyNameEnglish": "Nippon Television Holdings,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:49.479317",
+      "updated_at": "2025-10-03T15:43:49.479333",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "81810",
+    "generated_at": "2025-10-03T15:45:06.127511",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "81810",
+    "name": "東天紅",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 898.0,
+    "change": -11.0,
+    "changePercent": -1.21012101210121,
+    "volume": 10300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "81810",
+      "CompanyName": "東天紅",
+      "CompanyNameEnglish": "Totenko Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:41.310542",
+      "updated_at": "2025-10-03T15:41:41.310553",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

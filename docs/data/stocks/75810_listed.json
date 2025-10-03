@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75810",
+    "generated_at": "2025-10-03T15:45:06.092609",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75810",
+    "name": "サイゼリヤ",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 5240.0,
+    "change": 150.0,
+    "changePercent": 2.9469548133595285,
+    "volume": 1131800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75810",
+      "CompanyName": "サイゼリヤ",
+      "CompanyNameEnglish": "SAIZERIYA CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:04.884677",
+      "updated_at": "2025-10-03T15:40:04.884679",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

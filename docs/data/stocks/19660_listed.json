@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19660",
+    "generated_at": "2025-10-03T15:45:05.720976",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19660",
+    "name": "高田工業所",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1533.0,
+    "change": -12.0,
+    "changePercent": -0.7766990291262136,
+    "volume": 17300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19660",
+      "CompanyName": "高田工業所",
+      "CompanyNameEnglish": "TAKADA CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:49.616112",
+      "updated_at": "2025-10-03T15:25:49.616115",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

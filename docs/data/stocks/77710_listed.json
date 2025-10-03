@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77710",
+    "generated_at": "2025-10-03T15:45:06.102066",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77710",
+    "name": "日本精密",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 96.0,
+    "change": 4.0,
+    "changePercent": 4.3478260869565215,
+    "volume": 732800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77710",
+      "CompanyName": "日本精密",
+      "CompanyNameEnglish": "Nihon Seimitsu Co.,Ltd.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:33.316446",
+      "updated_at": "2025-10-03T15:40:33.316451",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "76380",
+    "generated_at": "2025-10-03T15:45:06.095940",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "76380",
+    "name": "ＮＥＷ　ＡＲＴ　ＨＯＬＤＩＮＧＳ",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 1370.0,
+    "change": -5.0,
+    "changePercent": -0.36363636363636365,
+    "volume": 5300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "76380",
+      "CompanyName": "ＮＥＷ　ＡＲＴ　ＨＯＬＤＩＮＧＳ",
+      "CompanyNameEnglish": "NEW ART HOLDINGS Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:14.515651",
+      "updated_at": "2025-10-03T15:40:14.515653",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "35370",
+    "generated_at": "2025-10-03T15:45:05.820684",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "35370",
+    "name": "昭栄薬品",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 1631.0,
+    "change": -8.0,
+    "changePercent": -0.4881025015253203,
+    "volume": 1700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "35370",
+      "CompanyName": "昭栄薬品",
+      "CompanyNameEnglish": "SHOEI YAKUHIN CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:33.910717",
+      "updated_at": "2025-10-03T15:30:33.910721",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

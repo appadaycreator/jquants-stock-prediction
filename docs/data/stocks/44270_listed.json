@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44270",
+    "generated_at": "2025-10-03T15:45:05.875527",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44270",
+    "name": "ＥｄｕＬａｂ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 386.0,
+    "change": -13.0,
+    "changePercent": -3.258145363408521,
+    "volume": 52100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44270",
+      "CompanyName": "ＥｄｕＬａｂ",
+      "CompanyNameEnglish": "EduLab,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:02.190902",
+      "updated_at": "2025-10-03T15:33:02.190904",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

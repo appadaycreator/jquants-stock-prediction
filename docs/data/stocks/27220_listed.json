@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "27220",
+    "generated_at": "2025-10-03T15:45:05.772055",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "27220",
+    "name": "ＩＫホールディングス",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 405.0,
+    "change": 5.0,
+    "changePercent": 1.25,
+    "volume": 55100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "27220",
+      "CompanyName": "ＩＫホールディングス",
+      "CompanyNameEnglish": "IK HOLDINGS Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:58.870671",
+      "updated_at": "2025-10-03T15:27:58.870673",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

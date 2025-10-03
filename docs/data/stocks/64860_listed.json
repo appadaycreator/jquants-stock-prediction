@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64860",
+    "generated_at": "2025-10-03T15:45:05.982422",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64860",
+    "name": "イーグル工業",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1916.0,
+    "change": 6.0,
+    "changePercent": 0.31413612565445026,
+    "volume": 45700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64860",
+      "CompanyName": "イーグル工業",
+      "CompanyNameEnglish": "EAGLE INDUSTRY CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:17.205428",
+      "updated_at": "2025-10-03T15:37:17.205430",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

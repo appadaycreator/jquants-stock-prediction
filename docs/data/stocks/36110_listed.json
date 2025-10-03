@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "36110",
+    "generated_at": "2025-10-03T15:45:05.824586",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "36110",
+    "name": "マツオカコーポレーション",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 1818.0,
+    "change": 2.0,
+    "changePercent": 0.11013215859030838,
+    "volume": 14800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "36110",
+      "CompanyName": "マツオカコーポレーション",
+      "CompanyNameEnglish": "MATSUOKA CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:46.542736",
+      "updated_at": "2025-10-03T15:30:46.542740",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

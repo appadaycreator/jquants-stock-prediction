@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64710",
+    "generated_at": "2025-10-03T15:45:05.981311",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64710",
+    "name": "日本精工",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 697.4,
+    "change": 5.399999999999977,
+    "changePercent": 0.7803468208092453,
+    "volume": 2091000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64710",
+      "CompanyName": "日本精工",
+      "CompanyNameEnglish": "NSK Ltd.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:14.488653",
+      "updated_at": "2025-10-03T15:37:14.488655",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

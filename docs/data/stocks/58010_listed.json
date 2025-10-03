@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "58010",
+    "generated_at": "2025-10-03T15:45:05.933661",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "58010",
+    "name": "古河電気工業",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 7093.0,
+    "change": -107.0,
+    "changePercent": -1.4861111111111112,
+    "volume": 4628100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "58010",
+      "CompanyName": "古河電気工業",
+      "CompanyNameEnglish": "Furukawa Electric Co.,Ltd.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:28.528441",
+      "updated_at": "2025-10-03T15:35:28.528444",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

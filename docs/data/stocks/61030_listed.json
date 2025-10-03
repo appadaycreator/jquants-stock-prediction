@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "61030",
+    "generated_at": "2025-10-03T15:45:05.958012",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "61030",
+    "name": "オークマ",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 3725.0,
+    "change": -60.0,
+    "changePercent": -1.5852047556142668,
+    "volume": 286600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "61030",
+      "CompanyName": "オークマ",
+      "CompanyNameEnglish": "OKUMA Corporation",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:14.765720",
+      "updated_at": "2025-10-03T15:36:14.765722",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "68940",
+    "generated_at": "2025-10-03T15:45:06.029147",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "68940",
+    "name": "パルステック工業",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 1755.0,
+    "change": -4.0,
+    "changePercent": -0.22740193291642977,
+    "volume": 900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "68940",
+      "CompanyName": "パルステック工業",
+      "CompanyNameEnglish": "PULSTEC INDUSTRIAL CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:18.912054",
+      "updated_at": "2025-10-03T15:38:18.912056",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

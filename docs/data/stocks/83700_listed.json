@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "83700",
+    "generated_at": "2025-10-03T15:45:06.133927",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "83700",
+    "name": "紀陽銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 2612.0,
+    "change": 13.0,
+    "changePercent": 0.5001923816852636,
+    "volume": 99800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "83700",
+      "CompanyName": "紀陽銀行",
+      "CompanyNameEnglish": "The Kiyo Bank,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:01.920371",
+      "updated_at": "2025-10-03T15:42:01.920384",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

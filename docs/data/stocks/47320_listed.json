@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "47320",
+    "generated_at": "2025-10-03T15:45:05.896141",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "47320",
+    "name": "ユー・エス・エス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1643.5,
+    "change": -1.0,
+    "changePercent": -0.060808756460930376,
+    "volume": 1697700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "47320",
+      "CompanyName": "ユー・エス・エス",
+      "CompanyNameEnglish": "USS Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:50.960974",
+      "updated_at": "2025-10-03T15:33:50.960977",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

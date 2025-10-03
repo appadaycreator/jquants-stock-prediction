@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "85960",
+    "generated_at": "2025-10-03T15:45:06.138728",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "85960",
+    "name": "九州リースサービス",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 1197.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 25800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "85960",
+      "CompanyName": "九州リースサービス",
+      "CompanyNameEnglish": "KYUSHU LEASING SERVICE CO.,LTD.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:14.719362",
+      "updated_at": "2025-10-03T15:42:14.719378",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

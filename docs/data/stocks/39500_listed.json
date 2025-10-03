@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39500",
+    "generated_at": "2025-10-03T15:45:05.845399",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39500",
+    "name": "ザ・パック",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 1131.0,
+    "change": 21.0,
+    "changePercent": 1.891891891891892,
+    "volume": 130800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39500",
+      "CompanyName": "ザ・パック",
+      "CompanyNameEnglish": "THE PACK CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:46.135534",
+      "updated_at": "2025-10-03T15:31:46.135537",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

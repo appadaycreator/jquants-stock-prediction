@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "137A0",
-    "generated_at": "2025-10-03T15:21:01.210925",
+    "generated_at": "2025-10-03T15:45:05.678246",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -29,8 +29,8 @@
       "MarketCodeName": "グロース"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:20:16.658277",
-      "updated_at": "2025-10-03T15:20:16.658282",
+      "created_at": "2025-10-03T15:24:20.718363",
+      "updated_at": "2025-10-03T15:24:20.718369",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
       "price_data_available": true

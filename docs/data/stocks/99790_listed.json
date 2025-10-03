@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "99790",
+    "generated_at": "2025-10-03T15:45:06.210812",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "99790",
+    "name": "大庄",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 1150.0,
+    "change": 17.0,
+    "changePercent": 1.500441306266549,
+    "volume": 26100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "99790",
+      "CompanyName": "大庄",
+      "CompanyNameEnglish": "DAISYO CORPORATION",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:45:01.263652",
+      "updated_at": "2025-10-03T15:45:01.263664",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

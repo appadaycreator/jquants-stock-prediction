@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64280",
+    "generated_at": "2025-10-03T15:45:05.979239",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64280",
+    "name": "オーイズミ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 317.0,
+    "change": -3.0,
+    "changePercent": -0.9375,
+    "volume": 64600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64280",
+      "CompanyName": "オーイズミ",
+      "CompanyNameEnglish": "OIZUMI Corporation",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:08.012133",
+      "updated_at": "2025-10-03T15:37:08.012135",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

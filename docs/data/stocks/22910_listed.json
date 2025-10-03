@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22910",
+    "generated_at": "2025-10-03T15:45:05.742463",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22910",
+    "name": "福留ハム",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 1077.0,
+    "change": 1.0,
+    "changePercent": 0.09293680297397769,
+    "volume": 2900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22910",
+      "CompanyName": "福留ハム",
+      "CompanyNameEnglish": "FUKUTOME MEAT PACKERS,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:46.443677",
+      "updated_at": "2025-10-03T15:26:46.443683",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

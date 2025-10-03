@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31210",
+    "generated_at": "2025-10-03T15:45:05.796490",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31210",
+    "name": "マーチャント・バンカーズ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 343.0,
+    "change": -5.0,
+    "changePercent": -1.4367816091954022,
+    "volume": 72600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31210",
+      "CompanyName": "マーチャント・バンカーズ",
+      "CompanyNameEnglish": "MBK Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:13.654797",
+      "updated_at": "2025-10-03T15:29:13.654802",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

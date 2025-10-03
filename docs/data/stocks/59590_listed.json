@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59590",
+    "generated_at": "2025-10-03T15:45:05.948511",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59590",
+    "name": "岡部",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 865.0,
+    "change": 10.0,
+    "changePercent": 1.1695906432748537,
+    "volume": 95600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59590",
+      "CompanyName": "岡部",
+      "CompanyNameEnglish": "OKABE CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:49.724727",
+      "updated_at": "2025-10-03T15:35:49.724729",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

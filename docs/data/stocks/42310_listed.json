@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "42310",
+    "generated_at": "2025-10-03T15:45:05.862015",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "42310",
+    "name": "タイガースポリマー",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 816.0,
+    "change": 7.0,
+    "changePercent": 0.865265760197775,
+    "volume": 9100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "42310",
+      "CompanyName": "タイガースポリマー",
+      "CompanyNameEnglish": "TIGERS POLYMER CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:29.012889",
+      "updated_at": "2025-10-03T15:32:29.012892",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

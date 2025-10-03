@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "46800",
+    "generated_at": "2025-10-03T15:45:05.892475",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "46800",
+    "name": "ラウンドワン",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1461.0,
+    "change": -20.0,
+    "changePercent": -1.350438892640108,
+    "volume": 1739800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "46800",
+      "CompanyName": "ラウンドワン",
+      "CompanyNameEnglish": "ROUND ONE Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:44.583436",
+      "updated_at": "2025-10-03T15:33:44.583443",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

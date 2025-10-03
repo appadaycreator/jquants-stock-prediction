@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19610",
+    "generated_at": "2025-10-03T15:45:05.720569",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19610",
+    "name": "三機工業",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 4160.0,
+    "change": -25.0,
+    "changePercent": -0.5973715651135006,
+    "volume": 219800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19610",
+      "CompanyName": "三機工業",
+      "CompanyNameEnglish": "SANKI ENGINEERING CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:48.501810",
+      "updated_at": "2025-10-03T15:25:48.501822",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

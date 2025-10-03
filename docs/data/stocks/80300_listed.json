@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "80300",
+    "generated_at": "2025-10-03T15:45:06.119126",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "80300",
+    "name": "中央魚類",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 3585.0,
+    "change": 115.0,
+    "changePercent": 3.314121037463977,
+    "volume": 11600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "80300",
+      "CompanyName": "中央魚類",
+      "CompanyNameEnglish": "Chuo Gyorui Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:16.034879",
+      "updated_at": "2025-10-03T15:41:16.034888",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

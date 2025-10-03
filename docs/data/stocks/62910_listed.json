@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62910",
+    "generated_at": "2025-10-03T15:45:05.967906",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62910",
+    "name": "日本エアーテック",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1066.0,
+    "change": 11.0,
+    "changePercent": 1.042654028436019,
+    "volume": 20500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62910",
+      "CompanyName": "日本エアーテック",
+      "CompanyNameEnglish": "AIRTECH JAPAN,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:43.868375",
+      "updated_at": "2025-10-03T15:36:43.868377",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

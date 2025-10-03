@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64130",
+    "generated_at": "2025-10-03T15:45:05.977421",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64130",
+    "name": "理想科学工業",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1110.0,
+    "change": 8.0,
+    "changePercent": 0.7259528130671506,
+    "volume": 31400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64130",
+      "CompanyName": "理想科学工業",
+      "CompanyNameEnglish": "RISO KAGAKU CORPORATION",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:05.744617",
+      "updated_at": "2025-10-03T15:37:05.744619",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

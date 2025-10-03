@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79520",
+    "generated_at": "2025-10-03T15:45:06.114145",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79520",
+    "name": "河合楽器製作所",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2628.0,
+    "change": 6.0,
+    "changePercent": 0.2288329519450801,
+    "volume": 18000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79520",
+      "CompanyName": "河合楽器製作所",
+      "CompanyNameEnglish": "Kawai Musical Instruments Manufacturing Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:00.975285",
+      "updated_at": "2025-10-03T15:41:00.975295",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "303A0",
+    "generated_at": "2025-10-03T15:45:05.790535",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "303A0",
+    "name": "ｖｉｓｕｍｏ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 1044.0,
+    "change": 10.0,
+    "changePercent": 0.9671179883945842,
+    "volume": 11500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "303A0",
+      "CompanyName": "ｖｉｓｕｍｏ",
+      "CompanyNameEnglish": "visumo Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:54.826092",
+      "updated_at": "2025-10-03T15:28:54.826097",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

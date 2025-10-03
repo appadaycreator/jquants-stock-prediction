@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20430",
+    "generated_at": "2025-10-03T15:45:05.726756",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20430",
+    "name": "ノムラ・ヨーロッパ　ＮＥＸＴ　ＮＯＴＥＳ　ＳＴＯＸＸ　アセアン好配当５０（円、ネットリターン）ＥＴＮ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 20825.0,
+    "change": -170.0,
+    "changePercent": -0.8097165991902834,
+    "volume": 2,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20430",
+      "CompanyName": "ノムラ・ヨーロッパ　ＮＥＸＴ　ＮＯＴＥＳ　ＳＴＯＸＸ　アセアン好配当５０（円、ネットリターン）ＥＴＮ",
+      "CompanyNameEnglish": "NEXT NOTES STOXX ASEAN-Five Select Dividend 50(NR-JPY) ETN",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:02.762194",
+      "updated_at": "2025-10-03T15:26:02.762198",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

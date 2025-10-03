@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43670",
+    "generated_at": "2025-10-03T15:45:05.870431",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43670",
+    "name": "広栄化学",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 2264.0,
+    "change": 1.0,
+    "changePercent": 0.04418912947414936,
+    "volume": 1800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43670",
+      "CompanyName": "広栄化学",
+      "CompanyNameEnglish": "KOEI CHEMICAL COMPANY,LIMITED",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:48.200912",
+      "updated_at": "2025-10-03T15:32:48.200919",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

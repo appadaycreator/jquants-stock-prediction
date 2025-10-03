@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67880",
+    "generated_at": "2025-10-03T15:45:06.012902",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67880",
+    "name": "日本トリム",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 4460.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 16500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67880",
+      "CompanyName": "日本トリム",
+      "CompanyNameEnglish": "NIHON TRIM CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:04.352649",
+      "updated_at": "2025-10-03T15:38:04.352651",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

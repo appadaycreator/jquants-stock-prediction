@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19440",
+    "generated_at": "2025-10-03T15:45:05.719423",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19440",
+    "name": "きんでん",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 4412.0,
+    "change": -56.0,
+    "changePercent": -1.2533572068039391,
+    "volume": 517000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19440",
+      "CompanyName": "きんでん",
+      "CompanyNameEnglish": "KINDEN CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:45.233482",
+      "updated_at": "2025-10-03T15:25:45.233486",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

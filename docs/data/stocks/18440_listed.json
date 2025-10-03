@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18440",
+    "generated_at": "2025-10-03T15:45:05.712272",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18440",
+    "name": "大盛工業",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 425.0,
+    "change": 5.0,
+    "changePercent": 1.1904761904761905,
+    "volume": 1165700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18440",
+      "CompanyName": "大盛工業",
+      "CompanyNameEnglish": "OHMORI CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:31.636441",
+      "updated_at": "2025-10-03T15:25:31.636444",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

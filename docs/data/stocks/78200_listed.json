@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78200",
+    "generated_at": "2025-10-03T15:45:06.107003",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78200",
+    "name": "ニホンフラッシュ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 810.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 15900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78200",
+      "CompanyName": "ニホンフラッシュ",
+      "CompanyNameEnglish": "NIHON FLUSH CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:38.182332",
+      "updated_at": "2025-10-03T15:40:38.182335",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

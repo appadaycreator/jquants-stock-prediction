@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "36700",
+    "generated_at": "2025-10-03T15:45:05.828719",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "36700",
+    "name": "協立情報通信",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2045.0,
+    "change": 9.0,
+    "changePercent": 0.44204322200392926,
+    "volume": 3500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "36700",
+      "CompanyName": "協立情報通信",
+      "CompanyNameEnglish": "Kyoritsu Computer & Communication Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:58.308437",
+      "updated_at": "2025-10-03T15:30:58.308443",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

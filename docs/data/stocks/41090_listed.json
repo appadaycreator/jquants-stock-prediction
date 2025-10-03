@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "41090",
+    "generated_at": "2025-10-03T15:45:05.856714",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "41090",
+    "name": "ステラ　ケミファ",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 3995.0,
+    "change": 35.0,
+    "changePercent": 0.8838383838383838,
+    "volume": 29000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "41090",
+      "CompanyName": "ステラ　ケミファ",
+      "CompanyNameEnglish": "STELLA CHEMIFA CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:13.462959",
+      "updated_at": "2025-10-03T15:32:13.462962",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

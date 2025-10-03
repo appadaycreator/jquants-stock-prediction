@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28300",
+    "generated_at": "2025-10-03T15:45:05.777245",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28300",
+    "name": "アヲハタ",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 3500.0,
+    "change": 30.0,
+    "changePercent": 0.8645533141210375,
+    "volume": 18500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28300",
+      "CompanyName": "アヲハタ",
+      "CompanyNameEnglish": "AOHATA Corporation",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:15.934842",
+      "updated_at": "2025-10-03T15:28:15.934847",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

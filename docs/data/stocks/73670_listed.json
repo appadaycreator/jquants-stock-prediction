@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "73670",
+    "generated_at": "2025-10-03T15:45:06.079559",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "73670",
+    "name": "セルム",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 358.0,
+    "change": 3.0,
+    "changePercent": 0.8450704225352111,
+    "volume": 13900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "73670",
+      "CompanyName": "セルム",
+      "CompanyNameEnglish": "CELM,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:34.195890",
+      "updated_at": "2025-10-03T15:39:34.195892",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

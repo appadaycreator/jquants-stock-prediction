@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "16920",
+    "generated_at": "2025-10-03T15:45:05.702195",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "16920",
+    "name": "ウィズダムツリー・コモディティ・セキュリティーズ・リミテッド　ＷｉｓｄｏｍＴｒｅｅ　アルミニウム上場投資信託",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 495.5,
+    "change": -2.5,
+    "changePercent": -0.5020080321285141,
+    "volume": 700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "16920",
+      "CompanyName": "ウィズダムツリー・コモディティ・セキュリティーズ・リミテッド　ＷｉｓｄｏｍＴｒｅｅ　アルミニウム上場投資信託",
+      "CompanyNameEnglish": "WisdomTree Aluminium",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:11.092652",
+      "updated_at": "2025-10-03T15:25:11.092658",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

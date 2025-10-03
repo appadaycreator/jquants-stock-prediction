@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63700",
+    "generated_at": "2025-10-03T15:45:05.974614",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63700",
+    "name": "栗田工業",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 5672.0,
+    "change": -9.0,
+    "changePercent": -0.15842281288505544,
+    "volume": 306000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63700",
+      "CompanyName": "栗田工業",
+      "CompanyNameEnglish": "Kurita Water Industries Ltd.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:58.520601",
+      "updated_at": "2025-10-03T15:36:58.520604",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90490",
+    "generated_at": "2025-10-03T15:45:06.162963",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90490",
+    "name": "京福電気鉄道",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 6740.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 2500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90490",
+      "CompanyName": "京福電気鉄道",
+      "CompanyNameEnglish": "Keifuku Electric Railroad Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:56.946795",
+      "updated_at": "2025-10-03T15:42:56.946807",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

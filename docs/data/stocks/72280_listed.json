@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72280",
+    "generated_at": "2025-10-03T15:45:06.070659",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72280",
+    "name": "デイトナ",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 3635.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72280",
+      "CompanyName": "デイトナ",
+      "CompanyNameEnglish": "DAYTONA CORPORATION",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:13.671700",
+      "updated_at": "2025-10-03T15:39:13.671702",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

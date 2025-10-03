@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18990",
+    "generated_at": "2025-10-03T15:45:05.717086",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18990",
+    "name": "福田組",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 5000.0,
+    "change": -50.0,
+    "changePercent": -0.9900990099009901,
+    "volume": 8900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18990",
+      "CompanyName": "福田組",
+      "CompanyNameEnglish": "FUKUDA CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:39.353285",
+      "updated_at": "2025-10-03T15:25:39.353287",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

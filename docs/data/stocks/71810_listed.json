@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71810",
+    "generated_at": "2025-10-03T15:45:06.064695",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71810",
+    "name": "かんぽ生命保険",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 3414.0,
+    "change": 44.0,
+    "changePercent": 1.3056379821958457,
+    "volume": 871100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71810",
+      "CompanyName": "かんぽ生命保険",
+      "CompanyNameEnglish": "JAPAN POST INSURANCE Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7150",
+      "Sector33CodeName": "保険業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:05.559833",
+      "updated_at": "2025-10-03T15:39:05.559835",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

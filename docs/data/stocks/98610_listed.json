@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "98610",
+    "generated_at": "2025-10-03T15:45:06.206742",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "98610",
+    "name": "吉野家ホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 3353.0,
+    "change": 98.0,
+    "changePercent": 3.010752688172043,
+    "volume": 589700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "98610",
+      "CompanyName": "吉野家ホールディングス",
+      "CompanyNameEnglish": "YOSHINOYA HOLDINGS CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:47.599321",
+      "updated_at": "2025-10-03T15:44:47.599329",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

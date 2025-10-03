@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "243A0",
+    "generated_at": "2025-10-03T15:45:05.749805",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "243A0",
+    "name": "トップス",
+    "sector": "食品",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:27:10.428741",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "243A0",
+      "CompanyName": "トップス",
+      "CompanyNameEnglish": "Top's Inc.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:10.428746",
+      "updated_at": "2025-10-03T15:27:10.428747",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

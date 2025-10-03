@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28550",
+    "generated_at": "2025-10-03T15:45:05.779552",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28550",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　グリーン・Ｊ−ＲＥＩＴ　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 937.0,
+    "change": 3.0,
+    "changePercent": 0.32119914346895073,
+    "volume": 32463,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28550",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　グリーン・Ｊ−ＲＥＩＴ　ＥＴＦ",
+      "CompanyNameEnglish": "Global X Green J-REIT ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:22.244097",
+      "updated_at": "2025-10-03T15:28:22.244101",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

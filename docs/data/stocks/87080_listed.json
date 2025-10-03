@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "87080",
+    "generated_at": "2025-10-03T15:45:06.140776",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "87080",
+    "name": "アイザワ証券グループ",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 1372.0,
+    "change": 23.0,
+    "changePercent": 1.704966641957005,
+    "volume": 92300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "87080",
+      "CompanyName": "アイザワ証券グループ",
+      "CompanyNameEnglish": "AIZAWA SECURITIES GROUP CO.,LTD.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:20.934498",
+      "updated_at": "2025-10-03T15:42:20.934510",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

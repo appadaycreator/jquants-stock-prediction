@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "65400",
+    "generated_at": "2025-10-03T15:45:05.985368",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "65400",
+    "name": "船場",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1802.0,
+    "change": -12.0,
+    "changePercent": -0.6615214994487321,
+    "volume": 32400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "65400",
+      "CompanyName": "船場",
+      "CompanyNameEnglish": "SEMBA CORPORATION",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:27.044876",
+      "updated_at": "2025-10-03T15:37:27.044881",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

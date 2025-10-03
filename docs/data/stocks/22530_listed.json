@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22530",
+    "generated_at": "2025-10-03T15:45:05.740418",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22530",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　スーパーディビィデンド−ＵＳ　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1138.0,
+    "change": 3.0,
+    "changePercent": 0.2643171806167401,
+    "volume": 2805,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22530",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　スーパーディビィデンド−ＵＳ　ＥＴＦ",
+      "CompanyNameEnglish": "Global X SuperDividend U.S. ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:40.674163",
+      "updated_at": "2025-10-03T15:26:40.674168",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

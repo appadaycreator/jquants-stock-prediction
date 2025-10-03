@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34360",
+    "generated_at": "2025-10-03T15:45:05.814371",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34360",
+    "name": "ＳＵＭＣＯ",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1218.0,
+    "change": 44.0,
+    "changePercent": 3.747870528109029,
+    "volume": 10015200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34360",
+      "CompanyName": "ＳＵＭＣＯ",
+      "CompanyNameEnglish": "SUMCO CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:10.143570",
+      "updated_at": "2025-10-03T15:30:10.143577",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

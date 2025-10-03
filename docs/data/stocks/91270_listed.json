@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "91270",
+    "generated_at": "2025-10-03T15:45:06.167580",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "91270",
+    "name": "玉井商船",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 2439.0,
+    "change": 91.0,
+    "changePercent": 3.8756388415672918,
+    "volume": 48000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "91270",
+      "CompanyName": "玉井商船",
+      "CompanyNameEnglish": "TAMAI STEAMSHIP CO.,LTD",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5100",
+      "Sector33CodeName": "海運業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:05.398907",
+      "updated_at": "2025-10-03T15:43:05.398917",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66960",
+    "generated_at": "2025-10-03T15:45:05.997289",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66960",
+    "name": "トラース・オン・プロダクト",
+    "sector": "電機・精密",
+    "market": "グロース",
+    "currentPrice": 557.0,
+    "change": -12.0,
+    "changePercent": -2.10896309314587,
+    "volume": 113400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66960",
+      "CompanyName": "トラース・オン・プロダクト",
+      "CompanyNameEnglish": "TRaaS On Product Inc.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:51.424946",
+      "updated_at": "2025-10-03T15:37:51.424948",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

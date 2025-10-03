@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33710",
+    "generated_at": "2025-10-03T15:45:05.810374",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33710",
+    "name": "ソフトクリエイトホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2158.0,
+    "change": 44.0,
+    "changePercent": 2.081362346263009,
+    "volume": 25400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33710",
+      "CompanyName": "ソフトクリエイトホールディングス",
+      "CompanyNameEnglish": "SOFTCREATE HOLDINGS CORP.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:59.678611",
+      "updated_at": "2025-10-03T15:29:59.678626",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

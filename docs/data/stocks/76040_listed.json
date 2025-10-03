@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "76040",
+    "generated_at": "2025-10-03T15:45:06.093604",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "76040",
+    "name": "梅の花グループ",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 822.0,
+    "change": -2.0,
+    "changePercent": -0.24271844660194172,
+    "volume": 4800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "76040",
+      "CompanyName": "梅の花グループ",
+      "CompanyNameEnglish": "UMENOHANA GROUP CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:07.882307",
+      "updated_at": "2025-10-03T15:40:07.882309",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

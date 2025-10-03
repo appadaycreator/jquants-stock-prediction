@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "47250",
+    "generated_at": "2025-10-03T15:45:05.895992",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "47250",
+    "name": "ＣＡＣ　Ｈｏｌｄｉｎｇｓ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1980.0,
+    "change": -1.0,
+    "changePercent": -0.05047955577990913,
+    "volume": 44400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "47250",
+      "CompanyName": "ＣＡＣ　Ｈｏｌｄｉｎｇｓ",
+      "CompanyNameEnglish": "CAC Holdings Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:50.443125",
+      "updated_at": "2025-10-03T15:33:50.443128",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22510",
+    "generated_at": "2025-10-03T15:45:05.740252",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22510",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸ国債先物ダブルインバース指数連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 792.0,
+    "change": 1.3999999999999773,
+    "changePercent": 0.17708069820389288,
+    "volume": 1650,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22510",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＪＰＸ国債先物ダブルインバース指数連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS JPX JGB Futures Double Inverse Index Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:40.123896",
+      "updated_at": "2025-10-03T15:26:40.123902",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

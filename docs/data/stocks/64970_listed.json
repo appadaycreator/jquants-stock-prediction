@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64970",
+    "generated_at": "2025-10-03T15:45:05.983178",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64970",
+    "name": "ハマイ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1117.0,
+    "change": -13.0,
+    "changePercent": -1.1504424778761062,
+    "volume": 1200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64970",
+      "CompanyName": "ハマイ",
+      "CompanyNameEnglish": "HAMAI INDUSTRIES LTD",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:19.674202",
+      "updated_at": "2025-10-03T15:37:19.674205",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75440",
+    "generated_at": "2025-10-03T15:45:06.091128",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75440",
+    "name": "スリーエフ",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 496.0,
+    "change": 16.0,
+    "changePercent": 3.3333333333333335,
+    "volume": 480800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75440",
+      "CompanyName": "スリーエフ",
+      "CompanyNameEnglish": "Three F Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:00.464871",
+      "updated_at": "2025-10-03T15:40:00.464873",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

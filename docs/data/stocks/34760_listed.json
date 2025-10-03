@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34760",
+    "generated_at": "2025-10-03T15:45:05.817604",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34760",
+    "name": "投資法人みらい",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 44200.0,
+    "change": -50.0,
+    "changePercent": -0.11299435028248588,
+    "volume": 2605,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34760",
+      "CompanyName": "投資法人みらい",
+      "CompanyNameEnglish": "MIRAI Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:24.111787",
+      "updated_at": "2025-10-03T15:30:24.111791",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

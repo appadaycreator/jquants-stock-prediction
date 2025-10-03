@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79840",
+    "generated_at": "2025-10-03T15:45:06.115989",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79840",
+    "name": "コクヨ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 898.9,
+    "change": 10.899999999999977,
+    "changePercent": 1.227477477477475,
+    "volume": 1555200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79840",
+      "CompanyName": "コクヨ",
+      "CompanyNameEnglish": "KOKUYO CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:06.922162",
+      "updated_at": "2025-10-03T15:41:06.922176",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

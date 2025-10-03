@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93630",
+    "generated_at": "2025-10-03T15:45:06.184561",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93630",
+    "name": "大運",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 461.0,
+    "change": 46.0,
+    "changePercent": 11.08433734939759,
+    "volume": 426800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93630",
+      "CompanyName": "大運",
+      "CompanyNameEnglish": "DAIUN CO.,LTD.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:45.005330",
+      "updated_at": "2025-10-03T15:43:45.005339",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19630",
+    "generated_at": "2025-10-03T15:45:05.720719",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19630",
+    "name": "日揮ホールディングス",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1248.0,
+    "change": -11.0,
+    "changePercent": -0.8737092930897538,
+    "volume": 865500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19630",
+      "CompanyName": "日揮ホールディングス",
+      "CompanyNameEnglish": "JGC HOLDINGS CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:48.783092",
+      "updated_at": "2025-10-03T15:25:48.783095",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

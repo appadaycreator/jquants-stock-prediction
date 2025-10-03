@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39760",
+    "generated_at": "2025-10-03T15:45:05.847190",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39760",
+    "name": "シャノン",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 359.0,
+    "change": -10.0,
+    "changePercent": -2.710027100271003,
+    "volume": 34000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39760",
+      "CompanyName": "シャノン",
+      "CompanyNameEnglish": "SHANON Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:50.778440",
+      "updated_at": "2025-10-03T15:31:50.778444",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

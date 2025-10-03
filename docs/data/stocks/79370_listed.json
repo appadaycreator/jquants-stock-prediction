@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79370",
+    "generated_at": "2025-10-03T15:45:06.113229",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79370",
+    "name": "ツツミ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2240.0,
+    "change": 5.0,
+    "changePercent": 0.22371364653243847,
+    "volume": 2000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79370",
+      "CompanyName": "ツツミ",
+      "CompanyNameEnglish": "TSUTSUMI JEWELRY CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:57.598521",
+      "updated_at": "2025-10-03T15:40:57.598534",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

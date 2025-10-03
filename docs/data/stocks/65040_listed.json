@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "65040",
+    "generated_at": "2025-10-03T15:45:05.983515",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "65040",
+    "name": "富士電機",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 6697.0,
+    "change": 68.0,
+    "changePercent": 1.0257957459647007,
+    "volume": 907900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "65040",
+      "CompanyName": "富士電機",
+      "CompanyNameEnglish": "FUJI ELECTRIC CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:20.854625",
+      "updated_at": "2025-10-03T15:37:20.854627",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

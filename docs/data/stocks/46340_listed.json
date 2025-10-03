@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "46340",
+    "generated_at": "2025-10-03T15:45:05.890233",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "46340",
+    "name": "ａｒｔｉｅｎｃｅ",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 3095.0,
+    "change": 10.0,
+    "changePercent": 0.3241491085899514,
+    "volume": 115000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "46340",
+      "CompanyName": "ａｒｔｉｅｎｃｅ",
+      "CompanyNameEnglish": "artience Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:38.017837",
+      "updated_at": "2025-10-03T15:33:38.017840",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "74250",
+    "generated_at": "2025-10-03T15:45:06.085248",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "74250",
+    "name": "初穂商事",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 1975.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "74250",
+      "CompanyName": "初穂商事",
+      "CompanyNameEnglish": "HATSUHO SHOUJI CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:42.593047",
+      "updated_at": "2025-10-03T15:39:42.593049",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

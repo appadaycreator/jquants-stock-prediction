@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49940",
+    "generated_at": "2025-10-03T15:45:05.907092",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49940",
+    "name": "大成ラミックグループ",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 2522.0,
+    "change": 6.0,
+    "changePercent": 0.23847376788553257,
+    "volume": 4100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49940",
+      "CompanyName": "大成ラミックグループ",
+      "CompanyNameEnglish": "Taisei Lamick Group Head Quarter & Innovation Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:21.963616",
+      "updated_at": "2025-10-03T15:34:21.963620",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

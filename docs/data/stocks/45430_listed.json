@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45430",
+    "generated_at": "2025-10-03T15:45:05.883964",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45430",
+    "name": "テルモ",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2460.5,
+    "change": -24.5,
+    "changePercent": -0.9859154929577465,
+    "volume": 4134400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45430",
+      "CompanyName": "テルモ",
+      "CompanyNameEnglish": "TERUMO CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:21.932915",
+      "updated_at": "2025-10-03T15:33:21.932924",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

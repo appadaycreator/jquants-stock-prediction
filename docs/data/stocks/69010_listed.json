@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69010",
+    "generated_at": "2025-10-03T15:45:06.029641",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69010",
+    "name": "澤藤電機",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 954.0,
+    "change": 1.0,
+    "changePercent": 0.1049317943336831,
+    "volume": 1800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69010",
+      "CompanyName": "澤藤電機",
+      "CompanyNameEnglish": "SAWAFUJI ELECTRIC CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:20.020469",
+      "updated_at": "2025-10-03T15:38:20.020471",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

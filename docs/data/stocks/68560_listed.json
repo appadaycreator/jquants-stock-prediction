@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "68560",
+    "generated_at": "2025-10-03T15:45:06.022583",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "68560",
+    "name": "堀場製作所",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 10690.0,
+    "change": -75.0,
+    "changePercent": -0.6967022758941013,
+    "volume": 88600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "68560",
+      "CompanyName": "堀場製作所",
+      "CompanyNameEnglish": "HORIBA,Ltd.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:13.514580",
+      "updated_at": "2025-10-03T15:38:13.514582",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

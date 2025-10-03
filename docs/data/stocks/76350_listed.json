@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "76350",
+    "generated_at": "2025-10-03T15:45:06.095685",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "76350",
+    "name": "杉田エース",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 1194.0,
+    "change": 14.0,
+    "changePercent": 1.1864406779661016,
+    "volume": 200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "76350",
+      "CompanyName": "杉田エース",
+      "CompanyNameEnglish": "SUGITA ACE CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:13.695698",
+      "updated_at": "2025-10-03T15:40:13.695700",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

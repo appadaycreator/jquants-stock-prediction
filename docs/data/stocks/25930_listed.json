@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25930",
+    "generated_at": "2025-10-03T15:45:05.763422",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25930",
+    "name": "伊藤園",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 3271.0,
+    "change": 12.0,
+    "changePercent": 0.36821110770174903,
+    "volume": 194200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25930",
+      "CompanyName": "伊藤園",
+      "CompanyNameEnglish": "ITO EN,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:36.588402",
+      "updated_at": "2025-10-03T15:27:36.588406",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

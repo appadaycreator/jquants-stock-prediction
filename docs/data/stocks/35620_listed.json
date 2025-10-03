@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "35620",
+    "generated_at": "2025-10-03T15:45:05.822580",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "35620",
+    "name": "Ｎｏ．１",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 2013.0,
+    "change": -17.0,
+    "changePercent": -0.8374384236453201,
+    "volume": 15700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "35620",
+      "CompanyName": "Ｎｏ．１",
+      "CompanyNameEnglish": "No.1 Co.,Ltd",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:40.562228",
+      "updated_at": "2025-10-03T15:30:40.562236",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

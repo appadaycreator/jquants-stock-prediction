@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31100",
+    "generated_at": "2025-10-03T15:45:05.796089",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31100",
+    "name": "日東紡績",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 6540.0,
+    "change": -50.0,
+    "changePercent": -0.7587253414264037,
+    "volume": 682200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31100",
+      "CompanyName": "日東紡績",
+      "CompanyNameEnglish": "NITTO BOSEKI CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:12.101252",
+      "updated_at": "2025-10-03T15:29:12.101255",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

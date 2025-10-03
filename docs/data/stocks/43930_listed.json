@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43930",
+    "generated_at": "2025-10-03T15:45:05.873027",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43930",
+    "name": "バンク・オブ・イノベーション",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 10740.0,
+    "change": -350.0,
+    "changePercent": -3.1559963931469794,
+    "volume": 196900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43930",
+      "CompanyName": "バンク・オブ・イノベーション",
+      "CompanyNameEnglish": "Bank of Innovation,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:55.129368",
+      "updated_at": "2025-10-03T15:32:55.129370",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

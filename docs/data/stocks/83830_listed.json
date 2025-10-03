@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "83830",
+    "generated_at": "2025-10-03T15:45:06.134274",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "83830",
+    "name": "鳥取銀行",
+    "sector": "銀行",
+    "market": "スタンダード",
+    "currentPrice": 1299.0,
+    "change": 34.0,
+    "changePercent": 2.6877470355731226,
+    "volume": 32700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "83830",
+      "CompanyName": "鳥取銀行",
+      "CompanyNameEnglish": "THE TOTTORI BANK,LTD.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:02.784602",
+      "updated_at": "2025-10-03T15:42:02.784618",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

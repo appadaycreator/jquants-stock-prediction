@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "81570",
+    "generated_at": "2025-10-03T15:45:06.126557",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "81570",
+    "name": "都築電気",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2940.0,
+    "change": 13.0,
+    "changePercent": 0.4441407584557568,
+    "volume": 17100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "81570",
+      "CompanyName": "都築電気",
+      "CompanyNameEnglish": "TSUZUKI DENKI CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:38.129678",
+      "updated_at": "2025-10-03T15:41:38.129682",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39370",
+    "generated_at": "2025-10-03T15:45:05.843960",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39370",
+    "name": "Ｕｂｉｃｏｍホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 983.0,
+    "change": 30.0,
+    "changePercent": 3.147953830010493,
+    "volume": 181500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39370",
+      "CompanyName": "Ｕｂｉｃｏｍホールディングス",
+      "CompanyNameEnglish": "Ubicom Holdings,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:43.419950",
+      "updated_at": "2025-10-03T15:31:43.419956",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

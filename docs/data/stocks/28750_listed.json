@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28750",
+    "generated_at": "2025-10-03T15:45:05.781588",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28750",
+    "name": "東洋水産",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 9049.0,
+    "change": 7.0,
+    "changePercent": 0.07741650077416501,
+    "volume": 468200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28750",
+      "CompanyName": "東洋水産",
+      "CompanyNameEnglish": "TOYO SUISAN KAISHA,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:28.105887",
+      "updated_at": "2025-10-03T15:28:28.105889",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43200",
+    "generated_at": "2025-10-03T15:45:05.868301",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43200",
+    "name": "ＣＥホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 686.0,
+    "change": -2.0,
+    "changePercent": -0.29069767441860467,
+    "volume": 49000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43200",
+      "CompanyName": "ＣＥホールディングス",
+      "CompanyNameEnglish": "CE Holdings Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:41.633630",
+      "updated_at": "2025-10-03T15:32:41.633635",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

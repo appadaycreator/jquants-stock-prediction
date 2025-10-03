@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "52840",
+    "generated_at": "2025-10-03T15:45:05.918213",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "52840",
+    "name": "ヤマウホールディングス",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 2121.0,
+    "change": 13.0,
+    "changePercent": 0.6166982922201139,
+    "volume": 3500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "52840",
+      "CompanyName": "ヤマウホールディングス",
+      "CompanyNameEnglish": "YAMAU HOLDINGS CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:52.203829",
+      "updated_at": "2025-10-03T15:34:52.203831",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

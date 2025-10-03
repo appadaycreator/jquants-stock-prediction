@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26890",
+    "generated_at": "2025-10-03T15:45:05.770294",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26890",
+    "name": "オルバヘルスケアホールディングス",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 2050.0,
+    "change": 16.0,
+    "changePercent": 0.7866273352999017,
+    "volume": 11300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26890",
+      "CompanyName": "オルバヘルスケアホールディングス",
+      "CompanyNameEnglish": "OLBA HEALTHCARE HOLDINGS,Inc.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:55.053883",
+      "updated_at": "2025-10-03T15:27:55.053885",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

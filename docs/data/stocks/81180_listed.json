@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "81180",
+    "generated_at": "2025-10-03T15:45:06.124390",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "81180",
+    "name": "キング",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 811.0,
+    "change": -1.0,
+    "changePercent": -0.12315270935960591,
+    "volume": 8500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "81180",
+      "CompanyName": "キング",
+      "CompanyNameEnglish": "KING Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:30.689635",
+      "updated_at": "2025-10-03T15:41:30.689653",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

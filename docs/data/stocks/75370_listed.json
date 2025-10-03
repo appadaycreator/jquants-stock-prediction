@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75370",
+    "generated_at": "2025-10-03T15:45:06.090863",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75370",
+    "name": "丸文",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 1063.0,
+    "change": 14.0,
+    "changePercent": 1.334604385128694,
+    "volume": 96300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75370",
+      "CompanyName": "丸文",
+      "CompanyNameEnglish": "MARUBUN CORPORATION",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:59.571490",
+      "updated_at": "2025-10-03T15:39:59.571492",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

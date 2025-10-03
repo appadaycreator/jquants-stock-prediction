@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "87370",
+    "generated_at": "2025-10-03T15:45:06.141190",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "87370",
+    "name": "あかつき本社",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 504.0,
+    "change": 1.0,
+    "changePercent": 0.19880715705765406,
+    "volume": 56200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "87370",
+      "CompanyName": "あかつき本社",
+      "CompanyNameEnglish": "Akatsuki Corp.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:22.332071",
+      "updated_at": "2025-10-03T15:42:22.332087",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

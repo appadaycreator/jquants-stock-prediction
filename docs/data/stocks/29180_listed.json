@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29180",
+    "generated_at": "2025-10-03T15:45:05.784202",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29180",
+    "name": "わらべや日洋ホールディングス",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 2627.0,
+    "change": 40.0,
+    "changePercent": 1.5461925009663704,
+    "volume": 185700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29180",
+      "CompanyName": "わらべや日洋ホールディングス",
+      "CompanyNameEnglish": "WARABEYA NICHIYO HOLDINGS CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:34.304095",
+      "updated_at": "2025-10-03T15:28:34.304098",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

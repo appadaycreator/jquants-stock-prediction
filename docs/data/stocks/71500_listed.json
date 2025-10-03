@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71500",
+    "generated_at": "2025-10-03T15:45:06.063184",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71500",
+    "name": "島根銀行",
+    "sector": "銀行",
+    "market": "スタンダード",
+    "currentPrice": 468.0,
+    "change": 5.0,
+    "changePercent": 1.079913606911447,
+    "volume": 5600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71500",
+      "CompanyName": "島根銀行",
+      "CompanyNameEnglish": "THE SHIMANE BANK,LTD.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:01.816870",
+      "updated_at": "2025-10-03T15:39:01.816872",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

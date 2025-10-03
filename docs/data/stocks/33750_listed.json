@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33750",
+    "generated_at": "2025-10-03T15:45:05.810619",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33750",
+    "name": "ＺＯＡ",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 1555.0,
+    "change": -3.0,
+    "changePercent": -0.19255455712451863,
+    "volume": 200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33750",
+      "CompanyName": "ＺＯＡ",
+      "CompanyNameEnglish": "ZOA CORPORATION",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:00.491663",
+      "updated_at": "2025-10-03T15:30:00.491665",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

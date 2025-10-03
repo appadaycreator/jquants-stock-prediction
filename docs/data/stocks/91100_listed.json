@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "91100",
+    "generated_at": "2025-10-03T15:45:06.167227",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "91100",
+    "name": "ＮＳユナイテッド海運",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 3910.0,
+    "change": 45.0,
+    "changePercent": 1.1642949547218628,
+    "volume": 37900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "91100",
+      "CompanyName": "ＮＳユナイテッド海運",
+      "CompanyNameEnglish": "NS United Kaiun Kaisha,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5100",
+      "Sector33CodeName": "海運業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:04.500454",
+      "updated_at": "2025-10-03T15:43:04.500465",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20960",
+    "generated_at": "2025-10-03T15:45:05.730711",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20960",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　オフィス・Ｊ−ＲＥＩＴ　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1053.0,
+    "change": 2.0,
+    "changePercent": 0.19029495718363465,
+    "volume": 58969,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20960",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　オフィス・Ｊ−ＲＥＩＴ　ＥＴＦ",
+      "CompanyNameEnglish": "Global X Office J-REIT ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:13.839438",
+      "updated_at": "2025-10-03T15:26:13.839441",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44060",
+    "generated_at": "2025-10-03T15:45:05.873869",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44060",
+    "name": "新日本理化",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 214.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 205100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44060",
+      "CompanyName": "新日本理化",
+      "CompanyNameEnglish": "New Japan Chemical Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:57.583303",
+      "updated_at": "2025-10-03T15:32:57.583308",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

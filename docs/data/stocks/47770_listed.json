@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "47770",
+    "generated_at": "2025-10-03T15:45:05.898255",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "47770",
+    "name": "ガーラ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 244.0,
+    "change": 1.0,
+    "changePercent": 0.411522633744856,
+    "volume": 42100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "47770",
+      "CompanyName": "ガーラ",
+      "CompanyNameEnglish": "GALA INCORPORATED",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:57.468424",
+      "updated_at": "2025-10-03T15:33:57.468427",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

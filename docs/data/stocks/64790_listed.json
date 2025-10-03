@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64790",
+    "generated_at": "2025-10-03T15:45:05.981667",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64790",
+    "name": "ミネベアミツミ",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2210.5,
+    "change": 0.5,
+    "changePercent": 0.02262443438914027,
+    "volume": 2204900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64790",
+      "CompanyName": "ミネベアミツミ",
+      "CompanyNameEnglish": "MINEBEA MITSUMI Inc.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:15.583977",
+      "updated_at": "2025-10-03T15:37:15.583979",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

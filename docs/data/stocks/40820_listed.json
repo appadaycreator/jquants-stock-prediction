@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40820",
+    "generated_at": "2025-10-03T15:45:05.855291",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40820",
+    "name": "第一稀元素化学工業",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 662.0,
+    "change": 10.0,
+    "changePercent": 1.5337423312883436,
+    "volume": 24100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40820",
+      "CompanyName": "第一稀元素化学工業",
+      "CompanyNameEnglish": "DAIICHI KIGENSO KAGAKU-KOGYO CO.,LTD",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:09.867907",
+      "updated_at": "2025-10-03T15:32:09.867909",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

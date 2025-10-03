@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78180",
+    "generated_at": "2025-10-03T15:45:06.106845",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78180",
+    "name": "トランザクション",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2475.0,
+    "change": 25.0,
+    "changePercent": 1.0204081632653061,
+    "volume": 34100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78180",
+      "CompanyName": "トランザクション",
+      "CompanyNameEnglish": "TRANSACTION CO.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:37.605901",
+      "updated_at": "2025-10-03T15:40:37.605912",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "84100",
+    "generated_at": "2025-10-03T15:45:06.136098",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "84100",
+    "name": "セブン銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 269.4,
+    "change": 1.099999999999966,
+    "changePercent": 0.40998881848675583,
+    "volume": 3036000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "84100",
+      "CompanyName": "セブン銀行",
+      "CompanyNameEnglish": "Seven Bank,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:05.224820",
+      "updated_at": "2025-10-03T15:42:05.224886",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

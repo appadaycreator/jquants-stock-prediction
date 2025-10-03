@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "96820",
+    "generated_at": "2025-10-03T15:45:06.198885",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "96820",
+    "name": "ＤＴＳ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 4905.0,
+    "change": -50.0,
+    "changePercent": -1.0090817356205852,
+    "volume": 113700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "96820",
+      "CompanyName": "ＤＴＳ",
+      "CompanyNameEnglish": "DTS CORPORATION",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:22.130208",
+      "updated_at": "2025-10-03T15:44:22.130224",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "236A0",
+    "generated_at": "2025-10-03T15:45:05.746032",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "236A0",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　日本国債７−１０年　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 480.2,
+    "change": 0.19999999999998863,
+    "changePercent": 0.0416666666666643,
+    "volume": 660,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "236A0",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　日本国債７−１０年　ＥＴＦ",
+      "CompanyNameEnglish": "iShares 7-10 Year Japan Government Bond ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:58.083759",
+      "updated_at": "2025-10-03T15:26:58.083771",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

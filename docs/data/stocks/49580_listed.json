@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49580",
+    "generated_at": "2025-10-03T15:45:05.905368",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49580",
+    "name": "長谷川香料",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 3040.0,
+    "change": -5.0,
+    "changePercent": -0.16420361247947454,
+    "volume": 39600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49580",
+      "CompanyName": "長谷川香料",
+      "CompanyNameEnglish": "T.HASEGAWA CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:16.913644",
+      "updated_at": "2025-10-03T15:34:16.913648",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "80250",
+    "generated_at": "2025-10-03T15:45:06.118486",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "80250",
+    "name": "ツカモトコーポレーション",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 1340.0,
+    "change": 48.0,
+    "changePercent": 3.7151702786377707,
+    "volume": 1300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "80250",
+      "CompanyName": "ツカモトコーポレーション",
+      "CompanyNameEnglish": "TSUKAMOTO CORPORATION CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:15.452496",
+      "updated_at": "2025-10-03T15:41:15.452505",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

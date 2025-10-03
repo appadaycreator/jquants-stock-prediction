@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "47830",
+    "generated_at": "2025-10-03T15:45:05.898334",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "47830",
+    "name": "ＮＣＤ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2744.0,
+    "change": -91.0,
+    "changePercent": -3.2098765432098766,
+    "volume": 24700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "47830",
+      "CompanyName": "ＮＣＤ",
+      "CompanyNameEnglish": "NCD Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:57.750580",
+      "updated_at": "2025-10-03T15:33:57.750583",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

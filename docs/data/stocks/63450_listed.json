@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63450",
+    "generated_at": "2025-10-03T15:45:05.972842",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63450",
+    "name": "アイチ　コーポレーション",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1360.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 106700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63450",
+      "CompanyName": "アイチ　コーポレーション",
+      "CompanyNameEnglish": "AICHI CORPORATION",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:53.849964",
+      "updated_at": "2025-10-03T15:36:53.849967",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

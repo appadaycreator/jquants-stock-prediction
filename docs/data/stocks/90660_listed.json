@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90660",
+    "generated_at": "2025-10-03T15:45:06.164398",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90660",
+    "name": "日新",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 8100.0,
+    "change": 20.0,
+    "changePercent": 0.24752475247524752,
+    "volume": 23100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90660",
+      "CompanyName": "日新",
+      "CompanyNameEnglish": "NISSIN CORPORATION",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:59.518862",
+      "updated_at": "2025-10-03T15:42:59.518871",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

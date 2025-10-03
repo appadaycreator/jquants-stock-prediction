@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32870",
+    "generated_at": "2025-10-03T15:45:05.806116",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32870",
+    "name": "星野リゾート・リート投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 250700.0,
+    "change": 3500.0,
+    "changePercent": 1.4158576051779936,
+    "volume": 3382,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32870",
+      "CompanyName": "星野リゾート・リート投資法人",
+      "CompanyNameEnglish": "Hoshino Resorts REIT,Inc.",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:46.097370",
+      "updated_at": "2025-10-03T15:29:46.097375",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

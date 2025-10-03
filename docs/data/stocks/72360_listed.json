@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72360",
+    "generated_at": "2025-10-03T15:45:06.070980",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72360",
+    "name": "ティラド",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 4685.0,
+    "change": -30.0,
+    "changePercent": -0.6362672322375398,
+    "volume": 14600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72360",
+      "CompanyName": "ティラド",
+      "CompanyNameEnglish": "T.RAD Co., Ltd.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:14.739487",
+      "updated_at": "2025-10-03T15:39:14.739489",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

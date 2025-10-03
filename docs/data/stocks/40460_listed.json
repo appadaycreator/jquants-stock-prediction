@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40460",
+    "generated_at": "2025-10-03T15:45:05.851104",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40460",
+    "name": "大阪ソーダ",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 1783.0,
+    "change": -8.0,
+    "changePercent": -0.446677833612507,
+    "volume": 632200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40460",
+      "CompanyName": "大阪ソーダ",
+      "CompanyNameEnglish": "OSAKA SODA CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:02.638782",
+      "updated_at": "2025-10-03T15:32:02.638784",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

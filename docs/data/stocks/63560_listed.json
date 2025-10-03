@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63560",
+    "generated_at": "2025-10-03T15:45:05.973312",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63560",
+    "name": "日本ギア工業",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 533.0,
+    "change": -5.0,
+    "changePercent": -0.929368029739777,
+    "volume": 27700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63560",
+      "CompanyName": "日本ギア工業",
+      "CompanyNameEnglish": "NIPPON GEAR CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:55.212365",
+      "updated_at": "2025-10-03T15:36:55.212368",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

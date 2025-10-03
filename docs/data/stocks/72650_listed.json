@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72650",
+    "generated_at": "2025-10-03T15:45:06.072657",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72650",
+    "name": "エイケン工業",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 3655.0,
+    "change": -35.0,
+    "changePercent": -0.9485094850948509,
+    "volume": 300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72650",
+      "CompanyName": "エイケン工業",
+      "CompanyNameEnglish": "EIKEN INDUSTRIES CO.,LTD",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:19.307262",
+      "updated_at": "2025-10-03T15:39:19.307264",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

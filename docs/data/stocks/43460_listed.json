@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43460",
+    "generated_at": "2025-10-03T15:45:05.869652",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43460",
+    "name": "ＮＥＸＹＺ．Ｇｒｏｕｐ",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 887.0,
+    "change": -18.0,
+    "changePercent": -1.9889502762430937,
+    "volume": 9500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43460",
+      "CompanyName": "ＮＥＸＹＺ．Ｇｒｏｕｐ",
+      "CompanyNameEnglish": "NEXYZ.Group Corporation",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:45.128521",
+      "updated_at": "2025-10-03T15:32:45.128523",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

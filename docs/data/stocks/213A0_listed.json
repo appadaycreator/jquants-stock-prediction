@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "213A0",
+    "generated_at": "2025-10-03T15:45:05.733494",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "213A0",
+    "name": "日興アセットマネジメント株式会社　上場インデックスファンド日経半導体株",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 163.2,
+    "change": 0.29999999999998295,
+    "changePercent": 0.18416206261509083,
+    "volume": 59670,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "213A0",
+      "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド日経半導体株",
+      "CompanyNameEnglish": "Listed Index Fund Nikkei Semiconductor Stock",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:20.152846",
+      "updated_at": "2025-10-03T15:26:20.152848",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

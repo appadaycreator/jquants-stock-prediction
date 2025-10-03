@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62220",
+    "generated_at": "2025-10-03T15:45:05.963551",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62220",
+    "name": "島精機製作所",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1002.0,
+    "change": 3.0,
+    "changePercent": 0.3003003003003003,
+    "volume": 123000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62220",
+      "CompanyName": "島精機製作所",
+      "CompanyNameEnglish": "SHIMA SEIKI MFG.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:31.671124",
+      "updated_at": "2025-10-03T15:36:31.671126",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

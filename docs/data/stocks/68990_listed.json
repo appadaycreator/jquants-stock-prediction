@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "68990",
+    "generated_at": "2025-10-03T15:45:06.029458",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "68990",
+    "name": "ＡＳＴＩ",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 1825.0,
+    "change": -1.0,
+    "changePercent": -0.054764512595837894,
+    "volume": 6600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "68990",
+      "CompanyName": "ＡＳＴＩ",
+      "CompanyNameEnglish": "ASTI CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:19.714271",
+      "updated_at": "2025-10-03T15:38:19.714273",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

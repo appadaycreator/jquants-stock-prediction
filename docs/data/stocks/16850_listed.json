@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "16850",
+    "generated_at": "2025-10-03T15:45:05.701528",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "16850",
+    "name": "ウィズダムツリー・コモディティ・セキュリティーズ・リミテッド　ＷｉｓｄｏｍＴｒｅｅ　エネルギー上場投資信託",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 523.4,
+    "change": -3.800000000000068,
+    "changePercent": -0.7207890743550963,
+    "volume": 940,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "16850",
+      "CompanyName": "ウィズダムツリー・コモディティ・セキュリティーズ・リミテッド　ＷｉｓｄｏｍＴｒｅｅ　エネルギー上場投資信託",
+      "CompanyNameEnglish": "WisdomTree Energy",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:08.672754",
+      "updated_at": "2025-10-03T15:25:08.672766",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90510",
+    "generated_at": "2025-10-03T15:45:06.163051",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90510",
+    "name": "センコン物流",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 1219.0,
+    "change": 1.0,
+    "changePercent": 0.08210180623973727,
+    "volume": 300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90510",
+      "CompanyName": "センコン物流",
+      "CompanyNameEnglish": "SENKON LOGISTICS CO.,LTD",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:57.239816",
+      "updated_at": "2025-10-03T15:42:57.239826",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

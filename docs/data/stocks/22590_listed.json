@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22590",
+    "generated_at": "2025-10-03T15:45:05.741035",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22590",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　フランス国債７−１０年　ＥＴＦ（為替ヘッジあり）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 190.9,
+    "change": -0.29999999999998295,
+    "changePercent": -0.15690376569036765,
+    "volume": 500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22590",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　フランス国債７−１０年　ＥＴＦ（為替ヘッジあり）",
+      "CompanyNameEnglish": "iShares 7-10 Year France Government Bond JPY Hedged ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:42.272188",
+      "updated_at": "2025-10-03T15:26:42.272191",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

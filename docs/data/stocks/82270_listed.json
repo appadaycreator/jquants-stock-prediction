@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "82270",
+    "generated_at": "2025-10-03T15:45:06.129070",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "82270",
+    "name": "しまむら",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 10760.0,
+    "change": 50.0,
+    "changePercent": 0.4668534080298786,
+    "volume": 138200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "82270",
+      "CompanyName": "しまむら",
+      "CompanyNameEnglish": "SHIMAMURA Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:46.019213",
+      "updated_at": "2025-10-03T15:41:46.019227",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

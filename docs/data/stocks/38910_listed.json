@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "38910",
+    "generated_at": "2025-10-03T15:45:05.840084",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "38910",
+    "name": "ニッポン高度紙工業",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 1742.0,
+    "change": 12.0,
+    "changePercent": 0.6936416184971098,
+    "volume": 14800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "38910",
+      "CompanyName": "ニッポン高度紙工業",
+      "CompanyNameEnglish": "NIPPON KODOSHI CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:32.602882",
+      "updated_at": "2025-10-03T15:31:32.602886",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

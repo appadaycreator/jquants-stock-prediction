@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26420",
+    "generated_at": "2025-10-03T15:45:05.767436",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26420",
+    "name": "三井住友トラスト・アセットマネジメント株式会社　ＳＭＴ　ＥＴＦカーボン・エフィシェント日本株",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:27:45.773318",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26420",
+      "CompanyName": "三井住友トラスト・アセットマネジメント株式会社　ＳＭＴ　ＥＴＦカーボン・エフィシェント日本株",
+      "CompanyNameEnglish": "SMT ETF Carbon Efficient Index Japan Equity",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:45.773327",
+      "updated_at": "2025-10-03T15:27:45.773328",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

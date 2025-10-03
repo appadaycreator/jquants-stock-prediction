@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19940",
+    "generated_at": "2025-10-03T15:45:05.723723",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19940",
+    "name": "高橋カーテンウォール工業",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 485.0,
+    "change": 1.0,
+    "changePercent": 0.2066115702479339,
+    "volume": 3500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19940",
+      "CompanyName": "高橋カーテンウォール工業",
+      "CompanyNameEnglish": "TAKAHASHI CURTAIN WALL CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:53.992782",
+      "updated_at": "2025-10-03T15:25:53.992785",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

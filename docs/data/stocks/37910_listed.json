@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "37910",
+    "generated_at": "2025-10-03T15:45:05.835421",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "37910",
+    "name": "ＩＧポート",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2078.0,
+    "change": -58.0,
+    "changePercent": -2.715355805243446,
+    "volume": 503100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "37910",
+      "CompanyName": "ＩＧポート",
+      "CompanyNameEnglish": "IG Port,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:17.767937",
+      "updated_at": "2025-10-03T15:31:17.767940",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

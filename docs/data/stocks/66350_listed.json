@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66350",
+    "generated_at": "2025-10-03T15:45:05.992918",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66350",
+    "name": "大日光・エンジニアリング",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 476.0,
+    "change": -2.0,
+    "changePercent": -0.41841004184100417,
+    "volume": 9900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66350",
+      "CompanyName": "大日光・エンジニアリング",
+      "CompanyNameEnglish": "KK DI-NIKKO ENGINEERING",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:43.627442",
+      "updated_at": "2025-10-03T15:37:43.627444",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "60900",
+    "generated_at": "2025-10-03T15:45:05.957212",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "60900",
+    "name": "ヒューマン・メタボローム・テクノロジーズ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 758.0,
+    "change": 5.0,
+    "changePercent": 0.6640106241699867,
+    "volume": 1900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "60900",
+      "CompanyName": "ヒューマン・メタボローム・テクノロジーズ",
+      "CompanyNameEnglish": "Human Metabolome Technologies,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:12.062799",
+      "updated_at": "2025-10-03T15:36:12.062801",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

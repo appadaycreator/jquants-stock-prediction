@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69860",
+    "generated_at": "2025-10-03T15:45:06.040525",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69860",
+    "name": "双葉電子工業",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 621.0,
+    "change": -1.0,
+    "changePercent": -0.1607717041800643,
+    "volume": 291900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69860",
+      "CompanyName": "双葉電子工業",
+      "CompanyNameEnglish": "FUTABA CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:32.604684",
+      "updated_at": "2025-10-03T15:38:32.604686",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

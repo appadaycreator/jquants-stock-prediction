@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32210",
+    "generated_at": "2025-10-03T15:45:05.802568",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32210",
+    "name": "ヨシックスホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 2543.0,
+    "change": 17.0,
+    "changePercent": 0.6730007917656373,
+    "volume": 65100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32210",
+      "CompanyName": "ヨシックスホールディングス",
+      "CompanyNameEnglish": "Yossix Holdings Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:34.389772",
+      "updated_at": "2025-10-03T15:29:34.389778",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

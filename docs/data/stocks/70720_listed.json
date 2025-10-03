@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "70720",
+    "generated_at": "2025-10-03T15:45:06.055115",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "70720",
+    "name": "インティメート・マージャー",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 829.0,
+    "change": 9.0,
+    "changePercent": 1.097560975609756,
+    "volume": 9400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "70720",
+      "CompanyName": "インティメート・マージャー",
+      "CompanyNameEnglish": "Intimate Merger,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:47.247011",
+      "updated_at": "2025-10-03T15:38:47.247013",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

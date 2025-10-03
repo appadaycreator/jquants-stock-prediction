@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "47160",
+    "generated_at": "2025-10-03T15:45:05.894614",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "47160",
+    "name": "日本オラクル",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 16350.0,
+    "change": -80.0,
+    "changePercent": -0.48691418137553255,
+    "volume": 110700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "47160",
+      "CompanyName": "日本オラクル",
+      "CompanyNameEnglish": "ORACLE CORPORATION JAPAN",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:49.128909",
+      "updated_at": "2025-10-03T15:33:49.128914",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

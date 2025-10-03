@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "91600",
+    "generated_at": "2025-10-03T15:45:06.171256",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "91600",
+    "name": "ノバレーゼ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 313.0,
+    "change": 1.0,
+    "changePercent": 0.3205128205128205,
+    "volume": 7700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "91600",
+      "CompanyName": "ノバレーゼ",
+      "CompanyNameEnglish": "NOVARESE,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:08.740098",
+      "updated_at": "2025-10-03T15:43:08.740108",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

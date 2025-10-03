@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49560",
+    "generated_at": "2025-10-03T15:45:05.905216",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49560",
+    "name": "コニシ",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 1187.0,
+    "change": -6.0,
+    "changePercent": -0.5029337803855826,
+    "volume": 104500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49560",
+      "CompanyName": "コニシ",
+      "CompanyNameEnglish": "KONISHI CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:16.390218",
+      "updated_at": "2025-10-03T15:34:16.390221",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

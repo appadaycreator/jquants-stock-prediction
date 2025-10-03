@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77600",
+    "generated_at": "2025-10-03T15:45:06.101828",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77600",
+    "name": "ＩＭＶ",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 1580.0,
+    "change": -37.0,
+    "changePercent": -2.2881880024737167,
+    "volume": 169300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77600",
+      "CompanyName": "ＩＭＶ",
+      "CompanyNameEnglish": "IMV CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:32.434878",
+      "updated_at": "2025-10-03T15:40:32.434884",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "61490",
+    "generated_at": "2025-10-03T15:45:05.959639",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "61490",
+    "name": "小田原エンジニアリング",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1920.0,
+    "change": -12.0,
+    "changePercent": -0.6211180124223602,
+    "volume": 6300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "61490",
+      "CompanyName": "小田原エンジニアリング",
+      "CompanyNameEnglish": "Odawara Engineering Co.,Ltd.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:19.571660",
+      "updated_at": "2025-10-03T15:36:19.571664",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18260",
+    "generated_at": "2025-10-03T15:45:05.711531",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18260",
+    "name": "佐田建設",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1105.0,
+    "change": 6.0,
+    "changePercent": 0.5459508644222021,
+    "volume": 18600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18260",
+      "CompanyName": "佐田建設",
+      "CompanyNameEnglish": "Sata Construction Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:29.098692",
+      "updated_at": "2025-10-03T15:25:29.098696",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59300",
+    "generated_at": "2025-10-03T15:45:05.944665",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59300",
+    "name": "文化シヤッター",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 2400.0,
+    "change": -13.0,
+    "changePercent": -0.5387484459179445,
+    "volume": 100600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59300",
+      "CompanyName": "文化シヤッター",
+      "CompanyNameEnglish": "Bunka Shutter Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:43.920980",
+      "updated_at": "2025-10-03T15:35:43.920982",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

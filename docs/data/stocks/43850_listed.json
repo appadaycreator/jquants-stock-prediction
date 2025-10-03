@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43850",
+    "generated_at": "2025-10-03T15:45:05.872273",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43850",
+    "name": "メルカリ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2558.0,
+    "change": -30.0,
+    "changePercent": -1.1591962905718702,
+    "volume": 2711500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43850",
+      "CompanyName": "メルカリ",
+      "CompanyNameEnglish": "Mercari,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:52.876873",
+      "updated_at": "2025-10-03T15:32:52.876876",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

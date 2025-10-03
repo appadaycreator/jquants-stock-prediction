@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72170",
+    "generated_at": "2025-10-03T15:45:06.068761",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72170",
+    "name": "テイン",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 771.0,
+    "change": -7.0,
+    "changePercent": -0.8997429305912596,
+    "volume": 1700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72170",
+      "CompanyName": "テイン",
+      "CompanyNameEnglish": "TEIN,INC.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:11.815429",
+      "updated_at": "2025-10-03T15:39:11.815431",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

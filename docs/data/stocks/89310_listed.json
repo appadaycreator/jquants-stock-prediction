@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "89310",
+    "generated_at": "2025-10-03T15:45:06.148959",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "89310",
+    "name": "和田興産",
+    "sector": "不動産",
+    "market": "スタンダード",
+    "currentPrice": 1494.0,
+    "change": 30.0,
+    "changePercent": 2.0491803278688523,
+    "volume": 15400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "89310",
+      "CompanyName": "和田興産",
+      "CompanyNameEnglish": "WADAKOHSAN CORPORATION",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:37.865964",
+      "updated_at": "2025-10-03T15:42:37.865974",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

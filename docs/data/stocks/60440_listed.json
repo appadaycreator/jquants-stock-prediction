@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "60440",
+    "generated_at": "2025-10-03T15:45:05.954305",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "60440",
+    "name": "三機サービス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1147.0,
+    "change": -9.0,
+    "changePercent": -0.7785467128027681,
+    "volume": 3300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "60440",
+      "CompanyName": "三機サービス",
+      "CompanyNameEnglish": "SANKI SERVICE CORPORATION",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:03.342268",
+      "updated_at": "2025-10-03T15:36:03.342270",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

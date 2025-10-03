@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22960",
+    "generated_at": "2025-10-03T15:45:05.742791",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22960",
+    "name": "伊藤ハム米久ホールディングス",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 4995.0,
+    "change": 20.0,
+    "changePercent": 0.4020100502512563,
+    "volume": 97100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22960",
+      "CompanyName": "伊藤ハム米久ホールディングス",
+      "CompanyNameEnglish": "ITOHAM YONEKYU HOLDINGS INC.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:47.597869",
+      "updated_at": "2025-10-03T15:26:47.597874",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

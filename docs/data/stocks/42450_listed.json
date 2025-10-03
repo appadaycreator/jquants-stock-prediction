@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "42450",
+    "generated_at": "2025-10-03T15:45:05.863254",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "42450",
+    "name": "ダイキアクシス",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 677.0,
+    "change": 2.0,
+    "changePercent": 0.2962962962962963,
+    "volume": 11900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "42450",
+      "CompanyName": "ダイキアクシス",
+      "CompanyNameEnglish": "Daiki Axis Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:31.537460",
+      "updated_at": "2025-10-03T15:32:31.537464",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

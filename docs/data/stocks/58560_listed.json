@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "58560",
+    "generated_at": "2025-10-03T15:45:05.937590",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "58560",
+    "name": "エルアイイーエイチ",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 53.0,
+    "change": 3.0,
+    "changePercent": 6.0,
+    "volume": 2933800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "58560",
+      "CompanyName": "エルアイイーエイチ",
+      "CompanyNameEnglish": "Life Intelligent Enterprise Holdings Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:34.322404",
+      "updated_at": "2025-10-03T15:35:34.322406",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

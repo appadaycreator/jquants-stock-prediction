@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62310",
+    "generated_at": "2025-10-03T15:45:05.964330",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62310",
+    "name": "木村工機",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 9920.0,
+    "change": -370.0,
+    "changePercent": -3.5957240038872693,
+    "volume": 7700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62310",
+      "CompanyName": "木村工機",
+      "CompanyNameEnglish": "KIMURA KOHKI Co.,Ltd.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:33.864433",
+      "updated_at": "2025-10-03T15:36:33.864435",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

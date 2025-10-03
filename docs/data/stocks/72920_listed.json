@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72920",
+    "generated_at": "2025-10-03T15:45:06.074670",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72920",
+    "name": "村上開明堂",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 6590.0,
+    "change": -40.0,
+    "changePercent": -0.603318250377074,
+    "volume": 1600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72920",
+      "CompanyName": "村上開明堂",
+      "CompanyNameEnglish": "MURAKAMI CORPORATION",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:24.344444",
+      "updated_at": "2025-10-03T15:39:24.344446",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

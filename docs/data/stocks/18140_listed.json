@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18140",
+    "generated_at": "2025-10-03T15:45:05.711027",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18140",
+    "name": "大末建設",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 2256.0,
+    "change": -14.0,
+    "changePercent": -0.6167400881057269,
+    "volume": 24900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18140",
+      "CompanyName": "大末建設",
+      "CompanyNameEnglish": "DAISUE CONSTRUCTION CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:27.514014",
+      "updated_at": "2025-10-03T15:25:27.514016",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

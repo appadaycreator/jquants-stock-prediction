@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "54630",
+    "generated_at": "2025-10-03T15:45:05.923503",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "54630",
+    "name": "丸一鋼管",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 3630.0,
+    "change": 13.0,
+    "changePercent": 0.35941387890517007,
+    "volume": 112000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "54630",
+      "CompanyName": "丸一鋼管",
+      "CompanyNameEnglish": "Maruichi Steel Tube Ltd.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3450",
+      "Sector33CodeName": "鉄鋼",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:04.779980",
+      "updated_at": "2025-10-03T15:35:04.779982",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

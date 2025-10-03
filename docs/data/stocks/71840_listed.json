@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71840",
+    "generated_at": "2025-10-03T15:45:06.065086",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71840",
+    "name": "富山第一銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 1044.0,
+    "change": 12.0,
+    "changePercent": 1.1627906976744187,
+    "volume": 185000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71840",
+      "CompanyName": "富山第一銀行",
+      "CompanyNameEnglish": "THE FIRST BANK OF TOYAMA,LTD.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:06.378737",
+      "updated_at": "2025-10-03T15:39:06.378739",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

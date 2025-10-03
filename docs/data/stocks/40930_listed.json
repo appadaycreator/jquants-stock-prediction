@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40930",
+    "generated_at": "2025-10-03T15:45:05.855701",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40930",
+    "name": "東邦アセチレン",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 354.0,
+    "change": 1.0,
+    "changePercent": 0.28328611898017,
+    "volume": 14200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40930",
+      "CompanyName": "東邦アセチレン",
+      "CompanyNameEnglish": "Toho Acetylene Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:10.954753",
+      "updated_at": "2025-10-03T15:32:10.954756",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

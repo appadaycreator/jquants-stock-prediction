@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43430",
+    "generated_at": "2025-10-03T15:45:05.869417",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43430",
+    "name": "イオンファンタジー",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2920.0,
+    "change": 24.0,
+    "changePercent": 0.8287292817679558,
+    "volume": 111400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43430",
+      "CompanyName": "イオンファンタジー",
+      "CompanyNameEnglish": "AEON Fantasy Co.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:44.308316",
+      "updated_at": "2025-10-03T15:32:44.308318",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

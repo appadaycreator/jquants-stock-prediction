@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "61850",
+    "generated_at": "2025-10-03T15:45:05.961730",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "61850",
+    "name": "ＳＭＮ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 440.0,
+    "change": 12.0,
+    "changePercent": 2.803738317757009,
+    "volume": 61800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "61850",
+      "CompanyName": "ＳＭＮ",
+      "CompanyNameEnglish": "SMN Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:26.142950",
+      "updated_at": "2025-10-03T15:36:26.142952",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

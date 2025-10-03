@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66450",
+    "generated_at": "2025-10-03T15:45:05.993542",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66450",
+    "name": "オムロン",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 3966.0,
+    "change": 92.0,
+    "changePercent": 2.374806401652039,
+    "volume": 2636600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66450",
+      "CompanyName": "オムロン",
+      "CompanyNameEnglish": "OMRON Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:45.007276",
+      "updated_at": "2025-10-03T15:37:45.007278",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

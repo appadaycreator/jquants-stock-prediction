@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "70570",
+    "generated_at": "2025-10-03T15:45:06.050562",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "70570",
+    "name": "エヌ・シー・エヌ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 975.0,
+    "change": -10.0,
+    "changePercent": -1.015228426395939,
+    "volume": 5200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "70570",
+      "CompanyName": "エヌ・シー・エヌ",
+      "CompanyNameEnglish": "New Constructor's Network Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:43.332155",
+      "updated_at": "2025-10-03T15:38:43.332157",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

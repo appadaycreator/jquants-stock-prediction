@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79150",
+    "generated_at": "2025-10-03T15:45:06.111957",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79150",
+    "name": "ＮＩＳＳＨＡ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1316.0,
+    "change": 19.0,
+    "changePercent": 1.4649190439475714,
+    "volume": 116900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79150",
+      "CompanyName": "ＮＩＳＳＨＡ",
+      "CompanyNameEnglish": "Nissha Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:53.458477",
+      "updated_at": "2025-10-03T15:40:53.458486",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

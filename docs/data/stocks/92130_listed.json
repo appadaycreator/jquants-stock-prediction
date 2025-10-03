@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92130",
+    "generated_at": "2025-10-03T15:45:06.173703",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92130",
+    "name": "セイファート",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 795.0,
+    "change": -8.0,
+    "changePercent": -0.9962640099626401,
+    "volume": 4400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92130",
+      "CompanyName": "セイファート",
+      "CompanyNameEnglish": "SEYFERT LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:14.243595",
+      "updated_at": "2025-10-03T15:43:14.243607",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "73130",
+    "generated_at": "2025-10-03T15:45:06.075472",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "73130",
+    "name": "テイ・エス　テック",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 1735.5,
+    "change": 6.0,
+    "changePercent": 0.3469210754553339,
+    "volume": 253600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "73130",
+      "CompanyName": "テイ・エス　テック",
+      "CompanyNameEnglish": "TS TECH CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:26.258058",
+      "updated_at": "2025-10-03T15:39:26.258060",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

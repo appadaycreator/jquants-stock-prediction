@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71820",
+    "generated_at": "2025-10-03T15:45:06.064779",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71820",
+    "name": "ゆうちょ銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 1609.5,
+    "change": 19.5,
+    "changePercent": 1.2264150943396228,
+    "volume": 9232300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71820",
+      "CompanyName": "ゆうちょ銀行",
+      "CompanyNameEnglish": "JAPAN POST BANK Co.,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:05.836352",
+      "updated_at": "2025-10-03T15:39:05.836354",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

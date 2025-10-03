@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "57030",
+    "generated_at": "2025-10-03T15:45:05.929935",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "57030",
+    "name": "日本軽金属ホールディングス",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 1658.0,
+    "change": 1.0,
+    "changePercent": 0.06035003017501509,
+    "volume": 232200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "57030",
+      "CompanyName": "日本軽金属ホールディングス",
+      "CompanyNameEnglish": "Nippon Light Metal Holdings Company,Ltd.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:23.927747",
+      "updated_at": "2025-10-03T15:35:23.927750",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

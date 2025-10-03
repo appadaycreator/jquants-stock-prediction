@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25590",
+    "generated_at": "2025-10-03T15:45:05.761233",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25590",
+    "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ全世界株式（オール・カントリー）上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 22230.0,
+    "change": 30.0,
+    "changePercent": 0.13513513513513514,
+    "volume": 9689,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25590",
+      "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ全世界株式（オール・カントリー）上場投信",
+      "CompanyNameEnglish": "MAXIS World Equity (MSCI ACWI) ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:30.630696",
+      "updated_at": "2025-10-03T15:27:30.630699",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

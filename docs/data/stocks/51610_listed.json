@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "51610",
+    "generated_at": "2025-10-03T15:45:05.913701",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "51610",
+    "name": "西川ゴム工業",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 2638.0,
+    "change": -12.0,
+    "changePercent": -0.4528301886792453,
+    "volume": 114000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "51610",
+      "CompanyName": "西川ゴム工業",
+      "CompanyNameEnglish": "NISHIKAWA RUBBER CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3350",
+      "Sector33CodeName": "ゴム製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:38.657131",
+      "updated_at": "2025-10-03T15:34:38.657133",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

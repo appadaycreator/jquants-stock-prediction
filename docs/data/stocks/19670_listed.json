@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19670",
+    "generated_at": "2025-10-03T15:45:05.721197",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19670",
+    "name": "ヤマト",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1723.0,
+    "change": 13.0,
+    "changePercent": 0.7602339181286549,
+    "volume": 10300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19670",
+      "CompanyName": "ヤマト",
+      "CompanyNameEnglish": "YAMATO CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:49.892809",
+      "updated_at": "2025-10-03T15:25:49.892841",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

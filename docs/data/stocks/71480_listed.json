@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71480",
+    "generated_at": "2025-10-03T15:45:06.063101",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71480",
+    "name": "ＦＰＧ",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 2391.0,
+    "change": 6.0,
+    "changePercent": 0.25157232704402516,
+    "volume": 304500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71480",
+      "CompanyName": "ＦＰＧ",
+      "CompanyNameEnglish": "Financial Partners Group Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:01.553022",
+      "updated_at": "2025-10-03T15:39:01.553023",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

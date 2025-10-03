@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28840",
+    "generated_at": "2025-10-03T15:45:05.782159",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28840",
+    "name": "ヨシムラ・フード・ホールディングス",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 1054.0,
+    "change": 3.0,
+    "changePercent": 0.285442435775452,
+    "volume": 196200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28840",
+      "CompanyName": "ヨシムラ・フード・ホールディングス",
+      "CompanyNameEnglish": "Yoshimura Food Holdings K.K.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:29.726171",
+      "updated_at": "2025-10-03T15:28:29.726174",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

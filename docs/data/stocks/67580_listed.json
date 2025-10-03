@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67580",
+    "generated_at": "2025-10-03T15:45:06.007738",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67580",
+    "name": "ソニーグループ",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 3600.0,
+    "change": -55.0,
+    "changePercent": -1.5047879616963065,
+    "volume": 12368000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67580",
+      "CompanyName": "ソニーグループ",
+      "CompanyNameEnglish": "SONY GROUP CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Core30",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:00.028303",
+      "updated_at": "2025-10-03T15:38:00.028306",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "84250",
+    "generated_at": "2025-10-03T15:45:06.136570",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "84250",
+    "name": "みずほリース",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 1093.0,
+    "change": 5.0,
+    "changePercent": 0.4595588235294118,
+    "volume": 604500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "84250",
+      "CompanyName": "みずほリース",
+      "CompanyNameEnglish": "Mizuho Leasing Company,Limited",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:07.161568",
+      "updated_at": "2025-10-03T15:42:07.161576",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

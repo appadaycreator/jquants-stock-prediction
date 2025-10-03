@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "95430",
+    "generated_at": "2025-10-03T15:45:06.192967",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "95430",
+    "name": "静岡ガス",
+    "sector": "電気・ガス",
+    "market": "プライム",
+    "currentPrice": 1102.0,
+    "change": 2.0,
+    "changePercent": 0.18181818181818182,
+    "volume": 107200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "95430",
+      "CompanyName": "静岡ガス",
+      "CompanyNameEnglish": "SHIZUOKA GAS CO.,LTD.",
+      "Sector17Code": "11",
+      "Sector17CodeName": "電気・ガス",
+      "Sector33Code": "4050",
+      "Sector33CodeName": "電気･ガス業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:07.988908",
+      "updated_at": "2025-10-03T15:44:07.988912",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

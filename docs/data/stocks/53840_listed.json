@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "53840",
+    "generated_at": "2025-10-03T15:45:05.921910",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "53840",
+    "name": "フジミインコーポレーテッド",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 2069.0,
+    "change": 4.0,
+    "changePercent": 0.1937046004842615,
+    "volume": 284300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "53840",
+      "CompanyName": "フジミインコーポレーテッド",
+      "CompanyNameEnglish": "FUJIMI INCORPORATED",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:59.194378",
+      "updated_at": "2025-10-03T15:34:59.194380",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

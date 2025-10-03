@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66590",
+    "generated_at": "2025-10-03T15:45:05.994494",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66590",
+    "name": "メディアリンクス",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 67.0,
+    "change": -3.0,
+    "changePercent": -4.285714285714286,
+    "volume": 5545000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66590",
+      "CompanyName": "メディアリンクス",
+      "CompanyNameEnglish": "MEDIA LINKS CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:47.552347",
+      "updated_at": "2025-10-03T15:37:47.552350",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79740",
+    "generated_at": "2025-10-03T15:45:06.115323",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79740",
+    "name": "任天堂",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 12685.0,
+    "change": -65.0,
+    "changePercent": -0.5098039215686275,
+    "volume": 3087700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79740",
+      "CompanyName": "任天堂",
+      "CompanyNameEnglish": "Nintendo Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Core30",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:04.851881",
+      "updated_at": "2025-10-03T15:41:04.851886",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

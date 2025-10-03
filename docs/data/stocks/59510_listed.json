@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59510",
+    "generated_at": "2025-10-03T15:45:05.947689",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59510",
+    "name": "ダイニチ工業",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 720.0,
+    "change": 9.0,
+    "changePercent": 1.2658227848101267,
+    "volume": 40500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59510",
+      "CompanyName": "ダイニチ工業",
+      "CompanyNameEnglish": "Dainichi Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:48.120332",
+      "updated_at": "2025-10-03T15:35:48.120337",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

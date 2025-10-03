@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "87830",
+    "generated_at": "2025-10-03T15:45:06.142018",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "87830",
+    "name": "ＧＦＡ",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 263.0,
+    "change": 9.0,
+    "changePercent": 3.543307086614173,
+    "volume": 841700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "87830",
+      "CompanyName": "ＧＦＡ",
+      "CompanyNameEnglish": "GFA Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:25.169860",
+      "updated_at": "2025-10-03T15:42:25.169869",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

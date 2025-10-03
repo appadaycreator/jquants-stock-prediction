@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90630",
+    "generated_at": "2025-10-03T15:45:06.163737",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90630",
+    "name": "岡山県貨物運送",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:42:58.650916",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90630",
+      "CompanyName": "岡山県貨物運送",
+      "CompanyNameEnglish": "Okayamaken Freight Transportation CO.,LTD.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:58.650934",
+      "updated_at": "2025-10-03T15:42:58.650937",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

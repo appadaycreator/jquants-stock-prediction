@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "83880",
+    "generated_at": "2025-10-03T15:45:06.134510",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "83880",
+    "name": "阿波銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 3085.0,
+    "change": 55.0,
+    "changePercent": 1.8151815181518154,
+    "volume": 98400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "83880",
+      "CompanyName": "阿波銀行",
+      "CompanyNameEnglish": "The Awa Bank,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:03.663414",
+      "updated_at": "2025-10-03T15:42:03.663424",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

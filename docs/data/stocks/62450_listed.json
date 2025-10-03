@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62450",
+    "generated_at": "2025-10-03T15:45:05.964984",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62450",
+    "name": "ヒラノテクシード",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1481.0,
+    "change": 19.0,
+    "changePercent": 1.2995896032831737,
+    "volume": 19500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62450",
+      "CompanyName": "ヒラノテクシード",
+      "CompanyNameEnglish": "HIRANO TECSEED CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:36.169727",
+      "updated_at": "2025-10-03T15:36:36.169730",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

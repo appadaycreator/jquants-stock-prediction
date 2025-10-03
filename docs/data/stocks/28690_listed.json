@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28690",
+    "generated_at": "2025-10-03T15:45:05.780992",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28690",
+    "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＮＡＳＤＡＱ１００レバレッジ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 50330.0,
+    "change": -510.0,
+    "changePercent": -1.003147128245476,
+    "volume": 6789,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28690",
+      "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＮＡＳＤＡＱ１００レバレッジ",
+      "CompanyNameEnglish": "iFreeETF NASDAQ100 Leveraged (2x)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:26.467495",
+      "updated_at": "2025-10-03T15:28:26.467497",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

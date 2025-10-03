@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25190",
+    "generated_at": "2025-10-03T15:45:05.758002",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25190",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　新興国債券・Ｊ．Ｐ．モルガン・エマージング・マーケット・ボンド・インデックス・プラス（為替ヘッジなし）連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1084.0,
+    "change": 11.0,
+    "changePercent": 1.0251630941286114,
+    "volume": 770,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25190",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　新興国債券・Ｊ．Ｐ．モルガン・エマージング・マーケット・ボンド・インデックス・プラス（為替ヘッジなし）連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS Emerging Market Bond J.P. Morgan EMBI Plus (Unhedged) Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:23.437724",
+      "updated_at": "2025-10-03T15:27:23.437727",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

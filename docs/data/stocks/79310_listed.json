@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79310",
+    "generated_at": "2025-10-03T15:45:06.112997",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79310",
+    "name": "未来工業",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 3390.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 14800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79310",
+      "CompanyName": "未来工業",
+      "CompanyNameEnglish": "MIRAI INDUSTRY CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:56.698662",
+      "updated_at": "2025-10-03T15:40:56.698674",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

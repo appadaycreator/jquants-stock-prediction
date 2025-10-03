@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93470",
+    "generated_at": "2025-10-03T15:45:06.183909",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93470",
+    "name": "日本管財ホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2732.0,
+    "change": 36.0,
+    "changePercent": 1.3353115727002967,
+    "volume": 23300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93470",
+      "CompanyName": "日本管財ホールディングス",
+      "CompanyNameEnglish": "NIPPON KANZAI Holdings Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:41.657196",
+      "updated_at": "2025-10-03T15:43:41.657237",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

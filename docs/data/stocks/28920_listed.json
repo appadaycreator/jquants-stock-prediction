@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28920",
+    "generated_at": "2025-10-03T15:45:05.782311",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28920",
+    "name": "日本食品化工",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 3250.0,
+    "change": -10.0,
+    "changePercent": -0.3067484662576687,
+    "volume": 3700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28920",
+      "CompanyName": "日本食品化工",
+      "CompanyNameEnglish": "NIHON SHOKUHIN KAKO CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:30.244945",
+      "updated_at": "2025-10-03T15:28:30.244949",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

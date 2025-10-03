@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "300A0",
+    "generated_at": "2025-10-03T15:45:05.789135",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "300A0",
+    "name": "ＭＩＣ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2326.0,
+    "change": -73.0,
+    "changePercent": -3.0429345560650267,
+    "volume": 10700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "300A0",
+      "CompanyName": "ＭＩＣ",
+      "CompanyNameEnglish": "MIC Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:49.739908",
+      "updated_at": "2025-10-03T15:28:49.739910",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

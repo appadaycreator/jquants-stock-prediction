@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "89180",
+    "generated_at": "2025-10-03T15:45:06.147909",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "89180",
+    "name": "ランド",
+    "sector": "不動産",
+    "market": "スタンダード",
+    "currentPrice": 9.0,
+    "change": -1.0,
+    "changePercent": -10.0,
+    "volume": 95125700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "89180",
+      "CompanyName": "ランド",
+      "CompanyNameEnglish": "LAND Co.,Ltd.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:35.425951",
+      "updated_at": "2025-10-03T15:42:35.425972",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25570",
+    "generated_at": "2025-10-03T15:45:05.761065",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25570",
+    "name": "三井住友ＤＳアセットマネジメント株式会社　ＳＭＤＡＭ　トピックス上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2851.5,
+    "change": -7.5,
+    "changePercent": -0.26232948583420773,
+    "volume": 48420,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25570",
+      "CompanyName": "三井住友ＤＳアセットマネジメント株式会社　ＳＭＤＡＭ　トピックス上場投信",
+      "CompanyNameEnglish": "SMDAM TOPIX ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:30.106771",
+      "updated_at": "2025-10-03T15:27:30.106774",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

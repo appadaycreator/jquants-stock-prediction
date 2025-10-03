@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "91010",
+    "generated_at": "2025-10-03T15:45:06.166794",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "91010",
+    "name": "日本郵船",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 5188.0,
+    "change": 48.0,
+    "changePercent": 0.933852140077821,
+    "volume": 2161700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "91010",
+      "CompanyName": "日本郵船",
+      "CompanyNameEnglish": "Nippon Yusen Kabushiki Kaisha",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5100",
+      "Sector33CodeName": "海運業",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:03.623883",
+      "updated_at": "2025-10-03T15:43:03.623895",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

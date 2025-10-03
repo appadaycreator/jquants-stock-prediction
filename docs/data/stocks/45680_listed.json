@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45680",
+    "generated_at": "2025-10-03T15:45:05.885673",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45680",
+    "name": "第一三共",
+    "sector": "医薬品",
+    "market": "プライム",
+    "currentPrice": 3258.0,
+    "change": 16.0,
+    "changePercent": 0.4935225169648365,
+    "volume": 3993200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45680",
+      "CompanyName": "第一三共",
+      "CompanyNameEnglish": "DAIICHI SANKYO COMPANY,LIMITED",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "TOPIX Core30",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:26.380262",
+      "updated_at": "2025-10-03T15:33:26.380284",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

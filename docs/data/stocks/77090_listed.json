@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77090",
+    "generated_at": "2025-10-03T15:45:06.098877",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77090",
+    "name": "クボテック",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 199.0,
+    "change": -1.0,
+    "changePercent": -0.5,
+    "volume": 196000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77090",
+      "CompanyName": "クボテック",
+      "CompanyNameEnglish": "KUBOTEK CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:22.949599",
+      "updated_at": "2025-10-03T15:40:22.949603",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

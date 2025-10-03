@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79800",
+    "generated_at": "2025-10-03T15:45:06.115637",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79800",
+    "name": "重松製作所",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 842.0,
+    "change": 5.0,
+    "changePercent": 0.5973715651135006,
+    "volume": 7100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79800",
+      "CompanyName": "重松製作所",
+      "CompanyNameEnglish": "SHIGEMATSU WORKS CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:06.029104",
+      "updated_at": "2025-10-03T15:41:06.029118",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

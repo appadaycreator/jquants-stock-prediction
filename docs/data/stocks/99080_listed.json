@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "99080",
+    "generated_at": "2025-10-03T15:45:06.208711",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "99080",
+    "name": "日本電計",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 2088.0,
+    "change": 6.0,
+    "changePercent": 0.2881844380403458,
+    "volume": 3400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "99080",
+      "CompanyName": "日本電計",
+      "CompanyNameEnglish": "NIHON DENKEI CO.,LTD",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:53.464009",
+      "updated_at": "2025-10-03T15:44:53.464019",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

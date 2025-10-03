@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69960",
+    "generated_at": "2025-10-03T15:45:06.042450",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69960",
+    "name": "ニチコン",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 1221.0,
+    "change": -1.0,
+    "changePercent": -0.08183306055646482,
+    "volume": 138300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69960",
+      "CompanyName": "ニチコン",
+      "CompanyNameEnglish": "NICHICON CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:34.251339",
+      "updated_at": "2025-10-03T15:38:34.251341",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

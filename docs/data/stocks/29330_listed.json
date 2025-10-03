@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29330",
+    "generated_at": "2025-10-03T15:45:05.785421",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29330",
+    "name": "紀文食品",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 1085.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 18100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29330",
+      "CompanyName": "紀文食品",
+      "CompanyNameEnglish": "KIBUN FOODS INC.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:37.748180",
+      "updated_at": "2025-10-03T15:28:37.748187",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

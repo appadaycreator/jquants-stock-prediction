@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "87040",
+    "generated_at": "2025-10-03T15:45:06.140466",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "87040",
+    "name": "トレイダーズホールディングス",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 1140.0,
+    "change": 31.0,
+    "changePercent": 2.7953110910730388,
+    "volume": 265000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "87040",
+      "CompanyName": "トレイダーズホールディングス",
+      "CompanyNameEnglish": "TRADERS HOLDINGS CO.,LTD.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:19.778131",
+      "updated_at": "2025-10-03T15:42:19.778136",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

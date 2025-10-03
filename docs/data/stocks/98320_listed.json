@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "98320",
+    "generated_at": "2025-10-03T15:45:06.205483",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "98320",
+    "name": "オートバックスセブン",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 1460.0,
+    "change": 7.0,
+    "changePercent": 0.4817618719889883,
+    "volume": 103900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "98320",
+      "CompanyName": "オートバックスセブン",
+      "CompanyNameEnglish": "AUTOBACS SEVEN CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:42.647022",
+      "updated_at": "2025-10-03T15:44:42.647039",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

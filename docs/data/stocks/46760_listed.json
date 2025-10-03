@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "46760",
+    "generated_at": "2025-10-03T15:45:05.892138",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "46760",
+    "name": "フジ・メディア・ホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 3630.0,
+    "change": 180.0,
+    "changePercent": 5.217391304347826,
+    "volume": 10345200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "46760",
+      "CompanyName": "フジ・メディア・ホールディングス",
+      "CompanyNameEnglish": "FUJI MEDIA HOLDINGS,INC.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:43.723316",
+      "updated_at": "2025-10-03T15:33:43.723319",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

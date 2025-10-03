@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "48810",
+    "generated_at": "2025-10-03T15:45:05.901110",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "48810",
+    "name": "ファンペップ",
+    "sector": "医薬品",
+    "market": "グロース",
+    "currentPrice": 110.0,
+    "change": -2.0,
+    "changePercent": -1.7857142857142856,
+    "volume": 583300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "48810",
+      "CompanyName": "ファンペップ",
+      "CompanyNameEnglish": "FunPep Company Limited",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:05.635905",
+      "updated_at": "2025-10-03T15:34:05.635910",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

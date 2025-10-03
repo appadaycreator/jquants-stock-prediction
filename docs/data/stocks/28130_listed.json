@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28130",
+    "generated_at": "2025-10-03T15:45:05.776492",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28130",
+    "name": "和弘食品",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 3770.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 4600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28130",
+      "CompanyName": "和弘食品",
+      "CompanyNameEnglish": "Wakou Shokuhin Co.,Ltd.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:13.514630",
+      "updated_at": "2025-10-03T15:28:13.514632",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

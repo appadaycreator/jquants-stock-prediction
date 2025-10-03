@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "322A0",
+    "generated_at": "2025-10-03T15:45:05.802965",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "322A0",
+    "name": "ヒメジ理化",
+    "sector": "建設・資材",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:29:35.932338",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "322A0",
+      "CompanyName": "ヒメジ理化",
+      "CompanyNameEnglish": "HIMEJI RIKA CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:35.932347",
+      "updated_at": "2025-10-03T15:29:35.932348",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

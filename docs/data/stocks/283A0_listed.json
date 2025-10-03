@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "283A0",
+    "generated_at": "2025-10-03T15:45:05.778185",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "283A0",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ＵＳ　テック・配当貴族　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1053.0,
+    "change": -5.0,
+    "changePercent": -0.4725897920604915,
+    "volume": 121378,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "283A0",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ＵＳ　テック・配当貴族　ＥＴＦ",
+      "CompanyNameEnglish": "Global X US Tech Dividend Aristocrats ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:17.662196",
+      "updated_at": "2025-10-03T15:28:17.662198",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62400",
+    "generated_at": "2025-10-03T15:45:05.964904",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62400",
+    "name": "ヤマシンフィルタ",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 631.0,
+    "change": -4.0,
+    "changePercent": -0.6299212598425197,
+    "volume": 659900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62400",
+      "CompanyName": "ヤマシンフィルタ",
+      "CompanyNameEnglish": "YAMASHIN-FILTER CORP.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:35.903686",
+      "updated_at": "2025-10-03T15:36:35.903688",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20110",
+    "generated_at": "2025-10-03T15:45:05.724533",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20110",
+    "name": "三井住友ＤＳアセットマネジメント株式会社　ＳＭＤＡＭ　Ａｃｔｉｖｅ　ＥＴＦ　日本高配当株式",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 609.1,
+    "change": -0.8999999999999773,
+    "changePercent": -0.14754098360655366,
+    "volume": 75110,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20110",
+      "CompanyName": "三井住友ＤＳアセットマネジメント株式会社　ＳＭＤＡＭ　Ａｃｔｉｖｅ　ＥＴＦ　日本高配当株式",
+      "CompanyNameEnglish": "SMDAM Active ETF Japan High Dividend Equity",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:56.440096",
+      "updated_at": "2025-10-03T15:25:56.440099",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

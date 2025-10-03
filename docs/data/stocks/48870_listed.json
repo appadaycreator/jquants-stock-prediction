@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "48870",
+    "generated_at": "2025-10-03T15:45:05.901589",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "48870",
+    "name": "サワイグループホールディングス",
+    "sector": "医薬品",
+    "market": "プライム",
+    "currentPrice": 1856.0,
+    "change": 4.0,
+    "changePercent": 0.21598272138228944,
+    "volume": 465900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "48870",
+      "CompanyName": "サワイグループホールディングス",
+      "CompanyNameEnglish": "SAWAI GROUP HOLDINGS Co.,Ltd.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:07.228582",
+      "updated_at": "2025-10-03T15:34:07.228587",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

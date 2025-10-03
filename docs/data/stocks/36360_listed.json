@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "36360",
+    "generated_at": "2025-10-03T15:45:05.825946",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "36360",
+    "name": "三菱総合研究所",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 4555.0,
+    "change": -25.0,
+    "changePercent": -0.5458515283842794,
+    "volume": 29200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "36360",
+      "CompanyName": "三菱総合研究所",
+      "CompanyNameEnglish": "Mitsubishi Research Institute,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:50.774346",
+      "updated_at": "2025-10-03T15:30:50.774353",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

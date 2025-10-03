@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67870",
+    "generated_at": "2025-10-03T15:45:06.012714",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67870",
+    "name": "メイコー",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 6700.0,
+    "change": -100.0,
+    "changePercent": -1.4705882352941175,
+    "volume": 128600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67870",
+      "CompanyName": "メイコー",
+      "CompanyNameEnglish": "Meiko Electronics Co.,Ltd.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:04.081066",
+      "updated_at": "2025-10-03T15:38:04.081068",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

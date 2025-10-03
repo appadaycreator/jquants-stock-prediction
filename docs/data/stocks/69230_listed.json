@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69230",
+    "generated_at": "2025-10-03T15:45:06.032182",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69230",
+    "name": "スタンレー電気",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2880.0,
+    "change": -12.0,
+    "changePercent": -0.4149377593360996,
+    "volume": 585300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69230",
+      "CompanyName": "スタンレー電気",
+      "CompanyNameEnglish": "Stanley Electric Co.,Ltd.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:23.417363",
+      "updated_at": "2025-10-03T15:38:23.417365",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

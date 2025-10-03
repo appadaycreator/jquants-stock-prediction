@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72720",
+    "generated_at": "2025-10-03T15:45:06.073338",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72720",
+    "name": "ヤマハ発動機",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 1076.5,
+    "change": 4.0,
+    "changePercent": 0.372960372960373,
+    "volume": 5542100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72720",
+      "CompanyName": "ヤマハ発動機",
+      "CompanyNameEnglish": "Yamaha Motor Co.,Ltd.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:21.065488",
+      "updated_at": "2025-10-03T15:39:21.065491",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

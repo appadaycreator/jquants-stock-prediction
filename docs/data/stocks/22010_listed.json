@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22010",
+    "generated_at": "2025-10-03T15:45:05.736525",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22010",
+    "name": "森永製菓",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 2349.5,
+    "change": -13.0,
+    "changePercent": -0.5502645502645503,
+    "volume": 239100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22010",
+      "CompanyName": "森永製菓",
+      "CompanyNameEnglish": "Morinaga & Co.,Ltd.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:29.655250",
+      "updated_at": "2025-10-03T15:26:29.655255",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

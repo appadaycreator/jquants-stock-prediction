@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43970",
+    "generated_at": "2025-10-03T15:45:05.873351",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43970",
+    "name": "チームスピリット",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 535.0,
+    "change": -23.0,
+    "changePercent": -4.121863799283155,
+    "volume": 2061700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43970",
+      "CompanyName": "チームスピリット",
+      "CompanyNameEnglish": "TeamSpirit Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:56.185984",
+      "updated_at": "2025-10-03T15:32:56.185987",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

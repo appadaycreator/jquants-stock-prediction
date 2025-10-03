@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "80060",
+    "generated_at": "2025-10-03T15:45:06.117457",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "80060",
+    "name": "ユアサ・フナショク",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 4590.0,
+    "change": -10.0,
+    "changePercent": -0.21739130434782608,
+    "volume": 2800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "80060",
+      "CompanyName": "ユアサ・フナショク",
+      "CompanyNameEnglish": "YUASA FUNASHOKU Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:11.594285",
+      "updated_at": "2025-10-03T15:41:11.594296",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

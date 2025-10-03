@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31910",
+    "generated_at": "2025-10-03T15:45:05.801308",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31910",
+    "name": "ジョイフル本田",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 2072.0,
+    "change": -8.0,
+    "changePercent": -0.38461538461538464,
+    "volume": 178100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31910",
+      "CompanyName": "ジョイフル本田",
+      "CompanyNameEnglish": "JOYFUL HONDA CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:30.035092",
+      "updated_at": "2025-10-03T15:29:30.035103",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "36340",
+    "generated_at": "2025-10-03T15:45:05.825740",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "36340",
+    "name": "ソケッツ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 605.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "36340",
+      "CompanyName": "ソケッツ",
+      "CompanyNameEnglish": "Sockets Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:50.255065",
+      "updated_at": "2025-10-03T15:30:50.255177",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

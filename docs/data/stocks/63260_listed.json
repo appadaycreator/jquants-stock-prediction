@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63260",
+    "generated_at": "2025-10-03T15:45:05.970641",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63260",
+    "name": "クボタ",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1665.0,
+    "change": 24.5,
+    "changePercent": 1.4934471197805548,
+    "volume": 4830500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63260",
+      "CompanyName": "クボタ",
+      "CompanyNameEnglish": "KUBOTA CORPORATION",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:49.512057",
+      "updated_at": "2025-10-03T15:36:49.512059",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

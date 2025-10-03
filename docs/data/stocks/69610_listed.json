@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69610",
+    "generated_at": "2025-10-03T15:45:06.037064",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69610",
+    "name": "エンプラス",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 3955.0,
+    "change": -40.0,
+    "changePercent": -1.0012515644555695,
+    "volume": 77900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69610",
+      "CompanyName": "エンプラス",
+      "CompanyNameEnglish": "ENPLAS CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:29.151343",
+      "updated_at": "2025-10-03T15:38:29.151345",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

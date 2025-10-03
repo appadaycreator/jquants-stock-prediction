@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79510",
+    "generated_at": "2025-10-03T15:45:06.114065",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79510",
+    "name": "ヤマハ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1031.0,
+    "change": -3.0,
+    "changePercent": -0.2901353965183753,
+    "volume": 1451400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79510",
+      "CompanyName": "ヤマハ",
+      "CompanyNameEnglish": "YAMAHA CORPORATION",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:00.702716",
+      "updated_at": "2025-10-03T15:41:00.702730",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

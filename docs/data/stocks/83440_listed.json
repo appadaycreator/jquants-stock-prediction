@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "83440",
+    "generated_at": "2025-10-03T15:45:06.132425",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "83440",
+    "name": "山形銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 1549.0,
+    "change": 15.0,
+    "changePercent": 0.9778357235984355,
+    "volume": 141300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "83440",
+      "CompanyName": "山形銀行",
+      "CompanyNameEnglish": "The Yamagata Bank,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:56.953896",
+      "updated_at": "2025-10-03T15:41:56.953905",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

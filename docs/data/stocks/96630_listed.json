@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "96630",
+    "generated_at": "2025-10-03T15:45:06.198362",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "96630",
+    "name": "ナガワ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 6110.0,
+    "change": -30.0,
+    "changePercent": -0.4885993485342019,
+    "volume": 9100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "96630",
+      "CompanyName": "ナガワ",
+      "CompanyNameEnglish": "NAGAWA CO.,Ltd",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:20.902190",
+      "updated_at": "2025-10-03T15:44:20.902193",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

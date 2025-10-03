@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93670",
+    "generated_at": "2025-10-03T15:45:06.185124",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93670",
+    "name": "大東港運",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 757.0,
+    "change": 2.0,
+    "changePercent": 0.26490066225165565,
+    "volume": 2400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93670",
+      "CompanyName": "大東港運",
+      "CompanyNameEnglish": "DAITO KOUN CO.,LTD.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:46.224467",
+      "updated_at": "2025-10-03T15:43:46.224477",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

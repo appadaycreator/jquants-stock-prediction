@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93050",
+    "generated_at": "2025-10-03T15:45:06.180561",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93050",
+    "name": "ヤマタネ",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 2331.0,
+    "change": 22.0,
+    "changePercent": 0.9527934170636638,
+    "volume": 52000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93050",
+      "CompanyName": "ヤマタネ",
+      "CompanyNameEnglish": "Yamatane Corporation",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:32.699959",
+      "updated_at": "2025-10-03T15:43:32.699972",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

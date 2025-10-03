@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92820",
+    "generated_at": "2025-10-03T15:45:06.178813",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92820",
+    "name": "いちごグリーンインフラ投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 46400.0,
+    "change": -250.0,
+    "changePercent": -0.5359056806002144,
+    "volume": 146,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92820",
+      "CompanyName": "いちごグリーンインフラ投資法人",
+      "CompanyNameEnglish": "Ichigo Green Infrastructure Investment Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:30.080178",
+      "updated_at": "2025-10-03T15:43:30.080189",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "81150",
+    "generated_at": "2025-10-03T15:45:06.124234",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "81150",
+    "name": "ムーンバット",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 1379.0,
+    "change": 109.0,
+    "changePercent": 8.582677165354331,
+    "volume": 118100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "81150",
+      "CompanyName": "ムーンバット",
+      "CompanyNameEnglish": "MOONBAT Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:30.067154",
+      "updated_at": "2025-10-03T15:41:30.067167",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

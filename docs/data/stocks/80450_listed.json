@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "80450",
+    "generated_at": "2025-10-03T15:45:06.119943",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "80450",
+    "name": "横浜丸魚",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 1033.0,
+    "change": 24.0,
+    "changePercent": 2.3785926660059467,
+    "volume": 4900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "80450",
+      "CompanyName": "横浜丸魚",
+      "CompanyNameEnglish": "Yokohama Maruuo Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:18.637740",
+      "updated_at": "2025-10-03T15:41:18.637755",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29270",
+    "generated_at": "2025-10-03T15:45:05.784733",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29270",
+    "name": "ＡＦＣ−ＨＤアムスライフサイエンス",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 884.0,
+    "change": -2.0,
+    "changePercent": -0.2257336343115124,
+    "volume": 57000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29270",
+      "CompanyName": "ＡＦＣ−ＨＤアムスライフサイエンス",
+      "CompanyNameEnglish": "AFC-HD AMS Life Science Co.,Ltd.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:36.080520",
+      "updated_at": "2025-10-03T15:28:36.080522",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

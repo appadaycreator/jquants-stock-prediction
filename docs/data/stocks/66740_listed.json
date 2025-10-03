@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66740",
+    "generated_at": "2025-10-03T15:45:05.995098",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66740",
+    "name": "ジーエス・ユアサ　コーポレーション",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2725.0,
+    "change": -5.0,
+    "changePercent": -0.18315018315018314,
+    "volume": 359100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66740",
+      "CompanyName": "ジーエス・ユアサ　コーポレーション",
+      "CompanyNameEnglish": "GS Yuasa Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:49.507427",
+      "updated_at": "2025-10-03T15:37:49.507429",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

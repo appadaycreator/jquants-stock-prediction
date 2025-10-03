@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "51010",
+    "generated_at": "2025-10-03T15:45:05.911926",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "51010",
+    "name": "横浜ゴム",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 4188.0,
+    "change": -43.0,
+    "changePercent": -1.0163082013708344,
+    "volume": 688700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "51010",
+      "CompanyName": "横浜ゴム",
+      "CompanyNameEnglish": "The Yokohama Rubber Company,Limited",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3350",
+      "Sector33CodeName": "ゴム製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:32.706939",
+      "updated_at": "2025-10-03T15:34:32.706943",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

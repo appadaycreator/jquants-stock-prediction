@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62290",
+    "generated_at": "2025-10-03T15:45:05.964168",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62290",
+    "name": "オーケーエム",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1242.0,
+    "change": 6.0,
+    "changePercent": 0.48543689320388345,
+    "volume": 1000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62290",
+      "CompanyName": "オーケーエム",
+      "CompanyNameEnglish": "OKUMURA ENGINEERING corp.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:33.329670",
+      "updated_at": "2025-10-03T15:36:33.329672",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

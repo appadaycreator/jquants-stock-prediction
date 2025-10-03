@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "60620",
+    "generated_at": "2025-10-03T15:45:05.955467",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "60620",
+    "name": "チャーム・ケア・コーポレーション",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1325.0,
+    "change": -10.0,
+    "changePercent": -0.7490636704119851,
+    "volume": 61300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "60620",
+      "CompanyName": "チャーム・ケア・コーポレーション",
+      "CompanyNameEnglish": "CHARM CARE CORPORATION",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:07.084621",
+      "updated_at": "2025-10-03T15:36:07.084623",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

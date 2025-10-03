@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "48130",
+    "generated_at": "2025-10-03T15:45:05.899141",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "48130",
+    "name": "ＡＣＣＥＳＳ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 685.0,
+    "change": 15.0,
+    "changePercent": 2.2388059701492535,
+    "volume": 272400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "48130",
+      "CompanyName": "ＡＣＣＥＳＳ",
+      "CompanyNameEnglish": "ACCESS CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:59.992085",
+      "updated_at": "2025-10-03T15:33:59.992088",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

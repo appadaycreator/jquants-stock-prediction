@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71310",
+    "generated_at": "2025-10-03T15:45:06.062090",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71310",
+    "name": "のむら産業",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 2172.0,
+    "change": -7.0,
+    "changePercent": -0.32124827902707664,
+    "volume": 4100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71310",
+      "CompanyName": "のむら産業",
+      "CompanyNameEnglish": "NOMURA CORPORATION",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:58.840373",
+      "updated_at": "2025-10-03T15:38:58.840375",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

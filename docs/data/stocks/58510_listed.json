@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "58510",
+    "generated_at": "2025-10-03T15:45:05.937286",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "58510",
+    "name": "リョービ",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 2207.0,
+    "change": 19.0,
+    "changePercent": 0.8683729433272395,
+    "volume": 58800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "58510",
+      "CompanyName": "リョービ",
+      "CompanyNameEnglish": "RYOBI LIMITED",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:33.788365",
+      "updated_at": "2025-10-03T15:35:33.788367",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

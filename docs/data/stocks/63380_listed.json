@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63380",
+    "generated_at": "2025-10-03T15:45:05.972345",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63380",
+    "name": "タカトリ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1603.0,
+    "change": -20.0,
+    "changePercent": -1.2322858903265557,
+    "volume": 11700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63380",
+      "CompanyName": "タカトリ",
+      "CompanyNameEnglish": "Takatori Corporation",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:52.464788",
+      "updated_at": "2025-10-03T15:36:52.464790",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

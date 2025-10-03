@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79380",
+    "generated_at": "2025-10-03T15:45:06.113308",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79380",
+    "name": "リーガルコーポレーション",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2416.0,
+    "change": 4.0,
+    "changePercent": 0.16583747927031509,
+    "volume": 1500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79380",
+      "CompanyName": "リーガルコーポレーション",
+      "CompanyNameEnglish": "REGAL CORPORATION",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:58.087334",
+      "updated_at": "2025-10-03T15:40:58.087345",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

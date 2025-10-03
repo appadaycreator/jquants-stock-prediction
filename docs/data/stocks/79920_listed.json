@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79920",
+    "generated_at": "2025-10-03T15:45:06.116829",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79920",
+    "name": "セーラー万年筆",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 123.0,
+    "change": -2.0,
+    "changePercent": -1.6,
+    "volume": 66200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79920",
+      "CompanyName": "セーラー万年筆",
+      "CompanyNameEnglish": "The Sailor Pen Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:09.229366",
+      "updated_at": "2025-10-03T15:41:09.229383",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

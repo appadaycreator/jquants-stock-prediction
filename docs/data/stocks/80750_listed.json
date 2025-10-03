@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "80750",
+    "generated_at": "2025-10-03T15:45:06.121531",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "80750",
+    "name": "神鋼商事",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 2039.0,
+    "change": 12.0,
+    "changePercent": 0.5920078934385792,
+    "volume": 28600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "80750",
+      "CompanyName": "神鋼商事",
+      "CompanyNameEnglish": "Shinsho Corporation",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:23.307727",
+      "updated_at": "2025-10-03T15:41:23.307744",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90220",
+    "generated_at": "2025-10-03T15:45:06.160002",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90220",
+    "name": "東海旅客鉄道",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 3333.0,
+    "change": -6.0,
+    "changePercent": -0.17969451931716085,
+    "volume": 2481900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90220",
+      "CompanyName": "東海旅客鉄道",
+      "CompanyNameEnglish": "Central Japan Railway Company",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:51.647821",
+      "updated_at": "2025-10-03T15:42:51.647830",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

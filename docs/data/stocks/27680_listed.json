@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "27680",
+    "generated_at": "2025-10-03T15:45:05.774105",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "27680",
+    "name": "双日",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 3638.0,
+    "change": 8.0,
+    "changePercent": 0.22038567493112945,
+    "volume": 842500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "27680",
+      "CompanyName": "双日",
+      "CompanyNameEnglish": "Sojitz Corporation",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:05.746480",
+      "updated_at": "2025-10-03T15:28:05.746484",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49200",
+    "generated_at": "2025-10-03T15:45:05.903915",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49200",
+    "name": "日本色材工業研究所",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 1079.0,
+    "change": 38.0,
+    "changePercent": 3.6503362151777137,
+    "volume": 2100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49200",
+      "CompanyName": "日本色材工業研究所",
+      "CompanyNameEnglish": "Nippon Shikizai,Inc.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:12.089360",
+      "updated_at": "2025-10-03T15:34:12.089363",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

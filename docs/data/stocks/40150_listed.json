@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40150",
+    "generated_at": "2025-10-03T15:45:05.849424",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40150",
+    "name": "ペイクラウドホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 889.0,
+    "change": -19.0,
+    "changePercent": -2.092511013215859,
+    "volume": 235900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40150",
+      "CompanyName": "ペイクラウドホールディングス",
+      "CompanyNameEnglish": "Paycloud Holdings Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:57.243435",
+      "updated_at": "2025-10-03T15:31:57.243438",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

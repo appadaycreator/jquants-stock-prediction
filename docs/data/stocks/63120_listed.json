@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63120",
+    "generated_at": "2025-10-03T15:45:05.968998",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63120",
+    "name": "フロイント産業",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 761.0,
+    "change": -5.0,
+    "changePercent": -0.6527415143603132,
+    "volume": 8100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63120",
+      "CompanyName": "フロイント産業",
+      "CompanyNameEnglish": "Freund Corporation",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:47.411017",
+      "updated_at": "2025-10-03T15:36:47.411019",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39550",
+    "generated_at": "2025-10-03T15:45:05.845764",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39550",
+    "name": "イムラ",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 982.0,
+    "change": -1.0,
+    "changePercent": -0.10172939979654119,
+    "volume": 4700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39550",
+      "CompanyName": "イムラ",
+      "CompanyNameEnglish": "IMURA & Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:47.294989",
+      "updated_at": "2025-10-03T15:31:47.294992",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "74760",
+    "generated_at": "2025-10-03T15:45:06.087705",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "74760",
+    "name": "アズワン",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 2379.5,
+    "change": -28.5,
+    "changePercent": -1.1835548172757475,
+    "volume": 135800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "74760",
+      "CompanyName": "アズワン",
+      "CompanyNameEnglish": "AS ONE CORPORATION",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:50.554566",
+      "updated_at": "2025-10-03T15:39:50.554568",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

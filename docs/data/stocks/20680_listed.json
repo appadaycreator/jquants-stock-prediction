@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20680",
+    "generated_at": "2025-10-03T15:45:05.728063",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20680",
+    "name": "ノムラ・ヨーロッパ・ファイナンス・エヌ・ブイ　ＮＥＸＴ　ＮＯＴＥＳ　高ベータ３０（ネットリターン）ＥＴＮ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:26:06.853164",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20680",
+      "CompanyName": "ノムラ・ヨーロッパ・ファイナンス・エヌ・ブイ　ＮＥＸＴ　ＮＯＴＥＳ　高ベータ３０（ネットリターン）ＥＴＮ",
+      "CompanyNameEnglish": "NEXT NOTES Japan Equity High Beta Select 30,Net Total Return ETN",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:06.853169",
+      "updated_at": "2025-10-03T15:26:06.853170",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

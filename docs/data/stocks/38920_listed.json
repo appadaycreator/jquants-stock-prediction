@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "38920",
+    "generated_at": "2025-10-03T15:45:05.840163",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "38920",
+    "name": "岡山製紙",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 1524.0,
+    "change": 34.0,
+    "changePercent": 2.2818791946308723,
+    "volume": 5200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "38920",
+      "CompanyName": "岡山製紙",
+      "CompanyNameEnglish": "Okayama Paper Industries Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:32.867013",
+      "updated_at": "2025-10-03T15:31:32.867016",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

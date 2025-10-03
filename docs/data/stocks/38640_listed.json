@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "38640",
+    "generated_at": "2025-10-03T15:45:05.839677",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "38640",
+    "name": "三菱製紙",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 648.0,
+    "change": 3.0,
+    "changePercent": 0.46511627906976744,
+    "volume": 318500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "38640",
+      "CompanyName": "三菱製紙",
+      "CompanyNameEnglish": "Mitsubishi Paper Mills Limited",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:31.232992",
+      "updated_at": "2025-10-03T15:31:31.232995",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

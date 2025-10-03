@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40710",
+    "generated_at": "2025-10-03T15:45:05.852809",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40710",
+    "name": "プラスアルファ・コンサルティング",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2196.0,
+    "change": -35.0,
+    "changePercent": -1.5688032272523533,
+    "volume": 211100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40710",
+      "CompanyName": "プラスアルファ・コンサルティング",
+      "CompanyNameEnglish": "Plus Alpha Consulting Co.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:07.699483",
+      "updated_at": "2025-10-03T15:32:07.699486",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

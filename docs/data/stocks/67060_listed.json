@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67060",
+    "generated_at": "2025-10-03T15:45:05.997726",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67060",
+    "name": "電気興業",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2126.0,
+    "change": 8.0,
+    "changePercent": 0.3777148253068933,
+    "volume": 41700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67060",
+      "CompanyName": "電気興業",
+      "CompanyNameEnglish": "DKK Co.,Ltd.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:52.897168",
+      "updated_at": "2025-10-03T15:37:52.897170",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

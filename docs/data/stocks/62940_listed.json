@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62940",
+    "generated_at": "2025-10-03T15:45:05.968152",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62940",
+    "name": "オカダアイヨン",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1889.0,
+    "change": 1.0,
+    "changePercent": 0.05296610169491525,
+    "volume": 13600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62940",
+      "CompanyName": "オカダアイヨン",
+      "CompanyNameEnglish": "OKADA AIYON CORPORATION",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:44.710815",
+      "updated_at": "2025-10-03T15:36:44.710818",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

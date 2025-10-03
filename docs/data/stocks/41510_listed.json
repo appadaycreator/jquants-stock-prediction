@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "41510",
+    "generated_at": "2025-10-03T15:45:05.857776",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "41510",
+    "name": "協和キリン",
+    "sector": "医薬品",
+    "market": "プライム",
+    "currentPrice": 2480.0,
+    "change": -9.5,
+    "changePercent": -0.38160273147218315,
+    "volume": 852600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "41510",
+      "CompanyName": "協和キリン",
+      "CompanyNameEnglish": "Kyowa Kirin Co.,Ltd.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:16.150004",
+      "updated_at": "2025-10-03T15:32:16.150008",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

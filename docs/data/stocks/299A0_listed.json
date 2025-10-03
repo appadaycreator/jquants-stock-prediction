@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "299A0",
+    "generated_at": "2025-10-03T15:45:05.788725",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "299A0",
+    "name": "ｄｅｌｙ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 1837.0,
+    "change": 2.0,
+    "changePercent": 0.10899182561307902,
+    "volume": 196900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "299A0",
+      "CompanyName": "ｄｅｌｙ",
+      "CompanyNameEnglish": "dely inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:48.259596",
+      "updated_at": "2025-10-03T15:28:48.259600",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

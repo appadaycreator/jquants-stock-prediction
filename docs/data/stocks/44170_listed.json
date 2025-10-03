@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44170",
+    "generated_at": "2025-10-03T15:45:05.874483",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44170",
+    "name": "グローバルセキュリティエキスパート",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 2895.0,
+    "change": -9.0,
+    "changePercent": -0.30991735537190085,
+    "volume": 89200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44170",
+      "CompanyName": "グローバルセキュリティエキスパート",
+      "CompanyNameEnglish": "Global Security Experts Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:59.720828",
+      "updated_at": "2025-10-03T15:32:59.720834",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "73450",
+    "generated_at": "2025-10-03T15:45:06.076408",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "73450",
+    "name": "アイ・パートナーズフィナンシャル",
+    "sector": "金融（除く銀行）",
+    "market": "グロース",
+    "currentPrice": 585.0,
+    "change": -10.0,
+    "changePercent": -1.680672268907563,
+    "volume": 4400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "73450",
+      "CompanyName": "アイ・パートナーズフィナンシャル",
+      "CompanyNameEnglish": "Ai Partners Financial Inc.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:29.258122",
+      "updated_at": "2025-10-03T15:39:29.258125",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

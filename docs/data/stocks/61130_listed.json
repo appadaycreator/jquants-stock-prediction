@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "61130",
+    "generated_at": "2025-10-03T15:45:05.958328",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "61130",
+    "name": "アマダ",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1594.5,
+    "change": -14.5,
+    "changePercent": -0.9011808576755749,
+    "volume": 982900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "61130",
+      "CompanyName": "アマダ",
+      "CompanyNameEnglish": "AMADA CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:15.301123",
+      "updated_at": "2025-10-03T15:36:15.301125",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

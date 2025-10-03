@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64250",
+    "generated_at": "2025-10-03T15:45:05.979157",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64250",
+    "name": "ユニバーサルエンターテインメント",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 984.0,
+    "change": -6.0,
+    "changePercent": -0.6060606060606061,
+    "volume": 297300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64250",
+      "CompanyName": "ユニバーサルエンターテインメント",
+      "CompanyNameEnglish": "Universal Entertainment Corporation",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:07.735695",
+      "updated_at": "2025-10-03T15:37:07.735697",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20410",
+    "generated_at": "2025-10-03T15:45:05.726569",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20410",
+    "name": "ノムラ・ヨーロッパ・ファイナンス・エヌ・ブイ　ＮＥＸＴ　ＮＯＴＥＳ　ＮＹダウ・ベア・ドルヘッジ　ＥＴＮ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2305.0,
+    "change": 2.0,
+    "changePercent": 0.08684324793747286,
+    "volume": 1687,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20410",
+      "CompanyName": "ノムラ・ヨーロッパ・ファイナンス・エヌ・ブイ　ＮＥＸＴ　ＮＯＴＥＳ　ＮＹダウ・ベア・ドルヘッジ　ＥＴＮ",
+      "CompanyNameEnglish": "NEXT NOTES DJIA TR JPY-Monthly Hedged Inverse (x1) ETN",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:02.245142",
+      "updated_at": "2025-10-03T15:26:02.245146",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

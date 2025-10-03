@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32480",
+    "generated_at": "2025-10-03T15:45:05.804326",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32480",
+    "name": "アールエイジ",
+    "sector": "不動産",
+    "market": "スタンダード",
+    "currentPrice": 826.0,
+    "change": -3.0,
+    "changePercent": -0.3618817852834741,
+    "volume": 1400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32480",
+      "CompanyName": "アールエイジ",
+      "CompanyNameEnglish": "EARLY AGE CO.,Ltd.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:40.440268",
+      "updated_at": "2025-10-03T15:29:40.440273",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "30530",
+    "generated_at": "2025-10-03T15:45:05.791525",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "30530",
+    "name": "ペッパーフードサービス",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 209.0,
+    "change": 2.0,
+    "changePercent": 0.966183574879227,
+    "volume": 418700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "30530",
+      "CompanyName": "ペッパーフードサービス",
+      "CompanyNameEnglish": "PEPPER FOOD SERVICE CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:59.074482",
+      "updated_at": "2025-10-03T15:28:59.074485",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

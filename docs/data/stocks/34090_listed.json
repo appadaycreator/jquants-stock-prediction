@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34090",
+    "generated_at": "2025-10-03T15:45:05.812561",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34090",
+    "name": "北紡",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 235.0,
+    "change": -1.0,
+    "changePercent": -0.423728813559322,
+    "volume": 480800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34090",
+      "CompanyName": "北紡",
+      "CompanyNameEnglish": "KITABO CO.,LTD",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:05.590901",
+      "updated_at": "2025-10-03T15:30:05.590904",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

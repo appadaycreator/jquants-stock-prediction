@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64000",
+    "generated_at": "2025-10-03T15:45:05.976370",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64000",
+    "name": "不二精機",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 276.0,
+    "change": 1.0,
+    "changePercent": 0.36363636363636365,
+    "volume": 18700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64000",
+      "CompanyName": "不二精機",
+      "CompanyNameEnglish": "FUJI SEIKI CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:03.328079",
+      "updated_at": "2025-10-03T15:37:03.328081",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

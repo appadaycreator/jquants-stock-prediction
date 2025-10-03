@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "80230",
+    "generated_at": "2025-10-03T15:45:06.118408",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "80230",
+    "name": "ＤＡＩＫＯ　ＸＴＥＣＨ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1025.0,
+    "change": 5.0,
+    "changePercent": 0.49019607843137253,
+    "volume": 17400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "80230",
+      "CompanyName": "ＤＡＩＫＯ　ＸＴＥＣＨ",
+      "CompanyNameEnglish": "DAIKO XTECH,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:15.064270",
+      "updated_at": "2025-10-03T15:41:15.064279",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

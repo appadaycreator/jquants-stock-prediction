@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33820",
+    "generated_at": "2025-10-03T15:45:05.810782",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33820",
+    "name": "セブン＆アイ・ホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 2235.5,
+    "change": 45.5,
+    "changePercent": 2.077625570776256,
+    "volume": 9416100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33820",
+      "CompanyName": "セブン＆アイ・ホールディングス",
+      "CompanyNameEnglish": "Seven & i Holdings Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Core30",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:01.037990",
+      "updated_at": "2025-10-03T15:30:01.037996",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71850",
+    "generated_at": "2025-10-03T15:45:06.065280",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71850",
+    "name": "ヒロセ通商",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 4280.0,
+    "change": 50.0,
+    "changePercent": 1.1820330969267139,
+    "volume": 5400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71850",
+      "CompanyName": "ヒロセ通商",
+      "CompanyNameEnglish": "Hirose Tusyo Inc.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:06.636855",
+      "updated_at": "2025-10-03T15:39:06.636857",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

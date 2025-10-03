@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "95360",
+    "generated_at": "2025-10-03T15:45:06.192715",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "95360",
+    "name": "西部ガスホールディングス",
+    "sector": "電気・ガス",
+    "market": "プライム",
+    "currentPrice": 1794.0,
+    "change": -1.0,
+    "changePercent": -0.05571030640668524,
+    "volume": 41800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "95360",
+      "CompanyName": "西部ガスホールディングス",
+      "CompanyNameEnglish": "SAIBU GAS HOLDINGS CO.,LTD.",
+      "Sector17Code": "11",
+      "Sector17CodeName": "電気・ガス",
+      "Sector33Code": "4050",
+      "Sector33CodeName": "電気･ガス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:07.124904",
+      "updated_at": "2025-10-03T15:44:07.124914",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

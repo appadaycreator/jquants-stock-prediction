@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18470",
+    "generated_at": "2025-10-03T15:45:05.712353",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18470",
+    "name": "イチケン",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 3100.0,
+    "change": 5.0,
+    "changePercent": 0.16155088852988692,
+    "volume": 8400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18470",
+      "CompanyName": "イチケン",
+      "CompanyNameEnglish": "ICHIKEN Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:31.896769",
+      "updated_at": "2025-10-03T15:25:31.896771",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

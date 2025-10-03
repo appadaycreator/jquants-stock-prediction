@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66750",
+    "generated_at": "2025-10-03T15:45:05.995271",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66750",
+    "name": "サクサ",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 4080.0,
+    "change": 15.0,
+    "changePercent": 0.36900369003690037,
+    "volume": 13900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66750",
+      "CompanyName": "サクサ",
+      "CompanyNameEnglish": "SAXA,Inc.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:49.797025",
+      "updated_at": "2025-10-03T15:37:49.797027",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

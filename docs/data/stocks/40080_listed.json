@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40080",
+    "generated_at": "2025-10-03T15:45:05.849012",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40080",
+    "name": "住友精化",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 4400.0,
+    "change": 5.0,
+    "changePercent": 0.11376564277588168,
+    "volume": 31200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40080",
+      "CompanyName": "住友精化",
+      "CompanyNameEnglish": "Sumitomo Seika Chemicals Company,Limited.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:55.837660",
+      "updated_at": "2025-10-03T15:31:55.837663",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

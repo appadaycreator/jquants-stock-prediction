@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "57110",
+    "generated_at": "2025-10-03T15:45:05.930384",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "57110",
+    "name": "三菱マテリアル",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 2307.5,
+    "change": 14.5,
+    "changePercent": 0.6323593545573485,
+    "volume": 764700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "57110",
+      "CompanyName": "三菱マテリアル",
+      "CompanyNameEnglish": "Mitsubishi Materials Corporation",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:24.965572",
+      "updated_at": "2025-10-03T15:35:24.965574",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

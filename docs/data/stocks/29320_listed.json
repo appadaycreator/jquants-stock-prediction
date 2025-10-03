@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29320",
+    "generated_at": "2025-10-03T15:45:05.785340",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29320",
+    "name": "ＳＴＩフードホールディングス",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 1303.0,
+    "change": -1.0,
+    "changePercent": -0.07668711656441718,
+    "volume": 15700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29320",
+      "CompanyName": "ＳＴＩフードホールディングス",
+      "CompanyNameEnglish": "STI Foods Holdings,Inc.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:37.477661",
+      "updated_at": "2025-10-03T15:28:37.477664",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

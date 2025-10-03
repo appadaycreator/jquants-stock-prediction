@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64600",
+    "generated_at": "2025-10-03T15:45:05.980633",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64600",
+    "name": "セガサミーホールディングス",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 3083.0,
+    "change": -20.0,
+    "changePercent": -0.6445375443119562,
+    "volume": 927200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64600",
+      "CompanyName": "セガサミーホールディングス",
+      "CompanyNameEnglish": "SEGA SAMMY HOLDINGS INC.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:12.037310",
+      "updated_at": "2025-10-03T15:37:12.037312",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

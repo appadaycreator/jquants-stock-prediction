@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25650",
+    "generated_at": "2025-10-03T15:45:05.762103",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25650",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ロジスティクス・Ｊ−ＲＥＩＴ　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 858.0,
+    "change": 4.0,
+    "changePercent": 0.468384074941452,
+    "volume": 4017,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25650",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ロジスティクス・Ｊ−ＲＥＩＴ　ＥＴＦ",
+      "CompanyNameEnglish": "Global X Logistics J-REIT ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:32.544564",
+      "updated_at": "2025-10-03T15:27:32.544568",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

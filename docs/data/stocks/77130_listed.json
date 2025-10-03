@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77130",
+    "generated_at": "2025-10-03T15:45:06.099039",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77130",
+    "name": "シグマ光機",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 1345.0,
+    "change": -5.0,
+    "changePercent": -0.3703703703703704,
+    "volume": 23800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77130",
+      "CompanyName": "シグマ光機",
+      "CompanyNameEnglish": "SIGMA KOKI CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:23.592322",
+      "updated_at": "2025-10-03T15:40:23.592326",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

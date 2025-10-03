@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63780",
+    "generated_at": "2025-10-03T15:45:05.975009",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63780",
+    "name": "木村化工機",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 955.0,
+    "change": 13.0,
+    "changePercent": 1.3800424628450108,
+    "volume": 121400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63780",
+      "CompanyName": "木村化工機",
+      "CompanyNameEnglish": "KIMURA CHEMICAL PLANTS CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:59.581271",
+      "updated_at": "2025-10-03T15:36:59.581273",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

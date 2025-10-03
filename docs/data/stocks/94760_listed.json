@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "94760",
+    "generated_at": "2025-10-03T15:45:06.190355",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "94760",
+    "name": "中央経済社ホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 593.0,
+    "change": 1.0,
+    "changePercent": 0.16891891891891891,
+    "volume": 1300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "94760",
+      "CompanyName": "中央経済社ホールディングス",
+      "CompanyNameEnglish": "CHUOKEIZAI-SHA HOLDINGS,INC.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:00.639498",
+      "updated_at": "2025-10-03T15:44:00.639515",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

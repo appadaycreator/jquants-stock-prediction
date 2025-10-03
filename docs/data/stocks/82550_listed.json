@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "82550",
+    "generated_at": "2025-10-03T15:45:06.129842",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "82550",
+    "name": "アクシアル　リテイリング",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 1115.0,
+    "change": -9.0,
+    "changePercent": -0.800711743772242,
+    "volume": 76200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "82550",
+      "CompanyName": "アクシアル　リテイリング",
+      "CompanyNameEnglish": "Axial Retailing Inc.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:48.886362",
+      "updated_at": "2025-10-03T15:41:48.886379",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

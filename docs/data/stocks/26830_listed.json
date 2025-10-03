@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26830",
+    "generated_at": "2025-10-03T15:45:05.769961",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26830",
+    "name": "魚喜",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 1048.0,
+    "change": -1.0,
+    "changePercent": -0.09532888465204957,
+    "volume": 1600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26830",
+      "CompanyName": "魚喜",
+      "CompanyNameEnglish": "UOKI CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:54.002230",
+      "updated_at": "2025-10-03T15:27:54.002233",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

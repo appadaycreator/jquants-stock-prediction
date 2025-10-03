@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77340",
+    "generated_at": "2025-10-03T15:45:06.100662",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77340",
+    "name": "理研計器",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2851.0,
+    "change": -45.0,
+    "changePercent": -1.5538674033149171,
+    "volume": 87800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77340",
+      "CompanyName": "理研計器",
+      "CompanyNameEnglish": "RIKEN KEIKI CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:28.535491",
+      "updated_at": "2025-10-03T15:40:28.535501",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

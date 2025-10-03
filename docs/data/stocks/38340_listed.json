@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "38340",
+    "generated_at": "2025-10-03T15:45:05.837849",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "38340",
+    "name": "朝日ネット",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 677.0,
+    "change": -1.0,
+    "changePercent": -0.14749262536873156,
+    "volume": 23400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "38340",
+      "CompanyName": "朝日ネット",
+      "CompanyNameEnglish": "Asahi Net,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:24.653240",
+      "updated_at": "2025-10-03T15:31:24.653246",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

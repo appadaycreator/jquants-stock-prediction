@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19680",
+    "generated_at": "2025-10-03T15:45:05.721495",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19680",
+    "name": "太平電業",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 5710.0,
+    "change": 10.0,
+    "changePercent": 0.17543859649122806,
+    "volume": 46200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19680",
+      "CompanyName": "太平電業",
+      "CompanyNameEnglish": "TAIHEI DENGYO KAISHA,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:50.196298",
+      "updated_at": "2025-10-03T15:25:50.196311",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

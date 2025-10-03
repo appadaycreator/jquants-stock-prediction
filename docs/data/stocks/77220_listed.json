@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77220",
+    "generated_at": "2025-10-03T15:45:06.099607",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77220",
+    "name": "国際計測器",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 564.0,
+    "change": -6.0,
+    "changePercent": -1.0526315789473684,
+    "volume": 4600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77220",
+      "CompanyName": "国際計測器",
+      "CompanyNameEnglish": "KOKUSAI CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:25.667925",
+      "updated_at": "2025-10-03T15:40:25.667935",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

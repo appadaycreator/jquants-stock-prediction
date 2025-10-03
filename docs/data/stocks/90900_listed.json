@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90900",
+    "generated_at": "2025-10-03T15:45:06.166572",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90900",
+    "name": "ＡＺ−ＣＯＭ丸和ホールディングス",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 1128.0,
+    "change": -7.0,
+    "changePercent": -0.6167400881057269,
+    "volume": 167900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90900",
+      "CompanyName": "ＡＺ−ＣＯＭ丸和ホールディングス",
+      "CompanyNameEnglish": "AZ-COM MARUWA Holdings Inc.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:03.324543",
+      "updated_at": "2025-10-03T15:43:03.324556",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

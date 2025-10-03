@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "97430",
+    "generated_at": "2025-10-03T15:45:06.201620",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "97430",
+    "name": "丹青社",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1305.0,
+    "change": -27.0,
+    "changePercent": -2.027027027027027,
+    "volume": 697100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "97430",
+      "CompanyName": "丹青社",
+      "CompanyNameEnglish": "TANSEISHA CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:31.812333",
+      "updated_at": "2025-10-03T15:44:31.812342",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

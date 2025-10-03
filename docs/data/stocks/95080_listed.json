@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "95080",
+    "generated_at": "2025-10-03T15:45:06.191605",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "95080",
+    "name": "九州電力",
+    "sector": "電気・ガス",
+    "market": "プライム",
+    "currentPrice": 1260.0,
+    "change": -13.0,
+    "changePercent": -1.021209740769835,
+    "volume": 1919100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "95080",
+      "CompanyName": "九州電力",
+      "CompanyNameEnglish": "Kyushu Electric Power Company,Incorporated",
+      "Sector17Code": "11",
+      "Sector17CodeName": "電気・ガス",
+      "Sector33Code": "4050",
+      "Sector33CodeName": "電気･ガス業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:03.494131",
+      "updated_at": "2025-10-03T15:44:03.494142",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

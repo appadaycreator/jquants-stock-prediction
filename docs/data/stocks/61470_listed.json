@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "61470",
+    "generated_at": "2025-10-03T15:45:05.959403",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "61470",
+    "name": "ヤマザキ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 321.0,
+    "change": 2.0,
+    "changePercent": 0.6269592476489028,
+    "volume": 11400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "61470",
+      "CompanyName": "ヤマザキ",
+      "CompanyNameEnglish": "YAMAZAKI CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:19.183321",
+      "updated_at": "2025-10-03T15:36:19.183324",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

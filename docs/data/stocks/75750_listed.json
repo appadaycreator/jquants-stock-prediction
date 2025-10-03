@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75750",
+    "generated_at": "2025-10-03T15:45:06.092436",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75750",
+    "name": "日本ライフライン",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 1438.0,
+    "change": 8.0,
+    "changePercent": 0.5594405594405595,
+    "volume": 253000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75750",
+      "CompanyName": "日本ライフライン",
+      "CompanyNameEnglish": "Japan Lifeline Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:04.310531",
+      "updated_at": "2025-10-03T15:40:04.310533",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

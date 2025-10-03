@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19490",
+    "generated_at": "2025-10-03T15:45:05.719881",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19490",
+    "name": "住友電設",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 6420.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 42300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19490",
+      "CompanyName": "住友電設",
+      "CompanyNameEnglish": "SUMITOMO DENSETSU CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:46.301404",
+      "updated_at": "2025-10-03T15:25:46.301406",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

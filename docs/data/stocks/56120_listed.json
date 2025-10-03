@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "56120",
+    "generated_at": "2025-10-03T15:45:05.927992",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "56120",
+    "name": "日本鋳鉄管",
+    "sector": "鉄鋼・非鉄",
+    "market": "スタンダード",
+    "currentPrice": 1559.0,
+    "change": 9.0,
+    "changePercent": 0.5806451612903226,
+    "volume": 126700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "56120",
+      "CompanyName": "日本鋳鉄管",
+      "CompanyNameEnglish": "NIPPON CHUTETSUKAN K.K.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3450",
+      "Sector33CodeName": "鉄鋼",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:18.681580",
+      "updated_at": "2025-10-03T15:35:18.681582",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

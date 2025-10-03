@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63840",
+    "generated_at": "2025-10-03T15:45:05.975563",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63840",
+    "name": "昭和真空",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1349.0,
+    "change": 5.0,
+    "changePercent": 0.3720238095238095,
+    "volume": 2800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63840",
+      "CompanyName": "昭和真空",
+      "CompanyNameEnglish": "SHOWA SHINKU CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:01.175331",
+      "updated_at": "2025-10-03T15:37:01.175333",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

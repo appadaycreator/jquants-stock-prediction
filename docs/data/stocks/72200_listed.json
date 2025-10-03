@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72200",
+    "generated_at": "2025-10-03T15:45:06.069151",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72200",
+    "name": "武蔵精密工業",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 3120.0,
+    "change": -95.0,
+    "changePercent": -2.9548989113530326,
+    "volume": 456400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72200",
+      "CompanyName": "武蔵精密工業",
+      "CompanyNameEnglish": "MUSASHI SEIMITSU INDUSTRY CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:12.608093",
+      "updated_at": "2025-10-03T15:39:12.608095",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

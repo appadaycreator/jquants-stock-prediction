@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93040",
+    "generated_at": "2025-10-03T15:45:06.180483",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93040",
+    "name": "澁澤倉庫",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 4130.0,
+    "change": 40.0,
+    "changePercent": 0.9779951100244498,
+    "volume": 18700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93040",
+      "CompanyName": "澁澤倉庫",
+      "CompanyNameEnglish": "Shibusawa Logistics Corporation",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:32.407611",
+      "updated_at": "2025-10-03T15:43:32.407621",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

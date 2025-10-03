@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92480",
+    "generated_at": "2025-10-03T15:45:06.176510",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92480",
+    "name": "人・夢・技術グループ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1646.0,
+    "change": 6.0,
+    "changePercent": 0.3658536585365854,
+    "volume": 7300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92480",
+      "CompanyName": "人・夢・技術グループ",
+      "CompanyNameEnglish": "People, Dreams & Technologies Group Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:23.006923",
+      "updated_at": "2025-10-03T15:43:23.006928",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

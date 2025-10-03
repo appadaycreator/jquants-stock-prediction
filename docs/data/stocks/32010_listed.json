@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32010",
+    "generated_at": "2025-10-03T15:45:05.802090",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32010",
+    "name": "日本毛織",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 1495.0,
+    "change": -4.0,
+    "changePercent": -0.26684456304202797,
+    "volume": 66400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32010",
+      "CompanyName": "日本毛織",
+      "CompanyNameEnglish": "THE JAPAN WOOL TEXTILE CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:32.735050",
+      "updated_at": "2025-10-03T15:29:32.735065",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

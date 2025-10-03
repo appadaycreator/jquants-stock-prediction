@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31970",
+    "generated_at": "2025-10-03T15:45:05.801797",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31970",
+    "name": "すかいらーくホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 2931.5,
+    "change": -17.0,
+    "changePercent": -0.5765643547566559,
+    "volume": 1439700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31970",
+      "CompanyName": "すかいらーくホールディングス",
+      "CompanyNameEnglish": "SKYLARK HOLDINGS CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:31.610792",
+      "updated_at": "2025-10-03T15:29:31.610806",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

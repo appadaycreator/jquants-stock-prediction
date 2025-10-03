@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "68040",
+    "generated_at": "2025-10-03T15:45:06.014866",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "68040",
+    "name": "ホシデン",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2200.0,
+    "change": -34.0,
+    "changePercent": -1.521933751119069,
+    "volume": 102300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "68040",
+      "CompanyName": "ホシデン",
+      "CompanyNameEnglish": "Hosiden Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:05.976064",
+      "updated_at": "2025-10-03T15:38:05.976066",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "27260",
+    "generated_at": "2025-10-03T15:45:05.772135",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "27260",
+    "name": "パルグループホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 4380.0,
+    "change": 185.0,
+    "changePercent": 4.410011918951132,
+    "volume": 1511100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "27260",
+      "CompanyName": "パルグループホールディングス",
+      "CompanyNameEnglish": "PAL GROUP Holdings CO.,LTD",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:59.129516",
+      "updated_at": "2025-10-03T15:27:59.129519",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

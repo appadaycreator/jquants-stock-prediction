@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "73780",
+    "generated_at": "2025-10-03T15:45:06.081952",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "73780",
+    "name": "アシロ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 1847.0,
+    "change": -23.0,
+    "changePercent": -1.2299465240641712,
+    "volume": 155900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "73780",
+      "CompanyName": "アシロ",
+      "CompanyNameEnglish": "ASIRO Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:37.175663",
+      "updated_at": "2025-10-03T15:39:37.175665",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

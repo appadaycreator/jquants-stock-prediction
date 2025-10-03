@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90750",
+    "generated_at": "2025-10-03T15:45:06.166003",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90750",
+    "name": "福山通運",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 3500.0,
+    "change": 20.0,
+    "changePercent": 0.5747126436781609,
+    "volume": 38700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90750",
+      "CompanyName": "福山通運",
+      "CompanyNameEnglish": "FUKUYAMA TRANSPORTING CO.,LTD.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:01.519467",
+      "updated_at": "2025-10-03T15:43:01.519477",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

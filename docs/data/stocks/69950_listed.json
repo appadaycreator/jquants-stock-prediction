@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69950",
+    "generated_at": "2025-10-03T15:45:06.042325",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69950",
+    "name": "東海理化電機製作所",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 2307.0,
+    "change": -12.0,
+    "changePercent": -0.517464424320828,
+    "volume": 126800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69950",
+      "CompanyName": "東海理化電機製作所",
+      "CompanyNameEnglish": "TOKAI RIKA CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:33.985447",
+      "updated_at": "2025-10-03T15:38:33.985449",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

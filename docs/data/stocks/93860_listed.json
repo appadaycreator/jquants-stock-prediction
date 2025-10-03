@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93860",
+    "generated_at": "2025-10-03T15:45:06.185916",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93860",
+    "name": "日本コンセプト",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 3045.0,
+    "change": -5.0,
+    "changePercent": -0.16393442622950818,
+    "volume": 221500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93860",
+      "CompanyName": "日本コンセプト",
+      "CompanyNameEnglish": "NIPPON CONCEPT CORPORATION",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:48.602120",
+      "updated_at": "2025-10-03T15:43:48.602130",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

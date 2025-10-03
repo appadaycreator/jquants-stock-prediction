@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28600",
+    "generated_at": "2025-10-03T15:45:05.780133",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28600",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ドイツ株式・ＤＡＸ（為替ヘッジあり）連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 3184.0,
+    "change": -18.0,
+    "changePercent": -0.5621486570893192,
+    "volume": 31750,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28600",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ドイツ株式・ＤＡＸ（為替ヘッジあり）連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS German Equity DAX (Yen-Hedged) Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:23.824623",
+      "updated_at": "2025-10-03T15:28:23.824626",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

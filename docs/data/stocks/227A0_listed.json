@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "227A0",
+    "generated_at": "2025-10-03T15:45:05.741689",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "227A0",
+    "name": "ＩＮＳＩＧＨＴ　ＬＡＢ",
+    "sector": "情報通信・サービスその他",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:26:44.718741",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "227A0",
+      "CompanyName": "ＩＮＳＩＧＨＴ　ＬＡＢ",
+      "CompanyNameEnglish": "INSIGHT LAB,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:44.718746",
+      "updated_at": "2025-10-03T15:26:44.718747",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

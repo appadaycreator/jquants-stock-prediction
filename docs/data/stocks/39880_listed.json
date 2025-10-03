@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39880",
+    "generated_at": "2025-10-03T15:45:05.847955",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39880",
+    "name": "ＳＹＳホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 559.0,
+    "change": 2.0,
+    "changePercent": 0.3590664272890485,
+    "volume": 700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39880",
+      "CompanyName": "ＳＹＳホールディングス",
+      "CompanyNameEnglish": "SYS Holdings Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:52.906040",
+      "updated_at": "2025-10-03T15:31:52.906043",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

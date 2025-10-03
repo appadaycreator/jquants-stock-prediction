@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72610",
+    "generated_at": "2025-10-03T15:45:06.072469",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72610",
+    "name": "マツダ",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 869.9,
+    "change": 13.5,
+    "changePercent": 1.576366184026156,
+    "volume": 7876700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72610",
+      "CompanyName": "マツダ",
+      "CompanyNameEnglish": "Mazda Motor Corporation",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:18.771147",
+      "updated_at": "2025-10-03T15:39:18.771149",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

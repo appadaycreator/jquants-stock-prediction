@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31060",
+    "generated_at": "2025-10-03T15:45:05.795627",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31060",
+    "name": "倉敷紡績",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 7170.0,
+    "change": -30.0,
+    "changePercent": -0.4166666666666667,
+    "volume": 49900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31060",
+      "CompanyName": "倉敷紡績",
+      "CompanyNameEnglish": "KURABO INDUSTRIES LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:10.983317",
+      "updated_at": "2025-10-03T15:29:10.983321",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

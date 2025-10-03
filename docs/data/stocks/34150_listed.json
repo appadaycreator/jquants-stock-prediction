@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34150",
+    "generated_at": "2025-10-03T15:45:05.812718",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34150",
+    "name": "ＴＯＫＹＯ　ＢＡＳＥ",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 426.0,
+    "change": -4.0,
+    "changePercent": -0.9302325581395349,
+    "volume": 538000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34150",
+      "CompanyName": "ＴＯＫＹＯ　ＢＡＳＥ",
+      "CompanyNameEnglish": "TOKYO BASE Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:06.199293",
+      "updated_at": "2025-10-03T15:30:06.199297",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

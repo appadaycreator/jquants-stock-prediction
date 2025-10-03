@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77820",
+    "generated_at": "2025-10-03T15:45:06.104428",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77820",
+    "name": "シンシア",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 572.0,
+    "change": 2.0,
+    "changePercent": 0.3508771929824561,
+    "volume": 12700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77820",
+      "CompanyName": "シンシア",
+      "CompanyNameEnglish": "Sincere Co.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:35.721594",
+      "updated_at": "2025-10-03T15:40:35.721612",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

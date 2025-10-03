@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67230",
+    "generated_at": "2025-10-03T15:45:05.998070",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67230",
+    "name": "ルネサスエレクトロニクス",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 1928.0,
+    "change": 31.5,
+    "changePercent": 1.6609543896651726,
+    "volume": 9889600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67230",
+      "CompanyName": "ルネサスエレクトロニクス",
+      "CompanyNameEnglish": "Renesas Electronics Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:54.021805",
+      "updated_at": "2025-10-03T15:37:54.021808",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "35500",
+    "generated_at": "2025-10-03T15:45:05.821785",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "35500",
+    "name": "スタジオアタオ",
+    "sector": "小売",
+    "market": "グロース",
+    "currentPrice": 209.0,
+    "change": 1.0,
+    "changePercent": 0.4807692307692308,
+    "volume": 40600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "35500",
+      "CompanyName": "スタジオアタオ",
+      "CompanyNameEnglish": "STUDIO ATAO Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:37.788002",
+      "updated_at": "2025-10-03T15:30:37.788004",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

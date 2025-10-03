@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "38770",
+    "generated_at": "2025-10-03T15:45:05.839837",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "38770",
+    "name": "中越パルプ工業",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 1670.0,
+    "change": 9.0,
+    "changePercent": 0.5418422636965683,
+    "volume": 72700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "38770",
+      "CompanyName": "中越パルプ工業",
+      "CompanyNameEnglish": "Chuetsu Pulp & Paper Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:31.771500",
+      "updated_at": "2025-10-03T15:31:31.771504",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "267A0",
+    "generated_at": "2025-10-03T15:45:05.769784",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "267A0",
+    "name": "トワライズ",
+    "sector": "金融（除く銀行）",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:27:53.460780",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "267A0",
+      "CompanyName": "トワライズ",
+      "CompanyNameEnglish": "TOWARISE CORPORATION",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:53.460783",
+      "updated_at": "2025-10-03T15:27:53.460784",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

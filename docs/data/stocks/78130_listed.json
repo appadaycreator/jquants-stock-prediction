@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78130",
+    "generated_at": "2025-10-03T15:45:06.106256",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78130",
+    "name": "プラッツ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 661.0,
+    "change": 13.0,
+    "changePercent": 2.006172839506173,
+    "volume": 4400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78130",
+      "CompanyName": "プラッツ",
+      "CompanyNameEnglish": "PLATZ Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:36.429817",
+      "updated_at": "2025-10-03T15:40:36.429838",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "99320",
+    "generated_at": "2025-10-03T15:45:06.209288",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "99320",
+    "name": "杉本商事",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 1823.0,
+    "change": 54.0,
+    "changePercent": 3.0525720746184284,
+    "volume": 49900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "99320",
+      "CompanyName": "杉本商事",
+      "CompanyNameEnglish": "SUGIMOTO & CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:55.826828",
+      "updated_at": "2025-10-03T15:44:55.826842",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

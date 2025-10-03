@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "81290",
+    "generated_at": "2025-10-03T15:45:06.124806",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "81290",
+    "name": "東邦ホールディングス",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 4717.0,
+    "change": -76.0,
+    "changePercent": -1.5856457333611518,
+    "volume": 200200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "81290",
+      "CompanyName": "東邦ホールディングス",
+      "CompanyNameEnglish": "TOHO HOLDINGS CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:32.148224",
+      "updated_at": "2025-10-03T15:41:32.148236",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

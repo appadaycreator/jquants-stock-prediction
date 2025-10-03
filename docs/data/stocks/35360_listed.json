@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "35360",
+    "generated_at": "2025-10-03T15:45:05.820609",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "35360",
+    "name": "アクサスホールディングス",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 136.0,
+    "change": 2.0,
+    "changePercent": 1.4925373134328357,
+    "volume": 42200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "35360",
+      "CompanyName": "アクサスホールディングス",
+      "CompanyNameEnglish": "AXAS HOLDINGS CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:33.661254",
+      "updated_at": "2025-10-03T15:30:33.661260",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

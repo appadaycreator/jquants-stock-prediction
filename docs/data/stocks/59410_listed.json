@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59410",
+    "generated_at": "2025-10-03T15:45:05.946642",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59410",
+    "name": "中西製作所",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 2449.0,
+    "change": 1.0,
+    "changePercent": 0.04084967320261438,
+    "volume": 8700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59410",
+      "CompanyName": "中西製作所",
+      "CompanyNameEnglish": "NAKANISHI MFG. CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:45.870755",
+      "updated_at": "2025-10-03T15:35:45.870757",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

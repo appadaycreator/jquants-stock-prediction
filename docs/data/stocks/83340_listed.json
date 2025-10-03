@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "83340",
+    "generated_at": "2025-10-03T15:45:06.131788",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "83340",
+    "name": "群馬銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 1261.5,
+    "change": 1.0,
+    "changePercent": 0.07933359777865927,
+    "volume": 769200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "83340",
+      "CompanyName": "群馬銀行",
+      "CompanyNameEnglish": "The Gunma Bank,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:55.076002",
+      "updated_at": "2025-10-03T15:41:55.076015",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

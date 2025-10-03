@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "16870",
+    "generated_at": "2025-10-03T15:45:05.701680",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "16870",
+    "name": "ウィズダムツリー・コモディティ・セキュリティーズ・リミテッド　ＷｉｓｄｏｍＴｒｅｅ　農産物上場投資信託",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 861.6,
+    "change": 10.899999999999977,
+    "changePercent": 1.28129775479017,
+    "volume": 650,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "16870",
+      "CompanyName": "ウィズダムツリー・コモディティ・セキュリティーズ・リミテッド　ＷｉｓｄｏｍＴｒｅｅ　農産物上場投資信託",
+      "CompanyNameEnglish": "WisdomTree Agriculture",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:09.210365",
+      "updated_at": "2025-10-03T15:25:09.210372",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

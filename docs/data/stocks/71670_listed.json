@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71670",
+    "generated_at": "2025-10-03T15:45:06.064031",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71670",
+    "name": "めぶきフィナンシャルグループ",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 784.9,
+    "change": 6.699999999999932,
+    "changePercent": 0.8609611924954937,
+    "volume": 2992700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71670",
+      "CompanyName": "めぶきフィナンシャルグループ",
+      "CompanyNameEnglish": "Mebuki Financial Group,Inc.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:03.414182",
+      "updated_at": "2025-10-03T15:39:03.414184",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33580",
+    "generated_at": "2025-10-03T15:45:05.809700",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33580",
+    "name": "ワイエスフード",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 100.0,
+    "change": -2.0,
+    "changePercent": -1.9607843137254901,
+    "volume": 124300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33580",
+      "CompanyName": "ワイエスフード",
+      "CompanyNameEnglish": "Y.S.FOOD CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:57.492120",
+      "updated_at": "2025-10-03T15:29:57.492125",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "51080",
+    "generated_at": "2025-10-03T15:45:05.912152",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "51080",
+    "name": "ブリヂストン",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 6053.0,
+    "change": -47.0,
+    "changePercent": -0.7704918032786885,
+    "volume": 1912900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "51080",
+      "CompanyName": "ブリヂストン",
+      "CompanyNameEnglish": "BRIDGESTONE CORPORATION",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3350",
+      "Sector33CodeName": "ゴム製品",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:33.764153",
+      "updated_at": "2025-10-03T15:34:33.764166",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63310",
+    "generated_at": "2025-10-03T15:45:05.971218",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63310",
+    "name": "三菱化工機",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 2004.0,
+    "change": -28.0,
+    "changePercent": -1.3779527559055118,
+    "volume": 226200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63310",
+      "CompanyName": "三菱化工機",
+      "CompanyNameEnglish": "Mitsubishi Kakoki Kaisha,Ltd.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:50.576313",
+      "updated_at": "2025-10-03T15:36:50.576315",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19420",
+    "generated_at": "2025-10-03T15:45:05.719335",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19420",
+    "name": "関電工",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 3324.0,
+    "change": -70.0,
+    "changePercent": -2.0624631703005303,
+    "volume": 947900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19420",
+      "CompanyName": "関電工",
+      "CompanyNameEnglish": "KANDENKO CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:44.969023",
+      "updated_at": "2025-10-03T15:25:44.969025",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

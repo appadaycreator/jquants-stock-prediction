@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22490",
+    "generated_at": "2025-10-03T15:45:05.740001",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22490",
+    "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　Ｓ＆Ｐ５００ダブルインバース",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 13910.0,
+    "change": 105.0,
+    "changePercent": 0.7605939876856211,
+    "volume": 5764,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22490",
+      "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　Ｓ＆Ｐ５００ダブルインバース",
+      "CompanyNameEnglish": "iFreeETF S&P500 Double Inverse (-2x)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:39.319364",
+      "updated_at": "2025-10-03T15:26:39.319367",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

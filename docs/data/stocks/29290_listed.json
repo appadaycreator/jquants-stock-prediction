@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29290",
+    "generated_at": "2025-10-03T15:45:05.784839",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29290",
+    "name": "ファーマフーズ",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 826.0,
+    "change": 16.0,
+    "changePercent": 1.9753086419753085,
+    "volume": 86400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29290",
+      "CompanyName": "ファーマフーズ",
+      "CompanyNameEnglish": "Pharma Foods International Co.,Ltd.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:36.350581",
+      "updated_at": "2025-10-03T15:28:36.350584",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77270",
+    "generated_at": "2025-10-03T15:45:06.100166",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77270",
+    "name": "オーバル",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 449.0,
+    "change": -2.0,
+    "changePercent": -0.4434589800443459,
+    "volume": 32800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77270",
+      "CompanyName": "オーバル",
+      "CompanyNameEnglish": "OVAL Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:26.789227",
+      "updated_at": "2025-10-03T15:40:26.789244",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90730",
+    "generated_at": "2025-10-03T15:45:06.165830",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90730",
+    "name": "京極運輸商事",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 1233.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90730",
+      "CompanyName": "京極運輸商事",
+      "CompanyNameEnglish": "Kyogoku unyu shoji Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:00.945075",
+      "updated_at": "2025-10-03T15:43:00.945088",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

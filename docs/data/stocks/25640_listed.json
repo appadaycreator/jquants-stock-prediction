@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25640",
+    "generated_at": "2025-10-03T15:45:05.762021",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25640",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ＭＳＣＩスーパーディビィデンド−日本株式　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2837.0,
+    "change": 1.0,
+    "changePercent": 0.03526093088857546,
+    "volume": 12207,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25640",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ＭＳＣＩスーパーディビィデンド−日本株式　ＥＴＦ",
+      "CompanyNameEnglish": "Global X MSCI SuperDividend Japan ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:32.266309",
+      "updated_at": "2025-10-03T15:27:32.266312",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66760",
+    "generated_at": "2025-10-03T15:45:05.995475",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66760",
+    "name": "バッファロー",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 2297.0,
+    "change": 47.0,
+    "changePercent": 2.0888888888888886,
+    "volume": 21900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66760",
+      "CompanyName": "バッファロー",
+      "CompanyNameEnglish": "BUFFALO INC.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:50.082951",
+      "updated_at": "2025-10-03T15:37:50.082953",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

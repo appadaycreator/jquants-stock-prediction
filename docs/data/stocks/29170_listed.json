@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29170",
+    "generated_at": "2025-10-03T15:45:05.784100",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29170",
+    "name": "大森屋",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 943.0,
+    "change": -6.0,
+    "changePercent": -0.6322444678609063,
+    "volume": 2300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29170",
+      "CompanyName": "大森屋",
+      "CompanyNameEnglish": "OHMORIYA Co.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:34.010093",
+      "updated_at": "2025-10-03T15:28:34.010098",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

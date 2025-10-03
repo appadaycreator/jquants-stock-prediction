@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "80560",
+    "generated_at": "2025-10-03T15:45:06.120462",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "80560",
+    "name": "ＢＩＰＲＯＧＹ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 5858.0,
+    "change": -40.0,
+    "changePercent": -0.678195998643608,
+    "volume": 313600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "80560",
+      "CompanyName": "ＢＩＰＲＯＧＹ",
+      "CompanyNameEnglish": "BIPROGY Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:20.437304",
+      "updated_at": "2025-10-03T15:41:20.437315",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

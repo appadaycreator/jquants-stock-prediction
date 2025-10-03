@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92330",
+    "generated_at": "2025-10-03T15:45:06.175215",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92330",
+    "name": "アジア航測",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 1180.0,
+    "change": -1.0,
+    "changePercent": -0.0846740050804403,
+    "volume": 17700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92330",
+      "CompanyName": "アジア航測",
+      "CompanyNameEnglish": "Asia Air Survey Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5150",
+      "Sector33CodeName": "空運業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:18.805844",
+      "updated_at": "2025-10-03T15:43:18.805848",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

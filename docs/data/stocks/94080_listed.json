@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "94080",
+    "generated_at": "2025-10-03T15:45:06.186457",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "94080",
+    "name": "ＢＳＮメディアホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1981.0,
+    "change": -44.0,
+    "changePercent": -2.1728395061728394,
+    "volume": 600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "94080",
+      "CompanyName": "ＢＳＮメディアホールディングス",
+      "CompanyNameEnglish": "BSN MEDIA HOLDINGS,INC.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:50.060953",
+      "updated_at": "2025-10-03T15:43:50.060965",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

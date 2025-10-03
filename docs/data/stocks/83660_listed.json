@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "83660",
+    "generated_at": "2025-10-03T15:45:06.133612",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "83660",
+    "name": "滋賀銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 6220.0,
+    "change": 70.0,
+    "changePercent": 1.1382113821138211,
+    "volume": 144100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "83660",
+      "CompanyName": "滋賀銀行",
+      "CompanyNameEnglish": "THE SHIGA BANK,LTD.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:00.930646",
+      "updated_at": "2025-10-03T15:42:00.930657",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "46680",
+    "generated_at": "2025-10-03T15:45:05.891777",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "46680",
+    "name": "明光ネットワークジャパン",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 760.0,
+    "change": 19.0,
+    "changePercent": 2.564102564102564,
+    "volume": 169100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "46680",
+      "CompanyName": "明光ネットワークジャパン",
+      "CompanyNameEnglish": "MEIKO NETWORK JAPAN CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:42.694218",
+      "updated_at": "2025-10-03T15:33:42.694220",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

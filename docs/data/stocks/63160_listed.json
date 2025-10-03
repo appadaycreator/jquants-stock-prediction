@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63160",
+    "generated_at": "2025-10-03T15:45:05.969149",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63160",
+    "name": "丸山製作所",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 2020.0,
+    "change": -5.0,
+    "changePercent": -0.24691358024691357,
+    "volume": 2100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63160",
+      "CompanyName": "丸山製作所",
+      "CompanyNameEnglish": "MARUYAMA MFG.CO.,INC.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:47.923508",
+      "updated_at": "2025-10-03T15:36:47.923510",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

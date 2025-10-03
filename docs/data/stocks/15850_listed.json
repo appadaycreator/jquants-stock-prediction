@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "15850",
-    "generated_at": "2025-10-03T15:21:01.224733",
+    "generated_at": "2025-10-03T15:45:05.691163",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -14,7 +14,7 @@
     "change": null,
     "changePercent": null,
     "volume": null,
-    "updated_at": "2025-10-03T15:20:49.984366",
+    "updated_at": "2025-10-03T15:24:52.018528",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "15850",
@@ -29,8 +29,8 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:20:49.984370",
-      "updated_at": "2025-10-03T15:20:49.984371",
+      "created_at": "2025-10-03T15:24:52.018537",
+      "updated_at": "2025-10-03T15:24:52.018538",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
       "price_data_available": false

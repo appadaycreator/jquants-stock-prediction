@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "97900",
+    "generated_at": "2025-10-03T15:45:06.203638",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "97900",
+    "name": "福井コンピュータホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 3065.0,
+    "change": 5.0,
+    "changePercent": 0.16339869281045752,
+    "volume": 31900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "97900",
+      "CompanyName": "福井コンピュータホールディングス",
+      "CompanyNameEnglish": "Fukui Computer Holdings,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:38.144921",
+      "updated_at": "2025-10-03T15:44:38.144931",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

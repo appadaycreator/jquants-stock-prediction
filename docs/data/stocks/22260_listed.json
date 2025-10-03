@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22260",
+    "generated_at": "2025-10-03T15:45:05.738137",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22260",
+    "name": "湖池屋",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 4830.0,
+    "change": -5.0,
+    "changePercent": -0.1034126163391934,
+    "volume": 1100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22260",
+      "CompanyName": "湖池屋",
+      "CompanyNameEnglish": "KOIKE-YA Inc.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:34.267849",
+      "updated_at": "2025-10-03T15:26:34.267853",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

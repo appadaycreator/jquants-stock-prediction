@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "58210",
+    "generated_at": "2025-10-03T15:45:05.934845",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "58210",
+    "name": "平河ヒューテック",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 1413.0,
+    "change": -2.0,
+    "changePercent": -0.1413427561837456,
+    "volume": 24500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "58210",
+      "CompanyName": "平河ヒューテック",
+      "CompanyNameEnglish": "HIRAKAWA HEWTECH CORP.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:30.667734",
+      "updated_at": "2025-10-03T15:35:30.667736",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

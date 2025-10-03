@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "99940",
+    "generated_at": "2025-10-03T15:45:06.212363",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "99940",
+    "name": "やまや",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 2433.0,
+    "change": -9.0,
+    "changePercent": -0.36855036855036855,
+    "volume": 14500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "99940",
+      "CompanyName": "やまや",
+      "CompanyNameEnglish": "YAMAYA CORPORATION",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:45:04.818651",
+      "updated_at": "2025-10-03T15:45:04.818664",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

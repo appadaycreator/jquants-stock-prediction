@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "262A0",
+    "generated_at": "2025-10-03T15:45:05.766202",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "262A0",
+    "name": "インターメスティック",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 1936.0,
+    "change": -9.0,
+    "changePercent": -0.46272493573264784,
+    "volume": 575500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "262A0",
+      "CompanyName": "インターメスティック",
+      "CompanyNameEnglish": "INTERMESTIC INC.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:41.960140",
+      "updated_at": "2025-10-03T15:27:41.960142",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

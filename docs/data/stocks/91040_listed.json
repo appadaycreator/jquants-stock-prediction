@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "91040",
+    "generated_at": "2025-10-03T15:45:06.166899",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "91040",
+    "name": "商船三井",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 4796.0,
+    "change": 50.0,
+    "changePercent": 1.053518752633797,
+    "volume": 2391100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "91040",
+      "CompanyName": "商船三井",
+      "CompanyNameEnglish": "Mitsui O.S.K.Lines,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5100",
+      "Sector33CodeName": "海運業",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:03.901249",
+      "updated_at": "2025-10-03T15:43:03.901263",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34330",
+    "generated_at": "2025-10-03T15:45:05.814131",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34330",
+    "name": "トーカロ",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1937.0,
+    "change": -3.0,
+    "changePercent": -0.15463917525773196,
+    "volume": 145300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34330",
+      "CompanyName": "トーカロ",
+      "CompanyNameEnglish": "TOCALO Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:09.334505",
+      "updated_at": "2025-10-03T15:30:09.334512",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

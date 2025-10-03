@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67860",
+    "generated_at": "2025-10-03T15:45:06.012625",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67860",
+    "name": "ＲＶＨ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 110.0,
+    "change": -2.0,
+    "changePercent": -1.7857142857142856,
+    "volume": 2684400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67860",
+      "CompanyName": "ＲＶＨ",
+      "CompanyNameEnglish": "RVH Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:03.795356",
+      "updated_at": "2025-10-03T15:38:03.795358",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

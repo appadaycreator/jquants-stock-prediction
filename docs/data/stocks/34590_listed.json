@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34590",
+    "generated_at": "2025-10-03T15:45:05.815977",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34590",
+    "name": "サムティ・レジデンシャル投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 97000.0,
+    "change": -300.0,
+    "changePercent": -0.3083247687564234,
+    "volume": 1291,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34590",
+      "CompanyName": "サムティ・レジデンシャル投資法人",
+      "CompanyNameEnglish": "Samty Residential Investment Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:18.704530",
+      "updated_at": "2025-10-03T15:30:18.704533",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

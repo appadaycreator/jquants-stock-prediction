@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "70330",
+    "generated_at": "2025-10-03T15:45:06.045980",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "70330",
+    "name": "マネジメントソリューションズ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1692.0,
+    "change": 23.0,
+    "changePercent": 1.378070701018574,
+    "volume": 189300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "70330",
+      "CompanyName": "マネジメントソリューションズ",
+      "CompanyNameEnglish": "Management Solutions Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:38.402291",
+      "updated_at": "2025-10-03T15:38:38.402293",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

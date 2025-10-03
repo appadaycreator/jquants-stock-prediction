@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "68980",
+    "generated_at": "2025-10-03T15:45:06.029345",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "68980",
+    "name": "トミタ電機",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 2998.0,
+    "change": 68.0,
+    "changePercent": 2.3208191126279862,
+    "volume": 1000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "68980",
+      "CompanyName": "トミタ電機",
+      "CompanyNameEnglish": "TOMITA ELECTRIC CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:19.456304",
+      "updated_at": "2025-10-03T15:38:19.456306",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

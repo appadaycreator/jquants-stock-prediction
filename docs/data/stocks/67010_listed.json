@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67010",
+    "generated_at": "2025-10-03T15:45:05.997450",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67010",
+    "name": "日本電気",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 3798.0,
+    "change": -38.0,
+    "changePercent": -0.9906152241918665,
+    "volume": 4018200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67010",
+      "CompanyName": "日本電気",
+      "CompanyNameEnglish": "NEC Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:52.014612",
+      "updated_at": "2025-10-03T15:37:52.014629",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

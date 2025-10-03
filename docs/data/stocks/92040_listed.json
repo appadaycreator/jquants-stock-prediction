@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92040",
+    "generated_at": "2025-10-03T15:45:06.172505",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92040",
+    "name": "スカイマーク",
+    "sector": "運輸・物流",
+    "market": "グロース",
+    "currentPrice": 492.0,
+    "change": 6.0,
+    "changePercent": 1.2345679012345678,
+    "volume": 148000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92040",
+      "CompanyName": "スカイマーク",
+      "CompanyNameEnglish": "Skymark Airlines Inc.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5150",
+      "Sector33CodeName": "空運業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:12.867078",
+      "updated_at": "2025-10-03T15:43:12.867090",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

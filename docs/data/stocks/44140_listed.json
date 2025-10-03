@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44140",
+    "generated_at": "2025-10-03T15:45:05.874253",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44140",
+    "name": "フレクト",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 2091.0,
+    "change": 20.0,
+    "changePercent": 0.9657170449058425,
+    "volume": 39100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44140",
+      "CompanyName": "フレクト",
+      "CompanyNameEnglish": "FLECT Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:58.921580",
+      "updated_at": "2025-10-03T15:32:58.921582",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

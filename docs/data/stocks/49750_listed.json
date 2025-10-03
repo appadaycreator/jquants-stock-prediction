@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49750",
+    "generated_at": "2025-10-03T15:45:05.906377",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49750",
+    "name": "ＪＣＵ",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 3295.0,
+    "change": 35.0,
+    "changePercent": 1.0736196319018405,
+    "volume": 44000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49750",
+      "CompanyName": "ＪＣＵ",
+      "CompanyNameEnglish": "JCU CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:19.560111",
+      "updated_at": "2025-10-03T15:34:19.560114",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

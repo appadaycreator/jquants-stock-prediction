@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "82330",
+    "generated_at": "2025-10-03T15:45:06.129224",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "82330",
+    "name": "高島屋",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 1131.0,
+    "change": 2.0,
+    "changePercent": 0.1771479185119575,
+    "volume": 1736700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "82330",
+      "CompanyName": "高島屋",
+      "CompanyNameEnglish": "Takashimaya Company,Limited",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:46.610426",
+      "updated_at": "2025-10-03T15:41:46.610444",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

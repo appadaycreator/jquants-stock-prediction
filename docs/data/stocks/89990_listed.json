@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "89990",
+    "generated_at": "2025-10-03T15:45:06.157469",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "89990",
+    "name": "グランディハウス",
+    "sector": "不動産",
+    "market": "プライム",
+    "currentPrice": 541.0,
+    "change": 2.0,
+    "changePercent": 0.3710575139146568,
+    "volume": 31400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "89990",
+      "CompanyName": "グランディハウス",
+      "CompanyNameEnglish": "Grandy House Corporation",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:47.845876",
+      "updated_at": "2025-10-03T15:42:47.845885",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

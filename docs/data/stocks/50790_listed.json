@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "50790",
+    "generated_at": "2025-10-03T15:45:05.911852",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "50790",
+    "name": "ノバック",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 2514.0,
+    "change": 6.0,
+    "changePercent": 0.23923444976076555,
+    "volume": 4100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "50790",
+      "CompanyName": "ノバック",
+      "CompanyNameEnglish": "NOVAC CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:32.422862",
+      "updated_at": "2025-10-03T15:34:32.422864",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

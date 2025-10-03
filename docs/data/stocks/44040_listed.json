@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44040",
+    "generated_at": "2025-10-03T15:45:05.873788",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44040",
+    "name": "ミヨシ油脂",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 1920.0,
+    "change": 31.0,
+    "changePercent": 1.641079936474325,
+    "volume": 43600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44040",
+      "CompanyName": "ミヨシ油脂",
+      "CompanyNameEnglish": "Miyoshi Oil & Fat Co.,Ltd.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:57.310930",
+      "updated_at": "2025-10-03T15:32:57.310932",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28470",
+    "generated_at": "2025-10-03T15:45:05.778912",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28470",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　新成長インフラ−日本株式　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2039.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 1,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28470",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　新成長インフラ−日本株式　ＥＴＦ",
+      "CompanyNameEnglish": "Global X Japan New Growth Infrastructure ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:19.810921",
+      "updated_at": "2025-10-03T15:28:19.810923",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

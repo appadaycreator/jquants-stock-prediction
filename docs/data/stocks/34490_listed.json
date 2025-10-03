@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34490",
+    "generated_at": "2025-10-03T15:45:05.815450",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34490",
+    "name": "テクノフレックス",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1388.0,
+    "change": 14.0,
+    "changePercent": 1.0189228529839884,
+    "volume": 62300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34490",
+      "CompanyName": "テクノフレックス",
+      "CompanyNameEnglish": "TECHNOFLEX CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:16.667803",
+      "updated_at": "2025-10-03T15:30:16.667813",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

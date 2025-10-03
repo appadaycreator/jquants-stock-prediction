@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29360",
+    "generated_at": "2025-10-03T15:45:05.785664",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29360",
+    "name": "ベースフード",
+    "sector": "食品",
+    "market": "グロース",
+    "currentPrice": 481.0,
+    "change": -11.0,
+    "changePercent": -2.2357723577235773,
+    "volume": 144500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29360",
+      "CompanyName": "ベースフード",
+      "CompanyNameEnglish": "BASE FOOD,Inc.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:38.564325",
+      "updated_at": "2025-10-03T15:28:38.564328",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

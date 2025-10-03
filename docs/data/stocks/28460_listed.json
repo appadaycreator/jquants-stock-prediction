@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28460",
+    "generated_at": "2025-10-03T15:45:05.778836",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28460",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ダウ・ジョーンズ工業株３０種平均株価（為替ヘッジあり）連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2235.0,
+    "change": -7.0,
+    "changePercent": -0.31222123104371097,
+    "volume": 860,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28460",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ダウ・ジョーンズ工業株３０種平均株価（為替ヘッジあり）連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS DJIA (Yen-Hedged) Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:19.565781",
+      "updated_at": "2025-10-03T15:28:19.565784",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

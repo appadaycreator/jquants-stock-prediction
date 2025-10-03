@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78190",
+    "generated_at": "2025-10-03T15:45:06.106925",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78190",
+    "name": "粧美堂",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 692.0,
+    "change": -8.0,
+    "changePercent": -1.1428571428571428,
+    "volume": 23400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78190",
+      "CompanyName": "粧美堂",
+      "CompanyNameEnglish": "SHOBIDO Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:37.890296",
+      "updated_at": "2025-10-03T15:40:37.890315",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

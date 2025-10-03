@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "23540",
+    "generated_at": "2025-10-03T15:45:05.745777",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "23540",
+    "name": "ＹＥ　ＤＩＧＩＴＡＬ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 646.0,
+    "change": -16.0,
+    "changePercent": -2.416918429003021,
+    "volume": 178700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "23540",
+      "CompanyName": "ＹＥ　ＤＩＧＩＴＡＬ",
+      "CompanyNameEnglish": "YE DIGITAL Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:56.535638",
+      "updated_at": "2025-10-03T15:26:56.535640",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

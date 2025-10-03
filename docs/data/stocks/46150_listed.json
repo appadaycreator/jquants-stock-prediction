@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "46150",
+    "generated_at": "2025-10-03T15:45:05.889064",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "46150",
+    "name": "神東塗料",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 137.0,
+    "change": 8.0,
+    "changePercent": 6.2015503875969,
+    "volume": 430100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "46150",
+      "CompanyName": "神東塗料",
+      "CompanyNameEnglish": "SHINTO PAINT COMPANY,LIMITED",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:34.167403",
+      "updated_at": "2025-10-03T15:33:34.167406",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

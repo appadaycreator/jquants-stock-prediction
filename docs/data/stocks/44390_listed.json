@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44390",
+    "generated_at": "2025-10-03T15:45:05.876942",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44390",
+    "name": "東名",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1990.0,
+    "change": -31.0,
+    "changePercent": -1.533894111825829,
+    "volume": 29900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44390",
+      "CompanyName": "東名",
+      "CompanyNameEnglish": "TOUMEI CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:05.189872",
+      "updated_at": "2025-10-03T15:33:05.189875",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

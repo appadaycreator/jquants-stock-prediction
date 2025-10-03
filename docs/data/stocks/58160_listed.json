@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "58160",
+    "generated_at": "2025-10-03T15:45:05.934094",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "58160",
+    "name": "オーナンバ",
+    "sector": "鉄鋼・非鉄",
+    "market": "スタンダード",
+    "currentPrice": 968.0,
+    "change": 12.0,
+    "changePercent": 1.2552301255230125,
+    "volume": 7600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "58160",
+      "CompanyName": "オーナンバ",
+      "CompanyNameEnglish": "Onamba Co.,Ltd.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:29.612067",
+      "updated_at": "2025-10-03T15:35:29.612069",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

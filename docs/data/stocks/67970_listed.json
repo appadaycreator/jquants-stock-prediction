@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67970",
+    "generated_at": "2025-10-03T15:45:06.013195",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67970",
+    "name": "名古屋電機工業",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 1111.0,
+    "change": 8.0,
+    "changePercent": 0.7252946509519492,
+    "volume": 8200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67970",
+      "CompanyName": "名古屋電機工業",
+      "CompanyNameEnglish": "NAGOYA ELECTRIC WORKS CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:04.907772",
+      "updated_at": "2025-10-03T15:38:04.907774",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

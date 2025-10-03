@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69880",
+    "generated_at": "2025-10-03T15:45:06.041712",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69880",
+    "name": "日東電工",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 2848.5,
+    "change": 20.0,
+    "changePercent": 0.707088562842496,
+    "volume": 3630000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69880",
+      "CompanyName": "日東電工",
+      "CompanyNameEnglish": "NITTO DENKO CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:32.896367",
+      "updated_at": "2025-10-03T15:38:32.896369",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

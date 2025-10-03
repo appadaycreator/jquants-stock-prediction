@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29100",
+    "generated_at": "2025-10-03T15:45:05.783680",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29100",
+    "name": "ロック・フィールド",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 1518.0,
+    "change": 8.0,
+    "changePercent": 0.5298013245033113,
+    "volume": 22300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29100",
+      "CompanyName": "ロック・フィールド",
+      "CompanyNameEnglish": "ROCK FIELD CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:32.701330",
+      "updated_at": "2025-10-03T15:28:32.701333",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

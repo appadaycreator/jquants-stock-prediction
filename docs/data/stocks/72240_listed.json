@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72240",
+    "generated_at": "2025-10-03T15:45:06.070501",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72240",
+    "name": "新明和工業",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 1687.0,
+    "change": -1.0,
+    "changePercent": -0.05924170616113744,
+    "volume": 352400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72240",
+      "CompanyName": "新明和工業",
+      "CompanyNameEnglish": "ShinMaywa Industries,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:13.140218",
+      "updated_at": "2025-10-03T15:39:13.140220",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32830",
+    "generated_at": "2025-10-03T15:45:05.805843",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32830",
+    "name": "日本プロロジスリート投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 80500.0,
+    "change": 500.0,
+    "changePercent": 0.625,
+    "volume": 9867,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32830",
+      "CompanyName": "日本プロロジスリート投資法人",
+      "CompanyNameEnglish": "Nippon Prologis REIT,Inc.",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:45.319035",
+      "updated_at": "2025-10-03T15:29:45.319040",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

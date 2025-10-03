@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72290",
+    "generated_at": "2025-10-03T15:45:06.070737",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72290",
+    "name": "ユタカ技研",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 2589.0,
+    "change": 17.0,
+    "changePercent": 0.6609642301710731,
+    "volume": 36900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72290",
+      "CompanyName": "ユタカ技研",
+      "CompanyNameEnglish": "YUTAKA GIKEN CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:13.937141",
+      "updated_at": "2025-10-03T15:39:13.937143",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

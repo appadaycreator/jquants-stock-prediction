@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "73840",
+    "generated_at": "2025-10-03T15:45:06.082449",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "73840",
+    "name": "プロクレアホールディングス",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 1443.0,
+    "change": 10.0,
+    "changePercent": 0.6978367062107467,
+    "volume": 67000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "73840",
+      "CompanyName": "プロクレアホールディングス",
+      "CompanyNameEnglish": "Procrea Holdings,Inc.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:38.526778",
+      "updated_at": "2025-10-03T15:39:38.526780",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

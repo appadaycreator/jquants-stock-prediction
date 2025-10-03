@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72400",
+    "generated_at": "2025-10-03T15:45:06.071217",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72400",
+    "name": "ＮＯＫ",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 2144.0,
+    "change": 6.0,
+    "changePercent": 0.2806361085126286,
+    "volume": 267200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72400",
+      "CompanyName": "ＮＯＫ",
+      "CompanyNameEnglish": "NOK CORPORATION",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:15.530543",
+      "updated_at": "2025-10-03T15:39:15.530545",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

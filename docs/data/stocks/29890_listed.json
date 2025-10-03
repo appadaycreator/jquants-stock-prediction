@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29890",
+    "generated_at": "2025-10-03T15:45:05.787770",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29890",
+    "name": "東海道リート投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 111700.0,
+    "change": 800.0,
+    "changePercent": 0.7213706041478809,
+    "volume": 819,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29890",
+      "CompanyName": "東海道リート投資法人",
+      "CompanyNameEnglish": "Tokaido REIT,Inc.",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:45.332774",
+      "updated_at": "2025-10-03T15:28:45.332778",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

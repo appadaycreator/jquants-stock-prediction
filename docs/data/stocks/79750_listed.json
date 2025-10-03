@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79750",
+    "generated_at": "2025-10-03T15:45:06.115403",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79750",
+    "name": "リヒトラブ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1154.0,
+    "change": -11.0,
+    "changePercent": -0.944206008583691,
+    "volume": 1100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79750",
+      "CompanyName": "リヒトラブ",
+      "CompanyNameEnglish": "LIHIT LAB.,INC.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:05.135750",
+      "updated_at": "2025-10-03T15:41:05.135760",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

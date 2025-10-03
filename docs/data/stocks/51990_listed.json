@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "51990",
+    "generated_at": "2025-10-03T15:45:05.914555",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "51990",
+    "name": "不二ラテックス",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 1901.0,
+    "change": 26.0,
+    "changePercent": 1.3866666666666667,
+    "volume": 3200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "51990",
+      "CompanyName": "不二ラテックス",
+      "CompanyNameEnglish": "FUJI LATEX CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3350",
+      "Sector33CodeName": "ゴム製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:41.549614",
+      "updated_at": "2025-10-03T15:34:41.549616",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

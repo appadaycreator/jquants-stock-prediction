@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "88350",
+    "generated_at": "2025-10-03T15:45:06.142886",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "88350",
+    "name": "太平洋興発",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 707.0,
+    "change": 1.0,
+    "changePercent": 0.141643059490085,
+    "volume": 8600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "88350",
+      "CompanyName": "太平洋興発",
+      "CompanyNameEnglish": "TAIHEIYO KOUHATSU INCORPORATED",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:28.377138",
+      "updated_at": "2025-10-03T15:42:28.377154",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

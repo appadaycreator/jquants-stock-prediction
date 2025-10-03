@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "70460",
+    "generated_at": "2025-10-03T15:45:06.049708",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "70460",
+    "name": "ＴＤＳＥ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 1606.0,
+    "change": -67.0,
+    "changePercent": -4.0047818290496116,
+    "volume": 10600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "70460",
+      "CompanyName": "ＴＤＳＥ",
+      "CompanyNameEnglish": "TDSE Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:41.651789",
+      "updated_at": "2025-10-03T15:38:41.651791",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

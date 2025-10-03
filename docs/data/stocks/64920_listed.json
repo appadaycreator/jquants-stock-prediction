@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64920",
+    "generated_at": "2025-10-03T15:45:05.982752",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64920",
+    "name": "岡野バルブ製造",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 5900.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 1500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64920",
+      "CompanyName": "岡野バルブ製造",
+      "CompanyNameEnglish": "OKANO VALVE MFG.CO.LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:18.290871",
+      "updated_at": "2025-10-03T15:37:18.290874",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

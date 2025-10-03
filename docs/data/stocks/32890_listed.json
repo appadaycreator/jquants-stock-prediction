@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32890",
+    "generated_at": "2025-10-03T15:45:05.806267",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32890",
+    "name": "東急不動産ホールディングス",
+    "sector": "不動産",
+    "market": "プライム",
+    "currentPrice": 1052.0,
+    "change": -7.0,
+    "changePercent": -0.6610009442870632,
+    "volume": 1667400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32890",
+      "CompanyName": "東急不動産ホールディングス",
+      "CompanyNameEnglish": "Tokyu Fudosan Holdings Corporation",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:46.765340",
+      "updated_at": "2025-10-03T15:29:46.765349",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

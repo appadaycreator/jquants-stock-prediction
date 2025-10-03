@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19750",
+    "generated_at": "2025-10-03T15:45:05.722062",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19750",
+    "name": "朝日工業社",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 2490.0,
+    "change": -30.0,
+    "changePercent": -1.1904761904761905,
+    "volume": 51300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19750",
+      "CompanyName": "朝日工業社",
+      "CompanyNameEnglish": "ASAHI KOGYOSHA CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:51.637731",
+      "updated_at": "2025-10-03T15:25:51.637734",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

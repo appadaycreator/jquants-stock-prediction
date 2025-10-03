@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "91730",
+    "generated_at": "2025-10-03T15:45:06.172155",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "91730",
+    "name": "東海汽船",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 2951.0,
+    "change": 1.0,
+    "changePercent": 0.03389830508474576,
+    "volume": 200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "91730",
+      "CompanyName": "東海汽船",
+      "CompanyNameEnglish": "Tokai Kisen Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5100",
+      "Sector33CodeName": "海運業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:11.686930",
+      "updated_at": "2025-10-03T15:43:11.686938",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

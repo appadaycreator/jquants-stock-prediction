@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25270",
+    "generated_at": "2025-10-03T15:45:05.758694",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25270",
+    "name": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　東証ＲＥＩＴ　Ｃｏｒｅ指数",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1102.0,
+    "change": 2.5,
+    "changePercent": 0.22737608003638018,
+    "volume": 37170,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25270",
+      "CompanyName": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　東証ＲＥＩＴ　Ｃｏｒｅ指数",
+      "CompanyNameEnglish": "NZAM ETF J-REIT Core Index",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:25.881337",
+      "updated_at": "2025-10-03T15:27:25.881340",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79880",
+    "generated_at": "2025-10-03T15:45:06.116412",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79880",
+    "name": "ニフコ",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 3528.0,
+    "change": 57.0,
+    "changePercent": 1.6421780466724287,
+    "volume": 330100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79880",
+      "CompanyName": "ニフコ",
+      "CompanyNameEnglish": "NIFCO INC.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:08.078640",
+      "updated_at": "2025-10-03T15:41:08.078662",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

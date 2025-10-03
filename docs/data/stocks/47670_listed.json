@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "47670",
+    "generated_at": "2025-10-03T15:45:05.897622",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "47670",
+    "name": "テー・オー・ダブリュー",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 309.0,
+    "change": 1.0,
+    "changePercent": 0.3246753246753247,
+    "volume": 108700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "47670",
+      "CompanyName": "テー・オー・ダブリュー",
+      "CompanyNameEnglish": "TOW CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:55.862136",
+      "updated_at": "2025-10-03T15:33:55.862140",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

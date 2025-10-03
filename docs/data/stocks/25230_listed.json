@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25230",
+    "generated_at": "2025-10-03T15:45:05.758387",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25230",
+    "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳトピックス（除く金融）上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2338.5,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 30,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25230",
+      "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳトピックス（除く金融）上場投信",
+      "CompanyNameEnglish": "MAXIS TOPIX Ex-Financials ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:24.821612",
+      "updated_at": "2025-10-03T15:27:24.821615",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

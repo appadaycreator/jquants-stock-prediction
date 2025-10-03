@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18270",
+    "generated_at": "2025-10-03T15:45:05.711614",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18270",
+    "name": "ナカノフドー建設",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 730.0,
+    "change": 5.0,
+    "changePercent": 0.6896551724137931,
+    "volume": 66500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18270",
+      "CompanyName": "ナカノフドー建設",
+      "CompanyNameEnglish": "NAKANO CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:29.422344",
+      "updated_at": "2025-10-03T15:25:29.422349",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

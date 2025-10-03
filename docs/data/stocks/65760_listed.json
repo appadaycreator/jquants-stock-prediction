@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "65760",
+    "generated_at": "2025-10-03T15:45:05.989695",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "65760",
+    "name": "揚工舎",
+    "sector": "情報通信・サービスその他",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:37:35.088828",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "65760",
+      "CompanyName": "揚工舎",
+      "CompanyNameEnglish": "Youkosha Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:35.088832",
+      "updated_at": "2025-10-03T15:37:35.088833",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

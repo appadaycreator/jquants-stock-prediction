@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34220",
+    "generated_at": "2025-10-03T15:45:05.813808",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34220",
+    "name": "Ｊ−ＭＡＸ",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 320.0,
+    "change": 10.0,
+    "changePercent": 3.225806451612903,
+    "volume": 9500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34220",
+      "CompanyName": "Ｊ−ＭＡＸ",
+      "CompanyNameEnglish": "J-MAX Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:08.053563",
+      "updated_at": "2025-10-03T15:30:08.053567",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79650",
+    "generated_at": "2025-10-03T15:45:06.114909",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79650",
+    "name": "象印マホービン",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 1937.0,
+    "change": 76.0,
+    "changePercent": 4.083825900053735,
+    "volume": 784000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79650",
+      "CompanyName": "象印マホービン",
+      "CompanyNameEnglish": "Zojirushi Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:03.315485",
+      "updated_at": "2025-10-03T15:41:03.315499",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

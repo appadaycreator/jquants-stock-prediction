@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "65260",
+    "generated_at": "2025-10-03T15:45:05.984701",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "65260",
+    "name": "ソシオネクスト",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2602.5,
+    "change": -92.0,
+    "changePercent": -3.4143625904620523,
+    "volume": 11887400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "65260",
+      "CompanyName": "ソシオネクスト",
+      "CompanyNameEnglish": "Socionext Inc.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:24.884942",
+      "updated_at": "2025-10-03T15:37:24.884944",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

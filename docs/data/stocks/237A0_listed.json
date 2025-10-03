@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "237A0",
+    "generated_at": "2025-10-03T15:45:05.747089",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "237A0",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米国債２５年超　ロングデュレーション　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 155.0,
+    "change": -1.0,
+    "changePercent": -0.641025641025641,
+    "volume": 96840,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "237A0",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米国債２５年超　ロングデュレーション　ＥＴＦ",
+      "CompanyNameEnglish": "iShares 25+ Year US Treasury Bond Long Duration ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:01.970203",
+      "updated_at": "2025-10-03T15:27:01.970218",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

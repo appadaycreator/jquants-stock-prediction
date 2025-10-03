@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "87690",
+    "generated_at": "2025-10-03T15:45:06.141786",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "87690",
+    "name": "アドバンテッジリスクマネジメント",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 580.0,
+    "change": 7.0,
+    "changePercent": 1.2216404886561953,
+    "volume": 9900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "87690",
+      "CompanyName": "アドバンテッジリスクマネジメント",
+      "CompanyNameEnglish": "Advantage Risk Management Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:24.314387",
+      "updated_at": "2025-10-03T15:42:24.314401",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

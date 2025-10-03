@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72460",
+    "generated_at": "2025-10-03T15:45:06.071702",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72460",
+    "name": "プレス工業",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 560.0,
+    "change": 2.0,
+    "changePercent": 0.35842293906810035,
+    "volume": 186400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72460",
+      "CompanyName": "プレス工業",
+      "CompanyNameEnglish": "PRESS KOGYO CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:16.911671",
+      "updated_at": "2025-10-03T15:39:16.911673",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

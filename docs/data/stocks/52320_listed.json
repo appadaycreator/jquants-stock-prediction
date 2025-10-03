@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "52320",
+    "generated_at": "2025-10-03T15:45:05.915311",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "52320",
+    "name": "住友大阪セメント",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 3785.0,
+    "change": -9.0,
+    "changePercent": -0.23721665788086455,
+    "volume": 168800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "52320",
+      "CompanyName": "住友大阪セメント",
+      "CompanyNameEnglish": "Sumitomo Osaka Cement Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:43.970092",
+      "updated_at": "2025-10-03T15:34:43.970094",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

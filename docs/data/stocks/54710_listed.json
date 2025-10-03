@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "54710",
+    "generated_at": "2025-10-03T15:45:05.923664",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "54710",
+    "name": "大同特殊鋼",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 1022.5,
+    "change": 12.5,
+    "changePercent": 1.2376237623762376,
+    "volume": 675800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "54710",
+      "CompanyName": "大同特殊鋼",
+      "CompanyNameEnglish": "Daido Steel Co.,Ltd.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3450",
+      "Sector33CodeName": "鉄鋼",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:05.320744",
+      "updated_at": "2025-10-03T15:35:05.320746",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

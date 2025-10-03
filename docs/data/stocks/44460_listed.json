@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44460",
+    "generated_at": "2025-10-03T15:45:05.877952",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44460",
+    "name": "Ｌｉｎｋ−Ｕグループ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 339.0,
+    "change": -1.0,
+    "changePercent": -0.29411764705882354,
+    "volume": 12600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44460",
+      "CompanyName": "Ｌｉｎｋ−Ｕグループ",
+      "CompanyNameEnglish": "Link-U Group Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:07.092508",
+      "updated_at": "2025-10-03T15:33:07.092511",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

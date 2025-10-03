@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "16290",
-    "generated_at": "2025-10-03T15:21:01.227235",
+    "generated_at": "2025-10-03T15:45:05.693902",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -29,8 +29,8 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:20:57.175960",
-      "updated_at": "2025-10-03T15:20:57.175963",
+      "created_at": "2025-10-03T15:24:59.153505",
+      "updated_at": "2025-10-03T15:24:59.153510",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
       "price_data_available": true

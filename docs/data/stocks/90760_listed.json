@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90760",
+    "generated_at": "2025-10-03T15:45:06.166102",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90760",
+    "name": "セイノーホールディングス",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 2206.0,
+    "change": 1.0,
+    "changePercent": 0.045351473922902494,
+    "volume": 415900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90760",
+      "CompanyName": "セイノーホールディングス",
+      "CompanyNameEnglish": "SEINO HOLDINGS CO.,LTD.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:01.827128",
+      "updated_at": "2025-10-03T15:43:01.827141",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

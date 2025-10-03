@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59850",
+    "generated_at": "2025-10-03T15:45:05.951484",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59850",
+    "name": "サンコール",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 297.0,
+    "change": 4.0,
+    "changePercent": 1.3651877133105803,
+    "volume": 30400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59850",
+      "CompanyName": "サンコール",
+      "CompanyNameEnglish": "SUNCALL CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:54.113998",
+      "updated_at": "2025-10-03T15:35:54.114000",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

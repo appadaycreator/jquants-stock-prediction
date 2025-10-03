@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63150",
+    "generated_at": "2025-10-03T15:45:05.969075",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63150",
+    "name": "ＴＯＷＡ",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1941.0,
+    "change": 60.0,
+    "changePercent": 3.1897926634768736,
+    "volume": 5427600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63150",
+      "CompanyName": "ＴＯＷＡ",
+      "CompanyNameEnglish": "TOWA CORPORATION",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:47.670122",
+      "updated_at": "2025-10-03T15:36:47.670124",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

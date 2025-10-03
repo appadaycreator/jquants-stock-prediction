@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92860",
+    "generated_at": "2025-10-03T15:45:06.179240",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92860",
+    "name": "エネクス・インフラ投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 46950.0,
+    "change": 250.0,
+    "changePercent": 0.5353319057815845,
+    "volume": 432,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92860",
+      "CompanyName": "エネクス・インフラ投資法人",
+      "CompanyNameEnglish": "Enex Infrastructure Investment Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:30.972323",
+      "updated_at": "2025-10-03T15:43:30.972340",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

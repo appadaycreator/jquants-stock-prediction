@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77790",
+    "generated_at": "2025-10-03T15:45:06.102467",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77790",
+    "name": "ＣＹＢＥＲＤＹＮＥ",
+    "sector": "電機・精密",
+    "market": "グロース",
+    "currentPrice": 187.0,
+    "change": 7.0,
+    "changePercent": 3.888888888888889,
+    "volume": 2120200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77790",
+      "CompanyName": "ＣＹＢＥＲＤＹＮＥ",
+      "CompanyNameEnglish": "CYBERDYNE,INC.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:34.773372",
+      "updated_at": "2025-10-03T15:40:34.773387",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

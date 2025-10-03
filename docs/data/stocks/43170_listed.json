@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43170",
+    "generated_at": "2025-10-03T15:45:05.868057",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43170",
+    "name": "レイ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 462.0,
+    "change": 8.0,
+    "changePercent": 1.762114537444934,
+    "volume": 12300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43170",
+      "CompanyName": "レイ",
+      "CompanyNameEnglish": "Ray Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:40.839048",
+      "updated_at": "2025-10-03T15:32:40.839050",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

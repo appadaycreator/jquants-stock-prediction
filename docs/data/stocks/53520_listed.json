@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "53520",
+    "generated_at": "2025-10-03T15:45:05.919913",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "53520",
+    "name": "黒崎播磨",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 3485.0,
+    "change": -65.0,
+    "changePercent": -1.8309859154929577,
+    "volume": 121500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "53520",
+      "CompanyName": "黒崎播磨",
+      "CompanyNameEnglish": "KROSAKI HARIMA CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:56.806397",
+      "updated_at": "2025-10-03T15:34:56.806400",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

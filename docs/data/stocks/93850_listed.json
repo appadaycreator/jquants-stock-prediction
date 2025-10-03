@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93850",
+    "generated_at": "2025-10-03T15:45:06.185832",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93850",
+    "name": "ショーエイコーポレーション",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 552.0,
+    "change": 3.0,
+    "changePercent": 0.546448087431694,
+    "volume": 1600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93850",
+      "CompanyName": "ショーエイコーポレーション",
+      "CompanyNameEnglish": "SHOEI CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:48.318021",
+      "updated_at": "2025-10-03T15:43:48.318032",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

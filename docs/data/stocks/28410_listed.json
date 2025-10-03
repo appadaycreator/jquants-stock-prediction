@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28410",
+    "generated_at": "2025-10-03T15:45:05.778363",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28410",
+    "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＮＡＳＤＡＱ１００（為替ヘッジあり）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1357.0,
+    "change": -3.0,
+    "changePercent": -0.22058823529411764,
+    "volume": 24562,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28410",
+      "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＮＡＳＤＡＱ１００（為替ヘッジあり）",
+      "CompanyNameEnglish": "iFreeETF NASDAQ100 (JPY HEDGED)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:18.255388",
+      "updated_at": "2025-10-03T15:28:18.255391",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

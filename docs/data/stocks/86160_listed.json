@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "86160",
+    "generated_at": "2025-10-03T15:45:06.139277",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "86160",
+    "name": "東海東京フィナンシャル・ホールディングス",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 518.0,
+    "change": 9.0,
+    "changePercent": 1.768172888015717,
+    "volume": 1172200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "86160",
+      "CompanyName": "東海東京フィナンシャル・ホールディングス",
+      "CompanyNameEnglish": "Tokai Tokyo Financial Holdings,Inc.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:16.835541",
+      "updated_at": "2025-10-03T15:42:16.835558",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69370",
+    "generated_at": "2025-10-03T15:45:06.034149",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69370",
+    "name": "古河電池",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 1377.0,
+    "change": -1.0,
+    "changePercent": -0.07256894049346879,
+    "volume": 155400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69370",
+      "CompanyName": "古河電池",
+      "CompanyNameEnglish": "The Furukawa Battery Co.,Ltd.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:25.617012",
+      "updated_at": "2025-10-03T15:38:25.617014",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

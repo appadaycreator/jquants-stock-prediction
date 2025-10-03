@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "73800",
+    "generated_at": "2025-10-03T15:45:06.082112",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "73800",
+    "name": "十六フィナンシャルグループ",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 5250.0,
+    "change": 80.0,
+    "changePercent": 1.5473887814313347,
+    "volume": 113400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "73800",
+      "CompanyName": "十六フィナンシャルグループ",
+      "CompanyNameEnglish": "Juroku Financial Group,Inc.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:37.704901",
+      "updated_at": "2025-10-03T15:39:37.704903",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

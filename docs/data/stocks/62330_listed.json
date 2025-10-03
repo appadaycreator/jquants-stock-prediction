@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62330",
+    "generated_at": "2025-10-03T15:45:05.964499",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62330",
+    "name": "ＫＬＡＳＳ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 431.0,
+    "change": 1.0,
+    "changePercent": 0.23255813953488372,
+    "volume": 7300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62330",
+      "CompanyName": "ＫＬＡＳＳ",
+      "CompanyNameEnglish": "KLASS Corporation",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:34.478660",
+      "updated_at": "2025-10-03T15:36:34.478662",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

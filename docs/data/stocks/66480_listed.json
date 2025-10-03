@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66480",
+    "generated_at": "2025-10-03T15:45:05.993716",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66480",
+    "name": "かわでん",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 4375.0,
+    "change": -30.0,
+    "changePercent": -0.681044267877412,
+    "volume": 700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66480",
+      "CompanyName": "かわでん",
+      "CompanyNameEnglish": "KAWADEN CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:45.580757",
+      "updated_at": "2025-10-03T15:37:45.580759",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "74530",
+    "generated_at": "2025-10-03T15:45:06.086466",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "74530",
+    "name": "良品計画",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 6979.0,
+    "change": 10.0,
+    "changePercent": 0.1434926101305783,
+    "volume": 7573400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "74530",
+      "CompanyName": "良品計画",
+      "CompanyNameEnglish": "RYOHIN KEIKAKU CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:46.756130",
+      "updated_at": "2025-10-03T15:39:46.756132",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

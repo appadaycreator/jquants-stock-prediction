@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "52440",
+    "generated_at": "2025-10-03T15:45:05.915786",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "52440",
+    "name": "ｊｉｇ．ｊｐ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 266.0,
+    "change": 2.0,
+    "changePercent": 0.7575757575757576,
+    "volume": 161100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "52440",
+      "CompanyName": "ｊｉｇ．ｊｐ",
+      "CompanyNameEnglish": "jig.jp co.,ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:45.613634",
+      "updated_at": "2025-10-03T15:34:45.613636",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59320",
+    "generated_at": "2025-10-03T15:45:05.945574",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59320",
+    "name": "三協立山",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 628.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 333400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59320",
+      "CompanyName": "三協立山",
+      "CompanyNameEnglish": "Sankyo Tateyama,Inc.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:44.189441",
+      "updated_at": "2025-10-03T15:35:44.189443",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "76730",
+    "generated_at": "2025-10-03T15:45:06.096448",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "76730",
+    "name": "ダイコー通産",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 1466.0,
+    "change": -16.0,
+    "changePercent": -1.0796221322537112,
+    "volume": 127200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "76730",
+      "CompanyName": "ダイコー通産",
+      "CompanyNameEnglish": "DAIKO TSUSAN CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:16.146517",
+      "updated_at": "2025-10-03T15:40:16.146519",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

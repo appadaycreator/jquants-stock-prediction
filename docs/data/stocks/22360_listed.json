@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22360",
+    "generated_at": "2025-10-03T15:45:05.738445",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22360",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　Ｓ＆Ｐ５００配当貴族ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1236.0,
+    "change": 2.0,
+    "changePercent": 0.1620745542949757,
+    "volume": 28968,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22360",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　Ｓ＆Ｐ５００配当貴族ＥＴＦ",
+      "CompanyNameEnglish": "Global X S&P 500 Dividend Aristocrats ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:35.348298",
+      "updated_at": "2025-10-03T15:26:35.348301",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "85440",
+    "generated_at": "2025-10-03T15:45:06.137509",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "85440",
+    "name": "京葉銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 1080.0,
+    "change": 3.0,
+    "changePercent": 0.2785515320334262,
+    "volume": 270100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "85440",
+      "CompanyName": "京葉銀行",
+      "CompanyNameEnglish": "The Keiyo Bank,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:10.604861",
+      "updated_at": "2025-10-03T15:42:10.604865",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

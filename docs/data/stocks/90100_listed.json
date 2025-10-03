@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90100",
+    "generated_at": "2025-10-03T15:45:06.158400",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90100",
+    "name": "富士急行",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 2060.0,
+    "change": -5.0,
+    "changePercent": -0.24213075060532688,
+    "volume": 103100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90100",
+      "CompanyName": "富士急行",
+      "CompanyNameEnglish": "FUJI KYUKO CO.,LTD.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:50.220732",
+      "updated_at": "2025-10-03T15:42:50.220748",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

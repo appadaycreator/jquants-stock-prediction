@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31500",
+    "generated_at": "2025-10-03T15:45:05.798128",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31500",
+    "name": "グリムス",
+    "sector": "電気・ガス",
+    "market": "プライム",
+    "currentPrice": 2502.0,
+    "change": 1.0,
+    "changePercent": 0.03998400639744103,
+    "volume": 49600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31500",
+      "CompanyName": "グリムス",
+      "CompanyNameEnglish": "grems,Inc.",
+      "Sector17Code": "11",
+      "Sector17CodeName": "電気・ガス",
+      "Sector33Code": "4050",
+      "Sector33CodeName": "電気･ガス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:18.845297",
+      "updated_at": "2025-10-03T15:29:18.845312",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

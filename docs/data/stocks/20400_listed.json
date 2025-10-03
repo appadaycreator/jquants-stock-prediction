@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20400",
+    "generated_at": "2025-10-03T15:45:05.726413",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20400",
+    "name": "ノムラ・ヨーロッパ・ファイナンス・エヌ・ブイ　ＮＥＸＴ　ＮＯＴＥＳ　ＮＹダウ・ダブル・ブル・ドルヘッジ　ＥＴＮ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 30840.0,
+    "change": -250.0,
+    "changePercent": -0.8041170794467675,
+    "volume": 444,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20400",
+      "CompanyName": "ノムラ・ヨーロッパ・ファイナンス・エヌ・ブイ　ＮＥＸＴ　ＮＯＴＥＳ　ＮＹダウ・ダブル・ブル・ドルヘッジ　ＥＴＮ",
+      "CompanyNameEnglish": "NEXT NOTES DJIA PR JPY-Monthly Hedged Leveraged (x2) ETN",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:01.941172",
+      "updated_at": "2025-10-03T15:26:01.941177",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "307A0",
+    "generated_at": "2025-10-03T15:45:05.793754",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "307A0",
+    "name": "ハウジング・スタッフ",
+    "sector": "建設・資材",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:29:04.808686",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "307A0",
+      "CompanyName": "ハウジング・スタッフ",
+      "CompanyNameEnglish": "Housing staff Inc.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:04.808693",
+      "updated_at": "2025-10-03T15:29:04.808694",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

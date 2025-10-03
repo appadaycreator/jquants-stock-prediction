@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26300",
+    "generated_at": "2025-10-03T15:45:05.766297",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26300",
+    "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ米国株式（Ｓ＆Ｐ５００）上場投信（為替ヘッジあり）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 13615.0,
+    "change": -30.0,
+    "changePercent": -0.21986075485525836,
+    "volume": 25796,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26300",
+      "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ米国株式（Ｓ＆Ｐ５００）上場投信（為替ヘッジあり）",
+      "CompanyNameEnglish": "MAXIS S&P500 US Equity ETF (JPY Hedged)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:42.214778",
+      "updated_at": "2025-10-03T15:27:42.214781",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

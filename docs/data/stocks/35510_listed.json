@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "35510",
+    "generated_at": "2025-10-03T15:45:05.821856",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "35510",
+    "name": "ダイニック",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 865.0,
+    "change": 1.0,
+    "changePercent": 0.11574074074074073,
+    "volume": 10100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "35510",
+      "CompanyName": "ダイニック",
+      "CompanyNameEnglish": "DYNIC CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:38.067235",
+      "updated_at": "2025-10-03T15:30:38.067241",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

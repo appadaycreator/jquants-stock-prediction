@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "81250",
+    "generated_at": "2025-10-03T15:45:06.124650",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "81250",
+    "name": "ワキタ",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 1697.0,
+    "change": -3.0,
+    "changePercent": -0.17647058823529413,
+    "volume": 110000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "81250",
+      "CompanyName": "ワキタ",
+      "CompanyNameEnglish": "Wakita & Co.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:31.560519",
+      "updated_at": "2025-10-03T15:41:31.560535",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

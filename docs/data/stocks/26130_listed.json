@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26130",
+    "generated_at": "2025-10-03T15:45:05.764383",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26130",
+    "name": "Ｊ−オイルミルズ",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 2016.0,
+    "change": -2.0,
+    "changePercent": -0.09910802775024777,
+    "volume": 49600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26130",
+      "CompanyName": "Ｊ−オイルミルズ",
+      "CompanyNameEnglish": "J-OIL MILLS, INC.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:38.670912",
+      "updated_at": "2025-10-03T15:27:38.670916",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

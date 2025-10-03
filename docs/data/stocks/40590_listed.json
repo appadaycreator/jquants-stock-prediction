@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40590",
+    "generated_at": "2025-10-03T15:45:05.852196",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40590",
+    "name": "まぐまぐ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 530.0,
+    "change": 16.0,
+    "changePercent": 3.11284046692607,
+    "volume": 11200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40590",
+      "CompanyName": "まぐまぐ",
+      "CompanyNameEnglish": "Magmag,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:05.453125",
+      "updated_at": "2025-10-03T15:32:05.453130",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

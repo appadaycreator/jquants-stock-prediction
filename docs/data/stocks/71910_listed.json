@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71910",
+    "generated_at": "2025-10-03T15:45:06.065949",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71910",
+    "name": "イントラスト",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 905.0,
+    "change": -4.0,
+    "changePercent": -0.44004400440044,
+    "volume": 10000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71910",
+      "CompanyName": "イントラスト",
+      "CompanyNameEnglish": "Entrust Inc.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:07.733832",
+      "updated_at": "2025-10-03T15:39:07.733835",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

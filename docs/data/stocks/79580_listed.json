@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79580",
+    "generated_at": "2025-10-03T15:45:06.114644",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79580",
+    "name": "天馬",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 3580.0,
+    "change": 5.0,
+    "changePercent": 0.13986013986013987,
+    "volume": 6200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79580",
+      "CompanyName": "天馬",
+      "CompanyNameEnglish": "TENMA CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:02.416135",
+      "updated_at": "2025-10-03T15:41:02.416145",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

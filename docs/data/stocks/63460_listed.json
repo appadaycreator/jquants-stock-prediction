@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63460",
+    "generated_at": "2025-10-03T15:45:05.972928",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63460",
+    "name": "キクカワエンタープライズ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 5650.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 1000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63460",
+      "CompanyName": "キクカワエンタープライズ",
+      "CompanyNameEnglish": "KIKUKAWA ENTERPRISE,INC.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:54.123466",
+      "updated_at": "2025-10-03T15:36:54.123468",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

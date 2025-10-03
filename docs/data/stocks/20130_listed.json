@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20130",
+    "generated_at": "2025-10-03T15:45:05.724691",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20130",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米国高配当株　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 238.2,
+    "change": 0.29999999999998295,
+    "changePercent": 0.1261034047919222,
+    "volume": 1171570,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20130",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米国高配当株　ＥＴＦ",
+      "CompanyNameEnglish": "iShares US High Dividend ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:56.957961",
+      "updated_at": "2025-10-03T15:25:56.957967",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

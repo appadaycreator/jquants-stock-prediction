@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90030",
+    "generated_at": "2025-10-03T15:45:06.157643",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90030",
+    "name": "相鉄ホールディングス",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 2295.0,
+    "change": 2.0,
+    "changePercent": 0.08722197993894462,
+    "volume": 176400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90030",
+      "CompanyName": "相鉄ホールディングス",
+      "CompanyNameEnglish": "Sotetsu Holdings,Inc.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:48.457449",
+      "updated_at": "2025-10-03T15:42:48.457457",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

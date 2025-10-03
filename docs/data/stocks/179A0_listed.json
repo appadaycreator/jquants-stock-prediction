@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "179A0",
+    "generated_at": "2025-10-03T15:45:05.710050",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "179A0",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　超長期米国債　ＥＴＦ（為替ヘッジあり）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 265.3,
+    "change": -0.8000000000000114,
+    "changePercent": -0.3006388575723455,
+    "volume": 59920,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "179A0",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　超長期米国債　ＥＴＦ（為替ヘッジあり）",
+      "CompanyNameEnglish": "Global X 25+ Year T-Bond ETF (JPY Hedged)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:24.587350",
+      "updated_at": "2025-10-03T15:25:24.587352",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "170A0",
+    "generated_at": "2025-10-03T15:45:05.702820",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "170A0",
+    "name": "三井住友トラスト・アセットマネジメント株式会社　ＳＭＴ　ＥＴＦ日本好配当株アクティブ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2050.0,
+    "change": 12.0,
+    "changePercent": 0.5888125613346418,
+    "volume": 177,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "170A0",
+      "CompanyName": "三井住友トラスト・アセットマネジメント株式会社　ＳＭＴ　ＥＴＦ日本好配当株アクティブ",
+      "CompanyNameEnglish": "SMT ETF Japan Equity Income Strategy Active",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:13.224361",
+      "updated_at": "2025-10-03T15:25:13.224364",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

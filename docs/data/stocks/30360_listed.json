@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "30360",
+    "generated_at": "2025-10-03T15:45:05.790370",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "30360",
+    "name": "アルコニックス",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 2004.0,
+    "change": 19.0,
+    "changePercent": 0.9571788413098238,
+    "volume": 214900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "30360",
+      "CompanyName": "アルコニックス",
+      "CompanyNameEnglish": "ALCONIX CORPORATION",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:54.168524",
+      "updated_at": "2025-10-03T15:28:54.168533",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

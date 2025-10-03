@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "159A0",
-    "generated_at": "2025-10-03T15:21:01.225617",
+    "generated_at": "2025-10-03T15:45:05.691990",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -29,8 +29,8 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:20:52.775912",
-      "updated_at": "2025-10-03T15:20:52.775915",
+      "created_at": "2025-10-03T15:24:54.760139",
+      "updated_at": "2025-10-03T15:24:54.760143",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
       "price_data_available": true

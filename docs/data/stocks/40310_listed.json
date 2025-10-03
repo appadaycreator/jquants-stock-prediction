@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40310",
+    "generated_at": "2025-10-03T15:45:05.850541",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40310",
+    "name": "片倉コープアグリ",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 958.0,
+    "change": 6.0,
+    "changePercent": 0.6302521008403361,
+    "volume": 1000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40310",
+      "CompanyName": "片倉コープアグリ",
+      "CompanyNameEnglish": "Katakura & Co-op Agri Corporation",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:00.743459",
+      "updated_at": "2025-10-03T15:32:00.743461",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

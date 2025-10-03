@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "82820",
+    "generated_at": "2025-10-03T15:45:06.130559",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "82820",
+    "name": "ケーズホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 1513.5,
+    "change": -15.0,
+    "changePercent": -0.9813542688910697,
+    "volume": 720700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "82820",
+      "CompanyName": "ケーズホールディングス",
+      "CompanyNameEnglish": "K'S HOLDINGS CORPORATION",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:51.437762",
+      "updated_at": "2025-10-03T15:41:51.437766",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

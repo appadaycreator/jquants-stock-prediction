@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22080",
+    "generated_at": "2025-10-03T15:45:05.736864",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22080",
+    "name": "ブルボン",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 2590.0,
+    "change": 4.0,
+    "changePercent": 0.15467904098994587,
+    "volume": 9800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22080",
+      "CompanyName": "ブルボン",
+      "CompanyNameEnglish": "BOURBON CORPORATION",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:30.736971",
+      "updated_at": "2025-10-03T15:26:30.736974",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

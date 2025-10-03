@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "35530",
+    "generated_at": "2025-10-03T15:45:05.821930",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "35530",
+    "name": "共和レザー",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 790.0,
+    "change": 2.0,
+    "changePercent": 0.25380710659898476,
+    "volume": 40200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "35530",
+      "CompanyName": "共和レザー",
+      "CompanyNameEnglish": "KYOWA LEATHER CLOTH CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:38.329027",
+      "updated_at": "2025-10-03T15:30:38.329032",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

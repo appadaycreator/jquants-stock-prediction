@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "58190",
+    "generated_at": "2025-10-03T15:45:05.934450",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "58190",
+    "name": "カナレ電気",
+    "sector": "鉄鋼・非鉄",
+    "market": "スタンダード",
+    "currentPrice": 1545.0,
+    "change": 4.0,
+    "changePercent": 0.25957170668397145,
+    "volume": 17100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "58190",
+      "CompanyName": "カナレ電気",
+      "CompanyNameEnglish": "Canare Electric Co.,Ltd.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:30.123863",
+      "updated_at": "2025-10-03T15:35:30.123865",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

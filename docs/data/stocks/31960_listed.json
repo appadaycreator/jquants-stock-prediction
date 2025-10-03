@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31960",
+    "generated_at": "2025-10-03T15:45:05.801720",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31960",
+    "name": "ホットランドホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 2010.0,
+    "change": 5.0,
+    "changePercent": 0.24937655860349126,
+    "volume": 84200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31960",
+      "CompanyName": "ホットランドホールディングス",
+      "CompanyNameEnglish": "HOTLAND HOLDINGS Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:31.291829",
+      "updated_at": "2025-10-03T15:29:31.291834",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

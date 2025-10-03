@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "46270",
+    "generated_at": "2025-10-03T15:45:05.889856",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "46270",
+    "name": "ナトコ",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 1418.0,
+    "change": 9.0,
+    "changePercent": 0.63875088715401,
+    "volume": 3600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "46270",
+      "CompanyName": "ナトコ",
+      "CompanyNameEnglish": "NATOCO CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:36.672473",
+      "updated_at": "2025-10-03T15:33:36.672475",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

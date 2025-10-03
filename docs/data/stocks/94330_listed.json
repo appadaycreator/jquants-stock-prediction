@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "94330",
+    "generated_at": "2025-10-03T15:45:06.188412",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "94330",
+    "name": "ＫＤＤＩ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2423.5,
+    "change": -21.5,
+    "changePercent": -0.8793456032719837,
+    "volume": 7059700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "94330",
+      "CompanyName": "ＫＤＤＩ",
+      "CompanyNameEnglish": "KDDI CORPORATION",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Core30",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:54.615791",
+      "updated_at": "2025-10-03T15:43:54.615799",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

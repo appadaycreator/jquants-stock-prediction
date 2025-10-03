@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32240",
+    "generated_at": "2025-10-03T15:45:05.802811",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32240",
+    "name": "ゼネラル・オイスター",
+    "sector": "小売",
+    "market": "グロース",
+    "currentPrice": 659.0,
+    "change": -21.0,
+    "changePercent": -3.088235294117647,
+    "volume": 41500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32240",
+      "CompanyName": "ゼネラル・オイスター",
+      "CompanyNameEnglish": "General Oyster,Inc.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:35.324181",
+      "updated_at": "2025-10-03T15:29:35.324186",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

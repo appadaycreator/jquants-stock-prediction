@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "247A0",
+    "generated_at": "2025-10-03T15:45:05.752088",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "247A0",
+    "name": "Ａｉロボティクス",
+    "sector": "素材・化学",
+    "market": "グロース",
+    "currentPrice": 6690.0,
+    "change": 380.0,
+    "changePercent": 6.022187004754358,
+    "volume": 2409900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "247A0",
+      "CompanyName": "Ａｉロボティクス",
+      "CompanyNameEnglish": "Ai ROBOTICS INC.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:15.213397",
+      "updated_at": "2025-10-03T15:27:15.213404",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

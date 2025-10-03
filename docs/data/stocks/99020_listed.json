@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "99020",
+    "generated_at": "2025-10-03T15:45:06.208351",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "99020",
+    "name": "日伝",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 2769.0,
+    "change": 31.0,
+    "changePercent": 1.1322132943754566,
+    "volume": 19900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "99020",
+      "CompanyName": "日伝",
+      "CompanyNameEnglish": "NICHIDEN Corporation",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:52.302612",
+      "updated_at": "2025-10-03T15:44:52.302626",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

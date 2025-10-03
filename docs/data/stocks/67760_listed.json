@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67760",
+    "generated_at": "2025-10-03T15:45:06.008616",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67760",
+    "name": "天昇電気工業",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 267.0,
+    "change": -3.0,
+    "changePercent": -1.1111111111111112,
+    "volume": 17300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67760",
+      "CompanyName": "天昇電気工業",
+      "CompanyNameEnglish": "Tensho Electric Industries Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:02.464393",
+      "updated_at": "2025-10-03T15:38:02.464396",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

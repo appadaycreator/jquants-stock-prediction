@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "82470",
+    "generated_at": "2025-10-03T15:45:06.129534",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "82470",
+    "name": "大和",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 388.0,
+    "change": -7.0,
+    "changePercent": -1.7721518987341773,
+    "volume": 24700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "82470",
+      "CompanyName": "大和",
+      "CompanyNameEnglish": "Daiwa Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:47.758362",
+      "updated_at": "2025-10-03T15:41:47.758377",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

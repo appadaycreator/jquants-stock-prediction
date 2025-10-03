@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78260",
+    "generated_at": "2025-10-03T15:45:06.107321",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78260",
+    "name": "フルヤ金属",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2506.0,
+    "change": -2.0,
+    "changePercent": -0.07974481658692185,
+    "volume": 230600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78260",
+      "CompanyName": "フルヤ金属",
+      "CompanyNameEnglish": "FURUYA METAL CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:39.415857",
+      "updated_at": "2025-10-03T15:40:39.415868",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

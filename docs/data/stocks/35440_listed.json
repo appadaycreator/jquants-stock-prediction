@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "35440",
+    "generated_at": "2025-10-03T15:45:05.821340",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "35440",
+    "name": "サツドラホールディングス",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 838.0,
+    "change": 8.0,
+    "changePercent": 0.9638554216867471,
+    "volume": 8500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "35440",
+      "CompanyName": "サツドラホールディングス",
+      "CompanyNameEnglish": "SATUDORA HOLDINGS CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:36.130360",
+      "updated_at": "2025-10-03T15:30:36.130366",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

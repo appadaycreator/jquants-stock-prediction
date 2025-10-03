@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43760",
+    "generated_at": "2025-10-03T15:45:05.871331",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43760",
+    "name": "くふうカンパニーホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 191.0,
+    "change": 5.0,
+    "changePercent": 2.6881720430107525,
+    "volume": 46900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43760",
+      "CompanyName": "くふうカンパニーホールディングス",
+      "CompanyNameEnglish": "Kufu Company Holdings Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:50.692291",
+      "updated_at": "2025-10-03T15:32:50.692293",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

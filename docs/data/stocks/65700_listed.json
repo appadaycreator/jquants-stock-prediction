@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "65700",
+    "generated_at": "2025-10-03T15:45:05.989223",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "65700",
+    "name": "共和コーポレーション",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 987.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "65700",
+      "CompanyName": "共和コーポレーション",
+      "CompanyNameEnglish": "Kyowa Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:33.735453",
+      "updated_at": "2025-10-03T15:37:33.735454",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

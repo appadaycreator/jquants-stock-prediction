@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75640",
+    "generated_at": "2025-10-03T15:45:06.091900",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75640",
+    "name": "ワークマン",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 6650.0,
+    "change": -20.0,
+    "changePercent": -0.29985007496251875,
+    "volume": 236100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75640",
+      "CompanyName": "ワークマン",
+      "CompanyNameEnglish": "WORKMAN CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:02.933080",
+      "updated_at": "2025-10-03T15:40:02.933082",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

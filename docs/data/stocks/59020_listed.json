@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59020",
+    "generated_at": "2025-10-03T15:45:05.941534",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59020",
+    "name": "ホッカンホールディングス",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1989.0,
+    "change": -13.0,
+    "changePercent": -0.6493506493506493,
+    "volume": 16400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59020",
+      "CompanyName": "ホッカンホールディングス",
+      "CompanyNameEnglish": "HOKKAN HOLDINGS LIMITED",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:40.448708",
+      "updated_at": "2025-10-03T15:35:40.448710",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

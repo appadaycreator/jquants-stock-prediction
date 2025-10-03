@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22540",
+    "generated_at": "2025-10-03T15:45:05.740498",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22540",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　チャイナＥＶ＆バッテリー　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 898.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 94683,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22540",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　チャイナＥＶ＆バッテリー　ＥＴＦ",
+      "CompanyNameEnglish": "Global X China Electric Vehicle and Battery ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:40.949263",
+      "updated_at": "2025-10-03T15:26:40.949267",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "65440",
+    "generated_at": "2025-10-03T15:45:05.985741",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "65440",
+    "name": "ジャパンエレベーターサービスホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 4130.0,
+    "change": 10.0,
+    "changePercent": 0.24271844660194172,
+    "volume": 211400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "65440",
+      "CompanyName": "ジャパンエレベーターサービスホールディングス",
+      "CompanyNameEnglish": "JAPAN ELEVATOR SERVICE HOLDINGS CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:27.819662",
+      "updated_at": "2025-10-03T15:37:27.819664",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

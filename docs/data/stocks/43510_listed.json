@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43510",
+    "generated_at": "2025-10-03T15:45:05.869882",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43510",
+    "name": "山田再生系債権回収総合事務所",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 845.0,
+    "change": 2.0,
+    "changePercent": 0.2372479240806643,
+    "volume": 1000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43510",
+      "CompanyName": "山田再生系債権回収総合事務所",
+      "CompanyNameEnglish": "YAMADA SERVICER SYNTHETIC OFFICE",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:45.940022",
+      "updated_at": "2025-10-03T15:32:45.940025",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64840",
+    "generated_at": "2025-10-03T15:45:05.982255",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64840",
+    "name": "ＫＶＫ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1960.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 1200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64840",
+      "CompanyName": "ＫＶＫ",
+      "CompanyNameEnglish": "KVK CORPORATION",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:16.672992",
+      "updated_at": "2025-10-03T15:37:16.672994",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

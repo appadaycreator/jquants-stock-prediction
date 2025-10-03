@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "42470",
+    "generated_at": "2025-10-03T15:45:05.863406",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "42470",
+    "name": "ポバール興業",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 1199.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "42470",
+      "CompanyName": "ポバール興業",
+      "CompanyNameEnglish": "POVAL KOGYO CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:32.083335",
+      "updated_at": "2025-10-03T15:32:32.083338",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

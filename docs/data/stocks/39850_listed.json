@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39850",
+    "generated_at": "2025-10-03T15:45:05.847678",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39850",
+    "name": "テモナ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 236.0,
+    "change": 1.0,
+    "changePercent": 0.425531914893617,
+    "volume": 10900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39850",
+      "CompanyName": "テモナ",
+      "CompanyNameEnglish": "TEMONA.inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:52.091102",
+      "updated_at": "2025-10-03T15:31:52.091105",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

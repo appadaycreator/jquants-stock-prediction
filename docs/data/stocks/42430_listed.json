@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "42430",
+    "generated_at": "2025-10-03T15:45:05.863179",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "42430",
+    "name": "ニックス",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 746.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "42430",
+      "CompanyName": "ニックス",
+      "CompanyNameEnglish": "NIX,INC.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:31.268229",
+      "updated_at": "2025-10-03T15:32:31.268234",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

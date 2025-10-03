@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "50200",
+    "generated_at": "2025-10-03T15:45:05.908182",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "50200",
+    "name": "ＥＮＥＯＳホールディングス",
+    "sector": "エネルギー資源",
+    "market": "プライム",
+    "currentPrice": 739.5,
+    "change": 4.899999999999977,
+    "changePercent": 0.6670296760141543,
+    "volume": 8351200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "50200",
+      "CompanyName": "ＥＮＥＯＳホールディングス",
+      "CompanyNameEnglish": "ENEOS Holdings,Inc.",
+      "Sector17Code": "2",
+      "Sector17CodeName": "エネルギー資源",
+      "Sector33Code": "3300",
+      "Sector33CodeName": "石油･石炭製品",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:25.836125",
+      "updated_at": "2025-10-03T15:34:25.836127",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

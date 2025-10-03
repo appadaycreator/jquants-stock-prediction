@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72700",
+    "generated_at": "2025-10-03T15:45:06.073018",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72700",
+    "name": "ＳＵＢＡＲＵ",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 2580.5,
+    "change": 20.0,
+    "changePercent": 0.7810974419058777,
+    "volume": 3369500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72700",
+      "CompanyName": "ＳＵＢＡＲＵ",
+      "CompanyNameEnglish": "SUBARU CORPORATION",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:20.451193",
+      "updated_at": "2025-10-03T15:39:20.451195",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

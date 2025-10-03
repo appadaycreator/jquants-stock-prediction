@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25200",
+    "generated_at": "2025-10-03T15:45:05.758159",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25200",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　新興国株式・ＭＳＣＩエマージング・マーケット・インデックス（為替ヘッジなし）連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1591.5,
+    "change": -3.0,
+    "changePercent": -0.18814675446848542,
+    "volume": 2390,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25200",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　新興国株式・ＭＳＣＩエマージング・マーケット・インデックス（為替ヘッジなし）連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS Emerging Market Equity MSCI-EM (Unhedged) Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:23.970156",
+      "updated_at": "2025-10-03T15:27:23.970158",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

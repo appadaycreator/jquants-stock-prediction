@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78270",
+    "generated_at": "2025-10-03T15:45:06.107401",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78270",
+    "name": "オービス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1469.0,
+    "change": 4.0,
+    "changePercent": 0.27303754266211605,
+    "volume": 1600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78270",
+      "CompanyName": "オービス",
+      "CompanyNameEnglish": "ORVIS CORPORATION",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:39.710632",
+      "updated_at": "2025-10-03T15:40:39.710647",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

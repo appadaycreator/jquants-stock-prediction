@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92850",
+    "generated_at": "2025-10-03T15:45:06.179149",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92850",
+    "name": "東京インフラ・エネルギー投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 47500.0,
+    "change": -800.0,
+    "changePercent": -1.6563146997929608,
+    "volume": 373,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92850",
+      "CompanyName": "東京インフラ・エネルギー投資法人",
+      "CompanyNameEnglish": "Tokyo Infrastructure Energy Investment Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:30.681795",
+      "updated_at": "2025-10-03T15:43:30.681810",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

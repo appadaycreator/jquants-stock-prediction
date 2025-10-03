@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "36260",
+    "generated_at": "2025-10-03T15:45:05.825251",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "36260",
+    "name": "ＴＩＳ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 4576.0,
+    "change": -66.0,
+    "changePercent": -1.4218009478672986,
+    "volume": 612600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "36260",
+      "CompanyName": "ＴＩＳ",
+      "CompanyNameEnglish": "TIS Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:48.639690",
+      "updated_at": "2025-10-03T15:30:48.639697",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

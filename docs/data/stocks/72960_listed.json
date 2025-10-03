@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72960",
+    "generated_at": "2025-10-03T15:45:06.074871",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72960",
+    "name": "エフ・シー・シー",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 2964.0,
+    "change": 53.0,
+    "changePercent": 1.8206801786327724,
+    "volume": 213500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72960",
+      "CompanyName": "エフ・シー・シー",
+      "CompanyNameEnglish": "F.C.C.CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:24.869897",
+      "updated_at": "2025-10-03T15:39:24.869899",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

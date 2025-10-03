@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34310",
+    "generated_at": "2025-10-03T15:45:05.814049",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34310",
+    "name": "宮地エンジニアリンググループ",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1898.0,
+    "change": 8.0,
+    "changePercent": 0.4232804232804233,
+    "volume": 99100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34310",
+      "CompanyName": "宮地エンジニアリンググループ",
+      "CompanyNameEnglish": "MIYAJI ENGINEERING GROUP,INC.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:09.067033",
+      "updated_at": "2025-10-03T15:30:09.067036",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

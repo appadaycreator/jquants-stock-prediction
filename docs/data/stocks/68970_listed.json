@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "68970",
+    "generated_at": "2025-10-03T15:45:06.029230",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "68970",
+    "name": "ツインバード",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 416.0,
+    "change": -24.0,
+    "changePercent": -5.454545454545454,
+    "volume": 53000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "68970",
+      "CompanyName": "ツインバード",
+      "CompanyNameEnglish": "TWINBIRD CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:19.190457",
+      "updated_at": "2025-10-03T15:38:19.190459",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

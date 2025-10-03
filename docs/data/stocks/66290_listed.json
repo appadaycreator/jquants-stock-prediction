@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66290",
+    "generated_at": "2025-10-03T15:45:05.992506",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66290",
+    "name": "テクノホライゾン",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 382.0,
+    "change": -10.0,
+    "changePercent": -2.5510204081632653,
+    "volume": 56700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66290",
+      "CompanyName": "テクノホライゾン",
+      "CompanyNameEnglish": "TECHNO HORIZON CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:42.303375",
+      "updated_at": "2025-10-03T15:37:42.303377",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

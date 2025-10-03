@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "294A0",
+    "generated_at": "2025-10-03T15:45:05.785990",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "294A0",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＭＳＣＩジャパン気候変動指数（セレクト）連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:28:39.623595",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "294A0",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ＭＳＣＩジャパン気候変動指数（セレクト）連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS MSCI Global Climate 500 Japan Selection Index Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:39.623599",
+      "updated_at": "2025-10-03T15:28:39.623600",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

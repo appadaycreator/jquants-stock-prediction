@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "51050",
+    "generated_at": "2025-10-03T15:45:05.912077",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "51050",
+    "name": "ＴＯＹＯ　ＴＩＲＥ",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 3104.0,
+    "change": 19.0,
+    "changePercent": 0.6158833063209076,
+    "volume": 1301000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "51050",
+      "CompanyName": "ＴＯＹＯ　ＴＩＲＥ",
+      "CompanyNameEnglish": "Toyo Tire Corporation",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3350",
+      "Sector33CodeName": "ゴム製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:33.263507",
+      "updated_at": "2025-10-03T15:34:33.263509",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

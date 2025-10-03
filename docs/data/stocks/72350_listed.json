@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72350",
+    "generated_at": "2025-10-03T15:45:06.070899",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72350",
+    "name": "東京ラヂエーター製造",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 935.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 14900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72350",
+      "CompanyName": "東京ラヂエーター製造",
+      "CompanyNameEnglish": "TOKYO RADIATOR MFG.CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:14.473584",
+      "updated_at": "2025-10-03T15:39:14.473586",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

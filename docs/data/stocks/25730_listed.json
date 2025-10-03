@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25730",
+    "generated_at": "2025-10-03T15:45:05.762575",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25730",
+    "name": "北海道コカ・コーラボトリング",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 3375.0,
+    "change": 15.0,
+    "changePercent": 0.4464285714285714,
+    "volume": 6800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25730",
+      "CompanyName": "北海道コカ・コーラボトリング",
+      "CompanyNameEnglish": "HOKKAIDO COCA-COLA BOTTLING CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:34.116469",
+      "updated_at": "2025-10-03T15:27:34.116472",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

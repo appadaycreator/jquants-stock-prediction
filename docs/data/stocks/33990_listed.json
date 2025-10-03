@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33990",
+    "generated_at": "2025-10-03T15:45:05.812076",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33990",
+    "name": "丸千代山岡家",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 5890.0,
+    "change": 10.0,
+    "changePercent": 0.17006802721088435,
+    "volume": 301700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33990",
+      "CompanyName": "丸千代山岡家",
+      "CompanyNameEnglish": "Maruchiyo Yamaokaya Corporation",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:03.982232",
+      "updated_at": "2025-10-03T15:30:03.982237",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

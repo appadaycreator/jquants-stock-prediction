@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "82780",
+    "generated_at": "2025-10-03T15:45:06.130330",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "82780",
+    "name": "フジ",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 2015.0,
+    "change": 26.0,
+    "changePercent": 1.3071895424836601,
+    "volume": 104300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "82780",
+      "CompanyName": "フジ",
+      "CompanyNameEnglish": "FUJI CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:50.572482",
+      "updated_at": "2025-10-03T15:41:50.572491",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

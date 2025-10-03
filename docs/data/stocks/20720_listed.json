@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20720",
+    "generated_at": "2025-10-03T15:45:05.728439",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20720",
+    "name": "三菱ＵＦＪ証券ホールディングス株式会社　トップシェアインデックス（ネットリターン）ＥＴＮ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:26:08.147705",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20720",
+      "CompanyName": "三菱ＵＦＪ証券ホールディングス株式会社　トップシェアインデックス（ネットリターン）ＥＴＮ",
+      "CompanyNameEnglish": "Market Share Leaders Net Return ETN",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:08.147710",
+      "updated_at": "2025-10-03T15:26:08.147711",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

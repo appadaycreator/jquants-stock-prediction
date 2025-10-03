@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "50780",
+    "generated_at": "2025-10-03T15:45:05.911773",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "50780",
+    "name": "セレコーポレーション",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:34:32.144988",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "50780",
+      "CompanyName": "セレコーポレーション",
+      "CompanyNameEnglish": "CEL Corporation",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:32.144992",
+      "updated_at": "2025-10-03T15:34:32.144993",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

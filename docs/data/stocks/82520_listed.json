@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "82520",
+    "generated_at": "2025-10-03T15:45:06.129612",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "82520",
+    "name": "丸井グループ",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 3017.0,
+    "change": 11.0,
+    "changePercent": 0.36593479707252163,
+    "volume": 926000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "82520",
+      "CompanyName": "丸井グループ",
+      "CompanyNameEnglish": "MARUI GROUP CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:48.038292",
+      "updated_at": "2025-10-03T15:41:48.038306",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

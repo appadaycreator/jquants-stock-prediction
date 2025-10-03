@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44340",
+    "generated_at": "2025-10-03T15:45:05.876075",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44340",
+    "name": "サーバーワークス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2319.0,
+    "change": -14.0,
+    "changePercent": -0.6000857265323617,
+    "volume": 26600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44340",
+      "CompanyName": "サーバーワークス",
+      "CompanyNameEnglish": "Serverworks Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:04.099341",
+      "updated_at": "2025-10-03T15:33:04.099344",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

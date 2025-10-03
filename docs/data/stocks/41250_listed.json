@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "41250",
+    "generated_at": "2025-10-03T15:45:05.857565",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "41250",
+    "name": "三和油化工業",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 1428.0,
+    "change": -14.0,
+    "changePercent": -0.9708737864077669,
+    "volume": 12300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "41250",
+      "CompanyName": "三和油化工業",
+      "CompanyNameEnglish": "SANWAYUKA INDUSTRY CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:15.885107",
+      "updated_at": "2025-10-03T15:32:15.885113",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78860",
+    "generated_at": "2025-10-03T15:45:06.110645",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78860",
+    "name": "ヤマト　モビリティ　＆　Ｍｆｇ．",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 990.0,
+    "change": 6.0,
+    "changePercent": 0.6097560975609756,
+    "volume": 3300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78860",
+      "CompanyName": "ヤマト　モビリティ　＆　Ｍｆｇ．",
+      "CompanyNameEnglish": "YAMATO Mobility & Mfg. Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:49.377034",
+      "updated_at": "2025-10-03T15:40:49.377044",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

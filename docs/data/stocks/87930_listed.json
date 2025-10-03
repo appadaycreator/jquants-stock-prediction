@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "87930",
+    "generated_at": "2025-10-03T15:45:06.142171",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "87930",
+    "name": "ＮＥＣキャピタルソリューション",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 3890.0,
+    "change": 20.0,
+    "changePercent": 0.516795865633075,
+    "volume": 28000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "87930",
+      "CompanyName": "ＮＥＣキャピタルソリューション",
+      "CompanyNameEnglish": "NEC Capital Solutions Limited",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:25.756683",
+      "updated_at": "2025-10-03T15:42:25.756693",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

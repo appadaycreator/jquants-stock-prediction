@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "27500",
+    "generated_at": "2025-10-03T15:45:05.773270",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "27500",
+    "name": "石光商事",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 1128.0,
+    "change": -10.0,
+    "changePercent": -0.8787346221441126,
+    "volume": 3000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "27500",
+      "CompanyName": "石光商事",
+      "CompanyNameEnglish": "S.ISHIMITSU&CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:02.902139",
+      "updated_at": "2025-10-03T15:28:02.902141",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

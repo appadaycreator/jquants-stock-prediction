@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14520",
-    "generated_at": "2025-10-03T15:21:01.214506",
+    "generated_at": "2025-10-03T15:45:05.681847",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -14,7 +14,7 @@
     "change": null,
     "changePercent": null,
     "volume": null,
-    "updated_at": "2025-10-03T15:20:29.763491",
+    "updated_at": "2025-10-03T15:24:31.315201",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14520",
@@ -29,8 +29,8 @@
       "MarketCodeName": "TOKYO PRO MARKET"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:20:29.763495",
-      "updated_at": "2025-10-03T15:20:29.763496",
+      "created_at": "2025-10-03T15:24:31.315205",
+      "updated_at": "2025-10-03T15:24:31.315206",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
       "price_data_available": false

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34550",
+    "generated_at": "2025-10-03T15:45:05.815831",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34550",
+    "name": "ヘルスケア＆メディカル投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 116300.0,
+    "change": 1200.0,
+    "changePercent": 1.0425716768027802,
+    "volume": 511,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34550",
+      "CompanyName": "ヘルスケア＆メディカル投資法人",
+      "CompanyNameEnglish": "Healthcare & Medical Investment Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:18.174635",
+      "updated_at": "2025-10-03T15:30:18.174642",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

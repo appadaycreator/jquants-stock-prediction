@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69410",
+    "generated_at": "2025-10-03T15:45:06.034287",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69410",
+    "name": "山一電機",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2606.0,
+    "change": 6.0,
+    "changePercent": 0.23076923076923078,
+    "volume": 88600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69410",
+      "CompanyName": "山一電機",
+      "CompanyNameEnglish": "YAMAICHI ELECTRONICS CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:25.874920",
+      "updated_at": "2025-10-03T15:38:25.874922",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

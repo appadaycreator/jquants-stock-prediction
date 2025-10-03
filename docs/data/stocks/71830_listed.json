@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71830",
+    "generated_at": "2025-10-03T15:45:06.064974",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71830",
+    "name": "あんしん保証",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 168.0,
+    "change": 1.0,
+    "changePercent": 0.5988023952095809,
+    "volume": 22200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71830",
+      "CompanyName": "あんしん保証",
+      "CompanyNameEnglish": "Anshin Guarantor Service Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:06.095041",
+      "updated_at": "2025-10-03T15:39:06.095043",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

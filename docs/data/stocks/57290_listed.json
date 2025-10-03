@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "57290",
+    "generated_at": "2025-10-03T15:45:05.931178",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "57290",
+    "name": "日本精鉱",
+    "sector": "鉄鋼・非鉄",
+    "market": "スタンダード",
+    "currentPrice": 5510.0,
+    "change": -230.0,
+    "changePercent": -4.006968641114982,
+    "volume": 12700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "57290",
+      "CompanyName": "日本精鉱",
+      "CompanyNameEnglish": "NIHON SEIKO CO.,LTD",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:27.176999",
+      "updated_at": "2025-10-03T15:35:27.177002",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

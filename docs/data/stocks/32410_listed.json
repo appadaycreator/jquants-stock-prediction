@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32410",
+    "generated_at": "2025-10-03T15:45:05.804009",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32410",
+    "name": "ウィル",
+    "sector": "不動産",
+    "market": "スタンダード",
+    "currentPrice": 465.0,
+    "change": 2.0,
+    "changePercent": 0.4319654427645789,
+    "volume": 1100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32410",
+      "CompanyName": "ウィル",
+      "CompanyNameEnglish": "WILL,Co.,Ltd.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:38.439902",
+      "updated_at": "2025-10-03T15:29:38.439905",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

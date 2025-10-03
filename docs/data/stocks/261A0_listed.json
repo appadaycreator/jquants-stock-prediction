@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "261A0",
+    "generated_at": "2025-10-03T15:45:05.764462",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "261A0",
+    "name": "日水コン",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2831.0,
+    "change": -44.0,
+    "changePercent": -1.5304347826086957,
+    "volume": 99600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "261A0",
+      "CompanyName": "日水コン",
+      "CompanyNameEnglish": "Nihon Suido Consultants Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:38.937978",
+      "updated_at": "2025-10-03T15:27:38.937981",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

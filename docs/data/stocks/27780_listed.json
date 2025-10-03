@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "27780",
+    "generated_at": "2025-10-03T15:45:05.774586",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "27780",
+    "name": "パレモ・ホールディングス",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 149.0,
+    "change": 1.0,
+    "changePercent": 0.6756756756756757,
+    "volume": 60500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "27780",
+      "CompanyName": "パレモ・ホールディングス",
+      "CompanyNameEnglish": "PALEMO HOLDINGS CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:06.904034",
+      "updated_at": "2025-10-03T15:28:06.904036",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

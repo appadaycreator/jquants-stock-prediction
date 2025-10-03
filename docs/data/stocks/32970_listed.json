@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32970",
+    "generated_at": "2025-10-03T15:45:05.806945",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32970",
+    "name": "東武住販",
+    "sector": "不動産",
+    "market": "スタンダード",
+    "currentPrice": 1093.0,
+    "change": 3.0,
+    "changePercent": 0.27522935779816515,
+    "volume": 1100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32970",
+      "CompanyName": "東武住販",
+      "CompanyNameEnglish": "Toubujyuhan Co.,Ltd.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:49.283931",
+      "updated_at": "2025-10-03T15:29:49.283934",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

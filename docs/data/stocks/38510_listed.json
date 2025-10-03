@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "38510",
+    "generated_at": "2025-10-03T15:45:05.838980",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "38510",
+    "name": "日本一ソフトウェア",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 841.0,
+    "change": -6.0,
+    "changePercent": -0.7083825265643447,
+    "volume": 1300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "38510",
+      "CompanyName": "日本一ソフトウェア",
+      "CompanyNameEnglish": "Nippon Ichi Software,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:29.379838",
+      "updated_at": "2025-10-03T15:31:29.379842",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

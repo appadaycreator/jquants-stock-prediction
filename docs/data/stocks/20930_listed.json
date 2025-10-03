@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20930",
+    "generated_at": "2025-10-03T15:45:05.730466",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20930",
+    "name": "日興アセットマネジメント株式会社　上場Ｔｒａｃｅｒｓ　米国債０−２年ラダー（為替ヘッジなし）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 4939.0,
+    "change": 42.0,
+    "changePercent": 0.8576679599754953,
+    "volume": 520,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20930",
+      "CompanyName": "日興アセットマネジメント株式会社　上場Ｔｒａｃｅｒｓ　米国債０−２年ラダー（為替ヘッジなし）",
+      "CompanyNameEnglish": "Listed Tracers US Government Bond 0-2years Ladder (No Currency Hedge)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:13.029452",
+      "updated_at": "2025-10-03T15:26:13.029458",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63420",
+    "generated_at": "2025-10-03T15:45:05.972592",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63420",
+    "name": "太平製作所",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 2593.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63420",
+      "CompanyName": "太平製作所",
+      "CompanyNameEnglish": "Taihei Machinery Works,Limited",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:53.263284",
+      "updated_at": "2025-10-03T15:36:53.263287",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

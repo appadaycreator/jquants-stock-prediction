@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92780",
+    "generated_at": "2025-10-03T15:45:06.178544",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92780",
+    "name": "ブックオフグループホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 1482.0,
+    "change": 12.0,
+    "changePercent": 0.8163265306122449,
+    "volume": 712000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92780",
+      "CompanyName": "ブックオフグループホールディングス",
+      "CompanyNameEnglish": "BOOKOFF GROUP HOLDINGS LIMITED",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:29.488456",
+      "updated_at": "2025-10-03T15:43:29.488468",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

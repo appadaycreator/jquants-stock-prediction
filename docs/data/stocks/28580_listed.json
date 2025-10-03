@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28580",
+    "generated_at": "2025-10-03T15:45:05.779788",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28580",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　日経２２５　カバード・コール　ＥＴＦ（プレミアム再投資型）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1206.0,
+    "change": 1.0,
+    "changePercent": 0.08298755186721991,
+    "volume": 683,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28580",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　日経２２５　カバード・コール　ＥＴＦ（プレミアム再投資型）",
+      "CompanyNameEnglish": "Global X Nikkei 225 Covered Call ETF (option premium reinvestment type)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:23.028817",
+      "updated_at": "2025-10-03T15:28:23.028819",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

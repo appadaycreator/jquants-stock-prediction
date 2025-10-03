@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79160",
+    "generated_at": "2025-10-03T15:45:06.112035",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79160",
+    "name": "光村印刷",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1370.0,
+    "change": 6.0,
+    "changePercent": 0.43988269794721413,
+    "volume": 1400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79160",
+      "CompanyName": "光村印刷",
+      "CompanyNameEnglish": "MITSUMURA PRINTING CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:53.758903",
+      "updated_at": "2025-10-03T15:40:53.758914",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

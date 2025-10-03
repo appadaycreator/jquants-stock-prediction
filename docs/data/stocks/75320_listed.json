@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75320",
+    "generated_at": "2025-10-03T15:45:06.090617",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75320",
+    "name": "パン・パシフィック・インターナショナルホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 5002.0,
+    "change": 17.0,
+    "changePercent": 0.3410230692076229,
+    "volume": 994500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75320",
+      "CompanyName": "パン・パシフィック・インターナショナルホールディングス",
+      "CompanyNameEnglish": "Pan Pacific International Holdings Corporation",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:59.307437",
+      "updated_at": "2025-10-03T15:39:59.307439",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

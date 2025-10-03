@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "68200",
+    "generated_at": "2025-10-03T15:45:06.019068",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "68200",
+    "name": "アイコム",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 2909.0,
+    "change": 13.0,
+    "changePercent": 0.4488950276243094,
+    "volume": 10900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "68200",
+      "CompanyName": "アイコム",
+      "CompanyNameEnglish": "ICOM INCORPORATED",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:08.358506",
+      "updated_at": "2025-10-03T15:38:08.358509",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44780",
+    "generated_at": "2025-10-03T15:45:05.879968",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44780",
+    "name": "フリー",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 3710.0,
+    "change": 10.0,
+    "changePercent": 0.2702702702702703,
+    "volume": 288500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44780",
+      "CompanyName": "フリー",
+      "CompanyNameEnglish": "freee K.K.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:11.376844",
+      "updated_at": "2025-10-03T15:33:11.376847",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79830",
+    "generated_at": "2025-10-03T15:45:06.115792",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79830",
+    "name": "ミロク",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1126.0,
+    "change": -4.0,
+    "changePercent": -0.35398230088495575,
+    "volume": 5500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79830",
+      "CompanyName": "ミロク",
+      "CompanyNameEnglish": "Miroku Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:06.610590",
+      "updated_at": "2025-10-03T15:41:06.610610",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

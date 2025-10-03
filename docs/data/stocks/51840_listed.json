@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "51840",
+    "generated_at": "2025-10-03T15:45:05.913845",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "51840",
+    "name": "ニチリン",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 3510.0,
+    "change": 5.0,
+    "changePercent": 0.14265335235378032,
+    "volume": 16000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "51840",
+      "CompanyName": "ニチリン",
+      "CompanyNameEnglish": "NICHIRIN CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3350",
+      "Sector33CodeName": "ゴム製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:39.194210",
+      "updated_at": "2025-10-03T15:34:39.194212",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

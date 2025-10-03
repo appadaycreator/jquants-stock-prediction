@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "36630",
+    "generated_at": "2025-10-03T15:45:05.828070",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "36630",
+    "name": "セルシス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1612.0,
+    "change": -53.0,
+    "changePercent": -3.183183183183183,
+    "volume": 236100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "36630",
+      "CompanyName": "セルシス",
+      "CompanyNameEnglish": "CELSYS,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:56.595832",
+      "updated_at": "2025-10-03T15:30:56.595836",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

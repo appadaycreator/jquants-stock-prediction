@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59580",
+    "generated_at": "2025-10-03T15:45:05.948302",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59580",
+    "name": "三洋工業",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 4115.0,
+    "change": -5.0,
+    "changePercent": -0.12135922330097086,
+    "volume": 5600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59580",
+      "CompanyName": "三洋工業",
+      "CompanyNameEnglish": "SANYO INDUSTRIES,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:49.453506",
+      "updated_at": "2025-10-03T15:35:49.453508",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

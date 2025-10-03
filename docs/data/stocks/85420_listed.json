@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "85420",
+    "generated_at": "2025-10-03T15:45:06.137431",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "85420",
+    "name": "トマト銀行",
+    "sector": "銀行",
+    "market": "スタンダード",
+    "currentPrice": 1243.0,
+    "change": 21.0,
+    "changePercent": 1.718494271685761,
+    "volume": 49300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "85420",
+      "CompanyName": "トマト銀行",
+      "CompanyNameEnglish": "TOMATO BANK,LTD.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:10.311734",
+      "updated_at": "2025-10-03T15:42:10.311743",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

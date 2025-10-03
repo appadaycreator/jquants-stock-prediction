@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "52370",
+    "generated_at": "2025-10-03T15:45:05.915466",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "52370",
+    "name": "ノザワ",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 907.0,
+    "change": -13.0,
+    "changePercent": -1.4130434782608696,
+    "volume": 13300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "52370",
+      "CompanyName": "ノザワ",
+      "CompanyNameEnglish": "NOZAWA CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:44.494671",
+      "updated_at": "2025-10-03T15:34:44.494673",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

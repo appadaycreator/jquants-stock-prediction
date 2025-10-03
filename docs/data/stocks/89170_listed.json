@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "89170",
+    "generated_at": "2025-10-03T15:45:06.147792",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "89170",
+    "name": "ファースト住建",
+    "sector": "不動産",
+    "market": "スタンダード",
+    "currentPrice": 1012.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 10700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "89170",
+      "CompanyName": "ファースト住建",
+      "CompanyNameEnglish": "First Juken Co.,Ltd.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:35.167182",
+      "updated_at": "2025-10-03T15:42:35.167192",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

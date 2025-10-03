@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34400",
+    "generated_at": "2025-10-03T15:45:05.814676",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34400",
+    "name": "日創グループ",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1016.0,
+    "change": -6.0,
+    "changePercent": -0.5870841487279843,
+    "volume": 7600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34400",
+      "CompanyName": "日創グループ",
+      "CompanyNameEnglish": "NISSO GROUP Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:11.381730",
+      "updated_at": "2025-10-03T15:30:11.381738",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

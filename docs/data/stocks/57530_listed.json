@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "57530",
+    "generated_at": "2025-10-03T15:45:05.933301",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "57530",
+    "name": "日本伸銅",
+    "sector": "鉄鋼・非鉄",
+    "market": "スタンダード",
+    "currentPrice": 2035.0,
+    "change": -25.0,
+    "changePercent": -1.2135922330097086,
+    "volume": 3200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "57530",
+      "CompanyName": "日本伸銅",
+      "CompanyNameEnglish": "NIPPON SHINDO CO.,LTD.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:27.985525",
+      "updated_at": "2025-10-03T15:35:27.985527",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

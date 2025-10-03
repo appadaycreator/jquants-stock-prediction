@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "73470",
+    "generated_at": "2025-10-03T15:45:06.076491",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "73470",
+    "name": "マーキュリアホールディングス",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 803.0,
+    "change": 5.0,
+    "changePercent": 0.6265664160401002,
+    "volume": 38200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "73470",
+      "CompanyName": "マーキュリアホールディングス",
+      "CompanyNameEnglish": "Mercuria Holdings Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "-",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:29.518149",
+      "updated_at": "2025-10-03T15:39:29.518151",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

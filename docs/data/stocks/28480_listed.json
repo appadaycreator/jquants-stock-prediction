@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28480",
+    "generated_at": "2025-10-03T15:45:05.778986",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28480",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ＭＳＣＩ　気候変動対応−日本株式　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:28:20.058584",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28480",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ＭＳＣＩ　気候変動対応−日本株式　ＥＴＦ",
+      "CompanyNameEnglish": "Global X MSCI Japan Climate Change ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:20.058588",
+      "updated_at": "2025-10-03T15:28:20.058589",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

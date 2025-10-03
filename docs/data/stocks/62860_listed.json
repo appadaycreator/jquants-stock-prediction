@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62860",
+    "generated_at": "2025-10-03T15:45:05.967541",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62860",
+    "name": "靜甲",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 869.0,
+    "change": 2.0,
+    "changePercent": 0.2306805074971165,
+    "volume": 1300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62860",
+      "CompanyName": "靜甲",
+      "CompanyNameEnglish": "SEIKO CORPORATION",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:43.111606",
+      "updated_at": "2025-10-03T15:36:43.111608",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

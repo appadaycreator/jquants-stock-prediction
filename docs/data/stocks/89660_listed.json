@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "89660",
+    "generated_at": "2025-10-03T15:45:06.154547",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "89660",
+    "name": "平和不動産リート投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 137800.0,
+    "change": 900.0,
+    "changePercent": 0.6574141709276844,
+    "volume": 2272,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "89660",
+      "CompanyName": "平和不動産リート投資法人",
+      "CompanyNameEnglish": "HEIWA REAL ESTATE REIT,Inc.",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:43.780742",
+      "updated_at": "2025-10-03T15:42:43.780752",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

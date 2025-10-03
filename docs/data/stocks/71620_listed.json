@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71620",
+    "generated_at": "2025-10-03T15:45:06.063437",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71620",
+    "name": "アストマックス",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 263.0,
+    "change": -2.0,
+    "changePercent": -0.7547169811320755,
+    "volume": 15900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71620",
+      "CompanyName": "アストマックス",
+      "CompanyNameEnglish": "ASTMAX Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:02.617284",
+      "updated_at": "2025-10-03T15:39:02.617287",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

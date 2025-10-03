@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90680",
+    "generated_at": "2025-10-03T15:45:06.165560",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90680",
+    "name": "丸全昭和運輸",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 6940.0,
+    "change": 80.0,
+    "changePercent": 1.1661807580174928,
+    "volume": 64200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90680",
+      "CompanyName": "丸全昭和運輸",
+      "CompanyNameEnglish": "Maruzen Showa Unyu Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:00.113619",
+      "updated_at": "2025-10-03T15:43:00.113638",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

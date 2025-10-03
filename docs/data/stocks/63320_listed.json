@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63320",
+    "generated_at": "2025-10-03T15:45:05.971569",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63320",
+    "name": "月島ホールディングス",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 2164.0,
+    "change": -6.0,
+    "changePercent": -0.2764976958525346,
+    "volume": 140700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63320",
+      "CompanyName": "月島ホールディングス",
+      "CompanyNameEnglish": "TSUKISHIMA HOLDINGS CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:50.853173",
+      "updated_at": "2025-10-03T15:36:50.853175",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

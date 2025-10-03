@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25900",
+    "generated_at": "2025-10-03T15:45:05.763339",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25900",
+    "name": "ダイドーグループホールディングス",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 2614.0,
+    "change": 19.0,
+    "changePercent": 0.7321772639691715,
+    "volume": 268500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25900",
+      "CompanyName": "ダイドーグループホールディングス",
+      "CompanyNameEnglish": "DyDo GROUP HOLDINGS,INC.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:36.328802",
+      "updated_at": "2025-10-03T15:27:36.328804",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

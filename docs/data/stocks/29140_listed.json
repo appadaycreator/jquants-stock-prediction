@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29140",
+    "generated_at": "2025-10-03T15:45:05.783846",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29140",
+    "name": "日本たばこ産業",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 4227.0,
+    "change": 39.0,
+    "changePercent": 0.9312320916905444,
+    "volume": 4644800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29140",
+      "CompanyName": "日本たばこ産業",
+      "CompanyNameEnglish": "JAPAN TOBACCO INC.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Core30",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:33.236512",
+      "updated_at": "2025-10-03T15:28:33.236514",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90440",
+    "generated_at": "2025-10-03T15:45:06.162620",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90440",
+    "name": "南海電気鉄道",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 2202.5,
+    "change": -2.5,
+    "changePercent": -0.11337868480725624,
+    "volume": 266100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90440",
+      "CompanyName": "南海電気鉄道",
+      "CompanyNameEnglish": "Nankai Electric Railway Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:55.786793",
+      "updated_at": "2025-10-03T15:42:55.786805",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

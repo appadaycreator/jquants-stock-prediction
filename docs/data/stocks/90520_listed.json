@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90520",
+    "generated_at": "2025-10-03T15:45:06.163138",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90520",
+    "name": "山陽電気鉄道",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 1975.0,
+    "change": 2.0,
+    "changePercent": 0.10136847440446022,
+    "volume": 11800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90520",
+      "CompanyName": "山陽電気鉄道",
+      "CompanyNameEnglish": "Sanyo Electric Railway Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:57.528217",
+      "updated_at": "2025-10-03T15:42:57.528225",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

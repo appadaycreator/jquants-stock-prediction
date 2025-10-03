@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "58830",
+    "generated_at": "2025-10-03T15:45:05.939579",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "58830",
+    "name": "ＧＴホールディングス",
+    "sector": "商社・卸売",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:35:36.988250",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "58830",
+      "CompanyName": "ＧＴホールディングス",
+      "CompanyNameEnglish": "GT Holdings Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:36.988254",
+      "updated_at": "2025-10-03T15:35:36.988255",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

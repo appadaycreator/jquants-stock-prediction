@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "21140",
+    "generated_at": "2025-10-03T15:45:05.731472",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "21140",
+    "name": "フジ日本",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 1092.0,
+    "change": 5.0,
+    "changePercent": 0.45998160073597055,
+    "volume": 7500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "21140",
+      "CompanyName": "フジ日本",
+      "CompanyNameEnglish": "Fuji Nihon Corporation",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:16.162687",
+      "updated_at": "2025-10-03T15:26:16.162692",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "74340",
+    "generated_at": "2025-10-03T15:45:06.085565",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "74340",
+    "name": "オータケ",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 1738.0,
+    "change": 6.0,
+    "changePercent": 0.3464203233256351,
+    "volume": 1900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "74340",
+      "CompanyName": "オータケ",
+      "CompanyNameEnglish": "OTAKE CORPORATION",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:43.752481",
+      "updated_at": "2025-10-03T15:39:43.752483",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22420",
+    "generated_at": "2025-10-03T15:45:05.739250",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22420",
+    "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　ＮＹダウ上場投信（為替ヘッジあり）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 593.2,
+    "change": 1.6000000000000227,
+    "changePercent": 0.2704530087897266,
+    "volume": 370,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22420",
+      "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　ＮＹダウ上場投信（為替ヘッジあり）",
+      "CompanyNameEnglish": "MAXIS NY Dow Industrial Average ETF (JPY Hedged)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:37.241534",
+      "updated_at": "2025-10-03T15:26:37.241538",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

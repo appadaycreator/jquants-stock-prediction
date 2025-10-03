@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "314A0",
+    "generated_at": "2025-10-03T15:45:05.798040",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "314A0",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ゴールド　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 232.7,
+    "change": 1.799999999999983,
+    "changePercent": 0.7795582503248085,
+    "volume": 787090,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "314A0",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ゴールド　ＥＴＦ",
+      "CompanyNameEnglish": "iShares Gold ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:18.537565",
+      "updated_at": "2025-10-03T15:29:18.537577",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

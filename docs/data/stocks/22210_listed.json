@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22210",
+    "generated_at": "2025-10-03T15:45:05.737903",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22210",
+    "name": "岩塚製菓",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 2971.0,
+    "change": -16.0,
+    "changePercent": -0.5356545028456646,
+    "volume": 2900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22210",
+      "CompanyName": "岩塚製菓",
+      "CompanyNameEnglish": "IWATSUKA CONFECTIONERY CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:33.372178",
+      "updated_at": "2025-10-03T15:26:33.372183",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

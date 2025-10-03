@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "38560",
+    "generated_at": "2025-10-03T15:45:05.839362",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "38560",
+    "name": "Ａｂａｌａｎｃｅ",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 770.0,
+    "change": 20.0,
+    "changePercent": 2.666666666666667,
+    "volume": 464600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "38560",
+      "CompanyName": "Ａｂａｌａｎｃｅ",
+      "CompanyNameEnglish": "Abalance Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:30.145669",
+      "updated_at": "2025-10-03T15:31:30.145672",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

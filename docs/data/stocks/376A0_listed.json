@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "376A0",
+    "generated_at": "2025-10-03T15:45:05.833918",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "376A0",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ブルームバーグ米国国債（７−１０年）インデックス（７５％為替ヘッジあり）連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:31:13.911059",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "376A0",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ブルームバーグ米国国債（７−１０年）インデックス（７５％為替ヘッジあり）連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS Bloomberg US Treasury Bond (7-10 year) Index (75% Yen-Hedged) Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:13.911063",
+      "updated_at": "2025-10-03T15:31:13.911064",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

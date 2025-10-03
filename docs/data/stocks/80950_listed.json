@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "80950",
+    "generated_at": "2025-10-03T15:45:06.122709",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "80950",
+    "name": "アステナホールディングス",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 492.0,
+    "change": 19.0,
+    "changePercent": 4.0169133192389,
+    "volume": 381400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "80950",
+      "CompanyName": "アステナホールディングス",
+      "CompanyNameEnglish": "Astena Holdings Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:27.134622",
+      "updated_at": "2025-10-03T15:41:27.134633",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

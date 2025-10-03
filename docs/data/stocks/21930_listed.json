@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "21930",
+    "generated_at": "2025-10-03T15:45:05.736090",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "21930",
+    "name": "クックパッド",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 218.0,
+    "change": -2.0,
+    "changePercent": -0.9090909090909091,
+    "volume": 460500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "21930",
+      "CompanyName": "クックパッド",
+      "CompanyNameEnglish": "Cookpad Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:28.251227",
+      "updated_at": "2025-10-03T15:26:28.251230",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "133A0",
-    "generated_at": "2025-10-03T15:21:01.208058",
+    "generated_at": "2025-10-03T15:45:05.671105",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -29,8 +29,8 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:20:10.555134",
-      "updated_at": "2025-10-03T15:20:10.555136",
+      "created_at": "2025-10-03T15:24:14.510630",
+      "updated_at": "2025-10-03T15:24:14.510635",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
       "price_data_available": true

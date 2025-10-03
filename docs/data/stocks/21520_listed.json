@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "21520",
+    "generated_at": "2025-10-03T15:45:05.733810",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "21520",
+    "name": "幼児活動研究会",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1345.0,
+    "change": 2.0,
+    "changePercent": 0.14892032762472077,
+    "volume": 800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "21520",
+      "CompanyName": "幼児活動研究会",
+      "CompanyNameEnglish": "Youji Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:21.282274",
+      "updated_at": "2025-10-03T15:26:21.282292",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

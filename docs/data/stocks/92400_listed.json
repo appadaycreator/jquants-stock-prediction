@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92400",
+    "generated_at": "2025-10-03T15:45:06.175725",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92400",
+    "name": "デリバリーコンサルティング",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 502.0,
+    "change": -13.0,
+    "changePercent": -2.524271844660194,
+    "volume": 95600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92400",
+      "CompanyName": "デリバリーコンサルティング",
+      "CompanyNameEnglish": "Delivery Consulting Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:20.621291",
+      "updated_at": "2025-10-03T15:43:20.621311",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

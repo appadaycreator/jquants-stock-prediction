@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78360",
+    "generated_at": "2025-10-03T15:45:06.107806",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78360",
+    "name": "アビックス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 100.0,
+    "change": 1.0,
+    "changePercent": 1.0101010101010102,
+    "volume": 248700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78360",
+      "CompanyName": "アビックス",
+      "CompanyNameEnglish": "AVIX,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:40.897278",
+      "updated_at": "2025-10-03T15:40:40.897286",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

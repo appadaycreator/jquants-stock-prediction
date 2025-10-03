@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75550",
+    "generated_at": "2025-10-03T15:45:06.091642",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75550",
+    "name": "大田花き",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 745.0,
+    "change": 1.0,
+    "changePercent": 0.13440860215053765,
+    "volume": 1500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75550",
+      "CompanyName": "大田花き",
+      "CompanyNameEnglish": "Ota Floriculture Auction Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:02.115199",
+      "updated_at": "2025-10-03T15:40:02.115201",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

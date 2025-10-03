@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "60480",
+    "generated_at": "2025-10-03T15:45:05.954636",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "60480",
+    "name": "デザインワン・ジャパン",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 99.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 138400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "60480",
+      "CompanyName": "デザインワン・ジャパン",
+      "CompanyNameEnglish": "DesignOne Japan,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:04.485564",
+      "updated_at": "2025-10-03T15:36:04.485566",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

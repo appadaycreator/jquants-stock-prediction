@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "50210",
+    "generated_at": "2025-10-03T15:45:05.908264",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "50210",
+    "name": "コスモエネルギーホールディングス",
+    "sector": "エネルギー資源",
+    "market": "プライム",
+    "currentPrice": 6338.0,
+    "change": 38.0,
+    "changePercent": 0.6031746031746033,
+    "volume": 302800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "50210",
+      "CompanyName": "コスモエネルギーホールディングス",
+      "CompanyNameEnglish": "COSMO ENERGY HOLDINGS COMPANY,LIMITED",
+      "Sector17Code": "2",
+      "Sector17CodeName": "エネルギー資源",
+      "Sector33Code": "3300",
+      "Sector33CodeName": "石油･石炭製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:26.107455",
+      "updated_at": "2025-10-03T15:34:26.107457",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

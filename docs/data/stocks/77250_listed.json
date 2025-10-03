@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77250",
+    "generated_at": "2025-10-03T15:45:06.099893",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77250",
+    "name": "インターアクション",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 1321.0,
+    "change": -10.0,
+    "changePercent": -0.7513148009015778,
+    "volume": 108100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77250",
+      "CompanyName": "インターアクション",
+      "CompanyNameEnglish": "INTER ACTION Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:26.241817",
+      "updated_at": "2025-10-03T15:40:26.241831",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

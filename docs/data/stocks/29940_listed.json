@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29940",
+    "generated_at": "2025-10-03T15:45:05.788338",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29940",
+    "name": "アンサーホールディングス",
+    "sector": "不動産",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:28:46.897175",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29940",
+      "CompanyName": "アンサーホールディングス",
+      "CompanyNameEnglish": "Answer Holdings Co.,Ltd",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:46.897182",
+      "updated_at": "2025-10-03T15:28:46.897183",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20920",
+    "generated_at": "2025-10-03T15:45:05.730136",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20920",
+    "name": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　フランス国債７−１０年（為替ヘッジあり）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:26:12.732528",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20920",
+      "CompanyName": "農林中金全共連アセットマネジメント株式会社　ＮＺＡＭ　上場投信　フランス国債７−１０年（為替ヘッジあり）",
+      "CompanyNameEnglish": "NZAM ETF France Government Bond 7-10Y (JPY Hedged)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:12.733198",
+      "updated_at": "2025-10-03T15:26:12.733201",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

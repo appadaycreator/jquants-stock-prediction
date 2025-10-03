@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "70850",
+    "generated_at": "2025-10-03T15:45:06.056936",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "70850",
+    "name": "カーブスホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 710.0,
+    "change": 6.0,
+    "changePercent": 0.8522727272727272,
+    "volume": 191100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "70850",
+      "CompanyName": "カーブスホールディングス",
+      "CompanyNameEnglish": "CURVES HOLDINGS Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:50.591670",
+      "updated_at": "2025-10-03T15:38:50.591672",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

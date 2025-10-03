@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "82530",
+    "generated_at": "2025-10-03T15:45:06.129689",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "82530",
+    "name": "クレディセゾン",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 3985.0,
+    "change": -53.0,
+    "changePercent": -1.3125309559187717,
+    "volume": 497500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "82530",
+      "CompanyName": "クレディセゾン",
+      "CompanyNameEnglish": "Credit Saison Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:48.310441",
+      "updated_at": "2025-10-03T15:41:48.310454",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

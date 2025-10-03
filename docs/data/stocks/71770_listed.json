@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71770",
+    "generated_at": "2025-10-03T15:45:06.064533",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71770",
+    "name": "ＧＭＯフィナンシャルホールディングス",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 827.0,
+    "change": 18.0,
+    "changePercent": 2.2249690976514214,
+    "volume": 495500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71770",
+      "CompanyName": "ＧＭＯフィナンシャルホールディングス",
+      "CompanyNameEnglish": "GMO Financial Holdings,Inc.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:05.014202",
+      "updated_at": "2025-10-03T15:39:05.014204",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "95040",
+    "generated_at": "2025-10-03T15:45:06.191240",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "95040",
+    "name": "中国電力",
+    "sector": "電気・ガス",
+    "market": "プライム",
+    "currentPrice": 732.3,
+    "change": -11.700000000000045,
+    "changePercent": -1.5725806451612965,
+    "volume": 1576300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "95040",
+      "CompanyName": "中国電力",
+      "CompanyNameEnglish": "The Chugoku Electric Power Company,Incorporated",
+      "Sector17Code": "11",
+      "Sector17CodeName": "電気・ガス",
+      "Sector33Code": "4050",
+      "Sector33CodeName": "電気･ガス業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:02.344867",
+      "updated_at": "2025-10-03T15:44:02.344878",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

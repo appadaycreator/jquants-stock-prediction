@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "82830",
+    "generated_at": "2025-10-03T15:45:06.130637",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "82830",
+    "name": "ＰＡＬＴＡＣ",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 4142.0,
+    "change": 19.0,
+    "changePercent": 0.4608294930875576,
+    "volume": 71900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "82830",
+      "CompanyName": "ＰＡＬＴＡＣ",
+      "CompanyNameEnglish": "PALTAC CORPORATION",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:51.713433",
+      "updated_at": "2025-10-03T15:41:51.713446",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

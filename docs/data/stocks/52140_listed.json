@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "52140",
+    "generated_at": "2025-10-03T15:45:05.915007",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "52140",
+    "name": "日本電気硝子",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 3568.0,
+    "change": -41.0,
+    "changePercent": -1.1360487669714603,
+    "volume": 415100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "52140",
+      "CompanyName": "日本電気硝子",
+      "CompanyNameEnglish": "Nippon Electric Glass Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:43.154833",
+      "updated_at": "2025-10-03T15:34:43.154835",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

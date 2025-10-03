@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34430",
+    "generated_at": "2025-10-03T15:45:05.814826",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34430",
+    "name": "川田テクノロジーズ",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 3875.0,
+    "change": -15.0,
+    "changePercent": -0.3856041131105398,
+    "volume": 61500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34430",
+      "CompanyName": "川田テクノロジーズ",
+      "CompanyNameEnglish": "KAWADA TECHNOLOGIES,INC.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:13.271154",
+      "updated_at": "2025-10-03T15:30:13.271166",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

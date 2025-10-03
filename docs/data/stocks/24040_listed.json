@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "24040",
+    "generated_at": "2025-10-03T15:45:05.748006",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "24040",
+    "name": "鉄人化ホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 532.0,
+    "change": 7.0,
+    "changePercent": 1.3333333333333335,
+    "volume": 9900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "24040",
+      "CompanyName": "鉄人化ホールディングス",
+      "CompanyNameEnglish": "TETSUJIN Holdings,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:04.871456",
+      "updated_at": "2025-10-03T15:27:04.871461",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

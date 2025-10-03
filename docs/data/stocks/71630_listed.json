@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71630",
+    "generated_at": "2025-10-03T15:45:06.063521",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71630",
+    "name": "住信ＳＢＩネット銀行",
+    "sector": "銀行",
+    "market": "スタンダード",
+    "currentPrice": 4875.0,
+    "change": 5.0,
+    "changePercent": 0.10266940451745381,
+    "volume": 163700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71630",
+      "CompanyName": "住信ＳＢＩネット銀行",
+      "CompanyNameEnglish": "SBI Sumishin Net Bank,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:02.886598",
+      "updated_at": "2025-10-03T15:39:02.886600",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

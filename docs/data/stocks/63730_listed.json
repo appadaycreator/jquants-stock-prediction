@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63730",
+    "generated_at": "2025-10-03T15:45:05.974815",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63730",
+    "name": "大同工業",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 1136.0,
+    "change": 7.0,
+    "changePercent": 0.6200177147918512,
+    "volume": 42300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63730",
+      "CompanyName": "大同工業",
+      "CompanyNameEnglish": "DAIDO KOGYO CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:59.052119",
+      "updated_at": "2025-10-03T15:36:59.052121",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

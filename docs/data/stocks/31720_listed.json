@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31720",
+    "generated_at": "2025-10-03T15:45:05.799696",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31720",
+    "name": "ティーライフ",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 1177.0,
+    "change": 4.0,
+    "changePercent": 0.3410059676044331,
+    "volume": 9700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31720",
+      "CompanyName": "ティーライフ",
+      "CompanyNameEnglish": "Tea Life Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:23.653325",
+      "updated_at": "2025-10-03T15:29:23.653341",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

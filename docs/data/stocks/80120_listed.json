@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "80120",
+    "generated_at": "2025-10-03T15:45:06.117783",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "80120",
+    "name": "長瀬産業",
+    "sector": "商社・卸売",
+    "market": "プライム",
+    "currentPrice": 2822.5,
+    "change": -5.5,
+    "changePercent": -0.19448373408769448,
+    "volume": 176000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "80120",
+      "CompanyName": "長瀬産業",
+      "CompanyNameEnglish": "NAGASE & CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:12.775273",
+      "updated_at": "2025-10-03T15:41:12.775285",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

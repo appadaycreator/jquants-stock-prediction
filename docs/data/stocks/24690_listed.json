@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "24690",
+    "generated_at": "2025-10-03T15:45:05.751042",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "24690",
+    "name": "ヒビノ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2323.0,
+    "change": 1.0,
+    "changePercent": 0.04306632213608958,
+    "volume": 14300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "24690",
+      "CompanyName": "ヒビノ",
+      "CompanyNameEnglish": "Hibino Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:13.629748",
+      "updated_at": "2025-10-03T15:27:13.629751",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

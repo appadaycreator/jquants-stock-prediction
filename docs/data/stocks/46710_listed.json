@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "46710",
+    "generated_at": "2025-10-03T15:45:05.891860",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "46710",
+    "name": "ファルコホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2298.0,
+    "change": 10.0,
+    "changePercent": 0.4370629370629371,
+    "volume": 16100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "46710",
+      "CompanyName": "ファルコホールディングス",
+      "CompanyNameEnglish": "FALCO HOLDINGS Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:42.950422",
+      "updated_at": "2025-10-03T15:33:42.950426",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

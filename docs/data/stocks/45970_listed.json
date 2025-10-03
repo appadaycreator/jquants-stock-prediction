@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45970",
+    "generated_at": "2025-10-03T15:45:05.888603",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45970",
+    "name": "ソレイジア・ファーマ",
+    "sector": "医薬品",
+    "market": "グロース",
+    "currentPrice": 41.0,
+    "change": -3.0,
+    "changePercent": -6.8181818181818175,
+    "volume": 26771200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45970",
+      "CompanyName": "ソレイジア・ファーマ",
+      "CompanyNameEnglish": "Solasia Pharma K.K.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:32.562657",
+      "updated_at": "2025-10-03T15:33:32.562660",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

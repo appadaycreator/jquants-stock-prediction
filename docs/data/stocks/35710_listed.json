@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "35710",
+    "generated_at": "2025-10-03T15:45:05.823153",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "35710",
+    "name": "ソトー",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 702.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 16300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "35710",
+      "CompanyName": "ソトー",
+      "CompanyNameEnglish": "SOTOH CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:42.448915",
+      "updated_at": "2025-10-03T15:30:42.448919",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

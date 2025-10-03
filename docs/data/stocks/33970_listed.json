@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "33970",
+    "generated_at": "2025-10-03T15:45:05.812000",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "33970",
+    "name": "トリドールホールディングス",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 4241.0,
+    "change": 6.0,
+    "changePercent": 0.14167650531286896,
+    "volume": 251000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "33970",
+      "CompanyName": "トリドールホールディングス",
+      "CompanyNameEnglish": "TORIDOLL Holdings Corporation",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:03.721473",
+      "updated_at": "2025-10-03T15:30:03.721476",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

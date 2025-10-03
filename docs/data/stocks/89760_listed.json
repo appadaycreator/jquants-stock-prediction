@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "89760",
+    "generated_at": "2025-10-03T15:45:06.155350",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "89760",
+    "name": "大和証券オフィス投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 326000.0,
+    "change": 2000.0,
+    "changePercent": 0.6172839506172839,
+    "volume": 1519,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "89760",
+      "CompanyName": "大和証券オフィス投資法人",
+      "CompanyNameEnglish": "Daiwa Office Investment Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:45.209651",
+      "updated_at": "2025-10-03T15:42:45.209662",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

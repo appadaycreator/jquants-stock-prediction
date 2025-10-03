@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "29230",
+    "generated_at": "2025-10-03T15:45:05.784460",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "29230",
+    "name": "サトウ食品",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 7190.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "29230",
+      "CompanyName": "サトウ食品",
+      "CompanyNameEnglish": "SATO FOODS CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:35.112535",
+      "updated_at": "2025-10-03T15:28:35.112538",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

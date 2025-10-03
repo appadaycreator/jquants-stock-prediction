@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44150",
+    "generated_at": "2025-10-03T15:45:05.874326",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44150",
+    "name": "ブロードエンタープライズ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 690.0,
+    "change": 3.0,
+    "changePercent": 0.43668122270742354,
+    "volume": 2000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44150",
+      "CompanyName": "ブロードエンタープライズ",
+      "CompanyNameEnglish": "BROAD ENTERPRISE CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:59.196835",
+      "updated_at": "2025-10-03T15:32:59.196838",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

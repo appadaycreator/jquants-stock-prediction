@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "48010",
+    "generated_at": "2025-10-03T15:45:05.898829",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "48010",
+    "name": "セントラルスポーツ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2437.0,
+    "change": 15.0,
+    "changePercent": 0.6193228736581338,
+    "volume": 120100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "48010",
+      "CompanyName": "セントラルスポーツ",
+      "CompanyNameEnglish": "CENTRAL SPORTS CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:58.925230",
+      "updated_at": "2025-10-03T15:33:58.925232",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

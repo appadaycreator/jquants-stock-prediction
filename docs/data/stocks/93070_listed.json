@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93070",
+    "generated_at": "2025-10-03T15:45:06.180719",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93070",
+    "name": "杉村倉庫",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 785.0,
+    "change": 2.0,
+    "changePercent": 0.2554278416347382,
+    "volume": 16200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93070",
+      "CompanyName": "杉村倉庫",
+      "CompanyNameEnglish": "Sugimura Warehouse Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:33.318556",
+      "updated_at": "2025-10-03T15:43:33.318567",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

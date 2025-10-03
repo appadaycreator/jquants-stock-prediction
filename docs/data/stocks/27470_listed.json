@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "27470",
+    "generated_at": "2025-10-03T15:45:05.773012",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "27470",
+    "name": "北雄ラッキー",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 3090.0,
+    "change": -10.0,
+    "changePercent": -0.3225806451612903,
+    "volume": 1100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "27470",
+      "CompanyName": "北雄ラッキー",
+      "CompanyNameEnglish": "Hokuyu Lucky Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:02.065954",
+      "updated_at": "2025-10-03T15:28:02.065959",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

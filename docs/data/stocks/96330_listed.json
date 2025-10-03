@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "96330",
+    "generated_at": "2025-10-03T15:45:06.197370",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "96330",
+    "name": "東京テアトル",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1095.0,
+    "change": 3.0,
+    "changePercent": 0.27472527472527475,
+    "volume": 12600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "96330",
+      "CompanyName": "東京テアトル",
+      "CompanyNameEnglish": "TOKYO THEATRES COMPANY,INCORPORATED",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:17.350646",
+      "updated_at": "2025-10-03T15:44:17.350655",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

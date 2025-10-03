@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34340",
+    "generated_at": "2025-10-03T15:45:05.814211",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34340",
+    "name": "アルファ",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1151.0,
+    "change": 11.0,
+    "changePercent": 0.9649122807017544,
+    "volume": 17100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34340",
+      "CompanyName": "アルファ",
+      "CompanyNameEnglish": "ALPHA Corporation",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:09.613345",
+      "updated_at": "2025-10-03T15:30:09.613372",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

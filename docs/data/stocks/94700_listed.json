@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "94700",
+    "generated_at": "2025-10-03T15:45:06.189906",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "94700",
+    "name": "学研ホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 946.0,
+    "change": 3.0,
+    "changePercent": 0.3181336161187699,
+    "volume": 53600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "94700",
+      "CompanyName": "学研ホールディングス",
+      "CompanyNameEnglish": "GAKKEN HOLDINGS CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:59.763299",
+      "updated_at": "2025-10-03T15:43:59.763312",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

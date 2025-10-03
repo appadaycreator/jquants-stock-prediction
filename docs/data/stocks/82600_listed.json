@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "82600",
+    "generated_at": "2025-10-03T15:45:06.129919",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "82600",
+    "name": "井筒屋",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 430.0,
+    "change": 1.0,
+    "changePercent": 0.2331002331002331,
+    "volume": 36900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "82600",
+      "CompanyName": "井筒屋",
+      "CompanyNameEnglish": "IZUTSUYA CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:49.161728",
+      "updated_at": "2025-10-03T15:41:49.161736",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

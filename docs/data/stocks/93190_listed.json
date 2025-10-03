@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93190",
+    "generated_at": "2025-10-03T15:45:06.181266",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93190",
+    "name": "中央倉庫",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 1383.0,
+    "change": 9.0,
+    "changePercent": 0.6550218340611353,
+    "volume": 23800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93190",
+      "CompanyName": "中央倉庫",
+      "CompanyNameEnglish": "Chuo Warehouse Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:35.075126",
+      "updated_at": "2025-10-03T15:43:35.075138",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

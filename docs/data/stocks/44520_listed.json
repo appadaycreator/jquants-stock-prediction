@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44520",
+    "generated_at": "2025-10-03T15:45:05.878590",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44520",
+    "name": "花王",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 6597.0,
+    "change": -28.0,
+    "changePercent": -0.4226415094339623,
+    "volume": 1372500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44520",
+      "CompanyName": "花王",
+      "CompanyNameEnglish": "Kao Corporation",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:08.449020",
+      "updated_at": "2025-10-03T15:33:08.449023",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

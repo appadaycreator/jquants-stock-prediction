@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "50180",
+    "generated_at": "2025-10-03T15:45:05.908019",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "50180",
+    "name": "ＭＯＲＥＳＣＯ",
+    "sector": "エネルギー資源",
+    "market": "スタンダード",
+    "currentPrice": 1239.0,
+    "change": -11.0,
+    "changePercent": -0.88,
+    "volume": 21300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "50180",
+      "CompanyName": "ＭＯＲＥＳＣＯ",
+      "CompanyNameEnglish": "MORESCO Corporation",
+      "Sector17Code": "2",
+      "Sector17CodeName": "エネルギー資源",
+      "Sector33Code": "3300",
+      "Sector33CodeName": "石油･石炭製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:25.308011",
+      "updated_at": "2025-10-03T15:34:25.308012",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90370",
+    "generated_at": "2025-10-03T15:45:06.162213",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90370",
+    "name": "ハマキョウレックス",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 1415.0,
+    "change": 15.0,
+    "changePercent": 1.0714285714285714,
+    "volume": 100700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90370",
+      "CompanyName": "ハマキョウレックス",
+      "CompanyNameEnglish": "HAMAKYOREX CO.,LTD.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:54.566526",
+      "updated_at": "2025-10-03T15:42:54.566535",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

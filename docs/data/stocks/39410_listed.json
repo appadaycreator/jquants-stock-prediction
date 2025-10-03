@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39410",
+    "generated_at": "2025-10-03T15:45:05.844391",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39410",
+    "name": "レンゴー",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 881.2,
+    "change": 12.400000000000091,
+    "changePercent": 1.4272559852670457,
+    "volume": 2694700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39410",
+      "CompanyName": "レンゴー",
+      "CompanyNameEnglish": "Rengo Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:44.219323",
+      "updated_at": "2025-10-03T15:31:44.219325",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

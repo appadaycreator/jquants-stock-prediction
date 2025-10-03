@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69140",
+    "generated_at": "2025-10-03T15:45:06.031711",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69140",
+    "name": "オプテックスグループ",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 1614.0,
+    "change": -27.0,
+    "changePercent": -1.6453382084095063,
+    "volume": 149700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69140",
+      "CompanyName": "オプテックスグループ",
+      "CompanyNameEnglish": "OPTEX GROUP Company,Limited",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:21.956097",
+      "updated_at": "2025-10-03T15:38:21.956099",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

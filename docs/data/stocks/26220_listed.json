@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26220",
+    "generated_at": "2025-10-03T15:45:05.765115",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26220",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米ドル建て新興国債券　ＥＴＦ（為替ヘッジあり）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1707.0,
+    "change": -25.0,
+    "changePercent": -1.443418013856813,
+    "volume": 1150,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26220",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　米ドル建て新興国債券　ＥＴＦ（為替ヘッジあり）",
+      "CompanyNameEnglish": "iShares USD Emerging Markets Bond JPY Hedged ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:39.723057",
+      "updated_at": "2025-10-03T15:27:39.723061",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

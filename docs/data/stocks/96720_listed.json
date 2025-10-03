@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "96720",
+    "generated_at": "2025-10-03T15:45:06.198447",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "96720",
+    "name": "東京都競馬",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 4885.0,
+    "change": -80.0,
+    "changePercent": -1.6112789526686808,
+    "volume": 99500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "96720",
+      "CompanyName": "東京都競馬",
+      "CompanyNameEnglish": "TOKYOTOKEIBA CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:21.182283",
+      "updated_at": "2025-10-03T15:44:21.182295",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

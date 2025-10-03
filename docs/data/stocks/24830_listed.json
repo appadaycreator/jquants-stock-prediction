@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "24830",
+    "generated_at": "2025-10-03T15:45:05.752414",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "24830",
+    "name": "翻訳センター",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1876.0,
+    "change": -5.0,
+    "changePercent": -0.2658160552897395,
+    "volume": 4300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "24830",
+      "CompanyName": "翻訳センター",
+      "CompanyNameEnglish": "HONYAKU Center Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:16.006095",
+      "updated_at": "2025-10-03T15:27:16.006097",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

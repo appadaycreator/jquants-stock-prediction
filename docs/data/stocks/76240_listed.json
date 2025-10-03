@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "76240",
+    "generated_at": "2025-10-03T15:45:06.095223",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "76240",
+    "name": "ＮａＩＴＯ",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 133.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 12800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "76240",
+      "CompanyName": "ＮａＩＴＯ",
+      "CompanyNameEnglish": "Naito & Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:12.212148",
+      "updated_at": "2025-10-03T15:40:12.212150",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

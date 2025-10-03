@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45870",
+    "generated_at": "2025-10-03T15:45:05.887684",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45870",
+    "name": "ペプチドリーム",
+    "sector": "医薬品",
+    "market": "プライム",
+    "currentPrice": 1664.5,
+    "change": 48.5,
+    "changePercent": 3.001237623762376,
+    "volume": 1642300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45870",
+      "CompanyName": "ペプチドリーム",
+      "CompanyNameEnglish": "PeptiDream Inc.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:30.447386",
+      "updated_at": "2025-10-03T15:33:30.447390",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

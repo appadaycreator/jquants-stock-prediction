@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26360",
+    "generated_at": "2025-10-03T15:45:05.766848",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26360",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ＭＳＣＩ　ガバナンス・クオリティ−日本株式　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 3384.0,
+    "change": 3.0,
+    "changePercent": 0.08873114463176575,
+    "volume": 203,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26360",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ＭＳＣＩ　ガバナンス・クオリティ−日本株式　ＥＴＦ",
+      "CompanyNameEnglish": "Global X MSCI Governance-Quality Japan ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:43.831569",
+      "updated_at": "2025-10-03T15:27:43.831572",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

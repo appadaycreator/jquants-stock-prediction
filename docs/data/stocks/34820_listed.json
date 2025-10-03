@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34820",
+    "generated_at": "2025-10-03T15:45:05.818357",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34820",
+    "name": "ロードスターキャピタル",
+    "sector": "不動産",
+    "market": "プライム",
+    "currentPrice": 2869.0,
+    "change": 10.0,
+    "changePercent": 0.3497726477789437,
+    "volume": 99800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34820",
+      "CompanyName": "ロードスターキャピタル",
+      "CompanyNameEnglish": "Loadstar Capital K.K.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:25.886072",
+      "updated_at": "2025-10-03T15:30:25.886075",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

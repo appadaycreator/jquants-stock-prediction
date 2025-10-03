@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62100",
+    "generated_at": "2025-10-03T15:45:05.963220",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62100",
+    "name": "ＴＯＹＯイノベックス",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 619.0,
+    "change": -1.0,
+    "changePercent": -0.16129032258064516,
+    "volume": 26800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62100",
+      "CompanyName": "ＴＯＹＯイノベックス",
+      "CompanyNameEnglish": "TOYO INNOVEX Co.,Ltd.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:30.877528",
+      "updated_at": "2025-10-03T15:36:30.877530",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

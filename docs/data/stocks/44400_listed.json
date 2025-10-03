@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44400",
+    "generated_at": "2025-10-03T15:45:05.877142",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44400",
+    "name": "ヴィッツ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 1146.0,
+    "change": -7.0,
+    "changePercent": -0.6071118820468344,
+    "volume": 24000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44400",
+      "CompanyName": "ヴィッツ",
+      "CompanyNameEnglish": "WITZ Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:05.470516",
+      "updated_at": "2025-10-03T15:33:05.470518",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

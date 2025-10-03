@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "51870",
+    "generated_at": "2025-10-03T15:45:05.914069",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "51870",
+    "name": "クリエートメディック",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 959.0,
+    "change": 8.0,
+    "changePercent": 0.8412197686645636,
+    "volume": 8200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "51870",
+      "CompanyName": "クリエートメディック",
+      "CompanyNameEnglish": "CREATE MEDIC CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:39.986625",
+      "updated_at": "2025-10-03T15:34:39.986627",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

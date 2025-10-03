@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26340",
+    "generated_at": "2025-10-03T15:45:05.766676",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26340",
+    "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　Ｓ＆Ｐ　５００　指数（為替ヘッジあり）連動型上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2689.5,
+    "change": -10.5,
+    "changePercent": -0.3888888888888889,
+    "volume": 20580,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26340",
+      "CompanyName": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　Ｓ＆Ｐ　５００　指数（為替ヘッジあり）連動型上場投信",
+      "CompanyNameEnglish": "NEXT FUNDS S&P 500 (Yen-Hedged) Exchange Traded Fund",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:43.302907",
+      "updated_at": "2025-10-03T15:27:43.302912",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

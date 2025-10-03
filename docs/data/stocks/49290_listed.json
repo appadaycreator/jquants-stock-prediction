@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49290",
+    "generated_at": "2025-10-03T15:45:05.904481",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49290",
+    "name": "アジュバンホールディングス",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 793.0,
+    "change": -2.0,
+    "changePercent": -0.25157232704402516,
+    "volume": 39800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49290",
+      "CompanyName": "アジュバンホールディングス",
+      "CompanyNameEnglish": "ADJUVANT HOLDINGS CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:13.975409",
+      "updated_at": "2025-10-03T15:34:13.975411",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

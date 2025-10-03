@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "17700",
+    "generated_at": "2025-10-03T15:45:05.705376",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "17700",
+    "name": "藤田エンジニアリング",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 1587.0,
+    "change": -1.0,
+    "changePercent": -0.06297229219143577,
+    "volume": 15900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "17700",
+      "CompanyName": "藤田エンジニアリング",
+      "CompanyNameEnglish": "FUJITA ENGINEERING CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:20.027766",
+      "updated_at": "2025-10-03T15:25:20.027776",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34810",
+    "generated_at": "2025-10-03T15:45:05.818278",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34810",
+    "name": "三菱地所物流リート投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 118900.0,
+    "change": -100.0,
+    "changePercent": -0.08403361344537816,
+    "volume": 4123,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34810",
+      "CompanyName": "三菱地所物流リート投資法人",
+      "CompanyNameEnglish": "Mitsubishi Estate Logistics REIT Investment Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:25.617525",
+      "updated_at": "2025-10-03T15:30:25.617528",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "98420",
+    "generated_at": "2025-10-03T15:45:06.205846",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "98420",
+    "name": "アークランズ",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 1730.0,
+    "change": -10.0,
+    "changePercent": -0.5747126436781609,
+    "volume": 291700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "98420",
+      "CompanyName": "アークランズ",
+      "CompanyNameEnglish": "ARCLANDS CORPORATION",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:43.527375",
+      "updated_at": "2025-10-03T15:44:43.527395",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

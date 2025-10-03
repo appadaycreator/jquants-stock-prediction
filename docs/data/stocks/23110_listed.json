@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "23110",
+    "generated_at": "2025-10-03T15:45:05.743558",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "23110",
+    "name": "エプコ",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 728.0,
+    "change": 1.0,
+    "changePercent": 0.1375515818431912,
+    "volume": 5400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "23110",
+      "CompanyName": "エプコ",
+      "CompanyNameEnglish": "EPCO Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:49.699261",
+      "updated_at": "2025-10-03T15:26:49.699264",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

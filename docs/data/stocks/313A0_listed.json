@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "313A0",
+    "generated_at": "2025-10-03T15:45:05.797597",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "313A0",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　Ｓ＆Ｐ　５００　トップ　２０　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 199.1,
+    "change": -0.4000000000000057,
+    "changePercent": -0.20050125313283493,
+    "volume": 387750,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "313A0",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　Ｓ＆Ｐ　５００　トップ　２０　ＥＴＦ",
+      "CompanyNameEnglish": "iShares S&P 500 Top 20 ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:17.229413",
+      "updated_at": "2025-10-03T15:29:17.229419",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

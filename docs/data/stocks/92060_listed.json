@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92060",
+    "generated_at": "2025-10-03T15:45:06.172620",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92060",
+    "name": "スターフライヤー",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 2181.0,
+    "change": 6.0,
+    "changePercent": 0.27586206896551724,
+    "volume": 4500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92060",
+      "CompanyName": "スターフライヤー",
+      "CompanyNameEnglish": "Star Flyer Inc.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5150",
+      "Sector33CodeName": "空運業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:13.176987",
+      "updated_at": "2025-10-03T15:43:13.176996",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

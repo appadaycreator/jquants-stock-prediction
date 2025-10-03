@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "53320",
+    "generated_at": "2025-10-03T15:45:05.919141",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "53320",
+    "name": "ＴＯＴＯ",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 3868.0,
+    "change": 44.0,
+    "changePercent": 1.1506276150627615,
+    "volume": 724600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "53320",
+      "CompanyName": "ＴＯＴＯ",
+      "CompanyNameEnglish": "TOTO LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3400",
+      "Sector33CodeName": "ガラス･土石製品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:54.922484",
+      "updated_at": "2025-10-03T15:34:54.922487",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

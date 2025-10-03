@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "18600",
+    "generated_at": "2025-10-03T15:45:05.713134",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "18600",
+    "name": "戸田建設",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 943.2,
+    "change": -18.5,
+    "changePercent": -1.9236768222938543,
+    "volume": 555300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "18600",
+      "CompanyName": "戸田建設",
+      "CompanyNameEnglish": "TODA CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:34.004122",
+      "updated_at": "2025-10-03T15:25:34.004128",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

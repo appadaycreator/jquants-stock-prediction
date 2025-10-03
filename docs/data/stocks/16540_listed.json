@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "16540",
-    "generated_at": "2025-10-03T15:21:01.228402",
+    "generated_at": "2025-10-03T15:45:05.698961",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -14,7 +14,7 @@
     "change": null,
     "changePercent": null,
     "volume": null,
-    "updated_at": "2025-10-03T15:21:00.052191",
+    "updated_at": "2025-10-03T15:25:02.047806",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "16540",
@@ -29,8 +29,8 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:21:00.052195",
-      "updated_at": "2025-10-03T15:21:00.052196",
+      "created_at": "2025-10-03T15:25:02.047815",
+      "updated_at": "2025-10-03T15:25:02.047816",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
       "price_data_available": false

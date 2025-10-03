@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "42280",
+    "generated_at": "2025-10-03T15:45:05.861862",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "42280",
+    "name": "積水化成品工業",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 343.0,
+    "change": 3.0,
+    "changePercent": 0.8823529411764706,
+    "volume": 45900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "42280",
+      "CompanyName": "積水化成品工業",
+      "CompanyNameEnglish": "Sekisui Kasei Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:28.457368",
+      "updated_at": "2025-10-03T15:32:28.457371",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

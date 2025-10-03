@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "68620",
+    "generated_at": "2025-10-03T15:45:06.023836",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "68620",
+    "name": "ミナトホールディングス",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 757.0,
+    "change": -1.0,
+    "changePercent": -0.13192612137203166,
+    "volume": 11300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "68620",
+      "CompanyName": "ミナトホールディングス",
+      "CompanyNameEnglish": "MINATO HOLDINGS INC.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:14.833418",
+      "updated_at": "2025-10-03T15:38:14.833420",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

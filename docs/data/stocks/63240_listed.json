@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63240",
+    "generated_at": "2025-10-03T15:45:05.970302",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63240",
+    "name": "ハーモニック・ドライブ・システムズ",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 2537.0,
+    "change": -4.0,
+    "changePercent": -0.15741833923652104,
+    "volume": 684600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63240",
+      "CompanyName": "ハーモニック・ドライブ・システムズ",
+      "CompanyNameEnglish": "Harmonic Drive Systems Inc.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:48.972354",
+      "updated_at": "2025-10-03T15:36:48.972356",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45060",
+    "generated_at": "2025-10-03T15:45:05.882183",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45060",
+    "name": "住友ファーマ",
+    "sector": "医薬品",
+    "market": "プライム",
+    "currentPrice": 1013.0,
+    "change": 13.0,
+    "changePercent": 1.3,
+    "volume": 7271600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45060",
+      "CompanyName": "住友ファーマ",
+      "CompanyNameEnglish": "Sumitomo Pharma Co.,Ltd.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:17.055064",
+      "updated_at": "2025-10-03T15:33:17.055067",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

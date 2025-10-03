@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75130",
+    "generated_at": "2025-10-03T15:45:06.089397",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75130",
+    "name": "コジマ",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 1292.0,
+    "change": -56.0,
+    "changePercent": -4.154302670623145,
+    "volume": 747400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75130",
+      "CompanyName": "コジマ",
+      "CompanyNameEnglish": "Kojima Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:56.013799",
+      "updated_at": "2025-10-03T15:39:56.013801",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "99720",
+    "generated_at": "2025-10-03T15:45:06.210403",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "99720",
+    "name": "アルテック",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 238.0,
+    "change": 1.0,
+    "changePercent": 0.42194092827004215,
+    "volume": 34500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "99720",
+      "CompanyName": "アルテック",
+      "CompanyNameEnglish": "ALTECH CO.,LTD.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:59.787172",
+      "updated_at": "2025-10-03T15:44:59.787187",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

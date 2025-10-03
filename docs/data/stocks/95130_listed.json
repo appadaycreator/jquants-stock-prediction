@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "95130",
+    "generated_at": "2025-10-03T15:45:06.191865",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "95130",
+    "name": "電源開発",
+    "sector": "電気・ガス",
+    "market": "プライム",
+    "currentPrice": 2487.5,
+    "change": -36.5,
+    "changePercent": -1.4461172741679873,
+    "volume": 767800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "95130",
+      "CompanyName": "電源開発",
+      "CompanyNameEnglish": "Electric Power Development Co.,Ltd.",
+      "Sector17Code": "11",
+      "Sector17CodeName": "電気・ガス",
+      "Sector33Code": "4050",
+      "Sector33CodeName": "電気･ガス業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:04.367981",
+      "updated_at": "2025-10-03T15:44:04.367992",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

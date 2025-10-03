@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "58050",
+    "generated_at": "2025-10-03T15:45:05.933883",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "58050",
+    "name": "ＳＷＣＣ",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 7900.0,
+    "change": -230.0,
+    "changePercent": -2.8290282902829027,
+    "volume": 238900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "58050",
+      "CompanyName": "ＳＷＣＣ",
+      "CompanyNameEnglish": "SWCC Corporation",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:29.339694",
+      "updated_at": "2025-10-03T15:35:29.339695",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

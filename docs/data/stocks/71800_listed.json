@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71800",
+    "generated_at": "2025-10-03T15:45:06.064614",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71800",
+    "name": "九州フィナンシャルグループ",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 765.6,
+    "change": 5.600000000000023,
+    "changePercent": 0.736842105263161,
+    "volume": 1623700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71800",
+      "CompanyName": "九州フィナンシャルグループ",
+      "CompanyNameEnglish": "Kyushu Financial Group,Inc.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:05.291240",
+      "updated_at": "2025-10-03T15:39:05.291242",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

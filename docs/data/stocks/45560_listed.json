@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45560",
+    "generated_at": "2025-10-03T15:45:05.885218",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45560",
+    "name": "カイノス",
+    "sector": "医薬品",
+    "market": "スタンダード",
+    "currentPrice": 1223.0,
+    "change": 1.0,
+    "changePercent": 0.08183306055646482,
+    "volume": 1900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45560",
+      "CompanyName": "カイノス",
+      "CompanyNameEnglish": "KAINOS Laboratories,Inc.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:24.537380",
+      "updated_at": "2025-10-03T15:33:24.537383",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "58020",
+    "generated_at": "2025-10-03T15:45:05.933737",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "58020",
+    "name": "住友電気工業",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 3166.0,
+    "change": -64.0,
+    "changePercent": -1.9814241486068114,
+    "volume": 3191600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "58020",
+      "CompanyName": "住友電気工業",
+      "CompanyNameEnglish": "Sumitomo Electric Industries,Ltd.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3500",
+      "Sector33CodeName": "非鉄金属",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:28.805384",
+      "updated_at": "2025-10-03T15:35:28.805386",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

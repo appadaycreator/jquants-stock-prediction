@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "83540",
+    "generated_at": "2025-10-03T15:45:06.132734",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "83540",
+    "name": "ふくおかフィナンシャルグループ",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 4043.0,
+    "change": 23.0,
+    "changePercent": 0.572139303482587,
+    "volume": 797400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "83540",
+      "CompanyName": "ふくおかフィナンシャルグループ",
+      "CompanyNameEnglish": "Fukuoka Financial Group,Inc.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:58.402867",
+      "updated_at": "2025-10-03T15:41:58.402879",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

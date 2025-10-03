@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72690",
+    "generated_at": "2025-10-03T15:45:06.072917",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72690",
+    "name": "スズキ",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 1666.5,
+    "change": -15.5,
+    "changePercent": -0.9215219976218787,
+    "volume": 5961100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72690",
+      "CompanyName": "スズキ",
+      "CompanyNameEnglish": "SUZUKI MOTOR CORPORATION",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:20.189457",
+      "updated_at": "2025-10-03T15:39:20.189459",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

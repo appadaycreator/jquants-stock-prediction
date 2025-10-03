@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20660",
+    "generated_at": "2025-10-03T15:45:05.727903",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20660",
+    "name": "ノムラ・ヨーロッパ・ファイナンス・エヌ・ブイ　ＮＥＸＴ　ＮＯＴＥＳ　東証ＲＥＩＴ（ドルヘッジ、ネットリターン）ＥＴＮ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 20775.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 1831,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20660",
+      "CompanyName": "ノムラ・ヨーロッパ・ファイナンス・エヌ・ブイ　ＮＥＸＴ　ＮＯＴＥＳ　東証ＲＥＩＴ（ドルヘッジ、ネットリターン）ＥＴＮ",
+      "CompanyNameEnglish": "NEXT NOTES Tokyo Stock Exchange REIT Net Total Return US Dollar Hedged Index ETN",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:06.325015",
+      "updated_at": "2025-10-03T15:26:06.325020",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

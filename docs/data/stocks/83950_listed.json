@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "83950",
+    "generated_at": "2025-10-03T15:45:06.135938",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "83950",
+    "name": "佐賀銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 2430.0,
+    "change": 50.0,
+    "changePercent": 2.100840336134454,
+    "volume": 101200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "83950",
+      "CompanyName": "佐賀銀行",
+      "CompanyNameEnglish": "THE BANK OF SAGA LTD.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:04.633112",
+      "updated_at": "2025-10-03T15:42:04.633125",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

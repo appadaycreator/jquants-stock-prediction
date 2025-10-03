@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "47840",
+    "generated_at": "2025-10-03T15:45:05.898418",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "47840",
+    "name": "ＧＭＯインターネット",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1930.0,
+    "change": -336.0,
+    "changePercent": -14.827890556045894,
+    "volume": 21927700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "47840",
+      "CompanyName": "ＧＭＯインターネット",
+      "CompanyNameEnglish": "GMO internet,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:58.076719",
+      "updated_at": "2025-10-03T15:33:58.076722",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

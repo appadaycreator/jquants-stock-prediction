@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "74870",
+    "generated_at": "2025-10-03T15:45:06.088374",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "74870",
+    "name": "小津産業",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 1659.0,
+    "change": 13.0,
+    "changePercent": 0.7897934386391251,
+    "volume": 13900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "74870",
+      "CompanyName": "小津産業",
+      "CompanyNameEnglish": "OZU CORPORATION",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:52.419849",
+      "updated_at": "2025-10-03T15:39:52.419851",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

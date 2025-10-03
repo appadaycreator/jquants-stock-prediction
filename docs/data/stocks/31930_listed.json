@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31930",
+    "generated_at": "2025-10-03T15:45:05.801464",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31930",
+    "name": "エターナルホスピタリティグループ",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 3110.0,
+    "change": 60.0,
+    "changePercent": 1.9672131147540985,
+    "volume": 61600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31930",
+      "CompanyName": "エターナルホスピタリティグループ",
+      "CompanyNameEnglish": "Eternal Hospitality Group Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:30.702125",
+      "updated_at": "2025-10-03T15:29:30.702134",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

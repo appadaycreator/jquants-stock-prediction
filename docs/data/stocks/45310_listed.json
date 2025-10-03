@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45310",
+    "generated_at": "2025-10-03T15:45:05.883475",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45310",
+    "name": "有機合成薬品工業",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 263.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 62600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45310",
+      "CompanyName": "有機合成薬品工業",
+      "CompanyNameEnglish": "Yuki Gosei Kogyo Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:20.228926",
+      "updated_at": "2025-10-03T15:33:20.228929",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

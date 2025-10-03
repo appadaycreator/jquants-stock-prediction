@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "46280",
+    "generated_at": "2025-10-03T15:45:05.889931",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "46280",
+    "name": "エスケー化研",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 8560.0,
+    "change": -20.0,
+    "changePercent": -0.2331002331002331,
+    "volume": 3400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "46280",
+      "CompanyName": "エスケー化研",
+      "CompanyNameEnglish": "SK KAKEN CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:36.942605",
+      "updated_at": "2025-10-03T15:33:36.942608",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

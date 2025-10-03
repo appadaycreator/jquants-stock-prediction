@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75510",
+    "generated_at": "2025-10-03T15:45:06.091385",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75510",
+    "name": "ウェッズ",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 608.0,
+    "change": -2.0,
+    "changePercent": -0.32786885245901637,
+    "volume": 6100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75510",
+      "CompanyName": "ウェッズ",
+      "CompanyNameEnglish": "WEDS CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:01.278663",
+      "updated_at": "2025-10-03T15:40:01.278665",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

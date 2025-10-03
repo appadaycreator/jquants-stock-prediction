@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92620",
+    "generated_at": "2025-10-03T15:45:06.177524",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92620",
+    "name": "シルバーライフ",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 729.0,
+    "change": -4.0,
+    "changePercent": -0.5457025920873124,
+    "volume": 7500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92620",
+      "CompanyName": "シルバーライフ",
+      "CompanyNameEnglish": "SILVER LIFE CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:26.182550",
+      "updated_at": "2025-10-03T15:43:26.182569",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93650",
+    "generated_at": "2025-10-03T15:45:06.184715",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93650",
+    "name": "トレーディア",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 1266.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93650",
+      "CompanyName": "トレーディア",
+      "CompanyNameEnglish": "TRADIA CORPORATION",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:45.612021",
+      "updated_at": "2025-10-03T15:43:45.612033",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

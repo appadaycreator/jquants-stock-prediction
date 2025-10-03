@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "36600",
+    "generated_at": "2025-10-03T15:45:05.827705",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "36600",
+    "name": "アイスタイル",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 564.0,
+    "change": -6.0,
+    "changePercent": -1.0526315789473684,
+    "volume": 1070600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "36600",
+      "CompanyName": "アイスタイル",
+      "CompanyNameEnglish": "istyle Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:55.824951",
+      "updated_at": "2025-10-03T15:30:55.824955",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

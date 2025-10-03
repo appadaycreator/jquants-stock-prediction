@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19520",
+    "generated_at": "2025-10-03T15:45:05.720228",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19520",
+    "name": "新日本空調",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 2427.0,
+    "change": -27.0,
+    "changePercent": -1.1002444987775062,
+    "volume": 110900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19520",
+      "CompanyName": "新日本空調",
+      "CompanyNameEnglish": "Shin Nippon Air Technologies Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:47.436957",
+      "updated_at": "2025-10-03T15:25:47.436960",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

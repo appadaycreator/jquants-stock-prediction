@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77190",
+    "generated_at": "2025-10-03T15:45:06.099450",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77190",
+    "name": "東京衡機",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 249.0,
+    "change": 1.0,
+    "changePercent": 0.4032258064516129,
+    "volume": 74200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77190",
+      "CompanyName": "東京衡機",
+      "CompanyNameEnglish": "TOKYO KOKI CO.LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:25.072361",
+      "updated_at": "2025-10-03T15:40:25.072380",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

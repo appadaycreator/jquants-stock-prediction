@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25160",
+    "generated_at": "2025-10-03T15:45:05.757662",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25160",
+    "name": "シンプレクス・アセット・マネジメント株式会社　東証グロース２５０ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 585.0,
+    "change": -3.8999999999999773,
+    "changePercent": -0.6622516556291352,
+    "volume": 1472440,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25160",
+      "CompanyName": "シンプレクス・アセット・マネジメント株式会社　東証グロース２５０ＥＴＦ",
+      "CompanyNameEnglish": "TSE Growth 250 ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:22.617256",
+      "updated_at": "2025-10-03T15:27:22.617258",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

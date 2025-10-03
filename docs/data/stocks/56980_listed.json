@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "56980",
+    "generated_at": "2025-10-03T15:45:05.929595",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "56980",
+    "name": "エンビプロ・ホールディングス",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 519.0,
+    "change": 7.0,
+    "changePercent": 1.3671875,
+    "volume": 132700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "56980",
+      "CompanyName": "エンビプロ・ホールディングス",
+      "CompanyNameEnglish": "ENVIPRO HOLDINGS Inc.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3450",
+      "Sector33CodeName": "鉄鋼",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:23.126444",
+      "updated_at": "2025-10-03T15:35:23.126472",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

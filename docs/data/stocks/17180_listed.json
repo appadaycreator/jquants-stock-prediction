@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "17180",
+    "generated_at": "2025-10-03T15:45:05.703304",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "17180",
+    "name": "美樹工業",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 6640.0,
+    "change": 160.0,
+    "changePercent": 2.4691358024691357,
+    "volume": 4300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "17180",
+      "CompanyName": "美樹工業",
+      "CompanyNameEnglish": "MIKIKOGYO CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:14.604271",
+      "updated_at": "2025-10-03T15:25:14.604277",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

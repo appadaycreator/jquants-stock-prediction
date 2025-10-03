@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "72820",
+    "generated_at": "2025-10-03T15:45:06.074174",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "72820",
+    "name": "豊田合成",
+    "sector": "自動車・輸送機",
+    "market": "プライム",
+    "currentPrice": 2998.5,
+    "change": 2.0,
+    "changePercent": 0.06674453529117304,
+    "volume": 269600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "72820",
+      "CompanyName": "豊田合成",
+      "CompanyNameEnglish": "TOYODA GOSEI CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:22.924556",
+      "updated_at": "2025-10-03T15:39:22.924563",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

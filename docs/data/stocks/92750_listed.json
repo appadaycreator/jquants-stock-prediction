@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92750",
+    "generated_at": "2025-10-03T15:45:06.178465",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92750",
+    "name": "ナルミヤ・インターナショナル",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 1501.0,
+    "change": 31.0,
+    "changePercent": 2.1088435374149657,
+    "volume": 49700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92750",
+      "CompanyName": "ナルミヤ・インターナショナル",
+      "CompanyNameEnglish": "NARUMIYA INTERNATIONAL Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:29.180740",
+      "updated_at": "2025-10-03T15:43:29.180754",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

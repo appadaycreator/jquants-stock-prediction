@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "74120",
+    "generated_at": "2025-10-03T15:45:06.082931",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "74120",
+    "name": "アトム",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 670.0,
+    "change": 7.0,
+    "changePercent": 1.0558069381598794,
+    "volume": 282500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "74120",
+      "CompanyName": "アトム",
+      "CompanyNameEnglish": "ATOM CORPORATION",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:40.186463",
+      "updated_at": "2025-10-03T15:39:40.186465",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

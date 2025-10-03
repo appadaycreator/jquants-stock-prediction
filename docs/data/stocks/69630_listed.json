@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69630",
+    "generated_at": "2025-10-03T15:45:06.037381",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69630",
+    "name": "ローム",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 1912.0,
+    "change": -8.0,
+    "changePercent": -0.4166666666666667,
+    "volume": 4848800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69630",
+      "CompanyName": "ローム",
+      "CompanyNameEnglish": "ROHM COMPANY LIMITED",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:29.698769",
+      "updated_at": "2025-10-03T15:38:29.698771",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

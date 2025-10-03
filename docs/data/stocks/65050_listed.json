@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "65050",
+    "generated_at": "2025-10-03T15:45:05.983593",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "65050",
+    "name": "東洋電機製造",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 1582.0,
+    "change": -2.0,
+    "changePercent": -0.12626262626262627,
+    "volume": 54700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "65050",
+      "CompanyName": "東洋電機製造",
+      "CompanyNameEnglish": "TOYO DENKI SEIZO K.K.(TOYO ELECTRIC MFG.CO.,LTD.)",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:21.108853",
+      "updated_at": "2025-10-03T15:37:21.108855",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

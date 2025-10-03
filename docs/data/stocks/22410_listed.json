@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22410",
+    "generated_at": "2025-10-03T15:45:05.739167",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22410",
+    "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　ＮＹダウ上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 730.5,
+    "change": 4.5,
+    "changePercent": 0.6198347107438017,
+    "volume": 7310,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22410",
+      "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　ＮＹダウ上場投信",
+      "CompanyNameEnglish": "MAXIS NY Dow Industrial Average ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:36.988421",
+      "updated_at": "2025-10-03T15:26:36.988426",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

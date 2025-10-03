@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39470",
+    "generated_at": "2025-10-03T15:45:05.844810",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39470",
+    "name": "ダイナパック",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 2047.0,
+    "change": 3.0,
+    "changePercent": 0.14677103718199608,
+    "volume": 2400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39470",
+      "CompanyName": "ダイナパック",
+      "CompanyNameEnglish": "Dynapac Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:45.591541",
+      "updated_at": "2025-10-03T15:31:45.591544",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

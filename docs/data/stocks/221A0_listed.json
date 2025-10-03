@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "221A0",
+    "generated_at": "2025-10-03T15:45:05.737740",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "221A0",
+    "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ日経半導体株上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 464.0,
+    "change": -1.0,
+    "changePercent": -0.21505376344086022,
+    "volume": 9420,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "221A0",
+      "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ日経半導体株上場投信",
+      "CompanyNameEnglish": "MAXIS Nikkei Semiconductor Stock (Japan) ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:32.836868",
+      "updated_at": "2025-10-03T15:26:32.836870",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

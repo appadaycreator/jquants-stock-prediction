@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "91430",
+    "generated_at": "2025-10-03T15:45:06.167880",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "91430",
+    "name": "ＳＧホールディングス",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 1603.5,
+    "change": -28.5,
+    "changePercent": -1.7463235294117647,
+    "volume": 2028600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "91430",
+      "CompanyName": "ＳＧホールディングス",
+      "CompanyNameEnglish": "SG HOLDINGS CO.,LTD.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:06.297804",
+      "updated_at": "2025-10-03T15:43:06.297816",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

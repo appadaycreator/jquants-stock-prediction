@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79400",
+    "generated_at": "2025-10-03T15:45:06.113487",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79400",
+    "name": "ウェーブロックホールディングス",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 603.0,
+    "change": 1.0,
+    "changePercent": 0.16611295681063123,
+    "volume": 19700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79400",
+      "CompanyName": "ウェーブロックホールディングス",
+      "CompanyNameEnglish": "WAVELOCK HOLDINGS CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:58.654249",
+      "updated_at": "2025-10-03T15:40:58.654263",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

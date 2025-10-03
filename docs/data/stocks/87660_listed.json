@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "87660",
+    "generated_at": "2025-10-03T15:45:06.141681",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "87660",
+    "name": "東京海上ホールディングス",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 5765.0,
+    "change": 53.0,
+    "changePercent": 0.9278711484593838,
+    "volume": 3572100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "87660",
+      "CompanyName": "東京海上ホールディングス",
+      "CompanyNameEnglish": "Tokio Marine Holdings,Inc.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7150",
+      "Sector33CodeName": "保険業",
+      "ScaleCategory": "TOPIX Core30",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:24.035409",
+      "updated_at": "2025-10-03T15:42:24.035424",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79490",
+    "generated_at": "2025-10-03T15:45:06.113984",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79490",
+    "name": "小松ウオール工業",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2400.0,
+    "change": 21.0,
+    "changePercent": 0.8827238335435058,
+    "volume": 87600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79490",
+      "CompanyName": "小松ウオール工業",
+      "CompanyNameEnglish": "KOMATSU WALL INDUSTRY CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:00.393676",
+      "updated_at": "2025-10-03T15:41:00.393692",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43940",
+    "generated_at": "2025-10-03T15:45:05.873105",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43940",
+    "name": "エクスモーション",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 850.0,
+    "change": -11.0,
+    "changePercent": -1.2775842044134729,
+    "volume": 5500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43940",
+      "CompanyName": "エクスモーション",
+      "CompanyNameEnglish": "eXmotion Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:55.394612",
+      "updated_at": "2025-10-03T15:32:55.394615",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "35980",
+    "generated_at": "2025-10-03T15:45:05.824133",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "35980",
+    "name": "山喜",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 171.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 10300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "35980",
+      "CompanyName": "山喜",
+      "CompanyNameEnglish": "YAMAKI CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:44.946417",
+      "updated_at": "2025-10-03T15:30:44.946420",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26520",
+    "generated_at": "2025-10-03T15:45:05.768149",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26520",
+    "name": "まんだらけ",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 303.0,
+    "change": -1.0,
+    "changePercent": -0.3289473684210526,
+    "volume": 37900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26520",
+      "CompanyName": "まんだらけ",
+      "CompanyNameEnglish": "MANDARAKE INC.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:48.678142",
+      "updated_at": "2025-10-03T15:27:48.678147",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

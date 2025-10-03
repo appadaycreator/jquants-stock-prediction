@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "61550",
+    "generated_at": "2025-10-03T15:45:05.959888",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "61550",
+    "name": "高松機械工業",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 490.0,
+    "change": -1.0,
+    "changePercent": -0.20366598778004072,
+    "volume": 9500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "61550",
+      "CompanyName": "高松機械工業",
+      "CompanyNameEnglish": "TAKAMATSU MACHINERY CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:20.401900",
+      "updated_at": "2025-10-03T15:36:20.401901",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

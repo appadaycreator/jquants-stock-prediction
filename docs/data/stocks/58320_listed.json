@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "58320",
+    "generated_at": "2025-10-03T15:45:05.935314",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "58320",
+    "name": "ちゅうぎんフィナンシャルグループ",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 1840.0,
+    "change": 30.0,
+    "changePercent": 1.6574585635359116,
+    "volume": 442600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "58320",
+      "CompanyName": "ちゅうぎんフィナンシャルグループ",
+      "CompanyNameEnglish": "Chugin Financial Group,Inc.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:31.591303",
+      "updated_at": "2025-10-03T15:35:31.591305",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

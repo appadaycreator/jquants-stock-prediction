@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "89750",
+    "generated_at": "2025-10-03T15:45:06.154892",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "89750",
+    "name": "いちごオフィスリート投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 93200.0,
+    "change": 900.0,
+    "changePercent": 0.9750812567713976,
+    "volume": 3782,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "89750",
+      "CompanyName": "いちごオフィスリート投資法人",
+      "CompanyNameEnglish": "Ichigo Office REIT Investment Corporation",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:44.928785",
+      "updated_at": "2025-10-03T15:42:44.928795",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

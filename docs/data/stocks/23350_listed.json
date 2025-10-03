@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "23350",
+    "generated_at": "2025-10-03T15:45:05.744617",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "23350",
+    "name": "キューブシステム",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1107.0,
+    "change": 8.0,
+    "changePercent": 0.7279344858962694,
+    "volume": 6300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "23350",
+      "CompanyName": "キューブシステム",
+      "CompanyNameEnglish": "CUBE SYSTEM INC.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:53.113303",
+      "updated_at": "2025-10-03T15:26:53.113306",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

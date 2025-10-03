@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "36860",
+    "generated_at": "2025-10-03T15:45:05.829789",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "36860",
+    "name": "ディー・エル・イー",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 187.0,
+    "change": -31.0,
+    "changePercent": -14.220183486238533,
+    "volume": 6894600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "36860",
+      "CompanyName": "ディー・エル・イー",
+      "CompanyNameEnglish": "DLE Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:02.641174",
+      "updated_at": "2025-10-03T15:31:02.641178",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

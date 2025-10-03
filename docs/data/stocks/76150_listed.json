@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "76150",
+    "generated_at": "2025-10-03T15:45:06.094504",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "76150",
+    "name": "京都きもの友禅ホールディングス",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 106.0,
+    "change": 6.0,
+    "changePercent": 6.0,
+    "volume": 1246700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "76150",
+      "CompanyName": "京都きもの友禅ホールディングス",
+      "CompanyNameEnglish": "KYOTO KIMONO YUZEN HOLDINGS Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:10.738322",
+      "updated_at": "2025-10-03T15:40:10.738324",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

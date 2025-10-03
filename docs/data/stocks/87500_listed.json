@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "87500",
+    "generated_at": "2025-10-03T15:45:06.141601",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "87500",
+    "name": "第一生命ホールディングス",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 1098.5,
+    "change": 23.5,
+    "changePercent": 2.186046511627907,
+    "volume": 9479500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "87500",
+      "CompanyName": "第一生命ホールディングス",
+      "CompanyNameEnglish": "Dai-ichi Life Holdings,Inc.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7150",
+      "Sector33CodeName": "保険業",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:23.762815",
+      "updated_at": "2025-10-03T15:42:23.762825",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

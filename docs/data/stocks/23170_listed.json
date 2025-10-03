@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "23170",
+    "generated_at": "2025-10-03T15:45:05.743726",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "23170",
+    "name": "システナ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 393.0,
+    "change": -2.0,
+    "changePercent": -0.5063291139240507,
+    "volume": 849100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "23170",
+      "CompanyName": "システナ",
+      "CompanyNameEnglish": "Systena Corporation",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:50.230190",
+      "updated_at": "2025-10-03T15:26:50.230194",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

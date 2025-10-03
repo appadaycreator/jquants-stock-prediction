@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "75450",
+    "generated_at": "2025-10-03T15:45:06.091216",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "75450",
+    "name": "西松屋チェーン",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 2170.0,
+    "change": 23.0,
+    "changePercent": 1.0712622263623661,
+    "volume": 124500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "75450",
+      "CompanyName": "西松屋チェーン",
+      "CompanyNameEnglish": "NISHIMATSUYA CHAIN Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:00.732544",
+      "updated_at": "2025-10-03T15:40:00.732547",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

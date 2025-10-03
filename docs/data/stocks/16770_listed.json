@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "16770",
+    "generated_at": "2025-10-03T15:45:05.700993",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "16770",
+    "name": "日興アセットマネジメント株式会社　上場インデックスファンド海外債券（ＦＴＳＥ　ＷＧＢＩ）毎月分配型",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 55830.0,
+    "change": 150.0,
+    "changePercent": 0.26939655172413796,
+    "volume": 50,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "16770",
+      "CompanyName": "日興アセットマネジメント株式会社　上場インデックスファンド海外債券（ＦＴＳＥ　ＷＧＢＩ）毎月分配型",
+      "CompanyNameEnglish": "Listed Index Fund International Bond (FTSE WGBI) Monthly Dividend Payment Type",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:06.755780",
+      "updated_at": "2025-10-03T15:25:06.755783",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

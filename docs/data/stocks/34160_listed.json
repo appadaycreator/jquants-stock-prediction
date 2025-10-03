@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34160",
+    "generated_at": "2025-10-03T15:45:05.812794",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34160",
+    "name": "ピクスタ",
+    "sector": "小売",
+    "market": "グロース",
+    "currentPrice": 967.0,
+    "change": -9.0,
+    "changePercent": -0.9221311475409836,
+    "volume": 10000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34160",
+      "CompanyName": "ピクスタ",
+      "CompanyNameEnglish": "PIXTA Inc.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:06.461483",
+      "updated_at": "2025-10-03T15:30:06.461490",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

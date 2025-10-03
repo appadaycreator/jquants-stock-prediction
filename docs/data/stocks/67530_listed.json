@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67530",
+    "generated_at": "2025-10-03T15:45:06.005458",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67530",
+    "name": "シャープ",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 659.1,
+    "change": 18.200000000000045,
+    "changePercent": 2.8397565922920966,
+    "volume": 2766900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67530",
+      "CompanyName": "シャープ",
+      "CompanyNameEnglish": "Sharp Corporation",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:58.921549",
+      "updated_at": "2025-10-03T15:37:58.921551",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

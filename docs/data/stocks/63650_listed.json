@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63650",
+    "generated_at": "2025-10-03T15:45:05.974074",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63650",
+    "name": "電業社機械製作所",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 4650.0,
+    "change": -100.0,
+    "changePercent": -2.1052631578947367,
+    "volume": 1300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63650",
+      "CompanyName": "電業社機械製作所",
+      "CompanyNameEnglish": "DMW CORPORATION",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:57.165036",
+      "updated_at": "2025-10-03T15:36:57.165039",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40440",
+    "generated_at": "2025-10-03T15:45:05.850949",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40440",
+    "name": "セントラル硝子",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 3055.0,
+    "change": -5.0,
+    "changePercent": -0.16339869281045752,
+    "volume": 96000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40440",
+      "CompanyName": "セントラル硝子",
+      "CompanyNameEnglish": "Central Glass Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:02.074506",
+      "updated_at": "2025-10-03T15:32:02.074511",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

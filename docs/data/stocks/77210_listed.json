@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "77210",
+    "generated_at": "2025-10-03T15:45:06.099528",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "77210",
+    "name": "東京計器",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 3910.0,
+    "change": -130.0,
+    "changePercent": -3.217821782178218,
+    "volume": 288400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "77210",
+      "CompanyName": "東京計器",
+      "CompanyNameEnglish": "TOKYO KEIKI INC.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:25.371357",
+      "updated_at": "2025-10-03T15:40:25.371369",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

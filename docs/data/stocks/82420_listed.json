@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "82420",
+    "generated_at": "2025-10-03T15:45:06.129378",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "82420",
+    "name": "エイチ・ツー・オー　リテイリング",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 1965.5,
+    "change": 4.5,
+    "changePercent": 0.22947475777664456,
+    "volume": 305600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "82420",
+      "CompanyName": "エイチ・ツー・オー　リテイリング",
+      "CompanyNameEnglish": "H2O RETAILING CORPORATION",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:47.181802",
+      "updated_at": "2025-10-03T15:41:47.181811",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

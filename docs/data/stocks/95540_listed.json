@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "95540",
+    "generated_at": "2025-10-03T15:45:06.193299",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "95540",
+    "name": "ＡＶｉＣ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 2152.0,
+    "change": -88.0,
+    "changePercent": -3.9285714285714284,
+    "volume": 28800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "95540",
+      "CompanyName": "ＡＶｉＣ",
+      "CompanyNameEnglish": "AViC Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:09.314101",
+      "updated_at": "2025-10-03T15:44:09.314108",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

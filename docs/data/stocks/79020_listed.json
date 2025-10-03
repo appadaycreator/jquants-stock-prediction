@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79020",
+    "generated_at": "2025-10-03T15:45:06.111364",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79020",
+    "name": "ソノコム",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 829.0,
+    "change": -7.0,
+    "changePercent": -0.8373205741626795,
+    "volume": 2200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79020",
+      "CompanyName": "ソノコム",
+      "CompanyNameEnglish": "SONOCOM CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:51.672090",
+      "updated_at": "2025-10-03T15:40:51.672106",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63930",
+    "generated_at": "2025-10-03T15:45:05.976055",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63930",
+    "name": "油研工業",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 2743.0,
+    "change": -3.0,
+    "changePercent": -0.10924981791697014,
+    "volume": 7000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63930",
+      "CompanyName": "油研工業",
+      "CompanyNameEnglish": "YUKEN KOGYO CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:02.512662",
+      "updated_at": "2025-10-03T15:37:02.512666",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

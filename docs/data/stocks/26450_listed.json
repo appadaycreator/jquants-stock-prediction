@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26450",
+    "generated_at": "2025-10-03T15:45:05.767676",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26450",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　レジャー＆エンターテインメント−日本株式　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2637.0,
+    "change": -34.0,
+    "changePercent": -1.272931486334706,
+    "volume": 282,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26450",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　レジャー＆エンターテインメント−日本株式　ＥＴＦ",
+      "CompanyNameEnglish": "Global X Japan Leisure & Entertainment ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:46.769939",
+      "updated_at": "2025-10-03T15:27:46.769947",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

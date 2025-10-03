@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "23050",
+    "generated_at": "2025-10-03T15:45:05.743398",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "23050",
+    "name": "スタジオアリス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 2147.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 8000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "23050",
+      "CompanyName": "スタジオアリス",
+      "CompanyNameEnglish": "STUDIO ALICE Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:49.172034",
+      "updated_at": "2025-10-03T15:26:49.172038",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

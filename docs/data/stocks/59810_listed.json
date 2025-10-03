@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "59810",
+    "generated_at": "2025-10-03T15:45:05.951188",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "59810",
+    "name": "東京製綱",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1296.0,
+    "change": -13.0,
+    "changePercent": -0.9931245225362872,
+    "volume": 42000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "59810",
+      "CompanyName": "東京製綱",
+      "CompanyNameEnglish": "TOKYO ROPE MFG.CO.,LTD",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "3550",
+      "Sector33CodeName": "金属製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:52.964496",
+      "updated_at": "2025-10-03T15:35:52.964498",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

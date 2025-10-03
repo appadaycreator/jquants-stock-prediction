@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "27910",
+    "generated_at": "2025-10-03T15:45:05.775303",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "27910",
+    "name": "大黒天物産",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 7430.0,
+    "change": 750.0,
+    "changePercent": 11.22754491017964,
+    "volume": 345000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "27910",
+      "CompanyName": "大黒天物産",
+      "CompanyNameEnglish": "DAIKOKUTENBUSSAN CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:09.304558",
+      "updated_at": "2025-10-03T15:28:09.304560",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

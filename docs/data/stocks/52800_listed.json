@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "52800",
+    "generated_at": "2025-10-03T15:45:05.917949",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "52800",
+    "name": "ヨシコン",
+    "sector": "不動産",
+    "market": "スタンダード",
+    "currentPrice": 2195.0,
+    "change": -17.0,
+    "changePercent": -0.7685352622061482,
+    "volume": 3700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "52800",
+      "CompanyName": "ヨシコン",
+      "CompanyNameEnglish": "Yoshicon Co.,Ltd.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:51.413218",
+      "updated_at": "2025-10-03T15:34:51.413220",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

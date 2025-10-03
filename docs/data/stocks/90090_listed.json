@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90090",
+    "generated_at": "2025-10-03T15:45:06.158297",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90090",
+    "name": "京成電鉄",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 1258.0,
+    "change": -2.0,
+    "changePercent": -0.15873015873015872,
+    "volume": 2594900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90090",
+      "CompanyName": "京成電鉄",
+      "CompanyNameEnglish": "Keisei Electric Railway Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:49.926375",
+      "updated_at": "2025-10-03T15:42:49.926392",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

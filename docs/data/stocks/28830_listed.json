@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28830",
+    "generated_at": "2025-10-03T15:45:05.782085",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28830",
+    "name": "大冷",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 1962.0,
+    "change": -2.0,
+    "changePercent": -0.10183299389002036,
+    "volume": 2300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28830",
+      "CompanyName": "大冷",
+      "CompanyNameEnglish": "DAIREI CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:29.459945",
+      "updated_at": "2025-10-03T15:28:29.459947",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

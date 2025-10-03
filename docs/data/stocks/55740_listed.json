@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "55740",
+    "generated_at": "2025-10-03T15:45:05.925552",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "55740",
+    "name": "ＡＢＥＪＡ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 3695.0,
+    "change": -25.0,
+    "changePercent": -0.6720430107526881,
+    "volume": 250700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "55740",
+      "CompanyName": "ＡＢＥＪＡ",
+      "CompanyNameEnglish": "ABEJA,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:11.723592",
+      "updated_at": "2025-10-03T15:35:11.723594",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

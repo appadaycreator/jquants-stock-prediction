@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22480",
+    "generated_at": "2025-10-03T15:45:05.739914",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22480",
+    "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　Ｓ＆Ｐ５００（為替ヘッジあり）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 2342.0,
+    "change": -29.0,
+    "changePercent": -1.2231126107127794,
+    "volume": 61980,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22480",
+      "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　Ｓ＆Ｐ５００（為替ヘッジあり）",
+      "CompanyNameEnglish": "iFreeETF S&P500 (JPY HEDGED)",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:39.056539",
+      "updated_at": "2025-10-03T15:26:39.056543",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

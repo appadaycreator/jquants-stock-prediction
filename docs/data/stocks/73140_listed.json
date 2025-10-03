@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "73140",
+    "generated_at": "2025-10-03T15:45:06.075560",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "73140",
+    "name": "小田原機器",
+    "sector": "自動車・輸送機",
+    "market": "スタンダード",
+    "currentPrice": 1065.0,
+    "change": -2.0,
+    "changePercent": -0.18744142455482662,
+    "volume": 3300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "73140",
+      "CompanyName": "小田原機器",
+      "CompanyNameEnglish": "ODAWARA AUTO-MACHINE MFG.CO.,LTD.",
+      "Sector17Code": "6",
+      "Sector17CodeName": "自動車・輸送機",
+      "Sector33Code": "3700",
+      "Sector33CodeName": "輸送用機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:26.526173",
+      "updated_at": "2025-10-03T15:39:26.526176",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "96000",
+    "generated_at": "2025-10-03T15:45:06.195975",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "96000",
+    "name": "アイネット",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1892.0,
+    "change": 17.0,
+    "changePercent": 0.9066666666666667,
+    "volume": 19300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "96000",
+      "CompanyName": "アイネット",
+      "CompanyNameEnglish": "I-NET CORP.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:12.341759",
+      "updated_at": "2025-10-03T15:44:12.341765",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

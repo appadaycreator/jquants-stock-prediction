@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "255A0",
+    "generated_at": "2025-10-03T15:45:05.761313",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "255A0",
+    "name": "ジーエルテクノホールディングス",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 2890.0,
+    "change": -14.0,
+    "changePercent": -0.4820936639118457,
+    "volume": 6400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "255A0",
+      "CompanyName": "ジーエルテクノホールディングス",
+      "CompanyNameEnglish": "GLTECHNO HOLDINGS,INC.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3750",
+      "Sector33CodeName": "精密機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:30.902891",
+      "updated_at": "2025-10-03T15:27:30.902895",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

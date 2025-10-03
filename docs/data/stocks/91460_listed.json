@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "91460",
+    "generated_at": "2025-10-03T15:45:06.168313",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "91460",
+    "name": "五健堂ホールディングス",
+    "sector": "運輸・物流",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:43:06.878814",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "91460",
+      "CompanyName": "五健堂ホールディングス",
+      "CompanyNameEnglish": "GOKENDO Holdings,Inc.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:06.878829",
+      "updated_at": "2025-10-03T15:43:06.878833",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

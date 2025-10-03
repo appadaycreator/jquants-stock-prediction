@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49280",
+    "generated_at": "2025-10-03T15:45:05.904387",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49280",
+    "name": "ノエビアホールディングス",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 4455.0,
+    "change": 30.0,
+    "changePercent": 0.6779661016949152,
+    "volume": 47400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49280",
+      "CompanyName": "ノエビアホールディングス",
+      "CompanyNameEnglish": "Noevir Holdings Co.,Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:13.727515",
+      "updated_at": "2025-10-03T15:34:13.727518",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

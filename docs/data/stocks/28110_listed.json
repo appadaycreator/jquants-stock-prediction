@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28110",
+    "generated_at": "2025-10-03T15:45:05.776414",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28110",
+    "name": "カゴメ",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 2843.5,
+    "change": -0.5,
+    "changePercent": -0.017580872011251757,
+    "volume": 307500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28110",
+      "CompanyName": "カゴメ",
+      "CompanyNameEnglish": "KAGOME CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:13.266458",
+      "updated_at": "2025-10-03T15:28:13.266462",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

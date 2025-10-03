@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "71640",
+    "generated_at": "2025-10-03T15:45:06.063935",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "71640",
+    "name": "全国保証",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 3168.0,
+    "change": -10.0,
+    "changePercent": -0.3146633102580239,
+    "volume": 245900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "71640",
+      "CompanyName": "全国保証",
+      "CompanyNameEnglish": "ZENKOKU HOSHO Co.,Ltd.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:03.146333",
+      "updated_at": "2025-10-03T15:39:03.146335",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

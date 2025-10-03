@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "96780",
+    "generated_at": "2025-10-03T15:45:06.198711",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "96780",
+    "name": "カナモト",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 3345.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 82800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "96780",
+      "CompanyName": "カナモト",
+      "CompanyNameEnglish": "KANAMOTO CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:21.493971",
+      "updated_at": "2025-10-03T15:44:21.493980",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

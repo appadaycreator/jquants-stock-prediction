@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "42510",
+    "generated_at": "2025-10-03T15:45:05.863628",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "42510",
+    "name": "恵和",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 1132.0,
+    "change": 12.0,
+    "changePercent": 1.0714285714285714,
+    "volume": 96900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "42510",
+      "CompanyName": "恵和",
+      "CompanyNameEnglish": "KEIWA Incorporated",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:32.903489",
+      "updated_at": "2025-10-03T15:32:32.903492",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

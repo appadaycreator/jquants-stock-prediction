@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "38950",
+    "generated_at": "2025-10-03T15:45:05.840287",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "38950",
+    "name": "ハビックス",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 447.0,
+    "change": 1.0,
+    "changePercent": 0.2242152466367713,
+    "volume": 5000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "38950",
+      "CompanyName": "ハビックス",
+      "CompanyNameEnglish": "HAVIX CORPORATION",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:33.132845",
+      "updated_at": "2025-10-03T15:31:33.132849",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

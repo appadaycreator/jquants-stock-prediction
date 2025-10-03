@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28720",
+    "generated_at": "2025-10-03T15:45:05.781420",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28720",
+    "name": "セイヒョー",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 2319.0,
+    "change": -6.0,
+    "changePercent": -0.25806451612903225,
+    "volume": 11300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28720",
+      "CompanyName": "セイヒョー",
+      "CompanyNameEnglish": "SEIHYO CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:27.582721",
+      "updated_at": "2025-10-03T15:28:27.582724",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

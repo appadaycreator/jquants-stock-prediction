@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19450",
+    "generated_at": "2025-10-03T15:45:05.719510",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19450",
+    "name": "東京エネシス",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1361.0,
+    "change": -4.0,
+    "changePercent": -0.29304029304029305,
+    "volume": 59500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19450",
+      "CompanyName": "東京エネシス",
+      "CompanyNameEnglish": "TOKYO ENERGY & SYSTEMS INC.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:45.498023",
+      "updated_at": "2025-10-03T15:25:45.498025",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

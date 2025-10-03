@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "97290",
+    "generated_at": "2025-10-03T15:45:06.201051",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "97290",
+    "name": "トーカイ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2122.0,
+    "change": 10.0,
+    "changePercent": 0.4734848484848485,
+    "volume": 33900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "97290",
+      "CompanyName": "トーカイ",
+      "CompanyNameEnglish": "TOKAI Corp.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:29.702258",
+      "updated_at": "2025-10-03T15:44:29.702266",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20040",
+    "generated_at": "2025-10-03T15:45:05.724300",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20040",
+    "name": "昭和産業",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 2871.0,
+    "change": -14.0,
+    "changePercent": -0.48526863084922006,
+    "volume": 23700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20040",
+      "CompanyName": "昭和産業",
+      "CompanyNameEnglish": "Showa Sangyo Co.,Ltd.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:55.619345",
+      "updated_at": "2025-10-03T15:25:55.619347",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

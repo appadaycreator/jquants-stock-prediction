@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "61010",
+    "generated_at": "2025-10-03T15:45:05.957935",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "61010",
+    "name": "ツガミ",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1860.0,
+    "change": 10.0,
+    "changePercent": 0.5405405405405406,
+    "volume": 229800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "61010",
+      "CompanyName": "ツガミ",
+      "CompanyNameEnglish": "TSUGAMI CORPORATION",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:14.494693",
+      "updated_at": "2025-10-03T15:36:14.494696",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

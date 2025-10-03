@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "60470",
+    "generated_at": "2025-10-03T15:45:05.954552",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "60470",
+    "name": "Ｇｕｎｏｓｙ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 660.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 172200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "60470",
+      "CompanyName": "Ｇｕｎｏｓｙ",
+      "CompanyNameEnglish": "Gunosy Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:04.174150",
+      "updated_at": "2025-10-03T15:36:04.174152",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "85510",
+    "generated_at": "2025-10-03T15:45:06.137664",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "85510",
+    "name": "北日本銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 3120.0,
+    "change": 120.0,
+    "changePercent": 4.0,
+    "volume": 26400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "85510",
+      "CompanyName": "北日本銀行",
+      "CompanyNameEnglish": "The Kita-Nippon Bank,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:11.170725",
+      "updated_at": "2025-10-03T15:42:11.170734",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

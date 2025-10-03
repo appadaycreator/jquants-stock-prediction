@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25300",
+    "generated_at": "2025-10-03T15:45:05.759084",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25300",
+    "name": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　ＨｕａＡｎ中国株式（上海１８０Ａ株）上場投信",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 14305.0,
+    "change": 15.0,
+    "changePercent": 0.10496850944716585,
+    "volume": 73,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25300",
+      "CompanyName": "三菱ＵＦＪアセットマネジメント株式会社　ＭＡＸＩＳ　ＨｕａＡｎ中国株式（上海１８０Ａ株）上場投信",
+      "CompanyNameEnglish": "MAXIS HuaAn China Equity (SSE 180 index) ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:26.961862",
+      "updated_at": "2025-10-03T15:27:26.961865",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

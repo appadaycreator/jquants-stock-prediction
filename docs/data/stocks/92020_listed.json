@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "92020",
+    "generated_at": "2025-10-03T15:45:06.172393",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "92020",
+    "name": "ＡＮＡホールディングス",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 3001.0,
+    "change": 49.0,
+    "changePercent": 1.6598915989159893,
+    "volume": 3259400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "92020",
+      "CompanyName": "ＡＮＡホールディングス",
+      "CompanyNameEnglish": "ANA HOLDINGS INC.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5150",
+      "Sector33CodeName": "空運業",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:12.562136",
+      "updated_at": "2025-10-03T15:43:12.562152",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44100",
+    "generated_at": "2025-10-03T15:45:05.874026",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44100",
+    "name": "ハリマ化成グループ",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 818.0,
+    "change": 8.0,
+    "changePercent": 0.9876543209876543,
+    "volume": 43900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44100",
+      "CompanyName": "ハリマ化成グループ",
+      "CompanyNameEnglish": "HARIMA CHEMICALS GROUP,INC.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:58.133319",
+      "updated_at": "2025-10-03T15:32:58.133323",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

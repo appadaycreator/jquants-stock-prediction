@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "65960",
+    "generated_at": "2025-10-03T15:45:05.990970",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "65960",
+    "name": "筑波精工",
+    "sector": "電機・精密",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:37:38.257553",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "65960",
+      "CompanyName": "筑波精工",
+      "CompanyNameEnglish": "TSUKUBASEIKO Co.,Ltd.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:38.257556",
+      "updated_at": "2025-10-03T15:37:38.257557",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

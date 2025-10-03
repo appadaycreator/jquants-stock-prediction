@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "64580",
+    "generated_at": "2025-10-03T15:45:05.980452",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "64580",
+    "name": "新晃工業",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1285.0,
+    "change": 9.0,
+    "changePercent": 0.7053291536050157,
+    "volume": 225600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "64580",
+      "CompanyName": "新晃工業",
+      "CompanyNameEnglish": "SINKO INDUSTRIES LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:11.478700",
+      "updated_at": "2025-10-03T15:37:11.478701",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

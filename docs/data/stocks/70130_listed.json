@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "70130",
+    "generated_at": "2025-10-03T15:45:06.045236",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "70130",
+    "name": "ＩＨＩ",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 14510.0,
+    "change": -385.0,
+    "changePercent": -2.584759986572675,
+    "volume": 2178100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "70130",
+      "CompanyName": "ＩＨＩ",
+      "CompanyNameEnglish": "IHI Corporation",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:36.449727",
+      "updated_at": "2025-10-03T15:38:36.449729",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

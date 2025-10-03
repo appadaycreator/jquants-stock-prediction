@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "25880",
+    "generated_at": "2025-10-03T15:45:05.763178",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "25880",
+    "name": "プレミアムウォーターホールディングス",
+    "sector": "食品",
+    "market": "スタンダード",
+    "currentPrice": 3155.0,
+    "change": 30.0,
+    "changePercent": 0.96,
+    "volume": 3100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "25880",
+      "CompanyName": "プレミアムウォーターホールディングス",
+      "CompanyNameEnglish": "Premium Water Holdings,Inc.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:35.818128",
+      "updated_at": "2025-10-03T15:27:35.818133",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

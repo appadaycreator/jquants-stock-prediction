@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "69120",
+    "generated_at": "2025-10-03T15:45:06.031602",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "69120",
+    "name": "菊水ホールディングス",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 1602.0,
+    "change": 2.0,
+    "changePercent": 0.125,
+    "volume": 24000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "69120",
+      "CompanyName": "菊水ホールディングス",
+      "CompanyNameEnglish": "KIKUSUI HOLDINGS CORPORATION",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:21.662839",
+      "updated_at": "2025-10-03T15:38:21.662842",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

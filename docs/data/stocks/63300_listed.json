@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63300",
+    "generated_at": "2025-10-03T15:45:05.971141",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63300",
+    "name": "東洋エンジニアリング",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 1072.0,
+    "change": 37.0,
+    "changePercent": 3.5748792270531404,
+    "volume": 2515500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63300",
+      "CompanyName": "東洋エンジニアリング",
+      "CompanyNameEnglish": "TOYO ENGINEERING CORPORATION",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:50.300329",
+      "updated_at": "2025-10-03T15:36:50.300331",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

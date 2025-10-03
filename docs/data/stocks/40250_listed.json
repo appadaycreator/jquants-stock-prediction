@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "40250",
+    "generated_at": "2025-10-03T15:45:05.850206",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "40250",
+    "name": "多木化学",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 2870.0,
+    "change": -3.0,
+    "changePercent": -0.10442046641141664,
+    "volume": 5300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "40250",
+      "CompanyName": "多木化学",
+      "CompanyNameEnglish": "TAKI CHEMICAL CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:59.675699",
+      "updated_at": "2025-10-03T15:31:59.675702",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

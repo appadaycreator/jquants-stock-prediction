@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26020",
+    "generated_at": "2025-10-03T15:45:05.763919",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26020",
+    "name": "日清オイリオグループ",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 4890.0,
+    "change": -30.0,
+    "changePercent": -0.6097560975609756,
+    "volume": 59000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26020",
+      "CompanyName": "日清オイリオグループ",
+      "CompanyNameEnglish": "The Nisshin OilliO Group,Ltd.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:37.627450",
+      "updated_at": "2025-10-03T15:27:37.627453",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

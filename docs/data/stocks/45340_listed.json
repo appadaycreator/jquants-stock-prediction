@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45340",
+    "generated_at": "2025-10-03T15:45:05.883562",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45340",
+    "name": "持田製薬",
+    "sector": "医薬品",
+    "market": "プライム",
+    "currentPrice": 2908.0,
+    "change": 2.0,
+    "changePercent": 0.06882312456985547,
+    "volume": 15200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45340",
+      "CompanyName": "持田製薬",
+      "CompanyNameEnglish": "Mochida Pharmaceutical Co.,Ltd.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:20.502948",
+      "updated_at": "2025-10-03T15:33:20.502950",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

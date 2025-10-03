@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45650",
+    "generated_at": "2025-10-03T15:45:05.885598",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45650",
+    "name": "ネクセラファーマ",
+    "sector": "医薬品",
+    "market": "プライム",
+    "currentPrice": 882.0,
+    "change": -2.0,
+    "changePercent": -0.22624434389140274,
+    "volume": 658300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45650",
+      "CompanyName": "ネクセラファーマ",
+      "CompanyNameEnglish": "Nxera Pharma Co.,Ltd.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:26.109341",
+      "updated_at": "2025-10-03T15:33:26.109344",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "74550",
+    "generated_at": "2025-10-03T15:45:06.086548",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "74550",
+    "name": "パリミキホールディングス",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 287.0,
+    "change": 2.0,
+    "changePercent": 0.7017543859649122,
+    "volume": 10900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "74550",
+      "CompanyName": "パリミキホールディングス",
+      "CompanyNameEnglish": "PARIS MIKI HOLDINGS Inc.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:39:47.028852",
+      "updated_at": "2025-10-03T15:39:47.028854",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

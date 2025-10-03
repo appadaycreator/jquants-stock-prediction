@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "264A0",
+    "generated_at": "2025-10-03T15:45:05.768070",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "264A0",
+    "name": "Ｓｃｈｏｏ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 717.0,
+    "change": 4.0,
+    "changePercent": 0.5610098176718092,
+    "volume": 321000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "264A0",
+      "CompanyName": "Ｓｃｈｏｏ",
+      "CompanyNameEnglish": "Schoo,inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:48.082776",
+      "updated_at": "2025-10-03T15:27:48.082780",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

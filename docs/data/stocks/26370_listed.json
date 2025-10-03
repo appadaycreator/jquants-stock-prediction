@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26370",
+    "generated_at": "2025-10-03T15:45:05.766950",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26370",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　クリーンテック−日本株式　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1515.0,
+    "change": 15.0,
+    "changePercent": 1.0,
+    "volume": 391,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26370",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　クリーンテック−日本株式　ＥＴＦ",
+      "CompanyNameEnglish": "Global X CleanTech Japan ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:44.095543",
+      "updated_at": "2025-10-03T15:27:44.095545",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "20180",
+    "generated_at": "2025-10-03T15:45:05.725092",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "20180",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ＵＳ　ＲＥＩＴ・トップ２０　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1075.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 291,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "20180",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　ＵＳ　ＲＥＩＴ・トップ２０　ＥＴＦ",
+      "CompanyNameEnglish": "Global X US REIT Top 20 ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:58.289321",
+      "updated_at": "2025-10-03T15:25:58.289326",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

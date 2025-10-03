@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "28510",
+    "generated_at": "2025-10-03T15:45:05.779216",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "28510",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＭＳＣＩ　ジャパンＳＲＩ　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 286.4,
+    "change": 0.19999999999998863,
+    "changePercent": 0.06988120195666968,
+    "volume": 980,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "28510",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＭＳＣＩ　ジャパンＳＲＩ　ＥＴＦ",
+      "CompanyNameEnglish": "iShares MSCI Japan SRI ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:20.907929",
+      "updated_at": "2025-10-03T15:28:20.907932",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

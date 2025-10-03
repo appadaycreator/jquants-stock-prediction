@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "78400",
+    "generated_at": "2025-10-03T15:45:06.108063",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "78400",
+    "name": "フランスベッドホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 1256.0,
+    "change": -1.0,
+    "changePercent": -0.07955449482895784,
+    "volume": 19400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "78400",
+      "CompanyName": "フランスベッドホールディングス",
+      "CompanyNameEnglish": "FRANCE BED HOLDINGS CO.,LTD.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:40:41.786332",
+      "updated_at": "2025-10-03T15:40:41.786345",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

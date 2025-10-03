@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67210",
+    "generated_at": "2025-10-03T15:45:05.997976",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67210",
+    "name": "ウインテスト",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 107.0,
+    "change": 4.0,
+    "changePercent": 3.8834951456310676,
+    "volume": 931300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67210",
+      "CompanyName": "ウインテスト",
+      "CompanyNameEnglish": "Wintest Corp.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:53.743469",
+      "updated_at": "2025-10-03T15:37:53.743471",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

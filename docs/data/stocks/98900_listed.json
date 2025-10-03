@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "98900",
+    "generated_at": "2025-10-03T15:45:06.207990",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "98900",
+    "name": "マキヤ",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 1098.0,
+    "change": 17.0,
+    "changePercent": 1.572617946345976,
+    "volume": 15400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "98900",
+      "CompanyName": "マキヤ",
+      "CompanyNameEnglish": "MAKIYA CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:51.159885",
+      "updated_at": "2025-10-03T15:44:51.159896",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

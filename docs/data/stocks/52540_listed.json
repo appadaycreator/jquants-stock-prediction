@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "52540",
+    "generated_at": "2025-10-03T15:45:05.916490",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "52540",
+    "name": "Ａｒｅｎｔ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 4835.0,
+    "change": -50.0,
+    "changePercent": -1.023541453428864,
+    "volume": 12600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "52540",
+      "CompanyName": "Ａｒｅｎｔ",
+      "CompanyNameEnglish": "Arent Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:47.938414",
+      "updated_at": "2025-10-03T15:34:47.938416",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

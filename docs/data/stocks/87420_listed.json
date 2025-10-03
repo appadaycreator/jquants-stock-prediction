@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "87420",
+    "generated_at": "2025-10-03T15:45:06.141367",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "87420",
+    "name": "小林洋行",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 292.0,
+    "change": 2.0,
+    "changePercent": 0.6896551724137931,
+    "volume": 2300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "87420",
+      "CompanyName": "小林洋行",
+      "CompanyNameEnglish": "KOBAYASHI YOKO CO.,LTD.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:22.901180",
+      "updated_at": "2025-10-03T15:42:22.901189",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

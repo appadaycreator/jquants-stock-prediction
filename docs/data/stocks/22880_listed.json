@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22880",
+    "generated_at": "2025-10-03T15:45:05.742284",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22880",
+    "name": "丸大食品",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 1826.0,
+    "change": 5.0,
+    "changePercent": 0.2745744096650192,
+    "volume": 26600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22880",
+      "CompanyName": "丸大食品",
+      "CompanyNameEnglish": "MARUDAI FOOD CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:45.828391",
+      "updated_at": "2025-10-03T15:26:45.828394",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

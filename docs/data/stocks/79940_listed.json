@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "79940",
+    "generated_at": "2025-10-03T15:45:06.116907",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "79940",
+    "name": "オカムラ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 2297.0,
+    "change": 36.0,
+    "changePercent": 1.592215833701902,
+    "volume": 196800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "79940",
+      "CompanyName": "オカムラ",
+      "CompanyNameEnglish": "OKAMURA CORPORATION",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "3800",
+      "Sector33CodeName": "その他製品",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:09.525280",
+      "updated_at": "2025-10-03T15:41:09.525291",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

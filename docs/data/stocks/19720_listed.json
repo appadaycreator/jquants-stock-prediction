@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19720",
+    "generated_at": "2025-10-03T15:45:05.721975",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19720",
+    "name": "三晃金属工業",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 6880.0,
+    "change": 70.0,
+    "changePercent": 1.0279001468428781,
+    "volume": 18500,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19720",
+      "CompanyName": "三晃金属工業",
+      "CompanyNameEnglish": "SANKO METAL INDUSTRIAL CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:51.377674",
+      "updated_at": "2025-10-03T15:25:51.377678",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

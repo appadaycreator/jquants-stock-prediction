@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "50220",
+    "generated_at": "2025-10-03T15:45:05.908344",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "50220",
+    "name": "レボインターナショナル",
+    "sector": "エネルギー資源",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:34:26.372715",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "50220",
+      "CompanyName": "レボインターナショナル",
+      "CompanyNameEnglish": "REVO International Inc.",
+      "Sector17Code": "2",
+      "Sector17CodeName": "エネルギー資源",
+      "Sector33Code": "3300",
+      "Sector33CodeName": "石油･石炭製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:26.372719",
+      "updated_at": "2025-10-03T15:34:26.372720",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

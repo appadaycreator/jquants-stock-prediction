@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "61650",
+    "generated_at": "2025-10-03T15:45:05.960363",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "61650",
+    "name": "パンチ工業",
+    "sector": "機械",
+    "market": "スタンダード",
+    "currentPrice": 378.0,
+    "change": -1.0,
+    "changePercent": -0.2638522427440633,
+    "volume": 39000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "61650",
+      "CompanyName": "パンチ工業",
+      "CompanyNameEnglish": "PUNCH INDUSTRY CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:22.017615",
+      "updated_at": "2025-10-03T15:36:22.017617",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

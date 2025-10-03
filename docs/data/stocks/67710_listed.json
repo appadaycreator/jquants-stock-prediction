@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "67710",
+    "generated_at": "2025-10-03T15:45:06.008327",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "67710",
+    "name": "池上通信機",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 619.0,
+    "change": 1.0,
+    "changePercent": 0.16181229773462785,
+    "volume": 11400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "67710",
+      "CompanyName": "池上通信機",
+      "CompanyNameEnglish": "IKEGAMI TSUSHINKI CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:01.651168",
+      "updated_at": "2025-10-03T15:38:01.651172",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

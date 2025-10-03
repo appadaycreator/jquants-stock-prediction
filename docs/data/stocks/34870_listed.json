@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "34870",
+    "generated_at": "2025-10-03T15:45:05.818681",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "34870",
+    "name": "ＣＲＥロジスティクスファンド投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 150800.0,
+    "change": 300.0,
+    "changePercent": 0.19933554817275745,
+    "volume": 854,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "34870",
+      "CompanyName": "ＣＲＥロジスティクスファンド投資法人",
+      "CompanyNameEnglish": "CRE Logistics REIT,Inc.",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:27.362865",
+      "updated_at": "2025-10-03T15:30:27.362869",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "54440",
+    "generated_at": "2025-10-03T15:45:05.922950",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "54440",
+    "name": "大和工業",
+    "sector": "鉄鋼・非鉄",
+    "market": "プライム",
+    "currentPrice": 8923.0,
+    "change": -94.0,
+    "changePercent": -1.0424753243872684,
+    "volume": 186700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "54440",
+      "CompanyName": "大和工業",
+      "CompanyNameEnglish": "YAMATO KOGYO CO.,LTD.",
+      "Sector17Code": "7",
+      "Sector17CodeName": "鉄鋼・非鉄",
+      "Sector33Code": "3450",
+      "Sector33CodeName": "鉄鋼",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:02.847050",
+      "updated_at": "2025-10-03T15:35:02.847052",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66270",
+    "generated_at": "2025-10-03T15:45:05.992423",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66270",
+    "name": "テラプローブ",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 3160.0,
+    "change": -60.0,
+    "changePercent": -1.8633540372670807,
+    "volume": 59000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66270",
+      "CompanyName": "テラプローブ",
+      "CompanyNameEnglish": "Tera Probe,Inc.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:42.034005",
+      "updated_at": "2025-10-03T15:37:42.034007",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

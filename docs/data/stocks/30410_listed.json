@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "30410",
+    "generated_at": "2025-10-03T15:45:05.790764",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "30410",
+    "name": "ビューティカダンホールディングス",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 457.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 10800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "30410",
+      "CompanyName": "ビューティカダンホールディングス",
+      "CompanyNameEnglish": "Beauty Kadan Holdings Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:55.407064",
+      "updated_at": "2025-10-03T15:28:55.407070",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

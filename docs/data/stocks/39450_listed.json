@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "39450",
+    "generated_at": "2025-10-03T15:45:05.844629",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "39450",
+    "name": "スーパーバッグ",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 2516.0,
+    "change": 2.0,
+    "changePercent": 0.07955449482895784,
+    "volume": 600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "39450",
+      "CompanyName": "スーパーバッグ",
+      "CompanyNameEnglish": "Superbag Company,Limited",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3150",
+      "Sector33CodeName": "パルプ・紙",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:45.058396",
+      "updated_at": "2025-10-03T15:31:45.058399",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "26280",
+    "generated_at": "2025-10-03T15:45:05.766011",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "26280",
+    "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　中国科創板５０（ＳＴＡＲ５０）",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1986.0,
+    "change": 38.0,
+    "changePercent": 1.9507186858316223,
+    "volume": 11597,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "26280",
+      "CompanyName": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　中国科創板５０（ＳＴＡＲ５０）",
+      "CompanyNameEnglish": "iFreeETF China STAR50",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:41.393206",
+      "updated_at": "2025-10-03T15:27:41.393209",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

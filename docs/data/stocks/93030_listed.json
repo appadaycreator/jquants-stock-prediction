@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93030",
+    "generated_at": "2025-10-03T15:45:06.180401",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93030",
+    "name": "住友倉庫",
+    "sector": "運輸・物流",
+    "market": "プライム",
+    "currentPrice": 3080.0,
+    "change": 25.0,
+    "changePercent": 0.8183306055646482,
+    "volume": 120900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93030",
+      "CompanyName": "住友倉庫",
+      "CompanyNameEnglish": "The Sumitomo Warehouse Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5200",
+      "Sector33CodeName": "倉庫･運輸関連業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:32.115444",
+      "updated_at": "2025-10-03T15:43:32.115456",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

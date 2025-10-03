@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "254A0",
+    "generated_at": "2025-10-03T15:45:05.760059",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "254A0",
+    "name": "ＡＩフュージョンキャピタルグループ",
+    "sector": "金融（除く銀行）",
+    "market": "スタンダード",
+    "currentPrice": 1349.0,
+    "change": 9.0,
+    "changePercent": 0.6716417910447761,
+    "volume": 155200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "254A0",
+      "CompanyName": "ＡＩフュージョンキャピタルグループ",
+      "CompanyNameEnglish": "AI FUSION CAPITAL GROUP CORP.",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7100",
+      "Sector33CodeName": "証券･商品先物取引業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:27:28.343630",
+      "updated_at": "2025-10-03T15:27:28.343633",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "27420",
+    "generated_at": "2025-10-03T15:45:05.772773",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "27420",
+    "name": "ハローズ",
+    "sector": "小売",
+    "market": "プライム",
+    "currentPrice": 4775.0,
+    "change": 35.0,
+    "changePercent": 0.7383966244725738,
+    "volume": 18800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "27420",
+      "CompanyName": "ハローズ",
+      "CompanyNameEnglish": "HALOWS CO.,LTD.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:01.535897",
+      "updated_at": "2025-10-03T15:28:01.535899",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

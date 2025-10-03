@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32360",
+    "generated_at": "2025-10-03T15:45:05.803701",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32360",
+    "name": "プロパスト",
+    "sector": "不動産",
+    "market": "スタンダード",
+    "currentPrice": 204.0,
+    "change": -1.0,
+    "changePercent": -0.4878048780487805,
+    "volume": 314200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32360",
+      "CompanyName": "プロパスト",
+      "CompanyNameEnglish": "PROPERST CO.,LTD.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:37.271733",
+      "updated_at": "2025-10-03T15:29:37.271747",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

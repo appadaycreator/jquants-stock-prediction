@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31920",
+    "generated_at": "2025-10-03T15:45:05.801385",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31920",
+    "name": "白鳩",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 279.0,
+    "change": -2.0,
+    "changePercent": -0.7117437722419928,
+    "volume": 25400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31920",
+      "CompanyName": "白鳩",
+      "CompanyNameEnglish": "Shirohato Co.,Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:30.361656",
+      "updated_at": "2025-10-03T15:29:30.361662",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

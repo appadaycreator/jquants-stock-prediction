@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "62470",
+    "generated_at": "2025-10-03T15:45:05.965144",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "62470",
+    "name": "日阪製作所",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1379.0,
+    "change": 2.0,
+    "changePercent": 0.14524328249818447,
+    "volume": 83200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "62470",
+      "CompanyName": "日阪製作所",
+      "CompanyNameEnglish": "HISAKA WORKS,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:36.695866",
+      "updated_at": "2025-10-03T15:36:36.695868",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "31730",
+    "generated_at": "2025-10-03T15:45:05.799771",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "31730",
+    "name": "Ｃｏｍｉｎｉｘ",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 845.0,
+    "change": -1.0,
+    "changePercent": -0.1182033096926714,
+    "volume": 700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "31730",
+      "CompanyName": "Ｃｏｍｉｎｉｘ",
+      "CompanyNameEnglish": "Cominix Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:23.952516",
+      "updated_at": "2025-10-03T15:29:23.952524",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

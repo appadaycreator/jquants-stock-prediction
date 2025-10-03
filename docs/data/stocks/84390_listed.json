@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "84390",
+    "generated_at": "2025-10-03T15:45:06.136649",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "84390",
+    "name": "東京センチュリー",
+    "sector": "金融（除く銀行）",
+    "market": "プライム",
+    "currentPrice": 1730.0,
+    "change": 4.5,
+    "changePercent": 0.2607939727615184,
+    "volume": 803300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "84390",
+      "CompanyName": "東京センチュリー",
+      "CompanyNameEnglish": "Tokyo Century Corporation",
+      "Sector17Code": "16",
+      "Sector17CodeName": "金融（除く銀行）",
+      "Sector33Code": "7200",
+      "Sector33CodeName": "その他金融業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:07.445629",
+      "updated_at": "2025-10-03T15:42:07.445646",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

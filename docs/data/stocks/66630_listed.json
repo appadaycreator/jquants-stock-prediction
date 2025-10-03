@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "66630",
+    "generated_at": "2025-10-03T15:45:05.994666",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "66630",
+    "name": "太洋テクノレックス",
+    "sector": "電機・精密",
+    "market": "スタンダード",
+    "currentPrice": 270.0,
+    "change": -10.0,
+    "changePercent": -3.571428571428571,
+    "volume": 1397700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "66630",
+      "CompanyName": "太洋テクノレックス",
+      "CompanyNameEnglish": "TAIYO TECHNOLEX CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:48.083973",
+      "updated_at": "2025-10-03T15:37:48.083975",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

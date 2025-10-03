@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "93080",
+    "generated_at": "2025-10-03T15:45:06.180801",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "93080",
+    "name": "乾汽船",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 1178.0,
+    "change": -3.0,
+    "changePercent": -0.2540220152413209,
+    "volume": 59800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "93080",
+      "CompanyName": "乾汽船",
+      "CompanyNameEnglish": "Inui Global Logistics Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5100",
+      "Sector33CodeName": "海運業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:33.632036",
+      "updated_at": "2025-10-03T15:43:33.632054",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

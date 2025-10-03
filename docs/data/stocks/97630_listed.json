@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "97630",
+    "generated_at": "2025-10-03T15:45:06.202654",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "97630",
+    "name": "丸紅建材リース",
+    "sector": "商社・卸売",
+    "market": "スタンダード",
+    "currentPrice": 3070.0,
+    "change": 15.0,
+    "changePercent": 0.4909983633387889,
+    "volume": 6200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "97630",
+      "CompanyName": "丸紅建材リース",
+      "CompanyNameEnglish": "Marubeni Construction Material Lease Co.,Ltd.",
+      "Sector17Code": "13",
+      "Sector17CodeName": "商社・卸売",
+      "Sector33Code": "6050",
+      "Sector33CodeName": "卸売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:44:34.565805",
+      "updated_at": "2025-10-03T15:44:34.565819",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

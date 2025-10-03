@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22520",
+    "generated_at": "2025-10-03T15:45:05.740334",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22520",
+    "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　Ｍｏｒｎｉｎｇｓｔａｒ　米国中小型　Ｍｏａｔ　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 1199.0,
+    "change": 6.0,
+    "changePercent": 0.5029337803855826,
+    "volume": 51993,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22520",
+      "CompanyName": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　Ｍｏｒｎｉｎｇｓｔａｒ　米国中小型　Ｍｏａｔ　ＥＴＦ",
+      "CompanyNameEnglish": "Global X Morningstar US Small Mid Moat ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:40.403897",
+      "updated_at": "2025-10-03T15:26:40.403899",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

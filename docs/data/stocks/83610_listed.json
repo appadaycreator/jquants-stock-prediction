@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "83610",
+    "generated_at": "2025-10-03T15:45:06.133299",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "83610",
+    "name": "大垣共立銀行",
+    "sector": "銀行",
+    "market": "プライム",
+    "currentPrice": 2753.0,
+    "change": 109.0,
+    "changePercent": 4.122541603630863,
+    "volume": 318200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "83610",
+      "CompanyName": "大垣共立銀行",
+      "CompanyNameEnglish": "The Ogaki Kyoritsu Bank,Ltd.",
+      "Sector17Code": "15",
+      "Sector17CodeName": "銀行",
+      "Sector33Code": "7050",
+      "Sector33CodeName": "銀行業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:41:59.638206",
+      "updated_at": "2025-10-03T15:41:59.638222",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

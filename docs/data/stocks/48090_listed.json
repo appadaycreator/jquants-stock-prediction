@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "48090",
+    "generated_at": "2025-10-03T15:45:05.898907",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "48090",
+    "name": "パラカ",
+    "sector": "不動産",
+    "market": "プライム",
+    "currentPrice": 1857.0,
+    "change": 24.0,
+    "changePercent": 1.309328968903437,
+    "volume": 13200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "48090",
+      "CompanyName": "パラカ",
+      "CompanyNameEnglish": "Paraca Inc.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:59.210803",
+      "updated_at": "2025-10-03T15:33:59.210806",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

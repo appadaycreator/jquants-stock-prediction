@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "45230",
+    "generated_at": "2025-10-03T15:45:05.882691",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "45230",
+    "name": "エーザイ",
+    "sector": "医薬品",
+    "market": "プライム",
+    "currentPrice": 3996.0,
+    "change": 31.0,
+    "changePercent": 0.7818411097099622,
+    "volume": 1465200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "45230",
+      "CompanyName": "エーザイ",
+      "CompanyNameEnglish": "Eisai Co.,Ltd.",
+      "Sector17Code": "5",
+      "Sector17CodeName": "医薬品",
+      "Sector33Code": "3250",
+      "Sector33CodeName": "医薬品",
+      "ScaleCategory": "TOPIX Large70",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:18.642379",
+      "updated_at": "2025-10-03T15:33:18.642381",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

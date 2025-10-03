@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "47550",
+    "generated_at": "2025-10-03T15:45:05.897077",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "47550",
+    "name": "楽天グループ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 800.4,
+    "change": -13.600000000000023,
+    "changePercent": -1.6707616707616735,
+    "volume": 19497200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "47550",
+      "CompanyName": "楽天グループ",
+      "CompanyNameEnglish": "Rakuten Group,Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:53.936300",
+      "updated_at": "2025-10-03T15:33:53.936303",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

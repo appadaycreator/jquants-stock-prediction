@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "226A0",
+    "generated_at": "2025-10-03T15:45:05.741534",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "226A0",
+    "name": "勝美ジャパン",
+    "sector": "食品",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:26:44.168783",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "226A0",
+      "CompanyName": "勝美ジャパン",
+      "CompanyNameEnglish": "Katsu Mi Japan Inc.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:44.168786",
+      "updated_at": "2025-10-03T15:26:44.168787",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

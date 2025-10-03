@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "90820",
+    "generated_at": "2025-10-03T15:45:06.166305",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "90820",
+    "name": "大和自動車交通",
+    "sector": "運輸・物流",
+    "market": "スタンダード",
+    "currentPrice": 851.0,
+    "change": -3.0,
+    "changePercent": -0.351288056206089,
+    "volume": 600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "90820",
+      "CompanyName": "大和自動車交通",
+      "CompanyNameEnglish": "Daiwa Motor Transportation Co.,Ltd.",
+      "Sector17Code": "12",
+      "Sector17CodeName": "運輸・物流",
+      "Sector33Code": "5050",
+      "Sector33CodeName": "陸運業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:43:02.424990",
+      "updated_at": "2025-10-03T15:43:02.425002",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

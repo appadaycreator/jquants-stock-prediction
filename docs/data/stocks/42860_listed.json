@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "42860",
+    "generated_at": "2025-10-03T15:45:05.866825",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "42860",
+    "name": "ＣＬホールディングス",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 772.0,
+    "change": -15.0,
+    "changePercent": -1.9059720457433291,
+    "volume": 13400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "42860",
+      "CompanyName": "ＣＬホールディングス",
+      "CompanyNameEnglish": "CL Holdings Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:37.874107",
+      "updated_at": "2025-10-03T15:32:37.874110",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

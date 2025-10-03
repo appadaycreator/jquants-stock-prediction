@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32450",
+    "generated_at": "2025-10-03T15:45:05.804165",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32450",
+    "name": "ディア・ライフ",
+    "sector": "不動産",
+    "market": "プライム",
+    "currentPrice": 1261.0,
+    "change": 7.0,
+    "changePercent": 0.5582137161084529,
+    "volume": 153200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32450",
+      "CompanyName": "ディア・ライフ",
+      "CompanyNameEnglish": "DEAR LIFE CO.,LTD.",
+      "Sector17Code": "17",
+      "Sector17CodeName": "不動産",
+      "Sector33Code": "8050",
+      "Sector33CodeName": "不動産業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:39.362812",
+      "updated_at": "2025-10-03T15:29:39.362831",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

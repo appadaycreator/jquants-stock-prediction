@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19140",
+    "generated_at": "2025-10-03T15:45:05.717710",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19140",
+    "name": "日本基礎技術",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 683.0,
+    "change": 11.0,
+    "changePercent": 1.636904761904762,
+    "volume": 118000,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19140",
+      "CompanyName": "日本基礎技術",
+      "CompanyNameEnglish": "JAPAN FOUNDATION ENGINEERING CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:41.203399",
+      "updated_at": "2025-10-03T15:25:41.203402",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

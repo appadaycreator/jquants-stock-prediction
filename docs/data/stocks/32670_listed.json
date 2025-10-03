@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "32670",
+    "generated_at": "2025-10-03T15:45:05.805079",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "32670",
+    "name": "フィル・カンパニー",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 937.0,
+    "change": -9.0,
+    "changePercent": -0.9513742071881607,
+    "volume": 173300,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "32670",
+      "CompanyName": "フィル・カンパニー",
+      "CompanyNameEnglish": "Phil Company,Inc.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:29:42.422265",
+      "updated_at": "2025-10-03T15:29:42.422269",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

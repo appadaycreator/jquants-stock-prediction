@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "17110",
+    "generated_at": "2025-10-03T15:45:05.702910",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "17110",
+    "name": "ＳＤＳホールディングス",
+    "sector": "建設・資材",
+    "market": "スタンダード",
+    "currentPrice": 239.0,
+    "change": -2.0,
+    "changePercent": -0.8298755186721992,
+    "volume": 30200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "17110",
+      "CompanyName": "ＳＤＳホールディングス",
+      "CompanyNameEnglish": "SDS HOLDINGS Co.,Ltd.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:13.486419",
+      "updated_at": "2025-10-03T15:25:13.486422",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "58930",
+    "generated_at": "2025-10-03T15:45:05.940938",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "58930",
+    "name": "ＲＡＶＩＰＡ",
+    "sector": "小売",
+    "market": "TOKYO PRO MARKET",
+    "currentPrice": null,
+    "change": null,
+    "changePercent": null,
+    "volume": null,
+    "updated_at": "2025-10-03T15:35:39.659647",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "58930",
+      "CompanyName": "ＲＡＶＩＰＡ",
+      "CompanyNameEnglish": "RAVIPA Ltd.",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0105",
+      "MarketCodeName": "TOKYO PRO MARKET"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:35:39.659651",
+      "updated_at": "2025-10-03T15:35:39.659652",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": false
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22500",
+    "generated_at": "2025-10-03T15:45:05.740170",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22500",
+    "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＭＳＣＩ　ジャパン気候変動アクション　ＥＴＦ",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 250.5,
+    "change": 0.8000000000000114,
+    "changePercent": 0.3203844613536289,
+    "volume": 190,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22500",
+      "CompanyName": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＭＳＣＩ　ジャパン気候変動アクション　ＥＴＦ",
+      "CompanyNameEnglish": "iShares MSCI Japan Climate Action ETF",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:39.850415",
+      "updated_at": "2025-10-03T15:26:39.850419",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

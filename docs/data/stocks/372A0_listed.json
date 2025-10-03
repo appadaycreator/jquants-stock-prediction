@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "372A0",
+    "generated_at": "2025-10-03T15:45:05.832472",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "372A0",
+    "name": "レント",
+    "sector": "情報通信・サービスその他",
+    "market": "スタンダード",
+    "currentPrice": 6430.0,
+    "change": 30.0,
+    "changePercent": 0.46875,
+    "volume": 189200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "372A0",
+      "CompanyName": "レント",
+      "CompanyNameEnglish": "RENT CORPORATION",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "9050",
+      "Sector33CodeName": "サービス業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:31:09.042473",
+      "updated_at": "2025-10-03T15:31:09.042477",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

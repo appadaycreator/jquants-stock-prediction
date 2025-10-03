@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "22090",
+    "generated_at": "2025-10-03T15:45:05.736946",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "22090",
+    "name": "井村屋グループ",
+    "sector": "食品",
+    "market": "プライム",
+    "currentPrice": 2438.0,
+    "change": -8.0,
+    "changePercent": -0.3270645952575634,
+    "volume": 3800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "22090",
+      "CompanyName": "井村屋グループ",
+      "CompanyNameEnglish": "IMURAYA GROUP CO.,LTD.",
+      "Sector17Code": "1",
+      "Sector17CodeName": "食品",
+      "Sector33Code": "3050",
+      "Sector33CodeName": "食料品",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:30.984322",
+      "updated_at": "2025-10-03T15:26:30.984326",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "49230",
+    "generated_at": "2025-10-03T15:45:05.904070",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "49230",
+    "name": "コタ",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 1467.0,
+    "change": 16.0,
+    "changePercent": 1.1026878015161956,
+    "volume": 14200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "49230",
+      "CompanyName": "コタ",
+      "CompanyNameEnglish": "COTA CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:34:12.697406",
+      "updated_at": "2025-10-03T15:34:12.697411",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

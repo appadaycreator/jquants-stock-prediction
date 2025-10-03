@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "43870",
+    "generated_at": "2025-10-03T15:45:05.872427",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "43870",
+    "name": "ＺＵＵ",
+    "sector": "情報通信・サービスその他",
+    "market": "グロース",
+    "currentPrice": 736.0,
+    "change": 24.0,
+    "changePercent": 3.3707865168539324,
+    "volume": 19200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "43870",
+      "CompanyName": "ＺＵＵ",
+      "CompanyNameEnglish": "ZUU Co.,Ltd.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "-",
+      "MarketCode": "0113",
+      "MarketCodeName": "グロース"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:32:53.476549",
+      "updated_at": "2025-10-03T15:32:53.476554",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

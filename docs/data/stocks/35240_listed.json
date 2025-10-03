@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "35240",
+    "generated_at": "2025-10-03T15:45:05.820307",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "35240",
+    "name": "日東製網",
+    "sector": "素材・化学",
+    "market": "スタンダード",
+    "currentPrice": 1415.0,
+    "change": -3.0,
+    "changePercent": -0.21156558533145275,
+    "volume": 1700,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "35240",
+      "CompanyName": "日東製網",
+      "CompanyNameEnglish": "NITTO SEIMO CO.,LTD.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3100",
+      "Sector33CodeName": "繊維製品",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:30:32.596959",
+      "updated_at": "2025-10-03T15:30:32.596963",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

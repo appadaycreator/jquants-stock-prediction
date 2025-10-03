@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "61410",
+    "generated_at": "2025-10-03T15:45:05.959024",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "61410",
+    "name": "ＤＭＧ森精機",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 3303.0,
+    "change": -7.0,
+    "changePercent": -0.21148036253776434,
+    "volume": 889400,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "61410",
+      "CompanyName": "ＤＭＧ森精機",
+      "CompanyNameEnglish": "DMG MORI CO.,LTD.",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:36:17.848255",
+      "updated_at": "2025-10-03T15:36:17.848257",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

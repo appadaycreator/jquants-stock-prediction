@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "89540",
+    "generated_at": "2025-10-03T15:45:06.153243",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "89540",
+    "name": "オリックス不動産投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 191600.0,
+    "change": -700.0,
+    "changePercent": -0.36401456058242326,
+    "volume": 10227,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "89540",
+      "CompanyName": "オリックス不動産投資法人",
+      "CompanyNameEnglish": "ORIX JREIT Inc.",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:41.160482",
+      "updated_at": "2025-10-03T15:42:41.160490",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

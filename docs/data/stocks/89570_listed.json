@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "89570",
+    "generated_at": "2025-10-03T15:45:06.153507",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "89570",
+    "name": "東急リアル・エステート投資法人",
+    "sector": "その他",
+    "market": "その他",
+    "currentPrice": 199900.0,
+    "change": 1400.0,
+    "changePercent": 0.7052896725440806,
+    "volume": 1737,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "89570",
+      "CompanyName": "東急リアル・エステート投資法人",
+      "CompanyNameEnglish": "TOKYU REIT, Inc.",
+      "Sector17Code": "99",
+      "Sector17CodeName": "その他",
+      "Sector33Code": "9999",
+      "Sector33CodeName": "その他",
+      "ScaleCategory": "-",
+      "MarketCode": "0109",
+      "MarketCodeName": "その他"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:42:42.064820",
+      "updated_at": "2025-10-03T15:42:42.064836",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

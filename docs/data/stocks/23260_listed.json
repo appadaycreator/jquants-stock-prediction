@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "23260",
+    "generated_at": "2025-10-03T15:45:05.744053",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "23260",
+    "name": "デジタルアーツ",
+    "sector": "情報通信・サービスその他",
+    "market": "プライム",
+    "currentPrice": 7530.0,
+    "change": -200.0,
+    "changePercent": -2.58732212160414,
+    "volume": 80900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "23260",
+      "CompanyName": "デジタルアーツ",
+      "CompanyNameEnglish": "Digital Arts Inc.",
+      "Sector17Code": "10",
+      "Sector17CodeName": "情報通信・サービスその他",
+      "Sector33Code": "5250",
+      "Sector33CodeName": "情報･通信業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:26:51.271695",
+      "updated_at": "2025-10-03T15:26:51.271701",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

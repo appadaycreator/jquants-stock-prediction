@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "27980",
+    "generated_at": "2025-10-03T15:45:05.775613",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "27980",
+    "name": "ワイズテーブルコーポレーション",
+    "sector": "小売",
+    "market": "スタンダード",
+    "currentPrice": 2945.0,
+    "change": -1.0,
+    "changePercent": -0.03394433129667345,
+    "volume": 3800,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "27980",
+      "CompanyName": "ワイズテーブルコーポレーション",
+      "CompanyNameEnglish": "Y's table corporation",
+      "Sector17Code": "14",
+      "Sector17CodeName": "小売",
+      "Sector33Code": "6100",
+      "Sector33CodeName": "小売業",
+      "ScaleCategory": "-",
+      "MarketCode": "0112",
+      "MarketCodeName": "スタンダード"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:28:10.384791",
+      "updated_at": "2025-10-03T15:28:10.384793",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

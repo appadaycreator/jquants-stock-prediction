@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "63810",
+    "generated_at": "2025-10-03T15:45:05.975300",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "63810",
+    "name": "アネスト岩田",
+    "sector": "機械",
+    "market": "プライム",
+    "currentPrice": 1455.0,
+    "change": 15.0,
+    "changePercent": 1.0416666666666665,
+    "volume": 63600,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "63810",
+      "CompanyName": "アネスト岩田",
+      "CompanyNameEnglish": "ANEST IWATA Corporation",
+      "Sector17Code": "8",
+      "Sector17CodeName": "機械",
+      "Sector33Code": "3600",
+      "Sector33CodeName": "機械",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:37:00.382822",
+      "updated_at": "2025-10-03T15:37:00.382824",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

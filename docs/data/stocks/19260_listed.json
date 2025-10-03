@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "19260",
+    "generated_at": "2025-10-03T15:45:05.718246",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "19260",
+    "name": "ライト工業",
+    "sector": "建設・資材",
+    "market": "プライム",
+    "currentPrice": 2872.0,
+    "change": -13.0,
+    "changePercent": -0.4506065857885615,
+    "volume": 122200,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "19260",
+      "CompanyName": "ライト工業",
+      "CompanyNameEnglish": "RAITO KOGYO CO.,LTD.",
+      "Sector17Code": "3",
+      "Sector17CodeName": "建設・資材",
+      "Sector33Code": "2050",
+      "Sector33CodeName": "建設業",
+      "ScaleCategory": "TOPIX Small 1",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:25:42.280725",
+      "updated_at": "2025-10-03T15:25:42.280727",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

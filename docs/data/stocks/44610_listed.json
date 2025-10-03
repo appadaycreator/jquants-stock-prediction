@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "44610",
+    "generated_at": "2025-10-03T15:45:05.878688",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "44610",
+    "name": "第一工業製薬",
+    "sector": "素材・化学",
+    "market": "プライム",
+    "currentPrice": 4030.0,
+    "change": 25.0,
+    "changePercent": 0.6242197253433208,
+    "volume": 44100,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "44610",
+      "CompanyName": "第一工業製薬",
+      "CompanyNameEnglish": "DKS Co.Ltd.",
+      "Sector17Code": "4",
+      "Sector17CodeName": "素材・化学",
+      "Sector33Code": "3200",
+      "Sector33CodeName": "化学",
+      "ScaleCategory": "TOPIX Small 2",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:33:08.716024",
+      "updated_at": "2025-10-03T15:33:08.716028",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "code": "68060",
+    "generated_at": "2025-10-03T15:45:06.015169",
+    "version": "2.0",
+    "type": "listed_info"
+  },
+  "stock": {
+    "code": "68060",
+    "name": "ヒロセ電機",
+    "sector": "電機・精密",
+    "market": "プライム",
+    "currentPrice": 17400.0,
+    "change": 10.0,
+    "changePercent": 0.05750431282346176,
+    "volume": 83900,
+    "updated_at": "2025-07-11",
+    "listed_info": {
+      "Date": "2025-07-11",
+      "Code": "68060",
+      "CompanyName": "ヒロセ電機",
+      "CompanyNameEnglish": "HIROSE ELECTRIC CO.,LTD.",
+      "Sector17Code": "9",
+      "Sector17CodeName": "電機・精密",
+      "Sector33Code": "3650",
+      "Sector33CodeName": "電気機器",
+      "ScaleCategory": "TOPIX Mid400",
+      "MarketCode": "0111",
+      "MarketCodeName": "プライム"
+    },
+    "metadata": {
+      "created_at": "2025-10-03T15:38:06.250047",
+      "updated_at": "2025-10-03T15:38:06.250049",
+      "data_quality": "jquants_official",
+      "source": "listed_info_api",
+      "price_data_available": true
+    }
+  }
+}
