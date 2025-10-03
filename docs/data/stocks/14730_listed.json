@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14730",
-    "generated_at": "2025-10-03T15:15:50.119457",
+    "generated_at": "2025-10-03T15:19:00.503852",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　トピックス",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:49.168009",
+    "currentPrice": 2865.0,
+    "change": -7.5,
+    "changePercent": -0.26109660574412535,
+    "volume": 53520,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14730",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:49.168013",
-      "updated_at": "2025-10-03T15:15:49.168015",
+      "created_at": "2025-10-03T15:18:58.194199",
+      "updated_at": "2025-10-03T15:18:58.194201",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

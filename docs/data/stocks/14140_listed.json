@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14140",
-    "generated_at": "2025-10-03T15:15:50.116038",
+    "generated_at": "2025-10-03T15:19:00.500353",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ショーボンドホールディングス",
     "sector": "建設・資材",
     "market": "プライム",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:45.624479",
+    "currentPrice": 4723.0,
+    "change": 23.0,
+    "changePercent": 0.48936170212765956,
+    "volume": 173800,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14140",
@@ -29,11 +29,11 @@
       "MarketCodeName": "プライム"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:45.624483",
-      "updated_at": "2025-10-03T15:15:45.624484",
+      "created_at": "2025-10-03T15:18:48.575379",
+      "updated_at": "2025-10-03T15:18:48.575386",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14780",
-    "generated_at": "2025-10-03T15:15:50.120121",
+    "generated_at": "2025-10-03T15:19:00.504421",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ　ＭＳＣＩ　ジャパン高配当利回り　ＥＴＦ",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:49.690034",
+    "currentPrice": 3819.0,
+    "change": 6.0,
+    "changePercent": 0.15735641227380015,
+    "volume": 16578,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14780",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:49.690038",
-      "updated_at": "2025-10-03T15:15:49.690039",
+      "created_at": "2025-10-03T15:18:59.606806",
+      "updated_at": "2025-10-03T15:18:59.606810",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

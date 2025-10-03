@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "137A0",
-    "generated_at": "2025-10-03T15:15:50.114815",
+    "generated_at": "2025-10-03T15:19:00.499157",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "Ｃｏｃｏｌｉｖｅ",
     "sector": "情報通信・サービスその他",
     "market": "グロース",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:44.162553",
+    "currentPrice": 1550.0,
+    "change": -25.0,
+    "changePercent": -1.5873015873015872,
+    "volume": 94900,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "137A0",
@@ -29,11 +29,11 @@
       "MarketCodeName": "グロース"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:44.162557",
-      "updated_at": "2025-10-03T15:15:44.162558",
+      "created_at": "2025-10-03T15:18:44.452965",
+      "updated_at": "2025-10-03T15:18:44.452968",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

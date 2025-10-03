@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13830",
-    "generated_at": "2025-10-03T15:15:50.115158",
+    "generated_at": "2025-10-03T15:19:00.499499",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ベルグアース",
     "sector": "食品",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:44.581333",
+    "currentPrice": 2934.0,
+    "change": 14.0,
+    "changePercent": 0.4794520547945206,
+    "volume": 900,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13830",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:44.581339",
-      "updated_at": "2025-10-03T15:15:44.581340",
+      "created_at": "2025-10-03T15:18:45.568186",
+      "updated_at": "2025-10-03T15:18:45.568194",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

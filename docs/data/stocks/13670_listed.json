@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13670",
-    "generated_at": "2025-10-03T15:15:50.114081",
+    "generated_at": "2025-10-03T15:19:00.498410",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＴＯＰＩＸレバレッジ（２倍）指数",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:43.335981",
+    "currentPrice": 37750.0,
+    "change": -100.0,
+    "changePercent": -0.26420079260237783,
+    "volume": 4151,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13670",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:43.335986",
-      "updated_at": "2025-10-03T15:15:43.335988",
+      "created_at": "2025-10-03T15:18:42.276536",
+      "updated_at": "2025-10-03T15:18:42.276540",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

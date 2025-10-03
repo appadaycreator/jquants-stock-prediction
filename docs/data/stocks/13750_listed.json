@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13750",
-    "generated_at": "2025-10-03T15:15:50.114459",
+    "generated_at": "2025-10-03T15:19:00.498735",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ユキグニファクトリー",
     "sector": "食品",
     "market": "プライム",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:43.745209",
+    "currentPrice": 1108.0,
+    "change": 3.0,
+    "changePercent": 0.27149321266968324,
+    "volume": 23900,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13750",
@@ -29,11 +29,11 @@
       "MarketCodeName": "プライム"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:43.745213",
-      "updated_at": "2025-10-03T15:15:43.745214",
+      "created_at": "2025-10-03T15:18:43.369783",
+      "updated_at": "2025-10-03T15:18:43.369785",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

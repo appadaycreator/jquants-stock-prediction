@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13840",
-    "generated_at": "2025-10-03T15:15:50.115244",
+    "generated_at": "2025-10-03T15:19:00.499584",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ホクリヨウ",
     "sector": "食品",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:44.686429",
+    "currentPrice": 1635.0,
+    "change": -33.0,
+    "changePercent": -1.9784172661870503,
+    "volume": 17900,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13840",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:44.686433",
-      "updated_at": "2025-10-03T15:15:44.686434",
+      "created_at": "2025-10-03T15:18:45.984377",
+      "updated_at": "2025-10-03T15:18:45.984387",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

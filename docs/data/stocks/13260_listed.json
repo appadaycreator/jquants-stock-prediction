@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13260",
-    "generated_at": "2025-10-03T15:15:50.112127",
+    "generated_at": "2025-10-03T15:19:00.496208",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ワールド・ゴールド・トラスト・サービシズ・エルエルシー　ＳＰＤＲゴールド・シェア",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:41.061931",
+    "currentPrice": 45250.0,
+    "change": 450.0,
+    "changePercent": 1.0044642857142858,
+    "volume": 11744,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13260",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:41.061935",
-      "updated_at": "2025-10-03T15:15:41.061936",
+      "created_at": "2025-10-03T15:18:36.455111",
+      "updated_at": "2025-10-03T15:18:36.455117",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

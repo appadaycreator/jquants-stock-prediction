@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13490",
-    "generated_at": "2025-10-03T15:15:50.113180",
+    "generated_at": "2025-10-03T15:19:00.497577",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ステート・ストリート・グローバル・アドバイザーズ・シンガポール・リミテッド　ＡＢＦ汎アジア債券インデックス・ファンド",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:42.301461",
+    "currentPrice": 17015.0,
+    "change": 190.0,
+    "changePercent": 1.1292719167904903,
+    "volume": 69,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13490",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:42.301465",
-      "updated_at": "2025-10-03T15:15:42.301466",
+      "created_at": "2025-10-03T15:18:39.617617",
+      "updated_at": "2025-10-03T15:18:39.617619",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

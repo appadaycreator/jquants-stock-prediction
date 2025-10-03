@@ -1,9 +1,9 @@
 {
-  "last_updated": "2025-10-03T15:17:34.232360",
-  "total_stocks": 10,
+  "last_updated": "2025-10-03T15:18:32.834953",
+  "total_stocks": 100,
   "data_source": "jquants_listed_info",
   "version": "2.0",
-  "file_size": 11772,
+  "file_size": 110370,
   "update_status": "success",
   "data_type": "listed_info"
 }

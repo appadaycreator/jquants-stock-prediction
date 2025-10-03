@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13990",
-    "generated_at": "2025-10-03T15:15:50.115602",
+    "generated_at": "2025-10-03T15:19:00.499932",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "日興アセットマネジメント株式会社　上場インデックスファンドＭＳＣＩ日本株高配当低ボラティリティ",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:45.105102",
+    "currentPrice": 2283.0,
+    "change": -1.0,
+    "changePercent": -0.043782837127845885,
+    "volume": 1461,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13990",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:45.105106",
-      "updated_at": "2025-10-03T15:15:45.105107",
+      "created_at": "2025-10-03T15:18:47.276314",
+      "updated_at": "2025-10-03T15:18:47.276317",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

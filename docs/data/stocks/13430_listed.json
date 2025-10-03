@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13430",
-    "generated_at": "2025-10-03T15:15:50.112840",
+    "generated_at": "2025-10-03T15:19:00.497251",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　東証ＲＥＩＴ　指数連動型上場投信",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:41.886774",
+    "currentPrice": 1942.5,
+    "change": 5.5,
+    "changePercent": 0.2839442436757873,
+    "volume": 971270,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13430",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:41.886778",
-      "updated_at": "2025-10-03T15:15:41.886779",
+      "created_at": "2025-10-03T15:18:38.555196",
+      "updated_at": "2025-10-03T15:18:38.555201",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

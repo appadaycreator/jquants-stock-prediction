@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "143A0",
-    "generated_at": "2025-10-03T15:15:50.117839",
+    "generated_at": "2025-10-03T15:19:00.502304",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "イシン",
     "sector": "情報通信・サービスその他",
     "market": "グロース",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:47.291334",
+    "currentPrice": 1028.0,
+    "change": -25.0,
+    "changePercent": -2.3741690408357075,
+    "volume": 43200,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "143A0",
@@ -29,11 +29,11 @@
       "MarketCodeName": "グロース"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:47.291340",
-      "updated_at": "2025-10-03T15:15:47.291341",
+      "created_at": "2025-10-03T15:18:53.154122",
+      "updated_at": "2025-10-03T15:18:53.154127",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

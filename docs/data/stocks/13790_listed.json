@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13790",
-    "generated_at": "2025-10-03T15:15:50.114730",
+    "generated_at": "2025-10-03T15:19:00.499068",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ホクト",
     "sector": "食品",
     "market": "プライム",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:44.058511",
+    "currentPrice": 1805.0,
+    "change": 13.0,
+    "changePercent": 0.7254464285714286,
+    "volume": 29000,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13790",
@@ -29,11 +29,11 @@
       "MarketCodeName": "プライム"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:44.058516",
-      "updated_at": "2025-10-03T15:15:44.058517",
+      "created_at": "2025-10-03T15:18:44.189134",
+      "updated_at": "2025-10-03T15:18:44.189138",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

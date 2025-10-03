@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14660",
-    "generated_at": "2025-10-03T15:15:50.119117",
+    "generated_at": "2025-10-03T15:19:00.503510",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　ＪＰＸ日経４００ダブルインバース・インデックス",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:48.748250",
+    "currentPrice": 492.0,
+    "change": 1.0,
+    "changePercent": 0.20366598778004072,
+    "volume": 260,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14660",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:48.748254",
-      "updated_at": "2025-10-03T15:15:48.748255",
+      "created_at": "2025-10-03T15:18:57.139961",
+      "updated_at": "2025-10-03T15:18:57.140012",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

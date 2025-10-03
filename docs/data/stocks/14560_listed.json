@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14560",
-    "generated_at": "2025-10-03T15:15:50.118690",
+    "generated_at": "2025-10-03T15:19:00.503091",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　日経平均インバース・インデックス",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:48.232985",
+    "currentPrice": 2326.0,
+    "change": 20.0,
+    "changePercent": 0.8673026886383347,
+    "volume": 20651,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14560",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:48.232990",
-      "updated_at": "2025-10-03T15:15:48.232991",
+      "created_at": "2025-10-03T15:18:55.820666",
+      "updated_at": "2025-10-03T15:18:55.820679",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

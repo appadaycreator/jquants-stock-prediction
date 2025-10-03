@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "142A0",
-    "generated_at": "2025-10-03T15:15:50.116889",
+    "generated_at": "2025-10-03T15:19:00.501337",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ジンジブ",
     "sector": "情報通信・サービスその他",
     "market": "グロース",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:46.352997",
+    "currentPrice": 632.0,
+    "change": 37.0,
+    "changePercent": 6.218487394957983,
+    "volume": 18300,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "142A0",
@@ -29,11 +29,11 @@
       "MarketCodeName": "グロース"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:46.353001",
-      "updated_at": "2025-10-03T15:15:46.353002",
+      "created_at": "2025-10-03T15:18:50.436824",
+      "updated_at": "2025-10-03T15:18:50.436853",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

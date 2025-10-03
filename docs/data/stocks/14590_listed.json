@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14590",
-    "generated_at": "2025-10-03T15:15:50.118944",
+    "generated_at": "2025-10-03T15:19:00.503347",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "楽天投信投資顧問株式会社　楽天ＥＴＦ‐日経ダブルインバース指数連動型",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:48.541600",
+    "currentPrice": 412.0,
+    "change": 6.0,
+    "changePercent": 1.477832512315271,
+    "volume": 10826788,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14590",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:48.541604",
-      "updated_at": "2025-10-03T15:15:48.541605",
+      "created_at": "2025-10-03T15:18:56.627199",
+      "updated_at": "2025-10-03T15:18:56.627202",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

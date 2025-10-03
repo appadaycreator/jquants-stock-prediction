@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13290",
-    "generated_at": "2025-10-03T15:15:50.112317",
+    "generated_at": "2025-10-03T15:19:00.496608",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ブラックロック・ジャパン株式会社　　ｉシェアーズ・コア　日経２２５　ＥＴＦ",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:41.270068",
+    "currentPrice": 4127.0,
+    "change": -31.0,
+    "changePercent": -0.7455507455507455,
+    "volume": 371029,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13290",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:41.270072",
-      "updated_at": "2025-10-03T15:15:41.270073",
+      "created_at": "2025-10-03T15:18:36.983658",
+      "updated_at": "2025-10-03T15:18:36.983661",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

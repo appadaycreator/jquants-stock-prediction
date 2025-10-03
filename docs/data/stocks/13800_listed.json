@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13800",
-    "generated_at": "2025-10-03T15:15:50.114899",
+    "generated_at": "2025-10-03T15:19:00.499243",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "秋川牧園",
     "sector": "食品",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:44.267642",
+    "currentPrice": 990.0,
+    "change": 4.0,
+    "changePercent": 0.4056795131845842,
+    "volume": 7200,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13800",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:44.267646",
-      "updated_at": "2025-10-03T15:15:44.267647",
+      "created_at": "2025-10-03T15:18:44.711289",
+      "updated_at": "2025-10-03T15:18:44.711293",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

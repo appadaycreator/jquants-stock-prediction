@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14170",
-    "generated_at": "2025-10-03T15:15:50.116128",
+    "generated_at": "2025-10-03T15:19:00.500544",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ミライト・ワン",
     "sector": "建設・資材",
     "market": "プライム",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:45.729577",
+    "currentPrice": 2569.5,
+    "change": -13.5,
+    "changePercent": -0.5226480836236934,
+    "volume": 312500,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14170",
@@ -29,11 +29,11 @@
       "MarketCodeName": "プライム"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:45.729582",
-      "updated_at": "2025-10-03T15:15:45.729583",
+      "created_at": "2025-10-03T15:18:48.840750",
+      "updated_at": "2025-10-03T15:18:48.840755",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

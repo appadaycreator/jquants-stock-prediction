@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13600",
-    "generated_at": "2025-10-03T15:15:50.113720",
+    "generated_at": "2025-10-03T15:19:00.498075",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "シンプレクス・アセット・マネジメント株式会社　日経平均ベア２倍上場投信",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:42.924183",
+    "currentPrice": 251.7,
+    "change": 4.299999999999983,
+    "changePercent": 1.7380759902991039,
+    "volume": 34449710,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13600",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:42.924187",
-      "updated_at": "2025-10-03T15:15:42.924188",
+      "created_at": "2025-10-03T15:18:41.197316",
+      "updated_at": "2025-10-03T15:18:41.197318",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

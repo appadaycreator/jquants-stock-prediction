@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14380",
-    "generated_at": "2025-10-03T15:15:50.117741",
+    "generated_at": "2025-10-03T15:19:00.502087",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "岐阜造園",
     "sector": "建設・資材",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:47.188251",
+    "currentPrice": 1903.0,
+    "change": -8.0,
+    "changePercent": -0.4186289900575615,
+    "volume": 1500,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14380",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:47.188255",
-      "updated_at": "2025-10-03T15:15:47.188256",
+      "created_at": "2025-10-03T15:18:52.884933",
+      "updated_at": "2025-10-03T15:18:52.884939",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

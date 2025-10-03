@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "133A0",
-    "generated_at": "2025-10-03T15:15:50.112758",
+    "generated_at": "2025-10-03T15:19:00.497171",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "Ｇｌｏｂａｌ　Ｘ　Ｊａｐａｎ株式会社　グローバルＸ　超短期米国債　ＥＴＦ",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:41.786079",
+    "currentPrice": 994.0,
+    "change": 4.0,
+    "changePercent": 0.40404040404040403,
+    "volume": 24803,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "133A0",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:41.786084",
-      "updated_at": "2025-10-03T15:15:41.786085",
+      "created_at": "2025-10-03T15:18:38.286701",
+      "updated_at": "2025-10-03T15:18:38.286703",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

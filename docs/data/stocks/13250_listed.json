@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13250",
-    "generated_at": "2025-10-03T15:15:50.112028",
+    "generated_at": "2025-10-03T15:19:00.496123",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　ブラジル株式指数・ボベスパ連動型上場投信",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:40.956839",
+    "currentPrice": 205.6,
+    "change": -4.300000000000011,
+    "changePercent": -2.048594568842311,
+    "volume": 103600,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13250",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:40.956843",
-      "updated_at": "2025-10-03T15:15:40.956844",
+      "created_at": "2025-10-03T15:18:36.209217",
+      "updated_at": "2025-10-03T15:18:36.209222",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

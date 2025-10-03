@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14070",
-    "generated_at": "2025-10-03T15:15:50.115870",
+    "generated_at": "2025-10-03T15:19:00.500175",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ウエストホールディングス",
     "sector": "建設・資材",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:45.417019",
+    "currentPrice": 1730.0,
+    "change": -3.0,
+    "changePercent": -0.17311021350259664,
+    "volume": 228900,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14070",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:45.417022",
-      "updated_at": "2025-10-03T15:15:45.417023",
+      "created_at": "2025-10-03T15:18:48.041496",
+      "updated_at": "2025-10-03T15:18:48.041500",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14300",
-    "generated_at": "2025-10-03T15:15:50.117004",
+    "generated_at": "2025-10-03T15:19:00.501424",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ファーストコーポレーション",
     "sector": "建設・資材",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:46.458121",
+    "currentPrice": 873.0,
+    "change": -1.0,
+    "changePercent": -0.11441647597254005,
+    "volume": 40300,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14300",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:46.458127",
-      "updated_at": "2025-10-03T15:15:46.458128",
+      "created_at": "2025-10-03T15:18:50.699754",
+      "updated_at": "2025-10-03T15:18:50.699756",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

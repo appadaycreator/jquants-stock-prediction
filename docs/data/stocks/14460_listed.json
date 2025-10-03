@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14460",
-    "generated_at": "2025-10-03T15:15:50.118241",
+    "generated_at": "2025-10-03T15:19:00.502650",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "キャンディル",
     "sector": "建設・資材",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:47.709935",
+    "currentPrice": 560.0,
+    "change": -2.0,
+    "changePercent": -0.3558718861209964,
+    "volume": 5200,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14460",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:47.709939",
-      "updated_at": "2025-10-03T15:15:47.709940",
+      "created_at": "2025-10-03T15:18:54.468307",
+      "updated_at": "2025-10-03T15:18:54.468311",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13220",
-    "generated_at": "2025-10-03T15:15:50.111942",
+    "generated_at": "2025-10-03T15:19:00.496039",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "日興アセットマネジメント株式会社　上場インデックスファンド中国Ａ株（パンダ）Ｅ　Ｆｕｎｄ　ＣＳＩ３００",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:40.854282",
+    "currentPrice": 8799.0,
+    "change": 135.0,
+    "changePercent": 1.5581717451523547,
+    "volume": 1065,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13220",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:40.854286",
-      "updated_at": "2025-10-03T15:15:40.854287",
+      "created_at": "2025-10-03T15:18:35.946755",
+      "updated_at": "2025-10-03T15:18:35.946758",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

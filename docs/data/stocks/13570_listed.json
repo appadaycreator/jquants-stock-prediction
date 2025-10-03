@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13570",
-    "generated_at": "2025-10-03T15:15:50.113454",
+    "generated_at": "2025-10-03T15:19:00.497829",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　日経平均ダブルインバース・インデックス連動型上場投信",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:42.613152",
+    "currentPrice": 10250.0,
+    "change": 180.0,
+    "changePercent": 1.787487586891758,
+    "volume": 1311641,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13570",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:42.613155",
-      "updated_at": "2025-10-03T15:15:42.613156",
+      "created_at": "2025-10-03T15:18:40.400187",
+      "updated_at": "2025-10-03T15:18:40.400190",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

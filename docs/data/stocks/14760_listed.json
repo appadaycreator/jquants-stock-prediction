@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14760",
-    "generated_at": "2025-10-03T15:15:50.119708",
+    "generated_at": "2025-10-03T15:19:00.504110",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ブラックロック・ジャパン株式会社　ｉシェアーズ・コア　Ｊリート　ＥＴＦ",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:49.479834",
+    "currentPrice": 1861.0,
+    "change": 1.0,
+    "changePercent": 0.053763440860215055,
+    "volume": 414142,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14760",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:49.479838",
-      "updated_at": "2025-10-03T15:15:49.479839",
+      "created_at": "2025-10-03T15:18:59.060078",
+      "updated_at": "2025-10-03T15:18:59.060080",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

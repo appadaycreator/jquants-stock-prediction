@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14690",
-    "generated_at": "2025-10-03T15:15:50.119206",
+    "generated_at": "2025-10-03T15:19:00.503592",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "シンプレクス・アセット・マネジメント株式会社　ＪＰＸ日経４００ベア２倍上場投信（ダブルインバース）",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:48.853440",
+    "currentPrice": 472.3,
+    "change": -0.5,
+    "changePercent": -0.10575296108291032,
+    "volume": 2090,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14690",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:48.853443",
-      "updated_at": "2025-10-03T15:15:48.853444",
+      "created_at": "2025-10-03T15:18:57.398531",
+      "updated_at": "2025-10-03T15:18:57.398534",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

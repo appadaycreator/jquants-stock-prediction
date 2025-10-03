@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "135A0",
-    "generated_at": "2025-10-03T15:15:50.113634",
+    "generated_at": "2025-10-03T15:19:00.497992",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ＶＲＡＩＮ　Ｓｏｌｕｔｉｏｎ",
     "sector": "情報通信・サービスその他",
     "market": "グロース",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:42.820115",
+    "currentPrice": 2625.0,
+    "change": -64.0,
+    "changePercent": -2.38006693938267,
+    "volume": 102100,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "135A0",
@@ -29,11 +29,11 @@
       "MarketCodeName": "グロース"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:42.820119",
-      "updated_at": "2025-10-03T15:15:42.820120",
+      "created_at": "2025-10-03T15:18:40.926802",
+      "updated_at": "2025-10-03T15:18:40.926806",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

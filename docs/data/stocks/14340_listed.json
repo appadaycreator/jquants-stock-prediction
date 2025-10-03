@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14340",
-    "generated_at": "2025-10-03T15:15:50.117470",
+    "generated_at": "2025-10-03T15:19:00.501805",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ＪＥＳＣＯホールディングス",
     "sector": "建設・資材",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:46.873803",
+    "currentPrice": 953.0,
+    "change": -3.0,
+    "changePercent": -0.3138075313807531,
+    "volume": 18200,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14340",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:46.873807",
-      "updated_at": "2025-10-03T15:15:46.873808",
+      "created_at": "2025-10-03T15:18:52.089493",
+      "updated_at": "2025-10-03T15:18:52.089507",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

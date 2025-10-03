@@ -236,12 +236,12 @@ class ListedInfoFetcher:
 
         # 構造化データの作成（バッチ処理対応）
         batch_size = 10  # バッチサイズを設定
-        # テスト用に最初の10銘柄のみ処理
-        test_stocks = selected_stocks[:10]
-        logger.info(f"テスト用に最初の{len(test_stocks)}銘柄を処理します")
-        for i, stock in enumerate(test_stocks):
+        # 100銘柄を処理
+        target_stocks = selected_stocks[:100]
+        logger.info(f"100銘柄を処理します: {len(target_stocks)}銘柄")
+        for i, stock in enumerate(target_stocks):
             code = stock["code"]
-            logger.info(f"処理中: {i+1}/{len(test_stocks)} - {stock['name']} ({code})")
+            logger.info(f"処理中: {i+1}/{len(target_stocks)} - {stock['name']} ({code})")
             
             # 価格データの取得（修正版）
             price_data = None

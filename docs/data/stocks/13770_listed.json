@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13770",
-    "generated_at": "2025-10-03T15:15:50.114637",
+    "generated_at": "2025-10-03T15:19:00.498900",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "サカタのタネ",
     "sector": "食品",
     "market": "プライム",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:43.953411",
+    "currentPrice": 3495.0,
+    "change": -10.0,
+    "changePercent": -0.28530670470756064,
+    "volume": 65600,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13770",
@@ -29,11 +29,11 @@
       "MarketCodeName": "プライム"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:43.953416",
-      "updated_at": "2025-10-03T15:15:43.953417",
+      "created_at": "2025-10-03T15:18:43.913743",
+      "updated_at": "2025-10-03T15:18:43.913745",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

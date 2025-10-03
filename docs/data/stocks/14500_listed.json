@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14500",
-    "generated_at": "2025-10-03T15:15:50.118516",
+    "generated_at": "2025-10-03T15:19:00.502919",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ＴＡＮＡＫＥＮ",
     "sector": "建設・資材",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:48.022796",
+    "currentPrice": 1398.0,
+    "change": 13.0,
+    "changePercent": 0.9386281588447654,
+    "volume": 6200,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14500",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:48.022801",
-      "updated_at": "2025-10-03T15:15:48.022802",
+      "created_at": "2025-10-03T15:18:55.292102",
+      "updated_at": "2025-10-03T15:18:55.292111",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

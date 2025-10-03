@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14330",
-    "generated_at": "2025-10-03T15:15:50.117373",
+    "generated_at": "2025-10-03T15:19:00.501716",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ベステラ",
     "sector": "建設・資材",
     "market": "プライム",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:46.773415",
+    "currentPrice": 1135.0,
+    "change": -13.0,
+    "changePercent": -1.132404181184669,
+    "volume": 82200,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14330",
@@ -29,11 +29,11 @@
       "MarketCodeName": "プライム"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:46.773420",
-      "updated_at": "2025-10-03T15:15:46.773421",
+      "created_at": "2025-10-03T15:18:51.721616",
+      "updated_at": "2025-10-03T15:18:51.721632",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

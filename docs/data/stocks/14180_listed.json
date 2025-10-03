@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14180",
-    "generated_at": "2025-10-03T15:15:50.116218",
+    "generated_at": "2025-10-03T15:19:00.500673",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "インターライフホールディングス",
     "sector": "建設・資材",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:45.834668",
+    "currentPrice": 390.0,
+    "change": -3.0,
+    "changePercent": -0.7633587786259541,
+    "volume": 24700,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14180",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:45.834672",
-      "updated_at": "2025-10-03T15:15:45.834673",
+      "created_at": "2025-10-03T15:18:49.102273",
+      "updated_at": "2025-10-03T15:18:49.102276",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

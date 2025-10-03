@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "141A0",
-    "generated_at": "2025-10-03T15:15:50.116390",
+    "generated_at": "2025-10-03T15:19:00.501048",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "トライアルホールディングス",
     "sector": "小売",
     "market": "グロース",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:46.040255",
+    "currentPrice": 2615.0,
+    "change": -11.0,
+    "changePercent": -0.41888804265041885,
+    "volume": 1786300,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "141A0",
@@ -29,11 +29,11 @@
       "MarketCodeName": "グロース"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:46.040261",
-      "updated_at": "2025-10-03T15:15:46.040262",
+      "created_at": "2025-10-03T15:18:49.638847",
+      "updated_at": "2025-10-03T15:18:49.638853",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

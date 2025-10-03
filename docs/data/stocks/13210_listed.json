@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13210",
-    "generated_at": "2025-10-03T15:15:50.111854",
+    "generated_at": "2025-10-03T15:19:00.495949",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "野村アセットマネジメント株式会社　ＮＥＸＴ　ＦＵＮＤＳ　日経２２５連動型上場投信",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:40.750337",
+    "currentPrice": 40780.0,
+    "change": -340.0,
+    "changePercent": -0.8268482490272374,
+    "volume": 138780,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13210",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:40.750341",
-      "updated_at": "2025-10-03T15:15:40.750342",
+      "created_at": "2025-10-03T15:18:35.680937",
+      "updated_at": "2025-10-03T15:18:35.680940",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

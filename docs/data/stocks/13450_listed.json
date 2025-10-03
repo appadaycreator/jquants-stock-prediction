@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13450",
-    "generated_at": "2025-10-03T15:15:50.112921",
+    "generated_at": "2025-10-03T15:19:00.497335",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "日興アセットマネジメント株式会社　上場インデックスファンドＪリート（東証ＲＥＩＴ指数）隔月分配型",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:41.991874",
+    "currentPrice": 1820.0,
+    "change": 8.0,
+    "changePercent": 0.44150110375275936,
+    "volume": 9600,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13450",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:41.991878",
-      "updated_at": "2025-10-03T15:15:41.991879",
+      "created_at": "2025-10-03T15:18:38.822212",
+      "updated_at": "2025-10-03T15:18:38.822217",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

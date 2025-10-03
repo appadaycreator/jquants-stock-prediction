@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13760",
-    "generated_at": "2025-10-03T15:15:50.114541",
+    "generated_at": "2025-10-03T15:19:00.498816",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "カネコ種苗",
     "sector": "食品",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:43.849807",
+    "currentPrice": 1386.0,
+    "change": 2.0,
+    "changePercent": 0.1445086705202312,
+    "volume": 13500,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13760",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:43.849812",
-      "updated_at": "2025-10-03T15:15:43.849813",
+      "created_at": "2025-10-03T15:18:43.630863",
+      "updated_at": "2025-10-03T15:18:43.630866",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

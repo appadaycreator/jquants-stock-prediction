@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "140A0",
-    "generated_at": "2025-10-03T15:15:50.115952",
+    "generated_at": "2025-10-03T15:19:00.500266",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "大和アセットマネジメント株式会社　ｉＦｒｅｅＥＴＦ　米国１０年国債先物インバース",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:45.519358",
+    "currentPrice": 1988.0,
+    "change": 2.0,
+    "changePercent": 0.10070493454179255,
+    "volume": 5,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "140A0",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:45.519362",
-      "updated_at": "2025-10-03T15:15:45.519364",
+      "created_at": "2025-10-03T15:18:48.316979",
+      "updated_at": "2025-10-03T15:18:48.316984",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

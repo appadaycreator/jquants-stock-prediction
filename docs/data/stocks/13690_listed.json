@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13690",
-    "generated_at": "2025-10-03T15:15:50.114260",
+    "generated_at": "2025-10-03T15:19:00.498575",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "アセットマネジメントＯｎｅ株式会社　Ｏｎｅ　ＥＴＦ　日経２２５",
     "sector": "その他",
     "market": "その他",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:43.541329",
+    "currentPrice": 39690.0,
+    "change": -320.0,
+    "changePercent": -0.7998000499875032,
+    "volume": 3822,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13690",
@@ -29,11 +29,11 @@
       "MarketCodeName": "その他"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:43.541335",
-      "updated_at": "2025-10-03T15:15:43.541336",
+      "created_at": "2025-10-03T15:18:42.794462",
+      "updated_at": "2025-10-03T15:18:42.794465",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

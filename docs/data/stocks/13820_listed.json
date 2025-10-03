@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "13820",
-    "generated_at": "2025-10-03T15:15:50.115069",
+    "generated_at": "2025-10-03T15:19:00.499414",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "ホーブ",
     "sector": "食品",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:44.476207",
+    "currentPrice": 1910.0,
+    "change": 23.0,
+    "changePercent": 1.2188659247482776,
+    "volume": 900,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "13820",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:44.476211",
-      "updated_at": "2025-10-03T15:15:44.476212",
+      "created_at": "2025-10-03T15:18:45.235949",
+      "updated_at": "2025-10-03T15:18:45.235952",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

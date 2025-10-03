@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "138A0",
-    "generated_at": "2025-10-03T15:15:50.115326",
+    "generated_at": "2025-10-03T15:19:00.499676",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "光フードサービス",
     "sector": "小売",
     "market": "グロース",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:44.791547",
+    "currentPrice": 2094.0,
+    "change": 35.0,
+    "changePercent": 1.6998542982030111,
+    "volume": 1800,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "138A0",
@@ -29,11 +29,11 @@
       "MarketCodeName": "グロース"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:44.791552",
-      "updated_at": "2025-10-03T15:15:44.791553",
+      "created_at": "2025-10-03T15:18:46.478003",
+      "updated_at": "2025-10-03T15:18:46.478044",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

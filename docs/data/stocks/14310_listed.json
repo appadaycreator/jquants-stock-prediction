@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14310",
-    "generated_at": "2025-10-03T15:15:50.117155",
+    "generated_at": "2025-10-03T15:19:00.501514",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "Ｌｉｂ　Ｗｏｒｋ",
     "sector": "建設・資材",
     "market": "グロース",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:46.563219",
+    "currentPrice": 690.0,
+    "change": 2.0,
+    "changePercent": 0.29069767441860467,
+    "volume": 22000,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14310",
@@ -29,11 +29,11 @@
       "MarketCodeName": "グロース"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:46.563224",
-      "updated_at": "2025-10-03T15:15:46.563225",
+      "created_at": "2025-10-03T15:18:50.982570",
+      "updated_at": "2025-10-03T15:18:50.982577",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }

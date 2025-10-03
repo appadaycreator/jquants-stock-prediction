@@ -1,7 +1,7 @@
 {
   "metadata": {
     "code": "14430",
-    "generated_at": "2025-10-03T15:15:50.117930",
+    "generated_at": "2025-10-03T15:19:00.502394",
     "version": "2.0",
     "type": "listed_info"
   },
@@ -10,11 +10,11 @@
     "name": "技研ホールディングス",
     "sector": "建設・資材",
     "market": "スタンダード",
-    "currentPrice": null,
-    "change": null,
-    "changePercent": null,
-    "volume": null,
-    "updated_at": "2025-10-03T15:15:47.396443",
+    "currentPrice": 195.0,
+    "change": 0.0,
+    "changePercent": 0.0,
+    "volume": 107900,
+    "updated_at": "2025-07-11",
     "listed_info": {
       "Date": "2025-07-11",
       "Code": "14430",
@@ -29,11 +29,11 @@
       "MarketCodeName": "スタンダード"
     },
     "metadata": {
-      "created_at": "2025-10-03T15:15:47.396447",
-      "updated_at": "2025-10-03T15:15:47.396448",
+      "created_at": "2025-10-03T15:18:53.599691",
+      "updated_at": "2025-10-03T15:18:53.599709",
       "data_quality": "jquants_official",
       "source": "listed_info_api",
-      "price_data_available": false
+      "price_data_available": true
     }
   }
 }
