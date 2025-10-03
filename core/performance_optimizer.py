@@ -47,10 +47,10 @@ class PerformanceOptimizer:
         except Exception as e:
             if self.error_handler:
                 self.error_handler.handle_system_error(e, "パフォーマンス監視開始")
+            elif self.logger:
+                self.logger.log_error(f"パフォーマンス監視開始エラー: {e}")
             else:
-                if self.logger:
-                    self.logger.log_error(f"パフォーマンス監視開始エラー: {e}")
-            raise
+                raise
 
     def stop_monitoring(self):
         """パフォーマンス監視の停止"""

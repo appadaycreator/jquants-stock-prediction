@@ -50,30 +50,44 @@ class JSONDataManager:
             self._save_json(self.metadata_file, metadata)
 
     def _save_json(self, file_path: Path, data: Any) -> bool:
-        """JSONファイルの保存"""
+        """JSONファイルの保存（最適化版）"""
         try:
-            with open(file_path, "w", encoding="utf-8") as f:
+            # 一時ファイルに保存してからリネーム（アトミック操作）
+            temp_path = file_path.with_suffix('.tmp')
+            with open(temp_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
+            temp_path.replace(file_path)
             return True
         except Exception as e:
-            self.logger.error(f"JSON保存エラー {file_path}: {e}")
+            if self.logger:
+                self.logger.error(f"JSON保存エラー {file_path}: {e}")
             return False
 
     def _load_json(self, file_path: Path, default: Any = None) -> Any:
-        """JSONファイルの読み込み"""
+        """JSONファイルの読み込み（最適化版）"""
         try:
             if file_path.exists():
                 with open(file_path, "r", encoding="utf-8") as f:
                     return json.load(f)
             return default
+        except json.JSONDecodeError as e:
+            if self.logger:
+                self.logger.error(f"JSON解析エラー {file_path}: {e}")
+            return default
         except Exception as e:
-            self.logger.error(f"JSON読み込みエラー {file_path}: {e}")
+            if self.logger:
+                self.logger.error(f"JSON読み込みエラー {file_path}: {e}")
             return default
 
     def _calculate_hash(self, data: Any) -> str:
-        """データのハッシュ値を計算"""
-        data_str = json.dumps(data, sort_keys=True, ensure_ascii=False)
-        return hashlib.md5(data_str.encode("utf-8")).hexdigest()
+        """データのハッシュ値を計算（最適化版）"""
+        try:
+            data_str = json.dumps(data, sort_keys=True, ensure_ascii=False)
+            return hashlib.md5(data_str.encode("utf-8")).hexdigest()
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"ハッシュ計算エラー: {e}")
+            return hashlib.md5(str(data).encode("utf-8")).hexdigest()
 
     def save_stock_data(
         self, symbol: str, data: List[Dict[str, Any]], source: str = "jquants_api"
@@ -112,15 +126,17 @@ class JSONDataManager:
                 # 差分ログの記録
                 self._log_diff(symbol, diff_result)
 
-                self.logger.info(
-                    f"株価データ保存完了: {symbol} ({len(normalized_data)}件)"
-                )
+                if self.logger:
+                    self.logger.info(
+                        f"株価データ保存完了: {symbol} ({len(normalized_data)}件)"
+                    )
                 return True
 
             return False
 
         except Exception as e:
-            self.logger.error(f"株価データ保存エラー {symbol}: {e}")
+            if self.logger:
+                self.logger.error(f"株価データ保存エラー {symbol}: {e}")
             return False
 
     def _normalize_stock_data(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -128,29 +144,35 @@ class JSONDataManager:
         normalized = []
 
         for item in data:
-            # 必須フィールドの検証
-            required_fields = ["date", "code", "open", "high", "low", "close", "volume"]
-            if not all(field in item for field in required_fields):
-                self.logger.warning(f"必須フィールドが不足: {item}")
+            try:
+                # 必須フィールドの検証
+                required_fields = ["date", "code", "open", "high", "low", "close", "volume"]
+                if not all(field in item for field in required_fields):
+                    if self.logger:
+                        self.logger.warning(f"必須フィールドが不足: {item}")
+                    continue
+
+                # データ型の変換と検証
+                normalized_item = {
+                    "date": str(item["date"]),
+                    "code": str(item["code"]),
+                    "open": float(item["open"]) if item["open"] is not None else 0.0,
+                    "high": float(item["high"]) if item["high"] is not None else 0.0,
+                    "low": float(item["low"]) if item["low"] is not None else 0.0,
+                    "close": float(item["close"]) if item["close"] is not None else 0.0,
+                    "volume": int(item["volume"]) if item["volume"] is not None else 0,
+                }
+
+                # 追加フィールドがあれば保持
+                for key, value in item.items():
+                    if key not in normalized_item:
+                        normalized_item[key] = value
+
+                normalized.append(normalized_item)
+            except (ValueError, TypeError) as e:
+                if self.logger:
+                    self.logger.warning(f"データ正規化エラー: {item} - {e}")
                 continue
-
-            # データ型の変換と検証
-            normalized_item = {
-                "date": str(item["date"]),
-                "code": str(item["code"]),
-                "open": float(item["open"]) if item["open"] is not None else 0.0,
-                "high": float(item["high"]) if item["high"] is not None else 0.0,
-                "low": float(item["low"]) if item["low"] is not None else 0.0,
-                "close": float(item["close"]) if item["close"] is not None else 0.0,
-                "volume": int(item["volume"]) if item["volume"] is not None else 0,
-            }
-
-            # 追加フィールドがあれば保持
-            for key, value in item.items():
-                if key not in normalized_item:
-                    normalized_item[key] = value
-
-            normalized.append(normalized_item)
 
         # 日付順でソート
         normalized.sort(key=lambda x: x["date"])

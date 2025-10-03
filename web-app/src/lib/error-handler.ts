@@ -30,14 +30,13 @@ class ErrorHandler {
   private maxErrorsPerMinute = 10;
 
   /**
-   * エラーの分類
+   * エラーの分類（最適化版）
    */
   categorizeError(error: Error): ErrorInfo {
     const errorMessage = error.message.toLowerCase();
     
     // ネットワークエラー
-    if (errorMessage.includes("network") || errorMessage.includes("fetch") || 
-        errorMessage.includes("timeout") || errorMessage.includes("connection")) {
+    if (this._isNetworkError(errorMessage)) {
       return {
         category: "network",
         severity: "medium",
@@ -176,6 +175,14 @@ class ErrorHandler {
     if (errorInfo.retryDelay > 0) {
       await new Promise(resolve => setTimeout(resolve, errorInfo.retryDelay));
     }
+  }
+
+  /**
+   * ネットワークエラーの判定（最適化版）
+   */
+  private _isNetworkError(errorMessage: string): boolean {
+    const networkKeywords = ["network", "fetch", "timeout", "connection", "offline"];
+    return networkKeywords.some(keyword => errorMessage.includes(keyword));
   }
 
   private async executeFallbackAction(errorInfo: ErrorInfo): Promise<void> {
