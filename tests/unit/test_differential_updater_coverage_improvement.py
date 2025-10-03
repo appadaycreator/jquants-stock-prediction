@@ -13,8 +13,8 @@ from unittest.mock import Mock, patch, MagicMock
 from core.differential_updater import (
     DifferentialUpdater,
     DiffResult,
-    ValidationResult,
-    UpdateStats,
+    UpdateConfig,
+    UpdateStatus,
 )
 
 

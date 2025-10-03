@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 """
 jQuants認証管理クラス
-IDトークンの有効性チェックと自動再取得機能
+IDトークンの有効性チェックと自動再取得機能（強化版）
 """
 
 import os
 import json
 import requests
 import logging
+import time
 from datetime import datetime, timedelta
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, Tuple
+from pathlib import Path
 
 # ログ設定
 logging.basicConfig(
@@ -19,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 class JQuantsAuthManager:
-    """jQuants認証管理クラス"""
+    """jQuants認証管理クラス（強化版）"""
 
     def __init__(self):
         self.email = os.getenv("JQUANTS_EMAIL")
@@ -34,6 +36,16 @@ class JQuantsAuthManager:
 
         # トークン有効期限（秒）
         self.token_expiry_buffer = 300  # 5分前から更新
+        
+        # リトライ設定
+        self.max_retries = 3
+        self.retry_delay = 2  # 秒
+        
+        # トークンキャッシュファイル
+        self.token_cache_file = Path("data/token_cache.json")
+        self.data_dir = Path("data")
+        if not self.data_dir.exists():
+            self.data_dir.mkdir(parents=True, exist_ok=True)
 
     def is_token_valid(self) -> bool:
         """IDトークンの有効性をチェック"""
