@@ -16,10 +16,10 @@ export interface ConnectionResult {
 export async function testConnection(): Promise<ConnectionResult> {
   try {
     // 静的データファイルから接続テスト用のデータを取得
-    const response = await fetch('/data/listed_index.json', {
-      method: 'GET',
+    const response = await fetch("/data/listed_index.json", {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -42,7 +42,7 @@ export async function testConnection(): Promise<ConnectionResult> {
   } catch (error) {
     return {
       success: false,
-      message: `接続失敗: ${error instanceof Error ? error.message : '不明なエラー'}`,
+      message: `接続失敗: ${error instanceof Error ? error.message : "不明なエラー"}`,
       metrics: {
         totalRequests: 1,
         successfulRequests: 0,
@@ -60,9 +60,9 @@ export async function getStockData(symbol: string, startDate: string, endDate: s
   try {
     // 静的データファイルから株価データを取得
     const response = await fetch(`/data/stock_${symbol}.json`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -73,7 +73,7 @@ export async function getStockData(symbol: string, startDate: string, endDate: s
     const data = await response.json();
     return data?.data || [];
   } catch (error) {
-    console.error('株価データ取得エラー:', error);
+    console.error("株価データ取得エラー:", error);
     return [];
   }
 }
@@ -83,10 +83,10 @@ export async function getStockData(symbol: string, startDate: string, endDate: s
  */
 export async function getAllSymbols(): Promise<Array<{ code: string; name: string; sector?: string }>> {
   try {
-    const response = await fetch('/data/listed_index.json', {
-      method: 'GET',
+    const response = await fetch("/data/listed_index.json", {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -103,7 +103,7 @@ export async function getAllSymbols(): Promise<Array<{ code: string; name: strin
       sector: item?.sector || item?.Sector33 || item?.SectorName,
     })).filter((s: any) => !!s.code && !!s.name);
   } catch (error) {
-    console.error('全銘柄一覧取得エラー:', error);
+    console.error("全銘柄一覧取得エラー:", error);
     return [];
   }
 }

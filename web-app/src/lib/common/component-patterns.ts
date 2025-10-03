@@ -3,7 +3,7 @@
  * 再利用可能なコンポーネントロジックを提供
  */
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 // データ取得パターン
 export interface DataFetchState<T> {
@@ -23,7 +23,7 @@ export interface DataFetchConfig {
 
 export function useDataFetch<T>(
   fetchFn: () => Promise<T>,
-  config: Partial<DataFetchConfig> = {}
+  config: Partial<DataFetchConfig> = {},
 ) {
   const defaultConfig: DataFetchConfig = {
     autoFetch: true,
@@ -60,7 +60,7 @@ export function useDataFetch<T>(
       });
       setRetryCount(0);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
       
       if (finalConfig.retryOnError && retryCount < finalConfig.maxRetries) {
         setTimeout(() => {
@@ -152,7 +152,7 @@ export function useForm<T extends Record<string, any>>(config: FormConfig<T>) {
     try {
       await config.onSubmit(state.values);
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error("Form submission error:", error);
     } finally {
       setState(prev => ({ ...prev, isSubmitting: false }));
     }
@@ -304,7 +304,7 @@ export interface SearchConfig<T> {
 
 export function useSearch<T>(config: SearchConfig<T>) {
   const [state, setState] = useState<SearchState>({
-    query: '',
+    query: "",
     results: [],
     isSearching: false,
     hasSearched: false,
@@ -329,7 +329,7 @@ export function useSearch<T>(config: SearchConfig<T>) {
         hasSearched: true,
       }));
     } catch (error) {
-      console.error('Search error:', error);
+      console.error("Search error:", error);
       setState(prev => ({
         ...prev,
         isSearching: false,
@@ -352,7 +352,7 @@ export function useSearch<T>(config: SearchConfig<T>) {
 
   const clearSearch = useCallback(() => {
     setState({
-      query: '',
+      query: "",
       results: [],
       isSearching: false,
       hasSearched: false,
@@ -392,7 +392,7 @@ export interface CacheConfig {
 export function useCache<T>(
   key: string,
   fetchFn: () => Promise<T>,
-  config: Partial<CacheConfig> = {}
+  config: Partial<CacheConfig> = {},
 ) {
   const defaultConfig: CacheConfig = {
     ttl: 300000, // 5分
@@ -431,7 +431,7 @@ export function useCache<T>(
       });
       return data;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
       setState(prev => ({
         ...prev,
         isLoading: false,

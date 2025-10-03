@@ -36,8 +36,8 @@ class ErrorHandler {
     const errorMessage = error.message.toLowerCase();
     
     // ネットワークエラー
-    if (errorMessage.includes('network') || errorMessage.includes('fetch') || 
-        errorMessage.includes('timeout') || errorMessage.includes('connection')) {
+    if (errorMessage.includes("network") || errorMessage.includes("fetch") || 
+        errorMessage.includes("timeout") || errorMessage.includes("connection")) {
       return {
         category: "network",
         severity: "medium",
@@ -51,8 +51,8 @@ class ErrorHandler {
     }
 
     // APIエラー
-    if (errorMessage.includes('api') || errorMessage.includes('http') || 
-        errorMessage.includes('status')) {
+    if (errorMessage.includes("api") || errorMessage.includes("http") || 
+        errorMessage.includes("status")) {
       return {
         category: "api",
         severity: "high",
@@ -66,8 +66,8 @@ class ErrorHandler {
     }
 
     // データエラー
-    if (errorMessage.includes('data') || errorMessage.includes('parse') || 
-        errorMessage.includes('json')) {
+    if (errorMessage.includes("data") || errorMessage.includes("parse") || 
+        errorMessage.includes("json")) {
       return {
         category: "data",
         severity: "medium",
@@ -81,8 +81,8 @@ class ErrorHandler {
     }
 
     // バリデーションエラー
-    if (errorMessage.includes('validation') || errorMessage.includes('invalid') || 
-        errorMessage.includes('required')) {
+    if (errorMessage.includes("validation") || errorMessage.includes("invalid") || 
+        errorMessage.includes("required")) {
       return {
         category: "validation",
         severity: "low",
@@ -96,7 +96,7 @@ class ErrorHandler {
     }
 
     // システムエラー
-    if (errorMessage.includes('system') || errorMessage.includes('internal')) {
+    if (errorMessage.includes("system") || errorMessage.includes("internal")) {
       return {
         category: "system",
         severity: "critical",
@@ -181,19 +181,19 @@ class ErrorHandler {
   private async executeFallbackAction(errorInfo: ErrorInfo): Promise<void> {
     switch (errorInfo.fallbackAction) {
       case "refresh":
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
           window.location.reload();
         }
         break;
       case "clear-cache":
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
           localStorage.clear();
           sessionStorage.clear();
         }
         break;
       case "redirect":
-        if (typeof window !== 'undefined') {
-          window.location.href = '/error';
+        if (typeof window !== "undefined") {
+          window.location.href = "/error";
         }
         break;
       default:
@@ -254,7 +254,7 @@ export function logError(error: Error, context?: Record<string, any>): void {
 
   // ローカルストレージにエラーログを保存（最新10件）
   try {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const existingLogs = JSON.parse(localStorage.getItem("error_logs") || "[]");
       const newLogs = [logEntry, ...existingLogs].slice(0, 10);
       localStorage.setItem("error_logs", JSON.stringify(newLogs));

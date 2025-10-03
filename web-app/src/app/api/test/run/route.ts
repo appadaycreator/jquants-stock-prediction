@@ -1,23 +1,23 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { NextRequest, NextResponse } from "next/server";
+import { exec } from "child_process";
+import { promisify } from "util";
 
 const execAsync = promisify(exec);
 
 export async function POST(request: NextRequest) {
   try {
-    const { testType = 'all' } = await request.json();
+    const { testType = "all" } = await request.json();
     
     let command: string;
     switch (testType) {
-      case 'coverage':
-        command = 'npm run test:coverage';
+      case "coverage":
+        command = "npm run test:coverage";
         break;
-      case 'watch':
-        command = 'npm run test:watch';
+      case "watch":
+        command = "npm run test:watch";
         break;
       default:
-        command = 'npm test';
+        command = "npm test";
     }
 
     const { stdout, stderr } = await execAsync(command, {
@@ -32,13 +32,13 @@ export async function POST(request: NextRequest) {
       testType,
     });
   } catch (error) {
-    console.error('Test execution error:', error);
+    console.error("Test execution error:", error);
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : "Unknown error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -46,13 +46,13 @@ export async function POST(request: NextRequest) {
 export async function GET() {
   try {
     // カバレッジレポートの読み込み
-    const fs = await import('fs/promises');
-    const path = await import('path');
+    const fs = await import("fs/promises");
+    const path = await import("path");
     
-    const coveragePath = path.join(process.cwd(), 'coverage', 'coverage-final.json');
+    const coveragePath = path.join(process.cwd(), "coverage", "coverage-final.json");
     
     try {
-      const coverageData = await fs.readFile(coveragePath, 'utf-8');
+      const coverageData = await fs.readFile(coveragePath, "utf-8");
       const coverage = JSON.parse(coverageData);
       
       return NextResponse.json({
@@ -62,17 +62,17 @@ export async function GET() {
     } catch (error) {
       return NextResponse.json({
         success: false,
-        message: 'Coverage report not found. Run tests with coverage first.',
+        message: "Coverage report not found. Run tests with coverage first.",
       });
     }
   } catch (error) {
-    console.error('Coverage reading error:', error);
+    console.error("Coverage reading error:", error);
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : "Unknown error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

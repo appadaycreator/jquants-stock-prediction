@@ -52,7 +52,7 @@ class PerformanceMonitor {
 
   private initializeMonitoring(): void {
     // SSR環境では実行しない
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return;
     }
 
@@ -104,7 +104,7 @@ class PerformanceMonitor {
 
   private startMemoryMonitoring(): void {
     // SSR環境では実行しない
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return;
     }
 
@@ -133,7 +133,7 @@ class PerformanceMonitor {
 
   private estimateBundleSize(): void {
     // SSR環境では実行しない
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return;
     }
 

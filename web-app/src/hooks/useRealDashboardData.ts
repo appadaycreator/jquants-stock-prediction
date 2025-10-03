@@ -38,7 +38,7 @@ export function useRealDashboardData() {
         setState(prev => ({ 
           ...prev, 
           isLoading: false, 
-          error: `API接続失敗: ${connectionStatus.message}` 
+          error: `API接続失敗: ${connectionStatus.message}`, 
         }));
         return;
       }
@@ -51,7 +51,7 @@ export function useRealDashboardData() {
         setState(prev => ({ 
           ...prev, 
           isLoading: false, 
-          error: "市場サマリーの生成に失敗しました" 
+          error: "市場サマリーの生成に失敗しました", 
         }));
         return;
       }

@@ -1,44 +1,71 @@
-/**
- * utilsライブラリのテスト
- */
+import { formatCurrency, formatPercentage, debounce } from "../utils";
 
-import { clsx } from "clsx";
-
-// cn関数の実装をモック
-const cn = (...inputs: any[]) => clsx(inputs);
-
-describe("cn", () => {
-  it("クラス名を正しく結合する", () => {
-    const result = cn("class1", "class2");
-    expect(result).toBe("class1 class2");
-  });
-
-  it("条件付きクラス名を正しく処理する", () => {
-    const result = cn("base", true && "conditional", false && "hidden");
-    expect(result).toBe("base conditional");
-  });
-
-  it("undefinedやnullを無視する", () => {
-    const result = cn("base", undefined, null, "valid");
-    expect(result).toBe("base valid");
-  });
-
-  it("空文字列を無視する", () => {
-    const result = cn("base", "", "valid");
-    expect(result).toBe("base valid");
-  });
-
-  it("配列のクラス名を正しく処理する", () => {
-    const result = cn(["class1", "class2"], "class3");
-    expect(result).toBe("class1 class2 class3");
-  });
-
-  it("オブジェクトの条件付きクラス名を正しく処理する", () => {
-    const result = cn({
-      "active": true,
-      "disabled": false,
-      "hidden": true,
+describe("utils", () => {
+  describe("formatCurrency", () => {
+    it("formats positive numbers correctly", () => {
+      expect(formatCurrency(1000)).toBe("￥1,000");
+      expect(formatCurrency(1000000)).toBe("￥1,000,000");
     });
-    expect(result).toBe("active hidden");
+
+    it("formats negative numbers correctly", () => {
+      expect(formatCurrency(-1000)).toBe("-￥1,000");
+    });
+
+    it("handles zero", () => {
+      expect(formatCurrency(0)).toBe("￥0");
+    });
+
+    it("handles decimal numbers", () => {
+      expect(formatCurrency(1234.56)).toBe("￥1,235");
+    });
   });
+
+  describe("formatPercentage", () => {
+    it("formats percentages correctly", () => {
+      expect(formatPercentage(0.1)).toBe("10.0%");
+      expect(formatPercentage(0.1234)).toBe("12.3%");
+    });
+
+    it("handles negative percentages", () => {
+      expect(formatPercentage(-0.1)).toBe("-10.0%");
+    });
+
+    it("handles zero", () => {
+      expect(formatPercentage(0)).toBe("0.0%");
+    });
+  });
+
+  describe("debounce", () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it("delays function execution", () => {
+      const mockFn = jest.fn();
+      const debouncedFn = debounce(mockFn, 100);
+
+      debouncedFn();
+      expect(mockFn).not.toHaveBeenCalled();
+
+      jest.advanceTimersByTime(100);
+      expect(mockFn).toHaveBeenCalledTimes(1);
+    });
+
+    it("cancels previous calls", () => {
+      const mockFn = jest.fn();
+      const debouncedFn = debounce(mockFn, 100);
+
+      debouncedFn();
+      debouncedFn();
+      debouncedFn();
+
+      jest.advanceTimersByTime(100);
+      expect(mockFn).toHaveBeenCalledTimes(1);
+    });
+  });
+
 });

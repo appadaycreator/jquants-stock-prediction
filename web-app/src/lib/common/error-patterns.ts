@@ -4,153 +4,153 @@
  */
 
 export interface ErrorPattern {
-  category: 'network' | 'api' | 'data' | 'validation' | 'permission' | 'unknown';
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  category: "network" | "api" | "data" | "validation" | "permission" | "unknown";
+  severity: "low" | "medium" | "high" | "critical";
   autoRetry: boolean;
   retryDelay: number;
-  fallbackAction: 'none' | 'refresh' | 'clear-cache' | 'redirect' | 'reload';
+  fallbackAction: "none" | "refresh" | "clear-cache" | "redirect" | "reload";
   userMessage: string;
 }
 
 export class ErrorPatternMatcher {
   private static patterns: Map<string, ErrorPattern> = new Map([
     // ネットワークエラー
-    ['network', {
-      category: 'network',
-      severity: 'medium',
+    ["network", {
+      category: "network",
+      severity: "medium",
       autoRetry: true,
       retryDelay: 3000,
-      fallbackAction: 'refresh',
-      userMessage: 'ネットワーク接続に問題があります。しばらく待ってから再試行してください。'
+      fallbackAction: "refresh",
+      userMessage: "ネットワーク接続に問題があります。しばらく待ってから再試行してください。",
     }],
-    ['fetch', {
-      category: 'network',
-      severity: 'medium',
+    ["fetch", {
+      category: "network",
+      severity: "medium",
       autoRetry: true,
       retryDelay: 3000,
-      fallbackAction: 'refresh',
-      userMessage: 'データの取得に失敗しました。接続を確認してください。'
+      fallbackAction: "refresh",
+      userMessage: "データの取得に失敗しました。接続を確認してください。",
     }],
-    ['timeout', {
-      category: 'network',
-      severity: 'medium',
+    ["timeout", {
+      category: "network",
+      severity: "medium",
       autoRetry: true,
       retryDelay: 5000,
-      fallbackAction: 'refresh',
-      userMessage: 'タイムアウトが発生しました。しばらく待ってから再試行してください。'
+      fallbackAction: "refresh",
+      userMessage: "タイムアウトが発生しました。しばらく待ってから再試行してください。",
     }],
-    ['connection', {
-      category: 'network',
-      severity: 'high',
+    ["connection", {
+      category: "network",
+      severity: "high",
       autoRetry: true,
       retryDelay: 5000,
-      fallbackAction: 'refresh',
-      userMessage: 'サーバーとの接続に問題があります。'
+      fallbackAction: "refresh",
+      userMessage: "サーバーとの接続に問題があります。",
     }],
 
     // APIエラー
-    ['api', {
-      category: 'api',
-      severity: 'high',
+    ["api", {
+      category: "api",
+      severity: "high",
       autoRetry: false,
       retryDelay: 0,
-      fallbackAction: 'none',
-      userMessage: 'API接続に問題があります。管理者にお問い合わせください。'
+      fallbackAction: "none",
+      userMessage: "API接続に問題があります。管理者にお問い合わせください。",
     }],
-    ['http', {
-      category: 'api',
-      severity: 'high',
+    ["http", {
+      category: "api",
+      severity: "high",
       autoRetry: false,
       retryDelay: 0,
-      fallbackAction: 'none',
-      userMessage: 'HTTPエラーが発生しました。'
+      fallbackAction: "none",
+      userMessage: "HTTPエラーが発生しました。",
     }],
-    ['status', {
-      category: 'api',
-      severity: 'high',
+    ["status", {
+      category: "api",
+      severity: "high",
       autoRetry: false,
       retryDelay: 0,
-      fallbackAction: 'none',
-      userMessage: 'サーバーエラーが発生しました。'
+      fallbackAction: "none",
+      userMessage: "サーバーエラーが発生しました。",
     }],
 
     // データエラー
-    ['data', {
-      category: 'data',
-      severity: 'medium',
+    ["data", {
+      category: "data",
+      severity: "medium",
       autoRetry: true,
       retryDelay: 1000,
-      fallbackAction: 'clear-cache',
-      userMessage: 'データの処理中にエラーが発生しました。'
+      fallbackAction: "clear-cache",
+      userMessage: "データの処理中にエラーが発生しました。",
     }],
-    ['parse', {
-      category: 'data',
-      severity: 'medium',
+    ["parse", {
+      category: "data",
+      severity: "medium",
       autoRetry: true,
       retryDelay: 1000,
-      fallbackAction: 'clear-cache',
-      userMessage: 'データの解析に失敗しました。'
+      fallbackAction: "clear-cache",
+      userMessage: "データの解析に失敗しました。",
     }],
-    ['json', {
-      category: 'data',
-      severity: 'medium',
+    ["json", {
+      category: "data",
+      severity: "medium",
       autoRetry: true,
       retryDelay: 1000,
-      fallbackAction: 'clear-cache',
-      userMessage: 'JSONデータの処理に失敗しました。'
+      fallbackAction: "clear-cache",
+      userMessage: "JSONデータの処理に失敗しました。",
     }],
 
     // バリデーションエラー
-    ['validation', {
-      category: 'validation',
-      severity: 'low',
+    ["validation", {
+      category: "validation",
+      severity: "low",
       autoRetry: false,
       retryDelay: 0,
-      fallbackAction: 'none',
-      userMessage: '入力データに問題があります。値を確認してください。'
+      fallbackAction: "none",
+      userMessage: "入力データに問題があります。値を確認してください。",
     }],
-    ['required', {
-      category: 'validation',
-      severity: 'low',
+    ["required", {
+      category: "validation",
+      severity: "low",
       autoRetry: false,
       retryDelay: 0,
-      fallbackAction: 'none',
-      userMessage: '必須項目が入力されていません。'
+      fallbackAction: "none",
+      userMessage: "必須項目が入力されていません。",
     }],
-    ['format', {
-      category: 'validation',
-      severity: 'low',
+    ["format", {
+      category: "validation",
+      severity: "low",
       autoRetry: false,
       retryDelay: 0,
-      fallbackAction: 'none',
-      userMessage: '入力形式が正しくありません。'
+      fallbackAction: "none",
+      userMessage: "入力形式が正しくありません。",
     }],
 
     // 権限エラー
-    ['permission', {
-      category: 'permission',
-      severity: 'high',
+    ["permission", {
+      category: "permission",
+      severity: "high",
       autoRetry: false,
       retryDelay: 0,
-      fallbackAction: 'redirect',
-      userMessage: 'アクセス権限がありません。'
+      fallbackAction: "redirect",
+      userMessage: "アクセス権限がありません。",
     }],
-    ['unauthorized', {
-      category: 'permission',
-      severity: 'high',
+    ["unauthorized", {
+      category: "permission",
+      severity: "high",
       autoRetry: false,
       retryDelay: 0,
-      fallbackAction: 'redirect',
-      userMessage: '認証が必要です。ログインしてください。'
+      fallbackAction: "redirect",
+      userMessage: "認証が必要です。ログインしてください。",
     }],
-    ['forbidden', {
-      category: 'permission',
-      severity: 'high',
+    ["forbidden", {
+      category: "permission",
+      severity: "high",
       autoRetry: false,
       retryDelay: 0,
-      fallbackAction: 'redirect',
-      userMessage: 'この操作は許可されていません。'
-    }]
+      fallbackAction: "redirect",
+      userMessage: "この操作は許可されていません。",
+    }],
   ]);
 
   static matchError(error: Error): ErrorPattern {
@@ -164,12 +164,12 @@ export class ErrorPatternMatcher {
 
     // デフォルトパターン
     return {
-      category: 'unknown',
-      severity: 'medium',
+      category: "unknown",
+      severity: "medium",
       autoRetry: false,
       retryDelay: 0,
-      fallbackAction: 'none',
-      userMessage: '予期しないエラーが発生しました。'
+      fallbackAction: "none",
+      userMessage: "予期しないエラーが発生しました。",
     };
   }
 
@@ -198,7 +198,7 @@ export class StandardErrorHandler {
       enableAutoRetry: true,
       enableFallback: true,
       logErrors: true,
-      ...config
+      ...config,
     };
   }
 
@@ -207,11 +207,11 @@ export class StandardErrorHandler {
     const errorKey = context ? `${context.operation}_${context.component}_${error.message}` : error.message;
     
     if (this.config.logErrors) {
-      console.error('Error handled:', {
+      console.error("Error handled:", {
         error: error.message,
         pattern,
         context,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     }
 
@@ -251,7 +251,7 @@ export class StandardErrorHandler {
       await new Promise(resolve => setTimeout(resolve, pattern.retryDelay));
       return true;
     } catch (retryError) {
-      console.error('Retry failed:', retryError);
+      console.error("Retry failed:", retryError);
       return false;
     }
   }
@@ -259,24 +259,24 @@ export class StandardErrorHandler {
   private async executeFallback(pattern: ErrorPattern): Promise<boolean> {
     try {
       switch (pattern.fallbackAction) {
-        case 'refresh':
-          if (typeof window !== 'undefined') {
+        case "refresh":
+          if (typeof window !== "undefined") {
             window.location.reload();
           }
           break;
-        case 'clear-cache':
-          if (typeof window !== 'undefined' && 'caches' in window) {
+        case "clear-cache":
+          if (typeof window !== "undefined" && "caches" in window) {
             const cacheNames = await caches.keys();
             await Promise.all(cacheNames.map(name => caches.delete(name)));
           }
           break;
-        case 'redirect':
-          if (typeof window !== 'undefined') {
-            window.location.href = '/login';
+        case "redirect":
+          if (typeof window !== "undefined") {
+            window.location.href = "/login";
           }
           break;
-        case 'reload':
-          if (typeof window !== 'undefined') {
+        case "reload":
+          if (typeof window !== "undefined") {
             window.location.reload();
           }
           break;
@@ -285,7 +285,7 @@ export class StandardErrorHandler {
       }
       return true;
     } catch (fallbackError) {
-      console.error('Fallback action failed:', fallbackError);
+      console.error("Fallback action failed:", fallbackError);
       return false;
     }
   }

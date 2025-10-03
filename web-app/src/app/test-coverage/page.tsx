@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   Play, 
   BarChart3, 
@@ -15,8 +15,8 @@ import {
   Clock, 
   RefreshCw,
   FileText,
-  Activity
-} from 'lucide-react';
+  Activity,
+} from "lucide-react";
 
 interface CoverageStats {
   statements: { total: number; covered: number; percentage: number };
@@ -37,17 +37,17 @@ export default function TestCoveragePage() {
   const [isRunning, setIsRunning] = useState(false);
   const [testResult, setTestResult] = useState<TestResult | null>(null);
   const [coverageStats, setCoverageStats] = useState<CoverageStats | null>(null);
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState("overview");
 
-  const runTests = async (testType: string = 'all') => {
+  const runTests = async (testType: string = "all") => {
     setIsRunning(true);
     setTestResult(null);
 
     try {
-      const response = await fetch('/api/test/run', {
-        method: 'POST',
+      const response = await fetch("/api/test/run", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ testType }),
       });
@@ -57,7 +57,7 @@ export default function TestCoveragePage() {
     } catch (error) {
       setTestResult({
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : "Unknown error",
       });
     } finally {
       setIsRunning(false);
@@ -69,7 +69,7 @@ export default function TestCoveragePage() {
     setCoverageStats(null);
 
     try {
-      const response = await fetch('/api/test/coverage');
+      const response = await fetch("/api/test/coverage");
       const result = await response.json();
       
       if (result.success && result.stats) {
@@ -81,7 +81,7 @@ export default function TestCoveragePage() {
     } catch (error) {
       setTestResult({
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : "Unknown error",
       });
     } finally {
       setIsRunning(false);
@@ -89,15 +89,15 @@ export default function TestCoveragePage() {
   };
 
   const getCoverageColor = (percentage: number) => {
-    if (percentage >= 80) return 'text-green-600';
-    if (percentage >= 60) return 'text-yellow-600';
-    return 'text-red-600';
+    if (percentage >= 80) return "text-green-600";
+    if (percentage >= 60) return "text-yellow-600";
+    return "text-red-600";
   };
 
   const getCoverageBadgeVariant = (percentage: number) => {
-    if (percentage >= 80) return 'default';
-    if (percentage >= 60) return 'secondary';
-    return 'destructive';
+    if (percentage >= 80) return "default";
+    if (percentage >= 60) return "secondary";
+    return "destructive";
   };
 
   return (
@@ -111,7 +111,7 @@ export default function TestCoveragePage() {
         </div>
         <div className="flex gap-2">
           <Button
-            onClick={() => runTests('all')}
+            onClick={() => runTests("all")}
             disabled={isRunning}
             variant="outline"
           >
@@ -119,7 +119,7 @@ export default function TestCoveragePage() {
             テスト実行
           </Button>
           <Button
-            onClick={() => runTests('coverage')}
+            onClick={() => runTests("coverage")}
             disabled={isRunning}
             variant="outline"
           >
@@ -152,10 +152,10 @@ export default function TestCoveragePage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {coverageStats ? `${coverageStats.statements.percentage.toFixed(1)}%` : '--'}
+                  {coverageStats ? `${coverageStats.statements.percentage.toFixed(1)}%` : "--"}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {coverageStats ? `${coverageStats.statements.covered}/${coverageStats.statements.total}` : 'データなし'}
+                  {coverageStats ? `${coverageStats.statements.covered}/${coverageStats.statements.total}` : "データなし"}
                 </p>
                 {coverageStats && (
                   <Progress 
@@ -173,10 +173,10 @@ export default function TestCoveragePage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {coverageStats ? `${coverageStats.branches.percentage.toFixed(1)}%` : '--'}
+                  {coverageStats ? `${coverageStats.branches.percentage.toFixed(1)}%` : "--"}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {coverageStats ? `${coverageStats.branches.covered}/${coverageStats.branches.total}` : 'データなし'}
+                  {coverageStats ? `${coverageStats.branches.covered}/${coverageStats.branches.total}` : "データなし"}
                 </p>
                 {coverageStats && (
                   <Progress 
@@ -194,10 +194,10 @@ export default function TestCoveragePage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {coverageStats ? `${coverageStats.functions.percentage.toFixed(1)}%` : '--'}
+                  {coverageStats ? `${coverageStats.functions.percentage.toFixed(1)}%` : "--"}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {coverageStats ? `${coverageStats.functions.covered}/${coverageStats.functions.total}` : 'データなし'}
+                  {coverageStats ? `${coverageStats.functions.covered}/${coverageStats.functions.total}` : "データなし"}
                 </p>
                 {coverageStats && (
                   <Progress 
@@ -215,10 +215,10 @@ export default function TestCoveragePage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {coverageStats ? `${coverageStats.lines.percentage.toFixed(1)}%` : '--'}
+                  {coverageStats ? `${coverageStats.lines.percentage.toFixed(1)}%` : "--"}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {coverageStats ? `${coverageStats.lines.covered}/${coverageStats.lines.total}` : 'データなし'}
+                  {coverageStats ? `${coverageStats.lines.covered}/${coverageStats.lines.total}` : "データなし"}
                 </p>
                 {coverageStats && (
                   <Progress 
@@ -310,7 +310,7 @@ export default function TestCoveragePage() {
                   <Alert variant="destructive">
                     <XCircle className="h-4 w-4" />
                     <AlertDescription>
-                      {testResult.error || 'テストの実行に失敗しました。'}
+                      {testResult.error || "テストの実行に失敗しました。"}
                     </AlertDescription>
                   </Alert>
                 )}

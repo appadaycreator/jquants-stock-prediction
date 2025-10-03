@@ -356,7 +356,7 @@ export function generateMockStockData(symbol: string, startDate: string, endDate
       marketCap,
       lastUpdated: date.toISOString(),
       close: currentPrice,
-      date: date.toISOString().split('T')[0], // 日付フィールドを追加
+      date: date.toISOString().split("T")[0], // 日付フィールドを追加
     });
   }
   
@@ -369,7 +369,7 @@ export function generateMockStockData(symbol: string, startDate: string, endDate
 export async function analyzeStock(symbol: string, symbolName?: string): Promise<AnalysisResult | null> {
   try {
     // 無効なシンボルの場合はnullを返す
-    if (!symbol || symbol.trim() === '') {
+    if (!symbol || symbol.trim() === "") {
       return null;
     }
 

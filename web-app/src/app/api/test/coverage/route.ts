@@ -1,26 +1,26 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-import { readFile } from 'fs/promises';
-import { join } from 'path';
+import { NextRequest, NextResponse } from "next/server";
+import { exec } from "child_process";
+import { promisify } from "util";
+import { readFile } from "fs/promises";
+import { join } from "path";
 
 const execAsync = promisify(exec);
 
 // 動的レンダリングを強制
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
     // カバレッジレポートの生成
-    const { stdout, stderr } = await execAsync('npm run test:coverage', {
+    const { stdout, stderr } = await execAsync("npm run test:coverage", {
       cwd: process.cwd(),
       timeout: 300000, // 5分のタイムアウト
     });
 
     // カバレッジレポートの読み込み
     try {
-      const coveragePath = join(process.cwd(), 'coverage', 'coverage-final.json');
-      const coverageData = await readFile(coveragePath, 'utf-8');
+      const coveragePath = join(process.cwd(), "coverage", "coverage-final.json");
+      const coverageData = await readFile(coveragePath, "utf-8");
       const coverage = JSON.parse(coverageData);
 
       // カバレッジ統計の計算
@@ -36,19 +36,19 @@ export async function GET() {
     } catch (error) {
       return NextResponse.json({
         success: false,
-        message: 'Coverage report not found after generation.',
+        message: "Coverage report not found after generation.",
         output: stdout,
         error: stderr,
       });
     }
   } catch (error) {
-    console.error('Coverage generation error:', error);
+    console.error("Coverage generation error:", error);
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : "Unknown error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -71,7 +71,7 @@ function calculateCoverageStats(coverage: any) {
     if (file.b) {
       totalBranches += Object.keys(file.b).length;
       coveredBranches += Object.values(file.b).filter((counts: any) => 
-        Array.isArray(counts) ? counts.some((count: any) => count > 0) : counts > 0
+        Array.isArray(counts) ? counts.some((count: any) => count > 0) : counts > 0,
       ).length;
     }
     if (file.f) {

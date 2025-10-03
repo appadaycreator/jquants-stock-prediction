@@ -135,7 +135,7 @@ class UnifiedApiClient {
   // ヘッダーを抽出
   private extractHeaders(response: Response): Record<string, string> {
     const headers: Record<string, string> = {};
-    if (response.headers && typeof response.headers.forEach === 'function') {
+    if (response.headers && typeof response.headers.forEach === "function") {
       response.headers.forEach((value, key) => {
         headers[key] = value;
       });
@@ -173,19 +173,19 @@ class UnifiedApiClient {
 
   // 市場データ取得
   async getMarketData(): Promise<any> {
-    const response = await this.get('/market');
+    const response = await this.get("/market");
     return response.data;
   }
 
   // 予測データ取得
   async getPredictions(): Promise<any> {
-    const response = await this.get('/predictions');
+    const response = await this.get("/predictions");
     return response.data;
   }
 
   // 個人投資データ取得
   async getPersonalInvestmentData(): Promise<any> {
-    const response = await this.get('/personal-investment');
+    const response = await this.get("/personal-investment");
     return response.data;
   }
 }

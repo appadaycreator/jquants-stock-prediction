@@ -88,21 +88,21 @@ function DashboardContent() {
     accuracy: 85.5,
     mae: 12.3,
     rmse: 18.7,
-    r2: 0.78
+    r2: 0.78,
   };
   
   const marketInsights = {
     trends: [
       { description: "テクノロジー株の上昇傾向", sentiment: "positive" },
       { description: "エネルギー株の調整局面", sentiment: "negative" },
-      { description: "金融株の安定推移", sentiment: "neutral" }
-    ]
+      { description: "金融株の安定推移", sentiment: "neutral" },
+    ],
   };
   
   const modelComparison: ModelComparison[] = [
     { name: "Random Forest", type: "Ensemble", mae: 10.2, mse: 156.8, rmse: 12.5, r2: 0.82, rank: 1 },
     { name: "XGBoost", type: "Gradient Boosting", mae: 11.1, mse: 178.3, rmse: 13.4, r2: 0.79, rank: 2 },
-    { name: "LSTM", type: "Neural Network", mae: 12.8, mse: 201.5, rmse: 14.2, r2: 0.75, rank: 3 }
+    { name: "LSTM", type: "Neural Network", mae: 12.8, mse: 201.5, rmse: 14.2, r2: 0.75, rank: 3 },
   ];
 
   // パフォーマンス監視

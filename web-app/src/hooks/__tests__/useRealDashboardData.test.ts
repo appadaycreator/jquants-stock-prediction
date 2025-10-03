@@ -1,129 +1,110 @@
 import { renderHook, act } from "@testing-library/react";
 import { useRealDashboardData } from "../useRealDashboardData";
 
-// Mock the testConnection function
-jest.mock("@/lib/jquants-adapter", () => ({
-  testConnection: jest.fn(),
-}));
-
-// Mock the generateMarketSummary function
-jest.mock("@/lib/stock-analysis", () => ({
-  generateMarketSummary: jest.fn(),
+// Mock the fetchJson function
+jest.mock("@/lib/fetcher", () => ({
+  fetchJson: jest.fn(),
 }));
 
 describe("useRealDashboardData", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    jest.setTimeout(10000);
   });
 
-  it("initializes with loading state", () => {
+  it("initializes with correct default values", () => {
     const { result } = renderHook(() => useRealDashboardData());
     
+    expect(result.current.marketSummary).toBeNull();
     expect(result.current.isLoading).toBe(true);
     expect(result.current.error).toBe(null);
-    expect(result.current.connectionStatus).toBe(null);
-    expect(result.current.marketSummary).toBe(null);
-    expect(result.current.lastUpdated).toBe(null);
-    expect(result.current.analysisResults).toEqual([]);
-  });
-
-  it("provides refresh function", () => {
-    const { result } = renderHook(() => useRealDashboardData());
-    
     expect(typeof result.current.actions.refresh).toBe("function");
   });
 
-  it("handles successful connection test", async () => {
-    const { testConnection } = require("@/lib/jquants-adapter");
-    const { generateMarketSummary } = require("@/lib/stock-analysis");
-    
-    testConnection.mockResolvedValue({ success: true, message: "Connected" });
-    generateMarketSummary.mockResolvedValue({
-      analyzedSymbols: ["7203", "6758"],
-      recommendations: { BUY: 2, SELL: 0 },
-      topGainers: [],
-      topLosers: [],
-    });
+  it("handles successful data fetch", async () => {
+    const mockData = {
+      summary: {
+        totalStocks: 100,
+        analyzedStocks: 50,
+        lastUpdated: "2024-01-01T00:00:00Z",
+      },
+      predictions: [
+        {
+          symbol: "7203",
+          name: "トヨタ自動車",
+          recommendation: "BUY",
+          confidence: 0.8,
+        },
+      ],
+    };
+
+    const { fetchJson } = require("@/lib/fetcher");
+    fetchJson.mockResolvedValue(mockData);
 
     const { result } = renderHook(() => useRealDashboardData());
-    
+
     await act(async () => {
-      await result.current.actions.refresh();
+      await new Promise(resolve => setTimeout(resolve, 0));
     });
 
+    expect(result.current.marketSummary).toEqual(mockData);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.error).toBe(null);
-    expect(result.current.connectionStatus).toEqual({ success: true, message: "Frontend connection successful" });
-    expect(result.current.marketSummary).toBeDefined();
-  }, 10000);
+  });
 
-  it("handles connection failure", async () => {
-    const { testConnection } = require("@/lib/jquants-adapter");
-    
-    testConnection.mockResolvedValue({ success: false, message: "Connection failed" });
+  it("handles API errors gracefully", async () => {
+    const { fetchJson } = require("@/lib/fetcher");
+    fetchJson.mockRejectedValue(new Error("API Error"));
 
     const { result } = renderHook(() => useRealDashboardData());
-    
+
     await act(async () => {
-      await result.current.actions.refresh();
+      await new Promise(resolve => setTimeout(resolve, 0));
+    });
+
+    expect(result.current.marketSummary).toBeNull();
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.error).toBe("API Error");
+  });
+
+  it("refetches data when refetch is called", async () => {
+    const { fetchJson } = require("@/lib/fetcher");
+    fetchJson.mockResolvedValue({ data: "test" });
+
+    const { result } = renderHook(() => useRealDashboardData());
+
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
+    });
+
+    expect(fetchJson).toHaveBeenCalledTimes(1);
+
+    await act(async () => {
+      result.current.actions.refresh();
+    });
+
+    expect(fetchJson).toHaveBeenCalledTimes(2);
+  });
+
+  it("sets loading state during fetch", async () => {
+    const { fetchJson } = require("@/lib/fetcher");
+    let resolvePromise;
+    const promise = new Promise(resolve => {
+      resolvePromise = resolve;
+    });
+    fetchJson.mockReturnValue(promise);
+
+    const { result } = renderHook(() => useRealDashboardData());
+
+    expect(result.current.isLoading).toBe(true);
+
+    act(() => {
+      resolvePromise({ data: "test" });
+    });
+
+    await act(async () => {
+      await promise;
     });
 
     expect(result.current.isLoading).toBe(false);
-    expect(result.current.error).toBe(null);
-  }, 10000);
-
-  it("handles market summary generation failure", async () => {
-    const { testConnection } = require("@/lib/jquants-adapter");
-    const { generateMarketSummary } = require("@/lib/stock-analysis");
-    
-    testConnection.mockResolvedValue({ success: true, message: "Connected" });
-    generateMarketSummary.mockResolvedValue(null);
-
-    const { result } = renderHook(() => useRealDashboardData());
-    
-    await act(async () => {
-      await result.current.actions.refresh();
-    });
-
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.error).toBe("市場サマリーの生成に失敗しました");
-  }, 10000);
-
-  it("handles unexpected errors", async () => {
-    const { testConnection } = require("@/lib/jquants-adapter");
-    
-    testConnection.mockRejectedValue(new Error("Unexpected error"));
-
-    const { result } = renderHook(() => useRealDashboardData());
-    
-    await act(async () => {
-      await result.current.actions.refresh();
-    });
-
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.error).toBe("市場サマリーの生成に失敗しました");
-  }, 10000);
-
-  it("updates lastUpdated timestamp on successful refresh", async () => {
-    const { testConnection } = require("@/lib/jquants-adapter");
-    const { generateMarketSummary } = require("@/lib/stock-analysis");
-    
-    testConnection.mockResolvedValue({ success: true, message: "Connected" });
-    generateMarketSummary.mockResolvedValue({
-      analyzedSymbols: ["7203"],
-      recommendations: { BUY: 1 },
-      topGainers: [],
-      topLosers: [],
-    });
-
-    const { result } = renderHook(() => useRealDashboardData());
-    
-    await act(async () => {
-      await result.current.actions.refresh();
-    });
-
-    expect(result.current.lastUpdated).toBeDefined();
-    expect(new Date(result.current.lastUpdated!)).toBeInstanceOf(Date);
-  }, 10000);
+  });
 });

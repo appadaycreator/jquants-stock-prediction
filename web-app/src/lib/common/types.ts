@@ -21,7 +21,7 @@ export interface PaginationParams {
   page: number;
   limit: number;
   sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
+  sortOrder?: "asc" | "desc";
 }
 
 export interface PaginatedResponse<T> extends ApiResponse<T[]> {
@@ -44,13 +44,13 @@ export interface AppError extends Error {
 }
 
 export interface ErrorInfo {
-  category: 'network' | 'api' | 'data' | 'validation' | 'permission' | 'unknown';
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  category: "network" | "api" | "data" | "validation" | "permission" | "unknown";
+  severity: "low" | "medium" | "high" | "critical";
   message: string;
   userMessage: string;
   autoRetry: boolean;
   retryDelay: number;
-  fallbackAction: 'none' | 'refresh' | 'clear-cache' | 'redirect' | 'reload';
+  fallbackAction: "none" | "refresh" | "clear-cache" | "redirect" | "reload";
   timestamp: string;
 }
 
@@ -108,10 +108,10 @@ export interface AnalysisResult {
   priceChange: number;
   priceChangePercent: number;
   indicators: TechnicalIndicators;
-  recommendation: 'STRONG_BUY' | 'BUY' | 'HOLD' | 'SELL' | 'STRONG_SELL';
+  recommendation: "STRONG_BUY" | "BUY" | "HOLD" | "SELL" | "STRONG_SELL";
   confidence: number;
   reasons: string[];
-  riskLevel: 'LOW' | 'MEDIUM' | 'HIGH';
+  riskLevel: "LOW" | "MEDIUM" | "HIGH";
   targetPrice?: number;
 }
 
@@ -133,7 +133,7 @@ export interface MarketSummary {
 
 // 設定型
 export interface UserSettings {
-  theme: 'light' | 'dark' | 'system';
+  theme: "light" | "dark" | "system";
   language: string;
   notifications: {
     email: boolean;
@@ -143,7 +143,7 @@ export interface UserSettings {
   analysis: {
     autoRefresh: boolean;
     refreshInterval: number;
-    riskTolerance: 'low' | 'medium' | 'high';
+    riskTolerance: "low" | "medium" | "high";
   };
   display: {
     currency: string;
@@ -163,7 +163,7 @@ export interface PerformanceMetrics {
 
 // ログ型
 export interface LogEntry {
-  level: 'debug' | 'info' | 'warn' | 'error';
+  level: "debug" | "info" | "warn" | "error";
   message: string;
   timestamp: string;
   context?: Record<string, any>;
@@ -185,13 +185,13 @@ export interface SearchResult<T> {
   query: string;
   filters?: Record<string, any>;
   sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
+  sortOrder?: "asc" | "desc";
 }
 
 // 通知型
 export interface Notification {
   id: string;
-  type: 'info' | 'success' | 'warning' | 'error';
+  type: "info" | "success" | "warning" | "error";
   title: string;
   message: string;
   timestamp: string;
@@ -206,7 +206,7 @@ export interface Notification {
 export interface FormField<T = any> {
   name: keyof T;
   label: string;
-  type: 'text' | 'number' | 'email' | 'password' | 'select' | 'checkbox' | 'radio';
+  type: "text" | "number" | "email" | "password" | "select" | "checkbox" | "radio";
   required: boolean;
   placeholder?: string;
   options?: Array<{ label: string; value: any }>;
@@ -223,7 +223,7 @@ export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: "sm" | "md" | "lg" | "xl";
   closable?: boolean;
   children: React.ReactNode;
 }
@@ -236,7 +236,7 @@ export interface TableColumn<T> {
   filterable?: boolean;
   render?: (value: any, row: T) => React.ReactNode;
   width?: string;
-  align?: 'left' | 'center' | 'right';
+  align?: "left" | "center" | "right";
 }
 
 export interface TableProps<T> {
@@ -250,7 +250,7 @@ export interface TableProps<T> {
   };
   sorting?: {
     sortBy: keyof T;
-    sortOrder: 'asc' | 'desc';
+    sortOrder: "asc" | "desc";
     onSort: (key: keyof T) => void;
   };
   selection?: {
@@ -273,7 +273,7 @@ export interface ChartData {
 }
 
 export interface ChartConfig {
-  type: 'line' | 'bar' | 'pie' | 'doughnut' | 'scatter';
+  type: "line" | "bar" | "pie" | "doughnut" | "scatter";
   data: ChartData;
   options?: Record<string, any>;
   responsive?: boolean;
@@ -290,7 +290,7 @@ export interface FilterOption {
 export interface FilterConfig {
   key: string;
   label: string;
-  type: 'select' | 'multiselect' | 'range' | 'date' | 'text';
+  type: "select" | "multiselect" | "range" | "date" | "text";
   options?: FilterOption[];
   placeholder?: string;
   multiple?: boolean;
@@ -298,7 +298,7 @@ export interface FilterConfig {
 
 // エクスポート型
 export interface ExportConfig {
-  format: 'csv' | 'xlsx' | 'json' | 'pdf';
+  format: "csv" | "xlsx" | "json" | "pdf";
   filename: string;
   data: any[];
   columns?: string[];
@@ -307,7 +307,7 @@ export interface ExportConfig {
 
 // インポート型
 export interface ImportConfig {
-  format: 'csv' | 'xlsx' | 'json';
+  format: "csv" | "xlsx" | "json";
   file: File;
   mapping?: Record<string, string>;
   validation?: (data: any[]) => string[];
@@ -333,7 +333,7 @@ export interface BackupData {
 export interface SyncConfig {
   autoSync: boolean;
   syncInterval: number;
-  conflictResolution: 'local' | 'remote' | 'manual';
+  conflictResolution: "local" | "remote" | "manual";
   includeSettings: boolean;
   includeData: boolean;
 }
@@ -346,7 +346,7 @@ export interface SyncStatus {
     key: string;
     local: any;
     remote: any;
-    resolution: 'local' | 'remote' | 'manual';
+    resolution: "local" | "remote" | "manual";
   }>;
 }
 
@@ -375,16 +375,16 @@ export interface AuditLog {
   ipAddress: string;
   userAgent: string;
   details: Record<string, any>;
-  result: 'success' | 'failure';
+  result: "success" | "failure";
 }
 
 // ヘルスチェック型
 export interface HealthCheck {
-  status: 'healthy' | 'degraded' | 'unhealthy';
+  status: "healthy" | "degraded" | "unhealthy";
   timestamp: string;
   services: Array<{
     name: string;
-    status: 'up' | 'down' | 'degraded';
+    status: "up" | "down" | "degraded";
     responseTime: number;
     lastCheck: string;
   }>;

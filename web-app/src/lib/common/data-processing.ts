@@ -34,7 +34,7 @@ export class DataProcessor<T> {
       enableNormalization: true,
       enableCaching: true,
       cacheTimeout: 300000, // 5分
-      ...config
+      ...config,
     };
   }
 
@@ -64,8 +64,8 @@ export class DataProcessor<T> {
           metadata: {
             processedAt,
             processingTime: Date.now() - startTime,
-            cacheHit: true
-          }
+            cacheHit: true,
+          },
         };
       }
     }
@@ -80,7 +80,7 @@ export class DataProcessor<T> {
         try {
           processedData = normalizer(processedData);
         } catch (error) {
-          warnings.push(`Normalization warning: ${error instanceof Error ? error.message : 'Unknown error'}`);
+          warnings.push(`Normalization warning: ${error instanceof Error ? error.message : "Unknown error"}`);
         }
       }
     }
@@ -92,7 +92,7 @@ export class DataProcessor<T> {
           const validationErrors = validator(processedData);
           errors.push(...validationErrors);
         } catch (error) {
-          errors.push(`Validation error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+          errors.push(`Validation error: ${error instanceof Error ? error.message : "Unknown error"}`);
         }
       }
     }
@@ -104,15 +104,15 @@ export class DataProcessor<T> {
       warnings,
       metadata: {
         processedAt,
-        processingTime: Date.now() - startTime
-      }
+        processingTime: Date.now() - startTime,
+      },
     };
 
     // キャッシュ保存
     if (this.config.enableCaching && cacheKey && result.isValid) {
       this.cache.set(cacheKey, {
         data: result.data,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       });
     }
 
@@ -126,7 +126,7 @@ export class DataProcessor<T> {
   getCacheStats(): { size: number; keys: string[] } {
     return {
       size: this.cache.size,
-      keys: Array.from(this.cache.keys())
+      keys: Array.from(this.cache.keys()),
     };
   }
 }
@@ -134,7 +134,7 @@ export class DataProcessor<T> {
 // 共通のバリデーター
 export const commonValidators = {
   required: (field: string) => (data: any) => {
-    if (data[field] === null || data[field] === undefined || data[field] === '') {
+    if (data[field] === null || data[field] === undefined || data[field] === "") {
       return [`${field} is required`];
     }
     return [];
@@ -163,7 +163,7 @@ export const commonValidators = {
     const value = data[field];
     if (value === null || value === undefined) return [];
     
-    if (typeof value !== 'string') {
+    if (typeof value !== "string") {
       return [`${field} must be a string`];
     }
     
@@ -193,16 +193,16 @@ export const commonValidators = {
       errors.push(`${field} must have at most ${maxItems} items`);
     }
     return errors;
-  }
+  },
 };
 
 // 共通のノーマライザー
 export const commonNormalizers = {
   trimStrings: (data: any) => {
-    if (typeof data === 'object' && data !== null) {
+    if (typeof data === "object" && data !== null) {
       const normalized = { ...data };
       for (const key in normalized) {
-        if (typeof normalized[key] === 'string') {
+        if (typeof normalized[key] === "string") {
           normalized[key] = normalized[key].trim();
         }
       }
@@ -212,10 +212,10 @@ export const commonNormalizers = {
   },
 
   convertNumbers: (data: any) => {
-    if (typeof data === 'object' && data !== null) {
+    if (typeof data === "object" && data !== null) {
       const normalized = { ...data };
       for (const key in normalized) {
-        if (typeof normalized[key] === 'string' && !isNaN(Number(normalized[key]))) {
+        if (typeof normalized[key] === "string" && !isNaN(Number(normalized[key]))) {
           normalized[key] = Number(normalized[key]);
         }
       }
@@ -225,7 +225,7 @@ export const commonNormalizers = {
   },
 
   removeNulls: (data: any) => {
-    if (typeof data === 'object' && data !== null) {
+    if (typeof data === "object" && data !== null) {
       const normalized: any = {};
       for (const key in data) {
         if (data[key] !== null && data[key] !== undefined) {
@@ -235,7 +235,7 @@ export const commonNormalizers = {
       return normalized;
     }
     return data;
-  }
+  },
 };
 
 // 株価データ専用のプロセッサー
@@ -245,14 +245,14 @@ export class StockDataProcessor extends DataProcessor<any> {
       enableValidation: true,
       enableNormalization: true,
       enableCaching: true,
-      cacheTimeout: 600000 // 10分
+      cacheTimeout: 600000, // 10分
     });
 
     // 株価データ用のバリデーター
-    this.addValidator(commonValidators.required('symbol'))
-      .addValidator(commonValidators.required('price'))
-      .addValidator(commonValidators.number('price', 0))
-      .addValidator(commonValidators.string('symbol', 1, 10));
+    this.addValidator(commonValidators.required("symbol"))
+      .addValidator(commonValidators.required("price"))
+      .addValidator(commonValidators.number("price", 0))
+      .addValidator(commonValidators.string("symbol", 1, 10));
 
     // 株価データ用のノーマライザー
     this.addNormalizer(commonNormalizers.trimStrings)
@@ -268,16 +268,16 @@ export class PredictionDataProcessor extends DataProcessor<any> {
       enableValidation: true,
       enableNormalization: true,
       enableCaching: true,
-      cacheTimeout: 300000 // 5分
+      cacheTimeout: 300000, // 5分
     });
 
     // 予測データ用のバリデーター
-    this.addValidator(commonValidators.required('date'))
-      .addValidator(commonValidators.required('symbol'))
-      .addValidator(commonValidators.required('y_true'))
-      .addValidator(commonValidators.required('y_pred'))
-      .addValidator(commonValidators.number('y_true', 0))
-      .addValidator(commonValidators.number('y_pred', 0));
+    this.addValidator(commonValidators.required("date"))
+      .addValidator(commonValidators.required("symbol"))
+      .addValidator(commonValidators.required("y_true"))
+      .addValidator(commonValidators.required("y_pred"))
+      .addValidator(commonValidators.number("y_true", 0))
+      .addValidator(commonValidators.number("y_pred", 0));
 
     // 予測データ用のノーマライザー
     this.addNormalizer(commonNormalizers.trimStrings)
