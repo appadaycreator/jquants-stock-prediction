@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { stdout, stderr } = await execAsync(command, {
-      cwd: process.cwd().replace('/web-app', ''), // プロジェクトルートに移動
+      cwd: process.cwd().replace("/web-app", ""), // プロジェクトルートに移動
       timeout: 300000, // 5分のタイムアウト
     });
 
@@ -49,7 +49,7 @@ export async function GET() {
     const fs = await import("fs/promises");
     const path = await import("path");
     
-    const coveragePath = path.join(process.cwd().replace('/web-app', ''), "coverage", "coverage.json");
+    const coveragePath = path.join(process.cwd().replace("/web-app", ""), "coverage", "coverage.json");
     
     try {
       const coverageData = await fs.readFile(coveragePath, "utf-8");

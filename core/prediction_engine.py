@@ -80,7 +80,7 @@ class PredictionEngine:
                 self.error_handler.handle_data_processing_error(
                     e,
                     "株価予測実行",
-                    {"input_file": config.get("input_file", "unknown")},
+                    {"input_file": "unknown"},
                 )
             return self._create_error_result(str(e))
 

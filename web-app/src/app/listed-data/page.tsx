@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import EnhancedJQuantsAdapter from "@/lib/enhanced-jquants-adapter";
+import StockSearchInput from "@/components/StockSearchInput";
 
 interface ListedStock {
   code: string;
@@ -40,7 +41,7 @@ const ListedDataPage: React.FC = () => {
   const [sortField, setSortField] = useState<SortField>("code");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(50);
+  const [itemsPerPage] = useState(200);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const [volumeRange, setVolumeRange] = useState({ min: "", max: "" });
@@ -274,12 +275,11 @@ const ListedDataPage: React.FC = () => {
             <label className="block text-sm font-medium text-gray-700 mb-2">
               検索 (銘柄名・コード)
             </label>
-            <input
-              type="text"
+            <StockSearchInput
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={setSearchTerm}
               placeholder="銘柄名またはコードを入力..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full"
             />
           </div>
           <div>

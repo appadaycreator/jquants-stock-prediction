@@ -236,9 +236,9 @@ class ListedInfoFetcher:
 
         # 構造化データの作成（バッチ処理対応）
         batch_size = 10  # バッチサイズを設定
-        # 200銘柄を処理（100銘柄追加）
-        target_stocks = selected_stocks[:200]
-        logger.info(f"200銘柄を処理します: {len(target_stocks)}銘柄")
+        # 全銘柄を処理（制限を解除）
+        target_stocks = selected_stocks
+        logger.info(f"全銘柄を処理します: {len(target_stocks)}銘柄")
         for i, stock in enumerate(target_stocks):
             code = stock["code"]
             logger.info(f"処理中: {i+1}/{len(target_stocks)} - {stock['name']} ({code})")
