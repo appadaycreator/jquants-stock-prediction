@@ -71,7 +71,9 @@ jest.mock("next/navigation", () => ({
 }));
 
 // Mock fetch
-global.fetch = jest.fn();
+global.fetch = jest
+  .fn()
+  .mockResolvedValue({ ok: true, status: 200, json: async () => ({}) });
 
 // Mock window.matchMedia
 Object.defineProperty(window, "matchMedia", {
@@ -103,3 +105,59 @@ global.ResizeObserver = class ResizeObserver {
   observe() {}
   unobserve() {}
 };
+
+// Mock scrollIntoView
+if (typeof HTMLElement !== "undefined") {
+  // @ts-ignore
+  HTMLElement.prototype.scrollIntoView = jest.fn();
+}
+
+// Spy console methods to avoid noisy output and allow expectations
+if (typeof console !== "undefined") {
+  // eslint-disable-next-line no-console
+  jest.spyOn(console, "debug").mockImplementation(() => {});
+  // eslint-disable-next-line no-console
+  jest.spyOn(console, "info").mockImplementation(() => {});
+  // eslint-disable-next-line no-console
+  jest.spyOn(console, "warn").mockImplementation(() => {});
+  // eslint-disable-next-line no-console
+  jest.spyOn(console, "error").mockImplementation(() => {});
+}
+
+// Mock next/server for NextRequest minimal behavior in Jest
+jest.mock("next/server", () => {
+  try {
+    // Prefer real NextResponse if available to preserve behavior
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const actual = require("next/server");
+    class MockNextRequest {
+      constructor(input) {
+        this.url = typeof input === "string" ? input : input?.url ?? "";
+        this.nextUrl = new URL(this.url || "http://localhost/");
+        this.headers = new Map();
+        this.cookies = { get: jest.fn().mockReturnValue(undefined) };
+      }
+    }
+    return { ...actual, NextRequest: MockNextRequest };
+  } catch (_e) {
+    class MockNextRequest {
+      constructor(input) {
+        this.url = typeof input === "string" ? input : input?.url ?? "";
+        this.nextUrl = new URL(this.url || "http://localhost/");
+        this.headers = new Map();
+        this.cookies = { get: jest.fn().mockReturnValue(undefined) };
+      }
+    }
+    const NextResponse = {
+      json: (data, init = {}) => ({
+        ok: true,
+        status: init.status ?? 200,
+        headers: init.headers ?? {},
+        async json() {
+          return data;
+        },
+      }),
+    };
+    return { NextRequest: MockNextRequest, NextResponse };
+  }
+});
