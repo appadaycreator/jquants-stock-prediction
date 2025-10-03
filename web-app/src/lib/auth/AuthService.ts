@@ -31,14 +31,28 @@ export class AuthService {
   private static readonly PROXY_BASE_URL = '/api/jquants-proxy';
 
   /**
-   * 認証情報の暗号化保存
+   * 認証情報の暗号化保存（最適化版）
    */
   private static async encryptData(data: string): Promise<string> {
     try {
-      const key = await crypto.subtle.importKey(
+      // より安全なキー生成
+      const keyMaterial = await crypto.subtle.importKey(
         'raw',
         new TextEncoder().encode(AuthService.ENCRYPTION_KEY),
-        { name: 'AES-GCM' },
+        { name: 'PBKDF2' },
+        false,
+        ['deriveKey']
+      );
+
+      const key = await crypto.subtle.deriveKey(
+        {
+          name: 'PBKDF2',
+          salt: new TextEncoder().encode('jquants_salt'),
+          iterations: 100000,
+          hash: 'SHA-256'
+        },
+        keyMaterial,
+        { name: 'AES-GCM', length: 256 },
         false,
         ['encrypt']
       );
@@ -62,7 +76,7 @@ export class AuthService {
   }
 
   /**
-   * 認証情報の復号化
+   * 認証情報の復号化（最適化版）
    */
   private static async decryptData(encryptedData: string): Promise<string> {
     try {
@@ -73,10 +87,24 @@ export class AuthService {
       const iv = combined.slice(0, 12);
       const encrypted = combined.slice(12);
 
-      const key = await crypto.subtle.importKey(
+      // より安全なキー生成
+      const keyMaterial = await crypto.subtle.importKey(
         'raw',
         new TextEncoder().encode(AuthService.ENCRYPTION_KEY),
-        { name: 'AES-GCM' },
+        { name: 'PBKDF2' },
+        false,
+        ['deriveKey']
+      );
+
+      const key = await crypto.subtle.deriveKey(
+        {
+          name: 'PBKDF2',
+          salt: new TextEncoder().encode('jquants_salt'),
+          iterations: 100000,
+          hash: 'SHA-256'
+        },
+        keyMaterial,
+        { name: 'AES-GCM', length: 256 },
         false,
         ['decrypt']
       );

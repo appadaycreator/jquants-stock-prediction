@@ -13,24 +13,24 @@ from datetime import datetime
 # テスト対象のインポート
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 from scripts.test_jquants_token import (
-    TestResult,
+    JQuantsTestResult,
     EndpointConfig,
-    TestResultData,
+    JQuantsTestResultData,
     JQuantsTokenTester,
     test_jquants_token,
 )
 
 
-class TestTestResult(unittest.TestCase):
-    """TestResult列挙型のテスト"""
+class TestJQuantsTestResult(unittest.TestCase):
+    """JQuantsTestResult列挙型のテスト"""
 
     def test_test_result_values(self):
         """テスト結果値のテスト"""
-        self.assertEqual(TestResult.SUCCESS.value, "success")
-        self.assertEqual(TestResult.FAILURE.value, "failure")
-        self.assertEqual(TestResult.TIMEOUT.value, "timeout")
-        self.assertEqual(TestResult.ERROR.value, "error")
-        self.assertEqual(TestResult.EXCEPTION.value, "exception")
+        self.assertEqual(JQuantsTestResult.SUCCESS.value, "success")
+        self.assertEqual(JQuantsTestResult.FAILURE.value, "failure")
+        self.assertEqual(JQuantsTestResult.TIMEOUT.value, "timeout")
+        self.assertEqual(JQuantsTestResult.ERROR.value, "error")
+        self.assertEqual(JQuantsTestResult.EXCEPTION.value, "exception")
 
 
 class TestEndpointConfig(unittest.TestCase):
@@ -61,12 +61,12 @@ class TestEndpointConfig(unittest.TestCase):
         self.assertEqual(config.timeout, 30)  # デフォルト値
 
 
-class TestTestResultData(unittest.TestCase):
-    """TestResultDataクラスのテスト"""
+class TestJQuantsTestResultData(unittest.TestCase):
+    """JQuantsTestResultDataクラスのテスト"""
 
     def test_test_result_data_initialization(self):
         """テスト結果データの初期化テスト"""
-        result = TestResultData(
+        result = JQuantsTestResultData(
             name="テストエンドポイント",
             url="https://api.example.com/test",
             status_code=200,
@@ -234,7 +234,7 @@ class TestJQuantsTokenTester(unittest.TestCase):
         mock_response = Mock()
         mock_response.json.return_value = {"key1": "value1", "key2": "value2"}
 
-        result = TestResultData(
+        result = JQuantsTestResultData(
             name="テスト",
             url="https://api.example.com/test",
             status_code=200,
@@ -254,7 +254,7 @@ class TestJQuantsTokenTester(unittest.TestCase):
         mock_response.json.side_effect = json.JSONDecodeError("Invalid JSON", "doc", 0)
         mock_response.text = "Invalid JSON response"
 
-        result = TestResultData(
+        result = JQuantsTestResultData(
             name="テスト",
             url="https://api.example.com/test",
             status_code=200,

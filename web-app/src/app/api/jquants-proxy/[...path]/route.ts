@@ -5,29 +5,62 @@ const ALLOWED_PATHS = ['/token/', '/prices/'];
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1分
 const RATE_LIMIT_MAX_REQUESTS = 100; // 1分間に100リクエスト
 
-// 簡易レート制限（本番環境ではRedis等を使用）
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+// 最適化されたレート制限（メモリ効率とパフォーマンス向上）
+class RateLimiter {
+  private static instance: RateLimiter;
+  private rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+  private cleanupInterval: NodeJS.Timeout;
+
+  private constructor() {
+    // 5分ごとに古いエントリをクリーンアップ
+    this.cleanupInterval = setInterval(() => {
+      const now = Date.now();
+      for (const [key, value] of this.rateLimitMap.entries()) {
+        if (now > value.resetTime) {
+          this.rateLimitMap.delete(key);
+        }
+      }
+    }, 5 * 60 * 1000);
+  }
+
+  static getInstance(): RateLimiter {
+    if (!RateLimiter.instance) {
+      RateLimiter.instance = new RateLimiter();
+    }
+    return RateLimiter.instance;
+  }
+
+  checkRateLimit(clientIp: string): boolean {
+    const now = Date.now();
+    const clientData = this.rateLimitMap.get(clientIp);
+
+    if (!clientData || now > clientData.resetTime) {
+      this.rateLimitMap.set(clientIp, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+      return true;
+    }
+
+    if (clientData.count >= RATE_LIMIT_MAX_REQUESTS) {
+      return false;
+    }
+
+    clientData.count++;
+    return true;
+  }
+
+  destroy(): void {
+    if (this.cleanupInterval) {
+      clearInterval(this.cleanupInterval);
+    }
+  }
+}
+
+const rateLimiter = RateLimiter.getInstance();
 
 function isAllowedPath(path: string): boolean {
   return ALLOWED_PATHS.some(allowedPath => path.startsWith(allowedPath));
 }
 
-function checkRateLimit(clientIp: string): boolean {
-  const now = Date.now();
-  const clientData = rateLimitMap.get(clientIp);
-
-  if (!clientData || now > clientData.resetTime) {
-    rateLimitMap.set(clientIp, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
-    return true;
-  }
-
-  if (clientData.count >= RATE_LIMIT_MAX_REQUESTS) {
-    return false;
-  }
-
-  clientData.count++;
-  return true;
-}
+// 削除: 古いcheckRateLimit関数はRateLimiterクラスに統合済み
 
 function getClientIp(request: NextRequest): string {
   const forwarded = request.headers.get('x-forwarded-for');
@@ -63,7 +96,7 @@ async function handleProxyRequest(
     }
 
     // レート制限チェック
-    if (!checkRateLimit(clientIp)) {
+    if (!rateLimiter.checkRateLimit(clientIp)) {
       return NextResponse.json(
         { error: 'Rate limit exceeded' },
         { status: 429 }

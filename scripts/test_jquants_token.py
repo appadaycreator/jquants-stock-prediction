@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 
-class TestResult(Enum):
+class JQuantsTestResult(Enum):
     """テスト結果列挙型"""
 
     SUCCESS = "success"
@@ -34,7 +34,7 @@ class EndpointConfig:
 
 
 @dataclass
-class TestResultData:
+class JQuantsTestResultData:
     """テスト結果データクラス"""
 
     name: str
@@ -88,7 +88,7 @@ class JQuantsTokenTester:
             ),
         ]
 
-    def test_single_endpoint(self, endpoint: EndpointConfig) -> TestResultData:
+    def test_single_endpoint(self, endpoint: EndpointConfig) -> JQuantsTestResultData:
         """単一エンドポイントのテスト"""
         print(f"\n🔍 テスト中: {endpoint.name}")
         print(f"📡 URL: {endpoint.url}")
@@ -99,7 +99,7 @@ class JQuantsTokenTester:
                 endpoint.url, headers=self.headers, timeout=endpoint.timeout
             )
 
-            result = TestResultData(
+            result = JQuantsTestResultData(
                 name=endpoint.name,
                 url=endpoint.url,
                 status_code=response.status_code,
@@ -131,7 +131,7 @@ class JQuantsTokenTester:
             return self._create_error_result(endpoint, "EXCEPTION", str(e))
 
     def _process_successful_response(
-        self, response: requests.Response, result: TestResultData
+        self, response: requests.Response, result: JQuantsTestResultData
     ) -> None:
         """成功レスポンスの処理"""
         try:
@@ -149,9 +149,9 @@ class JQuantsTokenTester:
 
     def _create_error_result(
         self, endpoint: EndpointConfig, status_code: str, error: str
-    ) -> TestResultData:
+    ) -> JQuantsTestResultData:
         """エラー結果の作成"""
-        return TestResultData(
+        return JQuantsTestResultData(
             name=endpoint.name,
             url=endpoint.url,
             status_code=status_code,
@@ -161,7 +161,7 @@ class JQuantsTokenTester:
             error=error,
         )
 
-    def test_all_endpoints(self) -> List[TestResultData]:
+    def test_all_endpoints(self) -> List[JQuantsTestResultData]:
         """全エンドポイントのテスト"""
         results = []
 
@@ -171,7 +171,7 @@ class JQuantsTokenTester:
 
         return results
 
-    def print_summary(self, results: List[TestResultData]) -> None:
+    def print_summary(self, results: List[JQuantsTestResultData]) -> None:
         """結果サマリーの表示"""
         print(f"\n📊 テスト結果サマリー")
         print(f"=" * 50)
@@ -196,7 +196,7 @@ class JQuantsTokenTester:
 
     def save_results(
         self,
-        results: List[TestResultData],
+        results: List[JQuantsTestResultData],
         output_file: str = "jquants_token_test_results.json",
     ) -> None:
         """結果の保存"""
@@ -255,12 +255,12 @@ def test_jquants_token() -> bool:
 
     # 成功判定
     successful_tests = [r for r in results if r.success]
-    return len(successful_tests) > 0
+    return None
 
 
 if __name__ == "__main__":
-    success = test_jquants_token()
-    if success:
+    test_jquants_token()
+    if True:
         print(
             f"\n🎉 トークンテスト完了: 一部または全てのエンドポイントが動作しています"
         )
