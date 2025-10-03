@@ -84,48 +84,106 @@ export function useEnhancedPersonalInvestment(): UseEnhancedPersonalInvestmentRe
         }
       }
 
-      // モックデータを返す（開発環境用）
-      const mockData: PersonalInvestmentData = {
-        portfolio: {
-          totalValue: 1500000,
-          totalReturn: 150000,
-          totalReturnPercentage: 11.1,
-          positions: [
+      // 全銘柄データから推奨銘柄を動的に生成
+      let mockData: PersonalInvestmentData;
+      
+      try {
+        // 全銘柄データを取得
+        const response = await fetch('/data/listed_index.json');
+        if (response.ok) {
+          const allStocksData = await response.json();
+          const stocks = allStocksData.stocks || [];
+          
+          // ランダムに銘柄を選択（実際の運用では分析結果に基づく）
+          const selectedStocks = stocks
+            .filter((stock: any) => stock.sector && stock.market)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 10); // 上位10銘柄を選択
+          
+          // ポートフォリオデータを生成
+          const positions = selectedStocks.slice(0, 4).map((stock: any, index: number) => ({
+            symbol: stock.code,
+            shares: Math.floor(Math.random() * 100) + 10,
+            currentPrice: Math.floor(Math.random() * 5000) + 1000,
+            totalValue: Math.floor(Math.random() * 500000) + 100000,
+            return: Math.floor(Math.random() * 50000) - 10000,
+            returnPercentage: (Math.random() - 0.5) * 20,
+          }));
+          
+          // 推奨銘柄を生成
+          const recommendations = selectedStocks.slice(4, 8).map((stock: any) => ({
+            symbol: stock.code,
+            action: Math.random() > 0.5 ? "buy" : "hold",
+            confidence: Math.random() * 0.4 + 0.6, // 0.6-1.0
+            targetPrice: Math.floor(Math.random() * 5000) + 1000,
+            currentPrice: Math.floor(Math.random() * 5000) + 1000,
+            reason: `テクニカル分析で${stock.sector}セクターの上昇トレンドを確認`,
+          }));
+          
+          mockData = {
+            portfolio: {
+              totalValue: 1500000,
+              totalReturn: 150000,
+              totalReturnPercentage: 11.1,
+              positions,
+            },
+            recommendations,
+            riskAnalysis: {
+              level: "medium",
+              factors: ["市場の不安定性", "金利変動リスク"],
+              recommendations: ["分散投資の実施", "リスク管理の徹底"],
+            },
+            lastUpdated: new Date().toISOString(),
+          };
+        } else {
+          throw new Error('全銘柄データの取得に失敗');
+        }
+      } catch (error) {
+        console.warn('全銘柄データの取得に失敗、フォールバックデータを使用:', error);
+        
+        // フォールバック: 元のモックデータ
+        mockData = {
+          portfolio: {
+            totalValue: 1500000,
+            totalReturn: 150000,
+            totalReturnPercentage: 11.1,
+            positions: [
+              {
+                symbol: "7203",
+                shares: 100,
+                currentPrice: 2500,
+                totalValue: 250000,
+                return: 25000,
+                returnPercentage: 11.1,
+              },
+              {
+                symbol: "6758",
+                shares: 50,
+                currentPrice: 1800,
+                totalValue: 90000,
+                return: 9000,
+                returnPercentage: 11.1,
+              },
+            ],
+          },
+          recommendations: [
             {
               symbol: "7203",
-              shares: 100,
+              action: "buy",
+              confidence: 0.85,
+              targetPrice: 2600,
               currentPrice: 2500,
-              totalValue: 250000,
-              return: 25000,
-              returnPercentage: 11.1,
-            },
-            {
-              symbol: "6758",
-              shares: 50,
-              currentPrice: 1800,
-              totalValue: 90000,
-              return: 9000,
-              returnPercentage: 11.1,
+              reason: "テクニカル分析で上昇トレンドを確認",
             },
           ],
-        },
-        recommendations: [
-          {
-            symbol: "7203",
-            action: "buy",
-            confidence: 0.85,
-            targetPrice: 2600,
-            currentPrice: 2500,
-            reason: "テクニカル分析で上昇トレンドを確認",
+          riskAnalysis: {
+            level: "medium",
+            factors: ["市場の不安定性", "金利変動リスク"],
+            recommendations: ["分散投資の実施", "リスク管理の徹底"],
           },
-        ],
-        riskAnalysis: {
-          level: "medium",
-          factors: ["市場の不安定性", "金利変動リスク"],
-          recommendations: ["分散投資の実施", "リスク管理の徹底"],
-        },
-        lastUpdated: new Date().toISOString(),
-      };
+          lastUpdated: new Date().toISOString(),
+        };
+      }
 
       // モックデータを返す
       setData(mockData);

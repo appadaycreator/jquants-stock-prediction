@@ -528,7 +528,7 @@ const ListedDataPage: React.FC = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <button
-                      onClick={() => window.open(`/dashboard?symbol=${stock.code}`, "_blank")}
+                      onClick={() => window.open(`/stock/${stock.code}`, "_blank")}
                       className="text-blue-600 hover:text-blue-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
                       aria-label={`${stock.name} (${stock.code}) の詳細ページを新しいタブで開く`}
                     >

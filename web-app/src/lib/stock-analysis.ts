@@ -391,16 +391,29 @@ export async function analyzeStock(symbol: string, symbolName?: string): Promise
     // 銘柄名を取得（提供されていない場合）
     let name = symbolName;
     if (!name) {
-      // const symbols = await getAllSymbols();
-      const symbols = [
-        { code: "7203", name: "トヨタ自動車" },
-        { code: "6758", name: "ソニーグループ" },
-        { code: "9984", name: "ソフトバンクグループ" },
-        { code: "6861", name: "キーエンス" },
-        { code: "4063", name: "信越化学工業" },
-      ];
-      const symbolInfo = symbols.find(s => s.code === symbol);
-      name = symbolInfo?.name || symbol;
+      try {
+        // 全銘柄データから銘柄名を取得
+        const response = await fetch('/data/listed_index.json');
+        if (response.ok) {
+          const data = await response.json();
+          const symbolInfo = data.stocks?.find((s: any) => s.code === symbol);
+          name = symbolInfo?.name || symbol;
+        } else {
+          // フォールバック: ハードコードされた銘柄リスト
+          const symbols = [
+            { code: "7203", name: "トヨタ自動車" },
+            { code: "6758", name: "ソニーグループ" },
+            { code: "9984", name: "ソフトバンクグループ" },
+            { code: "6861", name: "キーエンス" },
+            { code: "4063", name: "信越化学工業" },
+          ];
+          const symbolInfo = symbols.find(s => s.code === symbol);
+          name = symbolInfo?.name || symbol;
+        }
+      } catch (error) {
+        console.warn('銘柄名の取得に失敗しました:', error);
+        name = symbol;
+      }
     }
 
     const indicators = calculateTechnicalIndicators(stockData);
