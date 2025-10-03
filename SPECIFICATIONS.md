@@ -160,6 +160,18 @@ jquants-stock-prediction/
 - **リスク分析**: `/api/risk`
 - **設定管理**: `/api/settings`
 - **サジェッション**: `/api/listed-data/suggestions`
+- **ヘルスチェック**: `/api/health`
+- **認証管理**: `/api/auth/status`, `/api/auth/refresh`
+- **J-Quantsプロキシ**: `/api/jquants-proxy/[...path]`
+
+### 5.3 テストAPI（新規追加）
+- **テスト実行**: `/api/test/run/`
+  - **POST**: テスト実行（unit, integration, performance, coverage, all）
+  - **GET**: カバレッジレポート取得
+- **ルーティンテスト**: `/api/test/routine`
+  - **POST**: ルーティンAPIテスト実行（quick, full）
+- **認証テスト**: `/api/test/auth`
+  - **POST**: J-Quants認証テスト実行（quick, full）
 
 ## 6. セキュリティ仕様
 
