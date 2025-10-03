@@ -1,0 +1,20 @@
+{
+  "update_time": "2025-10-03T09:06:24.000435",
+  "updated_stocks": [],
+  "new_stocks": [
+    {
+      "code": "7203",
+      "name": "トヨタ自動車"
+    },
+    {
+      "code": "6758",
+      "name": "ソニーグループ"
+    },
+    {
+      "code": "9984",
+      "name": "ソフトバンクグループ"
+    }
+  ],
+  "unchanged_stocks": [],
+  "errors": []
+}
