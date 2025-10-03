@@ -30,7 +30,7 @@ interface State {
   retryCount: number;
 }
 
-export default class UnifiedErrorBoundary extends Component<Props, State> {
+class UnifiedErrorBoundary extends Component<Props, State> {
   private maxRetries = 3;
 
   constructor(props: Props) {
@@ -259,3 +259,5 @@ export default class UnifiedErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
+
+export default UnifiedErrorBoundary;

@@ -10,7 +10,7 @@ import {
   DashboardSummary,
   FeatureAnalysis,
   MarketInsights,
-  RiskAssessment
+  RiskAssessment,
 } from "../schema";
 
 describe("StockData", () => {
@@ -23,7 +23,7 @@ describe("StockData", () => {
       sma_10: 100.5,
       sma_25: 99.0,
       sma_50: 98.0,
-      predicted: 103.0
+      predicted: 103.0,
     };
 
     const result = StockData.safeParse(validStockData);
@@ -34,7 +34,7 @@ describe("StockData", () => {
     const invalidStockData = {
       date: "2023-01-01",
       // closeが不足
-      volume: 1000000
+      volume: 1000000,
     };
 
     const result = StockData.safeParse(invalidStockData);
@@ -45,7 +45,7 @@ describe("StockData", () => {
     const invalidStockData = {
       date: "2023-01-01",
       close: "invalid", // 文字列は無効
-      volume: 1000000
+      volume: 1000000,
     };
 
     const result = StockData.safeParse(invalidStockData);
@@ -58,16 +58,16 @@ describe("PredictionResponse", () => {
     const validPrediction = {
       meta: {
         model: "LSTM",
-        generatedAt: "2023-01-01T00:00:00Z"
+        generatedAt: "2023-01-01T00:00:00Z",
       },
       data: [
         {
           date: "2023-01-01",
           symbol: "AAPL",
           y_true: 102.0,
-          y_pred: 101.5
-        }
-      ]
+          y_pred: 101.5,
+        },
+      ],
     };
 
     const result = PredictionResponse.safeParse(validPrediction);
@@ -78,9 +78,9 @@ describe("PredictionResponse", () => {
     const invalidPrediction = {
       meta: {
         model: "LSTM",
-        generatedAt: "2023-01-01T00:00:00Z"
+        generatedAt: "2023-01-01T00:00:00Z",
       },
-      data: [] // 空配列
+      data: [], // 空配列
     };
 
     const result = PredictionResponse.safeParse(invalidPrediction);
@@ -96,7 +96,7 @@ describe("ModelComparison", () => {
       mae: 2.5,
       rmse: 3.2,
       r2: 0.85,
-      rank: 1
+      rank: 1,
     };
 
     const result = ModelComparison.safeParse(validComparison);
@@ -110,7 +110,7 @@ describe("ModelComparison", () => {
       mae: -2.5, // 負の値
       rmse: 3.2,
       r2: 0.85,
-      rank: 1
+      rank: 1,
     };
 
     const result = ModelComparison.safeParse(invalidComparison);
@@ -129,8 +129,8 @@ describe("DashboardSummary", () => {
         best_model: "LSTM",
         accuracy: 0.85,
         mae: 2.5,
-        rmse: 3.2
-      }
+        rmse: 3.2,
+      },
     };
 
     const result = DashboardSummary.safeParse(validSummary);
@@ -146,8 +146,8 @@ describe("DashboardSummary", () => {
         best_model: "LSTM",
         accuracy: 0.85,
         mae: 2.5,
-        rmse: 3.2
-      }
+        rmse: 3.2,
+      },
     };
 
     const result = DashboardSummary.safeParse(invalidSummary);
@@ -160,7 +160,7 @@ describe("FeatureAnalysis", () => {
     const validAnalysis = {
       feature: "close_price",
       importance: 0.85,
-      percentage: 75.5
+      percentage: 75.5,
     };
 
     const result = FeatureAnalysis.safeParse(validAnalysis);
@@ -171,7 +171,7 @@ describe("FeatureAnalysis", () => {
     const invalidAnalysis = {
       feature: "close_price",
       importance: 1.5, // 1.0を超える
-      percentage: 75.5
+      percentage: 75.5,
     };
 
     const result = FeatureAnalysis.safeParse(invalidAnalysis);
@@ -185,7 +185,7 @@ describe("MarketInsights", () => {
       market_trend: "上昇",
       volatility: 0.25,
       recommendations: ["買い", "ホールド"],
-      risk_level: "中" as const
+      risk_level: "中" as const,
     };
 
     const result = MarketInsights.safeParse(validInsights);
@@ -197,7 +197,7 @@ describe("MarketInsights", () => {
       market_trend: "上昇",
       volatility: 0.25,
       recommendations: ["買い"],
-      risk_level: "極高" // 無効な値
+      risk_level: "極高", // 無効な値
     };
 
     const result = MarketInsights.safeParse(invalidInsights);
@@ -212,7 +212,7 @@ describe("RiskAssessment", () => {
       portfolio_value: 1000000,
       var_95: 50000,
       max_drawdown: 0.15,
-      sharpe_ratio: 1.2
+      sharpe_ratio: 1.2,
     };
 
     const result = RiskAssessment.safeParse(validAssessment);
@@ -225,7 +225,7 @@ describe("RiskAssessment", () => {
       portfolio_value: -1000000, // 負の値
       var_95: 50000,
       max_drawdown: 0.15,
-      sharpe_ratio: 1.2
+      sharpe_ratio: 1.2,
     };
 
     const result = RiskAssessment.safeParse(invalidAssessment);

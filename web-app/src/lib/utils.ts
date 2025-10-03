@@ -2,6 +2,13 @@
  * ユーティリティ関数
  */
 
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
 /**
  * 数値を通貨形式でフォーマットする
  * @param value フォーマットする数値
@@ -55,7 +62,7 @@ export function formatDate(date: Date, format: string = "YYYY-MM-DD"): string {
  */
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
-  delay: number
+  delay: number,
 ): (...args: Parameters<T>) => void {
   let timeoutId: NodeJS.Timeout;
 

@@ -83,9 +83,6 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
   // 設定連携フック
   const { 
     runAnalysisWithSettings, 
-    isAnalyzing: settingsAnalyzing, 
-    analysisProgress: settingsProgress, 
-    analysisStatus: settingsStatus,
     getAnalysisDescription, 
   } = useAnalysisWithSettings();
 

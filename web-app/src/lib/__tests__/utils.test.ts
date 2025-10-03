@@ -37,7 +37,7 @@ describe("cn", () => {
     const result = cn({
       "active": true,
       "disabled": false,
-      "hidden": true
+      "hidden": true,
     });
     expect(result).toBe("active hidden");
   });

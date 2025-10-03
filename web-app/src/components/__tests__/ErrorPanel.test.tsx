@@ -21,7 +21,7 @@ describe("ErrorPanel", () => {
         error={mockError} 
         onRetry={mockOnRetry} 
         onDismiss={mockOnDismiss} 
-      />
+      />,
     );
     
     expect(screen.getByText("エラー: テストエラー")).toBeInTheDocument();
@@ -33,7 +33,7 @@ describe("ErrorPanel", () => {
         error={mockError} 
         onRetry={mockOnRetry} 
         onDismiss={mockOnDismiss} 
-      />
+      />,
     );
     
     const retryButton = screen.getByRole("button", { name: /再試行/i });
@@ -48,7 +48,7 @@ describe("ErrorPanel", () => {
         error={mockError} 
         onRetry={mockOnRetry} 
         onDismiss={mockOnDismiss} 
-      />
+      />,
     );
     
     const dismissButton = screen.getByRole("button", { name: /閉じる/i });
@@ -64,7 +64,7 @@ describe("ErrorPanel", () => {
         error={appError} 
         onRetry={mockOnRetry} 
         onDismiss={mockOnDismiss} 
-      />
+      />,
     );
     
     expect(screen.getByText("エラー: HTTP_404")).toBeInTheDocument();
@@ -77,7 +77,7 @@ describe("ErrorPanel", () => {
         error={appError} 
         onRetry={mockOnRetry} 
         onDismiss={mockOnDismiss} 
-      />
+      />,
     );
     
     expect(screen.getByText("エラー: TIMEOUT")).toBeInTheDocument();
@@ -90,7 +90,7 @@ describe("ErrorPanel", () => {
         error={networkError} 
         onRetry={mockOnRetry} 
         onDismiss={mockOnDismiss} 
-      />
+      />,
     );
     
     expect(screen.getByText("ネットワーク接続に問題があります。インターネット接続を確認してください。")).toBeInTheDocument();
@@ -103,7 +103,7 @@ describe("ErrorPanel", () => {
         error={rscError} 
         onRetry={mockOnRetry} 
         onDismiss={mockOnDismiss} 
-      />
+      />,
     );
     
     expect(screen.getByText("サーバーとの通信に問題があります。しばらく待ってから再試行してください。")).toBeInTheDocument();
@@ -115,7 +115,7 @@ describe("ErrorPanel", () => {
         error={mockError} 
         onRetry={mockOnRetry} 
         onDismiss={mockOnDismiss} 
-      />
+      />,
     );
     
     const retryButton = screen.getByRole("button", { name: /再試行/i });
@@ -128,7 +128,7 @@ describe("ErrorPanel", () => {
         error={mockError} 
         onRetry={mockOnRetry} 
         onDismiss={mockOnDismiss} 
-      />
+      />,
     );
     
     const dismissButton = screen.getByRole("button", { name: /閉じる/i });
