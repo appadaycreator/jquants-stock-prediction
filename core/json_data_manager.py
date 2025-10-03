@@ -181,9 +181,10 @@ class JSONDataManager:
 
     def _convert_data_types(self, item: Dict[str, Any]) -> Dict[str, Any]:
         """データ型の変換"""
+        from .utils import normalize_security_code
         return {
             "date": str(item["date"]),
-            "code": str(item["code"]),
+            "code": normalize_security_code(item["code"]),
             "open": float(item["open"]) if item["open"] is not None else 0.0,
             "high": float(item["high"]) if item["high"] is not None else 0.0,
             "low": float(item["low"]) if item["low"] is not None else 0.0,

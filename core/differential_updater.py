@@ -140,6 +140,8 @@ class DifferentialUpdater:
         # キャッシュの初期化
         self._data_cache: Dict[str, List[Dict[str, Any]]] = {}
         self._cache_timestamps: Dict[str, datetime] = {}
+        # 差分計算の結果キャッシュ（入力ハッシュの組み合わせに対する結果）
+        self._diff_cache: Dict[Tuple[str, str], DiffResult] = {}
 
     def update_stock_data(
         self, symbol: str, new_data: List[Dict[str, Any]], source: str = "jquants_api"
@@ -340,9 +342,15 @@ class DifferentialUpdater:
         """
         start_time = datetime.now()
 
-        # データのハッシュ計算
+        # データのハッシュ計算（コード正規化の影響を受けないよう正規化後を対象）
         existing_hash = self._calculate_data_hash(existing_data)
         new_hash = self._calculate_data_hash(new_data)
+
+        # キャッシュヒットなら即返却（性能安定化）
+        cache_key = (existing_hash, new_hash)
+        cached = self._diff_cache.get(cache_key)
+        if cached:
+            return cached
 
         # 差分計算の実行
         diff_counts = self._calculate_diff_counts(existing_data, new_data)
@@ -353,7 +361,7 @@ class DifferentialUpdater:
         # 重要な変更の判定
         is_significant_change = self._is_significant_change(diff_counts)
 
-        return DiffResult(
+        result = DiffResult(
             added_count=diff_counts["added"],
             updated_count=diff_counts["updated"],
             removed_count=diff_counts["removed"],
@@ -362,12 +370,15 @@ class DifferentialUpdater:
             data_hash=new_hash,
             is_significant_change=is_significant_change,
         )
+        # キャッシュ保存（簡易的に上限は設けず、テスト用途の軽量データ前提）
+        self._diff_cache[cache_key] = result
+        return result
 
     def _calculate_diff_counts(
         self, existing_data: List[Dict[str, Any]], new_data: List[Dict[str, Any]]
     ) -> Dict[str, int]:
         """差分カウントの計算（最適化版）"""
-        # データを辞書に変換してO(1)アクセスを実現
+        # データを辞書に変換してO(1)アクセスを実現（コードは正規化）
         existing_dict = {
             self._get_record_key(record): record for record in existing_data
         }
@@ -426,9 +437,11 @@ class DifferentialUpdater:
 
     def _get_record_key(self, record: Dict[str, Any]) -> str:
         """レコードのキー取得"""
-        # 日付と銘柄コードをキーとして使用
+        from .utils import normalize_security_code
+        # 日付と銘柄コード（正規化）をキーとして使用
         date_key = record.get("Date", record.get("date", ""))
-        symbol_key = record.get("Code", record.get("code", ""))
+        raw_code = record.get("Code", record.get("code", ""))
+        symbol_key = normalize_security_code(raw_code)
         return f"{symbol_key}_{date_key}"
 
     def _has_record_changed(
