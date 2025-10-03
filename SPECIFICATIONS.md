@@ -16,7 +16,7 @@ J-Quants APIを使用して株価データを取得し、機械学習で株価�
 
 ## 2. アーキテクチャ仕様
 
-### 2.1 システム構成（リファクタリング完了 v2.11）
+### 2.1 システム構成（リファクタリング完了 v2.12）
 ```
 jquants-stock-prediction/
 ├── core/                           # 統合コア機能（最適化済み）
@@ -41,13 +41,14 @@ jquants-stock-prediction/
 └── docs/                           # 統合ドキュメント
 ```
 
-### 2.2 技術スタック（リファクタリング完了 v2.11）
+### 2.2 技術スタック（リファクタリング完了 v2.12）
 - **バックエンド**: Python 3.13+ (最適化済み)
 - **フロントエンド**: Next.js 15, React 18, TypeScript (統合最適化)
 - **機械学習**: scikit-learn, XGBoost, LSTM (複数モデル統合)
 - **データベース**: 統合JSON管理システム
 - **API**: J-Quants API (統合クライアント)
 - **テスト**: pytest, Jest, Playwright (統合テストスイート)
+- **品質管理**: ESLint, TypeScript strict mode, テストカバレッジ15%以上
 - **パフォーマンス**: React.memo, useCallback, useMemo (メモ化最適化)
 - **アクセシビリティ**: WCAG 2.1 AA準拠 (96%カバレッジ)
 - **キャッシュ**: 統合キャッシュシステム

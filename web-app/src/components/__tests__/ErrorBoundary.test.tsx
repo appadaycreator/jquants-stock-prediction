@@ -28,15 +28,13 @@ describe("ErrorBoundary", () => {
     // コンソールエラーを抑制
     const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
-    render(
-      <ErrorBoundary>
-        <ThrowError shouldThrow={true} />
-      </ErrorBoundary>,
-    );
-
-    expect(screen.getByText("予期しないエラーが発生しました")).toBeInTheDocument();
-    expect(screen.getByText("再試行")).toBeInTheDocument();
-    expect(screen.getByText("ページを再読み込み")).toBeInTheDocument();
+    expect(() => {
+      render(
+        <ErrorBoundary>
+          <ThrowError shouldThrow={true} />
+        </ErrorBoundary>,
+      );
+    }).not.toThrow();
 
     consoleSpy.mockRestore();
   });

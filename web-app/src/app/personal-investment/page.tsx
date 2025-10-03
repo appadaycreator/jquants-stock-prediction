@@ -5,50 +5,29 @@ import React, { useState, useEffect } from "react";
 // 動的レンダリングを強制
 export const dynamic = "force-dynamic";
 import { getLatestIndex, resolveBusinessDate, swrJson } from "@/lib/dataClient";
-import { useEnhancedPersonalInvestment, usePersonalInvestmentFallback } from "@/hooks/useEnhancedPersonalInvestment";
+import { useEnhancedPersonalInvestment } from "@/hooks/useEnhancedPersonalInvestment";
 import UserProfileForm from "@/components/personalization/UserProfileForm";
 import { useUserProfile } from "@/contexts/UserProfileContext";
 import { allocateEqualRiskBudget, AllocationResult, Candidate } from "@/lib/personalization/allocation";
-import EnhancedLoadingSpinner from "@/components/EnhancedLoadingSpinner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-// import { 
-//   LineChart, 
-//   Line, 
-//   XAxis, 
-//   YAxis, 
-//   CartesianGrid, 
-//   Tooltip, 
-//   ResponsiveContainer,
-//   BarChart,
-//   Bar,
-//   PieChart,
-//   Pie,
-//   Cell,
-//   Area,
-//   AreaChart,
-// } from "recharts"; // rechartsライブラリを削除
 import { 
   TrendingUp, 
   TrendingDown, 
   DollarSign, 
-  Target,
-  AlertTriangle,
-  CheckCircle,
-  XCircle,
   ArrowUp,
   ArrowDown,
   Minus,
   Star,
   Activity,
   Shield,
-  Eye,
   RefreshCw,
-  Settings,
   Info,
+  AlertTriangle,
+  Settings,
 } from "lucide-react";
 import { useRiskCustomization } from "@/hooks/useRiskCustomization";
 import { RiskSettingsPanel } from "@/components/risk-customization/RiskSettingsPanel";
@@ -123,16 +102,10 @@ interface DashboardData {
 
 export default function PersonalInvestmentDashboard() {
   const { profile } = useUserProfile();
-  const { settings, getIndividualStockSettings } = useRiskCustomization();
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [allocation, setAllocation] = useState<AllocationResult | null>(null);
-
-  // 強化された個人投資データ取得
-  const personalInvestmentData = useEnhancedPersonalInvestment();
-  const { fallbackData, fallbackTimestamp, saveFallbackData } = usePersonalInvestmentFallback();
   
   // カスタマイズ機能の状態
   const [showRiskSettings, setShowRiskSettings] = useState(false);
@@ -147,7 +120,7 @@ export default function PersonalInvestmentDashboard() {
       const interval = setInterval(loadDashboardData, 30000); // 30秒ごと
       return () => clearInterval(interval);
     }
-  }, [autoRefresh]);
+  }, [autoRefresh, loadDashboardData]);
 
   const loadDashboardData = async () => {
     try {

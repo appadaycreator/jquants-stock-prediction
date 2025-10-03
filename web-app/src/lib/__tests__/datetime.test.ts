@@ -1,95 +1,64 @@
 /**
- * 日付処理ユーティリティのテスト
+ * datetime.ts のテスト
  */
 
-// import { describe, it, expect } from "vitest";
-import { parseToJst, jstLabel, normalizeDateString, formatDate, createChartDateArray } from "../datetime";
+import { formatDateTime, parseDateTime, getRelativeTime, isValidDate } from "../datetime";
 
-describe("datetime utilities", () => {
-  describe("parseToJst", () => {
-    it("ISO文字列をJSTに正規化する", () => {
-      const result = parseToJst("2024-01-15T10:30:00Z");
-      expect(result.isValid).toBe(true);
-      expect(jstLabel(result)).toBe("2024-01-15");
+describe("datetime", () => {
+  describe("formatDateTime", () => {
+    it("正常な日付をフォーマットする", () => {
+      const date = new Date("2024-01-15T10:30:00Z");
+      const result = formatDateTime(date);
+      expect(result).toContain("2024");
+      expect(result).toContain("01");
+      expect(result).toContain("15");
     });
 
-    it("YYYY-MM-DD形式をJSTに正規化する", () => {
-      const result = parseToJst("2024-01-15");
-      expect(result.isValid).toBe(true);
-      expect(jstLabel(result)).toBe("2024-01-15");
-    });
-
-    it("YYYYMMDD形式をJSTに正規化する", () => {
-      const result = parseToJst("20240115");
-      expect(result.isValid).toBe(true);
-      expect(jstLabel(result)).toBe("2024-01-15");
-    });
-
-    it("ミリ秒のタイムスタンプをJSTに正規化する", () => {
-      const timestamp = 1705305000000; // 2024-01-15 10:30:00 UTC
-      const result = parseToJst(timestamp);
-      expect(result.isValid).toBe(true);
-      expect(jstLabel(result)).toBe("2024-01-15");
-    });
-
-    it("秒のタイムスタンプをJSTに正規化する", () => {
-      const timestamp = 1705305000; // 2024-01-15 10:30:00 UTC
-      const result = parseToJst(timestamp);
-      expect(result.isValid).toBe(true);
-      expect(jstLabel(result)).toBe("2024-01-15");
-    });
-
-    it("無効な日付文字列に対してデフォルト日付を返す", () => {
-      const result = parseToJst("invalid-date");
-      expect(result.isValid).toBe(true);
-      expect(jstLabel(result)).toBe("2024-01-01");
+    it("nullを処理する", () => {
+      const result = formatDateTime(null);
+      expect(result).toBe("--");
     });
   });
 
-  describe("normalizeDateString", () => {
-    it("既にYYYY-MM-DD形式の場合はそのまま返す", () => {
-      expect(normalizeDateString("2024-01-15")).toBe("2024-01-15");
+  describe("parseDateTime", () => {
+    it("有効な日付文字列をパースする", () => {
+      const result = parseDateTime("2024-01-15T10:30:00Z");
+      expect(result).toBeInstanceOf(Date);
     });
 
-    it("YYYYMMDD形式をYYYY-MM-DD形式に変換する", () => {
-      expect(normalizeDateString("20240115")).toBe("2024-01-15");
-    });
-
-    it("無効な日付文字列に対してデフォルト日付を返す", () => {
-      expect(normalizeDateString("invalid")).toBe("2024-01-01");
+    it("無効な日付文字列を処理する", () => {
+      const result = parseDateTime("invalid");
+      expect(result).toBeNull();
     });
   });
 
-  describe("formatDate", () => {
-    it("有効な日付文字列をフォーマットする", () => {
-      expect(formatDate("2024-01-15")).toBe("2024/01/15");
+  describe("getRelativeTime", () => {
+    it("過去の時間を相対時間で表示する", () => {
+      const pastDate = new Date(Date.now() - 1000 * 60 * 5); // 5分前
+      const result = getRelativeTime(pastDate);
+      expect(result).toContain("分前");
     });
 
-    it("無効な日付文字列に対してInvalid Dateを返す", () => {
-      expect(formatDate("invalid")).toBe("2024/01/01");
+    it("未来の時間を相対時間で表示する", () => {
+      const futureDate = new Date(Date.now() + 1000 * 60 * 5); // 5分後
+      const result = getRelativeTime(futureDate);
+      expect(result).toContain("分後");
     });
   });
 
-  describe("createChartDateArray", () => {
-    it("日付配列からチャート用データを生成する", () => {
-      const dates = ["2024-01-15", "2024-01-16", "2024-01-17"];
-      const result = createChartDateArray(dates);
-      
-      expect(result).toHaveLength(3);
-      expect(result[0]).toHaveProperty("date");
-      expect(result[0]).toHaveProperty("timestamp");
-      expect(result[0].date).toBe("2024-01-15");
-      expect(typeof result[0].timestamp).toBe("number");
+  describe("isValidDate", () => {
+    it("有効な日付を検証する", () => {
+      const validDate = new Date("2024-01-15");
+      expect(isValidDate(validDate)).toBe(true);
     });
 
-    it("無効な日付を除外する", () => {
-      const dates = ["2024-01-15", "invalid", "2024-01-17"];
-      const result = createChartDateArray(dates);
-      
-      expect(result).toHaveLength(3);
-      expect(result[0].date).toBe("2024-01-15");
-      expect(result[1].date).toBe("2024-01-01");
-      expect(result[2].date).toBe("2024-01-17");
+    it("無効な日付を検証する", () => {
+      const invalidDate = new Date("invalid");
+      expect(isValidDate(invalidDate)).toBe(false);
+    });
+
+    it("nullを検証する", () => {
+      expect(isValidDate(null)).toBe(false);
     });
   });
 });

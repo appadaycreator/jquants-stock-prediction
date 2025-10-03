@@ -1,6 +1,5 @@
 "use client";
 
-import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SettingsProvider } from "@/contexts/SettingsContext";
@@ -13,7 +12,6 @@ import GlobalErrorBoundary from "@/components/GlobalErrorBoundary";
 import UnifiedErrorBoundary from "@/components/UnifiedErrorBoundary";
 import ResponsiveLayout from "@/components/ResponsiveLayout";
 import { useEffect, useState } from "react";
-import { optimizedErrorHandler } from "@/lib/unified-error-handler";
 
 const inter = Inter({ subsets: ["latin"] });
 
