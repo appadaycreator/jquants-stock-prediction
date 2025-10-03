@@ -1,263 +1,271 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  BarChart3, 
-  AlertTriangle, 
-  CheckCircle, 
-  RefreshCw,
-  Activity,
-  Target,
-  Shield,
-  Brain
-} from "lucide-react";
+import React, { useState, useEffect } from 'react';
+import { TrendingUp, BarChart3, Target, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
 
-interface PerformanceMetrics {
-  accuracy: number;
-  mae: number;
-  rmse: number;
-  r2: number;
+interface PerformanceSummary {
+  modelAccuracy: number;
+  averageReturn: number;
+  successRate: number;
+  totalTrades: number;
 }
 
-interface MarketInsights {
-  trends: Array<{
-    description: string;
-    sentiment: "positive" | "negative" | "neutral";
-  }>;
+interface MarketSummary {
+  nikkeiChange: number;
+  topixChange: number;
+  sectorPerformance: Record<string, number>;
 }
 
 interface ModelComparison {
   name: string;
-  type: string;
-  mae: number;
-  mse: number;
-  rmse: number;
-  r2: number;
-  rank: number;
+  algorithm: string;
+  accuracy: number;
+  trend: 'up' | 'down' | 'stable';
+  lastUpdated: string;
+}
+
+interface Alert {
+  id: string;
+  type: 'volatility' | 'economic' | 'technical';
+  message: string;
+  severity: 'low' | 'medium' | 'high';
+  timestamp: string;
 }
 
 interface DashboardWidgetsProps {
-  performanceMetrics: PerformanceMetrics;
-  marketInsights: MarketInsights;
-  modelComparison: ModelComparison[];
+  performanceData?: PerformanceSummary;
+  marketData?: MarketSummary;
+  modelData?: ModelComparison[];
+  alerts?: Alert[];
   isLoading?: boolean;
-  error?: string | null;
-  onRetry?: () => void;
-  isSampleData?: boolean;
+  error?: Error | null;
 }
 
-export default function DashboardWidgets({
-  performanceMetrics,
-  marketInsights,
-  modelComparison,
+export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
+  performanceData,
+  marketData,
+  modelData = [],
+  alerts = [],
   isLoading = false,
-  error = null,
-  onRetry,
-  isSampleData = false
-}: DashboardWidgetsProps) {
-  const [retryCount, setRetryCount] = useState(0);
-  const maxRetries = 3;
+  error
+}) => {
+  const [currentTime, setCurrentTime] = useState(new Date());
 
-  const handleRetry = () => {
-    if (retryCount < maxRetries) {
-      setRetryCount(prev => prev + 1);
-      onRetry?.();
-    }
-  };
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {[...Array(6)].map((_, i) => (
-          <div key={i} className="bg-white rounded-lg shadow p-6 animate-pulse">
+          <div key={i} className="bg-white rounded-lg shadow-md p-6 animate-pulse">
             <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
             <div className="h-8 bg-gray-200 rounded w-1/2 mb-2"></div>
-            <div className="h-4 bg-gray-200 rounded w-full"></div>
+            <div className="h-3 bg-gray-200 rounded w-full"></div>
           </div>
         ))}
       </div>
     );
   }
 
-  if (error && retryCount >= maxRetries) {
+  if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-        <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-red-800 mb-2">データの読み込みに失敗しました</h3>
-        <p className="text-red-600 mb-4">{error}</p>
-        <button
-          onClick={() => window.location.reload()}
-          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
-        >
-          ページを再読み込み
-        </button>
+      <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+        <div className="flex items-center space-x-2 text-red-800">
+          <AlertTriangle className="w-5 h-5" />
+          <span className="font-medium">データの読み込みに失敗しました</span>
+        </div>
+        <p className="text-red-600 mt-2">{error.message}</p>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      {/* サンプルデータ警告 */}
-      {isSampleData && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <div className="flex items-center">
-            <AlertTriangle className="h-5 w-5 text-yellow-600 mr-2" />
-            <span className="text-yellow-800">
-              サンプルデータを表示しています。実際のデータを取得するには認証設定を確認してください。
-            </span>
+      {/* パフォーマンスサマリー */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600">モデル精度</p>
+              <p className="text-2xl font-bold text-green-600">
+                {performanceData?.modelAccuracy?.toFixed(1) || '--'}%
+              </p>
+            </div>
+            <Target className="w-8 h-8 text-green-500" />
           </div>
         </div>
-      )}
 
-      {/* エラー表示とリトライ */}
-      {error && retryCount < maxRetries && (
-        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+        <div className="bg-white rounded-lg shadow-md p-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <AlertTriangle className="h-5 w-5 text-orange-600 mr-2" />
-              <span className="text-orange-800">
-                データ取得エラー: {error} ({retryCount}/{maxRetries}回試行中)
+            <div>
+              <p className="text-sm font-medium text-gray-600">平均利回り</p>
+              <p className="text-2xl font-bold text-blue-600">
+                {performanceData?.averageReturn?.toFixed(2) || '--'}%
+              </p>
+            </div>
+            <TrendingUp className="w-8 h-8 text-blue-500" />
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600">成功率</p>
+              <p className="text-2xl font-bold text-purple-600">
+                {performanceData?.successRate?.toFixed(1) || '--'}%
+              </p>
+            </div>
+            <CheckCircle className="w-8 h-8 text-purple-500" />
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600">総取引数</p>
+              <p className="text-2xl font-bold text-orange-600">
+                {performanceData?.totalTrades || '--'}
+              </p>
+            </div>
+            <BarChart3 className="w-8 h-8 text-orange-500" />
+          </div>
+        </div>
+      </div>
+
+      {/* 市場サマリー */}
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">市場サマリー</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm font-medium text-gray-600">日経平均</span>
+              <span className={`text-lg font-bold ${
+                (marketData?.nikkeiChange || 0) >= 0 ? 'text-green-600' : 'text-red-600'
+              }`}>
+                {(marketData?.nikkeiChange || 0) >= 0 ? '+' : ''}{marketData?.nikkeiChange?.toFixed(2) || '--'}%
               </span>
             </div>
-            <button
-              onClick={handleRetry}
-              className="bg-orange-600 text-white px-3 py-1 rounded text-sm hover:bg-orange-700 transition-colors flex items-center"
-            >
-              <RefreshCw className="h-4 w-4 mr-1" />
-              再試行
-            </button>
-          </div>
-        </div>
-      )}
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* パフォーマンスサマリー */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">パフォーマンスサマリー</h3>
-            <Activity className="h-5 w-5 text-blue-600" />
-          </div>
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span className="text-gray-600">精度</span>
-              <span className="font-semibold text-green-600">{performanceMetrics.accuracy}%</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">MAE</span>
-              <span className="font-semibold">{performanceMetrics.mae}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">RMSE</span>
-              <span className="font-semibold">{performanceMetrics.rmse}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">R²</span>
-              <span className="font-semibold">{performanceMetrics.r2}</span>
+            <div className="flex justify-between items-center">
+              <span className="text-sm font-medium text-gray-600">TOPIX</span>
+              <span className={`text-lg font-bold ${
+                (marketData?.topixChange || 0) >= 0 ? 'text-green-600' : 'text-red-600'
+              }`}>
+                {(marketData?.topixChange || 0) >= 0 ? '+' : ''}{marketData?.topixChange?.toFixed(2) || '--'}%
+              </span>
             </div>
           </div>
-        </div>
-
-        {/* 市場サマリー */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">市場サマリー</h3>
-            <BarChart3 className="h-5 w-5 text-green-600" />
-          </div>
-          <div className="space-y-2">
-            {marketInsights.trends.map((trend, index) => (
-              <div key={index} className="flex items-center">
-                {trend.sentiment === "positive" && <TrendingUp className="h-4 w-4 text-green-500 mr-2" />}
-                {trend.sentiment === "negative" && <TrendingDown className="h-4 w-4 text-red-500 mr-2" />}
-                {trend.sentiment === "neutral" && <Activity className="h-4 w-4 text-gray-500 mr-2" />}
-                <span className="text-sm text-gray-700">{trend.description}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 機械学習モデル比較 */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">モデル比較</h3>
-            <Brain className="h-5 w-5 text-purple-600" />
-          </div>
-          <div className="space-y-3">
-            {modelComparison.slice(0, 3).map((model, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <div className={`w-3 h-3 rounded-full mr-2 ${
-                    model.rank === 1 ? 'bg-green-500' : 
-                    model.rank === 2 ? 'bg-yellow-500' : 'bg-gray-400'
-                  }`} />
-                  <span className="text-sm font-medium">{model.name}</span>
+          
+          <div>
+            <h4 className="text-sm font-medium text-gray-600 mb-2">セクター別パフォーマンス</h4>
+            <div className="space-y-1">
+              {Object.entries(marketData?.sectorPerformance || {}).slice(0, 3).map(([sector, performance]) => (
+                <div key={sector} className="flex justify-between items-center">
+                  <span className="text-xs text-gray-600">{sector}</span>
+                  <span className={`text-xs font-medium ${
+                    performance >= 0 ? 'text-green-600' : 'text-red-600'
+                  }`}>
+                    {performance >= 0 ? '+' : ''}{performance.toFixed(1)}%
+                  </span>
                 </div>
-                <span className="text-sm text-gray-600">{model.r2.toFixed(3)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* アラート */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">アラート</h3>
-            <Shield className="h-5 w-5 text-red-600" />
-          </div>
-          <div className="space-y-2">
-            <div className="flex items-center text-sm">
-              <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-              <span className="text-gray-700">システム正常稼働中</span>
-            </div>
-            <div className="flex items-center text-sm">
-              <AlertTriangle className="h-4 w-4 text-yellow-500 mr-2" />
-              <span className="text-gray-700">高ボラティリティ銘柄を監視中</span>
-            </div>
-          </div>
-        </div>
-
-        {/* 推奨アクション */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">推奨アクション</h3>
-            <Target className="h-5 w-5 text-blue-600" />
-          </div>
-          <div className="space-y-2">
-            <div className="text-sm text-gray-700">
-              • ポートフォリオの再バランスを検討
-            </div>
-            <div className="text-sm text-gray-700">
-              • リスク管理指標の確認
-            </div>
-            <div className="text-sm text-gray-700">
-              • 新規投資機会の分析
-            </div>
-          </div>
-        </div>
-
-        {/* システム状態 */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">システム状態</h3>
-            <CheckCircle className="h-5 w-5 text-green-600" />
-          </div>
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-600">API接続</span>
-              <span className="text-green-600 font-medium">正常</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-600">データ更新</span>
-              <span className="text-green-600 font-medium">最新</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-600">予測精度</span>
-              <span className="text-green-600 font-medium">高</span>
+              ))}
             </div>
           </div>
         </div>
       </div>
+
+      {/* 機械学習モデル比較 */}
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">機械学習モデル比較</h3>
+        <div className="overflow-x-auto">
+          <table className="min-w-full">
+            <thead>
+              <tr className="border-b">
+                <th className="text-left py-2 px-4 font-medium text-gray-600">モデル名</th>
+                <th className="text-left py-2 px-4 font-medium text-gray-600">アルゴリズム</th>
+                <th className="text-left py-2 px-4 font-medium text-gray-600">精度</th>
+                <th className="text-left py-2 px-4 font-medium text-gray-600">トレンド</th>
+                <th className="text-left py-2 px-4 font-medium text-gray-600">最終更新</th>
+              </tr>
+            </thead>
+            <tbody>
+              {modelData.map((model, index) => (
+                <tr key={index} className="border-b">
+                  <td className="py-2 px-4 font-medium">{model.name}</td>
+                  <td className="py-2 px-4 text-gray-600">{model.algorithm}</td>
+                  <td className="py-2 px-4">
+                    <span className="font-bold text-green-600">
+                      {model.accuracy.toFixed(1)}%
+                    </span>
+                  </td>
+                  <td className="py-2 px-4">
+                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                      model.trend === 'up' ? 'bg-green-100 text-green-800' :
+                      model.trend === 'down' ? 'bg-red-100 text-red-800' :
+                      'bg-gray-100 text-gray-800'
+                    }`}>
+                      {model.trend === 'up' ? '↗' : model.trend === 'down' ? '↘' : '→'}
+                    </span>
+                  </td>
+                  <td className="py-2 px-4 text-gray-600 text-sm">
+                    {new Date(model.lastUpdated).toLocaleString('ja-JP')}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* アラート */}
+      {alerts.length > 0 && (
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">アラート</h3>
+          <div className="space-y-3">
+            {alerts.map((alert) => (
+              <div
+                key={alert.id}
+                className={`p-3 rounded-md border-l-4 ${
+                  alert.severity === 'high' ? 'border-red-500 bg-red-50' :
+                  alert.severity === 'medium' ? 'border-yellow-500 bg-yellow-50' :
+                  'border-blue-500 bg-blue-50'
+                }`}
+              >
+                <div className="flex items-start space-x-3">
+                  <AlertTriangle className={`w-5 h-5 mt-0.5 ${
+                    alert.severity === 'high' ? 'text-red-500' :
+                    alert.severity === 'medium' ? 'text-yellow-500' :
+                    'text-blue-500'
+                  }`} />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-gray-900">{alert.message}</p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      {new Date(alert.timestamp).toLocaleString('ja-JP')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 現在時刻 */}
+      <div className="bg-gray-50 rounded-lg p-4">
+        <div className="flex items-center space-x-2 text-gray-600">
+          <Clock className="w-4 h-4" />
+          <span className="text-sm">
+            最終更新: {currentTime.toLocaleString('ja-JP')}
+          </span>
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default DashboardWidgets;
