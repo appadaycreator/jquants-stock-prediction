@@ -8,23 +8,31 @@ export interface StockCodeMapping {
 }
 
 /**
- * 銘柄コードを正規化（4桁に統一）
+ * 銘柄コードを正規化（2024年1月以降の新形式対応）
  */
 export function normalizeStockCode(code: string): string {
   if (!code) return '';
   
+  const trimmed = code.trim();
+  
+  // 新形式（アルファベット含む）の場合は大文字に統一
+  if (/^[A-Za-z]\d{4}$/.test(trimmed)) {
+    return trimmed.toUpperCase();
+  }
+  
+  // 従来形式の処理
   // 5桁で先頭が0の場合は4桁に変換
-  if (code.length === 5 && code.startsWith('0')) {
-    return code.substring(1);
+  if (trimmed.length === 5 && trimmed.startsWith('0')) {
+    return trimmed.substring(1);
   }
   
   // 4桁の場合はそのまま
-  if (code.length === 4) {
-    return code;
+  if (trimmed.length === 4) {
+    return trimmed;
   }
   
   // その他の場合はそのまま
-  return code;
+  return trimmed;
 }
 
 /**
@@ -71,11 +79,57 @@ export function formatStockCode(code: string): string {
 }
 
 /**
- * 銘柄コードが有効かチェック
+ * 銘柄コードが有効かチェック（2024年1月以降の新形式対応）
  */
 export function isValidStockCode(code: string): boolean {
   if (!code) return false;
   
   const normalized = normalizeStockCode(code);
-  return /^\d{4}$/.test(normalized);
+  
+  // 新形式（アルファベット含む）のチェック
+  if (/^[A-Za-z]\d{4}$/.test(normalized)) {
+    return true;
+  }
+  
+  // 従来形式（4桁数字）のチェック
+  if (/^\d{4}$/.test(normalized)) {
+    return true;
+  }
+  
+  return false;
+}
+
+/**
+ * 銘柄コードの形式を判定
+ */
+export function getStockCodeFormat(code: string): 'legacy' | 'new' | 'invalid' {
+  if (!code) return 'invalid';
+  
+  const normalized = normalizeStockCode(code);
+  
+  if (/^[A-Za-z]\d{4}$/.test(normalized)) {
+    return 'new';
+  }
+  
+  if (/^\d{4}$/.test(normalized)) {
+    return 'legacy';
+  }
+  
+  return 'invalid';
+}
+
+/**
+ * 銘柄コードの表示用ラベルを取得
+ */
+export function getStockCodeLabel(code: string): string {
+  const format = getStockCodeFormat(code);
+  
+  switch (format) {
+    case 'legacy':
+      return `従来形式: ${code}`;
+    case 'new':
+      return `新形式: ${code}`;
+    default:
+      return `無効: ${code}`;
+  }
 }

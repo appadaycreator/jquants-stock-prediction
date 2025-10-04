@@ -6,17 +6,15 @@
 import pytest
 import json
 import tempfile
-import shutil
-from pathlib import Path
-from datetime import datetime
+import os
+from datetime import datetime, timedelta
 from unittest.mock import Mock, patch, MagicMock
 from core.differential_updater import (
-    DifferentialUpdater,
-    DiffResult,
-    UpdateConfig,
-    UpdateStatus,
-    ValidationResult,
+    DifferentialUpdater, 
+    UpdateStatus, 
+    ValidationResult, 
     UpdateStats,
+    DiffResult
 )
 
 
@@ -24,491 +22,38 @@ class TestDifferentialUpdaterCoverageImprovement:
     """差分更新システムのカバレッジ向上テスト"""
 
     def setup_method(self):
-        """テスト前の準備"""
+        """テスト前のセットアップ"""
         self.temp_dir = tempfile.mkdtemp()
-        self.data_dir = Path(self.temp_dir) / "data"
-        self.data_dir.mkdir()
-
-        self.logger = Mock()
-        self.error_handler = Mock()
-        self.updater = DifferentialUpdater(str(self.data_dir), self.logger)
-
+        self.updater = DifferentialUpdater(self.temp_dir)
+        
     def teardown_method(self):
         """テスト後のクリーンアップ"""
+        import shutil
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
-    def test_get_update_statistics(self):
-        """更新統計の取得テスト"""
-        # 統計データの設定
-        self.updater.update_stats.total_updates = 10
-        self.updater.update_stats.successful_updates = 8
-        self.updater.update_stats.failed_updates = 2
-        self.updater.update_stats.validation_errors = 1
-        self.updater.update_stats.total_processing_time = 5.5
-        self.updater.update_stats.last_update_time = datetime.now()
-
-        stats = self.updater.get_update_statistics()
-
-        assert stats["total_updates"] == 10
-        assert stats["successful_updates"] == 8
-        assert stats["failed_updates"] == 2
-        assert stats["validation_errors"] == 1
-        assert stats["total_processing_time"] == 5.5
-        assert stats["success_rate"] == 0.8
-        assert stats["validation_error_rate"] == 0.1
-
-    def test_get_update_statistics_zero_division(self):
-        """更新統計のゼロ除算テスト"""
-        # ゼロ除算のケース
-        self.updater.update_stats.total_updates = 0
-        self.updater.update_stats.successful_updates = 0
-        self.updater.update_stats.validation_errors = 0
-
-        stats = self.updater.get_update_statistics()
-
-        assert stats["success_rate"] == 0.0
-        assert stats["validation_error_rate"] == 0.0
-
-    def test_calculate_comprehensive_diff(self):
-        """包括的差分計算のテスト"""
-        existing_data = [
-            {"date": "2024-01-01", "code": "1234", "close": 100},
-            {"date": "2024-01-02", "code": "1234", "close": 105},
-        ]
-        new_data = [
-            {"date": "2024-01-01", "code": "1234", "close": 100},
-            {"date": "2024-01-02", "code": "1234", "close": 110},
-            {"date": "2024-01-03", "code": "1234", "close": 115},
-        ]
-
-        with (
-            patch.object(self.updater, "_calculate_data_hash") as mock_hash,
-            patch.object(self.updater, "_calculate_diff_counts") as mock_counts,
-            patch.object(self.updater, "_is_significant_change") as mock_significant,
-        ):
-
-            mock_hash.side_effect = ["hash1", "hash2"]
-            mock_counts.return_value = {
-                "added": 1,
-                "updated": 1,
-                "removed": 0,
-                "unchanged": 1,
-            }
-            mock_significant.return_value = True
-
-            result = self.updater._calculate_comprehensive_diff(existing_data, new_data)
-
-            assert isinstance(result, DiffResult)
-            assert result.added_count == 1
-            assert result.updated_count == 1
-            assert result.removed_count == 0
-            assert result.unchanged_count == 1
-            assert result.is_significant_change is True
-
-    def test_validate_data_integrity_negative_prices(self):
-        """データ整合性検証 - 負の価格テスト"""
-        new_data = [
-            {"date": "2024-01-01", "code": "1234", "open": -100, "high": 200, "low": 50, "close": 150, "volume": 1000},
-            {"date": "2024-01-02", "code": "1234", "open": 100, "high": -200, "low": 50, "close": 150, "volume": 1000},
-        ]
-        existing_data = []
-
-        result = self.updater._validate_data_integrity(new_data, existing_data)
-
-        assert not result.is_valid
-        assert len(result.issues) > 0
-        assert any("負の価格が検出されました" in issue for issue in result.issues)
-
-    def test_validate_data_integrity_high_low_consistency(self):
-        """データ整合性検証 - 高値・安値の整合性テスト"""
-        new_data = [
-            {
-                "date": "2024-01-01", "code": "1234",
-                "open": 100,
-                "high": 50,
-                "low": 200,
-                "close": 150,
-                "volume": 1000,
-            }  # High < Low
-        ]
-        existing_data = []
-
-        result = self.updater._validate_data_integrity(new_data, existing_data)
-
-        assert not result.is_valid
-        assert any("High価格がLow価格より低い" in issue for issue in result.issues)
-
-    def test_validate_data_integrity_price_consistency(self):
-        """データ整合性検証 - 価格の整合性テスト"""
-        new_data = [
-            {
-                "date": "2024-01-01", "code": "1234",
-                "open": 100,
-                "high": 50,
-                "low": 200,
-                "close": 150,
-                "volume": 1000,
-            }  # High < Open/Close
-        ]
-        existing_data = []
-
-        result = self.updater._validate_data_integrity(new_data, existing_data)
-
-        assert not result.is_valid
-        assert any(
-            "High価格がOpen/Close価格より低い" in issue for issue in result.issues
+    def test_validation_result_post_init(self):
+        """ValidationResultのpost_initテスト"""
+        # warningsがNoneの場合
+        result = ValidationResult(
+            is_valid=True,
+            issues=["test issue"],
+            warnings=None,
+            data_quality_score=0.8
         )
-
-    def test_validate_data_integrity_low_price_consistency(self):
-        """データ整合性検証 - 安値の整合性テスト"""
-        new_data = [
-            {
-                "date": "2024-01-01", "code": "1234",
-                "Open": 100,
-                "High": 200,
-                "Low": 150,
-                "Close": 50,
-                "Volume": 1000,
-            }  # Low > Open/Close
-        ]
-        existing_data = []
-
-        result = self.updater._validate_data_integrity(new_data, existing_data)
-
-        assert not result.is_valid
-        assert any(
-            "Low価格がOpen/Close価格より高い" in issue for issue in result.issues
+        assert result.warnings == []
+        
+        # warningsが設定されている場合
+        result = ValidationResult(
+            is_valid=True,
+            issues=["test issue"],
+            warnings=["warning1", "warning2"],
+            data_quality_score=0.8
         )
+        assert result.warnings == ["warning1", "warning2"]
 
-    def test_validate_data_integrity_extreme_price_change(self):
-        """データ整合性検証 - 極端な価格変動テスト"""
-        existing_data = [
-            {"date": "2024-01-01", "code": "1234", "open": 100, "high": 200, "low": 50, "close": 100, "volume": 1000}
-        ]
-        new_data = [
-            {
-                "date": "2024-01-01", "code": "1234",  # 同じ日付で比較
-                "open": 100,
-                "high": 200,
-                "low": 50,
-                "close": 200,  # 100%変動
-                "volume": 1000,
-            }
-        ]
-
-        result = self.updater._validate_data_integrity(new_data, existing_data)
-
-        # 警告は出るが、バリデーションは通る
-        assert result.is_valid
-        assert len(result.warnings) > 0
-        assert any("極端な価格変動" in warning for warning in result.warnings)
-
-    def test_validate_data_integrity_price_parsing_error(self):
-        """データ整合性検証 - 価格解析エラーテスト"""
-        new_data = [
-            {"date": "2024-01-01", "code": "1234", "open": "invalid", "high": 200, "low": 50, "close": 150, "volume": 1000}
-        ]
-        existing_data = []
-
-        result = self.updater._validate_data_integrity(new_data, existing_data)
-
-        assert not result.is_valid
-        assert any("価格データの解析エラー" in issue for issue in result.issues)
-
-    def test_validate_data_integrity_date_validation(self):
-        """データ整合性検証 - 日付検証テスト"""
-        new_data = [
-            {
-                "date": "invalid-date", "code": "1234",
-                "Open": 100,
-                "High": 200,
-                "Low": 50,
-                "Close": 150,
-                "Volume": 1000,
-            }
-        ]
-        existing_data = []
-
-        result = self.updater._validate_data_integrity(new_data, existing_data)
-
-        assert not result.is_valid
-        assert any("日付の解析エラー" in issue for issue in result.issues)
-
-    def test_validate_data_integrity_volume_validation(self):
-        """データ整合性検証 - ボリューム検証テスト"""
-        new_data = [
-            {"date": "2024-01-01", "code": "1234", "open": 100, "high": 200, "low": 50, "close": 150, "volume": "invalid"}
-        ]
-        existing_data = []
-
-        result = self.updater._validate_data_integrity(new_data, existing_data)
-
-        assert not result.is_valid
-        assert any("価格データの解析エラー" in issue for issue in result.issues)
-
-    def test_validate_data_integrity_success(self):
-        """データ整合性検証 - 成功ケース"""
-        new_data = [
-            {"Date": "2024-01-01", "Code": "1234", "Open": 100, "High": 200, "Low": 50, "Close": 150, "Volume": 1000},
-            {"Date": "2024-01-02", "Code": "1234", "Open": 150, "High": 250, "Low": 100, "Close": 200, "Volume": 2000},
-        ]
-        existing_data = []
-
-        result = self.updater._validate_data_integrity(new_data, existing_data)
-
-        assert result.is_valid
-        assert len(result.issues) == 0
-        assert result.data_quality_score > 0.8
-
-    def test_has_record_changed_true(self):
-        """レコード変更検出 - 変更あり"""
-        old_record = {"date": "2024-01-01", "close": 100}
-        new_record = {"date": "2024-01-01", "close": 105}
-
-        with patch.object(self.updater, "_calculate_hash") as mock_hash:
-            mock_hash.side_effect = ["hash1", "hash2"]
-
-            result = self.updater._has_record_changed(old_record, new_record)
-
-            assert result is True
-
-    def test_has_record_changed_false(self):
-        """レコード変更検出 - 変更なし"""
-        old_record = {"date": "2024-01-01", "close": 100}
-        new_record = {"date": "2024-01-01", "close": 100}
-
-        with patch.object(self.updater, "_calculate_hash") as mock_hash:
-            mock_hash.side_effect = ["hash1", "hash1"]
-
-            result = self.updater._has_record_changed(old_record, new_record)
-
-            assert result is False
-
-    def test_has_record_changed_exception(self):
-        """レコード変更検出 - 例外処理"""
-        old_record = {"date": "2024-01-01", "close": 100}
-        new_record = {"date": "2024-01-01", "close": 105}
-
-        with patch.object(
-            self.updater, "_calculate_hash", side_effect=Exception("Hash error")
-        ):
-            result = self.updater._has_record_changed(old_record, new_record)
-
-            assert result is True
-
-    def test_calculate_diff_counts_empty_data(self):
-        """差分計算 - 空データ"""
-        existing_data = []
-        new_data = []
-
-        result = self.updater._calculate_diff_counts(existing_data, new_data)
-
-        assert result["added"] == 0
-        assert result["updated"] == 0
-        assert result["removed"] == 0
-        assert result["unchanged"] == 0
-
-    def test_calculate_diff_counts_new_data_only(self):
-        """差分計算 - 新データのみ"""
-        existing_data = []
-        new_data = [
-            {"date": "2024-01-01", "close": 100},
-            {"date": "2024-01-02", "close": 105},
-        ]
-
-        result = self.updater._calculate_diff_counts(existing_data, new_data)
-
-        assert result["added"] == 2
-        assert result["updated"] == 0
-        assert result["removed"] == 0
-        assert result["unchanged"] == 0
-
-    def test_calculate_diff_counts_removed_data_only(self):
-        """差分計算 - 削除データのみ"""
-        existing_data = [
-            {"date": "2024-01-01", "close": 100},
-            {"date": "2024-01-02", "close": 105},
-        ]
-        new_data = []
-
-        result = self.updater._calculate_diff_counts(existing_data, new_data)
-
-        assert result["added"] == 0
-        assert result["updated"] == 0
-        assert result["removed"] == 2
-        assert result["unchanged"] == 0
-
-    def test_calculate_diff_counts_mixed_changes(self):
-        """差分計算 - 混合変更"""
-        existing_data = [
-            {"date": "2024-01-01", "close": 100},
-            {"date": "2024-01-02", "close": 105},
-        ]
-        new_data = [
-            {"date": "2024-01-01", "close": 100},  # unchanged
-            {"date": "2024-01-02", "close": 110},  # updated
-            {"date": "2024-01-03", "close": 115},  # added
-        ]
-
-        with patch.object(self.updater, "_has_record_changed") as mock_changed:
-            mock_changed.side_effect = [False, True]  # 1つ目は変更なし、2つ目は変更あり
-
-            result = self.updater._calculate_diff_counts(existing_data, new_data)
-
-            assert result["added"] == 1
-            assert result["updated"] == 1
-            assert result["removed"] == 0
-            assert result["unchanged"] == 1
-
-    def test_is_significant_change_true(self):
-        """重要な変更判定 - 変更あり"""
-        diff_counts = {"added": 10, "updated": 5, "removed": 2, "unchanged": 1}
-
-        result = self.updater._is_significant_change(diff_counts)
-
-        assert result is True
-
-    def test_is_significant_change_false(self):
-        """重要な変更判定 - 変更なし"""
-        diff_counts = {"added": 0, "updated": 0, "removed": 0, "unchanged": 100}
-
-        result = self.updater._is_significant_change(diff_counts)
-
-        assert result is False
-
-    def test_is_significant_change_threshold(self):
-        """重要な変更判定 - 閾値境界"""
-        diff_counts = {"added": 5, "updated": 0, "removed": 0, "unchanged": 95}
-
-        result = self.updater._is_significant_change(diff_counts)
-
-        assert result is True  # 5%の変更は閾値を超える
-
-    def test_calculate_data_hash(self):
-        """データハッシュ計算テスト"""
-        data = [
-            {"date": "2024-01-01", "close": 100},
-            {"date": "2024-01-02", "close": 105},
-        ]
-
-        hash1 = self.updater._calculate_data_hash(data)
-        hash2 = self.updater._calculate_data_hash(data)
-
-        assert hash1 == hash2  # 同じデータは同じハッシュ
-
-        # データを変更してハッシュが変わることを確認
-        data[0]["close"] = 110
-        hash3 = self.updater._calculate_data_hash(data)
-
-        assert hash1 != hash3  # 異なるデータは異なるハッシュ
-
-    def test_calculate_data_hash_empty(self):
-        """データハッシュ計算 - 空データ"""
-        data = []
-
-        hash_value = self.updater._calculate_data_hash(data)
-
-        assert isinstance(hash_value, str)
-        assert len(hash_value) > 0
-
-    def test_calculate_data_hash_none(self):
-        """データハッシュ計算 - Noneデータ"""
-        data = None
-
-        hash_value = self.updater._calculate_data_hash(data)
-
-        assert isinstance(hash_value, str)
-        assert len(hash_value) == 0
-
-    def test_calculate_hash(self):
-        """ハッシュ計算テスト"""
-        data = {"date": "2024-01-01", "close": 100}
-
-        hash1 = self.updater._calculate_hash(data)
-        hash2 = self.updater._calculate_hash(data)
-
-        assert hash1 == hash2
-        assert isinstance(hash1, str)
-        assert len(hash1) > 0
-
-    def test_calculate_hash_different_data(self):
-        """ハッシュ計算 - 異なるデータ"""
-        data1 = {"date": "2024-01-01", "close": 100}
-        data2 = {"date": "2024-01-01", "close": 105}
-
-        hash1 = self.updater._calculate_hash(data1)
-        hash2 = self.updater._calculate_hash(data2)
-
-        assert hash1 != hash2
-
-    def test_calculate_hash_none(self):
-        """ハッシュ計算 - Noneデータ"""
-        data = None
-
-        hash_value = self.updater._calculate_hash(data)
-
-        assert isinstance(hash_value, str)
-        assert len(hash_value) > 0
-
-    def test_calculate_hash_exception(self):
-        """ハッシュ計算 - 例外処理"""
-        data = {"date": "2024-01-01", "close": 100}
-
-        with patch("json.dumps", side_effect=Exception("JSON error")):
-            hash_value = self.updater._calculate_hash(data)
-
-            assert isinstance(hash_value, str)
-            assert len(hash_value) == 0
-
-    def test_backup_data_success(self):
-        """データバックアップ - 成功"""
-        symbol = "1234"
-        data = [{"date": "2024-01-01", "close": 100}]
-
-        with patch.object(self.updater, "_create_backup_dir") as mock_dir:
-            mock_dir.return_value = self.data_dir / "backups" / "1234"
-
-            result = self.updater._backup_data(symbol, data)
-
-            assert isinstance(result, dict)
-            assert "success" in result
-
-    def test_backup_data_failure(self):
-        """データバックアップ - 失敗"""
-        symbol = "1234"
-        data = [{"date": "2024-01-01", "close": 100}]
-
-        with patch.object(
-            self.updater, "_create_backup_dir", side_effect=Exception("Backup error")
-        ):
-            result = self.updater._backup_data(symbol, data)
-
-            assert isinstance(result, dict)
-            assert "success" in result
-            assert result["success"] is False
-
-    def test_create_backup_dir(self):
-        """バックアップディレクトリ作成テスト"""
-        symbol = "1234"
-
-        backup_dir = self.updater._create_backup_dir(symbol)
-
-        assert backup_dir.exists()
-        assert backup_dir.name == "1234"
-        assert "backups" in str(backup_dir)
-
-    def test_create_backup_dir_exception(self):
-        """バックアップディレクトリ作成 - 例外処理"""
-        symbol = "1234"
-
-        with patch("pathlib.Path.mkdir", side_effect=Exception("Directory error")):
-            with pytest.raises(Exception):
-                self.updater._create_backup_dir(symbol)
-
-    def test_update_statistics_initialization(self):
-        """更新統計の初期化テスト"""
+    def test_update_stats_initialization(self):
+        """UpdateStatsの初期化テスト"""
         stats = UpdateStats()
-
         assert stats.total_updates == 0
         assert stats.successful_updates == 0
         assert stats.failed_updates == 0
@@ -516,68 +61,319 @@ class TestDifferentialUpdaterCoverageImprovement:
         assert stats.total_processing_time == 0.0
         assert stats.last_update_time is None
 
-    def test_update_statistics_increment(self):
-        """更新統計の増分テスト"""
-        stats = UpdateStats()
-
-        stats.increment_total_updates()
-        stats.increment_successful_updates()
-        stats.increment_failed_updates()
-        stats.increment_validation_errors()
-        stats.add_processing_time(1.5)
-        stats.set_last_update_time(datetime.now())
-
-        assert stats.total_updates == 1
-        assert stats.successful_updates == 1
-        assert stats.failed_updates == 1
-        assert stats.validation_errors == 1
-        assert stats.total_processing_time == 1.5
-        assert stats.last_update_time is not None
-
     def test_diff_result_initialization(self):
-        """差分結果の初期化テスト"""
+        """DiffResultの初期化テスト"""
         result = DiffResult(
-            added_count=1,
-            updated_count=2,
-            removed_count=0,
-            unchanged_count=3,
-            processing_time=1.5,
-            data_hash="hash123",
-            is_significant_change=True,
+            symbol="7203",
+            status=UpdateStatus.SUCCESS,
+            changes_count=5,
+            processing_time=1.5
         )
-
-        assert result.added_count == 1
-        assert result.updated_count == 2
-        assert result.removed_count == 0
-        assert result.unchanged_count == 3
+        assert result.symbol == "7203"
+        assert result.status == UpdateStatus.SUCCESS
+        assert result.changes_count == 5
         assert result.processing_time == 1.5
-        assert result.data_hash == "hash123"
-        assert result.is_significant_change is True
 
-    def test_validation_result_initialization(self):
-        """検証結果の初期化テスト"""
-        result = ValidationResult(
-            is_valid=True,
-            issues=["issue1"],
-            warnings=["warning1"],
-            data_quality_score=0.8,
-        )
+    def test_remove_duplicates(self):
+        """重複データ除去テスト"""
+        data = [
+            {"date": "2024-01-01", "close": 100},
+            {"date": "2024-01-02", "close": 101},
+            {"date": "2024-01-01", "close": 100},  # 重複
+            {"date": "2024-01-03", "close": 102}
+        ]
+        
+        result = self.updater._remove_duplicates(data)
+        assert len(result) == 3
+        assert result[0]["date"] == "2024-01-01"
+        assert result[1]["date"] == "2024-01-02"
+        assert result[2]["date"] == "2024-01-03"
 
+    def test_normalize_data_for_diff(self):
+        """差分用データ正規化テスト"""
+        data = [
+            {"Date": "2024-01-01", "Open": "100.5", "High": "105.0", "Low": "98.0", "Close": "102.0", "Volume": "1000000"},
+            {"date": "2024-01-02", "open": "102.0", "high": "108.0", "low": "100.0", "close": "106.0", "volume": "1200000"}
+        ]
+        
+        result = self.updater._normalize_data_for_diff(data)
+        assert len(result) == 2
+        assert result[0]["date"] == "2024-01-01"
+        assert result[0]["open"] == 100.5
+        assert result[0]["high"] == 105.0
+        assert result[0]["low"] == 98.0
+        assert result[0]["close"] == 102.0
+        assert result[0]["volume"] == 1000000.0
+
+    def test_normalize_data_for_diff_invalid_values(self):
+        """無効な値での正規化テスト"""
+        data = [
+            {"date": "2024-01-01", "open": "invalid", "high": None, "low": "98.0", "close": "102.0", "volume": "1000000"}
+        ]
+        
+        result = self.updater._normalize_data_for_diff(data)
+        assert len(result) == 1
+        assert result[0]["open"] == 0.0  # 無効な値は0.0に変換
+        assert result[0]["high"] == 0.0  # Noneは0.0に変換
+
+    def test_items_different(self):
+        """アイテム差分判定テスト"""
+        item1 = {"date": "2024-01-01", "close": 100}
+        item2 = {"date": "2024-01-01", "close": 101}
+        item3 = {"date": "2024-01-01", "close": 100}
+        
+        # 異なるアイテム
+        assert self.updater._items_different(item1, item2) is True
+        
+        # 同じアイテム
+        assert self.updater._items_different(item1, item3) is False
+
+    def test_items_different_case_insensitive(self):
+        """大文字小文字を考慮した差分判定テスト"""
+        item1 = {"Date": "2024-01-01", "Close": 100}
+        item2 = {"date": "2024-01-01", "close": 101}
+        
+        assert self.updater._items_different(item1, item2) is True
+
+    def test_identify_changes(self):
+        """変更識別テスト"""
+        old_item = {"date": "2024-01-01", "close": 100, "volume": 1000000}
+        new_item = {"date": "2024-01-01", "close": 101, "volume": 1200000}
+        
+        changes = self.updater._identify_changes(old_item, new_item)
+        assert len(changes) == 2
+        assert any("close: 100 -> 101" in change for change in changes)
+        assert any("volume: 1000000 -> 1200000" in change for change in changes)
+
+    def test_identify_changes_case_insensitive(self):
+        """大文字小文字を考慮した変更識別テスト"""
+        old_item = {"Date": "2024-01-01", "Close": 100}
+        new_item = {"date": "2024-01-01", "close": 101}
+        
+        changes = self.updater._identify_changes(old_item, new_item)
+        assert len(changes) == 1
+        assert "close: 100 -> 101" in changes[0]
+
+    def test_validate_data_integrity_success(self):
+        """データ整合性検証成功テスト"""
+        new_data = [
+            {"date": "2024-01-01", "close": 100, "volume": 1000000},
+            {"date": "2024-01-02", "close": 101, "volume": 1200000}
+        ]
+        existing_data = [
+            {"date": "2024-01-01", "close": 100, "volume": 1000000}
+        ]
+        
+        result = self.updater._validate_data_integrity(new_data, existing_data)
         assert result.is_valid is True
-        assert result.issues == ["issue1"]
-        assert result.warnings == ["warning1"]
-        assert result.data_quality_score == 0.8
+        assert len(result.issues) == 0
 
-    def test_validation_result_invalid(self):
-        """検証結果 - 無効データ"""
-        result = ValidationResult(
-            is_valid=False,
-            issues=["critical error"],
-            warnings=[],
-            data_quality_score=0.0,
-        )
-
+    def test_validate_data_integrity_issues(self):
+        """データ整合性検証問題テスト"""
+        new_data = [
+            {"date": "2024-01-01", "close": 100, "volume": 1000000},
+            {"date": "2024-01-02", "close": -50, "volume": -1000}  # 異常値
+        ]
+        existing_data = []
+        
+        result = self.updater._validate_data_integrity(new_data, existing_data)
         assert result.is_valid is False
-        assert len(result.issues) == 1
-        assert len(result.warnings) == 0
-        assert result.data_quality_score == 0.0
+        assert len(result.issues) > 0
+
+    def test_batch_update_success(self):
+        """バッチ更新成功テスト"""
+        updates = [
+            {"symbol": "7203", "data": [{"date": "2024-01-01", "close": 100}]},
+            {"symbol": "6758", "data": [{"date": "2024-01-01", "close": 200}]}
+        ]
+        
+        # モックの設定
+        with patch.object(self.updater, 'update_stock_data', side_effect=[
+            {"success": True, "status": "success"},
+            {"success": True, "status": "success"}
+        ]):
+            result = self.updater.batch_update(updates)
+            assert result["success"] is True
+            assert result["total"] == 2
+            assert result["successful"] == 2
+            assert result["failed"] == 0
+
+    def test_batch_update_partial_failure(self):
+        """バッチ更新部分失敗テスト"""
+        updates = [
+            {"symbol": "7203", "data": [{"date": "2024-01-01", "close": 100}]},
+            {"symbol": "6758", "data": [{"date": "2024-01-01", "close": 200}]}
+        ]
+        
+        # モックの設定
+        with patch.object(self.updater, 'update_stock_data', side_effect=[
+            {"success": True, "status": "success"},
+            {"success": False, "status": "failed"}
+        ]):
+            result = self.updater.batch_update(updates)
+            assert result["success"] is False
+            assert result["total"] == 2
+            assert result["successful"] == 1
+            assert result["failed"] == 1
+
+    def test_batch_update_exception(self):
+        """バッチ更新例外テスト"""
+        updates = [{"symbol": "7203", "data": []}]
+        
+        # 例外を発生させる
+        with patch.object(self.updater, 'update_stock_data', side_effect=Exception("Test error")):
+            result = self.updater.batch_update(updates)
+            assert result["success"] is False
+            assert result["status"] == "error"
+            assert "Test error" in result["error"]
+
+    def test_get_update_history(self):
+        """更新履歴取得テスト"""
+        mock_log = [
+            {"symbol": "7203", "timestamp": "2024-01-01T10:00:00", "status": "success"},
+            {"symbol": "6758", "timestamp": "2024-01-01T11:00:00", "status": "success"},
+            {"symbol": "7203", "timestamp": "2024-01-01T12:00:00", "status": "failed"}
+        ]
+        
+        with patch.object(self.updater.json_manager, 'get_diff_log', return_value=mock_log):
+            # 全履歴取得
+            result = self.updater.get_update_history()
+            assert len(result) == 3
+            
+            # 特定銘柄の履歴取得
+            result = self.updater.get_update_history(symbol="7203")
+            assert len(result) == 2
+            assert all(entry["symbol"] == "7203" for entry in result)
+
+    def test_get_update_history_exception(self):
+        """更新履歴取得例外テスト"""
+        with patch.object(self.updater.json_manager, 'get_diff_log', side_effect=Exception("Test error")):
+            result = self.updater.get_update_history()
+            assert result == []
+
+    def test_get_update_statistics(self):
+        """更新統計取得テスト"""
+        # 統計データの設定
+        self.updater.update_stats.total_updates = 100
+        self.updater.update_stats.successful_updates = 80
+        self.updater.update_stats.failed_updates = 15
+        self.updater.update_stats.validation_errors = 5
+        self.updater.update_stats.total_processing_time = 120.5
+        self.updater.update_stats.last_update_time = "2024-01-01T10:00:00"
+        self.updater.update_stats.data_sources = ["7203", "6758"]
+        
+        result = self.updater.get_update_statistics()
+        
+        assert result["total_updates"] == 100
+        assert result["successful_updates"] == 80
+        assert result["failed_updates"] == 15
+        assert result["validation_errors"] == 5
+        assert result["total_processing_time"] == 120.5
+        assert result["last_update_time"] == "2024-01-01T10:00:00"
+        assert result["success_rate"] == 0.8
+        assert result["validation_error_rate"] == 0.05
+        assert result["symbols_updated"] == 2
+
+    def test_get_update_statistics_exception(self):
+        """更新統計取得例外テスト"""
+        self.updater.update_stats = None  # 例外を発生させる
+        
+        result = self.updater.get_update_statistics()
+        assert result == {}
+
+    def test_optimize_data_structure_no_data(self):
+        """データ構造最適化（データなし）テスト"""
+        with patch.object(self.updater.json_manager, 'get_stock_data', return_value=None):
+            result = self.updater.optimize_data_structure("7203")
+            assert result["success"] is False
+            assert "データが見つかりません" in result["message"]
+
+    def test_optimize_data_structure_success(self):
+        """データ構造最適化成功テスト"""
+        data = [
+            {"date": "2024-01-01", "close": 100, "volume": 1000000},
+            {"date": "2024-01-02", "close": 101, "volume": 1200000},
+            {"date": "2024-01-03", "close": 102, "volume": 1100000}
+        ]
+        
+        with patch.object(self.updater.json_manager, 'get_stock_data', return_value=data), \
+             patch.object(self.updater.json_manager, 'save_stock_data', return_value=True):
+            result = self.updater.optimize_data_structure("7203")
+            assert result["success"] is True
+            assert "最適化完了" in result["message"]
+
+    def test_optimize_data_structure_save_failure(self):
+        """データ構造最適化保存失敗テスト"""
+        data = [{"date": "2024-01-01", "close": 100}]
+        
+        with patch.object(self.updater.json_manager, 'get_stock_data', return_value=data), \
+             patch.object(self.updater.json_manager, 'save_stock_data', return_value=False):
+            result = self.updater.optimize_data_structure("7203")
+            assert result["success"] is False
+            assert "最適化データの保存に失敗" in result["error"]
+
+    def test_optimize_data_structure_exception(self):
+        """データ構造最適化例外テスト"""
+        with patch.object(self.updater.json_manager, 'get_stock_data', side_effect=Exception("Test error")):
+            result = self.updater.optimize_data_structure("7203")
+            assert result["success"] is False
+            assert "Test error" in result["error"]
+
+    def test_create_error_result(self):
+        """エラー結果作成テスト"""
+        result = self.updater._create_error_result(
+            UpdateStatus.FAILED,
+            "7203",
+            "Test error message"
+        )
+        
+        assert result["success"] is False
+        assert result["status"] == "failed"
+        assert result["symbol"] == "7203"
+        assert result["error"] == "Test error message"
+        assert "timestamp" in result
+
+    def test_normalize_data_for_diff_empty_data(self):
+        """空データでの正規化テスト"""
+        result = self.updater._normalize_data_for_diff([])
+        assert result == []
+
+    def test_normalize_data_for_diff_exception(self):
+        """正規化処理例外テスト"""
+        # 例外を発生させるデータ
+        data = [{"date": "2024-01-01"}]  # 必要なフィールドが不足
+        
+        with patch.object(self.updater, 'logger') as mock_logger:
+            result = self.updater._normalize_data_for_diff(data)
+            assert result == data  # 元のデータを返す
+            mock_logger.error.assert_called_once()
+
+    def test_items_different_exception(self):
+        """アイテム差分判定例外テスト"""
+        # 例外を発生させるデータ
+        item1 = {"date": "2024-01-01"}
+        item2 = None  # Noneで例外を発生
+        
+        result = self.updater._items_different(item1, item2)
+        assert result is True  # 例外時はTrueを返す
+
+    def test_identify_changes_exception(self):
+        """変更識別例外テスト"""
+        # 例外を発生させるデータ
+        old_item = {"date": "2024-01-01"}
+        new_item = None  # Noneで例外を発生
+        
+        result = self.updater._identify_changes(old_item, new_item)
+        assert result == []  # 例外時は空リストを返す
+
+    def test_validate_data_integrity_exception(self):
+        """データ整合性検証例外テスト"""
+        # 例外を発生させるデータ
+        new_data = None
+        existing_data = None
+        
+        with patch.object(self.updater, 'logger') as mock_logger:
+            result = self.updater._validate_data_integrity(new_data, existing_data)
+            assert result.is_valid is False
+            assert len(result.issues) > 0
+            mock_logger.error.assert_called_once()

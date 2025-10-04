@@ -399,13 +399,16 @@ export async function analyzeStock(symbol: string, symbolName?: string): Promise
           const symbolInfo = data.stocks?.find((s: any) => s.code === symbol);
           name = symbolInfo?.name || symbol;
         } else {
-          // フォールバック: ハードコードされた銘柄リスト
+          // フォールバック: ハードコードされた銘柄リスト（新形式対応）
           const symbols = [
             { code: "7203", name: "トヨタ自動車" },
             { code: "6758", name: "ソニーグループ" },
             { code: "9984", name: "ソフトバンクグループ" },
             { code: "6861", name: "キーエンス" },
             { code: "4063", name: "信越化学工業" },
+            // 新形式銘柄コードの例（実際のデータに応じて更新）
+            { code: "A1234", name: "新形式銘柄例1" },
+            { code: "B0001", name: "新形式銘柄例2" },
           ];
           const symbolInfo = symbols.find(s => s.code === symbol);
           name = symbolInfo?.name || symbol;
