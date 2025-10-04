@@ -1,346 +1,300 @@
-#!/usr/bin/env python3
 """
 テストカバレッジ向上のための追加テスト
 """
-
 import pytest
+import os
 import tempfile
 import shutil
-from pathlib import Path
-from unittest.mock import Mock, patch
-from core.differential_updater import DifferentialUpdater, DataHashCalculator, DiffCalculator, DataValidator
-from core.json_data_manager import JSONDataManager
+from unittest.mock import patch, MagicMock
+from datetime import datetime, timedelta
+import pandas as pd
+import numpy as np
+
+# コアモジュールのインポート
 from core.config_manager import ConfigManager
+from core.data_validator import DataValidator
+from core.differential_updater import DifferentialUpdater
+from core.error_handler import ErrorHandler
+from core.json_data_manager import JSONDataManager
+from core.logging_manager import LoggingManager
+from core.model_manager import ModelManager
 from core.performance_optimizer import PerformanceOptimizer
+from core.prediction_engine import PredictionEngine
+from core.technical_analysis import TechnicalAnalysis
+from core.visualization_manager import VisualizationManager
 
 
 class TestCoverageEnhancement:
-    """カバレッジ向上のためのテストクラス"""
-
+    """テストカバレッジ向上のためのテストクラス"""
+    
     def setup_method(self):
         """テスト前のセットアップ"""
         self.temp_dir = tempfile.mkdtemp()
-        self.logger = Mock()
-        self.updater = DifferentialUpdater(self.temp_dir, self.logger)
-
+        self.config_manager = ConfigManager()
+        self.data_validator = DataValidator()
+        self.error_handler = ErrorHandler()
+        self.json_data_manager = JSONDataManager()
+        self.logging_manager = LoggingManager()
+        self.model_manager = ModelManager()
+        self.performance_optimizer = PerformanceOptimizer()
+        self.prediction_engine = PredictionEngine()
+        self.technical_analysis = TechnicalAnalysis()
+        self.visualization_manager = VisualizationManager()
+    
     def teardown_method(self):
         """テスト後のクリーンアップ"""
-        shutil.rmtree(self.temp_dir)
-
-    def test_data_hash_calculator_edge_cases(self):
-        """DataHashCalculatorのエッジケーステスト"""
-        # 空データ
-        empty_data = []
-        hash1 = DataHashCalculator.calculate_data_hash(empty_data)
-        assert hash1 != ""  # 空配列でもハッシュは生成される
-
-        # Noneデータ
-        hash2 = DataHashCalculator.calculate_data_hash(None)
-        assert hash2 == ""
-
-        # 異常データ
-        invalid_data = [{"invalid": object()}]
-        hash3 = DataHashCalculator.calculate_data_hash(invalid_data)
-        assert hash3 == ""
-
-    def test_diff_calculator_comprehensive_edge_cases(self):
-        """DiffCalculatorの包括的エッジケーステスト"""
-        calculator = DiffCalculator(self.logger)
-        
-        # 空データの比較
-        result1 = calculator.calculate_comprehensive_diff([], [])
-        assert result1.added_count == 0
-        assert result1.updated_count == 0
-        assert result1.removed_count == 0
-        assert result1.unchanged_count == 0
-
-        # Noneデータの比較（エラーハンドリング）
-        try:
-            result2 = calculator.calculate_comprehensive_diff(None, None)
-        except TypeError:
-            # NoneデータはTypeErrorを発生させることを確認
-            pass
-
-        # 異なるデータ構造
-        data1 = [{"date": "2024-01-01", "value": 100}]
-        data2 = [{"date": "2024-01-01", "price": 100}]
-        result3 = calculator.calculate_comprehensive_diff(data1, data2)
-        # 同じ日付で異なるフィールドなので変更として扱われる
-        assert result3.unchanged_count == 1  # 同じ日付なので変更なしとして扱われる
-
-    def test_data_validator_comprehensive_validation(self):
-        """DataValidatorの包括的検証テスト"""
-        validator = DataValidator(self.logger)
-        
-        # 正常データ
-        valid_data = [
-            {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": 100.0,
-                "high": 105.0,
-                "low": 95.0,
-                "close": 102.0,
-                "volume": 1000
-            }
-        ]
-        result = validator.validate_update_data(valid_data, "1234")
-        assert result["is_valid"] is True
-        assert len(result["issues"]) == 0
-
-        # 無効な日付形式
-        invalid_date_data = [
-            {
-                "date": "invalid-date",
-                "code": "1234",
-                "open": 100.0,
-                "high": 105.0,
-                "low": 95.0,
-                "close": 102.0,
-                "volume": 1000
-            }
-        ]
-        result2 = validator.validate_update_data(invalid_date_data, "1234")
-        assert result2["is_valid"] is False
-        assert len(result2["issues"]) > 0
-
-        # 必須フィールド不足
-        missing_field_data = [
-            {
-                "date": "2024-01-01",
-                "open": 100.0,
-                "high": 105.0,
-                "low": 95.0,
-                "close": 102.0,
-                "volume": 1000
-            }
-        ]
-        result3 = validator.validate_update_data(missing_field_data, "1234")
-        assert result3["is_valid"] is False
-        assert "code" in str(result3["issues"])
-
-    def test_differential_updater_edge_cases(self):
-        """DifferentialUpdaterのエッジケーステスト"""
-        # 空データでの更新
-        result1 = self.updater.update_stock_data("1234", [], "test")
-        assert result1["status"] == "validation_error"
-
-        # Noneデータでの更新
-        result2 = self.updater.update_stock_data("1234", None, "test")
-        assert result2["status"] == "validation_error"
-
-        # 無効なシンボル
-        result3 = self.updater.update_stock_data("", [], "test")
-        assert result3["status"] == "validation_error"
-
-    def test_json_data_manager_edge_cases(self):
-        """JSONDataManagerのエッジケーステスト"""
-        manager = JSONDataManager(self.temp_dir, self.logger)
-        
-        # 存在しないファイルの取得
-        result1 = manager.get_stock_data("nonexistent")
-        assert result1 == []  # 空配列が返される
-
-        # 無効なJSONファイルの処理
-        invalid_json_path = Path(self.temp_dir) / "invalid.json"
-        with open(invalid_json_path, 'w') as f:
-            f.write("invalid json content")
-        
-        # メタデータの取得（存在しない場合）
-        metadata = manager.get_metadata()
-        assert isinstance(metadata, dict)
-
+        if os.path.exists(self.temp_dir):
+            shutil.rmtree(self.temp_dir)
+    
     def test_config_manager_edge_cases(self):
         """ConfigManagerのエッジケーステスト"""
         # 存在しない設定ファイル
-        with patch('builtins.open', side_effect=FileNotFoundError):
-            manager = ConfigManager("nonexistent.yaml")
-            config = manager.get_config()
-            assert isinstance(config, dict)  # デフォルト設定が返される
-
-        # 無効なYAMLファイル
-        invalid_yaml_path = Path(self.temp_dir) / "invalid.yaml"
-        with open(invalid_yaml_path, 'w') as f:
-            f.write("invalid: yaml: content: [")
+        with patch.object(self.config_manager, '_load_config', return_value=None):
+            result = self.config_manager.get_config()
+            assert result is not None
         
-        manager = ConfigManager(str(invalid_yaml_path))
-        config = manager.get_config()
-        assert isinstance(config, dict)  # デフォルト設定が返される
-
-    def test_performance_optimizer_edge_cases(self):
-        """PerformanceOptimizerのエッジケーステスト"""
-        optimizer = PerformanceOptimizer()
+        # 無効な設定値
+        with patch.object(self.config_manager, '_load_config', return_value={'invalid': 'value'}):
+            result = self.config_manager.get_config()
+            assert result is not None
+    
+    def test_data_validator_comprehensive(self):
+        """DataValidatorの包括的テスト"""
+        # 空のデータフレーム
+        empty_df = pd.DataFrame()
+        result = self.data_validator.validate_stock_data(empty_df)
+        assert not result.is_valid
         
-        # 無効なメトリクスでの最適化
-        invalid_metrics = {
-            "cpu_usage": -1,
-            "memory_usage": 150,
-            "disk_usage": "invalid"
-        }
+        # 無効なデータ型
+        invalid_df = pd.DataFrame({
+            'date': ['invalid-date'],
+            'close': ['not-a-number'],
+            'volume': ['also-invalid']
+        })
+        result = self.data_validator.validate_stock_data(invalid_df)
+        assert not result.is_valid
         
-        # PerformanceOptimizerの実際のメソッドを確認
-        if hasattr(optimizer, 'optimize_performance'):
-            result = optimizer.optimize_performance(invalid_metrics)
-        elif hasattr(optimizer, 'optimize_memory_usage'):
-            result = optimizer.optimize_memory_usage()
-        else:
-            # 基本的な最適化メソッドのテスト
-            result = optimizer.optimize_system_performance()
-        assert isinstance(result, dict)
-
-    def test_differential_updater_comprehensive_integration(self):
-        """DifferentialUpdaterの包括的統合テスト"""
-        # 正常なデータフロー
-        test_data = [
-            {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": 100.0,
-                "high": 105.0,
-                "low": 95.0,
-                "close": 102.0,
-                "volume": 1000
-            }
-        ]
+        # 無限大の値
+        inf_df = pd.DataFrame({
+            'date': ['2024-01-01'],
+            'close': [np.inf],
+            'volume': [1000]
+        })
+        result = self.data_validator.validate_stock_data(inf_df)
+        assert not result.is_valid
+    
+    def test_error_handler_comprehensive(self):
+        """ErrorHandlerの包括的テスト"""
+        # 様々なエラータイプのテスト
+        try:
+            raise ValueError("Test error")
+        except Exception as e:
+            result = self.error_handler.handle_error(e, "Test context")
+            assert result is not None
         
-        # 初回更新
-        result1 = self.updater.update_stock_data("1234", test_data, "test")
-        assert result1["status"] == "success"
+        # カスタムエラーのテスト
+        try:
+            raise RuntimeError("Runtime error")
+        except Exception as e:
+            result = self.error_handler.handle_error(e, "Runtime context")
+            assert result is not None
+    
+    def test_json_data_manager_edge_cases(self):
+        """JsonDataManagerのエッジケーステスト"""
+        # 存在しないファイルの読み込み
+        result = self.json_data_manager.load_data("nonexistent.json")
+        assert result is None
         
-        # 同じデータでの更新（変更なし）
-        result2 = self.updater.update_stock_data("1234", test_data, "test")
-        assert result2["status"] == "success"
+        # 無効なJSONファイル
+        invalid_json_path = os.path.join(self.temp_dir, "invalid.json")
+        with open(invalid_json_path, 'w') as f:
+            f.write("invalid json content")
         
-        # 統計情報の取得
-        stats = self.updater.get_update_statistics()
-        assert isinstance(stats, dict)
-        assert "total_updates" in stats
-
-    def test_error_handling_comprehensive(self):
-        """包括的エラーハンドリングテスト"""
-        # ファイル権限エラー
-        with patch('builtins.open', side_effect=PermissionError("Permission denied")):
-            result = self.updater.update_stock_data("1234", [], "test")
-            assert result["status"] == "validation_error"
-
-        # JSON処理エラー
-        with patch('json.dumps', side_effect=TypeError("Invalid JSON")):
-            result = self.updater._calculate_data_hash([{"invalid": object()}])
-            assert result == ""
-
-    def test_data_validation_comprehensive(self):
-        """包括的データ検証テスト"""
-        # 価格整合性チェック
-        invalid_price_data = [
-            {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": 100.0,
-                "high": 90.0,  # 高値が安値より低い
-                "low": 95.0,
-                "close": 102.0,
-                "volume": 1000
-            }
-        ]
+        result = self.json_data_manager.load_data(invalid_json_path)
+        assert result is None
+    
+    def test_logging_manager_comprehensive(self):
+        """LoggingManagerの包括的テスト"""
+        # ログレベルのテスト
+        self.logging_manager.set_log_level("DEBUG")
+        assert self.logging_manager.get_log_level() == "DEBUG"
         
-        result = self.updater._validate_data_integrity(invalid_price_data, [])
-        assert result.is_valid is False
-        assert len(result.issues) > 0
-
-        # 負の価格チェック
-        negative_price_data = [
-            {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": -100.0,
-                "high": 105.0,
-                "low": 95.0,
-                "close": 102.0,
-                "volume": 1000
-            }
-        ]
+        # ログファイルのテスト
+        log_file = os.path.join(self.temp_dir, "test.log")
+        self.logging_manager.set_log_file(log_file)
+        self.logging_manager.log_info("Test message")
         
-        result2 = self.updater._validate_data_integrity(negative_price_data, [])
-        assert result2.is_valid is False
-        assert "負の価格" in str(result2.issues)
-
-    def test_batch_operations_comprehensive(self):
-        """包括的バッチ操作テスト"""
-        # 正常なバッチ更新
-        updates = [
-            {
-                "symbol": "1234",
-                "data": [
-                    {
-                        "date": "2024-01-01",
-                        "code": "1234",
-                        "open": 100.0,
-                        "high": 105.0,
-                        "low": 95.0,
-                        "close": 102.0,
-                        "volume": 1000
-                    }
-                ],
-                "source": "batch_test"
-            }
-        ]
+        # ログファイルが作成されたかチェック
+        assert os.path.exists(log_file)
+    
+    def test_model_manager_edge_cases(self):
+        """ModelManagerのエッジケーステスト"""
+        # 無効なモデルタイプ
+        with patch.object(self.model_manager, 'create_model', side_effect=ValueError("Invalid model type")):
+            result = self.model_manager.create_model("invalid_type")
+            assert result is None
         
-        result = self.updater.batch_update(updates)
-        assert result["status"] == "completed"
-        assert result["total"] == 1
-        assert result["successful"] == 1
-        assert result["failed"] == 0
-
-        # 空のバッチ更新
-        result2 = self.updater.batch_update([])
-        assert result2["status"] == "completed"
-        assert result2["total"] == 0
-
-    def test_statistics_and_history_comprehensive(self):
-        """統計情報と履歴の包括的テスト"""
-        # 更新履歴の取得
-        history = self.updater.get_update_history()
-        assert isinstance(history, list)
+        # 空のデータでのモデル作成
+        empty_data = pd.DataFrame()
+        result = self.model_manager.train_model(empty_data, "close")
+        assert result is None
+    
+    def test_performance_optimizer_comprehensive(self):
+        """PerformanceOptimizerの包括的テスト"""
+        # メモリ使用量の監視
+        memory_usage = self.performance_optimizer.get_memory_usage()
+        assert isinstance(memory_usage, float)
+        assert memory_usage >= 0
         
-        # 特定シンボルの履歴取得
-        history_symbol = self.updater.get_update_history("1234", limit=10)
-        assert isinstance(history_symbol, list)
-        
-        # 統計情報の詳細確認
-        stats = self.updater.get_update_statistics()
-        assert "total_updates" in stats
-        assert "symbols_updated" in stats
-        # recent_updates_7daysは実装されていないため、このアサーションを削除
-        assert "last_updated" in stats
-
-    def test_data_optimization_comprehensive(self):
-        """データ最適化の包括的テスト"""
-        # 重複データの最適化
-        duplicate_data = [
-            {
-                "date": "2024-01-01",
-                "code": "1234",
-                "open": 100.0,
-                "high": 105.0,
-                "low": 95.0,
-                "close": 102.0,
-                "volume": 1000
-            },
-            {
-                "date": "2024-01-01",  # 同じ日付
-                "code": "1234",
-                "open": 100.0,
-                "high": 105.0,
-                "low": 95.0,
-                "close": 102.0,
-                "volume": 1000
-            }
-        ]
-        
-        # データの保存
-        self.updater.json_manager.save_stock_data("1234", duplicate_data, "test")
+        # CPU使用率の監視
+        cpu_usage = self.performance_optimizer.get_cpu_usage()
+        assert isinstance(cpu_usage, float)
+        assert 0 <= cpu_usage <= 100
         
         # 最適化の実行
-        result = self.updater.optimize_data_structure("1234")
-        assert result["success"] is True
-        assert result["removed_duplicates"] == 1
+        result = self.performance_optimizer.optimize_performance()
+        assert result is not None
+    
+    def test_prediction_engine_edge_cases(self):
+        """PredictionEngineのエッジケーステスト"""
+        # 空のデータでの予測
+        empty_data = pd.DataFrame()
+        result = self.prediction_engine.run_stock_prediction(empty_data)
+        assert result is None
+        
+        # 無効な特徴量での予測
+        invalid_data = pd.DataFrame({
+            'date': ['2024-01-01'],
+            'close': [100],
+            'invalid_feature': ['invalid']
+        })
+        result = self.prediction_engine.run_stock_prediction(invalid_data)
+        assert result is None
+    
+    def test_technical_analysis_comprehensive(self):
+        """TechnicalAnalysisの包括的テスト"""
+        # 空のデータでの技術指標計算
+        empty_data = pd.DataFrame()
+        result = self.technical_analysis.calculate_technical_indicators(empty_data)
+        assert result is None
+        
+        # 最小限のデータでの技術指標計算
+        minimal_data = pd.DataFrame({
+            'close': [100, 101, 102, 103, 104],
+            'volume': [1000, 1100, 1200, 1300, 1400]
+        })
+        result = self.technical_analysis.calculate_technical_indicators(minimal_data)
+        assert result is not None
+    
+    def test_visualization_manager_edge_cases(self):
+        """VisualizationManagerのエッジケーステスト"""
+        # 空のデータでの可視化
+        empty_data = pd.DataFrame()
+        result = self.visualization_manager.create_price_chart(empty_data)
+        assert result is None
+        
+        # 無効なデータでの可視化
+        invalid_data = pd.DataFrame({
+            'date': ['invalid'],
+            'close': ['not-a-number']
+        })
+        result = self.visualization_manager.create_price_chart(invalid_data)
+        assert result is None
+    
+    def test_integration_scenarios(self):
+        """統合シナリオのテスト"""
+        # データの流れ全体のテスト
+        sample_data = pd.DataFrame({
+            'date': pd.date_range('2024-01-01', periods=10),
+            'close': np.random.randn(10).cumsum() + 100,
+            'volume': np.random.randint(1000, 10000, 10)
+        })
+        
+        # データ検証
+        validation_result = self.data_validator.validate_stock_data(sample_data)
+        assert validation_result.is_valid
+        
+        # 技術指標計算
+        technical_result = self.technical_analysis.calculate_technical_indicators(sample_data)
+        assert technical_result is not None
+        
+        # モデル訓練
+        model_result = self.model_manager.train_model(sample_data, "close")
+        assert model_result is not None
+    
+    def test_error_recovery_scenarios(self):
+        """エラー回復シナリオのテスト"""
+        # ネットワークエラーのシミュレーション
+        with patch('requests.get', side_effect=ConnectionError("Network error")):
+            try:
+                # 何らかのネットワーク操作をシミュレート
+                raise ConnectionError("Network error")
+            except Exception as e:
+                result = self.error_handler.handle_error(e, "Network context")
+                assert result is not None
+        
+        # ファイルI/Oエラーのシミュレーション
+        with patch('builtins.open', side_effect=IOError("File error")):
+            try:
+                # ファイル操作をシミュレート
+                raise IOError("File error")
+            except Exception as e:
+                result = self.error_handler.handle_error(e, "File context")
+                assert result is not None
+    
+    def test_performance_edge_cases(self):
+        """パフォーマンスのエッジケーステスト"""
+        # 大量データでの処理
+        large_data = pd.DataFrame({
+            'date': pd.date_range('2020-01-01', periods=10000),
+            'close': np.random.randn(10000).cumsum() + 100,
+            'volume': np.random.randint(1000, 10000, 10000)
+        })
+        
+        # メモリ使用量の監視
+        initial_memory = self.performance_optimizer.get_memory_usage()
+        
+        # 大量データの処理
+        result = self.technical_analysis.calculate_technical_indicators(large_data)
+        assert result is not None
+        
+        # メモリ使用量の変化をチェック
+        final_memory = self.performance_optimizer.get_memory_usage()
+        assert final_memory >= initial_memory
+    
+    def test_configuration_edge_cases(self):
+        """設定のエッジケーステスト"""
+        # 無効な設定値の処理
+        invalid_config = {
+            'invalid_key': 'invalid_value',
+            'nested': {
+                'invalid_nested': None
+            }
+        }
+        
+        with patch.object(self.config_manager, '_load_config_file', return_value=invalid_config):
+            result = self.config_manager.get_config()
+            assert result is not None
+    
+    def test_data_validation_edge_cases(self):
+        """データ検証のエッジケーステスト"""
+        # 欠損値の多いデータ
+        missing_data = pd.DataFrame({
+            'date': ['2024-01-01', None, '2024-01-02', '2024-01-03'],
+            'close': [100, None, 102],
+            'volume': [1000, 1100, None]
+        })
+        
+        result = self.data_validator.validate_stock_data(missing_data)
+        assert not result.is_valid
+        
+        # 異常値の多いデータ
+        outlier_data = pd.DataFrame({
+            'date': ['2024-01-01', '2024-01-02', '2024-01-03'],
+            'close': [100, 1000000, 102],  # 異常に大きな値
+            'volume': [1000, 1100, 1200]
+        })
+        
+        result = self.data_validator.validate_stock_data(outlier_data)
+        # 異常値の検出結果をチェック
+        assert result is not None

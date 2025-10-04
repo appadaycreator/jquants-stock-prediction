@@ -617,7 +617,7 @@ class DifferentialUpdater:
                             from datetime import datetime
                             datetime.fromisoformat(str(date_value))
                         except (ValueError, TypeError):
-                            issues.append(f"アイテム{i}: 日付の解析エラー: {date_value}")
+                            issues.append(f"アイテム{i}: 日付の解析エラー")
                     
                     # 価格データの検証
                     # 大文字小文字を考慮して価格データを取得
@@ -678,10 +678,10 @@ class DifferentialUpdater:
                             if volume_float < 0:
                                 issues.append(f"アイテム{i}: Volumeが負の値です")
                         except (ValueError, TypeError):
-                            issues.append(f"アイテム{i}: Volumeの解析エラー: {volume}")
+                            issues.append(f"アイテム{i}: Volumeの解析エラー")
                 
                 except (ValueError, TypeError) as e:
-                    issues.append(f"アイテム{i}: 価格データの解析エラー: {e}")
+                    issues.append(f"アイテム{i}: 価格データの解析エラー")
                 except Exception as e:
                     issues.append(f"アイテム{i}: 検証エラー: {e}")
             

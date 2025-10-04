@@ -68,7 +68,7 @@ def test_jquants_api():
                         print(f"\nIDトークン: {id_token[:50]}...")
                         
                         # IDトークンでAPIをテスト
-                        test_api_with_token(id_token, base_url)
+                            test_api_with_token()
                     else:
                         print("❌ IDトークンの取得に失敗しました")
                 else:
@@ -87,7 +87,7 @@ def test_jquants_api():
     print("2. 公開エンドポイントのテスト（認証不要）")
     print("-" * 40)
     
-    test_public_endpoints(base_url, headers)
+        test_public_endpoints()
     
     print("\n" + "=" * 60)
     
@@ -96,12 +96,19 @@ def test_jquants_api():
     print("-" * 40)
     
     # 実際のIDトークンがある場合はテスト
-    test_authenticated_endpoints(base_url, headers)
+    test_authenticated_endpoints()
 
-def test_api_with_token(id_token, base_url):
+def test_api_with_token():
     """IDトークンでAPIをテスト"""
     print(f"\n--- IDトークンでAPIテスト ---")
     
+    # 環境変数からIDトークンを取得
+    id_token = os.getenv("JQUANTS_ID_TOKEN")
+    if not id_token:
+        print("❌ JQUANTS_ID_TOKEN環境変数が設定されていません")
+        return False
+    
+    base_url = "https://api.jquants.com/v1"
     auth_headers = {
         "Authorization": f"Bearer {id_token}",
         "Content-Type": "application/json",
@@ -128,8 +135,14 @@ def test_api_with_token(id_token, base_url):
     except Exception as e:
         print(f"❌ APIテストエラー: {e}")
 
-def test_public_endpoints(base_url, headers):
+def test_public_endpoints():
     """公開エンドポイントをテスト"""
+    base_url = "https://api.jquants.com/v1"
+    headers = {
+        "Content-Type": "application/json",
+        "User-Agent": "jQuants-API-Test/1.0"
+    }
+    
     public_endpoints = [
         "/markets/calendar",
         "/markets/calendar/2024",
@@ -155,11 +168,23 @@ def test_public_endpoints(base_url, headers):
         
         time.sleep(1)  # API制限を考慮
 
-def test_authenticated_endpoints(base_url, headers):
+def test_authenticated_endpoints():
     """認証が必要なエンドポイントをテスト"""
-    # 実際のIDトークンが設定されている場合のテスト
-    print("認証が必要なエンドポイントのテストは、有効なIDトークンが必要です。")
-    print("実際のjQuants APIの認証情報を設定してから実行してください。")
+    # 環境変数からIDトークンを取得
+    id_token = os.getenv("JQUANTS_ID_TOKEN")
+    if not id_token:
+        print("❌ JQUANTS_ID_TOKEN環境変数が設定されていません")
+        return False
+    
+    base_url = "https://api.jquants.com/v1"
+    headers = {
+        "Authorization": f"Bearer {id_token}",
+        "Content-Type": "application/json",
+        "User-Agent": "jQuants-API-Test/1.0"
+    }
+    
+    # 認証が必要なエンドポイントをテスト
+    print("認証が必要なエンドポイントのテストを実行します。")
 
 def test_api_limits():
     """API制限のテスト"""

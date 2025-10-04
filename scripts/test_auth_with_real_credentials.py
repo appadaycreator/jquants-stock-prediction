@@ -51,8 +51,14 @@ def test_jquants_auth():
     print("❌ すべての認証方法が失敗しました")
     return False
 
-def test_id_token(id_token):
+def test_id_token():
     """IDトークンの有効性をテスト"""
+    # 環境変数からIDトークンを取得
+    id_token = os.getenv("JQUANTS_ID_TOKEN")
+    if not id_token:
+        print("❌ JQUANTS_ID_TOKEN環境変数が設定されていません")
+        return False
+        
     try:
         headers = {"Authorization": f"Bearer {id_token}"}
         response = requests.get(

@@ -636,8 +636,8 @@ class TestDifferentialUpdater:
 
     def test_validate_data_integrity_invalid_date_format(self):
         """データ整合性検証の無効な日付形式テスト"""
-        new_data = [{"Date": "invalid-date", "Close": 100.0}]
-        existing_data = [{"Date": "2024-01-01", "Close": 100.0}]
+        new_data = [{"date": "invalid-date", "code": "1234", "open": 100.0, "high": 110.0, "low": 90.0, "close": 105.0, "volume": 1000}]
+        existing_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 90.0, "close": 100.0, "volume": 1000}]
 
         result = self.updater._validate_data_integrity(new_data, existing_data)
 
@@ -646,8 +646,8 @@ class TestDifferentialUpdater:
 
     def test_validate_data_integrity_negative_prices(self):
         """データ整合性検証の負の価格テスト"""
-        new_data = [{"Date": "2024-01-01", "Close": -100.0}]
-        existing_data = [{"Date": "2024-01-01", "Close": 100.0}]
+        new_data = [{"date": "2024-01-01", "code": "1234", "open": -100.0, "high": 110.0, "low": 90.0, "close": 105.0, "volume": 1000}]
+        existing_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 90.0, "close": 100.0, "volume": 1000}]
 
         result = self.updater._validate_data_integrity(new_data, existing_data)
 

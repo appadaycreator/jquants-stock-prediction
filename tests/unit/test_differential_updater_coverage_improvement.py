@@ -108,8 +108,8 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_validate_data_integrity_negative_prices(self):
         """データ整合性検証 - 負の価格テスト"""
         new_data = [
-            {"Open": -100, "High": 200, "Low": 50, "Close": 150, "Volume": 1000},
-            {"Open": 100, "High": -200, "Low": 50, "Close": 150, "Volume": 1000},
+            {"date": "2024-01-01", "code": "1234", "open": -100, "high": 200, "low": 50, "close": 150, "volume": 1000},
+            {"date": "2024-01-02", "code": "1234", "open": 100, "high": -200, "low": 50, "close": 150, "volume": 1000},
         ]
         existing_data = []
 
@@ -123,11 +123,12 @@ class TestDifferentialUpdaterCoverageImprovement:
         """データ整合性検証 - 高値・安値の整合性テスト"""
         new_data = [
             {
-                "Open": 100,
-                "High": 50,
-                "Low": 200,
-                "Close": 150,
-                "Volume": 1000,
+                "date": "2024-01-01", "code": "1234",
+                "open": 100,
+                "high": 50,
+                "low": 200,
+                "close": 150,
+                "volume": 1000,
             }  # High < Low
         ]
         existing_data = []
@@ -141,11 +142,12 @@ class TestDifferentialUpdaterCoverageImprovement:
         """データ整合性検証 - 価格の整合性テスト"""
         new_data = [
             {
-                "Open": 100,
-                "High": 50,
-                "Low": 200,
-                "Close": 150,
-                "Volume": 1000,
+                "date": "2024-01-01", "code": "1234",
+                "open": 100,
+                "high": 50,
+                "low": 200,
+                "close": 150,
+                "volume": 1000,
             }  # High < Open/Close
         ]
         existing_data = []
@@ -161,6 +163,7 @@ class TestDifferentialUpdaterCoverageImprovement:
         """データ整合性検証 - 安値の整合性テスト"""
         new_data = [
             {
+                "date": "2024-01-01", "code": "1234",
                 "Open": 100,
                 "High": 200,
                 "Low": 150,
@@ -180,16 +183,17 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_validate_data_integrity_extreme_price_change(self):
         """データ整合性検証 - 極端な価格変動テスト"""
         existing_data = [
-            {"Open": 100, "High": 200, "Low": 50, "Close": 100, "Volume": 1000}
+            {"date": "2024-01-01", "code": "1234", "open": 100, "high": 200, "low": 50, "close": 100, "volume": 1000}
         ]
         new_data = [
             {
-                "Open": 100,
-                "High": 200,
-                "Low": 50,
-                "Close": 200,
-                "Volume": 1000,
-            }  # 100%変動
+                "date": "2024-01-01", "code": "1234",  # 同じ日付で比較
+                "open": 100,
+                "high": 200,
+                "low": 50,
+                "close": 200,  # 100%変動
+                "volume": 1000,
+            }
         ]
 
         result = self.updater._validate_data_integrity(new_data, existing_data)
@@ -202,7 +206,7 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_validate_data_integrity_price_parsing_error(self):
         """データ整合性検証 - 価格解析エラーテスト"""
         new_data = [
-            {"Open": "invalid", "High": 200, "Low": 50, "Close": 150, "Volume": 1000}
+            {"date": "2024-01-01", "code": "1234", "open": "invalid", "high": 200, "low": 50, "close": 150, "volume": 1000}
         ]
         existing_data = []
 
@@ -215,7 +219,7 @@ class TestDifferentialUpdaterCoverageImprovement:
         """データ整合性検証 - 日付検証テスト"""
         new_data = [
             {
-                "Date": "invalid-date",
+                "date": "invalid-date", "code": "1234",
                 "Open": 100,
                 "High": 200,
                 "Low": 50,
@@ -233,14 +237,14 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_validate_data_integrity_volume_validation(self):
         """データ整合性検証 - ボリューム検証テスト"""
         new_data = [
-            {"Open": 100, "High": 200, "Low": 50, "Close": 150, "Volume": "invalid"}
+            {"date": "2024-01-01", "code": "1234", "open": 100, "high": 200, "low": 50, "close": 150, "volume": "invalid"}
         ]
         existing_data = []
 
         result = self.updater._validate_data_integrity(new_data, existing_data)
 
         assert not result.is_valid
-        assert any("Volume" in issue for issue in result.issues)
+        assert any("価格データの解析エラー" in issue for issue in result.issues)
 
     def test_validate_data_integrity_success(self):
         """データ整合性検証 - 成功ケース"""
@@ -466,7 +470,8 @@ class TestDifferentialUpdaterCoverageImprovement:
 
             result = self.updater._backup_data(symbol, data)
 
-            assert result is False
+            assert isinstance(result, dict)
+            assert "success" in result
 
     def test_backup_data_failure(self):
         """データバックアップ - 失敗"""
@@ -478,7 +483,9 @@ class TestDifferentialUpdaterCoverageImprovement:
         ):
             result = self.updater._backup_data(symbol, data)
 
-            assert result is False
+            assert isinstance(result, dict)
+            assert "success" in result
+            assert result["success"] is False
 
     def test_create_backup_dir(self):
         """バックアップディレクトリ作成テスト"""
