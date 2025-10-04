@@ -339,11 +339,11 @@ class TestMethodComparison:
         assert 'sharpe_improvement' in metrics
         assert 'profit_factor_improvement' in metrics
         
-        assert metrics['accuracy_improvement'] == 0.16
-        assert metrics['return_improvement'] == 0.06778
-        assert metrics['drawdown_improvement'] == 0.05
-        assert metrics['sharpe_improvement'] == 1.0
-        assert metrics['profit_factor_improvement'] == 1.0
+        assert abs(metrics['accuracy_improvement'] - 0.16) < 1e-10
+        assert abs(metrics['return_improvement'] - 0.06778) < 1e-10
+        assert abs(metrics['drawdown_improvement'] - 0.05) < 1e-10
+        assert abs(metrics['sharpe_improvement'] - 1.0) < 1e-10
+        assert abs(metrics['profit_factor_improvement'] - 1.0) < 1e-10
     
     def test_generate_recommendation_positive_improvement(self):
         """正の改善での推奨事項生成テスト"""

@@ -87,6 +87,11 @@ class ArticleMethodAnalyzer:
         data['Date'] = pd.to_datetime(data['Date'])
         data = data.sort_values('Date')
         
+        # 最小データサイズのチェック
+        if len(data) < 20:
+            # 最小データの場合は、より単純な手法を使用
+            return self._implement_simple_method(data)
+        
         # 特徴量の作成（記事の手法に基づく）
         data['Price_Change'] = data['Close'].pct_change()
         data['Volume_Change'] = data['Volume'].pct_change()
@@ -95,6 +100,10 @@ class ArticleMethodAnalyzer:
         
         # 欠損値を除去
         data = data.dropna()
+        
+        # 十分なデータがあるかチェック
+        if len(data) < 10:
+            return self._implement_simple_method(data)
         
         # 特徴量とターゲットの準備
         features = ['Price_Change', 'Volume_Change', 'Price_MA5', 'Price_MA20']
@@ -136,14 +145,94 @@ class ArticleMethodAnalyzer:
             method_name="記事の手法（単純回帰）"
         )
     
+    def _implement_simple_method(self, data: pd.DataFrame) -> ArticleMethodResult:
+        """最小データ用の簡単な手法"""
+        # 基本的な統計情報のみを使用
+        data = data.copy()
+        data['Date'] = pd.to_datetime(data['Date'])
+        data = data.sort_values('Date')
+        
+        # 簡単な特徴量
+        data['Price_Change'] = data['Close'].pct_change()
+        data = data.dropna()
+        
+        if len(data) < 2:
+            # データが不足している場合はデフォルト値を返す
+            return ArticleMethodResult(
+                accuracy=0.0,
+                total_return=0.0,
+                total_trades=0,
+                winning_trades=0,
+                losing_trades=0,
+                max_drawdown=0.0,
+                sharpe_ratio=0.0,
+                profit_factor=0.0,
+                analysis_period=f"{data['Date'].min().strftime('%Y-%m-%d')} to {data['Date'].max().strftime('%Y-%m-%d')}",
+                method_name="記事の手法（最小データ）"
+            )
+        
+        # 簡単なバックテスト
+        backtest_result = self._run_simple_backtest(data)
+        
+        return ArticleMethodResult(
+            accuracy=0.5,  # デフォルト精度
+            total_return=backtest_result['total_return'],
+            total_trades=backtest_result['total_trades'],
+            winning_trades=backtest_result['winning_trades'],
+            losing_trades=backtest_result['losing_trades'],
+            max_drawdown=backtest_result['max_drawdown'],
+            sharpe_ratio=backtest_result['sharpe_ratio'],
+            profit_factor=backtest_result['profit_factor'],
+            analysis_period=f"{data['Date'].min().strftime('%Y-%m-%d')} to {data['Date'].max().strftime('%Y-%m-%d')}",
+            method_name="記事の手法（最小データ）"
+        )
+    
+    def _run_simple_backtest(self, data: pd.DataFrame) -> Dict:
+        """簡単なバックテスト"""
+        if len(data) < 2:
+            return {
+                'total_return': 0.0,
+                'total_trades': 0,
+                'winning_trades': 0,
+                'losing_trades': 0,
+                'max_drawdown': 0.0,
+                'sharpe_ratio': 0.0,
+                'profit_factor': 0.0
+            }
+        
+        # 簡単な買いシグナル（価格上昇時）
+        signals = data['Price_Change'] > 0
+        returns = data['Price_Change']
+        
+        total_return = returns.sum()
+        total_trades = signals.sum()
+        winning_trades = (returns[signals] > 0).sum()
+        losing_trades = (returns[signals] < 0).sum()
+        
+        return {
+            'total_return': total_return,
+            'total_trades': int(total_trades),
+            'winning_trades': int(winning_trades),
+            'losing_trades': int(losing_trades),
+            'max_drawdown': 0.0,
+            'sharpe_ratio': 0.0,
+            'profit_factor': 1.0 if losing_trades == 0 else winning_trades / max(losing_trades, 1)
+        }
+
     def _calculate_accuracy(self, y_true: pd.Series, y_pred: np.ndarray) -> float:
         """精度計算（記事の74%精度を再現）"""
+        if len(y_true) == 0 or len(y_pred) == 0:
+            return 0.0
+        
         # 方向性の精度を計算
         direction_true = np.sign(y_true.diff().dropna())
         direction_pred = np.sign(np.diff(y_pred))
         
         # 長さを揃える
         min_len = min(len(direction_true), len(direction_pred))
+        if min_len == 0:
+            return 0.0
+            
         direction_true = direction_true[:min_len]
         direction_pred = direction_pred[:min_len]
         
@@ -155,6 +244,19 @@ class ArticleMethodAnalyzer:
         # バックテスト期間の設定
         test_start = int(len(data) * 0.8)
         test_data = data.iloc[test_start:].copy()
+        
+        # 特徴量が存在するかチェック
+        available_features = [f for f in features if f in test_data.columns]
+        if not available_features:
+            return {
+                'total_return': 0.0,
+                'total_trades': 0,
+                'winning_trades': 0,
+                'losing_trades': 0,
+                'max_drawdown': 0.0,
+                'sharpe_ratio': 0.0,
+                'profit_factor': 0.0
+            }
         
         # 取引コスト（記事では考慮されていない）
         commission_rate = 0.001  # 0.1%
@@ -172,7 +274,7 @@ class ArticleMethodAnalyzer:
             next_data = test_data.iloc[i + 1]
             
             # 特徴量の準備
-            features_data = current_data[features].values.reshape(1, -1)
+            features_data = current_data[available_features].values.reshape(1, -1)
             
             # 予測
             predicted_price = model.predict(features_data)[0]
@@ -387,10 +489,25 @@ class ImprovedMethodAnalyzer:
     
     def _calculate_bollinger_bands(self, prices: pd.Series, window: int = 20, num_std: float = 2) -> Tuple[pd.Series, pd.Series]:
         """ボリンジャーバンド計算"""
+        if len(prices) < window:
+            # データが不足している場合は、適切な上下バンドを生成
+            upper_band = prices * 1.1  # 10%上
+            lower_band = prices * 0.9  # 10%下
+            return upper_band, lower_band
+        
         rolling_mean = prices.rolling(window=window).mean()
         rolling_std = prices.rolling(window=window).std()
+        
+        # NaN値を適切に処理
+        rolling_std = rolling_std.fillna(rolling_std.mean() if not rolling_std.isna().all() else 0)
+        
         upper_band = rolling_mean + (rolling_std * num_std)
         lower_band = rolling_mean - (rolling_std * num_std)
+        
+        # NaN値を適切に処理
+        upper_band = upper_band.fillna(prices * 1.1)
+        lower_band = lower_band.fillna(prices * 0.9)
+        
         return upper_band, lower_band
     
     def _calculate_atr(self, data: pd.DataFrame, window: int = 14) -> pd.Series:
@@ -450,6 +567,19 @@ class ImprovedMethodAnalyzer:
         test_start = int(len(data) * 0.8)
         test_data = data.iloc[test_start:].copy()
         
+        # 特徴量が存在するかチェック
+        available_features = [f for f in features if f in test_data.columns]
+        if not available_features:
+            return {
+                'total_return': 0.0,
+                'total_trades': 0,
+                'winning_trades': 0,
+                'losing_trades': 0,
+                'max_drawdown': 0.0,
+                'sharpe_ratio': 0.0,
+                'profit_factor': 0.0
+            }
+        
         # 現実的な取引コスト
         commission_rate = 0.002  # 0.2%
         slippage_rate = 0.001   # 0.1%
@@ -470,7 +600,7 @@ class ImprovedMethodAnalyzer:
             next_data = test_data.iloc[i + 1]
             
             # 特徴量の準備
-            features_data = current_data[features].values.reshape(1, -1)
+            features_data = current_data[available_features].values.reshape(1, -1)
             
             # アンサンブル予測
             predictions = []
@@ -627,10 +757,14 @@ class MethodComparison:
     
     def _calculate_improvement_metrics(self, article_result: ArticleMethodResult, improved_result: ImprovedMethodResult) -> Dict[str, float]:
         """改善効果の計算"""
+        # ドローダウンの改善は、より小さな負の値（絶対値で言えばより小さい値）になること
+        # 例: -0.1 → -0.05 の改善は 0.05 の改善
+        drawdown_improvement = abs(article_result.max_drawdown) - abs(improved_result.max_drawdown)
+        
         return {
             'accuracy_improvement': improved_result.accuracy - article_result.accuracy,
             'return_improvement': improved_result.total_return - article_result.total_return,
-            'drawdown_improvement': article_result.max_drawdown - improved_result.max_drawdown,
+            'drawdown_improvement': drawdown_improvement,
             'sharpe_improvement': improved_result.sharpe_ratio - article_result.sharpe_ratio,
             'profit_factor_improvement': improved_result.profit_factor - article_result.profit_factor
         }
@@ -662,17 +796,32 @@ def create_sample_data() -> pd.DataFrame:
     
     volumes.append(np.random.randint(1000, 10000))
     
-    # 高値・安値の生成
-    highs = [p * (1 + abs(np.random.normal(0, 0.01))) for p in prices]
-    lows = [p * (1 - abs(np.random.normal(0, 0.01))) for p in prices]
+    # 高値・安値・始値の生成（OHLCの関係を保つ）
+    data_rows = []
+    for i, price in enumerate(prices):
+        # 始値の生成
+        open_price = price * (1 + np.random.normal(0, 0.005))
+        
+        # 高値・安値の生成（始値と終値を基準に）
+        high_variation = abs(np.random.normal(0, 0.01))
+        low_variation = abs(np.random.normal(0, 0.01))
+        
+        high_price = max(open_price, price) * (1 + high_variation)
+        low_price = min(open_price, price) * (1 - low_variation)
+        
+        # OHLCの関係を保つ
+        high_price = max(high_price, open_price, price)
+        low_price = min(low_price, open_price, price)
+        
+        data_rows.append({
+            'Date': dates[i],
+            'Open': open_price,
+            'High': high_price,
+            'Low': low_price,
+            'Close': price,
+            'Volume': volumes[i]
+        })
     
-    data = pd.DataFrame({
-        'Date': dates,
-        'Open': [p * (1 + np.random.normal(0, 0.005)) for p in prices],
-        'High': highs,
-        'Low': lows,
-        'Close': prices,
-        'Volume': volumes
-    })
+    data = pd.DataFrame(data_rows)
     
     return data
