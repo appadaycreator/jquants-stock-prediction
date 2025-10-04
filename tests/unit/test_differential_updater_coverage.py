@@ -319,7 +319,7 @@ class TestDifferentialUpdaterCoverage:
         from core.differential_updater import UpdateStatus
 
         result = self.updater._create_error_result(
-            "1234", UpdateStatus.FAILED, "Test error"
+            UpdateStatus.FAILED, "1234", "Test error"
         )
         assert isinstance(result, dict)
         assert result["success"] is False

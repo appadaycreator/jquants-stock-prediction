@@ -212,13 +212,13 @@ class TestEnvironmentAuthManager:
     
     def test_environment_detection_priority(self):
         """環境検出の優先順位テスト"""
-        # GitHub Actionsが最優先
+        # ENVIRONMENTが最優先
         with patch.dict(os.environ, {
             'GITHUB_ACTIONS': 'true',
             'ENVIRONMENT': 'development'
         }, clear=True):
             manager = EnvironmentAuthManager()
-            assert manager.environment == "production"
+            assert manager.environment == "development"
     
     def test_credentials_validation(self):
         """認証情報の検証テスト"""

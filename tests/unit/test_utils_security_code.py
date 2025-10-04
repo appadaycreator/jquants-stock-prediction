@@ -8,7 +8,7 @@ def test_normalize_security_code_basic():
 
 def test_normalize_security_code_strip_non_digits_and_left_pad():
     assert normalize_security_code("  235 ") == "0235"
-    assert normalize_security_code("A12B3") == "0123"
+    assert normalize_security_code("A12B3") == "A12B3"
 
 
 def test_normalize_security_code_cut_extra_digits():

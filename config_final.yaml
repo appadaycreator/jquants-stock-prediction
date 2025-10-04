@@ -643,3 +643,52 @@ integration:
       - "hft_config.yaml"
       - "test_config.yaml"
     migration_date: "2024-12-31"
+
+# 個人投資用強化機能設定（記事の手法を超える改善）
+personal_investment_enhancement:
+  # 信頼度ベースの取引判定
+  confidence_based_trading:
+    confidence_threshold: 0.7  # 記事の0.5を超える閾値
+    min_confidence: 0.6
+    max_confidence: 0.95
+    risk_adjustment: true
+    volatility_threshold: 0.02
+  
+  # 強化されたリスク管理
+  enhanced_risk_management:
+    stop_loss_percentage: 0.05  # 5%損切り
+    take_profit_percentage: 0.10  # 10%利確
+    max_drawdown: 0.15  # 最大15%ドローダウン
+    var_confidence: 0.95  # VaR信頼度95%
+  
+  # 高度なポジションサイジング
+  advanced_position_sizing:
+    max_position_percent: 0.2  # 最大20%
+    base_position_size: 100  # 基本100株
+    risk_per_trade: 0.02  # 取引あたり2%リスク
+    confidence_multiplier: 2.0
+    volatility_adjustment: true
+    correlation_adjustment: true
+  
+  # アンサンブル予測システム
+  ensemble_prediction:
+    ensemble_method: "weighted_average"  # weighted_average, stacking, voting
+    performance_based_weights: true
+    confidence_threshold: 0.7
+    uncertainty_threshold: 0.3
+  
+  # 記事の手法を統合したバックテスト
+  article_inspired_backtest:
+    article_threshold: 0.5  # 記事と同じ閾値
+    article_position_size: 1  # 記事と同じ1株単位
+    confidence_threshold: 0.7  # 改善された閾値
+    enhanced_position_sizing: true
+    risk_management: true
+    commission_rate: 0.001  # 0.1%
+    slippage_rate: 0.0005  # 0.05%
+  
+  # 統合システム設定
+  integration:
+    integration_enabled: true
+    auto_optimization: true
+    account_balance: 100000  # デフォルト口座残高

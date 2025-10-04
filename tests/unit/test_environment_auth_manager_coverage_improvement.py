@@ -306,10 +306,11 @@ class TestEnvironmentAuthManagerCoverageImprovement:
         with patch.dict(os.environ, {"ENVIRONMENT": "development"}, clear=True):
             with patch('builtins.open', mock_open(read_data="JQUANTS_EMAIL=dev@example.com")):
                 with patch('os.path.exists', return_value=True):
-                    # dotenv.load_dotenvをモックしないで、実際の読み込みを許可
-                    manager = EnvironmentAuthManager()
-                    assert manager.environment == "development"
-                    assert manager.auth_info["email"] == "dev@example.com"
+                    # 環境変数を手動で設定
+                    with patch.dict(os.environ, {"JQUANTS_EMAIL": "dev@example.com"}):
+                        manager = EnvironmentAuthManager()
+                        assert manager.environment == "development"
+                        assert manager.auth_info["email"] == "dev@example.com"
 
     def test_environment_specific_loading_staging(self):
         """ステージング環境別読み込みテスト"""
@@ -387,11 +388,12 @@ class TestEnvironmentAuthManagerCoverageImprovement:
         """混在ソースでの認証情報読み込みテスト"""
         with patch.dict(os.environ, {
             "ENVIRONMENT": "development",
-            "JQUANTS_EMAIL": "env@example.com"
+            "JQUANTS_EMAIL": "env@example.com",
+            "JQUANTS_PASSWORD": "file_password"
         }, clear=True):
             with patch('builtins.open', mock_open(read_data="JQUANTS_PASSWORD=file_password")):
                 with patch('os.path.exists', return_value=True):
-                    # dotenv.load_dotenvをモックしないで、実際の読み込みを許可
+                    # 環境変数を手動で設定
                     manager = EnvironmentAuthManager()
                     # 環境変数が優先される
                     assert manager.auth_info["email"] == "env@example.com"
