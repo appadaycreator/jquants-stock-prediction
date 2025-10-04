@@ -1,35 +1,35 @@
 {
   "metadata": {
-    "generated_at": "2025-10-04T06:50:41.979598",
+    "generated_at": "2025-10-04T07:13:02.312026",
     "version": "1.0",
     "total_models": 3
   },
   "models": [
     {
       "name": "Random Forest",
-      "accuracy": 0.858,
-      "mae": 0.184,
-      "rmse": 0.193,
-      "r2": 0.78,
+      "accuracy": 0.874,
+      "mae": 0.105,
+      "rmse": 0.191,
+      "r2": 0.821,
       "status": "active"
     },
     {
       "name": "XGBoost",
-      "accuracy": 0.862,
-      "mae": 0.171,
-      "rmse": 0.225,
-      "r2": 0.772,
+      "accuracy": 0.875,
+      "mae": 0.13,
+      "rmse": 0.182,
+      "r2": 0.813,
       "status": "active"
     },
     {
       "name": "Linear Regression",
-      "accuracy": 0.795,
-      "mae": 0.244,
-      "rmse": 0.209,
-      "r2": 0.684,
+      "accuracy": 0.765,
+      "mae": 0.241,
+      "rmse": 0.207,
+      "r2": 0.659,
       "status": "active"
     }
   ],
   "best_model": "Random Forest",
-  "comparison_date": "2025-10-04T06:50:41.979601"
+  "comparison_date": "2025-10-04T07:13:02.312030"
 }
