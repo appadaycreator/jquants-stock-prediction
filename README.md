@@ -2506,3 +2506,4 @@ UI から `config/*.yaml` および `.env` 相当を安全に編集・保存・�
 - 検証対象を追加する場合は `config_validator.py` を更新してください（例: 新規 YAML 追加）。
 - サーバ環境での Python 実行パスは自動検出（`$VIRTUAL_ENV/bin/python` があれば優先）。
 - `.env` には秘匿情報が含まれる可能性があります。エクスポートした JSON の保管に注意してください。
+# GitHub Actions Test Fix
