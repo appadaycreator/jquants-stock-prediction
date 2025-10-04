@@ -277,10 +277,19 @@ class TestEnvironmentAuthManager:
     
     def test_dotenv_import_error(self):
         """dotenvインポートエラーのテスト"""
-        with patch('dotenv.load_dotenv', side_effect=ImportError):
+        import builtins
+        real_import = builtins.__import__
+        
+        def mock_import(name, *args, **kwargs):
+            if name == 'dotenv':
+                raise ImportError("No module named 'dotenv'")
+            return real_import(name, *args, **kwargs)
+        
+        with patch('builtins.__import__', side_effect=mock_import):
             with patch.object(self.auth_manager, '_load_env_manually') as mock_load:
-                self.auth_manager._load_from_env_file()
-                mock_load.assert_called_once()
+                with patch('pathlib.Path.exists', return_value=True):
+                    self.auth_manager._load_from_env_file()
+                    mock_load.assert_called_once()
     
     def test_get_auth_status_message(self):
         """認証状態メッセージ取得テスト"""
