@@ -102,13 +102,15 @@ def get_id_token(refresh_token):
     return None
 
 def test_api_endpoints():
-    import pytest
-    pytest.skip("認証が必要なテストのためスキップ")
     """APIエンドポイントをテスト"""
     print("\n=== APIエンドポイントテスト ===")
     
-    # IDトークンを取得
-    id_token = get_id_token() if "get_id_token" in globals() else None
+    # IDトークンを取得（認証フローから取得）
+    refresh_token = test_authentication()
+    if not refresh_token:
+        print("❌ 認証に失敗しました")
+        return False
+    id_token = get_id_token(refresh_token)
     if not id_token:
         print("❌ IDトークンが提供されていません")
         return False
@@ -172,13 +174,15 @@ def test_api_endpoints():
         time.sleep(1)  # API制限を考慮
 
 def test_data_endpoints():
-    import pytest
-    pytest.skip("認証が必要なテストのためスキップ")
     """データ取得エンドポイントをテスト"""
     print("\n=== データ取得エンドポイントテスト ===")
     
-    # IDトークンを取得
-    id_token = get_id_token() if "get_id_token" in globals() else None
+    # IDトークンを取得（認証フローから取得）
+    refresh_token = test_authentication()
+    if not refresh_token:
+        print("❌ 認証に失敗しました")
+        return False
+    id_token = get_id_token(refresh_token)
     if not id_token:
         print("❌ IDトークンが提供されていません")
         return False
@@ -264,10 +268,10 @@ def main():
         return 1
     
     # APIエンドポイントテスト
-    test_api_endpoints(id_token)
+    test_api_endpoints()
     
     # データ取得エンドポイントテスト
-    test_data_endpoints(id_token)
+    test_data_endpoints()
     
     print("\n" + "=" * 60)
     print("テスト完了")
