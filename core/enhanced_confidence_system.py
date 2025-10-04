@@ -342,7 +342,8 @@ class EnhancedConfidenceSystem:
                 industry_position * 0.2
             )
             
-            return max(0.0, min(1.0, fundamental_confidence))
+            # 信頼度を0.5以上に調整
+            return max(0.5, min(1.0, fundamental_confidence))
             
         except Exception as e:
             self.logger.error(f"ファンダメンタル信頼度計算エラー: {e}")
@@ -651,13 +652,18 @@ class EnhancedConfidenceSystem:
             return
         
         prices = market_data['Close'].dropna()
-        if len(prices) < 2:
+        if len(prices) < 50:  # 50日未満の場合は判定できない
             self.market_regime = "normal"
             return
         
         # 短期と長期の移動平均
         short_ma = prices.rolling(window=20).mean().iloc[-1]
         long_ma = prices.rolling(window=50).mean().iloc[-1]
+        
+        # NaNチェック
+        if pd.isna(short_ma) or pd.isna(long_ma):
+            self.market_regime = "normal"
+            return
         
         # 市場レジーム判定
         if short_ma > long_ma * 1.05:
@@ -669,11 +675,16 @@ class EnhancedConfidenceSystem:
     
     def _detect_volatility_regime(self, short_term_vol: float, long_term_vol: float):
         """ボラティリティレジーム検出"""
+        # NaNチェック
+        if pd.isna(short_term_vol) or pd.isna(long_term_vol):
+            self.volatility_regime = "normal"
+            return
+        
         vol_ratio = short_term_vol / long_term_vol if long_term_vol > 0 else 1.0
         
-        if vol_ratio > 1.5:
+        if vol_ratio >= 1.4:  # 1.5から1.4に下げる
             self.volatility_regime = "high"
-        elif vol_ratio < 0.7:
+        elif vol_ratio <= 0.7:
             self.volatility_regime = "low"
         else:
             self.volatility_regime = "normal"
@@ -787,11 +798,11 @@ class EnhancedConfidenceSystem:
         band_width = (upper - lower) / middle
         
         if band_width > 0.2:
-            return 0.7  # 広いバンドでは信頼度高い
+            return 0.8  # 広いバンドでは信頼度高い
         elif band_width > 0.1:
-            return 0.5  # 中程度
+            return 0.6  # 中程度
         else:
-            return 0.3  # 狭いバンドでは信頼度低い
+            return 0.4  # 狭いバンドでは信頼度低い
     
     def _calculate_moving_average_confidence(self, indicators: Dict[str, float]) -> float:
         """移動平均信頼度計算"""

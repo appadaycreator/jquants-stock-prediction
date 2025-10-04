@@ -566,20 +566,33 @@ class RealtimeRiskMonitor:
         x = np.arange(len(values))
         y = np.array(values)
         
-        # 線形回帰
-        slope, intercept = np.polyfit(x, y, 1)
+        # NaNチェック
+        if np.any(np.isnan(y)):
+            return {"slope": 0.0, "direction": "flat", "strength": 0.0}
         
-        # 方向判定
-        if slope > 0.01:
+        # 線形回帰
+        try:
+            slope, intercept = np.polyfit(x, y, 1)
+        except:
+            return {"slope": 0.0, "direction": "flat", "strength": 0.0}
+        
+        # 方向判定（閾値を下げる）
+        if slope > 0.001:  # より敏感に
             direction = "increasing"
-        elif slope < -0.01:
+        elif slope < -0.001:
             direction = "decreasing"
         else:
             direction = "flat"
         
         # 強度計算
-        r_squared = np.corrcoef(x, y)[0, 1] ** 2
-        strength = abs(slope) * r_squared
+        try:
+            r_squared = np.corrcoef(x, y)[0, 1] ** 2
+            if np.isnan(r_squared):
+                r_squared = 0.0
+            strength = abs(slope) * r_squared
+        except:
+            r_squared = 0.0
+            strength = 0.0
         
         return {
             "slope": slope,

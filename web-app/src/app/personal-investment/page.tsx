@@ -30,6 +30,8 @@ import {
 } from "lucide-react";
 import { RiskSettingsPanel } from "@/components/risk-customization/RiskSettingsPanel";
 import { PersonalInvestmentLSTM } from "@/components/PersonalInvestmentLSTM";
+import RealtimePnLCalculator from "@/components/RealtimePnLCalculator";
+import InvestmentRecommendationEngine from "@/components/InvestmentRecommendationEngine";
 // import { IndividualStockSettings } from "@/components/risk-customization/IndividualStockSettings";
 // import { RecommendationDetails } from "@/components/risk-customization/RecommendationDetails";
 
@@ -265,71 +267,79 @@ export default function PersonalInvestmentDashboard() {
   const { pnl_summary, positions, recommendations, market_overview } = dashboardData;
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      {/* ヘッダー */}
-      <div className="flex justify-between items-center">
+    <div className="container mx-auto p-4 space-y-4">
+      {/* ヘッダー - コンパクト化 */}
+      <div className="flex justify-between items-center bg-white rounded-lg shadow-sm p-4">
         <div>
-          <h1 className="text-3xl font-bold">個人投資ダッシュボード</h1>
-          <p className="text-gray-600">投資判断に直結する情報を優先表示</p>
+          <h1 className="text-2xl font-bold text-gray-900">個人投資ダッシュボード</h1>
+          <p className="text-sm text-gray-600">投資判断に直結する情報を優先表示</p>
         </div>
         <div className="flex space-x-2">
           <Button
             variant="outline"
+            size="sm"
             onClick={() => setShowRiskSettings(true)}
             title="リスク管理設定を開く"
           >
-            <Settings className="h-4 w-4 mr-2" />
-            リスク設定
+            <Settings className="h-4 w-4 mr-1" />
+            設定
           </Button>
           <Button
             variant="outline"
+            size="sm"
             onClick={loadDashboardData}
             disabled={loading}
             title="最新のダッシュボードデータを取得します"
           >
-            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
+            <RefreshCw className={`h-4 w-4 mr-1 ${loading ? "animate-spin" : ""}`} />
             更新
           </Button>
           <Button
             variant={autoRefresh ? "default" : "outline"}
+            size="sm"
             onClick={() => setAutoRefresh(!autoRefresh)}
             title="30秒ごとに自動更新。再クリックで切替"
           >
-            <Activity className="h-4 w-4 mr-2" />
+            <Activity className="h-4 w-4 mr-1" />
             自動更新
           </Button>
         </div>
       </div>
 
-      {/* 損益サマリー */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
+      {/* 損益サマリー - 一目瞭然な表示 */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        {/* 総投資額 */}
+        <Card className="bg-blue-50 border-blue-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">総投資額</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-blue-800">総投資額</CardTitle>
+            <DollarSign className="h-4 w-4 text-blue-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold text-blue-900">
               ¥{pnl_summary.total_investment.toLocaleString()}
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        {/* 現在価値 */}
+        <Card className="bg-green-50 border-green-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">現在価値</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-green-800">現在価値</CardTitle>
+            <TrendingUp className="h-4 w-4 text-green-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold text-green-900">
               ¥{pnl_summary.current_value.toLocaleString()}
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        {/* 損益 - 最重要表示 */}
+        <Card className={`${pnl_summary.unrealized_pnl >= 0 ? "bg-green-50 border-green-200" : "bg-red-50 border-red-200"}`}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">未実現損益</CardTitle>
+            <CardTitle className={`text-sm font-medium ${pnl_summary.unrealized_pnl >= 0 ? "text-green-800" : "text-red-800"}`}>
+              損益
+            </CardTitle>
             {pnl_summary.unrealized_pnl >= 0 ? (
               <TrendingUp className="h-4 w-4 text-green-600" />
             ) : (
@@ -337,22 +347,23 @@ export default function PersonalInvestmentDashboard() {
             )}
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl font-bold ${pnl_summary.unrealized_pnl >= 0 ? "text-green-600" : "text-red-600"}`}>
-              ¥{pnl_summary.unrealized_pnl.toLocaleString()}
+            <div className={`text-3xl font-bold ${pnl_summary.unrealized_pnl >= 0 ? "text-green-900" : "text-red-900"}`}>
+              {pnl_summary.unrealized_pnl >= 0 ? "+" : ""}¥{pnl_summary.unrealized_pnl.toLocaleString()}
             </div>
-            <p className="text-xs text-muted-foreground">
-              {pnl_summary.pnl_percentage.toFixed(2)}%
+            <p className={`text-sm font-medium ${pnl_summary.unrealized_pnl >= 0 ? "text-green-700" : "text-red-700"}`}>
+              {pnl_summary.unrealized_pnl >= 0 ? "+" : ""}{pnl_summary.pnl_percentage.toFixed(2)}%
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        {/* リスク調整後リターン */}
+        <Card className="bg-purple-50 border-purple-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">リスク調整後リターン</CardTitle>
-            <Shield className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-purple-800">リスク調整後リターン</CardTitle>
+            <Shield className="h-4 w-4 text-purple-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold text-purple-900">
               {pnl_summary.risk_adjusted_return.toFixed(3)}
             </div>
           </CardContent>
@@ -361,32 +372,113 @@ export default function PersonalInvestmentDashboard() {
 
       {/* 市場概況アラート */}
       {market_overview.market_alert && (
-        <Alert>
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>市場アラート</AlertTitle>
-          <AlertDescription>{market_overview.market_alert}</AlertDescription>
+        <Alert className="border-orange-200 bg-orange-50">
+          <AlertTriangle className="h-4 w-4 text-orange-600" />
+          <AlertTitle className="text-orange-800">市場アラート</AlertTitle>
+          <AlertDescription className="text-orange-700">{market_overview.market_alert}</AlertDescription>
         </Alert>
       )}
+
+      {/* クイックアクション - 投資判断に直結する情報 */}
+      <div className="bg-white rounded-lg shadow-sm p-4">
+        <h2 className="text-lg font-semibold mb-4 text-gray-900">今日の投資判断</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* 緊急アクション */}
+          <Card className="border-red-200 bg-red-50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-red-800 flex items-center">
+                <AlertTriangle className="h-4 w-4 mr-2" />
+                緊急アクション
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {positions.filter(p => p.priority === "CRITICAL" || p.pnl_percentage < -10).map(position => (
+                  <div key={position.symbol} className="text-sm">
+                    <div className="font-medium text-red-900">{position.symbol}</div>
+                    <div className="text-red-700">{position.next_action}</div>
+                  </div>
+                ))}
+                {positions.filter(p => p.priority === "CRITICAL" || p.pnl_percentage < -10).length === 0 && (
+                  <div className="text-sm text-gray-600">緊急アクションはありません</div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 高優先度アクション */}
+          <Card className="border-orange-200 bg-orange-50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-orange-800 flex items-center">
+                <Star className="h-4 w-4 mr-2" />
+                高優先度
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {positions.filter(p => p.priority === "HIGH").map(position => (
+                  <div key={position.symbol} className="text-sm">
+                    <div className="font-medium text-orange-900">{position.symbol}</div>
+                    <div className="text-orange-700">{position.next_action}</div>
+                  </div>
+                ))}
+                {positions.filter(p => p.priority === "HIGH").length === 0 && (
+                  <div className="text-sm text-gray-600">高優先度アクションはありません</div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 推奨アクション */}
+          <Card className="border-green-200 bg-green-50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-green-800 flex items-center">
+                <TrendingUp className="h-4 w-4 mr-2" />
+                推奨アクション
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {recommendations.filter(r => r.priority === "HIGH").slice(0, 3).map(recommendation => (
+                  <div key={recommendation.symbol} className="text-sm">
+                    <div className="font-medium text-green-900">{recommendation.symbol}</div>
+                    <div className="text-green-700">{recommendation.action}</div>
+                  </div>
+                ))}
+                {recommendations.filter(r => r.priority === "HIGH").length === 0 && (
+                  <div className="text-sm text-gray-600">推奨アクションはありません</div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
 
       <Tabs defaultValue="positions" className="space-y-4">
         <TabsList>
           <TabsTrigger value="positions" title="保有銘柄の損益・推奨アクションを確認">ポジション一覧</TabsTrigger>
+          <TabsTrigger value="realtime" title="リアルタイム損益計算と価格更新">リアルタイム損益</TabsTrigger>
           <TabsTrigger value="recommendations" title="AI/ルールベースによる投資提案">投資推奨</TabsTrigger>
+          <TabsTrigger value="engine" title="自動投資推奨エンジン">推奨エンジン</TabsTrigger>
           <TabsTrigger value="lstm" title="LSTM深層学習による株価予測">LSTM予測</TabsTrigger>
           <TabsTrigger value="market" title="市場全体のトレンドやボラティリティを確認">市場概況</TabsTrigger>
           <TabsTrigger value="personalize" title="プロフィールに応じた推奨配分を作成">パーソナライズ</TabsTrigger>
         </TabsList>
 
-        {/* ポジション一覧 */}
+        {/* ポジション一覧 - 改善された表示 */}
         <TabsContent value="positions" className="space-y-4">
-          <div className="grid gap-4">
+          <div className="grid gap-3">
             {positions.map((position) => (
-              <Card key={position.symbol} className="hover:shadow-md transition-shadow">
-                <CardHeader>
+              <Card key={position.symbol} className={`hover:shadow-md transition-shadow ${
+                position.priority === "CRITICAL" ? "border-red-300 bg-red-50" :
+                position.priority === "HIGH" ? "border-orange-300 bg-orange-50" :
+                "border-gray-200"
+              }`}>
+                <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <div>
-                        <h3 className="font-semibold">{position.symbol}</h3>
+                        <h3 className="font-semibold text-lg">{position.symbol}</h3>
                         <p className="text-sm text-gray-600">{position.company_name}</p>
                       </div>
                       <Badge className={getActionColor(position.action_recommendation)}>
@@ -395,17 +487,17 @@ export default function PersonalInvestmentDashboard() {
                       </Badge>
                     </div>
                     <div className="text-right">
-                      <div className="text-lg font-semibold">
+                      <div className="text-xl font-bold">
                         ¥{position.current_price.toLocaleString()}
                       </div>
-                      <div className={`text-sm ${position.pnl_percentage >= 0 ? "text-green-600" : "text-red-600"}`}>
+                      <div className={`text-lg font-semibold ${position.pnl_percentage >= 0 ? "text-green-600" : "text-red-600"}`}>
                         {position.pnl_percentage >= 0 ? "+" : ""}{position.pnl_percentage.toFixed(2)}%
                       </div>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-4">
                     <div>
                       <p className="text-gray-600">数量</p>
                       <p className="font-medium">{position.quantity.toLocaleString()}株</p>
@@ -428,29 +520,34 @@ export default function PersonalInvestmentDashboard() {
                     </div>
                   </div>
                   
-                  <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium">次のアクション</p>
-                        <p className="text-sm text-gray-600">{position.next_action}</p>
+                  {/* 次のアクション - 強調表示 */}
+                  <div className={`p-4 rounded-lg ${
+                    position.priority === "CRITICAL" ? "bg-red-100 border-red-200" :
+                    position.priority === "HIGH" ? "bg-orange-100 border-orange-200" :
+                    "bg-blue-100 border-blue-200"
+                  }`}>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-2">
+                        <p className="text-sm font-semibold">次のアクション</p>
+                        <Badge className={getPriorityColor(position.priority)}>
+                          {position.priority}
+                        </Badge>
                       </div>
-                      <Badge className={getPriorityColor(position.priority)}>
-                        {position.priority}
-                      </Badge>
                     </div>
+                    <p className="text-sm font-medium mb-3">{position.next_action}</p>
                     
                     {(position.target_price || position.stop_loss) && (
-                      <div className="mt-2 grid grid-cols-2 gap-4 text-sm">
+                      <div className="grid grid-cols-2 gap-4 text-sm">
                         {position.target_price && (
-                          <div>
+                          <div className="bg-white p-2 rounded">
                             <p className="text-gray-600">目標価格</p>
-                            <p className="font-medium">¥{position.target_price.toLocaleString()}</p>
+                            <p className="font-medium text-green-700">¥{position.target_price.toLocaleString()}</p>
                           </div>
                         )}
                         {position.stop_loss && (
-                          <div>
+                          <div className="bg-white p-2 rounded">
                             <p className="text-gray-600">損切り価格</p>
-                            <p className="font-medium">¥{position.stop_loss.toLocaleString()}</p>
+                            <p className="font-medium text-red-700">¥{position.stop_loss.toLocaleString()}</p>
                           </div>
                         )}
                       </div>
@@ -460,6 +557,17 @@ export default function PersonalInvestmentDashboard() {
               </Card>
             ))}
           </div>
+        </TabsContent>
+
+        {/* リアルタイム損益計算 */}
+        <TabsContent value="realtime" className="space-y-4">
+          <RealtimePnLCalculator
+            positions={positions}
+            onPnLUpdate={(updatedPositions) => {
+              console.log('リアルタイム損益更新:', updatedPositions);
+            }}
+            refreshInterval={30000}
+          />
         </TabsContent>
 
         {/* 投資推奨 */}
@@ -552,6 +660,29 @@ export default function PersonalInvestmentDashboard() {
               </Card>
             ))}
           </div>
+        </TabsContent>
+
+        {/* 投資推奨エンジン */}
+        <TabsContent value="engine" className="space-y-4">
+          <InvestmentRecommendationEngine
+            positions={positions}
+            marketData={positions.map(p => ({
+              symbol: p.symbol,
+              price: p.current_price,
+              volume: 1000,
+              volatility: 0.02,
+              rsi: 50,
+              macd: 0,
+              sma_20: p.current_price * 0.98,
+              sma_50: p.current_price * 0.95,
+              trend: 'up' as const,
+              momentum: 0.1
+            }))}
+            onRecommendationUpdate={(newRecommendations) => {
+              console.log('推奨更新:', newRecommendations);
+            }}
+            refreshInterval={60000}
+          />
         </TabsContent>
 
         {/* LSTM予測 */}

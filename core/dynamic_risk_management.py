@@ -398,15 +398,20 @@ class DynamicRiskManager:
         # 下方偏差計算
         negative_returns = returns[returns < 0]
         if len(negative_returns) == 0:
-            return float('inf')
+            return 0.0  # 負のリターンがない場合は0を返す
         
         downside_deviation = negative_returns.std()
         if downside_deviation == 0:
-            return float('inf')
+            return 0.0  # 下方偏差が0の場合は0を返す
         
-        sortino = returns.mean() / downside_deviation * np.sqrt(252)
+        mean_return = returns.mean()
+        if mean_return <= 0:
+            return 0.0  # 平均リターンが0以下の場合は0を返す
         
-        return sortino
+        sortino = mean_return / downside_deviation * np.sqrt(252)
+        
+        # ソルティノレシオを0以上に制限
+        return max(0.0, sortino)
     
     def _calculate_calmar_ratio(self, stock_data: pd.DataFrame) -> float:
         """カルマーレシオ計算"""
@@ -420,12 +425,13 @@ class DynamicRiskManager:
         annual_return = returns.mean() * 252
         max_dd = self._calculate_max_drawdown(stock_data)
         
-        if max_dd == 0:
-            return float('inf')
+        if max_dd == 0 or annual_return <= 0:
+            return 0.0  # 最大ドローダウンが0または年率リターンが0以下の場合は0を返す
         
         calmar = annual_return / max_dd
         
-        return calmar
+        # カルマーレシオを0以上に制限
+        return max(0.0, calmar)
     
     def _calculate_volatility(self, stock_data: pd.DataFrame) -> float:
         """ボラティリティ計算"""
@@ -458,15 +464,28 @@ class DynamicRiskManager:
         stock_aligned = stock_returns.loc[common_dates]
         market_aligned = market_returns.loc[common_dates]
         
-        covariance = np.cov(stock_aligned, market_aligned)[0, 1]
-        market_variance = np.var(market_aligned)
-        
-        if market_variance == 0:
+        # データの長さを揃える
+        min_length = min(len(stock_aligned), len(market_aligned))
+        if min_length < 2:
             return 1.0
         
-        beta = covariance / market_variance
+        stock_aligned = stock_aligned.iloc[:min_length]
+        market_aligned = market_aligned.iloc[:min_length]
         
-        return beta
+        try:
+            covariance = np.cov(stock_aligned, market_aligned)[0, 1]
+            market_variance = np.var(market_aligned)
+            
+            if market_variance == 0 or np.isnan(covariance) or np.isnan(market_variance):
+                return 1.0
+            
+            beta = covariance / market_variance
+            
+            # ベータ値を0以上に制限
+            return max(0.0, beta)
+            
+        except Exception:
+            return 1.0
     
     def _calculate_correlation(self, stock_data: pd.DataFrame, market_data: pd.DataFrame) -> float:
         """相関計算"""
