@@ -21,8 +21,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Pythonスクリプトの実行
-    const pythonScript = path.join(process.cwd(), 'core', 'lstm_predictor.py');
-    const venvPython = path.join(process.cwd(), 'venv', 'bin', 'python3');
+    const projectRoot = path.join(process.cwd(), '..');
+    const pythonScript = path.join(projectRoot, 'core', 'lstm_predictor.py');
+    const venvPython = path.join(projectRoot, 'venv', 'bin', 'python3');
     
     // 仮想環境のPythonが存在するかチェック
     const pythonPath = fs.existsSync(venvPython) ? venvPython : 'python3';
@@ -33,7 +34,18 @@ export async function POST(request: NextRequest) {
         `
 import sys
 import os
-sys.path.append('${process.cwd()}')
+import io
+
+# 標準エラー出力を抑制
+sys.stderr = io.StringIO()
+
+sys.path.append('${projectRoot}')
+
+# TensorFlowのログレベルを設定（インポート前に設定）
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+import tensorflow as tf
+tf.get_logger().setLevel('ERROR')
 
 from core.lstm_predictor import LSTMPredictor
 import pandas as pd
@@ -62,30 +74,63 @@ def generate_sample_data(symbol, days=365):
         'Volume': np.random.randint(100000, 1000000, len(dates))
     }, index=dates)
 
-# ログ設定
+# ログ設定（API用にログを抑制）
 class SimpleLogger:
     def log_info(self, message):
-        print(f"INFO: {message}")
+        pass  # ログを抑制
     
     def log_error(self, message):
-        print(f"ERROR: {message}")
+        pass  # ログを抑制
 
 class SimpleErrorHandler:
     def handle_data_processing_error(self, error, context, details):
-        print(f"Data processing error: {error}")
         raise error
     
     def handle_model_error(self, error, context, details):
-        print(f"Model error: {error}")
         raise error
+
+# LSTMPredictorをオーバーライドしてverbose=0に設定
+class SilentLSTMPredictor(LSTMPredictor):
+    def train_model(self, X, y, epochs=20, batch_size=32):
+        # データの分割（学習80%, 検証20%）
+        split_index = int(len(X) * 0.8)
+        X_train, X_val = X[:split_index], X[split_index:]
+        y_train, y_val = y[:split_index], y[split_index:]
+        
+        # モデルの構築
+        self.model = self.build_model((X.shape[1], 1))
+        
+        # 訓練（verbose=0で実行）
+        history = self.model.fit(
+            X_train, y_train,
+            validation_data=(X_val, y_val),
+            epochs=epochs,
+            batch_size=batch_size,
+            verbose=0  # ログを抑制
+        )
+        
+        # 評価
+        train_loss = self.model.evaluate(X_train, y_train, verbose=0)
+        val_loss = self.model.evaluate(X_val, y_val, verbose=0)
+        
+        result = {
+            'model': self.model,
+            'history': history.history,
+            'train_loss': train_loss[0],
+            'val_loss': val_loss[0],
+            'train_mae': train_loss[1],
+            'val_mae': val_loss[1]
+        }
+        
+        return result
 
 # メイン処理
 try:
     logger = SimpleLogger()
     error_handler = SimpleErrorHandler()
     
-    # LSTM予測器の初期化
-    lstm_predictor = LSTMPredictor(logger, error_handler)
+    # LSTM予測器の初期化（verboseを抑制したバージョン）
+    lstm_predictor = SilentLSTMPredictor(logger, error_handler)
     
     # サンプルデータの生成
     df = generate_sample_data('${symbol}')
@@ -93,7 +138,7 @@ try:
     # LSTM予測の実行
     result = lstm_predictor.run_complete_prediction(df, 'Close', ${prediction_days})
     
-    # 結果をJSONで出力
+    # 結果をJSONで出力（JSONのみを出力）
     print(json.dumps(result, default=str, ensure_ascii=False))
     
 except Exception as e:

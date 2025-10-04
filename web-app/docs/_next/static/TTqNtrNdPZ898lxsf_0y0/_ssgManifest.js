@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fapi\u002Ffinancial\u002Fanalysis\u002F[symbol]","\u002Fapi\u002Ffinancial\u002Fhealth\u002F[symbol]","\u002Fapi\u002Ffinancial\u002Findustry\u002F[industry]","\u002Fapi\u002Ffinancial\u002Ftrend\u002F[symbol]","\u002Fcharts\u002F[symbol]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
