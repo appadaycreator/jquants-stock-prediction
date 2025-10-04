@@ -294,7 +294,7 @@ class TestDifferentialUpdaterCoverage:
             updates = [{"symbol": "1234", "data": [], "source": "test"}]
             result = self.updater.batch_update(updates)
             assert isinstance(result, dict)
-            assert "error_count" in result
+            assert "error" in result
 
     def test_create_success_result(self):
         """成功結果作成テスト"""
