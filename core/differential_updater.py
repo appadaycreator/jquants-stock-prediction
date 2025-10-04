@@ -106,6 +106,9 @@ class DiffResult:
     processing_time: float = 0.0
     data_hash: str = ""
     is_significant_change: bool = False
+    symbol: str = ""
+    status: str = ""
+    changes_count: int = 0
 
 
 class DataHashCalculator:
@@ -796,11 +799,12 @@ class DifferentialUpdater:
             "data_hash": diff_result.data_hash,
         }
 
-    def _create_error_result(self, symbol: str, status: UpdateStatus, error_message: str) -> Dict[str, Any]:
+    def _create_error_result(self, status: Union[UpdateStatus, str], symbol: str, error_message: str) -> Dict[str, Any]:
         """エラー結果作成"""
+        status_value = status.value if hasattr(status, 'value') else str(status)
         return {
             "success": False,
-            "status": status.value,
+            "status": status_value,
             "symbol": symbol,
             "error": error_message,
             "timestamp": datetime.now().isoformat(),
@@ -903,12 +907,16 @@ class DifferentialUpdater:
             # データの保存
             success = self.json_manager.save_stock_data(symbol, optimized_data, "optimization")
             
-            return {
-                "success": success,
-                "original_count": len(data),
-                "optimized_count": len(optimized_data),
-                "removed_duplicates": len(data) - len(optimized_data)
-            }
+            if success:
+                return {
+                    "success": True,
+                    "message": "最適化完了",
+                    "original_count": len(data),
+                    "optimized_count": len(optimized_data),
+                    "removed_duplicates": len(data) - len(optimized_data)
+                }
+            else:
+                return {"success": False, "error": "最適化データの保存に失敗"}
         except Exception as e:
             if self.logger:
                 self.logger.error(f"データ構造最適化エラー: {e}")

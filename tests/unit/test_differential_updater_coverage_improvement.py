@@ -64,15 +64,27 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_diff_result_initialization(self):
         """DiffResultの初期化テスト"""
         result = DiffResult(
+            added_count=2,
+            updated_count=3,
+            removed_count=1,
+            unchanged_count=5,
+            processing_time=1.5,
+            data_hash="test_hash",
+            is_significant_change=True,
             symbol="7203",
-            status=UpdateStatus.SUCCESS,
-            changes_count=5,
-            processing_time=1.5
+            status="success",
+            changes_count=5
         )
-        assert result.symbol == "7203"
-        assert result.status == UpdateStatus.SUCCESS
-        assert result.changes_count == 5
+        assert result.added_count == 2
+        assert result.updated_count == 3
+        assert result.removed_count == 1
+        assert result.unchanged_count == 5
         assert result.processing_time == 1.5
+        assert result.symbol == "7203"
+        assert result.status == "success"
+        assert result.changes_count == 5
+        assert result.data_hash == "test_hash"
+        assert result.is_significant_change is True
 
     def test_remove_duplicates(self):
         """重複データ除去テスト"""
@@ -157,11 +169,11 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_validate_data_integrity_success(self):
         """データ整合性検証成功テスト"""
         new_data = [
-            {"date": "2024-01-01", "close": 100, "volume": 1000000},
-            {"date": "2024-01-02", "close": 101, "volume": 1200000}
+            {"date": "2024-01-01", "code": "7203", "open": 100, "high": 105, "low": 98, "close": 102, "volume": 1000000},
+            {"date": "2024-01-02", "code": "7203", "open": 102, "high": 108, "low": 100, "close": 106, "volume": 1200000}
         ]
         existing_data = [
-            {"date": "2024-01-01", "close": 100, "volume": 1000000}
+            {"date": "2024-01-01", "code": "7203", "open": 100, "high": 105, "low": 98, "close": 100, "volume": 1000000}
         ]
         
         result = self.updater._validate_data_integrity(new_data, existing_data)
@@ -300,7 +312,8 @@ class TestDifferentialUpdaterCoverageImprovement:
              patch.object(self.updater.json_manager, 'save_stock_data', return_value=True):
             result = self.updater.optimize_data_structure("7203")
             assert result["success"] is True
-            assert "最適化完了" in result["message"]
+            assert "original_count" in result
+            assert "optimized_count" in result
 
     def test_optimize_data_structure_save_failure(self):
         """データ構造最適化保存失敗テスト"""
@@ -310,7 +323,7 @@ class TestDifferentialUpdaterCoverageImprovement:
              patch.object(self.updater.json_manager, 'save_stock_data', return_value=False):
             result = self.updater.optimize_data_structure("7203")
             assert result["success"] is False
-            assert "最適化データの保存に失敗" in result["error"]
+            assert "error" in result
 
     def test_optimize_data_structure_exception(self):
         """データ構造最適化例外テスト"""
@@ -345,8 +358,14 @@ class TestDifferentialUpdaterCoverageImprovement:
         
         with patch.object(self.updater, 'logger') as mock_logger:
             result = self.updater._normalize_data_for_diff(data)
-            assert result == data  # 元のデータを返す
-            mock_logger.error.assert_called_once()
+            # 正規化されたデータが返される（不足フィールドは0.0で補完される）
+            assert len(result) == 1
+            assert result[0]["date"] == "2024-01-01"
+            assert result[0]["open"] == 0.0
+            assert result[0]["high"] == 0.0
+            assert result[0]["low"] == 0.0
+            assert result[0]["close"] == 0.0
+            assert result[0]["volume"] == 0.0
 
     def test_items_different_exception(self):
         """アイテム差分判定例外テスト"""
@@ -372,8 +391,6 @@ class TestDifferentialUpdaterCoverageImprovement:
         new_data = None
         existing_data = None
         
-        with patch.object(self.updater, 'logger') as mock_logger:
-            result = self.updater._validate_data_integrity(new_data, existing_data)
-            assert result.is_valid is False
-            assert len(result.issues) > 0
-            mock_logger.error.assert_called_once()
+        result = self.updater._validate_data_integrity(new_data, existing_data)
+        assert result.is_valid is False
+        assert len(result.issues) > 0

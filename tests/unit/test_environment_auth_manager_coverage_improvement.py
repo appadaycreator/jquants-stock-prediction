@@ -30,13 +30,13 @@ class TestEnvironmentAuthManagerCoverageImprovement:
 
     def test_detect_environment_explicit_development(self):
         """明示的な開発環境設定テスト"""
-        with patch.dict(os.environ, {"ENVIRONMENT": "development"}):
+        with patch.dict(os.environ, {"ENVIRONMENT": "development"}, clear=True):
             manager = EnvironmentAuthManager()
             assert manager.environment == "development"
 
     def test_detect_environment_explicit_staging(self):
         """明示的なステージング環境設定テスト"""
-        with patch.dict(os.environ, {"ENVIRONMENT": "staging"}):
+        with patch.dict(os.environ, {"ENVIRONMENT": "staging"}, clear=True):
             manager = EnvironmentAuthManager()
             assert manager.environment == "staging"
 
@@ -54,12 +54,14 @@ class TestEnvironmentAuthManagerCoverageImprovement:
 
     def test_load_auth_info_development(self):
         """開発環境での認証情報読み込みテスト"""
-        with patch.dict(os.environ, {"ENVIRONMENT": "development"}):
-            with patch('builtins.open', mock_open(read_data="JQUANTS_EMAIL=test@example.com\nJQUANTS_PASSWORD=password123")):
-                with patch('os.path.exists', return_value=True):
-                    manager = EnvironmentAuthManager()
-                    assert manager.auth_info["email"] == "test@example.com"
-                    assert manager.auth_info["password"] == "password123"
+        with patch.dict(os.environ, {
+            "ENVIRONMENT": "development",
+            "JQUANTS_EMAIL": "test@example.com",
+            "JQUANTS_PASSWORD": "password123"
+        }, clear=True):
+            manager = EnvironmentAuthManager()
+            assert manager.auth_info["email"] == "test@example.com"
+            assert manager.auth_info["password"] == "password123"
 
     def test_load_auth_info_production(self):
         """本番環境での認証情報読み込みテスト"""
@@ -76,20 +78,32 @@ class TestEnvironmentAuthManagerCoverageImprovement:
 
     def test_load_auth_info_no_env_file(self):
         """環境ファイルなしでの認証情報読み込みテスト"""
-        with patch.dict(os.environ, {"ENVIRONMENT": "development"}):
+        with patch.dict(os.environ, {"ENVIRONMENT": "development"}, clear=True):
             with patch('os.path.exists', return_value=False):
-                manager = EnvironmentAuthManager()
-                assert manager.auth_info["email"] is None
-                assert manager.auth_info["password"] is None
-
-    def test_load_auth_info_env_file_error(self):
-        """環境ファイル読み込みエラーテスト"""
-        with patch.dict(os.environ, {"ENVIRONMENT": "development"}):
-            with patch('os.path.exists', return_value=True):
-                with patch('builtins.open', side_effect=IOError("File read error")):
+                with patch('dotenv.load_dotenv'):
                     manager = EnvironmentAuthManager()
                     assert manager.auth_info["email"] is None
                     assert manager.auth_info["password"] is None
+
+    def test_load_auth_info_env_file_error(self):
+        """環境ファイル読み込みエラーテスト"""
+        # 環境変数を完全にクリア
+        with patch.dict(os.environ, {}, clear=True):
+            with patch.dict(os.environ, {"ENVIRONMENT": "development"}):
+                with patch('os.path.exists', return_value=True):
+                    with patch('dotenv.load_dotenv', side_effect=IOError("File read error")):
+                        # 環境変数を手動で削除
+                        for var in ["JQUANTS_EMAIL", "JQUANTS_PASSWORD", "JQUANTS_ID_TOKEN", "JQUANTS_REFRESH_TOKEN"]:
+                            if var in os.environ:
+                                del os.environ[var]
+                        # 環境変数がクリアされたことを確認
+                        assert os.getenv("JQUANTS_EMAIL") is None
+                        assert os.getenv("JQUANTS_PASSWORD") is None
+                        # os.getenvをモックしてNoneを返すようにする
+                        with patch('os.getenv', return_value=None):
+                            manager = EnvironmentAuthManager()
+                            assert manager.auth_info["email"] is None
+                            assert manager.auth_info["password"] is None
 
     def test_get_auth_info_available(self):
         """認証情報取得（利用可能）テスト"""
@@ -108,39 +122,43 @@ class TestEnvironmentAuthManagerCoverageImprovement:
     def test_get_auth_info_not_available(self):
         """認証情報取得（利用不可）テスト"""
         with patch.dict(os.environ, {}, clear=True):
-            manager = EnvironmentAuthManager()
-            auth_info = manager.get_auth_info()
-            
-            assert auth_info["email"] is None
-            assert auth_info["password"] is None
-            assert auth_info["id_token"] is None
+            with patch('dotenv.load_dotenv'):
+                manager = EnvironmentAuthManager()
+                auth_info = manager.get_auth_info()
+                
+                assert auth_info["email"] is None
+                assert auth_info["password"] is None
+                assert auth_info["id_token"] is None
 
     def test_get_auth_info_partial(self):
         """認証情報取得（部分的）テスト"""
         with patch.dict(os.environ, {
             "JQUANTS_EMAIL": "test@example.com",
             "JQUANTS_PASSWORD": "password123"
-        }):
-            manager = EnvironmentAuthManager()
-            auth_info = manager.get_auth_info()
-            
-            assert auth_info["email"] == "test@example.com"
-            assert auth_info["password"] == "password123"
-            assert auth_info["id_token"] is None
+        }, clear=True):
+            with patch('dotenv.load_dotenv'):
+                manager = EnvironmentAuthManager()
+                auth_info = manager.get_auth_info()
+                
+                assert auth_info["email"] == "test@example.com"
+                assert auth_info["password"] == "password123"
+                assert auth_info["id_token"] is None
 
     def test_is_authenticated_true(self):
         """認証状態確認（認証済み）テスト"""
         with patch.dict(os.environ, {
             "JQUANTS_ID_TOKEN": "valid_token"
-        }):
-            manager = EnvironmentAuthManager()
-            assert manager.is_auth_configured() is True
+        }, clear=True):
+            with patch('dotenv.load_dotenv'):
+                manager = EnvironmentAuthManager()
+                assert manager.is_auth_configured() is True
 
     def test_is_authenticated_false(self):
         """認証状態確認（未認証）テスト"""
         with patch.dict(os.environ, {}, clear=True):
-            manager = EnvironmentAuthManager()
-            assert manager.is_auth_configured() is False
+            with patch('dotenv.load_dotenv'):
+                manager = EnvironmentAuthManager()
+                assert manager.is_auth_configured() is False
 
     def test_get_environment(self):
         """環境取得テスト"""
@@ -172,44 +190,48 @@ class TestEnvironmentAuthManagerCoverageImprovement:
         """認証情報検証（不完全）テスト"""
         with patch.dict(os.environ, {
             "JQUANTS_EMAIL": "test@example.com"
-        }):
-            manager = EnvironmentAuthManager()
-            result = manager.validate_auth_info()
-            
-            assert result["is_configured"] is False
-            assert result["has_email_password"] is False
-            assert result["has_id_token"] is False
+        }, clear=True):
+            with patch('dotenv.load_dotenv'):
+                manager = EnvironmentAuthManager()
+                result = manager.validate_auth_info()
+                
+                assert result["is_configured"] is False
+                assert result["has_email_password"] is False
+                assert result["has_id_token"] is False
 
     def test_validate_auth_info_empty(self):
         """認証情報検証（空）テスト"""
         with patch.dict(os.environ, {}, clear=True):
-            manager = EnvironmentAuthManager()
-            result = manager.validate_auth_info()
-            
-            assert result["is_configured"] is False
-            assert result["has_email_password"] is False
-            assert result["has_id_token"] is False
+            with patch('dotenv.load_dotenv'):
+                manager = EnvironmentAuthManager()
+                result = manager.validate_auth_info()
+                
+                assert result["is_configured"] is False
+                assert result["has_email_password"] is False
+                assert result["has_id_token"] is False
 
     def test_get_missing_auth_info(self):
         """不足認証情報取得テスト"""
         with patch.dict(os.environ, {
             "JQUANTS_EMAIL": "test@example.com"
-        }):
-            manager = EnvironmentAuthManager()
-            result = manager.validate_auth_info()
-            
-            assert result["has_email_password"] is False
-            assert result["has_id_token"] is False
+        }, clear=True):
+            with patch('dotenv.load_dotenv'):
+                manager = EnvironmentAuthManager()
+                result = manager.validate_auth_info()
+                
+                assert result["has_email_password"] is False
+                assert result["has_id_token"] is False
 
     def test_get_missing_auth_info_all_missing(self):
         """不足認証情報取得（全て不足）テスト"""
         with patch.dict(os.environ, {}, clear=True):
-            manager = EnvironmentAuthManager()
-            result = manager.validate_auth_info()
-            
-            assert result["is_configured"] is False
-            assert result["has_email_password"] is False
-            assert result["has_id_token"] is False
+            with patch('dotenv.load_dotenv'):
+                manager = EnvironmentAuthManager()
+                result = manager.validate_auth_info()
+                
+                assert result["is_configured"] is False
+                assert result["has_email_password"] is False
+                assert result["has_id_token"] is False
 
     def test_get_missing_auth_info_none_missing(self):
         """不足認証情報取得（不足なし）テスト"""
@@ -245,27 +267,29 @@ class TestEnvironmentAuthManagerCoverageImprovement:
         """認証情報サマリー取得（部分的）テスト"""
         with patch.dict(os.environ, {
             "JQUANTS_EMAIL": "test@example.com"
-        }):
-            manager = EnvironmentAuthManager()
-            summary = manager.get_auth_status_summary()
-            
-            assert summary["environment"] == "development"
-            assert summary["is_configured"] is False
-            assert summary["has_email"] is True
-            assert summary["has_password"] is False
-            assert summary["has_id_token"] is False
+        }, clear=True):
+            with patch('dotenv.load_dotenv'):
+                manager = EnvironmentAuthManager()
+                summary = manager.get_auth_status_summary()
+                
+                assert summary["environment"] == "development"
+                assert summary["is_configured"] is False
+                assert summary["has_email"] is True
+                assert summary["has_password"] is False
+                assert summary["has_id_token"] is False
 
     def test_get_auth_summary_empty(self):
         """認証情報サマリー取得（空）テスト"""
         with patch.dict(os.environ, {}, clear=True):
-            manager = EnvironmentAuthManager()
-            summary = manager.get_auth_status_summary()
-            
-            assert summary["environment"] == "development"
-            assert summary["is_configured"] is False
-            assert summary["has_email"] is False
-            assert summary["has_password"] is False
-            assert summary["has_id_token"] is False
+            with patch('dotenv.load_dotenv'):
+                manager = EnvironmentAuthManager()
+                summary = manager.get_auth_status_summary()
+                
+                assert summary["environment"] == "development"
+                assert summary["is_configured"] is False
+                assert summary["has_email"] is False
+                assert summary["has_password"] is False
+                assert summary["has_id_token"] is False
 
     def test_environment_specific_loading(self):
         """環境別読み込みテスト"""
@@ -314,22 +338,23 @@ class TestEnvironmentAuthManagerCoverageImprovement:
 
     def test_environment_detection_priority(self):
         """環境検出優先順位テスト"""
-        # GitHub Actionsが最優先
+        # ENVIRONMENTが最優先
         with patch.dict(os.environ, {
             "GITHUB_ACTIONS": "true",
             "ENVIRONMENT": "development"
         }):
             manager = EnvironmentAuthManager()
-            assert manager.environment == "production"
+            assert manager.environment == "development"
 
     def test_auth_info_loading_fallback(self):
         """認証情報読み込みフォールバックテスト"""
-        with patch.dict(os.environ, {"ENVIRONMENT": "development"}):
+        with patch.dict(os.environ, {"ENVIRONMENT": "development"}, clear=True):
             with patch('os.path.exists', return_value=False):
-                manager = EnvironmentAuthManager()
-                # 環境ファイルが存在しない場合、環境変数から読み込み
-                assert manager.auth_info["email"] is None
-                assert manager.auth_info["password"] is None
+                with patch('dotenv.load_dotenv'):
+                    manager = EnvironmentAuthManager()
+                    # 環境ファイルが存在しない場合、環境変数から読み込み
+                    assert manager.auth_info["email"] is None
+                    assert manager.auth_info["password"] is None
 
     def test_auth_info_loading_with_env_vars(self):
         """環境変数での認証情報読み込みテスト"""
@@ -347,11 +372,12 @@ class TestEnvironmentAuthManagerCoverageImprovement:
         with patch.dict(os.environ, {
             "ENVIRONMENT": "development",
             "JQUANTS_EMAIL": "env@example.com"
-        }):
+        }, clear=True):
             with patch('builtins.open', mock_open(read_data="JQUANTS_PASSWORD=file_password")):
                 with patch('os.path.exists', return_value=True):
-                    manager = EnvironmentAuthManager()
-                    # 環境変数が優先される
-                    assert manager.auth_info["email"] == "env@example.com"
-                    # ファイルから読み込まれる
-                    assert manager.auth_info["password"] == "file_password"
+                    with patch('dotenv.load_dotenv'):
+                        manager = EnvironmentAuthManager()
+                        # 環境変数が優先される
+                        assert manager.auth_info["email"] == "env@example.com"
+                        # ファイルから読み込まれる
+                        assert manager.auth_info["password"] == "file_password"

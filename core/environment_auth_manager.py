@@ -29,14 +29,14 @@ class EnvironmentAuthManager:
         
     def _detect_environment(self) -> str:
         """環境を検出"""
-        # GitHub Actions環境かチェック
-        if os.getenv("GITHUB_ACTIONS") == "true":
-            return "production"
-        
-        # 環境変数で明示的に設定されている場合
+        # 環境変数で明示的に設定されている場合を最優先
         env = os.getenv("ENVIRONMENT", "").lower()
         if env in ["development", "staging", "production"]:
             return env
+        
+        # GitHub Actions環境かチェック
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            return "production"
         
         # デフォルトは開発環境
         return "development"
@@ -80,9 +80,13 @@ class EnvironmentAuthManager:
             try:
                 from dotenv import load_dotenv
                 load_dotenv()
-            except ImportError:
-                # dotenvがインストールされていない場合は手動で読み込み
-                self._load_env_manually(env_file)
+            except (ImportError, OSError, IOError) as e:
+                # dotenvがインストールされていない場合やエラーが発生した場合は手動で読み込み
+                logger.warning(f".envファイル読み込みエラー: {e}")
+                try:
+                    self._load_env_manually(env_file)
+                except (OSError, IOError) as manual_error:
+                    logger.warning(f"手動読み込みも失敗: {manual_error}")
         
         return {
             "email": os.getenv("JQUANTS_EMAIL"),
@@ -130,7 +134,7 @@ class EnvironmentAuthManager:
         id_token = self.get_id_token()
         
         # メールアドレスとパスワード、またはIDトークンが設定されているかチェック
-        return (email and password) or id_token
+        return bool((email and password) or id_token)
     
     def is_dummy_auth(self) -> bool:
         """ダミーの認証情報かチェック"""
@@ -186,15 +190,15 @@ class EnvironmentAuthManager:
 
     def get_auth_status_summary(self) -> Dict[str, Any]:
         """認証ステータスのサマリーを取得"""
-        validation = self.validate_auth_config()
+        validation = self.validate_auth_info()
         return {
             "is_configured": validation["is_configured"],
             "is_dummy": validation["is_dummy"],
             "environment": validation["environment"],
-            "has_email": bool(self.email),
-            "has_password": bool(self.password),
-            "has_id_token": bool(self.id_token),
-            "has_refresh_token": bool(self.refresh_token),
+            "has_email": bool(self.get_email()),
+            "has_password": bool(self.get_password()),
+            "has_id_token": bool(self.get_id_token()),
+            "has_refresh_token": bool(self.get_refresh_token()),
         }
     
     def _create_github_secrets_template(self) -> str:

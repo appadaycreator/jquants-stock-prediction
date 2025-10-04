@@ -29,6 +29,7 @@ import {
   Settings,
 } from "lucide-react";
 import { RiskSettingsPanel } from "@/components/risk-customization/RiskSettingsPanel";
+import { PersonalInvestmentLSTM } from "@/components/PersonalInvestmentLSTM";
 // import { IndividualStockSettings } from "@/components/risk-customization/IndividualStockSettings";
 // import { RecommendationDetails } from "@/components/risk-customization/RecommendationDetails";
 
@@ -371,6 +372,7 @@ export default function PersonalInvestmentDashboard() {
         <TabsList>
           <TabsTrigger value="positions" title="保有銘柄の損益・推奨アクションを確認">ポジション一覧</TabsTrigger>
           <TabsTrigger value="recommendations" title="AI/ルールベースによる投資提案">投資推奨</TabsTrigger>
+          <TabsTrigger value="lstm" title="LSTM深層学習による株価予測">LSTM予測</TabsTrigger>
           <TabsTrigger value="market" title="市場全体のトレンドやボラティリティを確認">市場概況</TabsTrigger>
           <TabsTrigger value="personalize" title="プロフィールに応じた推奨配分を作成">パーソナライズ</TabsTrigger>
         </TabsList>
@@ -550,6 +552,18 @@ export default function PersonalInvestmentDashboard() {
               </Card>
             ))}
           </div>
+        </TabsContent>
+
+        {/* LSTM予測 */}
+        <TabsContent value="lstm" className="space-y-4">
+          <PersonalInvestmentLSTM
+            symbol="7203"
+            symbolName="トヨタ自動車"
+            currentPrice={pnl_summary.current_value / (positions.length || 1)}
+            onPredictionComplete={(prediction) => {
+              console.log('LSTM予測完了:', prediction);
+            }}
+          />
         </TabsContent>
 
         {/* 市場概況 */}
