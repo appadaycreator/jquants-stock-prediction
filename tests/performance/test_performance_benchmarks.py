@@ -425,8 +425,8 @@ class TestPerformanceBenchmarks:
         def simulate_user(user_id):
             """ユーザーシミュレーション"""
             import tempfile
-        temp_dir = tempfile.mkdtemp()
-        updater = DifferentialUpdater(temp_dir)
+            temp_dir = tempfile.mkdtemp()
+            updater = DifferentialUpdater(temp_dir)
             data = [
                 {"date": f"2024-01-{i:02d}", "code": f"{user_id:04d}", "close": 100 + i}
                 for i in range(1, 101)

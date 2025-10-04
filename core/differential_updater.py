@@ -53,6 +53,33 @@ class UpdateStats:
     def __post_init__(self):
         if self.data_sources is None:
             self.data_sources = {}
+    
+    def increment_total_updates(self):
+        """総更新数を増加"""
+        self.total_updates += 1
+    
+    def increment_successful_updates(self):
+        """成功更新数を増加"""
+        self.successful_updates += 1
+    
+    def increment_failed_updates(self):
+        """失敗更新数を増加"""
+        self.failed_updates += 1
+    
+    def increment_validation_errors(self):
+        """検証エラー数を増加"""
+        self.validation_errors += 1
+    
+    def add_processing_time(self, time: float):
+        """処理時間を追加"""
+        self.total_processing_time += time
+    
+    def set_last_update_time(self, time):
+        """最終更新時間を設定"""
+        if hasattr(time, 'isoformat'):
+            self.last_update_time = time.isoformat()
+        else:
+            self.last_update_time = str(time)
 
 
 @dataclass
@@ -578,6 +605,20 @@ class DifferentialUpdater:
                         issues.append(f"アイテム{i}: 必須フィールドが不足: {missing_fields}")
                         continue
                     
+                    # 日付の検証
+                    date_value = None
+                    for key, value in item.items():
+                        if key.lower() == 'date':
+                            date_value = value
+                            break
+                    
+                    if date_value:
+                        try:
+                            from datetime import datetime
+                            datetime.fromisoformat(str(date_value))
+                        except (ValueError, TypeError):
+                            issues.append(f"アイテム{i}: 日付の解析エラー: {date_value}")
+                    
                     # 価格データの検証
                     # 大文字小文字を考慮して価格データを取得
                     open_price = None
@@ -604,10 +645,12 @@ class DifferentialUpdater:
                             issues.append(f"アイテム{i}: 負の価格が検出されました")
                         
                         # 高値・安値の整合性
+                        if high_price < low_price:
+                            issues.append(f"アイテム{i}: High価格がLow価格より低い")
                         if high_price < max(open_price, close_price):
-                            issues.append(f"アイテム{i}: 高値が不正です")
+                            issues.append(f"アイテム{i}: High価格がOpen/Close価格より低い")
                         if low_price > min(open_price, close_price):
-                            issues.append(f"アイテム{i}: 安値が不正です")
+                            issues.append(f"アイテム{i}: Low価格がOpen/Close価格より高い")
                         
                         # 極端な価格変動のチェック
                         if existing_data:
@@ -628,6 +671,15 @@ class DifferentialUpdater:
                                         pass
                                     break
                             
+                    # ボリュームの検証
+                    if volume is not None:
+                        try:
+                            volume_float = float(volume)
+                            if volume_float < 0:
+                                issues.append(f"アイテム{i}: Volumeが負の値です")
+                        except (ValueError, TypeError):
+                            issues.append(f"アイテム{i}: Volumeの解析エラー: {volume}")
+                
                 except (ValueError, TypeError) as e:
                     issues.append(f"アイテム{i}: 価格データの解析エラー: {e}")
                 except Exception as e:
@@ -645,17 +697,33 @@ class DifferentialUpdater:
         """差分カウント計算"""
         return self.diff_calculator._calculate_diff_counts(old_data, new_data)
 
-    def _is_significant_change(self, diff_counts: Dict[str, int]) -> bool:
-        """重要な変更判定"""
-        return self.diff_calculator._is_significant_change(diff_counts)
 
     def _calculate_data_hash(self, data: List[Dict[str, Any]]) -> str:
         """データハッシュ計算"""
+        if data is None:
+            return ""
         return self.hash_calculator.calculate_data_hash(data)
     
-    def _calculate_hash(self, data: Any) -> str:
-        """ハッシュ計算（単一データ用）"""
-        return self.hash_calculator.calculate_data_hash([data] if data else [])
+    def _calculate_hash(self, data: Dict[str, Any]) -> str:
+        """ハッシュ計算"""
+        try:
+            data_str = json.dumps(data, sort_keys=True, ensure_ascii=False)
+            return hashlib.md5(data_str.encode('utf-8')).hexdigest()
+        except Exception:
+            return ""
+    
+    def _has_record_changed(self, old_record: Dict[str, Any], new_record: Dict[str, Any]) -> bool:
+        """レコード変更判定"""
+        try:
+            return self._items_different(old_record, new_record)
+        except Exception:
+            return True
+    
+    def _is_significant_change(self, diff_counts: Dict[str, int]) -> bool:
+        """重要な変更判定"""
+        total_changes = diff_counts.get("added", 0) + diff_counts.get("updated", 0) + diff_counts.get("removed", 0)
+        return total_changes > 0
+    
 
     def _get_record_key(self, record: Dict[str, Any]) -> str:
         """レコードキー取得"""
@@ -668,11 +736,35 @@ class DifferentialUpdater:
 
     def _has_record_changed(self, old_record: Dict[str, Any], new_record: Dict[str, Any]) -> bool:
         """レコード変更判定"""
-        return self._items_different(old_record, new_record)
+        try:
+            return self._items_different(old_record, new_record)
+        except Exception:
+            return True
+    
+    def _backup_data(self, symbol: str, data: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """データバックアップ"""
+        try:
+            backup_dir = self._create_backup_dir(symbol)
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            backup_file = backup_dir / f"backup_{timestamp}.json"
+            
+            with open(backup_file, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            
+            return {"success": True, "backup_file": str(backup_file)}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+    
+    def _create_backup_dir(self, symbol: str) -> Path:
+        """バックアップディレクトリ作成"""
+        backup_dir = self.data_dir / "backups" / symbol
+        backup_dir.mkdir(parents=True, exist_ok=True)
+        return backup_dir
 
     def _create_success_result(self, symbol: str, diff_result: DiffResult, processing_time: float, retry_count: int) -> Dict[str, Any]:
         """成功結果作成"""
         return {
+            "success": True,
             "status": UpdateStatus.SUCCESS.value,
             "symbol": symbol,
             "diff": {
@@ -689,6 +781,7 @@ class DifferentialUpdater:
     def _create_error_result(self, symbol: str, status: UpdateStatus, error_message: str) -> Dict[str, Any]:
         """エラー結果作成"""
         return {
+            "success": False,
             "status": status.value,
             "symbol": symbol,
             "error": error_message,
@@ -721,6 +814,8 @@ class DifferentialUpdater:
                 "total": len(updates),
                 "successful": successful,
                 "failed": failed,
+                "success_count": successful,
+                "error_count": failed,
                 "results": results,
             }
         except Exception as e:
@@ -750,6 +845,14 @@ class DifferentialUpdater:
     def get_update_statistics(self) -> Dict[str, Any]:
         """更新統計取得"""
         try:
+            success_rate = 0.0
+            if self.update_stats.total_updates > 0:
+                success_rate = self.update_stats.successful_updates / self.update_stats.total_updates
+            
+            validation_error_rate = 0.0
+            if self.update_stats.total_updates > 0:
+                validation_error_rate = self.update_stats.validation_errors / self.update_stats.total_updates
+            
             return {
                 "total_updates": self.update_stats.total_updates,
                 "successful_updates": self.update_stats.successful_updates,
@@ -757,7 +860,11 @@ class DifferentialUpdater:
                 "validation_errors": self.update_stats.validation_errors,
                 "total_processing_time": self.update_stats.total_processing_time,
                 "last_update_time": self.update_stats.last_update_time,
-                "data_sources": self.update_stats.data_sources
+                "last_updated": self.update_stats.last_update_time,
+                "data_sources": self.update_stats.data_sources,
+                "success_rate": success_rate,
+                "validation_error_rate": validation_error_rate,
+                "symbols_updated": len(self.update_stats.data_sources)
             }
         except Exception as e:
             if self.logger:

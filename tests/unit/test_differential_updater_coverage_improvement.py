@@ -15,6 +15,8 @@ from core.differential_updater import (
     DiffResult,
     UpdateConfig,
     UpdateStatus,
+    ValidationResult,
+    UpdateStats,
 )
 
 
