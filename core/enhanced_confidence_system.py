@@ -80,7 +80,8 @@ class EnhancedConfidenceSystem:
                 "low": 0.60,
                 "very_low": 0.50
             },
-            "trading_threshold": 0.70,  # 70%以上で取引判定
+            "trading_threshold": 0.70,  # 70%以上で取引判定（記事の50%を大幅上回る）
+            "enhanced_trading_threshold": 0.75,  # 強化版：75%以上で高信頼度取引
             "risk_adjustment": {
                 "volatility_weight": 0.3,
                 "market_weight": 0.2,
@@ -98,6 +99,14 @@ class EnhancedConfidenceSystem:
                 "bear_market_threshold": -0.05,
                 "high_volatility_threshold": 0.25,
                 "low_volatility_threshold": 0.10
+            },
+            "enhanced_confidence": {
+                "ensemble_weight": 0.4,  # アンサンブル重みを増加
+                "market_adaptation": True,  # 市場適応機能
+                "volatility_adaptation": True,  # ボラティリティ適応機能
+                "dynamic_threshold": True,  # 動的閾値調整
+                "confidence_decay": 0.95,  # 信頼度減衰係数
+                "minimum_samples": 10  # 最小サンプル数
             }
         }
     

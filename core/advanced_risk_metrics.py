@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 """
 高度なリスクメトリクス計算システム
-
-目的: VaR・最大ドローダウン・シャープレシオの高精度計算
-仕様: リアルタイムリスク監視と自動損切り対応
+VaR・最大ドローダウン・シャープレシオの高度な計算機能を実装
 """
 
 import numpy as np
 import pandas as pd
-from typing import Dict, Any, List, Tuple, Optional, Union
+from typing import Dict, Any, List, Tuple, Optional
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 from enum import Enum
@@ -57,20 +55,9 @@ class RiskMetricsResult:
     skewness: float
     kurtosis: float
     risk_score: float
-    confidence_level: float
-
-
-@dataclass
-class PortfolioRiskProfile:
-    """ポートフォリオリスクプロファイル"""
-    total_value: float
-    total_risk: float
-    risk_per_position: Dict[str, float]
-    correlation_matrix: pd.DataFrame
-    risk_contribution: Dict[str, float]
-    diversification_ratio: float
-    concentration_risk: float
-    liquidity_risk: float
+    risk_level: str
+    confidence_interval: Tuple[float, float]
+    calculation_date: datetime
 
 
 class AdvancedRiskMetrics:
@@ -81,7 +68,6 @@ class AdvancedRiskMetrics:
         self.config = config or self._get_default_config()
         self.logger = logging.getLogger(__name__)
         self.risk_history = []
-        self.market_data_cache = {}
         
     def _get_default_config(self) -> Dict[str, Any]:
         """デフォルト設定"""
@@ -92,99 +78,103 @@ class AdvancedRiskMetrics:
                 "lookback_period": 252,  # 1年
                 "min_observations": 30
             },
+            "cvar": {
+                "confidence_levels": [0.95, 0.99],
+                "method": "historical"
+            },
             "drawdown": {
-                "method": "rolling",  # rolling, peak_to_trough
-                "window": 252,
-                "min_periods": 30
+                "method": "peak_to_trough",
+                "min_duration": 1,
+                "recovery_threshold": 0.95
             },
             "ratios": {
                 "risk_free_rate": 0.02,  # 2%
                 "benchmark_return": 0.08,  # 8%
-                "annualization_factor": 252
+                "benchmark_volatility": 0.15  # 15%
             },
             "volatility": {
-                "method": "garch",  # simple, ewma, garch
-                "window": 20,
-                "decay_factor": 0.94
+                "method": "annualized",
+                "lookback_period": 252,
+                "min_observations": 30
             },
-            "correlation": {
-                "method": "pearson",  # pearson, spearman, kendall
-                "min_periods": 30,
-                "rolling_window": 60
+            "statistics": {
+                "skewness_threshold": 0.5,
+                "kurtosis_threshold": 3.0,
+                "outlier_threshold": 3.0
             }
         }
     
     def calculate_comprehensive_risk_metrics(
         self,
-        portfolio_data: pd.DataFrame,
+        stock_data: pd.DataFrame,
         market_data: pd.DataFrame,
-        benchmark_data: Optional[pd.DataFrame] = None,
-        risk_free_rate: float = 0.02
+        benchmark_data: Optional[pd.DataFrame] = None
     ) -> RiskMetricsResult:
         """包括的リスクメトリクス計算"""
         try:
             # データ検証
-            if portfolio_data.empty:
+            if stock_data.empty or market_data.empty:
                 return self._get_default_risk_metrics()
             
             # リターン計算
-            returns = self._calculate_returns(portfolio_data)
-            if returns.empty:
-                return self._get_default_risk_metrics()
+            stock_returns = self._calculate_returns(stock_data)
+            market_returns = self._calculate_returns(market_data)
+            benchmark_returns = self._calculate_returns(benchmark_data) if benchmark_data is not None else None
             
             # VaR計算
-            var_95 = self._calculate_var(returns, 0.95)
-            var_99 = self._calculate_var(returns, 0.99)
+            var_95, var_99 = self._calculate_var(stock_returns)
             
             # CVaR計算
-            cvar_95 = self._calculate_cvar(returns, 0.95)
-            cvar_99 = self._calculate_cvar(returns, 0.99)
+            cvar_95, cvar_99 = self._calculate_cvar(stock_returns)
             
             # 最大ドローダウン計算
-            max_drawdown = self._calculate_max_drawdown(portfolio_data)
+            max_drawdown = self._calculate_max_drawdown(stock_data)
             
             # シャープレシオ計算
-            sharpe_ratio = self._calculate_sharpe_ratio(returns, risk_free_rate)
+            sharpe_ratio = self._calculate_sharpe_ratio(stock_returns)
             
             # ソルティノレシオ計算
-            sortino_ratio = self._calculate_sortino_ratio(returns, risk_free_rate)
+            sortino_ratio = self._calculate_sortino_ratio(stock_returns)
             
             # カルマーレシオ計算
-            calmar_ratio = self._calculate_calmar_ratio(returns, max_drawdown)
+            calmar_ratio = self._calculate_calmar_ratio(stock_returns, max_drawdown)
             
-            # 情報レシオ計算
-            information_ratio = self._calculate_information_ratio(returns, benchmark_data)
+            # インフォメーションレシオ計算
+            information_ratio = self._calculate_information_ratio(
+                stock_returns, benchmark_returns
+            ) if benchmark_returns is not None else 0.0
             
-            # トレイノーレシオ計算
-            treynor_ratio = self._calculate_treynor_ratio(returns, market_data, risk_free_rate)
+            # トレイナーレシオ計算
+            treynor_ratio = self._calculate_treynor_ratio(stock_returns, market_returns)
             
             # ジェンセンのアルファ計算
-            jensen_alpha = self._calculate_jensen_alpha(returns, market_data, risk_free_rate)
+            jensen_alpha = self._calculate_jensen_alpha(stock_returns, market_returns)
             
             # ベータ計算
-            beta = self._calculate_beta(returns, market_data)
+            beta = self._calculate_beta(stock_returns, market_returns)
             
             # 相関計算
-            correlation = self._calculate_correlation(returns, market_data)
+            correlation = self._calculate_correlation(stock_returns, market_returns)
             
             # ボラティリティ計算
-            volatility = self._calculate_volatility(returns)
+            volatility = self._calculate_volatility(stock_returns)
             
             # 歪度計算
-            skewness = self._calculate_skewness(returns)
+            skewness = self._calculate_skewness(stock_returns)
             
             # 尖度計算
-            kurtosis = self._calculate_kurtosis(returns)
+            kurtosis = self._calculate_kurtosis(stock_returns)
             
             # リスクスコア計算
-            risk_score = self._calculate_comprehensive_risk_score(
-                var_95, max_drawdown, volatility, sharpe_ratio, skewness, kurtosis
+            risk_score = self._calculate_risk_score(
+                var_95, max_drawdown, volatility, beta, correlation
             )
             
-            # 信頼度計算
-            confidence_level = self._calculate_confidence_level(
-                var_95, max_drawdown, volatility, sharpe_ratio
-            )
+            # リスクレベル決定
+            risk_level = self._determine_risk_level(risk_score)
+            
+            # 信頼区間計算
+            confidence_interval = self._calculate_confidence_interval(stock_returns)
             
             result = RiskMetricsResult(
                 var_95=var_95,
@@ -204,7 +194,9 @@ class AdvancedRiskMetrics:
                 skewness=skewness,
                 kurtosis=kurtosis,
                 risk_score=risk_score,
-                confidence_level=confidence_level
+                risk_level=risk_level,
+                confidence_interval=confidence_interval,
+                calculation_date=datetime.now()
             )
             
             # 履歴に追加
@@ -215,863 +207,391 @@ class AdvancedRiskMetrics:
             return result
             
         except Exception as e:
-            self.logger.error(f"包括的リスクメトリクス計算エラー: {e}")
+            self.logger.error(f"リスクメトリクス計算エラー: {e}")
             return self._get_default_risk_metrics()
     
-    def calculate_portfolio_risk_profile(
-        self,
-        positions: Dict[str, Dict[str, Any]],
-        market_data: Dict[str, pd.DataFrame],
-        correlation_data: Optional[pd.DataFrame] = None
-    ) -> PortfolioRiskProfile:
-        """ポートフォリオリスクプロファイル計算"""
-        try:
-            # 総価値計算
-            total_value = sum(pos.get('value', 0) for pos in positions.values())
-            
-            if total_value == 0:
-                return self._get_default_portfolio_risk_profile()
-            
-            # 個別リスク計算
-            risk_per_position = {}
-            for symbol, position in positions.items():
-                if symbol in market_data:
-                    returns = market_data[symbol]['Close'].pct_change().dropna()
-                    if not returns.empty:
-                        risk_per_position[symbol] = returns.std() * np.sqrt(252)
-                    else:
-                        risk_per_position[symbol] = 0.0
-                else:
-                    risk_per_position[symbol] = 0.0
-            
-            # 相関行列計算
-            correlation_matrix = self._calculate_correlation_matrix(
-                positions, market_data, correlation_data
-            )
-            
-            # リスク寄与度計算
-            risk_contribution = self._calculate_risk_contribution(
-                positions, risk_per_position, correlation_matrix
-            )
-            
-            # 総リスク計算
-            total_risk = self._calculate_portfolio_total_risk(
-                positions, risk_per_position, correlation_matrix
-            )
-            
-            # 分散投資比率計算
-            diversification_ratio = self._calculate_diversification_ratio(
-                risk_per_position, total_risk
-            )
-            
-            # 集中度リスク計算
-            concentration_risk = self._calculate_concentration_risk(positions)
-            
-            # 流動性リスク計算
-            liquidity_risk = self._calculate_liquidity_risk(positions, market_data)
-            
-            return PortfolioRiskProfile(
-                total_value=total_value,
-                total_risk=total_risk,
-                risk_per_position=risk_per_position,
-                correlation_matrix=correlation_matrix,
-                risk_contribution=risk_contribution,
-                diversification_ratio=diversification_ratio,
-                concentration_risk=concentration_risk,
-                liquidity_risk=liquidity_risk
-            )
-            
-        except Exception as e:
-            self.logger.error(f"ポートフォリオリスクプロファイル計算エラー: {e}")
-            return self._get_default_portfolio_risk_profile()
-    
-    def calculate_rolling_risk_metrics(
-        self,
-        portfolio_data: pd.DataFrame,
-        window: int = 252,
-        min_periods: int = 30
-    ) -> pd.DataFrame:
-        """ローリングリスクメトリクス計算"""
-        try:
-            if portfolio_data.empty:
-                return pd.DataFrame()
-            
-            # リターン計算
-            returns = portfolio_data['value'].pct_change().dropna()
-            
-            if returns.empty:
-                return pd.DataFrame()
-            
-            # ローリング計算
-            rolling_metrics = pd.DataFrame(index=returns.index)
-            
-            # ローリングVaR
-            rolling_metrics['var_95'] = returns.rolling(
-                window=window, min_periods=min_periods
-            ).apply(lambda x: self._calculate_var(x, 0.95))
-            
-            # ローリング最大ドローダウン
-            rolling_metrics['max_drawdown'] = portfolio_data['value'].rolling(
-                window=window, min_periods=min_periods
-            ).apply(lambda x: self._calculate_max_drawdown_series(x))
-            
-            # ローリングシャープレシオ
-            rolling_metrics['sharpe_ratio'] = returns.rolling(
-                window=window, min_periods=min_periods
-            ).apply(lambda x: self._calculate_sharpe_ratio(x, 0.02))
-            
-            # ローリングボラティリティ
-            rolling_metrics['volatility'] = returns.rolling(
-                window=window, min_periods=min_periods
-            ).std() * np.sqrt(252)
-            
-            # ローリング歪度
-            rolling_metrics['skewness'] = returns.rolling(
-                window=window, min_periods=min_periods
-            ).skew()
-            
-            # ローリング尖度
-            rolling_metrics['kurtosis'] = returns.rolling(
-                window=window, min_periods=min_periods
-            ).kurt()
-            
-            return rolling_metrics.dropna()
-            
-        except Exception as e:
-            self.logger.error(f"ローリングリスクメトリクス計算エラー: {e}")
-            return pd.DataFrame()
-    
-    def calculate_stress_test_metrics(
-        self,
-        portfolio_data: pd.DataFrame,
-        stress_scenarios: List[Dict[str, float]]
-    ) -> Dict[str, Any]:
-        """ストレステストメトリクス計算"""
-        try:
-            if portfolio_data.empty:
-                return {}
-            
-            stress_results = {}
-            
-            for i, scenario in enumerate(stress_scenarios):
-                scenario_name = scenario.get('name', f'scenario_{i+1}')
-                
-                # シナリオ適用
-                stressed_returns = self._apply_stress_scenario(
-                    portfolio_data, scenario
-                )
-                
-                if stressed_returns.empty:
-                    continue
-                
-                # ストレス下でのリスクメトリクス計算
-                stress_var = self._calculate_var(stressed_returns, 0.95)
-                stress_drawdown = self._calculate_max_drawdown_series(stressed_returns)
-                stress_volatility = stressed_returns.std() * np.sqrt(252)
-                
-                stress_results[scenario_name] = {
-                    'var_95': stress_var,
-                    'max_drawdown': stress_drawdown,
-                    'volatility': stress_volatility,
-                    'scenario': scenario
-                }
-            
-            return stress_results
-            
-        except Exception as e:
-            self.logger.error(f"ストレステストメトリクス計算エラー: {e}")
-            return {}
-    
-    def calculate_risk_budget(
-        self,
-        portfolio_data: pd.DataFrame,
-        target_risk: float = 0.10,
-        max_position_risk: float = 0.05
-    ) -> Dict[str, Any]:
-        """リスクバジェット計算"""
-        try:
-            if portfolio_data.empty:
-                return {}
-            
-            # リターン計算
-            returns = portfolio_data['value'].pct_change().dropna()
-            
-            if returns.empty:
-                return {}
-            
-            # 現在のリスク計算
-            current_risk = returns.std() * np.sqrt(252)
-            
-            # リスクバジェット比率
-            risk_budget_ratio = target_risk / current_risk if current_risk > 0 else 1.0
-            
-            # ポジション制限計算
-            position_limit = min(max_position_risk, target_risk / len(portfolio_data.columns))
-            
-            # リスク調整係数
-            risk_adjustment_factor = min(1.0, risk_budget_ratio)
-            
-            return {
-                'current_risk': current_risk,
-                'target_risk': target_risk,
-                'risk_budget_ratio': risk_budget_ratio,
-                'position_limit': position_limit,
-                'risk_adjustment_factor': risk_adjustment_factor,
-                'recommendations': self._generate_risk_recommendations(
-                    current_risk, target_risk, risk_budget_ratio
-                )
-            }
-            
-        except Exception as e:
-            self.logger.error(f"リスクバジェット計算エラー: {e}")
-            return {}
-    
-    # ヘルパーメソッド群
     def _calculate_returns(self, data: pd.DataFrame) -> pd.Series:
         """リターン計算"""
-        try:
-            if 'value' in data.columns:
-                return data['value'].pct_change().dropna()
-            elif 'Close' in data.columns:
-                return data['Close'].pct_change().dropna()
-            else:
-                # 最初の数値カラムを使用
-                numeric_cols = data.select_dtypes(include=[np.number]).columns
-                if len(numeric_cols) > 0:
-                    return data[numeric_cols[0]].pct_change().dropna()
-                else:
-                    return pd.Series(dtype=float)
-        except:
+        if 'Close' not in data.columns or data.empty:
             return pd.Series(dtype=float)
+        
+        prices = data['Close'].dropna()
+        if len(prices) < 2:
+            return pd.Series(dtype=float)
+        
+        returns = prices.pct_change().dropna()
+        return returns
     
-    def _calculate_var(self, returns: pd.Series, confidence_level: float) -> float:
+    def _calculate_var(self, returns: pd.Series) -> Tuple[float, float]:
         """VaR計算"""
-        try:
-            if returns.empty:
-                return 0.0
-            
-            method = self.config["var"]["method"]
-            
-            if method == "historical":
-                return self._calculate_historical_var(returns, confidence_level)
-            elif method == "parametric":
-                return self._calculate_parametric_var(returns, confidence_level)
-            elif method == "monte_carlo":
-                return self._calculate_monte_carlo_var(returns, confidence_level)
-            else:
-                return self._calculate_historical_var(returns, confidence_level)
-                
-        except Exception as e:
-            self.logger.error(f"VaR計算エラー: {e}")
-            return 0.0
+        if returns.empty or len(returns) < 10:
+            return 0.05, 0.10
+        
+        # 95% VaR
+        var_95 = np.percentile(returns, 5)
+        
+        # 99% VaR
+        var_99 = np.percentile(returns, 1)
+        
+        return abs(var_95), abs(var_99)
     
-    def _calculate_historical_var(self, returns: pd.Series, confidence_level: float) -> float:
-        """ヒストリカルVaR計算"""
-        try:
-            return np.percentile(returns, (1 - confidence_level) * 100)
-        except:
-            return 0.0
-    
-    def _calculate_parametric_var(self, returns: pd.Series, confidence_level: float) -> float:
-        """パラメトリックVaR計算"""
-        try:
-            mean_return = returns.mean()
-            std_return = returns.std()
-            z_score = stats.norm.ppf(1 - confidence_level)
-            return mean_return + z_score * std_return
-        except:
-            return 0.0
-    
-    def _calculate_monte_carlo_var(self, returns: pd.Series, confidence_level: float) -> float:
-        """モンテカルロVaR計算"""
-        try:
-            # 簡易的なモンテカルロシミュレーション
-            n_simulations = 10000
-            mean_return = returns.mean()
-            std_return = returns.std()
-            
-            simulated_returns = np.random.normal(mean_return, std_return, n_simulations)
-            return np.percentile(simulated_returns, (1 - confidence_level) * 100)
-        except:
-            return 0.0
-    
-    def _calculate_cvar(self, returns: pd.Series, confidence_level: float) -> float:
+    def _calculate_cvar(self, returns: pd.Series) -> Tuple[float, float]:
         """CVaR計算"""
-        try:
-            var_threshold = self._calculate_var(returns, confidence_level)
-            tail_returns = returns[returns <= var_threshold]
-            
-            if tail_returns.empty:
-                return var_threshold
-            
-            return tail_returns.mean()
-        except:
-            return 0.0
+        if returns.empty or len(returns) < 10:
+            return 0.08, 0.15
+        
+        # 95% CVaR
+        var_95 = np.percentile(returns, 5)
+        cvar_95 = returns[returns <= var_95].mean()
+        
+        # 99% CVaR
+        var_99 = np.percentile(returns, 1)
+        cvar_99 = returns[returns <= var_99].mean()
+        
+        return abs(cvar_95), abs(cvar_99)
     
     def _calculate_max_drawdown(self, data: pd.DataFrame) -> float:
         """最大ドローダウン計算"""
-        try:
-            if 'value' in data.columns:
-                values = data['value']
-            elif 'Close' in data.columns:
-                values = data['Close']
-            else:
-                numeric_cols = data.select_dtypes(include=[np.number]).columns
-                if len(numeric_cols) > 0:
-                    values = data[numeric_cols[0]]
-                else:
-                    return 0.0
-            
-            if values.empty:
-                return 0.0
-            
-            return self._calculate_max_drawdown_series(values)
-        except:
+        if 'Close' not in data.columns or data.empty:
             return 0.0
-    
-    def _calculate_max_drawdown_series(self, values: pd.Series) -> float:
-        """シリーズの最大ドローダウン計算"""
-        try:
-            if values.empty:
-                return 0.0
-            
-            peak = values.expanding().max()
-            drawdown = (values - peak) / peak
-            return abs(drawdown.min())
-        except:
+        
+        prices = data['Close'].dropna()
+        if len(prices) < 2:
             return 0.0
+        
+        # ピーク価格の計算
+        peak = prices.expanding().max()
+        
+        # ドローダウンの計算
+        drawdown = (prices - peak) / peak
+        
+        return abs(drawdown.min())
     
-    def _calculate_sharpe_ratio(self, returns: pd.Series, risk_free_rate: float) -> float:
+    def _calculate_sharpe_ratio(self, returns: pd.Series) -> float:
         """シャープレシオ計算"""
-        try:
-            if returns.empty:
-                return 0.0
-            
-            excess_returns = returns.mean() - risk_free_rate / 252
-            return excess_returns / returns.std() * np.sqrt(252) if returns.std() > 0 else 0.0
-        except:
+        if returns.empty or len(returns) < 2:
             return 0.0
+        
+        risk_free_rate = self.config["ratios"]["risk_free_rate"] / 252  # 日次
+        excess_returns = returns - risk_free_rate
+        
+        if returns.std() == 0:
+            return 0.0
+        
+        sharpe = excess_returns.mean() / returns.std() * np.sqrt(252)
+        
+        return sharpe
     
-    def _calculate_sortino_ratio(self, returns: pd.Series, risk_free_rate: float) -> float:
+    def _calculate_sortino_ratio(self, returns: pd.Series) -> float:
         """ソルティノレシオ計算"""
-        try:
-            if returns.empty:
-                return 0.0
-            
-            excess_returns = returns.mean() - risk_free_rate / 252
-            downside_returns = returns[returns < 0]
-            
-            if downside_returns.empty:
-                return 0.0
-            
-            downside_std = downside_returns.std()
-            return excess_returns / downside_std * np.sqrt(252) if downside_std > 0 else 0.0
-        except:
+        if returns.empty or len(returns) < 2:
             return 0.0
+        
+        risk_free_rate = self.config["ratios"]["risk_free_rate"] / 252
+        excess_returns = returns - risk_free_rate
+        
+        # 下方偏差計算
+        negative_returns = excess_returns[excess_returns < 0]
+        if len(negative_returns) == 0:
+            return float('inf') if excess_returns.mean() > 0 else 0.0
+        
+        downside_deviation = negative_returns.std()
+        if downside_deviation == 0:
+            return float('inf') if excess_returns.mean() > 0 else 0.0
+        
+        sortino = excess_returns.mean() / downside_deviation * np.sqrt(252)
+        
+        return sortino
     
     def _calculate_calmar_ratio(self, returns: pd.Series, max_drawdown: float) -> float:
         """カルマーレシオ計算"""
-        try:
-            if returns.empty or max_drawdown == 0:
-                return 0.0
-            
-            annual_return = returns.mean() * 252
-            return annual_return / max_drawdown
-        except:
+        if returns.empty or len(returns) < 2 or max_drawdown == 0:
             return 0.0
+        
+        annual_return = returns.mean() * 252
+        
+        return annual_return / max_drawdown
     
     def _calculate_information_ratio(
-        self, returns: pd.Series, benchmark_data: Optional[pd.DataFrame]
+        self, returns: pd.Series, benchmark_returns: pd.Series
     ) -> float:
-        """情報レシオ計算"""
-        try:
-            if returns.empty or benchmark_data is None or benchmark_data.empty:
-                return 0.0
-            
-            benchmark_returns = benchmark_data['Close'].pct_change().dropna()
-            
-            if benchmark_returns.empty:
-                return 0.0
-            
-            # 共通の期間でデータを合わせる
-            common_index = returns.index.intersection(benchmark_returns.index)
-            if len(common_index) < 2:
-                return 0.0
-            
-            returns_aligned = returns.loc[common_index]
-            benchmark_returns_aligned = benchmark_returns.loc[common_index]
-            
-            active_returns = returns_aligned - benchmark_returns_aligned
-            tracking_error = active_returns.std()
-            
-            return active_returns.mean() / tracking_error if tracking_error > 0 else 0.0
-        except:
+        """インフォメーションレシオ計算"""
+        if returns.empty or benchmark_returns.empty:
             return 0.0
-    
-    def _calculate_treynor_ratio(
-        self, returns: pd.Series, market_data: pd.DataFrame, risk_free_rate: float
-    ) -> float:
-        """トレイノーレシオ計算"""
-        try:
-            if returns.empty or market_data.empty:
-                return 0.0
-            
-            beta = self._calculate_beta(returns, market_data)
-            if beta == 0:
-                return 0.0
-            
-            excess_returns = returns.mean() - risk_free_rate / 252
-            return excess_returns / beta
-        except:
+        
+        # 共通の日付で結合
+        common_dates = returns.index.intersection(benchmark_returns.index)
+        if len(common_dates) < 2:
             return 0.0
+        
+        returns_aligned = returns.loc[common_dates]
+        benchmark_aligned = benchmark_returns.loc[common_dates]
+        
+        # アクティブリターン
+        active_returns = returns_aligned - benchmark_aligned
+        
+        if active_returns.std() == 0:
+            return 0.0
+        
+        information_ratio = active_returns.mean() / active_returns.std() * np.sqrt(252)
+        
+        return information_ratio
     
-    def _calculate_jensen_alpha(
-        self, returns: pd.Series, market_data: pd.DataFrame, risk_free_rate: float
-    ) -> float:
+    def _calculate_treynor_ratio(self, returns: pd.Series, market_returns: pd.Series) -> float:
+        """トレイナーレシオ計算"""
+        if returns.empty or market_returns.empty:
+            return 0.0
+        
+        # ベータ計算
+        beta = self._calculate_beta(returns, market_returns)
+        if beta == 0:
+            return 0.0
+        
+        risk_free_rate = self.config["ratios"]["risk_free_rate"] / 252
+        excess_return = returns.mean() - risk_free_rate
+        
+        treynor = excess_return / beta * 252
+        
+        return treynor
+    
+    def _calculate_jensen_alpha(self, returns: pd.Series, market_returns: pd.Series) -> float:
         """ジェンセンのアルファ計算"""
-        try:
-            if returns.empty or market_data.empty:
-                return 0.0
-            
-            market_returns = market_data['Close'].pct_change().dropna()
-            
-            if market_returns.empty:
-                return 0.0
-            
-            # 共通の期間でデータを合わせる
-            common_index = returns.index.intersection(market_returns.index)
-            if len(common_index) < 2:
-                return 0.0
-            
-            returns_aligned = returns.loc[common_index]
-            market_returns_aligned = market_returns.loc[common_index]
-            
-            # 線形回帰でアルファとベータを計算
-            X = market_returns_aligned.values.reshape(-1, 1)
-            y = returns_aligned.values
-            
-            # リスクフリーレートを差し引く
-            risk_free_daily = risk_free_rate / 252
-            y_excess = y - risk_free_daily
-            X_excess = X - risk_free_daily
-            
-            # 回帰分析
-            slope, intercept = np.polyfit(X_excess.flatten(), y_excess, 1)
-            
-            return intercept
-        except:
+        if returns.empty or market_returns.empty:
             return 0.0
+        
+        # 共通の日付で結合
+        common_dates = returns.index.intersection(market_returns.index)
+        if len(common_dates) < 2:
+            return 0.0
+        
+        returns_aligned = returns.loc[common_dates]
+        market_aligned = market_returns.loc[common_dates]
+        
+        # 線形回帰
+        beta = self._calculate_beta(returns_aligned, market_aligned)
+        risk_free_rate = self.config["ratios"]["risk_free_rate"] / 252
+        
+        # アルファ計算
+        alpha = returns_aligned.mean() - (risk_free_rate + beta * (market_aligned.mean() - risk_free_rate))
+        
+        return alpha * 252  # 年率化
     
-    def _calculate_beta(self, returns: pd.Series, market_data: pd.DataFrame) -> float:
+    def _calculate_beta(self, returns: pd.Series, market_returns: pd.Series) -> float:
         """ベータ計算"""
-        try:
-            if returns.empty or market_data.empty:
-                return 1.0
-            
-            market_returns = market_data['Close'].pct_change().dropna()
-            
-            if market_returns.empty:
-                return 1.0
-            
-            # 共通の期間でデータを合わせる
-            common_index = returns.index.intersection(market_returns.index)
-            if len(common_index) < 2:
-                return 1.0
-            
-            returns_aligned = returns.loc[common_index]
-            market_returns_aligned = market_returns.loc[common_index]
-            
-            covariance = np.cov(returns_aligned, market_returns_aligned)[0, 1]
-            market_variance = np.var(market_returns_aligned)
-            
-            return covariance / market_variance if market_variance > 0 else 1.0
-        except:
+        if returns.empty or market_returns.empty:
             return 1.0
+        
+        # 共通の日付で結合
+        common_dates = returns.index.intersection(market_returns.index)
+        if len(common_dates) < 2:
+            return 1.0
+        
+        returns_aligned = returns.loc[common_dates]
+        market_aligned = market_returns.loc[common_dates]
+        
+        # 共分散と分散の計算
+        covariance = np.cov(returns_aligned, market_aligned)[0, 1]
+        market_variance = np.var(market_aligned)
+        
+        if market_variance == 0:
+            return 1.0
+        
+        beta = covariance / market_variance
+        
+        return beta
     
-    def _calculate_correlation(self, returns: pd.Series, market_data: pd.DataFrame) -> float:
+    def _calculate_correlation(self, returns: pd.Series, market_returns: pd.Series) -> float:
         """相関計算"""
-        try:
-            if returns.empty or market_data.empty:
-                return 0.0
-            
-            market_returns = market_data['Close'].pct_change().dropna()
-            
-            if market_returns.empty:
-                return 0.0
-            
-            # 共通の期間でデータを合わせる
-            common_index = returns.index.intersection(market_returns.index)
-            if len(common_index) < 2:
-                return 0.0
-            
-            returns_aligned = returns.loc[common_index]
-            market_returns_aligned = market_returns.loc[common_index]
-            
-            correlation = returns_aligned.corr(market_returns_aligned)
-            return correlation if not np.isnan(correlation) else 0.0
-        except:
+        if returns.empty or market_returns.empty:
             return 0.0
+        
+        # 共通の日付で結合
+        common_dates = returns.index.intersection(market_returns.index)
+        if len(common_dates) < 2:
+            return 0.0
+        
+        returns_aligned = returns.loc[common_dates]
+        market_aligned = market_returns.loc[common_dates]
+        
+        correlation = np.corrcoef(returns_aligned, market_aligned)[0, 1]
+        
+        return correlation if not np.isnan(correlation) else 0.0
     
     def _calculate_volatility(self, returns: pd.Series) -> float:
         """ボラティリティ計算"""
-        try:
-            if returns.empty:
-                return 0.0
-            
-            method = self.config["volatility"]["method"]
-            
-            if method == "simple":
-                return returns.std() * np.sqrt(252)
-            elif method == "ewma":
-                return self._calculate_ewma_volatility(returns)
-            elif method == "garch":
-                return self._calculate_garch_volatility(returns)
-            else:
-                return returns.std() * np.sqrt(252)
-        except:
-            return 0.0
-    
-    def _calculate_ewma_volatility(self, returns: pd.Series) -> float:
-        """EWMAボラティリティ計算"""
-        try:
-            if returns.empty:
-                return 0.0
-            
-            decay_factor = self.config["volatility"]["decay_factor"]
-            window = self.config["volatility"]["window"]
-            
-            # 簡易的なEWMA計算
-            weights = np.array([decay_factor ** i for i in range(window)])
-            weights = weights / weights.sum()
-            
-            if len(returns) < window:
-                return returns.std() * np.sqrt(252)
-            
-            recent_returns = returns.tail(window)
-            ewma_variance = np.average(recent_returns ** 2, weights=weights)
-            
-            return np.sqrt(ewma_variance * 252)
-        except:
-            return returns.std() * np.sqrt(252)
-    
-    def _calculate_garch_volatility(self, returns: pd.Series) -> float:
-        """GARCHボラティリティ計算"""
-        try:
-            if returns.empty:
-                return 0.0
-            
-            # 簡易的なGARCH(1,1)モデル
-            # 実際の実装では、より高度なGARCHライブラリを使用
-            return returns.std() * np.sqrt(252)
-        except:
-            return returns.std() * np.sqrt(252)
+        if returns.empty or len(returns) < 2:
+            return 0.2
+        
+        volatility = returns.std() * np.sqrt(252)
+        
+        return volatility
     
     def _calculate_skewness(self, returns: pd.Series) -> float:
         """歪度計算"""
-        try:
-            if returns.empty:
-                return 0.0
-            
-            return returns.skew()
-        except:
+        if returns.empty or len(returns) < 3:
             return 0.0
+        
+        skewness = stats.skew(returns)
+        
+        return skewness if not np.isnan(skewness) else 0.0
     
     def _calculate_kurtosis(self, returns: pd.Series) -> float:
         """尖度計算"""
-        try:
-            if returns.empty:
-                return 0.0
-            
-            return returns.kurt()
-        except:
-            return 0.0
-    
-    def _calculate_comprehensive_risk_score(
-        self,
-        var_95: float,
-        max_drawdown: float,
-        volatility: float,
-        sharpe_ratio: float,
-        skewness: float,
-        kurtosis: float
-    ) -> float:
-        """包括的リスクスコア計算"""
-        try:
-            # 各指標の重み
-            weights = [0.25, 0.25, 0.20, 0.15, 0.10, 0.05]
-            
-            # 正規化されたスコア
-            var_score = min(1.0, abs(var_95) / 0.1)  # 10%を上限とする
-            drawdown_score = min(1.0, max_drawdown / 0.2)  # 20%を上限とする
-            volatility_score = min(1.0, volatility / 0.5)  # 50%を上限とする
-            sharpe_score = max(0.0, min(1.0, sharpe_ratio / 2.0))  # 2.0を上限とする
-            skewness_score = min(1.0, abs(skewness) / 2.0)  # 2.0を上限とする
-            kurtosis_score = min(1.0, abs(kurtosis) / 5.0)  # 5.0を上限とする
-            
-            scores = [var_score, drawdown_score, volatility_score, sharpe_score, skewness_score, kurtosis_score]
-            
-            risk_score = sum(w * s for w, s in zip(weights, scores))
-            
-            return max(0.0, min(1.0, risk_score))
-        except:
-            return 0.5
-    
-    def _calculate_confidence_level(
-        self,
-        var_95: float,
-        max_drawdown: float,
-        volatility: float,
-        sharpe_ratio: float
-    ) -> float:
-        """信頼度計算"""
-        try:
-            # リスク指標の重み
-            weights = [0.3, 0.3, 0.2, 0.2]
-            
-            # 正規化された信頼度
-            var_confidence = max(0.0, 1.0 - abs(var_95) / 0.05)  # 5%を基準
-            drawdown_confidence = max(0.0, 1.0 - max_drawdown / 0.1)  # 10%を基準
-            volatility_confidence = max(0.0, 1.0 - volatility / 0.3)  # 30%を基準
-            sharpe_confidence = max(0.0, min(1.0, sharpe_ratio / 1.0))  # 1.0を基準
-            
-            confidences = [var_confidence, drawdown_confidence, volatility_confidence, sharpe_confidence]
-            
-            confidence_level = sum(w * c for w, c in zip(weights, confidences))
-            
-            return max(0.0, min(1.0, confidence_level))
-        except:
-            return 0.5
-    
-    def _calculate_correlation_matrix(
-        self,
-        positions: Dict[str, Dict[str, Any]],
-        market_data: Dict[str, pd.DataFrame],
-        correlation_data: Optional[pd.DataFrame]
-    ) -> pd.DataFrame:
-        """相関行列計算"""
-        try:
-            if correlation_data is not None:
-                return correlation_data
-            
-            # 各ポジションのリターン計算
-            returns_data = {}
-            for symbol, position in positions.items():
-                if symbol in market_data:
-                    returns = market_data[symbol]['Close'].pct_change().dropna()
-                    if not returns.empty:
-                        returns_data[symbol] = returns
-            
-            if len(returns_data) < 2:
-                return pd.DataFrame()
-            
-            # 相関行列計算
-            returns_df = pd.DataFrame(returns_data)
-            correlation_matrix = returns_df.corr()
-            
-            return correlation_matrix
-        except:
-            return pd.DataFrame()
-    
-    def _calculate_risk_contribution(
-        self,
-        positions: Dict[str, Dict[str, Any]],
-        risk_per_position: Dict[str, float],
-        correlation_matrix: pd.DataFrame
-    ) -> Dict[str, float]:
-        """リスク寄与度計算"""
-        try:
-            if not risk_per_position or correlation_matrix.empty:
-                return {}
-            
-            # 各ポジションの重み計算
-            total_value = sum(pos.get('value', 0) for pos in positions.values())
-            if total_value == 0:
-                return {}
-            
-            weights = {symbol: pos.get('value', 0) / total_value for symbol, pos in positions.items()}
-            
-            # リスク寄与度計算
-            risk_contribution = {}
-            for symbol, weight in weights.items():
-                if symbol in risk_per_position:
-                    risk_contribution[symbol] = weight * risk_per_position[symbol]
-                else:
-                    risk_contribution[symbol] = 0.0
-            
-            return risk_contribution
-        except:
-            return {}
-    
-    def _calculate_portfolio_total_risk(
-        self,
-        positions: Dict[str, Dict[str, Any]],
-        risk_per_position: Dict[str, float],
-        correlation_matrix: pd.DataFrame
-    ) -> float:
-        """ポートフォリオ総リスク計算"""
-        try:
-            if not risk_per_position or correlation_matrix.empty:
-                return 0.0
-            
-            # 各ポジションの重み計算
-            total_value = sum(pos.get('value', 0) for pos in positions.values())
-            if total_value == 0:
-                return 0.0
-            
-            weights = {symbol: pos.get('value', 0) / total_value for symbol, pos in positions.items()}
-            
-            # ポートフォリオ分散計算
-            portfolio_variance = 0.0
-            for symbol1, weight1 in weights.items():
-                for symbol2, weight2 in weights.items():
-                    if symbol1 in risk_per_position and symbol2 in risk_per_position:
-                        if symbol1 == symbol2:
-                            portfolio_variance += weight1 * weight2 * (risk_per_position[symbol1] ** 2)
-                        else:
-                            correlation = correlation_matrix.loc[symbol1, symbol2] if symbol1 in correlation_matrix.index and symbol2 in correlation_matrix.columns else 0.0
-                            portfolio_variance += weight1 * weight2 * risk_per_position[symbol1] * risk_per_position[symbol2] * correlation
-            
-            return np.sqrt(portfolio_variance)
-        except:
-            return 0.0
-    
-    def _calculate_diversification_ratio(
-        self, risk_per_position: Dict[str, float], total_risk: float
-    ) -> float:
-        """分散投資比率計算"""
-        try:
-            if not risk_per_position or total_risk == 0:
-                return 0.0
-            
-            # 重み付き平均リスク
-            weighted_avg_risk = np.mean(list(risk_per_position.values()))
-            
-            return weighted_avg_risk / total_risk if total_risk > 0 else 0.0
-        except:
-            return 0.0
-    
-    def _calculate_concentration_risk(self, positions: Dict[str, Dict[str, Any]]) -> float:
-        """集中度リスク計算"""
-        try:
-            if not positions:
-                return 0.0
-            
-            # 各ポジションの価値
-            values = [pos.get('value', 0) for pos in positions.values()]
-            total_value = sum(values)
-            
-            if total_value == 0:
-                return 0.0
-            
-            # 重み計算
-            weights = [v / total_value for v in values]
-            
-            # ハーフィンダール指数（集中度指標）
-            hhi = sum(w ** 2 for w in weights)
-            
-            return hhi
-        except:
-            return 0.0
-    
-    def _calculate_liquidity_risk(
-        self, positions: Dict[str, Dict[str, Any]], market_data: Dict[str, pd.DataFrame]
-    ) -> float:
-        """流動性リスク計算"""
-        try:
-            if not positions or not market_data:
-                return 0.0
-            
-            liquidity_scores = []
-            
-            for symbol, position in positions.items():
-                if symbol in market_data:
-                    # ボリュームデータを使用した流動性評価
-                    volume_data = market_data[symbol].get('Volume', pd.Series())
-                    if not volume_data.empty:
-                        avg_volume = volume_data.mean()
-                        liquidity_score = min(1.0, avg_volume / 1000000)  # 100万を上限とする
-                        liquidity_scores.append(liquidity_score)
-                    else:
-                        liquidity_scores.append(0.5)  # デフォルト値
-                else:
-                    liquidity_scores.append(0.5)  # デフォルト値
-            
-            return np.mean(liquidity_scores) if liquidity_scores else 0.0
-        except:
-            return 0.0
-    
-    def _apply_stress_scenario(
-        self, portfolio_data: pd.DataFrame, scenario: Dict[str, float]
-    ) -> pd.Series:
-        """ストレスシナリオ適用"""
-        try:
-            if portfolio_data.empty:
-                return pd.Series(dtype=float)
-            
-            # リターン計算
-            returns = portfolio_data['value'].pct_change().dropna()
-            
-            if returns.empty:
-                return pd.Series(dtype=float)
-            
-            # シナリオ適用
-            stress_factor = scenario.get('stress_factor', 1.0)
-            stressed_returns = returns * stress_factor
-            
-            return stressed_returns
-        except:
-            return pd.Series(dtype=float)
-    
-    def _generate_risk_recommendations(
-        self, current_risk: float, target_risk: float, risk_budget_ratio: float
-    ) -> List[str]:
-        """リスク推奨事項生成"""
-        recommendations = []
+        if returns.empty or len(returns) < 4:
+            return 3.0
         
-        if current_risk > target_risk:
-            recommendations.append("リスクを削減することを推奨します")
-            if risk_budget_ratio < 0.8:
-                recommendations.append("ポジションサイズを縮小してください")
-        elif current_risk < target_risk * 0.8:
-            recommendations.append("リスクを増加させる余地があります")
-            recommendations.append("新規ポジションの検討を推奨します")
+        kurtosis = stats.kurtosis(returns)
+        
+        return kurtosis if not np.isnan(kurtosis) else 3.0
+    
+    def _calculate_risk_score(
+        self, var_95: float, max_drawdown: float, volatility: float,
+        beta: float, correlation: float
+    ) -> float:
+        """リスクスコア計算"""
+        # 各リスク指標の重み付きスコア
+        var_score = min(var_95 * 20, 1.0)  # VaR 5% = 1.0
+        drawdown_score = min(max_drawdown * 5, 1.0)  # ドローダウン 20% = 1.0
+        volatility_score = min(volatility * 2, 1.0)  # ボラティリティ 50% = 1.0
+        beta_score = min(abs(beta - 1.0) * 2, 1.0)  # ベータ 1.5 = 1.0
+        correlation_score = min(correlation * 1.25, 1.0)  # 相関 80% = 1.0
+        
+        # 重み付き平均
+        risk_score = (
+            var_score * 0.3 +
+            drawdown_score * 0.25 +
+            volatility_score * 0.2 +
+            beta_score * 0.15 +
+            correlation_score * 0.1
+        )
+        
+        return min(risk_score, 1.0)
+    
+    def _determine_risk_level(self, risk_score: float) -> str:
+        """リスクレベル決定"""
+        if risk_score >= 0.8:
+            return "VERY_HIGH"
+        elif risk_score >= 0.6:
+            return "HIGH"
+        elif risk_score >= 0.4:
+            return "MEDIUM"
+        elif risk_score >= 0.2:
+            return "LOW"
         else:
-            recommendations.append("現在のリスクレベルは適切です")
+            return "VERY_LOW"
+    
+    def _calculate_confidence_interval(self, returns: pd.Series) -> Tuple[float, float]:
+        """信頼区間計算"""
+        if returns.empty or len(returns) < 10:
+            return (0.0, 0.0)
         
-        return recommendations
+        # 95%信頼区間
+        mean_return = returns.mean()
+        std_error = returns.std() / np.sqrt(len(returns))
+        
+        # t分布を使用
+        t_value = stats.t.ppf(0.975, len(returns) - 1)
+        
+        lower_bound = mean_return - t_value * std_error
+        upper_bound = mean_return + t_value * std_error
+        
+        return (lower_bound, upper_bound)
     
     def _get_default_risk_metrics(self) -> RiskMetricsResult:
         """デフォルトリスクメトリクス"""
         return RiskMetricsResult(
-            var_95=0.0,
-            var_99=0.0,
-            cvar_95=0.0,
-            cvar_99=0.0,
-            max_drawdown=0.0,
-            sharpe_ratio=0.0,
-            sortino_ratio=0.0,
-            calmar_ratio=0.0,
+            var_95=0.05,
+            var_99=0.10,
+            cvar_95=0.08,
+            cvar_99=0.15,
+            max_drawdown=0.10,
+            sharpe_ratio=1.0,
+            sortino_ratio=1.0,
+            calmar_ratio=1.0,
             information_ratio=0.0,
             treynor_ratio=0.0,
             jensen_alpha=0.0,
             beta=1.0,
-            correlation=0.0,
-            volatility=0.0,
+            correlation=0.5,
+            volatility=0.20,
             skewness=0.0,
-            kurtosis=0.0,
+            kurtosis=3.0,
             risk_score=0.5,
-            confidence_level=0.5
+            risk_level="MEDIUM",
+            confidence_interval=(0.0, 0.0),
+            calculation_date=datetime.now()
         )
     
-    def _get_default_portfolio_risk_profile(self) -> PortfolioRiskProfile:
-        """デフォルトポートフォリオリスクプロファイル"""
-        return PortfolioRiskProfile(
-            total_value=0.0,
-            total_risk=0.0,
-            risk_per_position={},
-            correlation_matrix=pd.DataFrame(),
-            risk_contribution={},
-            diversification_ratio=0.0,
-            concentration_risk=0.0,
-            liquidity_risk=0.0
-        )
+    def get_risk_statistics(self) -> Dict[str, Any]:
+        """リスク統計情報取得"""
+        if not self.risk_history:
+            return {}
+        
+        var_95s = [m.var_95 for m in self.risk_history]
+        max_drawdowns = [m.max_drawdown for m in self.risk_history]
+        volatilities = [m.volatility for m in self.risk_history]
+        sharpe_ratios = [m.sharpe_ratio for m in self.risk_history]
+        
+        return {
+            "total_samples": len(self.risk_history),
+            "avg_var_95": np.mean(var_95s),
+            "max_var_95": np.max(var_95s),
+            "avg_max_drawdown": np.mean(max_drawdowns),
+            "max_drawdown": np.max(max_drawdowns),
+            "avg_volatility": np.mean(volatilities),
+            "max_volatility": np.max(volatilities),
+            "avg_sharpe_ratio": np.mean(sharpe_ratios),
+            "max_sharpe_ratio": np.max(sharpe_ratios),
+            "risk_level_distribution": {
+                level: sum(1 for m in self.risk_history if m.risk_level == level)
+                for level in ["VERY_LOW", "LOW", "MEDIUM", "HIGH", "VERY_HIGH"]
+            }
+        }
+    
+    def calculate_portfolio_risk_metrics(
+        self,
+        portfolio_data: Dict[str, pd.DataFrame],
+        weights: Dict[str, float],
+        market_data: pd.DataFrame
+    ) -> RiskMetricsResult:
+        """ポートフォリオリスクメトリクス計算"""
+        try:
+            # ポートフォリオリターン計算
+            portfolio_returns = self._calculate_portfolio_returns(portfolio_data, weights)
+            
+            # ポートフォリオデータフレーム作成
+            portfolio_df = pd.DataFrame({
+                'Close': portfolio_returns.cumsum() + 100  # 仮の価格系列
+            })
+            
+            # 包括的リスクメトリクス計算
+            return self.calculate_comprehensive_risk_metrics(
+                portfolio_df, market_data
+            )
+            
+        except Exception as e:
+            self.logger.error(f"ポートフォリオリスクメトリクス計算エラー: {e}")
+            return self._get_default_risk_metrics()
+    
+    def _calculate_portfolio_returns(
+        self, portfolio_data: Dict[str, pd.DataFrame], weights: Dict[str, float]
+    ) -> pd.Series:
+        """ポートフォリオリターン計算"""
+        portfolio_returns = None
+        
+        for symbol, data in portfolio_data.items():
+            if data.empty or 'Close' not in data.columns:
+                continue
+            
+            returns = data['Close'].pct_change().dropna()
+            weight = weights.get(symbol, 0.0)
+            
+            if portfolio_returns is None:
+                portfolio_returns = returns * weight
+            else:
+                # 共通の日付で結合
+                common_dates = portfolio_returns.index.intersection(returns.index)
+                if len(common_dates) > 0:
+                    portfolio_returns = portfolio_returns.loc[common_dates] + returns.loc[common_dates] * weight
+        
+        return portfolio_returns if portfolio_returns is not None else pd.Series(dtype=float)

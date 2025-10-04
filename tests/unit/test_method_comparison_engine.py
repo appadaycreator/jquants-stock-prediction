@@ -529,6 +529,10 @@ class TestComparisonReport:
 class TestIntegration:
     """統合テスト"""
     
+    def setup_method(self):
+        """テストのセットアップ"""
+        self.engine = MethodComparisonEngine()
+    
     def test_full_comparison_pipeline(self):
         """完全な比較パイプラインのテスト"""
         data = create_sample_data()

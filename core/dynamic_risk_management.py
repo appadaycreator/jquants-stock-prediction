@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 """
-動的損切り・利確機能システム
-
-目的: 市場データ・ボラティリティに基づく動的調整
-仕様: リアルタイムリスク監視と自動損切り
+動的リスク管理システム
+記事の手法を超える高度なリスク管理機能を実装
 """
 
 import numpy as np
 import pandas as pd
-from typing import Dict, Any, List, Tuple, Optional, Union
+from typing import Dict, Any, List, Tuple, Optional
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 from enum import Enum
@@ -20,75 +18,40 @@ warnings.filterwarnings('ignore')
 
 class RiskLevel(Enum):
     """リスクレベル"""
-    VERY_LOW = "very_low"
-    LOW = "low"
-    MEDIUM = "medium"
-    HIGH = "high"
-    VERY_HIGH = "very_high"
-
-
-class PositionStatus(Enum):
-    """ポジション状態"""
-    OPEN = "open"
-    CLOSED = "closed"
-    PARTIAL = "partial"
-    STOPPED = "stopped"
-
-
-@dataclass
-class Position:
-    """ポジション情報"""
-    symbol: str
-    entry_price: float
-    current_price: float
-    quantity: float
-    position_type: str  # LONG, SHORT
-    entry_time: datetime
-    stop_loss: float
-    take_profit: float
-    trailing_stop: float
-    max_loss: float
-    status: PositionStatus
-    unrealized_pnl: float
-    realized_pnl: float = 0.0
+    VERY_LOW = "very_low"    # 1%以下
+    LOW = "low"              # 1-3%
+    MEDIUM = "medium"        # 3-5%
+    HIGH = "high"           # 5-10%
+    VERY_HIGH = "very_high"  # 10%以上
 
 
 @dataclass
 class RiskMetrics:
     """リスクメトリクス"""
-    var_95: float
-    var_99: float
-    max_drawdown: float
-    sharpe_ratio: float
-    sortino_ratio: float
-    calmar_ratio: float
-    volatility: float
-    beta: float
-    correlation: float
-    risk_score: float
+    var_95: float  # 95% VaR
+    var_99: float  # 99% VaR
+    max_drawdown: float  # 最大ドローダウン
+    sharpe_ratio: float  # シャープレシオ
+    sortino_ratio: float  # ソルティノレシオ
+    calmar_ratio: float  # カルマーレシオ
+    volatility: float  # ボラティリティ
+    beta: float  # ベータ
+    correlation: float  # 市場相関
+    risk_level: RiskLevel
+    position_size: float  # 推奨ポジションサイズ
+    stop_loss: float  # 損切り価格
+    take_profit: float  # 利確価格
 
 
 @dataclass
-class DynamicStopLoss:
-    """動的損切り設定"""
-    base_stop_loss: float
-    current_stop_loss: float
-    trailing_distance: float
-    volatility_adjustment: float
-    market_regime_adjustment: float
+class DynamicRiskAdjustment:
+    """動的リスク調整"""
+    market_volatility_adjustment: float
+    sector_risk_adjustment: float
+    liquidity_adjustment: float
     time_decay_adjustment: float
-    final_stop_loss: float
-
-
-@dataclass
-class DynamicTakeProfit:
-    """動的利確設定"""
-    base_take_profit: float
-    current_take_profit: float
-    volatility_adjustment: float
-    market_regime_adjustment: float
-    momentum_adjustment: float
-    final_take_profit: float
+    confidence_adjustment: float
+    final_adjustment: float
 
 
 class DynamicRiskManager:
@@ -98,285 +61,88 @@ class DynamicRiskManager:
         """初期化"""
         self.config = config or self._get_default_config()
         self.logger = logging.getLogger(__name__)
-        self.positions: Dict[str, Position] = {}
-        self.risk_metrics_history = []
+        self.risk_history = []
         self.market_regime = "normal"
         self.volatility_regime = "normal"
         
     def _get_default_config(self) -> Dict[str, Any]:
         """デフォルト設定"""
         return {
+            "risk_limits": {
+                "max_position_size": 0.1,  # 最大ポジションサイズ（10%）
+                "max_portfolio_risk": 0.05,  # 最大ポートフォリオリスク（5%）
+                "max_drawdown_limit": 0.15,  # 最大ドローダウン制限（15%）
+                "var_limit_95": 0.02,  # 95% VaR制限（2%）
+                "var_limit_99": 0.05   # 99% VaR制限（5%）
+            },
+            "dynamic_adjustments": {
+                "volatility_sensitivity": 0.5,  # ボラティリティ感度
+                "market_regime_weight": 0.3,   # 市場レジーム重み
+                "confidence_weight": 0.4,      # 信頼度重み
+                "liquidity_weight": 0.2,       # 流動性重み
+                "time_decay_factor": 0.95      # 時間減衰係数
+            },
             "stop_loss": {
-                "base_percentage": 0.05,  # 5%の基本損切り
-                "min_percentage": 0.02,   # 2%の最小損切り
-                "max_percentage": 0.15,   # 15%の最大損切り
-                "trailing_enabled": True,
-                "trailing_percentage": 0.02,  # 2%のトレーリング
-                "volatility_multiplier": 1.5,
-                "time_decay_factor": 0.95
+                "base_stop_loss": 0.05,        # 基本損切り（5%）
+                "volatility_multiplier": 2.0,  # ボラティリティ倍率
+                "confidence_multiplier": 1.5,  # 信頼度倍率
+                "min_stop_loss": 0.02,         # 最小損切り（2%）
+                "max_stop_loss": 0.15          # 最大損切り（15%）
             },
             "take_profit": {
-                "base_percentage": 0.10,  # 10%の基本利確
-                "min_percentage": 0.05,   # 5%の最小利確
-                "max_percentage": 0.30,   # 30%の最大利確
-                "volatility_multiplier": 1.2,
-                "momentum_multiplier": 1.3
-            },
-            "risk_management": {
-                "max_position_size": 0.1,  # 10%の最大ポジション
-                "max_portfolio_risk": 0.05,  # 5%の最大ポートフォリオリスク
-                "correlation_limit": 0.7,   # 70%の相関制限
-                "var_limit": 0.02,          # 2%のVaR制限
-                "drawdown_limit": 0.10      # 10%のドローダウン制限
-            },
-            "market_regime": {
-                "bull_threshold": 0.05,
-                "bear_threshold": -0.05,
-                "high_vol_threshold": 0.25,
-                "low_vol_threshold": 0.10
+                "base_take_profit": 0.10,       # 基本利確（10%）
+                "risk_reward_ratio": 2.0,      # リスクリワード比
+                "volatility_adjustment": True, # ボラティリティ調整
+                "confidence_adjustment": True  # 信頼度調整
             }
         }
     
-    def calculate_dynamic_stop_loss(
-        self,
-        position: Position,
-        market_data: pd.DataFrame,
-        volatility_data: pd.DataFrame,
-        risk_metrics: RiskMetrics
-    ) -> DynamicStopLoss:
-        """動的損切り計算"""
-        try:
-            # 基本損切り
-            base_stop_loss = self._calculate_base_stop_loss(position)
-            
-            # ボラティリティ調整
-            volatility_adjustment = self._calculate_volatility_adjustment(
-                volatility_data, position
-            )
-            
-            # 市場レジーム調整
-            market_regime_adjustment = self._calculate_market_regime_adjustment(
-                market_data, position
-            )
-            
-            # 時間減衰調整
-            time_decay_adjustment = self._calculate_time_decay_adjustment(position)
-            
-            # トレーリングストップ計算
-            trailing_distance = self._calculate_trailing_distance(
-                position, volatility_data
-            )
-            
-            # 最終損切り価格計算
-            current_stop_loss = self._calculate_current_stop_loss(
-                position, trailing_distance
-            )
-            
-            # 動的調整適用
-            final_stop_loss = self._apply_dynamic_adjustments(
-                current_stop_loss,
-                volatility_adjustment,
-                market_regime_adjustment,
-                time_decay_adjustment
-            )
-            
-            return DynamicStopLoss(
-                base_stop_loss=base_stop_loss,
-                current_stop_loss=current_stop_loss,
-                trailing_distance=trailing_distance,
-                volatility_adjustment=volatility_adjustment,
-                market_regime_adjustment=market_regime_adjustment,
-                time_decay_adjustment=time_decay_adjustment,
-                final_stop_loss=final_stop_loss
-            )
-            
-        except Exception as e:
-            self.logger.error(f"動的損切り計算エラー: {e}")
-            return self._get_default_stop_loss(position)
-    
-    def calculate_dynamic_take_profit(
-        self,
-        position: Position,
-        market_data: pd.DataFrame,
-        volatility_data: pd.DataFrame,
-        momentum_data: pd.DataFrame
-    ) -> DynamicTakeProfit:
-        """動的利確計算"""
-        try:
-            # 基本利確
-            base_take_profit = self._calculate_base_take_profit(position)
-            
-            # ボラティリティ調整
-            volatility_adjustment = self._calculate_volatility_adjustment_tp(
-                volatility_data, position
-            )
-            
-            # 市場レジーム調整
-            market_regime_adjustment = self._calculate_market_regime_adjustment_tp(
-                market_data, position
-            )
-            
-            # モメンタム調整
-            momentum_adjustment = self._calculate_momentum_adjustment(
-                momentum_data, position
-            )
-            
-            # 現在の利確価格
-            current_take_profit = self._calculate_current_take_profit(position)
-            
-            # 動的調整適用
-            final_take_profit = self._apply_dynamic_adjustments_tp(
-                current_take_profit,
-                volatility_adjustment,
-                market_regime_adjustment,
-                momentum_adjustment
-            )
-            
-            return DynamicTakeProfit(
-                base_take_profit=base_take_profit,
-                current_take_profit=current_take_profit,
-                volatility_adjustment=volatility_adjustment,
-                market_regime_adjustment=market_regime_adjustment,
-                momentum_adjustment=momentum_adjustment,
-                final_take_profit=final_take_profit
-            )
-            
-        except Exception as e:
-            self.logger.error(f"動的利確計算エラー: {e}")
-            return self._get_default_take_profit(position)
-    
-    def monitor_positions(
-        self,
-        current_prices: Dict[str, float],
-        market_data: Dict[str, pd.DataFrame],
-        risk_metrics: Dict[str, RiskMetrics]
-    ) -> List[Dict[str, Any]]:
-        """ポジション監視"""
-        try:
-            alerts = []
-            
-            for symbol, position in self.positions.items():
-                if position.status != PositionStatus.OPEN:
-                    continue
-                
-                current_price = current_prices.get(symbol, position.current_price)
-                
-                # 価格更新
-                position.current_price = current_price
-                position.unrealized_pnl = self._calculate_unrealized_pnl(position)
-                
-                # 損切りチェック
-                stop_loss_alert = self._check_stop_loss(position)
-                if stop_loss_alert:
-                    alerts.append(stop_loss_alert)
-                
-                # 利確チェック
-                take_profit_alert = self._check_take_profit(position)
-                if take_profit_alert:
-                    alerts.append(take_profit_alert)
-                
-                # リスク制限チェック
-                risk_alerts = self._check_risk_limits(position, risk_metrics.get(symbol))
-                alerts.extend(risk_alerts)
-                
-                # 動的調整
-                self._update_dynamic_levels(position, market_data.get(symbol))
-            
-            return alerts
-            
-        except Exception as e:
-            self.logger.error(f"ポジション監視エラー: {e}")
-            return []
-    
-    def execute_stop_loss(self, symbol: str, reason: str = "損切り") -> bool:
-        """損切り実行"""
-        try:
-            if symbol not in self.positions:
-                return False
-            
-            position = self.positions[symbol]
-            if position.status != PositionStatus.OPEN:
-                return False
-            
-            # ポジションクローズ
-            position.status = PositionStatus.STOPPED
-            position.realized_pnl = position.unrealized_pnl
-            
-            self.logger.info(f"損切り実行: {symbol}, 理由: {reason}, 損失: {position.realized_pnl:.2f}")
-            
-            return True
-            
-        except Exception as e:
-            self.logger.error(f"損切り実行エラー: {e}")
-            return False
-    
-    def execute_take_profit(self, symbol: str, reason: str = "利確") -> bool:
-        """利確実行"""
-        try:
-            if symbol not in self.positions:
-                return False
-            
-            position = self.positions[symbol]
-            if position.status != PositionStatus.OPEN:
-                return False
-            
-            # ポジションクローズ
-            position.status = PositionStatus.CLOSED
-            position.realized_pnl = position.unrealized_pnl
-            
-            self.logger.info(f"利確実行: {symbol}, 理由: {reason}, 利益: {position.realized_pnl:.2f}")
-            
-            return True
-            
-        except Exception as e:
-            self.logger.error(f"利確実行エラー: {e}")
-            return False
-    
     def calculate_risk_metrics(
         self,
-        portfolio_data: pd.DataFrame,
+        stock_data: pd.DataFrame,
         market_data: pd.DataFrame,
-        risk_free_rate: float = 0.02
+        current_price: float,
+        position_size: float = 0.1
     ) -> RiskMetrics:
         """リスクメトリクス計算"""
         try:
-            if portfolio_data.empty:
-                return self._get_default_risk_metrics()
-            
-            # リターン計算
-            returns = portfolio_data['value'].pct_change().dropna()
-            
-            if returns.empty:
-                return self._get_default_risk_metrics()
-            
             # VaR計算
-            var_95 = self._calculate_var(returns, 0.95)
-            var_99 = self._calculate_var(returns, 0.99)
+            var_95, var_99 = self._calculate_var(stock_data)
             
             # 最大ドローダウン計算
-            max_drawdown = self._calculate_max_drawdown(portfolio_data['value'])
+            max_drawdown = self._calculate_max_drawdown(stock_data)
             
             # シャープレシオ計算
-            sharpe_ratio = self._calculate_sharpe_ratio(returns, risk_free_rate)
+            sharpe_ratio = self._calculate_sharpe_ratio(stock_data, market_data)
             
             # ソルティノレシオ計算
-            sortino_ratio = self._calculate_sortino_ratio(returns, risk_free_rate)
+            sortino_ratio = self._calculate_sortino_ratio(stock_data)
             
             # カルマーレシオ計算
-            calmar_ratio = self._calculate_calmar_ratio(returns, max_drawdown)
+            calmar_ratio = self._calculate_calmar_ratio(stock_data)
             
             # ボラティリティ計算
-            volatility = returns.std() * np.sqrt(252)
+            volatility = self._calculate_volatility(stock_data)
             
             # ベータ計算
-            beta = self._calculate_beta(returns, market_data)
+            beta = self._calculate_beta(stock_data, market_data)
             
             # 相関計算
-            correlation = self._calculate_correlation(returns, market_data)
+            correlation = self._calculate_correlation(stock_data, market_data)
             
-            # リスクスコア計算
-            risk_score = self._calculate_risk_score(
-                var_95, max_drawdown, volatility, sharpe_ratio
+            # リスクレベル決定
+            risk_level = self._determine_risk_level(
+                var_95, max_drawdown, volatility
+            )
+            
+            # 動的ポジションサイズ計算
+            adjusted_position_size = self._calculate_dynamic_position_size(
+                position_size, risk_level, volatility, beta
+            )
+            
+            # 動的損切り・利確計算
+            stop_loss, take_profit = self._calculate_dynamic_stop_take(
+                current_price, volatility, risk_level
             )
             
             metrics = RiskMetrics(
@@ -389,13 +155,16 @@ class DynamicRiskManager:
                 volatility=volatility,
                 beta=beta,
                 correlation=correlation,
-                risk_score=risk_score
+                risk_level=risk_level,
+                position_size=adjusted_position_size,
+                stop_loss=stop_loss,
+                take_profit=take_profit
             )
             
             # 履歴に追加
-            self.risk_metrics_history.append(metrics)
-            if len(self.risk_metrics_history) > 1000:
-                self.risk_metrics_history.pop(0)
+            self.risk_history.append(metrics)
+            if len(self.risk_history) > 1000:
+                self.risk_history.pop(0)
             
             return metrics
             
@@ -403,699 +172,566 @@ class DynamicRiskManager:
             self.logger.error(f"リスクメトリクス計算エラー: {e}")
             return self._get_default_risk_metrics()
     
-    def get_portfolio_risk_summary(self) -> Dict[str, Any]:
-        """ポートフォリオリスクサマリー取得"""
+    def calculate_dynamic_risk_adjustment(
+        self,
+        stock_data: pd.DataFrame,
+        market_data: pd.DataFrame,
+        confidence: float,
+        sector_data: Optional[pd.DataFrame] = None
+    ) -> DynamicRiskAdjustment:
+        """動的リスク調整計算"""
         try:
-            if not self.risk_metrics_history:
-                return {}
+            # 市場ボラティリティ調整
+            market_volatility = self._calculate_market_volatility(market_data)
+            volatility_adjustment = self._calculate_volatility_adjustment(
+                market_volatility
+            )
             
-            # 最新のリスクメトリクス
-            latest_metrics = self.risk_metrics_history[-1]
+            # セクターリスク調整
+            sector_risk_adjustment = self._calculate_sector_risk_adjustment(
+                sector_data
+            )
             
-            # 履歴統計
-            var_95_history = [m.var_95 for m in self.risk_metrics_history]
-            sharpe_history = [m.sharpe_ratio for m in self.risk_metrics_history]
-            volatility_history = [m.volatility for m in self.risk_metrics_history]
+            # 流動性調整
+            liquidity_adjustment = self._calculate_liquidity_adjustment(
+                stock_data
+            )
             
-            return {
-                "current_risk_score": latest_metrics.risk_score,
-                "current_var_95": latest_metrics.var_95,
-                "current_sharpe_ratio": latest_metrics.sharpe_ratio,
-                "current_volatility": latest_metrics.volatility,
-                "max_drawdown": latest_metrics.max_drawdown,
-                "average_var_95": np.mean(var_95_history),
-                "average_sharpe_ratio": np.mean(sharpe_history),
-                "average_volatility": np.mean(volatility_history),
-                "risk_trend": self._calculate_risk_trend(),
-                "portfolio_health": self._assess_portfolio_health(latest_metrics)
-            }
+            # 時間減衰調整
+            time_decay_adjustment = self._calculate_time_decay_adjustment()
+            
+            # 信頼度調整
+            confidence_adjustment = self._calculate_confidence_adjustment(
+                confidence
+            )
+            
+            # 最終調整係数
+            final_adjustment = (
+                volatility_adjustment * self.config["dynamic_adjustments"]["volatility_sensitivity"] +
+                sector_risk_adjustment * self.config["dynamic_adjustments"]["market_regime_weight"] +
+                confidence_adjustment * self.config["dynamic_adjustments"]["confidence_weight"] +
+                liquidity_adjustment * self.config["dynamic_adjustments"]["liquidity_weight"]
+            ) * time_decay_adjustment
+            
+            return DynamicRiskAdjustment(
+                market_volatility_adjustment=volatility_adjustment,
+                sector_risk_adjustment=sector_risk_adjustment,
+                liquidity_adjustment=liquidity_adjustment,
+                time_decay_adjustment=time_decay_adjustment,
+                confidence_adjustment=confidence_adjustment,
+                final_adjustment=final_adjustment
+            )
             
         except Exception as e:
-            self.logger.error(f"ポートフォリオリスクサマリー取得エラー: {e}")
-            return {}
+            self.logger.error(f"動的リスク調整計算エラー: {e}")
+            return DynamicRiskAdjustment(
+                market_volatility_adjustment=1.0,
+                sector_risk_adjustment=1.0,
+                liquidity_adjustment=1.0,
+                time_decay_adjustment=1.0,
+                confidence_adjustment=1.0,
+                final_adjustment=1.0
+            )
+    
+    def should_adjust_position(
+        self,
+        current_metrics: RiskMetrics,
+        previous_metrics: Optional[RiskMetrics] = None,
+        market_conditions: Dict[str, Any] = None
+    ) -> Dict[str, Any]:
+        """ポジション調整判定"""
+        try:
+            adjustments = {
+                "should_reduce": False,
+                "should_increase": False,
+                "should_close": False,
+                "adjustment_reason": "",
+                "new_position_size": current_metrics.position_size,
+                "risk_level_change": False
+            }
+            
+            # リスク制限チェック
+            if current_metrics.var_95 > self.config["risk_limits"]["var_limit_95"]:
+                adjustments["should_reduce"] = True
+                adjustments["adjustment_reason"] += "VaR制限超過; "
+            
+            if current_metrics.max_drawdown > self.config["risk_limits"]["max_drawdown_limit"]:
+                adjustments["should_reduce"] = True
+                adjustments["adjustment_reason"] += "最大ドローダウン制限超過; "
+            
+            if current_metrics.volatility > 0.3:  # 30%以上のボラティリティ
+                adjustments["should_reduce"] = True
+                adjustments["adjustment_reason"] += "高ボラティリティ; "
+            
+            # 前回メトリクスとの比較
+            if previous_metrics:
+                if current_metrics.risk_level.value != previous_metrics.risk_level.value:
+                    adjustments["risk_level_change"] = True
+                    adjustments["adjustment_reason"] += "リスクレベル変更; "
+                
+                # リスク増加時の調整
+                if current_metrics.var_95 > previous_metrics.var_95 * 1.2:
+                    adjustments["should_reduce"] = True
+                    adjustments["adjustment_reason"] += "VaR急増; "
+            
+            # 市場条件による調整
+            if market_conditions:
+                if market_conditions.get("high_volatility", False):
+                    adjustments["should_reduce"] = True
+                    adjustments["adjustment_reason"] += "市場高ボラティリティ; "
+                
+                if market_conditions.get("low_liquidity", False):
+                    adjustments["should_reduce"] = True
+                    adjustments["adjustment_reason"] += "流動性低下; "
+            
+            # ポジションサイズ調整
+            if adjustments["should_reduce"]:
+                adjustments["new_position_size"] = current_metrics.position_size * 0.5
+            elif adjustments["should_increase"]:
+                adjustments["new_position_size"] = min(
+                    current_metrics.position_size * 1.2,
+                    self.config["risk_limits"]["max_position_size"]
+                )
+            
+            return adjustments
+            
+        except Exception as e:
+            self.logger.error(f"ポジション調整判定エラー: {e}")
+            return {
+                "should_reduce": False,
+                "should_increase": False,
+                "should_close": False,
+                "adjustment_reason": f"エラー: {e}",
+                "new_position_size": current_metrics.position_size,
+                "risk_level_change": False
+            }
+    
+    def calculate_optimal_position_size(
+        self,
+        account_value: float,
+        risk_metrics: RiskMetrics,
+        confidence: float,
+        market_conditions: Dict[str, Any] = None
+    ) -> float:
+        """最適ポジションサイズ計算"""
+        try:
+            # ケリー基準による基本ポジションサイズ
+            kelly_fraction = self._calculate_kelly_fraction(risk_metrics)
+            
+            # リスク調整
+            risk_adjusted_size = kelly_fraction * (1 - risk_metrics.var_95)
+            
+            # 信頼度調整
+            confidence_adjusted_size = risk_adjusted_size * confidence
+            
+            # 市場条件調整
+            if market_conditions:
+                if market_conditions.get("high_volatility", False):
+                    confidence_adjusted_size *= 0.7
+                if market_conditions.get("low_liquidity", False):
+                    confidence_adjusted_size *= 0.8
+            
+            # 制限適用
+            max_size = self.config["risk_limits"]["max_position_size"]
+            min_size = 0.01  # 最小1%
+            
+            optimal_size = max(min_size, min(confidence_adjusted_size, max_size))
+            
+            return optimal_size
+            
+        except Exception as e:
+            self.logger.error(f"最適ポジションサイズ計算エラー: {e}")
+            return 0.05  # デフォルト5%
     
     # ヘルパーメソッド群
-    def _calculate_base_stop_loss(self, position: Position) -> float:
-        """基本損切り計算"""
-        config = self.config["stop_loss"]
-        base_percentage = config["base_percentage"]
-        
-        if position.position_type == "LONG":
-            return position.entry_price * (1 - base_percentage)
-        else:
-            return position.entry_price * (1 + base_percentage)
-    
-    def _calculate_volatility_adjustment(
-        self, volatility_data: pd.DataFrame, position: Position
-    ) -> float:
-        """ボラティリティ調整計算"""
-        try:
-            if volatility_data.empty:
-                return 1.0
-            
-            # 現在のボラティリティ
-            current_vol = volatility_data['volatility'].iloc[-1]
-            
-            # 平均ボラティリティ
-            avg_vol = volatility_data['volatility'].mean()
-            
-            # ボラティリティ比率
-            vol_ratio = current_vol / avg_vol if avg_vol > 0 else 1.0
-            
-            # 調整係数
-            config = self.config["stop_loss"]
-            multiplier = config["volatility_multiplier"]
-            
-            adjustment = 1 + (vol_ratio - 1) * multiplier
-            
-            return max(0.5, min(2.0, adjustment))
-            
-        except Exception as e:
-            self.logger.error(f"ボラティリティ調整計算エラー: {e}")
-            return 1.0
-    
-    def _calculate_market_regime_adjustment(
-        self, market_data: pd.DataFrame, position: Position
-    ) -> float:
-        """市場レジーム調整計算"""
-        try:
-            if market_data.empty:
-                return 1.0
-            
-            # 市場トレンド計算
-            prices = market_data['Close']
-            short_ma = prices.rolling(window=20).mean().iloc[-1]
-            long_ma = prices.rolling(window=50).mean().iloc[-1]
-            
-            # トレンド強度
-            trend_strength = (short_ma - long_ma) / long_ma if long_ma > 0 else 0
-            
-            # レジーム判定
-            if trend_strength > 0.05:
-                regime = "bull"
-            elif trend_strength < -0.05:
-                regime = "bear"
-            else:
-                regime = "normal"
-            
-            # 調整係数
-            adjustments = {
-                "bull": 1.1 if position.position_type == "LONG" else 0.9,
-                "bear": 0.9 if position.position_type == "LONG" else 1.1,
-                "normal": 1.0
-            }
-            
-            return adjustments.get(regime, 1.0)
-            
-        except Exception as e:
-            self.logger.error(f"市場レジーム調整計算エラー: {e}")
-            return 1.0
-    
-    def _calculate_time_decay_adjustment(self, position: Position) -> float:
-        """時間減衰調整計算"""
-        try:
-            # ポジション保有期間
-            holding_period = (datetime.now() - position.entry_time).days
-            
-            # 時間減衰係数
-            config = self.config["stop_loss"]
-            decay_factor = config["time_decay_factor"]
-            
-            # 調整係数（時間が経つほど損切りを厳しく）
-            adjustment = decay_factor ** (holding_period / 30)  # 30日で減衰
-            
-            return max(0.8, min(1.2, adjustment))
-            
-        except Exception as e:
-            self.logger.error(f"時間減衰調整計算エラー: {e}")
-            return 1.0
-    
-    def _calculate_trailing_distance(
-        self, position: Position, volatility_data: pd.DataFrame
-    ) -> float:
-        """トレーリング距離計算"""
-        try:
-            config = self.config["stop_loss"]
-            base_trailing = config["trailing_percentage"]
-            
-            if volatility_data.empty:
-                return base_trailing
-            
-            # ボラティリティに基づく調整
-            current_vol = volatility_data['volatility'].iloc[-1]
-            avg_vol = volatility_data['volatility'].mean()
-            
-            vol_adjustment = current_vol / avg_vol if avg_vol > 0 else 1.0
-            
-            trailing_distance = base_trailing * vol_adjustment
-            
-            return max(0.01, min(0.05, trailing_distance))
-            
-        except Exception as e:
-            self.logger.error(f"トレーリング距離計算エラー: {e}")
-            return 0.02
-    
-    def _calculate_current_stop_loss(
-        self, position: Position, trailing_distance: float
-    ) -> float:
-        """現在の損切り価格計算"""
-        try:
-            if position.position_type == "LONG":
-                # ロングポジションの場合、最高値からトレーリング
-                trailing_stop = position.current_price * (1 - trailing_distance)
-                return max(position.stop_loss, trailing_stop)
-            else:
-                # ショートポジションの場合、最安値からトレーリング
-                trailing_stop = position.current_price * (1 + trailing_distance)
-                return min(position.stop_loss, trailing_stop)
-                
-        except Exception as e:
-            self.logger.error(f"現在損切り価格計算エラー: {e}")
-            return position.stop_loss
-    
-    def _apply_dynamic_adjustments(
-        self,
-        current_stop_loss: float,
-        volatility_adjustment: float,
-        market_regime_adjustment: float,
-        time_decay_adjustment: float
-    ) -> float:
-        """動的調整適用"""
-        try:
-            # 重み付き調整
-            weights = [0.4, 0.3, 0.3]  # ボラティリティ、レジーム、時間減衰
-            adjustments = [volatility_adjustment, market_regime_adjustment, time_decay_adjustment]
-            
-            combined_adjustment = sum(w * a for w, a in zip(weights, adjustments))
-            
-            # 最終損切り価格
-            final_stop_loss = current_stop_loss * combined_adjustment
-            
-            # 制限チェック
-            config = self.config["stop_loss"]
-            min_pct = config["min_percentage"]
-            max_pct = config["max_percentage"]
-            
-            # 最小・最大制限適用
-            if final_stop_loss < current_stop_loss * (1 - max_pct):
-                final_stop_loss = current_stop_loss * (1 - max_pct)
-            elif final_stop_loss > current_stop_loss * (1 - min_pct):
-                final_stop_loss = current_stop_loss * (1 - min_pct)
-            
-            return final_stop_loss
-            
-        except Exception as e:
-            self.logger.error(f"動的調整適用エラー: {e}")
-            return current_stop_loss
-    
-    def _calculate_base_take_profit(self, position: Position) -> float:
-        """基本利確計算"""
-        config = self.config["take_profit"]
-        base_percentage = config["base_percentage"]
-        
-        if position.position_type == "LONG":
-            return position.entry_price * (1 + base_percentage)
-        else:
-            return position.entry_price * (1 - base_percentage)
-    
-    def _calculate_volatility_adjustment_tp(
-        self, volatility_data: pd.DataFrame, position: Position
-    ) -> float:
-        """利確用ボラティリティ調整計算"""
-        try:
-            if volatility_data.empty:
-                return 1.0
-            
-            current_vol = volatility_data['volatility'].iloc[-1]
-            avg_vol = volatility_data['volatility'].mean()
-            
-            vol_ratio = current_vol / avg_vol if avg_vol > 0 else 1.0
-            
-            config = self.config["take_profit"]
-            multiplier = config["volatility_multiplier"]
-            
-            adjustment = 1 + (vol_ratio - 1) * multiplier
-            
-            return max(0.8, min(1.5, adjustment))
-            
-        except Exception as e:
-            self.logger.error(f"利確用ボラティリティ調整計算エラー: {e}")
-            return 1.0
-    
-    def _calculate_market_regime_adjustment_tp(
-        self, market_data: pd.DataFrame, position: Position
-    ) -> float:
-        """利確用市場レジーム調整計算"""
-        try:
-            if market_data.empty:
-                return 1.0
-            
-            prices = market_data['Close']
-            short_ma = prices.rolling(window=20).mean().iloc[-1]
-            long_ma = prices.rolling(window=50).mean().iloc[-1]
-            
-            trend_strength = (short_ma - long_ma) / long_ma if long_ma > 0 else 0
-            
-            if trend_strength > 0.05:
-                regime = "bull"
-            elif trend_strength < -0.05:
-                regime = "bear"
-            else:
-                regime = "normal"
-            
-            adjustments = {
-                "bull": 1.2 if position.position_type == "LONG" else 0.8,
-                "bear": 0.8 if position.position_type == "LONG" else 1.2,
-                "normal": 1.0
-            }
-            
-            return adjustments.get(regime, 1.0)
-            
-        except Exception as e:
-            self.logger.error(f"利確用市場レジーム調整計算エラー: {e}")
-            return 1.0
-    
-    def _calculate_momentum_adjustment(
-        self, momentum_data: pd.DataFrame, position: Position
-    ) -> float:
-        """モメンタム調整計算"""
-        try:
-            if momentum_data.empty:
-                return 1.0
-            
-            # モメンタム指標
-            momentum = momentum_data['momentum'].iloc[-1]
-            
-            config = self.config["take_profit"]
-            multiplier = config["momentum_multiplier"]
-            
-            # モメンタムに応じた調整
-            if momentum > 0:
-                adjustment = 1 + momentum * multiplier
-            else:
-                adjustment = 1 - abs(momentum) * multiplier * 0.5
-            
-            return max(0.7, min(1.3, adjustment))
-            
-        except Exception as e:
-            self.logger.error(f"モメンタム調整計算エラー: {e}")
-            return 1.0
-    
-    def _calculate_current_take_profit(self, position: Position) -> float:
-        """現在の利確価格計算"""
-        return position.take_profit
-    
-    def _apply_dynamic_adjustments_tp(
-        self,
-        current_take_profit: float,
-        volatility_adjustment: float,
-        market_regime_adjustment: float,
-        momentum_adjustment: float
-    ) -> float:
-        """利確用動的調整適用"""
-        try:
-            weights = [0.3, 0.3, 0.4]  # ボラティリティ、レジーム、モメンタム
-            adjustments = [volatility_adjustment, market_regime_adjustment, momentum_adjustment]
-            
-            combined_adjustment = sum(w * a for w, a in zip(weights, adjustments))
-            
-            final_take_profit = current_take_profit * combined_adjustment
-            
-            # 制限チェック
-            config = self.config["take_profit"]
-            min_pct = config["min_percentage"]
-            max_pct = config["max_percentage"]
-            
-            if final_take_profit < current_take_profit * (1 + min_pct):
-                final_take_profit = current_take_profit * (1 + min_pct)
-            elif final_take_profit > current_take_profit * (1 + max_pct):
-                final_take_profit = current_take_profit * (1 + max_pct)
-            
-            return final_take_profit
-            
-        except Exception as e:
-            self.logger.error(f"利確用動的調整適用エラー: {e}")
-            return current_take_profit
-    
-    def _calculate_unrealized_pnl(self, position: Position) -> float:
-        """未実現損益計算"""
-        try:
-            if position.position_type == "LONG":
-                return (position.current_price - position.entry_price) * position.quantity
-            else:
-                return (position.entry_price - position.current_price) * position.quantity
-        except:
-            return 0.0
-    
-    def _check_stop_loss(self, position: Position) -> Optional[Dict[str, Any]]:
-        """損切りチェック"""
-        try:
-            if position.position_type == "LONG":
-                if position.current_price <= position.stop_loss:
-                    return {
-                        "type": "stop_loss",
-                        "symbol": position.symbol,
-                        "current_price": position.current_price,
-                        "stop_loss": position.stop_loss,
-                        "unrealized_pnl": position.unrealized_pnl,
-                        "message": f"損切りライン到達: {position.symbol}"
-                    }
-            else:
-                if position.current_price >= position.stop_loss:
-                    return {
-                        "type": "stop_loss",
-                        "symbol": position.symbol,
-                        "current_price": position.current_price,
-                        "stop_loss": position.stop_loss,
-                        "unrealized_pnl": position.unrealized_pnl,
-                        "message": f"損切りライン到達: {position.symbol}"
-                    }
-            
-            return None
-            
-        except Exception as e:
-            self.logger.error(f"損切りチェックエラー: {e}")
-            return None
-    
-    def _check_take_profit(self, position: Position) -> Optional[Dict[str, Any]]:
-        """利確チェック"""
-        try:
-            if position.position_type == "LONG":
-                if position.current_price >= position.take_profit:
-                    return {
-                        "type": "take_profit",
-                        "symbol": position.symbol,
-                        "current_price": position.current_price,
-                        "take_profit": position.take_profit,
-                        "unrealized_pnl": position.unrealized_pnl,
-                        "message": f"利確ライン到達: {position.symbol}"
-                    }
-            else:
-                if position.current_price <= position.take_profit:
-                    return {
-                        "type": "take_profit",
-                        "symbol": position.symbol,
-                        "current_price": position.current_price,
-                        "take_profit": position.take_profit,
-                        "unrealized_pnl": position.unrealized_pnl,
-                        "message": f"利確ライン到達: {position.symbol}"
-                    }
-            
-            return None
-            
-        except Exception as e:
-            self.logger.error(f"利確チェックエラー: {e}")
-            return None
-    
-    def _check_risk_limits(
-        self, position: Position, risk_metrics: Optional[RiskMetrics]
-    ) -> List[Dict[str, Any]]:
-        """リスク制限チェック"""
-        alerts = []
-        
-        try:
-            config = self.config["risk_management"]
-            
-            # VaR制限チェック
-            if risk_metrics and risk_metrics.var_95 > config["var_limit"]:
-                alerts.append({
-                    "type": "risk_limit",
-                    "symbol": position.symbol,
-                    "metric": "VaR",
-                    "value": risk_metrics.var_95,
-                    "limit": config["var_limit"],
-                    "message": f"VaR制限超過: {position.symbol}"
-                })
-            
-            # ドローダウン制限チェック
-            if risk_metrics and risk_metrics.max_drawdown > config["drawdown_limit"]:
-                alerts.append({
-                    "type": "risk_limit",
-                    "symbol": position.symbol,
-                    "metric": "Max Drawdown",
-                    "value": risk_metrics.max_drawdown,
-                    "limit": config["drawdown_limit"],
-                    "message": f"ドローダウン制限超過: {position.symbol}"
-                })
-            
-            # ポジションサイズ制限チェック
-            if position.quantity > config["max_position_size"]:
-                alerts.append({
-                    "type": "position_limit",
-                    "symbol": position.symbol,
-                    "metric": "Position Size",
-                    "value": position.quantity,
-                    "limit": config["max_position_size"],
-                    "message": f"ポジションサイズ制限超過: {position.symbol}"
-                })
-            
-            return alerts
-            
-        except Exception as e:
-            self.logger.error(f"リスク制限チェックエラー: {e}")
-            return []
-    
-    def _update_dynamic_levels(
-        self, position: Position, market_data: Optional[pd.DataFrame]
-    ):
-        """動的レベル更新"""
-        try:
-            if market_data is None or market_data.empty:
-                return
-            
-            # ボラティリティデータ準備
-            volatility_data = pd.DataFrame({
-                'volatility': market_data['Close'].pct_change().rolling(window=20).std() * np.sqrt(252)
-            })
-            
-            # 動的損切り更新
-            dynamic_stop_loss = self.calculate_dynamic_stop_loss(
-                position, market_data, volatility_data, RiskMetrics(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-            )
-            
-            # 動的利確更新
-            momentum_data = pd.DataFrame({
-                'momentum': market_data['Close'].pct_change(periods=5)
-            })
-            
-            dynamic_take_profit = self.calculate_dynamic_take_profit(
-                position, market_data, volatility_data, momentum_data
-            )
-            
-            # レベル更新
-            position.stop_loss = dynamic_stop_loss.final_stop_loss
-            position.take_profit = dynamic_take_profit.final_take_profit
-            
-        except Exception as e:
-            self.logger.error(f"動的レベル更新エラー: {e}")
-    
-    def _calculate_var(self, returns: pd.Series, confidence_level: float) -> float:
+    def _calculate_var(self, stock_data: pd.DataFrame) -> Tuple[float, float]:
         """VaR計算"""
-        try:
-            if returns.empty:
-                return 0.0
-            
-            return np.percentile(returns, (1 - confidence_level) * 100)
-        except:
-            return 0.0
+        if 'Close' not in stock_data.columns or stock_data.empty:
+            return 0.05, 0.10
+        
+        returns = stock_data['Close'].pct_change().dropna()
+        if len(returns) < 10:
+            return 0.05, 0.10
+        
+        var_95 = np.percentile(returns, 5)
+        var_99 = np.percentile(returns, 1)
+        
+        return abs(var_95), abs(var_99)
     
-    def _calculate_max_drawdown(self, values: pd.Series) -> float:
+    def _calculate_max_drawdown(self, stock_data: pd.DataFrame) -> float:
         """最大ドローダウン計算"""
-        try:
-            if values.empty:
-                return 0.0
-            
-            peak = values.expanding().max()
-            drawdown = (values - peak) / peak
-            return abs(drawdown.min())
-        except:
+        if 'Close' not in stock_data.columns or stock_data.empty:
             return 0.0
+        
+        prices = stock_data['Close']
+        peak = prices.expanding().max()
+        drawdown = (prices - peak) / peak
+        
+        return abs(drawdown.min())
     
-    def _calculate_sharpe_ratio(self, returns: pd.Series, risk_free_rate: float) -> float:
+    def _calculate_sharpe_ratio(self, stock_data: pd.DataFrame, market_data: pd.DataFrame) -> float:
         """シャープレシオ計算"""
-        try:
-            if returns.empty:
-                return 0.0
-            
-            excess_returns = returns.mean() - risk_free_rate / 252
-            return excess_returns / returns.std() * np.sqrt(252) if returns.std() > 0 else 0.0
-        except:
+        if 'Close' not in stock_data.columns or stock_data.empty:
             return 0.0
+        
+        stock_returns = stock_data['Close'].pct_change().dropna()
+        if len(stock_returns) < 2:
+            return 0.0
+        
+        # リスクフリーレート（仮に2%とする）
+        risk_free_rate = 0.02 / 252  # 日次
+        
+        excess_returns = stock_returns - risk_free_rate
+        sharpe = excess_returns.mean() / stock_returns.std() * np.sqrt(252)
+        
+        return sharpe
     
-    def _calculate_sortino_ratio(self, returns: pd.Series, risk_free_rate: float) -> float:
+    def _calculate_sortino_ratio(self, stock_data: pd.DataFrame) -> float:
         """ソルティノレシオ計算"""
-        try:
-            if returns.empty:
-                return 0.0
-            
-            excess_returns = returns.mean() - risk_free_rate / 252
-            downside_returns = returns[returns < 0]
-            
-            if downside_returns.empty:
-                return 0.0
-            
-            downside_std = downside_returns.std()
-            return excess_returns / downside_std * np.sqrt(252) if downside_std > 0 else 0.0
-        except:
+        if 'Close' not in stock_data.columns or stock_data.empty:
             return 0.0
+        
+        returns = stock_data['Close'].pct_change().dropna()
+        if len(returns) < 2:
+            return 0.0
+        
+        # 下方偏差計算
+        negative_returns = returns[returns < 0]
+        if len(negative_returns) == 0:
+            return float('inf')
+        
+        downside_deviation = negative_returns.std()
+        if downside_deviation == 0:
+            return float('inf')
+        
+        sortino = returns.mean() / downside_deviation * np.sqrt(252)
+        
+        return sortino
     
-    def _calculate_calmar_ratio(self, returns: pd.Series, max_drawdown: float) -> float:
+    def _calculate_calmar_ratio(self, stock_data: pd.DataFrame) -> float:
         """カルマーレシオ計算"""
-        try:
-            if returns.empty or max_drawdown == 0:
-                return 0.0
-            
-            annual_return = returns.mean() * 252
-            return annual_return / max_drawdown
-        except:
+        if 'Close' not in stock_data.columns or stock_data.empty:
             return 0.0
+        
+        returns = stock_data['Close'].pct_change().dropna()
+        if len(returns) < 2:
+            return 0.0
+        
+        annual_return = returns.mean() * 252
+        max_dd = self._calculate_max_drawdown(stock_data)
+        
+        if max_dd == 0:
+            return float('inf')
+        
+        calmar = annual_return / max_dd
+        
+        return calmar
     
-    def _calculate_beta(self, returns: pd.Series, market_data: pd.DataFrame) -> float:
+    def _calculate_volatility(self, stock_data: pd.DataFrame) -> float:
+        """ボラティリティ計算"""
+        if 'Close' not in stock_data.columns or stock_data.empty:
+            return 0.2
+        
+        returns = stock_data['Close'].pct_change().dropna()
+        if len(returns) < 2:
+            return 0.2
+        
+        return returns.std() * np.sqrt(252)
+    
+    def _calculate_beta(self, stock_data: pd.DataFrame, market_data: pd.DataFrame) -> float:
         """ベータ計算"""
-        try:
-            if returns.empty or market_data.empty:
-                return 1.0
-            
-            market_returns = market_data['Close'].pct_change().dropna()
-            
-            if market_returns.empty:
-                return 1.0
-            
-            # 共通の期間でデータを合わせる
-            common_index = returns.index.intersection(market_returns.index)
-            if len(common_index) < 2:
-                return 1.0
-            
-            returns_aligned = returns.loc[common_index]
-            market_returns_aligned = market_returns.loc[common_index]
-            
-            covariance = np.cov(returns_aligned, market_returns_aligned)[0, 1]
-            market_variance = np.var(market_returns_aligned)
-            
-            return covariance / market_variance if market_variance > 0 else 1.0
-        except:
+        if ('Close' not in stock_data.columns or stock_data.empty or
+            'Close' not in market_data.columns or market_data.empty):
+            return 1.0
+        
+        stock_returns = stock_data['Close'].pct_change().dropna()
+        market_returns = market_data['Close'].pct_change().dropna()
+        
+        if len(stock_returns) < 2 or len(market_returns) < 2:
+            return 1.0
+        
+        # 共通の日付で結合
+        common_dates = stock_returns.index.intersection(market_returns.index)
+        if len(common_dates) < 2:
+            return 1.0
+        
+        stock_aligned = stock_returns.loc[common_dates]
+        market_aligned = market_returns.loc[common_dates]
+        
+        covariance = np.cov(stock_aligned, market_aligned)[0, 1]
+        market_variance = np.var(market_aligned)
+        
+        if market_variance == 0:
+            return 1.0
+        
+        beta = covariance / market_variance
+        
+        return beta
+    
+    def _calculate_correlation(self, stock_data: pd.DataFrame, market_data: pd.DataFrame) -> float:
+        """相関計算"""
+        if ('Close' not in stock_data.columns or stock_data.empty or
+            'Close' not in market_data.columns or market_data.empty):
+            return 0.0
+        
+        stock_returns = stock_data['Close'].pct_change().dropna()
+        market_returns = market_data['Close'].pct_change().dropna()
+        
+        if len(stock_returns) < 2 or len(market_returns) < 2:
+            return 0.0
+        
+        # 共通の日付で結合
+        common_dates = stock_returns.index.intersection(market_returns.index)
+        if len(common_dates) < 2:
+            return 0.0
+        
+        stock_aligned = stock_returns.loc[common_dates]
+        market_aligned = market_returns.loc[common_dates]
+        
+        correlation = np.corrcoef(stock_aligned, market_aligned)[0, 1]
+        
+        return correlation if not np.isnan(correlation) else 0.0
+    
+    def _determine_risk_level(self, var_95: float, max_drawdown: float, volatility: float) -> RiskLevel:
+        """リスクレベル決定"""
+        risk_score = 0
+        
+        # VaRスコア
+        if var_95 > 0.05:
+            risk_score += 3
+        elif var_95 > 0.03:
+            risk_score += 2
+        elif var_95 > 0.02:
+            risk_score += 1
+        
+        # 最大ドローダウンスコア
+        if max_drawdown > 0.20:
+            risk_score += 3
+        elif max_drawdown > 0.15:
+            risk_score += 2
+        elif max_drawdown > 0.10:
+            risk_score += 1
+        
+        # ボラティリティスコア
+        if volatility > 0.40:
+            risk_score += 3
+        elif volatility > 0.30:
+            risk_score += 2
+        elif volatility > 0.20:
+            risk_score += 1
+        
+        # リスクレベル決定
+        if risk_score >= 7:
+            return RiskLevel.VERY_HIGH
+        elif risk_score >= 5:
+            return RiskLevel.HIGH
+        elif risk_score >= 3:
+            return RiskLevel.MEDIUM
+        elif risk_score >= 1:
+            return RiskLevel.LOW
+        else:
+            return RiskLevel.VERY_LOW
+    
+    def _calculate_dynamic_position_size(
+        self, base_size: float, risk_level: RiskLevel, volatility: float, beta: float
+    ) -> float:
+        """動的ポジションサイズ計算"""
+        # リスクレベル調整
+        risk_multipliers = {
+            RiskLevel.VERY_LOW: 1.2,
+            RiskLevel.LOW: 1.0,
+            RiskLevel.MEDIUM: 0.8,
+            RiskLevel.HIGH: 0.6,
+            RiskLevel.VERY_HIGH: 0.4
+        }
+        
+        risk_adjusted_size = base_size * risk_multipliers.get(risk_level, 0.8)
+        
+        # ボラティリティ調整
+        vol_adjustment = max(0.5, 1.0 - volatility)
+        
+        # ベータ調整
+        beta_adjustment = max(0.7, 1.0 - abs(beta - 1.0) * 0.3)
+        
+        final_size = risk_adjusted_size * vol_adjustment * beta_adjustment
+        
+        return max(0.01, min(final_size, self.config["risk_limits"]["max_position_size"]))
+    
+    def _calculate_dynamic_stop_take(
+        self, current_price: float, volatility: float, risk_level: RiskLevel
+    ) -> Tuple[float, float]:
+        """動的損切り・利確計算"""
+        # 基本損切り・利確
+        base_stop = self.config["stop_loss"]["base_stop_loss"]
+        base_take = self.config["take_profit"]["base_take_profit"]
+        
+        # ボラティリティ調整
+        vol_multiplier = self.config["stop_loss"]["volatility_multiplier"]
+        vol_adjusted_stop = base_stop * (1 + volatility * vol_multiplier)
+        
+        # リスクレベル調整
+        risk_multipliers = {
+            RiskLevel.VERY_LOW: 0.8,
+            RiskLevel.LOW: 1.0,
+            RiskLevel.MEDIUM: 1.2,
+            RiskLevel.HIGH: 1.5,
+            RiskLevel.VERY_HIGH: 2.0
+        }
+        
+        risk_adjusted_stop = vol_adjusted_stop * risk_multipliers.get(risk_level, 1.0)
+        
+        # 制限適用
+        final_stop = max(
+            self.config["stop_loss"]["min_stop_loss"],
+            min(risk_adjusted_stop, self.config["stop_loss"]["max_stop_loss"])
+        )
+        
+        # 利確計算（リスクリワード比ベース）
+        risk_reward_ratio = self.config["take_profit"]["risk_reward_ratio"]
+        final_take = final_stop * risk_reward_ratio
+        
+        # 価格に適用
+        stop_loss_price = current_price * (1 - final_stop)
+        take_profit_price = current_price * (1 + final_take)
+        
+        return stop_loss_price, take_profit_price
+    
+    def _calculate_market_volatility(self, market_data: pd.DataFrame) -> float:
+        """市場ボラティリティ計算"""
+        if 'Close' not in market_data.columns or market_data.empty:
+            return 0.2
+        
+        returns = market_data['Close'].pct_change().dropna()
+        if len(returns) < 2:
+            return 0.2
+        
+        return returns.std() * np.sqrt(252)
+    
+    def _calculate_volatility_adjustment(self, market_volatility: float) -> float:
+        """ボラティリティ調整計算"""
+        if market_volatility > 0.3:
+            return 0.7  # 高ボラティリティ時は調整
+        elif market_volatility > 0.2:
+            return 0.8
+        else:
             return 1.0
     
-    def _calculate_correlation(self, returns: pd.Series, market_data: pd.DataFrame) -> float:
-        """相関計算"""
-        try:
-            if returns.empty or market_data.empty:
-                return 0.0
-            
-            market_returns = market_data['Close'].pct_change().dropna()
-            
-            if market_returns.empty:
-                return 0.0
-            
-            # 共通の期間でデータを合わせる
-            common_index = returns.index.intersection(market_returns.index)
-            if len(common_index) < 2:
-                return 0.0
-            
-            returns_aligned = returns.loc[common_index]
-            market_returns_aligned = market_returns.loc[common_index]
-            
-            correlation = returns_aligned.corr(market_returns_aligned)
-            return correlation if not np.isnan(correlation) else 0.0
-        except:
+    def _calculate_sector_risk_adjustment(self, sector_data: Optional[pd.DataFrame]) -> float:
+        """セクターリスク調整計算"""
+        if sector_data is None or sector_data.empty:
+            return 1.0
+        
+        # セクターのボラティリティ計算
+        if 'Close' in sector_data.columns:
+            sector_returns = sector_data['Close'].pct_change().dropna()
+            if len(sector_returns) > 1:
+                sector_volatility = sector_returns.std() * np.sqrt(252)
+                if sector_volatility > 0.3:
+                    return 0.8
+                elif sector_volatility > 0.2:
+                    return 0.9
+        
+        return 1.0
+    
+    def _calculate_liquidity_adjustment(self, stock_data: pd.DataFrame) -> float:
+        """流動性調整計算"""
+        if 'Volume' not in stock_data.columns or stock_data.empty:
+            return 1.0
+        
+        volumes = stock_data['Volume'].dropna()
+        if len(volumes) < 2:
+            return 1.0
+        
+        avg_volume = volumes.mean()
+        
+        # 流動性スコア（0-1）
+        if avg_volume > 1000000:
+            return 1.0
+        elif avg_volume > 500000:
+            return 0.9
+        elif avg_volume > 100000:
+            return 0.8
+        else:
+            return 0.7
+    
+    def _calculate_time_decay_adjustment(self) -> float:
+        """時間減衰調整計算"""
+        if not self.risk_history:
+            return 1.0
+        
+        # 最近のリスク履歴に基づく調整
+        recent_risks = [m.var_95 for m in self.risk_history[-5:]]
+        if len(recent_risks) < 3:
+            return 1.0
+        
+        avg_recent_risk = np.mean(recent_risks)
+        if avg_recent_risk > 0.05:
+            return 0.9  # 高リスク履歴では調整
+        else:
+            return 1.0
+    
+    def _calculate_confidence_adjustment(self, confidence: float) -> float:
+        """信頼度調整計算"""
+        if confidence >= 0.8:
+            return 1.1  # 高信頼度では少し増加
+        elif confidence >= 0.7:
+            return 1.0  # 標準
+        elif confidence >= 0.6:
+            return 0.9  # 低信頼度では減少
+        else:
+            return 0.8  # 低信頼度では大幅減少
+    
+    def _calculate_kelly_fraction(self, risk_metrics: RiskMetrics) -> float:
+        """ケリー基準計算"""
+        # 簡易的なケリー基準
+        win_rate = 0.6  # 仮の勝率
+        avg_win = 0.1   # 仮の平均勝利
+        avg_loss = 0.05  # 仮の平均損失
+        
+        if avg_loss == 0:
             return 0.0
-    
-    def _calculate_risk_score(
-        self, var_95: float, max_drawdown: float, volatility: float, sharpe_ratio: float
-    ) -> float:
-        """リスクスコア計算"""
-        try:
-            # 各指標の重み
-            weights = [0.3, 0.3, 0.2, 0.2]
-            
-            # 正規化されたスコア
-            var_score = min(1.0, abs(var_95) / 0.1)  # 10%を上限とする
-            drawdown_score = min(1.0, max_drawdown / 0.2)  # 20%を上限とする
-            volatility_score = min(1.0, volatility / 0.5)  # 50%を上限とする
-            sharpe_score = max(0.0, min(1.0, sharpe_ratio / 2.0))  # 2.0を上限とする
-            
-            scores = [var_score, drawdown_score, volatility_score, sharpe_score]
-            
-            risk_score = sum(w * s for w, s in zip(weights, scores))
-            
-            return max(0.0, min(1.0, risk_score))
-        except:
-            return 0.5
-    
-    def _calculate_risk_trend(self) -> str:
-        """リスクトレンド計算"""
-        try:
-            if len(self.risk_metrics_history) < 5:
-                return "stable"
-            
-            recent_scores = [m.risk_score for m in self.risk_metrics_history[-5:]]
-            older_scores = [m.risk_score for m in self.risk_metrics_history[-10:-5]]
-            
-            if not older_scores:
-                return "stable"
-            
-            recent_avg = np.mean(recent_scores)
-            older_avg = np.mean(older_scores)
-            
-            if recent_avg > older_avg * 1.1:
-                return "increasing"
-            elif recent_avg < older_avg * 0.9:
-                return "decreasing"
-            else:
-                return "stable"
-        except:
-            return "stable"
-    
-    def _assess_portfolio_health(self, metrics: RiskMetrics) -> str:
-        """ポートフォリオ健全性評価"""
-        try:
-            if metrics.risk_score < 0.3:
-                return "excellent"
-            elif metrics.risk_score < 0.5:
-                return "good"
-            elif metrics.risk_score < 0.7:
-                return "fair"
-            elif metrics.risk_score < 0.9:
-                return "poor"
-            else:
-                return "critical"
-        except:
-            return "unknown"
-    
-    def _get_default_stop_loss(self, position: Position) -> DynamicStopLoss:
-        """デフォルト損切り設定"""
-        return DynamicStopLoss(
-            base_stop_loss=position.stop_loss,
-            current_stop_loss=position.stop_loss,
-            trailing_distance=0.02,
-            volatility_adjustment=1.0,
-            market_regime_adjustment=1.0,
-            time_decay_adjustment=1.0,
-            final_stop_loss=position.stop_loss
-        )
-    
-    def _get_default_take_profit(self, position: Position) -> DynamicTakeProfit:
-        """デフォルト利確設定"""
-        return DynamicTakeProfit(
-            base_take_profit=position.take_profit,
-            current_take_profit=position.take_profit,
-            volatility_adjustment=1.0,
-            market_regime_adjustment=1.0,
-            momentum_adjustment=1.0,
-            final_take_profit=position.take_profit
-        )
+        
+        kelly = (win_rate * avg_win - (1 - win_rate) * avg_loss) / avg_loss
+        
+        return max(0.0, min(kelly, 0.25))  # 最大25%に制限
     
     def _get_default_risk_metrics(self) -> RiskMetrics:
         """デフォルトリスクメトリクス"""
         return RiskMetrics(
-            var_95=0.0,
-            var_99=0.0,
-            max_drawdown=0.0,
-            sharpe_ratio=0.0,
-            sortino_ratio=0.0,
-            calmar_ratio=0.0,
-            volatility=0.0,
+            var_95=0.05,
+            var_99=0.10,
+            max_drawdown=0.10,
+            sharpe_ratio=1.0,
+            sortino_ratio=1.0,
+            calmar_ratio=1.0,
+            volatility=0.20,
             beta=1.0,
-            correlation=0.0,
-            risk_score=0.5
+            correlation=0.5,
+            risk_level=RiskLevel.MEDIUM,
+            position_size=0.05,
+            stop_loss=0.0,
+            take_profit=0.0
         )
+    
+    def get_risk_statistics(self) -> Dict[str, Any]:
+        """リスク統計情報取得"""
+        if not self.risk_history:
+            return {}
+        
+        var_95s = [m.var_95 for m in self.risk_history]
+        max_drawdowns = [m.max_drawdown for m in self.risk_history]
+        volatilities = [m.volatility for m in self.risk_history]
+        
+        return {
+            "total_samples": len(self.risk_history),
+            "avg_var_95": np.mean(var_95s),
+            "max_var_95": np.max(var_95s),
+            "avg_max_drawdown": np.mean(max_drawdowns),
+            "max_drawdown": np.max(max_drawdowns),
+            "avg_volatility": np.mean(volatilities),
+            "max_volatility": np.max(volatilities),
+            "risk_level_distribution": {
+                level.value: sum(1 for m in self.risk_history if m.risk_level == level)
+                for level in RiskLevel
+            }
+        }

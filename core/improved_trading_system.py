@@ -112,19 +112,38 @@ class ImprovedTradingSystem:
             # ターゲットの作成（翌日の終値）
             target = features_data['Close'].shift(-1)
             
+            # NaN値を0で埋める（特徴量作成でfillna(0)を追加したが、念のため）
+            features_data = features_data.fillna(0)
+            
             # 欠損値を除去
             valid_data = features_data.dropna()
             target = target[valid_data.index]
+            
+            # ターゲット変数にもNaN値が含まれている場合は除去
+            valid_indices = target.notna()
+            valid_data = valid_data[valid_indices]
+            target = target[valid_indices]
             
             # 特徴量の選択
             feature_columns = [col for col in valid_data.columns if col not in ['Date', 'Close']]
             X = valid_data[feature_columns]
             y = target
             
+            # データが十分でない場合はエラー
+            if len(X) < 50:
+                self.logger.warning(f"学習データが不足しています: {len(X)}行")
+                return {}
+            
             # データを学習・検証に分割
             split_point = int(len(X) * 0.8)
             X_train, X_val = X[:split_point], X[split_point:]
             y_train, y_val = y[:split_point], y[split_point:]
+            
+            # 検証データが空の場合は調整
+            if len(X_val) == 0:
+                split_point = max(1, len(X) - 1)
+                X_train, X_val = X[:split_point], X[split_point:]
+                y_train, y_val = y[:split_point], y[split_point:]
             
             model_performance = {}
             
@@ -179,10 +198,10 @@ class ImprovedTradingSystem:
         df['MA_20'] = df['Close'].rolling(window=20).mean()
         df['MA_50'] = df['Close'].rolling(window=50).mean()
         
-        # 移動平均乖離率
-        df['MA5_Deviation'] = (df['Close'] - df['MA_5']) / df['MA_5']
-        df['MA20_Deviation'] = (df['Close'] - df['MA_20']) / df['MA_20']
-        df['MA50_Deviation'] = (df['Close'] - df['MA_50']) / df['MA_50']
+        # 移動平均乖離率（ゼロ除算を避ける）
+        df['MA5_Deviation'] = np.where(df['MA_5'] != 0, (df['Close'] - df['MA_5']) / df['MA_5'], 0)
+        df['MA20_Deviation'] = np.where(df['MA_20'] != 0, (df['Close'] - df['MA_20']) / df['MA_20'], 0)
+        df['MA50_Deviation'] = np.where(df['MA_50'] != 0, (df['Close'] - df['MA_50']) / df['MA_50'], 0)
         
         # ボラティリティ
         df['Volatility_5'] = df['Close'].rolling(window=5).std()
@@ -193,7 +212,7 @@ class ImprovedTradingSystem:
         df['Volume_Change'] = df['Volume'].pct_change()
         df['Volume_MA_5'] = df['Volume'].rolling(window=5).mean()
         df['Volume_MA_20'] = df['Volume'].rolling(window=20).mean()
-        df['Volume_Ratio'] = df['Volume'] / df['Volume_MA_20']
+        df['Volume_Ratio'] = np.where(df['Volume_MA_20'] != 0, df['Volume'] / df['Volume_MA_20'], 1)
         
         # テクニカル指標
         df['RSI'] = self._calculate_rsi(df['Close'])
@@ -206,8 +225,8 @@ class ImprovedTradingSystem:
         df['BB_Upper'] = bb_upper
         df['BB_Lower'] = bb_lower
         df['BB_Middle'] = bb_middle
-        df['BB_Width'] = (bb_upper - bb_lower) / bb_middle
-        df['BB_Position'] = (df['Close'] - bb_lower) / (bb_upper - bb_lower)
+        df['BB_Width'] = np.where(bb_middle != 0, (bb_upper - bb_lower) / bb_middle, 0)
+        df['BB_Position'] = np.where((bb_upper - bb_lower) != 0, (df['Close'] - bb_lower) / (bb_upper - bb_lower), 0.5)
         
         # ATR
         df['ATR'] = self._calculate_atr(df)
@@ -227,6 +246,9 @@ class ImprovedTradingSystem:
         # 価格位置
         df['Price_Position_20'] = df['Close'].rolling(window=20).rank(pct=True)
         df['Price_Position_50'] = df['Close'].rolling(window=50).rank(pct=True)
+        
+        # NaN値を適切に処理
+        df = df.fillna(0)
         
         return df
     
@@ -248,35 +270,74 @@ class ImprovedTradingSystem:
     
     def _calculate_bollinger_bands(self, prices: pd.Series, window: int = 20, num_std: float = 2) -> Tuple[pd.Series, pd.Series, pd.Series]:
         """ボリンジャーバンド計算"""
-        rolling_mean = prices.rolling(window=window).mean()
-        rolling_std = prices.rolling(window=window).std()
+        # データが少ない場合は適応的にウィンドウサイズを調整
+        actual_window = min(window, len(prices))
+        if actual_window < 2:
+            # データが2未満の場合は単純な価格を返す
+            return prices, prices, prices
+        
+        rolling_mean = prices.rolling(window=actual_window).mean()
+        rolling_std = prices.rolling(window=actual_window).std()
         upper_band = rolling_mean + (rolling_std * num_std)
         lower_band = rolling_mean - (rolling_std * num_std)
+        
+        # NaN値を適切に処理し、upper > lowerを保証
+        for i in range(len(prices)):
+            if pd.isna(upper_band.iloc[i]) or pd.isna(lower_band.iloc[i]) or pd.isna(rolling_mean.iloc[i]):
+                upper_band.iloc[i] = prices.iloc[i] * 1.01  # 少し高く設定
+                lower_band.iloc[i] = prices.iloc[i] * 0.99  # 少し低く設定
+                rolling_mean.iloc[i] = prices.iloc[i]
+            elif upper_band.iloc[i] <= lower_band.iloc[i]:
+                # upper <= lowerの場合は調整
+                mid = rolling_mean.iloc[i]
+                std_val = abs(rolling_std.iloc[i]) if not pd.isna(rolling_std.iloc[i]) else prices.iloc[i] * 0.01
+                upper_band.iloc[i] = mid + std_val * num_std
+                lower_band.iloc[i] = mid - std_val * num_std
+        
         return upper_band, lower_band, rolling_mean
     
     def _calculate_atr(self, data: pd.DataFrame, window: int = 14) -> pd.Series:
         """ATR計算"""
+        # データが少ない場合は適応的にウィンドウサイズを調整
+        actual_window = min(window, len(data))
+        if actual_window < 2:
+            # データが2未満の場合は単純な高値-安値を返す
+            return data['High'] - data['Low']
+        
         high_low = data['High'] - data['Low']
         high_close = np.abs(data['High'] - data['Close'].shift())
         low_close = np.abs(data['Low'] - data['Close'].shift())
         ranges = pd.concat([high_low, high_close, low_close], axis=1)
         true_range = ranges.max(axis=1)
-        atr = true_range.rolling(window=window).mean()
+        atr = true_range.rolling(window=actual_window).mean()
+        # NaN値を0で埋める
+        atr = atr.fillna(0)
         return atr
     
     def _calculate_stochastic(self, data: pd.DataFrame, k_window: int = 14, d_window: int = 3) -> Tuple[pd.Series, pd.Series]:
         """ストキャスティクス計算"""
         lowest_low = data['Low'].rolling(window=k_window).min()
         highest_high = data['High'].rolling(window=k_window).max()
-        k_percent = 100 * (data['Close'] - lowest_low) / (highest_high - lowest_low)
+        # ゼロ除算を避ける
+        denominator = highest_high - lowest_low
+        k_percent = np.where(denominator != 0, 100 * (data['Close'] - lowest_low) / denominator, 50)
+        k_percent = pd.Series(k_percent, index=data.index)
         d_percent = k_percent.rolling(window=d_window).mean()
+        # NaN値を50で埋める（中立値）
+        k_percent = k_percent.fillna(50)
+        d_percent = d_percent.fillna(50)
         return k_percent, d_percent
     
     def _calculate_williams_r(self, data: pd.DataFrame, window: int = 14) -> pd.Series:
         """ウィリアムズ%R計算"""
         highest_high = data['High'].rolling(window=window).max()
         lowest_low = data['Low'].rolling(window=window).min()
-        williams_r = -100 * (highest_high - data['Close']) / (highest_high - lowest_low)
+        # ゼロ除算を避ける
+        denominator = highest_high - lowest_low
+        williams_r = np.where(denominator != 0, -100 * (highest_high - data['Close']) / denominator, -50)
+        williams_r = pd.Series(williams_r, index=data.index)
+        # NaN値を-50で埋める（中立値）
+        williams_r = williams_r.fillna(-50)
         return williams_r
     
     def _calculate_cci(self, data: pd.DataFrame, window: int = 20) -> pd.Series:
@@ -284,11 +345,22 @@ class ImprovedTradingSystem:
         typical_price = (data['High'] + data['Low'] + data['Close']) / 3
         sma = typical_price.rolling(window=window).mean()
         mad = typical_price.rolling(window=window).apply(lambda x: np.mean(np.abs(x - x.mean())))
-        cci = (typical_price - sma) / (0.015 * mad)
+        # ゼロ除算を避ける
+        denominator = 0.015 * mad
+        cci = np.where(denominator != 0, (typical_price - sma) / denominator, 0)
+        cci = pd.Series(cci, index=data.index)
+        # NaN値を0で埋める
+        cci = cci.fillna(0)
         return cci
     
     def _calculate_adx(self, data: pd.DataFrame, window: int = 14) -> pd.Series:
         """ADX計算"""
+        # データが少ない場合は適応的にウィンドウサイズを調整
+        actual_window = min(window, len(data))
+        if actual_window < 2:
+            # データが2未満の場合は0を返す
+            return pd.Series([0] * len(data), index=data.index)
+        
         high_diff = data['High'].diff()
         low_diff = data['Low'].diff()
         
@@ -298,14 +370,23 @@ class ImprovedTradingSystem:
         plus_dm = pd.Series(plus_dm, index=data.index)
         minus_dm = pd.Series(minus_dm, index=data.index)
         
-        atr = self._calculate_atr(data, window)
+        atr = self._calculate_atr(data, actual_window)
         
-        plus_di = 100 * (plus_dm.rolling(window=window).mean() / atr)
-        minus_di = 100 * (minus_dm.rolling(window=window).mean() / atr)
+        # ゼロ除算を避ける
+        plus_di = np.where(atr != 0, 100 * (plus_dm.rolling(window=actual_window).mean() / atr), 0)
+        minus_di = np.where(atr != 0, 100 * (minus_dm.rolling(window=actual_window).mean() / atr), 0)
         
-        dx = 100 * np.abs(plus_di - minus_di) / (plus_di + minus_di)
-        adx = dx.rolling(window=window).mean()
+        plus_di = pd.Series(plus_di, index=data.index)
+        minus_di = pd.Series(minus_di, index=data.index)
         
+        # ゼロ除算を避ける
+        denominator = plus_di + minus_di
+        dx = np.where(denominator != 0, 100 * np.abs(plus_di - minus_di) / denominator, 0)
+        dx = pd.Series(dx, index=data.index)
+        adx = dx.rolling(window=actual_window).mean()
+        
+        # NaN値を0で埋める
+        adx = adx.fillna(0)
         return adx
     
     def generate_signals(self, data: pd.DataFrame) -> List[TradingSignal]:
@@ -566,18 +647,26 @@ class ImprovedTradingSystem:
             drawdown = (cumulative - rolling_max) / rolling_max
             max_drawdown = drawdown.min()
             
-            # シャープレシオ
-            sharpe_ratio = returns.mean() / returns.std() * np.sqrt(252) if returns.std() > 0 else 0
+            # シャープレシオ（標準偏差が0の場合は0）
+            if returns.std() > 1e-10:
+                sharpe_ratio = returns.mean() / returns.std() * np.sqrt(252)
+            else:
+                sharpe_ratio = 0.0
             
             # ソルティノレシオ
             downside_returns = returns[returns < 0]
-            sortino_ratio = returns.mean() / downside_returns.std() * np.sqrt(252) if len(downside_returns) > 0 and downside_returns.std() > 0 else 0
+            if len(downside_returns) > 0 and downside_returns.std() > 1e-10:
+                sortino_ratio = returns.mean() / downside_returns.std() * np.sqrt(252)
+            else:
+                sortino_ratio = 0.0
             
             # カルマーレシオ
             calmar_ratio = returns.mean() * 252 / abs(max_drawdown) if max_drawdown != 0 else 0
             
-            # ボラティリティ
+            # ボラティリティ（微小な値を0に丸める）
             volatility = returns.std() * np.sqrt(252)
+            if abs(volatility) < 1e-10:
+                volatility = 0.0
             
             # ベータ（市場との相関、簡略化）
             beta = 1.0  # 簡略化
@@ -614,16 +703,44 @@ def create_sample_trading_data() -> pd.DataFrame:
     
     volumes.append(np.random.randint(1000, 10000))
     
-    # 高値・安値の生成
-    highs = [p * (1 + abs(np.random.normal(0, 0.01))) for p in prices]
-    lows = [p * (1 - abs(np.random.normal(0, 0.01))) for p in prices]
+    # 各日の価格データを適切に生成
+    opens = []
+    highs = []
+    lows = []
+    closes = []
+    
+    for i, close_price in enumerate(prices):
+        # 前日終値からの変動を考慮した始値
+        if i == 0:
+            open_price = close_price
+        else:
+            gap = np.random.normal(0, 0.01) * close_price
+            open_price = prices[i-1] + gap
+        
+        # 高値・安値は始値と終値の範囲内で適切に設定
+        daily_range = abs(np.random.normal(0, 0.02)) * close_price
+        
+        # 高値は始値と終値の最大値以上
+        high_price = max(open_price, close_price) + daily_range * np.random.uniform(0, 0.5)
+        
+        # 安値は始値と終値の最小値以下
+        low_price = min(open_price, close_price) - daily_range * np.random.uniform(0, 0.5)
+        
+        # 高値 >= 始値, 終値 >= 安値の関係を保証
+        high_price = max(high_price, open_price, close_price)
+        low_price = min(low_price, open_price, close_price)
+        
+        opens.append(open_price)
+        highs.append(high_price)
+        lows.append(low_price)
+        closes.append(close_price)
     
     data = pd.DataFrame({
         'Date': dates,
-        'Open': [p * (1 + np.random.normal(0, 0.005)) for p in prices],
+        'Open': opens,
         'High': highs,
         'Low': lows,
-        'Close': prices,
+        'Close': closes,
         'Volume': volumes
     })
     
