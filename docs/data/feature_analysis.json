@@ -1,35 +1,35 @@
 {
   "metadata": {
-    "generated_at": "2025-10-04T02:10:24.123098",
+    "generated_at": "2025-10-04T02:20:53.065734",
     "version": "1.0",
     "total_features": 5
   },
   "features": [
     {
       "name": "Price Change",
-      "importance": 0.39,
+      "importance": 0.392,
       "type": "technical"
     },
     {
       "name": "Volume Ratio",
-      "importance": 0.255,
+      "importance": 0.268,
       "type": "volume"
     },
     {
       "name": "RSI",
-      "importance": 0.195,
+      "importance": 0.159,
       "type": "momentum"
     },
     {
       "name": "Moving Average",
-      "importance": 0.154,
+      "importance": 0.135,
       "type": "trend"
     },
     {
       "name": "Volatility",
-      "importance": 0.077,
+      "importance": 0.07,
       "type": "risk"
     }
   ],
-  "analysis_date": "2025-10-04T02:10:24.123102"
+  "analysis_date": "2025-10-04T02:20:53.065738"
 }
