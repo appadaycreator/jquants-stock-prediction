@@ -183,6 +183,19 @@ class EnvironmentAuthManager:
             return self._create_github_secrets_template()
         else:
             return self._create_local_env_template()
+
+    def get_auth_status_summary(self) -> Dict[str, Any]:
+        """認証ステータスのサマリーを取得"""
+        validation = self.validate_auth_config()
+        return {
+            "is_configured": validation["is_configured"],
+            "is_dummy": validation["is_dummy"],
+            "environment": validation["environment"],
+            "has_email": bool(self.email),
+            "has_password": bool(self.password),
+            "has_id_token": bool(self.id_token),
+            "has_refresh_token": bool(self.refresh_token),
+        }
     
     def _create_github_secrets_template(self) -> str:
         """GitHub Secrets設定テンプレート"""

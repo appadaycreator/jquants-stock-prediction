@@ -12,7 +12,9 @@ const nextConfig = {
   },
   trailingSlash: true,
   experimental: { 
-    instrumentationHook: false 
+    instrumentationHook: false,
+    // Next.js 15互換性のための設定
+    serverComponentsExternalPackages: [],
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -53,6 +55,18 @@ const nextConfig = {
       return [];
     }
     return [];
+  },
+  // Next.js 15互換性のための設定
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+    }
+    return config;
   },
 };
 

@@ -263,28 +263,13 @@ class DataValidator:
             warnings = []
 
             # 必須フィールドのチェック
-            required_fields = ["date", "code"]
-            for item in data:
-                for field in required_fields:
-                    if field not in item or not item[field]:
-                        issues.append(f"必須フィールド '{field}' が不足: {item}")
-
+            issues.extend(self._validate_required_fields(data))
+            
             # 日付形式のチェック
-            for item in data:
-                try:
-                    datetime.fromisoformat(item["date"])
-                except (ValueError, TypeError):
-                    issues.append(f"無効な日付形式: {item['date']}")
-
+            issues.extend(self._validate_date_format(data))
+            
             # 数値フィールドのチェック
-            numeric_fields = ["open", "high", "low", "close", "volume"]
-            for item in data:
-                for field in numeric_fields:
-                    if field in item:
-                        try:
-                            float(item[field])
-                        except (ValueError, TypeError):
-                            warnings.append(f"数値フィールド '{field}' が無効: {item[field]}")
+            warnings.extend(self._validate_numeric_fields(data))
 
             return {
                 "is_valid": len(issues) == 0,
@@ -297,6 +282,39 @@ class DataValidator:
             if self.logger:
                 self.logger.error(f"データ検証エラー: {e}")
             return {"is_valid": False, "issues": [str(e)]}
+
+    def _validate_required_fields(self, data: List[Dict[str, Any]]) -> List[str]:
+        """必須フィールドの検証"""
+        issues = []
+        required_fields = ["date", "code"]
+        for item in data:
+            for field in required_fields:
+                if field not in item or not item[field]:
+                    issues.append(f"必須フィールド '{field}' が不足: {item}")
+        return issues
+
+    def _validate_date_format(self, data: List[Dict[str, Any]]) -> List[str]:
+        """日付形式の検証"""
+        issues = []
+        for item in data:
+            try:
+                datetime.fromisoformat(item["date"])
+            except (ValueError, TypeError):
+                issues.append(f"無効な日付形式: {item['date']}")
+        return issues
+
+    def _validate_numeric_fields(self, data: List[Dict[str, Any]]) -> List[str]:
+        """数値フィールドの検証"""
+        warnings = []
+        numeric_fields = ["open", "high", "low", "close", "volume"]
+        for item in data:
+            for field in numeric_fields:
+                if field in item:
+                    try:
+                        float(item[field])
+                    except (ValueError, TypeError):
+                        warnings.append(f"数値フィールド '{field}' が無効: {item[field]}")
+        return warnings
 
 
 class DifferentialUpdater:

@@ -170,6 +170,39 @@ class JSONDataManager:
 
         return normalized
 
+    def get_data_statistics(self, symbol: str) -> Dict[str, Any]:
+        """データ統計情報を取得"""
+        try:
+            data = self.load_stock_data(symbol)
+            if not data:
+                return {"error": "データが見つかりません"}
+
+            dates = [item["date"] for item in data]
+            prices = [item.get("close", 0) for item in data if "close" in item]
+            volumes = [item.get("volume", 0) for item in data if "volume" in item]
+
+            return {
+                "total_records": len(data),
+                "date_range": {
+                    "start": min(dates) if dates else None,
+                    "end": max(dates) if dates else None,
+                },
+                "price_stats": {
+                    "min": min(prices) if prices else 0,
+                    "max": max(prices) if prices else 0,
+                    "avg": sum(prices) / len(prices) if prices else 0,
+                },
+                "volume_stats": {
+                    "min": min(volumes) if volumes else 0,
+                    "max": max(volumes) if volumes else 0,
+                    "avg": sum(volumes) / len(volumes) if volumes else 0,
+                },
+            }
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"統計情報取得エラー {symbol}: {e}")
+            return {"error": str(e)}
+
     def _validate_required_fields(self, item: Dict[str, Any]) -> bool:
         """必須フィールドの検証"""
         required_fields = ["date", "code", "open", "high", "low", "close", "volume"]
