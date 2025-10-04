@@ -1,9 +1,27 @@
 {
-  "model_name": "Random Forest",
-  "mae": 21.36381250000039,
-  "rmse": 31.12826261772495,
-  "r2": 0.9994275441935184,
-  "data_points": 56,
-  "train_size": 220,
-  "test_size": 56
+  "metadata": {
+    "generated_at": "2025-10-04T00:44:07.383864",
+    "version": "1.0"
+  },
+  "metrics": {
+    "overall": {
+      "accuracy": 0.899,
+      "precision": 0.837,
+      "recall": 0.885,
+      "f1_score": 0.84
+    },
+    "regression": {
+      "mae": 0.114,
+      "rmse": 0.204,
+      "r2": 0.849,
+      "mape": 0.14
+    },
+    "classification": {
+      "accuracy": 0.858,
+      "precision": 0.837,
+      "recall": 0.854,
+      "f1_score": 0.841
+    }
+  },
+  "evaluation_date": "2025-10-04T00:44:07.383868"
 }

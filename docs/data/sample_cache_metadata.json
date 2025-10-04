@@ -1,0 +1,17 @@
+{
+  "metadata": {
+    "generated_at": "2025-10-04T00:44:07.386313",
+    "version": "1.0",
+    "data_source": "sample_cache",
+    "description": "GitHub Actions用サンプルキャッシュデータ"
+  },
+  "files_generated": [
+    "stock_data.json",
+    "dashboard_summary.json",
+    "today_summary.json",
+    "predictions.json",
+    "model_comparison.json",
+    "feature_analysis.json",
+    "performance_metrics.json"
+  ]
+}
