@@ -6,6 +6,7 @@ jQuants APIを直接叩いて動作確認
 import requests
 import json
 import time
+import os
 from datetime import datetime
 
 def test_jquants_api():
@@ -68,7 +69,7 @@ def test_jquants_api():
                         print(f"\nIDトークン: {id_token[:50]}...")
                         
                         # IDトークンでAPIをテスト
-                            test_api_with_token()
+                        test_api_with_token()
                     else:
                         print("❌ IDトークンの取得に失敗しました")
                 else:
@@ -87,7 +88,7 @@ def test_jquants_api():
     print("2. 公開エンドポイントのテスト（認証不要）")
     print("-" * 40)
     
-        test_public_endpoints()
+    test_public_endpoints()
     
     print("\n" + "=" * 60)
     

@@ -115,14 +115,12 @@ def test_authentication_flow():
     
     return None
 
-def test_api_endpoints():
+def test_api_endpoints(id_token):
     """APIエンドポイントのテスト"""
     print("\n=== APIエンドポイントテスト ===")
     
-    # 環境変数からIDトークンを取得
-    id_token = os.getenv("JQUANTS_ID_TOKEN")
     if not id_token:
-        print("❌ JQUANTS_ID_TOKEN環境変数が設定されていません")
+        print("❌ IDトークンが提供されていません")
         return False
     
     base_url = "https://api.jquants.com/v1"
@@ -206,14 +204,12 @@ def test_api_endpoints():
         
         time.sleep(1)  # API制限を考慮
 
-def test_data_endpoints():
+def test_data_endpoints(id_token):
     """データ取得エンドポイントのテスト"""
     print("\n=== データ取得エンドポイントテスト ===")
     
-    # 環境変数からIDトークンを取得
-    id_token = os.getenv("JQUANTS_ID_TOKEN")
     if not id_token:
-        print("❌ JQUANTS_ID_TOKEN環境変数が設定されていません")
+        print("❌ IDトークンが提供されていません")
         return False
     
     base_url = "https://api.jquants.com/v1"
@@ -281,14 +277,12 @@ def test_data_endpoints():
         
         time.sleep(2)  # API制限を考慮
 
-def test_rate_limits():
+def test_rate_limits(id_token):
     """レート制限のテスト"""
     print("\n=== レート制限テスト ===")
     
-    # 環境変数からIDトークンを取得
-    id_token = os.getenv("JQUANTS_ID_TOKEN")
     if not id_token:
-        print("❌ JQUANTS_ID_TOKEN環境変数が設定されていません")
+        print("❌ IDトークンが提供されていません")
         return False
     
     base_url = "https://api.jquants.com/v1"
