@@ -13,7 +13,9 @@ from datetime import datetime
 from unittest.mock import patch, MagicMock
 
 # 依存関係を回避するために直接インポート
-sys.path.insert(0, '/Users/masayukitokunaga/workspace/jquants-stock-prediction')
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.join(current_dir, '..', '..')
+sys.path.insert(0, project_root)
 
 # 直接ファイルをインポート
 import importlib.util
@@ -27,18 +29,19 @@ def load_module_from_file(file_path, module_name):
     return module
 
 # NISAモジュールを直接読み込み
+core_dir = os.path.join(project_root, 'core')
 nisa_quota_manager = load_module_from_file(
-    '/Users/masayukitokunaga/workspace/jquants-stock-prediction/core/nisa_quota_manager.py',
+    os.path.join(core_dir, 'nisa_quota_manager.py'),
     'nisa_quota_manager'
 )
 
 nisa_tax_calculator = load_module_from_file(
-    '/Users/masayukitokunaga/workspace/jquants-stock-prediction/core/nisa_tax_calculator.py',
+    os.path.join(core_dir, 'nisa_tax_calculator.py'),
     'nisa_tax_calculator'
 )
 
 nisa_alert_system = load_module_from_file(
-    '/Users/masayukitokunaga/workspace/jquants-stock-prediction/core/nisa_alert_system.py',
+    os.path.join(core_dir, 'nisa_alert_system.py'),
     'nisa_alert_system'
 )
 

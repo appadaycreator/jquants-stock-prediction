@@ -226,6 +226,9 @@ class NisaQuotaManager:
             if transaction.amount <= 0:
                 return {'valid': False, 'error': '取引金額が無効です'}
             
+            if transaction.type not in ['BUY', 'SELL']:
+                return {'valid': False, 'error': '無効な取引タイプです'}
+            
             if transaction.quota_type not in ['GROWTH', 'ACCUMULATION']:
                 return {'valid': False, 'error': '無効な枠タイプです'}
             

@@ -279,6 +279,9 @@ class TestNisaAlertSystem:
     
     def test_send_notification_push(self, alert_system):
         """プッシュ通知送信テスト"""
+        # プッシュ通知を有効にする
+        alert_system.notification_settings['push'] = True
+        
         alert = QuotaAlert(
             type=AlertType.CRITICAL.value,
             message="テストアラート",

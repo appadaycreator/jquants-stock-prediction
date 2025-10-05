@@ -288,7 +288,7 @@ class TestNisaTaxCalculator:
         
         # 税務節約額 = 100万円 × 30% = 30万円
         expected_savings = 1000000.0 * 0.30
-        assert abs(result.tax_savings.estimated_tax_savings - expected_savings) < 0.01
+        assert abs(result.tax_savings['estimated_tax_savings'] - expected_savings) < 0.01
     
     def test_optimization_score_edge_cases(self, tax_calculator):
         """最適化スコア境界値テスト"""
