@@ -382,21 +382,36 @@ class DynamicRiskManager:
     
     def _calculate_sharpe_ratio(self, stock_data: pd.DataFrame, market_data: pd.DataFrame) -> float:
         """シャープレシオ計算"""
-        if 'Close' not in stock_data.columns or stock_data.empty:
+        try:
+            if 'Close' not in stock_data.columns or stock_data.empty:
+                return 0.0
+            
+            stock_returns = stock_data['Close'].pct_change().dropna()
+            if len(stock_returns) < 2:
+                return 0.0
+            
+            # リスクフリーレート（仮に2%とする）
+            risk_free_rate = 0.02 / 252  # 日次
+            
+            excess_returns = stock_returns - risk_free_rate
+            std_dev = stock_returns.std()
+            
+            # 標準偏差が0の場合は0を返す
+            if std_dev == 0 or np.isnan(std_dev):
+                return 0.0
+            
+            sharpe = excess_returns.mean() / std_dev * np.sqrt(252)
+            
+            # NaNや無限大の値をチェック
+            if np.isnan(sharpe) or np.isinf(sharpe):
+                return 0.0
+            
+            # シャープレシオを0以上に制限
+            return max(0.0, float(sharpe))
+            
+        except Exception as e:
+            self.logger.error(f"シャープレシオ計算エラー: {e}")
             return 0.0
-        
-        stock_returns = stock_data['Close'].pct_change().dropna()
-        if len(stock_returns) < 2:
-            return 0.0
-        
-        # リスクフリーレート（仮に2%とする）
-        risk_free_rate = 0.02 / 252  # 日次
-        
-        excess_returns = stock_returns - risk_free_rate
-        sharpe = excess_returns.mean() / stock_returns.std() * np.sqrt(252)
-        
-        # シャープレシオを0以上に制限
-        return max(0.0, sharpe)
     
     def _calculate_sortino_ratio(self, stock_data: pd.DataFrame) -> float:
         """ソルティノレシオ計算"""

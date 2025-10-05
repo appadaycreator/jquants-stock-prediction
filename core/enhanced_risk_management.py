@@ -345,6 +345,10 @@ class EnhancedRiskManagement:
     def calculate_portfolio_risk_metrics(self, account_balance: float) -> Dict[str, Any]:
         """ポートフォリオリスクメトリクスの計算"""
         try:
+            if account_balance is None:
+                self.logger.error("アカウント残高がNoneです")
+                return {'error': 'アカウント残高がNoneです'}
+            
             active_positions = [p for p in self.positions.values() if p['status'] == 'ACTIVE']
             
             if not active_positions:
@@ -353,7 +357,10 @@ class EnhancedRiskManagement:
                     'portfolio_volatility': 0.0,
                     'max_drawdown': 0.0,
                     'sharpe_ratio': 0.0,
-                    'risk_score': 0.0
+                    'risk_score': 0.0,
+                    'position_count': 0,
+                    'total_exposure': 0.0,
+                    'exposure_ratio': 0.0
                 }
             
             # ポートフォリオVaR計算
@@ -380,8 +387,8 @@ class EnhancedRiskManagement:
                 'sharpe_ratio': sharpe_ratio,
                 'risk_score': risk_score,
                 'position_count': len(active_positions),
-                'total_exposure': sum(p.get('position_size', 0) * p.get('current_price', 0) for p in active_positions),
-                'exposure_ratio': sum(p.get('position_size', 0) * p.get('current_price', 0) for p in active_positions) / account_balance
+                'total_exposure': sum(p.get('position_size', 0) * p.get('current_price', p.get('entry_price', 0)) for p in active_positions),
+                'exposure_ratio': sum(p.get('position_size', 0) * p.get('current_price', p.get('entry_price', 0)) for p in active_positions) / account_balance
             }
             
         except Exception as e:
@@ -391,6 +398,10 @@ class EnhancedRiskManagement:
     def _calculate_portfolio_var(self, positions: List[Dict[str, Any]], account_balance: float) -> float:
         """ポートフォリオVaR計算"""
         try:
+            if positions is None:
+                self.logger.error("ポジションがNoneです")
+                return 0.0
+            
             if not positions:
                 return 0.0
             
@@ -414,6 +425,10 @@ class EnhancedRiskManagement:
     def _calculate_portfolio_volatility(self, positions: List[Dict[str, Any]]) -> float:
         """ポートフォリオボラティリティ計算"""
         try:
+            if positions is None:
+                self.logger.error("ポジションがNoneです")
+                return 0.0
+            
             if not positions:
                 return 0.0
             
@@ -439,6 +454,10 @@ class EnhancedRiskManagement:
     def _calculate_portfolio_max_drawdown(self, positions: List[Dict[str, Any]]) -> float:
         """ポートフォリオ最大ドローダウン計算"""
         try:
+            if positions is None:
+                self.logger.error("ポジションがNoneです")
+                return 0.0
+            
             if not positions:
                 return 0.0
             
