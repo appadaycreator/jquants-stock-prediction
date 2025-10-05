@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from "react";
 
 interface ChartData {
   time: number;
@@ -10,7 +10,7 @@ interface ChartData {
 
 interface LightweightChartProps {
   data: ChartData[];
-  type: 'line' | 'candlestick' | 'volume';
+  type: "line" | "candlestick" | "volume";
   height?: number;
   width?: number;
   color?: string;
@@ -25,11 +25,11 @@ export function LightweightChart({
   type,
   height = 200,
   width,
-  color = '#3b82f6',
+  color = "#3b82f6",
   showGrid = true,
   showCrosshair = true,
   onDataPointClick,
-  className = ''
+  className = "",
 }: LightweightChartProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -66,22 +66,22 @@ export function LightweightChart({
       
       setDimensions({
         width: width || rect.width,
-        height: height
+        height: height,
       });
       
       canvas.width = (width || rect.width) * dpr;
       canvas.height = height * dpr;
       
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
       if (ctx) {
         ctx.scale(dpr, dpr);
       }
     };
     
     updateDimensions();
-    window.addEventListener('resize', updateDimensions);
+    window.addEventListener("resize", updateDimensions);
     
-    return () => window.removeEventListener('resize', updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
   }, [width, height]);
 
   // チャートの描画
@@ -89,7 +89,7 @@ export function LightweightChart({
     const canvas = canvasRef.current;
     if (!canvas || !data.length) return;
     
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
     
     setIsLoading(true);
@@ -114,7 +114,7 @@ export function LightweightChart({
       
       // グリッドの描画
       if (showGrid) {
-        ctx.strokeStyle = '#e5e7eb';
+        ctx.strokeStyle = "#e5e7eb";
         ctx.lineWidth = 1;
         
         // 水平線
@@ -137,11 +137,11 @@ export function LightweightChart({
       }
       
       // チャートの描画
-      if (type === 'line') {
+      if (type === "line") {
         drawLineChart(ctx, processedData, padding, chartWidth, chartHeight, minValue, valueRange);
-      } else if (type === 'candlestick') {
+      } else if (type === "candlestick") {
         drawCandlestickChart(ctx, processedData, padding, chartWidth, chartHeight, minValue, valueRange);
-      } else if (type === 'volume') {
+      } else if (type === "volume") {
         drawVolumeChart(ctx, processedData, padding, chartWidth, chartHeight);
       }
       
@@ -162,7 +162,7 @@ export function LightweightChart({
     chartWidth: number,
     chartHeight: number,
     minValue: number,
-    valueRange: number
+    valueRange: number,
   ) => {
     // グラデーション背景
     const gradient = ctx.createLinearGradient(0, padding, 0, padding + chartHeight);
@@ -216,7 +216,7 @@ export function LightweightChart({
     chartWidth: number,
     chartHeight: number,
     minValue: number,
-    valueRange: number
+    valueRange: number,
   ) => {
     const barWidth = chartWidth / data.length * 0.6;
     
@@ -226,7 +226,7 @@ export function LightweightChart({
       
       // 改良されたローソク足の描画
       const isPositive = point.value >= 0;
-      const candleColor = isPositive ? '#10b981' : '#ef4444';
+      const candleColor = isPositive ? "#10b981" : "#ef4444";
       
       // 影効果
       ctx.shadowColor = candleColor;
@@ -239,7 +239,7 @@ export function LightweightChart({
       ctx.fillRect(x, y - 2, barWidth, 4);
       
       // 境界線
-      ctx.strokeStyle = isPositive ? '#059669' : '#dc2626';
+      ctx.strokeStyle = isPositive ? "#059669" : "#dc2626";
       ctx.lineWidth = 1;
       ctx.strokeRect(x, y - 2, barWidth, 4);
       
@@ -254,7 +254,7 @@ export function LightweightChart({
     data: ChartData[],
     padding: number,
     chartWidth: number,
-    chartHeight: number
+    chartHeight: number,
   ) => {
     const maxVolume = Math.max(...data.map(d => d.volume || 0));
     
@@ -285,7 +285,7 @@ export function LightweightChart({
     chartWidth: number,
     chartHeight: number,
     minValue: number,
-    valueRange: number
+    valueRange: number,
   ) => {
     const index = data.findIndex(d => d.time === point.time);
     if (index === -1) return;
@@ -294,7 +294,7 @@ export function LightweightChart({
     const y = padding + chartHeight - ((point.value - minValue) / valueRange) * chartHeight;
     
     // ホバーライン
-    ctx.strokeStyle = '#6b7280';
+    ctx.strokeStyle = "#6b7280";
     ctx.lineWidth = 1;
     ctx.setLineDash([5, 5]);
     ctx.beginPath();
@@ -358,7 +358,7 @@ export function LightweightChart({
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}
         className="cursor-crosshair"
-        style={{ width: dimensions.width || '100%', height }}
+        style={{ width: dimensions.width || "100%", height }}
       />
       
       {hoveredPoint && (
@@ -368,11 +368,11 @@ export function LightweightChart({
             <div className="font-semibold text-gray-900">¥{hoveredPoint.value.toLocaleString()}</div>
           </div>
           <div className="text-gray-600 text-xs">
-            {new Date(hoveredPoint.time).toLocaleDateString('ja-JP', {
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric',
-              weekday: 'short'
+            {new Date(hoveredPoint.time).toLocaleDateString("ja-JP", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+              weekday: "short",
             })}
           </div>
           {hoveredPoint.volume && (

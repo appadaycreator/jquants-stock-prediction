@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useMemo } from 'react';
-import { Search, Filter, SortAsc, SortDesc, TrendingUp, TrendingDown, Eye, ExternalLink } from 'lucide-react';
-import { formatStockCode } from '@/lib/stock-code-utils';
-import { openMinkabuLink, isMinkabuLinkAvailable } from '@/lib/minkabu-utils';
+import React, { useState, useEffect, useMemo } from "react";
+import { Search, Filter, SortAsc, SortDesc, TrendingUp, TrendingDown, Eye, ExternalLink } from "lucide-react";
+import { formatStockCode } from "@/lib/stock-code-utils";
+import { openMinkabuLink, isMinkabuLinkAvailable } from "@/lib/minkabu-utils";
 
 interface Stock {
   code: string;
@@ -14,7 +14,7 @@ interface Stock {
   volume: number;
   marketCap: number;
   sector: string;
-  riskLevel: 'Low' | 'Medium' | 'High';
+  riskLevel: "Low" | "Medium" | "High";
   predictionAccuracy?: number;
 }
 
@@ -33,13 +33,13 @@ export const StockList: React.FC<StockListProps> = ({
   error,
   onStockSelect,
   onAddToPortfolio,
-  onAddToWatchlist
+  onAddToWatchlist,
 }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortField, setSortField] = useState<keyof Stock>('changePercent');
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
-  const [filterSector, setFilterSector] = useState<string>('');
-  const [filterRisk, setFilterRisk] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortField, setSortField] = useState<keyof Stock>("changePercent");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
+  const [filterSector, setFilterSector] = useState<string>("");
+  const [filterRisk, setFilterRisk] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
@@ -58,12 +58,12 @@ export const StockList: React.FC<StockListProps> = ({
       const aValue = a[sortField];
       const bValue = b[sortField];
       
-      if (typeof aValue === 'number' && typeof bValue === 'number') {
-        return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
+      if (typeof aValue === "number" && typeof bValue === "number") {
+        return sortDirection === "asc" ? aValue - bValue : bValue - aValue;
       }
       
-      if (typeof aValue === 'string' && typeof bValue === 'string') {
-        return sortDirection === 'asc' 
+      if (typeof aValue === "string" && typeof bValue === "string") {
+        return sortDirection === "asc" 
           ? aValue.localeCompare(bValue)
           : bValue.localeCompare(aValue);
       }
@@ -78,7 +78,7 @@ export const StockList: React.FC<StockListProps> = ({
   const totalPages = Math.ceil(filteredAndSortedStocks.length / itemsPerPage);
   const paginatedStocks = filteredAndSortedStocks.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   // セクター一覧
@@ -89,19 +89,19 @@ export const StockList: React.FC<StockListProps> = ({
 
   const handleSort = (field: keyof Stock) => {
     if (sortField === field) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
       setSortField(field);
-      setSortDirection('desc');
+      setSortDirection("desc");
     }
   };
 
   const getRiskColor = (riskLevel: string) => {
     switch (riskLevel) {
-      case 'Low': return 'text-green-600 bg-green-100';
-      case 'Medium': return 'text-yellow-600 bg-yellow-100';
-      case 'High': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case "Low": return "text-green-600 bg-green-100";
+      case "Medium": return "text-yellow-600 bg-yellow-100";
+      case "High": return "text-red-600 bg-red-100";
+      default: return "text-gray-600 bg-gray-100";
     }
   };
 
@@ -184,67 +184,67 @@ export const StockList: React.FC<StockListProps> = ({
               <tr>
                 <th 
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  onClick={() => handleSort('code')}
+                  onClick={() => handleSort("code")}
                 >
                   <div className="flex items-center space-x-1">
                     <span>コード</span>
-                    {sortField === 'code' && (
-                      sortDirection === 'asc' ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />
+                    {sortField === "code" && (
+                      sortDirection === "asc" ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />
                     )}
                   </div>
                 </th>
                 <th 
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  onClick={() => handleSort('name')}
+                  onClick={() => handleSort("name")}
                 >
                   <div className="flex items-center space-x-1">
                     <span>企業名</span>
-                    {sortField === 'name' && (
-                      sortDirection === 'asc' ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />
+                    {sortField === "name" && (
+                      sortDirection === "asc" ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />
                     )}
                   </div>
                 </th>
                 <th 
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  onClick={() => handleSort('price')}
+                  onClick={() => handleSort("price")}
                 >
                   <div className="flex items-center space-x-1">
                     <span>価格</span>
-                    {sortField === 'price' && (
-                      sortDirection === 'asc' ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />
+                    {sortField === "price" && (
+                      sortDirection === "asc" ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />
                     )}
                   </div>
                 </th>
                 <th 
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  onClick={() => handleSort('changePercent')}
+                  onClick={() => handleSort("changePercent")}
                 >
                   <div className="flex items-center space-x-1">
                     <span>騰落率</span>
-                    {sortField === 'changePercent' && (
-                      sortDirection === 'asc' ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />
+                    {sortField === "changePercent" && (
+                      sortDirection === "asc" ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />
                     )}
                   </div>
                 </th>
                 <th 
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  onClick={() => handleSort('marketCap')}
+                  onClick={() => handleSort("marketCap")}
                 >
                   <div className="flex items-center space-x-1">
                     <span>時価総額</span>
-                    {sortField === 'marketCap' && (
-                      sortDirection === 'asc' ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />
+                    {sortField === "marketCap" && (
+                      sortDirection === "asc" ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />
                     )}
                   </div>
                 </th>
                 <th 
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                  onClick={() => handleSort('riskLevel')}
+                  onClick={() => handleSort("riskLevel")}
                 >
                   <div className="flex items-center space-x-1">
                     <span>リスク</span>
-                    {sortField === 'riskLevel' && (
-                      sortDirection === 'asc' ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />
+                    {sortField === "riskLevel" && (
+                      sortDirection === "asc" ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />
                     )}
                   </div>
                 </th>
@@ -287,9 +287,9 @@ export const StockList: React.FC<StockListProps> = ({
                         <TrendingDown className="w-4 h-4 text-red-500" />
                       )}
                       <span className={`font-medium ${
-                        stock.changePercent >= 0 ? 'text-green-600' : 'text-red-600'
+                        stock.changePercent >= 0 ? "text-green-600" : "text-red-600"
                       }`}>
-                        {stock.changePercent >= 0 ? '+' : ''}{stock.changePercent.toFixed(2)}%
+                        {stock.changePercent >= 0 ? "+" : ""}{stock.changePercent.toFixed(2)}%
                       </span>
                     </div>
                   </td>
@@ -393,8 +393,8 @@ export const StockList: React.FC<StockListProps> = ({
                       onClick={() => setCurrentPage(i + 1)}
                       className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                         currentPage === i + 1
-                          ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
-                          : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                          ? "z-10 bg-blue-50 border-blue-500 text-blue-600"
+                          : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
                       }`}
                     >
                       {i + 1}

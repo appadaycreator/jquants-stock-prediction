@@ -8,8 +8,8 @@ import {
   SampleListedData, 
   SampleDataProvider as ISampleDataProvider,
   FallbackConfig,
-  SampleDataError 
-} from '../types/sample-data';
+  SampleDataError, 
+} from "../types/sample-data";
 
 export class SampleDataProvider implements ISampleDataProvider {
   private config: FallbackConfig;
@@ -20,7 +20,7 @@ export class SampleDataProvider implements ISampleDataProvider {
       timeout: 5000,
       retryCount: 3,
       retryDelay: 1000,
-      ...config
+      ...config,
     };
   }
 
@@ -29,7 +29,7 @@ export class SampleDataProvider implements ISampleDataProvider {
    */
   async getDailyQuotes(): Promise<SampleDailyQuotesData> {
     try {
-      const response = await this.fetchWithTimeout('/data/sample_daily_quotes.json');
+      const response = await this.fetchWithTimeout("/data/sample_daily_quotes.json");
       if (response.ok) {
         const data = await response.json();
         return this.validateDailyQuotesData(data);
@@ -37,7 +37,7 @@ export class SampleDataProvider implements ISampleDataProvider {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
     } catch (error) {
-      console.warn('サンプル日足データ取得エラー:', error);
+      console.warn("サンプル日足データ取得エラー:", error);
       return this.generateFallbackDailyQuotes();
     }
   }
@@ -47,7 +47,7 @@ export class SampleDataProvider implements ISampleDataProvider {
    */
   async getListedData(): Promise<SampleListedData> {
     try {
-      const response = await this.fetchWithTimeout('/data/sample_listed_data.json');
+      const response = await this.fetchWithTimeout("/data/sample_listed_data.json");
       if (response.ok) {
         const data = await response.json();
         return this.validateListedData(data);
@@ -55,7 +55,7 @@ export class SampleDataProvider implements ISampleDataProvider {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
     } catch (error) {
-      console.warn('サンプル上場銘柄データ取得エラー:', error);
+      console.warn("サンプル上場銘柄データ取得エラー:", error);
       return this.generateFallbackListedData();
     }
   }
@@ -65,7 +65,7 @@ export class SampleDataProvider implements ISampleDataProvider {
    */
   async isAvailable(): Promise<boolean> {
     try {
-      const response = await this.fetchWithTimeout('/data/sample_daily_quotes.json', 2000);
+      const response = await this.fetchWithTimeout("/data/sample_daily_quotes.json", 2000);
       return response.ok;
     } catch {
       return false;
@@ -83,8 +83,8 @@ export class SampleDataProvider implements ISampleDataProvider {
       const response = await fetch(url, {
         signal: controller.signal,
         headers: {
-          'Content-Type': 'application/json',
-        }
+          "Content-Type": "application/json",
+        },
       });
       clearTimeout(timeoutId);
       return response;
@@ -99,7 +99,7 @@ export class SampleDataProvider implements ISampleDataProvider {
    */
   private validateDailyQuotesData(data: any): SampleDailyQuotesData {
     if (!data.daily_quotes || !Array.isArray(data.daily_quotes)) {
-      throw new Error('Invalid daily quotes data structure');
+      throw new Error("Invalid daily quotes data structure");
     }
     return data;
   }
@@ -109,7 +109,7 @@ export class SampleDataProvider implements ISampleDataProvider {
    */
   private validateListedData(data: any): SampleListedData {
     if (!data.listed_data || !Array.isArray(data.listed_data)) {
-      throw new Error('Invalid listed data structure');
+      throw new Error("Invalid listed data structure");
     }
     return data;
   }
@@ -119,7 +119,7 @@ export class SampleDataProvider implements ISampleDataProvider {
    */
   private generateFallbackDailyQuotes(): SampleDailyQuotesData {
     const now = new Date();
-    const date = now.toISOString().split('T')[0];
+    const date = now.toISOString().split("T")[0];
     
     return {
       daily_quotes: [
@@ -142,7 +142,7 @@ export class SampleDataProvider implements ISampleDataProvider {
           adjustment_volume: 1213257,
           adjustment_turnover_value: 32460691035,
           change_percent: 0.08,
-          timestamp: now.toISOString()
+          timestamp: now.toISOString(),
         },
         {
           code: "6758",
@@ -163,15 +163,15 @@ export class SampleDataProvider implements ISampleDataProvider {
           adjustment_volume: 1224905,
           adjustment_turnover_value: 59380944590,
           change_percent: -0.32,
-          timestamp: now.toISOString()
-        }
+          timestamp: now.toISOString(),
+        },
       ],
       metadata: {
         generated_at: now.toISOString(),
         type: "daily_quotes",
         ttl: "24h",
-        version: "1.0"
-      }
+        version: "1.0",
+      },
     };
   }
 
@@ -194,7 +194,7 @@ export class SampleDataProvider implements ISampleDataProvider {
           scale_code: "10",
           scale_name: "大型",
           listing_date: "1949-05-16",
-          close_date: null
+          close_date: null,
         },
         {
           code: "6758",
@@ -207,15 +207,15 @@ export class SampleDataProvider implements ISampleDataProvider {
           scale_code: "10",
           scale_name: "大型",
           listing_date: "1958-12-23",
-          close_date: null
-        }
+          close_date: null,
+        },
       ],
       metadata: {
         generated_at: now.toISOString(),
         type: "listed_data",
         ttl: "7d",
-        version: "1.0"
-      }
+        version: "1.0",
+      },
     };
   }
 }

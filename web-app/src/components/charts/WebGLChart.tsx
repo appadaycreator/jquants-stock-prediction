@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import { 
   Zap, 
   Cpu, 
@@ -8,8 +8,8 @@ import {
   BarChart3,
   TrendingUp,
   TrendingDown,
-  Activity
-} from 'lucide-react';
+  Activity,
+} from "lucide-react";
 
 interface ChartData {
   time: number;
@@ -39,7 +39,7 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
   enableWebGL = true,
   showPerformance = false,
   onDataPointClick,
-  className = ''
+  className = "",
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -56,15 +56,15 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
       const rect = containerRef.current.getBoundingClientRect();
       setDimensions({
         width: width || rect.width,
-        height: height
+        height: height,
       });
     }
   }, [width, height]);
 
   useEffect(() => {
     calculateDimensions();
-    window.addEventListener('resize', calculateDimensions);
-    return () => window.removeEventListener('resize', calculateDimensions);
+    window.addEventListener("resize", calculateDimensions);
+    return () => window.removeEventListener("resize", calculateDimensions);
   }, [calculateDimensions]);
 
   // WebGLシェーダーの初期化
@@ -72,7 +72,7 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
     const canvas = canvasRef.current;
     if (!canvas) return false;
 
-    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
     if (!gl) return false;
 
     glRef.current = gl;
@@ -123,7 +123,7 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
     gl.linkProgram(program);
 
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-      console.error('WebGL program linking failed');
+      console.error("WebGL program linking failed");
       return false;
     }
 
@@ -131,9 +131,9 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
     gl.useProgram(program);
 
     // 属性とユニフォームの取得
-    const positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
-    const colorAttributeLocation = gl.getAttribLocation(program, 'a_color');
-    const resolutionUniformLocation = gl.getUniformLocation(program, 'u_resolution');
+    const positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+    const colorAttributeLocation = gl.getAttribLocation(program, "a_color");
+    const resolutionUniformLocation = gl.getUniformLocation(program, "u_resolution");
 
     // バッファの作成
     const positionBuffer = gl.createBuffer();
@@ -194,13 +194,13 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
         isGreen ? 0.06 : 0.94, // R
         isGreen ? 0.73 : 0.27, // G
         isGreen ? 0.51 : 0.27, // B
-        1.0 // A
+        1.0, // A
       );
       colors.push(
         isGreen ? 0.06 : 0.94,
         isGreen ? 0.73 : 0.27,
         isGreen ? 0.51 : 0.27,
-        1.0
+        1.0,
       );
 
       // 実体
@@ -221,7 +221,7 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
         left, bottom, // 左下
         left, bottom, // 左下
         right, top,   // 右上
-        right, bottom // 右下
+        right, bottom, // 右下
       );
 
       // 四角形の色
@@ -230,16 +230,16 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
           isGreen ? 0.06 : 0.94,
           isGreen ? 0.73 : 0.27,
           isGreen ? 0.51 : 0.27,
-          1.0
+          1.0,
         );
       }
     });
 
     // バッファにデータを送信
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.getAttribLocation(programRef.current!, 'a_position'));
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.getAttribLocation(programRef.current!, "a_position"));
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.getAttribLocation(programRef.current!, 'a_color'));
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.getAttribLocation(programRef.current!, "a_color"));
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
 
     // 描画
@@ -254,7 +254,7 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
       setPerformance(prev => ({
         fps: Math.round(1000 / renderTime),
         renderTime: Math.round(renderTime * 100) / 100,
-        memoryUsage: (performance as any).memory?.usedJSHeapSize / 1024 / 1024 || 0
+        memoryUsage: (performance as any).memory?.usedJSHeapSize / 1024 / 1024 || 0,
       }));
     }
 
@@ -360,11 +360,11 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
             <div className="flex items-center space-x-2 mb-3">
               <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
               <div className="text-sm font-semibold text-gray-900">
-                {new Date(hoveredData.time).toLocaleDateString('ja-JP', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                  weekday: 'short'
+                {new Date(hoveredData.time).toLocaleDateString("ja-JP", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                  weekday: "short",
                 })}
               </div>
             </div>
@@ -393,7 +393,7 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
               </div>
               <div className="flex justify-between items-center mt-1">
                 <span className="text-xs text-gray-600">変動率</span>
-                <span className={`text-sm font-semibold ${hoveredData.close > hoveredData.open ? 'text-green-600' : 'text-red-600'}`}>
+                <span className={`text-sm font-semibold ${hoveredData.close > hoveredData.open ? "text-green-600" : "text-red-600"}`}>
                   {((hoveredData.close - hoveredData.open) / hoveredData.open * 100).toFixed(2)}%
                 </span>
               </div>
@@ -435,7 +435,7 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
           </div>
         </div>
         <div className="text-xs text-gray-500">
-          {isWebGLSupported ? 'WebGL加速' : 'Canvas描画'} | データ数: {data.length}
+          {isWebGLSupported ? "WebGL加速" : "Canvas描画"} | データ数: {data.length}
         </div>
       </div>
     </div>

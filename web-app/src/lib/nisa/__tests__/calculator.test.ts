@@ -217,7 +217,7 @@ describe('NisaCalculator', () => {
         quantity: 100,
         price: 10000,
         amount: 1_000_000,
-        quotaType: 'GROWTH as QuotaType,
+        quotaType: 'GROWTH' as QuotaType,
         transactionDate: '2024-01-15',
       };
 

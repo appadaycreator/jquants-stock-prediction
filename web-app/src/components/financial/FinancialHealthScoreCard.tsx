@@ -3,8 +3,8 @@
  * 総合スコア、グレード、投資推奨を表示
  */
 
-import React from 'react';
-import { FinancialHealthScore } from '@/lib/financial/types';
+import React from "react";
+import { FinancialHealthScore } from "@/lib/financial/types";
 
 interface FinancialHealthScoreCardProps {
   healthScore: FinancialHealthScore;
@@ -13,39 +13,39 @@ interface FinancialHealthScoreCardProps {
 
 export function FinancialHealthScoreCard({ 
   healthScore, 
-  className = '' 
+  className = "", 
 }: FinancialHealthScoreCardProps) {
   // スコアに基づく色を取得
   const getScoreColor = (score: number) => {
-    if (score >= 90) return 'text-green-600';
-    if (score >= 80) return 'text-green-500';
-    if (score >= 70) return 'text-yellow-500';
-    if (score >= 60) return 'text-orange-500';
-    return 'text-red-500';
+    if (score >= 90) return "text-green-600";
+    if (score >= 80) return "text-green-500";
+    if (score >= 70) return "text-yellow-500";
+    if (score >= 60) return "text-orange-500";
+    return "text-red-500";
   };
 
   // グレードに基づく色を取得
   const getGradeColor = (grade: string) => {
-    if (grade.startsWith('A')) return 'text-green-600';
-    if (grade.startsWith('B')) return 'text-blue-600';
-    if (grade.startsWith('C')) return 'text-yellow-600';
-    if (grade.startsWith('D')) return 'text-orange-600';
-    return 'text-red-600';
+    if (grade.startsWith("A")) return "text-green-600";
+    if (grade.startsWith("B")) return "text-blue-600";
+    if (grade.startsWith("C")) return "text-yellow-600";
+    if (grade.startsWith("D")) return "text-orange-600";
+    return "text-red-600";
   };
 
   // 推奨に基づく色を取得
   const getRecommendationColor = (recommendation: string) => {
-    if (recommendation.includes('Buy')) return 'text-green-600';
-    if (recommendation.includes('Hold')) return 'text-yellow-600';
-    if (recommendation.includes('Sell')) return 'text-red-600';
-    return 'text-gray-600';
+    if (recommendation.includes("Buy")) return "text-green-600";
+    if (recommendation.includes("Hold")) return "text-yellow-600";
+    if (recommendation.includes("Sell")) return "text-red-600";
+    return "text-gray-600";
   };
 
   // リスクレベルに基づく色を取得
   const getRiskColor = (riskLevel: string) => {
-    if (riskLevel === 'Low') return 'text-green-600';
-    if (riskLevel === 'Medium') return 'text-yellow-600';
-    return 'text-red-600';
+    if (riskLevel === "Low") return "text-green-600";
+    if (riskLevel === "Medium") return "text-yellow-600";
+    return "text-red-600";
   };
 
   return (

@@ -21,7 +21,7 @@ export interface HealthResponse {
 }
 
 export interface ApiError {
-  status: 'error';
+  status: "error";
   error: string;
   timestamp: string;
 }
@@ -31,18 +31,18 @@ export class StaticApiClient {
   private isStaticSite: boolean;
 
   constructor() {
-    this.baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+    this.baseUrl = typeof window !== "undefined" ? window.location.origin : "";
     this.isStaticSite = this.detectStaticSite();
   }
 
   private detectStaticSite(): boolean {
-    if (typeof window === 'undefined') return true;
+    if (typeof window === "undefined") return true;
     
     // GitHub Pages のドメインパターンをチェック
     const hostname = window.location.hostname;
-    return hostname.includes('github.io') || 
-           hostname.includes('netlify.app') || 
-           hostname.includes('vercel.app');
+    return hostname.includes("github.io") || 
+           hostname.includes("netlify.app") || 
+           hostname.includes("vercel.app");
   }
 
   /**
@@ -61,7 +61,7 @@ export class StaticApiClient {
       }
       return await response.json();
     } catch (error) {
-      console.warn('API接続失敗、フォールバックを使用:', error);
+      console.warn("API接続失敗、フォールバックを使用:", error);
       return this.getMockHealthResponse();
     }
   }
@@ -73,19 +73,19 @@ export class StaticApiClient {
     if (this.isStaticSite) {
       return {
         success: true,
-        message: '静的サイトモード: モック接続成功'
+        message: "静的サイトモード: モック接続成功",
       };
     }
 
     try {
       const response = await fetch(`${this.baseUrl}/api/auth/test`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          test: true
-        })
+          test: true,
+        }),
       });
 
       if (!response.ok) {
@@ -95,13 +95,13 @@ export class StaticApiClient {
       const result = await response.json();
       return {
         success: result.success || false,
-        message: result.message || '接続テスト完了'
+        message: result.message || "接続テスト完了",
       };
     } catch (error) {
-      console.warn('J-Quants接続テスト失敗、フォールバックを使用:', error);
+      console.warn("J-Quants接続テスト失敗、フォールバックを使用:", error);
       return {
         success: true,
-        message: '静的サイトモード: モック接続成功'
+        message: "静的サイトモード: モック接続成功",
       };
     }
   }
@@ -121,7 +121,7 @@ export class StaticApiClient {
       }
       return await response.json();
     } catch (error) {
-      console.warn('株価データ取得失敗、フォールバックを使用:', error);
+      console.warn("株価データ取得失敗、フォールバックを使用:", error);
       return this.getMockStockData();
     }
   }
@@ -131,25 +131,25 @@ export class StaticApiClient {
    */
   private getMockHealthResponse(): HealthResponse {
     return {
-      status: 'ok',
+      status: "ok",
       timestamp: new Date().toISOString(),
       environment: {
-        nodeEnv: 'production',
+        nodeEnv: "production",
         hasIdToken: false,
         hasRefreshToken: false,
         hasEmail: false,
         hasPassword: false,
         envVars: {
-          JQUANTS_ID_TOKEN: '静的サイトモード',
-          JQUANTS_REFRESH_TOKEN: '静的サイトモード',
-          JQUANTS_EMAIL: '静的サイトモード',
-          JQUANTS_PASSWORD: '静的サイトモード',
-        }
+          JQUANTS_ID_TOKEN: "静的サイトモード",
+          JQUANTS_REFRESH_TOKEN: "静的サイトモード",
+          JQUANTS_EMAIL: "静的サイトモード",
+          JQUANTS_PASSWORD: "静的サイトモード",
+        },
       },
       api: {
-        jquantsProxy: '/api/jquants-proxy',
-        health: '/api/health'
-      }
+        jquantsProxy: "/api/jquants-proxy",
+        health: "/api/health",
+      },
     };
   }
 
@@ -160,41 +160,41 @@ export class StaticApiClient {
     return {
       candidates: [
         {
-          code: '7203',
-          name: 'トヨタ自動車',
+          code: "7203",
+          name: "トヨタ自動車",
           price: 2500,
           change: 50,
           changePercent: 2.04,
-          reason: 'モックデータ: 流動性・トレンド・バリュー・クオリティの総合評価で上位',
+          reason: "モックデータ: 流動性・トレンド・バリュー・クオリティの総合評価で上位",
           score: 85.2,
           indicators: {
-            volume: '上位70%',
-            trend: '13週>26週',
-            value: 'PBR中央値以下',
-            quality: 'ROE上位40%'
-          }
+            volume: "上位70%",
+            trend: "13週>26週",
+            value: "PBR中央値以下",
+            quality: "ROE上位40%",
+          },
         },
         {
-          code: '6758',
-          name: 'ソニーグループ',
+          code: "6758",
+          name: "ソニーグループ",
           price: 12000,
           change: 200,
           changePercent: 1.69,
-          reason: 'モックデータ: テクノロジーセクターで強いトレンド',
+          reason: "モックデータ: テクノロジーセクターで強いトレンド",
           score: 78.5,
           indicators: {
-            volume: '上位70%',
-            trend: '13週>26週',
-            value: 'PER下位40%',
-            quality: 'ROE上位40%'
-          }
-        }
+            volume: "上位70%",
+            trend: "13週>26週",
+            value: "PER下位40%",
+            quality: "ROE上位40%",
+          },
+        },
       ],
       metadata: {
         generated_at: new Date().toISOString(),
-        source: 'static_fallback',
-        total_candidates: 2
-      }
+        source: "static_fallback",
+        total_candidates: 2,
+      },
     };
   }
 
@@ -210,8 +210,8 @@ export class StaticApiClient {
    */
   getFallbackMessage(): string {
     return this.isStaticSite 
-      ? '静的サイトモード: サンプルデータを表示中'
-      : 'API接続エラー: フォールバックデータを表示中';
+      ? "静的サイトモード: サンプルデータを表示中"
+      : "API接続エラー: フォールバックデータを表示中";
   }
 }
 

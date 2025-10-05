@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { X, TrendingUp, Calendar, BarChart3 } from 'lucide-react';
-import UltimateChart from './charts/UltimateChart';
+import React, { useState, useEffect, useRef } from "react";
+import { X, TrendingUp, Calendar, BarChart3 } from "lucide-react";
+import UltimateChart from "./charts/UltimateChart";
 
 interface CandleData {
   time: string;
@@ -32,9 +32,9 @@ export const StockChart: React.FC<StockChartProps> = ({
   isLoading = false,
   error,
   timeframe,
-  height = 400
+  height = 400,
 }) => {
-  const [selectedPeriod, setSelectedPeriod] = useState('1M');
+  const [selectedPeriod, setSelectedPeriod] = useState("1M");
   const [chartData, setChartData] = useState<CandleData[]>([]);
   const [movingAverages, setMovingAverages] = useState<{
     short: number[];
@@ -45,14 +45,14 @@ export const StockChart: React.FC<StockChartProps> = ({
   const [zoom, setZoom] = useState(1);
   const [panX, setPanX] = useState(0);
   const [showVolume, setShowVolume] = useState(false);
-  const [chartType, setChartType] = useState<'candlestick' | 'line'>('candlestick');
+  const [chartType, setChartType] = useState<"candlestick" | "line">("candlestick");
   const chartRef = useRef<HTMLDivElement>(null);
 
   const periods = [
-    { value: '1M', label: '1ヶ月' },
-    { value: '3M', label: '3ヶ月' },
-    { value: '6M', label: '6ヶ月' },
-    { value: '1Y', label: '1年' }
+    { value: "1M", label: "1ヶ月" },
+    { value: "3M", label: "3ヶ月" },
+    { value: "6M", label: "6ヶ月" },
+    { value: "1Y", label: "1年" },
   ];
 
   // 移動平均線の計算
@@ -71,28 +71,28 @@ export const StockChart: React.FC<StockChartProps> = ({
 
   // データの処理
   useEffect(() => {
-    console.log('StockChart useEffect - data length:', data.length);
-    console.log('StockChart useEffect - selectedPeriod:', selectedPeriod);
+    console.log("StockChart useEffect - data length:", data.length);
+    console.log("StockChart useEffect - selectedPeriod:", selectedPeriod);
     
     if (data.length === 0) {
-      console.log('No data available');
+      console.log("No data available");
       return;
     }
 
     // 期間に応じたデータのフィルタリング
     const now = new Date();
     const periodDays = {
-      '1M': 30,
-      '3M': 90,
-      '6M': 180,
-      '1Y': 365
+      "1M": 30,
+      "3M": 90,
+      "6M": 180,
+      "1Y": 365,
     };
 
     const days = periodDays[selectedPeriod as keyof typeof periodDays] || 30;
     const cutoffDate = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
     
     const filteredData = data.filter(d => new Date(d.time) >= cutoffDate);
-    console.log('Filtered data length:', filteredData.length);
+    console.log("Filtered data length:", filteredData.length);
     setChartData(filteredData);
 
     // 移動平均線の計算
@@ -100,17 +100,17 @@ export const StockChart: React.FC<StockChartProps> = ({
     setMovingAverages({
       short: calculateMovingAverage(closes, 5),
       medium: calculateMovingAverage(closes, 25),
-      long: calculateMovingAverage(closes, 50)
+      long: calculateMovingAverage(closes, 50),
     });
 
   }, [data, selectedPeriod]);
 
   // チャートの描画（改良版）
   const renderChart = () => {
-    console.log('renderChart called - chartData length:', chartData.length);
+    console.log("renderChart called - chartData length:", chartData.length);
     
     if (chartData.length === 0) {
-      console.log('No chart data to render');
+      console.log("No chart data to render");
       return null;
     }
 
@@ -120,22 +120,22 @@ export const StockChart: React.FC<StockChartProps> = ({
     const chartHeight = height;
     const chartWidth = Math.max(800, window.innerWidth * 0.9); // レスポンシブ幅
     
-    console.log('Chart dimensions:', { chartHeight, chartWidth, maxPrice, minPrice, priceRange });
+    console.log("Chart dimensions:", { chartHeight, chartWidth, maxPrice, minPrice, priceRange });
 
     return (
       <div className="relative bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-4 shadow-lg overflow-hidden">
         {/* チャートコントロール */}
         <div className="absolute top-2 right-2 z-10 flex space-x-2">
           <button
-            onClick={() => setChartType(chartType === 'candlestick' ? 'line' : 'candlestick')}
+            onClick={() => setChartType(chartType === "candlestick" ? "line" : "candlestick")}
             className="px-3 py-1 text-xs bg-white/80 backdrop-blur-sm rounded-md shadow-sm hover:bg-white transition-colors"
           >
-            {chartType === 'candlestick' ? '線グラフ' : 'ローソク足'}
+            {chartType === "candlestick" ? "線グラフ" : "ローソク足"}
           </button>
           <button
             onClick={() => setShowVolume(!showVolume)}
             className={`px-3 py-1 text-xs rounded-md shadow-sm transition-colors ${
-              showVolume ? 'bg-blue-500 text-white' : 'bg-white/80 backdrop-blur-sm hover:bg-white'
+              showVolume ? "bg-blue-500 text-white" : "bg-white/80 backdrop-blur-sm hover:bg-white"
             }`}
           >
             出来高
@@ -202,7 +202,7 @@ export const StockChart: React.FC<StockChartProps> = ({
                   y1={wickTop}
                   x2={x}
                   y2={wickBottom}
-                  stroke={isGreen ? '#10b981' : '#ef4444'}
+                  stroke={isGreen ? "#10b981" : "#ef4444"}
                   strokeWidth="2"
                   strokeLinecap="round"
                   filter="url(#glow)"
@@ -213,8 +213,8 @@ export const StockChart: React.FC<StockChartProps> = ({
                   y={bodyTop}
                   width={candleWidth}
                   height={bodyHeight}
-                  fill={isGreen ? 'url(#bullGradient)' : 'url(#bearGradient)'}
-                  stroke={isGreen ? '#059669' : '#dc2626'}
+                  fill={isGreen ? "url(#bullGradient)" : "url(#bearGradient)"}
+                  stroke={isGreen ? "#059669" : "#dc2626"}
                   strokeWidth="1"
                   rx="1"
                   ry="1"
@@ -229,7 +229,7 @@ export const StockChart: React.FC<StockChartProps> = ({
                   fill="transparent"
                   onMouseEnter={() => setHoveredData(candle)}
                   onMouseLeave={() => setHoveredData(null)}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: "pointer" }}
                 />
               </g>
             );
@@ -309,11 +309,11 @@ export const StockChart: React.FC<StockChartProps> = ({
             <div className="flex items-center space-x-2 mb-3">
               <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
               <div className="text-sm font-semibold text-gray-900">
-                {new Date(hoveredData.time).toLocaleDateString('ja-JP', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                  weekday: 'short'
+                {new Date(hoveredData.time).toLocaleDateString("ja-JP", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                  weekday: "short",
                 })}
               </div>
             </div>
@@ -342,7 +342,7 @@ export const StockChart: React.FC<StockChartProps> = ({
               </div>
               <div className="flex justify-between items-center mt-1">
                 <span className="text-xs text-gray-600">変動率</span>
-                <span className={`text-sm font-semibold ${hoveredData.close > hoveredData.open ? 'text-green-600' : 'text-red-600'}`}>
+                <span className={`text-sm font-semibold ${hoveredData.close > hoveredData.open ? "text-green-600" : "text-red-600"}`}>
                   {((hoveredData.close - hoveredData.open) / hoveredData.open * 100).toFixed(2)}%
                 </span>
               </div>
@@ -354,17 +354,17 @@ export const StockChart: React.FC<StockChartProps> = ({
   };
 
   // デバッグログ
-  console.log('StockChart render - isOpen:', isOpen, 'typeof isOpen:', typeof isOpen);
+  console.log("StockChart render - isOpen:", isOpen, "typeof isOpen:", typeof isOpen);
 
   // モーダル形式の場合のみisOpenをチェック
   if (isOpen === false) {
-    console.log('isOpen is false, returning null');
+    console.log("isOpen is false, returning null");
     return null;
   }
 
   // モーダル形式のレンダリング（isOpenが明示的にtrueの場合のみ）
   if (isOpen === true) {
-    console.log('isOpen is true, rendering modal');
+    console.log("isOpen is true, rendering modal");
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-hidden">
@@ -395,8 +395,8 @@ export const StockChart: React.FC<StockChartProps> = ({
                     onClick={() => setSelectedPeriod(period.value)}
                     className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                       selectedPeriod === period.value
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                     }`}
                   >
                     {period.label}
@@ -454,7 +454,7 @@ export const StockChart: React.FC<StockChartProps> = ({
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
                   <div className="text-lg font-bold text-gray-900">
-                    ¥{chartData[chartData.length - 1]?.close.toLocaleString() || '--'}
+                    ¥{chartData[chartData.length - 1]?.close.toLocaleString() || "--"}
                   </div>
                   <div className="text-sm text-gray-600">現在価格</div>
                 </div>
@@ -486,7 +486,7 @@ export const StockChart: React.FC<StockChartProps> = ({
   }
 
   // ページ内表示用のレンダリング（UltimateChartを使用）
-  console.log('Rendering inline chart with UltimateChart');
+  console.log("Rendering inline chart with UltimateChart");
   return (
     <div className="w-full">
       {/* 期間選択 */}
@@ -500,8 +500,8 @@ export const StockChart: React.FC<StockChartProps> = ({
                 onClick={() => setSelectedPeriod(period.value)}
                 className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                   selectedPeriod === period.value
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
                 {period.label}
@@ -539,19 +539,19 @@ export const StockChart: React.FC<StockChartProps> = ({
             high: d.high,
             low: d.low,
             close: d.close,
-            volume: d.volume
+            volume: d.volume,
           }))}
           symbol={symbol}
           height={height}
           enableAllModes={true}
           onDataPointClick={(data) => {
-            console.log('Data point clicked:', data);
+            console.log("Data point clicked:", data);
           }}
           onExport={(format) => {
-            console.log('Exporting chart as:', format);
+            console.log("Exporting chart as:", format);
           }}
           onShare={() => {
-            console.log('Sharing chart');
+            console.log("Sharing chart");
           }}
         />
       )}

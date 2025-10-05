@@ -564,7 +564,7 @@ export default function PersonalInvestmentDashboard() {
           <RealtimePnLCalculator
             positions={positions}
             onPnLUpdate={(updatedPositions) => {
-              console.log('リアルタイム損益更新:', updatedPositions);
+              console.log("リアルタイム損益更新:", updatedPositions);
             }}
             refreshInterval={30000}
           />
@@ -675,11 +675,11 @@ export default function PersonalInvestmentDashboard() {
               macd: 0,
               sma_20: p.current_price * 0.98,
               sma_50: p.current_price * 0.95,
-              trend: 'up' as const,
-              momentum: 0.1
+              trend: "up" as const,
+              momentum: 0.1,
             }))}
             onRecommendationUpdate={(newRecommendations) => {
-              console.log('推奨更新:', newRecommendations);
+              console.log("推奨更新:", newRecommendations);
             }}
             refreshInterval={60000}
           />
@@ -692,7 +692,7 @@ export default function PersonalInvestmentDashboard() {
             symbolName="トヨタ自動車"
             currentPrice={pnl_summary.current_value / (positions.length || 1)}
             onPredictionComplete={(prediction) => {
-              console.log('LSTM予測完了:', prediction);
+              console.log("LSTM予測完了:", prediction);
             }}
           />
         </TabsContent>

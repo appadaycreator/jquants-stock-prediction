@@ -3,7 +3,7 @@
  * データの取得、更新、計算を管理
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 import {
   FinancialData,
   FinancialCalculationResult,
@@ -12,7 +12,7 @@ import {
   IndustryComparison,
   HistoricalAnalysis,
   FinancialValidationResult,
-} from '@/lib/financial/types';
+} from "@/lib/financial/types";
 
 interface UseFinancialAnalysisReturn {
   // データ状態
@@ -56,13 +56,13 @@ export function useFinancialAnalysis(): UseFinancialAnalysisReturn {
       const result = await response.json();
 
       if (!result.success) {
-        throw new Error(result.error?.message || 'データの取得に失敗しました');
+        throw new Error(result.error?.message || "データの取得に失敗しました");
       }
 
       setData(result.data);
     } catch (err) {
-      console.error('データ取得エラー:', err);
-      setError(err instanceof Error ? err.message : 'Unknown error');
+      console.error("データ取得エラー:", err);
+      setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
       setLoading(false);
     }
@@ -76,12 +76,12 @@ export function useFinancialAnalysis(): UseFinancialAnalysisReturn {
   // 財務指標を計算
   const calculateMetrics = useCallback(async (data: FinancialData): Promise<FinancialValidationResult> => {
     try {
-      const response = await fetch('/api/financial/calculate', {
-        method: 'POST',
+      const response = await fetch("/api/financial/calculate", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ data, type: 'metrics' }),
+        body: JSON.stringify({ data, type: "metrics" }),
       });
 
       const result = await response.json();
@@ -89,7 +89,7 @@ export function useFinancialAnalysis(): UseFinancialAnalysisReturn {
       if (!result.success) {
         return {
           isValid: false,
-          errors: [result.error?.message || '財務指標の計算に失敗しました'],
+          errors: [result.error?.message || "財務指標の計算に失敗しました"],
           warnings: [],
         };
       }
@@ -100,10 +100,10 @@ export function useFinancialAnalysis(): UseFinancialAnalysisReturn {
         warnings: [],
       };
     } catch (err) {
-      console.error('財務指標計算エラー:', err);
+      console.error("財務指標計算エラー:", err);
       return {
         isValid: false,
-        errors: [err instanceof Error ? err.message : 'Unknown error'],
+        errors: [err instanceof Error ? err.message : "Unknown error"],
         warnings: [],
       };
     }
@@ -112,19 +112,19 @@ export function useFinancialAnalysis(): UseFinancialAnalysisReturn {
   // 業界比較分析を取得
   const getIndustryComparison = useCallback(async (
     symbol: string,
-    industry: string
+    industry: string,
   ): Promise<IndustryComparison | null> => {
     try {
       const response = await fetch(`/api/financial/industry/${industry}`);
       const result = await response.json();
 
       if (!result.success) {
-        throw new Error(result.error?.message || '業界比較分析の取得に失敗しました');
+        throw new Error(result.error?.message || "業界比較分析の取得に失敗しました");
       }
 
       return result.data.industryComparison;
     } catch (err) {
-      console.error('業界比較分析取得エラー:', err);
+      console.error("業界比較分析取得エラー:", err);
       return null;
     }
   }, []);
@@ -136,12 +136,12 @@ export function useFinancialAnalysis(): UseFinancialAnalysisReturn {
       const result = await response.json();
 
       if (!result.success) {
-        throw new Error(result.error?.message || '時系列分析の取得に失敗しました');
+        throw new Error(result.error?.message || "時系列分析の取得に失敗しました");
       }
 
       return result.data.historicalAnalysis;
     } catch (err) {
-      console.error('時系列分析取得エラー:', err);
+      console.error("時系列分析取得エラー:", err);
       return null;
     }
   }, []);
@@ -149,9 +149,9 @@ export function useFinancialAnalysis(): UseFinancialAnalysisReturn {
   // 統計情報を生成
   const statistics = {
     overallScore: data?.healthScore?.overallScore || 0,
-    grade: data?.healthScore?.grade || 'F',
-    recommendation: data?.healthScore?.recommendation || 'Strong Sell',
-    riskLevel: data?.healthScore?.riskLevel || 'High',
+    grade: data?.healthScore?.grade || "F",
+    recommendation: data?.healthScore?.recommendation || "Strong Sell",
+    riskLevel: data?.healthScore?.riskLevel || "High",
   };
 
   return {

@@ -18,7 +18,7 @@ import {
   MarketValuationMetrics,
   SafetyMetrics,
   GrowthMetrics,
-} from './types';
+} from "./types";
 
 export class FinancialCalculator {
   private industryData: Map<string, IndustryData> = new Map();
@@ -69,32 +69,32 @@ export class FinancialCalculator {
     // 業界内順位を計算
     const industryData = this.industryData.get(data.industry);
     const roeRanking = industryData ? this.calculateRanking(roe, industryData.companies.map(c => 
-      c.balanceSheet.equity > 0 ? (c.incomeStatement.netIncome / c.balanceSheet.equity) * 100 : 0
+      c.balanceSheet.equity > 0 ? (c.incomeStatement.netIncome / c.balanceSheet.equity) * 100 : 0,
     )) : 0;
     
     const roaRanking = industryData ? this.calculateRanking(roa, industryData.companies.map(c => 
-      c.balanceSheet.totalAssets > 0 ? (c.incomeStatement.netIncome / c.balanceSheet.totalAssets) * 100 : 0
+      c.balanceSheet.totalAssets > 0 ? (c.incomeStatement.netIncome / c.balanceSheet.totalAssets) * 100 : 0,
     )) : 0;
     
     const profitMarginRanking = industryData ? this.calculateRanking(profitMargin, industryData.companies.map(c => 
-      c.incomeStatement.revenue > 0 ? (c.incomeStatement.netIncome / c.incomeStatement.revenue) * 100 : 0
+      c.incomeStatement.revenue > 0 ? (c.incomeStatement.netIncome / c.incomeStatement.revenue) * 100 : 0,
     )) : 0;
 
     return {
       roe,
       roeRanking,
       roeTrend: this.calculateTrend(roe, data.symbol),
-      roeScore: this.calculateScore(roe, 'roe'),
+      roeScore: this.calculateScore(roe, "roe"),
       
       roa,
       roaRanking,
       roaTrend: this.calculateTrend(roa, data.symbol),
-      roaScore: this.calculateScore(roa, 'roa'),
+      roaScore: this.calculateScore(roa, "roa"),
       
       profitMargin,
       profitMarginRanking,
       profitMarginTrend: this.calculateTrend(profitMargin, data.symbol),
-      profitMarginScore: this.calculateScore(profitMargin, 'profitMargin'),
+      profitMarginScore: this.calculateScore(profitMargin, "profitMargin"),
     };
   }
 
@@ -122,32 +122,32 @@ export class FinancialCalculator {
     // 業界内順位を計算
     const industryData = this.industryData.get(data.industry);
     const perRanking = industryData ? this.calculateRanking(per, industryData.companies.map(c => 
-      c.incomeStatement.eps > 0 ? c.marketData.stockPrice / c.incomeStatement.eps : 0
+      c.incomeStatement.eps > 0 ? c.marketData.stockPrice / c.incomeStatement.eps : 0,
     )) : 0;
     
     const pbrRanking = industryData ? this.calculateRanking(pbr, industryData.companies.map(c => 
-      c.balanceSheet.bps > 0 ? c.marketData.stockPrice / c.balanceSheet.bps : 0
+      c.balanceSheet.bps > 0 ? c.marketData.stockPrice / c.balanceSheet.bps : 0,
     )) : 0;
     
     const psrRanking = industryData ? this.calculateRanking(psr, industryData.companies.map(c => 
-      c.incomeStatement.revenue > 0 ? c.marketData.marketCap / c.incomeStatement.revenue : 0
+      c.incomeStatement.revenue > 0 ? c.marketData.marketCap / c.incomeStatement.revenue : 0,
     )) : 0;
 
     return {
       per,
       perRanking,
-      perStatus: this.getValuationStatus(per, 'per'),
-      perScore: this.calculateScore(per, 'per'),
+      perStatus: this.getValuationStatus(per, "per"),
+      perScore: this.calculateScore(per, "per"),
       
       pbr,
       pbrRanking,
-      pbrStatus: this.getValuationStatus(pbr, 'pbr'),
-      pbrScore: this.calculateScore(pbr, 'pbr'),
+      pbrStatus: this.getValuationStatus(pbr, "pbr"),
+      pbrScore: this.calculateScore(pbr, "pbr"),
       
       psr,
       psrRanking,
-      psrStatus: this.getValuationStatus(psr, 'psr'),
-      psrScore: this.calculateScore(psr, 'psr'),
+      psrStatus: this.getValuationStatus(psr, "psr"),
+      psrScore: this.calculateScore(psr, "psr"),
     };
   }
 
@@ -175,32 +175,32 @@ export class FinancialCalculator {
     // 業界内順位を計算
     const industryData = this.industryData.get(data.industry);
     const equityRatioRanking = industryData ? this.calculateRanking(equityRatio, industryData.companies.map(c => 
-      c.balanceSheet.totalAssets > 0 ? (c.balanceSheet.equity / c.balanceSheet.totalAssets) * 100 : 0
+      c.balanceSheet.totalAssets > 0 ? (c.balanceSheet.equity / c.balanceSheet.totalAssets) * 100 : 0,
     )) : 0;
     
     const currentRatioRanking = industryData ? this.calculateRanking(currentRatio, industryData.companies.map(c => 
-      c.balanceSheet.currentLiabilities > 0 ? (c.balanceSheet.currentAssets / c.balanceSheet.currentLiabilities) * 100 : 0
+      c.balanceSheet.currentLiabilities > 0 ? (c.balanceSheet.currentAssets / c.balanceSheet.currentLiabilities) * 100 : 0,
     )) : 0;
     
     const quickRatioRanking = industryData ? this.calculateRanking(quickRatio, industryData.companies.map(c => 
-      c.balanceSheet.currentLiabilities > 0 ? (c.balanceSheet.quickAssets / c.balanceSheet.currentLiabilities) * 100 : 0
+      c.balanceSheet.currentLiabilities > 0 ? (c.balanceSheet.quickAssets / c.balanceSheet.currentLiabilities) * 100 : 0,
     )) : 0;
 
     return {
       equityRatio,
       equityRatioRanking,
-      equityRatioStatus: this.getSafetyStatus(equityRatio, 'equityRatio'),
-      equityRatioScore: this.calculateScore(equityRatio, 'equityRatio'),
+      equityRatioStatus: this.getSafetyStatus(equityRatio, "equityRatio"),
+      equityRatioScore: this.calculateScore(equityRatio, "equityRatio"),
       
       currentRatio,
       currentRatioRanking,
-      currentRatioStatus: this.getSafetyStatus(currentRatio, 'currentRatio'),
-      currentRatioScore: this.calculateScore(currentRatio, 'currentRatio'),
+      currentRatioStatus: this.getSafetyStatus(currentRatio, "currentRatio"),
+      currentRatioScore: this.calculateScore(currentRatio, "currentRatio"),
       
       quickRatio,
       quickRatioRanking,
-      quickRatioStatus: this.getSafetyStatus(quickRatio, 'quickRatio'),
-      quickRatioScore: this.calculateScore(quickRatio, 'quickRatio'),
+      quickRatioStatus: this.getSafetyStatus(quickRatio, "quickRatio"),
+      quickRatioScore: this.calculateScore(quickRatio, "quickRatio"),
     };
   }
 
@@ -228,32 +228,32 @@ export class FinancialCalculator {
     // 業界内順位を計算
     const industryData = this.industryData.get(data.industry);
     const revenueGrowthRanking = industryData ? this.calculateRanking(revenueGrowthRate, industryData.companies.map(c => 
-      c.previousYear.revenue > 0 ? ((c.incomeStatement.revenue - c.previousYear.revenue) / c.previousYear.revenue) * 100 : 0
+      c.previousYear.revenue > 0 ? ((c.incomeStatement.revenue - c.previousYear.revenue) / c.previousYear.revenue) * 100 : 0,
     )) : 0;
     
     const profitGrowthRanking = industryData ? this.calculateRanking(profitGrowthRate, industryData.companies.map(c => 
-      c.previousYear.netIncome > 0 ? ((c.incomeStatement.netIncome - c.previousYear.netIncome) / c.previousYear.netIncome) * 100 : 0
+      c.previousYear.netIncome > 0 ? ((c.incomeStatement.netIncome - c.previousYear.netIncome) / c.previousYear.netIncome) * 100 : 0,
     )) : 0;
     
     const assetGrowthRanking = industryData ? this.calculateRanking(assetGrowthRate, industryData.companies.map(c => 
-      c.previousYear.totalAssets > 0 ? ((c.balanceSheet.totalAssets - c.previousYear.totalAssets) / c.previousYear.totalAssets) * 100 : 0
+      c.previousYear.totalAssets > 0 ? ((c.balanceSheet.totalAssets - c.previousYear.totalAssets) / c.previousYear.totalAssets) * 100 : 0,
     )) : 0;
 
     return {
       revenueGrowthRate,
       revenueGrowthRanking,
       revenueGrowthTrend: this.calculateGrowthTrend(revenueGrowthRate, data.symbol),
-      revenueGrowthScore: this.calculateScore(revenueGrowthRate, 'revenueGrowth'),
+      revenueGrowthScore: this.calculateScore(revenueGrowthRate, "revenueGrowth"),
       
       profitGrowthRate,
       profitGrowthRanking,
       profitGrowthTrend: this.calculateGrowthTrend(profitGrowthRate, data.symbol),
-      profitGrowthScore: this.calculateScore(profitGrowthRate, 'profitGrowth'),
+      profitGrowthScore: this.calculateScore(profitGrowthRate, "profitGrowth"),
       
       assetGrowthRate,
       assetGrowthRanking,
       assetGrowthTrend: this.calculateGrowthTrend(assetGrowthRate, data.symbol),
-      assetGrowthScore: this.calculateScore(assetGrowthRate, 'assetGrowth'),
+      assetGrowthScore: this.calculateScore(assetGrowthRate, "assetGrowth"),
     };
   }
 
@@ -363,16 +363,16 @@ export class FinancialCalculator {
       },
       percentile: {
         roe: this.calculatePercentile(metrics.profitability.roe, industryData.companies.map(c => 
-          c.balanceSheet.equity > 0 ? (c.incomeStatement.netIncome / c.balanceSheet.equity) * 100 : 0
+          c.balanceSheet.equity > 0 ? (c.incomeStatement.netIncome / c.balanceSheet.equity) * 100 : 0,
         )),
         roa: this.calculatePercentile(metrics.profitability.roa, industryData.companies.map(c => 
-          c.balanceSheet.totalAssets > 0 ? (c.incomeStatement.netIncome / c.balanceSheet.totalAssets) * 100 : 0
+          c.balanceSheet.totalAssets > 0 ? (c.incomeStatement.netIncome / c.balanceSheet.totalAssets) * 100 : 0,
         )),
         per: this.calculatePercentile(metrics.marketValuation.per, industryData.companies.map(c => 
-          c.incomeStatement.eps > 0 ? c.marketData.stockPrice / c.incomeStatement.eps : 0
+          c.incomeStatement.eps > 0 ? c.marketData.stockPrice / c.incomeStatement.eps : 0,
         )),
         pbr: this.calculatePercentile(metrics.marketValuation.pbr, industryData.companies.map(c => 
-          c.balanceSheet.bps > 0 ? c.marketData.stockPrice / c.balanceSheet.bps : 0
+          c.balanceSheet.bps > 0 ? c.marketData.stockPrice / c.balanceSheet.bps : 0,
         )),
         overall: this.calculateOverallPercentile(metrics, industryData),
       },
@@ -389,8 +389,8 @@ export class FinancialCalculator {
       return {
         trends: [],
         volatility: { roe: 0, roa: 0, per: 0, pbr: 0 },
-        stability: 'low',
-        consistency: 'low',
+        stability: "low",
+        consistency: "low",
       };
     }
 
@@ -479,58 +479,58 @@ export class FinancialCalculator {
   /**
    * 評価ステータスを取得
    */
-  private getValuationStatus(value: number, metricType: string): 'undervalued' | 'fair' | 'overvalued' {
+  private getValuationStatus(value: number, metricType: string): "undervalued" | "fair" | "overvalued" {
     const thresholds = this.getThresholds(metricType);
     
-    if (value <= thresholds.excellent) return 'undervalued';
-    if (value <= thresholds.good) return 'fair';
-    return 'overvalued';
+    if (value <= thresholds.excellent) return "undervalued";
+    if (value <= thresholds.good) return "fair";
+    return "overvalued";
   }
 
   /**
    * 安全性ステータスを取得
    */
-  private getSafetyStatus(value: number, metricType: string): 'excellent' | 'good' | 'fair' | 'poor' {
+  private getSafetyStatus(value: number, metricType: string): "excellent" | "good" | "fair" | "poor" {
     const thresholds = this.getThresholds(metricType);
     
-    if (value >= thresholds.excellent) return 'excellent';
-    if (value >= thresholds.good) return 'good';
-    if (value >= thresholds.fair) return 'fair';
-    return 'poor';
+    if (value >= thresholds.excellent) return "excellent";
+    if (value >= thresholds.good) return "good";
+    if (value >= thresholds.fair) return "fair";
+    return "poor";
   }
 
   /**
    * グレードを取得
    */
-  private getGrade(score: number): 'A+' | 'A' | 'B+' | 'B' | 'C+' | 'C' | 'D' | 'F' {
-    if (score >= 95) return 'A+';
-    if (score >= 90) return 'A';
-    if (score >= 85) return 'B+';
-    if (score >= 80) return 'B';
-    if (score >= 75) return 'C+';
-    if (score >= 70) return 'C';
-    if (score >= 60) return 'D';
-    return 'F';
+  private getGrade(score: number): "A+" | "A" | "B+" | "B" | "C+" | "C" | "D" | "F" {
+    if (score >= 95) return "A+";
+    if (score >= 90) return "A";
+    if (score >= 85) return "B+";
+    if (score >= 80) return "B";
+    if (score >= 75) return "C+";
+    if (score >= 70) return "C";
+    if (score >= 60) return "D";
+    return "F";
   }
 
   /**
    * 投資推奨を取得
    */
-  private getRecommendation(score: number): 'Strong Buy' | 'Buy' | 'Hold' | 'Sell' | 'Strong Sell' {
-    if (score >= 90) return 'Strong Buy';
-    if (score >= 80) return 'Buy';
-    if (score >= 70) return 'Hold';
-    if (score >= 60) return 'Sell';
-    return 'Strong Sell';
+  private getRecommendation(score: number): "Strong Buy" | "Buy" | "Hold" | "Sell" | "Strong Sell" {
+    if (score >= 90) return "Strong Buy";
+    if (score >= 80) return "Buy";
+    if (score >= 70) return "Hold";
+    if (score >= 60) return "Sell";
+    return "Strong Sell";
   }
 
   /**
    * リスクレベルを取得
    */
-  private getRiskLevel(score: number): 'Low' | 'Medium' | 'High' {
-    if (score >= 80) return 'Low';
-    if (score >= 60) return 'Medium';
-    return 'High';
+  private getRiskLevel(score: number): "Low" | "Medium" | "High" {
+    if (score >= 80) return "Low";
+    if (score >= 60) return "Medium";
+    return "High";
   }
 
   /**
@@ -539,10 +539,10 @@ export class FinancialCalculator {
   private identifyStrengths(metrics: FinancialMetrics): string[] {
     const strengths: string[] = [];
     
-    if (metrics.profitability.roe > 15) strengths.push('高いROE');
-    if (metrics.profitability.roa > 10) strengths.push('高いROA');
-    if (metrics.safety.equityRatio > 50) strengths.push('高い自己資本比率');
-    if (metrics.growth.revenueGrowthRate > 20) strengths.push('高い売上成長率');
+    if (metrics.profitability.roe > 15) strengths.push("高いROE");
+    if (metrics.profitability.roa > 10) strengths.push("高いROA");
+    if (metrics.safety.equityRatio > 50) strengths.push("高い自己資本比率");
+    if (metrics.growth.revenueGrowthRate > 20) strengths.push("高い売上成長率");
     
     return strengths;
   }
@@ -553,10 +553,10 @@ export class FinancialCalculator {
   private identifyWeaknesses(metrics: FinancialMetrics): string[] {
     const weaknesses: string[] = [];
     
-    if (metrics.profitability.roe < 5) weaknesses.push('低いROE');
-    if (metrics.profitability.roa < 2) weaknesses.push('低いROA');
-    if (metrics.safety.equityRatio < 20) weaknesses.push('低い自己資本比率');
-    if (metrics.growth.revenueGrowthRate < 0) weaknesses.push('売上減少');
+    if (metrics.profitability.roe < 5) weaknesses.push("低いROE");
+    if (metrics.profitability.roa < 2) weaknesses.push("低いROA");
+    if (metrics.safety.equityRatio < 20) weaknesses.push("低い自己資本比率");
+    if (metrics.growth.revenueGrowthRate < 0) weaknesses.push("売上減少");
     
     return weaknesses;
   }
@@ -567,9 +567,9 @@ export class FinancialCalculator {
   private identifyOpportunities(metrics: FinancialMetrics): string[] {
     const opportunities: string[] = [];
     
-    if (metrics.marketValuation.per < 10) opportunities.push('割安な株価');
-    if (metrics.marketValuation.pbr < 1) opportunities.push('PBR1倍以下');
-    if (metrics.growth.revenueGrowthRate > 10) opportunities.push('成長市場');
+    if (metrics.marketValuation.per < 10) opportunities.push("割安な株価");
+    if (metrics.marketValuation.pbr < 1) opportunities.push("PBR1倍以下");
+    if (metrics.growth.revenueGrowthRate > 10) opportunities.push("成長市場");
     
     return opportunities;
   }
@@ -580,9 +580,9 @@ export class FinancialCalculator {
   private identifyThreats(metrics: FinancialMetrics): string[] {
     const threats: string[] = [];
     
-    if (metrics.marketValuation.per > 30) threats.push('高PER');
-    if (metrics.marketValuation.pbr > 3) threats.push('高PBR');
-    if (metrics.safety.currentRatio < 100) threats.push('流動性リスク');
+    if (metrics.marketValuation.per > 30) threats.push("高PER");
+    if (metrics.marketValuation.pbr > 3) threats.push("高PBR");
+    if (metrics.safety.currentRatio < 100) threats.push("流動性リスク");
     
     return threats;
   }
@@ -593,7 +593,7 @@ export class FinancialCalculator {
   private initializeIndustryData(): void {
     // 実際の実装では、外部データソースから業界データを取得
     // ここではサンプルデータを使用
-    const sampleIndustries = ['自動車', '電気機器', '銀行', '小売業', '製薬'];
+    const sampleIndustries = ["自動車", "電気機器", "銀行", "小売業", "製薬"];
     
     sampleIndustries.forEach(industry => {
       this.industryData.set(industry, {
@@ -668,33 +668,33 @@ export class FinancialCalculator {
   /**
    * 安定性を計算
    */
-  private calculateStability(volatility: { roe: number; roa: number; per: number; pbr: number }): 'high' | 'medium' | 'low' {
+  private calculateStability(volatility: { roe: number; roa: number; per: number; pbr: number }): "high" | "medium" | "low" {
     // 実際の実装では安定性を判定
-    return 'medium';
+    return "medium";
   }
 
   /**
    * 一貫性を計算
    */
-  private calculateConsistency(trends: FinancialTrend[]): 'high' | 'medium' | 'low' {
+  private calculateConsistency(trends: FinancialTrend[]): "high" | "medium" | "low" {
     // 実際の実装では一貫性を判定
-    return 'medium';
+    return "medium";
   }
 
   /**
    * トレンドを計算
    */
-  private calculateTrend(value: number, symbol: string): 'improving' | 'stable' | 'declining' {
+  private calculateTrend(value: number, symbol: string): "improving" | "stable" | "declining" {
     // 実際の実装では過去データと比較してトレンドを判定
-    return 'stable';
+    return "stable";
   }
 
   /**
    * 成長トレンドを計算
    */
-  private calculateGrowthTrend(value: number, symbol: string): 'accelerating' | 'stable' | 'decelerating' {
+  private calculateGrowthTrend(value: number, symbol: string): "accelerating" | "stable" | "decelerating" {
     // 実際の実装では過去データと比較して成長トレンドを判定
-    return 'stable';
+    return "stable";
   }
 
   /**
@@ -706,28 +706,28 @@ export class FinancialCalculator {
 
     // 基本データの検証
     if (!data.symbol || !data.companyName) {
-      errors.push('銘柄情報が不足しています');
+      errors.push("銘柄情報が不足しています");
     }
 
     if (data.incomeStatement.revenue <= 0) {
-      errors.push('売上高が無効です');
+      errors.push("売上高が無効です");
     }
 
     if (data.balanceSheet.totalAssets <= 0) {
-      errors.push('総資産が無効です');
+      errors.push("総資産が無効です");
     }
 
     if (data.marketData.stockPrice <= 0) {
-      errors.push('株価が無効です');
+      errors.push("株価が無効です");
     }
 
     // 警告の検証
     if (data.incomeStatement.netIncome < 0) {
-      warnings.push('当期純利益がマイナスです');
+      warnings.push("当期純利益がマイナスです");
     }
 
     if (data.balanceSheet.equity <= 0) {
-      warnings.push('自己資本がマイナスまたはゼロです');
+      warnings.push("自己資本がマイナスまたはゼロです");
     }
 
     return {

@@ -515,40 +515,40 @@ class DynamicRiskManager:
         """リスクレベル決定"""
         risk_score = 0
         
-        # VaRスコア（閾値をさらに下げる）
-        if var_95 > 0.02:  # 0.04から0.02に下げる
+        # VaRスコア
+        if var_95 > 0.05:  # 高リスク
             risk_score += 3
-        elif var_95 > 0.01:  # 0.025から0.01に下げる
+        elif var_95 > 0.03:  # 中リスク
             risk_score += 2
-        elif var_95 > 0.005:  # 0.015から0.005に下げる
+        elif var_95 > 0.01:  # 低リスク
             risk_score += 1
         
-        # 最大ドローダウンスコア（閾値をさらに下げる）
-        if max_drawdown > 0.05:  # 0.15から0.05に下げる
+        # 最大ドローダウンスコア
+        if max_drawdown > 0.20:  # 高リスク
             risk_score += 3
-        elif max_drawdown > 0.03:  # 0.10から0.03に下げる
+        elif max_drawdown > 0.10:  # 中リスク
             risk_score += 2
-        elif max_drawdown > 0.01:  # 0.05から0.01に下げる
+        elif max_drawdown > 0.05:  # 低リスク
             risk_score += 1
         
-        # ボラティリティスコア（閾値をさらに下げる）
-        if volatility > 0.15:  # 0.30から0.15に下げる
+        # ボラティリティスコア
+        if volatility > 0.30:  # 高リスク
             risk_score += 3
-        elif volatility > 0.10:  # 0.20から0.10に下げる
+        elif volatility > 0.20:  # 中リスク
             risk_score += 2
-        elif volatility > 0.05:  # 0.15から0.05に下げる
+        elif volatility > 0.10:  # 低リスク
             risk_score += 1
         
-        # リスクレベル決定（閾値をさらに下げる）
-        if risk_score >= 3:  # 5から3に下げる
+        # リスクレベル決定
+        if risk_score >= 6:  # 非常に高いリスク
             return RiskLevel.VERY_HIGH
-        elif risk_score >= 2:  # 3から2に下げる
+        elif risk_score >= 4:  # 高いリスク
             return RiskLevel.HIGH
-        elif risk_score >= 1:  # 2から1に下げる
+        elif risk_score >= 2:  # 中程度のリスク
             return RiskLevel.MEDIUM
-        elif risk_score >= 0:
+        elif risk_score >= 1:  # 低いリスク
             return RiskLevel.LOW
-        else:
+        else:  # 非常に低いリスク
             return RiskLevel.VERY_LOW
     
     def _calculate_dynamic_position_size(

@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   CheckCircle, 
   XCircle, 
@@ -17,12 +17,12 @@ import {
   EyeOff,
   AlertTriangle,
   Shield,
-  Key
-} from 'lucide-react';
+  Key,
+} from "lucide-react";
 
 interface AuthStatus {
   isConnected: boolean;
-  tokenType: 'id' | 'refresh' | null;
+  tokenType: "id" | "refresh" | null;
   expiresAt: string | null;
   timeRemaining: number | null;
   lastUpdate: string | null;
@@ -42,9 +42,9 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
   });
 
   const [credentials, setCredentials] = useState({
-    email: '',
-    password: '',
-    refreshToken: '',
+    email: "",
+    password: "",
+    refreshToken: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -75,13 +75,13 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
   const checkAuthStatus = async () => {
     try {
       // 静的サイトの場合はモック状態を返す
-      if (typeof window !== 'undefined' && 
-          (window.location.hostname.includes('github.io') || 
-           window.location.hostname.includes('netlify.app') || 
-           window.location.hostname.includes('vercel.app'))) {
+      if (typeof window !== "undefined" && 
+          (window.location.hostname.includes("github.io") || 
+           window.location.hostname.includes("netlify.app") || 
+           window.location.hostname.includes("vercel.app"))) {
         const mockStatus = {
           isConnected: true,
-          tokenType: 'id' as const,
+          tokenType: "id" as const,
           expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
           timeRemaining: 24 * 60 * 60,
           lastUpdate: new Date().toISOString(),
@@ -91,7 +91,7 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
         return;
       }
 
-      const response = await fetch('/api/auth/status');
+      const response = await fetch("/api/auth/status");
       const data = await response.json();
       
       if (data.success) {
@@ -99,15 +99,15 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
         onAuthChange?.(data.status);
       }
     } catch (error) {
-      console.error('認証状態の確認に失敗:', error);
+      console.error("認証状態の確認に失敗:", error);
       // エラー時も静的サイトの場合はモック状態を返す
-      if (typeof window !== 'undefined' && 
-          (window.location.hostname.includes('github.io') || 
-           window.location.hostname.includes('netlify.app') || 
-           window.location.hostname.includes('vercel.app'))) {
+      if (typeof window !== "undefined" && 
+          (window.location.hostname.includes("github.io") || 
+           window.location.hostname.includes("netlify.app") || 
+           window.location.hostname.includes("vercel.app"))) {
         const mockStatus = {
           isConnected: true,
-          tokenType: 'id' as const,
+          tokenType: "id" as const,
           expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
           timeRemaining: 24 * 60 * 60,
           lastUpdate: new Date().toISOString(),
@@ -125,39 +125,39 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
 
     try {
       // 静的サイトの場合はモック成功を返す
-      if (typeof window !== 'undefined' && 
-          (window.location.hostname.includes('github.io') || 
-           window.location.hostname.includes('netlify.app') || 
-           window.location.hostname.includes('vercel.app'))) {
-        setSuccess('静的サイトモード: モック接続成功');
+      if (typeof window !== "undefined" && 
+          (window.location.hostname.includes("github.io") || 
+           window.location.hostname.includes("netlify.app") || 
+           window.location.hostname.includes("vercel.app"))) {
+        setSuccess("静的サイトモード: モック接続成功");
         await checkAuthStatus();
         return;
       }
 
-      const response = await fetch('/api/auth/test', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/auth/test", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        setSuccess('接続テストが成功しました！');
+        setSuccess("接続テストが成功しました！");
         await checkAuthStatus();
       } else {
-        setError(data.message || '接続テストに失敗しました');
+        setError(data.message || "接続テストに失敗しました");
       }
     } catch (error) {
       // エラー時も静的サイトの場合は成功として扱う
-      if (typeof window !== 'undefined' && 
-          (window.location.hostname.includes('github.io') || 
-           window.location.hostname.includes('netlify.app') || 
-           window.location.hostname.includes('vercel.app'))) {
-        setSuccess('静的サイトモード: エラー時もモック成功');
+      if (typeof window !== "undefined" && 
+          (window.location.hostname.includes("github.io") || 
+           window.location.hostname.includes("netlify.app") || 
+           window.location.hostname.includes("vercel.app"))) {
+        setSuccess("静的サイトモード: エラー時もモック成功");
         await checkAuthStatus();
       } else {
-        setError('接続テスト中にエラーが発生しました');
+        setError("接続テスト中にエラーが発生しました");
       }
     } finally {
       setIsLoading(false);
@@ -170,20 +170,20 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
     setSuccess(null);
 
     try {
-      const response = await fetch('/api/auth/refresh', {
-        method: 'POST',
+      const response = await fetch("/api/auth/refresh", {
+        method: "POST",
       });
 
       const data = await response.json();
 
       if (data.success) {
-        setSuccess('トークンの更新が成功しました！');
+        setSuccess("トークンの更新が成功しました！");
         await checkAuthStatus();
       } else {
-        setError(data.message || 'トークンの更新に失敗しました');
+        setError(data.message || "トークンの更新に失敗しました");
       }
     } catch (error) {
-      setError('トークン更新中にエラーが発生しました');
+      setError("トークン更新中にエラーが発生しました");
     } finally {
       setIsLoading(false);
     }
@@ -195,22 +195,22 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
     setSuccess(null);
 
     try {
-      const response = await fetch('/api/auth/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/auth/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        setSuccess('認証情報が保存されました！');
+        setSuccess("認証情報が保存されました！");
         await checkAuthStatus();
       } else {
-        setError(data.message || '認証情報の保存に失敗しました');
+        setError(data.message || "認証情報の保存に失敗しました");
       }
     } catch (error) {
-      setError('認証情報の保存中にエラーが発生しました');
+      setError("認証情報の保存中にエラーが発生しました");
     } finally {
       setIsLoading(false);
     }
@@ -220,7 +220,7 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${hours}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   const getStatusBadge = () => {
@@ -262,7 +262,7 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
               )}
               <div>
                 <div className="font-medium">
-                  接続状態: {authStatus.isConnected ? '接続済み' : '未接続'}
+                  接続状態: {authStatus.isConnected ? "接続済み" : "未接続"}
                 </div>
                 {authStatus.expiresAt && (
                   <div className="text-sm text-gray-600">
@@ -330,7 +330,7 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
                   <div className="relative">
                     <Input
                       id="password"
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       value={credentials.password}
                       onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
                       placeholder="パスワードを入力"
@@ -352,7 +352,7 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
                 </div>
                 <div className="flex gap-2">
                   <Button onClick={testConnection} disabled={isLoading || !credentials.email || !credentials.password}>
-                    {isLoading ? 'テスト中...' : '接続テスト'}
+                    {isLoading ? "テスト中..." : "接続テスト"}
                   </Button>
                   <Button onClick={saveCredentials} disabled={isLoading || !credentials.email || !credentials.password}>
                     保存
@@ -378,7 +378,7 @@ export default function AuthSettings({ onAuthChange }: AuthSettingsProps) {
                 </div>
                 <div className="flex gap-2">
                   <Button onClick={testConnection} disabled={isLoading || !credentials.refreshToken}>
-                    {isLoading ? 'テスト中...' : '接続テスト'}
+                    {isLoading ? "テスト中..." : "接続テスト"}
                   </Button>
                   <Button onClick={saveCredentials} disabled={isLoading || !credentials.refreshToken}>
                     保存

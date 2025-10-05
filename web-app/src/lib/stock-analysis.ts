@@ -615,14 +615,14 @@ function generateSampleMarketSummary(): MarketSummary {
           sma50: 2350,
           rsi: 65,
           macd: { macd: 2.5, signal: 1.8, histogram: 0.7 },
-          bollinger: { upper: 2600, middle: 2450, lower: 2300 }
+          bollinger: { upper: 2600, middle: 2450, lower: 2300 },
         },
         recommendation: "BUY",
         confidence: 0.75,
         reasons: ["短期上昇トレンド", "RSI中立圏"],
         riskLevel: "LOW",
-        targetPrice: 2600
-      }
+        targetPrice: 2600,
+      },
     ],
     topLosers: [
       {
@@ -638,13 +638,13 @@ function generateSampleMarketSummary(): MarketSummary {
           sma50: 12500,
           rsi: 45,
           macd: { macd: -1.2, signal: -0.8, histogram: -0.4 },
-          bollinger: { upper: 13000, middle: 12200, lower: 11400 }
+          bollinger: { upper: 13000, middle: 12200, lower: 11400 },
         },
         recommendation: "HOLD",
         confidence: 0.6,
         reasons: ["短期調整局面", "RSI中立圏"],
-        riskLevel: "MEDIUM"
-      }
+        riskLevel: "MEDIUM",
+      },
     ],
     lastUpdated: new Date().toISOString(),
   };

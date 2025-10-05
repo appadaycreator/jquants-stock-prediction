@@ -3,12 +3,12 @@
  * 成長投資枠とつみたて投資枠の利用状況を表示
  */
 
-import React from 'react';
-import { Progress } from '@/components/ui/progress';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { AlertTriangle, TrendingUp, TrendingDown } from 'lucide-react';
-import { NisaQuotaStatus } from '@/lib/nisa/types';
+import React from "react";
+import { Progress } from "@/components/ui/progress";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { AlertTriangle, TrendingUp, TrendingDown } from "lucide-react";
+import { NisaQuotaStatus } from "@/lib/nisa/types";
 
 interface NisaQuotaCardProps {
   quotas: NisaQuotaStatus;
@@ -17,23 +17,23 @@ interface NisaQuotaCardProps {
 
 export default function NisaQuotaCard({ quotas, className }: NisaQuotaCardProps) {
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('ja-JP', {
-      style: 'currency',
-      currency: 'JPY',
+    return new Intl.NumberFormat("ja-JP", {
+      style: "currency",
+      currency: "JPY",
       minimumFractionDigits: 0,
     }).format(amount);
   };
 
   const getUtilizationColor = (rate: number) => {
-    if (rate >= 90) return 'text-red-600';
-    if (rate >= 70) return 'text-yellow-600';
-    return 'text-green-600';
+    if (rate >= 90) return "text-red-600";
+    if (rate >= 70) return "text-yellow-600";
+    return "text-green-600";
   };
 
   const getUtilizationBadgeVariant = (rate: number) => {
-    if (rate >= 90) return 'destructive';
-    if (rate >= 70) return 'secondary';
-    return 'default';
+    if (rate >= 90) return "destructive";
+    if (rate >= 70) return "secondary";
+    return "default";
   };
 
   const getUtilizationIcon = (rate: number) => {
@@ -89,8 +89,8 @@ export default function NisaQuotaCard({ quotas, className }: NisaQuotaCardProps)
               <div className="flex items-center text-yellow-800 text-sm">
                 <AlertTriangle className="w-4 h-4 mr-2" />
                 {quotas.growthInvestment.utilizationRate >= 90 
-                  ? '成長投資枠の利用率が90%を超えています。投資計画の見直しを検討してください。'
-                  : '成長投資枠の利用率が70%を超えています。投資計画の見直しを検討してください。'
+                  ? "成長投資枠の利用率が90%を超えています。投資計画の見直しを検討してください。"
+                  : "成長投資枠の利用率が70%を超えています。投資計画の見直しを検討してください。"
                 }
               </div>
             </div>

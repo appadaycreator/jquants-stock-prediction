@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { cacheService } from './CacheService';
-import { sampleDataProvider } from '../providers/SampleDataProvider';
-import { SampleDataValidator } from '../validators/sample-data-validator';
+import { cacheService } from "./CacheService";
+import { sampleDataProvider } from "../providers/SampleDataProvider";
+import { SampleDataValidator } from "../validators/sample-data-validator";
 
 export interface StockData {
   code: string;
@@ -41,16 +41,16 @@ export class DataFetcher {
   private static readonly CACHE_CONFIG: CacheConfig = {
     dailyQuotes: {
       ttl: 24 * 60 * 60 * 1000, // 1日
-      version: '1.0'
+      version: "1.0",
     },
     listedData: {
       ttl: 7 * 24 * 60 * 60 * 1000, // 1週間
-      version: '1.0'
+      version: "1.0",
     },
     sampleData: {
       ttl: 30 * 24 * 60 * 60 * 1000, // 1ヶ月
-      version: '1.0'
-    }
+      version: "1.0",
+    },
   };
 
   private static readonly MAX_RETRIES = 3;
@@ -62,7 +62,7 @@ export class DataFetcher {
   private static async fetchWithRetry(
     url: string,
     options: RequestInit = {},
-    retries: number = this.MAX_RETRIES
+    retries: number = this.MAX_RETRIES,
   ): Promise<Response> {
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
@@ -95,7 +95,7 @@ export class DataFetcher {
       }
     }
     
-    throw new Error('最大リトライ回数に達しました');
+    throw new Error("最大リトライ回数に達しました");
   }
 
   /**
@@ -110,26 +110,26 @@ export class DataFetcher {
    */
   static async getDailyQuotes(
     date?: string,
-    forceRefresh: boolean = false
+    forceRefresh: boolean = false,
   ): Promise<StockData[]> {
-    const cacheKey = `daily_quotes_${date || 'latest'}`;
+    const cacheKey = `daily_quotes_${date || "latest"}`;
     
     return cacheService.getOrFetch(
       cacheKey,
       async () => {
         try {
           // リトライ機能付きAPI呼び出し
-          const response = await this.fetchWithRetry('/api/jquants-proxy/prices/daily_quotes', {
-            method: 'GET',
+          const response = await this.fetchWithRetry("/api/jquants-proxy/prices/daily_quotes", {
+            method: "GET",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
           });
 
           const data = await response.json();
           return data.daily_quotes || [];
         } catch (error) {
-          console.error('日足データ取得エラー:', error);
+          console.error("日足データ取得エラー:", error);
           // フォールバック: サンプルデータを使用
           return this.getSampleDailyQuotes();
         }
@@ -137,8 +137,8 @@ export class DataFetcher {
       {
         ttl: this.CACHE_CONFIG.dailyQuotes.ttl,
         version: this.CACHE_CONFIG.dailyQuotes.version,
-        forceRefresh
-      }
+        forceRefresh,
+      },
     );
   }
 
@@ -146,26 +146,26 @@ export class DataFetcher {
    * 上場銘柄データの取得（キャッシュ付き）
    */
   static async getListedData(
-    forceRefresh: boolean = false
+    forceRefresh: boolean = false,
   ): Promise<ListedData[]> {
-    const cacheKey = 'listed_data';
+    const cacheKey = "listed_data";
     
     return cacheService.getOrFetch(
       cacheKey,
       async () => {
         try {
           // リトライ機能付きAPI呼び出し
-          const response = await this.fetchWithRetry('/api/jquants-proxy/prices/listed_info', {
-            method: 'GET',
+          const response = await this.fetchWithRetry("/api/jquants-proxy/prices/listed_info", {
+            method: "GET",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
           });
 
           const data = await response.json();
           return data.listed_info || [];
         } catch (error) {
-          console.error('上場銘柄データ取得エラー:', error);
+          console.error("上場銘柄データ取得エラー:", error);
           // フォールバック: サンプルデータを使用
           return this.getSampleListedData();
         }
@@ -173,8 +173,8 @@ export class DataFetcher {
       {
         ttl: this.CACHE_CONFIG.listedData.ttl,
         version: this.CACHE_CONFIG.listedData.version,
-        forceRefresh
-      }
+        forceRefresh,
+      },
     );
   }
 
@@ -188,7 +188,7 @@ export class DataFetcher {
       // バリデーション実行
       const validation = SampleDataValidator.validateDailyQuotes(sampleData);
       if (!validation.isValid) {
-        console.warn('サンプル日足データのバリデーションエラー:', validation.errors);
+        console.warn("サンプル日足データのバリデーションエラー:", validation.errors);
       }
 
       // データ変換
@@ -199,31 +199,31 @@ export class DataFetcher {
         change: quote.close - quote.open,
         changePercent: quote.change_percent,
         volume: quote.volume,
-        timestamp: quote.timestamp
+        timestamp: quote.timestamp,
       }));
     } catch (error) {
-      console.error('サンプル日足データ取得エラー:', error);
+      console.error("サンプル日足データ取得エラー:", error);
       
       // 最終フォールバック: ハードコードされたサンプルデータ
       return [
         {
-          code: '7203',
-          name: 'トヨタ自動車',
+          code: "7203",
+          name: "トヨタ自動車",
           price: 2500,
           change: 50,
           changePercent: 2.04,
           volume: 1000000,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         },
         {
-          code: '6758',
-          name: 'ソニーグループ',
+          code: "6758",
+          name: "ソニーグループ",
           price: 12000,
           change: -100,
           changePercent: -0.83,
           volume: 500000,
-          timestamp: new Date().toISOString()
-        }
+          timestamp: new Date().toISOString(),
+        },
       ];
     }
   }
@@ -238,7 +238,7 @@ export class DataFetcher {
       // バリデーション実行
       const validation = SampleDataValidator.validateListedData(sampleData);
       if (!validation.isValid) {
-        console.warn('サンプル上場銘柄データのバリデーションエラー:', validation.errors);
+        console.warn("サンプル上場銘柄データのバリデーションエラー:", validation.errors);
       }
 
       // データ変換
@@ -247,27 +247,27 @@ export class DataFetcher {
         name: stock.name,
         market: stock.market,
         sector: stock.sector17_name,
-        listingDate: stock.listing_date
+        listingDate: stock.listing_date,
       }));
     } catch (error) {
-      console.error('サンプル上場銘柄データ取得エラー:', error);
+      console.error("サンプル上場銘柄データ取得エラー:", error);
       
       // 最終フォールバック: ハードコードされたサンプルデータ
       return [
         {
-          code: '7203',
-          name: 'トヨタ自動車',
-          market: '東証プライム',
-          sector: '自動車',
-          listingDate: '1949-05-16'
+          code: "7203",
+          name: "トヨタ自動車",
+          market: "東証プライム",
+          sector: "自動車",
+          listingDate: "1949-05-16",
         },
         {
-          code: '6758',
-          name: 'ソニーグループ',
-          market: '東証プライム',
-          sector: '電気機器',
-          listingDate: '1958-12-23'
-        }
+          code: "6758",
+          name: "ソニーグループ",
+          market: "東証プライム",
+          sector: "電気機器",
+          listingDate: "1958-12-23",
+        },
       ];
     }
   }
@@ -277,7 +277,7 @@ export class DataFetcher {
    */
   static async initialize(): Promise<void> {
     try {
-      console.log('🚀 データキャッシュ初期化開始');
+      console.log("🚀 データキャッシュ初期化開始");
       
       // 期限切れデータのクリーンアップ
       const deletedCount = await cacheService.cleanup();
@@ -290,9 +290,9 @@ export class DataFetcher {
       // メトリクスの出力
       cacheService.logMetrics();
 
-      console.log('✅ データキャッシュ初期化完了');
+      console.log("✅ データキャッシュ初期化完了");
     } catch (error) {
-      console.error('❌ データキャッシュ初期化エラー:', error);
+      console.error("❌ データキャッシュ初期化エラー:", error);
     }
   }
 
@@ -310,13 +310,13 @@ export class DataFetcher {
     const handleOnline = () => callback(true);
     const handleOffline = () => callback(false);
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     // クリーンアップ関数を返す
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }
 
@@ -325,11 +325,11 @@ export class DataFetcher {
    */
   static async forceRefresh(): Promise<void> {
     try {
-      console.log('🔄 全キャッシュの強制リフレッシュ');
+      console.log("🔄 全キャッシュの強制リフレッシュ");
       await cacheService.clear();
-      console.log('✅ 全キャッシュクリア完了');
+      console.log("✅ 全キャッシュクリア完了");
     } catch (error) {
-      console.error('❌ 強制リフレッシュエラー:', error);
+      console.error("❌ 強制リフレッシュエラー:", error);
     }
   }
 }

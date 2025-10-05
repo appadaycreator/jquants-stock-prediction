@@ -244,9 +244,9 @@ export class JQuantsAuthManager {
   async refreshIdToken(refreshToken: string): Promise<string | null> {
     try {
       const response = await fetch(JQuantsAuthManager.REFRESH_URL, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           refreshtoken: refreshToken,
@@ -254,14 +254,14 @@ export class JQuantsAuthManager {
       });
 
       if (!response.ok) {
-        console.error('リフレッシュトークン更新失敗:', response.status, response.statusText);
+        console.error("リフレッシュトークン更新失敗:", response.status, response.statusText);
         return null;
       }
 
       const data: AuthResponse = await response.json();
       return data.idToken || null;
     } catch (error) {
-      console.error('リフレッシュトークン更新エラー:', error);
+      console.error("リフレッシュトークン更新エラー:", error);
       return null;
     }
   }
@@ -272,9 +272,9 @@ export class JQuantsAuthManager {
   async getNewTokens(email: string, password: string): Promise<AuthTokens | null> {
     try {
       const response = await fetch(JQuantsAuthManager.AUTH_URL, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           mailaddress: email,
@@ -283,7 +283,7 @@ export class JQuantsAuthManager {
       });
 
       if (!response.ok) {
-        console.error('新規認証失敗:', response.status, response.statusText);
+        console.error("新規認証失敗:", response.status, response.statusText);
         return null;
       }
 
@@ -298,7 +298,7 @@ export class JQuantsAuthManager {
 
       return null;
     } catch (error) {
-      console.error('新規認証エラー:', error);
+      console.error("新規認証エラー:", error);
       return null;
     }
   }

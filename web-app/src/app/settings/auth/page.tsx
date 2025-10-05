@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
-import { CheckCircle, XCircle, AlertCircle, RefreshCw } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { CheckCircle, XCircle, AlertCircle, RefreshCw } from "lucide-react";
 
 interface AuthStatus {
   status: string;
@@ -45,17 +45,17 @@ export default function AuthSettingsPage() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('/api/auth/status');
+      const response = await fetch("/api/auth/status");
       const data = await response.json();
       
       if (response.ok) {
         setAuthStatus(data);
       } else {
-        setError(data.message || '認証ステータスの取得に失敗しました');
+        setError(data.message || "認証ステータスの取得に失敗しました");
       }
     } catch (err) {
-      setError('認証ステータスの取得中にエラーが発生しました');
-      console.error('Auth status fetch error:', err);
+      setError("認証ステータスの取得中にエラーが発生しました");
+      console.error("Auth status fetch error:", err);
     } finally {
       setLoading(false);
     }
@@ -67,10 +67,10 @@ export default function AuthSettingsPage() {
       setError(null);
       setRefreshResult(null);
       
-      const response = await fetch('/api/auth/refresh', {
-        method: 'POST',
+      const response = await fetch("/api/auth/refresh", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       
@@ -82,8 +82,8 @@ export default function AuthSettingsPage() {
         await fetchAuthStatus();
       }
     } catch (err) {
-      setError('トークン更新中にエラーが発生しました');
-      console.error('Token refresh error:', err);
+      setError("トークン更新中にエラーが発生しました");
+      console.error("Token refresh error:", err);
     } finally {
       setRefreshing(false);
     }
@@ -103,8 +103,8 @@ export default function AuthSettingsPage() {
 
   const getStatusBadge = (isValid: boolean) => {
     return (
-      <Badge variant={isValid ? 'default' : 'destructive'}>
-        {isValid ? '設定済み' : '未設定'}
+      <Badge variant={isValid ? "default" : "destructive"}>
+        {isValid ? "設定済み" : "未設定"}
       </Badge>
     );
   };
@@ -131,7 +131,7 @@ export default function AuthSettingsPage() {
         </div>
         <div className="flex gap-2">
           <Button onClick={fetchAuthStatus} disabled={loading}>
-            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             ステータス更新
           </Button>
           <Button 
@@ -139,7 +139,7 @@ export default function AuthSettingsPage() {
             disabled={refreshing || loading}
             variant="outline"
           >
-            <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? "animate-spin" : ""}`} />
             トークン更新
           </Button>
         </div>
@@ -153,7 +153,7 @@ export default function AuthSettingsPage() {
       )}
 
       {refreshResult && (
-        <Alert variant={refreshResult.status === 'success' ? 'default' : 'destructive'}>
+        <Alert variant={refreshResult.status === "success" ? "default" : "destructive"}>
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
             <div className="space-y-2">
@@ -193,7 +193,7 @@ export default function AuthSettingsPage() {
                 認証ステータス
               </CardTitle>
               <CardDescription>
-                最終更新: {new Date(authStatus.timestamp).toLocaleString('ja-JP')}
+                最終更新: {new Date(authStatus.timestamp).toLocaleString("ja-JP")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">

@@ -2,7 +2,7 @@
  * ポップオーバーコンポーネント
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
 interface PopoverProps {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ interface PopoverProps {
   className?: string;
 }
 
-export function Popover({ children, content, className = '' }: PopoverProps) {
+export function Popover({ children, content, className = "" }: PopoverProps) {
   const [isOpen, setIsOpen] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -21,9 +21,9 @@ export function Popover({ children, content, className = '' }: PopoverProps) {
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -55,7 +55,7 @@ interface PopoverContentProps {
   className?: string;
 }
 
-export function PopoverContent({ children, className = '' }: PopoverContentProps) {
+export function PopoverContent({ children, className = "" }: PopoverContentProps) {
   return (
     <div className={`popover-content ${className}`}>
       {children}

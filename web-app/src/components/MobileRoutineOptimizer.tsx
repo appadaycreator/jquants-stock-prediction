@@ -13,7 +13,7 @@ import {
   Bell,
   TrendingUp,
   Target,
-  BarChart3
+  BarChart3,
 } from "lucide-react";
 
 interface MobileRoutineOptimizerProps {
@@ -135,16 +135,16 @@ export default function MobileRoutineOptimizer({
 
   // ハプティックフィードバック
   const triggerHapticFeedback = useCallback(() => {
-    if (optimization.hapticFeedback && 'vibrate' in navigator) {
+    if (optimization.hapticFeedback && "vibrate" in navigator) {
       navigator.vibrate(50);
     }
   }, [optimization.hapticFeedback]);
 
   // 音声ガイダンス
   const speakText = useCallback((text: string) => {
-    if (optimization.voiceGuidance && 'speechSynthesis' in window) {
+    if (optimization.voiceGuidance && "speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ja-JP';
+      utterance.lang = "ja-JP";
       utterance.rate = 0.9;
       speechSynthesis.speak(utterance);
     }
@@ -177,7 +177,7 @@ export default function MobileRoutineOptimizer({
         
         // ステップ完了
         setSteps(prev => prev.map((s, index) => 
-          index === i ? { ...s, completed: true } : s
+          index === i ? { ...s, completed: true } : s,
         ));
         
         // 進捗更新
@@ -191,7 +191,7 @@ export default function MobileRoutineOptimizer({
         if (optimization.autoScroll) {
           setTimeout(() => {
             const stepElement = document.getElementById(`step-${i}`);
-            stepElement?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            stepElement?.scrollIntoView({ behavior: "smooth", block: "center" });
           }, 100);
         }
       }
@@ -332,19 +332,19 @@ export default function MobileRoutineOptimizer({
             id={`step-${index}`}
             className={`p-4 rounded-lg border-2 transition-all duration-200 ${
               step.completed
-                ? 'border-green-200 bg-green-50'
+                ? "border-green-200 bg-green-50"
                 : index === currentStep && isRoutineRunning
-                ? 'border-blue-200 bg-blue-50'
-                : 'border-gray-200 bg-white'
+                ? "border-blue-200 bg-blue-50"
+                : "border-gray-200 bg-white"
             }`}
           >
             <div className="flex items-start gap-3">
               <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                 step.completed
-                  ? 'bg-green-100 text-green-600'
+                  ? "bg-green-100 text-green-600"
                   : index === currentStep && isRoutineRunning
-                  ? 'bg-blue-100 text-blue-600'
-                  : 'bg-gray-100 text-gray-600'
+                  ? "bg-blue-100 text-blue-600"
+                  : "bg-gray-100 text-gray-600"
               }`}>
                 {step.completed ? (
                   <CheckCircle className="h-4 w-4" />

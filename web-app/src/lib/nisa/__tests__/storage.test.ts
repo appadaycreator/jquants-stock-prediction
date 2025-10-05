@@ -2,14 +2,14 @@
  * 新NISA枠管理機能のストレージ管理テスト
  */
 
-import { NisaStorageManager } from '../storage';
-import { NisaData, NisaTransaction, QuotaType, TransactionType } from '../types';
+import { NisaStorageManager } from "../storage";
+import { NisaData, NisaTransaction, QuotaType, TransactionType } from "../types";
 
 // モックデータ
 const mockData: NisaData = {
   userProfile: {
-    userId: 'test-user',
-    startDate: '2024-01-01',
+    userId: "test-user",
+    startDate: "2024-01-01",
     taxYear: 2024,
     preferences: {
       autoRebalancing: false,
@@ -23,8 +23,8 @@ const mockData: NisaData = {
         push: false,
       },
     },
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
+    createdAt: "2024-01-01T00:00:00Z",
+    updatedAt: "2024-01-01T00:00:00Z",
   },
   quotas: {
     growthInvestment: {
@@ -55,7 +55,7 @@ const mockData: NisaData = {
     unrealizedProfitLoss: 0,
     realizedProfitLoss: 0,
     taxFreeProfitLoss: 0,
-    lastUpdated: '2024-01-01T00:00:00Z',
+    lastUpdated: "2024-01-01T00:00:00Z",
   },
   settings: {
     autoRebalancing: false,
@@ -69,21 +69,21 @@ const mockData: NisaData = {
       push: false,
     },
   },
-  lastUpdated: '2024-01-01T00:00:00Z',
+  lastUpdated: "2024-01-01T00:00:00Z",
 };
 
-const mockTransaction: Omit<NisaTransaction, 'id' | 'createdAt' | 'updatedAt'> = {
-  type: 'BUY',
-  symbol: '7203',
-  symbolName: 'トヨタ自動車',
+const mockTransaction: Omit<NisaTransaction, "id" | "createdAt" | "updatedAt"> = {
+  type: "BUY",
+  symbol: "7203",
+  symbolName: "トヨタ自動車",
   quantity: 100,
   price: 2500,
   amount: 250_000,
-  quotaType: 'GROWTH',
-  transactionDate: '2024-01-15',
+  quotaType: "GROWTH",
+  transactionDate: "2024-01-15",
 };
 
-describe('NisaStorageManager', () => {
+describe("NisaStorageManager", () => {
   let storage: NisaStorageManager;
 
   beforeEach(() => {
@@ -96,13 +96,13 @@ describe('NisaStorageManager', () => {
     localStorage.clear();
   });
 
-  describe('データの保存と読み込み', () => {
-    it('データを保存できる', async () => {
+  describe("データの保存と読み込み", () => {
+    it("データを保存できる", async () => {
       const result = await storage.saveData(mockData);
       expect(result).toBe(true);
     });
 
-    it('保存したデータを読み込める', async () => {
+    it("保存したデータを読み込める", async () => {
       await storage.saveData(mockData);
       const loadedData = await storage.loadData();
       
@@ -111,25 +111,25 @@ describe('NisaStorageManager', () => {
       expect(loadedData?.quotas.growthInvestment.annualLimit).toBe(mockData.quotas.growthInvestment.annualLimit);
     });
 
-    it('データが存在しない場合はnullを返す', async () => {
+    it("データが存在しない場合はnullを返す", async () => {
       const loadedData = await storage.loadData();
       expect(loadedData).toBeNull();
     });
   });
 
-  describe('取引記録の管理', () => {
+  describe("取引記録の管理", () => {
     beforeEach(async () => {
       await storage.saveData(mockData);
     });
 
-    it('取引記録を追加できる', async () => {
+    it("取引記録を追加できる", async () => {
       const result = await storage.addTransaction(mockTransaction);
       
       expect(result.isValid).toBe(true);
       expect(result.errors).toHaveLength(0);
     });
 
-    it('追加した取引記録が保存される', async () => {
+    it("追加した取引記録が保存される", async () => {
       await storage.addTransaction(mockTransaction);
       const loadedData = await storage.loadData();
       
@@ -138,7 +138,7 @@ describe('NisaStorageManager', () => {
       expect(loadedData?.transactions[0].amount).toBe(mockTransaction.amount);
     });
 
-    it('取引記録を更新できる', async () => {
+    it("取引記録を更新できる", async () => {
       await storage.addTransaction(mockTransaction);
       const loadedData = await storage.loadData();
       const transaction = loadedData?.transactions[0];
@@ -158,7 +158,7 @@ describe('NisaStorageManager', () => {
       expect(updatedTransaction?.amount).toBe(500_000);
     });
 
-    it('取引記録を削除できる', async () => {
+    it("取引記録を削除できる", async () => {
       await storage.addTransaction(mockTransaction);
       const loadedData = await storage.loadData();
       const transaction = loadedData?.transactions[0];
@@ -172,8 +172,8 @@ describe('NisaStorageManager', () => {
       expect(updatedData?.transactions).toHaveLength(0);
     });
 
-    it('存在しない取引の更新は失敗する', async () => {
-      const result = await storage.updateTransaction('non-existent-id', {
+    it("存在しない取引の更新は失敗する", async () => {
+      const result = await storage.updateTransaction("non-existent-id", {
         quantity: 200,
       });
       
@@ -181,20 +181,20 @@ describe('NisaStorageManager', () => {
       expect(result.errors.length).toBeGreaterThan(0);
     });
 
-    it('存在しない取引の削除は失敗する', async () => {
-      const result = await storage.deleteTransaction('non-existent-id');
+    it("存在しない取引の削除は失敗する", async () => {
+      const result = await storage.deleteTransaction("non-existent-id");
       
       expect(result.isValid).toBe(false);
       expect(result.errors.length).toBeGreaterThan(0);
     });
   });
 
-  describe('設定の管理', () => {
+  describe("設定の管理", () => {
     beforeEach(async () => {
       await storage.saveData(mockData);
     });
 
-    it('設定を更新できる', async () => {
+    it("設定を更新できる", async () => {
       const result = await storage.updateSettings({
         autoRebalancing: true,
         alertThresholds: {
@@ -210,7 +210,7 @@ describe('NisaStorageManager', () => {
       expect(loadedData?.settings.alertThresholds.growthWarning).toBe(80);
     });
 
-    it('ユーザープロファイルを更新できる', async () => {
+    it("ユーザープロファイルを更新できる", async () => {
       const result = await storage.updateUserProfile({
         preferences: {
           autoRebalancing: true,
@@ -234,8 +234,8 @@ describe('NisaStorageManager', () => {
     });
   });
 
-  describe('データの整合性チェック', () => {
-    it('正常なデータの整合性チェック', async () => {
+  describe("データの整合性チェック", () => {
+    it("正常なデータの整合性チェック", async () => {
       await storage.saveData(mockData);
       const result = await storage.validateDataIntegrity();
       
@@ -243,9 +243,9 @@ describe('NisaStorageManager', () => {
       expect(result.errors).toHaveLength(0);
     });
 
-    it('無効なデータの整合性チェック', async () => {
+    it("無効なデータの整合性チェック", async () => {
       // 無効なデータを直接保存
-      localStorage.setItem('nisa_data', JSON.stringify({ invalid: true }));
+      localStorage.setItem("nisa_data", JSON.stringify({ invalid: true }));
       const result = await storage.validateDataIntegrity();
       
       expect(result.isValid).toBe(false);
@@ -253,16 +253,16 @@ describe('NisaStorageManager', () => {
     });
   });
 
-  describe('バックアップと復元', () => {
-    it('バックアップを作成できる', async () => {
+  describe("バックアップと復元", () => {
+    it("バックアップを作成できる", async () => {
       await storage.saveData(mockData);
       const backup = await storage.createBackup();
       
       expect(backup).not.toBeNull();
-      expect(backup).toContain('test-user');
+      expect(backup).toContain("test-user");
     });
 
-    it('バックアップから復元できる', async () => {
+    it("バックアップから復元できる", async () => {
       await storage.saveData(mockData);
       const backup = await storage.createBackup();
       
@@ -277,24 +277,24 @@ describe('NisaStorageManager', () => {
       expect(loadedData?.userProfile.userId).toBe(mockData.userProfile.userId);
     });
 
-    it('無効なバックアップの復元は失敗する', async () => {
-      const result = await storage.restoreFromBackup('invalid-json');
+    it("無効なバックアップの復元は失敗する", async () => {
+      const result = await storage.restoreFromBackup("invalid-json");
       
       expect(result.isValid).toBe(false);
       expect(result.errors.length).toBeGreaterThan(0);
     });
   });
 
-  describe('データのエクスポートとインポート', () => {
-    it('データをエクスポートできる', async () => {
+  describe("データのエクスポートとインポート", () => {
+    it("データをエクスポートできる", async () => {
       await storage.saveData(mockData);
       const exportData = await storage.exportData();
       
       expect(exportData).not.toBeNull();
-      expect(exportData).toContain('test-user');
+      expect(exportData).toContain("test-user");
     });
 
-    it('データをインポートできる', async () => {
+    it("データをインポートできる", async () => {
       await storage.saveData(mockData);
       const exportData = await storage.exportData();
       
@@ -309,16 +309,16 @@ describe('NisaStorageManager', () => {
       expect(loadedData?.userProfile.userId).toBe(mockData.userProfile.userId);
     });
 
-    it('無効なデータのインポートは失敗する', async () => {
-      const result = await storage.importData('invalid-json');
+    it("無効なデータのインポートは失敗する", async () => {
+      const result = await storage.importData("invalid-json");
       
       expect(result.isValid).toBe(false);
       expect(result.errors.length).toBeGreaterThan(0);
     });
   });
 
-  describe('データのクリア', () => {
-    it('データをクリアできる', async () => {
+  describe("データのクリア", () => {
+    it("データをクリアできる", async () => {
       await storage.saveData(mockData);
       const result = await storage.clearData();
       

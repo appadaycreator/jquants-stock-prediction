@@ -231,7 +231,7 @@ export default function WatchlistPage() {
                       onClick={() => {
                         // みんかぶのリンクを開く
                         const minkabuUrl = `https://minkabu.jp/stock/${item.symbol}`;
-                        window.open(minkabuUrl, '_blank', 'noopener,noreferrer');
+                        window.open(minkabuUrl, "_blank", "noopener,noreferrer");
                       }}
                       className="text-orange-600 hover:text-orange-800 hover:bg-orange-50"
                     >

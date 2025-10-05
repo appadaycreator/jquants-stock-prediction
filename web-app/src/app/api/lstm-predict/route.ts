@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { spawn } from 'child_process';
-import path from 'path';
-import fs from 'fs';
+import { NextRequest, NextResponse } from "next/server";
+import { spawn } from "child_process";
+import path from "path";
+import fs from "fs";
 
 interface LSTMPredictionRequest {
   symbol: string;
@@ -15,22 +15,22 @@ export async function POST(request: NextRequest) {
 
     if (!symbol) {
       return NextResponse.json(
-        { error: '銘柄コードが必要です' },
-        { status: 400 }
+        { error: "銘柄コードが必要です" },
+        { status: 400 },
       );
     }
 
     // Pythonスクリプトの実行
-    const projectRoot = path.join(process.cwd(), '..');
-    const pythonScript = path.join(projectRoot, 'core', 'lstm_predictor.py');
-    const venvPython = path.join(projectRoot, 'venv', 'bin', 'python3');
+    const projectRoot = path.join(process.cwd(), "..");
+    const pythonScript = path.join(projectRoot, "core", "lstm_predictor.py");
+    const venvPython = path.join(projectRoot, "venv", "bin", "python3");
     
     // 仮想環境のPythonが存在するかチェック
-    const pythonPath = fs.existsSync(venvPython) ? venvPython : 'python3';
+    const pythonPath = fs.existsSync(venvPython) ? venvPython : "python3";
 
     return new Promise((resolve) => {
       const pythonProcess = spawn(pythonPath, [
-        '-c',
+        "-c",
         `
 import sys
 import os
@@ -147,70 +147,70 @@ except Exception as e:
         'type': 'LSTM_PREDICTION_ERROR'
     }, ensure_ascii=False))
     sys.exit(1)
-        `
+        `,
       ]);
 
-      let output = '';
-      let errorOutput = '';
+      let output = "";
+      let errorOutput = "";
 
-      pythonProcess.stdout.on('data', (data) => {
+      pythonProcess.stdout.on("data", (data) => {
         output += data.toString();
       });
 
-      pythonProcess.stderr.on('data', (data) => {
+      pythonProcess.stderr.on("data", (data) => {
         errorOutput += data.toString();
       });
 
-      pythonProcess.on('close', (code) => {
+      pythonProcess.on("close", (code) => {
         if (code === 0) {
           try {
             const result = JSON.parse(output);
             resolve(NextResponse.json(result));
           } catch (parseError) {
-            console.error('JSON解析エラー:', parseError);
-            console.error('出力:', output);
+            console.error("JSON解析エラー:", parseError);
+            console.error("出力:", output);
             resolve(NextResponse.json(
               { 
-                error: '予測結果の解析に失敗しました',
+                error: "予測結果の解析に失敗しました",
                 details: output,
-                parseError: parseError.message
+                parseError: parseError.message,
               },
-              { status: 500 }
+              { status: 500 },
             ));
           }
         } else {
-          console.error('Python実行エラー:', errorOutput);
+          console.error("Python実行エラー:", errorOutput);
           resolve(NextResponse.json(
             { 
-              error: 'LSTM予測の実行に失敗しました',
+              error: "LSTM予測の実行に失敗しました",
               details: errorOutput,
-              exitCode: code
+              exitCode: code,
             },
-            { status: 500 }
+            { status: 500 },
           ));
         }
       });
 
-      pythonProcess.on('error', (error) => {
-        console.error('Pythonプロセスエラー:', error);
+      pythonProcess.on("error", (error) => {
+        console.error("Pythonプロセスエラー:", error);
         resolve(NextResponse.json(
           { 
-            error: 'Pythonプロセスの起動に失敗しました',
-            details: error.message
+            error: "Pythonプロセスの起動に失敗しました",
+            details: error.message,
           },
-          { status: 500 }
+          { status: 500 },
         ));
       });
     });
 
   } catch (error) {
-    console.error('LSTM予測APIエラー:', error);
+    console.error("LSTM予測APIエラー:", error);
     return NextResponse.json(
       { 
-        error: 'LSTM予測APIでエラーが発生しました',
-        details: error instanceof Error ? error.message : 'Unknown error'
+        error: "LSTM予測APIでエラーが発生しました",
+        details: error instanceof Error ? error.message : "Unknown error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

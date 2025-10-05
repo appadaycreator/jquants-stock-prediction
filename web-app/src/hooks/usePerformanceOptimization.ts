@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from "react";
 
 interface PerformanceMetrics {
   renderTime: number;
@@ -22,7 +22,7 @@ export function usePerformanceOptimization() {
     renderTime: 0,
     memoryUsage: 0,
     fps: 60,
-    isSlowDevice: false
+    isSlowDevice: false,
   });
 
   const [config, setConfig] = useState<OptimizationConfig>({
@@ -30,7 +30,7 @@ export function usePerformanceOptimization() {
     enableLazyLoading: true,
     enableDebouncing: true,
     debounceDelay: 300,
-    maxConcurrentRequests: 3
+    maxConcurrentRequests: 3,
   });
 
   const frameCountRef = useRef(0);
@@ -47,7 +47,7 @@ export function usePerformanceOptimization() {
 
       setMetrics(prev => ({
         ...prev,
-        isSlowDevice
+        isSlowDevice,
       }));
 
       // 設定の調整
@@ -57,7 +57,7 @@ export function usePerformanceOptimization() {
           enableVirtualization: true,
           enableLazyLoading: true,
           debounceDelay: 500,
-          maxConcurrentRequests: 2
+          maxConcurrentRequests: 2,
         }));
       }
     };
@@ -75,7 +75,7 @@ export function usePerformanceOptimization() {
       
       setMetrics(prev => ({
         ...prev,
-        fps
+        fps,
       }));
 
       frameCountRef.current = 0;
@@ -98,13 +98,13 @@ export function usePerformanceOptimization() {
   // メモリ使用量の監視
   useEffect(() => {
     const measureMemory = () => {
-      if ('memory' in performance) {
+      if ("memory" in performance) {
         const memory = (performance as any).memory;
         const memoryUsage = memory.usedJSHeapSize / 1024 / 1024; // MB
         
         setMetrics(prev => ({
           ...prev,
-          memoryUsage
+          memoryUsage,
         }));
       }
     };
@@ -121,14 +121,14 @@ export function usePerformanceOptimization() {
     
     setMetrics(prev => ({
       ...prev,
-      renderTime: end - start
+      renderTime: end - start,
     }));
   }, []);
 
   // デバウンス機能
   const debounce = useCallback(<T extends (...args: any[]) => void>(
     func: T,
-    delay: number = config.debounceDelay
+    delay: number = config.debounceDelay,
   ): T => {
     let timeoutId: NodeJS.Timeout;
     
@@ -141,7 +141,7 @@ export function usePerformanceOptimization() {
   // スロットリング機能
   const throttle = useCallback(<T extends (...args: any[]) => void>(
     func: T,
-    delay: number = 100
+    delay: number = 100,
   ): T => {
     let lastCall = 0;
     
@@ -159,13 +159,13 @@ export function usePerformanceOptimization() {
     totalItems: number,
     containerHeight: number,
     itemHeight: number,
-    scrollTop: number
+    scrollTop: number,
   ) => {
     if (!config.enableVirtualization) {
       return {
         startIndex: 0,
         endIndex: totalItems - 1,
-        visibleItems: totalItems
+        visibleItems: totalItems,
       };
     }
 
@@ -176,13 +176,13 @@ export function usePerformanceOptimization() {
     return {
       startIndex,
       endIndex,
-      visibleItems: endIndex - startIndex + 1
+      visibleItems: endIndex - startIndex + 1,
     };
   }, [config.enableVirtualization]);
 
   // 遅延読み込み
   const useLazyLoading = useCallback((
-    threshold: number = 0.1
+    threshold: number = 0.1,
   ) => {
     const [isVisible, setIsVisible] = useState(false);
     const [hasLoaded, setHasLoaded] = useState(false);
@@ -199,7 +199,7 @@ export function usePerformanceOptimization() {
             observer.disconnect();
           }
         },
-        { threshold }
+        { threshold },
       );
 
       if (elementRef.current) {
@@ -215,9 +215,9 @@ export function usePerformanceOptimization() {
   // 画像の遅延読み込み
   const useLazyImage = useCallback((
     src: string,
-    placeholder?: string
+    placeholder?: string,
   ) => {
-    const [imageSrc, setImageSrc] = useState(placeholder || '');
+    const [imageSrc, setImageSrc] = useState(placeholder || "");
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
@@ -248,15 +248,15 @@ export function usePerformanceOptimization() {
     const warnings: string[] = [];
 
     if (metrics.fps < 30) {
-      warnings.push('低いFPSが検出されました');
+      warnings.push("低いFPSが検出されました");
     }
 
     if (metrics.memoryUsage > 100) {
-      warnings.push('メモリ使用量が高いです');
+      warnings.push("メモリ使用量が高いです");
     }
 
     if (metrics.renderTime > 16) {
-      warnings.push('レンダリング時間が長いです');
+      warnings.push("レンダリング時間が長いです");
     }
 
     return warnings;
@@ -267,15 +267,15 @@ export function usePerformanceOptimization() {
     const recommendations: string[] = [];
 
     if (metrics.isSlowDevice) {
-      recommendations.push('デバイス性能が低いため、仮想化を有効にしています');
+      recommendations.push("デバイス性能が低いため、仮想化を有効にしています");
     }
 
     if (metrics.fps < 45) {
-      recommendations.push('アニメーションを減らすことを推奨します');
+      recommendations.push("アニメーションを減らすことを推奨します");
     }
 
     if (metrics.memoryUsage > 80) {
-      recommendations.push('メモリ使用量を減らすため、不要なデータをクリアしてください');
+      recommendations.push("メモリ使用量を減らすため、不要なデータをクリアしてください");
     }
 
     return recommendations;
@@ -292,6 +292,6 @@ export function usePerformanceOptimization() {
     useLazyLoading,
     useLazyImage,
     getPerformanceWarnings,
-    getOptimizationRecommendations
+    getOptimizationRecommendations,
   };
 }

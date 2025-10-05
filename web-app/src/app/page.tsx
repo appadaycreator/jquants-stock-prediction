@@ -35,9 +35,9 @@ export default function LandingPage() {
       try {
         await cacheInitializer.initialize();
         setCacheReady(true);
-        console.log('✅ キャッシュシステム準備完了');
+        console.log("✅ キャッシュシステム準備完了");
       } catch (error) {
-        console.error('❌ キャッシュシステム初期化エラー:', error);
+        console.error("❌ キャッシュシステム初期化エラー:", error);
         setCacheReady(true); // エラーでもアプリは続行
       }
     };
@@ -277,7 +277,7 @@ export default function LandingPage() {
           window.location.reload();
         }}
         onGoToSettings={() => {
-          window.location.href = '/settings';
+          window.location.href = "/settings";
         }}
       />
       </div>

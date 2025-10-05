@@ -2,19 +2,19 @@
  * 財務指標計算機能のテスト
  */
 
-import { FinancialCalculator } from '../calculator';
-import { FinancialData } from '../types';
+import { FinancialCalculator } from "../calculator";
+import { FinancialData } from "../types";
 
-describe('FinancialCalculator', () => {
+describe("FinancialCalculator", () => {
   let calculator: FinancialCalculator;
   let sampleData: FinancialData;
 
   beforeEach(() => {
     calculator = new FinancialCalculator();
     sampleData = {
-      symbol: 'TEST',
-      companyName: 'テスト企業',
-      industry: '電気機器',
+      symbol: "TEST",
+      companyName: "テスト企業",
+      industry: "電気機器",
       fiscalYear: 2024,
       incomeStatement: {
         revenue: 1000000000,      // 10億円
@@ -44,8 +44,8 @@ describe('FinancialCalculator', () => {
     };
   });
 
-  describe('calculateMetrics', () => {
-    it('収益性指標を正しく計算する', () => {
+  describe("calculateMetrics", () => {
+    it("収益性指標を正しく計算する", () => {
       const metrics = calculator.calculateMetrics(sampleData);
       
       // ROE計算: 当期純利益 / 自己資本 × 100
@@ -58,7 +58,7 @@ describe('FinancialCalculator', () => {
       expect(metrics.profitability.profitMargin).toBeCloseTo(8, 1); // 8000万 / 10億 × 100 = 8%
     });
 
-    it('市場評価指標を正しく計算する', () => {
+    it("市場評価指標を正しく計算する", () => {
       const metrics = calculator.calculateMetrics(sampleData);
       
       // PER計算: 株価 / 1株当たり純利益
@@ -71,7 +71,7 @@ describe('FinancialCalculator', () => {
       expect(metrics.marketValuation.psr).toBeCloseTo(15, 1); // 150億 / 10億 = 15
     });
 
-    it('安全性指標を正しく計算する', () => {
+    it("安全性指標を正しく計算する", () => {
       const metrics = calculator.calculateMetrics(sampleData);
       
       // 自己資本比率計算: 自己資本 / 総資産 × 100
@@ -84,7 +84,7 @@ describe('FinancialCalculator', () => {
       expect(metrics.safety.quickRatio).toBeCloseTo(150, 1); // 6億 / 4億 × 100 = 150%
     });
 
-    it('成長性指標を正しく計算する', () => {
+    it("成長性指標を正しく計算する", () => {
       const metrics = calculator.calculateMetrics(sampleData);
       
       // 売上高成長率計算: (当期売上高 - 前期売上高) / 前期売上高 × 100
@@ -98,8 +98,8 @@ describe('FinancialCalculator', () => {
     });
   });
 
-  describe('calculateHealthScore', () => {
-    it('財務健全性スコアを正しく計算する', () => {
+  describe("calculateHealthScore", () => {
+    it("財務健全性スコアを正しく計算する", () => {
       const metrics = calculator.calculateMetrics(sampleData);
       const healthScore = calculator.calculateHealthScore(metrics);
       
@@ -111,40 +111,40 @@ describe('FinancialCalculator', () => {
       expect(healthScore.growthScore).toBeGreaterThan(0);
     });
 
-    it('グレードを正しく判定する', () => {
+    it("グレードを正しく判定する", () => {
       const metrics = calculator.calculateMetrics(sampleData);
       const healthScore = calculator.calculateHealthScore(metrics);
       
-      expect(['A+', 'A', 'B+', 'B', 'C+', 'C', 'D', 'F']).toContain(healthScore.grade);
+      expect(["A+", "A", "B+", "B", "C+", "C", "D", "F"]).toContain(healthScore.grade);
     });
 
-    it('投資推奨を正しく判定する', () => {
+    it("投資推奨を正しく判定する", () => {
       const metrics = calculator.calculateMetrics(sampleData);
       const healthScore = calculator.calculateHealthScore(metrics);
       
-      expect(['Strong Buy', 'Buy', 'Hold', 'Sell', 'Strong Sell']).toContain(healthScore.recommendation);
+      expect(["Strong Buy", "Buy", "Hold", "Sell", "Strong Sell"]).toContain(healthScore.recommendation);
     });
 
-    it('リスクレベルを正しく判定する', () => {
+    it("リスクレベルを正しく判定する", () => {
       const metrics = calculator.calculateMetrics(sampleData);
       const healthScore = calculator.calculateHealthScore(metrics);
       
-      expect(['Low', 'Medium', 'High']).toContain(healthScore.riskLevel);
+      expect(["Low", "Medium", "High"]).toContain(healthScore.riskLevel);
     });
   });
 
-  describe('validateData', () => {
-    it('有効なデータを正しく検証する', () => {
+  describe("validateData", () => {
+    it("有効なデータを正しく検証する", () => {
       const validation = calculator.validateData(sampleData);
       
       expect(validation.isValid).toBe(true);
       expect(validation.errors).toHaveLength(0);
     });
 
-    it('無効なデータを正しく検証する', () => {
+    it("無効なデータを正しく検証する", () => {
       const invalidData = {
         ...sampleData,
-        symbol: '',
+        symbol: "",
         incomeStatement: {
           ...sampleData.incomeStatement,
           revenue: 0,
@@ -157,7 +157,7 @@ describe('FinancialCalculator', () => {
       expect(validation.errors.length).toBeGreaterThan(0);
     });
 
-    it('警告を正しく検出する', () => {
+    it("警告を正しく検出する", () => {
       const warningData = {
         ...sampleData,
         incomeStatement: {
@@ -172,8 +172,8 @@ describe('FinancialCalculator', () => {
     });
   });
 
-  describe('calculateAll', () => {
-    it('完全な計算結果を正しく生成する', () => {
+  describe("calculateAll", () => {
+    it("完全な計算結果を正しく生成する", () => {
       const result = calculator.calculateAll(sampleData);
       
       expect(result.metrics).toBeDefined();
@@ -183,8 +183,8 @@ describe('FinancialCalculator', () => {
     });
   });
 
-  describe('エラーハンドリング', () => {
-    it('ゼロ除算を正しく処理する', () => {
+  describe("エラーハンドリング", () => {
+    it("ゼロ除算を正しく処理する", () => {
       const zeroData = {
         ...sampleData,
         balanceSheet: {
@@ -198,7 +198,7 @@ describe('FinancialCalculator', () => {
       expect(metrics.profitability.roe).toBe(0);
     });
 
-    it('無効なデータを正しく処理する', () => {
+    it("無効なデータを正しく処理する", () => {
       const invalidData = {
         ...sampleData,
         incomeStatement: {

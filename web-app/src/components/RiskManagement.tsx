@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { AlertTriangle, TrendingDown, Shield, Target, Download, Calendar } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { AlertTriangle, TrendingDown, Shield, Target, Download, Calendar } from "lucide-react";
 
 interface RiskMetrics {
   var95: number;
@@ -33,7 +33,7 @@ export const RiskManagement: React.FC<RiskManagementProps> = ({
   portfolioRisk,
   isLoading = false,
   error,
-  onRiskToleranceChange
+  onRiskToleranceChange,
 }) => {
   const [riskTolerance, setRiskTolerance] = useState(portfolioRisk?.riskTolerance || 0.15);
   const [showRecommendations, setShowRecommendations] = useState(false);
@@ -44,15 +44,15 @@ export const RiskManagement: React.FC<RiskManagementProps> = ({
   };
 
   const getRiskLevel = (risk: number) => {
-    if (risk < 0.1) return { level: 'Low', color: 'text-green-600 bg-green-100' };
-    if (risk < 0.2) return { level: 'Medium', color: 'text-yellow-600 bg-yellow-100' };
-    return { level: 'High', color: 'text-red-600 bg-red-100' };
+    if (risk < 0.1) return { level: "Low", color: "text-green-600 bg-green-100" };
+    if (risk < 0.2) return { level: "Medium", color: "text-yellow-600 bg-yellow-100" };
+    return { level: "High", color: "text-red-600 bg-red-100" };
   };
 
   const getRiskColor = (risk: number) => {
-    if (risk < 0.1) return 'text-green-600';
-    if (risk < 0.2) return 'text-yellow-600';
-    return 'text-red-600';
+    if (risk < 0.1) return "text-green-600";
+    if (risk < 0.2) return "text-yellow-600";
+    return "text-red-600";
   };
 
   if (isLoading) {
@@ -137,7 +137,7 @@ export const RiskManagement: React.FC<RiskManagementProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600">VaR (95%)</p>
               <p className="text-2xl font-bold text-red-600">
-                -{riskMetrics?.var95?.toFixed(2) || '--'}%
+                -{riskMetrics?.var95?.toFixed(2) || "--"}%
               </p>
             </div>
             <AlertTriangle className="w-8 h-8 text-red-500" />
@@ -152,7 +152,7 @@ export const RiskManagement: React.FC<RiskManagementProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600">最大ドローダウン</p>
               <p className="text-2xl font-bold text-orange-600">
-                -{riskMetrics?.maxDrawdown?.toFixed(2) || '--'}%
+                -{riskMetrics?.maxDrawdown?.toFixed(2) || "--"}%
               </p>
             </div>
             <TrendingDown className="w-8 h-8 text-orange-500" />
@@ -167,7 +167,7 @@ export const RiskManagement: React.FC<RiskManagementProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600">ボラティリティ</p>
               <p className="text-2xl font-bold text-blue-600">
-                {riskMetrics?.volatility?.toFixed(2) || '--'}%
+                {riskMetrics?.volatility?.toFixed(2) || "--"}%
               </p>
             </div>
             <Shield className="w-8 h-8 text-blue-500" />
@@ -182,7 +182,7 @@ export const RiskManagement: React.FC<RiskManagementProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600">シャープレシオ</p>
               <p className="text-2xl font-bold text-green-600">
-                {riskMetrics?.sharpeRatio?.toFixed(2) || '--'}
+                {riskMetrics?.sharpeRatio?.toFixed(2) || "--"}
               </p>
             </div>
             <Target className="w-8 h-8 text-green-500" />
@@ -197,7 +197,7 @@ export const RiskManagement: React.FC<RiskManagementProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600">ベータ</p>
               <p className="text-2xl font-bold text-purple-600">
-                {riskMetrics?.beta?.toFixed(2) || '--'}
+                {riskMetrics?.beta?.toFixed(2) || "--"}
               </p>
             </div>
             <TrendingDown className="w-8 h-8 text-purple-500" />
@@ -244,7 +244,7 @@ export const RiskManagement: React.FC<RiskManagementProps> = ({
                 onClick={() => setShowRecommendations(!showRecommendations)}
                 className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
               >
-                {showRecommendations ? '推奨事項を隠す' : '推奨事項を表示'}
+                {showRecommendations ? "推奨事項を隠す" : "推奨事項を表示"}
               </button>
             </div>
           </div>
@@ -272,7 +272,7 @@ export const RiskManagement: React.FC<RiskManagementProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="text-center p-4 bg-gray-50 rounded-lg">
             <div className="text-lg font-bold text-gray-900">
-              -{riskMetrics?.var95?.toFixed(1) || '--'}%
+              -{riskMetrics?.var95?.toFixed(1) || "--"}%
             </div>
             <div className="text-sm text-gray-600">通常市場</div>
             <div className="text-xs text-gray-500">95%の確率</div>

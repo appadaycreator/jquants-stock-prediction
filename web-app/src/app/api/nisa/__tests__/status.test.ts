@@ -2,11 +2,11 @@
  * 新NISA枠状況取得APIのテスト
  */
 
-import { GET } from '../status/route';
-import { NextRequest } from 'next/server';
+import { GET } from "../status/route";
+import { NextRequest } from "next/server";
 
 // モック
-jest.mock('@/lib/nisa', () => ({
+jest.mock("@/lib/nisa", () => ({
   NisaManager: jest.fn().mockImplementation(() => ({
     initialize: jest.fn().mockResolvedValue(true),
     getCalculationResult: jest.fn().mockResolvedValue({
@@ -38,7 +38,7 @@ jest.mock('@/lib/nisa', () => ({
         unrealizedProfitLoss: 10_000,
         realizedProfitLoss: 0,
         taxFreeProfitLoss: 10_000,
-        lastUpdated: '2024-01-15T10:00:00Z',
+        lastUpdated: "2024-01-15T10:00:00Z",
       },
       alerts: [],
       opportunities: [],
@@ -46,9 +46,9 @@ jest.mock('@/lib/nisa', () => ({
   })),
 }));
 
-describe('/api/nisa/status', () => {
-  it('正常なレスポンスを返す', async () => {
-    const request = new NextRequest('http://localhost:3000/api/nisa/status');
+describe("/api/nisa/status", () => {
+  it("正常なレスポンスを返す", async () => {
+    const request = new NextRequest("http://localhost:3000/api/nisa/status");
     const response = await GET(request);
     const data = await response.json();
 
@@ -61,37 +61,37 @@ describe('/api/nisa/status', () => {
     expect(data.data.opportunities).toBeDefined();
   });
 
-  it('データが見つからない場合は404を返す', async () => {
+  it("データが見つからない場合は404を返す", async () => {
     // モックを変更
-    const { NisaManager } = require('@/lib/nisa');
+    const { NisaManager } = require("@/lib/nisa");
     NisaManager.mockImplementation(() => ({
       initialize: jest.fn().mockResolvedValue(true),
       getCalculationResult: jest.fn().mockResolvedValue(null),
     }));
 
-    const request = new NextRequest('http://localhost:3000/api/nisa/status');
+    const request = new NextRequest("http://localhost:3000/api/nisa/status");
     const response = await GET(request);
     const data = await response.json();
 
     expect(response.status).toBe(404);
     expect(data.success).toBe(false);
-    expect(data.error.code).toBe('DATA_NOT_FOUND');
+    expect(data.error.code).toBe("DATA_NOT_FOUND");
   });
 
-  it('エラー時は500を返す', async () => {
+  it("エラー時は500を返す", async () => {
     // モックを変更
-    const { NisaManager } = require('@/lib/nisa');
+    const { NisaManager } = require("@/lib/nisa");
     NisaManager.mockImplementation(() => ({
-      initialize: jest.fn().mockRejectedValue(new Error('Test error')),
-      getCalculationResult: jest.fn().mockRejectedValue(new Error('Test error')),
+      initialize: jest.fn().mockRejectedValue(new Error("Test error")),
+      getCalculationResult: jest.fn().mockRejectedValue(new Error("Test error")),
     }));
 
-    const request = new NextRequest('http://localhost:3000/api/nisa/status');
+    const request = new NextRequest("http://localhost:3000/api/nisa/status");
     const response = await GET(request);
     const data = await response.json();
 
     expect(response.status).toBe(500);
     expect(data.success).toBe(false);
-    expect(data.error.code).toBe('INTERNAL_ERROR');
+    expect(data.error.code).toBe("INTERNAL_ERROR");
   });
 });

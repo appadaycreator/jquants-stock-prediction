@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
-import { TrendingUp, TrendingDown, AlertTriangle, Target, Shield } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
+import { TrendingUp, TrendingDown, AlertTriangle, Target, Shield } from "lucide-react";
 
 interface LSTMPrediction {
   predictions: number[];
@@ -45,7 +45,7 @@ export function PersonalInvestmentLSTM({
   symbol, 
   symbolName, 
   currentPrice, 
-  onPredictionComplete 
+  onPredictionComplete, 
 }: PersonalInvestmentLSTMProps) {
   const [prediction, setPrediction] = useState<LSTMPrediction | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -57,19 +57,19 @@ export function PersonalInvestmentLSTM({
     setError(null);
     
     try {
-      const response = await fetch('/api/lstm-predict', {
-        method: 'POST',
+      const response = await fetch("/api/lstm-predict", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           symbol,
-          prediction_days: predictionDays
+          prediction_days: predictionDays,
         }),
       });
 
       if (!response.ok) {
-        throw new Error('LSTM予測の実行に失敗しました');
+        throw new Error("LSTM予測の実行に失敗しました");
       }
 
       const result = await response.json();
@@ -79,7 +79,7 @@ export function PersonalInvestmentLSTM({
         onPredictionComplete(result);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : '予測実行中にエラーが発生しました');
+      setError(err instanceof Error ? err.message : "予測実行中にエラーが発生しました");
     } finally {
       setIsLoading(false);
     }
@@ -87,23 +87,23 @@ export function PersonalInvestmentLSTM({
 
   const getRiskColor = (riskLevel: string) => {
     switch (riskLevel) {
-      case '低': return 'bg-green-100 text-green-800';
-      case '中': return 'bg-yellow-100 text-yellow-800';
-      case '高': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case "低": return "bg-green-100 text-green-800";
+      case "中": return "bg-yellow-100 text-yellow-800";
+      case "高": return "bg-red-100 text-red-800";
+      default: return "bg-gray-100 text-gray-800";
     }
   };
 
   const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 0.8) return 'text-green-600';
-    if (confidence >= 0.6) return 'text-yellow-600';
-    return 'text-red-600';
+    if (confidence >= 0.8) return "text-green-600";
+    if (confidence >= 0.6) return "text-yellow-600";
+    return "text-red-600";
   };
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('ja-JP', {
-      style: 'currency',
-      currency: 'JPY',
+    return new Intl.NumberFormat("ja-JP", {
+      style: "currency",
+      currency: "JPY",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(price);
@@ -118,13 +118,13 @@ export function PersonalInvestmentLSTM({
     ...prediction.visualization_data.historical.dates.map((date, index) => ({
       date,
       price: prediction.visualization_data.historical.prices[index],
-      type: 'historical'
+      type: "historical",
     })),
     ...prediction.visualization_data.predictions.dates.map((date, index) => ({
       date,
       price: prediction.visualization_data.predictions.prices[index],
-      type: 'prediction'
-    }))
+      type: "prediction",
+    })),
   ] : [];
 
   return (
@@ -159,7 +159,7 @@ export function PersonalInvestmentLSTM({
                   disabled={isLoading}
                   className="bg-blue-600 hover:bg-blue-700"
                 >
-                  {isLoading ? '予測実行中...' : 'LSTM予測実行'}
+                  {isLoading ? "予測実行中..." : "LSTM予測実行"}
                 </Button>
               </div>
             </div>
@@ -229,8 +229,8 @@ export function PersonalInvestmentLSTM({
                       <div key={index} className="flex justify-between items-center p-2 bg-gray-50 rounded">
                         <span className="text-sm">{prediction.prediction_dates[index]}</span>
                         <span className="font-medium">{formatPrice(price)}</span>
-                        <span className={`text-sm ${price > currentPrice ? 'text-green-600' : 'text-red-600'}`}>
-                          {price > currentPrice ? '+' : ''}{formatPercent((price / currentPrice) - 1)}
+                        <span className={`text-sm ${price > currentPrice ? "text-green-600" : "text-red-600"}`}>
+                          {price > currentPrice ? "+" : ""}{formatPercent((price / currentPrice) - 1)}
                         </span>
                       </div>
                     ))}
@@ -314,15 +314,15 @@ export function PersonalInvestmentLSTM({
                       <XAxis 
                         dataKey="date" 
                         tick={{ fontSize: 12 }}
-                        tickFormatter={(value) => new Date(value).toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })}
+                        tickFormatter={(value) => new Date(value).toLocaleDateString("ja-JP", { month: "short", day: "numeric" })}
                       />
                       <YAxis 
                         tick={{ fontSize: 12 }}
                         tickFormatter={(value) => formatPrice(value)}
                       />
                       <Tooltip 
-                        formatter={(value: number) => [formatPrice(value), '価格']}
-                        labelFormatter={(label) => new Date(label).toLocaleDateString('ja-JP')}
+                        formatter={(value: number) => [formatPrice(value), "価格"]}
+                        labelFormatter={(label) => new Date(label).toLocaleDateString("ja-JP")}
                       />
                       <Line 
                         type="monotone" 

@@ -2,11 +2,11 @@
  * 新NISA税務計算・最適化APIのテスト
  */
 
-import { POST } from '../calculate/route';
-import { NextRequest } from 'next/server';
+import { POST } from "../calculate/route";
+import { NextRequest } from "next/server";
 
 // モック
-jest.mock('@/lib/nisa', () => ({
+jest.mock("@/lib/nisa", () => ({
   NisaManager: jest.fn().mockImplementation(() => ({
     initialize: jest.fn().mockResolvedValue(true),
     getCalculationResult: jest.fn().mockResolvedValue({
@@ -38,27 +38,27 @@ jest.mock('@/lib/nisa', () => ({
         unrealizedProfitLoss: 10_000,
         realizedProfitLoss: 0,
         taxFreeProfitLoss: 10_000,
-        lastUpdated: '2024-01-15T10:00:00Z',
+        lastUpdated: "2024-01-15T10:00:00Z",
       },
       optimization: {
         recommendations: {
           growthQuota: {
             suggestedAmount: 500_000,
-            reason: '成長投資枠の利用率が低いため、積極的な投資を推奨',
-            priority: 'HIGH',
+            reason: "成長投資枠の利用率が低いため、積極的な投資を推奨",
+            priority: "HIGH",
           },
           accumulationQuota: {
             suggestedAmount: 100_000,
-            reason: 'つみたて投資枠の利用率が低いため、定期的な積立投資を推奨',
-            priority: 'HIGH',
+            reason: "つみたて投資枠の利用率が低いため、定期的な積立投資を推奨",
+            priority: "HIGH",
           },
         },
         riskAnalysis: {
           diversificationScore: 10,
           sectorConcentration: 100,
-          riskLevel: 'HIGH',
+          riskLevel: "HIGH",
         },
-        lastCalculated: '2024-01-15T10:00:00Z',
+        lastCalculated: "2024-01-15T10:00:00Z",
       },
       taxCalculation: {
         currentYear: {
@@ -76,7 +76,7 @@ jest.mock('@/lib/nisa', () => ({
           taxRate: 0.20,
           effectiveTaxRate: 0.20,
         },
-        calculatedAt: '2024-01-15T10:00:00Z',
+        calculatedAt: "2024-01-15T10:00:00Z",
       },
       alerts: [],
       opportunities: [],
@@ -84,13 +84,13 @@ jest.mock('@/lib/nisa', () => ({
   })),
 }));
 
-describe('/api/nisa/calculate', () => {
-  it('全ての計算結果を返す', async () => {
-    const request = new NextRequest('http://localhost:3000/api/nisa/calculate', {
-      method: 'POST',
-      body: JSON.stringify({ type: 'all' }),
+describe("/api/nisa/calculate", () => {
+  it("全ての計算結果を返す", async () => {
+    const request = new NextRequest("http://localhost:3000/api/nisa/calculate", {
+      method: "POST",
+      body: JSON.stringify({ type: "all" }),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -107,12 +107,12 @@ describe('/api/nisa/calculate', () => {
     expect(data.data.opportunities).toBeDefined();
   });
 
-  it('特定の計算タイプのみを返す', async () => {
-    const request = new NextRequest('http://localhost:3000/api/nisa/calculate', {
-      method: 'POST',
-      body: JSON.stringify({ type: 'quotas' }),
+  it("特定の計算タイプのみを返す", async () => {
+    const request = new NextRequest("http://localhost:3000/api/nisa/calculate", {
+      method: "POST",
+      body: JSON.stringify({ type: "quotas" }),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -123,22 +123,22 @@ describe('/api/nisa/calculate', () => {
     expect(data.success).toBe(true);
     expect(data.data.quotas).toBeDefined();
     expect(data.data.portfolio).toBeUndefined();
-    expect(data.metadata.calculationType).toBe('quotas');
+    expect(data.metadata.calculationType).toBe("quotas");
   });
 
-  it('データが見つからない場合は404を返す', async () => {
+  it("データが見つからない場合は404を返す", async () => {
     // モックを変更
-    const { NisaManager } = require('@/lib/nisa');
+    const { NisaManager } = require("@/lib/nisa");
     NisaManager.mockImplementation(() => ({
       initialize: jest.fn().mockResolvedValue(true),
       getCalculationResult: jest.fn().mockResolvedValue(null),
     }));
 
-    const request = new NextRequest('http://localhost:3000/api/nisa/calculate', {
-      method: 'POST',
-      body: JSON.stringify({ type: 'all' }),
+    const request = new NextRequest("http://localhost:3000/api/nisa/calculate", {
+      method: "POST",
+      body: JSON.stringify({ type: "all" }),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -147,22 +147,22 @@ describe('/api/nisa/calculate', () => {
 
     expect(response.status).toBe(404);
     expect(data.success).toBe(false);
-    expect(data.error.code).toBe('DATA_NOT_FOUND');
+    expect(data.error.code).toBe("DATA_NOT_FOUND");
   });
 
-  it('エラー時は500を返す', async () => {
+  it("エラー時は500を返す", async () => {
     // モックを変更
-    const { NisaManager } = require('@/lib/nisa');
+    const { NisaManager } = require("@/lib/nisa");
     NisaManager.mockImplementation(() => ({
-      initialize: jest.fn().mockRejectedValue(new Error('Test error')),
-      getCalculationResult: jest.fn().mockRejectedValue(new Error('Test error')),
+      initialize: jest.fn().mockRejectedValue(new Error("Test error")),
+      getCalculationResult: jest.fn().mockRejectedValue(new Error("Test error")),
     }));
 
-    const request = new NextRequest('http://localhost:3000/api/nisa/calculate', {
-      method: 'POST',
-      body: JSON.stringify({ type: 'all' }),
+    const request = new NextRequest("http://localhost:3000/api/nisa/calculate", {
+      method: "POST",
+      body: JSON.stringify({ type: "all" }),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -171,6 +171,6 @@ describe('/api/nisa/calculate', () => {
 
     expect(response.status).toBe(500);
     expect(data.success).toBe(false);
-    expect(data.error.code).toBe('CALCULATION_ERROR');
+    expect(data.error.code).toBe("CALCULATION_ERROR");
   });
 });

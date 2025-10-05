@@ -3,23 +3,23 @@
  * GET /api/financial/analysis/[symbol]
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { FinancialAnalysisManager } from '@/lib/financial';
-import { FinancialData } from '@/lib/financial/types';
+import { NextRequest, NextResponse } from "next/server";
+import { FinancialAnalysisManager } from "@/lib/financial";
+import { FinancialData } from "@/lib/financial/types";
 
 export async function generateStaticParams() {
   return [
-    { symbol: '7203' },
-    { symbol: '6758' },
-    { symbol: '9984' },
-    { symbol: '8306' },
-    { symbol: '6861' },
+    { symbol: "7203" },
+    { symbol: "6758" },
+    { symbol: "9984" },
+    { symbol: "8306" },
+    { symbol: "6861" },
   ];
 }
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { symbol: string } }
+  { params }: { params: { symbol: string } },
 ) {
   try {
     const { symbol } = params;
@@ -28,12 +28,12 @@ export async function GET(
       return NextResponse.json({
         success: false,
         error: {
-          code: 'VALIDATION_ERROR',
-          message: '銘柄コードが必要です',
+          code: "VALIDATION_ERROR",
+          message: "銘柄コードが必要です",
         },
         metadata: {
           timestamp: new Date().toISOString(),
-          version: '1.0.0',
+          version: "1.0.0",
         },
       }, { status: 400 });
     }
@@ -43,8 +43,8 @@ export async function GET(
     // サンプルデータ（実際の実装では外部APIから取得）
     const sampleData: FinancialData = {
       symbol,
-      companyName: 'サンプル企業',
-      industry: '電気機器',
+      companyName: "サンプル企業",
+      industry: "電気機器",
       fiscalYear: 2024,
       incomeStatement: {
         revenue: 1000000000,      // 10億円
@@ -80,23 +80,23 @@ export async function GET(
       data: result,
       metadata: {
         timestamp: new Date().toISOString(),
-        version: '1.0.0',
+        version: "1.0.0",
         calculationTime: 0,
       },
     });
 
   } catch (error) {
-    console.error('財務指標分析取得エラー:', error);
+    console.error("財務指標分析取得エラー:", error);
     return NextResponse.json({
       success: false,
       error: {
-        code: 'CALCULATION_ERROR',
-        message: '財務指標の計算に失敗しました',
-        details: error instanceof Error ? error.message : 'Unknown error',
+        code: "CALCULATION_ERROR",
+        message: "財務指標の計算に失敗しました",
+        details: error instanceof Error ? error.message : "Unknown error",
       },
       metadata: {
         timestamp: new Date().toISOString(),
-        version: '1.0.0',
+        version: "1.0.0",
       },
     }, { status: 500 });
   }

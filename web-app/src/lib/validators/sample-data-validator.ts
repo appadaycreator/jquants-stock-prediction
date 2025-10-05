@@ -8,8 +8,8 @@ import {
   SampleListedData, 
   DailyQuote, 
   ListedStock,
-  SampleDataError 
-} from '../types/sample-data';
+  SampleDataError, 
+} from "../types/sample-data";
 
 export class SampleDataValidator {
   /**
@@ -19,30 +19,30 @@ export class SampleDataValidator {
     const errors: string[] = [];
 
     if (!data) {
-      errors.push('データがnullまたはundefinedです');
+      errors.push("データがnullまたはundefinedです");
       return { isValid: false, errors };
     }
 
     if (!data.daily_quotes) {
-      errors.push('daily_quotesフィールドが存在しません');
+      errors.push("daily_quotesフィールドが存在しません");
     } else if (!Array.isArray(data.daily_quotes)) {
-      errors.push('daily_quotesは配列である必要があります');
+      errors.push("daily_quotesは配列である必要があります");
     } else {
       // 各日足データのバリデーション
       data.daily_quotes.forEach((quote: any, index: number) => {
         const quoteErrors = this.validateDailyQuote(quote);
         if (quoteErrors.length > 0) {
-          errors.push(`日足データ[${index}]: ${quoteErrors.join(', ')}`);
+          errors.push(`日足データ[${index}]: ${quoteErrors.join(", ")}`);
         }
       });
     }
 
     if (!data.metadata) {
-      errors.push('metadataフィールドが存在しません');
+      errors.push("metadataフィールドが存在しません");
     } else {
       const metadataErrors = this.validateMetadata(data.metadata);
       if (metadataErrors.length > 0) {
-        errors.push(`メタデータ: ${metadataErrors.join(', ')}`);
+        errors.push(`メタデータ: ${metadataErrors.join(", ")}`);
       }
     }
 
@@ -56,30 +56,30 @@ export class SampleDataValidator {
     const errors: string[] = [];
 
     if (!data) {
-      errors.push('データがnullまたはundefinedです');
+      errors.push("データがnullまたはundefinedです");
       return { isValid: false, errors };
     }
 
     if (!data.listed_data) {
-      errors.push('listed_dataフィールドが存在しません');
+      errors.push("listed_dataフィールドが存在しません");
     } else if (!Array.isArray(data.listed_data)) {
-      errors.push('listed_dataは配列である必要があります');
+      errors.push("listed_dataは配列である必要があります");
     } else {
       // 各上場銘柄データのバリデーション
       data.listed_data.forEach((stock: any, index: number) => {
         const stockErrors = this.validateListedStock(stock);
         if (stockErrors.length > 0) {
-          errors.push(`上場銘柄データ[${index}]: ${stockErrors.join(', ')}`);
+          errors.push(`上場銘柄データ[${index}]: ${stockErrors.join(", ")}`);
         }
       });
     }
 
     if (!data.metadata) {
-      errors.push('metadataフィールドが存在しません');
+      errors.push("metadataフィールドが存在しません");
     } else {
       const metadataErrors = this.validateMetadata(data.metadata);
       if (metadataErrors.length > 0) {
-        errors.push(`メタデータ: ${metadataErrors.join(', ')}`);
+        errors.push(`メタデータ: ${metadataErrors.join(", ")}`);
       }
     }
 
@@ -92,8 +92,8 @@ export class SampleDataValidator {
   private static validateDailyQuote(quote: any): string[] {
     const errors: string[] = [];
     const requiredFields = [
-      'code', 'name', 'sector', 'date', 'open', 'high', 'low', 'close', 
-      'volume', 'turnover_value', 'change_percent', 'timestamp'
+      "code", "name", "sector", "date", "open", "high", "low", "close", 
+      "volume", "turnover_value", "change_percent", "timestamp",
     ];
 
     requiredFields.forEach(field => {
@@ -103,28 +103,28 @@ export class SampleDataValidator {
     });
 
     // 数値フィールドの検証
-    const numericFields = ['open', 'high', 'low', 'close', 'volume', 'turnover_value', 'change_percent'];
+    const numericFields = ["open", "high", "low", "close", "volume", "turnover_value", "change_percent"];
     numericFields.forEach(field => {
-      if (quote[field] !== undefined && typeof quote[field] !== 'number') {
+      if (quote[field] !== undefined && typeof quote[field] !== "number") {
         errors.push(`${field}は数値である必要があります`);
       }
     });
 
     // 文字列フィールドの検証
-    const stringFields = ['code', 'name', 'sector', 'date', 'timestamp'];
+    const stringFields = ["code", "name", "sector", "date", "timestamp"];
     stringFields.forEach(field => {
-      if (quote[field] !== undefined && typeof quote[field] !== 'string') {
+      if (quote[field] !== undefined && typeof quote[field] !== "string") {
         errors.push(`${field}は文字列である必要があります`);
       }
     });
 
     // 日付形式の検証
     if (quote.date && !this.isValidDate(quote.date)) {
-      errors.push('dateは有効な日付形式である必要があります');
+      errors.push("dateは有効な日付形式である必要があります");
     }
 
     if (quote.timestamp && !this.isValidTimestamp(quote.timestamp)) {
-      errors.push('timestampは有効なISO形式である必要があります');
+      errors.push("timestampは有効なISO形式である必要があります");
     }
 
     return errors;
@@ -136,9 +136,9 @@ export class SampleDataValidator {
   private static validateListedStock(stock: any): string[] {
     const errors: string[] = [];
     const requiredFields = [
-      'code', 'name', 'market', 'sector17_code', 'sector17_name',
-      'sector33_code', 'sector33_name', 'scale_code', 'scale_name',
-      'listing_date'
+      "code", "name", "market", "sector17_code", "sector17_name",
+      "sector33_code", "sector33_name", "scale_code", "scale_name",
+      "listing_date",
     ];
 
     requiredFields.forEach(field => {
@@ -149,23 +149,23 @@ export class SampleDataValidator {
 
     // 文字列フィールドの検証
     const stringFields = [
-      'code', 'name', 'market', 'sector17_code', 'sector17_name',
-      'sector33_code', 'sector33_name', 'scale_code', 'scale_name',
-      'listing_date'
+      "code", "name", "market", "sector17_code", "sector17_name",
+      "sector33_code", "sector33_name", "scale_code", "scale_name",
+      "listing_date",
     ];
     stringFields.forEach(field => {
-      if (stock[field] !== undefined && typeof stock[field] !== 'string') {
+      if (stock[field] !== undefined && typeof stock[field] !== "string") {
         errors.push(`${field}は文字列である必要があります`);
       }
     });
 
     // 日付形式の検証
     if (stock.listing_date && !this.isValidDate(stock.listing_date)) {
-      errors.push('listing_dateは有効な日付形式である必要があります');
+      errors.push("listing_dateは有効な日付形式である必要があります");
     }
 
     if (stock.close_date && stock.close_date !== null && !this.isValidDate(stock.close_date)) {
-      errors.push('close_dateは有効な日付形式またはnullである必要があります');
+      errors.push("close_dateは有効な日付形式またはnullである必要があります");
     }
 
     return errors;
@@ -176,7 +176,7 @@ export class SampleDataValidator {
    */
   private static validateMetadata(metadata: any): string[] {
     const errors: string[] = [];
-    const requiredFields = ['generated_at', 'type', 'ttl', 'version'];
+    const requiredFields = ["generated_at", "type", "ttl", "version"];
 
     requiredFields.forEach(field => {
       if (metadata[field] === undefined || metadata[field] === null) {
@@ -185,7 +185,7 @@ export class SampleDataValidator {
     });
 
     if (metadata.generated_at && !this.isValidTimestamp(metadata.generated_at)) {
-      errors.push('generated_atは有効なISO形式である必要があります');
+      errors.push("generated_atは有効なISO形式である必要があります");
     }
 
     return errors;
@@ -204,7 +204,7 @@ export class SampleDataValidator {
    */
   private static isValidTimestamp(timestamp: string): boolean {
     const date = new Date(timestamp);
-    return !isNaN(date.getTime()) && timestamp.includes('T');
+    return !isNaN(date.getTime()) && timestamp.includes("T");
   }
 
   /**
@@ -212,10 +212,10 @@ export class SampleDataValidator {
    */
   static generateErrorReport(errors: string[]): SampleDataError {
     return {
-      type: 'parse',
-      message: `データバリデーションエラー: ${errors.join('; ')}`,
+      type: "parse",
+      message: `データバリデーションエラー: ${errors.join("; ")}`,
       timestamp: new Date().toISOString(),
-      fallbackUsed: true
+      fallbackUsed: true,
     };
   }
 }

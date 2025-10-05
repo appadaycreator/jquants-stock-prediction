@@ -159,7 +159,7 @@ export class ErrorBoundary extends Component<Props, State> {
 // 関数コンポーネント用のエラーハンドラー
 export function withErrorBoundary<P extends object>(
   Component: React.ComponentType<P>,
-  errorBoundaryProps?: Omit<Props, 'children'>
+  errorBoundaryProps?: Omit<Props, "children">,
 ) {
   const WrappedComponent = (props: P) => (
     <ErrorBoundary {...errorBoundaryProps}>

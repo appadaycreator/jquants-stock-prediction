@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Play, 
   Pause, 
@@ -10,8 +10,8 @@ import {
   Target,
   Activity,
   TrendingUp,
-  TrendingDown
-} from 'lucide-react';
+  TrendingDown,
+} from "lucide-react";
 
 interface ChartData {
   time: number;
@@ -45,7 +45,7 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
   showVolume = true,
   showTrendLines = true,
   onDataPointClick,
-  className = ''
+  className = "",
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -63,15 +63,15 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
       const rect = containerRef.current.getBoundingClientRect();
       setDimensions({
         width: width || rect.width,
-        height: height
+        height: height,
       });
     }
   }, [width, height]);
 
   useEffect(() => {
     calculateDimensions();
-    window.addEventListener('resize', calculateDimensions);
-    return () => window.removeEventListener('resize', calculateDimensions);
+    window.addEventListener("resize", calculateDimensions);
+    return () => window.removeEventListener("resize", calculateDimensions);
   }, [calculateDimensions]);
 
   // トレンドラインの自動検出
@@ -89,7 +89,7 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
           lines.push({
             start: supportStart,
             end: supportEnd,
-            color: '#10b981'
+            color: "#10b981",
           });
         }
         supportStart = i;
@@ -111,7 +111,7 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
           lines.push({
             start: resistanceStart,
             end: resistanceEnd,
-            color: '#ef4444'
+            color: "#ef4444",
           });
         }
         resistanceStart = i;
@@ -130,7 +130,7 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
     const canvas = canvasRef.current;
     if (!canvas || !data.length) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const { width: canvasWidth, height: canvasHeight } = dimensions;
@@ -142,9 +142,9 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
 
     // 背景の描画（グラデーション）
     const gradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
-    gradient.addColorStop(0, '#f8fafc');
-    gradient.addColorStop(0.5, '#f1f5f9');
-    gradient.addColorStop(1, '#e2e8f0');
+    gradient.addColorStop(0, "#f8fafc");
+    gradient.addColorStop(0.5, "#f1f5f9");
+    gradient.addColorStop(1, "#e2e8f0");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
@@ -162,7 +162,7 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
     const padding = 60;
 
     // グリッドの描画（アニメーション付き）
-    ctx.strokeStyle = '#e2e8f0';
+    ctx.strokeStyle = "#e2e8f0";
     ctx.lineWidth = 1;
     ctx.setLineDash([2, 4]);
     
@@ -190,9 +190,9 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
       ctx.globalAlpha = candleOpacity;
       
       // ヒゲ
-      ctx.strokeStyle = isGreen ? '#10b981' : '#ef4444';
+      ctx.strokeStyle = isGreen ? "#10b981" : "#ef4444";
       ctx.lineWidth = 2;
-      ctx.shadowColor = isGreen ? '#10b981' : '#ef4444';
+      ctx.shadowColor = isGreen ? "#10b981" : "#ef4444";
       ctx.shadowBlur = 4;
       ctx.beginPath();
       ctx.moveTo(x, padding + ((maxPrice - candle.high) / priceRange) * (canvasHeight - padding * 2));
@@ -208,18 +208,18 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
       // グラデーション効果
       const bodyGradient = ctx.createLinearGradient(0, bodyTop, 0, bodyBottom);
       if (isGreen) {
-        bodyGradient.addColorStop(0, '#10b981');
-        bodyGradient.addColorStop(1, '#059669');
+        bodyGradient.addColorStop(0, "#10b981");
+        bodyGradient.addColorStop(1, "#059669");
       } else {
-        bodyGradient.addColorStop(0, '#ef4444');
-        bodyGradient.addColorStop(1, '#dc2626');
+        bodyGradient.addColorStop(0, "#ef4444");
+        bodyGradient.addColorStop(1, "#dc2626");
       }
 
       ctx.fillStyle = bodyGradient;
       ctx.fillRect(x - bodyWidth/2, bodyTop, bodyWidth, bodyHeight);
 
       // 境界線
-      ctx.strokeStyle = isGreen ? '#059669' : '#dc2626';
+      ctx.strokeStyle = isGreen ? "#059669" : "#dc2626";
       ctx.lineWidth = 1;
       ctx.strokeRect(x - bodyWidth/2, bodyTop, bodyWidth, bodyHeight);
     });
@@ -260,8 +260,8 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
         ctx.globalAlpha = volumeOpacity * 0.7;
         
         const volumeGradient = ctx.createLinearGradient(0, canvasHeight - barHeight, 0, canvasHeight);
-        volumeGradient.addColorStop(0, '#3b82f6');
-        volumeGradient.addColorStop(1, '#1d4ed8');
+        volumeGradient.addColorStop(0, "#3b82f6");
+        volumeGradient.addColorStop(1, "#1d4ed8");
         
         ctx.fillStyle = volumeGradient;
         ctx.fillRect(x - barWidth/2, canvasHeight - barHeight, barWidth, barHeight);
@@ -277,7 +277,7 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
         const x = padding + (index * (canvasWidth - padding * 2) / visibleData.length);
         
         // クロスヘア
-        ctx.strokeStyle = '#6b7280';
+        ctx.strokeStyle = "#6b7280";
         ctx.lineWidth = 1;
         ctx.setLineDash([5, 5]);
         ctx.beginPath();
@@ -373,8 +373,8 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
             onClick={isAnimating ? stopAnimation : startAnimation}
             className={`p-2 rounded-md transition-colors ${
               isAnimating 
-                ? 'bg-red-500 text-white hover:bg-red-600' 
-                : 'bg-green-500 text-white hover:bg-green-600'
+                ? "bg-red-500 text-white hover:bg-red-600" 
+                : "bg-green-500 text-white hover:bg-green-600"
             }`}
           >
             {isAnimating ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
@@ -395,8 +395,8 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
             onClick={() => setShowTrendAnalysis(!showTrendAnalysis)}
             className={`p-2 rounded-md transition-colors ${
               showTrendAnalysis 
-                ? 'bg-blue-500 text-white' 
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                ? "bg-blue-500 text-white" 
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
             }`}
           >
             <Target className="w-4 h-4" />
@@ -436,11 +436,11 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
               <div className="flex items-center space-x-2 mb-3">
                 <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
                 <div className="text-sm font-semibold text-gray-900">
-                  {new Date(hoveredData.time).toLocaleDateString('ja-JP', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                    weekday: 'short'
+                  {new Date(hoveredData.time).toLocaleDateString("ja-JP", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    weekday: "short",
                   })}
                 </div>
               </div>
@@ -481,7 +481,7 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
                 </div>
                 <div className="flex justify-between items-center mt-1">
                   <span className="text-xs text-gray-600">変動率</span>
-                  <span className={`text-sm font-semibold ${hoveredData.close > hoveredData.open ? 'text-green-600' : 'text-red-600'}`}>
+                  <span className={`text-sm font-semibold ${hoveredData.close > hoveredData.open ? "text-green-600" : "text-red-600"}`}>
                     {((hoveredData.close - hoveredData.open) / hoveredData.open * 100).toFixed(2)}%
                   </span>
                 </div>
@@ -513,13 +513,13 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600">サポートライン</span>
                   <span className="text-sm font-semibold text-green-600">
-                    {trendLines.filter(line => line.color === '#10b981').length}本
+                    {trendLines.filter(line => line.color === "#10b981").length}本
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600">レジスタンスライン</span>
                   <span className="text-sm font-semibold text-red-600">
-                    {trendLines.filter(line => line.color === '#ef4444').length}本
+                    {trendLines.filter(line => line.color === "#ef4444").length}本
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
@@ -531,9 +531,9 @@ export const AnimatedChart: React.FC<AnimatedChartProps> = ({
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600">価格変動</span>
                   <span className={`text-sm font-semibold ${
-                    data[data.length - 1]?.close > data[data.length - 2]?.close ? 'text-green-600' : 'text-red-600'
+                    data[data.length - 1]?.close > data[data.length - 2]?.close ? "text-green-600" : "text-red-600"
                   }`}>
-                    {data[data.length - 1]?.close > data[data.length - 2]?.close ? '上昇' : '下降'}
+                    {data[data.length - 1]?.close > data[data.length - 2]?.close ? "上昇" : "下降"}
                   </span>
                 </div>
               </div>

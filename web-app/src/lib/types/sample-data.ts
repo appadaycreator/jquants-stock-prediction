@@ -77,7 +77,7 @@ export interface SampleDataProvider {
 
 // エラーハンドリングの型定義
 export interface SampleDataError {
-  type: 'network' | 'parse' | 'not_found' | 'timeout';
+  type: "network" | "parse" | "not_found" | "timeout";
   message: string;
   timestamp: string;
   fallbackUsed: boolean;

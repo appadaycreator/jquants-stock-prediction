@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { 
   Activity, 
   Clock, 
@@ -11,19 +11,19 @@ import {
   CheckCircle,
   XCircle,
   RefreshCw,
-  Settings
-} from 'lucide-react';
+  Settings,
+} from "lucide-react";
 
 interface DiagnosticsData {
   lastSuccessTime: number | null;
   apiRemainingCalls: number | null;
   tokenExpirationTime: number | null;
-  networkStatus: 'online' | 'offline';
+  networkStatus: "online" | "offline";
   errorCount: number;
   successCount: number;
   averageResponseTime: number | null;
   lastError: string | null;
-  systemStatus: 'healthy' | 'degraded' | 'critical';
+  systemStatus: "healthy" | "degraded" | "critical";
 }
 
 interface DiagnosticsPanelProps {
@@ -37,18 +37,18 @@ export function DiagnosticsPanel({
   isOpen, 
   onClose, 
   onRefresh, 
-  onGoToSettings 
+  onGoToSettings, 
 }: DiagnosticsPanelProps) {
   const [diagnostics, setDiagnostics] = useState<DiagnosticsData>({
     lastSuccessTime: null,
     apiRemainingCalls: null,
     tokenExpirationTime: null,
-    networkStatus: navigator.onLine ? 'online' : 'offline',
+    networkStatus: navigator.onLine ? "online" : "offline",
     errorCount: 0,
     successCount: 0,
     averageResponseTime: null,
     lastError: null,
-    systemStatus: 'healthy'
+    systemStatus: "healthy",
   });
 
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -59,11 +59,11 @@ export function DiagnosticsPanel({
     const updateDiagnostics = async () => {
       try {
         // 認証状態の取得
-        const authResponse = await fetch('/api/auth/status');
+        const authResponse = await fetch("/api/auth/status");
         const authData = authResponse.ok ? await authResponse.json() : null;
 
         // システム状態の取得
-        const healthResponse = await fetch('/api/health');
+        const healthResponse = await fetch("/api/health");
         const healthData = healthResponse.ok ? await healthResponse.json() : null;
 
         setDiagnostics(prev => ({
@@ -71,14 +71,14 @@ export function DiagnosticsPanel({
           lastSuccessTime: Date.now(),
           apiRemainingCalls: authData?.remainingCalls || null,
           tokenExpirationTime: authData?.tokenExpiration || null,
-          networkStatus: navigator.onLine ? 'online' : 'offline',
-          systemStatus: healthData?.status === 'ok' ? 'healthy' : 'degraded'
+          networkStatus: navigator.onLine ? "online" : "offline",
+          systemStatus: healthData?.status === "ok" ? "healthy" : "degraded",
         }));
       } catch (error) {
         setDiagnostics(prev => ({
           ...prev,
-          lastError: error instanceof Error ? error.message : 'Unknown error',
-          systemStatus: 'critical'
+          lastError: error instanceof Error ? error.message : "Unknown error",
+          systemStatus: "critical",
         }));
       }
     };
@@ -98,14 +98,14 @@ export function DiagnosticsPanel({
         lastSuccessTime: Date.now(),
         errorCount: 0,
         lastError: null,
-        systemStatus: 'healthy'
+        systemStatus: "healthy",
       }));
     } catch (error) {
       setDiagnostics(prev => ({
         ...prev,
         errorCount: prev.errorCount + 1,
-        lastError: error instanceof Error ? error.message : 'Unknown error',
-        systemStatus: 'critical'
+        lastError: error instanceof Error ? error.message : "Unknown error",
+        systemStatus: "critical",
       }));
     } finally {
       setIsRefreshing(false);
@@ -113,17 +113,17 @@ export function DiagnosticsPanel({
   };
 
   const formatTime = (timestamp: number | null) => {
-    if (!timestamp) return '未取得';
+    if (!timestamp) return "未取得";
     const date = new Date(timestamp);
-    return date.toLocaleString('ja-JP');
+    return date.toLocaleString("ja-JP");
   };
 
   const formatTimeRemaining = (timestamp: number | null) => {
-    if (!timestamp) return '不明';
+    if (!timestamp) return "不明";
     const now = Date.now();
     const remaining = timestamp - now;
     
-    if (remaining <= 0) return '期限切れ';
+    if (remaining <= 0) return "期限切れ";
     
     const hours = Math.floor(remaining / (1000 * 60 * 60));
     const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
@@ -137,11 +137,11 @@ export function DiagnosticsPanel({
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'healthy':
+      case "healthy":
         return <CheckCircle className="w-5 h-5 text-green-500" />;
-      case 'degraded':
+      case "degraded":
         return <AlertTriangle className="w-5 h-5 text-yellow-500" />;
-      case 'critical':
+      case "critical":
         return <XCircle className="w-5 h-5 text-red-500" />;
       default:
         return <Activity className="w-5 h-5 text-gray-500" />;
@@ -150,14 +150,14 @@ export function DiagnosticsPanel({
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'healthy':
-        return '正常';
-      case 'degraded':
-        return '一部機能制限';
-      case 'critical':
-        return '重大な問題';
+      case "healthy":
+        return "正常";
+      case "degraded":
+        return "一部機能制限";
+      case "critical":
+        return "重大な問題";
       default:
-        return '不明';
+        return "不明";
     }
   };
 
@@ -195,14 +195,14 @@ export function DiagnosticsPanel({
             <div className="bg-gray-50 rounded-lg p-4">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-lg font-medium text-gray-900">ネットワーク</h3>
-                {diagnostics.networkStatus === 'online' ? (
+                {diagnostics.networkStatus === "online" ? (
                   <Wifi className="w-5 h-5 text-green-500" />
                 ) : (
                   <WifiOff className="w-5 h-5 text-red-500" />
                 )}
               </div>
               <p className="text-sm text-gray-600">
-                {diagnostics.networkStatus === 'online' ? 'オンライン' : 'オフライン'}
+                {diagnostics.networkStatus === "online" ? "オンライン" : "オフライン"}
               </p>
             </div>
 

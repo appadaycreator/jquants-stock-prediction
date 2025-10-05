@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { TrendingUp, BarChart3, Target, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
-import { staticApiClient } from '@/lib/api/StaticApiClient';
+import React, { useState, useEffect } from "react";
+import { TrendingUp, BarChart3, Target, AlertTriangle, CheckCircle, Clock } from "lucide-react";
+import { staticApiClient } from "@/lib/api/StaticApiClient";
 
 interface PerformanceSummary {
   modelAccuracy: number;
@@ -21,15 +21,15 @@ interface ModelComparison {
   name: string;
   algorithm: string;
   accuracy: number;
-  trend: 'up' | 'down' | 'stable';
+  trend: "up" | "down" | "stable";
   lastUpdated: string;
 }
 
 interface Alert {
   id: string;
-  type: 'volatility' | 'economic' | 'technical';
+  type: "volatility" | "economic" | "technical";
   message: string;
-  severity: 'low' | 'medium' | 'high';
+  severity: "low" | "medium" | "high";
   timestamp: string;
 }
 
@@ -48,7 +48,7 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
   modelData = [],
   alerts = [],
   isLoading = false,
-  error
+  error,
 }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isStaticSite, setIsStaticSite] = useState(false);
@@ -59,7 +59,7 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
     }, 1000);
 
     // 静的サイト検出
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       setIsStaticSite(staticApiClient.isStaticSiteMode());
     }
 
@@ -108,7 +108,7 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600">モデル精度</p>
               <p className="text-2xl font-bold text-green-600">
-                {performanceData?.modelAccuracy?.toFixed(1) || '--'}%
+                {performanceData?.modelAccuracy?.toFixed(1) || "--"}%
               </p>
             </div>
             <Target className="w-8 h-8 text-green-500" />
@@ -120,7 +120,7 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600">平均利回り</p>
               <p className="text-2xl font-bold text-blue-600">
-                {performanceData?.averageReturn?.toFixed(2) || '--'}%
+                {performanceData?.averageReturn?.toFixed(2) || "--"}%
               </p>
             </div>
             <TrendingUp className="w-8 h-8 text-blue-500" />
@@ -132,7 +132,7 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600">成功率</p>
               <p className="text-2xl font-bold text-purple-600">
-                {performanceData?.successRate?.toFixed(1) || '--'}%
+                {performanceData?.successRate?.toFixed(1) || "--"}%
               </p>
             </div>
             <CheckCircle className="w-8 h-8 text-purple-500" />
@@ -144,7 +144,7 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600">総取引数</p>
               <p className="text-2xl font-bold text-orange-600">
-                {performanceData?.totalTrades || '--'}
+                {performanceData?.totalTrades || "--"}
               </p>
             </div>
             <BarChart3 className="w-8 h-8 text-orange-500" />
@@ -160,17 +160,17 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm font-medium text-gray-600">日経平均</span>
               <span className={`text-lg font-bold ${
-                (marketData?.nikkeiChange || 0) >= 0 ? 'text-green-600' : 'text-red-600'
+                (marketData?.nikkeiChange || 0) >= 0 ? "text-green-600" : "text-red-600"
               }`}>
-                {(marketData?.nikkeiChange || 0) >= 0 ? '+' : ''}{marketData?.nikkeiChange?.toFixed(2) || '--'}%
+                {(marketData?.nikkeiChange || 0) >= 0 ? "+" : ""}{marketData?.nikkeiChange?.toFixed(2) || "--"}%
               </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-sm font-medium text-gray-600">TOPIX</span>
               <span className={`text-lg font-bold ${
-                (marketData?.topixChange || 0) >= 0 ? 'text-green-600' : 'text-red-600'
+                (marketData?.topixChange || 0) >= 0 ? "text-green-600" : "text-red-600"
               }`}>
-                {(marketData?.topixChange || 0) >= 0 ? '+' : ''}{marketData?.topixChange?.toFixed(2) || '--'}%
+                {(marketData?.topixChange || 0) >= 0 ? "+" : ""}{marketData?.topixChange?.toFixed(2) || "--"}%
               </span>
             </div>
           </div>
@@ -182,9 +182,9 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
                 <div key={sector} className="flex justify-between items-center">
                   <span className="text-xs text-gray-600">{sector}</span>
                   <span className={`text-xs font-medium ${
-                    performance >= 0 ? 'text-green-600' : 'text-red-600'
+                    performance >= 0 ? "text-green-600" : "text-red-600"
                   }`}>
-                    {performance >= 0 ? '+' : ''}{performance.toFixed(1)}%
+                    {performance >= 0 ? "+" : ""}{performance.toFixed(1)}%
                   </span>
                 </div>
               ))}
@@ -219,15 +219,15 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
                   </td>
                   <td className="py-2 px-4">
                     <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                      model.trend === 'up' ? 'bg-green-100 text-green-800' :
-                      model.trend === 'down' ? 'bg-red-100 text-red-800' :
-                      'bg-gray-100 text-gray-800'
+                      model.trend === "up" ? "bg-green-100 text-green-800" :
+                      model.trend === "down" ? "bg-red-100 text-red-800" :
+                      "bg-gray-100 text-gray-800"
                     }`}>
-                      {model.trend === 'up' ? '↗' : model.trend === 'down' ? '↘' : '→'}
+                      {model.trend === "up" ? "↗" : model.trend === "down" ? "↘" : "→"}
                     </span>
                   </td>
                   <td className="py-2 px-4 text-gray-600 text-sm">
-                    {new Date(model.lastUpdated).toLocaleString('ja-JP')}
+                    {new Date(model.lastUpdated).toLocaleString("ja-JP")}
                   </td>
                 </tr>
               ))}
@@ -245,21 +245,21 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
               <div
                 key={alert.id}
                 className={`p-3 rounded-md border-l-4 ${
-                  alert.severity === 'high' ? 'border-red-500 bg-red-50' :
-                  alert.severity === 'medium' ? 'border-yellow-500 bg-yellow-50' :
-                  'border-blue-500 bg-blue-50'
+                  alert.severity === "high" ? "border-red-500 bg-red-50" :
+                  alert.severity === "medium" ? "border-yellow-500 bg-yellow-50" :
+                  "border-blue-500 bg-blue-50"
                 }`}
               >
                 <div className="flex items-start space-x-3">
                   <AlertTriangle className={`w-5 h-5 mt-0.5 ${
-                    alert.severity === 'high' ? 'text-red-500' :
-                    alert.severity === 'medium' ? 'text-yellow-500' :
-                    'text-blue-500'
+                    alert.severity === "high" ? "text-red-500" :
+                    alert.severity === "medium" ? "text-yellow-500" :
+                    "text-blue-500"
                   }`} />
                   <div className="flex-1">
                     <p className="text-sm font-medium text-gray-900">{alert.message}</p>
                     <p className="text-xs text-gray-500 mt-1">
-                      {new Date(alert.timestamp).toLocaleString('ja-JP')}
+                      {new Date(alert.timestamp).toLocaleString("ja-JP")}
                     </p>
                   </div>
                 </div>
@@ -274,7 +274,7 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
         <div className="flex items-center space-x-2 text-gray-600">
           <Clock className="w-4 h-4" />
           <span className="text-sm">
-            最終更新: {currentTime.toLocaleString('ja-JP')}
+            最終更新: {currentTime.toLocaleString("ja-JP")}
           </span>
         </div>
       </div>

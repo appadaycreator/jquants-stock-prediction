@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { JQuantsAuthManager } from '@/lib/jquants-auth-manager';
+import { NextRequest, NextResponse } from "next/server";
+import { JQuantsAuthManager } from "@/lib/jquants-auth-manager";
 
 export async function GET(request: NextRequest) {
   try {
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     const validToken = await authManager.getValidToken();
 
     return NextResponse.json({
-      status: 'success',
+      status: "success",
       timestamp: new Date().toISOString(),
       environment: {
         nodeEnv: process.env.NODE_ENV,
@@ -39,15 +39,15 @@ export async function GET(request: NextRequest) {
       recommendations: generateRecommendations(envStatus, isTokenValid, !!validToken),
     });
   } catch (error) {
-    console.error('認証ステータス確認エラー:', error);
+    console.error("認証ステータス確認エラー:", error);
     return NextResponse.json(
       {
-        status: 'error',
-        message: '認証ステータスの確認に失敗しました',
-        error: error instanceof Error ? error.message : 'Unknown error',
+        status: "error",
+        message: "認証ステータスの確認に失敗しました",
+        error: error instanceof Error ? error.message : "Unknown error",
         timestamp: new Date().toISOString(),
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -55,28 +55,28 @@ export async function GET(request: NextRequest) {
 function generateRecommendations(
   envStatus: Record<string, boolean>,
   isTokenValid: boolean,
-  hasValidToken: boolean
+  hasValidToken: boolean,
 ): string[] {
   const recommendations: string[] = [];
 
   if (!envStatus.hasIdToken && !envStatus.hasEmail) {
-    recommendations.push('JQUANTS_ID_TOKEN または JQUANTS_EMAIL を設定してください');
+    recommendations.push("JQUANTS_ID_TOKEN または JQUANTS_EMAIL を設定してください");
   }
 
   if (envStatus.hasEmail && !envStatus.hasPassword) {
-    recommendations.push('JQUANTS_PASSWORD を設定してください');
+    recommendations.push("JQUANTS_PASSWORD を設定してください");
   }
 
   if (!isTokenValid && !hasValidToken) {
-    recommendations.push('認証情報が無効です。新しいトークンを取得してください');
+    recommendations.push("認証情報が無効です。新しいトークンを取得してください");
   }
 
   if (envStatus.hasPublicIdToken || envStatus.hasPublicEmail) {
-    recommendations.push('NEXT_PUBLIC_* 環境変数は機密情報を含むため、サーバーサイドでは使用しないでください');
+    recommendations.push("NEXT_PUBLIC_* 環境変数は機密情報を含むため、サーバーサイドでは使用しないでください");
   }
 
   if (recommendations.length === 0) {
-    recommendations.push('認証設定は正常です');
+    recommendations.push("認証設定は正常です");
   }
 
   return recommendations;

@@ -12,19 +12,19 @@ export const NISA_CONSTANTS = {
 } as const;
 
 // 投資枠タイプ
-export type QuotaType = 'GROWTH' | 'ACCUMULATION';
+export type QuotaType = "GROWTH" | "ACCUMULATION";
 
 // 取引タイプ
-export type TransactionType = 'BUY' | 'SELL';
+export type TransactionType = "BUY" | "SELL";
 
 // リスクレベル
-export type RiskLevel = 'LOW' | 'MEDIUM' | 'HIGH';
+export type RiskLevel = "LOW" | "MEDIUM" | "HIGH";
 
 // 優先度
-export type Priority = 'HIGH' | 'MEDIUM' | 'LOW';
+export type Priority = "HIGH" | "MEDIUM" | "LOW";
 
 // アラートタイプ
-export type AlertType = 'WARNING' | 'CRITICAL' | 'INFO';
+export type AlertType = "WARNING" | "CRITICAL" | "INFO";
 
 // 投資枠利用状況
 export interface NisaQuotaStatus {
@@ -233,12 +233,12 @@ export interface NisaCalculationResult {
 
 // エラーコード
 export enum NisaErrorCode {
-  INVALID_QUOTA_TYPE = 'INVALID_QUOTA_TYPE',
-  QUOTA_EXCEEDED = 'QUOTA_EXCEEDED',
-  INVALID_TRANSACTION = 'INVALID_TRANSACTION',
-  CALCULATION_ERROR = 'CALCULATION_ERROR',
-  DATA_NOT_FOUND = 'DATA_NOT_FOUND',
-  VALIDATION_ERROR = 'VALIDATION_ERROR',
+  INVALID_QUOTA_TYPE = "INVALID_QUOTA_TYPE",
+  QUOTA_EXCEEDED = "QUOTA_EXCEEDED",
+  INVALID_TRANSACTION = "INVALID_TRANSACTION",
+  CALCULATION_ERROR = "CALCULATION_ERROR",
+  DATA_NOT_FOUND = "DATA_NOT_FOUND",
+  VALIDATION_ERROR = "VALIDATION_ERROR",
 }
 
 // バリデーション結果

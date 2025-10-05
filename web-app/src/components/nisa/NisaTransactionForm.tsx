@@ -3,21 +3,21 @@
  * 取引の追加・編集を行う
  */
 
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { CalendarIcon, Plus, Save, X } from 'lucide-react';
-import { NisaTransaction, QuotaType, TransactionType } from '@/lib/nisa/types';
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { CalendarIcon, Plus, Save, X } from "lucide-react";
+import { NisaTransaction, QuotaType, TransactionType } from "@/lib/nisa/types";
 
 interface NisaTransactionFormProps {
   transaction?: NisaTransaction;
-  onSubmit: (transaction: Omit<NisaTransaction, 'id' | 'createdAt' | 'updatedAt'>) => Promise<void>;
+  onSubmit: (transaction: Omit<NisaTransaction, "id" | "createdAt" | "updatedAt">) => Promise<void>;
   onCancel: () => void;
   loading?: boolean;
 }
@@ -26,16 +26,16 @@ export default function NisaTransactionForm({
   transaction, 
   onSubmit, 
   onCancel, 
-  loading = false 
+  loading = false, 
 }: NisaTransactionFormProps) {
   const [formData, setFormData] = useState({
-    type: (transaction?.type || 'BUY') as TransactionType,
-    symbol: transaction?.symbol || '',
-    symbolName: transaction?.symbolName || '',
+    type: (transaction?.type || "BUY") as TransactionType,
+    symbol: transaction?.symbol || "",
+    symbolName: transaction?.symbolName || "",
     quantity: transaction?.quantity || 0,
     price: transaction?.price || 0,
-    quotaType: (transaction?.quotaType || 'GROWTH') as QuotaType,
-    transactionDate: transaction?.transactionDate || new Date().toISOString().split('T')[0],
+    quotaType: (transaction?.quotaType || "GROWTH") as QuotaType,
+    transactionDate: transaction?.transactionDate || new Date().toISOString().split("T")[0],
   });
 
   const [errors, setErrors] = useState<string[]>([]);
@@ -53,7 +53,7 @@ export default function NisaTransactionForm({
         amount,
       });
     } catch (error) {
-      setErrors([error instanceof Error ? error.message : 'Unknown error']);
+      setErrors([error instanceof Error ? error.message : "Unknown error"]);
     } finally {
       setIsSubmitting(false);
     }
@@ -105,7 +105,7 @@ export default function NisaTransactionForm({
               <Label htmlFor="type">取引タイプ</Label>
               <Select
                 value={formData.type}
-                onValueChange={(value) => handleInputChange('type', value)}
+                onValueChange={(value) => handleInputChange("type", value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="取引タイプを選択" />
@@ -122,7 +122,7 @@ export default function NisaTransactionForm({
               <Label htmlFor="quotaType">投資枠</Label>
               <Select
                 value={formData.quotaType}
-                onValueChange={(value) => handleInputChange('quotaType', value)}
+                onValueChange={(value) => handleInputChange("quotaType", value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="投資枠を選択" />
@@ -142,7 +142,7 @@ export default function NisaTransactionForm({
               <Input
                 id="symbol"
                 value={formData.symbol}
-                onChange={(e) => handleInputChange('symbol', e.target.value)}
+                onChange={(e) => handleInputChange("symbol", e.target.value)}
                 placeholder="例: 7203"
                 required
               />
@@ -154,7 +154,7 @@ export default function NisaTransactionForm({
               <Input
                 id="symbolName"
                 value={formData.symbolName}
-                onChange={(e) => handleInputChange('symbolName', e.target.value)}
+                onChange={(e) => handleInputChange("symbolName", e.target.value)}
                 placeholder="例: トヨタ自動車"
                 required
               />
@@ -169,7 +169,7 @@ export default function NisaTransactionForm({
                 id="quantity"
                 type="number"
                 value={formData.quantity}
-                onChange={(e) => handleInputChange('quantity', Number(e.target.value))}
+                onChange={(e) => handleInputChange("quantity", Number(e.target.value))}
                 placeholder="例: 100"
                 min="1"
                 required
@@ -183,7 +183,7 @@ export default function NisaTransactionForm({
                 id="price"
                 type="number"
                 value={formData.price}
-                onChange={(e) => handleInputChange('price', Number(e.target.value))}
+                onChange={(e) => handleInputChange("price", Number(e.target.value))}
                 placeholder="例: 2500"
                 min="0"
                 step="0.01"
@@ -202,7 +202,7 @@ export default function NisaTransactionForm({
                   className="w-full justify-start text-left font-normal"
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {formData.transactionDate ? new Date(formData.transactionDate).toLocaleDateString('ja-JP') : '日付を選択'}
+                  {formData.transactionDate ? new Date(formData.transactionDate).toLocaleDateString("ja-JP") : "日付を選択"}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
@@ -211,7 +211,7 @@ export default function NisaTransactionForm({
                   selected={new Date(formData.transactionDate)}
                   onSelect={(date) => {
                     if (date) {
-                      handleInputChange('transactionDate', date.toISOString().split('T')[0]);
+                      handleInputChange("transactionDate", date.toISOString().split("T")[0]);
                     }
                   }}
                 />
@@ -255,7 +255,7 @@ export default function NisaTransactionForm({
               ) : (
                 <>
                   <Save className="w-4 h-4 mr-2" />
-                  {transaction ? '更新' : '追加'}
+                  {transaction ? "更新" : "追加"}
                 </>
               )}
             </Button>

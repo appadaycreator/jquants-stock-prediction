@@ -2,58 +2,58 @@
  * 新NISA枠管理機能の計算ロジック統合テスト
  */
 
-import { NisaCalculator } from '../calculator';
-import { NisaTransaction } from '../types';
+import { NisaCalculator } from "../calculator";
+import { NisaTransaction } from "../types";
 
-describe('NisaCalculator Integration Tests', () => {
+describe("NisaCalculator Integration Tests", () => {
   let calculator: NisaCalculator;
 
   beforeEach(() => {
     calculator = new NisaCalculator();
   });
 
-  describe('複雑なシナリオのテスト', () => {
-    it('複数銘柄のポートフォリオを正しく計算する', () => {
+  describe("複雑なシナリオのテスト", () => {
+    it("複数銘柄のポートフォリオを正しく計算する", () => {
       // 複数の取引を追加
       const transactions: NisaTransaction[] = [
         {
-          id: 'tx-1',
-          type: 'BUY',
-          symbol: '7203',
-          symbolName: 'トヨタ自動車',
+          id: "tx-1",
+          type: "BUY",
+          symbol: "7203",
+          symbolName: "トヨタ自動車",
           quantity: 100,
           price: 2500,
           amount: 250_000,
-          quotaType: 'GROWTH',
-          transactionDate: '2024-01-15',
-          createdAt: '2024-01-15T10:00:00Z',
-          updatedAt: '2024-01-15T10:00:00Z',
+          quotaType: "GROWTH",
+          transactionDate: "2024-01-15",
+          createdAt: "2024-01-15T10:00:00Z",
+          updatedAt: "2024-01-15T10:00:00Z",
         },
         {
-          id: 'tx-2',
-          type: 'BUY',
-          symbol: '6758',
-          symbolName: 'ソニーグループ',
+          id: "tx-2",
+          type: "BUY",
+          symbol: "6758",
+          symbolName: "ソニーグループ",
           quantity: 50,
           price: 12000,
           amount: 600_000,
-          quotaType: 'GROWTH',
-          transactionDate: '2024-01-16',
-          createdAt: '2024-01-16T10:00:00Z',
-          updatedAt: '2024-01-16T10:00:00Z',
+          quotaType: "GROWTH",
+          transactionDate: "2024-01-16",
+          createdAt: "2024-01-16T10:00:00Z",
+          updatedAt: "2024-01-16T10:00:00Z",
         },
         {
-          id: 'tx-3',
-          type: 'BUY',
-          symbol: '9984',
-          symbolName: 'ソフトバンクグループ',
+          id: "tx-3",
+          type: "BUY",
+          symbol: "9984",
+          symbolName: "ソフトバンクグループ",
           quantity: 100,
           price: 5000,
           amount: 500_000,
-          quotaType: 'ACCUMULATION',
-          transactionDate: '2024-01-17',
-          createdAt: '2024-01-17T10:00:00Z',
-          updatedAt: '2024-01-17T10:00:00Z',
+          quotaType: "ACCUMULATION",
+          transactionDate: "2024-01-17",
+          createdAt: "2024-01-17T10:00:00Z",
+          updatedAt: "2024-01-17T10:00:00Z",
         },
       ];
 
@@ -61,9 +61,9 @@ describe('NisaCalculator Integration Tests', () => {
       transactions.forEach(tx => calculator.addTransaction(tx));
 
       // 現在価格を設定
-      calculator.setCurrentPrice('7203', 2600);
-      calculator.setCurrentPrice('6758', 12500);
-      calculator.setCurrentPrice('9984', 5200);
+      calculator.setCurrentPrice("7203", 2600);
+      calculator.setCurrentPrice("6758", 12500);
+      calculator.setCurrentPrice("9984", 5200);
 
       // 計算結果を取得
       const result = calculator.calculateAll();
@@ -89,45 +89,45 @@ describe('NisaCalculator Integration Tests', () => {
       expect(result.taxCalculation.taxSavings.estimatedTaxSavings).toBeGreaterThan(0);
     });
 
-    it('売却取引を含む複雑なシナリオを処理する', () => {
+    it("売却取引を含む複雑なシナリオを処理する", () => {
       // 買い取引
       const buyTransaction: NisaTransaction = {
-        id: 'tx-buy',
-        type: 'BUY',
-        symbol: '7203',
-        symbolName: 'トヨタ自動車',
+        id: "tx-buy",
+        type: "BUY",
+        symbol: "7203",
+        symbolName: "トヨタ自動車",
         quantity: 200,
         price: 2500,
         amount: 500_000,
-        quotaType: 'GROWTH',
-        transactionDate: '2024-01-15',
-        createdAt: '2024-01-15T10:00:00Z',
-        updatedAt: '2024-01-15T10:00:00Z',
+        quotaType: "GROWTH",
+        transactionDate: "2024-01-15",
+        createdAt: "2024-01-15T10:00:00Z",
+        updatedAt: "2024-01-15T10:00:00Z",
       };
 
       calculator.addTransaction(buyTransaction);
 
       // 一部売却
       const sellTransaction: NisaTransaction = {
-        id: 'tx-sell',
-        type: 'SELL',
-        symbol: '7203',
-        symbolName: 'トヨタ自動車',
+        id: "tx-sell",
+        type: "SELL",
+        symbol: "7203",
+        symbolName: "トヨタ自動車",
         quantity: 100,
         price: 2600,
         amount: 260_000,
-        quotaType: 'GROWTH',
-        transactionDate: '2024-01-20',
+        quotaType: "GROWTH",
+        transactionDate: "2024-01-20",
         profitLoss: 10_000,
         taxFreeAmount: 260_000,
-        createdAt: '2024-01-20T10:00:00Z',
-        updatedAt: '2024-01-20T10:00:00Z',
+        createdAt: "2024-01-20T10:00:00Z",
+        updatedAt: "2024-01-20T10:00:00Z",
       };
 
       calculator.addTransaction(sellTransaction);
 
       // 現在価格を設定
-      calculator.setCurrentPrice('7203', 2700);
+      calculator.setCurrentPrice("7203", 2700);
 
       const result = calculator.calculateAll();
 
@@ -148,20 +148,20 @@ describe('NisaCalculator Integration Tests', () => {
       expect(result.quotas.quotaReuse.nextYearAvailable).toBe(260_000);
     });
 
-    it('高利用率でのアラート生成をテストする', () => {
+    it("高利用率でのアラート生成をテストする", () => {
       // 高利用率の状態を作成
       const largeTransaction: NisaTransaction = {
-        id: 'tx-large',
-        type: 'BUY',
-        symbol: '7203',
-        symbolName: 'トヨタ自動車',
+        id: "tx-large",
+        type: "BUY",
+        symbol: "7203",
+        symbolName: "トヨタ自動車",
         quantity: 1000,
         price: 2200,
         amount: 2_200_000, // 91.67%の利用率
-        quotaType: 'GROWTH',
-        transactionDate: '2024-01-15',
-        createdAt: '2024-01-15T10:00:00Z',
-        updatedAt: '2024-01-15T10:00:00Z',
+        quotaType: "GROWTH",
+        transactionDate: "2024-01-15",
+        createdAt: "2024-01-15T10:00:00Z",
+        updatedAt: "2024-01-15T10:00:00Z",
       };
 
       calculator.addTransaction(largeTransaction);
@@ -169,13 +169,13 @@ describe('NisaCalculator Integration Tests', () => {
 
       // アラートの検証
       expect(result.alerts.length).toBeGreaterThan(0);
-      const criticalAlert = result.alerts.find(alert => alert.type === 'CRITICAL');
+      const criticalAlert = result.alerts.find(alert => alert.type === "CRITICAL");
       expect(criticalAlert).toBeDefined();
-      expect(criticalAlert?.quotaType).toBe('GROWTH');
+      expect(criticalAlert?.quotaType).toBe("GROWTH");
       expect(criticalAlert?.currentUsage).toBeGreaterThan(90);
     });
 
-    it('投資機会の生成をテストする', () => {
+    it("投資機会の生成をテストする", () => {
       const result = calculator.calculateAll();
 
       // 投資機会の検証
@@ -185,27 +185,27 @@ describe('NisaCalculator Integration Tests', () => {
       expect(opportunity.symbolName).toBeDefined();
       expect(opportunity.expectedReturn).toBeGreaterThan(0);
       expect(opportunity.suggestedAmount).toBeGreaterThan(0);
-      expect(['GROWTH', 'ACCUMULATION']).toContain(opportunity.quotaRecommendation);
+      expect(["GROWTH", "ACCUMULATION"]).toContain(opportunity.quotaRecommendation);
     });
 
-    it('統計情報の計算をテストする', () => {
+    it("統計情報の計算をテストする", () => {
       // 取引を追加
       const transaction: NisaTransaction = {
-        id: 'tx-stats',
-        type: 'BUY',
-        symbol: '7203',
-        symbolName: 'トヨタ自動車',
+        id: "tx-stats",
+        type: "BUY",
+        symbol: "7203",
+        symbolName: "トヨタ自動車",
         quantity: 100,
         price: 2500,
         amount: 250_000,
-        quotaType: 'GROWTH',
-        transactionDate: '2024-01-15',
-        createdAt: '2024-01-15T10:00:00Z',
-        updatedAt: '2024-01-15T10:00:00Z',
+        quotaType: "GROWTH",
+        transactionDate: "2024-01-15",
+        createdAt: "2024-01-15T10:00:00Z",
+        updatedAt: "2024-01-15T10:00:00Z",
       };
 
       calculator.addTransaction(transaction);
-      calculator.setCurrentPrice('7203', 2600);
+      calculator.setCurrentPrice("7203", 2600);
 
       const statistics = calculator.calculateStatistics();
 
@@ -213,15 +213,15 @@ describe('NisaCalculator Integration Tests', () => {
       expect(statistics.totalValue).toBe(260_000);
       expect(statistics.totalProfitLoss).toBe(10_000);
       expect(statistics.averageReturn).toBeCloseTo(4.0, 1);
-      expect(statistics.bestPerformer.symbol).toBe('7203');
-      expect(statistics.worstPerformer.symbol).toBe('7203');
+      expect(statistics.bestPerformer.symbol).toBe("7203");
+      expect(statistics.worstPerformer.symbol).toBe("7203");
       expect(statistics.diversificationScore).toBe(10);
       expect(statistics.riskScore).toBeGreaterThan(0);
     });
   });
 
-  describe('エッジケースのテスト', () => {
-    it('空の取引履歴でエラーが発生しない', () => {
+  describe("エッジケースのテスト", () => {
+    it("空の取引履歴でエラーが発生しない", () => {
       const result = calculator.calculateAll();
       
       expect(result.quotas.growthInvestment.usedAmount).toBe(0);
@@ -231,16 +231,16 @@ describe('NisaCalculator Integration Tests', () => {
       expect(result.opportunities.length).toBeGreaterThan(0); // 投資機会は生成される
     });
 
-    it('無効な取引でエラーが発生する', () => {
+    it("無効な取引でエラーが発生する", () => {
       const invalidTransaction = {
-        type: 'BUY' as const,
-        symbol: '',
-        symbolName: '',
+        type: "BUY" as const,
+        symbol: "",
+        symbolName: "",
         quantity: 0,
         price: -100,
         amount: 0,
-        quotaType: 'INVALID' as any,
-        transactionDate: '2024-01-15',
+        quotaType: "INVALID" as any,
+        transactionDate: "2024-01-15",
       };
 
       const validation = calculator.validateTransaction(invalidTransaction);
@@ -248,38 +248,38 @@ describe('NisaCalculator Integration Tests', () => {
       expect(validation.errors.length).toBeGreaterThan(0);
     });
 
-    it('投資枠を超過する取引でエラーが発生する', () => {
+    it("投資枠を超過する取引でエラーが発生する", () => {
       // まず大きな取引を追加して枠を埋める
       const largeTransaction: NisaTransaction = {
-        id: 'tx-large',
-        type: 'BUY',
-        symbol: '7203',
-        symbolName: 'トヨタ自動車',
+        id: "tx-large",
+        type: "BUY",
+        symbol: "7203",
+        symbolName: "トヨタ自動車",
         quantity: 1000,
         price: 2500,
         amount: 2_500_000, // 枠を超過
-        quotaType: 'GROWTH',
-        transactionDate: '2024-01-15',
-        createdAt: '2024-01-15T10:00:00Z',
-        updatedAt: '2024-01-15T10:00:00Z',
+        quotaType: "GROWTH",
+        transactionDate: "2024-01-15",
+        createdAt: "2024-01-15T10:00:00Z",
+        updatedAt: "2024-01-15T10:00:00Z",
       };
 
       calculator.addTransaction(largeTransaction);
 
       const overLimitTransaction = {
-        type: 'BUY' as const,
-        symbol: '6758',
-        symbolName: 'ソニーグループ',
+        type: "BUY" as const,
+        symbol: "6758",
+        symbolName: "ソニーグループ",
         quantity: 100,
         price: 10000,
         amount: 1_000_000,
-        quotaType: 'GROWTH' as const,
-        transactionDate: '2024-01-15',
+        quotaType: "GROWTH" as const,
+        transactionDate: "2024-01-15",
       };
 
       const validation = calculator.validateTransaction(overLimitTransaction);
       expect(validation.isValid).toBe(false);
-      expect(validation.errors.some(error => error.includes('利用可能額を超えています'))).toBe(true);
+      expect(validation.errors.some(error => error.includes("利用可能額を超えています"))).toBe(true);
     });
   });
 });

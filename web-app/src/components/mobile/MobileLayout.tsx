@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { 
   Home, 
   TrendingUp, 
@@ -9,8 +9,8 @@ import {
   Menu,
   X,
   ChevronLeft,
-  ChevronRight
-} from 'lucide-react';
+  ChevronRight,
+} from "lucide-react";
 
 interface MobileLayoutProps {
   children: React.ReactNode;
@@ -19,13 +19,13 @@ interface MobileLayoutProps {
 }
 
 const TABS = [
-  { id: 'today', label: '今日', icon: Home, color: 'text-blue-600' },
-  { id: 'stocks', label: '銘柄', icon: TrendingUp, color: 'text-green-600' },
-  { id: 'analysis', label: '分析', icon: BarChart3, color: 'text-purple-600' },
-  { id: 'settings', label: '設定', icon: Settings, color: 'text-gray-600' }
+  { id: "today", label: "今日", icon: Home, color: "text-blue-600" },
+  { id: "stocks", label: "銘柄", icon: TrendingUp, color: "text-green-600" },
+  { id: "analysis", label: "分析", icon: BarChart3, color: "text-purple-600" },
+  { id: "settings", label: "設定", icon: Settings, color: "text-gray-600" },
 ];
 
-export function MobileLayout({ children, currentTab = 'today', onTabChange }: MobileLayoutProps) {
+export function MobileLayout({ children, currentTab = "today", onTabChange }: MobileLayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(currentTab);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,13 +47,13 @@ export function MobileLayout({ children, currentTab = 'today', onTabChange }: Mo
     setTimeout(() => setIsLoading(false), 300);
   };
 
-  const handleSwipe = (direction: 'left' | 'right') => {
+  const handleSwipe = (direction: "left" | "right") => {
     const currentIndex = TABS.findIndex(tab => tab.id === activeTab);
     let newIndex;
     
-    if (direction === 'left' && currentIndex < TABS.length - 1) {
+    if (direction === "left" && currentIndex < TABS.length - 1) {
       newIndex = currentIndex + 1;
-    } else if (direction === 'right' && currentIndex > 0) {
+    } else if (direction === "right" && currentIndex > 0) {
       newIndex = currentIndex - 1;
     } else {
       return;
@@ -109,12 +109,12 @@ export function MobileLayout({ children, currentTab = 'today', onTabChange }: Mo
                 onClick={() => handleTabChange(tab.id)}
                 className={`flex-1 flex flex-col items-center justify-center py-2 px-1 min-h-[48px] transition-colors ${
                   isActive 
-                    ? 'text-blue-600 bg-blue-50' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    ? "text-blue-600 bg-blue-50" 
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                 }`}
                 aria-label={tab.label}
               >
-                <Icon className={`w-5 h-5 mb-1 ${isActive ? 'text-blue-600' : 'text-gray-600'}`} />
+                <Icon className={`w-5 h-5 mb-1 ${isActive ? "text-blue-600" : "text-gray-600"}`} />
                 <span className="text-xs font-medium">{tab.label}</span>
               </button>
             );
@@ -148,8 +148,8 @@ export function MobileLayout({ children, currentTab = 'today', onTabChange }: Mo
                     onClick={() => handleTabChange(tab.id)}
                     className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors ${
                       isActive 
-                        ? 'bg-blue-50 text-blue-600' 
-                        : 'hover:bg-gray-50 text-gray-700'
+                        ? "bg-blue-50 text-blue-600" 
+                        : "hover:bg-gray-50 text-gray-700"
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -177,16 +177,16 @@ export function MobileLayout({ children, currentTab = 'today', onTabChange }: Mo
             
             if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
               if (deltaX > 0) {
-                handleSwipe('right');
+                handleSwipe("right");
               } else {
-                handleSwipe('left');
+                handleSwipe("left");
               }
             }
             
-            document.removeEventListener('touchend', handleTouchEnd);
+            document.removeEventListener("touchend", handleTouchEnd);
           };
           
-          document.addEventListener('touchend', handleTouchEnd);
+          document.addEventListener("touchend", handleTouchEnd);
         }}
       />
     </div>

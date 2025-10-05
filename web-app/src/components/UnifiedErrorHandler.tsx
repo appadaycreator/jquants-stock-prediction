@@ -24,7 +24,7 @@ export default function UnifiedErrorHandler({
   maxRetries = 3,
   retryDelay = 1000,
   showNetworkStatus = true,
-  children
+  children,
 }: UnifiedErrorHandlerProps) {
   const [retryCount, setRetryCount] = useState(0);
   const [isOnline, setIsOnline] = useState(true);
@@ -35,12 +35,12 @@ export default function UnifiedErrorHandler({
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 
@@ -74,7 +74,7 @@ export default function UnifiedErrorHandler({
     if (onGoHome) {
       onGoHome();
     } else {
-      window.location.href = '/';
+      window.location.href = "/";
     }
   };
 

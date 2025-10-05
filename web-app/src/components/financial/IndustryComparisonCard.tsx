@@ -3,8 +3,8 @@
  * 業界内順位、パーセンタイルを表示
  */
 
-import React from 'react';
-import { IndustryComparison } from '@/lib/financial/types';
+import React from "react";
+import { IndustryComparison } from "@/lib/financial/types";
 
 interface IndustryComparisonCardProps {
   industryComparison: IndustryComparison;
@@ -13,25 +13,25 @@ interface IndustryComparisonCardProps {
 
 export function IndustryComparisonCard({ 
   industryComparison, 
-  className = '' 
+  className = "", 
 }: IndustryComparisonCardProps) {
   // 順位に基づく色を取得
   const getRankingColor = (ranking: number, total: number = 100) => {
     const percentile = (ranking / total) * 100;
-    if (percentile <= 10) return 'text-green-600';
-    if (percentile <= 25) return 'text-blue-600';
-    if (percentile <= 50) return 'text-yellow-600';
-    if (percentile <= 75) return 'text-orange-600';
-    return 'text-red-600';
+    if (percentile <= 10) return "text-green-600";
+    if (percentile <= 25) return "text-blue-600";
+    if (percentile <= 50) return "text-yellow-600";
+    if (percentile <= 75) return "text-orange-600";
+    return "text-red-600";
   };
 
   // パーセンタイルに基づく色を取得
   const getPercentileColor = (percentile: number) => {
-    if (percentile >= 90) return 'text-green-600';
-    if (percentile >= 75) return 'text-blue-600';
-    if (percentile >= 50) return 'text-yellow-600';
-    if (percentile >= 25) return 'text-orange-600';
-    return 'text-red-600';
+    if (percentile >= 90) return "text-green-600";
+    if (percentile >= 75) return "text-blue-600";
+    if (percentile >= 50) return "text-yellow-600";
+    if (percentile >= 25) return "text-orange-600";
+    return "text-red-600";
   };
 
   return (
@@ -103,32 +103,32 @@ export function IndustryComparisonCard({
           <div>
             <div className="text-xs text-gray-600 mb-1">業界平均</div>
             <div className="text-sm text-gray-900">
-              ROE: {industryComparison.industryAverage.profitability?.roe?.toFixed(2) || 'N/A'}%
+              ROE: {industryComparison.industryAverage.profitability?.roe?.toFixed(2) || "N/A"}%
             </div>
             <div className="text-sm text-gray-900">
-              ROA: {industryComparison.industryAverage.profitability?.roa?.toFixed(2) || 'N/A'}%
+              ROA: {industryComparison.industryAverage.profitability?.roa?.toFixed(2) || "N/A"}%
             </div>
             <div className="text-sm text-gray-900">
-              PER: {industryComparison.industryAverage.marketValuation?.per?.toFixed(2) || 'N/A'}
+              PER: {industryComparison.industryAverage.marketValuation?.per?.toFixed(2) || "N/A"}
             </div>
             <div className="text-sm text-gray-900">
-              PBR: {industryComparison.industryAverage.marketValuation?.pbr?.toFixed(2) || 'N/A'}
+              PBR: {industryComparison.industryAverage.marketValuation?.pbr?.toFixed(2) || "N/A"}
             </div>
           </div>
           
           <div>
             <div className="text-xs text-gray-600 mb-1">業界中央値</div>
             <div className="text-sm text-gray-900">
-              ROE: {industryComparison.industryMedian.profitability?.roe?.toFixed(2) || 'N/A'}%
+              ROE: {industryComparison.industryMedian.profitability?.roe?.toFixed(2) || "N/A"}%
             </div>
             <div className="text-sm text-gray-900">
-              ROA: {industryComparison.industryMedian.profitability?.roa?.toFixed(2) || 'N/A'}%
+              ROA: {industryComparison.industryMedian.profitability?.roa?.toFixed(2) || "N/A"}%
             </div>
             <div className="text-sm text-gray-900">
-              PER: {industryComparison.industryMedian.marketValuation?.per?.toFixed(2) || 'N/A'}
+              PER: {industryComparison.industryMedian.marketValuation?.per?.toFixed(2) || "N/A"}
             </div>
             <div className="text-sm text-gray-900">
-              PBR: {industryComparison.industryMedian.marketValuation?.pbr?.toFixed(2) || 'N/A'}
+              PBR: {industryComparison.industryMedian.marketValuation?.pbr?.toFixed(2) || "N/A"}
             </div>
           </div>
         </div>

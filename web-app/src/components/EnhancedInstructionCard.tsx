@@ -46,12 +46,12 @@ export default function InstructionCard({
     try {
       // チャートページへの遷移
       const chartUrl = `/charts/${symbol}`;
-      window.open(chartUrl, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+      window.open(chartUrl, "_blank", "width=1200,height=800,scrollbars=yes,resizable=yes");
     } catch (error) {
-      console.error('チャート表示エラー:', error);
+      console.error("チャート表示エラー:", error);
       // フォールバック: 新しいタブでチャートを開く
       const fallbackUrl = `https://finance.yahoo.com/quote/${symbol}`;
-      window.open(fallbackUrl, '_blank');
+      window.open(fallbackUrl, "_blank");
     }
   };
 

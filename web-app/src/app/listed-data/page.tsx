@@ -562,7 +562,7 @@ const ListedDataPage: React.FC = () => {
                       onClick={() => {
                         // みんかぶのリンクを開く
                         const minkabuUrl = `https://minkabu.jp/stock/${stock.code}`;
-                        window.open(minkabuUrl, '_blank', 'noopener,noreferrer');
+                        window.open(minkabuUrl, "_blank", "noopener,noreferrer");
                       }}
                       className="text-orange-600 hover:text-orange-800 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 py-1"
                       aria-label={`${stock.name} (${formatStockCode(stock.code)}) のみんかぶページを開く`}

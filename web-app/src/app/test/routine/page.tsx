@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
+import React, { useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
 import { 
   CheckCircle, 
   XCircle, 
@@ -12,12 +12,12 @@ import {
   RefreshCw,
   AlertTriangle,
   Play,
-  Timer
-} from 'lucide-react';
+  Timer,
+} from "lucide-react";
 
 interface TestResult {
   name: string;
-  status: 'passed' | 'failed';
+  status: "passed" | "failed";
   duration: number;
   details: string;
 }
@@ -40,15 +40,15 @@ export default function RoutineTestPage() {
   const [results, setResults] = useState<TestResults | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const runTest = async (testType: 'quick' | 'full' = 'quick') => {
+  const runTest = async (testType: "quick" | "full" = "quick") => {
     setIsRunning(true);
     setError(null);
     setResults(null);
 
     try {
-      const response = await fetch('/api/test/routine', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/test/routine", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ testType }),
       });
 
@@ -57,17 +57,17 @@ export default function RoutineTestPage() {
       if (data.success) {
         setResults(data.results);
       } else {
-        setError(data.message || 'テストの実行に失敗しました');
+        setError(data.message || "テストの実行に失敗しました");
       }
     } catch (error) {
-      setError('テストの実行中にエラーが発生しました');
+      setError("テストの実行中にエラーが発生しました");
     } finally {
       setIsRunning(false);
     }
   };
 
   const getStatusIcon = (status: string) => {
-    return status === 'passed' ? (
+    return status === "passed" ? (
       <CheckCircle className="h-4 w-4 text-green-500" />
     ) : (
       <XCircle className="h-4 w-4 text-red-500" />
@@ -75,7 +75,7 @@ export default function RoutineTestPage() {
   };
 
   const getStatusBadge = (status: string) => {
-    return status === 'passed' ? (
+    return status === "passed" ? (
       <Badge variant="default" className="bg-green-100 text-green-800">
         成功
       </Badge>
@@ -90,7 +90,7 @@ export default function RoutineTestPage() {
     const seconds = Math.floor(milliseconds / 1000);
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -114,7 +114,7 @@ export default function RoutineTestPage() {
           <CardContent>
             <div className="flex gap-4">
               <Button
-                onClick={() => runTest('quick')}
+                onClick={() => runTest("quick")}
                 disabled={isRunning}
                 className="flex items-center gap-2"
               >
@@ -126,7 +126,7 @@ export default function RoutineTestPage() {
                 クイックテスト
               </Button>
               <Button
-                onClick={() => runTest('full')}
+                onClick={() => runTest("full")}
                 disabled={isRunning}
                 variant="outline"
                 className="flex items-center gap-2"
@@ -228,13 +228,13 @@ export default function RoutineTestPage() {
                     <XCircle className="h-5 w-5 text-red-600" />
                   )}
                   <span className="font-semibold">
-                    {results.summary.successRate >= 80 ? 'テスト合格' : 'テスト不合格'}
+                    {results.summary.successRate >= 80 ? "テスト合格" : "テスト不合格"}
                   </span>
                 </div>
                 <p className="text-sm text-gray-700">
                   {results.summary.successRate >= 80
-                    ? 'ルーティンシステムは正常に動作しており、本番環境での使用に適しています。'
-                    : 'ルーティンシステムに問題があります。設定を確認してください。'}
+                    ? "ルーティンシステムは正常に動作しており、本番環境での使用に適しています。"
+                    : "ルーティンシステムに問題があります。設定を確認してください。"}
                 </p>
                 {results.summary.averageTime > 300000 && (
                   <p className="text-sm text-red-600 mt-2">

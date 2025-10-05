@@ -3,22 +3,22 @@
  * GET /api/financial/trend/[symbol]
  */
 
-import { NextRequest, NextResponse } from 'next/server';
-import { FinancialAnalysisManager } from '@/lib/financial';
+import { NextRequest, NextResponse } from "next/server";
+import { FinancialAnalysisManager } from "@/lib/financial";
 
 export async function generateStaticParams() {
   return [
-    { symbol: '7203' },
-    { symbol: '6758' },
-    { symbol: '9984' },
-    { symbol: '8306' },
-    { symbol: '6861' },
+    { symbol: "7203" },
+    { symbol: "6758" },
+    { symbol: "9984" },
+    { symbol: "8306" },
+    { symbol: "6861" },
   ];
 }
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { symbol: string } }
+  { params }: { params: { symbol: string } },
 ) {
   try {
     const { symbol } = params;
@@ -27,12 +27,12 @@ export async function GET(
       return NextResponse.json({
         success: false,
         error: {
-          code: 'VALIDATION_ERROR',
-          message: '銘柄コードが必要です',
+          code: "VALIDATION_ERROR",
+          message: "銘柄コードが必要です",
         },
         metadata: {
           timestamp: new Date().toISOString(),
-          version: '1.0.0',
+          version: "1.0.0",
         },
       }, { status: 400 });
     }
@@ -45,27 +45,27 @@ export async function GET(
       data: {
         historicalAnalysis,
         symbol,
-        period: '5年間',
+        period: "5年間",
       },
       metadata: {
         timestamp: new Date().toISOString(),
-        version: '1.0.0',
+        version: "1.0.0",
         calculationTime: 0,
       },
     });
 
   } catch (error) {
-    console.error('時系列分析取得エラー:', error);
+    console.error("時系列分析取得エラー:", error);
     return NextResponse.json({
       success: false,
       error: {
-        code: 'DATA_NOT_FOUND',
-        message: '時系列データが見つかりません',
-        details: error instanceof Error ? error.message : 'Unknown error',
+        code: "DATA_NOT_FOUND",
+        message: "時系列データが見つかりません",
+        details: error instanceof Error ? error.message : "Unknown error",
       },
       metadata: {
         timestamp: new Date().toISOString(),
-        version: '1.0.0',
+        version: "1.0.0",
       },
     }, { status: 404 });
   }

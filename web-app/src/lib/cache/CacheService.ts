@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 interface CacheItem<T> {
   data: T;
@@ -27,12 +27,12 @@ export class CacheService {
     hits: 0,
     misses: 0,
     total: 0,
-    hitRate: 0
+    hitRate: 0,
   };
   private config: CacheConfig = {
     defaultTTL: 24 * 60 * 60 * 1000, // 24時間
     maxSize: 100 * 1024 * 1024, // 100MB
-    enableMetrics: true
+    enableMetrics: true,
   };
 
   private constructor() {
@@ -48,12 +48,12 @@ export class CacheService {
 
   private async initDB(): Promise<void> {
     // サーバーサイドでは何もしない
-    if (typeof window === 'undefined' || typeof indexedDB === 'undefined') {
+    if (typeof window === "undefined" || typeof indexedDB === "undefined") {
       return Promise.resolve();
     }
     
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open('StockCacheDB', 1);
+      const request = indexedDB.open("StockCacheDB", 1);
       
       request.onerror = () => reject(request.error);
       request.onsuccess = () => {
@@ -65,10 +65,10 @@ export class CacheService {
         const db = (event.target as IDBOpenDBRequest).result;
         
         // キャッシュストアの作成
-        if (!db.objectStoreNames.contains('cache')) {
-          const store = db.createObjectStore('cache', { keyPath: 'key' });
-          store.createIndex('timestamp', 'timestamp', { unique: false });
-          store.createIndex('ttl', 'ttl', { unique: false });
+        if (!db.objectStoreNames.contains("cache")) {
+          const store = db.createObjectStore("cache", { keyPath: "key" });
+          store.createIndex("timestamp", "timestamp", { unique: false });
+          store.createIndex("ttl", "ttl", { unique: false });
         }
       };
     });
@@ -84,9 +84,9 @@ export class CacheService {
       ttl?: number;
       version?: string;
       forceRefresh?: boolean;
-    } = {}
+    } = {},
   ): Promise<T> {
-    const { ttl = this.config.defaultTTL, version = '1.0', forceRefresh = false } = options;
+    const { ttl = this.config.defaultTTL, version = "1.0", forceRefresh = false } = options;
 
     try {
       // キャッシュから取得を試行
@@ -125,7 +125,7 @@ export class CacheService {
    */
   async get<T>(key: string, allowExpired: boolean = false): Promise<T | null> {
     // サーバーサイドでは常にnullを返す
-    if (typeof window === 'undefined' || typeof indexedDB === 'undefined') {
+    if (typeof window === "undefined" || typeof indexedDB === "undefined") {
       return Promise.resolve(null);
     }
     
@@ -134,8 +134,8 @@ export class CacheService {
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['cache'], 'readonly');
-      const store = transaction.objectStore('cache');
+      const transaction = this.db!.transaction(["cache"], "readonly");
+      const store = transaction.objectStore("cache");
       const request = store.get(key);
 
       request.onsuccess = () => {
@@ -169,10 +169,10 @@ export class CacheService {
     key: string, 
     data: T, 
     ttl: number = this.config.defaultTTL, 
-    version: string = '1.0'
+    version: string = "1.0",
   ): Promise<void> {
     // サーバーサイドでは何もしない
-    if (typeof window === 'undefined' || typeof indexedDB === 'undefined') {
+    if (typeof window === "undefined" || typeof indexedDB === "undefined") {
       return Promise.resolve();
     }
     
@@ -184,12 +184,12 @@ export class CacheService {
       data,
       timestamp: Date.now(),
       ttl,
-      version
+      version,
     };
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['cache'], 'readwrite');
-      const store = transaction.objectStore('cache');
+      const transaction = this.db!.transaction(["cache"], "readwrite");
+      const store = transaction.objectStore("cache");
       const request = store.put({ key, ...item });
 
       request.onsuccess = () => resolve();
@@ -206,8 +206,8 @@ export class CacheService {
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['cache'], 'readwrite');
-      const store = transaction.objectStore('cache');
+      const transaction = this.db!.transaction(["cache"], "readwrite");
+      const store = transaction.objectStore("cache");
       const request = store.delete(key);
 
       request.onsuccess = () => resolve();
@@ -224,9 +224,9 @@ export class CacheService {
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['cache'], 'readwrite');
-      const store = transaction.objectStore('cache');
-      const index = store.index('timestamp');
+      const transaction = this.db!.transaction(["cache"], "readwrite");
+      const store = transaction.objectStore("cache");
+      const index = store.index("timestamp");
       const now = Date.now();
       let deletedCount = 0;
 
@@ -257,8 +257,8 @@ export class CacheService {
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['cache'], 'readonly');
-      const store = transaction.objectStore('cache');
+      const transaction = this.db!.transaction(["cache"], "readonly");
+      const store = transaction.objectStore("cache");
       const request = store.count();
 
       request.onsuccess = () => resolve(request.result);
@@ -302,7 +302,7 @@ export class CacheService {
       hits: 0,
       misses: 0,
       total: 0,
-      hitRate: 0
+      hitRate: 0,
     };
   }
 
@@ -311,7 +311,7 @@ export class CacheService {
    */
   logMetrics(): void {
     const metrics = this.getMetrics();
-    console.log('📊 キャッシュメトリクス:');
+    console.log("📊 キャッシュメトリクス:");
     console.log(`  - ヒット率: ${metrics.hitRate.toFixed(2)}%`);
     console.log(`  - ヒット数: ${metrics.hits}`);
     console.log(`  - ミス数: ${metrics.misses}`);
@@ -327,8 +327,8 @@ export class CacheService {
     }
 
     return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction(['cache'], 'readwrite');
-      const store = transaction.objectStore('cache');
+      const transaction = this.db!.transaction(["cache"], "readwrite");
+      const store = transaction.objectStore("cache");
       const request = store.clear();
 
       request.onsuccess = () => resolve();

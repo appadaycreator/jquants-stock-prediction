@@ -149,7 +149,7 @@ export function useStockSuggestions(options: UseStockSuggestionsOptions = {}) {
     try {
       // 静的データファイルから直接取得
       const response = await fetch(
-        `/data/listed_index.json`,
+        "/data/listed_index.json",
         { signal: abortControllerRef.current.signal },
       );
 

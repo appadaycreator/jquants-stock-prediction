@@ -13,22 +13,22 @@ export interface AuthTokens {
   idToken: string;
   refreshToken: string;
   expiresAt: string;
-  tokenType: 'Bearer';
+  tokenType: "Bearer";
 }
 
 export interface AuthStatus {
   isConnected: boolean;
-  tokenType: 'id' | 'refresh' | null;
+  tokenType: "id" | "refresh" | null;
   expiresAt: string | null;
   timeRemaining: number | null;
   lastUpdate: string | null;
 }
 
 export class AuthService {
-  private static readonly STORAGE_KEY = 'jquants_auth';
-  private static readonly ENCRYPTION_KEY = 'jquants_encryption_key';
-  private static readonly API_BASE_URL = 'https://api.jquants.com/v1';
-  private static readonly PROXY_BASE_URL = '/api/jquants-proxy';
+  private static readonly STORAGE_KEY = "jquants_auth";
+  private static readonly ENCRYPTION_KEY = "jquants_encryption_key";
+  private static readonly API_BASE_URL = "https://api.jquants.com/v1";
+  private static readonly PROXY_BASE_URL = "/api/jquants-proxy";
 
   /**
    * 認証情報の暗号化保存（最適化版）
@@ -37,31 +37,31 @@ export class AuthService {
     try {
       // より安全なキー生成
       const keyMaterial = await crypto.subtle.importKey(
-        'raw',
+        "raw",
         new TextEncoder().encode(AuthService.ENCRYPTION_KEY),
-        { name: 'PBKDF2' },
+        { name: "PBKDF2" },
         false,
-        ['deriveKey']
+        ["deriveKey"],
       );
 
       const key = await crypto.subtle.deriveKey(
         {
-          name: 'PBKDF2',
-          salt: new TextEncoder().encode('jquants_salt'),
+          name: "PBKDF2",
+          salt: new TextEncoder().encode("jquants_salt"),
           iterations: 100000,
-          hash: 'SHA-256'
+          hash: "SHA-256",
         },
         keyMaterial,
-        { name: 'AES-GCM', length: 256 },
+        { name: "AES-GCM", length: 256 },
         false,
-        ['encrypt']
+        ["encrypt"],
       );
 
       const iv = crypto.getRandomValues(new Uint8Array(12));
       const encrypted = await crypto.subtle.encrypt(
-        { name: 'AES-GCM', iv },
+        { name: "AES-GCM", iv },
         key,
-        new TextEncoder().encode(data)
+        new TextEncoder().encode(data),
       );
 
       const combined = new Uint8Array(iv.length + encrypted.byteLength);
@@ -70,8 +70,8 @@ export class AuthService {
 
       return btoa(String.fromCharCode(...combined));
     } catch (error) {
-      console.error('暗号化エラー:', error);
-      throw new Error('認証情報の暗号化に失敗しました');
+      console.error("暗号化エラー:", error);
+      throw new Error("認証情報の暗号化に失敗しました");
     }
   }
 
@@ -81,7 +81,7 @@ export class AuthService {
   private static async decryptData(encryptedData: string): Promise<string> {
     try {
       const combined = new Uint8Array(
-        atob(encryptedData).split('').map(char => char.charCodeAt(0))
+        atob(encryptedData).split("").map(char => char.charCodeAt(0)),
       );
 
       const iv = combined.slice(0, 12);
@@ -89,36 +89,36 @@ export class AuthService {
 
       // より安全なキー生成
       const keyMaterial = await crypto.subtle.importKey(
-        'raw',
+        "raw",
         new TextEncoder().encode(AuthService.ENCRYPTION_KEY),
-        { name: 'PBKDF2' },
+        { name: "PBKDF2" },
         false,
-        ['deriveKey']
+        ["deriveKey"],
       );
 
       const key = await crypto.subtle.deriveKey(
         {
-          name: 'PBKDF2',
-          salt: new TextEncoder().encode('jquants_salt'),
+          name: "PBKDF2",
+          salt: new TextEncoder().encode("jquants_salt"),
           iterations: 100000,
-          hash: 'SHA-256'
+          hash: "SHA-256",
         },
         keyMaterial,
-        { name: 'AES-GCM', length: 256 },
+        { name: "AES-GCM", length: 256 },
         false,
-        ['decrypt']
+        ["decrypt"],
       );
 
       const decrypted = await crypto.subtle.decrypt(
-        { name: 'AES-GCM', iv },
+        { name: "AES-GCM", iv },
         key,
-        encrypted
+        encrypted,
       );
 
       return new TextDecoder().decode(decrypted);
     } catch (error) {
-      console.error('復号化エラー:', error);
-      throw new Error('認証情報の復号化に失敗しました');
+      console.error("復号化エラー:", error);
+      throw new Error("認証情報の復号化に失敗しました");
     }
   }
 
@@ -129,17 +129,17 @@ export class AuthService {
     try {
       // メール・パスワードは保存しない（セキュリティ）
       if (credentials.email || credentials.password) {
-        throw new Error('メール・パスワードは保存できません。リフレッシュトークンのみ保存可能です。');
+        throw new Error("メール・パスワードは保存できません。リフレッシュトークンのみ保存可能です。");
       }
 
       if (!credentials.refreshToken) {
-        throw new Error('リフレッシュトークンが必要です');
+        throw new Error("リフレッシュトークンが必要です");
       }
 
       const encryptedToken = await AuthService.encryptData(credentials.refreshToken);
       localStorage.setItem(AuthService.STORAGE_KEY, encryptedToken);
     } catch (error) {
-      console.error('認証情報保存エラー:', error);
+      console.error("認証情報保存エラー:", error);
       throw error;
     }
   }
@@ -157,7 +157,7 @@ export class AuthService {
       const refreshToken = await AuthService.decryptData(encryptedToken);
       return { refreshToken };
     } catch (error) {
-      console.error('認証情報取得エラー:', error);
+      console.error("認証情報取得エラー:", error);
       return null;
     }
   }
@@ -175,9 +175,9 @@ export class AuthService {
   static async refreshIdToken(refreshToken: string): Promise<AuthTokens> {
     try {
       const response = await fetch(`${AuthService.PROXY_BASE_URL}/token/auth_refresh`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           refreshtoken: refreshToken,
@@ -191,7 +191,7 @@ export class AuthService {
       const data = await response.json();
 
       if (!data.idToken) {
-        throw new Error('IDトークンの取得に失敗しました');
+        throw new Error("IDトークンの取得に失敗しました");
       }
 
       const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(); // 24時間後
@@ -200,11 +200,11 @@ export class AuthService {
         idToken: data.idToken,
         refreshToken: data.refreshToken || refreshToken,
         expiresAt,
-        tokenType: 'Bearer',
+        tokenType: "Bearer",
       };
     } catch (error) {
-      console.error('IDトークン取得エラー:', error);
-      throw new Error('IDトークンの取得に失敗しました');
+      console.error("IDトークン取得エラー:", error);
+      throw new Error("IDトークンの取得に失敗しました");
     }
   }
 
@@ -214,9 +214,9 @@ export class AuthService {
   static async getRefreshToken(email: string, password: string): Promise<AuthTokens> {
     try {
       const response = await fetch(`${AuthService.PROXY_BASE_URL}/token/auth_user`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           mailaddress: email,
@@ -231,14 +231,14 @@ export class AuthService {
       const data = await response.json();
 
       if (!data.refreshToken) {
-        throw new Error('リフレッシュトークンの取得に失敗しました');
+        throw new Error("リフレッシュトークンの取得に失敗しました");
       }
 
       // リフレッシュトークンでIDトークンを取得
       return await AuthService.refreshIdToken(data.refreshToken);
     } catch (error) {
-      console.error('リフレッシュトークン取得エラー:', error);
-      throw new Error('認証に失敗しました');
+      console.error("リフレッシュトークン取得エラー:", error);
+      throw new Error("認証に失敗しました");
     }
   }
 
@@ -261,9 +261,9 @@ export class AuthService {
 
       // 現在のIDトークンの有効性を確認
       const response = await fetch(`${AuthService.PROXY_BASE_URL}/prices/daily_quotes`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Authorization': `Bearer ${credentials.refreshToken}`,
+          "Authorization": `Bearer ${credentials.refreshToken}`,
         },
       });
 
@@ -273,7 +273,7 @@ export class AuthService {
 
         return {
           isConnected: true,
-          tokenType: 'id',
+          tokenType: "id",
           expiresAt,
           timeRemaining,
           lastUpdate: new Date().toISOString(),
@@ -286,13 +286,13 @@ export class AuthService {
           
           return {
             isConnected: true,
-            tokenType: 'id',
+            tokenType: "id",
             expiresAt: newTokens.expiresAt,
             timeRemaining: 24 * 60 * 60,
             lastUpdate: new Date().toISOString(),
           };
         } catch (refreshError) {
-          console.error('自動更新エラー:', refreshError);
+          console.error("自動更新エラー:", refreshError);
           return {
             isConnected: false,
             tokenType: null,
@@ -311,7 +311,7 @@ export class AuthService {
         };
       }
     } catch (error) {
-      console.error('認証状態確認エラー:', error);
+      console.error("認証状態確認エラー:", error);
       return {
         isConnected: false,
         tokenType: null,
@@ -328,11 +328,11 @@ export class AuthService {
   static async testConnection(credentials: AuthCredentials): Promise<boolean> {
     try {
       // 静的サイトの場合はモック成功を返す
-      if (typeof window !== 'undefined' && 
-          (window.location.hostname.includes('github.io') || 
-           window.location.hostname.includes('netlify.app') || 
-           window.location.hostname.includes('vercel.app'))) {
-        console.log('静的サイトモード: モック接続成功');
+      if (typeof window !== "undefined" && 
+          (window.location.hostname.includes("github.io") || 
+           window.location.hostname.includes("netlify.app") || 
+           window.location.hostname.includes("vercel.app"))) {
+        console.log("静的サイトモード: モック接続成功");
         return true;
       }
 
@@ -343,26 +343,26 @@ export class AuthService {
       } else if (credentials.refreshToken) {
         tokens = await AuthService.refreshIdToken(credentials.refreshToken);
       } else {
-        throw new Error('認証情報が不足しています');
+        throw new Error("認証情報が不足しています");
       }
 
       // 実際のAPI呼び出しでテスト
       const response = await fetch(`${AuthService.PROXY_BASE_URL}/prices/daily_quotes`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Authorization': `Bearer ${tokens.idToken}`,
+          "Authorization": `Bearer ${tokens.idToken}`,
         },
       });
 
       return response.ok;
     } catch (error) {
-      console.error('接続テストエラー:', error);
+      console.error("接続テストエラー:", error);
       // エラー時も静的サイトの場合は成功として扱う
-      if (typeof window !== 'undefined' && 
-          (window.location.hostname.includes('github.io') || 
-           window.location.hostname.includes('netlify.app') || 
-           window.location.hostname.includes('vercel.app'))) {
-        console.log('静的サイトモード: エラー時もモック成功');
+      if (typeof window !== "undefined" && 
+          (window.location.hostname.includes("github.io") || 
+           window.location.hostname.includes("netlify.app") || 
+           window.location.hostname.includes("vercel.app"))) {
+        console.log("静的サイトモード: エラー時もモック成功");
         return true;
       }
       return false;
@@ -385,7 +385,7 @@ export class AuthService {
       
       return true;
     } catch (error) {
-      console.error('自動更新エラー:', error);
+      console.error("自動更新エラー:", error);
       return false;
     }
   }
@@ -395,13 +395,13 @@ export class AuthService {
    */
   static async getOfflineData(): Promise<any> {
     try {
-      const offlineData = localStorage.getItem('jquants_offline_data');
+      const offlineData = localStorage.getItem("jquants_offline_data");
       if (offlineData) {
         return JSON.parse(offlineData);
       }
       return null;
     } catch (error) {
-      console.error('オフラインデータ取得エラー:', error);
+      console.error("オフラインデータ取得エラー:", error);
       return null;
     }
   }
@@ -411,12 +411,12 @@ export class AuthService {
    */
   static async saveOfflineData(data: any): Promise<void> {
     try {
-      localStorage.setItem('jquants_offline_data', JSON.stringify({
+      localStorage.setItem("jquants_offline_data", JSON.stringify({
         data,
         timestamp: new Date().toISOString(),
       }));
     } catch (error) {
-      console.error('オフラインデータ保存エラー:', error);
+      console.error("オフラインデータ保存エラー:", error);
     }
   }
 }

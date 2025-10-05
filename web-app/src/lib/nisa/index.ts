@@ -3,18 +3,18 @@
  * 統合されたAPIとユーティリティを提供
  */
 
-export * from './types';
-export * from './calculator';
-export * from './storage';
+export * from "./types";
+export * from "./calculator";
+export * from "./storage";
 
 // 統合されたNISA管理クラス
 export class NisaManager {
-  private calculator: import('./calculator').NisaCalculator;
-  private storage: import('./storage').NisaStorageManager;
+  private calculator: import("./calculator").NisaCalculator;
+  private storage: import("./storage").NisaStorageManager;
 
   constructor() {
-    this.calculator = new (require('./calculator').NisaCalculator)();
-    this.storage = new (require('./storage').NisaStorageManager)();
+    this.calculator = new (require("./calculator").NisaCalculator)();
+    this.storage = new (require("./storage").NisaStorageManager)();
   }
 
   /**
@@ -24,11 +24,11 @@ export class NisaManager {
     try {
       const data = await this.storage.loadData();
       if (data) {
-        this.calculator = new (require('./calculator').NisaCalculator)(data.transactions);
+        this.calculator = new (require("./calculator").NisaCalculator)(data.transactions);
       }
       return true;
     } catch (error) {
-      console.error('NISA管理の初期化エラー:', error);
+      console.error("NISA管理の初期化エラー:", error);
       return false;
     }
   }
@@ -36,7 +36,7 @@ export class NisaManager {
   /**
    * 完全な計算結果を取得
    */
-  async getCalculationResult(): Promise<import('./types').NisaCalculationResult | null> {
+  async getCalculationResult(): Promise<import("./types").NisaCalculationResult | null> {
     try {
       const data = await this.storage.loadData();
       if (!data) {
@@ -50,7 +50,7 @@ export class NisaManager {
 
       return this.calculator.calculateAll();
     } catch (error) {
-      console.error('計算結果取得エラー:', error);
+      console.error("計算結果取得エラー:", error);
       return null;
     }
   }
@@ -58,7 +58,7 @@ export class NisaManager {
   /**
    * 取引を追加
    */
-  async addTransaction(transaction: Omit<import('./types').NisaTransaction, 'id' | 'createdAt' | 'updatedAt'>): Promise<import('./types').ValidationResult> {
+  async addTransaction(transaction: Omit<import("./types").NisaTransaction, "id" | "createdAt" | "updatedAt">): Promise<import("./types").ValidationResult> {
     try {
       // 計算機で検証
       const validation = this.calculator.validateTransaction(transaction);
@@ -69,10 +69,10 @@ export class NisaManager {
       // ストレージに保存
       return await this.storage.addTransaction(transaction);
     } catch (error) {
-      console.error('取引追加エラー:', error);
+      console.error("取引追加エラー:", error);
       return {
         isValid: false,
-        errors: ['取引の追加に失敗しました'],
+        errors: ["取引の追加に失敗しました"],
         warnings: [],
       };
     }
@@ -81,14 +81,14 @@ export class NisaManager {
   /**
    * データを保存
    */
-  async saveData(data: import('./types').NisaData): Promise<boolean> {
+  async saveData(data: import("./types").NisaData): Promise<boolean> {
     return await this.storage.saveData(data);
   }
 
   /**
    * データを読み込み
    */
-  async loadData(): Promise<import('./types').NisaData | null> {
+  async loadData(): Promise<import("./types").NisaData | null> {
     return await this.storage.loadData();
   }
 }

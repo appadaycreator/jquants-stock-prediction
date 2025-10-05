@@ -12,7 +12,7 @@ import {
   Activity,
   AlertTriangle,
   CheckCircle,
-  Clock
+  Clock,
 } from "lucide-react";
 
 interface Position {
@@ -36,12 +36,12 @@ interface RealtimePnLCalculatorProps {
 export default function RealtimePnLCalculator({ 
   positions, 
   onPnLUpdate,
-  refreshInterval = 30000 // 30秒
+  refreshInterval = 30000, // 30秒
 }: RealtimePnLCalculatorProps) {
   const [updatedPositions, setUpdatedPositions] = useState<Position[]>(positions);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
-  const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'error'>('connected');
+  const [connectionStatus, setConnectionStatus] = useState<"connected" | "disconnected" | "error">("connected");
 
   // リアルタイム価格取得のシミュレーション
   const fetchRealtimePrices = useCallback(async () => {
@@ -63,20 +63,20 @@ export default function RealtimePnLCalculator({
           total_value: newTotalValue,
           unrealized_pnl: newUnrealizedPnL,
           pnl_percentage: newPnLPercentage,
-          last_updated: new Date().toISOString()
+          last_updated: new Date().toISOString(),
         };
       });
 
       setUpdatedPositions(updated);
       setLastUpdate(new Date());
-      setConnectionStatus('connected');
+      setConnectionStatus("connected");
       
       if (onPnLUpdate) {
         onPnLUpdate(updated);
       }
     } catch (error) {
-      console.error('リアルタイム価格取得エラー:', error);
-      setConnectionStatus('error');
+      console.error("リアルタイム価格取得エラー:", error);
+      setConnectionStatus("error");
     } finally {
       setIsRefreshing(false);
     }
@@ -102,11 +102,11 @@ export default function RealtimePnLCalculator({
   // 接続ステータスの表示
   const getConnectionStatusIcon = () => {
     switch (connectionStatus) {
-      case 'connected':
+      case "connected":
         return <CheckCircle className="h-4 w-4 text-green-600" />;
-      case 'disconnected':
+      case "disconnected":
         return <Clock className="h-4 w-4 text-yellow-600" />;
-      case 'error':
+      case "error":
         return <AlertTriangle className="h-4 w-4 text-red-600" />;
       default:
         return <Activity className="h-4 w-4 text-gray-600" />;
@@ -115,14 +115,14 @@ export default function RealtimePnLCalculator({
 
   const getConnectionStatusText = () => {
     switch (connectionStatus) {
-      case 'connected':
-        return 'リアルタイム接続中';
-      case 'disconnected':
-        return '接続切断';
-      case 'error':
-        return '接続エラー';
+      case "connected":
+        return "リアルタイム接続中";
+      case "disconnected":
+        return "接続切断";
+      case "error":
+        return "接続エラー";
       default:
-        return '接続中...';
+        return "接続中...";
     }
   };
 
@@ -137,7 +137,7 @@ export default function RealtimePnLCalculator({
             </CardTitle>
             <div className="flex items-center space-x-2">
               <Badge 
-                variant={connectionStatus === 'connected' ? 'default' : 'secondary'}
+                variant={connectionStatus === "connected" ? "default" : "secondary"}
                 className="flex items-center space-x-1"
               >
                 {getConnectionStatusIcon()}

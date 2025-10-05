@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Textarea } from '@/components/ui/textarea';
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Textarea } from "@/components/ui/textarea";
 import { 
   CheckCircle, 
   Clock, 
@@ -18,9 +18,9 @@ import {
   Play,
   Pause,
   RotateCcw,
-  HelpCircle
-} from 'lucide-react';
-import IndicatorTooltip, { StockIndicatorTooltip } from '@/components/ranking/IndicatorTooltip';
+  HelpCircle,
+} from "lucide-react";
+import IndicatorTooltip, { StockIndicatorTooltip } from "@/components/ranking/IndicatorTooltip";
 
 interface RoutineStep {
   id: string;
@@ -43,7 +43,7 @@ interface CandidateStock {
     name: string;
     value: number;
     threshold: number;
-    status: 'good' | 'warning' | 'bad';
+    status: "good" | "warning" | "bad";
   }[];
 }
 
@@ -53,16 +53,16 @@ interface HoldingStock {
   price: number;
   change: number;
   health: {
-    earnings: 'good' | 'warning' | 'bad';
-    gap: 'good' | 'warning' | 'bad';
-    volume: 'good' | 'warning' | 'bad';
+    earnings: "good" | "warning" | "bad";
+    gap: "good" | "warning" | "bad";
+    volume: "good" | "warning" | "bad";
   };
   issues: string[];
 }
 
 interface ActionMemo {
   stockCode: string;
-  action: 'buy' | 'watch' | 'skip';
+  action: "buy" | "watch" | "skip";
   reason: string;
   timestamp: string;
 }
@@ -71,41 +71,41 @@ export default function RoutineWizard() {
   const [currentStep, setCurrentStep] = useState(0);
   const [steps, setSteps] = useState<RoutineStep[]>([
     {
-      id: 'update',
-      title: 'データ更新',
-      description: '最新の株価データを取得します',
+      id: "update",
+      title: "データ更新",
+      description: "最新の株価データを取得します",
       icon: <RefreshCw className="h-5 w-5" />,
       completed: false,
       inProgress: false,
-      duration: 30
+      duration: 30,
     },
     {
-      id: 'candidates',
-      title: '本日の買い候補',
-      description: '最大5銘柄の候補を表示します',
+      id: "candidates",
+      title: "本日の買い候補",
+      description: "最大5銘柄の候補を表示します",
       icon: <TrendingUp className="h-5 w-5" />,
       completed: false,
       inProgress: false,
-      duration: 60
+      duration: 60,
     },
     {
-      id: 'holdings',
-      title: '保有銘柄ヘルスチェック',
-      description: '保有銘柄の状態を確認します',
+      id: "holdings",
+      title: "保有銘柄ヘルスチェック",
+      description: "保有銘柄の状態を確認します",
       icon: <Shield className="h-5 w-5" />,
       completed: false,
       inProgress: false,
-      duration: 90
+      duration: 90,
     },
     {
-      id: 'memo',
-      title: 'アクションメモ',
-      description: '今日の行動を記録します',
+      id: "memo",
+      title: "アクションメモ",
+      description: "今日の行動を記録します",
       icon: <FileText className="h-5 w-5" />,
       completed: false,
       inProgress: false,
-      duration: 30
-    }
+      duration: 30,
+    },
   ]);
 
   const [candidates, setCandidates] = useState<CandidateStock[]>([]);
@@ -134,28 +134,28 @@ export default function RoutineWizard() {
 
     // ステップを進行中に設定
     setSteps(prev => prev.map((s, i) => 
-      i === stepIndex ? { ...s, inProgress: true } : s
+      i === stepIndex ? { ...s, inProgress: true } : s,
     ));
 
     try {
       switch (step.id) {
-        case 'update':
+        case "update":
           await executeDataUpdate();
           break;
-        case 'candidates':
+        case "candidates":
           await executeCandidatesGeneration();
           break;
-        case 'holdings':
+        case "holdings":
           await executeHoldingsCheck();
           break;
-        case 'memo':
+        case "memo":
           await executeMemoCreation();
           break;
       }
 
       // ステップ完了
       setSteps(prev => prev.map((s, i) => 
-        i === stepIndex ? { ...s, completed: true, inProgress: false } : s
+        i === stepIndex ? { ...s, completed: true, inProgress: false } : s,
       ));
 
       // 次のステップへ
@@ -168,7 +168,7 @@ export default function RoutineWizard() {
     } catch (error) {
       setError(`ステップ ${step.title} でエラーが発生しました: ${error}`);
       setSteps(prev => prev.map((s, i) => 
-        i === stepIndex ? { ...s, inProgress: false } : s
+        i === stepIndex ? { ...s, inProgress: false } : s,
       ));
     }
   };
@@ -176,17 +176,17 @@ export default function RoutineWizard() {
   // データ更新の実行
   const executeDataUpdate = async () => {
     try {
-      const response = await fetch('/api/routine/update', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+      const response = await fetch("/api/routine/update", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
-        throw new Error('データ更新に失敗しました');
+        throw new Error("データ更新に失敗しました");
       }
 
       const data = await response.json();
-      console.log('データ更新完了:', data);
+      console.log("データ更新完了:", data);
     } catch (error) {
       throw new Error(`データ更新エラー: ${error}`);
     }
@@ -195,13 +195,13 @@ export default function RoutineWizard() {
   // 候補生成の実行
   const executeCandidatesGeneration = async () => {
     try {
-      const response = await fetch('/api/routine/candidates', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+      const response = await fetch("/api/routine/candidates", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
-        throw new Error('候補生成に失敗しました');
+        throw new Error("候補生成に失敗しました");
       }
 
       const data = await response.json();
@@ -214,13 +214,13 @@ export default function RoutineWizard() {
   // 保有銘柄チェックの実行
   const executeHoldingsCheck = async () => {
     try {
-      const response = await fetch('/api/routine/holdings', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+      const response = await fetch("/api/routine/holdings", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
-        throw new Error('保有銘柄チェックに失敗しました');
+        throw new Error("保有銘柄チェックに失敗しました");
       }
 
       const data = await response.json();
@@ -233,7 +233,7 @@ export default function RoutineWizard() {
   // メモ作成の実行
   const executeMemoCreation = async () => {
     // メモ作成は既に完了しているとみなす
-    console.log('メモ作成完了');
+    console.log("メモ作成完了");
   };
 
   // ルーティン開始
@@ -266,24 +266,24 @@ export default function RoutineWizard() {
   };
 
   // アクションメモの保存
-  const saveActionMemo = async (stockCode: string, action: 'buy' | 'watch' | 'skip', reason: string) => {
+  const saveActionMemo = async (stockCode: string, action: "buy" | "watch" | "skip", reason: string) => {
     const memo: ActionMemo = {
       stockCode,
       action,
       reason,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     setActionMemos(prev => [...prev, memo]);
 
     try {
-      await fetch('/api/routine/memo', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(memo)
+      await fetch("/api/routine/memo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(memo),
       });
     } catch (error) {
-      console.error('メモ保存エラー:', error);
+      console.error("メモ保存エラー:", error);
     }
   };
 
@@ -294,7 +294,7 @@ export default function RoutineWizard() {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -343,8 +343,8 @@ export default function RoutineWizard() {
       <div className="grid gap-4">
         {steps.map((step, index) => (
           <Card key={step.id} className={`transition-all ${
-            index === currentStep ? 'ring-2 ring-blue-500' : ''
-          } ${step.completed ? 'bg-green-50' : ''}`}>
+            index === currentStep ? "ring-2 ring-blue-500" : ""
+          } ${step.completed ? "bg-green-50" : ""}`}>
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -415,8 +415,8 @@ export default function RoutineWizard() {
                     </div>
                     <div className="text-right">
                       <div className="font-semibold">¥{candidate.price.toLocaleString()}</div>
-                      <div className={`text-sm ${candidate.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        {candidate.change >= 0 ? '+' : ''}{candidate.change} ({candidate.changePercent.toFixed(2)}%)
+                      <div className={`text-sm ${candidate.change >= 0 ? "text-green-600" : "text-red-600"}`}>
+                        {candidate.change >= 0 ? "+" : ""}{candidate.change} ({candidate.changePercent.toFixed(2)}%)
                       </div>
                     </div>
                   </div>
@@ -436,21 +436,21 @@ export default function RoutineWizard() {
                   <div className="flex gap-2">
                     <Button 
                       size="sm" 
-                      onClick={() => saveActionMemo(candidate.code, 'buy', '候補として選択')}
+                      onClick={() => saveActionMemo(candidate.code, "buy", "候補として選択")}
                     >
                       買う
                     </Button>
                     <Button 
                       size="sm" 
                       variant="outline"
-                      onClick={() => saveActionMemo(candidate.code, 'watch', '監視対象として追加')}
+                      onClick={() => saveActionMemo(candidate.code, "watch", "監視対象として追加")}
                     >
                       監視
                     </Button>
                     <Button 
                       size="sm" 
                       variant="outline"
-                      onClick={() => saveActionMemo(candidate.code, 'skip', '今回は見送り')}
+                      onClick={() => saveActionMemo(candidate.code, "skip", "今回は見送り")}
                     >
                       見送り
                     </Button>
@@ -480,19 +480,19 @@ export default function RoutineWizard() {
                       <h3 className="font-semibold">{holding.name} ({holding.code})</h3>
                       <div className="text-sm text-gray-600">
                         価格: ¥{holding.price.toLocaleString()} 
-                        <span className={`ml-2 ${holding.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                          {holding.change >= 0 ? '+' : ''}{holding.change}
+                        <span className={`ml-2 ${holding.change >= 0 ? "text-green-600" : "text-red-600"}`}>
+                          {holding.change >= 0 ? "+" : ""}{holding.change}
                         </span>
                       </div>
                     </div>
                     <div className="flex gap-2">
-                      <Badge variant={holding.health.earnings === 'good' ? 'default' : 'destructive'}>
+                      <Badge variant={holding.health.earnings === "good" ? "default" : "destructive"}>
                         決算: {holding.health.earnings}
                       </Badge>
-                      <Badge variant={holding.health.gap === 'good' ? 'default' : 'destructive'}>
+                      <Badge variant={holding.health.gap === "good" ? "default" : "destructive"}>
                         ギャップ: {holding.health.gap}
                       </Badge>
-                      <Badge variant={holding.health.volume === 'good' ? 'default' : 'destructive'}>
+                      <Badge variant={holding.health.volume === "good" ? "default" : "destructive"}>
                         出来高: {holding.health.volume}
                       </Badge>
                     </div>
@@ -529,8 +529,8 @@ export default function RoutineWizard() {
               {actionMemos.map((memo, index) => (
                 <div key={index} className="flex items-center gap-2 p-2 bg-gray-50 rounded">
                   <Badge variant="outline">{memo.stockCode}</Badge>
-                  <Badge variant={memo.action === 'buy' ? 'default' : 'secondary'}>
-                    {memo.action === 'buy' ? '買う' : memo.action === 'watch' ? '監視' : '見送り'}
+                  <Badge variant={memo.action === "buy" ? "default" : "secondary"}>
+                    {memo.action === "buy" ? "買う" : memo.action === "watch" ? "監視" : "見送り"}
                   </Badge>
                   <span className="text-sm">{memo.reason}</span>
                   <span className="text-xs text-gray-500 ml-auto">

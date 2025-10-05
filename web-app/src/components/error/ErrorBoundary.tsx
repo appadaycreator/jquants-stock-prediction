@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { AlertTriangle, RefreshCw, Settings, Database, Wifi, WifiOff } from 'lucide-react';
+import React, { Component, ErrorInfo, ReactNode } from "react";
+import { AlertTriangle, RefreshCw, Settings, Database, Wifi, WifiOff } from "lucide-react";
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -21,12 +21,12 @@ interface ErrorBoundaryProps {
 }
 
 type ErrorType = 
-  | 'AUTH_ERROR'      // 401/403 認証エラー
-  | 'RATE_LIMIT'      // 429 レート制限
-  | 'SERVER_ERROR'    // 5xx サーバーエラー
-  | 'NETWORK_ERROR'   // ネットワークエラー
-  | 'SCHEMA_ERROR'    // スキーマ不一致
-  | 'UNKNOWN_ERROR';  // その他
+  | "AUTH_ERROR"      // 401/403 認証エラー
+  | "RATE_LIMIT"      // 429 レート制限
+  | "SERVER_ERROR"    // 5xx サーバーエラー
+  | "NETWORK_ERROR"   // ネットワークエラー
+  | "SCHEMA_ERROR"    // スキーマ不一致
+  | "UNKNOWN_ERROR";  // その他
 
 interface ErrorDetails {
   type: ErrorType;
@@ -48,9 +48,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
       hasError: false,
       error: null,
       errorInfo: null,
-      errorType: 'UNKNOWN_ERROR',
+      errorType: "UNKNOWN_ERROR",
       retryCount: 0,
-      lastRetryTime: null
+      lastRetryTime: null,
     };
   }
 
@@ -59,18 +59,18 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     return {
       hasError: true,
       error,
-      errorType
+      errorType,
     };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({
       error,
-      errorInfo
+      errorInfo,
     });
 
     // エラーログの出力
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
     
     // 親コンポーネントにエラーを通知
     if (this.props.onError) {
@@ -87,99 +87,99 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   private static categorizeError(error: Error): ErrorType {
     const message = error.message.toLowerCase();
     
-    if (message.includes('401') || message.includes('403') || message.includes('unauthorized')) {
-      return 'AUTH_ERROR';
+    if (message.includes("401") || message.includes("403") || message.includes("unauthorized")) {
+      return "AUTH_ERROR";
     }
-    if (message.includes('429') || message.includes('rate limit')) {
-      return 'RATE_LIMIT';
+    if (message.includes("429") || message.includes("rate limit")) {
+      return "RATE_LIMIT";
     }
-    if (message.includes('5') || message.includes('server error')) {
-      return 'SERVER_ERROR';
+    if (message.includes("5") || message.includes("server error")) {
+      return "SERVER_ERROR";
     }
-    if (message.includes('network') || message.includes('fetch') || message.includes('timeout')) {
-      return 'NETWORK_ERROR';
+    if (message.includes("network") || message.includes("fetch") || message.includes("timeout")) {
+      return "NETWORK_ERROR";
     }
-    if (message.includes('schema') || message.includes('validation')) {
-      return 'SCHEMA_ERROR';
+    if (message.includes("schema") || message.includes("validation")) {
+      return "SCHEMA_ERROR";
     }
     
-    return 'UNKNOWN_ERROR';
+    return "UNKNOWN_ERROR";
   }
 
   private getErrorDetails(): ErrorDetails {
     const { errorType } = this.state;
     
     switch (errorType) {
-      case 'AUTH_ERROR':
+      case "AUTH_ERROR":
         return {
-          type: 'AUTH_ERROR',
-          message: '認証に失敗しました',
-          userMessage: 'ログイン情報が無効または期限切れです',
-          action: '設定画面で認証情報を確認してください',
+          type: "AUTH_ERROR",
+          message: "認証に失敗しました",
+          userMessage: "ログイン情報が無効または期限切れです",
+          action: "設定画面で認証情報を確認してください",
           icon: <Settings className="w-8 h-8 text-red-500" />,
           canRetry: true,
           canUseSample: true,
-          canGoToSettings: true
+          canGoToSettings: true,
         };
       
-      case 'RATE_LIMIT':
+      case "RATE_LIMIT":
         return {
-          type: 'RATE_LIMIT',
-          message: 'API呼び出し制限に達しました',
-          userMessage: 'しばらく待ってから再試行してください',
-          action: '数分後に自動的に再試行します',
+          type: "RATE_LIMIT",
+          message: "API呼び出し制限に達しました",
+          userMessage: "しばらく待ってから再試行してください",
+          action: "数分後に自動的に再試行します",
           icon: <RefreshCw className="w-8 h-8 text-yellow-500" />,
           canRetry: true,
           canUseSample: true,
-          canGoToSettings: false
+          canGoToSettings: false,
         };
       
-      case 'SERVER_ERROR':
+      case "SERVER_ERROR":
         return {
-          type: 'SERVER_ERROR',
-          message: 'サーバーエラーが発生しました',
-          userMessage: 'サーバー側で問題が発生しています',
-          action: 'しばらく待ってから再試行してください',
+          type: "SERVER_ERROR",
+          message: "サーバーエラーが発生しました",
+          userMessage: "サーバー側で問題が発生しています",
+          action: "しばらく待ってから再試行してください",
           icon: <AlertTriangle className="w-8 h-8 text-red-500" />,
           canRetry: true,
           canUseSample: true,
-          canGoToSettings: false
+          canGoToSettings: false,
         };
       
-      case 'NETWORK_ERROR':
+      case "NETWORK_ERROR":
         return {
-          type: 'NETWORK_ERROR',
-          message: 'ネットワーク接続エラー',
-          userMessage: 'インターネット接続を確認してください',
-          action: '接続が回復すると自動的に再試行します',
+          type: "NETWORK_ERROR",
+          message: "ネットワーク接続エラー",
+          userMessage: "インターネット接続を確認してください",
+          action: "接続が回復すると自動的に再試行します",
           icon: <WifiOff className="w-8 h-8 text-orange-500" />,
           canRetry: true,
           canUseSample: true,
-          canGoToSettings: false
+          canGoToSettings: false,
         };
       
-      case 'SCHEMA_ERROR':
+      case "SCHEMA_ERROR":
         return {
-          type: 'SCHEMA_ERROR',
-          message: 'データ形式エラー',
-          userMessage: '受信したデータの形式が正しくありません',
-          action: 'サンプルデータに切り替えます',
+          type: "SCHEMA_ERROR",
+          message: "データ形式エラー",
+          userMessage: "受信したデータの形式が正しくありません",
+          action: "サンプルデータに切り替えます",
           icon: <Database className="w-8 h-8 text-blue-500" />,
           canRetry: false,
           canUseSample: true,
-          canGoToSettings: false
+          canGoToSettings: false,
         };
       
       default:
         return {
-          type: 'UNKNOWN_ERROR',
-          message: '予期しないエラーが発生しました',
-          userMessage: 'システムで予期しない問題が発生しました',
-          action: 'ページを再読み込みしてください',
+          type: "UNKNOWN_ERROR",
+          message: "予期しないエラーが発生しました",
+          userMessage: "システムで予期しない問題が発生しました",
+          action: "ページを再読み込みしてください",
           icon: <AlertTriangle className="w-8 h-8 text-gray-500" />,
           canRetry: true,
           canUseSample: true,
-          canGoToSettings: false
+          canGoToSettings: false,
         };
     }
   }
@@ -189,7 +189,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     const { retryCount } = this.state;
     
     if (retryCount >= maxRetries) {
-      console.warn('最大再試行回数に達しました');
+      console.warn("最大再試行回数に達しました");
       return;
     }
 
@@ -202,24 +202,24 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         error: null,
         errorInfo: null,
         retryCount: prevState.retryCount + 1,
-        lastRetryTime: Date.now()
+        lastRetryTime: Date.now(),
       }));
     }, delay);
   };
 
   private handleUseSample = () => {
     // サンプルデータに切り替える処理
-    console.log('サンプルデータに切り替え');
+    console.log("サンプルデータに切り替え");
     this.setState({
       hasError: false,
       error: null,
-      errorInfo: null
+      errorInfo: null,
     });
   };
 
   private handleGoToSettings = () => {
     // 設定画面に遷移
-    window.location.href = '/settings/auth';
+    window.location.href = "/settings/auth";
   };
 
   private handleReload = () => {
@@ -298,7 +298,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               </div>
             )}
 
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+            {process.env.NODE_ENV === "development" && this.state.error && (
               <details className="mt-4">
                 <summary className="text-sm text-gray-500 cursor-pointer">
                   技術詳細 (開発モード)

@@ -1,19 +1,19 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { JQuantsAuthManager } from '@/lib/jquants-auth-manager';
+import { NextRequest, NextResponse } from "next/server";
+import { JQuantsAuthManager } from "@/lib/jquants-auth-manager";
 
 // 静的生成用のパラメータ
 export async function generateStaticParams() {
   return [
-    { path: ['token', 'auth_user'] },
-    { path: ['token', 'auth_refresh'] },
-    { path: ['prices', 'daily_quotes'] },
-    { path: ['prices', 'weekly_quotes'] },
-    { path: ['prices', 'monthly_quotes'] }
+    { path: ["token", "auth_user"] },
+    { path: ["token", "auth_refresh"] },
+    { path: ["prices", "daily_quotes"] },
+    { path: ["prices", "weekly_quotes"] },
+    { path: ["prices", "monthly_quotes"] },
   ];
 }
 
-const JQUANTS_API_BASE = 'https://api.jquants.com/v1';
-const ALLOWED_PATHS = ['/token/', '/prices/', '/listed/'];
+const JQUANTS_API_BASE = "https://api.jquants.com/v1";
+const ALLOWED_PATHS = ["/token/", "/prices/", "/listed/"];
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1分
 const RATE_LIMIT_MAX_REQUESTS = 100; // 1分間に100リクエスト
 
@@ -72,19 +72,19 @@ function generateAuthRecommendations(envVars: Record<string, boolean>): string[]
   const recommendations: string[] = [];
 
   if (!envVars.hasIdToken && !envVars.hasEmail) {
-    recommendations.push('JQUANTS_ID_TOKEN または JQUANTS_EMAIL を設定してください');
+    recommendations.push("JQUANTS_ID_TOKEN または JQUANTS_EMAIL を設定してください");
   }
 
   if (envVars.hasEmail && !envVars.hasPassword) {
-    recommendations.push('JQUANTS_PASSWORD を設定してください');
+    recommendations.push("JQUANTS_PASSWORD を設定してください");
   }
 
   if (envVars.hasPublicIdToken || envVars.hasPublicEmail) {
-    recommendations.push('NEXT_PUBLIC_* 環境変数は機密情報を含むため、サーバーサイドでは使用しないでください');
+    recommendations.push("NEXT_PUBLIC_* 環境変数は機密情報を含むため、サーバーサイドでは使用しないでください");
   }
 
   if (recommendations.length === 0) {
-    recommendations.push('認証設定は正常です');
+    recommendations.push("認証設定は正常です");
   }
 
   return recommendations;
@@ -97,56 +97,56 @@ function isAllowedPath(path: string): boolean {
 // 削除: 古いcheckRateLimit関数はRateLimiterクラスに統合済み
 
 function getClientIp(request: NextRequest): string {
-  const forwarded = request.headers.get('x-forwarded-for');
-  const realIp = request.headers.get('x-real-ip');
-  const remoteAddr = request.headers.get('x-remote-addr');
+  const forwarded = request.headers.get("x-forwarded-for");
+  const realIp = request.headers.get("x-real-ip");
+  const remoteAddr = request.headers.get("x-remote-addr");
   
-  return forwarded?.split(',')[0] || realIp || remoteAddr || 'unknown';
+  return forwarded?.split(",")[0] || realIp || remoteAddr || "unknown";
 }
 
 export async function GET(request: NextRequest, { params }: { params: { path: string[] } }) {
-  return handleProxyRequest(request, params.path, 'GET');
+  return handleProxyRequest(request, params.path, "GET");
 }
 
 export async function POST(request: NextRequest, { params }: { params: { path: string[] } }) {
-  return handleProxyRequest(request, params.path, 'POST');
+  return handleProxyRequest(request, params.path, "POST");
 }
 
 async function handleProxyRequest(
   request: NextRequest,
   pathSegments: string[],
-  method: string
+  method: string,
 ) {
   try {
-    const path = '/' + pathSegments.join('/');
+    const path = "/" + pathSegments.join("/");
     const clientIp = getClientIp(request);
 
     // パス許可チェック
     if (!isAllowedPath(path)) {
       return NextResponse.json(
-        { error: 'Forbidden path' },
-        { status: 403 }
+        { error: "Forbidden path" },
+        { status: 403 },
       );
     }
 
     // レート制限チェック
     if (!rateLimiter.checkRateLimit(clientIp)) {
       return NextResponse.json(
-        { error: 'Rate limit exceeded' },
-        { status: 429 }
+        { error: "Rate limit exceeded" },
+        { status: 429 },
       );
     }
 
     // リクエストボディの取得
     let body: string | undefined;
-    if (method === 'POST') {
+    if (method === "POST") {
       body = await request.text();
     }
 
     // クエリパラメータの取得
     const searchParams = request.nextUrl.searchParams;
     const queryString = searchParams.toString();
-    const fullUrl = `${JQUANTS_API_BASE}${path}${queryString ? '?' + queryString : ''}`;
+    const fullUrl = `${JQUANTS_API_BASE}${path}${queryString ? "?" + queryString : ""}`;
 
     // 認証トークンの取得
     const authManager = new JQuantsAuthManager();
@@ -164,25 +164,25 @@ async function handleProxyRequest(
         hasPublicPassword: !!process.env.NEXT_PUBLIC_JQUANTS_PASSWORD,
       };
       
-      console.error('認証トークンの取得に失敗しました', {
+      console.error("認証トークンの取得に失敗しました", {
         path,
         method,
         clientIp,
         timestamp: new Date().toISOString(),
         envVars,
-        recommendations: generateAuthRecommendations(envVars)
+        recommendations: generateAuthRecommendations(envVars),
       });
       return NextResponse.json(
         { 
-          error: 'Authentication failed',
-          message: '認証トークンの取得に失敗しました。環境変数を確認してください。',
-          retry_hint: 'check_credentials',
+          error: "Authentication failed",
+          message: "認証トークンの取得に失敗しました。環境変数を確認してください。",
+          retry_hint: "check_credentials",
           debug: {
             envVars,
-            recommendations: generateAuthRecommendations(envVars)
-          }
+            recommendations: generateAuthRecommendations(envVars),
+          },
         },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -191,9 +191,9 @@ async function handleProxyRequest(
     const response = await fetch(fullUrl, {
       method,
       headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': 'J-Quants-Stock-Prediction/1.0',
-        'Authorization': `Bearer ${authToken}`,
+        "Content-Type": "application/json",
+        "User-Agent": "J-Quants-Stock-Prediction/1.0",
+        "Authorization": `Bearer ${authToken}`,
       },
       body,
     });
@@ -205,7 +205,7 @@ async function handleProxyRequest(
     try {
       jsonData = JSON.parse(responseData);
     } catch (parseError) {
-      console.warn('JSON解析エラー:', parseError, 'Response:', responseData.substring(0, 200));
+      console.warn("JSON解析エラー:", parseError, "Response:", responseData.substring(0, 200));
       jsonData = { data: responseData };
     }
 
@@ -217,7 +217,7 @@ async function handleProxyRequest(
         path,
         clientIp,
         responseData: responseData.substring(0, 500),
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
       
       // 特定のエラーコードに対する処理
@@ -225,29 +225,29 @@ async function handleProxyRequest(
         case 401:
           return NextResponse.json(
             { 
-              error: 'Authentication failed',
-              message: '認証に失敗しました。トークンを更新してください。',
-              retry_hint: 'refresh_token'
+              error: "Authentication failed",
+              message: "認証に失敗しました。トークンを更新してください。",
+              retry_hint: "refresh_token",
             },
-            { status: 401 }
+            { status: 401 },
           );
         case 403:
           return NextResponse.json(
             { 
-              error: 'Access forbidden',
-              message: 'アクセスが拒否されました。',
-              retry_hint: 'check_permissions'
+              error: "Access forbidden",
+              message: "アクセスが拒否されました。",
+              retry_hint: "check_permissions",
             },
-            { status: 403 }
+            { status: 403 },
           );
         case 429:
           return NextResponse.json(
             { 
-              error: 'Rate limit exceeded',
-              message: 'レート制限に達しました。しばらく待ってから再試行してください。',
-              retry_hint: 'wait_and_retry'
+              error: "Rate limit exceeded",
+              message: "レート制限に達しました。しばらく待ってから再試行してください。",
+              retry_hint: "wait_and_retry",
             },
-            { status: 429 }
+            { status: 429 },
           );
         case 500:
         case 502:
@@ -255,20 +255,20 @@ async function handleProxyRequest(
         case 504:
           return NextResponse.json(
             { 
-              error: 'Server error',
-              message: 'サーバーエラーが発生しました。',
-              retry_hint: 'retry_later'
+              error: "Server error",
+              message: "サーバーエラーが発生しました。",
+              retry_hint: "retry_later",
             },
-            { status: response.status }
+            { status: response.status },
           );
         default:
           return NextResponse.json(
             { 
-              error: 'API error',
+              error: "API error",
               message: `API エラー: ${response.status}`,
-              retry_hint: 'check_status'
+              retry_hint: "check_status",
             },
-            { status: response.status }
+            { status: response.status },
           );
       }
     }
@@ -276,32 +276,32 @@ async function handleProxyRequest(
     return NextResponse.json(jsonData, {
       status: response.status,
       headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
       },
     });
 
   } catch (error) {
-    console.error('プロキシエラー:', {
+    console.error("プロキシエラー:", {
       error: error instanceof Error ? error.message : String(error),
       stack: error instanceof Error ? error.stack : undefined,
       path,
       method,
       clientIp,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
     return NextResponse.json(
       { 
-        error: 'Proxy error',
-        message: 'プロキシエラーが発生しました',
-        retry_hint: 'check_connection',
+        error: "Proxy error",
+        message: "プロキシエラーが発生しました",
+        retry_hint: "check_connection",
         debug: {
-          errorType: error instanceof Error ? error.constructor.name : 'Unknown',
-          message: error instanceof Error ? error.message : String(error)
-        }
+          errorType: error instanceof Error ? error.constructor.name : "Unknown",
+          message: error instanceof Error ? error.message : String(error),
+        },
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

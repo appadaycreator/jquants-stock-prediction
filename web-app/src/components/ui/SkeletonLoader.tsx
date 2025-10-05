@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 interface SkeletonLoaderProps {
-  type?: 'text' | 'card' | 'chart' | 'list' | 'table';
+  type?: "text" | "card" | "chart" | "list" | "table";
   lines?: number;
   height?: number;
   width?: string;
@@ -11,15 +11,15 @@ interface SkeletonLoaderProps {
 }
 
 export function SkeletonLoader({ 
-  type = 'text', 
+  type = "text", 
   lines = 1, 
   height = 20, 
-  width = '100%',
-  className = '' 
+  width = "100%",
+  className = "", 
 }: SkeletonLoaderProps) {
   const renderSkeleton = () => {
     switch (type) {
-      case 'text':
+      case "text":
         return (
           <div className={`animate-pulse ${className}`}>
             {Array.from({ length: lines }).map((_, index) => (
@@ -27,15 +27,15 @@ export function SkeletonLoader({
                 key={index}
                 className="h-4 bg-gray-300 rounded mb-2"
                 style={{ 
-                  width: index === lines - 1 ? '75%' : '100%',
-                  height: `${height}px`
+                  width: index === lines - 1 ? "75%" : "100%",
+                  height: `${height}px`,
                 }}
               />
             ))}
           </div>
         );
 
-      case 'card':
+      case "card":
         return (
           <div className={`bg-white rounded-lg p-4 shadow-sm animate-pulse ${className}`}>
             <div className="flex items-center justify-between mb-3">
@@ -47,7 +47,7 @@ export function SkeletonLoader({
           </div>
         );
 
-      case 'chart':
+      case "chart":
         return (
           <div className={`bg-white rounded-lg p-4 shadow-sm animate-pulse ${className}`}>
             <div className="h-4 bg-gray-300 rounded w-32 mb-4"></div>
@@ -55,7 +55,7 @@ export function SkeletonLoader({
           </div>
         );
 
-      case 'list':
+      case "list":
         return (
           <div className={`bg-white rounded-lg shadow-sm animate-pulse ${className}`}>
             {Array.from({ length: lines }).map((_, index) => (
@@ -76,7 +76,7 @@ export function SkeletonLoader({
           </div>
         );
 
-      case 'table':
+      case "table":
         return (
           <div className={`bg-white rounded-lg shadow-sm animate-pulse ${className}`}>
             <div className="p-4 border-b">
@@ -118,19 +118,19 @@ export function SkeletonLoader({
 }
 
 // 特殊化されたスケルトンコンポーネント
-export function ChartSkeleton({ className = '' }: { className?: string }) {
+export function ChartSkeleton({ className = "" }: { className?: string }) {
   return <SkeletonLoader type="chart" className={className} />;
 }
 
-export function CardSkeleton({ className = '' }: { className?: string }) {
+export function CardSkeleton({ className = "" }: { className?: string }) {
   return <SkeletonLoader type="card" className={className} />;
 }
 
-export function ListSkeleton({ lines = 5, className = '' }: { lines?: number; className?: string }) {
+export function ListSkeleton({ lines = 5, className = "" }: { lines?: number; className?: string }) {
   return <SkeletonLoader type="list" lines={lines} className={className} />;
 }
 
-export function TableSkeleton({ lines = 10, className = '' }: { lines?: number; className?: string }) {
+export function TableSkeleton({ lines = 10, className = "" }: { lines?: number; className?: string }) {
   return <SkeletonLoader type="table" lines={lines} className={className} />;
 }
 
@@ -139,7 +139,7 @@ export function ProgressiveSkeleton({
   isLoading, 
   children, 
   fallback,
-  className = '' 
+  className = "", 
 }: { 
   isLoading: boolean; 
   children: React.ReactNode; 

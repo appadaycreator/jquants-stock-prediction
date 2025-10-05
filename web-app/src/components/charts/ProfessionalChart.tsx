@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -14,8 +14,8 @@ import {
   Move,
   Activity,
   Target,
-  AlertCircle
-} from 'lucide-react';
+  AlertCircle,
+} from "lucide-react";
 
 interface CandleData {
   time: number;
@@ -28,7 +28,7 @@ interface CandleData {
 
 interface TechnicalIndicator {
   name: string;
-  type: 'sma' | 'ema' | 'rsi' | 'macd' | 'bollinger';
+  type: "sma" | "ema" | "rsi" | "macd" | "bollinger";
   period: number;
   color: string;
   visible: boolean;
@@ -41,7 +41,7 @@ interface ProfessionalChartProps {
   width?: number;
   showVolume?: boolean;
   showIndicators?: boolean;
-  theme?: 'light' | 'dark';
+  theme?: "light" | "dark";
   onDataPointClick?: (data: CandleData) => void;
   onIndicatorToggle?: (indicator: TechnicalIndicator) => void;
   className?: string;
@@ -54,10 +54,10 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
   width,
   showVolume = true,
   showIndicators = true,
-  theme = 'light',
+  theme = "light",
   onDataPointClick,
   onIndicatorToggle,
-  className = ''
+  className = "",
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -70,10 +70,10 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
   const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 });
   const [showSettings, setShowSettings] = useState(false);
   const [selectedIndicators, setSelectedIndicators] = useState<TechnicalIndicator[]>([
-    { name: 'SMA 20', type: 'sma', period: 20, color: '#3b82f6', visible: true },
-    { name: 'SMA 50', type: 'sma', period: 50, color: '#f59e0b', visible: true },
-    { name: 'RSI', type: 'rsi', period: 14, color: '#8b5cf6', visible: false },
-    { name: 'MACD', type: 'macd', period: 12, color: '#10b981', visible: false },
+    { name: "SMA 20", type: "sma", period: 20, color: "#3b82f6", visible: true },
+    { name: "SMA 50", type: "sma", period: 50, color: "#f59e0b", visible: true },
+    { name: "RSI", type: "rsi", period: 14, color: "#8b5cf6", visible: false },
+    { name: "MACD", type: "macd", period: 12, color: "#10b981", visible: false },
   ]);
 
   // レスポンシブサイズ計算
@@ -82,7 +82,7 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
       const rect = containerRef.current.getBoundingClientRect();
       setDimensions({
         width: width || rect.width,
-        height: height
+        height: height,
       });
     }
   }, [width, height]);
@@ -90,8 +90,8 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
   // ウィンドウリサイズ対応
   useEffect(() => {
     calculateDimensions();
-    window.addEventListener('resize', calculateDimensions);
-    return () => window.removeEventListener('resize', calculateDimensions);
+    window.addEventListener("resize", calculateDimensions);
+    return () => window.removeEventListener("resize", calculateDimensions);
   }, [calculateDimensions]);
 
   // テクニカル指標の計算
@@ -140,10 +140,10 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
     selectedIndicators.forEach(indicator => {
       if (indicator.visible) {
         switch (indicator.type) {
-          case 'sma':
+          case "sma":
             indicators[indicator.name] = calculateSMA(data, indicator.period);
             break;
-          case 'rsi':
+          case "rsi":
             indicators[indicator.name] = calculateRSI(data, indicator.period);
             break;
         }
@@ -158,7 +158,7 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
     const canvas = canvasRef.current;
     if (!canvas || !data.length) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const { width: canvasWidth, height: canvasHeight } = dimensions;
@@ -170,18 +170,18 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
 
     // 背景の描画
     const gradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
-    if (theme === 'dark') {
-      gradient.addColorStop(0, '#1e293b');
-      gradient.addColorStop(1, '#0f172a');
+    if (theme === "dark") {
+      gradient.addColorStop(0, "#1e293b");
+      gradient.addColorStop(1, "#0f172a");
     } else {
-      gradient.addColorStop(0, '#f8fafc');
-      gradient.addColorStop(1, '#f1f5f9');
+      gradient.addColorStop(0, "#f8fafc");
+      gradient.addColorStop(1, "#f1f5f9");
     }
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // グリッドの描画
-    ctx.strokeStyle = theme === 'dark' ? '#334155' : '#e2e8f0';
+    ctx.strokeStyle = theme === "dark" ? "#334155" : "#e2e8f0";
     ctx.lineWidth = 1;
     ctx.setLineDash([2, 4]);
     
@@ -221,7 +221,7 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
       const isGreen = candle.close > candle.open;
       
       // ヒゲ
-      ctx.strokeStyle = isGreen ? '#10b981' : '#ef4444';
+      ctx.strokeStyle = isGreen ? "#10b981" : "#ef4444";
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(x, padding + ((maxPrice - candle.high) / priceRange) * (canvasHeight - padding * 2));
@@ -237,18 +237,18 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
       // グラデーション効果
       const bodyGradient = ctx.createLinearGradient(0, bodyTop, 0, bodyBottom);
       if (isGreen) {
-        bodyGradient.addColorStop(0, '#10b981');
-        bodyGradient.addColorStop(1, '#059669');
+        bodyGradient.addColorStop(0, "#10b981");
+        bodyGradient.addColorStop(1, "#059669");
       } else {
-        bodyGradient.addColorStop(0, '#ef4444');
-        bodyGradient.addColorStop(1, '#dc2626');
+        bodyGradient.addColorStop(0, "#ef4444");
+        bodyGradient.addColorStop(1, "#dc2626");
       }
 
       ctx.fillStyle = bodyGradient;
       ctx.fillRect(x - bodyWidth/2, bodyTop, bodyWidth, bodyHeight);
 
       // 境界線
-      ctx.strokeStyle = isGreen ? '#059669' : '#dc2626';
+      ctx.strokeStyle = isGreen ? "#059669" : "#dc2626";
       ctx.lineWidth = 1;
       ctx.strokeRect(x - bodyWidth/2, bodyTop, bodyWidth, bodyHeight);
     });
@@ -260,7 +260,7 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
       const indicatorData = calculatedIndicators[indicator.name];
       ctx.strokeStyle = indicator.color;
       ctx.lineWidth = 2;
-      ctx.setLineDash(indicator.type === 'sma' ? [] : [5, 5]);
+      ctx.setLineDash(indicator.type === "sma" ? [] : [5, 5]);
       ctx.beginPath();
 
       let firstPoint = true;
@@ -294,8 +294,8 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
         const barWidth = (canvasWidth - padding * 2) / visibleData.length * 0.8;
         
         const volumeGradient = ctx.createLinearGradient(0, canvasHeight - barHeight, 0, canvasHeight);
-        volumeGradient.addColorStop(0, '#3b82f6');
-        volumeGradient.addColorStop(1, '#1d4ed8');
+        volumeGradient.addColorStop(0, "#3b82f6");
+        volumeGradient.addColorStop(1, "#1d4ed8");
         
         ctx.fillStyle = volumeGradient;
         ctx.fillRect(x - barWidth/2, canvasHeight - barHeight, barWidth, barHeight);
@@ -308,7 +308,7 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
       const x = padding + (index * (canvasWidth - padding * 2) / data.length) + panX;
       
       // クロスヘア
-      ctx.strokeStyle = '#6b7280';
+      ctx.strokeStyle = "#6b7280";
       ctx.lineWidth = 1;
       ctx.setLineDash([5, 5]);
       ctx.beginPath();
@@ -432,7 +432,7 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
           className="cursor-crosshair"
           style={{ 
             transform: `scale(${zoom})`,
-            transformOrigin: 'top left'
+            transformOrigin: "top left",
           }}
         />
 
@@ -442,11 +442,11 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
             <div className="flex items-center space-x-2 mb-3">
               <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
               <div className="text-sm font-semibold text-gray-900">
-                {new Date(hoveredData.time).toLocaleDateString('ja-JP', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                  weekday: 'short'
+                {new Date(hoveredData.time).toLocaleDateString("ja-JP", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                  weekday: "short",
                 })}
               </div>
             </div>
@@ -475,7 +475,7 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
               </div>
               <div className="flex justify-between items-center mt-1">
                 <span className="text-xs text-gray-600">変動率</span>
-                <span className={`text-sm font-semibold ${hoveredData.close > hoveredData.open ? 'text-green-600' : 'text-red-600'}`}>
+                <span className={`text-sm font-semibold ${hoveredData.close > hoveredData.open ? "text-green-600" : "text-red-600"}`}>
                   {((hoveredData.close - hoveredData.open) / hoveredData.open * 100).toFixed(2)}%
                 </span>
               </div>
@@ -513,11 +513,11 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
                     }}
                     className={`px-3 py-1 text-xs rounded-md transition-colors ${
                       indicator.visible 
-                        ? 'bg-blue-500 text-white' 
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        ? "bg-blue-500 text-white" 
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                     }`}
                   >
-                    {indicator.visible ? '表示' : '非表示'}
+                    {indicator.visible ? "表示" : "非表示"}
                   </button>
                 </div>
               ))}

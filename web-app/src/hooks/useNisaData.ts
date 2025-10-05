@@ -3,7 +3,7 @@
  * データの取得、更新、計算を管理
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 import {
   NisaData,
   NisaCalculationResult,
@@ -15,7 +15,7 @@ import {
   QuotaAlert,
   InvestmentOpportunity,
   ValidationResult,
-} from '@/lib/nisa/types';
+} from "@/lib/nisa/types";
 
 interface UseNisaDataReturn {
   // データ状態
@@ -26,7 +26,7 @@ interface UseNisaDataReturn {
 
   // データ操作
   refreshData: () => Promise<void>;
-  addTransaction: (transaction: Omit<NisaTransaction, 'id' | 'createdAt' | 'updatedAt'>) => Promise<ValidationResult>;
+  addTransaction: (transaction: Omit<NisaTransaction, "id" | "createdAt" | "updatedAt">) => Promise<ValidationResult>;
   updateTransaction: (id: string, updates: Partial<NisaTransaction>) => Promise<ValidationResult>;
   deleteTransaction: (id: string) => Promise<ValidationResult>;
 
@@ -62,17 +62,17 @@ export function useNisaData(): UseNisaDataReturn {
       setLoading(true);
       setError(null);
 
-      const response = await fetch('/api/nisa/status');
+      const response = await fetch("/api/nisa/status");
       const result = await response.json();
 
       if (!result.success) {
-        throw new Error(result.error?.message || 'データの取得に失敗しました');
+        throw new Error(result.error?.message || "データの取得に失敗しました");
       }
 
       setData(result.data);
     } catch (err) {
-      console.error('データ取得エラー:', err);
-      setError(err instanceof Error ? err.message : 'Unknown error');
+      console.error("データ取得エラー:", err);
+      setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
       setLoading(false);
     }
@@ -81,24 +81,24 @@ export function useNisaData(): UseNisaDataReturn {
   // 計算結果を取得
   const fetchCalculationResult = useCallback(async () => {
     try {
-      const response = await fetch('/api/nisa/calculate', {
-        method: 'POST',
+      const response = await fetch("/api/nisa/calculate", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ type: 'all' }),
+        body: JSON.stringify({ type: "all" }),
       });
 
       const result = await response.json();
 
       if (!result.success) {
-        throw new Error(result.error?.message || '計算結果の取得に失敗しました');
+        throw new Error(result.error?.message || "計算結果の取得に失敗しました");
       }
 
       setCalculationResult(result.data);
     } catch (err) {
-      console.error('計算結果取得エラー:', err);
-      setError(err instanceof Error ? err.message : 'Unknown error');
+      console.error("計算結果取得エラー:", err);
+      setError(err instanceof Error ? err.message : "Unknown error");
     }
   }, []);
 
@@ -109,13 +109,13 @@ export function useNisaData(): UseNisaDataReturn {
 
   // 取引を追加
   const addTransaction = useCallback(async (
-    transaction: Omit<NisaTransaction, 'id' | 'createdAt' | 'updatedAt'>
+    transaction: Omit<NisaTransaction, "id" | "createdAt" | "updatedAt">,
   ): Promise<ValidationResult> => {
     try {
-      const response = await fetch('/api/nisa/transaction', {
-        method: 'POST',
+      const response = await fetch("/api/nisa/transaction", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(transaction),
       });
@@ -125,7 +125,7 @@ export function useNisaData(): UseNisaDataReturn {
       if (!result.success) {
         return {
           isValid: false,
-          errors: [result.error?.message || '取引の追加に失敗しました'],
+          errors: [result.error?.message || "取引の追加に失敗しました"],
           warnings: [],
         };
       }
@@ -139,10 +139,10 @@ export function useNisaData(): UseNisaDataReturn {
         warnings: result.data?.warnings || [],
       };
     } catch (err) {
-      console.error('取引追加エラー:', err);
+      console.error("取引追加エラー:", err);
       return {
         isValid: false,
-        errors: [err instanceof Error ? err.message : 'Unknown error'],
+        errors: [err instanceof Error ? err.message : "Unknown error"],
         warnings: [],
       };
     }
@@ -151,13 +151,13 @@ export function useNisaData(): UseNisaDataReturn {
   // 取引を更新
   const updateTransaction = useCallback(async (
     id: string,
-    updates: Partial<NisaTransaction>
+    updates: Partial<NisaTransaction>,
   ): Promise<ValidationResult> => {
     try {
-      const response = await fetch('/api/nisa/transaction', {
-        method: 'PUT',
+      const response = await fetch("/api/nisa/transaction", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ id, ...updates }),
       });
@@ -167,7 +167,7 @@ export function useNisaData(): UseNisaDataReturn {
       if (!result.success) {
         return {
           isValid: false,
-          errors: [result.error?.message || '取引の更新に失敗しました'],
+          errors: [result.error?.message || "取引の更新に失敗しました"],
           warnings: [],
         };
       }
@@ -181,10 +181,10 @@ export function useNisaData(): UseNisaDataReturn {
         warnings: result.data?.warnings || [],
       };
     } catch (err) {
-      console.error('取引更新エラー:', err);
+      console.error("取引更新エラー:", err);
       return {
         isValid: false,
-        errors: [err instanceof Error ? err.message : 'Unknown error'],
+        errors: [err instanceof Error ? err.message : "Unknown error"],
         warnings: [],
       };
     }
@@ -194,7 +194,7 @@ export function useNisaData(): UseNisaDataReturn {
   const deleteTransaction = useCallback(async (id: string): Promise<ValidationResult> => {
     try {
       const response = await fetch(`/api/nisa/transaction?id=${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       const result = await response.json();
@@ -202,7 +202,7 @@ export function useNisaData(): UseNisaDataReturn {
       if (!result.success) {
         return {
           isValid: false,
-          errors: [result.error?.message || '取引の削除に失敗しました'],
+          errors: [result.error?.message || "取引の削除に失敗しました"],
           warnings: [],
         };
       }
@@ -216,10 +216,10 @@ export function useNisaData(): UseNisaDataReturn {
         warnings: [],
       };
     } catch (err) {
-      console.error('取引削除エラー:', err);
+      console.error("取引削除エラー:", err);
       return {
         isValid: false,
-        errors: [err instanceof Error ? err.message : 'Unknown error'],
+        errors: [err instanceof Error ? err.message : "Unknown error"],
         warnings: [],
       };
     }

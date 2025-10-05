@@ -11,7 +11,7 @@ export interface StockCodeMapping {
  * 銘柄コードを正規化（2024年1月以降の新形式対応）
  */
 export function normalizeStockCode(code: string): string {
-  if (!code) return '';
+  if (!code) return "";
   
   const trimmed = code.trim();
   
@@ -22,7 +22,7 @@ export function normalizeStockCode(code: string): string {
   
   // 従来形式の処理
   // 5桁で先頭が0の場合は4桁に変換
-  if (trimmed.length === 5 && trimmed.startsWith('0')) {
+  if (trimmed.length === 5 && trimmed.startsWith("0")) {
     return trimmed.substring(1);
   }
   
@@ -39,11 +39,11 @@ export function normalizeStockCode(code: string): string {
  * 銘柄コードを5桁形式に変換
  */
 export function toFiveDigitCode(code: string): string {
-  if (!code) return '';
+  if (!code) return "";
   
   // 4桁の場合は先頭に0を追加
   if (code.length === 4) {
-    return '0' + code;
+    return "0" + code;
   }
   
   // 5桁の場合はそのまま
@@ -59,22 +59,22 @@ export function toFiveDigitCode(code: string): string {
  * 銘柄コードの表示用フォーマット
  */
 export function formatStockCode(code: string): string {
-  console.log('🔍 formatStockCode called with:', code, 'type:', typeof code, 'length:', code?.length);
+  console.log("🔍 formatStockCode called with:", code, "type:", typeof code, "length:", code?.length);
   
   if (!code) {
-    console.log('❌ formatStockCode: empty code, returning empty string');
-    return '';
+    console.log("❌ formatStockCode: empty code, returning empty string");
+    return "";
   }
   
   // 5桁で下1桁が0の場合は除去して4桁で表示
-  if (code.length === 5 && code.endsWith('0')) {
+  if (code.length === 5 && code.endsWith("0")) {
     const result = code.substring(0, 4);
-    console.log('✅ formatStockCode: 5-digit code ending with 0, converting', code, '→', result);
+    console.log("✅ formatStockCode: 5-digit code ending with 0, converting", code, "→", result);
     return result;
   }
   
   // その他の場合はそのまま表示
-  console.log('ℹ️ formatStockCode: no conversion needed, returning:', code);
+  console.log("ℹ️ formatStockCode: no conversion needed, returning:", code);
   return code;
 }
 
@@ -102,20 +102,20 @@ export function isValidStockCode(code: string): boolean {
 /**
  * 銘柄コードの形式を判定
  */
-export function getStockCodeFormat(code: string): 'legacy' | 'new' | 'invalid' {
-  if (!code) return 'invalid';
+export function getStockCodeFormat(code: string): "legacy" | "new" | "invalid" {
+  if (!code) return "invalid";
   
   const normalized = normalizeStockCode(code);
   
   if (/^[A-Za-z]\d{4}$/.test(normalized)) {
-    return 'new';
+    return "new";
   }
   
   if (/^\d{4}$/.test(normalized)) {
-    return 'legacy';
+    return "legacy";
   }
   
-  return 'invalid';
+  return "invalid";
 }
 
 /**
@@ -125,9 +125,9 @@ export function getStockCodeLabel(code: string): string {
   const format = getStockCodeFormat(code);
   
   switch (format) {
-    case 'legacy':
+    case "legacy":
       return `従来形式: ${code}`;
-    case 'new':
+    case "new":
       return `新形式: ${code}`;
     default:
       return `無効: ${code}`;

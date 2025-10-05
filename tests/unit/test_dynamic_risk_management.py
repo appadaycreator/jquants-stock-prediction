@@ -189,9 +189,10 @@ class TestDynamicRiskManager(unittest.TestCase):
         low_risk_level = self.manager._determine_risk_level(0.01, 0.05, 0.15)
         self.assertIn(low_risk_level, [RiskLevel.VERY_LOW, RiskLevel.LOW])
         
-        # 高リスク
+        # 高リスク（var_95=0.08, max_drawdown=0.25, volatility=0.50）
+        # スコア計算: var_95(3) + max_drawdown(3) + volatility(3) = 9点 → VERY_HIGH
         high_risk_level = self.manager._determine_risk_level(0.08, 0.25, 0.50)
-        self.assertIn(high_risk_level, [RiskLevel.HIGH, RiskLevel.VERY_HIGH])
+        self.assertEqual(high_risk_level, RiskLevel.VERY_HIGH)
     
     def test_dynamic_position_size_calculation(self):
         """動的ポジションサイズ計算テスト"""

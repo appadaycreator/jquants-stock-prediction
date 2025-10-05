@@ -8,7 +8,7 @@ export interface StockIndicator {
   value: number;
   threshold: number;
   weight: number;
-  status: 'good' | 'warning' | 'bad';
+  status: "good" | "warning" | "bad";
 }
 
 export interface CandidateStock {
@@ -70,46 +70,46 @@ export class RankerService {
     maxCandidates: 5,
     minScore: 0.6,
     indicators: [
-      { name: 'RSI', weight: 0.2, threshold: 30 },
-      { name: 'MACD', weight: 0.2, threshold: 0 },
-      { name: 'Volume', weight: 0.15, threshold: 1.5 },
-      { name: 'Price_Momentum', weight: 0.15, threshold: 0.05 },
-      { name: 'PE_Ratio', weight: 0.1, threshold: 15 },
-      { name: 'PB_Ratio', weight: 0.1, threshold: 1.2 },
-      { name: 'ROE', weight: 0.1, threshold: 0.1 }
+      { name: "RSI", weight: 0.2, threshold: 30 },
+      { name: "MACD", weight: 0.2, threshold: 0 },
+      { name: "Volume", weight: 0.15, threshold: 1.5 },
+      { name: "Price_Momentum", weight: 0.15, threshold: 0.05 },
+      { name: "PE_Ratio", weight: 0.1, threshold: 15 },
+      { name: "PB_Ratio", weight: 0.1, threshold: 1.2 },
+      { name: "ROE", weight: 0.1, threshold: 0.1 },
     ],
     rules: {
       liquidity: {
         enabled: true,
-        percentile: 70 // 前日出来高が上位70%分位以上
+        percentile: 70, // 前日出来高が上位70%分位以上
       },
       trend: {
         enabled: true,
         weeks13vs26: true, // 13週＞26週
-        returnPercentile: 40 // 直近20営業日リターンが上位40%分位
+        returnPercentile: 40, // 直近20営業日リターンが上位40%分位
       },
       valuation: {
         enabled: true,
         pbrPercentile: 50, // PBRが市場中央値以下
-        perPercentile: 40 // PERが分位下位40%
+        perPercentile: 40, // PERが分位下位40%
       },
       quality: {
         enabled: true,
-        roePercentile: 40 // ROEが上位40%
+        roePercentile: 40, // ROEが上位40%
       },
       exclusions: {
         enabled: true,
         excludeNonTSE: true,
         excludeSpecialAttention: true,
         excludeEarningsDay: true,
-        excludeLimitUp: true
-      }
+        excludeLimitUp: true,
+      },
     },
     weights: {
       trend: 0.4,
       valuation: 0.3,
-      quality: 0.3
-    }
+      quality: 0.3,
+    },
   };
 
   /**
@@ -130,7 +130,7 @@ export class RankerService {
       
       // 各銘柄をルールベースでスコアリング
       const scoredStocks = filteredStocks.map(stock => 
-        RankerService.calculateRuleBasedScore(stock, finalConfig, percentiles)
+        RankerService.calculateRuleBasedScore(stock, finalConfig, percentiles),
       );
 
       // スコア順にソート
@@ -142,12 +142,12 @@ export class RankerService {
       // ランキングを設定
       return sortedStocks.map((stock, index) => ({
         ...stock,
-        rank: index + 1
+        rank: index + 1,
       }));
 
     } catch (error) {
-      console.error('候補生成エラー:', error);
-      throw new Error('候補生成に失敗しました');
+      console.error("候補生成エラー:", error);
+      throw new Error("候補生成に失敗しました");
     }
   }
 
@@ -156,19 +156,19 @@ export class RankerService {
    */
   private static async fetchStockData(): Promise<any[]> {
     try {
-      const response = await fetch('/api/stocks/data', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+      const response = await fetch("/api/stocks/data", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
-        throw new Error('株価データの取得に失敗しました');
+        throw new Error("株価データの取得に失敗しました");
       }
 
       const data = await response.json();
       return data.stocks || [];
     } catch (error) {
-      console.error('株価データ取得エラー:', error);
+      console.error("株価データ取得エラー:", error);
       // モックデータを返す
       return RankerService.getMockStockData();
     }
@@ -228,7 +228,7 @@ export class RankerService {
       return20: RankerService.calculatePercentile(returns20, 40),
       pbr: RankerService.calculatePercentile(pbrs, 50),
       per: RankerService.calculatePercentile(pers, 40),
-      roe: RankerService.calculatePercentile(roes, 40)
+      roe: RankerService.calculatePercentile(roes, 40),
     };
   }
 
@@ -248,7 +248,7 @@ export class RankerService {
   private static calculateRuleBasedScore(
     stock: any, 
     config: RankingConfig, 
-    percentiles: any
+    percentiles: any,
   ): CandidateStock {
     const indicators: StockIndicator[] = [];
     let trendScore = 0;
@@ -260,7 +260,7 @@ export class RankerService {
     if (config.rules.liquidity.enabled) {
       const volumePass = stock.volume >= percentiles.volume;
       if (volumePass) {
-        reasons.push('流動性良好（出来高上位70%）');
+        reasons.push("流動性良好（出来高上位70%）");
       }
     }
 
@@ -271,25 +271,25 @@ export class RankerService {
       // 13週＞26週
       if (config.rules.trend.weeks13vs26 && stock.weeks13 > stock.weeks26) {
         trendScore += 0.5;
-        trendReasons.push('13週移動平均＞26週移動平均');
+        trendReasons.push("13週移動平均＞26週移動平均");
       }
 
       // 直近20営業日リターン
       if (stock.return20 >= percentiles.return20) {
         trendScore += 0.5;
-        trendReasons.push('直近20営業日リターン良好');
+        trendReasons.push("直近20営業日リターン良好");
       }
 
       if (trendReasons.length > 0) {
-        reasons.push(`トレンド良好（${trendReasons.join('、')}）`);
+        reasons.push(`トレンド良好（${trendReasons.join("、")}）`);
       }
 
       indicators.push({
-        name: 'トレンド',
+        name: "トレンド",
         value: trendScore,
         threshold: 0.5,
         weight: config.weights.trend,
-        status: trendScore >= 0.5 ? 'good' : 'bad'
+        status: trendScore >= 0.5 ? "good" : "bad",
       });
     }
 
@@ -300,25 +300,25 @@ export class RankerService {
       // PBRが市場中央値以下
       if (stock.pbr <= percentiles.pbr) {
         valuationScore += 0.5;
-        valuationReasons.push('PBRが市場中央値以下');
+        valuationReasons.push("PBRが市場中央値以下");
       }
 
       // PERが分位下位40%
       if (stock.per <= percentiles.per) {
         valuationScore += 0.5;
-        valuationReasons.push('PERが分位下位40%');
+        valuationReasons.push("PERが分位下位40%");
       }
 
       if (valuationReasons.length > 0) {
-        reasons.push(`バリュー良好（${valuationReasons.join('、')}）`);
+        reasons.push(`バリュー良好（${valuationReasons.join("、")}）`);
       }
 
       indicators.push({
-        name: 'バリュー',
+        name: "バリュー",
         value: valuationScore,
         threshold: 0.5,
         weight: config.weights.valuation,
-        status: valuationScore >= 0.5 ? 'good' : 'bad'
+        status: valuationScore >= 0.5 ? "good" : "bad",
       });
     }
 
@@ -326,15 +326,15 @@ export class RankerService {
     if (config.rules.quality.enabled) {
       if (stock.roe >= percentiles.roe) {
         qualityScore = 1.0;
-        reasons.push('ROEが上位40%');
+        reasons.push("ROEが上位40%");
       }
 
       indicators.push({
-        name: 'クオリティ',
+        name: "クオリティ",
         value: qualityScore,
         threshold: 0.5,
         weight: config.weights.quality,
-        status: qualityScore >= 0.5 ? 'good' : 'bad'
+        status: qualityScore >= 0.5 ? "good" : "bad",
       });
     }
 
@@ -349,10 +349,10 @@ export class RankerService {
       price: stock.price,
       change: stock.change,
       changePercent: stock.changePercent,
-      reason: reasons.join('、'),
+      reason: reasons.join("、"),
       indicators,
       score: totalScore,
-      rank: 0
+      rank: 0,
     };
   }
 
@@ -361,42 +361,42 @@ export class RankerService {
    */
   private static calculateIndicator(stock: any, config: { name: string; weight: number; threshold: number }): StockIndicator {
     let value = 0;
-    let status: 'good' | 'warning' | 'bad' = 'bad';
+    let status: "good" | "warning" | "bad" = "bad";
 
     switch (config.name) {
-      case 'RSI':
+      case "RSI":
         value = stock.rsi || 0;
-        status = value <= config.threshold ? 'good' : value <= 70 ? 'warning' : 'bad';
+        status = value <= config.threshold ? "good" : value <= 70 ? "warning" : "bad";
         break;
       
-      case 'MACD':
+      case "MACD":
         value = stock.macd || 0;
-        status = value >= config.threshold ? 'good' : value >= -0.1 ? 'warning' : 'bad';
+        status = value >= config.threshold ? "good" : value >= -0.1 ? "warning" : "bad";
         break;
       
-      case 'Volume':
+      case "Volume":
         value = stock.volumeRatio || 1;
-        status = value >= config.threshold ? 'good' : value >= 1.2 ? 'warning' : 'bad';
+        status = value >= config.threshold ? "good" : value >= 1.2 ? "warning" : "bad";
         break;
       
-      case 'Price_Momentum':
+      case "Price_Momentum":
         value = stock.priceMomentum || 0;
-        status = value >= config.threshold ? 'good' : value >= 0.02 ? 'warning' : 'bad';
+        status = value >= config.threshold ? "good" : value >= 0.02 ? "warning" : "bad";
         break;
       
-      case 'PE_Ratio':
+      case "PE_Ratio":
         value = stock.peRatio || 0;
-        status = value <= config.threshold ? 'good' : value <= 20 ? 'warning' : 'bad';
+        status = value <= config.threshold ? "good" : value <= 20 ? "warning" : "bad";
         break;
       
-      case 'PB_Ratio':
+      case "PB_Ratio":
         value = stock.pbRatio || 0;
-        status = value <= config.threshold ? 'good' : value <= 1.5 ? 'warning' : 'bad';
+        status = value <= config.threshold ? "good" : value <= 1.5 ? "warning" : "bad";
         break;
       
-      case 'ROE':
+      case "ROE":
         value = stock.roe || 0;
-        status = value >= config.threshold ? 'good' : value >= 0.05 ? 'warning' : 'bad';
+        status = value >= config.threshold ? "good" : value >= 0.05 ? "warning" : "bad";
         break;
     }
 
@@ -405,7 +405,7 @@ export class RankerService {
       value,
       threshold: config.threshold,
       weight: config.weight,
-      status
+      status,
     };
   }
 
@@ -413,8 +413,8 @@ export class RankerService {
    * 理由の生成
    */
   private static generateReason(indicators: StockIndicator[]): string {
-    const goodIndicators = indicators.filter(ind => ind.status === 'good');
-    const warningIndicators = indicators.filter(ind => ind.status === 'warning');
+    const goodIndicators = indicators.filter(ind => ind.status === "good");
+    const warningIndicators = indicators.filter(ind => ind.status === "warning");
     
     if (goodIndicators.length >= 3) {
       return `${goodIndicators.length}個の指標が良好です`;
@@ -423,7 +423,7 @@ export class RankerService {
     } else if (warningIndicators.length >= 3) {
       return `${warningIndicators.length}個の指標が要注意です`;
     } else {
-      return '指標に注意が必要です';
+      return "指標に注意が必要です";
     }
   }
 
@@ -433,8 +433,8 @@ export class RankerService {
   private static getMockStockData(): any[] {
     return [
       {
-        code: '7203',
-        name: 'トヨタ自動車',
+        code: "7203",
+        name: "トヨタ自動車",
         price: 2500,
         change: 50,
         changePercent: 2.04,
@@ -444,11 +444,11 @@ export class RankerService {
         priceMomentum: 0.08,
         peRatio: 12,
         pbRatio: 1.1,
-        roe: 0.15
+        roe: 0.15,
       },
       {
-        code: '6758',
-        name: 'ソニーグループ',
+        code: "6758",
+        name: "ソニーグループ",
         price: 12000,
         change: -200,
         changePercent: -1.64,
@@ -458,11 +458,11 @@ export class RankerService {
         priceMomentum: -0.02,
         peRatio: 18,
         pbRatio: 1.3,
-        roe: 0.12
+        roe: 0.12,
       },
       {
-        code: '9984',
-        name: 'ソフトバンクグループ',
+        code: "9984",
+        name: "ソフトバンクグループ",
         price: 8000,
         change: 150,
         changePercent: 1.91,
@@ -472,11 +472,11 @@ export class RankerService {
         priceMomentum: 0.06,
         peRatio: 14,
         pbRatio: 1.0,
-        roe: 0.18
+        roe: 0.18,
       },
       {
-        code: '9432',
-        name: '日本電信電話',
+        code: "9432",
+        name: "日本電信電話",
         price: 4500,
         change: 30,
         changePercent: 0.67,
@@ -486,11 +486,11 @@ export class RankerService {
         priceMomentum: 0.03,
         peRatio: 16,
         pbRatio: 1.2,
-        roe: 0.08
+        roe: 0.08,
       },
       {
-        code: '6861',
-        name: 'キーエンス',
+        code: "6861",
+        name: "キーエンス",
         price: 65000,
         change: 1000,
         changePercent: 1.56,
@@ -500,8 +500,8 @@ export class RankerService {
         priceMomentum: 0.07,
         peRatio: 20,
         pbRatio: 1.4,
-        roe: 0.14
-      }
+        roe: 0.14,
+      },
     ];
   }
 
@@ -510,14 +510,14 @@ export class RankerService {
    */
   static async updateRankingConfig(config: Partial<RankingConfig>): Promise<void> {
     try {
-      await fetch('/api/ranking/config', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(config)
+      await fetch("/api/ranking/config", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(config),
       });
     } catch (error) {
-      console.error('ランキング設定更新エラー:', error);
-      throw new Error('ランキング設定の更新に失敗しました');
+      console.error("ランキング設定更新エラー:", error);
+      throw new Error("ランキング設定の更新に失敗しました");
     }
   }
 
@@ -527,18 +527,18 @@ export class RankerService {
   static async getRankingHistory(days: number = 7): Promise<any[]> {
     try {
       const response = await fetch(`/api/ranking/history?days=${days}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
-        throw new Error('ランキング履歴の取得に失敗しました');
+        throw new Error("ランキング履歴の取得に失敗しました");
       }
 
       const data = await response.json();
       return data.history || [];
     } catch (error) {
-      console.error('ランキング履歴取得エラー:', error);
+      console.error("ランキング履歴取得エラー:", error);
       return [];
     }
   }
@@ -555,9 +555,9 @@ export class RankerService {
     if (candidates.length === 0) {
       return {
         averageScore: 0,
-        bestIndicator: '',
-        worstIndicator: '',
-        recommendations: []
+        bestIndicator: "",
+        worstIndicator: "",
+        recommendations: [],
       };
     }
 
@@ -575,8 +575,8 @@ export class RankerService {
       });
     });
 
-    let bestIndicator = '';
-    let worstIndicator = '';
+    let bestIndicator = "";
+    let worstIndicator = "";
     let bestAvg = -Infinity;
     let worstAvg = Infinity;
 
@@ -595,7 +595,7 @@ export class RankerService {
     // 推奨事項の生成
     const recommendations: string[] = [];
     if (averageScore < 0.7) {
-      recommendations.push('全体的なスコアが低いため、より厳しい選別基準を検討してください');
+      recommendations.push("全体的なスコアが低いため、より厳しい選別基準を検討してください");
     }
     if (bestIndicator && worstIndicator) {
       recommendations.push(`${bestIndicator}が最も良好な指標です`);
@@ -606,7 +606,7 @@ export class RankerService {
       averageScore,
       bestIndicator,
       worstIndicator,
-      recommendations
+      recommendations,
     };
   }
 }

@@ -3,11 +3,11 @@
  * 財務指標分析の統合表示
  */
 
-import React, { useState, useEffect } from 'react';
-import { useFinancialAnalysis } from '@/hooks/useFinancialAnalysis';
-import { FinancialMetricsCard } from './FinancialMetricsCard';
-import { FinancialHealthScoreCard } from './FinancialHealthScoreCard';
-import { IndustryComparisonCard } from './IndustryComparisonCard';
+import React, { useState, useEffect } from "react";
+import { useFinancialAnalysis } from "@/hooks/useFinancialAnalysis";
+import { FinancialMetricsCard } from "./FinancialMetricsCard";
+import { FinancialHealthScoreCard } from "./FinancialHealthScoreCard";
+import { IndustryComparisonCard } from "./IndustryComparisonCard";
 
 interface FinancialAnalysisDashboardProps {
   symbol: string;
@@ -16,7 +16,7 @@ interface FinancialAnalysisDashboardProps {
 
 export function FinancialAnalysisDashboard({ 
   symbol, 
-  className = '' 
+  className = "", 
 }: FinancialAnalysisDashboardProps) {
   const {
     data,
@@ -30,7 +30,7 @@ export function FinancialAnalysisDashboard({
     statistics,
   } = useFinancialAnalysis();
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'metrics' | 'industry' | 'historical'>('overview');
+  const [activeTab, setActiveTab] = useState<"overview" | "metrics" | "industry" | "historical">("overview");
 
   useEffect(() => {
     if (symbol) {
@@ -105,18 +105,18 @@ export function FinancialAnalysisDashboard({
         <div className="border-b border-gray-200">
           <nav className="flex space-x-8 px-6">
             {[
-              { id: 'overview', label: '概要', icon: '📊' },
-              { id: 'metrics', label: '財務指標', icon: '📈' },
-              { id: 'industry', label: '業界比較', icon: '🏢' },
-              { id: 'historical', label: '時系列', icon: '📅' },
+              { id: "overview", label: "概要", icon: "📊" },
+              { id: "metrics", label: "財務指標", icon: "📈" },
+              { id: "industry", label: "業界比較", icon: "🏢" },
+              { id: "historical", label: "時系列", icon: "📅" },
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? "border-blue-500 text-blue-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                 }`}
               >
                 <span className="mr-2">{tab.icon}</span>
@@ -128,7 +128,7 @@ export function FinancialAnalysisDashboard({
 
         {/* タブコンテンツ */}
         <div className="p-6">
-          {activeTab === 'overview' && (
+          {activeTab === "overview" && (
             <div className="space-y-6">
               {healthScore && (
                 <FinancialHealthScoreCard healthScore={healthScore} />
@@ -136,7 +136,7 @@ export function FinancialAnalysisDashboard({
             </div>
           )}
 
-          {activeTab === 'metrics' && (
+          {activeTab === "metrics" && (
             <div className="space-y-6">
               {metrics && (
                 <FinancialMetricsCard metrics={metrics} />
@@ -144,7 +144,7 @@ export function FinancialAnalysisDashboard({
             </div>
           )}
 
-          {activeTab === 'industry' && (
+          {activeTab === "industry" && (
             <div className="space-y-6">
               {industryComparison && (
                 <IndustryComparisonCard industryComparison={industryComparison} />
@@ -152,7 +152,7 @@ export function FinancialAnalysisDashboard({
             </div>
           )}
 
-          {activeTab === 'historical' && (
+          {activeTab === "historical" && (
             <div className="space-y-6">
               {historicalAnalysis ? (
                 <div className="bg-white rounded-lg shadow-md p-6">

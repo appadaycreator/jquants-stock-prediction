@@ -2,10 +2,10 @@
  * カレンダーコンポーネント
  */
 
-import React from 'react';
+import React from "react";
 
 interface CalendarProps {
-  mode?: 'single' | 'multiple' | 'range';
+  mode?: "single" | "multiple" | "range";
   selected?: Date;
   onSelect?: (date: Date | undefined) => void;
   locale?: any;
@@ -13,11 +13,11 @@ interface CalendarProps {
 }
 
 export function Calendar({ 
-  mode = 'single', 
+  mode = "single", 
   selected, 
   onSelect, 
   locale,
-  className = '' 
+  className = "", 
 }: CalendarProps) {
   return (
     <div className={`calendar ${className}`}>
@@ -42,7 +42,7 @@ export function Calendar({
             <button
               key={day}
               type="button"
-              className={`calendar-day ${selected?.getDate() === day ? 'selected' : ''}`}
+              className={`calendar-day ${selected?.getDate() === day ? "selected" : ""}`}
               onClick={() => onSelect?.(new Date(2024, 0, day))}
             >
               {day}

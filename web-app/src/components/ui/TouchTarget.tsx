@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
 
 interface TouchTargetProps {
   children: ReactNode;
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   minSize?: number;
   className?: string;
   onClick?: () => void;
@@ -13,32 +13,32 @@ interface TouchTargetProps {
 }
 
 const SIZE_CLASSES = {
-  small: 'min-h-[44px] min-w-[44px] p-2',
-  medium: 'min-h-[48px] min-w-[48px] p-3',
-  large: 'min-h-[56px] min-w-[56px] p-4'
+  small: "min-h-[44px] min-w-[44px] p-2",
+  medium: "min-h-[48px] min-w-[48px] p-3",
+  large: "min-h-[56px] min-w-[56px] p-4",
 };
 
 export function TouchTarget({ 
   children, 
-  size = 'medium',
+  size = "medium",
   minSize = 48,
-  className = '',
+  className = "",
   onClick,
   disabled = false,
-  ariaLabel
+  ariaLabel,
 }: TouchTargetProps) {
   const baseClasses = `
     flex items-center justify-center
     transition-all duration-200
     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
     active:scale-95
-    ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-100'}
+    ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-gray-100"}
     ${SIZE_CLASSES[size]}
   `;
 
   const style = {
     minHeight: `${minSize}px`,
-    minWidth: `${minSize}px`
+    minWidth: `${minSize}px`,
   };
 
   return (
@@ -61,7 +61,7 @@ export function IconButton({
   onClick, 
   disabled = false,
   ariaLabel,
-  className = ''
+  className = "",
 }: {
   icon: ReactNode;
   onClick?: () => void;
@@ -85,19 +85,19 @@ export function TextButton({
   children, 
   onClick, 
   disabled = false,
-  variant = 'default',
-  className = ''
+  variant = "default",
+  className = "",
 }: {
   children: ReactNode;
   onClick?: () => void;
   disabled?: boolean;
-  variant?: 'default' | 'primary' | 'secondary';
+  variant?: "default" | "primary" | "secondary";
   className?: string;
 }) {
   const variantClasses = {
-    default: 'bg-white text-gray-900 border border-gray-300 hover:bg-gray-50',
-    primary: 'bg-blue-600 text-white hover:bg-blue-700',
-    secondary: 'bg-gray-600 text-white hover:bg-gray-700'
+    default: "bg-white text-gray-900 border border-gray-300 hover:bg-gray-50",
+    primary: "bg-blue-600 text-white hover:bg-blue-700",
+    secondary: "bg-gray-600 text-white hover:bg-gray-700",
   };
 
   return (
@@ -115,7 +115,7 @@ export function CardButton({
   children, 
   onClick, 
   disabled = false,
-  className = ''
+  className = "",
 }: {
   children: ReactNode;
   onClick?: () => void;
@@ -145,7 +145,7 @@ export function SwipeableCard({
   onSwipeRight,
   onSwipeUp,
   onSwipeDown,
-  className = ''
+  className = "",
 }: {
   children: ReactNode;
   onSwipeLeft?: () => void;
@@ -186,10 +186,10 @@ export function SwipeableCard({
         }
       }
       
-      document.removeEventListener('touchend', handleTouchEnd);
+      document.removeEventListener("touchend", handleTouchEnd);
     };
     
-    document.addEventListener('touchend', handleTouchEnd);
+    document.addEventListener("touchend", handleTouchEnd);
   };
 
   return (
@@ -208,7 +208,7 @@ export function LongPressButton({
   onLongPress,
   onPress,
   longPressDelay = 500,
-  className = ''
+  className = "",
 }: {
   children: ReactNode;
   onLongPress?: () => void;
@@ -250,7 +250,7 @@ export function LongPressButton({
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onTouchCancel={handleTouchCancel}
-      className={`${isLongPressing ? 'bg-blue-100' : ''} ${className}`}
+      className={`${isLongPressing ? "bg-blue-100" : ""} ${className}`}
     >
       {children}
     </TouchTarget>

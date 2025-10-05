@@ -17,11 +17,11 @@ import {
   NisaCalculationResult,
   NisaStatistics,
   ValidationResult,
-} from './types';
+} from "./types";
 
 export class NisaStorageManager {
-  private readonly STORAGE_KEY = 'nisa_data';
-  private readonly VERSION = '1.0.0';
+  private readonly STORAGE_KEY = "nisa_data";
+  private readonly VERSION = "1.0.0";
 
   /**
    * データを保存
@@ -42,7 +42,7 @@ export class NisaStorageManager {
 
       return true;
     } catch (error) {
-      console.error('データ保存エラー:', error);
+      console.error("データ保存エラー:", error);
       return false;
     }
   }
@@ -67,7 +67,7 @@ export class NisaStorageManager {
 
       return null;
     } catch (error) {
-      console.error('データ読み込みエラー:', error);
+      console.error("データ読み込みエラー:", error);
       return null;
     }
   }
@@ -81,7 +81,7 @@ export class NisaStorageManager {
       await this.clearIndexedDB();
       return true;
     } catch (error) {
-      console.error('データ削除エラー:', error);
+      console.error("データ削除エラー:", error);
       return false;
     }
   }
@@ -89,13 +89,13 @@ export class NisaStorageManager {
   /**
    * 取引記録を追加
    */
-  async addTransaction(transaction: Omit<NisaTransaction, 'id' | 'createdAt' | 'updatedAt'>): Promise<ValidationResult> {
+  async addTransaction(transaction: Omit<NisaTransaction, "id" | "createdAt" | "updatedAt">): Promise<ValidationResult> {
     try {
       const data = await this.loadData();
       if (!data) {
         return {
           isValid: false,
-          errors: ['データが見つかりません'],
+          errors: ["データが見つかりません"],
           warnings: [],
         };
       }
@@ -118,10 +118,10 @@ export class NisaStorageManager {
         warnings: [],
       };
     } catch (error) {
-      console.error('取引追加エラー:', error);
+      console.error("取引追加エラー:", error);
       return {
         isValid: false,
-        errors: ['取引の追加に失敗しました'],
+        errors: ["取引の追加に失敗しました"],
         warnings: [],
       };
     }
@@ -136,7 +136,7 @@ export class NisaStorageManager {
       if (!data) {
         return {
           isValid: false,
-          errors: ['データが見つかりません'],
+          errors: ["データが見つかりません"],
           warnings: [],
         };
       }
@@ -145,7 +145,7 @@ export class NisaStorageManager {
       if (transactionIndex === -1) {
         return {
           isValid: false,
-          errors: ['取引が見つかりません'],
+          errors: ["取引が見つかりません"],
           warnings: [],
         };
       }
@@ -165,10 +165,10 @@ export class NisaStorageManager {
         warnings: [],
       };
     } catch (error) {
-      console.error('取引更新エラー:', error);
+      console.error("取引更新エラー:", error);
       return {
         isValid: false,
-        errors: ['取引の更新に失敗しました'],
+        errors: ["取引の更新に失敗しました"],
         warnings: [],
       };
     }
@@ -183,7 +183,7 @@ export class NisaStorageManager {
       if (!data) {
         return {
           isValid: false,
-          errors: ['データが見つかりません'],
+          errors: ["データが見つかりません"],
           warnings: [],
         };
       }
@@ -192,7 +192,7 @@ export class NisaStorageManager {
       if (transactionIndex === -1) {
         return {
           isValid: false,
-          errors: ['取引が見つかりません'],
+          errors: ["取引が見つかりません"],
           warnings: [],
         };
       }
@@ -208,10 +208,10 @@ export class NisaStorageManager {
         warnings: [],
       };
     } catch (error) {
-      console.error('取引削除エラー:', error);
+      console.error("取引削除エラー:", error);
       return {
         isValid: false,
-        errors: ['取引の削除に失敗しました'],
+        errors: ["取引の削除に失敗しました"],
         warnings: [],
       };
     }
@@ -226,7 +226,7 @@ export class NisaStorageManager {
       if (!data) {
         return {
           isValid: false,
-          errors: ['データが見つかりません'],
+          errors: ["データが見つかりません"],
           warnings: [],
         };
       }
@@ -245,10 +245,10 @@ export class NisaStorageManager {
         warnings: [],
       };
     } catch (error) {
-      console.error('設定更新エラー:', error);
+      console.error("設定更新エラー:", error);
       return {
         isValid: false,
-        errors: ['設定の更新に失敗しました'],
+        errors: ["設定の更新に失敗しました"],
         warnings: [],
       };
     }
@@ -263,7 +263,7 @@ export class NisaStorageManager {
       if (!data) {
         return {
           isValid: false,
-          errors: ['データが見つかりません'],
+          errors: ["データが見つかりません"],
           warnings: [],
         };
       }
@@ -283,10 +283,10 @@ export class NisaStorageManager {
         warnings: [],
       };
     } catch (error) {
-      console.error('プロファイル更新エラー:', error);
+      console.error("プロファイル更新エラー:", error);
       return {
         isValid: false,
-        errors: ['プロファイルの更新に失敗しました'],
+        errors: ["プロファイルの更新に失敗しました"],
         warnings: [],
       };
     }
@@ -310,7 +310,7 @@ export class NisaStorageManager {
 
       return JSON.stringify(backup, null, 2);
     } catch (error) {
-      console.error('バックアップ作成エラー:', error);
+      console.error("バックアップ作成エラー:", error);
       return null;
     }
   }
@@ -326,7 +326,7 @@ export class NisaStorageManager {
       if (!validated) {
         return {
           isValid: false,
-          errors: ['バックアップデータが無効です'],
+          errors: ["バックアップデータが無効です"],
           warnings: [],
         };
       }
@@ -339,10 +339,10 @@ export class NisaStorageManager {
         warnings: [],
       };
     } catch (error) {
-      console.error('バックアップ復元エラー:', error);
+      console.error("バックアップ復元エラー:", error);
       return {
         isValid: false,
-        errors: ['バックアップの復元に失敗しました'],
+        errors: ["バックアップの復元に失敗しました"],
         warnings: [],
       };
     }
@@ -357,7 +357,7 @@ export class NisaStorageManager {
       if (!data) {
         return {
           isValid: false,
-          errors: ['データが見つかりません'],
+          errors: ["データが見つかりません"],
           warnings: [],
         };
       }
@@ -367,25 +367,25 @@ export class NisaStorageManager {
 
       // 基本データの検証
       if (!data.userProfile || !data.userProfile.userId) {
-        errors.push('ユーザープロファイルが無効です');
+        errors.push("ユーザープロファイルが無効です");
       }
 
       if (!data.quotas) {
-        errors.push('投資枠情報が無効です');
+        errors.push("投資枠情報が無効です");
       }
 
       if (!Array.isArray(data.transactions)) {
-        errors.push('取引履歴が無効です');
+        errors.push("取引履歴が無効です");
       }
 
       if (!data.portfolio) {
-        errors.push('ポートフォリオ情報が無効です');
+        errors.push("ポートフォリオ情報が無効です");
       }
 
       // 取引データの整合性チェック
       for (const transaction of data.transactions) {
         if (!transaction.id || !transaction.symbol || !transaction.type) {
-          errors.push(`無効な取引データ: ${transaction.id || 'unknown'}`);
+          errors.push(`無効な取引データ: ${transaction.id || "unknown"}`);
         }
       }
 
@@ -404,10 +404,10 @@ export class NisaStorageManager {
         warnings,
       };
     } catch (error) {
-      console.error('データ整合性チェックエラー:', error);
+      console.error("データ整合性チェックエラー:", error);
       return {
         isValid: false,
-        errors: ['データの整合性チェックに失敗しました'],
+        errors: ["データの整合性チェックに失敗しました"],
         warnings: [],
       };
     }
@@ -431,7 +431,7 @@ export class NisaStorageManager {
 
       return JSON.stringify(exportData, null, 2);
     } catch (error) {
-      console.error('データエクスポートエラー:', error);
+      console.error("データエクスポートエラー:", error);
       return null;
     }
   }
@@ -447,7 +447,7 @@ export class NisaStorageManager {
       if (!validated) {
         return {
           isValid: false,
-          errors: ['インポートデータが無効です'],
+          errors: ["インポートデータが無効です"],
           warnings: [],
         };
       }
@@ -460,10 +460,10 @@ export class NisaStorageManager {
         warnings: [],
       };
     } catch (error) {
-      console.error('データインポートエラー:', error);
+      console.error("データインポートエラー:", error);
       return {
         isValid: false,
-        errors: ['データのインポートに失敗しました'],
+        errors: ["データのインポートに失敗しました"],
         warnings: [],
       };
     }
@@ -474,23 +474,23 @@ export class NisaStorageManager {
    */
   private async saveToIndexedDB(data: any): Promise<void> {
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open('NisaDB', 1);
+      const request = indexedDB.open("NisaDB", 1);
 
       request.onerror = () => reject(request.error);
       request.onsuccess = () => {
         const db = request.result;
-        const transaction = db.transaction(['nisaData'], 'readwrite');
-        const store = transaction.objectStore('nisaData');
+        const transaction = db.transaction(["nisaData"], "readwrite");
+        const store = transaction.objectStore("nisaData");
         
-        store.put(data, 'main');
+        store.put(data, "main");
         transaction.oncomplete = () => resolve();
         transaction.onerror = () => reject(transaction.error);
       };
 
       request.onupgradeneeded = () => {
         const db = request.result;
-        if (!db.objectStoreNames.contains('nisaData')) {
-          db.createObjectStore('nisaData');
+        if (!db.objectStoreNames.contains("nisaData")) {
+          db.createObjectStore("nisaData");
         }
       };
     });
@@ -501,23 +501,23 @@ export class NisaStorageManager {
    */
   private async loadFromIndexedDB(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open('NisaDB', 1);
+      const request = indexedDB.open("NisaDB", 1);
 
       request.onerror = () => reject(request.error);
       request.onsuccess = () => {
         const db = request.result;
-        const transaction = db.transaction(['nisaData'], 'readonly');
-        const store = transaction.objectStore('nisaData');
+        const transaction = db.transaction(["nisaData"], "readonly");
+        const store = transaction.objectStore("nisaData");
         
-        const getRequest = store.get('main');
+        const getRequest = store.get("main");
         getRequest.onsuccess = () => resolve(getRequest.result);
         getRequest.onerror = () => reject(getRequest.error);
       };
 
       request.onupgradeneeded = () => {
         const db = request.result;
-        if (!db.objectStoreNames.contains('nisaData')) {
-          db.createObjectStore('nisaData');
+        if (!db.objectStoreNames.contains("nisaData")) {
+          db.createObjectStore("nisaData");
         }
       };
     });
@@ -528,7 +528,7 @@ export class NisaStorageManager {
    */
   private async clearIndexedDB(): Promise<void> {
     return new Promise((resolve, reject) => {
-      const request = indexedDB.deleteDatabase('NisaDB');
+      const request = indexedDB.deleteDatabase("NisaDB");
       request.onsuccess = () => resolve();
       request.onerror = () => reject(request.error);
     });
@@ -540,7 +540,7 @@ export class NisaStorageManager {
   private validateAndMigrateData(data: any): NisaData | null {
     try {
       // 基本的なデータ構造の検証
-      if (!data || typeof data !== 'object') {
+      if (!data || typeof data !== "object") {
         return null;
       }
 
@@ -613,7 +613,7 @@ export class NisaStorageManager {
 
       return defaultData;
     } catch (error) {
-      console.error('データ検証エラー:', error);
+      console.error("データ検証エラー:", error);
       return null;
     }
   }

@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, Star, AlertTriangle, RefreshCw } from 'lucide-react';
-import { LightweightChart } from '../charts/LightweightChart';
+import React, { useState, useEffect } from "react";
+import { TrendingUp, TrendingDown, Star, AlertTriangle, RefreshCw } from "lucide-react";
+import { LightweightChart } from "../charts/LightweightChart";
 
 interface KPIData {
   label: string;
   value: number;
   change: number;
   changePercent: number;
-  trend: 'up' | 'down' | 'neutral';
+  trend: "up" | "down" | "neutral";
 }
 
 interface CandidateStock {
@@ -35,7 +35,7 @@ export function FirstView({
   candidates, 
   isLoading = false, 
   onRefresh,
-  onStockClick 
+  onStockClick, 
 }: FirstViewProps) {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -60,29 +60,29 @@ export function FirstView({
   };
 
   const formatPercent = (percent: number) => {
-    const sign = percent >= 0 ? '+' : '';
+    const sign = percent >= 0 ? "+" : "";
     return `${sign}${percent.toFixed(2)}%`;
   };
 
-  const getTrendIcon = (trend: 'up' | 'down' | 'neutral') => {
+  const getTrendIcon = (trend: "up" | "down" | "neutral") => {
     switch (trend) {
-      case 'up':
+      case "up":
         return <TrendingUp className="w-4 h-4 text-green-600" />;
-      case 'down':
+      case "down":
         return <TrendingDown className="w-4 h-4 text-red-600" />;
       default:
         return <div className="w-4 h-4" />;
     }
   };
 
-  const getTrendColor = (trend: 'up' | 'down' | 'neutral') => {
+  const getTrendColor = (trend: "up" | "down" | "neutral") => {
     switch (trend) {
-      case 'up':
-        return 'text-green-600';
-      case 'down':
-        return 'text-red-600';
+      case "up":
+        return "text-green-600";
+      case "down":
+        return "text-red-600";
       default:
-        return 'text-gray-600';
+        return "text-gray-600";
     }
   };
 
@@ -138,7 +138,7 @@ export function FirstView({
           className="p-2 rounded-lg hover:bg-gray-100 transition-colors disabled:opacity-50"
           aria-label="更新"
         >
-          <RefreshCw className={`w-5 h-5 text-gray-600 ${isRefreshing ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`w-5 h-5 text-gray-600 ${isRefreshing ? "animate-spin" : ""}`} />
         </button>
       </div>
 
@@ -192,7 +192,7 @@ export function FirstView({
                     ¥{stock.price.toLocaleString()}
                   </div>
                   <div className={`text-sm ${
-                    stock.change >= 0 ? 'text-green-600' : 'text-red-600'
+                    stock.change >= 0 ? "text-green-600" : "text-red-600"
                   }`}>
                     {formatPercent(stock.changePercent)}
                   </div>

@@ -19,17 +19,17 @@ export interface FinancialMetrics {
 export interface ProfitabilityMetrics {
   roe: number;                    // 自己資本利益率
   roeRanking: number;            // 業界内順位
-  roeTrend: 'improving' | 'stable' | 'declining';
+  roeTrend: "improving" | "stable" | "declining";
   roeScore: number;              // スコア (0-100)
   
   roa: number;                   // 総資産利益率
   roaRanking: number;            // 業界内順位
-  roaTrend: 'improving' | 'stable' | 'declining';
+  roaTrend: "improving" | "stable" | "declining";
   roaScore: number;              // スコア (0-100)
   
   profitMargin: number;          // 売上高利益率
   profitMarginRanking: number;   // 業界内順位
-  profitMarginTrend: 'improving' | 'stable' | 'declining';
+  profitMarginTrend: "improving" | "stable" | "declining";
   profitMarginScore: number;     // スコア (0-100)
 }
 
@@ -37,17 +37,17 @@ export interface ProfitabilityMetrics {
 export interface MarketValuationMetrics {
   per: number;                   // 株価収益率
   perRanking: number;            // 業界内順位
-  perStatus: 'undervalued' | 'fair' | 'overvalued';
+  perStatus: "undervalued" | "fair" | "overvalued";
   perScore: number;              // スコア (0-100)
   
   pbr: number;                   // 株価純資産倍率
   pbrRanking: number;            // 業界内順位
-  pbrStatus: 'undervalued' | 'fair' | 'overvalued';
+  pbrStatus: "undervalued" | "fair" | "overvalued";
   pbrScore: number;              // スコア (0-100)
   
   psr: number;                   // 株価売上高倍率
   psrRanking: number;            // 業界内順位
-  psrStatus: 'undervalued' | 'fair' | 'overvalued';
+  psrStatus: "undervalued" | "fair" | "overvalued";
   psrScore: number;              // スコア (0-100)
 }
 
@@ -55,17 +55,17 @@ export interface MarketValuationMetrics {
 export interface SafetyMetrics {
   equityRatio: number;           // 自己資本比率
   equityRatioRanking: number;    // 業界内順位
-  equityRatioStatus: 'excellent' | 'good' | 'fair' | 'poor';
+  equityRatioStatus: "excellent" | "good" | "fair" | "poor";
   equityRatioScore: number;      // スコア (0-100)
   
   currentRatio: number;          // 流動比率
   currentRatioRanking: number;   // 業界内順位
-  currentRatioStatus: 'excellent' | 'good' | 'fair' | 'poor';
+  currentRatioStatus: "excellent" | "good" | "fair" | "poor";
   currentRatioScore: number;     // スコア (0-100)
   
   quickRatio: number;            // 当座比率
   quickRatioRanking: number;     // 業界内順位
-  quickRatioStatus: 'excellent' | 'good' | 'fair' | 'poor';
+  quickRatioStatus: "excellent" | "good" | "fair" | "poor";
   quickRatioScore: number;       // スコア (0-100)
 }
 
@@ -73,17 +73,17 @@ export interface SafetyMetrics {
 export interface GrowthMetrics {
   revenueGrowthRate: number;     // 売上高成長率
   revenueGrowthRanking: number;  // 業界内順位
-  revenueGrowthTrend: 'accelerating' | 'stable' | 'decelerating';
+  revenueGrowthTrend: "accelerating" | "stable" | "decelerating";
   revenueGrowthScore: number; // スコア (0-100)
   
   profitGrowthRate: number;      // 利益成長率
   profitGrowthRanking: number;   // 業界内順位
-  profitGrowthTrend: 'accelerating' | 'stable' | 'decelerating';
+  profitGrowthTrend: "accelerating" | "stable" | "decelerating";
   profitGrowthScore: number;    // スコア (0-100)
   
   assetGrowthRate: number;       // 資産成長率
   assetGrowthRanking: number;    // 業界内順位
-  assetGrowthTrend: 'accelerating' | 'stable' | 'decelerating';
+  assetGrowthTrend: "accelerating" | "stable" | "decelerating";
   assetGrowthScore: number;      // スコア (0-100)
 }
 
@@ -95,9 +95,9 @@ export interface FinancialHealthScore {
   safetyScore: number;           // 安全性スコア (0-100)
   growthScore: number;           // 成長性スコア (0-100)
   
-  grade: 'A+' | 'A' | 'B+' | 'B' | 'C+' | 'C' | 'D' | 'F';
-  recommendation: 'Strong Buy' | 'Buy' | 'Hold' | 'Sell' | 'Strong Sell';
-  riskLevel: 'Low' | 'Medium' | 'High';
+  grade: "A+" | "A" | "B+" | "B" | "C+" | "C" | "D" | "F";
+  recommendation: "Strong Buy" | "Buy" | "Hold" | "Sell" | "Strong Sell";
+  riskLevel: "Low" | "Medium" | "High";
   
   strengths: string[];           // 強み
   weaknesses: string[];          // 弱み
@@ -150,8 +150,8 @@ export interface HistoricalAnalysis {
     per: number;                 // PER変動係数
     pbr: number;                 // PBR変動係数
   };
-  stability: 'high' | 'medium' | 'low';
-  consistency: 'high' | 'medium' | 'low';
+  stability: "high" | "medium" | "low";
+  consistency: "high" | "medium" | "low";
 }
 
 // 財務データ
@@ -238,11 +238,11 @@ export interface FinancialCalculationResult {
 
 // エラーコード
 export enum FinancialErrorCode {
-  INVALID_DATA = 'INVALID_DATA',
-  CALCULATION_ERROR = 'CALCULATION_ERROR',
-  DATA_NOT_FOUND = 'DATA_NOT_FOUND',
-  INDUSTRY_NOT_FOUND = 'INDUSTRY_NOT_FOUND',
-  VALIDATION_ERROR = 'VALIDATION_ERROR',
+  INVALID_DATA = "INVALID_DATA",
+  CALCULATION_ERROR = "CALCULATION_ERROR",
+  DATA_NOT_FOUND = "DATA_NOT_FOUND",
+  INDUSTRY_NOT_FOUND = "INDUSTRY_NOT_FOUND",
+  VALIDATION_ERROR = "VALIDATION_ERROR",
 }
 
 // バリデーション結果

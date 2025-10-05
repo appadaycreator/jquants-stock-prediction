@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { AlertTriangle, RefreshCw, Wifi, WifiOff } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { AlertTriangle, RefreshCw, Wifi, WifiOff } from "lucide-react";
 
 interface DashboardErrorHandlerProps {
   error: Error | null;
@@ -14,7 +14,7 @@ export const DashboardErrorHandler: React.FC<DashboardErrorHandlerProps> = ({
   error,
   onRetry,
   isOnline,
-  fallbackData
+  fallbackData,
 }) => {
   const [retryCount, setRetryCount] = useState(0);
   const [isRetrying, setIsRetrying] = useState(false);
@@ -33,32 +33,32 @@ export const DashboardErrorHandler: React.FC<DashboardErrorHandlerProps> = ({
   const getErrorMessage = () => {
     if (!isOnline) {
       return {
-        title: 'オフライン状態',
-        message: 'インターネット接続を確認してください。オフライン時はキャッシュデータを表示します。',
-        icon: <WifiOff className="w-6 h-6 text-orange-500" />
+        title: "オフライン状態",
+        message: "インターネット接続を確認してください。オフライン時はキャッシュデータを表示します。",
+        icon: <WifiOff className="w-6 h-6 text-orange-500" />,
       };
     }
 
-    if (error?.message.includes('Failed to fetch')) {
+    if (error?.message.includes("Failed to fetch")) {
       return {
-        title: 'API接続エラー',
-        message: 'データサーバーに接続できません。しばらく待ってから再試行してください。',
-        icon: <Wifi className="w-6 h-6 text-red-500" />
+        title: "API接続エラー",
+        message: "データサーバーに接続できません。しばらく待ってから再試行してください。",
+        icon: <Wifi className="w-6 h-6 text-red-500" />,
       };
     }
 
-    if (error?.message.includes('timeout')) {
+    if (error?.message.includes("timeout")) {
       return {
-        title: 'タイムアウトエラー',
-        message: 'データの取得に時間がかかりすぎています。再試行してください。',
-        icon: <AlertTriangle className="w-6 h-6 text-yellow-500" />
+        title: "タイムアウトエラー",
+        message: "データの取得に時間がかかりすぎています。再試行してください。",
+        icon: <AlertTriangle className="w-6 h-6 text-yellow-500" />,
       };
     }
 
     return {
-      title: 'データ読み込みエラー',
-      message: error?.message || '不明なエラーが発生しました。',
-      icon: <AlertTriangle className="w-6 h-6 text-red-500" />
+      title: "データ読み込みエラー",
+      message: error?.message || "不明なエラーが発生しました。",
+      icon: <AlertTriangle className="w-6 h-6 text-red-500" />,
     };
   };
 
@@ -94,8 +94,8 @@ export const DashboardErrorHandler: React.FC<DashboardErrorHandlerProps> = ({
               disabled={isRetrying || retryCount >= 3}
               className={`px-4 py-2 rounded-md font-medium transition-colors ${
                 isRetrying || retryCount >= 3
-                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-blue-600 text-white hover:bg-blue-700'
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-blue-600 text-white hover:bg-blue-700"
               }`}
             >
               {isRetrying ? (

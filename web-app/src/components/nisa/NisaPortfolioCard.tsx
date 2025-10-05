@@ -3,11 +3,11 @@
  * 投資状況と損益を表示
  */
 
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { TrendingUp, TrendingDown, DollarSign, Target } from 'lucide-react';
-import { NisaPortfolio, NisaPosition } from '@/lib/nisa/types';
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { TrendingUp, TrendingDown, DollarSign, Target } from "lucide-react";
+import { NisaPortfolio, NisaPosition } from "@/lib/nisa/types";
 
 interface NisaPortfolioCardProps {
   portfolio: NisaPortfolio;
@@ -16,21 +16,21 @@ interface NisaPortfolioCardProps {
 
 export default function NisaPortfolioCard({ portfolio, className }: NisaPortfolioCardProps) {
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('ja-JP', {
-      style: 'currency',
-      currency: 'JPY',
+    return new Intl.NumberFormat("ja-JP", {
+      style: "currency",
+      currency: "JPY",
       minimumFractionDigits: 0,
     }).format(amount);
   };
 
   const formatPercentage = (value: number) => {
-    return `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`;
+    return `${value >= 0 ? "+" : ""}${value.toFixed(2)}%`;
   };
 
   const getProfitLossColor = (value: number) => {
-    if (value > 0) return 'text-green-600';
-    if (value < 0) return 'text-red-600';
-    return 'text-gray-600';
+    if (value > 0) return "text-green-600";
+    if (value < 0) return "text-red-600";
+    return "text-gray-600";
   };
 
   const getProfitLossIcon = (value: number) => {
@@ -147,29 +147,29 @@ interface PositionItemProps {
 
 function PositionItem({ position }: PositionItemProps) {
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('ja-JP', {
-      style: 'currency',
-      currency: 'JPY',
+    return new Intl.NumberFormat("ja-JP", {
+      style: "currency",
+      currency: "JPY",
       minimumFractionDigits: 0,
     }).format(amount);
   };
 
   const formatPercentage = (value: number) => {
-    return `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`;
+    return `${value >= 0 ? "+" : ""}${value.toFixed(2)}%`;
   };
 
   const getProfitLossColor = (value: number) => {
-    if (value > 0) return 'text-green-600';
-    if (value < 0) return 'text-red-600';
-    return 'text-gray-600';
+    if (value > 0) return "text-green-600";
+    if (value < 0) return "text-red-600";
+    return "text-gray-600";
   };
 
   const getQuotaTypeColor = (quotaType: string) => {
-    return quotaType === 'GROWTH' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800';
+    return quotaType === "GROWTH" ? "bg-blue-100 text-blue-800" : "bg-green-100 text-green-800";
   };
 
   const getQuotaTypeLabel = (quotaType: string) => {
-    return quotaType === 'GROWTH' ? '成長' : 'つみたて';
+    return quotaType === "GROWTH" ? "成長" : "つみたて";
   };
 
   const returnRate = position.cost > 0 ? (position.unrealizedProfitLoss / position.cost) * 100 : 0;

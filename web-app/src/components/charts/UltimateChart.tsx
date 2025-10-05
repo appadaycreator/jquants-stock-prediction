@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useCallback, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   BarChart3, 
   Settings, 
@@ -23,13 +23,13 @@ import {
   EyeOff,
   Layers,
   Filter,
-  RefreshCw
-} from 'lucide-react';
+  RefreshCw,
+} from "lucide-react";
 
-import ProfessionalChart from './ProfessionalChart';
-import AnimatedChart from './AnimatedChart';
-import WebGLChart from './WebGLChart';
-import '../../styles/ultimate-chart.css';
+import ProfessionalChart from "./ProfessionalChart";
+import AnimatedChart from "./AnimatedChart";
+import WebGLChart from "./WebGLChart";
+import "../../styles/ultimate-chart.css";
 
 interface CandleData {
   time: number;
@@ -57,7 +57,7 @@ interface UltimateChartProps {
   defaultMode?: string;
   enableAllModes?: boolean;
   onDataPointClick?: (data: CandleData) => void;
-  onExport?: (format: 'png' | 'svg' | 'pdf') => void;
+  onExport?: (format: "png" | "svg" | "pdf") => void;
   onShare?: () => void;
   className?: string;
 }
@@ -67,12 +67,12 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
   symbol,
   height = 600,
   width,
-  defaultMode = 'professional',
+  defaultMode = "professional",
   enableAllModes = true,
   onDataPointClick,
   onExport,
   onShare,
-  className = ''
+  className = "",
 }) => {
   const [currentMode, setCurrentMode] = useState(defaultMode);
   const [showSettings, setShowSettings] = useState(false);
@@ -83,34 +83,34 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
   const [enableWebGL, setEnableWebGL] = useState(true);
   const [showPerformance, setShowPerformance] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   // チャートモードの定義
   const chartModes: ChartMode[] = useMemo(() => [
     {
-      id: 'professional',
-      name: 'プロフェッショナル',
-      description: '高度なテクニカル指標と分析機能',
+      id: "professional",
+      name: "プロフェッショナル",
+      description: "高度なテクニカル指標と分析機能",
       icon: <BarChart3 className="w-5 h-5" />,
       component: ProfessionalChart,
-      features: ['テクニカル指標', '高度な分析', 'プロ仕様']
+      features: ["テクニカル指標", "高度な分析", "プロ仕様"],
     },
     {
-      id: 'animated',
-      name: 'アニメーション',
-      description: '滑らかなアニメーションとトレンド分析',
+      id: "animated",
+      name: "アニメーション",
+      description: "滑らかなアニメーションとトレンド分析",
       icon: <Activity className="w-5 h-5" />,
       component: AnimatedChart,
-      features: ['アニメーション', 'トレンド分析', '視覚効果']
+      features: ["アニメーション", "トレンド分析", "視覚効果"],
     },
     {
-      id: 'webgl',
-      name: 'WebGL高速',
-      description: 'GPU加速による超高速描画',
+      id: "webgl",
+      name: "WebGL高速",
+      description: "GPU加速による超高速描画",
       icon: <Zap className="w-5 h-5" />,
       component: WebGLChart,
-      features: ['GPU加速', '高速描画', '大量データ対応']
-    }
+      features: ["GPU加速", "高速描画", "大量データ対応"],
+    },
   ], []);
 
   // 現在のチャートコンポーネント
@@ -141,12 +141,12 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
       totalVolume,
       priceChange,
       priceChangePercent,
-      dataPoints: data.length
+      dataPoints: data.length,
     };
   }, [data]);
 
   // エクスポート機能
-  const handleExport = useCallback((format: 'png' | 'svg' | 'pdf') => {
+  const handleExport = useCallback((format: "png" | "svg" | "pdf") => {
     if (onExport) {
       onExport(format);
     } else {
@@ -163,7 +163,7 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
       navigator.share({
         title: `${symbol} チャート`,
         text: `${symbol} の株価チャートを共有`,
-        url: window.location.href
+        url: window.location.href,
       });
     }
   }, [onShare, symbol]);
@@ -180,7 +180,7 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
   }, []);
 
   return (
-    <div className={`ultimate-chart-container ${className} ${isFullscreen ? 'fixed inset-0 z-50 bg-white' : ''}`}>
+    <div className={`ultimate-chart-container ${className} ${isFullscreen ? "fixed inset-0 z-50 bg-white" : ""}`}>
       {/* ヘッダー */}
       <div className="flex items-center justify-between p-4 bg-white/80 backdrop-blur-sm border-b">
         <div className="flex items-center space-x-4">
@@ -200,8 +200,8 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
                   onClick={() => setCurrentMode(mode.id)}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                     currentMode === mode.id
-                      ? 'bg-blue-500 text-white shadow-lg'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? "bg-blue-500 text-white shadow-lg"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
                 >
                   {mode.icon}
@@ -225,9 +225,9 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
                 <span>安値: ¥{chartStats.minPrice.toLocaleString()}</span>
               </div>
               <div className={`flex items-center space-x-1 ${
-                chartStats.priceChange >= 0 ? 'text-green-600' : 'text-red-600'
+                chartStats.priceChange >= 0 ? "text-green-600" : "text-red-600"
               }`}>
-                <span>{chartStats.priceChange >= 0 ? '+' : ''}{chartStats.priceChangePercent.toFixed(2)}%</span>
+                <span>{chartStats.priceChange >= 0 ? "+" : ""}{chartStats.priceChangePercent.toFixed(2)}%</span>
               </div>
             </div>
           )}
@@ -257,7 +257,7 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => handleExport('png')}
+              onClick={() => handleExport("png")}
               className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
               title="エクスポート"
             >
@@ -323,11 +323,11 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
                       <button
                         onClick={() => setShowVolume(!showVolume)}
                         className={`w-12 h-6 rounded-full transition-colors ${
-                          showVolume ? 'bg-blue-500' : 'bg-gray-300'
+                          showVolume ? "bg-blue-500" : "bg-gray-300"
                         }`}
                       >
                         <div className={`w-5 h-5 bg-white rounded-full transition-transform ${
-                          showVolume ? 'translate-x-6' : 'translate-x-0.5'
+                          showVolume ? "translate-x-6" : "translate-x-0.5"
                         }`} />
                       </button>
                     </label>
@@ -337,11 +337,11 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
                       <button
                         onClick={() => setShowTrendLines(!showTrendLines)}
                         className={`w-12 h-6 rounded-full transition-colors ${
-                          showTrendLines ? 'bg-blue-500' : 'bg-gray-300'
+                          showTrendLines ? "bg-blue-500" : "bg-gray-300"
                         }`}
                       >
                         <div className={`w-5 h-5 bg-white rounded-full transition-transform ${
-                          showTrendLines ? 'translate-x-6' : 'translate-x-0.5'
+                          showTrendLines ? "translate-x-6" : "translate-x-0.5"
                         }`} />
                       </button>
                     </label>
@@ -351,11 +351,11 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
                       <button
                         onClick={() => setEnableAnimation(!enableAnimation)}
                         className={`w-12 h-6 rounded-full transition-colors ${
-                          enableAnimation ? 'bg-blue-500' : 'bg-gray-300'
+                          enableAnimation ? "bg-blue-500" : "bg-gray-300"
                         }`}
                       >
                         <div className={`w-5 h-5 bg-white rounded-full transition-transform ${
-                          enableAnimation ? 'translate-x-6' : 'translate-x-0.5'
+                          enableAnimation ? "translate-x-6" : "translate-x-0.5"
                         }`} />
                       </button>
                     </label>
@@ -371,11 +371,11 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
                       <button
                         onClick={() => setEnableWebGL(!enableWebGL)}
                         className={`w-12 h-6 rounded-full transition-colors ${
-                          enableWebGL ? 'bg-blue-500' : 'bg-gray-300'
+                          enableWebGL ? "bg-blue-500" : "bg-gray-300"
                         }`}
                       >
                         <div className={`w-5 h-5 bg-white rounded-full transition-transform ${
-                          enableWebGL ? 'translate-x-6' : 'translate-x-0.5'
+                          enableWebGL ? "translate-x-6" : "translate-x-0.5"
                         }`} />
                       </button>
                     </label>
@@ -385,11 +385,11 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
                       <button
                         onClick={() => setShowPerformance(!showPerformance)}
                         className={`w-12 h-6 rounded-full transition-colors ${
-                          showPerformance ? 'bg-blue-500' : 'bg-gray-300'
+                          showPerformance ? "bg-blue-500" : "bg-gray-300"
                         }`}
                       >
                         <div className={`w-5 h-5 bg-white rounded-full transition-transform ${
-                          showPerformance ? 'translate-x-6' : 'translate-x-0.5'
+                          showPerformance ? "translate-x-6" : "translate-x-0.5"
                         }`} />
                       </button>
                     </label>
@@ -401,17 +401,17 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
                   <h4 className="text-sm font-medium text-gray-900 mb-3">テーマ</h4>
                   <div className="flex space-x-2">
                     <button
-                      onClick={() => setTheme('light')}
+                      onClick={() => setTheme("light")}
                       className={`px-3 py-2 rounded-md text-sm transition-colors ${
-                        theme === 'light' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+                        theme === "light" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"
                       }`}
                     >
                       ライト
                     </button>
                     <button
-                      onClick={() => setTheme('dark')}
+                      onClick={() => setTheme("dark")}
                       className={`px-3 py-2 rounded-md text-sm transition-colors ${
-                        theme === 'dark' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+                        theme === "dark" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"
                       }`}
                     >
                       ダーク
@@ -440,7 +440,7 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
         <div className="flex items-center space-x-4 text-xs text-gray-500">
           <div className="flex items-center space-x-1">
             <Cpu className="w-3 h-3" />
-            <span>{enableWebGL ? 'WebGL' : 'Canvas'}</span>
+            <span>{enableWebGL ? "WebGL" : "Canvas"}</span>
           </div>
           <div className="flex items-center space-x-1">
             <Gauge className="w-3 h-3" />

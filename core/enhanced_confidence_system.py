@@ -321,7 +321,7 @@ class EnhancedConfidenceSystem:
         """ファンダメンタル信頼度計算"""
         try:
             if not fundamental_data:
-                return 0.6  # デフォルト値を上げる
+                return 0.5  # デフォルト値
             
             # 財務健全性
             financial_health = self._calculate_financial_health(fundamental_data)
@@ -342,12 +342,12 @@ class EnhancedConfidenceSystem:
                 industry_position * 0.2
             )
             
-            # 信頼度を0.6以上に調整（テスト要件を満たすため）
-            return max(0.6, min(1.0, fundamental_confidence))
+            # 計算された信頼度をそのまま返す（0.0-1.0の範囲）
+            return max(0.0, min(1.0, fundamental_confidence))
             
         except Exception as e:
             self.logger.error(f"ファンダメンタル信頼度計算エラー: {e}")
-            return 0.6
+            return 0.5
     
     def _calculate_ensemble_confidence(
         self,

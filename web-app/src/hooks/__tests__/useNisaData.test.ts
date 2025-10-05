@@ -2,11 +2,11 @@
  * 新NISA枠管理機能のカスタムフックテスト
  */
 
-import { renderHook, waitFor } from '@testing-library/react';
-import { useNisaData } from '../useNisaData';
+import { renderHook, waitFor } from "@testing-library/react";
+import { useNisaData } from "../useNisaData";
 
 // モック
-jest.mock('@/lib/nisa', () => ({
+jest.mock("@/lib/nisa", () => ({
   NisaManager: jest.fn().mockImplementation(() => ({
     initialize: jest.fn().mockResolvedValue(true),
     getCalculationResult: jest.fn().mockResolvedValue({
@@ -34,17 +34,17 @@ jest.mock('@/lib/nisa', () => ({
       portfolio: {
         positions: [
           {
-            symbol: '7203',
-            symbolName: 'トヨタ自動車',
+            symbol: "7203",
+            symbolName: "トヨタ自動車",
             quantity: 100,
             averagePrice: 2500,
             currentPrice: 2600,
             cost: 250_000,
             currentValue: 260_000,
             unrealizedProfitLoss: 10_000,
-            quotaType: 'GROWTH',
-            purchaseDate: '2024-01-15',
-            lastUpdated: '2024-01-15T10:00:00Z',
+            quotaType: "GROWTH",
+            purchaseDate: "2024-01-15",
+            lastUpdated: "2024-01-15T10:00:00Z",
           },
         ],
         totalValue: 260_000,
@@ -52,27 +52,27 @@ jest.mock('@/lib/nisa', () => ({
         unrealizedProfitLoss: 10_000,
         realizedProfitLoss: 0,
         taxFreeProfitLoss: 10_000,
-        lastUpdated: '2024-01-15T10:00:00Z',
+        lastUpdated: "2024-01-15T10:00:00Z",
       },
       optimization: {
         recommendations: {
           growthQuota: {
             suggestedAmount: 500_000,
-            reason: '成長投資枠の利用率が低いため、積極的な投資を推奨',
-            priority: 'HIGH',
+            reason: "成長投資枠の利用率が低いため、積極的な投資を推奨",
+            priority: "HIGH",
           },
           accumulationQuota: {
             suggestedAmount: 100_000,
-            reason: 'つみたて投資枠の利用率が低いため、定期的な積立投資を推奨',
-            priority: 'HIGH',
+            reason: "つみたて投資枠の利用率が低いため、定期的な積立投資を推奨",
+            priority: "HIGH",
           },
         },
         riskAnalysis: {
           diversificationScore: 10,
           sectorConcentration: 100,
-          riskLevel: 'HIGH',
+          riskLevel: "HIGH",
         },
-        lastCalculated: '2024-01-15T10:00:00Z',
+        lastCalculated: "2024-01-15T10:00:00Z",
       },
       taxCalculation: {
         currentYear: {
@@ -90,21 +90,21 @@ jest.mock('@/lib/nisa', () => ({
           taxRate: 0.20,
           effectiveTaxRate: 0.20,
         },
-        calculatedAt: '2024-01-15T10:00:00Z',
+        calculatedAt: "2024-01-15T10:00:00Z",
       },
       alerts: [],
       opportunities: [
         {
-          id: 'opp-1',
-          symbol: '6758',
-          symbolName: 'ソニーグループ',
-          reason: '成長投資枠の利用率が低く、投資機会があります',
+          id: "opp-1",
+          symbol: "6758",
+          symbolName: "ソニーグループ",
+          reason: "成長投資枠の利用率が低く、投資機会があります",
           expectedReturn: 0.08,
-          riskLevel: 'MEDIUM',
-          quotaRecommendation: 'GROWTH',
+          riskLevel: "MEDIUM",
+          quotaRecommendation: "GROWTH",
           suggestedAmount: 200_000,
           confidence: 0.75,
-          createdAt: '2024-01-15T10:00:00Z',
+          createdAt: "2024-01-15T10:00:00Z",
         },
       ],
     }),
@@ -129,7 +129,7 @@ jest.mock('@/lib/nisa', () => ({
 // グローバルfetchのモック
 global.fetch = jest.fn();
 
-describe('useNisaData', () => {
+describe("useNisaData", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (global.fetch as jest.Mock).mockResolvedValue({
@@ -164,7 +164,7 @@ describe('useNisaData', () => {
             unrealizedProfitLoss: 10_000,
             realizedProfitLoss: 0,
             taxFreeProfitLoss: 10_000,
-            lastUpdated: '2024-01-15T10:00:00Z',
+            lastUpdated: "2024-01-15T10:00:00Z",
           },
           alerts: [],
           opportunities: [],
@@ -173,7 +173,7 @@ describe('useNisaData', () => {
     });
   });
 
-  it('初期状態でデータを読み込む', async () => {
+  it("初期状態でデータを読み込む", async () => {
     const { result } = renderHook(() => useNisaData());
 
     expect(result.current.loading).toBe(true);
@@ -188,8 +188,8 @@ describe('useNisaData', () => {
     expect(result.current.calculationResult).not.toBeNull();
   });
 
-  it('エラー時にエラー状態を設定', async () => {
-    (global.fetch as jest.Mock).mockRejectedValue(new Error('Network error'));
+  it("エラー時にエラー状態を設定", async () => {
+    (global.fetch as jest.Mock).mockRejectedValue(new Error("Network error"));
 
     const { result } = renderHook(() => useNisaData());
 
@@ -197,16 +197,16 @@ describe('useNisaData', () => {
       expect(result.current.loading).toBe(false);
     });
 
-    expect(result.current.error).toBe('Network error');
+    expect(result.current.error).toBe("Network error");
     expect(result.current.data).toBeNull();
   });
 
-  it('APIエラー時にエラー状態を設定', async () => {
+  it("APIエラー時にエラー状態を設定", async () => {
     (global.fetch as jest.Mock).mockResolvedValue({
       json: () => Promise.resolve({
         success: false,
         error: {
-          message: 'API error',
+          message: "API error",
         },
       }),
     });
@@ -217,10 +217,10 @@ describe('useNisaData', () => {
       expect(result.current.loading).toBe(false);
     });
 
-    expect(result.current.error).toBe('API error');
+    expect(result.current.error).toBe("API error");
   });
 
-  it('データの更新ができる', async () => {
+  it("データの更新ができる", async () => {
     const { result } = renderHook(() => useNisaData());
 
     await waitFor(() => {
@@ -228,13 +228,13 @@ describe('useNisaData', () => {
     });
 
     const refreshData = result.current.refreshData;
-    expect(typeof refreshData).toBe('function');
+    expect(typeof refreshData).toBe("function");
 
     await refreshData();
     expect(global.fetch).toHaveBeenCalledTimes(2); // 初期読み込み + 更新
   });
 
-  it('取引の追加ができる', async () => {
+  it("取引の追加ができる", async () => {
     const { result } = renderHook(() => useNisaData());
 
     await waitFor(() => {
@@ -242,14 +242,14 @@ describe('useNisaData', () => {
     });
 
     const transaction = {
-      type: 'BUY' as const,
-      symbol: '7203',
-      symbolName: 'トヨタ自動車',
+      type: "BUY" as const,
+      symbol: "7203",
+      symbolName: "トヨタ自動車",
       quantity: 100,
       price: 2500,
       amount: 250_000,
-      quotaType: 'GROWTH' as const,
-      transactionDate: '2024-01-15',
+      quotaType: "GROWTH" as const,
+      transactionDate: "2024-01-15",
     };
 
     const result_add = await result.current.addTransaction(transaction);
@@ -257,14 +257,14 @@ describe('useNisaData', () => {
     expect(result_add.errors).toHaveLength(0);
   });
 
-  it('取引の更新ができる', async () => {
+  it("取引の更新ができる", async () => {
     const { result } = renderHook(() => useNisaData());
 
     await waitFor(() => {
       expect(result.current.loading).toBe(false);
     });
 
-    const result_update = await result.current.updateTransaction('test-id', {
+    const result_update = await result.current.updateTransaction("test-id", {
       quantity: 200,
       amount: 500_000,
     });
@@ -273,19 +273,19 @@ describe('useNisaData', () => {
     expect(result_update.errors).toHaveLength(0);
   });
 
-  it('取引の削除ができる', async () => {
+  it("取引の削除ができる", async () => {
     const { result } = renderHook(() => useNisaData());
 
     await waitFor(() => {
       expect(result.current.loading).toBe(false);
     });
 
-    const result_delete = await result.current.deleteTransaction('test-id');
+    const result_delete = await result.current.deleteTransaction("test-id");
     expect(result_delete.isValid).toBe(true);
     expect(result_delete.errors).toHaveLength(0);
   });
 
-  it('統計情報が正しく計算される', async () => {
+  it("統計情報が正しく計算される", async () => {
     const { result } = renderHook(() => useNisaData());
 
     await waitFor(() => {
@@ -299,7 +299,7 @@ describe('useNisaData', () => {
     expect(result.current.statistics.utilizationRate.accumulation).toBeCloseTo(25.0, 2);
   });
 
-  it('計算結果が正しく提供される', async () => {
+  it("計算結果が正しく提供される", async () => {
     const { result } = renderHook(() => useNisaData());
 
     await waitFor(() => {

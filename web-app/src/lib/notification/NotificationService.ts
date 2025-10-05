@@ -83,7 +83,7 @@ export class NotificationService {
   public async loadConfig(): Promise<NotificationConfig> {
     try {
       // ブラウザ環境チェック
-      if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      if (typeof window === "undefined" || typeof localStorage === "undefined") {
         throw new Error("localStorage is not available");
       }
 
@@ -146,7 +146,7 @@ export class NotificationService {
 
       if (isDev) {
         try {
-          if (typeof localStorage !== 'undefined') {
+          if (typeof localStorage !== "undefined") {
             localStorage.setItem("notification-config", JSON.stringify(defaultConfig));
           }
         } catch (_) {}
@@ -166,7 +166,7 @@ export class NotificationService {
   public async saveConfig(config: NotificationConfig): Promise<void> {
     try {
       // ブラウザ環境チェック
-      if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      if (typeof window === "undefined" || typeof localStorage === "undefined") {
         throw new Error("localStorage is not available");
       }
 
@@ -336,7 +336,7 @@ export class NotificationService {
   public async getNotificationHistory(): Promise<NotificationData[]> {
     try {
       // ブラウザ環境チェック
-      if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      if (typeof window === "undefined" || typeof localStorage === "undefined") {
         return [];
       }
 
@@ -357,7 +357,7 @@ export class NotificationService {
     const notificationData: NotificationData = {
       type: "routine_complete",
       title: "✅ 5分ルーティン完了",
-      message: `5分ルーティンが正常に完了しました。実行時間: ${result.execution_time || '不明'}`,
+      message: `5分ルーティンが正常に完了しました。実行時間: ${result.execution_time || "不明"}`,
       data: result,
       timestamp: new Date().toISOString(),
       priority: "high",
@@ -394,7 +394,7 @@ export class NotificationService {
     const notificationData: NotificationData = {
       type: "scheduler_status",
       title: "📅 スケジューラー状態",
-      message: `スケジューラー: ${status.is_running ? '実行中' : '停止中'}, 実行回数: ${status.execution_count}, エラー回数: ${status.error_count}`,
+      message: `スケジューラー: ${status.is_running ? "実行中" : "停止中"}, 実行回数: ${status.execution_count}, エラー回数: ${status.error_count}`,
       data: status,
       timestamp: new Date().toISOString(),
       priority: "medium",
@@ -482,7 +482,7 @@ export class NotificationService {
       
       // 過去1時間の通知数をカウント
       const recentNotifications = history.filter(
-        (notification) => new Date(notification.timestamp).getTime() > oneHourAgo
+        (notification) => new Date(notification.timestamp).getTime() > oneHourAgo,
       );
 
       if (recentNotifications.length >= this.config.rate_limiting.max_notifications_per_hour) {
@@ -501,7 +501,7 @@ export class NotificationService {
   private async saveNotificationToHistory(data: NotificationData): Promise<void> {
     try {
       // ブラウザ環境チェック
-      if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      if (typeof window === "undefined" || typeof localStorage === "undefined") {
         return;
       }
 

@@ -22,7 +22,7 @@ import {
   NISA_CONSTANTS,
   NisaErrorCode,
   ValidationResult,
-} from './types';
+} from "./types";
 
 export class NisaCalculator {
   private transactions: NisaTransaction[] = [];
@@ -38,29 +38,29 @@ export class NisaCalculator {
   calculateQuotaStatus(): NisaQuotaStatus {
     const currentYear = new Date().getFullYear();
     const currentYearTransactions = this.transactions.filter(
-      t => new Date(t.transactionDate).getFullYear() === currentYear
+      t => new Date(t.transactionDate).getFullYear() === currentYear,
     );
 
     // 成長投資枠の計算
     const growthTransactions = currentYearTransactions.filter(
-      t => t.quotaType === 'GROWTH'
+      t => t.quotaType === "GROWTH",
     );
     const growthUsed = growthTransactions
-      .filter(t => t.type === 'BUY')
+      .filter(t => t.type === "BUY")
       .reduce((sum, t) => sum + t.amount, 0);
     const growthSold = growthTransactions
-      .filter(t => t.type === 'SELL')
+      .filter(t => t.type === "SELL")
       .reduce((sum, t) => sum + (t.amount || 0), 0);
 
     // つみたて投資枠の計算
     const accumulationTransactions = currentYearTransactions.filter(
-      t => t.quotaType === 'ACCUMULATION'
+      t => t.quotaType === "ACCUMULATION",
     );
     const accumulationUsed = accumulationTransactions
-      .filter(t => t.type === 'BUY')
+      .filter(t => t.type === "BUY")
       .reduce((sum, t) => sum + t.amount, 0);
     const accumulationSold = accumulationTransactions
-      .filter(t => t.type === 'SELL')
+      .filter(t => t.type === "SELL")
       .reduce((sum, t) => sum + (t.amount || 0), 0);
 
     return {
@@ -97,7 +97,7 @@ export class NisaCalculator {
 
     // 実現損益の計算
     const realizedProfitLoss = this.transactions
-      .filter(t => t.type === 'SELL' && t.profitLoss)
+      .filter(t => t.type === "SELL" && t.profitLoss)
       .reduce((sum, t) => sum + (t.profitLoss || 0), 0);
 
     // 非課税枠内の損益
@@ -132,7 +132,7 @@ export class NisaCalculator {
       const key = `${transaction.symbol}_${transaction.quotaType}`;
       const existing = positionMap.get(key);
 
-      if (transaction.type === 'BUY') {
+      if (transaction.type === "BUY") {
         if (existing) {
           existing.quantity += transaction.quantity;
           existing.totalCost += transaction.amount;
@@ -146,7 +146,7 @@ export class NisaCalculator {
             firstPurchaseDate: transaction.transactionDate,
           });
         }
-      } else if (transaction.type === 'SELL') {
+      } else if (transaction.type === "SELL") {
         if (existing) {
           existing.quantity -= transaction.quantity;
           existing.totalCost -= transaction.amount;
@@ -195,7 +195,7 @@ export class NisaCalculator {
    */
   private calculateTaxFreeRatio(quotaType: QuotaType): number {
     const quotaStatus = this.calculateQuotaStatus();
-    const quota = quotaType === 'GROWTH' 
+    const quota = quotaType === "GROWTH" 
       ? quotaStatus.growthInvestment 
       : quotaStatus.accumulationInvestment;
     
@@ -233,7 +233,7 @@ export class NisaCalculator {
    */
   private generateGrowthRecommendation(
     quotaStatus: NisaQuotaStatus,
-    portfolio: NisaPortfolio
+    portfolio: NisaPortfolio,
   ): { suggestedAmount: number; reason: string; priority: Priority } {
     const available = quotaStatus.growthInvestment.availableAmount;
     const utilization = quotaStatus.growthInvestment.utilizationRate;
@@ -241,20 +241,20 @@ export class NisaCalculator {
     if (utilization < 50) {
       return {
         suggestedAmount: Math.min(available, 500_000),
-        reason: '成長投資枠の利用率が低いため、積極的な投資を推奨',
-        priority: 'HIGH',
+        reason: "成長投資枠の利用率が低いため、積極的な投資を推奨",
+        priority: "HIGH",
       };
     } else if (utilization < 80) {
       return {
         suggestedAmount: Math.min(available, 200_000),
-        reason: '成長投資枠の利用率が中程度のため、適度な投資を推奨',
-        priority: 'MEDIUM',
+        reason: "成長投資枠の利用率が中程度のため、適度な投資を推奨",
+        priority: "MEDIUM",
       };
     } else {
       return {
         suggestedAmount: Math.min(available, 50_000),
-        reason: '成長投資枠の利用率が高いため、慎重な投資を推奨',
-        priority: 'LOW',
+        reason: "成長投資枠の利用率が高いため、慎重な投資を推奨",
+        priority: "LOW",
       };
     }
   }
@@ -264,7 +264,7 @@ export class NisaCalculator {
    */
   private generateAccumulationRecommendation(
     quotaStatus: NisaQuotaStatus,
-    portfolio: NisaPortfolio
+    portfolio: NisaPortfolio,
   ): { suggestedAmount: number; reason: string; priority: Priority } {
     const available = quotaStatus.accumulationInvestment.availableAmount;
     const utilization = quotaStatus.accumulationInvestment.utilizationRate;
@@ -272,20 +272,20 @@ export class NisaCalculator {
     if (utilization < 30) {
       return {
         suggestedAmount: Math.min(available, 100_000),
-        reason: 'つみたて投資枠の利用率が低いため、定期的な積立投資を推奨',
-        priority: 'HIGH',
+        reason: "つみたて投資枠の利用率が低いため、定期的な積立投資を推奨",
+        priority: "HIGH",
       };
     } else if (utilization < 70) {
       return {
         suggestedAmount: Math.min(available, 50_000),
-        reason: 'つみたて投資枠の利用率が中程度のため、継続的な積立投資を推奨',
-        priority: 'MEDIUM',
+        reason: "つみたて投資枠の利用率が中程度のため、継続的な積立投資を推奨",
+        priority: "MEDIUM",
       };
     } else {
       return {
         suggestedAmount: Math.min(available, 20_000),
-        reason: 'つみたて投資枠の利用率が高いため、少額の積立投資を推奨',
-        priority: 'LOW',
+        reason: "つみたて投資枠の利用率が高いため、少額の積立投資を推奨",
+        priority: "LOW",
       };
     }
   }
@@ -305,7 +305,7 @@ export class NisaCalculator {
       return {
         diversificationScore: 0,
         sectorConcentration: 100,
-        riskLevel: 'HIGH',
+        riskLevel: "HIGH",
       };
     }
 
@@ -316,11 +316,11 @@ export class NisaCalculator {
     const sectorConcentration = this.calculateSectorConcentration(positions);
 
     // リスクレベルの判定
-    let riskLevel: RiskLevel = 'LOW';
+    let riskLevel: RiskLevel = "LOW";
     if (diversificationScore < 30 || sectorConcentration > 80) {
-      riskLevel = 'HIGH';
+      riskLevel = "HIGH";
     } else if (diversificationScore < 60 || sectorConcentration > 60) {
-      riskLevel = 'MEDIUM';
+      riskLevel = "MEDIUM";
     }
 
     return {
@@ -356,12 +356,12 @@ export class NisaCalculator {
   private getSectorFromSymbol(symbol: string): string {
     // 仮実装：実際の実装では適切なセクター情報を使用
     const sectorMap: Record<string, string> = {
-      '7203': '自動車',
-      '6758': '電気機器',
-      '8035': '銀行',
-      '9984': '小売業',
+      "7203": "自動車",
+      "6758": "電気機器",
+      "8035": "銀行",
+      "9984": "小売業",
     };
-    return sectorMap[symbol] || 'その他';
+    return sectorMap[symbol] || "その他";
   }
 
   /**
@@ -427,24 +427,24 @@ export class NisaCalculator {
     if (quotaStatus.growthInvestment.utilizationRate > 90) {
       alerts.push({
         id: `growth_critical_${Date.now()}`,
-        type: 'CRITICAL',
-        message: '成長投資枠の利用率が90%を超えています',
-        quotaType: 'GROWTH',
+        type: "CRITICAL",
+        message: "成長投資枠の利用率が90%を超えています",
+        quotaType: "GROWTH",
         currentUsage: quotaStatus.growthInvestment.utilizationRate,
         threshold: 90,
-        recommendedAction: '投資枠の見直しを検討してください',
+        recommendedAction: "投資枠の見直しを検討してください",
         createdAt: new Date().toISOString(),
         isRead: false,
       });
     } else if (quotaStatus.growthInvestment.utilizationRate > 70) {
       alerts.push({
         id: `growth_warning_${Date.now()}`,
-        type: 'WARNING',
-        message: '成長投資枠の利用率が70%を超えています',
-        quotaType: 'GROWTH',
+        type: "WARNING",
+        message: "成長投資枠の利用率が70%を超えています",
+        quotaType: "GROWTH",
         currentUsage: quotaStatus.growthInvestment.utilizationRate,
         threshold: 70,
-        recommendedAction: '投資計画の見直しを検討してください',
+        recommendedAction: "投資計画の見直しを検討してください",
         createdAt: new Date().toISOString(),
         isRead: false,
       });
@@ -454,12 +454,12 @@ export class NisaCalculator {
     if (quotaStatus.accumulationInvestment.utilizationRate > 90) {
       alerts.push({
         id: `accumulation_critical_${Date.now()}`,
-        type: 'CRITICAL',
-        message: 'つみたて投資枠の利用率が90%を超えています',
-        quotaType: 'ACCUMULATION',
+        type: "CRITICAL",
+        message: "つみたて投資枠の利用率が90%を超えています",
+        quotaType: "ACCUMULATION",
         currentUsage: quotaStatus.accumulationInvestment.utilizationRate,
         threshold: 90,
-        recommendedAction: '積立投資の見直しを検討してください',
+        recommendedAction: "積立投資の見直しを検討してください",
         createdAt: new Date().toISOString(),
         isRead: false,
       });
@@ -479,12 +479,12 @@ export class NisaCalculator {
     if (quotaStatus.growthInvestment.availableAmount > 100_000) {
       opportunities.push({
         id: `growth_opportunity_${Date.now()}`,
-        symbol: '7203',
-        symbolName: 'トヨタ自動車',
-        reason: '成長投資枠の利用率が低く、投資機会があります',
+        symbol: "7203",
+        symbolName: "トヨタ自動車",
+        reason: "成長投資枠の利用率が低く、投資機会があります",
         expectedReturn: 0.08,
-        riskLevel: 'MEDIUM',
-        quotaRecommendation: 'GROWTH',
+        riskLevel: "MEDIUM",
+        quotaRecommendation: "GROWTH",
         suggestedAmount: Math.min(quotaStatus.growthInvestment.availableAmount, 200_000),
         confidence: 0.75,
         createdAt: new Date().toISOString(),
@@ -495,12 +495,12 @@ export class NisaCalculator {
     if (quotaStatus.accumulationInvestment.availableAmount > 50_000) {
       opportunities.push({
         id: `accumulation_opportunity_${Date.now()}`,
-        symbol: '6758',
-        symbolName: 'ソニーグループ',
-        reason: 'つみたて投資枠の利用率が低く、積立投資の機会があります',
+        symbol: "6758",
+        symbolName: "ソニーグループ",
+        reason: "つみたて投資枠の利用率が低く、積立投資の機会があります",
         expectedReturn: 0.06,
-        riskLevel: 'LOW',
-        quotaRecommendation: 'ACCUMULATION',
+        riskLevel: "LOW",
+        quotaRecommendation: "ACCUMULATION",
         suggestedAmount: Math.min(quotaStatus.accumulationInvestment.availableAmount, 100_000),
         confidence: 0.80,
         createdAt: new Date().toISOString(),
@@ -524,8 +524,8 @@ export class NisaCalculator {
         totalProfitLoss: 0,
         totalTaxFreeProfitLoss: 0,
         averageReturn: 0,
-        bestPerformer: { symbol: '', symbolName: '', return: 0 },
-        worstPerformer: { symbol: '', symbolName: '', return: 0 },
+        bestPerformer: { symbol: "", symbolName: "", return: 0 },
+        worstPerformer: { symbol: "", symbolName: "", return: 0 },
         diversificationScore: 0,
         riskScore: 0,
       };
@@ -545,10 +545,10 @@ export class NisaCalculator {
     }));
 
     const bestPerformer = performers.reduce((best, current) => 
-      current.return > best.return ? current : best
+      current.return > best.return ? current : best,
     );
     const worstPerformer = performers.reduce((worst, current) => 
-      current.return < worst.return ? current : worst
+      current.return < worst.return ? current : worst,
     );
 
     // 分散投資スコア
@@ -587,35 +587,35 @@ export class NisaCalculator {
   /**
    * 取引の妥当性を検証
    */
-  validateTransaction(transaction: Omit<NisaTransaction, 'id' | 'createdAt' | 'updatedAt'>): ValidationResult {
+  validateTransaction(transaction: Omit<NisaTransaction, "id" | "createdAt" | "updatedAt">): ValidationResult {
     const errors: string[] = [];
     const warnings: string[] = [];
 
     // 基本検証
     if (!transaction.symbol || !transaction.symbolName) {
-      errors.push('銘柄情報が不足しています');
+      errors.push("銘柄情報が不足しています");
     }
 
     if (transaction.quantity <= 0) {
-      errors.push('数量は0より大きい必要があります');
+      errors.push("数量は0より大きい必要があります");
     }
 
     if (transaction.price <= 0) {
-      errors.push('価格は0より大きい必要があります');
+      errors.push("価格は0より大きい必要があります");
     }
 
-    if (!['GROWTH', 'ACCUMULATION'].includes(transaction.quotaType)) {
-      errors.push('無効な投資枠タイプです');
+    if (!["GROWTH", "ACCUMULATION"].includes(transaction.quotaType)) {
+      errors.push("無効な投資枠タイプです");
     }
 
-    if (!['BUY', 'SELL'].includes(transaction.type)) {
-      errors.push('無効な取引タイプです');
+    if (!["BUY", "SELL"].includes(transaction.type)) {
+      errors.push("無効な取引タイプです");
     }
 
     // 投資枠の検証
-    if (transaction.type === 'BUY') {
+    if (transaction.type === "BUY") {
       const quotaStatus = this.calculateQuotaStatus();
-      const quota = transaction.quotaType === 'GROWTH' 
+      const quota = transaction.quotaType === "GROWTH" 
         ? quotaStatus.growthInvestment 
         : quotaStatus.accumulationInvestment;
 
@@ -625,16 +625,16 @@ export class NisaCalculator {
     }
 
     // 売却時の検証
-    if (transaction.type === 'SELL') {
+    if (transaction.type === "SELL") {
       const positions = this.calculatePositions();
       const position = positions.find(p => 
-        p.symbol === transaction.symbol && p.quotaType === transaction.quotaType
+        p.symbol === transaction.symbol && p.quotaType === transaction.quotaType,
       );
 
       if (!position) {
-        errors.push('売却対象のポジションが見つかりません');
+        errors.push("売却対象のポジションが見つかりません");
       } else if (transaction.quantity > position.quantity) {
-        errors.push('売却数量が保有数量を超えています');
+        errors.push("売却数量が保有数量を超えています");
       }
     }
 
@@ -655,7 +655,7 @@ export class NisaCalculator {
   /**
    * 取引を追加
    */
-  addTransaction(transaction: Omit<NisaTransaction, 'id' | 'createdAt' | 'updatedAt'>): ValidationResult {
+  addTransaction(transaction: Omit<NisaTransaction, "id" | "createdAt" | "updatedAt">): ValidationResult {
     const validation = this.validateTransaction(transaction);
     
     if (validation.isValid) {

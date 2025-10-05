@@ -154,7 +154,7 @@ export class UnifiedApiClient {
     if (this.isStaticSite()) {
       return {
         success: true,
-        message: '静的サイトモード: モックデータを使用中',
+        message: "静的サイトモード: モックデータを使用中",
       };
     }
 
@@ -188,15 +188,15 @@ export class UnifiedApiClient {
 
   // 静的サイトかどうかを判定
   private isStaticSite(): boolean {
-    if (typeof window === 'undefined') return true;
+    if (typeof window === "undefined") return true;
     
     // GitHub Pages のドメインパターンをチェック
     const hostname = window.location.hostname;
-    return hostname.includes('github.io') || 
-           hostname.includes('netlify.app') || 
-           hostname.includes('vercel.app') ||
-           hostname.includes('appadaycreator.github.io') ||
-           hostname.includes('localhost'); // 開発環境でも静的サイトとして扱う
+    return hostname.includes("github.io") || 
+           hostname.includes("netlify.app") || 
+           hostname.includes("vercel.app") ||
+           hostname.includes("appadaycreator.github.io") ||
+           hostname.includes("localhost"); // 開発環境でも静的サイトとして扱う
   }
 
   // 株価データ取得
@@ -208,7 +208,7 @@ export class UnifiedApiClient {
         price: 2500,
         change: 2.5,
         volume: 1000000,
-        lastUpdated: new Date().toISOString()
+        lastUpdated: new Date().toISOString(),
       };
     }
     const response = await this.get(`/stocks/${symbol}`);
@@ -220,10 +220,10 @@ export class UnifiedApiClient {
     if (this.isStaticSite()) {
       // 静的サイトの場合はモックデータを返す
       return {
-        marketStatus: 'open',
+        marketStatus: "open",
         topGainers: [],
         topLosers: [],
-        lastUpdated: new Date().toISOString()
+        lastUpdated: new Date().toISOString(),
       };
     }
     const response = await this.get("/market");
@@ -236,7 +236,7 @@ export class UnifiedApiClient {
       // 静的サイトの場合はモックデータを返す
       return {
         predictions: [],
-        lastUpdated: new Date().toISOString()
+        lastUpdated: new Date().toISOString(),
       };
     }
     const response = await this.get("/predictions");
@@ -250,7 +250,7 @@ export class UnifiedApiClient {
       return {
         portfolio: { totalValue: 1000000, totalReturn: 5.2 },
         positions: [],
-        lastUpdated: new Date().toISOString()
+        lastUpdated: new Date().toISOString(),
       };
     }
     const response = await this.get("/personal-investment");

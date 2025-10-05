@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
 interface ApiResponse<T> {
   data: T;
   success: boolean;
   error?: string;
   timestamp: string;
-  source: 'api' | 'cache' | 'fallback';
+  source: "api" | "cache" | "fallback";
 }
 
 interface RetryConfig {
@@ -31,34 +31,34 @@ export class ApiClient {
 
   constructor(config: Partial<ApiClientConfig> = {}) {
     this.config = {
-      baseUrl: config.baseUrl || '/api',
+      baseUrl: config.baseUrl || "/api",
       timeout: config.timeout || 10000,
       retryConfig: {
         maxRetries: 3,
         baseDelay: 1000,
         maxDelay: 10000,
         backoffFactor: 2,
-        ...config.retryConfig
+        ...config.retryConfig,
       },
       enableFallback: config.enableFallback ?? true,
-      fallbackDataPath: config.fallbackDataPath || '/docs/data',
-      ...config
+      fallbackDataPath: config.fallbackDataPath || "/docs/data",
+      ...config,
     };
 
     this.setupNetworkMonitoring();
   }
 
   private setupNetworkMonitoring(): void {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('online', () => {
+    if (typeof window !== "undefined") {
+      window.addEventListener("online", () => {
         this.isOnline = true;
         this.retryCount = 0;
-        console.log('🌐 オンライン復帰: API接続を再開します');
+        console.log("🌐 オンライン復帰: API接続を再開します");
       });
 
-      window.addEventListener('offline', () => {
+      window.addEventListener("offline", () => {
         this.isOnline = false;
-        console.log('📱 オフライン状態: キャッシュデータを使用します');
+        console.log("📱 オフライン状態: キャッシュデータを使用します");
       });
     }
   }
@@ -76,7 +76,7 @@ export class ApiClient {
   private async fetchWithRetry<T>(
     url: string,
     options: RequestInit = {},
-    attempt: number = 0
+    attempt: number = 0,
   ): Promise<ApiResponse<T>> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
@@ -86,9 +86,9 @@ export class ApiClient {
         ...options,
         signal: controller.abortSignal,
         headers: {
-          'Content-Type': 'application/json',
-          ...options.headers
-        }
+          "Content-Type": "application/json",
+          ...options.headers,
+        },
       });
 
       clearTimeout(timeoutId);
@@ -105,7 +105,7 @@ export class ApiClient {
         data,
         success: true,
         timestamp: new Date().toISOString(),
-        source: 'api'
+        source: "api",
       };
 
     } catch (error) {
@@ -139,12 +139,12 @@ export class ApiClient {
         data,
         success: true,
         timestamp: new Date().toISOString(),
-        source: 'fallback'
+        source: "fallback",
       };
 
     } catch (error) {
-      console.error('フォールバックデータの取得に失敗:', error);
-      throw new Error('API接続とフォールバックデータの両方に失敗しました');
+      console.error("フォールバックデータの取得に失敗:", error);
+      throw new Error("API接続とフォールバックデータの両方に失敗しました");
     }
   }
 
@@ -154,12 +154,12 @@ export class ApiClient {
     try {
       // オフライン時は即座にフォールバック
       if (!this.isOnline) {
-        console.log('📱 オフライン状態: フォールバックデータを使用します');
+        console.log("📱 オフライン状態: フォールバックデータを使用します");
         return this.getFallbackData<T>(endpoint);
       }
 
       // API呼び出しを試行
-      return await this.fetchWithRetry<T>(url, { ...options, method: 'GET' });
+      return await this.fetchWithRetry<T>(url, { ...options, method: "GET" });
 
     } catch (error) {
       console.error(`API呼び出し失敗 (${endpoint}):`, error);
@@ -167,10 +167,10 @@ export class ApiClient {
       // フォールバックが有効な場合は試行
       if (this.config.enableFallback) {
         try {
-          console.log('🔄 フォールバックデータに切り替えます');
+          console.log("🔄 フォールバックデータに切り替えます");
           return await this.getFallbackData<T>(endpoint);
         } catch (fallbackError) {
-          console.error('フォールバックも失敗:', fallbackError);
+          console.error("フォールバックも失敗:", fallbackError);
         }
       }
 
@@ -185,8 +185,8 @@ export class ApiClient {
     try {
       return await this.fetchWithRetry<T>(url, {
         ...options,
-        method: 'POST',
-        body: JSON.stringify(data)
+        method: "POST",
+        body: JSON.stringify(data),
       });
 
     } catch (error) {
@@ -201,8 +201,8 @@ export class ApiClient {
     try {
       return await this.fetchWithRetry<T>(url, {
         ...options,
-        method: 'PUT',
-        body: JSON.stringify(data)
+        method: "PUT",
+        body: JSON.stringify(data),
       });
 
     } catch (error) {
@@ -217,7 +217,7 @@ export class ApiClient {
     try {
       return await this.fetchWithRetry<T>(url, {
         ...options,
-        method: 'DELETE'
+        method: "DELETE",
       });
 
     } catch (error) {
@@ -237,7 +237,7 @@ export class ApiClient {
       isOnline: this.isOnline,
       retryCount: this.retryCount,
       lastSuccessfulRequest: this.lastSuccessfulRequest,
-      timeSinceLastSuccess: Date.now() - this.lastSuccessfulRequest
+      timeSinceLastSuccess: Date.now() - this.lastSuccessfulRequest,
     };
   }
 
@@ -254,16 +254,16 @@ export class ApiClient {
 
 // シングルトンインスタンス
 export const apiClient = new ApiClient({
-  baseUrl: '/api',
+  baseUrl: "/api",
   timeout: 10000,
   retryConfig: {
     maxRetries: 3,
     baseDelay: 1000,
     maxDelay: 10000,
-    backoffFactor: 2
+    backoffFactor: 2,
   },
   enableFallback: true,
-  fallbackDataPath: '/docs/data'
+  fallbackDataPath: "/docs/data",
 });
 
 export default ApiClient;

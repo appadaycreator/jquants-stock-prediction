@@ -292,7 +292,7 @@ export function useRealTodayData() {
         if (!connectionStatus.success) {
           console.warn("API接続失敗、サンプルデータを使用します:", connectionStatus.message);
           // 静的サイトの場合はエラーを投げずにサンプルデータを使用
-          if (connectionStatus.message.includes('静的サイトモード')) {
+          if (connectionStatus.message.includes("静的サイトモード")) {
             console.log("静的サイトモード: サンプルデータを使用します");
           } else {
             throw new Error(`API接続失敗: ${connectionStatus.message}`);
@@ -301,7 +301,7 @@ export function useRealTodayData() {
       } catch (error) {
         console.warn("接続テストエラー、サンプルデータを使用します:", error);
         // 静的サイトの場合はエラーを投げずにサンプルデータを使用
-        if (error instanceof Error && error.message.includes('静的サイトモード')) {
+        if (error instanceof Error && error.message.includes("静的サイトモード")) {
           console.log("静的サイトモード: サンプルデータを使用します");
         } else {
           throw error;

@@ -3,8 +3,8 @@
  * ROE、ROA、PER、PBR等の財務指標を表示
  */
 
-import React from 'react';
-import { FinancialMetrics } from '@/lib/financial/types';
+import React from "react";
+import { FinancialMetrics } from "@/lib/financial/types";
 
 interface FinancialMetricsCardProps {
   metrics: FinancialMetrics;
@@ -14,8 +14,8 @@ interface FinancialMetricsCardProps {
 
 export function FinancialMetricsCard({ 
   metrics, 
-  title = '財務指標', 
-  className = '' 
+  title = "財務指標", 
+  className = "", 
 }: FinancialMetricsCardProps) {
   return (
     <div className={`bg-white rounded-lg shadow-md p-6 ${className}`}>

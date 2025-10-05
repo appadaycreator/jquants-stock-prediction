@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Play, Pause, RotateCcw, CheckCircle, Clock, Target, TrendingUp, AlertTriangle } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Play, Pause, RotateCcw, CheckCircle, Clock, Target, TrendingUp, AlertTriangle } from "lucide-react";
 
 interface RoutineStep {
   id: string;
@@ -23,47 +23,47 @@ export const RoutineGuide: React.FC<RoutineGuideProps> = ({
   isOpen,
   onClose,
   onStepComplete,
-  onRoutineComplete
+  onRoutineComplete,
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(300); // 5分 = 300秒
   const [steps, setSteps] = useState<RoutineStep[]>([
     {
-      id: 'data-update',
-      title: '最新データの取得',
-      description: 'J-Quants APIから最新の株価データを取得します',
+      id: "data-update",
+      title: "最新データの取得",
+      description: "J-Quants APIから最新の株価データを取得します",
       estimatedTime: 30,
-      completed: false
+      completed: false,
     },
     {
-      id: 'candidates-review',
-      title: '買い候補の確認',
-      description: '今日の投資候補銘柄を確認し、理由を検討します',
+      id: "candidates-review",
+      title: "買い候補の確認",
+      description: "今日の投資候補銘柄を確認し、理由を検討します",
       estimatedTime: 60,
-      completed: false
+      completed: false,
     },
     {
-      id: 'holdings-check',
-      title: '保有銘柄の評価',
-      description: '現在保有している銘柄の利益・損失を確認します',
+      id: "holdings-check",
+      title: "保有銘柄の評価",
+      description: "現在保有している銘柄の利益・損失を確認します",
       estimatedTime: 45,
-      completed: false
+      completed: false,
     },
     {
-      id: 'risk-assessment',
-      title: 'リスク管理の確認',
-      description: 'ポートフォリオ全体のリスク状況を確認します',
+      id: "risk-assessment",
+      title: "リスク管理の確認",
+      description: "ポートフォリオ全体のリスク状況を確認します",
       estimatedTime: 30,
-      completed: false
+      completed: false,
     },
     {
-      id: 'action-memo',
-      title: 'アクションメモの作成',
-      description: '今日の投資判断と今後の計画をメモします',
+      id: "action-memo",
+      title: "アクションメモの作成",
+      description: "今日の投資判断と今後の計画をメモします",
       estimatedTime: 45,
-      completed: false
-    }
+      completed: false,
+    },
   ]);
 
   const totalSteps = steps.length;
@@ -93,19 +93,19 @@ export const RoutineGuide: React.FC<RoutineGuideProps> = ({
 
   // 進捗の保存
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('routine-progress', JSON.stringify({
+    if (typeof window !== "undefined") {
+      localStorage.setItem("routine-progress", JSON.stringify({
         currentStep,
         steps,
-        timeRemaining
+        timeRemaining,
       }));
     }
   }, [currentStep, steps, timeRemaining]);
 
   // 進捗の復元
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('routine-progress');
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("routine-progress");
       if (saved) {
         try {
           const data = JSON.parse(saved);
@@ -113,7 +113,7 @@ export const RoutineGuide: React.FC<RoutineGuideProps> = ({
           setSteps(data.steps || steps);
           setTimeRemaining(data.timeRemaining || 300);
         } catch (error) {
-          console.error('進捗の復元に失敗:', error);
+          console.error("進捗の復元に失敗:", error);
         }
       }
     }
@@ -136,7 +136,7 @@ export const RoutineGuide: React.FC<RoutineGuideProps> = ({
 
   const completeStep = (stepId: string) => {
     setSteps(prev => prev.map(step => 
-      step.id === stepId ? { ...step, completed: true } : step
+      step.id === stepId ? { ...step, completed: true } : step,
     ));
     
     onStepComplete?.(stepId);
@@ -154,7 +154,7 @@ export const RoutineGuide: React.FC<RoutineGuideProps> = ({
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   const getStepIcon = (step: RoutineStep, index: number) => {
@@ -168,10 +168,10 @@ export const RoutineGuide: React.FC<RoutineGuideProps> = ({
   };
 
   const getStepStatus = (step: RoutineStep, index: number) => {
-    if (step.completed) return 'completed';
-    if (index === currentStep) return 'current';
-    if (index < currentStep) return 'pending';
-    return 'upcoming';
+    if (step.completed) return "completed";
+    if (index === currentStep) return "current";
+    if (index < currentStep) return "pending";
+    return "upcoming";
   };
 
   if (!isOpen) return null;
@@ -211,8 +211,8 @@ export const RoutineGuide: React.FC<RoutineGuideProps> = ({
                 onClick={isRunning ? pauseRoutine : startRoutine}
                 className={`px-4 py-2 rounded-md font-medium transition-colors ${
                   isRunning
-                    ? 'bg-yellow-600 text-white hover:bg-yellow-700'
-                    : 'bg-green-600 text-white hover:bg-green-700'
+                    ? "bg-yellow-600 text-white hover:bg-yellow-700"
+                    : "bg-green-600 text-white hover:bg-green-700"
                 }`}
               >
                 {isRunning ? (
@@ -263,10 +263,10 @@ export const RoutineGuide: React.FC<RoutineGuideProps> = ({
                   key={step.id}
                   className={`p-4 rounded-lg border-2 transition-all ${
                     isCurrent
-                      ? 'border-blue-500 bg-blue-50'
+                      ? "border-blue-500 bg-blue-50"
                       : step.completed
-                      ? 'border-green-500 bg-green-50'
-                      : 'border-gray-200 bg-white'
+                      ? "border-green-500 bg-green-50"
+                      : "border-gray-200 bg-white"
                   }`}
                 >
                   <div className="flex items-start space-x-4">
@@ -276,7 +276,7 @@ export const RoutineGuide: React.FC<RoutineGuideProps> = ({
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
                         <h3 className={`text-lg font-medium ${
-                          isCurrent ? 'text-blue-900' : 'text-gray-900'
+                          isCurrent ? "text-blue-900" : "text-gray-900"
                         }`}>
                           {step.title}
                         </h3>
@@ -292,7 +292,7 @@ export const RoutineGuide: React.FC<RoutineGuideProps> = ({
                         </div>
                       </div>
                       <p className={`text-sm mt-1 ${
-                        isCurrent ? 'text-blue-700' : 'text-gray-600'
+                        isCurrent ? "text-blue-700" : "text-gray-600"
                       }`}>
                         {step.description}
                       </p>

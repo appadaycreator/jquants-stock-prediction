@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { ArrowLeft, Download, Share2, Maximize2, Settings } from 'lucide-react';
-import Link from 'next/link';
-import StockChart from '@/components/StockChart';
-import { Button } from '@/components/ui/button';
-import { formatStockCode } from '@/lib/stock-code-utils';
+import { useState, useEffect } from "react";
+import { ArrowLeft, Download, Share2, Maximize2, Settings } from "lucide-react";
+import Link from "next/link";
+import StockChart from "@/components/StockChart";
+import { Button } from "@/components/ui/button";
+import { formatStockCode } from "@/lib/stock-code-utils";
 
 interface ChartData {
   timestamp: number;
@@ -42,7 +42,7 @@ interface ChartPageClientProps {
 export default function ChartPageClient({ symbol }: ChartPageClientProps) {
   const [stockInfo, setStockInfo] = useState<StockInfo | null>(null);
   const [chartData, setChartData] = useState<CandleData[]>([]);
-  const [timeframe, setTimeframe] = useState<'1d' | '1w' | '1m' | '3m' | '6m' | '1y'>('1m');
+  const [timeframe, setTimeframe] = useState<"1d" | "1w" | "1m" | "3m" | "6m" | "1y">("1m");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -51,22 +51,22 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
     const data: ChartData[] = [];
     const now = Date.now();
     const intervals = {
-      '1d': 5 * 60 * 1000, // 5分間隔
-      '1w': 60 * 60 * 1000, // 1時間間隔
-      '1m': 24 * 60 * 60 * 1000, // 1日間隔
-      '3m': 24 * 60 * 60 * 1000, // 1日間隔
-      '6m': 24 * 60 * 60 * 1000, // 1日間隔
-      '1y': 24 * 60 * 60 * 1000, // 1日間隔
+      "1d": 5 * 60 * 1000, // 5分間隔
+      "1w": 60 * 60 * 1000, // 1時間間隔
+      "1m": 24 * 60 * 60 * 1000, // 1日間隔
+      "3m": 24 * 60 * 60 * 1000, // 1日間隔
+      "6m": 24 * 60 * 60 * 1000, // 1日間隔
+      "1y": 24 * 60 * 60 * 1000, // 1日間隔
     };
     
     const interval = intervals[timeframe as keyof typeof intervals] || 24 * 60 * 60 * 1000;
     const periods = {
-      '1d': 24 * 12, // 5分間隔で1日
-      '1w': 24 * 7, // 1時間間隔で1週間
-      '1m': 30, // 1日間隔で1ヶ月
-      '3m': 90, // 1日間隔で3ヶ月
-      '6m': 180, // 1日間隔で6ヶ月
-      '1y': 365, // 1日間隔で1年
+      "1d": 24 * 12, // 5分間隔で1日
+      "1w": 24 * 7, // 1時間間隔で1週間
+      "1m": 30, // 1日間隔で1ヶ月
+      "3m": 90, // 1日間隔で3ヶ月
+      "6m": 180, // 1日間隔で6ヶ月
+      "1y": 365, // 1日間隔で1年
     };
     
     const periodCount = periods[timeframe as keyof typeof periods] || 30;
@@ -128,12 +128,12 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
           high: item.high,
           low: item.low,
           close: item.close,
-          volume: item.volume
+          volume: item.volume,
         }));
         
-        console.log('Generated mock data:', mockData.length, 'items');
-        console.log('Converted data:', convertedData.length, 'items');
-        console.log('Sample data:', convertedData.slice(0, 3));
+        console.log("Generated mock data:", mockData.length, "items");
+        console.log("Converted data:", convertedData.length, "items");
+        console.log("Sample data:", convertedData.slice(0, 3));
         
         setChartData(convertedData);
         setStockInfo(mockStockInfo);
@@ -141,8 +141,8 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
         // 静的エクスポートモードではAPIルートは使用しない
         // モックデータのみを使用
       } catch (error) {
-        console.error('チャートデータ読み込みエラー:', error);
-        setError('チャートデータの読み込みに失敗しました');
+        console.error("チャートデータ読み込みエラー:", error);
+        setError("チャートデータの読み込みに失敗しました");
       } finally {
         setLoading(false);
       }
@@ -159,7 +159,7 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
 
   const handleDownload = () => {
     // チャート画像のダウンロード機能
-    console.log('チャート画像をダウンロード');
+    console.log("チャート画像をダウンロード");
   };
 
   const handleShare = () => {
@@ -172,7 +172,7 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
       });
     } else {
       navigator.clipboard.writeText(window.location.href);
-      alert('URLをクリップボードにコピーしました');
+      alert("URLをクリップボードにコピーしました");
     }
   };
 
@@ -253,10 +253,10 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
                     ¥{stockInfo.price.toLocaleString()}
                   </span>
                   <span className={`ml-2 text-sm font-medium ${
-                    stockInfo.change >= 0 ? 'text-green-600' : 'text-red-600'
+                    stockInfo.change >= 0 ? "text-green-600" : "text-red-600"
                   }`}>
-                    {stockInfo.change >= 0 ? '+' : ''}{stockInfo.change.toFixed(2)} 
-                    ({stockInfo.changePercent >= 0 ? '+' : ''}{stockInfo.changePercent.toFixed(2)}%)
+                    {stockInfo.change >= 0 ? "+" : ""}{stockInfo.change.toFixed(2)} 
+                    ({stockInfo.changePercent >= 0 ? "+" : ""}{stockInfo.changePercent.toFixed(2)}%)
                   </span>
                 </div>
                 <div className="text-sm text-gray-600">
@@ -273,21 +273,21 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
           <div className="flex space-x-1">
-            {(['1d', '1w', '1m', '3m', '6m', '1y'] as const).map((tf) => (
+            {(["1d", "1w", "1m", "3m", "6m", "1y"] as const).map((tf) => (
               <button
                 key={tf}
                 onClick={() => handleTimeframeChange(tf)}
                 className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
                   timeframe === tf
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 }`}
               >
-                {tf === '1d' ? '1日' : 
-                 tf === '1w' ? '1週' : 
-                 tf === '1m' ? '1ヶ月' : 
-                 tf === '3m' ? '3ヶ月' : 
-                 tf === '6m' ? '6ヶ月' : '1年'}
+                {tf === "1d" ? "1日" : 
+                 tf === "1w" ? "1週" : 
+                 tf === "1m" ? "1ヶ月" : 
+                 tf === "3m" ? "3ヶ月" : 
+                 tf === "6m" ? "6ヶ月" : "1年"}
               </button>
             ))}
           </div>

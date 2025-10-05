@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import { Slider } from '@/components/ui/slider';
-import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   Settings, 
   TrendingUp, 
@@ -15,8 +15,8 @@ import {
   Shield,
   AlertTriangle,
   Save,
-  RotateCcw
-} from 'lucide-react';
+  RotateCcw,
+} from "lucide-react";
 
 interface RankingSettingsProps {
   onConfigChange?: (config: any) => void;
@@ -29,41 +29,41 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
     rules: {
       liquidity: {
         enabled: true,
-        percentile: 70
+        percentile: 70,
       },
       trend: {
         enabled: true,
         weeks13vs26: true,
-        returnPercentile: 40
+        returnPercentile: 40,
       },
       valuation: {
         enabled: true,
         pbrPercentile: 50,
-        perPercentile: 40
+        perPercentile: 40,
       },
       quality: {
         enabled: true,
-        roePercentile: 40
+        roePercentile: 40,
       },
       exclusions: {
         enabled: true,
         excludeNonTSE: true,
         excludeSpecialAttention: true,
         excludeEarningsDay: true,
-        excludeLimitUp: true
-      }
+        excludeLimitUp: true,
+      },
     },
     weights: {
       trend: 0.4,
       valuation: 0.3,
-      quality: 0.3
-    }
+      quality: 0.3,
+    },
   });
 
   const [presets] = useState({
     safe: {
-      name: '安全重視',
-      description: 'リスクを抑えた安定投資',
+      name: "安全重視",
+      description: "リスクを抑えた安定投資",
       config: {
         minScore: 0.8,
         rules: {
@@ -71,14 +71,14 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
           trend: { enabled: true, weeks13vs26: true, returnPercentile: 30 },
           valuation: { enabled: true, pbrPercentile: 40, perPercentile: 30 },
           quality: { enabled: true, roePercentile: 30 },
-          exclusions: { enabled: true, excludeNonTSE: true, excludeSpecialAttention: true, excludeEarningsDay: true, excludeLimitUp: true }
+          exclusions: { enabled: true, excludeNonTSE: true, excludeSpecialAttention: true, excludeEarningsDay: true, excludeLimitUp: true },
         },
-        weights: { trend: 0.3, valuation: 0.4, quality: 0.3 }
-      }
+        weights: { trend: 0.3, valuation: 0.4, quality: 0.3 },
+      },
     },
     standard: {
-      name: '標準',
-      description: 'バランスの取れた投資',
+      name: "標準",
+      description: "バランスの取れた投資",
       config: {
         minScore: 0.6,
         rules: {
@@ -86,14 +86,14 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
           trend: { enabled: true, weeks13vs26: true, returnPercentile: 40 },
           valuation: { enabled: true, pbrPercentile: 50, perPercentile: 40 },
           quality: { enabled: true, roePercentile: 40 },
-          exclusions: { enabled: true, excludeNonTSE: true, excludeSpecialAttention: true, excludeEarningsDay: true, excludeLimitUp: true }
+          exclusions: { enabled: true, excludeNonTSE: true, excludeSpecialAttention: true, excludeEarningsDay: true, excludeLimitUp: true },
         },
-        weights: { trend: 0.4, valuation: 0.3, quality: 0.3 }
-      }
+        weights: { trend: 0.4, valuation: 0.3, quality: 0.3 },
+      },
     },
     aggressive: {
-      name: '攻め',
-      description: '成長性を重視した投資',
+      name: "攻め",
+      description: "成長性を重視した投資",
       config: {
         minScore: 0.4,
         rules: {
@@ -101,14 +101,14 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
           trend: { enabled: true, weeks13vs26: true, returnPercentile: 50 },
           valuation: { enabled: true, pbrPercentile: 60, perPercentile: 50 },
           quality: { enabled: true, roePercentile: 50 },
-          exclusions: { enabled: true, excludeNonTSE: true, excludeSpecialAttention: false, excludeEarningsDay: false, excludeLimitUp: false }
+          exclusions: { enabled: true, excludeNonTSE: true, excludeSpecialAttention: false, excludeEarningsDay: false, excludeLimitUp: false },
         },
-        weights: { trend: 0.5, valuation: 0.2, quality: 0.3 }
-      }
-    }
+        weights: { trend: 0.5, valuation: 0.2, quality: 0.3 },
+      },
+    },
   });
 
-  const [selectedPreset, setSelectedPreset] = useState<string>('standard');
+  const [selectedPreset, setSelectedPreset] = useState<string>("standard");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -118,7 +118,7 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
     if (preset) {
       setConfig(prev => ({
         ...prev,
-        ...preset.config
+        ...preset.config,
       }));
       setSelectedPreset(presetName);
     }
@@ -130,20 +130,20 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
     setMessage(null);
 
     try {
-      const response = await fetch('/api/ranking/config', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(config)
+      const response = await fetch("/api/ranking/config", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(config),
       });
 
       if (response.ok) {
-        setMessage('設定が保存されました');
+        setMessage("設定が保存されました");
         onConfigChange?.(config);
       } else {
-        setMessage('設定の保存に失敗しました');
+        setMessage("設定の保存に失敗しました");
       }
     } catch (error) {
-      setMessage('設定の保存中にエラーが発生しました');
+      setMessage("設定の保存中にエラーが発生しました");
     } finally {
       setIsLoading(false);
     }
@@ -151,8 +151,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
 
   // 設定リセット
   const resetConfig = () => {
-    applyPreset('standard');
-    setMessage('設定をリセットしました');
+    applyPreset("standard");
+    setMessage("設定をリセットしました");
   };
 
   return (
@@ -179,7 +179,7 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
               <Card 
                 key={key} 
                 className={`cursor-pointer transition-all ${
-                  selectedPreset === key ? 'ring-2 ring-blue-500 bg-blue-50' : 'hover:bg-gray-50'
+                  selectedPreset === key ? "ring-2 ring-blue-500 bg-blue-50" : "hover:bg-gray-50"
                 }`}
                 onClick={() => applyPreset(key)}
               >
@@ -224,8 +224,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                     ...prev,
                     rules: {
                       ...prev.rules,
-                      liquidity: { ...prev.rules.liquidity, enabled: checked }
-                    }
+                      liquidity: { ...prev.rules.liquidity, enabled: checked },
+                    },
                   }))
                 }
               />
@@ -240,8 +240,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                       ...prev,
                       rules: {
                         ...prev.rules,
-                        liquidity: { ...prev.rules.liquidity, percentile: value }
-                      }
+                        liquidity: { ...prev.rules.liquidity, percentile: value },
+                      },
                     }))
                   }
                   min={50}
@@ -278,8 +278,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                     ...prev,
                     rules: {
                       ...prev.rules,
-                      trend: { ...prev.rules.trend, enabled: checked }
-                    }
+                      trend: { ...prev.rules.trend, enabled: checked },
+                    },
                   }))
                 }
               />
@@ -295,8 +295,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                         ...prev,
                         rules: {
                           ...prev.rules,
-                          trend: { ...prev.rules.trend, weeks13vs26: checked }
-                        }
+                          trend: { ...prev.rules.trend, weeks13vs26: checked },
+                        },
                       }))
                     }
                   />
@@ -310,8 +310,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                         ...prev,
                         rules: {
                           ...prev.rules,
-                          trend: { ...prev.rules.trend, returnPercentile: value }
-                        }
+                          trend: { ...prev.rules.trend, returnPercentile: value },
+                        },
                       }))
                     }
                     min={20}
@@ -349,8 +349,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                     ...prev,
                     rules: {
                       ...prev.rules,
-                      valuation: { ...prev.rules.valuation, enabled: checked }
-                    }
+                      valuation: { ...prev.rules.valuation, enabled: checked },
+                    },
                   }))
                 }
               />
@@ -366,8 +366,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                         ...prev,
                         rules: {
                           ...prev.rules,
-                          valuation: { ...prev.rules.valuation, pbrPercentile: value }
-                        }
+                          valuation: { ...prev.rules.valuation, pbrPercentile: value },
+                        },
                       }))
                     }
                     min={30}
@@ -385,8 +385,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                         ...prev,
                         rules: {
                           ...prev.rules,
-                          valuation: { ...prev.rules.valuation, perPercentile: value }
-                        }
+                          valuation: { ...prev.rules.valuation, perPercentile: value },
+                        },
                       }))
                     }
                     min={20}
@@ -424,8 +424,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                     ...prev,
                     rules: {
                       ...prev.rules,
-                      quality: { ...prev.rules.quality, enabled: checked }
-                    }
+                      quality: { ...prev.rules.quality, enabled: checked },
+                    },
                   }))
                 }
               />
@@ -440,8 +440,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                       ...prev,
                       rules: {
                         ...prev.rules,
-                        quality: { ...prev.rules.quality, roePercentile: value }
-                      }
+                        quality: { ...prev.rules.quality, roePercentile: value },
+                      },
                     }))
                   }
                   min={20}
@@ -478,8 +478,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                     ...prev,
                     rules: {
                       ...prev.rules,
-                      exclusions: { ...prev.rules.exclusions, enabled: checked }
-                    }
+                      exclusions: { ...prev.rules.exclusions, enabled: checked },
+                    },
                   }))
                 }
               />
@@ -495,8 +495,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                         ...prev,
                         rules: {
                           ...prev.rules,
-                          exclusions: { ...prev.rules.exclusions, excludeNonTSE: checked }
-                        }
+                          exclusions: { ...prev.rules.exclusions, excludeNonTSE: checked },
+                        },
                       }))
                     }
                   />
@@ -510,8 +510,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                         ...prev,
                         rules: {
                           ...prev.rules,
-                          exclusions: { ...prev.rules.exclusions, excludeSpecialAttention: checked }
-                        }
+                          exclusions: { ...prev.rules.exclusions, excludeSpecialAttention: checked },
+                        },
                       }))
                     }
                   />
@@ -525,8 +525,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                         ...prev,
                         rules: {
                           ...prev.rules,
-                          exclusions: { ...prev.rules.exclusions, excludeEarningsDay: checked }
-                        }
+                          exclusions: { ...prev.rules.exclusions, excludeEarningsDay: checked },
+                        },
                       }))
                     }
                   />
@@ -540,8 +540,8 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                         ...prev,
                         rules: {
                           ...prev.rules,
-                          exclusions: { ...prev.rules.exclusions, excludeLimitUp: checked }
-                        }
+                          exclusions: { ...prev.rules.exclusions, excludeLimitUp: checked },
+                        },
                       }))
                     }
                   />
@@ -570,7 +570,7 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                   const quality = remaining - valuation;
                   setConfig(prev => ({
                     ...prev,
-                    weights: { trend: value, valuation, quality }
+                    weights: { trend: value, valuation, quality },
                   }));
                 }}
                 min={0.1}
@@ -588,7 +588,7 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                   const quality = remaining - value;
                   setConfig(prev => ({
                     ...prev,
-                    weights: { ...prev.weights, valuation: value, quality }
+                    weights: { ...prev.weights, valuation: value, quality },
                   }));
                 }}
                 min={0.1}
@@ -606,7 +606,7 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
                   const valuation = remaining - value;
                   setConfig(prev => ({
                     ...prev,
-                    weights: { ...prev.weights, valuation, quality: value }
+                    weights: { ...prev.weights, valuation, quality: value },
                   }));
                 }}
                 min={0.1}
@@ -621,7 +621,7 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
 
       {/* メッセージ表示 */}
       {message && (
-        <Alert className={message.includes('失敗') || message.includes('エラー') ? 'border-red-200 bg-red-50' : 'border-green-200 bg-green-50'}>
+        <Alert className={message.includes("失敗") || message.includes("エラー") ? "border-red-200 bg-red-50" : "border-green-200 bg-green-50"}>
           <AlertTriangle className="h-4 w-4" />
           <AlertDescription>{message}</AlertDescription>
         </Alert>
@@ -631,7 +631,7 @@ export default function RankingSettings({ onConfigChange }: RankingSettingsProps
       <div className="flex justify-center gap-4">
         <Button onClick={saveConfig} disabled={isLoading} className="flex items-center gap-2">
           <Save className="h-4 w-4" />
-          {isLoading ? '保存中...' : '設定保存'}
+          {isLoading ? "保存中..." : "設定保存"}
         </Button>
         <Button onClick={resetConfig} variant="outline" className="flex items-center gap-2">
           <RotateCcw className="h-4 w-4" />

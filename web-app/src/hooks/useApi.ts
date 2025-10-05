@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from "react";
 
 interface ApiOptions {
   retries?: number;
@@ -28,7 +28,7 @@ interface ApiActions {
 
 export function useApi<T = any>(
   apiCall: () => Promise<T>,
-  options: ApiOptions = {}
+  options: ApiOptions = {},
 ): [ApiState<T>, ApiActions] {
   const {
     retries = 3,
@@ -36,7 +36,7 @@ export function useApi<T = any>(
     timeout = 30000,
     exponentialBackoff = true,
     onError,
-    onSuccess
+    onSuccess,
   } = options;
 
   const [state, setState] = useState<ApiState<T>>({
@@ -45,7 +45,7 @@ export function useApi<T = any>(
     error: null,
     retryCount: 0,
     lastSuccessTime: null,
-    lastErrorTime: null
+    lastErrorTime: null,
   });
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -66,7 +66,7 @@ export function useApi<T = any>(
     setState(prev => ({
       ...prev,
       loading: true,
-      error: null
+      error: null,
     }));
 
     try {
@@ -95,7 +95,7 @@ export function useApi<T = any>(
         error: null,
         retryCount: attempt,
         lastSuccessTime: Date.now(),
-        lastErrorTime: null
+        lastErrorTime: null,
       }));
 
       if (onSuccess) {
@@ -117,7 +117,7 @@ export function useApi<T = any>(
         loading: false,
         error: errorObj,
         retryCount: attempt,
-        lastErrorTime: Date.now()
+        lastErrorTime: Date.now(),
       }));
 
       if (onError) {
@@ -163,7 +163,7 @@ export function useApi<T = any>(
       error: null,
       retryCount: 0,
       lastSuccessTime: null,
-      lastErrorTime: null
+      lastErrorTime: null,
     });
   }, []);
 
@@ -172,7 +172,7 @@ export function useApi<T = any>(
       ...prev,
       data,
       error: null,
-      lastSuccessTime: Date.now()
+      lastSuccessTime: Date.now(),
     }));
   }, []);
 
@@ -183,7 +183,7 @@ export function useApi<T = any>(
 export function useStockData() {
   return useApi(
     async () => {
-      const response = await fetch('/api/routine/candidates');
+      const response = await fetch("/api/routine/candidates");
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -193,15 +193,15 @@ export function useStockData() {
       retries: 3,
       retryDelay: 2000,
       timeout: 15000,
-      exponentialBackoff: true
-    }
+      exponentialBackoff: true,
+    },
   );
 }
 
 export function useAuthStatus() {
   return useApi(
     async () => {
-      const response = await fetch('/api/auth/status');
+      const response = await fetch("/api/auth/status");
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -211,16 +211,16 @@ export function useAuthStatus() {
       retries: 2,
       retryDelay: 1000,
       timeout: 10000,
-      exponentialBackoff: false
-    }
+      exponentialBackoff: false,
+    },
   );
 }
 
 export function useRoutineUpdate() {
   return useApi(
     async () => {
-      const response = await fetch('/api/routine/update', {
-        method: 'POST'
+      const response = await fetch("/api/routine/update", {
+        method: "POST",
       });
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -231,7 +231,7 @@ export function useRoutineUpdate() {
       retries: 2,
       retryDelay: 3000,
       timeout: 30000,
-      exponentialBackoff: true
-    }
+      exponentialBackoff: true,
+    },
   );
 }
