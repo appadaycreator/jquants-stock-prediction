@@ -1,16 +1,16 @@
 {
   "metadata": {
-    "generated_at": "2025-10-05T01:07:03.179183",
+    "generated_at": "2025-10-05T05:02:04.328324",
     "version": "1.0"
   },
   "today_summary": {
     "date": "2025-10-05",
     "total_stocks": 5,
-    "gainers": 1,
-    "losers": 4,
+    "gainers": 4,
+    "losers": 1,
     "unchanged": 0,
-    "average_change": -0.5,
+    "average_change": 0.27,
     "market_status": "open",
-    "last_updated": "2025-10-05T01:07:03.179206"
+    "last_updated": "2025-10-05T05:02:04.328354"
   }
 }
