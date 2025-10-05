@@ -32,6 +32,9 @@ import { RiskSettingsPanel } from "@/components/risk-customization/RiskSettingsP
 import { PersonalInvestmentLSTM } from "@/components/PersonalInvestmentLSTM";
 import RealtimePnLCalculator from "@/components/RealtimePnLCalculator";
 import InvestmentRecommendationEngine from "@/components/InvestmentRecommendationEngine";
+import { EnhancedProfitLossDisplay } from "@/components/EnhancedProfitLossDisplay";
+import { ProfitLossChart } from "@/components/ProfitLossChart";
+import { PerformanceComparison } from "@/components/PerformanceComparison";
 // import { IndividualStockSettings } from "@/components/risk-customization/IndividualStockSettings";
 // import { RecommendationDetails } from "@/components/risk-customization/RecommendationDetails";
 
@@ -46,9 +49,15 @@ interface PnLSummary {
   daily_pnl: number;
   weekly_pnl: number;
   monthly_pnl: number;
+  yearly_pnl?: number;
   best_performer: string;
   worst_performer: string;
   risk_adjusted_return: number;
+  sharpe_ratio?: number;
+  max_drawdown?: number;
+  volatility?: number;
+  win_rate?: number;
+  profit_factor?: number;
 }
 
 interface PositionSummary {
@@ -67,6 +76,15 @@ interface PositionSummary {
   next_action: string;
   target_price?: number;
   stop_loss?: number;
+  weight?: number;
+  contribution?: number;
+  sector?: string;
+  market_cap?: number;
+  volume?: number;
+  volatility?: number;
+  beta?: number;
+  pe_ratio?: number;
+  dividend_yield?: number;
 }
 
 interface InvestmentRecommendation {
@@ -92,12 +110,23 @@ interface MarketOverview {
   market_alert?: string;
 }
 
+interface PerformanceData {
+  date: string;
+  total_value: number;
+  daily_pnl: number;
+  cumulative_pnl: number;
+  benchmark_return?: number;
+  volume?: number;
+  volatility?: number;
+}
+
 interface DashboardData {
   timestamp: string;
   pnl_summary: PnLSummary;
   positions: PositionSummary[];
   recommendations: InvestmentRecommendation[];
   market_overview: MarketOverview;
+  performance_data?: PerformanceData[];
   last_update?: string;
 }
 
@@ -454,9 +483,12 @@ export default function PersonalInvestmentDashboard() {
         </div>
       </div>
 
-      <Tabs defaultValue="positions" className="space-y-4">
+      <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
+          <TabsTrigger value="overview" title="投資成果を3秒で把握">投資成果</TabsTrigger>
           <TabsTrigger value="positions" title="保有銘柄の損益・推奨アクションを確認">ポジション一覧</TabsTrigger>
+          <TabsTrigger value="performance" title="パフォーマンス比較とランキング">パフォーマンス</TabsTrigger>
+          <TabsTrigger value="charts" title="損益推移グラフとチャート分析">チャート分析</TabsTrigger>
           <TabsTrigger value="realtime" title="リアルタイム損益計算と価格更新">リアルタイム損益</TabsTrigger>
           <TabsTrigger value="recommendations" title="AI/ルールベースによる投資提案">投資推奨</TabsTrigger>
           <TabsTrigger value="engine" title="自動投資推奨エンジン">推奨エンジン</TabsTrigger>
@@ -464,6 +496,85 @@ export default function PersonalInvestmentDashboard() {
           <TabsTrigger value="market" title="市場全体のトレンドやボラティリティを確認">市場概況</TabsTrigger>
           <TabsTrigger value="personalize" title="プロフィールに応じた推奨配分を作成">パーソナライズ</TabsTrigger>
         </TabsList>
+
+        {/* 投資成果 - 強化された損益表示 */}
+        <TabsContent value="overview" className="space-y-4">
+          <EnhancedProfitLossDisplay
+            pnlSummary={{
+              ...pnl_summary,
+              yearly_pnl: pnl_summary.yearly_pnl || 0,
+              sharpe_ratio: pnl_summary.sharpe_ratio || 0,
+              max_drawdown: pnl_summary.max_drawdown || 0,
+              volatility: pnl_summary.volatility || 0,
+              win_rate: pnl_summary.win_rate || 0,
+              profit_factor: pnl_summary.profit_factor || 0
+            }}
+            performanceData={dashboardData.performance_data || []}
+            positions={positions.map(p => ({
+              symbol: p.symbol,
+              symbolName: p.company_name,
+              current_value: p.total_value,
+              cost_basis: p.cost_basis,
+              unrealized_pnl: p.unrealized_pnl,
+              pnl_percentage: p.pnl_percentage,
+              weight: p.weight || 0,
+              contribution: p.contribution || 0,
+              risk_level: p.risk_level,
+              sector: p.sector || 'その他',
+              market_cap: p.market_cap,
+              volume: p.volume,
+              volatility: p.volatility,
+              beta: p.beta,
+              pe_ratio: p.pe_ratio,
+              dividend_yield: p.dividend_yield
+            }))}
+            onRefresh={loadDashboardData}
+            isLoading={loading}
+            autoRefresh={autoRefresh}
+            onAutoRefreshToggle={setAutoRefresh}
+          />
+        </TabsContent>
+
+        {/* パフォーマンス比較 */}
+        <TabsContent value="performance" className="space-y-4">
+          <PerformanceComparison
+            positions={positions.map(p => ({
+              symbol: p.symbol,
+              symbolName: p.company_name,
+              current_value: p.total_value,
+              cost_basis: p.cost_basis,
+              unrealized_pnl: p.unrealized_pnl,
+              pnl_percentage: p.pnl_percentage,
+              weight: p.weight || 0,
+              contribution: p.contribution || 0,
+              risk_level: p.risk_level,
+              sector: p.sector || 'その他',
+              market_cap: p.market_cap,
+              volume: p.volume,
+              volatility: p.volatility,
+              beta: p.beta,
+              pe_ratio: p.pe_ratio,
+              dividend_yield: p.dividend_yield
+            }))}
+            onPositionClick={(symbol) => {
+              console.log('Position clicked:', symbol);
+            }}
+          />
+        </TabsContent>
+
+        {/* チャート分析 */}
+        <TabsContent value="charts" className="space-y-4">
+          <ProfitLossChart
+            data={dashboardData.performance_data || []}
+            height={500}
+            showBenchmark={true}
+            showVolume={true}
+            showVolatility={true}
+            onDataPointClick={(data) => {
+              console.log('Data point clicked:', data);
+            }}
+          />
+        </TabsContent>
 
         {/* ポジション一覧 - 改善された表示 */}
         <TabsContent value="positions" className="space-y-4">
