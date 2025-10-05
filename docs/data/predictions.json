@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2025-10-05T00:38:33.496578",
+    "generated_at": "2025-10-05T01:07:03.179322",
     "version": "1.0",
     "total_predictions": 5
   },
@@ -8,52 +8,52 @@
     {
       "code": "7203",
       "name": "トヨタ自動車",
-      "current_price": 2458.052103166396,
-      "predicted_price": 2596.4503488199484,
-      "confidence": 0.9493904901253609,
+      "current_price": 2576.318440869756,
+      "predicted_price": 2545.840378559767,
+      "confidence": 0.8130601649833841,
       "change_percent": 2.0,
       "model_used": "Random Forest",
-      "prediction_date": "2025-10-05T00:38:33.496141"
+      "prediction_date": "2025-10-05T01:07:03.178931"
     },
     {
       "code": "6758",
       "name": "ソニーグループ",
-      "current_price": 12092.464029894976,
-      "predicted_price": 11695.344068094133,
-      "confidence": 0.717856727003719,
+      "current_price": 12485.585018161015,
+      "predicted_price": 12018.956535865944,
+      "confidence": 0.75574264030529,
       "change_percent": 2.0,
       "model_used": "XGBoost",
-      "prediction_date": "2025-10-05T00:38:33.496153"
+      "prediction_date": "2025-10-05T01:07:03.178944"
     },
     {
       "code": "9984",
       "name": "ソフトバンクグループ",
-      "current_price": 8173.251422264135,
-      "predicted_price": 8303.273536941653,
-      "confidence": 0.847952828189307,
+      "current_price": 7982.995478213568,
+      "predicted_price": 8323.438393493952,
+      "confidence": 0.880622763510155,
       "change_percent": 2.0,
       "model_used": "Linear Regression",
-      "prediction_date": "2025-10-05T00:38:33.496164"
+      "prediction_date": "2025-10-05T01:07:03.178955"
     },
     {
       "code": "9432",
       "name": "日本電信電話",
-      "current_price": 4405.931828534747,
-      "predicted_price": 4513.966802669217,
-      "confidence": 0.8354251365912901,
+      "current_price": 4433.801225200052,
+      "predicted_price": 4538.909491216184,
+      "confidence": 0.9440256934225966,
       "change_percent": 2.0,
       "model_used": "Random Forest",
-      "prediction_date": "2025-10-05T00:38:33.496179"
+      "prediction_date": "2025-10-05T01:07:03.178973"
     },
     {
       "code": "8306",
       "name": "三菱UFJフィナンシャル・グループ",
-      "current_price": 1152.8646847760199,
-      "predicted_price": 1201.4090509697671,
-      "confidence": 0.8297481307333959,
+      "current_price": 1194.938917639428,
+      "predicted_price": 1250.4454041685144,
+      "confidence": 0.7418668686140353,
       "change_percent": 2.0,
       "model_used": "XGBoost",
-      "prediction_date": "2025-10-05T00:38:33.496208"
+      "prediction_date": "2025-10-05T01:07:03.178983"
     }
   ]
 }
