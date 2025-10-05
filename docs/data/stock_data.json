@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2025-10-05T07:56:51.797400",
+    "generated_at": "2025-10-05T22:20:28.327165",
     "version": "1.0",
     "data_source": "sample_cache",
     "total_stocks": 5
@@ -11,27 +11,27 @@
       "name": "トヨタ自動車",
       "sector": "自動車",
       "current_price": {
-        "last_price": 2514.0446113198623,
-        "change": 30.100686727429675,
-        "change_percent": 0.13505071234285815,
-        "updated_at": "2025-10-05T07:56:51.797330"
+        "last_price": 2482.6436378267745,
+        "change": -48.40609959256575,
+        "change_percent": -1.470224036841195,
+        "updated_at": "2025-10-05T22:20:28.327100"
       },
       "volume": {
-        "current_volume": 508585,
-        "average_volume": 1266405,
-        "volume_ratio": 1.1830053336590545
+        "current_volume": 1445308,
+        "average_volume": 1408843,
+        "volume_ratio": 0.7402266203862345
       },
       "technical_indicators": {
-        "sma_5": 2493.492829766804,
-        "sma_25": 2482.5902008290986,
-        "rsi": 66.44042975328142,
-        "macd": -17.045095990688356
+        "sma_5": 2458.3117735432534,
+        "sma_25": 2430.9953537632346,
+        "rsi": 46.627261678418904,
+        "macd": -12.948474934897858
       },
       "prediction": {
-        "predicted_price": 2613.363403965423,
-        "confidence": 0.7244486274415718,
+        "predicted_price": 2469.6455576567428,
+        "confidence": 0.9045681100158981,
         "model_used": "Random Forest",
-        "prediction_date": "2025-10-05T07:56:51.797348"
+        "prediction_date": "2025-10-05T22:20:28.327115"
       }
     },
     "6758": {
@@ -39,27 +39,27 @@
       "name": "ソニーグループ",
       "sector": "電気機器",
       "current_price": {
-        "last_price": 12391.687355869888,
-        "change": 48.372375826483875,
-        "change_percent": 0.6122475509076648,
-        "updated_at": "2025-10-05T07:56:51.797353"
+        "last_price": 11761.602436114408,
+        "change": -175.96737045737277,
+        "change_percent": 0.6987599509431384,
+        "updated_at": "2025-10-05T22:20:28.327120"
       },
       "volume": {
-        "current_volume": 748594,
-        "average_volume": 372232,
-        "volume_ratio": 1.7824627771936665
+        "current_volume": 250647,
+        "average_volume": 416820,
+        "volume_ratio": 1.180205729998528
       },
       "technical_indicators": {
-        "sma_5": 12089.15115208276,
-        "sma_25": 12197.674126272055,
-        "rsi": 42.55750014865643,
-        "macd": 8.369001600661306
+        "sma_5": 11917.03688101024,
+        "sma_25": 12337.803828091548,
+        "rsi": 47.66165922992842,
+        "macd": 3.4407459052694946
       },
       "prediction": {
-        "predicted_price": 11669.829281040222,
-        "confidence": 0.7959052732024385,
+        "predicted_price": 12072.652627125839,
+        "confidence": 0.8704926436215839,
         "model_used": "XGBoost",
-        "prediction_date": "2025-10-05T07:56:51.797362"
+        "prediction_date": "2025-10-05T22:20:28.327127"
       }
     },
     "9984": {
@@ -67,27 +67,27 @@
       "name": "ソフトバンクグループ",
       "sector": "情報・通信業",
       "current_price": {
-        "last_price": 8139.983577422081,
-        "change": 32.962874695787264,
-        "change_percent": -0.10818918497307495,
-        "updated_at": "2025-10-05T07:56:51.797366"
+        "last_price": 7932.840936136865,
+        "change": 29.079798778547797,
+        "change_percent": -1.6547884033993299,
+        "updated_at": "2025-10-05T22:20:28.327130"
       },
       "volume": {
-        "current_volume": 918361,
-        "average_volume": 453112,
-        "volume_ratio": 1.6526457170161706
+        "current_volume": 966914,
+        "average_volume": 602588,
+        "volume_ratio": 1.2044261974712978
       },
       "technical_indicators": {
-        "sma_5": 8168.552036171875,
-        "sma_25": 8297.991333926986,
-        "rsi": 58.70177150796795,
-        "macd": 12.94491311447009
+        "sma_5": 8040.312220894699,
+        "sma_25": 8113.771053335,
+        "rsi": 56.90003824978241,
+        "macd": -26.55413585973906
       },
       "prediction": {
-        "predicted_price": 8169.962423262595,
-        "confidence": 0.7591329278006516,
+        "predicted_price": 8012.5307165827335,
+        "confidence": 0.801571394578984,
         "model_used": "Linear Regression",
-        "prediction_date": "2025-10-05T07:56:51.797373"
+        "prediction_date": "2025-10-05T22:20:28.327136"
       }
     },
     "9432": {
@@ -95,27 +95,27 @@
       "name": "日本電信電話",
       "sector": "情報・通信業",
       "current_price": {
-        "last_price": 4476.62548732662,
-        "change": -47.50409346605353,
-        "change_percent": 1.3546345682349,
-        "updated_at": "2025-10-05T07:56:51.797377"
+        "last_price": 4549.7328561580525,
+        "change": -26.538168050116873,
+        "change_percent": -1.8995379839487962,
+        "updated_at": "2025-10-05T22:20:28.327140"
       },
       "volume": {
-        "current_volume": 567013,
-        "average_volume": 384183,
-        "volume_ratio": 1.367204176658194
+        "current_volume": 295192,
+        "average_volume": 362579,
+        "volume_ratio": 0.6853282279434827
       },
       "technical_indicators": {
-        "sma_5": 4533.505480163316,
-        "sma_25": 4565.994499386463,
-        "rsi": 31.608804896402685,
-        "macd": 14.65032420917985
+        "sma_5": 4583.889076603149,
+        "sma_25": 4559.900371045188,
+        "rsi": 42.63924407194511,
+        "macd": -18.66010242781439
       },
       "prediction": {
-        "predicted_price": 4641.859284723349,
-        "confidence": 0.7439614167250468,
+        "predicted_price": 4590.727316014041,
+        "confidence": 0.7554870466681909,
         "model_used": "Random Forest",
-        "prediction_date": "2025-10-05T07:56:51.797391"
+        "prediction_date": "2025-10-05T22:20:28.327152"
       }
     },
     "8306": {
@@ -123,27 +123,27 @@
       "name": "三菱UFJフィナンシャル・グループ",
       "sector": "銀行業",
       "current_price": {
-        "last_price": 1236.8755806800068,
-        "change": -12.37584192241793,
-        "change_percent": -1.6448362496969273,
-        "updated_at": "2025-10-05T07:56:51.797393"
+        "last_price": 1235.0408342594417,
+        "change": -3.865127599501701,
+        "change_percent": 0.8545930506835862,
+        "updated_at": "2025-10-05T22:20:28.327155"
       },
       "volume": {
-        "current_volume": 2922950,
-        "average_volume": 1799649,
-        "volume_ratio": 1.7357692458507763
+        "current_volume": 1472255,
+        "average_volume": 895098,
+        "volume_ratio": 0.8591336627071828
       },
       "technical_indicators": {
-        "sma_5": 1209.6118211737735,
-        "sma_25": 1203.3901928919008,
-        "rsi": 38.79124895054311,
-        "macd": 8.778260094125582
+        "sma_5": 1234.4445732979168,
+        "sma_25": 1196.5410366967428,
+        "rsi": 55.407073063031206,
+        "macd": 9.389994453402334
       },
       "prediction": {
-        "predicted_price": 1207.378512530154,
-        "confidence": 0.9398254929042272,
+        "predicted_price": 1201.046681701364,
+        "confidence": 0.7500836208638462,
         "model_used": "XGBoost",
-        "prediction_date": "2025-10-05T07:56:51.797398"
+        "prediction_date": "2025-10-05T22:20:28.327162"
       }
     }
   }
