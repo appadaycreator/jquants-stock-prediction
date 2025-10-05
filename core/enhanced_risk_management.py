@@ -480,6 +480,10 @@ class EnhancedRiskManagement:
     def _calculate_portfolio_sharpe_ratio(self, positions: List[Dict[str, Any]]) -> float:
         """ポートフォリオシャープレシオ計算"""
         try:
+            if positions is None:
+                self.logger.error("ポートフォリオシャープレシオ計算: ポジション情報がNoneです")
+                return 0.0
+            
             if not positions:
                 return 0.0
             
@@ -532,6 +536,10 @@ class EnhancedRiskManagement:
     def set_individual_stock_limits(self, symbol: str, max_loss_amount: float) -> bool:
         """個別銘柄の最大損失額設定"""
         try:
+            if symbol is None or max_loss_amount is None:
+                self.logger.error("個別銘柄損失額設定: シンボルまたは最大損失額がNoneです")
+                return False
+            
             if symbol not in self.positions:
                 return False
             
