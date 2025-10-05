@@ -115,7 +115,8 @@ class EnhancedRiskManagement:
         記事にはない高度なリスク指標
         """
         try:
-            if not returns:
+            if returns is None or not returns:
+                self.logger.error("リターンデータがNoneまたは空です")
                 return 0.0
             
             # リターンの配列をnumpy配列に変換
@@ -137,7 +138,8 @@ class EnhancedRiskManagement:
         記事にはない高度なリスク指標
         """
         try:
-            if not equity_curve:
+            if equity_curve is None or not equity_curve:
+                self.logger.error("エクイティカーブがNoneまたは空です")
                 return {'max_drawdown': 0.0, 'max_drawdown_duration': 0}
             
             equity_array = np.array(equity_curve)
@@ -248,6 +250,10 @@ class EnhancedRiskManagement:
         リスク管理パラメータを自動設定
         """
         try:
+            if symbol is None:
+                self.logger.error("シンボルがNoneです")
+                return {}
+            
             # 損切り・利確価格の計算
             stop_loss = self.calculate_stop_loss(entry_price, direction, volatility)
             take_profit = self.calculate_take_profit(entry_price, direction, confidence)
@@ -280,6 +286,10 @@ class EnhancedRiskManagement:
         リスク管理の自動実行
         """
         try:
+            if symbol is None:
+                self.logger.error("シンボルがNoneです")
+                return {'error': 'シンボルがNoneです'}
+            
             if symbol not in self.positions:
                 return {'error': 'ポジションが見つかりません'}
             

@@ -214,6 +214,7 @@ class TestEnhancedRiskManagementComprehensive:
             result = risk_manager.calculate_var(None, 0.95)
             
             assert result == 0.0
+            # エラーログが呼ばれることを確認
             mock_logger.assert_called_once()
     
     def test_calculate_max_drawdown_normal(self, risk_manager, sample_equity_curve):
@@ -241,6 +242,7 @@ class TestEnhancedRiskManagementComprehensive:
             
             assert result['max_drawdown'] == 0.0
             assert result['max_drawdown_duration'] == 0
+            # エラーログが呼ばれることを確認
             mock_logger.assert_called_once()
     
     def test_check_risk_limits_buy_stop_loss_triggered(self, risk_manager):
@@ -440,7 +442,9 @@ class TestEnhancedRiskManagementComprehensive:
                 volatility=0.02
             )
             
+            # エラー時は空の辞書が返される
             assert result == {}
+            # エラーログが呼ばれることを確認
             mock_logger.assert_called_once()
     
     def test_update_position_normal(self, risk_manager):
@@ -494,6 +498,7 @@ class TestEnhancedRiskManagementComprehensive:
             result = risk_manager.update_position(None, 1000.0)
             
             assert 'error' in result
+            # エラーログが呼ばれることを確認
             mock_logger.assert_called_once()
     
     def test_get_risk_summary_normal(self, risk_manager):
