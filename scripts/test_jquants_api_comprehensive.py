@@ -49,9 +49,9 @@ def check_auth_info():
     if is_dummy:
         print("\n⚠️  テスト用のダミー値が設定されています。")
         print("実際のjQuants APIの認証情報を設定してください。")
-        return False
+        assert False
     
-    return True
+    assert True
 
 def test_authentication_flow():
     """認証フローのテスト"""
@@ -123,7 +123,7 @@ def test_api_endpoints():
     id_token = test_authentication_flow()
     if not id_token:
         print("❌ IDトークンが提供されていません")
-        return False
+        assert False
     
     base_url = "https://api.jquants.com/v1"
     headers = {
@@ -214,7 +214,7 @@ def test_data_endpoints():
     id_token = test_authentication_flow()
     if not id_token:
         print("❌ IDトークンが提供されていません")
-        return False
+        assert False
     
     base_url = "https://api.jquants.com/v1"
     headers = {
@@ -289,7 +289,7 @@ def test_rate_limits():
     id_token = test_authentication_flow()
     if not id_token:
         print("❌ IDトークンが提供されていません")
-        return False
+        assert False
     
     base_url = "https://api.jquants.com/v1"
     headers = {

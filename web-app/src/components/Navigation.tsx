@@ -14,6 +14,7 @@ import {
   Clock,
   AlertCircle,
   List,
+  Target,
 } from "lucide-react";
 
 interface NavigationProps {
@@ -39,6 +40,12 @@ export default function Navigation({
       label: "ダッシュボード", 
       icon: Home,
       description: "メインダッシュボード",
+    },
+    { 
+      href: "/simple-dashboard", 
+      label: "シンプル投資判断", 
+      icon: Target,
+      description: "1日5分で投資判断を完結",
     },
     { 
       href: "/five-min-routine", 

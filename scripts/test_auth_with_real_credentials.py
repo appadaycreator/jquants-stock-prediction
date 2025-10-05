@@ -32,9 +32,10 @@ def test_jquants_auth():
         print("1. 既存のIDトークンでテスト...")
         if test_id_token(id_token):
             print("✅ 既存のIDトークンは有効です")
-            return True
+            assert True
         else:
             print("❌ 既存のIDトークンは無効です")
+            assert False
     
     # 2. メールアドレスとパスワードで新規認証
     if email and password and email != "test@example.com":
@@ -44,12 +45,13 @@ def test_jquants_auth():
             print("✅ 新規認証に成功しました")
             print(f"IDトークン: {tokens['id_token'][:50]}...")
             print(f"リフレッシュトークン: {tokens['refresh_token'][:50]}...")
-            return True
+            assert True
         else:
             print("❌ 新規認証に失敗しました")
+            assert False
     
     print("❌ すべての認証方法が失敗しました")
-    return False
+    assert False
 
 def test_id_token():
     """IDトークンの有効性をテスト"""
@@ -57,7 +59,7 @@ def test_id_token():
     id_token = os.getenv("JQUANTS_ID_TOKEN")
     if not id_token:
         print("❌ JQUANTS_ID_TOKEN環境変数が設定されていません")
-        return False
+        assert False
         
     try:
         headers = {"Authorization": f"Bearer {id_token}"}
@@ -69,17 +71,17 @@ def test_id_token():
         
         if response.status_code == 200:
             print("  APIテスト成功: トークンは有効です")
-            return True
+            assert True
         elif response.status_code == 401:
             print("  APIテスト失敗: 認証エラー (401)")
-            return False
+            assert False
         else:
             print(f"  APIテスト失敗: HTTP {response.status_code}")
-            return False
+            assert False
             
     except Exception as e:
         print(f"  APIテストエラー: {e}")
-        return False
+        assert False
 
 def get_new_tokens(email, password):
     """メールアドレスとパスワードで新しいトークンを取得"""
