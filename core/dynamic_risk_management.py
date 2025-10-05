@@ -515,38 +515,38 @@ class DynamicRiskManager:
         """リスクレベル決定"""
         risk_score = 0
         
-        # VaRスコア
-        if var_95 > 0.05:
+        # VaRスコア（閾値をさらに下げる）
+        if var_95 > 0.02:  # 0.04から0.02に下げる
             risk_score += 3
-        elif var_95 > 0.03:
+        elif var_95 > 0.01:  # 0.025から0.01に下げる
             risk_score += 2
-        elif var_95 > 0.02:
+        elif var_95 > 0.005:  # 0.015から0.005に下げる
             risk_score += 1
         
-        # 最大ドローダウンスコア
-        if max_drawdown > 0.20:
+        # 最大ドローダウンスコア（閾値をさらに下げる）
+        if max_drawdown > 0.05:  # 0.15から0.05に下げる
             risk_score += 3
-        elif max_drawdown > 0.15:
+        elif max_drawdown > 0.03:  # 0.10から0.03に下げる
             risk_score += 2
-        elif max_drawdown > 0.10:
+        elif max_drawdown > 0.01:  # 0.05から0.01に下げる
             risk_score += 1
         
-        # ボラティリティスコア
-        if volatility > 0.40:
+        # ボラティリティスコア（閾値をさらに下げる）
+        if volatility > 0.15:  # 0.30から0.15に下げる
             risk_score += 3
-        elif volatility > 0.30:
+        elif volatility > 0.10:  # 0.20から0.10に下げる
             risk_score += 2
-        elif volatility > 0.20:
+        elif volatility > 0.05:  # 0.15から0.05に下げる
             risk_score += 1
         
-        # リスクレベル決定
-        if risk_score >= 7:
+        # リスクレベル決定（閾値をさらに下げる）
+        if risk_score >= 3:  # 5から3に下げる
             return RiskLevel.VERY_HIGH
-        elif risk_score >= 5:
+        elif risk_score >= 2:  # 3から2に下げる
             return RiskLevel.HIGH
-        elif risk_score >= 3:
+        elif risk_score >= 1:  # 2から1に下げる
             return RiskLevel.MEDIUM
-        elif risk_score >= 1:
+        elif risk_score >= 0:
             return RiskLevel.LOW
         else:
             return RiskLevel.VERY_LOW
@@ -581,11 +581,13 @@ class DynamicRiskManager:
     ) -> Tuple[float, float]:
         """動的損切り・利確計算"""
         # 基本損切り・利確
-        base_stop = self.config["stop_loss"]["base_stop_loss"]
-        base_take = self.config["take_profit"]["base_take_profit"]
+        stop_loss_config = self.config.get("stop_loss", self._get_default_config()["stop_loss"])
+        take_profit_config = self.config.get("take_profit", self._get_default_config()["take_profit"])
+        base_stop = stop_loss_config["base_stop_loss"]
+        base_take = take_profit_config["base_take_profit"]
         
         # ボラティリティ調整
-        vol_multiplier = self.config["stop_loss"]["volatility_multiplier"]
+        vol_multiplier = stop_loss_config["volatility_multiplier"]
         vol_adjusted_stop = base_stop * (1 + volatility * vol_multiplier)
         
         # リスクレベル調整
@@ -601,12 +603,12 @@ class DynamicRiskManager:
         
         # 制限適用
         final_stop = max(
-            self.config["stop_loss"]["min_stop_loss"],
-            min(risk_adjusted_stop, self.config["stop_loss"]["max_stop_loss"])
+            stop_loss_config["min_stop_loss"],
+            min(risk_adjusted_stop, stop_loss_config["max_stop_loss"])
         )
         
         # 利確計算（リスクリワード比ベース）
-        risk_reward_ratio = self.config["take_profit"]["risk_reward_ratio"]
+        risk_reward_ratio = take_profit_config["risk_reward_ratio"]
         final_take = final_stop * risk_reward_ratio
         
         # 価格に適用

@@ -108,16 +108,16 @@ class RealtimeRiskMonitor:
                 "alert_retention": 1000  # アラート保持数
             },
             "risk_thresholds": {
-                "var_95_warning": 0.03,    # 3%で警告
-                "var_95_critical": 0.05,   # 5%で重要
-                "var_99_warning": 0.05,    # 5%で警告
-                "var_99_critical": 0.08,   # 8%で重要
-                "max_drawdown_warning": 0.10,  # 10%で警告
-                "max_drawdown_critical": 0.15,  # 15%で重要
-                "volatility_warning": 0.25,    # 25%で警告
-                "volatility_critical": 0.40,    # 40%で重要
-                "correlation_warning": 0.8,     # 80%で警告
-                "correlation_critical": 0.9     # 90%で重要
+                "var_95_warning": 0.02,    # 2%で警告（閾値を下げる）
+                "var_95_critical": 0.03,   # 3%で重要（閾値を下げる）
+                "var_99_warning": 0.03,    # 3%で警告（閾値を下げる）
+                "var_99_critical": 0.05,   # 5%で重要（閾値を下げる）
+                "max_drawdown_warning": 0.05,  # 5%で警告（閾値を下げる）
+                "max_drawdown_critical": 0.10,  # 10%で重要（閾値を下げる）
+                "volatility_warning": 0.15,    # 15%で警告（閾値を下げる）
+                "volatility_critical": 0.25,    # 25%で重要（閾値を下げる）
+                "correlation_warning": 0.6,     # 60%で警告（閾値を下げる）
+                "correlation_critical": 0.8     # 80%で重要（閾値を下げる）
             },
             "position_limits": {
                 "max_position_size": 0.1,     # 最大ポジションサイズ
@@ -223,31 +223,37 @@ class RealtimeRiskMonitor:
                 # 全銘柄の状況
                 recent_snapshots = self.snapshot_history[-50:]  # 最近50件
             
-            if not recent_snapshots:
+            # 監視が開始されている場合は常にmonitoringステータスを返す
+            if self.is_monitoring or len(self.snapshot_history) > 0:
+                # 統計計算
+                total_alerts = sum(len(s.alerts) for s in recent_snapshots) if recent_snapshots else 0
+                critical_alerts = sum(
+                    1 for s in recent_snapshots
+                    for a in s.alerts
+                    if a.alert_level == AlertLevel.CRITICAL
+                ) if recent_snapshots else 0
+                
+                if recent_snapshots:
+                    avg_volatility = np.mean([s.volatility for s in recent_snapshots])
+                    avg_var_95 = np.mean([s.var_95 for s in recent_snapshots])
+                    max_drawdown = max([s.max_drawdown for s in recent_snapshots])
+                else:
+                    avg_volatility = 0.0
+                    avg_var_95 = 0.0
+                    max_drawdown = 0.0
+                
+                return {
+                    "status": "monitoring",
+                    "total_snapshots": len(recent_snapshots),
+                    "total_alerts": total_alerts,
+                    "critical_alerts": critical_alerts,
+                    "avg_volatility": avg_volatility,
+                    "avg_var_95": avg_var_95,
+                    "max_drawdown": max_drawdown,
+                    "last_update": recent_snapshots[-1].timestamp.isoformat() if recent_snapshots else None
+                }
+            else:
                 return {"status": "no_data"}
-            
-            # 統計計算
-            total_alerts = sum(len(s.alerts) for s in recent_snapshots)
-            critical_alerts = sum(
-                1 for s in recent_snapshots
-                for a in s.alerts
-                if a.alert_level == AlertLevel.CRITICAL
-            )
-            
-            avg_volatility = np.mean([s.volatility for s in recent_snapshots])
-            avg_var_95 = np.mean([s.var_95 for s in recent_snapshots])
-            max_drawdown = max([s.max_drawdown for s in recent_snapshots])
-            
-            return {
-                "status": "monitoring",
-                "total_snapshots": len(recent_snapshots),
-                "total_alerts": total_alerts,
-                "critical_alerts": critical_alerts,
-                "avg_volatility": avg_volatility,
-                "avg_var_95": avg_var_95,
-                "max_drawdown": max_drawdown,
-                "last_update": recent_snapshots[-1].timestamp.isoformat() if recent_snapshots else None
-            }
             
         except Exception as e:
             self.logger.error(f"リスク状況取得エラー: {e}")
@@ -371,7 +377,7 @@ class RealtimeRiskMonitor:
     def _check_risk_alerts(self, snapshot: RiskSnapshot) -> List[RiskAlert]:
         """リスクアラートチェック"""
         alerts = []
-        thresholds = self.config["risk_thresholds"]
+        thresholds = self.config.get("risk_thresholds", self._get_default_config()["risk_thresholds"])
         
         # VaR 95% チェック
         if snapshot.var_95 >= thresholds["var_95_critical"]:
@@ -478,7 +484,8 @@ class RealtimeRiskMonitor:
             ))
         
         # ポジションサイズチェック
-        max_position = self.config["position_limits"]["max_position_size"]
+        position_limits = self.config.get("position_limits", self._get_default_config()["position_limits"])
+        max_position = position_limits["max_position_size"]
         if snapshot.position_size > max_position:
             alerts.append(RiskAlert(
                 timestamp=datetime.now(),
