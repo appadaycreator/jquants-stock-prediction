@@ -39,6 +39,21 @@ def check_auth_info():
     print(f"パスワード: {'設定済み' if password else '未設定'}")
     print(f"IDトークン: {'設定済み' if id_token else '未設定'}")
     
+    # 認証情報が設定されていない場合
+    if not email and not password and not id_token:
+        print("\n❌ 認証情報が設定されていません")
+        print("設定方法:")
+        print("1. .envファイルを編集してJQUANTS_EMAILとJQUANTS_PASSWORDを設定")
+        print("2. または、JQUANTS_ID_TOKENを直接設定")
+        print("3. GitHub Actionsの場合は、Repository Secretsに設定")
+        return False
+    
+    # IDトークンが直接設定されている場合は、メール/パスワードは不要
+    if id_token and (not email or not password):
+        print("\n✅ IDトークンが直接設定されています")
+        print("メール/パスワード認証はスキップします")
+        return True
+    
     # テスト用のダミー値かチェック
     is_dummy = (
         email == "test@example.com" or
@@ -49,37 +64,49 @@ def check_auth_info():
     if is_dummy:
         print("\n⚠️  テスト用のダミー値が設定されています。")
         print("実際のjQuants APIの認証情報を設定してください。")
-        assert False
+        return False
     
-    assert True
+    return True
 
-def test_authentication_flow():
-    """認証フローのテスト"""
-    print("\n=== 認証フローテスト ===")
-    
-    email = os.getenv("JQUANTS_EMAIL")
-    password = os.getenv("JQUANTS_PASSWORD")
-    
-    if not email or not password:
-        print("❌ 認証情報が設定されていません")
-        return None
-    
-    # ステップ1: 認証リクエスト
-    print("1. 認証リクエスト送信...")
-    auth_url = "https://api.jquants.com/v1/token/auth_user"
-    auth_data = {
-        "mailaddress": email,
-        "password": password
-    }
-    
+def test_id_token_validity(id_token):
+    """IDトークンの有効性をテスト"""
     try:
+        headers = {
+            "Authorization": f"Bearer {id_token}",
+            "Content-Type": "application/json",
+            "User-Agent": "jQuants-API-Test/1.0"
+        }
+        
+        # 簡単なAPI呼び出しでトークンの有効性をテスト
+        test_url = "https://api.jquants.com/v1/listed/info"
+        response = requests.get(test_url, headers=headers, timeout=10)
+        
+        if response.status_code == 200:
+            return True
+        else:
+            print(f"IDトークンテスト失敗: {response.status_code}")
+            return False
+            
+    except Exception as e:
+        print(f"IDトークンテストエラー: {e}")
+        return False
+
+def perform_email_password_auth(email, password):
+    """メール/パスワード認証を実行"""
+    try:
+        print("1. 認証リクエスト送信...")
+        auth_url = "https://api.jquants.com/v1/token/auth_user"
+        auth_data = {
+            "mailaddress": email,
+            "password": password
+        }
+        
         response = requests.post(auth_url, json=auth_data, timeout=30)
         print(f"認証レスポンス: {response.status_code}")
         
         if response.status_code == 200:
             auth_result = response.json()
             print("✅ 認証成功")
-            print(f"レスポンス: {json.dumps(auth_result, indent=2, ensure_ascii=False)}")
             
             refresh_token = auth_result.get("refreshToken")
             if refresh_token:
@@ -95,7 +122,6 @@ def test_authentication_flow():
                 if refresh_response.status_code == 200:
                     refresh_result = refresh_response.json()
                     print("✅ IDトークン取得成功")
-                    print(f"レスポンス: {json.dumps(refresh_result, indent=2, ensure_ascii=False)}")
                     
                     id_token = refresh_result.get("idToken")
                     if id_token:
@@ -114,6 +140,40 @@ def test_authentication_flow():
         print(f"❌ 認証エラー: {e}")
     
     return None
+
+def test_authentication_flow():
+    """認証フローのテスト"""
+    print("\n=== 認証フローテスト ===")
+    
+    email = os.getenv("JQUANTS_EMAIL")
+    password = os.getenv("JQUANTS_PASSWORD")
+    id_token = os.getenv("JQUANTS_ID_TOKEN")
+    
+    # IDトークンが直接設定されている場合は、有効性をチェック
+    if id_token:
+        print("✅ IDトークンが直接設定されています")
+        print("IDトークンの有効性をチェックします...")
+        
+        # IDトークンの有効性をテスト
+        if test_id_token_validity(id_token):
+            print("✅ IDトークンが有効です")
+            return id_token
+        else:
+            print("⚠️ IDトークンが無効または期限切れです")
+            print("メール/パスワード認証を試行します...")
+            # メール/パスワード認証にフォールバック
+            if email and password:
+                return perform_email_password_auth(email, password)
+            else:
+                print("❌ メール/パスワード認証情報も設定されていません")
+                return None
+    
+    if not email or not password:
+        print("❌ 認証情報が設定されていません")
+        return None
+    
+    # メール/パスワード認証を実行
+    return perform_email_password_auth(email, password)
 
 def test_api_endpoints():
     """APIエンドポイントのテスト"""
@@ -335,6 +395,7 @@ def main():
         print("設定方法:")
         print("1. .envファイルを編集してJQUANTS_EMAILとJQUANTS_PASSWORDを設定")
         print("2. または、JQUANTS_ID_TOKENを直接設定")
+        print("3. GitHub Actionsの場合は、Repository Secretsに設定")
         return 1
     
     # 認証フローのテスト

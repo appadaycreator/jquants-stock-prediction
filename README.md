@@ -1757,11 +1757,24 @@ pip install -r requirements.txt
 
 GitHub Actionsで自動実行する場合、Secrets and VariablesでJ-Quantsの認証情報を設定してください：
 
+**⚠️ 重要: jQuants APIテストの実行には認証情報が必要です**
+
+GitHub ActionsでjQuants APIの包括的テストが実行されるため、以下のSecretsを設定してください：
+
 1. **GitHubリポジトリの設定**
    - リポジトリページ → Settings → Secrets and variables → Actions
    - "New repository secret" をクリック
 
-2. **必要なSecretsを追加**
+2. **必要なSecretsの設定**
+   - `JQUANTS_EMAIL`: jQuantsアカウントのメールアドレス
+   - `JQUANTS_PASSWORD`: jQuantsアカウントのパスワード
+   - `JQUANTS_ID_TOKEN`: (オプション) 直接IDトークンを設定
+
+3. **設定後の動作**
+   - 認証情報が設定されている場合: jQuants APIの包括的テストが自動実行されます
+   - 認証情報が未設定の場合: テストはスキップされ、設定方法の案内が表示されます
+
+4. **Secretsの設定例**
    ```
    JQUANTS_EMAIL: your_email@example.com
    JQUANTS_PASSWORD: your_password

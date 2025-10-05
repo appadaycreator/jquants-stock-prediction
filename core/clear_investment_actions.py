@@ -1,0 +1,552 @@
+#!/usr/bin/env python3
+"""
+投資判断の明確化機能
+曖昧な推奨を排除し、具体的なアクションを提示するシステム
+"""
+
+import numpy as np
+import pandas as pd
+from typing import Dict, Any, List, Tuple, Optional, Union
+from datetime import datetime, timedelta
+from dataclasses import dataclass
+from enum import Enum
+import logging
+import json
+
+class InvestmentAction(Enum):
+    """投資アクションの種類"""
+    BUY_MORE = "buy_more"  # 買い増し
+    TAKE_PROFIT = "take_profit"  # 利確
+    STOP_LOSS = "stop_loss"  # 損切り
+    NEW_PURCHASE = "new_purchase"  # 新規購入
+
+class ActionPriority(Enum):
+    """アクションの優先度"""
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
+
+class DeadlineType(Enum):
+    """期限の種類"""
+    IMMEDIATE = "immediate"  # 即座に実行
+    THIS_WEEK = "this_week"  # 今週中
+    THIS_MONTH = "this_month"  # 今月中
+    NEXT_QUARTER = "next_quarter"  # 来四半期
+
+@dataclass
+class InvestmentActionDetail:
+    """投資アクションの詳細情報"""
+    action: InvestmentAction
+    symbol: str
+    current_price: float
+    target_price: float
+    quantity: int
+    total_amount: float
+    priority: ActionPriority
+    deadline: datetime
+    deadline_type: DeadlineType
+    confidence: float
+    reason: str
+    risk_level: str
+    expected_return: float
+    max_loss: float
+    stop_loss_price: Optional[float] = None
+    take_profit_price: Optional[float] = None
+    position_size_percentage: float = 0.0
+    market_condition: str = ""
+    technical_signals: List[str] = None
+    fundamental_factors: List[str] = None
+
+    def __post_init__(self):
+        if self.technical_signals is None:
+            self.technical_signals = []
+        if self.fundamental_factors is None:
+            self.fundamental_factors = []
+
+@dataclass
+class PositionInfo:
+    """ポジション情報"""
+    symbol: str
+    current_quantity: int
+    average_price: float
+    current_price: float
+    pnl: float
+    pnl_percentage: float
+    market_value: float
+    cost_basis: float
+
+class ClearInvestmentActions:
+    """投資判断の明確化システム"""
+    
+    def __init__(self, config: Dict[str, Any] = None):
+        """初期化"""
+        self.config = config or {}
+        self.logger = logging.getLogger(__name__)
+        
+        # 設定値の取得
+        self.min_confidence_threshold = self.config.get('min_confidence_threshold', 0.7)
+        self.max_position_size = self.config.get('max_position_size', 0.1)  # 10%
+        self.risk_tolerance = self.config.get('risk_tolerance', 0.05)  # 5%
+        self.stop_loss_percentage = self.config.get('stop_loss_percentage', 0.05)  # 5%
+        self.take_profit_percentage = self.config.get('take_profit_percentage', 0.15)  # 15%
+        
+        # 期限設定
+        self.deadline_config = {
+            'immediate': timedelta(hours=1),
+            'this_week': timedelta(days=7),
+            'this_month': timedelta(days=30),
+            'next_quarter': timedelta(days=90)
+        }
+        
+        # アクション履歴
+        self.action_history = []
+        
+    def generate_clear_actions(
+        self, 
+        market_data: List[Dict[str, Any]], 
+        positions: List[PositionInfo],
+        predictions: List[float],
+        confidence_scores: List[float]
+    ) -> List[InvestmentActionDetail]:
+        """明確な投資アクションを生成"""
+        try:
+            self.logger.info("明確な投資アクションの生成を開始")
+            
+            actions = []
+            
+            # 各銘柄についてアクションを判定
+            for i, data in enumerate(market_data):
+                symbol = data.get('symbol', f'STOCK_{i}')
+                current_price = data.get('close', 0)
+                prediction = predictions[i] if i < len(predictions) else 0
+                confidence = confidence_scores[i] if i < len(confidence_scores) else 0
+                
+                # 信頼度チェック
+                if confidence < self.min_confidence_threshold:
+                    continue
+                
+                # 既存ポジションの確認
+                existing_position = self._find_position(symbol, positions)
+                
+                # アクション判定
+                action = self._determine_action(
+                    symbol, current_price, prediction, confidence, 
+                    existing_position, data
+                )
+                
+                if action:
+                    actions.append(action)
+            
+            # アクションの優先度付けと期限設定
+            actions = self._prioritize_actions(actions)
+            actions = self._set_deadlines(actions)
+            
+            # 履歴に追加
+            self.action_history.extend(actions)
+            
+            self.logger.info(f"{len(actions)}個の明確なアクションを生成")
+            return actions
+            
+        except Exception as e:
+            self.logger.error(f"明確なアクション生成エラー: {e}")
+            return []
+    
+    def _determine_action(
+        self, 
+        symbol: str, 
+        current_price: float, 
+        prediction: float, 
+        confidence: float,
+        existing_position: Optional[PositionInfo],
+        market_data: Dict[str, Any]
+    ) -> Optional[InvestmentActionDetail]:
+        """具体的なアクションを判定"""
+        try:
+            # 価格変動率の計算
+            price_change_ratio = (prediction - current_price) / current_price
+            
+            # 技術指標の取得
+            technical_signals = self._analyze_technical_indicators(market_data)
+            fundamental_factors = self._analyze_fundamental_factors(market_data)
+            
+            # 市場条件の判定
+            market_condition = self._assess_market_condition(market_data)
+            
+            # アクション判定ロジック
+            if existing_position:
+                # 既存ポジションがある場合
+                return self._determine_existing_position_action(
+                    symbol, current_price, prediction, confidence,
+                    existing_position, technical_signals, fundamental_factors,
+                    market_condition
+                )
+            else:
+                # 新規ポジションの場合
+                return self._determine_new_position_action(
+                    symbol, current_price, prediction, confidence,
+                    technical_signals, fundamental_factors, market_condition
+                )
+                
+        except Exception as e:
+            self.logger.error(f"アクション判定エラー ({symbol}): {e}")
+            return None
+    
+    def _determine_existing_position_action(
+        self,
+        symbol: str,
+        current_price: float,
+        prediction: float,
+        confidence: float,
+        position: PositionInfo,
+        technical_signals: List[str],
+        fundamental_factors: List[str],
+        market_condition: str
+    ) -> Optional[InvestmentActionDetail]:
+        """既存ポジションのアクション判定"""
+        
+        # 損切り判定
+        if position.pnl_percentage <= -self.stop_loss_percentage * 100:
+            return InvestmentActionDetail(
+                action=InvestmentAction.STOP_LOSS,
+                symbol=symbol,
+                current_price=current_price,
+                target_price=current_price * 0.95,  # 5%下げて売却
+                quantity=position.current_quantity,
+                total_amount=position.current_quantity * current_price,
+                priority=ActionPriority.HIGH,
+                deadline=datetime.now() + self.deadline_config['immediate'],
+                deadline_type=DeadlineType.IMMEDIATE,
+                confidence=confidence,
+                reason=f"損切り: {position.pnl_percentage:.1f}%の損失",
+                risk_level="HIGH",
+                expected_return=position.pnl,
+                max_loss=position.pnl,
+                stop_loss_price=current_price * 0.95,
+                technical_signals=technical_signals,
+                fundamental_factors=fundamental_factors,
+                market_condition=market_condition
+            )
+        
+        # 利確判定
+        if position.pnl_percentage >= self.take_profit_percentage * 100:
+            return InvestmentActionDetail(
+                action=InvestmentAction.TAKE_PROFIT,
+                symbol=symbol,
+                current_price=current_price,
+                target_price=current_price,
+                quantity=position.current_quantity,
+                total_amount=position.current_quantity * current_price,
+                priority=ActionPriority.MEDIUM,
+                deadline=datetime.now() + self.deadline_config['this_week'],
+                deadline_type=DeadlineType.THIS_WEEK,
+                confidence=confidence,
+                reason=f"利確: {position.pnl_percentage:.1f}%の利益",
+                risk_level="LOW",
+                expected_return=position.pnl,
+                max_loss=0,
+                take_profit_price=current_price,
+                technical_signals=technical_signals,
+                fundamental_factors=fundamental_factors,
+                market_condition=market_condition
+            )
+        
+        # 買い増し判定
+        if (prediction > current_price * 1.05 and  # 5%以上の上昇予測
+            confidence > 0.8 and  # 高信頼度
+            position.pnl_percentage > -2):  # 大きな損失がない
+            additional_quantity = self._calculate_buy_more_quantity(
+                current_price, confidence, position
+            )
+            
+            if additional_quantity > 0:
+                return InvestmentActionDetail(
+                    action=InvestmentAction.BUY_MORE,
+                    symbol=symbol,
+                    current_price=current_price,
+                    target_price=prediction,
+                    quantity=additional_quantity,
+                    total_amount=additional_quantity * current_price,
+                    priority=ActionPriority.MEDIUM,
+                    deadline=datetime.now() + self.deadline_config['this_week'],
+                    deadline_type=DeadlineType.THIS_WEEK,
+                    confidence=confidence,
+                    reason=f"買い増し: {((prediction - current_price) / current_price * 100):.1f}%の上昇予測",
+                    risk_level="MEDIUM",
+                    expected_return=(prediction - current_price) * additional_quantity,
+                    max_loss=(current_price - prediction) * additional_quantity,
+                    stop_loss_price=current_price * 0.95,
+                    take_profit_price=prediction,
+                    position_size_percentage=additional_quantity * current_price / (position.market_value + additional_quantity * current_price),
+                    technical_signals=technical_signals,
+                    fundamental_factors=fundamental_factors,
+                    market_condition=market_condition
+                )
+        
+        return None
+    
+    def _determine_new_position_action(
+        self,
+        symbol: str,
+        current_price: float,
+        prediction: float,
+        confidence: float,
+        technical_signals: List[str],
+        fundamental_factors: List[str],
+        market_condition: str
+    ) -> Optional[InvestmentActionDetail]:
+        """新規ポジションのアクション判定"""
+        
+        # 新規購入判定
+        if (prediction > current_price * 1.03 and  # 3%以上の上昇予測
+            confidence > 0.75):  # 高信頼度
+            
+            quantity = self._calculate_new_purchase_quantity(
+                current_price, confidence, market_condition
+            )
+            
+            if quantity > 0:
+                return InvestmentActionDetail(
+                    action=InvestmentAction.NEW_PURCHASE,
+                    symbol=symbol,
+                    current_price=current_price,
+                    target_price=prediction,
+                    quantity=quantity,
+                    total_amount=quantity * current_price,
+                    priority=ActionPriority.MEDIUM,
+                    deadline=datetime.now() + self.deadline_config['this_week'],
+                    deadline_type=DeadlineType.THIS_WEEK,
+                    confidence=confidence,
+                    reason=f"新規購入: {((prediction - current_price) / current_price * 100):.1f}%の上昇予測",
+                    risk_level="MEDIUM",
+                    expected_return=(prediction - current_price) * quantity,
+                    max_loss=(current_price - prediction) * quantity,
+                    stop_loss_price=current_price * 0.95,
+                    take_profit_price=prediction,
+                    position_size_percentage=quantity * current_price / 1000000,  # 仮の総資産
+                    technical_signals=technical_signals,
+                    fundamental_factors=fundamental_factors,
+                    market_condition=market_condition
+                )
+        
+        return None
+    
+    def _calculate_buy_more_quantity(
+        self, 
+        current_price: float, 
+        confidence: float, 
+        position: PositionInfo
+    ) -> int:
+        """買い増し数量の計算"""
+        try:
+            # 信頼度に基づく買い増し率
+            buy_more_ratio = min(0.5, confidence - 0.5)  # 最大50%
+            
+            # 現在のポジションサイズを考慮
+            max_additional_quantity = int(position.current_quantity * buy_more_ratio)
+            
+            # 最小単位（100株単位）
+            return (max_additional_quantity // 100) * 100
+            
+        except Exception as e:
+            self.logger.error(f"買い増し数量計算エラー: {e}")
+            return 0
+    
+    def _calculate_new_purchase_quantity(
+        self, 
+        current_price: float, 
+        confidence: float, 
+        market_condition: str
+    ) -> int:
+        """新規購入数量の計算"""
+        try:
+            # 基本購入金額（信頼度に基づく）
+            base_amount = 100000 * confidence  # 10万円 × 信頼度
+            
+            # 市場条件による調整
+            if market_condition == "bull_market":
+                base_amount *= 1.2
+            elif market_condition == "bear_market":
+                base_amount *= 0.8
+            
+            # 数量計算
+            quantity = int(base_amount / current_price)
+            
+            # 最小単位（100株単位）
+            return (quantity // 100) * 100
+            
+        except Exception as e:
+            self.logger.error(f"新規購入数量計算エラー: {e}")
+            return 0
+    
+    def _find_position(self, symbol: str, positions: List[PositionInfo]) -> Optional[PositionInfo]:
+        """既存ポジションの検索"""
+        for position in positions:
+            if position.symbol == symbol:
+                return position
+        return None
+    
+    def _analyze_technical_indicators(self, market_data: Dict[str, Any]) -> List[str]:
+        """技術指標の分析"""
+        signals = []
+        
+        # RSI分析
+        rsi = market_data.get('rsi', 50)
+        if rsi < 30:
+            signals.append("RSI過売り")
+        elif rsi > 70:
+            signals.append("RSI過買い")
+        
+        # MACD分析
+        macd = market_data.get('macd', 0)
+        if macd > 0:
+            signals.append("MACD上昇")
+        else:
+            signals.append("MACD下降")
+        
+        # 移動平均分析
+        sma_20 = market_data.get('sma_20', 0)
+        current_price = market_data.get('close', 0)
+        if current_price > sma_20:
+            signals.append("価格 > SMA20")
+        else:
+            signals.append("価格 < SMA20")
+        
+        return signals
+    
+    def _analyze_fundamental_factors(self, market_data: Dict[str, Any]) -> List[str]:
+        """ファンダメンタル要因の分析"""
+        factors = []
+        
+        # 業績要因
+        if market_data.get('revenue_growth', 0) > 0.1:
+            factors.append("売上高成長")
+        
+        if market_data.get('profit_margin', 0) > 0.15:
+            factors.append("高利益率")
+        
+        # バリュエーション要因
+        pe_ratio = market_data.get('pe_ratio', 0)
+        if pe_ratio > 0 and pe_ratio < 15:
+            factors.append("割安バリュエーション")
+        elif pe_ratio > 25:
+            factors.append("高バリュエーション")
+        
+        return factors
+    
+    def _assess_market_condition(self, market_data: Dict[str, Any]) -> str:
+        """市場条件の評価"""
+        volatility = market_data.get('volatility', 0)
+        trend = market_data.get('trend', 0)
+        
+        if volatility > 0.3:
+            return "high_volatility"
+        elif trend > 0.1:
+            return "bull_market"
+        elif trend < -0.1:
+            return "bear_market"
+        else:
+            return "sideways"
+    
+    def _prioritize_actions(self, actions: List[InvestmentActionDetail]) -> List[InvestmentActionDetail]:
+        """アクションの優先度付け"""
+        # 損切り > 利確 > 買い増し > 新規購入 の順
+        priority_order = {
+            InvestmentAction.STOP_LOSS: 1,
+            InvestmentAction.TAKE_PROFIT: 2,
+            InvestmentAction.BUY_MORE: 3,
+            InvestmentAction.NEW_PURCHASE: 4
+        }
+        
+        return sorted(actions, key=lambda x: (
+            priority_order.get(x.action, 5),
+            -x.confidence,  # 信頼度の高い順
+            -x.expected_return  # 期待リターンの高い順
+        ))
+    
+    def _set_deadlines(self, actions: List[InvestmentActionDetail]) -> List[InvestmentActionDetail]:
+        """期限の設定"""
+        for action in actions:
+            if action.action == InvestmentAction.STOP_LOSS:
+                action.deadline = datetime.now() + self.deadline_config['immediate']
+                action.deadline_type = DeadlineType.IMMEDIATE
+            elif action.action == InvestmentAction.TAKE_PROFIT:
+                action.deadline = datetime.now() + self.deadline_config['this_week']
+                action.deadline_type = DeadlineType.THIS_WEEK
+            else:
+                action.deadline = datetime.now() + self.deadline_config['this_week']
+                action.deadline_type = DeadlineType.THIS_WEEK
+        
+        return actions
+    
+    def get_action_summary(self, actions: List[InvestmentActionDetail]) -> Dict[str, Any]:
+        """アクションサマリーの生成"""
+        summary = {
+            'total_actions': len(actions),
+            'action_counts': {},
+            'total_amount': 0,
+            'high_priority_count': 0,
+            'immediate_actions': 0,
+            'expected_return': 0,
+            'max_risk': 0
+        }
+        
+        for action in actions:
+            # アクション種別カウント
+            action_type = action.action.value
+            summary['action_counts'][action_type] = summary['action_counts'].get(action_type, 0) + 1
+            
+            # 合計金額
+            summary['total_amount'] += action.total_amount
+            
+            # 高優先度カウント
+            if action.priority == ActionPriority.HIGH:
+                summary['high_priority_count'] += 1
+            
+            # 即座に実行が必要なアクション
+            if action.deadline_type == DeadlineType.IMMEDIATE:
+                summary['immediate_actions'] += 1
+            
+            # 期待リターンとリスク
+            summary['expected_return'] += action.expected_return
+            summary['max_risk'] = max(summary['max_risk'], abs(action.max_loss))
+        
+        return summary
+    
+    def export_actions_to_json(self, actions: List[InvestmentActionDetail], filepath: str) -> bool:
+        """アクションをJSONファイルにエクスポート"""
+        try:
+            actions_data = []
+            for action in actions:
+                action_dict = {
+                    'action': action.action.value,
+                    'symbol': action.symbol,
+                    'current_price': action.current_price,
+                    'target_price': action.target_price,
+                    'quantity': action.quantity,
+                    'total_amount': action.total_amount,
+                    'priority': action.priority.value,
+                    'deadline': action.deadline.isoformat(),
+                    'deadline_type': action.deadline_type.value,
+                    'confidence': action.confidence,
+                    'reason': action.reason,
+                    'risk_level': action.risk_level,
+                    'expected_return': action.expected_return,
+                    'max_loss': action.max_loss,
+                    'stop_loss_price': action.stop_loss_price,
+                    'take_profit_price': action.take_profit_price,
+                    'position_size_percentage': action.position_size_percentage,
+                    'market_condition': action.market_condition,
+                    'technical_signals': action.technical_signals,
+                    'fundamental_factors': action.fundamental_factors
+                }
+                actions_data.append(action_dict)
+            
+            with open(filepath, 'w', encoding='utf-8') as f:
+                json.dump(actions_data, f, ensure_ascii=False, indent=2)
+            
+            self.logger.info(f"アクションを{filepath}にエクスポート")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"アクションエクスポートエラー: {e}")
+            return False
