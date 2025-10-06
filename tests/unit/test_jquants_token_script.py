@@ -330,7 +330,9 @@ class TestJQuantsTokenTester(unittest.TestCase):
     def test_save_results(self, mock_json_dump, mock_open):
         """結果保存のテスト"""
         results = [
-            JQuantsTestResultData("テスト", "https://api.example.com/test", 200, True, 100, {})
+            JQuantsTestResultData(
+                "テスト", "https://api.example.com/test", 200, True, 100, {}
+            )
         ]
 
         self.tester.save_results(results, "test_output.json")

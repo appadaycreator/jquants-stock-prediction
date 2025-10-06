@@ -13,7 +13,9 @@ def _make_series(n=60, start=100.0, drift=-0.0005, vol=0.01):
 
 def _make_df(n=60, start=100.0, drift=-0.0005, vol=0.01):
     s = _make_series(n=n, start=start, drift=drift, vol=vol)
-    return pd.DataFrame({"Close": s, "Volume": np.random.randint(1000, 10000, size=len(s))})
+    return pd.DataFrame(
+        {"Close": s, "Volume": np.random.randint(1000, 10000, size=len(s))}
+    )
 
 
 def test_dod_enforced_close_when_mdd_exceeds_30_percent():
@@ -38,9 +40,9 @@ def test_dod_enforced_close_when_mdd_exceeds_30_percent():
         take_profit=0.0,
     )
 
-    decision = mgr.should_adjust_position(metrics, previous_metrics=None, market_conditions={})
+    decision = mgr.should_adjust_position(
+        metrics, previous_metrics=None, market_conditions={}
+    )
     assert decision["should_close"] is True
     assert decision["new_position_size"] == 0.0
     assert "DoD" in decision["adjustment_reason"]
-
-

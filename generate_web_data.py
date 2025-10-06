@@ -540,27 +540,21 @@ class WebDataGenerator:
                     self.generate_sample_data()
                     return True
             else:
-                logger.info(
-                    "認証情報が設定されていません。サンプルデータを生成します。"
-                )
+                logger.info("認証情報が設定されていません。サンプルデータを生成します。")
                 self.generate_sample_data()
                 return True
 
             # 銘柄一覧の取得
             stock_list = self.get_stock_list()
             if not stock_list:
-                logger.warning(
-                    "銘柄一覧の取得に失敗しました。サンプルデータを使用します。"
-                )
+                logger.warning("銘柄一覧の取得に失敗しました。サンプルデータを使用します。")
                 self.generate_sample_data()
                 return True
 
             # 株価データの処理（主要銘柄のみ）
             processed_data = self.process_stock_data(stock_list, max_stocks=20)
             if not processed_data["stocks"]:
-                logger.warning(
-                    "株価データの処理に失敗しました。サンプルデータを使用します。"
-                )
+                logger.warning("株価データの処理に失敗しました。サンプルデータを使用します。")
                 self.generate_sample_data()
                 return True
 
@@ -745,12 +739,16 @@ class WebDataGenerator:
             sma_5 = (
                 sum(prices[-5:]) / 5
                 if len(prices) >= 5
-                else prices[-1] if prices else 0
+                else prices[-1]
+                if prices
+                else 0
             )
             sma_25 = (
                 sum(prices[-25:]) / 25
                 if len(prices) >= 25
-                else prices[-1] if prices else 0
+                else prices[-1]
+                if prices
+                else 0
             )
 
             # 変動率の計算

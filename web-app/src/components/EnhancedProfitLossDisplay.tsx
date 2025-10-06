@@ -23,7 +23,7 @@ import {
   Star,
   Activity,
   Shield,
-  Zap
+  Zap,
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
 
@@ -97,11 +97,11 @@ export function EnhancedProfitLossDisplay({
   onRefresh,
   isLoading = false,
   autoRefresh = false,
-  onAutoRefreshToggle
+  onAutoRefreshToggle,
 }: EnhancedProfitLossDisplayProps) {
-  const [selectedPeriod, setSelectedPeriod] = useState<'daily' | 'weekly' | 'monthly' | 'yearly'>('daily');
+  const [selectedPeriod, setSelectedPeriod] = useState<"daily" | "weekly" | "monthly" | "yearly">("daily");
   const [showDetails, setShowDetails] = useState(true);
-  const [chartType, setChartType] = useState<'line' | 'bar'>('line');
+  const [chartType, setChartType] = useState<"line" | "bar">("line");
 
   // パフォーマンスデータの処理
   const processedPerformanceData = useMemo(() => {
@@ -109,11 +109,11 @@ export function EnhancedProfitLossDisplay({
     
     return performanceData.map((data, index) => ({
       ...data,
-      date: new Date(data.date).toLocaleDateString('ja-JP', { 
-        month: 'short', 
-        day: 'numeric' 
+      date: new Date(data.date).toLocaleDateString("ja-JP", { 
+        month: "short", 
+        day: "numeric", 
       }),
-      index: index + 1
+      index: index + 1,
     }));
   }, [performanceData]);
 
@@ -127,7 +127,7 @@ export function EnhancedProfitLossDisplay({
       weekly: pnlSummary.weekly_pnl,
       monthly: pnlSummary.monthly_pnl,
       yearly: pnlSummary.yearly_pnl,
-      total: pnlSummary.unrealized_pnl
+      total: pnlSummary.unrealized_pnl,
     };
   }, [pnlSummary]);
 
@@ -143,13 +143,13 @@ export function EnhancedProfitLossDisplay({
     const sectorMap = new Map<string, { totalValue: number; totalPnL: number; count: number }>();
     
     positions.forEach(position => {
-      const sector = position.sector || 'その他';
+      const sector = position.sector || "その他";
       const existing = sectorMap.get(sector) || { totalValue: 0, totalPnL: 0, count: 0 };
       
       sectorMap.set(sector, {
         totalValue: existing.totalValue + position.current_value,
         totalPnL: existing.totalPnL + position.unrealized_pnl,
-        count: existing.count + 1
+        count: existing.count + 1,
       });
     });
 
@@ -158,26 +158,26 @@ export function EnhancedProfitLossDisplay({
       value: data.totalValue,
       pnl: data.totalPnL,
       pnlPercentage: data.totalValue > 0 ? (data.totalPnL / data.totalValue) * 100 : 0,
-      count: data.count
+      count: data.count,
     })).sort((a, b) => b.pnlPercentage - a.pnlPercentage);
   }, [positions]);
 
   // リスク指標の色分け
-  const getRiskColor = (value: number, type: 'positive' | 'negative' = 'positive') => {
-    if (type === 'positive') {
-      return value >= 0 ? 'text-green-600' : 'text-red-600';
+  const getRiskColor = (value: number, type: "positive" | "negative" = "positive") => {
+    if (type === "positive") {
+      return value >= 0 ? "text-green-600" : "text-red-600";
     } else {
-      return value <= 0.1 ? 'text-green-600' : value <= 0.3 ? 'text-yellow-600' : 'text-red-600';
+      return value <= 0.1 ? "text-green-600" : value <= 0.3 ? "text-yellow-600" : "text-red-600";
     }
   };
 
   // パフォーマンスバッジの色
   const getPerformanceBadgeColor = (percentage: number) => {
-    if (percentage >= 20) return 'bg-green-100 text-green-800 border-green-200';
-    if (percentage >= 10) return 'bg-blue-100 text-blue-800 border-blue-200';
-    if (percentage >= 0) return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-    if (percentage >= -10) return 'bg-orange-100 text-orange-800 border-orange-200';
-    return 'bg-red-100 text-red-800 border-red-200';
+    if (percentage >= 20) return "bg-green-100 text-green-800 border-green-200";
+    if (percentage >= 10) return "bg-blue-100 text-blue-800 border-blue-200";
+    if (percentage >= 0) return "bg-yellow-100 text-yellow-800 border-yellow-200";
+    if (percentage >= -10) return "bg-orange-100 text-orange-800 border-orange-200";
+    return "bg-red-100 text-red-800 border-red-200";
   };
 
   return (
@@ -205,7 +205,7 @@ export function EnhancedProfitLossDisplay({
             disabled={isLoading}
             title="最新データを取得"
           >
-            <RefreshCw className={`h-4 w-4 mr-1 ${isLoading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`h-4 w-4 mr-1 ${isLoading ? "animate-spin" : ""}`} />
             更新
           </Button>
           <Button
@@ -310,15 +310,15 @@ export function EnhancedProfitLossDisplay({
             {Object.entries(periodPnL).map(([period, value]) => (
               <div key={period} className="text-center p-4 bg-gray-50 rounded-lg">
                 <div className="text-sm font-medium text-gray-600 capitalize mb-1">
-                  {period === 'daily' ? '日次' : 
-                   period === 'weekly' ? '週次' : 
-                   period === 'monthly' ? '月次' : 
-                   period === 'yearly' ? '年次' : '総合'}
+                  {period === "daily" ? "日次" : 
+                   period === "weekly" ? "週次" : 
+                   period === "monthly" ? "月次" : 
+                   period === "yearly" ? "年次" : "総合"}
                 </div>
                 <div className={`text-2xl font-bold ${
-                  value >= 0 ? 'text-green-600' : 'text-red-600'
+                  value >= 0 ? "text-green-600" : "text-red-600"
                 }`}>
-                  {value >= 0 ? '+' : ''}¥{value.toLocaleString()}
+                  {value >= 0 ? "+" : ""}¥{value.toLocaleString()}
                 </div>
               </div>
             ))}
@@ -344,17 +344,17 @@ export function EnhancedProfitLossDisplay({
                   <CardTitle>損益推移グラフ</CardTitle>
                   <div className="flex space-x-2">
                     <Button
-                      variant={chartType === 'line' ? 'default' : 'outline'}
+                      variant={chartType === "line" ? "default" : "outline"}
                       size="sm"
-                      onClick={() => setChartType('line')}
+                      onClick={() => setChartType("line")}
                     >
                       <BarChart3 className="h-4 w-4 mr-1" />
                       ライン
                     </Button>
                     <Button
-                      variant={chartType === 'bar' ? 'default' : 'outline'}
+                      variant={chartType === "bar" ? "default" : "outline"}
                       size="sm"
-                      onClick={() => setChartType('bar')}
+                      onClick={() => setChartType("bar")}
                     >
                       <BarChart3 className="h-4 w-4 mr-1" />
                       バー
@@ -365,7 +365,7 @@ export function EnhancedProfitLossDisplay({
               <CardContent>
                 <div className="h-96">
                   <ResponsiveContainer width="100%" height="100%">
-                    {chartType === 'line' ? (
+                    {chartType === "line" ? (
                       <LineChart data={processedPerformanceData}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="date" />
@@ -373,9 +373,9 @@ export function EnhancedProfitLossDisplay({
                         <Tooltip 
                           formatter={(value: number, name: string) => [
                             `¥${value.toLocaleString()}`, 
-                            name === 'total_value' ? '総資産価値' : 
-                            name === 'daily_pnl' ? '日次損益' : 
-                            name === 'cumulative_pnl' ? '累積損益' : name
+                            name === "total_value" ? "総資産価値" : 
+                            name === "daily_pnl" ? "日次損益" : 
+                            name === "cumulative_pnl" ? "累積損益" : name,
                           ]}
                         />
                         <Line 
@@ -401,7 +401,7 @@ export function EnhancedProfitLossDisplay({
                         <Tooltip 
                           formatter={(value: number, name: string) => [
                             `¥${value.toLocaleString()}`, 
-                            name === 'daily_pnl' ? '日次損益' : '累積損益'
+                            name === "daily_pnl" ? "日次損益" : "累積損益",
                           ]}
                         />
                         <Bar dataKey="daily_pnl" fill="#10b981" name="日次損益" />
@@ -437,16 +437,16 @@ export function EnhancedProfitLossDisplay({
                       </div>
                       <div className="text-right">
                         <div className={`text-lg font-bold ${
-                          position.pnl_percentage >= 0 ? 'text-green-600' : 'text-red-600'
+                          position.pnl_percentage >= 0 ? "text-green-600" : "text-red-600"
                         }`}>
-                          {position.pnl_percentage >= 0 ? '+' : ''}{position.pnl_percentage.toFixed(2)}%
+                          {position.pnl_percentage >= 0 ? "+" : ""}{position.pnl_percentage.toFixed(2)}%
                         </div>
                         <div className="text-sm text-gray-600">
                           ¥{position.unrealized_pnl.toLocaleString()}
                         </div>
                       </div>
                       <Badge className={getPerformanceBadgeColor(position.pnl_percentage)}>
-                        {position.pnl_percentage >= 0 ? '利益' : '損失'}
+                        {position.pnl_percentage >= 0 ? "利益" : "損失"}
                       </Badge>
                     </div>
                   ))}
@@ -473,9 +473,9 @@ export function EnhancedProfitLossDisplay({
                         </div>
                         <div className="text-right">
                           <div className={`font-bold ${
-                            sector.pnlPercentage >= 0 ? 'text-green-600' : 'text-red-600'
+                            sector.pnlPercentage >= 0 ? "text-green-600" : "text-red-600"
                           }`}>
-                            {sector.pnlPercentage >= 0 ? '+' : ''}{sector.pnlPercentage.toFixed(2)}%
+                            {sector.pnlPercentage >= 0 ? "+" : ""}{sector.pnlPercentage.toFixed(2)}%
                           </div>
                           <div className="text-sm text-gray-600">
                             ¥{sector.pnl.toLocaleString()}
@@ -508,7 +508,7 @@ export function EnhancedProfitLossDisplay({
                             <Cell key={`cell-${index}`} fill={`hsl(${index * 60}, 70%, 50%)`} />
                           ))}
                         </Pie>
-                        <Tooltip formatter={(value: number) => [`¥${value.toLocaleString()}`, '価値']} />
+                        <Tooltip formatter={(value: number) => [`¥${value.toLocaleString()}`, "価値"]} />
                       </PieChart>
                     </ResponsiveContainer>
                   </div>
@@ -525,7 +525,7 @@ export function EnhancedProfitLossDisplay({
                   <CardTitle className="text-sm font-medium text-gray-600">最大ドローダウン</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className={`text-2xl font-bold ${getRiskColor(pnlSummary.max_drawdown, 'negative')}`}>
+                  <div className={`text-2xl font-bold ${getRiskColor(pnlSummary.max_drawdown, "negative")}`}>
                     {pnlSummary.max_drawdown.toFixed(2)}%
                   </div>
                   <p className="text-xs text-gray-600 mt-1">最大損失幅</p>
@@ -537,7 +537,7 @@ export function EnhancedProfitLossDisplay({
                   <CardTitle className="text-sm font-medium text-gray-600">ボラティリティ</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className={`text-2xl font-bold ${getRiskColor(pnlSummary.volatility, 'negative')}`}>
+                  <div className={`text-2xl font-bold ${getRiskColor(pnlSummary.volatility, "negative")}`}>
                     {pnlSummary.volatility.toFixed(2)}%
                   </div>
                   <p className="text-xs text-gray-600 mt-1">価格変動率</p>
@@ -549,7 +549,7 @@ export function EnhancedProfitLossDisplay({
                   <CardTitle className="text-sm font-medium text-gray-600">勝率</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className={`text-2xl font-bold ${getRiskColor(pnlSummary.win_rate, 'positive')}`}>
+                  <div className={`text-2xl font-bold ${getRiskColor(pnlSummary.win_rate, "positive")}`}>
                     {pnlSummary.win_rate.toFixed(1)}%
                   </div>
                   <p className="text-xs text-gray-600 mt-1">利益確定率</p>
@@ -561,7 +561,7 @@ export function EnhancedProfitLossDisplay({
                   <CardTitle className="text-sm font-medium text-gray-600">プロフィットファクター</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className={`text-2xl font-bold ${getRiskColor(pnlSummary.profit_factor, 'positive')}`}>
+                  <div className={`text-2xl font-bold ${getRiskColor(pnlSummary.profit_factor, "positive")}`}>
                     {pnlSummary.profit_factor.toFixed(2)}
                   </div>
                   <p className="text-xs text-gray-600 mt-1">利益/損失比率</p>

@@ -51,7 +51,13 @@ def test_log_error_levels_and_traceback():
     try:
         raise ValueError("bad value")
     except Exception as e:
-        lm.log_error(e, context="during calc", additional_info={"password": "p"}, include_traceback=True, level=LogLevel.ERROR)
+        lm.log_error(
+            e,
+            context="during calc",
+            additional_info={"password": "p"},
+            include_traceback=True,
+            level=LogLevel.ERROR,
+        )
     out = stream.getvalue()
     assert "エラー詳細" in out
     assert "during calc" in out
@@ -64,5 +70,3 @@ def test_set_log_level_and_get_logger():
     lm.set_log_level(LogLevel.DEBUG)
     logger = lm.get_logger()
     assert logger.level == logging.DEBUG
-
-

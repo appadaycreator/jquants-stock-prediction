@@ -507,7 +507,7 @@ export default function PersonalInvestmentDashboard() {
               max_drawdown: pnl_summary.max_drawdown || 0,
               volatility: pnl_summary.volatility || 0,
               win_rate: pnl_summary.win_rate || 0,
-              profit_factor: pnl_summary.profit_factor || 0
+              profit_factor: pnl_summary.profit_factor || 0,
             }}
             performanceData={dashboardData.performance_data || []}
             positions={positions.map(p => ({
@@ -520,13 +520,13 @@ export default function PersonalInvestmentDashboard() {
               weight: p.weight || 0,
               contribution: p.contribution || 0,
               risk_level: p.risk_level,
-              sector: p.sector || 'その他',
+              sector: p.sector || "その他",
               market_cap: p.market_cap,
               volume: p.volume,
               volatility: p.volatility,
               beta: p.beta,
               pe_ratio: p.pe_ratio,
-              dividend_yield: p.dividend_yield
+              dividend_yield: p.dividend_yield,
             }))}
             onRefresh={loadDashboardData}
             isLoading={loading}
@@ -548,16 +548,16 @@ export default function PersonalInvestmentDashboard() {
               weight: p.weight || 0,
               contribution: p.contribution || 0,
               risk_level: p.risk_level,
-              sector: p.sector || 'その他',
+              sector: p.sector || "その他",
               market_cap: p.market_cap,
               volume: p.volume,
               volatility: p.volatility,
               beta: p.beta,
               pe_ratio: p.pe_ratio,
-              dividend_yield: p.dividend_yield
+              dividend_yield: p.dividend_yield,
             }))}
             onPositionClick={(symbol) => {
-              console.log('Position clicked:', symbol);
+              console.log("Position clicked:", symbol);
             }}
           />
         </TabsContent>
@@ -571,7 +571,7 @@ export default function PersonalInvestmentDashboard() {
             showVolume={true}
             showVolatility={true}
             onDataPointClick={(data) => {
-              console.log('Data point clicked:', data);
+              console.log("Data point clicked:", data);
             }}
           />
         </TabsContent>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from "react";
 import { 
   Play, 
   Pause, 
@@ -10,8 +10,8 @@ import {
   TrendingUp,
   Smartphone,
   Mail,
-  MessageSquare
-} from 'lucide-react';
+  MessageSquare,
+} from "lucide-react";
 
 interface AutomatedRoutineMobileProps {
   onRoutineStart?: () => void;
@@ -52,26 +52,26 @@ export default function AutomatedRoutineMobile({
   // ステータス取得
   const fetchStatus = useCallback(async () => {
     try {
-      const response = await fetch('/api/scheduler/status');
+      const response = await fetch("/api/scheduler/status");
       if (response.ok) {
         const data = await response.json();
         setStatus(data);
       }
     } catch (error) {
-      console.error('ステータス取得エラー:', error);
+      console.error("ステータス取得エラー:", error);
     }
   }, []);
 
   // 通知取得
   const fetchNotifications = useCallback(async () => {
     try {
-      const response = await fetch('/api/notifications');
+      const response = await fetch("/api/notifications");
       if (response.ok) {
         const data = await response.json();
         setNotifications(data.notifications || []);
       }
     } catch (error) {
-      console.error('通知取得エラー:', error);
+      console.error("通知取得エラー:", error);
     }
   }, []);
 
@@ -79,9 +79,9 @@ export default function AutomatedRoutineMobile({
   const handleManualExecute = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('/api/scheduler/manual-execute', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/scheduler/manual-execute", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
       });
       
       if (response.ok) {
@@ -89,7 +89,7 @@ export default function AutomatedRoutineMobile({
         onRoutineComplete?.(result);
         await fetchStatus();
       } else {
-        throw new Error('手動実行に失敗しました');
+        throw new Error("手動実行に失敗しました");
       }
     } catch (error) {
       onRoutineError?.(error);
@@ -101,9 +101,9 @@ export default function AutomatedRoutineMobile({
   // 設定更新
   const handleSettingsUpdate = async (newSettings: any) => {
     try {
-      const response = await fetch('/api/scheduler/settings', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/scheduler/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newSettings),
       });
       
@@ -112,7 +112,7 @@ export default function AutomatedRoutineMobile({
         await fetchStatus();
       }
     } catch (error) {
-      console.error('設定更新エラー:', error);
+      console.error("設定更新エラー:", error);
     }
   };
 
@@ -183,7 +183,7 @@ export default function AutomatedRoutineMobile({
             </p>
             {status.lastExecution && (
               <p className="text-sm text-gray-600 mt-1">
-                前回実行: {new Date(status.lastExecution).toLocaleString('ja-JP')}
+                前回実行: {new Date(status.lastExecution).toLocaleString("ja-JP")}
               </p>
             )}
           </div>
@@ -209,7 +209,7 @@ export default function AutomatedRoutineMobile({
                 checked={settings.email_enabled}
                 onChange={(e) => handleSettingsUpdate({
                   ...settings,
-                  email_enabled: e.target.checked
+                  email_enabled: e.target.checked,
                 })}
                 className="sr-only peer"
               />
@@ -228,7 +228,7 @@ export default function AutomatedRoutineMobile({
                 checked={settings.slack_enabled}
                 onChange={(e) => handleSettingsUpdate({
                   ...settings,
-                  slack_enabled: e.target.checked
+                  slack_enabled: e.target.checked,
                 })}
                 className="sr-only peer"
               />
@@ -247,7 +247,7 @@ export default function AutomatedRoutineMobile({
                 checked={settings.browser_enabled}
                 onChange={(e) => handleSettingsUpdate({
                   ...settings,
-                  browser_enabled: e.target.checked
+                  browser_enabled: e.target.checked,
                 })}
                 className="sr-only peer"
               />
@@ -300,7 +300,7 @@ export default function AutomatedRoutineMobile({
                       {notification.title}
                     </p>
                     <p className="text-xs text-gray-600 mt-1">
-                      {new Date(notification.timestamp).toLocaleString('ja-JP')}
+                      {new Date(notification.timestamp).toLocaleString("ja-JP")}
                     </p>
                   </div>
                 </div>

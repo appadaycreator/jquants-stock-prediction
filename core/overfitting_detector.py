@@ -158,9 +158,7 @@ class OverfittingDetector:
                 ]
             )
         elif detection_result["train_val_diff"] > 0.05:
-            recommendations.extend(
-                ["モデルの複雑さを減らしてください", "データ拡張を検討してください"]
-            )
+            recommendations.extend(["モデルの複雑さを減らしてください", "データ拡張を検討してください"])
 
         return recommendations
 

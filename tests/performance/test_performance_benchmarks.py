@@ -22,6 +22,7 @@ class TestPerformanceBenchmarks:
     def test_differential_updater_performance(self):
         """差分更新システムのパフォーマンステスト"""
         import tempfile
+
         temp_dir = tempfile.mkdtemp()
         updater = DifferentialUpdater(temp_dir)
 
@@ -88,9 +89,7 @@ class TestPerformanceBenchmarks:
         processing_time = end_time - start_time
 
         # パフォーマンス要件: 設定作成を0.1秒以内で完了
-        assert (
-            processing_time < 0.1
-        ), f"設定作成時間が長すぎます: {processing_time:.3f}秒"
+        assert processing_time < 0.1, f"設定作成時間が長すぎます: {processing_time:.3f}秒"
 
     def test_memory_usage_optimization(self):
         """メモリ使用量の最適化テスト"""
@@ -98,6 +97,7 @@ class TestPerformanceBenchmarks:
 
         # 大量データでのメモリ使用量テスト
         import tempfile
+
         temp_dir = tempfile.mkdtemp()
         updater = DifferentialUpdater(temp_dir)
         large_data = [
@@ -112,9 +112,7 @@ class TestPerformanceBenchmarks:
         memory_increase = final_memory - initial_memory
 
         # メモリ使用量要件: 1000レコードで10MB以内の増加
-        assert (
-            memory_increase < 10
-        ), f"メモリ使用量が多すぎます: {memory_increase:.2f}MB"
+        assert memory_increase < 10, f"メモリ使用量が多すぎます: {memory_increase:.2f}MB"
 
     def test_concurrent_processing_performance(self):
         """並行処理のパフォーマンステスト"""
@@ -124,6 +122,7 @@ class TestPerformanceBenchmarks:
         def process_data_batch(batch_data):
             """データバッチの処理"""
             import tempfile
+
             temp_dir = tempfile.mkdtemp()
             updater = DifferentialUpdater(temp_dir)
             return updater._calculate_comprehensive_diff(batch_data, batch_data)
@@ -151,14 +150,13 @@ class TestPerformanceBenchmarks:
         processing_time = end_time - start_time
 
         # 並行処理のパフォーマンス要件: 4スレッドで0.5秒以内
-        assert (
-            processing_time < 0.5
-        ), f"並行処理時間が長すぎます: {processing_time:.3f}秒"
+        assert processing_time < 0.5, f"並行処理時間が長すぎます: {processing_time:.3f}秒"
         assert len(results) == 10  # 10バッチ
 
     def test_caching_performance(self):
         """キャッシュ機能のパフォーマンステスト"""
         import tempfile
+
         temp_dir = tempfile.mkdtemp()
         updater = DifferentialUpdater(temp_dir)
 
@@ -186,6 +184,7 @@ class TestPerformanceBenchmarks:
     def test_error_handling_performance(self):
         """エラーハンドリングのパフォーマンステスト"""
         import tempfile
+
         temp_dir = tempfile.mkdtemp()
         updater = DifferentialUpdater(temp_dir)
 
@@ -202,14 +201,13 @@ class TestPerformanceBenchmarks:
         processing_time = end_time - start_time
 
         # エラーハンドリングのパフォーマンス要件: 0.1秒以内
-        assert (
-            processing_time < 0.1
-        ), f"エラーハンドリング時間が長すぎます: {processing_time:.3f}秒"
+        assert processing_time < 0.1, f"エラーハンドリング時間が長すぎます: {processing_time:.3f}秒"
         assert result.is_valid is False
 
     def test_large_dataset_performance(self):
         """大規模データセットでのパフォーマンステスト"""
         import tempfile
+
         temp_dir = tempfile.mkdtemp()
         updater = DifferentialUpdater(temp_dir)
 
@@ -234,14 +232,13 @@ class TestPerformanceBenchmarks:
         processing_time = end_time - start_time
 
         # 大規模データのパフォーマンス要件: 10,000レコードを10秒以内で処理
-        assert (
-            processing_time < 10.0
-        ), f"大規模データ処理時間が長すぎます: {processing_time:.3f}秒"
+        assert processing_time < 10.0, f"大規模データ処理時間が長すぎます: {processing_time:.3f}秒"
         assert result.unchanged_count == 10000
 
     def test_memory_efficiency(self):
         """メモリ効率のテスト"""
         import tempfile
+
         temp_dir = tempfile.mkdtemp()
         updater = DifferentialUpdater(temp_dir)
 
@@ -272,6 +269,7 @@ class TestPerformanceBenchmarks:
         initial_cpu = process.cpu_percent()
 
         import tempfile
+
         temp_dir = tempfile.mkdtemp()
         updater = DifferentialUpdater(temp_dir)
         large_data = [
@@ -316,9 +314,7 @@ class TestPerformanceBenchmarks:
             processing_time = end_time - start_time
 
             # ネットワーク処理のパフォーマンス要件: 10リクエストを2秒以内で処理
-            assert (
-                processing_time < 2.0
-            ), f"ネットワーク処理時間が長すぎます: {processing_time:.3f}秒"
+            assert processing_time < 2.0, f"ネットワーク処理時間が長すぎます: {processing_time:.3f}秒"
 
     def test_database_operation_performance(self):
         """データベース操作のパフォーマンステスト"""
@@ -346,14 +342,13 @@ class TestPerformanceBenchmarks:
         processing_time = end_time - start_time
 
         # データベース操作のパフォーマンス要件: 1000レコードを0.2秒以内で保存
-        assert (
-            processing_time < 0.2
-        ), f"データ保存時間が長すぎます: {processing_time:.3f}秒"
+        assert processing_time < 0.2, f"データ保存時間が長すぎます: {processing_time:.3f}秒"
         assert result is True
 
     def test_algorithm_complexity(self):
         """アルゴリズムの計算量テスト"""
         import tempfile
+
         temp_dir = tempfile.mkdtemp()
         updater = DifferentialUpdater(temp_dir)
 
@@ -394,6 +389,7 @@ class TestPerformanceBenchmarks:
     def test_resource_cleanup_performance(self):
         """リソースクリーンアップのパフォーマンステスト"""
         import tempfile
+
         temp_dir = tempfile.mkdtemp()
         updater = DifferentialUpdater(temp_dir)
 
@@ -425,6 +421,7 @@ class TestPerformanceBenchmarks:
         def simulate_user(user_id):
             """ユーザーシミュレーション"""
             import tempfile
+
             temp_dir = tempfile.mkdtemp()
             updater = DifferentialUpdater(temp_dir)
             data = [

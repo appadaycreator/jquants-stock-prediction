@@ -181,9 +181,7 @@ export function usePerformanceOptimization() {
   }, [config.enableVirtualization]);
 
   // 遅延読み込み
-  const useLazyLoading = useCallback((
-    threshold: number = 0.1,
-  ) => {
+  function useLazyLoading(threshold: number = 0.1) {
     const [isVisible, setIsVisible] = useState(false);
     const [hasLoaded, setHasLoaded] = useState(false);
     const elementRef = useRef<HTMLElement>(null);
@@ -210,13 +208,10 @@ export function usePerformanceOptimization() {
     }, [config.enableLazyLoading, hasLoaded, threshold]);
 
     return { elementRef, isVisible, hasLoaded };
-  }, [config.enableLazyLoading]);
+  }
 
   // 画像の遅延読み込み
-  const useLazyImage = useCallback((
-    src: string,
-    placeholder?: string,
-  ) => {
+  function useLazyImage(src: string, placeholder?: string) {
     const [imageSrc, setImageSrc] = useState(placeholder || "");
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
@@ -241,7 +236,7 @@ export function usePerformanceOptimization() {
     }, [src, config.enableLazyLoading]);
 
     return { imageSrc, isLoading, hasError };
-  }, [config.enableLazyLoading]);
+  }
 
   // パフォーマンス警告
   const getPerformanceWarnings = useCallback(() => {

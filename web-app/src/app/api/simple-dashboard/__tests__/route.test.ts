@@ -1,8 +1,8 @@
-import { NextRequest } from 'next/server';
-import { GET, POST } from '../route';
+import { NextRequest } from "next/server";
+import { GET, POST } from "../route";
 
 // モック設定
-jest.mock('next/server', () => ({
+jest.mock("next/server", () => ({
   NextRequest: jest.fn(),
   NextResponse: {
     json: jest.fn((data, options) => ({
@@ -12,15 +12,15 @@ jest.mock('next/server', () => ({
   },
 }));
 
-describe('/api/simple-dashboard', () => {
+describe("/api/simple-dashboard", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('GET', () => {
-    it('シンプルダッシュボードデータを正常に取得できる', async () => {
+  describe("GET", () => {
+    it("シンプルダッシュボードデータを正常に取得できる", async () => {
       const mockRequest = {
-        url: 'http://localhost:3000/api/simple-dashboard',
+        url: "http://localhost:3000/api/simple-dashboard",
       } as NextRequest;
 
       const response = await GET(mockRequest);
@@ -35,9 +35,9 @@ describe('/api/simple-dashboard', () => {
       expect(responseData.data.marketStatus).toBeDefined();
     });
 
-    it('リフレッシュパラメータが正しく処理される', async () => {
+    it("リフレッシュパラメータが正しく処理される", async () => {
       const mockRequest = {
-        url: 'http://localhost:3000/api/simple-dashboard?refresh=true',
+        url: "http://localhost:3000/api/simple-dashboard?refresh=true",
       } as NextRequest;
 
       const response = await GET(mockRequest);
@@ -47,13 +47,13 @@ describe('/api/simple-dashboard', () => {
       expect(responseData.success).toBe(true);
     });
 
-    it('エラー時に適切なレスポンスを返す', async () => {
+    it("エラー時に適切なレスポンスを返す", async () => {
       // エラーを強制的に発生させる
       const originalConsoleError = console.error;
       console.error = jest.fn();
 
       const mockRequest = {
-        url: 'invalid-url',
+        url: "invalid-url",
       } as NextRequest;
 
       const response = await GET(mockRequest);
@@ -67,8 +67,8 @@ describe('/api/simple-dashboard', () => {
     });
   });
 
-  describe('POST', () => {
-    it('データ更新を正常に実行できる', async () => {
+  describe("POST", () => {
+    it("データ更新を正常に実行できる", async () => {
       const mockRequest = {
         json: jest.fn().mockResolvedValue({ forceRefresh: true }),
       } as unknown as NextRequest;
@@ -78,15 +78,15 @@ describe('/api/simple-dashboard', () => {
 
       expect(response.status).toBe(200);
       expect(responseData.success).toBe(true);
-      expect(responseData.message).toBe('データを更新しました');
+      expect(responseData.message).toBe("データを更新しました");
     });
 
-    it('エラー時に適切なレスポンスを返す', async () => {
+    it("エラー時に適切なレスポンスを返す", async () => {
       const originalConsoleError = console.error;
       console.error = jest.fn();
 
       const mockRequest = {
-        json: jest.fn().mockRejectedValue(new Error('JSON parse error')),
+        json: jest.fn().mockRejectedValue(new Error("JSON parse error")),
       } as unknown as NextRequest;
 
       const response = await POST(mockRequest);

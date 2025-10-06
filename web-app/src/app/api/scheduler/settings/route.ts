@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { AutomatedScheduler } from '../../../../../../automated_scheduler';
+import { NextRequest, NextResponse } from "next/server";
+import { AutomatedScheduler } from "../../../../../../automated_scheduler";
 
 // スケジューラーインスタンス（シングルトン）
 let scheduler: AutomatedScheduler | null = null;
@@ -23,10 +23,10 @@ export async function GET(request: NextRequest) {
       browser_enabled: status.notifications.browser_enabled,
     });
   } catch (error) {
-    console.error('設定取得エラー:', error);
+    console.error("設定取得エラー:", error);
     return NextResponse.json(
-      { error: '設定取得に失敗しました' },
-      { status: 500 }
+      { error: "設定取得に失敗しました" },
+      { status: 500 },
     );
   }
 }
@@ -41,22 +41,22 @@ export async function PUT(request: NextRequest) {
     
     return NextResponse.json({
       success: true,
-      message: '設定が更新されました',
+      message: "設定が更新されました",
       settings: {
         execution_time,
         email_enabled,
         slack_enabled,
         browser_enabled,
-      }
+      },
     });
   } catch (error) {
-    console.error('設定更新エラー:', error);
+    console.error("設定更新エラー:", error);
     return NextResponse.json(
       { 
         success: false, 
-        error: '設定更新に失敗しました' 
+        error: "設定更新に失敗しました", 
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

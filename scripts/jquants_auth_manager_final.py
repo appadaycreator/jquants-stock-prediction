@@ -16,6 +16,7 @@ from pathlib import Path
 # 環境変数読み込み
 try:
     from dotenv import load_dotenv
+
     load_dotenv()
 except ImportError:
     # dotenvがインストールされていない場合は手動で.envファイルを読み込み
@@ -42,7 +43,7 @@ class JQuantsAuthManagerFinal:
         # 認証情報（IDトークンは環境変数に設定しない）
         self.email = os.getenv("JQUANTS_EMAIL")
         self.password = os.getenv("JQUANTS_PASSWORD")
-        
+
         # 一時保存されたトークン（環境変数からは取得しない）
         self.temp_id_token = None
         self.temp_refresh_token = None
@@ -54,23 +55,25 @@ class JQuantsAuthManagerFinal:
 
         # トークン有効期限（秒）
         self.token_expiry_buffer = 300  # 5分前から更新
-        
+
         # リトライ設定
         self.max_retries = 3
         self.retry_delay = 2  # 秒
-        
+
         # 一時トークンキャッシュファイル（環境変数に保存しない）
         self.temp_token_cache_file = Path("data/temp_token_cache.json")
         self.data_dir = Path("data")
         if not self.data_dir.exists():
             self.data_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # セッション管理
         self.session = requests.Session()
-        self.session.headers.update({
-            "Content-Type": "application/json",
-            "User-Agent": "jQuants-Stock-Prediction/1.0"
-        })
+        self.session.headers.update(
+            {
+                "Content-Type": "application/json",
+                "User-Agent": "jQuants-Stock-Prediction/1.0",
+            }
+        )
 
     def load_temp_token_cache(self) -> Optional[Dict[str, Any]]:
         """一時トークンキャッシュを読み込み"""
@@ -91,12 +94,12 @@ class JQuantsAuthManagerFinal:
                 "id_token": tokens.get("id_token", ""),
                 "refresh_token": tokens.get("refresh_token", ""),
                 "cached_at": datetime.now().isoformat(),
-                "expires_at": self._calculate_token_expiry(tokens.get("id_token", ""))
+                "expires_at": self._calculate_token_expiry(tokens.get("id_token", "")),
             }
-            
+
             with open(self.temp_token_cache_file, "w", encoding="utf-8") as f:
                 json.dump(cache_data, f, ensure_ascii=False, indent=2)
-            
+
             logger.info("一時トークンキャッシュを保存しました")
             return True
         except Exception as e:
@@ -108,19 +111,19 @@ class JQuantsAuthManagerFinal:
         try:
             import base64
             import json as json_lib
-            
+
             parts = id_token.split(".")
             if len(parts) != 3:
                 return ""
-            
+
             payload = parts[1]
             missing_padding = len(payload) % 4
             if missing_padding:
                 payload += "=" * (4 - missing_padding)
-            
+
             decoded_payload = base64.urlsafe_b64decode(payload)
             payload_data = json_lib.loads(decoded_payload)
-            
+
             exp_timestamp = payload_data.get("exp", 0)
             exp_datetime = datetime.fromtimestamp(exp_timestamp)
             return exp_datetime.isoformat()
@@ -213,7 +216,7 @@ class JQuantsAuthManagerFinal:
                 # 認証リクエスト
                 auth_data = {"mailaddress": self.email, "password": self.password}
                 response = self.session.post(self.auth_url, json=auth_data, timeout=30)
-                
+
                 if response.status_code == 200:
                     auth_result = response.json()
                     refresh_token = auth_result.get("refreshToken")
@@ -228,26 +231,31 @@ class JQuantsAuthManagerFinal:
                     refresh_response = self.session.post(
                         f"{self.refresh_url}?refreshtoken={refresh_token}", timeout=30
                     )
-                    
+
                     if refresh_response.status_code == 200:
                         refresh_result = refresh_response.json()
                         id_token = refresh_result.get("idToken")
 
                         if id_token:
                             logger.info("IDトークンを取得しました")
-                            tokens = {"id_token": id_token, "refresh_token": refresh_token}
-                            
+                            tokens = {
+                                "id_token": id_token,
+                                "refresh_token": refresh_token,
+                            }
+
                             # 一時トークンをキャッシュに保存（環境変数には保存しない）
                             self.save_temp_token_cache(tokens)
-                            
+
                             return tokens
                         else:
                             logger.error("IDトークンの取得に失敗しました")
                     else:
-                        logger.error(f"IDトークン取得エラー: HTTP {refresh_response.status_code}")
+                        logger.error(
+                            f"IDトークン取得エラー: HTTP {refresh_response.status_code}"
+                        )
                 else:
                     logger.error(f"認証エラー: HTTP {response.status_code}")
-                    
+
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_delay)
                     continue
@@ -274,12 +282,14 @@ class JQuantsAuthManagerFinal:
 
         for attempt in range(self.max_retries):
             try:
-                logger.info(f"リフレッシュトークンでIDトークンを更新中... (試行 {attempt + 1}/{self.max_retries})")
+                logger.info(
+                    f"リフレッシュトークンでIDトークンを更新中... (試行 {attempt + 1}/{self.max_retries})"
+                )
 
                 response = self.session.post(
                     f"{self.refresh_url}?refreshtoken={refresh_token}", timeout=30
                 )
-                
+
                 if response.status_code == 200:
                     result = response.json()
                     new_id_token = result.get("idToken")
@@ -291,7 +301,7 @@ class JQuantsAuthManagerFinal:
                         logger.error("IDトークンの更新に失敗しました")
                 else:
                     logger.error(f"トークン更新エラー: HTTP {response.status_code}")
-                    
+
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_delay)
                     continue
@@ -313,7 +323,7 @@ class JQuantsAuthManagerFinal:
     def get_valid_token(self) -> Optional[str]:
         """有効なIDトークンを取得（環境変数に保存せず、一時保存のみ）"""
         logger.info("=== 有効なトークン取得開始（環境変数非依存版） ===")
-        
+
         # 1. 一時キャッシュからトークンを取得
         cache = self.load_temp_token_cache()
         if cache and cache.get("id_token"):
@@ -322,7 +332,11 @@ class JQuantsAuthManagerFinal:
             logger.info("一時キャッシュからトークンを取得しました")
 
         # 2. 現在のトークンが有効かチェック
-        if self.temp_id_token and self.is_token_valid(self.temp_id_token) and self.test_token_with_api(self.temp_id_token):
+        if (
+            self.temp_id_token
+            and self.is_token_valid(self.temp_id_token)
+            and self.test_token_with_api(self.temp_id_token)
+        ):
             logger.info("一時保存されたトークンは有効です")
             return self.temp_id_token
 
@@ -335,10 +349,12 @@ class JQuantsAuthManagerFinal:
                 if self.test_token_with_api(new_id_token):
                     logger.info("リフレッシュトークンでの更新に成功しました")
                     # 更新されたトークンを一時キャッシュに保存
-                    self.save_temp_token_cache({
-                        "id_token": new_id_token,
-                        "refresh_token": self.temp_refresh_token
-                    })
+                    self.save_temp_token_cache(
+                        {
+                            "id_token": new_id_token,
+                            "refresh_token": self.temp_refresh_token,
+                        }
+                    )
                     return new_id_token
 
         # 4. メールアドレスとパスワードで新規取得

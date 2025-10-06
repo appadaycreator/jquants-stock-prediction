@@ -27,5 +27,3 @@ def test_emergency_alert_when_mdd_exceeds_30_percent():
     alerts = monitor.get_risk_alerts(symbol="7203")
     assert any(a.alert_level == AlertLevel.EMERGENCY for a in alerts)
     assert any(a.event_type == RiskEvent.EMERGENCY_DRAWDOWN for a in alerts)
-
-

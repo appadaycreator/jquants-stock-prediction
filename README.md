@@ -1941,6 +1941,8 @@ cat config_final.yaml
 - AdvancedPortfolioOptimizer: リスクレベルしきい値を閉区間に調整（0.1→LOW、0.2→MEDIUM、0.3→HIGH）
 - AdvancedPortfolioOptimizer: 空データ/例外時はデフォルトの最適化結果を返却するフォールバックを追加
 - DiversificationScoringSystem: リスク寄与分散計算でゼロ除算/NaN対策のガードを強化
+- SharpeRatioOptimizer: 最適化結果の返却値をPythonプリミティブ型に正規化（float/bool/dict内float）
+- SharpeRatioOptimizer: ブラック・リッターマンの期待リターンを π と既存期待のブレンドに変更し、非負にクリップ（テスト安定性と現実性の両立）
 
 ### 自動復旧機能
 

@@ -36,11 +36,11 @@ class JQuantsAuthManager:
 
         # トークン有効期限（秒）
         self.token_expiry_buffer = 300  # 5分前から更新
-        
+
         # リトライ設定
         self.max_retries = 3
         self.retry_delay = 2  # 秒
-        
+
         # トークンキャッシュファイル
         self.token_cache_file = Path("data/token_cache.json")
         self.data_dir = Path("data")
@@ -115,9 +115,7 @@ class JQuantsAuthManager:
     def get_new_tokens(self) -> Optional[Dict[str, str]]:
         """メールアドレスとパスワードで新しいトークンを取得"""
         if not self.email or not self.password:
-            logger.error(
-                "認証情報が設定されていません (JQUANTS_EMAIL, JQUANTS_PASSWORD)"
-            )
+            logger.error("認証情報が設定されていません (JQUANTS_EMAIL, JQUANTS_PASSWORD)")
             return None
 
         try:
@@ -246,9 +244,9 @@ class JQuantsAuthManager:
                     env_content[i] = f"JQUANTS_ID_TOKEN={tokens['id_token']}\n"
                     token_updated = True
                 elif line.startswith("JQUANTS_REFRESH_TOKEN="):
-                    env_content[i] = (
-                        f"JQUANTS_REFRESH_TOKEN={tokens['refresh_token']}\n"
-                    )
+                    env_content[
+                        i
+                    ] = f"JQUANTS_REFRESH_TOKEN={tokens['refresh_token']}\n"
                     refresh_updated = True
 
             # 新しいトークンを追加

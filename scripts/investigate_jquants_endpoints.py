@@ -268,9 +268,7 @@ def main():
         results = investigator.investigate_all_endpoints()
 
         successful_count = len([r for r in results if r.get("success", False)])
-        logger.info(
-            f"\n🎉 調査完了: {successful_count}個のエンドポイントが利用可能です"
-        )
+        logger.info(f"\n🎉 調査完了: {successful_count}個のエンドポイントが利用可能です")
 
         return 0
 

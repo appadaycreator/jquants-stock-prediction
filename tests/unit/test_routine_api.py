@@ -34,41 +34,43 @@ class TestRoutineAnalysisAPI(unittest.TestCase):
         # テスト用ポートフォリオデータ
         test_portfolio = {
             "7203": {
-                "stock_data": pd.DataFrame({
-                    'Close': [100, 105, 102, 108, 110],
-                    'Volume': [1000, 1200, 900, 1300, 1100]
-                }),
+                "stock_data": pd.DataFrame(
+                    {
+                        "Close": [100, 105, 102, 108, 110],
+                        "Volume": [1000, 1200, 900, 1300, 1100],
+                    }
+                ),
                 "current_price": 110,
                 "position_size": 100,
-                "account_balance": 1000000
+                "account_balance": 1000000,
             }
         }
-        
+
         result = self.api.get_simplified_risk_dashboard_data(test_portfolio)
-        
+
         # 結果の検証
         self.assertIsInstance(result, dict)
-        self.assertIn('success', result)
-        
-        if result['success']:
-            self.assertIn('data', result)
-            data = result['data']
-            self.assertIn('portfolio_summary', data)
-            self.assertIn('stock_risk_data', data)
-            self.assertIn('risk_alerts', data)
+        self.assertIn("success", result)
+
+        if result["success"]:
+            self.assertIn("data", result)
+            data = result["data"]
+            self.assertIn("portfolio_summary", data)
+            self.assertIn("stock_risk_data", data)
+            self.assertIn("risk_alerts", data)
 
     def test_error_handling(self):
         """エラーハンドリングのテスト"""
         # 無効なポートフォリオデータ
         invalid_portfolio = None
-        
+
         result = self.api.get_simplified_risk_dashboard_data(invalid_portfolio)
-        
+
         # エラーが適切に処理されることを確認
         self.assertIsInstance(result, dict)
-        self.assertIn('success', result)
-        if not result['success']:
-            self.assertIn('error', result)
+        self.assertIn("success", result)
+        if not result["success"]:
+            self.assertIn("error", result)
 
     def test_config_loading(self):
         """設定ファイル読み込みのテスト"""
@@ -80,5 +82,5 @@ class TestRoutineAnalysisAPI(unittest.TestCase):
         self.assertIsNotNone(self.api.logger)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

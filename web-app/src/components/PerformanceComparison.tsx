@@ -16,7 +16,7 @@ import {
   Shield,
   Activity,
   BarChart3,
-  PieChart as PieChartIcon
+  PieChart as PieChartIcon,
 } from "lucide-react";
 import { 
   BarChart, 
@@ -30,7 +30,7 @@ import {
   Pie,
   Cell,
   LineChart,
-  Line
+  Line,
 } from "recharts";
 
 // データ型定義
@@ -68,12 +68,12 @@ export function PerformanceComparison({
   positions,
   benchmarkData,
   onPositionClick,
-  className = ""
+  className = "",
 }: PerformanceComparisonProps) {
-  const [sortBy, setSortBy] = useState<'pnl' | 'weight' | 'volatility' | 'beta'>('pnl');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-  const [filterSector, setFilterSector] = useState<string>('all');
-  const [viewMode, setViewMode] = useState<'table' | 'chart' | 'sector'>('table');
+  const [sortBy, setSortBy] = useState<"pnl" | "weight" | "volatility" | "beta">("pnl");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [filterSector, setFilterSector] = useState<string>("all");
+  const [viewMode, setViewMode] = useState<"table" | "chart" | "sector">("table");
 
   // パフォーマンスランキングの計算
   const performanceRanking = useMemo(() => {
@@ -84,19 +84,19 @@ export function PerformanceComparison({
       let aValue: number, bValue: number;
       
       switch (sortBy) {
-        case 'pnl':
+        case "pnl":
           aValue = a.pnl_percentage;
           bValue = b.pnl_percentage;
           break;
-        case 'weight':
+        case "weight":
           aValue = a.weight;
           bValue = b.weight;
           break;
-        case 'volatility':
+        case "volatility":
           aValue = a.volatility || 0;
           bValue = b.volatility || 0;
           break;
-        case 'beta':
+        case "beta":
           aValue = a.beta || 0;
           bValue = b.beta || 0;
           break;
@@ -105,11 +105,11 @@ export function PerformanceComparison({
           bValue = b.pnl_percentage;
       }
       
-      return sortOrder === 'desc' ? bValue - aValue : aValue - bValue;
+      return sortOrder === "desc" ? bValue - aValue : aValue - bValue;
     });
 
     // セクターフィルタ
-    if (filterSector !== 'all') {
+    if (filterSector !== "all") {
       sorted = sorted.filter(pos => pos.sector === filterSector);
     }
 
@@ -127,13 +127,13 @@ export function PerformanceComparison({
     }>();
 
     positions.forEach(position => {
-      const sector = position.sector || 'その他';
+      const sector = position.sector || "その他";
       const existing = sectorMap.get(sector) || {
         totalValue: 0,
         totalPnL: 0,
         count: 0,
         avgReturn: 0,
-        totalWeight: 0
+        totalWeight: 0,
       };
 
       sectorMap.set(sector, {
@@ -141,7 +141,7 @@ export function PerformanceComparison({
         totalPnL: existing.totalPnL + position.unrealized_pnl,
         count: existing.count + 1,
         avgReturn: existing.avgReturn + position.pnl_percentage,
-        totalWeight: existing.totalWeight + position.weight
+        totalWeight: existing.totalWeight + position.weight,
       });
     });
 
@@ -152,7 +152,7 @@ export function PerformanceComparison({
       pnlPercentage: data.totalValue > 0 ? (data.totalPnL / data.totalValue) * 100 : 0,
       count: data.count,
       avgReturn: data.avgReturn / data.count,
-      weight: data.totalWeight
+      weight: data.totalWeight,
     })).sort((a, b) => b.pnlPercentage - a.pnlPercentage);
   }, [positions]);
 
@@ -161,15 +161,15 @@ export function PerformanceComparison({
     const sorted = [...positions].sort((a, b) => b.pnl_percentage - a.pnl_percentage);
     return {
       best: sorted.slice(0, 3),
-      worst: sorted.slice(-3).reverse()
+      worst: sorted.slice(-3).reverse(),
     };
   }, [positions]);
 
   // リスク分析
   const riskAnalysis = useMemo(() => {
-    const highRisk = positions.filter(p => p.risk_level === 'HIGH').length;
-    const mediumRisk = positions.filter(p => p.risk_level === 'MEDIUM').length;
-    const lowRisk = positions.filter(p => p.risk_level === 'LOW').length;
+    const highRisk = positions.filter(p => p.risk_level === "HIGH").length;
+    const mediumRisk = positions.filter(p => p.risk_level === "MEDIUM").length;
+    const lowRisk = positions.filter(p => p.risk_level === "LOW").length;
     
     const totalVolatility = positions.reduce((sum, p) => sum + (p.volatility || 0), 0);
     const avgVolatility = totalVolatility / positions.length;
@@ -179,34 +179,34 @@ export function PerformanceComparison({
     return {
       riskDistribution: { highRisk, mediumRisk, lowRisk },
       volatilityAnalysis: { avgVolatility, highVolatility },
-      totalPositions: positions.length
+      totalPositions: positions.length,
     };
   }, [positions]);
 
   // パフォーマンスバッジの色
   const getPerformanceBadgeColor = (percentage: number) => {
-    if (percentage >= 20) return 'bg-green-100 text-green-800 border-green-200';
-    if (percentage >= 10) return 'bg-blue-100 text-blue-800 border-blue-200';
-    if (percentage >= 0) return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-    if (percentage >= -10) return 'bg-orange-100 text-orange-800 border-orange-200';
-    return 'bg-red-100 text-red-800 border-red-200';
+    if (percentage >= 20) return "bg-green-100 text-green-800 border-green-200";
+    if (percentage >= 10) return "bg-blue-100 text-blue-800 border-blue-200";
+    if (percentage >= 0) return "bg-yellow-100 text-yellow-800 border-yellow-200";
+    if (percentage >= -10) return "bg-orange-100 text-orange-800 border-orange-200";
+    return "bg-red-100 text-red-800 border-red-200";
   };
 
   // リスクレベルの色
   const getRiskColor = (riskLevel: string) => {
     switch (riskLevel) {
-      case 'HIGH': return 'text-red-600 bg-red-100';
-      case 'MEDIUM': return 'text-yellow-600 bg-yellow-100';
-      case 'LOW': return 'text-green-600 bg-green-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case "HIGH": return "text-red-600 bg-red-100";
+      case "MEDIUM": return "text-yellow-600 bg-yellow-100";
+      case "LOW": return "text-green-600 bg-green-100";
+      default: return "text-gray-600 bg-gray-100";
     }
   };
 
   // セクターの色
   const getSectorColor = (index: number) => {
     const colors = [
-      '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
-      '#06b6d4', '#84cc16', '#f97316', '#ec4899', '#6366f1'
+      "#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6",
+      "#06b6d4", "#84cc16", "#f97316", "#ec4899", "#6366f1",
     ];
     return colors[index % colors.length];
   };
@@ -222,25 +222,25 @@ export function PerformanceComparison({
             </CardTitle>
             <div className="flex space-x-2">
               <Button
-                variant={viewMode === 'table' ? 'default' : 'outline'}
+                variant={viewMode === "table" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setViewMode('table')}
+                onClick={() => setViewMode("table")}
               >
                 <BarChart3 className="h-4 w-4 mr-1" />
                 テーブル
               </Button>
               <Button
-                variant={viewMode === 'chart' ? 'default' : 'outline'}
+                variant={viewMode === "chart" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setViewMode('chart')}
+                onClick={() => setViewMode("chart")}
               >
                 <Activity className="h-4 w-4 mr-1" />
                 チャート
               </Button>
               <Button
-                variant={viewMode === 'sector' ? 'default' : 'outline'}
+                variant={viewMode === "sector" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setViewMode('sector')}
+                onClick={() => setViewMode("sector")}
               >
                 <PieChartIcon className="h-4 w-4 mr-1" />
                 セクター
@@ -276,9 +276,9 @@ export function PerformanceComparison({
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
+                    onClick={() => setSortOrder(sortOrder === "desc" ? "asc" : "desc")}
                   >
-                    {sortOrder === 'desc' ? <TrendingDown className="h-4 w-4" /> : <TrendingUp className="h-4 w-4" />}
+                    {sortOrder === "desc" ? <TrendingDown className="h-4 w-4" /> : <TrendingUp className="h-4 w-4" />}
                   </Button>
                 </div>
                 
@@ -322,9 +322,9 @@ export function PerformanceComparison({
                     </div>
                     <div className="text-right">
                       <div className={`text-lg font-bold ${
-                        position.pnl_percentage >= 0 ? 'text-green-600' : 'text-red-600'
+                        position.pnl_percentage >= 0 ? "text-green-600" : "text-red-600"
                       }`}>
-                        {position.pnl_percentage >= 0 ? '+' : ''}{position.pnl_percentage.toFixed(2)}%
+                        {position.pnl_percentage >= 0 ? "+" : ""}{position.pnl_percentage.toFixed(2)}%
                       </div>
                       <div className="text-sm text-gray-600">
                         ¥{position.unrealized_pnl.toLocaleString()}
@@ -334,7 +334,7 @@ export function PerformanceComparison({
                       </div>
                     </div>
                     <Badge className={getPerformanceBadgeColor(position.pnl_percentage)}>
-                      {position.pnl_percentage >= 0 ? '利益' : '損失'}
+                      {position.pnl_percentage >= 0 ? "利益" : "損失"}
                     </Badge>
                   </div>
                 ))}
@@ -518,9 +518,9 @@ export function PerformanceComparison({
                           </div>
                           <div className="text-right">
                             <div className={`text-lg font-bold ${
-                              sector.pnlPercentage >= 0 ? 'text-green-600' : 'text-red-600'
+                              sector.pnlPercentage >= 0 ? "text-green-600" : "text-red-600"
                             }`}>
-                              {sector.pnlPercentage >= 0 ? '+' : ''}{sector.pnlPercentage.toFixed(2)}%
+                              {sector.pnlPercentage >= 0 ? "+" : ""}{sector.pnlPercentage.toFixed(2)}%
                             </div>
                             <div className="text-sm text-gray-600">
                               ¥{sector.pnl.toLocaleString()}
@@ -553,7 +553,7 @@ export function PerformanceComparison({
                               <Cell key={`cell-${index}`} fill={getSectorColor(index)} />
                             ))}
                           </Pie>
-                          <Tooltip formatter={(value: number) => [`${(value * 100).toFixed(1)}%`, '配分']} />
+                          <Tooltip formatter={(value: number) => [`${(value * 100).toFixed(1)}%`, "配分"]} />
                         </PieChart>
                       </ResponsiveContainer>
                     </div>

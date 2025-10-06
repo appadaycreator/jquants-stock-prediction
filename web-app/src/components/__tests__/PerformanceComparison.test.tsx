@@ -1,6 +1,6 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { PerformanceComparison } from '../PerformanceComparison';
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { PerformanceComparison } from "../PerformanceComparison";
 
 // モックデータ
 const mockPositions = [
@@ -20,7 +20,7 @@ const mockPositions = [
     volatility: 15.2,
     beta: 1.1,
     pe_ratio: 12.5,
-    dividend_yield: 2.1
+    dividend_yield: 2.1,
   },
   {
     symbol: "6758",
@@ -38,7 +38,7 @@ const mockPositions = [
     volatility: 18.5,
     beta: 1.3,
     pe_ratio: 18.2,
-    dividend_yield: 1.5
+    dividend_yield: 1.5,
   },
   {
     symbol: "9984",
@@ -56,229 +56,229 @@ const mockPositions = [
     volatility: 22.1,
     beta: 1.5,
     pe_ratio: 25.3,
-    dividend_yield: 0.8
-  }
+    dividend_yield: 0.8,
+  },
 ];
 
 const mockBenchmarkData = {
   name: "日経平均",
   return: 8.5,
-  volatility: 12.0
+  volatility: 12.0,
 };
 
-describe('PerformanceComparison', () => {
+describe("PerformanceComparison", () => {
   const defaultProps = {
     positions: mockPositions,
     benchmarkData: mockBenchmarkData,
     onPositionClick: jest.fn(),
-    className: ""
+    className: "",
   };
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('正常にレンダリングされる', () => {
+  it("正常にレンダリングされる", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    expect(screen.getByText('パフォーマンス比較')).toBeInTheDocument();
+    expect(screen.getByText("パフォーマンス比較")).toBeInTheDocument();
   });
 
-  it('ビューモードボタンが正しく表示される', () => {
+  it("ビューモードボタンが正しく表示される", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    expect(screen.getByText('テーブル')).toBeInTheDocument();
-    expect(screen.getByText('チャート')).toBeInTheDocument();
-    expect(screen.getByText('セクター')).toBeInTheDocument();
+    expect(screen.getByText("テーブル")).toBeInTheDocument();
+    expect(screen.getByText("チャート")).toBeInTheDocument();
+    expect(screen.getByText("セクター")).toBeInTheDocument();
   });
 
-  it('タブが正しく表示される', () => {
+  it("タブが正しく表示される", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    expect(screen.getByText('ランキング')).toBeInTheDocument();
-    expect(screen.getByText('ベスト・ワースト')).toBeInTheDocument();
-    expect(screen.getByText('リスク分析')).toBeInTheDocument();
-    expect(screen.getByText('セクター分析')).toBeInTheDocument();
+    expect(screen.getByText("ランキング")).toBeInTheDocument();
+    expect(screen.getByText("ベスト・ワースト")).toBeInTheDocument();
+    expect(screen.getByText("リスク分析")).toBeInTheDocument();
+    expect(screen.getByText("セクター分析")).toBeInTheDocument();
   });
 
-  it('ランキングタブが正しく表示される', () => {
+  it("ランキングタブが正しく表示される", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    expect(screen.getByText('ランキング')).toBeInTheDocument();
-    expect(screen.getByText('損益率')).toBeInTheDocument();
-    expect(screen.getByText('配分')).toBeInTheDocument();
-    expect(screen.getByText('ボラティリティ')).toBeInTheDocument();
-    expect(screen.getByText('ベータ')).toBeInTheDocument();
+    expect(screen.getByText("ランキング")).toBeInTheDocument();
+    expect(screen.getByText("損益率")).toBeInTheDocument();
+    expect(screen.getByText("配分")).toBeInTheDocument();
+    expect(screen.getByText("ボラティリティ")).toBeInTheDocument();
+    expect(screen.getByText("ベータ")).toBeInTheDocument();
   });
 
-  it('ソート機能が正しく動作する', () => {
+  it("ソート機能が正しく動作する", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const sortSelect = screen.getByDisplayValue('損益率');
-    fireEvent.change(sortSelect, { target: { value: 'weight' } });
+    const sortSelect = screen.getByDisplayValue("損益率");
+    fireEvent.change(sortSelect, { target: { value: "weight" } });
     
-    expect(sortSelect).toHaveValue('weight');
+    expect(sortSelect).toHaveValue("weight");
   });
 
-  it('ソート順序の切り替えが正しく動作する', () => {
+  it("ソート順序の切り替えが正しく動作する", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const sortOrderButton = screen.getByRole('button', { name: /trending/i });
+    const sortOrderButton = screen.getByRole("button", { name: /trending/i });
     fireEvent.click(sortOrderButton);
     
     expect(sortOrderButton).toBeInTheDocument();
   });
 
-  it('セクターフィルターが正しく動作する', () => {
+  it("セクターフィルターが正しく動作する", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const sectorSelect = screen.getByDisplayValue('すべて');
-    fireEvent.change(sectorSelect, { target: { value: '自動車' } });
+    const sectorSelect = screen.getByDisplayValue("すべて");
+    fireEvent.change(sectorSelect, { target: { value: "自動車" } });
     
-    expect(sectorSelect).toHaveValue('自動車');
+    expect(sectorSelect).toHaveValue("自動車");
   });
 
-  it('ベスト・ワーストタブが正しく表示される', async () => {
+  it("ベスト・ワーストタブが正しく表示される", async () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const bestWorstTab = screen.getByText('ベスト・ワースト');
+    const bestWorstTab = screen.getByText("ベスト・ワースト");
     fireEvent.click(bestWorstTab);
     
     await waitFor(() => {
-      expect(screen.getByText('ベストパフォーマー')).toBeInTheDocument();
-      expect(screen.getByText('ワーストパフォーマー')).toBeInTheDocument();
+      expect(screen.getByText("ベストパフォーマー")).toBeInTheDocument();
+      expect(screen.getByText("ワーストパフォーマー")).toBeInTheDocument();
     });
   });
 
-  it('リスク分析タブが正しく表示される', async () => {
+  it("リスク分析タブが正しく表示される", async () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const riskTab = screen.getByText('リスク分析');
+    const riskTab = screen.getByText("リスク分析");
     fireEvent.click(riskTab);
     
     await waitFor(() => {
-      expect(screen.getByText('リスク分布')).toBeInTheDocument();
-      expect(screen.getByText('ボラティリティ分析')).toBeInTheDocument();
+      expect(screen.getByText("リスク分布")).toBeInTheDocument();
+      expect(screen.getByText("ボラティリティ分析")).toBeInTheDocument();
     });
   });
 
-  it('セクター分析タブが正しく表示される', async () => {
+  it("セクター分析タブが正しく表示される", async () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const sectorTab = screen.getByText('セクター分析');
+    const sectorTab = screen.getByText("セクター分析");
     fireEvent.click(sectorTab);
     
     await waitFor(() => {
-      expect(screen.getByText('セクター別パフォーマンス')).toBeInTheDocument();
-      expect(screen.getByText('セクター別配分')).toBeInTheDocument();
+      expect(screen.getByText("セクター別パフォーマンス")).toBeInTheDocument();
+      expect(screen.getByText("セクター別配分")).toBeInTheDocument();
     });
   });
 
-  it('ポジションクリックが正しく動作する', () => {
+  it("ポジションクリックが正しく動作する", () => {
     const mockOnPositionClick = jest.fn();
     render(<PerformanceComparison {...defaultProps} onPositionClick={mockOnPositionClick} />);
     
     // ポジションをクリック
-    const positionElement = screen.getByText('7203');
+    const positionElement = screen.getByText("7203");
     fireEvent.click(positionElement);
     
-    expect(mockOnPositionClick).toHaveBeenCalledWith('7203');
+    expect(mockOnPositionClick).toHaveBeenCalledWith("7203");
   });
 
-  it('パフォーマンスバッジの色が正しく表示される', () => {
+  it("パフォーマンスバッジの色が正しく表示される", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
     // 利益のバッジ
-    expect(screen.getByText('利益')).toBeInTheDocument();
+    expect(screen.getByText("利益")).toBeInTheDocument();
     // 損失のバッジ
-    expect(screen.getByText('損失')).toBeInTheDocument();
+    expect(screen.getByText("損失")).toBeInTheDocument();
   });
 
-  it('リスクレベルの色が正しく表示される', () => {
+  it("リスクレベルの色が正しく表示される", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    expect(screen.getByText('MEDIUM')).toBeInTheDocument();
-    expect(screen.getByText('HIGH')).toBeInTheDocument();
+    expect(screen.getByText("MEDIUM")).toBeInTheDocument();
+    expect(screen.getByText("HIGH")).toBeInTheDocument();
   });
 
-  it('セクターの色が正しく表示される', () => {
+  it("セクターの色が正しく表示される", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    expect(screen.getByText('自動車')).toBeInTheDocument();
-    expect(screen.getByText('エンターテインメント')).toBeInTheDocument();
-    expect(screen.getByText('通信')).toBeInTheDocument();
+    expect(screen.getByText("自動車")).toBeInTheDocument();
+    expect(screen.getByText("エンターテインメント")).toBeInTheDocument();
+    expect(screen.getByText("通信")).toBeInTheDocument();
   });
 
-  it('空のポジションデータの場合の処理', () => {
+  it("空のポジションデータの場合の処理", () => {
     render(<PerformanceComparison {...defaultProps} positions={[]} />);
     
-    expect(screen.getByText('パフォーマンス比較')).toBeInTheDocument();
+    expect(screen.getByText("パフォーマンス比較")).toBeInTheDocument();
   });
 
-  it('カスタムクラスが正しく適用される', () => {
+  it("カスタムクラスが正しく適用される", () => {
     const { container } = render(<PerformanceComparison {...defaultProps} className="custom-class" />);
     
-    expect(container.firstChild).toHaveClass('custom-class');
+    expect(container.firstChild).toHaveClass("custom-class");
   });
 
-  it('ベンチマークデータが正しく表示される', () => {
+  it("ベンチマークデータが正しく表示される", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    expect(screen.getByText('パフォーマンス比較')).toBeInTheDocument();
+    expect(screen.getByText("パフォーマンス比較")).toBeInTheDocument();
   });
 
-  it('ビューモードの切り替えが正しく動作する', () => {
+  it("ビューモードの切り替えが正しく動作する", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const chartButton = screen.getByText('チャート');
+    const chartButton = screen.getByText("チャート");
     fireEvent.click(chartButton);
     
-    expect(chartButton).toHaveClass('bg-blue-600');
+    expect(chartButton).toHaveClass("bg-blue-600");
   });
 
-  it('セクタービューモードが正しく動作する', () => {
+  it("セクタービューモードが正しく動作する", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const sectorButton = screen.getByText('セクター');
+    const sectorButton = screen.getByText("セクター");
     fireEvent.click(sectorButton);
     
-    expect(sectorButton).toHaveClass('bg-blue-600');
+    expect(sectorButton).toHaveClass("bg-blue-600");
   });
 
-  it('リスク分布が正しく計算される', async () => {
+  it("リスク分布が正しく計算される", async () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const riskTab = screen.getByText('リスク分析');
+    const riskTab = screen.getByText("リスク分析");
     fireEvent.click(riskTab);
     
     await waitFor(() => {
-      expect(screen.getByText('高リスク')).toBeInTheDocument();
-      expect(screen.getByText('中リスク')).toBeInTheDocument();
-      expect(screen.getByText('低リスク')).toBeInTheDocument();
+      expect(screen.getByText("高リスク")).toBeInTheDocument();
+      expect(screen.getByText("中リスク")).toBeInTheDocument();
+      expect(screen.getByText("低リスク")).toBeInTheDocument();
     });
   });
 
-  it('ボラティリティ分析が正しく表示される', async () => {
+  it("ボラティリティ分析が正しく表示される", async () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const riskTab = screen.getByText('リスク分析');
+    const riskTab = screen.getByText("リスク分析");
     fireEvent.click(riskTab);
     
     await waitFor(() => {
-      expect(screen.getByText('平均ボラティリティ')).toBeInTheDocument();
-      expect(screen.getByText('高ボラティリティ銘柄')).toBeInTheDocument();
+      expect(screen.getByText("平均ボラティリティ")).toBeInTheDocument();
+      expect(screen.getByText("高ボラティリティ銘柄")).toBeInTheDocument();
     });
   });
 
-  it('セクター別パフォーマンスが正しく表示される', async () => {
+  it("セクター別パフォーマンスが正しく表示される", async () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const sectorTab = screen.getByText('セクター分析');
+    const sectorTab = screen.getByText("セクター分析");
     fireEvent.click(sectorTab);
     
     await waitFor(() => {
-      expect(screen.getByText('セクター別パフォーマンス')).toBeInTheDocument();
-      expect(screen.getByText('セクター別配分')).toBeInTheDocument();
+      expect(screen.getByText("セクター別パフォーマンス")).toBeInTheDocument();
+      expect(screen.getByText("セクター別配分")).toBeInTheDocument();
     });
   });
 });

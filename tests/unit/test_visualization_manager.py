@@ -325,7 +325,6 @@ class TestVisualizationManager:
             patch("matplotlib.pyplot.savefig"),
             patch("matplotlib.pyplot.close"),
         ):
-
             with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
                 output_file = tmp.name
 
@@ -362,7 +361,6 @@ class TestVisualizationManager:
             patch("matplotlib.pyplot.savefig"),
             patch("matplotlib.pyplot.close"),
         ):
-
             with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
                 output_file = tmp.name
 
@@ -396,7 +394,6 @@ class TestVisualizationManager:
             patch("matplotlib.pyplot.savefig"),
             patch("matplotlib.pyplot.close"),
         ):
-
             with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
                 output_file = tmp.name
 
@@ -428,7 +425,6 @@ class TestVisualizationManager:
             patch("matplotlib.pyplot.savefig"),
             patch("matplotlib.pyplot.close"),
         ):
-
             with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
                 output_file = tmp.name
 

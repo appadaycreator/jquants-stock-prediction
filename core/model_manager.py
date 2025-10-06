@@ -172,9 +172,7 @@ class ModelManager:
     def _create_fallback_result(self) -> Dict[str, Any]:
         """フォールバック結果の作成"""
         if self.logger:
-            self.logger.log_warning(
-                "有効なモデルが見つかりませんでした。デフォルトモデルを使用します。"
-            )
+            self.logger.log_warning("有効なモデルが見つかりませんでした。デフォルトモデルを使用します。")
         return {"best_model": "random_forest", "results": []}
 
     def get_supported_models(self) -> List[str]:

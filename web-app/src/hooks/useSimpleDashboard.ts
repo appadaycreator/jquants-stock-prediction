@@ -1,15 +1,15 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 
 // データ型定義
 interface SimpleRecommendation {
   id: string;
   symbol: string;
   symbolName: string;
-  action: 'BUY' | 'SELL' | 'HOLD';
+  action: "BUY" | "SELL" | "HOLD";
   reason: string;
   confidence: number;
   expectedReturn: number;
-  priority: 'HIGH' | 'MEDIUM' | 'LOW';
+  priority: "HIGH" | "MEDIUM" | "LOW";
   timeframe: string;
 }
 
@@ -40,7 +40,7 @@ interface SimplePosition {
   currentValue: number;
   unrealizedPnL: number;
   unrealizedPnLPercent: number;
-  action: 'BUY_MORE' | 'SELL' | 'HOLD';
+  action: "BUY_MORE" | "SELL" | "HOLD";
   confidence: number;
 }
 
@@ -75,15 +75,15 @@ export const useSimpleDashboard = (): UseSimpleDashboardReturn => {
       setError(null);
 
       const url = forceRefresh 
-        ? '/api/simple-dashboard?refresh=true'
-        : '/api/simple-dashboard';
+        ? "/api/simple-dashboard?refresh=true"
+        : "/api/simple-dashboard";
 
       const response = await fetch(url, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        cache: forceRefresh ? 'no-cache' : 'default',
+        cache: forceRefresh ? "no-cache" : "default",
       });
 
       if (!response.ok) {
@@ -93,14 +93,14 @@ export const useSimpleDashboard = (): UseSimpleDashboardReturn => {
       const result = await response.json();
 
       if (!result.success) {
-        throw new Error(result.error?.message || 'データの取得に失敗しました');
+        throw new Error(result.error?.message || "データの取得に失敗しました");
       }
 
       setData(result.data);
       setLastUpdate(result.data.lastUpdate);
     } catch (err) {
-      console.error('シンプルダッシュボードデータ取得エラー:', err);
-      setError(err instanceof Error ? err.message : 'データの取得に失敗しました');
+      console.error("シンプルダッシュボードデータ取得エラー:", err);
+      setError(err instanceof Error ? err.message : "データの取得に失敗しました");
     } finally {
       setLoading(false);
     }

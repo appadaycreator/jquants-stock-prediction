@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import AutomatedRoutineMobile from '@/components/AutomatedRoutineMobile';
-import MobileOptimizedPage from '@/components/MobileOptimizedPage';
+import React, { useState, useEffect } from "react";
+import AutomatedRoutineMobile from "@/components/AutomatedRoutineMobile";
+import MobileOptimizedPage from "@/components/MobileOptimizedPage";
 
 export default function AutomatedRoutinePage() {
   const [isMobile, setIsMobile] = useState(false);
@@ -16,21 +16,21 @@ export default function AutomatedRoutinePage() {
     };
 
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
     
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const handleRoutineStart = () => {
-    console.log('5分ルーティン開始');
+    console.log("5分ルーティン開始");
   };
 
   const handleRoutineComplete = (result: any) => {
-    console.log('5分ルーティン完了:', result);
+    console.log("5分ルーティン完了:", result);
   };
 
   const handleRoutineError = (error: any) => {
-    console.error('5分ルーティンエラー:', error);
+    console.error("5分ルーティンエラー:", error);
   };
 
   return (

@@ -148,7 +148,10 @@ class TestDifferentialUpdater:
 
         mock_validator_instance = Mock()
         mock_validator.return_value = mock_validator_instance
-        mock_validator_instance.validate_stock_data.return_value = {"is_valid": True, "issues": []}
+        mock_validator_instance.validate_stock_data.return_value = {
+            "is_valid": True,
+            "issues": [],
+        }
 
         self.updater.json_manager = mock_manager
         self.updater.validator = mock_validator_instance
@@ -182,7 +185,10 @@ class TestDifferentialUpdater:
 
         mock_validator_instance = Mock()
         mock_validator.return_value = mock_validator_instance
-        mock_validator_instance.validate_stock_data.return_value = {"is_valid": True, "issues": []}
+        mock_validator_instance.validate_stock_data.return_value = {
+            "is_valid": True,
+            "issues": [],
+        }
 
         self.updater.json_manager = mock_manager
         self.updater.validator = mock_validator_instance
@@ -464,7 +470,7 @@ class TestDifferentialUpdater:
         """差分計算テスト（None入力）"""
         # None入力はDiffResultを返す
         result = self.updater._calculate_comprehensive_diff(None, None)
-        assert hasattr(result, 'added_count')
+        assert hasattr(result, "added_count")
 
     def test_calculate_comprehensive_diff_mixed_none_inputs(self):
         """差分計算テスト（混合None入力）"""
@@ -472,9 +478,9 @@ class TestDifferentialUpdater:
 
         # None入力はDiffResultを返す
         result = self.updater._calculate_comprehensive_diff(None, data)
-        assert hasattr(result, 'added_count')
+        assert hasattr(result, "added_count")
         result2 = self.updater._calculate_comprehensive_diff(data, None)
-        assert hasattr(result2, 'added_count')
+        assert hasattr(result2, "added_count")
 
     def test_update_stock_data_validation_failure(self):
         """株価データ更新の検証失敗テスト"""
@@ -636,8 +642,28 @@ class TestDifferentialUpdater:
 
     def test_validate_data_integrity_invalid_date_format(self):
         """データ整合性検証の無効な日付形式テスト"""
-        new_data = [{"date": "invalid-date", "code": "1234", "open": 100.0, "high": 110.0, "low": 90.0, "close": 105.0, "volume": 1000}]
-        existing_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 90.0, "close": 100.0, "volume": 1000}]
+        new_data = [
+            {
+                "date": "invalid-date",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 90.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
+        existing_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 90.0,
+                "close": 100.0,
+                "volume": 1000,
+            }
+        ]
 
         result = self.updater._validate_data_integrity(new_data, existing_data)
 
@@ -646,8 +672,28 @@ class TestDifferentialUpdater:
 
     def test_validate_data_integrity_negative_prices(self):
         """データ整合性検証の負の価格テスト"""
-        new_data = [{"date": "2024-01-01", "code": "1234", "open": -100.0, "high": 110.0, "low": 90.0, "close": 105.0, "volume": 1000}]
-        existing_data = [{"date": "2024-01-01", "code": "1234", "open": 100.0, "high": 110.0, "low": 90.0, "close": 100.0, "volume": 1000}]
+        new_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": -100.0,
+                "high": 110.0,
+                "low": 90.0,
+                "close": 105.0,
+                "volume": 1000,
+            }
+        ]
+        existing_data = [
+            {
+                "date": "2024-01-01",
+                "code": "1234",
+                "open": 100.0,
+                "high": 110.0,
+                "low": 90.0,
+                "close": 100.0,
+                "volume": 1000,
+            }
+        ]
 
         result = self.updater._validate_data_integrity(new_data, existing_data)
 

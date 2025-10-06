@@ -131,9 +131,7 @@ class JSONDataManager:
                 self._log_diff(symbol, diff_result)
 
                 if self.logger:
-                    self.logger.info(
-                        f"株価データ保存完了: {symbol} ({len(normalized_data)}件)"
-                    )
+                    self.logger.info(f"株価データ保存完了: {symbol} ({len(normalized_data)}件)")
                 return True
 
             return False
@@ -215,6 +213,7 @@ class JSONDataManager:
     def _convert_data_types(self, item: Dict[str, Any]) -> Dict[str, Any]:
         """データ型の変換"""
         from .utils import normalize_security_code
+
         return {
             "date": str(item["date"]),
             "code": normalize_security_code(item["code"]),
@@ -540,9 +539,7 @@ class JSONDataManager:
             self._save_json(self.diff_log_file, cleaned_log)
 
             if self.logger:
-                self.logger.info(
-                    f"データクリーンアップ完了: {days_to_keep}日以前のデータを削除"
-                )
+                self.logger.info(f"データクリーンアップ完了: {days_to_keep}日以前のデータを削除")
             return True
 
         except Exception as e:

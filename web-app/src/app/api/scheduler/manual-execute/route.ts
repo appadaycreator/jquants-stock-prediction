@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { AutomatedScheduler } from '../../../../../../automated_scheduler';
+import { NextRequest, NextResponse } from "next/server";
+import { AutomatedScheduler } from "../../../../../../automated_scheduler";
 
 // スケジューラーインスタンス（シングルトン）
 let scheduler: AutomatedScheduler | null = null;
@@ -19,26 +19,26 @@ export async function POST(request: NextRequest) {
     if (success) {
       return NextResponse.json({
         success: true,
-        message: '5分ルーティンが手動実行されました',
-        timestamp: new Date().toISOString()
+        message: "5分ルーティンが手動実行されました",
+        timestamp: new Date().toISOString(),
       });
     } else {
       return NextResponse.json(
         { 
           success: false, 
-          error: '手動実行に失敗しました' 
+          error: "手動実行に失敗しました", 
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
   } catch (error) {
-    console.error('手動実行エラー:', error);
+    console.error("手動実行エラー:", error);
     return NextResponse.json(
       { 
         success: false, 
-        error: '手動実行中にエラーが発生しました' 
+        error: "手動実行中にエラーが発生しました", 
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -10,11 +10,11 @@ import os
 from datetime import datetime, timedelta
 from unittest.mock import Mock, patch, MagicMock
 from core.differential_updater import (
-    DifferentialUpdater, 
-    UpdateStatus, 
-    ValidationResult, 
+    DifferentialUpdater,
+    UpdateStatus,
+    ValidationResult,
     UpdateStats,
-    DiffResult
+    DiffResult,
 )
 
 
@@ -25,29 +25,27 @@ class TestDifferentialUpdaterCoverageImprovement:
         """テスト前のセットアップ"""
         self.temp_dir = tempfile.mkdtemp()
         self.updater = DifferentialUpdater(self.temp_dir)
-        
+
     def teardown_method(self):
         """テスト後のクリーンアップ"""
         import shutil
+
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     def test_validation_result_post_init(self):
         """ValidationResultのpost_initテスト"""
         # warningsがNoneの場合
         result = ValidationResult(
-            is_valid=True,
-            issues=["test issue"],
-            warnings=None,
-            data_quality_score=0.8
+            is_valid=True, issues=["test issue"], warnings=None, data_quality_score=0.8
         )
         assert result.warnings == []
-        
+
         # warningsが設定されている場合
         result = ValidationResult(
             is_valid=True,
             issues=["test issue"],
             warnings=["warning1", "warning2"],
-            data_quality_score=0.8
+            data_quality_score=0.8,
         )
         assert result.warnings == ["warning1", "warning2"]
 
@@ -73,7 +71,7 @@ class TestDifferentialUpdaterCoverageImprovement:
             is_significant_change=True,
             symbol="7203",
             status="success",
-            changes_count=5
+            changes_count=5,
         )
         assert result.added_count == 2
         assert result.updated_count == 3
@@ -92,9 +90,9 @@ class TestDifferentialUpdaterCoverageImprovement:
             {"date": "2024-01-01", "close": 100},
             {"date": "2024-01-02", "close": 101},
             {"date": "2024-01-01", "close": 100},  # 重複
-            {"date": "2024-01-03", "close": 102}
+            {"date": "2024-01-03", "close": 102},
         ]
-        
+
         result = self.updater._remove_duplicates(data)
         assert len(result) == 3
         assert result[0]["date"] == "2024-01-01"
@@ -104,10 +102,24 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_normalize_data_for_diff(self):
         """差分用データ正規化テスト"""
         data = [
-            {"Date": "2024-01-01", "Open": "100.5", "High": "105.0", "Low": "98.0", "Close": "102.0", "Volume": "1000000"},
-            {"date": "2024-01-02", "open": "102.0", "high": "108.0", "low": "100.0", "close": "106.0", "volume": "1200000"}
+            {
+                "Date": "2024-01-01",
+                "Open": "100.5",
+                "High": "105.0",
+                "Low": "98.0",
+                "Close": "102.0",
+                "Volume": "1000000",
+            },
+            {
+                "date": "2024-01-02",
+                "open": "102.0",
+                "high": "108.0",
+                "low": "100.0",
+                "close": "106.0",
+                "volume": "1200000",
+            },
         ]
-        
+
         result = self.updater._normalize_data_for_diff(data)
         assert len(result) == 2
         assert result[0]["date"] == "2024-01-01"
@@ -120,9 +132,16 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_normalize_data_for_diff_invalid_values(self):
         """無効な値での正規化テスト"""
         data = [
-            {"date": "2024-01-01", "open": "invalid", "high": None, "low": "98.0", "close": "102.0", "volume": "1000000"}
+            {
+                "date": "2024-01-01",
+                "open": "invalid",
+                "high": None,
+                "low": "98.0",
+                "close": "102.0",
+                "volume": "1000000",
+            }
         ]
-        
+
         result = self.updater._normalize_data_for_diff(data)
         assert len(result) == 1
         assert result[0]["open"] == 0.0  # 無効な値は0.0に変換
@@ -133,10 +152,10 @@ class TestDifferentialUpdaterCoverageImprovement:
         item1 = {"date": "2024-01-01", "close": 100}
         item2 = {"date": "2024-01-01", "close": 101}
         item3 = {"date": "2024-01-01", "close": 100}
-        
+
         # 異なるアイテム
         assert self.updater._items_different(item1, item2) is True
-        
+
         # 同じアイテム
         assert self.updater._items_different(item1, item3) is False
 
@@ -144,14 +163,14 @@ class TestDifferentialUpdaterCoverageImprovement:
         """大文字小文字を考慮した差分判定テスト"""
         item1 = {"Date": "2024-01-01", "Close": 100}
         item2 = {"date": "2024-01-01", "close": 101}
-        
+
         assert self.updater._items_different(item1, item2) is True
 
     def test_identify_changes(self):
         """変更識別テスト"""
         old_item = {"date": "2024-01-01", "close": 100, "volume": 1000000}
         new_item = {"date": "2024-01-01", "close": 101, "volume": 1200000}
-        
+
         changes = self.updater._identify_changes(old_item, new_item)
         assert len(changes) == 2
         assert any("close: 100 -> 101" in change for change in changes)
@@ -161,7 +180,7 @@ class TestDifferentialUpdaterCoverageImprovement:
         """大文字小文字を考慮した変更識別テスト"""
         old_item = {"Date": "2024-01-01", "Close": 100}
         new_item = {"date": "2024-01-01", "close": 101}
-        
+
         changes = self.updater._identify_changes(old_item, new_item)
         assert len(changes) == 1
         assert "close: 100 -> 101" in changes[0]
@@ -169,13 +188,37 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_validate_data_integrity_success(self):
         """データ整合性検証成功テスト"""
         new_data = [
-            {"date": "2024-01-01", "code": "7203", "open": 100, "high": 105, "low": 98, "close": 102, "volume": 1000000},
-            {"date": "2024-01-02", "code": "7203", "open": 102, "high": 108, "low": 100, "close": 106, "volume": 1200000}
+            {
+                "date": "2024-01-01",
+                "code": "7203",
+                "open": 100,
+                "high": 105,
+                "low": 98,
+                "close": 102,
+                "volume": 1000000,
+            },
+            {
+                "date": "2024-01-02",
+                "code": "7203",
+                "open": 102,
+                "high": 108,
+                "low": 100,
+                "close": 106,
+                "volume": 1200000,
+            },
         ]
         existing_data = [
-            {"date": "2024-01-01", "code": "7203", "open": 100, "high": 105, "low": 98, "close": 100, "volume": 1000000}
+            {
+                "date": "2024-01-01",
+                "code": "7203",
+                "open": 100,
+                "high": 105,
+                "low": 98,
+                "close": 100,
+                "volume": 1000000,
+            }
         ]
-        
+
         result = self.updater._validate_data_integrity(new_data, existing_data)
         assert result.is_valid is True
         assert len(result.issues) == 0
@@ -184,10 +227,10 @@ class TestDifferentialUpdaterCoverageImprovement:
         """データ整合性検証問題テスト"""
         new_data = [
             {"date": "2024-01-01", "close": 100, "volume": 1000000},
-            {"date": "2024-01-02", "close": -50, "volume": -1000}  # 異常値
+            {"date": "2024-01-02", "close": -50, "volume": -1000},  # 異常値
         ]
         existing_data = []
-        
+
         result = self.updater._validate_data_integrity(new_data, existing_data)
         assert result.is_valid is False
         assert len(result.issues) > 0
@@ -196,14 +239,18 @@ class TestDifferentialUpdaterCoverageImprovement:
         """バッチ更新成功テスト"""
         updates = [
             {"symbol": "7203", "data": [{"date": "2024-01-01", "close": 100}]},
-            {"symbol": "6758", "data": [{"date": "2024-01-01", "close": 200}]}
+            {"symbol": "6758", "data": [{"date": "2024-01-01", "close": 200}]},
         ]
-        
+
         # モックの設定
-        with patch.object(self.updater, 'update_stock_data', side_effect=[
-            {"success": True, "status": "success"},
-            {"success": True, "status": "success"}
-        ]):
+        with patch.object(
+            self.updater,
+            "update_stock_data",
+            side_effect=[
+                {"success": True, "status": "success"},
+                {"success": True, "status": "success"},
+            ],
+        ):
             result = self.updater.batch_update(updates)
             assert result["success"] is True
             assert result["total"] == 2
@@ -214,14 +261,18 @@ class TestDifferentialUpdaterCoverageImprovement:
         """バッチ更新部分失敗テスト"""
         updates = [
             {"symbol": "7203", "data": [{"date": "2024-01-01", "close": 100}]},
-            {"symbol": "6758", "data": [{"date": "2024-01-01", "close": 200}]}
+            {"symbol": "6758", "data": [{"date": "2024-01-01", "close": 200}]},
         ]
-        
+
         # モックの設定
-        with patch.object(self.updater, 'update_stock_data', side_effect=[
-            {"success": True, "status": "success"},
-            {"success": False, "status": "failed"}
-        ]):
+        with patch.object(
+            self.updater,
+            "update_stock_data",
+            side_effect=[
+                {"success": True, "status": "success"},
+                {"success": False, "status": "failed"},
+            ],
+        ):
             result = self.updater.batch_update(updates)
             assert result["success"] is False
             assert result["total"] == 2
@@ -231,9 +282,11 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_batch_update_exception(self):
         """バッチ更新例外テスト"""
         updates = [{"symbol": "7203", "data": []}]
-        
+
         # 例外を発生させる
-        with patch.object(self.updater, 'update_stock_data', side_effect=Exception("Test error")):
+        with patch.object(
+            self.updater, "update_stock_data", side_effect=Exception("Test error")
+        ):
             result = self.updater.batch_update(updates)
             assert result["success"] is False
             assert result["status"] == "error"
@@ -244,14 +297,16 @@ class TestDifferentialUpdaterCoverageImprovement:
         mock_log = [
             {"symbol": "7203", "timestamp": "2024-01-01T10:00:00", "status": "success"},
             {"symbol": "6758", "timestamp": "2024-01-01T11:00:00", "status": "success"},
-            {"symbol": "7203", "timestamp": "2024-01-01T12:00:00", "status": "failed"}
+            {"symbol": "7203", "timestamp": "2024-01-01T12:00:00", "status": "failed"},
         ]
-        
-        with patch.object(self.updater.json_manager, 'get_diff_log', return_value=mock_log):
+
+        with patch.object(
+            self.updater.json_manager, "get_diff_log", return_value=mock_log
+        ):
             # 全履歴取得
             result = self.updater.get_update_history()
             assert len(result) == 3
-            
+
             # 特定銘柄の履歴取得
             result = self.updater.get_update_history(symbol="7203")
             assert len(result) == 2
@@ -259,7 +314,11 @@ class TestDifferentialUpdaterCoverageImprovement:
 
     def test_get_update_history_exception(self):
         """更新履歴取得例外テスト"""
-        with patch.object(self.updater.json_manager, 'get_diff_log', side_effect=Exception("Test error")):
+        with patch.object(
+            self.updater.json_manager,
+            "get_diff_log",
+            side_effect=Exception("Test error"),
+        ):
             result = self.updater.get_update_history()
             assert result == []
 
@@ -273,9 +332,9 @@ class TestDifferentialUpdaterCoverageImprovement:
         self.updater.update_stats.total_processing_time = 120.5
         self.updater.update_stats.last_update_time = "2024-01-01T10:00:00"
         self.updater.update_stats.data_sources = ["7203", "6758"]
-        
+
         result = self.updater.get_update_statistics()
-        
+
         assert result["total_updates"] == 100
         assert result["successful_updates"] == 80
         assert result["failed_updates"] == 15
@@ -289,13 +348,15 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_get_update_statistics_exception(self):
         """更新統計取得例外テスト"""
         self.updater.update_stats = None  # 例外を発生させる
-        
+
         result = self.updater.get_update_statistics()
         assert result == {}
 
     def test_optimize_data_structure_no_data(self):
         """データ構造最適化（データなし）テスト"""
-        with patch.object(self.updater.json_manager, 'get_stock_data', return_value=None):
+        with patch.object(
+            self.updater.json_manager, "get_stock_data", return_value=None
+        ):
             result = self.updater.optimize_data_structure("7203")
             assert result["success"] is False
             assert "データが見つかりません" in result["message"]
@@ -305,11 +366,14 @@ class TestDifferentialUpdaterCoverageImprovement:
         data = [
             {"date": "2024-01-01", "close": 100, "volume": 1000000},
             {"date": "2024-01-02", "close": 101, "volume": 1200000},
-            {"date": "2024-01-03", "close": 102, "volume": 1100000}
+            {"date": "2024-01-03", "close": 102, "volume": 1100000},
         ]
-        
-        with patch.object(self.updater.json_manager, 'get_stock_data', return_value=data), \
-             patch.object(self.updater.json_manager, 'save_stock_data', return_value=True):
+
+        with patch.object(
+            self.updater.json_manager, "get_stock_data", return_value=data
+        ), patch.object(
+            self.updater.json_manager, "save_stock_data", return_value=True
+        ):
             result = self.updater.optimize_data_structure("7203")
             assert result["success"] is True
             assert "original_count" in result
@@ -318,16 +382,23 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_optimize_data_structure_save_failure(self):
         """データ構造最適化保存失敗テスト"""
         data = [{"date": "2024-01-01", "close": 100}]
-        
-        with patch.object(self.updater.json_manager, 'get_stock_data', return_value=data), \
-             patch.object(self.updater.json_manager, 'save_stock_data', return_value=False):
+
+        with patch.object(
+            self.updater.json_manager, "get_stock_data", return_value=data
+        ), patch.object(
+            self.updater.json_manager, "save_stock_data", return_value=False
+        ):
             result = self.updater.optimize_data_structure("7203")
             assert result["success"] is False
             assert "error" in result
 
     def test_optimize_data_structure_exception(self):
         """データ構造最適化例外テスト"""
-        with patch.object(self.updater.json_manager, 'get_stock_data', side_effect=Exception("Test error")):
+        with patch.object(
+            self.updater.json_manager,
+            "get_stock_data",
+            side_effect=Exception("Test error"),
+        ):
             result = self.updater.optimize_data_structure("7203")
             assert result["success"] is False
             assert "Test error" in result["error"]
@@ -335,11 +406,9 @@ class TestDifferentialUpdaterCoverageImprovement:
     def test_create_error_result(self):
         """エラー結果作成テスト"""
         result = self.updater._create_error_result(
-            UpdateStatus.FAILED,
-            "7203",
-            "Test error message"
+            UpdateStatus.FAILED, "7203", "Test error message"
         )
-        
+
         assert result["success"] is False
         assert result["status"] == "failed"
         assert result["symbol"] == "7203"
@@ -355,8 +424,8 @@ class TestDifferentialUpdaterCoverageImprovement:
         """正規化処理例外テスト"""
         # 例外を発生させるデータ
         data = [{"date": "2024-01-01"}]  # 必要なフィールドが不足
-        
-        with patch.object(self.updater, 'logger') as mock_logger:
+
+        with patch.object(self.updater, "logger") as mock_logger:
             result = self.updater._normalize_data_for_diff(data)
             # 正規化されたデータが返される（不足フィールドは0.0で補完される）
             assert len(result) == 1
@@ -372,7 +441,7 @@ class TestDifferentialUpdaterCoverageImprovement:
         # 例外を発生させるデータ
         item1 = {"date": "2024-01-01"}
         item2 = None  # Noneで例外を発生
-        
+
         result = self.updater._items_different(item1, item2)
         assert result is True  # 例外時はTrueを返す
 
@@ -381,7 +450,7 @@ class TestDifferentialUpdaterCoverageImprovement:
         # 例外を発生させるデータ
         old_item = {"date": "2024-01-01"}
         new_item = None  # Noneで例外を発生
-        
+
         result = self.updater._identify_changes(old_item, new_item)
         assert result == []  # 例外時は空リストを返す
 
@@ -390,7 +459,7 @@ class TestDifferentialUpdaterCoverageImprovement:
         # 例外を発生させるデータ
         new_data = None
         existing_data = None
-        
+
         result = self.updater._validate_data_integrity(new_data, existing_data)
         assert result.is_valid is False
         assert len(result.issues) > 0

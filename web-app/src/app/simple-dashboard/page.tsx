@@ -8,14 +8,17 @@ import {
   RefreshCw,
   Clock,
   AlertTriangle,
-  Info
+  Info,
+  ArrowUp,
+  ArrowDown,
+  Minus,
 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useSimpleDashboard } from "@/hooks/useSimpleDashboard";
 import { 
   SimpleDashboardCard, 
   RecommendationCard, 
-  PortfolioSummaryCard 
+  PortfolioSummaryCard, 
 } from "@/components/simple-dashboard/SimpleDashboardCard";
 
 // 動的レンダリングを強制
@@ -26,12 +29,12 @@ export default function SimpleDashboard() {
 
   const getActionIcon = (action: string) => {
     switch (action) {
-      case 'BUY':
-      case 'BUY_MORE':
+      case "BUY":
+      case "BUY_MORE":
         return <ArrowUp className="h-4 w-4 text-green-600" />;
-      case 'SELL':
+      case "SELL":
         return <ArrowDown className="h-4 w-4 text-red-600" />;
-      case 'HOLD':
+      case "HOLD":
         return <Minus className="h-4 w-4 text-gray-600" />;
       default:
         return <Minus className="h-4 w-4 text-gray-600" />;
@@ -40,12 +43,12 @@ export default function SimpleDashboard() {
 
   const getActionColor = (action: string) => {
     switch (action) {
-      case 'BUY':
-      case 'BUY_MORE':
+      case "BUY":
+      case "BUY_MORE":
         return "bg-green-100 text-green-800 border-green-200";
-      case 'SELL':
+      case "SELL":
         return "bg-red-100 text-red-800 border-red-200";
-      case 'HOLD':
+      case "HOLD":
         return "bg-gray-100 text-gray-800 border-gray-200";
       default:
         return "bg-gray-100 text-gray-800 border-gray-200";
@@ -53,16 +56,16 @@ export default function SimpleDashboard() {
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('ja-JP', {
-      style: 'currency',
-      currency: 'JPY',
+    return new Intl.NumberFormat("ja-JP", {
+      style: "currency",
+      currency: "JPY",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
   };
 
   const formatPercent = (percent: number) => {
-    return `${percent >= 0 ? '+' : ''}${percent.toFixed(1)}%`;
+    return `${percent >= 0 ? "+" : ""}${percent.toFixed(1)}%`;
   };
 
   if (loading) {
@@ -117,14 +120,14 @@ export default function SimpleDashboard() {
             <div>
               <h1 className="text-3xl font-bold text-gray-900">シンプル投資判断</h1>
               <p className="text-gray-600 mt-1">
-                最終更新: {new Date(dashboardData.lastUpdate).toLocaleString('ja-JP')}
+                最終更新: {new Date(dashboardData.lastUpdate).toLocaleString("ja-JP")}
               </p>
             </div>
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <Clock className="h-4 w-4 text-gray-500" />
                 <span className="text-sm text-gray-600">
-                  {dashboardData.marketStatus.isOpen ? '市場開場中' : '市場閉場中'}
+                  {dashboardData.marketStatus.isOpen ? "市場開場中" : "市場閉場中"}
                 </span>
               </div>
               <Button
@@ -133,7 +136,7 @@ export default function SimpleDashboard() {
                 size="sm"
                 disabled={loading}
               >
-                <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
                 更新
               </Button>
             </div>
@@ -180,7 +183,7 @@ export default function SimpleDashboard() {
                         {formatCurrency(position.currentValue)}
                       </p>
                       <p className={`text-sm ${
-                        position.unrealizedPnL >= 0 ? 'text-green-600' : 'text-red-600'
+                        position.unrealizedPnL >= 0 ? "text-green-600" : "text-red-600"
                       }`}>
                         {formatCurrency(position.unrealizedPnL)} ({formatPercent(position.unrealizedPnLPercent)})
                       </p>

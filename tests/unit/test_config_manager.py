@@ -225,10 +225,7 @@ class TestConfigManager:
             result = manager.validate_config()
             assert result["is_valid"] is False
             # 実際のエラーメッセージをチェック
-            assert (
-                "api_key" in result["issues"][0]
-                or "設定検証エラー" in result["issues"][0]
-            )
+            assert "api_key" in result["issues"][0] or "設定検証エラー" in result["issues"][0]
 
     def test_save_config_exception(self):
         """設定保存の例外処理テスト"""

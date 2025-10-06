@@ -17,7 +17,7 @@ import {
   Area,
   AreaChart,
   ReferenceLine,
-  Legend
+  Legend,
 } from "recharts";
 import { 
   TrendingUp, 
@@ -26,7 +26,7 @@ import {
   Activity,
   Calendar,
   Target,
-  Zap
+  Zap,
 } from "lucide-react";
 
 // データ型定義
@@ -57,10 +57,10 @@ export function ProfitLossChart({
   showVolume = false,
   showVolatility = false,
   onDataPointClick,
-  className = ""
+  className = "",
 }: ProfitLossChartProps) {
-  const [chartType, setChartType] = useState<'line' | 'area' | 'bar'>('line');
-  const [timeframe, setTimeframe] = useState<'1d' | '1w' | '1m' | '3m' | '1y' | 'all'>('1m');
+  const [chartType, setChartType] = useState<"line" | "area" | "bar">("line");
+  const [timeframe, setTimeframe] = useState<"1d" | "1w" | "1m" | "3m" | "1y" | "all">("1m");
   const [showGrid, setShowGrid] = useState(true);
 
   // データの処理とフィルタリング
@@ -74,11 +74,11 @@ export function ProfitLossChart({
       const daysDiff = (now.getTime() - itemDate.getTime()) / (1000 * 60 * 60 * 24);
       
       switch (timeframe) {
-        case '1d': return daysDiff <= 1;
-        case '1w': return daysDiff <= 7;
-        case '1m': return daysDiff <= 30;
-        case '3m': return daysDiff <= 90;
-        case '1y': return daysDiff <= 365;
+        case "1d": return daysDiff <= 1;
+        case "1w": return daysDiff <= 7;
+        case "1m": return daysDiff <= 30;
+        case "3m": return daysDiff <= 90;
+        case "1y": return daysDiff <= 365;
         default: return true;
       }
     });
@@ -92,12 +92,12 @@ export function ProfitLossChart({
 
     return filteredData.map((item, index) => ({
       ...item,
-      date: new Date(item.date).toLocaleDateString('ja-JP', { 
-        month: 'short', 
-        day: 'numeric' 
+      date: new Date(item.date).toLocaleDateString("ja-JP", { 
+        month: "short", 
+        day: "numeric", 
       }),
       index: index + 1,
-      formattedDate: new Date(item.date).toLocaleDateString('ja-JP')
+      formattedDate: new Date(item.date).toLocaleDateString("ja-JP"),
     }));
   }, [data, timeframe]);
 
@@ -116,7 +116,7 @@ export function ProfitLossChart({
 
     const avgDailyReturn = dailyReturns.reduce((sum, ret) => sum + ret, 0) / dailyReturns.length;
     const volatility = Math.sqrt(
-      dailyReturns.reduce((sum, ret) => sum + Math.pow(ret - avgDailyReturn, 2), 0) / dailyReturns.length
+      dailyReturns.reduce((sum, ret) => sum + Math.pow(ret - avgDailyReturn, 2), 0) / dailyReturns.length,
     );
 
     const maxValue = Math.max(...processedData.map(d => d.total_value));
@@ -127,7 +127,7 @@ export function ProfitLossChart({
       avgDailyReturn,
       volatility,
       maxDrawdown,
-      sharpeRatio: volatility > 0 ? avgDailyReturn / volatility : 0
+      sharpeRatio: volatility > 0 ? avgDailyReturn / volatility : 0,
     };
   }, [processedData]);
 
@@ -145,21 +145,21 @@ export function ProfitLossChart({
             </div>
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-600">日次損益:</span>
-              <span className={`font-medium ${data.daily_pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                {data.daily_pnl >= 0 ? '+' : ''}¥{data.daily_pnl.toLocaleString()}
+              <span className={`font-medium ${data.daily_pnl >= 0 ? "text-green-600" : "text-red-600"}`}>
+                {data.daily_pnl >= 0 ? "+" : ""}¥{data.daily_pnl.toLocaleString()}
               </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-600">累積損益:</span>
-              <span className={`font-medium ${data.cumulative_pnl >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                {data.cumulative_pnl >= 0 ? '+' : ''}¥{data.cumulative_pnl.toLocaleString()}
+              <span className={`font-medium ${data.cumulative_pnl >= 0 ? "text-green-600" : "text-red-600"}`}>
+                {data.cumulative_pnl >= 0 ? "+" : ""}¥{data.cumulative_pnl.toLocaleString()}
               </span>
             </div>
             {showBenchmark && data.benchmark_return !== undefined && (
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">ベンチマーク:</span>
                 <span className="font-medium">
-                  {data.benchmark_return >= 0 ? '+' : ''}{data.benchmark_return.toFixed(2)}%
+                  {data.benchmark_return >= 0 ? "+" : ""}{data.benchmark_return.toFixed(2)}%
                 </span>
               </div>
             )}
@@ -174,22 +174,22 @@ export function ProfitLossChart({
   const renderChart = () => {
     const commonProps = {
       data: processedData,
-      margin: { top: 20, right: 30, left: 20, bottom: 5 }
+      margin: { top: 20, right: 30, left: 20, bottom: 5 },
     };
 
     switch (chartType) {
-      case 'area':
+      case "area":
         return (
           <AreaChart {...commonProps}>
             <CartesianGrid strokeDasharray="3 3" opacity={showGrid ? 0.3 : 0} />
             <XAxis 
               dataKey="date" 
               tick={{ fontSize: 12 }}
-              tickLine={{ stroke: '#e5e7eb' }}
+              tickLine={{ stroke: "#e5e7eb" }}
             />
             <YAxis 
               tick={{ fontSize: 12 }}
-              tickLine={{ stroke: '#e5e7eb' }}
+              tickLine={{ stroke: "#e5e7eb" }}
               tickFormatter={(value) => `¥${(value / 1000000).toFixed(1)}M`}
             />
             <Tooltip content={<CustomTooltip />} />
@@ -209,18 +209,18 @@ export function ProfitLossChart({
           </AreaChart>
         );
 
-      case 'bar':
+      case "bar":
         return (
           <BarChart {...commonProps}>
             <CartesianGrid strokeDasharray="3 3" opacity={showGrid ? 0.3 : 0} />
             <XAxis 
               dataKey="date" 
               tick={{ fontSize: 12 }}
-              tickLine={{ stroke: '#e5e7eb' }}
+              tickLine={{ stroke: "#e5e7eb" }}
             />
             <YAxis 
               tick={{ fontSize: 12 }}
-              tickLine={{ stroke: '#e5e7eb' }}
+              tickLine={{ stroke: "#e5e7eb" }}
               tickFormatter={(value) => `¥${(value / 1000000).toFixed(1)}M`}
             />
             <Tooltip content={<CustomTooltip />} />
@@ -240,11 +240,11 @@ export function ProfitLossChart({
             <XAxis 
               dataKey="date" 
               tick={{ fontSize: 12 }}
-              tickLine={{ stroke: '#e5e7eb' }}
+              tickLine={{ stroke: "#e5e7eb" }}
             />
             <YAxis 
               tick={{ fontSize: 12 }}
-              tickLine={{ stroke: '#e5e7eb' }}
+              tickLine={{ stroke: "#e5e7eb" }}
               tickFormatter={(value) => `¥${(value / 1000000).toFixed(1)}M`}
             />
             <Tooltip content={<CustomTooltip />} />
@@ -254,7 +254,7 @@ export function ProfitLossChart({
               stroke="#3b82f6" 
               strokeWidth={3}
               dot={false}
-              activeDot={{ r: 6, stroke: '#3b82f6', strokeWidth: 2 }}
+              activeDot={{ r: 6, stroke: "#3b82f6", strokeWidth: 2 }}
             />
             <Line 
               type="monotone" 
@@ -290,25 +290,25 @@ export function ProfitLossChart({
           </CardTitle>
           <div className="flex space-x-2">
             <Button
-              variant={chartType === 'line' ? 'default' : 'outline'}
+              variant={chartType === "line" ? "default" : "outline"}
               size="sm"
-              onClick={() => setChartType('line')}
+              onClick={() => setChartType("line")}
             >
               <TrendingUp className="h-4 w-4 mr-1" />
               ライン
             </Button>
             <Button
-              variant={chartType === 'area' ? 'default' : 'outline'}
+              variant={chartType === "area" ? "default" : "outline"}
               size="sm"
-              onClick={() => setChartType('area')}
+              onClick={() => setChartType("area")}
             >
               <Target className="h-4 w-4 mr-1" />
               エリア
             </Button>
             <Button
-              variant={chartType === 'bar' ? 'default' : 'outline'}
+              variant={chartType === "bar" ? "default" : "outline"}
               size="sm"
-              onClick={() => setChartType('bar')}
+              onClick={() => setChartType("bar")}
             >
               <BarChart3 className="h-4 w-4 mr-1" />
               バー
@@ -320,24 +320,24 @@ export function ProfitLossChart({
         {/* 期間選択 */}
         <div className="flex justify-between items-center mb-4">
           <div className="flex space-x-2">
-            {(['1d', '1w', '1m', '3m', '1y', 'all'] as const).map((period) => (
+            {(["1d", "1w", "1m", "3m", "1y", "all"] as const).map((period) => (
               <Button
                 key={period}
-                variant={timeframe === period ? 'default' : 'outline'}
+                variant={timeframe === period ? "default" : "outline"}
                 size="sm"
                 onClick={() => setTimeframe(period)}
               >
-                {period === '1d' ? '1日' :
-                 period === '1w' ? '1週' :
-                 period === '1m' ? '1月' :
-                 period === '3m' ? '3月' :
-                 period === '1y' ? '1年' : '全期間'}
+                {period === "1d" ? "1日" :
+                 period === "1w" ? "1週" :
+                 period === "1m" ? "1月" :
+                 period === "3m" ? "3月" :
+                 period === "1y" ? "1年" : "全期間"}
               </Button>
             ))}
           </div>
           <div className="flex items-center space-x-2">
             <Button
-              variant={showGrid ? 'default' : 'outline'}
+              variant={showGrid ? "default" : "outline"}
               size="sm"
               onClick={() => setShowGrid(!showGrid)}
             >
@@ -353,17 +353,17 @@ export function ProfitLossChart({
             <div className="text-center">
               <div className="text-sm text-gray-600">総リターン</div>
               <div className={`text-lg font-bold ${
-                performanceStats.totalReturn >= 0 ? 'text-green-600' : 'text-red-600'
+                performanceStats.totalReturn >= 0 ? "text-green-600" : "text-red-600"
               }`}>
-                {performanceStats.totalReturn >= 0 ? '+' : ''}{performanceStats.totalReturn.toFixed(2)}%
+                {performanceStats.totalReturn >= 0 ? "+" : ""}{performanceStats.totalReturn.toFixed(2)}%
               </div>
             </div>
             <div className="text-center">
               <div className="text-sm text-gray-600">平均日次リターン</div>
               <div className={`text-lg font-bold ${
-                performanceStats.avgDailyReturn >= 0 ? 'text-green-600' : 'text-red-600'
+                performanceStats.avgDailyReturn >= 0 ? "text-green-600" : "text-red-600"
               }`}>
-                {performanceStats.avgDailyReturn >= 0 ? '+' : ''}{performanceStats.avgDailyReturn.toFixed(3)}%
+                {performanceStats.avgDailyReturn >= 0 ? "+" : ""}{performanceStats.avgDailyReturn.toFixed(3)}%
               </div>
             </div>
             <div className="text-center">

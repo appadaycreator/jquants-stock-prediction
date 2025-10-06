@@ -503,9 +503,7 @@ class TestDataValidator:
         )
         result = self.validator.validate_data(data_without_datetime)
         assert result["is_valid"] is True
-        assert any(
-            "日付列が見つかりません" in warning for warning in result["warnings"]
-        )
+        assert any("日付列が見つかりません" in warning for warning in result["warnings"])
 
     def test_validate_features_missing_features(self):
         """不足している特徴量の検証テスト"""
@@ -538,9 +536,7 @@ class TestDataValidator:
         features = ["feature1", "feature2"]
         result = self.validator.validate_features(data, features)
         assert result["is_valid"] is False
-        assert any(
-            "数値型ではありません" in issue for issue in result["quality_issues"]
-        )
+        assert any("数値型ではありません" in issue for issue in result["quality_issues"])
 
     def test_validate_features_with_missing_values(self):
         """欠損値を含む特徴量の検証テスト"""

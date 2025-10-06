@@ -181,9 +181,7 @@ class TestPredictionEngine:
 
         predictions = engine.make_predictions(mock_model, data)
         assert predictions == [1, 2, 3]  # サンプル予測値
-        mock_logger.log_warning.assert_called_with(
-            "予測データが空です。サンプル予測値を返します。"
-        )
+        mock_logger.log_warning.assert_called_with("予測データが空です。サンプル予測値を返します。")
 
     def test_detect_overfitting_high_risk(self):
         """過学習検出テスト（高リスク）"""
@@ -381,7 +379,6 @@ class TestPredictionEngine:
             patch("matplotlib.pyplot.savefig"),
             patch("matplotlib.pyplot.close"),
         ):
-
             engine._create_visualization(y_test, y_pred, "test_model", "test.png")
 
     def test_create_visualization_with_font_config(self):
@@ -404,7 +401,6 @@ class TestPredictionEngine:
                 side_effect=ImportError("No module named 'font_config'"),
             ),
         ):
-
             engine._create_visualization(y_test, y_pred, "test_model", "test.png")
 
     def test_create_visualization_font_import_error(self):
@@ -428,7 +424,6 @@ class TestPredictionEngine:
                 side_effect=Exception("Font setup error"),
             ),
         ):
-
             engine._create_visualization(y_test, y_pred, "test_model", "test.png")
             # 新しい実装では、フォント設定エラーは内部で処理される
             # 可視化は正常に実行されることを確認

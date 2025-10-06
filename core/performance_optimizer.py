@@ -40,9 +40,7 @@ class PerformanceOptimizer:
             self.monitoring_thread.start()
 
             if self.logger:
-                self.logger.log_info(
-                    f"パフォーマンス監視を開始しました（間隔: {interval}秒）"
-                )
+                self.logger.log_info(f"パフォーマンス監視を開始しました（間隔: {interval}秒）")
 
         except Exception as e:
             if self.error_handler:
@@ -102,7 +100,9 @@ class PerformanceOptimizer:
             except Exception as e:
                 consecutive_errors += 1
                 if self.logger:
-                    self.logger.log_warning(f"監視ループエラー ({consecutive_errors}/{max_consecutive_errors}): {e}")
+                    self.logger.log_warning(
+                        f"監視ループエラー ({consecutive_errors}/{max_consecutive_errors}): {e}"
+                    )
 
                 # 連続エラーが上限に達した場合は監視を停止
                 if consecutive_errors >= max_consecutive_errors:
@@ -185,16 +185,16 @@ class PerformanceOptimizer:
 
             # メモリ最適化
             self._optimize_memory()
-            
+
             # ガベージコレクション
             self._optimize_garbage_collection()
-            
+
             # キャッシュ最適化
             self._optimize_cache()
-            
+
             if self.logger:
                 self.logger.log_info("定期的な最適化を実行しました")
-                
+
         except Exception as e:
             if self.logger:
                 self.logger.log_warning(f"最適化実行エラー: {e}")
@@ -204,14 +204,14 @@ class PerformanceOptimizer:
         try:
             # メモリ使用量の確認
             memory_percent = psutil.virtual_memory().percent
-            
+
             if memory_percent > 80:
                 # メモリ使用量が高い場合の最適化
                 gc.collect()
-                
+
                 if self.logger:
                     self.logger.log_info(f"メモリ最適化を実行しました（使用率: {memory_percent:.1f}%）")
-                    
+
         except Exception as e:
             if self.logger:
                 self.logger.log_warning(f"メモリ最適化エラー: {e}")
@@ -221,10 +221,10 @@ class PerformanceOptimizer:
         try:
             # ガベージコレクションの実行
             collected = gc.collect()
-            
+
             if collected > 0 and self.logger:
                 self.logger.log_info(f"ガベージコレクションを実行しました（回収オブジェクト数: {collected}）")
-                
+
         except Exception as e:
             if self.logger:
                 self.logger.log_warning(f"ガベージコレクション最適化エラー: {e}")
@@ -237,10 +237,10 @@ class PerformanceOptimizer:
                 # 古いデータを削除（最新500件を保持）
                 for _ in range(len(self.metrics_history) - 500):
                     self.metrics_history.popleft()
-                    
+
             if self.logger:
                 self.logger.log_info("キャッシュ最適化を実行しました")
-                
+
         except Exception as e:
             if self.logger:
                 self.logger.log_warning(f"キャッシュ最適化エラー: {e}")
@@ -391,9 +391,7 @@ class PerformanceOptimizer:
 
             if optimizations:
                 if self.logger:
-                    self.logger.log_info(
-                        f"自動最適化を実行: {', '.join(optimizations)}"
-                    )
+                    self.logger.log_info(f"自動最適化を実行: {', '.join(optimizations)}")
 
         except Exception as e:
             if self.logger:
@@ -451,9 +449,7 @@ class PerformanceOptimizer:
             collected = gc.collect()
 
             if self.logger:
-                self.logger.log_info(
-                    f"メモリ最適化完了: {collected}個のオブジェクトを回収"
-                )
+                self.logger.log_info(f"メモリ最適化完了: {collected}個のオブジェクトを回収")
 
             return {
                 "collected_objects": collected,
@@ -480,21 +476,15 @@ class PerformanceOptimizer:
 
             # CPU推奨事項
             if latest_metrics.get("cpu_percent", 0) > 80:
-                recommendations.append(
-                    "CPU使用率が高いです。処理の並列化を検討してください"
-                )
+                recommendations.append("CPU使用率が高いです。処理の並列化を検討してください")
 
             # メモリ推奨事項
             if latest_metrics.get("memory_percent", 0) > 80:
-                recommendations.append(
-                    "メモリ使用率が高いです。データのバッチ処理を検討してください"
-                )
+                recommendations.append("メモリ使用率が高いです。データのバッチ処理を検討してください")
 
             # ディスク推奨事項
             if latest_metrics.get("disk_percent", 0) > 80:
-                recommendations.append(
-                    "ディスク使用率が高いです。古いログファイルの削除を検討してください"
-                )
+                recommendations.append("ディスク使用率が高いです。古いログファイルの削除を検討してください")
 
             if not recommendations:
                 recommendations.append("現在のパフォーマンスは良好です")

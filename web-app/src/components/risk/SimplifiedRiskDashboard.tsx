@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -12,14 +12,14 @@ import {
   XCircle,
   BarChart3,
   PieChart,
-  Shield
-} from 'lucide-react';
+  Shield,
+} from "lucide-react";
 
 interface SimplifiedRiskMetrics {
-  risk_level: 'low' | 'medium' | 'high';
+  risk_level: "low" | "medium" | "high";
   risk_score: number;
   max_loss_amount: number;
-  volatility_level: 'low' | 'medium' | 'high';
+  volatility_level: "low" | "medium" | "high";
   color_code: string;
   recommendation: string;
   confidence: number;
@@ -51,7 +51,7 @@ interface RiskAlert {
   type: string;
   symbol: string;
   message: string;
-  severity: 'HIGH' | 'MEDIUM' | 'LOW';
+  severity: "HIGH" | "MEDIUM" | "LOW";
   risk_score?: number;
   max_loss_amount?: number;
   color_code: string;
@@ -64,7 +64,7 @@ interface SimplifiedRiskDashboardProps {
 
 export default function SimplifiedRiskDashboard({ 
   portfolioData = {}, 
-  accountBalance = 1000000 
+  accountBalance = 1000000, 
 }: SimplifiedRiskDashboardProps) {
   const [riskData, setRiskData] = useState<{
     portfolio_balance: PortfolioRiskBalance;
@@ -83,25 +83,25 @@ export default function SimplifiedRiskDashboard({
       setLoading(true);
       setError(null);
 
-      const response = await fetch('/api/risk/simplified', {
-        method: 'POST',
+      const response = await fetch("/api/risk/simplified", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           portfolio_data: portfolioData,
-          account_balance: accountBalance
-        })
+          account_balance: accountBalance,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error('リスクデータの取得に失敗しました');
+        throw new Error("リスクデータの取得に失敗しました");
       }
 
       const data = await response.json();
       setRiskData(data.data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : '不明なエラーが発生しました');
+      setError(err instanceof Error ? err.message : "不明なエラーが発生しました");
     } finally {
       setLoading(false);
     }
@@ -109,11 +109,11 @@ export default function SimplifiedRiskDashboard({
 
   const getRiskLevelIcon = (level: string) => {
     switch (level) {
-      case 'low':
+      case "low":
         return <CheckCircle className="h-5 w-5 text-green-500" />;
-      case 'medium':
+      case "medium":
         return <AlertTriangle className="h-5 w-5 text-orange-500" />;
-      case 'high':
+      case "high":
         return <XCircle className="h-5 w-5 text-red-500" />;
       default:
         return <Shield className="h-5 w-5 text-gray-500" />;
@@ -122,34 +122,34 @@ export default function SimplifiedRiskDashboard({
 
   const getRiskLevelColor = (level: string) => {
     switch (level) {
-      case 'low':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'medium':
-        return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'high':
-        return 'bg-red-100 text-red-800 border-red-200';
+      case "low":
+        return "bg-green-100 text-green-800 border-green-200";
+      case "medium":
+        return "bg-orange-100 text-orange-800 border-orange-200";
+      case "high":
+        return "bg-red-100 text-red-800 border-red-200";
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'HIGH':
-        return 'bg-red-100 text-red-800 border-red-200';
-      case 'MEDIUM':
-        return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'LOW':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case "HIGH":
+        return "bg-red-100 text-red-800 border-red-200";
+      case "MEDIUM":
+        return "bg-orange-100 text-orange-800 border-orange-200";
+      case "LOW":
+        return "bg-yellow-100 text-yellow-800 border-yellow-200";
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('ja-JP', {
-      style: 'currency',
-      currency: 'JPY',
+    return new Intl.NumberFormat("ja-JP", {
+      style: "currency",
+      currency: "JPY",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
@@ -333,8 +333,8 @@ export default function SimplifiedRiskDashboard({
                       {getRiskLevelIcon(stock.risk_level)}
                     </div>
                     <Badge className={getRiskLevelColor(stock.risk_level)}>
-                      {stock.risk_level === 'low' ? '低リスク' : 
-                       stock.risk_level === 'medium' ? '中リスク' : '高リスク'}
+                      {stock.risk_level === "low" ? "低リスク" : 
+                       stock.risk_level === "medium" ? "中リスク" : "高リスク"}
                     </Badge>
                   </div>
                   
@@ -355,8 +355,8 @@ export default function SimplifiedRiskDashboard({
                     <div>
                       <div className="text-sm text-gray-600">ボラティリティ</div>
                       <div className="text-sm font-medium">
-                        {stock.volatility_level === 'low' ? '低' : 
-                         stock.volatility_level === 'medium' ? '中' : '高'}
+                        {stock.volatility_level === "low" ? "低" : 
+                         stock.volatility_level === "medium" ? "中" : "高"}
                       </div>
                     </div>
                     <div>

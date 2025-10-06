@@ -212,9 +212,7 @@ class TestErrorHandler:
 
         # 3回目の復旧試行（上限に達する）
         handler._attempt_error_recovery(error, ErrorCategory.API_ERROR)
-        assert (
-            handler.recovery_attempts["recovery_attempts_api_error"] == 2
-        )  # 上限で止まる
+        assert handler.recovery_attempts["recovery_attempts_api_error"] == 2  # 上限で止まる
 
     def test_recovery_disabled(self):
         """復旧無効時のテスト"""
@@ -242,6 +240,4 @@ class TestErrorHandler:
         # 2回目の復旧試行（上限に達する）
         handler._attempt_error_recovery(error, ErrorCategory.API_ERROR)
 
-        mock_logger.log_warning.assert_called_with(
-            "復旧試行の上限に達しました: api_error"
-        )
+        mock_logger.log_warning.assert_called_with("復旧試行の上限に達しました: api_error")

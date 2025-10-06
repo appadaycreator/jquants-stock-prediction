@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { AutomatedScheduler } from '../../../../../../automated_scheduler';
+import { NextRequest, NextResponse } from "next/server";
+import { AutomatedScheduler } from "../../../../../../automated_scheduler";
 
 // スケジューラーインスタンス（シングルトン）
 let scheduler: AutomatedScheduler | null = null;
@@ -18,10 +18,10 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json(status);
   } catch (error) {
-    console.error('スケジューラーステータス取得エラー:', error);
+    console.error("スケジューラーステータス取得エラー:", error);
     return NextResponse.json(
-      { error: 'ステータス取得に失敗しました' },
-      { status: 500 }
+      { error: "ステータス取得に失敗しました" },
+      { status: 500 },
     );
   }
 }

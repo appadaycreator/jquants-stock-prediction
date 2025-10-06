@@ -398,6 +398,21 @@ jquants-stock-prediction/
 - **可用性**: 99.9%
 - **セキュリティ**: 脆弱性ゼロ
 
+### 15.3 ポートフォリオ最適化（SharpeRatioOptimizer）仕様更新（2025-10-06）
+
+- 返却型の正規化: `SharpeOptimizationResult` フィールドは Python プリミティブで返却
+  - `original_sharpe`: float
+  - `optimized_sharpe`: float
+  - `improvement_ratio`: float
+  - `target_achieved`: bool（`numpy.bool_`ではなく）
+  - `portfolio_weights`: `Dict[str, float]`（`numpy.float64`を含まない）
+  - `risk_metrics`/`performance_metrics`: `Dict[str, float]`
+- ブラック・リッターマン手法の簡易仕様:
+  - 均衡超過リターン \(\pi = \lambda \Sigma w_{mkt}\)
+  - 期待リターンとのブレンド: \(BL = 0.5\,(\pi + \mu)\)
+  - 数値安定性のため `BL` を下限0にクリップ（負のSharpeを回避）
+  - 目的: テスト安定性と現実性の両立（完全実装の基礎）
+
 ## 16. リスク管理
 
 ### 16.1 技術リスク

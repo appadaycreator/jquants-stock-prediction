@@ -1,15 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
 // シンプルダッシュボード用のデータ型定義
 interface SimpleRecommendation {
   id: string;
   symbol: string;
   symbolName: string;
-  action: 'BUY' | 'SELL' | 'HOLD';
+  action: "BUY" | "SELL" | "HOLD";
   reason: string;
   confidence: number;
   expectedReturn: number;
-  priority: 'HIGH' | 'MEDIUM' | 'LOW';
+  priority: "HIGH" | "MEDIUM" | "LOW";
   timeframe: string;
 }
 
@@ -40,7 +40,7 @@ interface SimplePosition {
   currentValue: number;
   unrealizedPnL: number;
   unrealizedPnLPercent: number;
-  action: 'BUY_MORE' | 'SELL' | 'HOLD';
+  action: "BUY_MORE" | "SELL" | "HOLD";
   confidence: number;
 }
 
@@ -72,7 +72,7 @@ function generateSampleData(): SimpleDashboardData {
         confidence: 85,
         expectedReturn: 12.5,
         priority: "HIGH",
-        timeframe: "3ヶ月"
+        timeframe: "3ヶ月",
       },
       {
         id: "2",
@@ -83,7 +83,7 @@ function generateSampleData(): SimpleDashboardData {
         confidence: 70,
         expectedReturn: 5.2,
         priority: "MEDIUM",
-        timeframe: "6ヶ月"
+        timeframe: "6ヶ月",
       },
       {
         id: "3",
@@ -94,8 +94,8 @@ function generateSampleData(): SimpleDashboardData {
         confidence: 75,
         expectedReturn: -8.3,
         priority: "HIGH",
-        timeframe: "1ヶ月"
-      }
+        timeframe: "1ヶ月",
+      },
     ],
     portfolioSummary: {
       totalInvestment: 1000000,
@@ -105,13 +105,13 @@ function generateSampleData(): SimpleDashboardData {
       bestPerformer: {
         symbol: "7203",
         symbolName: "トヨタ自動車",
-        return: 15.2
+        return: 15.2,
       },
       worstPerformer: {
         symbol: "9984",
         symbolName: "ソフトバンクグループ",
-        return: -12.8
-      }
+        return: -12.8,
+      },
     },
     positions: [
       {
@@ -125,7 +125,7 @@ function generateSampleData(): SimpleDashboardData {
         unrealizedPnL: 30000,
         unrealizedPnLPercent: 12.0,
         action: "BUY_MORE",
-        confidence: 85
+        confidence: 85,
       },
       {
         symbol: "6758",
@@ -138,7 +138,7 @@ function generateSampleData(): SimpleDashboardData {
         unrealizedPnL: -25000,
         unrealizedPnLPercent: -4.2,
         action: "HOLD",
-        confidence: 70
+        confidence: 70,
       },
       {
         symbol: "9984",
@@ -151,13 +151,13 @@ function generateSampleData(): SimpleDashboardData {
         unrealizedPnL: -24000,
         unrealizedPnLPercent: -10.0,
         action: "SELL",
-        confidence: 75
-      }
+        confidence: 75,
+      },
     ],
     marketStatus: {
       isOpen: isMarketOpen,
-      nextOpen: isMarketOpen ? "" : "2025-01-06T09:00:00Z"
-    }
+      nextOpen: isMarketOpen ? "" : "2025-01-06T09:00:00Z",
+    },
   };
 }
 
@@ -165,7 +165,7 @@ function generateSampleData(): SimpleDashboardData {
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const refresh = searchParams.get('refresh') === 'true';
+    const refresh = searchParams.get("refresh") === "true";
     
     // 実際の実装では、ここでデータベースやAPIからデータを取得
     // 現在はサンプルデータを返す
@@ -176,22 +176,22 @@ export async function GET(request: NextRequest) {
       data,
       metadata: {
         timestamp: new Date().toISOString(),
-        version: "1.0.0"
-      }
+        version: "1.0.0",
+      },
     });
   } catch (error) {
-    console.error('シンプルダッシュボードデータ取得エラー:', error);
+    console.error("シンプルダッシュボードデータ取得エラー:", error);
     
     return NextResponse.json({
       success: false,
       error: {
-        code: 'DASHBOARD_DATA_ERROR',
-        message: 'ダッシュボードデータの取得に失敗しました'
+        code: "DASHBOARD_DATA_ERROR",
+        message: "ダッシュボードデータの取得に失敗しました",
       },
       metadata: {
         timestamp: new Date().toISOString(),
-        version: "1.0.0"
-      }
+        version: "1.0.0",
+      },
     }, { status: 500 });
   }
 }
@@ -209,25 +209,25 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       data,
-      message: 'データを更新しました',
+      message: "データを更新しました",
       metadata: {
         timestamp: new Date().toISOString(),
-        version: "1.0.0"
-      }
+        version: "1.0.0",
+      },
     });
   } catch (error) {
-    console.error('シンプルダッシュボードデータ更新エラー:', error);
+    console.error("シンプルダッシュボードデータ更新エラー:", error);
     
     return NextResponse.json({
       success: false,
       error: {
-        code: 'DASHBOARD_UPDATE_ERROR',
-        message: 'ダッシュボードデータの更新に失敗しました'
+        code: "DASHBOARD_UPDATE_ERROR",
+        message: "ダッシュボードデータの更新に失敗しました",
       },
       metadata: {
         timestamp: new Date().toISOString(),
-        version: "1.0.0"
-      }
+        version: "1.0.0",
+      },
     }, { status: 500 });
   }
 }

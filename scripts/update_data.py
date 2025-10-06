@@ -79,9 +79,7 @@ class StockDataUpdater:
             # データファイルの存在チェック
             input_file = "processed_stock_data.csv"
             if not os.path.exists(input_file):
-                logger.warning(
-                    f"データファイル {input_file} が存在しません。サンプルデータを生成します。"
-                )
+                logger.warning(f"データファイル {input_file} が存在しません。サンプルデータを生成します。")
                 return self._generate_sample_data()
 
             # コアシステムの初期化

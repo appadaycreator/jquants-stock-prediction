@@ -16,6 +16,7 @@ from pathlib import Path
 # 環境変数読み込み
 try:
     from dotenv import load_dotenv
+
     load_dotenv()
 except ImportError:
     # dotenvがインストールされていない場合は手動で.envファイルを読み込み
@@ -31,6 +32,7 @@ except ImportError:
 # 環境認証管理システムをインポート
 try:
     from core.environment_auth_manager import EnvironmentAuthManager
+
     ENVIRONMENT_AUTH_AVAILABLE = True
 except ImportError:
     ENVIRONMENT_AUTH_AVAILABLE = False
@@ -68,23 +70,25 @@ class JQuantsAuthManagerEnhanced:
 
         # トークン有効期限（秒）
         self.token_expiry_buffer = 300  # 5分前から更新
-        
+
         # リトライ設定
         self.max_retries = 3
         self.retry_delay = 2  # 秒
-        
+
         # トークンキャッシュファイル
         self.token_cache_file = Path("data/token_cache.json")
         self.data_dir = Path("data")
         if not self.data_dir.exists():
             self.data_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # セッション管理
         self.session = requests.Session()
-        self.session.headers.update({
-            "Content-Type": "application/json",
-            "User-Agent": "jQuants-Stock-Prediction/1.0"
-        })
+        self.session.headers.update(
+            {
+                "Content-Type": "application/json",
+                "User-Agent": "jQuants-Stock-Prediction/1.0",
+            }
+        )
 
     def load_token_cache(self) -> Optional[Dict[str, Any]]:
         """トークンキャッシュを読み込み"""
@@ -105,12 +109,12 @@ class JQuantsAuthManagerEnhanced:
                 "id_token": tokens.get("id_token", ""),
                 "refresh_token": tokens.get("refresh_token", ""),
                 "cached_at": datetime.now().isoformat(),
-                "expires_at": self._calculate_token_expiry(tokens.get("id_token", ""))
+                "expires_at": self._calculate_token_expiry(tokens.get("id_token", "")),
             }
-            
+
             with open(self.token_cache_file, "w", encoding="utf-8") as f:
                 json.dump(cache_data, f, ensure_ascii=False, indent=2)
-            
+
             logger.info("トークンキャッシュを保存しました")
             return True
         except Exception as e:
@@ -122,19 +126,19 @@ class JQuantsAuthManagerEnhanced:
         try:
             import base64
             import json as json_lib
-            
+
             parts = id_token.split(".")
             if len(parts) != 3:
                 return ""
-            
+
             payload = parts[1]
             missing_padding = len(payload) % 4
             if missing_padding:
                 payload += "=" * (4 - missing_padding)
-            
+
             decoded_payload = base64.urlsafe_b64decode(payload)
             payload_data = json_lib.loads(decoded_payload)
-            
+
             exp_timestamp = payload_data.get("exp", 0)
             exp_datetime = datetime.fromtimestamp(exp_timestamp)
             return exp_datetime.isoformat()
@@ -227,7 +231,7 @@ class JQuantsAuthManagerEnhanced:
                 # 認証リクエスト
                 auth_data = {"mailaddress": self.email, "password": self.password}
                 response = self.session.post(self.auth_url, json=auth_data, timeout=30)
-                
+
                 if response.status_code == 200:
                     auth_result = response.json()
                     refresh_token = auth_result.get("refreshToken")
@@ -242,26 +246,31 @@ class JQuantsAuthManagerEnhanced:
                     refresh_response = self.session.post(
                         f"{self.refresh_url}?refreshtoken={refresh_token}", timeout=30
                     )
-                    
+
                     if refresh_response.status_code == 200:
                         refresh_result = refresh_response.json()
                         id_token = refresh_result.get("idToken")
 
                         if id_token:
                             logger.info("IDトークンを取得しました")
-                            tokens = {"id_token": id_token, "refresh_token": refresh_token}
-                            
+                            tokens = {
+                                "id_token": id_token,
+                                "refresh_token": refresh_token,
+                            }
+
                             # トークンをキャッシュに保存
                             self.save_token_cache(tokens)
-                            
+
                             return tokens
                         else:
                             logger.error("IDトークンの取得に失敗しました")
                     else:
-                        logger.error(f"IDトークン取得エラー: HTTP {refresh_response.status_code}")
+                        logger.error(
+                            f"IDトークン取得エラー: HTTP {refresh_response.status_code}"
+                        )
                 else:
                     logger.error(f"認証エラー: HTTP {response.status_code}")
-                    
+
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_delay)
                     continue
@@ -288,12 +297,14 @@ class JQuantsAuthManagerEnhanced:
 
         for attempt in range(self.max_retries):
             try:
-                logger.info(f"リフレッシュトークンでIDトークンを更新中... (試行 {attempt + 1}/{self.max_retries})")
+                logger.info(
+                    f"リフレッシュトークンでIDトークンを更新中... (試行 {attempt + 1}/{self.max_retries})"
+                )
 
                 response = self.session.post(
                     f"{self.refresh_url}?refreshtoken={self.refresh_token}", timeout=30
                 )
-                
+
                 if response.status_code == 200:
                     result = response.json()
                     new_id_token = result.get("idToken")
@@ -305,7 +316,7 @@ class JQuantsAuthManagerEnhanced:
                         logger.error("IDトークンの更新に失敗しました")
                 else:
                     logger.error(f"トークン更新エラー: HTTP {response.status_code}")
-                    
+
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_delay)
                     continue
@@ -327,7 +338,7 @@ class JQuantsAuthManagerEnhanced:
     def get_valid_token(self) -> Optional[str]:
         """有効なIDトークンを取得（強化版）"""
         logger.info("=== 有効なトークン取得開始 ===")
-        
+
         # 1. キャッシュからトークンを取得
         cache = self.load_token_cache()
         if cache and cache.get("id_token"):
@@ -349,10 +360,9 @@ class JQuantsAuthManagerEnhanced:
                 if self.test_token_with_api():
                     logger.info("リフレッシュトークンでの更新に成功しました")
                     # 更新されたトークンをキャッシュに保存
-                    self.save_token_cache({
-                        "id_token": new_id_token,
-                        "refresh_token": self.refresh_token
-                    })
+                    self.save_token_cache(
+                        {"id_token": new_id_token, "refresh_token": self.refresh_token}
+                    )
                     return new_id_token
 
         # 4. メールアドレスとパスワードで新規取得
@@ -389,7 +399,9 @@ class JQuantsAuthManagerEnhanced:
                     env_content[i] = f"JQUANTS_ID_TOKEN={tokens['id_token']}\n"
                     token_updated = True
                 elif line.startswith("JQUANTS_REFRESH_TOKEN="):
-                    env_content[i] = f"JQUANTS_REFRESH_TOKEN={tokens['refresh_token']}\n"
+                    env_content[
+                        i
+                    ] = f"JQUANTS_REFRESH_TOKEN={tokens['refresh_token']}\n"
                     refresh_updated = True
 
             # 新しいトークンを追加
@@ -426,11 +438,13 @@ def main():
     logger.info("=== jQuants認証管理開始（強化版） ===")
 
     auth_manager = JQuantsAuthManagerEnhanced()
-    
+
     # 環境認証管理システムの状態を表示
     if ENVIRONMENT_AUTH_AVAILABLE:
-        logger.info(f"環境認証管理: {auth_manager.env_auth_manager.get_auth_status_message()}")
-        
+        logger.info(
+            f"環境認証管理: {auth_manager.env_auth_manager.get_auth_status_message()}"
+        )
+
         # ダミー認証情報のチェック
         if auth_manager.env_auth_manager.is_dummy_auth():
             logger.warning("⚠️ ダミーの認証情報が設定されています。実際の認証情報を設定してください。")
@@ -446,10 +460,13 @@ def main():
         logger.info("✅ 有効なトークンを取得しました")
 
         # トークンを環境変数ファイルに保存（ローカル環境のみ）
-        if not ENVIRONMENT_AUTH_AVAILABLE or auth_manager.env_auth_manager.environment != "production":
+        if (
+            not ENVIRONMENT_AUTH_AVAILABLE
+            or auth_manager.env_auth_manager.environment != "production"
+        ):
             tokens = {
-                "id_token": valid_token, 
-                "refresh_token": auth_manager.refresh_token
+                "id_token": valid_token,
+                "refresh_token": auth_manager.refresh_token,
             }
 
             if auth_manager.save_tokens_to_env(tokens):

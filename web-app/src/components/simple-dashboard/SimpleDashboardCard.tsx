@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -10,7 +10,7 @@ import {
   Minus,
   Target,
   Shield,
-} from 'lucide-react';
+} from "lucide-react";
 
 interface SimpleDashboardCardProps {
   title: string;
@@ -21,7 +21,7 @@ interface SimpleDashboardCardProps {
 export const SimpleDashboardCard: React.FC<SimpleDashboardCardProps> = ({
   title,
   children,
-  className = '',
+  className = "",
 }) => {
   return (
     <Card className={`border-l-4 border-l-blue-500 ${className}`}>
@@ -38,11 +38,11 @@ interface RecommendationCardProps {
     id: string;
     symbol: string;
     symbolName: string;
-    action: 'BUY' | 'SELL' | 'HOLD';
+    action: "BUY" | "SELL" | "HOLD";
     reason: string;
     confidence: number;
     expectedReturn: number;
-    priority: 'HIGH' | 'MEDIUM' | 'LOW';
+    priority: "HIGH" | "MEDIUM" | "LOW";
     timeframe: string;
   };
 }
@@ -52,11 +52,11 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
 }) => {
   const getActionIcon = (action: string) => {
     switch (action) {
-      case 'BUY':
+      case "BUY":
         return <ArrowUp className="h-4 w-4 text-green-600" />;
-      case 'SELL':
+      case "SELL":
         return <ArrowDown className="h-4 w-4 text-red-600" />;
-      case 'HOLD':
+      case "HOLD":
         return <Minus className="h-4 w-4 text-gray-600" />;
       default:
         return <Minus className="h-4 w-4 text-gray-600" />;
@@ -65,11 +65,11 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
 
   const getActionColor = (action: string) => {
     switch (action) {
-      case 'BUY':
+      case "BUY":
         return "bg-green-100 text-green-800 border-green-200";
-      case 'SELL':
+      case "SELL":
         return "bg-red-100 text-red-800 border-red-200";
-      case 'HOLD':
+      case "HOLD":
         return "bg-gray-100 text-gray-800 border-gray-200";
       default:
         return "bg-gray-100 text-gray-800 border-gray-200";
@@ -78,11 +78,11 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'HIGH':
+      case "HIGH":
         return "bg-red-100 text-red-800";
-      case 'MEDIUM':
+      case "MEDIUM":
         return "bg-yellow-100 text-yellow-800";
-      case 'LOW':
+      case "LOW":
         return "bg-green-100 text-green-800";
       default:
         return "bg-gray-100 text-gray-800";
@@ -90,7 +90,7 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
   };
 
   const formatPercent = (percent: number) => {
-    return `${percent >= 0 ? '+' : ''}${percent.toFixed(1)}%`;
+    return `${percent >= 0 ? "+" : ""}${percent.toFixed(1)}%`;
   };
 
   return (
@@ -160,16 +160,16 @@ export const PortfolioSummaryCard: React.FC<PortfolioSummaryCardProps> = ({
   summary,
 }) => {
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('ja-JP', {
-      style: 'currency',
-      currency: 'JPY',
+    return new Intl.NumberFormat("ja-JP", {
+      style: "currency",
+      currency: "JPY",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
   };
 
   const formatPercent = (percent: number) => {
-    return `${percent >= 0 ? '+' : ''}${percent.toFixed(1)}%`;
+    return `${percent >= 0 ? "+" : ""}${percent.toFixed(1)}%`;
   };
 
   return (
@@ -213,12 +213,12 @@ export const PortfolioSummaryCard: React.FC<PortfolioSummaryCardProps> = ({
             <div className="ml-4">
               <p className="text-sm text-gray-600">未実現損益</p>
               <p className={`text-2xl font-bold ${
-                summary.unrealizedPnL >= 0 ? 'text-green-600' : 'text-red-600'
+                summary.unrealizedPnL >= 0 ? "text-green-600" : "text-red-600"
               }`}>
                 {formatCurrency(summary.unrealizedPnL)}
               </p>
               <p className={`text-sm ${
-                summary.unrealizedPnLPercent >= 0 ? 'text-green-600' : 'text-red-600'
+                summary.unrealizedPnLPercent >= 0 ? "text-green-600" : "text-red-600"
               }`}>
                 {formatPercent(summary.unrealizedPnLPercent)}
               </p>
