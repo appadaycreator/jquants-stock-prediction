@@ -90,6 +90,13 @@ class ClearInvestmentActions:
         self.stop_loss_percentage = self.config.get('stop_loss_percentage', 0.05)  # 5%
         self.take_profit_percentage = self.config.get('take_profit_percentage', 0.15)  # 15%
         
+        # 強化された設定
+        self.high_confidence_threshold = 0.8  # 高信頼度閾値
+        self.ultra_high_confidence_threshold = 0.9  # 超高信頼度閾値
+        self.quick_decision_threshold = 0.85  # 迅速判断閾値
+        self.position_scaling_factor = 0.2  # ポジションスケーリング係数
+        self.volatility_adjustment_factor = 0.1  # ボラティリティ調整係数
+        
         # 期限設定
         self.deadline_config = {
             'immediate': timedelta(hours=1),
@@ -160,7 +167,7 @@ class ClearInvestmentActions:
         existing_position: Optional[PositionInfo],
         market_data: Dict[str, Any]
     ) -> Optional[InvestmentActionDetail]:
-        """具体的なアクションを判定"""
+        """具体的なアクションを判定（強化版）"""
         try:
             # 価格変動率の計算
             price_change_ratio = (prediction - current_price) / current_price
@@ -172,7 +179,20 @@ class ClearInvestmentActions:
             # 市場条件の判定
             market_condition = self._assess_market_condition(market_data)
             
-            # アクション判定ロジック
+            # 信頼度ベースの判定強化
+            if confidence < self.min_confidence_threshold:
+                self.logger.info(f"信頼度不足: {symbol} (信頼度: {confidence:.2f})")
+                return None
+            
+            # 高信頼度での迅速判断
+            if confidence >= self.quick_decision_threshold:
+                return self._determine_quick_action(
+                    symbol, current_price, prediction, confidence,
+                    existing_position, technical_signals, fundamental_factors,
+                    market_condition, price_change_ratio
+                )
+            
+            # 通常のアクション判定ロジック
             if existing_position:
                 # 既存ポジションがある場合
                 return self._determine_existing_position_action(
@@ -297,8 +317,8 @@ class ClearInvestmentActions:
         """新規ポジションのアクション判定"""
         
         # 新規購入判定
-        if (prediction > current_price * 1.03 and  # 3%以上の上昇予測
-            confidence > 0.75):  # 高信頼度
+        if (prediction >= current_price * 1.03 and  # 3%以上の上昇予測
+            confidence >= 0.75):  # 高信頼度
             
             quantity = self._calculate_new_purchase_quantity(
                 current_price, confidence, market_condition
@@ -336,16 +356,26 @@ class ClearInvestmentActions:
         confidence: float, 
         position: PositionInfo
     ) -> int:
-        """買い増し数量の計算"""
+        """買い増し数量の計算（強化版）"""
         try:
-            # 信頼度に基づく買い増し率
-            buy_more_ratio = min(0.5, confidence - 0.5)  # 最大50%
+            # 信頼度に基づく買い増し率（強化版）
+            if confidence >= self.ultra_high_confidence_threshold:
+                buy_more_ratio = min(0.8, (confidence - 0.5) * 1.5)  # 超高信頼度で最大80%
+            elif confidence >= self.high_confidence_threshold:
+                buy_more_ratio = min(0.6, (confidence - 0.5) * 1.2)  # 高信頼度で最大60%
+            else:
+                buy_more_ratio = min(0.4, confidence - 0.5)  # 通常で最大40%
             
             # 現在のポジションサイズを考慮
-            max_additional_quantity = int(position.current_quantity * buy_more_ratio)
+            base_quantity = int(position.current_quantity * buy_more_ratio)
+            
+            # ボラティリティ調整
+            volatility = self._calculate_volatility(position)
+            volatility_adjustment = 1 - (volatility * self.volatility_adjustment_factor)
+            adjusted_quantity = int(base_quantity * volatility_adjustment)
             
             # 最小単位（100株単位）
-            return (max_additional_quantity // 100) * 100
+            return max(100, (adjusted_quantity // 100) * 100)
             
         except Exception as e:
             self.logger.error(f"買い増し数量計算エラー: {e}")
@@ -357,22 +387,35 @@ class ClearInvestmentActions:
         confidence: float, 
         market_condition: str
     ) -> int:
-        """新規購入数量の計算"""
+        """新規購入数量の計算（強化版）"""
         try:
-            # 基本購入金額（信頼度に基づく）
-            base_amount = 100000 * confidence  # 10万円 × 信頼度
+            # 基本購入金額（信頼度に基づく強化版）
+            if confidence >= self.ultra_high_confidence_threshold:
+                base_amount = 200000 * confidence  # 超高信頼度で20万円 × 信頼度
+            elif confidence >= self.high_confidence_threshold:
+                base_amount = 150000 * confidence  # 高信頼度で15万円 × 信頼度
+            else:
+                base_amount = 100000 * confidence  # 通常で10万円 × 信頼度
             
-            # 市場条件による調整
-            if market_condition == "bull_market":
-                base_amount *= 1.2
-            elif market_condition == "bear_market":
-                base_amount *= 0.8
+            # 市場条件による調整（強化版）
+            market_multiplier = {
+                "bull_market": 1.3,
+                "sideways": 1.0,
+                "bear_market": 0.7,
+                "high_volatility": 0.8
+            }.get(market_condition, 1.0)
+            
+            adjusted_amount = base_amount * market_multiplier
+            
+            # リスク調整
+            risk_adjustment = 1 - (self.risk_tolerance * 2)
+            final_amount = adjusted_amount * risk_adjustment
             
             # 数量計算
-            quantity = int(base_amount / current_price)
+            quantity = int(final_amount / current_price)
             
             # 最小単位（100株単位）
-            return (quantity // 100) * 100
+            return max(100, (quantity // 100) * 100)
             
         except Exception as e:
             self.logger.error(f"新規購入数量計算エラー: {e}")
@@ -511,6 +554,123 @@ class ClearInvestmentActions:
             summary['max_risk'] = max(summary['max_risk'], abs(action.max_loss))
         
         return summary
+    
+    def _determine_quick_action(
+        self,
+        symbol: str,
+        current_price: float,
+        prediction: float,
+        confidence: float,
+        existing_position: Optional[PositionInfo],
+        technical_signals: List[str],
+        fundamental_factors: List[str],
+        market_condition: str,
+        price_change_ratio: float
+    ) -> Optional[InvestmentActionDetail]:
+        """高信頼度での迅速判断"""
+        try:
+            # 超高信頼度での即座実行
+            if confidence >= self.ultra_high_confidence_threshold:
+                if existing_position:
+                    # 既存ポジションの迅速処理
+                    if price_change_ratio > 0.1:  # 10%以上の上昇予測
+                        additional_quantity = self._calculate_buy_more_quantity(
+                            current_price, confidence, existing_position
+                        )
+                        if additional_quantity > 0:
+                            return InvestmentActionDetail(
+                                action=InvestmentAction.BUY_MORE,
+                                symbol=symbol,
+                                current_price=current_price,
+                                target_price=prediction,
+                                quantity=additional_quantity,
+                                total_amount=additional_quantity * current_price,
+                                priority=ActionPriority.HIGH,
+                                deadline=datetime.now() + self.deadline_config['immediate'],
+                                deadline_type=DeadlineType.IMMEDIATE,
+                                confidence=confidence,
+                                reason=f"超高信頼度買い増し: {price_change_ratio*100:.1f}%上昇予測",
+                                risk_level="MEDIUM",
+                                expected_return=(prediction - current_price) * additional_quantity,
+                                max_loss=(current_price - prediction) * additional_quantity,
+                                technical_signals=technical_signals,
+                                fundamental_factors=fundamental_factors,
+                                market_condition=market_condition
+                            )
+                else:
+                    # 新規購入の迅速処理
+                    if price_change_ratio > 0.08:  # 8%以上の上昇予測
+                        quantity = self._calculate_new_purchase_quantity(
+                            current_price, confidence, market_condition
+                        )
+                        if quantity > 0:
+                            return InvestmentActionDetail(
+                                action=InvestmentAction.NEW_PURCHASE,
+                                symbol=symbol,
+                                current_price=current_price,
+                                target_price=prediction,
+                                quantity=quantity,
+                                total_amount=quantity * current_price,
+                                priority=ActionPriority.HIGH,
+                                deadline=datetime.now() + self.deadline_config['immediate'],
+                                deadline_type=DeadlineType.IMMEDIATE,
+                                confidence=confidence,
+                                reason=f"超高信頼度新規購入: {price_change_ratio*100:.1f}%上昇予測",
+                                risk_level="MEDIUM",
+                                expected_return=(prediction - current_price) * quantity,
+                                max_loss=(current_price - prediction) * quantity,
+                                technical_signals=technical_signals,
+                                fundamental_factors=fundamental_factors,
+                                market_condition=market_condition
+                            )
+            
+            return None
+            
+        except Exception as e:
+            self.logger.error(f"迅速判断エラー ({symbol}): {e}")
+            return None
+    
+    def _calculate_volatility(self, position: PositionInfo) -> float:
+        """ポジションのボラティリティ計算"""
+        try:
+            # 簡易的なボラティリティ計算
+            if position.current_quantity > 0:
+                price_volatility = abs(position.current_price - position.average_price) / position.average_price
+                return min(1.0, price_volatility)
+            return 0.0
+        except Exception as e:
+            self.logger.error(f"ボラティリティ計算エラー: {e}")
+            return 0.0
+    
+    def get_action_urgency_score(self, action: InvestmentActionDetail) -> float:
+        """アクションの緊急度スコア計算"""
+        try:
+            urgency_score = 0.0
+            
+            # 信頼度による重み付け
+            urgency_score += action.confidence * 0.3
+            
+            # アクションタイプによる重み付け
+            action_weights = {
+                InvestmentAction.STOP_LOSS: 1.0,
+                InvestmentAction.TAKE_PROFIT: 0.8,
+                InvestmentAction.BUY_MORE: 0.6,
+                InvestmentAction.NEW_PURCHASE: 0.4
+            }
+            urgency_score += action_weights.get(action.action, 0.5) * 0.3
+            
+            # 期限による重み付け
+            time_remaining = (action.deadline - datetime.now()).total_seconds()
+            if time_remaining < 3600:  # 1時間以内
+                urgency_score += 0.4
+            elif time_remaining < 86400:  # 1日以内
+                urgency_score += 0.2
+            
+            return min(1.0, urgency_score)
+            
+        except Exception as e:
+            self.logger.error(f"緊急度スコア計算エラー: {e}")
+            return 0.0
     
     def export_actions_to_json(self, actions: List[InvestmentActionDetail], filepath: str) -> bool:
         """アクションをJSONファイルにエクスポート"""

@@ -18,11 +18,11 @@ from core.enhanced_confidence_system import EnhancedConfidenceSystem
 from core.ensemble_prediction_system import EnsemblePredictionSystem
 from core.technical_analysis import TechnicalAnalysis
 from core.data_validator import DataValidator
-from core.json_data_manager import JsonDataManager
+from core.json_data_manager import JSONDataManager
 from core.logging_manager import LoggingManager
 from core.config_manager import ConfigManager
 from core.error_handler import ErrorHandler
-from core.utils import Utils
+from core.utils import normalize_security_code
 
 # 新規追加: 簡素化されたリスク管理
 from core.simplified_risk_management import SimplifiedRiskManager
@@ -36,17 +36,17 @@ class RoutineAnalysisAPI:
         """初期化"""
         self.config_manager = ConfigManager(config_path)
         self.config = self.config_manager.get_config()
-        self.logger = LoggingManager().get_logger(__name__)
+        self.logger = LoggingManager(__name__).get_logger()
         self.error_handler = ErrorHandler()
-        self.utils = Utils()
+        # Utilsクラスは削除（関数ベースに変更）
         
         # 既存のシステム初期化
         self.investment_system = EnhancedInvestmentDecisionSystem(self.config)
         self.confidence_system = EnhancedConfidenceSystem(self.config)
         self.prediction_system = EnsemblePredictionSystem(self.config)
-        self.technical_analysis = TechnicalAnalysis(self.config)
+        self.technical_analysis = TechnicalAnalysis()
         self.data_validator = DataValidator(self.config)
-        self.json_manager = JsonDataManager(self.config)
+        self.json_manager = JSONDataManager("data")
         
         # 新規追加: 簡素化されたリスク管理
         self.simplified_risk_manager = SimplifiedRiskManager(self.config)
