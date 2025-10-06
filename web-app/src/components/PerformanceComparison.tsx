@@ -74,6 +74,7 @@ export function PerformanceComparison({
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [filterSector, setFilterSector] = useState<string>("all");
   const [viewMode, setViewMode] = useState<"table" | "chart" | "sector">("table");
+  const [activeTab, setActiveTab] = useState<"ranking" | "best-worst" | "risk" | "sector">("ranking");
 
   // パフォーマンスランキングの計算
   const performanceRanking = useMemo(() => {
@@ -249,16 +250,16 @@ export function PerformanceComparison({
           </div>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="ranking" className="space-y-4">
+          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="space-y-4">
             <TabsList>
-              <TabsTrigger value="ranking">ランキング</TabsTrigger>
-              <TabsTrigger value="best-worst">ベスト・ワースト</TabsTrigger>
-              <TabsTrigger value="risk">リスク分析</TabsTrigger>
-              <TabsTrigger value="sector">セクター分析</TabsTrigger>
+              <TabsTrigger value="ranking" onClick={() => setActiveTab("ranking")}>ランキング</TabsTrigger>
+              <TabsTrigger value="best-worst" onClick={() => setActiveTab("best-worst")}>ベスト・ワースト</TabsTrigger>
+              <TabsTrigger value="risk" onClick={() => setActiveTab("risk")}>リスク分析</TabsTrigger>
+              <TabsTrigger value="sector" onClick={() => setActiveTab("sector")}>セクター分析</TabsTrigger>
             </TabsList>
-
             {/* ランキング */}
-            <TabsContent value="ranking" className="space-y-4">
+            {activeTab === "ranking" && (
+            <div className="space-y-4">
               {/* ソート・フィルター */}
               <div className="flex flex-wrap gap-4 items-center">
                 <div className="flex items-center space-x-2">
@@ -340,10 +341,12 @@ export function PerformanceComparison({
                   </div>
                 ))}
               </div>
-            </TabsContent>
+            </div>
+            )}
 
             {/* ベスト・ワースト */}
-            <TabsContent value="best-worst" className="space-y-4">
+            {activeTab === "best-worst" && (
+            <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* ベストパフォーマー */}
                 <Card>
@@ -415,10 +418,12 @@ export function PerformanceComparison({
                   </CardContent>
                 </Card>
               </div>
-            </TabsContent>
+            </div>
+            )}
 
             {/* リスク分析 */}
-            <TabsContent value="risk" className="space-y-4">
+            {activeTab === "risk" && (
+            <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
                   <CardHeader>
@@ -494,10 +499,12 @@ export function PerformanceComparison({
                   </CardContent>
                 </Card>
               </div>
-            </TabsContent>
+            </div>
+            )}
 
             {/* セクター分析 */}
-            <TabsContent value="sector" className="space-y-4">
+            {activeTab === "sector" && (
+            <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
                   <CardHeader>
@@ -561,7 +568,8 @@ export function PerformanceComparison({
                   </CardContent>
                 </Card>
               </div>
-            </TabsContent>
+            </div>
+            )}
           </Tabs>
         </CardContent>
       </Card>

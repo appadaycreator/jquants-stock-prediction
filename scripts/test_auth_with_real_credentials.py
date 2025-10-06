@@ -8,12 +8,19 @@ import sys
 import requests
 import json
 from pathlib import Path
+import pytest
 
 # プロジェクトルートをパスに追加
 project_root = Path(__file__).parent.parent
 sys.path.append(str(project_root))
 
 
+@pytest.mark.skipif(
+    not os.getenv("JQUANTS_EMAIL")
+    and not os.getenv("JQUANTS_PASSWORD")
+    and not os.getenv("JQUANTS_ID_TOKEN"),
+    reason="実環境認証情報が未設定のためスキップ",
+)
 def test_jquants_auth():
     """jQuants APIの認証テスト"""
     print("=== jQuants API認証テスト ===")
@@ -31,7 +38,7 @@ def test_jquants_auth():
     # 1. 既存のIDトークンが有効かテスト
     if id_token and id_token != "demo_id_token_12345":
         print("1. 既存のIDトークンでテスト...")
-        if test_id_token(id_token):
+        if validate_id_token(id_token):
             print("✅ 既存のIDトークンは有効です")
             assert True
         else:
@@ -55,33 +62,18 @@ def test_jquants_auth():
     assert False
 
 
-def test_id_token():
-    """IDトークンの有効性をテスト"""
-    # 環境変数からIDトークンを取得
-    id_token = os.getenv("JQUANTS_ID_TOKEN")
-    if not id_token:
-        print("❌ JQUANTS_ID_TOKEN環境変数が設定されていません")
-        assert False
-
+def validate_id_token(id_token: str) -> bool:
+    """IDトークンの有効性を検証する。失敗時はFalseを返す。"""
     try:
         headers = {"Authorization": f"Bearer {id_token}"}
         response = requests.get(
             "https://api.jquants.com/v1/listed/info", headers=headers, timeout=10
         )
-
         if response.status_code == 200:
-            print("  APIテスト成功: トークンは有効です")
-            assert True
-        elif response.status_code == 401:
-            print("  APIテスト失敗: 認証エラー (401)")
-            assert False
-        else:
-            print(f"  APIテスト失敗: HTTP {response.status_code}")
-            assert False
-
-    except Exception as e:
-        print(f"  APIテストエラー: {e}")
-        assert False
+            return True
+        return False
+    except Exception:
+        return False
 
 
 def get_new_tokens(email, password):

@@ -5,6 +5,7 @@ jQuants API包括的テスト
 """
 
 import os
+import pytest
 import requests
 import json
 import time
@@ -72,8 +73,20 @@ def check_auth_info():
     return True
 
 
-def test_id_token_validity(id_token):
+@pytest.mark.skipif(
+    not os.getenv("JQUANTS_ID_TOKEN")
+    and not (os.getenv("JQUANTS_EMAIL") and os.getenv("JQUANTS_PASSWORD")),
+    reason="実環境の認証情報が未設定のためスキップ",
+)
+def test_id_token_validity():
     """IDトークンの有効性をテスト"""
+    id_token = os.getenv("JQUANTS_ID_TOKEN")
+    if not id_token:
+        # メール/パスワードで取得を試みる
+        email = os.getenv("JQUANTS_EMAIL")
+        password = os.getenv("JQUANTS_PASSWORD")
+        id_token = perform_email_password_auth(email, password) if email and password else None
+        assert id_token, "IDトークン取得に失敗しました"
     try:
         headers = {
             "Authorization": f"Bearer {id_token}",
@@ -179,6 +192,11 @@ def test_authentication_flow():
     return perform_email_password_auth(email, password)
 
 
+@pytest.mark.skipif(
+    not os.getenv("JQUANTS_ID_TOKEN")
+    and not (os.getenv("JQUANTS_EMAIL") and os.getenv("JQUANTS_PASSWORD")),
+    reason="実環境の認証情報が未設定のためスキップ",
+)
 def test_api_endpoints():
     """APIエンドポイントのテスト"""
     print("\n=== APIエンドポイントテスト ===")
@@ -275,6 +293,11 @@ def test_api_endpoints():
         time.sleep(1)  # API制限を考慮
 
 
+@pytest.mark.skipif(
+    not os.getenv("JQUANTS_ID_TOKEN")
+    and not (os.getenv("JQUANTS_EMAIL") and os.getenv("JQUANTS_PASSWORD")),
+    reason="実環境の認証情報が未設定のためスキップ",
+)
 def test_data_endpoints():
     """データ取得エンドポイントのテスト"""
     print("\n=== データ取得エンドポイントテスト ===")
@@ -353,6 +376,11 @@ def test_data_endpoints():
         time.sleep(2)  # API制限を考慮
 
 
+@pytest.mark.skipif(
+    not os.getenv("JQUANTS_ID_TOKEN")
+    and not (os.getenv("JQUANTS_EMAIL") and os.getenv("JQUANTS_PASSWORD")),
+    reason="実環境の認証情報が未設定のためスキップ",
+)
 def test_rate_limits():
     """レート制限のテスト"""
     print("\n=== レート制限テスト ===")
