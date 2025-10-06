@@ -38,6 +38,7 @@ class RiskEvent(Enum):
     POSITION_OVERWEIGHT = "position_overweight"
     STOP_LOSS_HIT = "stop_loss_hit"
     TAKE_PROFIT_HIT = "take_profit_hit"
+    EMERGENCY_DRAWDOWN = "emergency_drawdown"
 
 
 @dataclass
@@ -406,7 +407,19 @@ class RealtimeRiskMonitor:
             ))
         
         # 最大ドローダウンチェック
-        if snapshot.max_drawdown >= thresholds["max_drawdown_critical"]:
+        if snapshot.max_drawdown >= 0.30:
+            alerts.append(RiskAlert(
+                timestamp=datetime.now(),
+                event_type=RiskEvent.EMERGENCY_DRAWDOWN,
+                alert_level=AlertLevel.EMERGENCY,
+                symbol=snapshot.symbol,
+                message=f"最大ドローダウンがDoD(30%)を超過: {snapshot.max_drawdown:.3f}",
+                current_value=snapshot.max_drawdown,
+                threshold_value=0.30,
+                recommendation="直ちにポジションをクローズしてください",
+                metadata={}
+            ))
+        elif snapshot.max_drawdown >= thresholds["max_drawdown_critical"]:
             alerts.append(RiskAlert(
                 timestamp=datetime.now(),
                 event_type=RiskEvent.LARGE_DRAWDOWN,

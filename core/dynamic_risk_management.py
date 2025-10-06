@@ -295,8 +295,16 @@ class DynamicRiskManager:
                     adjustments["should_reduce"] = True
                     adjustments["adjustment_reason"] += "流動性低下; "
             
+            # DoD: 最大ドローダウン30%超は強制クローズ
+            if current_metrics.max_drawdown >= 0.30:
+                adjustments["should_close"] = True
+                adjustments["should_reduce"] = True
+                adjustments["adjustment_reason"] += "DoD違反(最大ドローダウン>=30%); "
+            
             # ポジションサイズ調整
-            if adjustments["should_reduce"]:
+            if adjustments["should_close"]:
+                adjustments["new_position_size"] = 0.0
+            elif adjustments["should_reduce"]:
                 adjustments["new_position_size"] = current_metrics.position_size * 0.5
             elif adjustments["should_increase"]:
                 adjustments["new_position_size"] = min(

@@ -1741,6 +1741,11 @@ python -m black --check .
 python -m black .
 ```
 
+補足:
+- テストは必ず仮想環境を有効化して実行してください（`pytest` が見つからない収集エラーを防止）
+- ローカル実行で `pytest` が見つからない場合は `python -m pytest` の形式で実行してください
+- 一部テストは`pandas`未使用ですが、依存解決のため`requirements.txt`を事前に`pip install -r`で導入してください
+
 ### テストファイル構成
 ```
 tests/
