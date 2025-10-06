@@ -165,7 +165,12 @@ class SharpeRatioOptimizer:
             self.logger.error(f"シャープレシオ最適化エラー: {e}")
             raise
     
-    def _preprocess_portfolio_data(self, portfolio_data: Dict[str, Any]) -> Dict[str, Any]:
+    def _preprocess_portfolio_data(
+        self,
+        portfolio_data: Dict[str, Any],
+        market_data: Optional[pd.DataFrame] = None,
+        benchmark_data: Optional[pd.DataFrame] = None
+    ) -> Dict[str, Any]:
         """ポートフォリオデータ前処理"""
         try:
             processed = {
