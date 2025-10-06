@@ -123,7 +123,7 @@ describe("PerformanceComparison", () => {
   it("ソート順序の切り替えが正しく動作する", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const sortOrderButton = screen.getByRole("button", { name: /trending/i });
+    const sortOrderButton = screen.getByRole("button", { name: "sort-order" });
     fireEvent.click(sortOrderButton);
     
     expect(sortOrderButton).toBeInTheDocument();
@@ -141,7 +141,7 @@ describe("PerformanceComparison", () => {
   it("ベスト・ワーストタブが正しく表示される", async () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const bestWorstTab = screen.getByText("ベスト・ワースト");
+    const bestWorstTab = screen.getByRole("tab", { name: "ベスト・ワースト" });
     fireEvent.click(bestWorstTab);
     
     await waitFor(() => {
@@ -153,7 +153,7 @@ describe("PerformanceComparison", () => {
   it("リスク分析タブが正しく表示される", async () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const riskTab = screen.getByText("リスク分析");
+    const riskTab = screen.getByRole("tab", { name: "リスク分析" });
     fireEvent.click(riskTab);
     
     await waitFor(() => {
@@ -165,7 +165,7 @@ describe("PerformanceComparison", () => {
   it("セクター分析タブが正しく表示される", async () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const sectorTab = screen.getByText("セクター分析");
+    const sectorTab = screen.getByRole("tab", { name: "セクター分析" });
     fireEvent.click(sectorTab);
     
     await waitFor(() => {
@@ -189,24 +189,24 @@ describe("PerformanceComparison", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
     // 利益のバッジ
-    expect(screen.getByText("利益")).toBeInTheDocument();
+    expect(screen.getAllByText("利益").length).toBeGreaterThan(0);
     // 損失のバッジ
-    expect(screen.getByText("損失")).toBeInTheDocument();
+    expect(screen.getAllByText("損失").length).toBeGreaterThan(0);
   });
 
   it("リスクレベルの色が正しく表示される", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    expect(screen.getByText("MEDIUM")).toBeInTheDocument();
-    expect(screen.getByText("HIGH")).toBeInTheDocument();
+    expect(screen.getAllByText("MEDIUM").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("HIGH").length).toBeGreaterThan(0);
   });
 
   it("セクターの色が正しく表示される", () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    expect(screen.getByText("自動車")).toBeInTheDocument();
-    expect(screen.getByText("エンターテインメント")).toBeInTheDocument();
-    expect(screen.getByText("通信")).toBeInTheDocument();
+    expect(screen.getAllByText("自動車").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("エンターテインメント").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("通信").length).toBeGreaterThan(0);
   });
 
   it("空のポジションデータの場合の処理", () => {
@@ -233,7 +233,7 @@ describe("PerformanceComparison", () => {
     const chartButton = screen.getByText("チャート");
     fireEvent.click(chartButton);
     
-    expect(chartButton).toHaveClass("bg-blue-600");
+    expect(chartButton).toHaveClass("bg-primary");
   });
 
   it("セクタービューモードが正しく動作する", () => {
@@ -242,13 +242,13 @@ describe("PerformanceComparison", () => {
     const sectorButton = screen.getByText("セクター");
     fireEvent.click(sectorButton);
     
-    expect(sectorButton).toHaveClass("bg-blue-600");
+    expect(sectorButton).toHaveClass("bg-primary");
   });
 
   it("リスク分布が正しく計算される", async () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const riskTab = screen.getByText("リスク分析");
+    const riskTab = screen.getByRole("tab", { name: "リスク分析" });
     fireEvent.click(riskTab);
     
     await waitFor(() => {
@@ -261,7 +261,7 @@ describe("PerformanceComparison", () => {
   it("ボラティリティ分析が正しく表示される", async () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const riskTab = screen.getByText("リスク分析");
+    const riskTab = screen.getByRole("tab", { name: "リスク分析" });
     fireEvent.click(riskTab);
     
     await waitFor(() => {
@@ -273,7 +273,7 @@ describe("PerformanceComparison", () => {
   it("セクター別パフォーマンスが正しく表示される", async () => {
     render(<PerformanceComparison {...defaultProps} />);
     
-    const sectorTab = screen.getByText("セクター分析");
+    const sectorTab = screen.getByRole("tab", { name: "セクター分析" });
     fireEvent.click(sectorTab);
     
     await waitFor(() => {

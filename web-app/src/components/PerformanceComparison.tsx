@@ -277,6 +277,7 @@ export function PerformanceComparison({
                     variant="outline"
                     size="sm"
                     onClick={() => setSortOrder(sortOrder === "desc" ? "asc" : "desc")}
+                    aria-label="sort-order"
                   >
                     {sortOrder === "desc" ? <TrendingDown className="h-4 w-4" /> : <TrendingUp className="h-4 w-4" />}
                   </Button>
