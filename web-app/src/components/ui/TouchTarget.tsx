@@ -246,13 +246,14 @@ export function LongPressButton({
   };
 
   return (
-    <TouchTarget
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      onTouchCancel={handleTouchCancel}
-      className={`${isLongPressing ? "bg-blue-100" : ""} ${className}`}
+    <div
+      onTouchStart={handleTouchStart as any}
+      onTouchEnd={handleTouchEnd as any}
+      onTouchCancel={handleTouchCancel as any}
+      className={`min-h-[48px] min-w-[48px] flex items-center justify-center rounded-lg ${isLongPressing ? "bg-blue-100" : ""} ${className}`}
+      role="button"
     >
       {children}
-    </TouchTarget>
+    </div>
   );
 }

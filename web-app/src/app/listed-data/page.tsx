@@ -7,6 +7,7 @@ import EnhancedJQuantsAdapter from "@/lib/enhanced-jquants-adapter";
 import StockDetailModal from "@/components/StockDetailModal";
 import StockSearchInput from "@/components/StockSearchInput";
 import { formatStockCode } from "@/lib/stock-code-utils";
+import { openMinkabuLink } from "@/lib/minkabu-utils";
 
 interface ListedStock {
   code: string;
@@ -560,11 +561,7 @@ const ListedDataPage: React.FC = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <button
-                      onClick={() => {
-                        // みんかぶのリンクを開く
-                        const minkabuUrl = `https://minkabu.jp/stock/${stock.code}`;
-                        window.open(minkabuUrl, "_blank", "noopener,noreferrer");
-                      }}
+                      onClick={() => openMinkabuLink(stock.code)}
                       className="text-orange-600 hover:text-orange-800 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded px-2 py-1"
                       aria-label={`${stock.name} (${formatStockCode(stock.code)}) のみんかぶページを開く`}
                     >

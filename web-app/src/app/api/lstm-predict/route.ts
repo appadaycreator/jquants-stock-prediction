@@ -169,11 +169,12 @@ except Exception as e:
           } catch (parseError) {
             console.error("JSON解析エラー:", parseError);
             console.error("出力:", output);
+            const parseMessage = parseError instanceof Error ? parseError.message : String(parseError);
             resolve(NextResponse.json(
               { 
                 error: "予測結果の解析に失敗しました",
                 details: output,
-                parseError: parseError.message,
+                parseError: parseMessage,
               },
               { status: 500 },
             ));

@@ -107,7 +107,7 @@ export function useEnhancedTodayData(useRealData: boolean = false): UseEnhancedT
               confidence: result.confidence,
               price: result.currentPrice,
               change: result.priceChangePercent,
-              reason: `テクニカル分析: ${result.technicalIndicators?.rsi ? `RSI ${result.technicalIndicators.rsi.toFixed(1)}` : "分析完了"}`,
+              reason: `テクニカル分析: ${typeof (result as any).technicalIndicators?.rsi === "number" ? `RSI ${(result as any).technicalIndicators.rsi.toFixed(1)}` : "分析完了"}`,
             })),
             marketInsights: {
               trend: analysisResults.filter(r => r.recommendation === "BUY").length > 

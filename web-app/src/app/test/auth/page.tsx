@@ -12,7 +12,6 @@ import {
   RefreshCw,
   AlertTriangle,
   Play,
-  Stop,
 } from "lucide-react";
 
 interface TestResult {

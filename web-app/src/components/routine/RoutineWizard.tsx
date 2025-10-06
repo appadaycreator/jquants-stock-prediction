@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Textarea } from "@/components/ui/textarea";
 import { 
   CheckCircle, 
   Clock, 
@@ -43,7 +42,7 @@ interface CandidateStock {
     name: string;
     value: number;
     threshold: number;
-    status: "good" | "warning" | "bad";
+    status: "good" | "neutral" | "bad";
   }[];
 }
 

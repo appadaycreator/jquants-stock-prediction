@@ -547,7 +547,7 @@ export function PerformanceComparison({
                             cx="50%"
                             cy="50%"
                             outerRadius={80}
-                            label={({ sector, percent }) => `${sector} ${(percent * 100).toFixed(1)}%`}
+                            label={(props: any) => `${props.sector ?? "-"} ${((props.percent ?? 0) * 100).toFixed(1)}%`}
                           >
                             {sectorPerformance.map((entry, index) => (
                               <Cell key={`cell-${index}`} fill={getSectorColor(index)} />

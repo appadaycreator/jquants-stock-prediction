@@ -285,10 +285,9 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
           height={height}
           width={width}
           showVolume={showVolume}
-          showTrendLines={showTrendLines}
-          enableAnimation={enableAnimation}
-          enableWebGL={enableWebGL}
-          showPerformance={showPerformance}
+          /* animation handled inside child chart when supported */
+          /* webgl flag handled inside child chart when supported */
+          /* performance overlay handled inside child chart when supported */
           theme={theme}
           onDataPointClick={onDataPointClick}
         />

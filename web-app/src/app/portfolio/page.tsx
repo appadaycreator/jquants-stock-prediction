@@ -15,6 +15,7 @@ import {
   Info,
   ExternalLink,
 } from "lucide-react";
+import { openMinkabuLink } from "@/lib/minkabu-utils";
 
 interface PortfolioItem {
   symbol: string;
@@ -227,11 +228,7 @@ export default function PortfolioPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => {
-                        // みんかぶのリンクを開く
-                        const minkabuUrl = `https://minkabu.jp/stock/${item.symbol}`;
-                        window.open(minkabuUrl, "_blank", "noopener,noreferrer");
-                      }}
+                      onClick={() => openMinkabuLink(item.symbol)}
                       className="text-orange-600 hover:text-orange-800 hover:bg-orange-50"
                     >
                       <ExternalLink className="h-4 w-4 mr-1" />

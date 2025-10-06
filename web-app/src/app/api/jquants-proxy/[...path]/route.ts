@@ -286,13 +286,9 @@ async function handleProxyRequest(
     console.error("プロキシエラー:", {
       error: error instanceof Error ? error.message : String(error),
       stack: error instanceof Error ? error.stack : undefined,
-      path: (() => {
-        try { return "/" + (params?.path || []).join("/"); } catch { return "unknown"; }
-      })(),
+      path: ("/" + pathSegments.join("/")),
       method: method,
-      clientIp: (() => {
-        try { return getClientIp(request); } catch { return "unknown"; }
-      })(),
+      clientIp: getClientIp(request),
       timestamp: new Date().toISOString(),
     });
     return NextResponse.json(

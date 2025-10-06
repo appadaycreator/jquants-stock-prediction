@@ -508,6 +508,18 @@ export default function PersonalInvestmentDashboard() {
               volatility: pnl_summary.volatility || 0,
               win_rate: pnl_summary.win_rate || 0,
               profit_factor: pnl_summary.profit_factor || 0,
+              best_performer: typeof pnl_summary.best_performer === "string" ? {
+                symbol: pnl_summary.best_performer.split(" ")[0] || "-",
+                symbolName: pnl_summary.best_performer.split(" ")[1] || pnl_summary.best_performer,
+                return: 0,
+                value: 0,
+              } : (pnl_summary as any).best_performer,
+              worst_performer: typeof pnl_summary.worst_performer === "string" ? {
+                symbol: pnl_summary.worst_performer.split(" ")[0] || "-",
+                symbolName: pnl_summary.worst_performer.split(" ")[1] || pnl_summary.worst_performer,
+                return: 0,
+                value: 0,
+              } : (pnl_summary as any).worst_performer,
             }}
             performanceData={dashboardData.performance_data || []}
             positions={positions.map(p => ({
@@ -673,7 +685,10 @@ export default function PersonalInvestmentDashboard() {
         {/* リアルタイム損益計算 */}
         <TabsContent value="realtime" className="space-y-4">
           <RealtimePnLCalculator
-            positions={positions}
+            positions={positions.map(p => ({
+              ...p,
+              last_updated: new Date().toISOString(),
+            }))}
             onPnLUpdate={(updatedPositions) => {
               console.log("リアルタイム損益更新:", updatedPositions);
             }}

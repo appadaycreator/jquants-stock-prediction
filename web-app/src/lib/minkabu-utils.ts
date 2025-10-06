@@ -1,3 +1,4 @@
+import { toLegacyNumericCodeOrNull } from "@/lib/stock-code-utils";
 /**
  * みんかぶリンクユーティリティ
  * 銘柄コードからみんかぶのURLを生成し、リンクを開く
@@ -9,11 +10,7 @@
  * @returns 利用可能かどうか
  */
 export function isMinkabuLinkAvailable(code: string): boolean {
-  if (!code) return false;
-  
-  // 4桁の数字のみを対象とする
-  const normalizedCode = code.replace(/^0+/, ""); // 先頭の0を除去
-  return /^\d{4}$/.test(normalizedCode);
+  return toLegacyNumericCodeOrNull(code) !== null;
 }
 
 /**
@@ -22,12 +19,9 @@ export function isMinkabuLinkAvailable(code: string): boolean {
  * @returns みんかぶのURL
  */
 export function generateMinkabuUrl(code: string): string {
-  if (!isMinkabuLinkAvailable(code)) {
-    throw new Error("無効な銘柄コードです");
-  }
-  
-  const normalizedCode = code.replace(/^0+/, ""); // 先頭の0を除去
-  return `https://minkabu.jp/stock/${normalizedCode}`;
+  const legacy = toLegacyNumericCodeOrNull(code);
+  if (!legacy) throw new Error("無効な銘柄コードです");
+  return `https://minkabu.jp/stock/${legacy}`;
 }
 
 /**
@@ -50,8 +44,5 @@ export function openMinkabuLink(code: string): void {
  * @returns 正規化された銘柄コード
  */
 export function normalizeCodeForMinkabu(code: string): string {
-  if (!code) return "";
-  
-  // 先頭の0を除去して4桁に正規化
-  return code.replace(/^0+/, "");
+  return toLegacyNumericCodeOrNull(code) || "";
 }

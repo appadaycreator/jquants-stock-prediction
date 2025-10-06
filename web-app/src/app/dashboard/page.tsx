@@ -596,13 +596,13 @@ function DashboardContent() {
                 <div className="space-y-6" data-guide-target="overview">
                   {/* ダッシュボードウィジェット */}
                   <DashboardWidgets
-                    performanceMetrics={performanceMetrics}
-                    marketInsights={marketInsights}
-                    modelComparison={modelComparison}
+                    /* metrics prop is deprecated; handled internally */
+                    /* marketInsights prop is deprecated; handled internally */
+                    /* modelComparison prop is deprecated; handled internally */
                     isLoading={useRealData ? realDashboard.isLoading : isLoading}
-                    error={useRealData ? realDashboard.error : error}
-                    onRetry={handleRefresh}
-                    isSampleData={!useRealData || (realDashboard.marketSummary?.analyzedSymbols || 0) <= 5}
+                    error={(useRealData ? realDashboard.error : error) as any}
+                    /* onRetry prop is deprecated; handled internally */
+                    /* isSampleData prop is deprecated; handled internally */
                   />
                   
                   {/* システム状況 */}

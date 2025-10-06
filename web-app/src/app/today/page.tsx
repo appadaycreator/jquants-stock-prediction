@@ -94,7 +94,7 @@ export default function TodayPage() {
                   最新データの取得に失敗しました
                 </h3>
                 <p className="text-sm text-yellow-700 mt-1">
-                  前回の結果を表示しています（{fallbackTimestamp ? new Date(fallbackTimestamp).toLocaleString() : "不明"}）
+                  前回の結果を表示しています（{typeof fallbackTimestamp === "number" ? new Date(Number(fallbackTimestamp)).toLocaleString() : "不明"}）
                 </p>
               </div>
             </div>

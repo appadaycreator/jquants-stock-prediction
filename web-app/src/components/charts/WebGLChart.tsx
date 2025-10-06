@@ -47,7 +47,7 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
   const programRef = useRef<WebGLProgram | null>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [hoveredData, setHoveredData] = useState<ChartData | null>(null);
-  const [performance, setPerformance] = useState({ fps: 0, renderTime: 0, memoryUsage: 0 });
+  const [performanceInfo, setPerformanceInfo] = useState({ fps: 0, renderTime: 0, memoryUsage: 0 });
   const [isWebGLSupported, setIsWebGLSupported] = useState(false);
 
   // レスポンシブサイズ計算
@@ -158,7 +158,7 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
     const canvas = canvasRef.current;
     if (!gl || !canvas || !data.length) return;
 
-    const startTime = (window.performance && performance.now ? performance.now() : Date.now());
+    const startTime = (typeof window !== "undefined" && window.performance && window.performance.now ? window.performance.now() : Date.now());
 
     // キャンバスサイズの設定
     const dpr = window.devicePixelRatio || 1;
@@ -246,12 +246,12 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
     gl.drawArrays(gl.LINES, 0, positions.length / 2);
     gl.drawArrays(gl.TRIANGLES, 0, positions.length / 2);
 
-    const endTime = (window.performance && performance.now ? performance.now() : Date.now());
+    const endTime = (typeof window !== "undefined" && window.performance && window.performance.now ? window.performance.now() : Date.now());
     const renderTime = endTime - startTime;
 
     // パフォーマンス情報の更新
     if (showPerformance) {
-      setPerformance(prev => ({
+      setPerformanceInfo(prev => ({
         fps: Math.round(1000 / renderTime),
         renderTime: Math.round(renderTime * 100) / 100,
         memoryUsage: (performance as any).memory?.usedJSHeapSize / 1024 / 1024 || 0,
@@ -332,11 +332,11 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
           <div className="flex items-center space-x-4 text-xs text-gray-600">
             <div className="flex items-center space-x-1">
               <Gauge className="w-3 h-3" />
-              <span>FPS: {performance.fps}</span>
+              <span>FPS: {performanceInfo.fps}</span>
             </div>
             <div className="flex items-center space-x-1">
               <Activity className="w-3 h-3" />
-              <span>{performance.renderTime}ms</span>
+              <span>{performanceInfo.renderTime}ms</span>
             </div>
           </div>
         )}

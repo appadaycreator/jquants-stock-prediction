@@ -1668,6 +1668,27 @@ npm run start
   - `web-app/src/app/watchlist/page.tsx`
 - **空のとき**: 空の場合はガイダンスと「銘柄一覧を見る」ボタンが表示されます。
 
+#### みんかぶリンクの仕様（2025-10-06 更新）
+**目的**: みんかぶ銘柄ページ（`https://minkabu.jp/stock/{code}`）遷移の完全性を保証します。
+
+**方針（共通）**
+- 内部表記の正規化: `normalizeStockCode(code)`
+  - 新形式 `^[A-Za-z]\d{4}$` は大文字化（例: `a1234` → `A1234`）
+  - 従来形式の数字のみは先頭0を除去（例: `07203` → `7203`）
+- 表示: `formatStockCode(code)`
+  - 新形式は大文字のまま表示、0埋め5桁は4桁にして表示
+- 外部リンク用4桁取得: `toLegacyNumericCodeOrNull(code)`
+  - 4桁数字の場合のみ値を返す（それ以外は `null`）
+
+**実装ファイル**
+- 共通: `web-app/src/lib/stock-code-utils.ts`
+- みんかぶ: `web-app/src/lib/minkabu-utils.ts`（上記の共通関数を使用）
+
+**適用箇所**
+- `portfolio`, `watchlist`, `listed-data`, `components/StockList.tsx` の「みんかぶ」ボタン
+
+> これにより、0埋め5桁や新形式コードが混在しても、表示・内部処理・外部リンクが一貫して正しく動作します。
+
 ### 5. 分析履歴（新規）
 
 - **閲覧ページ**: `/analysis-history` で「詳細分析」の履歴を一覧表示します。

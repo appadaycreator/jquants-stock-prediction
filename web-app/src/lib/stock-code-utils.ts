@@ -9,29 +9,29 @@ export interface StockCodeMapping {
 
 /**
  * 銘柄コードを正規化（2024年1月以降の新形式対応）
+ * - 新形式: 先頭アルファベット+4桁 → 大文字に統一
+ * - 従来形式: 数字のみ → 先頭0の除去（5桁の0埋めは4桁へ）
  */
 export function normalizeStockCode(code: string): string {
   if (!code) return "";
-  
   const trimmed = code.trim();
-  
-  // 新形式（アルファベット含む）の場合は大文字に統一
+
+  // 新形式（アルファベット+4桁）は大文字に統一
   if (/^[A-Za-z]\d{4}$/.test(trimmed)) {
     return trimmed.toUpperCase();
   }
-  
-  // 従来形式の処理
-  // 5桁で先頭が0の場合は4桁に変換
-  if (trimmed.length === 5 && trimmed.startsWith("0")) {
-    return trimmed.substring(1);
-  }
-  
-  // 4桁の場合はそのまま
-  if (trimmed.length === 4) {
+
+  // 数字のみ（従来形式想定）
+  if (/^\d+$/.test(trimmed)) {
+    // 5桁かつ先頭0 → 4桁に正規化
+    if (trimmed.length === 5 && trimmed.startsWith("0")) {
+      return trimmed.substring(1);
+    }
+    // それ以外はそのまま（4桁が想定の中心）
     return trimmed;
   }
-  
-  // その他の場合はそのまま
+
+  // その他はトリムのみ反映
   return trimmed;
 }
 
@@ -59,23 +59,26 @@ export function toFiveDigitCode(code: string): string {
  * 銘柄コードの表示用フォーマット
  */
 export function formatStockCode(code: string): string {
-  console.log("🔍 formatStockCode called with:", code, "type:", typeof code, "length:", code?.length);
-  
-  if (!code) {
-    console.log("❌ formatStockCode: empty code, returning empty string");
-    return "";
+  if (!code) return "";
+  const trimmed = code.trim();
+
+  // 新形式はそのまま大文字表記
+  if (/^[A-Za-z]\d{4}$/.test(trimmed)) {
+    return trimmed.toUpperCase();
   }
-  
-  // 5桁で下1桁が0の場合は除去して4桁で表示
-  if (code.length === 5 && code.endsWith("0")) {
-    const result = code.substring(0, 4);
-    console.log("✅ formatStockCode: 5-digit code ending with 0, converting", code, "→", result);
-    return result;
+
+  // 5桁0埋めは4桁で表示
+  if (/^\d{5}$/.test(trimmed) && trimmed.startsWith("0")) {
+    return trimmed.substring(1);
   }
-  
-  // その他の場合はそのまま表示
-  console.log("ℹ️ formatStockCode: no conversion needed, returning:", code);
-  return code;
+
+  // 4桁はそのまま
+  if (/^\d{4}$/.test(trimmed)) {
+    return trimmed;
+  }
+
+  // その他はそのまま返却（未知形式）
+  return trimmed;
 }
 
 /**
@@ -132,4 +135,15 @@ export function getStockCodeLabel(code: string): string {
     default:
       return `無効: ${code}`;
   }
+}
+
+/**
+ * みんかぶ等、従来4桁数値のみを受け付ける外部リンク向けの4桁数値を返す。
+ * 条件を満たさない場合は null。
+ */
+export function toLegacyNumericCodeOrNull(code: string): string | null {
+  if (!code) return null;
+  const normalized = normalizeStockCode(code);
+  if (/^\d{4}$/.test(normalized)) return normalized;
+  return null;
 }

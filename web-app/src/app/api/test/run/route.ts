@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
         skipped,
         error,
         total: passed + failed + skipped + error,
-        successRate: total > 0 ? (passed / total) * 100 : 0,
+        successRate: (passed + failed) > 0 ? (passed / (passed + failed)) * 100 : 0,
         output: stdout,
         errors: stderr,
       };

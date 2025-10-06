@@ -124,14 +124,15 @@ export default function InvestmentRecommendationEngine({
     }
 
     // 移動平均線分析
-    if (market.current_price > market.sma_20 && market.sma_20 > market.sma_50) {
+    const current = market.price;
+    if (current > market.sma_20 && market.sma_20 > market.sma_50) {
       signals.push("上昇トレンド");
       if (action === "BUY") {
         action = "STRONG_BUY";
         confidence += 0.1;
         reason += " + 上昇トレンド継続";
       }
-    } else if (market.current_price < market.sma_20 && market.sma_20 < market.sma_50) {
+    } else if (current < market.sma_20 && market.sma_20 < market.sma_50) {
       signals.push("下降トレンド");
       if (action === "SELL") {
         action = "STRONG_SELL";
@@ -175,11 +176,11 @@ export default function InvestmentRecommendationEngine({
     let stopLoss: number | undefined;
 
     if (action === "BUY" || action === "STRONG_BUY") {
-      targetPrice = market.current_price * 1.15; // 15%上昇目標
-      stopLoss = market.current_price * 0.92; // 8%損切り
+      targetPrice = current * 1.15; // 15%上昇目標
+      stopLoss = current * 0.92; // 8%損切り
     } else if (action === "SELL" || action === "STRONG_SELL") {
-      targetPrice = market.current_price * 0.85; // 15%下落目標
-      stopLoss = market.current_price * 1.08; // 8%上昇で損切り
+      targetPrice = current * 0.85; // 15%下落目標
+      stopLoss = current * 1.08; // 8%上昇で損切り
     }
 
     return {

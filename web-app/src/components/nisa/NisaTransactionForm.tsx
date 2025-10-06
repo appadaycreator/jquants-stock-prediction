@@ -195,7 +195,15 @@ export default function NisaTransactionForm({
           {/* 取引日 */}
           <div className="space-y-2">
             <Label>取引日</Label>
-            <Popover>
+            <Popover content={<div className="p-2"><Calendar
+                  mode="single"
+                  selected={new Date(formData.transactionDate)}
+                  onSelect={(date) => {
+                    if (date) {
+                      handleInputChange("transactionDate", date.toISOString().split("T")[0]);
+                    }
+                  }}
+                /></div>}>
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
@@ -206,15 +214,8 @@ export default function NisaTransactionForm({
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={new Date(formData.transactionDate)}
-                  onSelect={(date) => {
-                    if (date) {
-                      handleInputChange("transactionDate", date.toISOString().split("T")[0]);
-                    }
-                  }}
-                />
+                {/* content is provided via Popover prop; this element exists for layout */}
+                <div />
               </PopoverContent>
             </Popover>
           </div>

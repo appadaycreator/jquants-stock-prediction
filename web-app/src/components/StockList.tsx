@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import { Search, Filter, SortAsc, SortDesc, TrendingUp, TrendingDown, Eye, ExternalLink } from "lucide-react";
-import { formatStockCode } from "@/lib/stock-code-utils";
+import { formatStockCode, normalizeStockCode } from "@/lib/stock-code-utils";
 import { openMinkabuLink, isMinkabuLinkAvailable } from "@/lib/minkabu-utils";
 
 interface Stock {
@@ -258,7 +258,7 @@ export const StockList: React.FC<StockListProps> = ({
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {paginatedStocks.map((stock) => (
-                <tr key={formatStockCode(stock.code)} className="hover:bg-gray-50">
+                <tr key={normalizeStockCode(stock.code)} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     {formatStockCode(stock.code)}
                   </td>
