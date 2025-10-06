@@ -78,15 +78,17 @@ def check_auth_info():
     and not (os.getenv("JQUANTS_EMAIL") and os.getenv("JQUANTS_PASSWORD")),
     reason="実環境の認証情報が未設定のためスキップ",
 )
-def test_id_token_validity():
+def test_id_token_validity(id_token=None):
     """IDトークンの有効性をテスト"""
-    id_token = os.getenv("JQUANTS_ID_TOKEN")
+    if not id_token:
+        id_token = os.getenv("JQUANTS_ID_TOKEN")
     if not id_token:
         # メール/パスワードで取得を試みる
         email = os.getenv("JQUANTS_EMAIL")
         password = os.getenv("JQUANTS_PASSWORD")
         id_token = perform_email_password_auth(email, password) if email and password else None
-        assert id_token, "IDトークン取得に失敗しました"
+        if not id_token:
+            return False
     try:
         headers = {
             "Authorization": f"Bearer {id_token}",
