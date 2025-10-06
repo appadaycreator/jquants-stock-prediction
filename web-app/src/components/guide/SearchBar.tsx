@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Search, X, Clock, TrendingUp } from "lucide-react";
 import { SearchService, SearchResult } from "@/lib/guide/searchService";
 import { normalizeQuery, isValidQuery } from "@/lib/guide/highlightUtils";
@@ -162,7 +163,10 @@ export default function SearchBar({
           size={20} 
           className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" 
         />
-        <input
+        <TooltipProvider delayDuration={150}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <input
           ref={inputRef}
           type="text"
           value={query}
@@ -176,6 +180,12 @@ export default function SearchBar({
           placeholder={placeholder}
           className="w-full pl-10 pr-20 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
         />
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              ヘルプ・用語集を検索します。Enterで検索、候補から選択もできます。
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         
         {query && (
           <button

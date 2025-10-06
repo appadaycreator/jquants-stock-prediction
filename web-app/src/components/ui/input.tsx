@@ -1,13 +1,18 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  helpText?: string;
+  helpSide?: "top" | "bottom" | "left" | "right";
+  helpDelay?: number;
+}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
-    return (
+  ({ className, type, helpText, helpSide = "top", helpDelay = 200, ...props }, ref) => {
+    const inputEl = (
       <input
         type={type}
         className={cn(
@@ -17,6 +22,23 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         ref={ref}
         {...props}
       />
+    );
+
+    if (!helpText) {
+      return inputEl;
+    }
+
+    return (
+      <TooltipProvider delayDuration={helpDelay}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            {inputEl}
+          </TooltipTrigger>
+          <TooltipContent side={helpSide}>
+            {helpText}
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     );
   },
 );

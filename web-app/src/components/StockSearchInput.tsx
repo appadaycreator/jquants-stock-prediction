@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useStockSuggestions } from "@/hooks/useStockSuggestions";
 
 interface SuggestionItem {
@@ -177,7 +178,10 @@ export default function StockSearchInput({
   return (
     <div className={className ? `${className} relative` : "relative"}>
       <div className="relative">
-        <input
+        <TooltipProvider delayDuration={150}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <input
           ref={inputRef}
           type="text"
           value={internalValue}
@@ -191,6 +195,12 @@ export default function StockSearchInput({
           autoComplete="off"
           autoFocus={true}
         />
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              銘柄名または証券コードを入力するとサジェストが表示されます。Enterで検索、↑↓で候補を選択できます。
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         
         {/* クリアボタン */}
         {value && !disabled && (
