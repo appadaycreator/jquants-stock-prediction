@@ -2,13 +2,14 @@
 """
 新NISA税務計算システム
 2024年1月開始の新NISA制度に対応した税務計算機能
+非課税枠利用率90%以上を目標とした税務最適化システム
 """
 
 import logging
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass, asdict
-import numpy as np
+import math
 
 @dataclass
 class TaxCalculation:
@@ -18,6 +19,8 @@ class TaxCalculation:
     tax_savings: Dict[str, Any]
     total_tax_free_amount: float
     effective_tax_rate: float
+    optimization: Dict[str, Any]
+    efficiency_score: float
 
 @dataclass
 class TaxOptimization:
@@ -26,6 +29,8 @@ class TaxOptimization:
     potential_tax_savings: float
     optimization_score: float
     priority_level: str
+    efficiency_improvement: float
+    target_achievement: Dict[str, Any]
 
 class NisaTaxCalculator:
     """新NISA税務計算システム"""
@@ -43,6 +48,10 @@ class NisaTaxCalculator:
         # NISA制度の基本設定
         self.growth_annual_limit = 2400000  # 成長投資枠年間240万円
         self.accumulation_annual_limit = 400000  # つみたて投資枠年間40万円
+        
+        # 最適化設定
+        self.target_utilization_rate = 90.0  # 目標利用率90%
+        self.optimization_threshold = 0.85  # 最適化閾値85%
         
     def calculate_tax_savings(self, quota_status: Dict[str, Any], 
                             portfolio: Dict[str, Any]) -> TaxCalculation:
@@ -63,12 +72,20 @@ class NisaTaxCalculator:
             # 実効税率の計算
             effective_tax_rate = self._calculate_effective_tax_rate(quota_status, portfolio)
             
+            # 最適化指標の計算
+            optimization = self._calculate_optimization_metrics(quota_status, portfolio)
+            
+            # 効率スコアの計算
+            efficiency_score = self._calculate_efficiency_score(quota_status, portfolio)
+            
             return TaxCalculation(
                 current_year=current_year,
                 next_year=next_year,
                 tax_savings=tax_savings,
                 total_tax_free_amount=total_tax_free_amount,
-                effective_tax_rate=effective_tax_rate
+                effective_tax_rate=effective_tax_rate,
+                optimization=optimization,
+                efficiency_score=efficiency_score
             )
             
         except Exception as e:
@@ -78,7 +95,9 @@ class NisaTaxCalculator:
                 next_year={},
                 tax_savings={},
                 total_tax_free_amount=0,
-                effective_tax_rate=0
+                effective_tax_rate=0,
+                optimization={},
+                efficiency_score=0
             )
     
     def _calculate_current_year_tax(self, quota_status: Dict[str, Any], 
@@ -209,7 +228,9 @@ class NisaTaxCalculator:
                 recommended_actions=recommendations,
                 potential_tax_savings=potential_savings,
                 optimization_score=optimization_score,
-                priority_level=priority_level
+                priority_level=priority_level,
+                efficiency_improvement=0.0,
+                target_achievement={}
             )
             
         except Exception as e:
@@ -218,7 +239,9 @@ class NisaTaxCalculator:
                 recommended_actions=[],
                 potential_tax_savings=0,
                 optimization_score=0,
-                priority_level='UNKNOWN'
+                priority_level='UNKNOWN',
+                efficiency_improvement=0.0,
+                target_achievement={}
             )
     
     def _generate_tax_recommendations(self, quota_status: Dict[str, Any], 
@@ -433,3 +456,168 @@ class NisaTaxCalculator:
         except Exception as e:
             self.logger.error(f"年間推奨事項生成エラー: {e}")
             return []
+    
+    def _calculate_optimization_metrics(self, quota_status: Dict[str, Any], 
+                                      portfolio: Dict[str, Any]) -> Dict[str, Any]:
+        """最適化指標の計算"""
+        try:
+            growth_used = quota_status.get('growth_investment', {}).get('used_amount', 0)
+            accumulation_used = quota_status.get('accumulation_investment', {}).get('used_amount', 0)
+            total_used = growth_used + accumulation_used
+            
+            # 総合利用率の計算
+            total_limit = self.growth_annual_limit + self.accumulation_annual_limit
+            overall_utilization = (total_used / total_limit) * 100 if total_limit > 0 else 0
+            
+            # 目標達成率の計算
+            target_achievement = (overall_utilization / self.target_utilization_rate) * 100
+            
+            # 税務効率の計算
+            tax_efficiency = self._calculate_tax_efficiency(quota_status, portfolio)
+            
+            return {
+                'overall_utilization': round(overall_utilization, 2),
+                'target_utilization': self.target_utilization_rate,
+                'target_achievement': round(target_achievement, 2),
+                'tax_efficiency': tax_efficiency,
+                'optimization_level': self._determine_optimization_level(overall_utilization),
+                'improvement_potential': max(0, self.target_utilization_rate - overall_utilization)
+            }
+            
+        except Exception as e:
+            self.logger.error(f"最適化指標計算エラー: {e}")
+            return {
+                'overall_utilization': 0,
+                'target_utilization': self.target_utilization_rate,
+                'target_achievement': 0,
+                'tax_efficiency': 0,
+                'optimization_level': 'UNKNOWN',
+                'improvement_potential': self.target_utilization_rate
+            }
+    
+    def _calculate_tax_efficiency(self, quota_status: Dict[str, Any], 
+                                 portfolio: Dict[str, Any]) -> float:
+        """税務効率の計算"""
+        try:
+            growth_used = quota_status.get('growth_investment', {}).get('used_amount', 0)
+            accumulation_used = quota_status.get('accumulation_investment', {}).get('used_amount', 0)
+            total_used = growth_used + accumulation_used
+            
+            # 税務節約額
+            tax_savings = total_used * self.total_tax_rate
+            
+            # ポートフォリオの未実現損益
+            unrealized_profit_loss = portfolio.get('unrealized_profit_loss', 0)
+            
+            # 税務効率（税務節約額 / 投資額）
+            tax_efficiency = (tax_savings / total_used) * 100 if total_used > 0 else 0
+            
+            return round(tax_efficiency, 2)
+            
+        except Exception as e:
+            self.logger.error(f"税務効率計算エラー: {e}")
+            return 0.0
+    
+    def _determine_optimization_level(self, utilization_rate: float) -> str:
+        """最適化レベルの判定"""
+        try:
+            if utilization_rate >= 90:
+                return 'EXCELLENT'
+            elif utilization_rate >= 80:
+                return 'GOOD'
+            elif utilization_rate >= 60:
+                return 'FAIR'
+            else:
+                return 'POOR'
+        except Exception as e:
+            self.logger.error(f"最適化レベル判定エラー: {e}")
+            return 'UNKNOWN'
+    
+    def _calculate_efficiency_score(self, quota_status: Dict[str, Any], 
+                                  portfolio: Dict[str, Any]) -> float:
+        """効率スコアの計算"""
+        try:
+            # 利用率スコア
+            growth_utilization = quota_status.get('growth_investment', {}).get('utilization_rate', 0)
+            accumulation_utilization = quota_status.get('accumulation_investment', {}).get('utilization_rate', 0)
+            utilization_score = (growth_utilization + accumulation_utilization) / 2
+            
+            # 税務効率スコア
+            tax_efficiency = self._calculate_tax_efficiency(quota_status, portfolio)
+            tax_score = min(tax_efficiency, 100)
+            
+            # ポートフォリオ効率スコア
+            portfolio_score = self._calculate_portfolio_efficiency(portfolio)
+            
+            # 総合効率スコア
+            efficiency_score = (utilization_score * 0.4 + tax_score * 0.3 + portfolio_score * 0.3)
+            
+            return round(efficiency_score, 2)
+            
+        except Exception as e:
+            self.logger.error(f"効率スコア計算エラー: {e}")
+            return 0.0
+    
+    def _calculate_portfolio_efficiency(self, portfolio: Dict[str, Any]) -> float:
+        """ポートフォリオ効率の計算"""
+        try:
+            positions = portfolio.get('positions', [])
+            if not positions:
+                return 0.0
+            
+            # 分散度スコア
+            diversification_score = min(len(positions) * 10, 100)
+            
+            # リスクスコア（簡易版）
+            risk_score = self._calculate_risk_score(positions)
+            
+            # リターンスコア
+            return_score = self._calculate_return_score(portfolio)
+            
+            # 総合ポートフォリオ効率
+            portfolio_efficiency = (diversification_score * 0.4 + risk_score * 0.3 + return_score * 0.3)
+            
+            return round(portfolio_efficiency, 2)
+            
+        except Exception as e:
+            self.logger.error(f"ポートフォリオ効率計算エラー: {e}")
+            return 0.0
+    
+    def _calculate_risk_score(self, positions: List[Dict[str, Any]]) -> float:
+        """リスクスコアの計算"""
+        try:
+            if not positions:
+                return 0.0
+            
+            # 簡易リスクスコア（銘柄数に基づく）
+            position_count = len(positions)
+            if position_count >= 10:
+                return 100.0
+            elif position_count >= 5:
+                return 80.0
+            elif position_count >= 3:
+                return 60.0
+            else:
+                return 40.0
+                
+        except Exception as e:
+            self.logger.error(f"リスクスコア計算エラー: {e}")
+            return 0.0
+    
+    def _calculate_return_score(self, portfolio: Dict[str, Any]) -> float:
+        """リターンスコアの計算"""
+        try:
+            unrealized_profit_loss = portfolio.get('unrealized_profit_loss', 0)
+            total_cost = portfolio.get('total_cost', 0)
+            
+            if total_cost > 0:
+                return_rate = (unrealized_profit_loss / total_cost) * 100
+                # リターンスコア（-50%から+50%の範囲で0-100スコア）
+                return_score = max(0, min(100, 50 + return_rate))
+                return round(return_score, 2)
+            else:
+                return 50.0  # 中立的なスコア
+                
+        except Exception as e:
+            self.logger.error(f"リターンスコア計算エラー: {e}")
+            return 50.0

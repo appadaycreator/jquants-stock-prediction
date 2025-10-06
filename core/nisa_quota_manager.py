@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """
-新NISA枠管理システム
+新NISA枠効率的活用システム
 2024年1月開始の新NISA制度に対応した投資枠管理機能
+非課税枠利用率90%以上を目標とした最適化システム
 """
 
 import json
 import logging
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass, asdict
 from enum import Enum
-import numpy as np
+import math
 
 class QuotaType(Enum):
     """NISA枠の種類"""
@@ -31,6 +32,8 @@ class NisaQuotaStatus:
     accumulation_investment: Dict[str, Any]
     # 枠の再利用状況
     quota_reuse: Dict[str, Any]
+    # 最適化指標
+    optimization: Dict[str, Any]
     # 更新日時
     last_updated: str
 
@@ -48,6 +51,10 @@ class NisaTransaction:
     transaction_date: str
     profit_loss: Optional[float] = None
     tax_free_amount: Optional[float] = None
+    tax_savings: Optional[float] = None
+    efficiency_score: Optional[float] = None
+    strategy: Optional[str] = None
+    risk_level: Optional[str] = None
 
 @dataclass
 class NisaPosition:
@@ -62,6 +69,9 @@ class NisaPosition:
     unrealized_profit_loss: float
     quota_type: str
     purchase_date: str
+    tax_efficiency: Optional[float] = None
+    risk_score: Optional[float] = None
+    expected_return: Optional[float] = None
 
 @dataclass
 class NisaPortfolio:
@@ -72,9 +82,183 @@ class NisaPortfolio:
     unrealized_profit_loss: float
     realized_profit_loss: float
     tax_free_profit_loss: float
+    diversification_score: Optional[float] = None
+    risk_level: Optional[str] = None
+    optimization_score: Optional[float] = None
+    last_rebalanced: Optional[str] = None
+
+class NisaOptimizationEngine:
+    """NISA最適化エンジン"""
+    
+    def __init__(self, quota_manager):
+        """初期化"""
+        self.quota_manager = quota_manager
+        self.logger = logging.getLogger(__name__)
+    
+    def calculate_optimization_score(self, quota_status: NisaQuotaStatus) -> float:
+        """最適化スコアの計算"""
+        try:
+            growth_utilization = quota_status.growth_investment.get('utilization_rate', 0)
+            accumulation_utilization = quota_status.accumulation_investment.get('utilization_rate', 0)
+            
+            # 重み付き平均利用率
+            weighted_utilization = (growth_utilization * 0.8 + accumulation_utilization * 0.2)
+            
+            # 目標利用率との比較
+            target_score = min(weighted_utilization / self.quota_manager.target_utilization_rate, 1.0)
+            
+            # 時間効率の考慮
+            time_efficiency = self._calculate_time_efficiency()
+            
+            # 総合最適化スコア
+            optimization_score = (target_score * 0.7 + time_efficiency * 0.3) * 100
+            
+            return round(optimization_score, 2)
+            
+        except Exception as e:
+            self.logger.error(f"最適化スコア計算エラー: {e}")
+            return 0.0
+    
+    def _calculate_time_efficiency(self) -> float:
+        """時間効率の計算"""
+        try:
+            current_date = date.today()
+            year_start = date(current_date.year, 1, 1)
+            year_end = date(current_date.year, 12, 31)
+            
+            # 年間経過日数
+            days_passed = (current_date - year_start).days
+            total_days = (year_end - year_start).days
+            
+            # 時間効率（0.0-1.0）
+            time_efficiency = days_passed / total_days
+            
+            return min(time_efficiency, 1.0)
+            
+        except Exception as e:
+            self.logger.error(f"時間効率計算エラー: {e}")
+            return 0.0
+    
+    def get_optimization_recommendations(self, quota_status: NisaQuotaStatus) -> Dict[str, Any]:
+        """最適化推奨事項の取得"""
+        try:
+            recommendations = {
+                'growth_quota': self._get_growth_quota_recommendations(quota_status),
+                'accumulation_quota': self._get_accumulation_quota_recommendations(quota_status),
+                'overall': self._get_overall_recommendations(quota_status)
+            }
+            
+            return recommendations
+            
+        except Exception as e:
+            self.logger.error(f"最適化推奨事項取得エラー: {e}")
+            return {}
+    
+    def _get_growth_quota_recommendations(self, quota_status: NisaQuotaStatus) -> Dict[str, Any]:
+        """成長投資枠の推奨事項"""
+        try:
+            growth_data = quota_status.growth_investment
+            utilization_rate = growth_data.get('utilization_rate', 0)
+            available_amount = growth_data.get('available_amount', 0)
+            
+            if utilization_rate < 50:
+                priority = 'HIGH'
+                suggested_amount = min(available_amount, 100000)  # 10万円単位
+                reason = '成長投資枠の活用率が低いため、積極的な投資を推奨します'
+            elif utilization_rate < 80:
+                priority = 'MEDIUM'
+                suggested_amount = min(available_amount, 50000)  # 5万円単位
+                reason = '成長投資枠の活用をさらに進めることを推奨します'
+            else:
+                priority = 'LOW'
+                suggested_amount = min(available_amount, 10000)  # 1万円単位
+                reason = '成長投資枠の活用は良好です'
+            
+            expected_tax_savings = suggested_amount * self.quota_manager.tax_rate
+            
+            return {
+                'suggested_amount': suggested_amount,
+                'reason': reason,
+                'priority': priority,
+                'expected_tax_savings': expected_tax_savings,
+                'risk_level': 'MEDIUM',
+                'timeline': '1-3ヶ月'
+            }
+            
+        except Exception as e:
+            self.logger.error(f"成長投資枠推奨事項取得エラー: {e}")
+            return {}
+    
+    def _get_accumulation_quota_recommendations(self, quota_status: NisaQuotaStatus) -> Dict[str, Any]:
+        """つみたて投資枠の推奨事項"""
+        try:
+            accumulation_data = quota_status.accumulation_investment
+            utilization_rate = accumulation_data.get('utilization_rate', 0)
+            available_amount = accumulation_data.get('available_amount', 0)
+            
+            if utilization_rate < 50:
+                priority = 'HIGH'
+                suggested_amount = min(available_amount, 10000)  # 1万円単位
+                reason = 'つみたて投資枠の活用率が低いため、積立投資を推奨します'
+            elif utilization_rate < 80:
+                priority = 'MEDIUM'
+                suggested_amount = min(available_amount, 5000)  # 5千円単位
+                reason = 'つみたて投資枠の活用をさらに進めることを推奨します'
+            else:
+                priority = 'LOW'
+                suggested_amount = min(available_amount, 1000)  # 1千円単位
+                reason = 'つみたて投資枠の活用は良好です'
+            
+            expected_tax_savings = suggested_amount * self.quota_manager.tax_rate
+            
+            return {
+                'suggested_amount': suggested_amount,
+                'reason': reason,
+                'priority': priority,
+                'expected_tax_savings': expected_tax_savings,
+                'risk_level': 'LOW',
+                'timeline': '3-6ヶ月'
+            }
+            
+        except Exception as e:
+            self.logger.error(f"つみたて投資枠推奨事項取得エラー: {e}")
+            return {}
+    
+    def _get_overall_recommendations(self, quota_status: NisaQuotaStatus) -> Dict[str, Any]:
+        """総合推奨事項"""
+        try:
+            growth_utilization = quota_status.growth_investment.get('utilization_rate', 0)
+            accumulation_utilization = quota_status.accumulation_investment.get('utilization_rate', 0)
+            
+            overall_utilization = (growth_utilization + accumulation_utilization) / 2
+            
+            if overall_utilization < 50:
+                level = 'POOR'
+                message = 'NISA枠の活用が不十分です。積極的な投資を検討してください。'
+            elif overall_utilization < 80:
+                level = 'FAIR'
+                message = 'NISA枠の活用は中程度です。さらなる最適化を推奨します。'
+            elif overall_utilization < 90:
+                level = 'GOOD'
+                message = 'NISA枠の活用は良好です。目標達成まであと少しです。'
+            else:
+                level = 'EXCELLENT'
+                message = 'NISA枠の活用は優秀です。現在の戦略を継続してください。'
+            
+            return {
+                'level': level,
+                'message': message,
+                'overall_utilization': overall_utilization,
+                'target_utilization': self.quota_manager.target_utilization_rate,
+                'improvement_potential': max(0, self.quota_manager.target_utilization_rate - overall_utilization)
+            }
+            
+        except Exception as e:
+            self.logger.error(f"総合推奨事項取得エラー: {e}")
+            return {}
 
 class NisaQuotaManager:
-    """新NISA枠管理システム"""
+    """新NISA枠効率的活用システム"""
     
     def __init__(self, config: Dict[str, Any] = None):
         """初期化"""
@@ -87,12 +271,20 @@ class NisaQuotaManager:
         self.accumulation_annual_limit = 400000  # つみたて投資枠年間40万円
         self.accumulation_tax_free_limit = 2000000  # つみたて投資枠非課税保有限度額200万円
         
+        # 最適化設定
+        self.target_utilization_rate = 90.0  # 目標利用率90%
+        self.tax_rate = 0.30  # 税率30%（所得税20% + 住民税10%）
+        self.optimization_threshold = 0.85  # 最適化閾値85%
+        
         # データ管理
         self.data_file = self.config.get('nisa_data_file', 'data/nisa_data.json')
         self.nisa_data = self._load_nisa_data()
         
         # 現在の課税年度
         self.current_tax_year = self._get_current_tax_year()
+        
+        # 最適化エンジン
+        self.optimization_engine = NisaOptimizationEngine(self)
         
     def _get_current_tax_year(self) -> int:
         """現在の課税年度を取得"""
@@ -178,10 +370,14 @@ class NisaQuotaManager:
             quotas = self.nisa_data.get('quotas', {})
             quota_reuse = self.nisa_data.get('quota_reuse', {})
             
+            # 最適化指標の計算
+            optimization = self._calculate_optimization_metrics(quotas)
+            
             return NisaQuotaStatus(
                 growth_investment=quotas.get('growth_investment', {}),
                 accumulation_investment=quotas.get('accumulation_investment', {}),
                 quota_reuse=quota_reuse,
+                optimization=optimization,
                 last_updated=datetime.now().isoformat()
             )
         except Exception as e:
@@ -190,8 +386,64 @@ class NisaQuotaManager:
                 growth_investment={},
                 accumulation_investment={},
                 quota_reuse={},
+                optimization={},
                 last_updated=datetime.now().isoformat()
             )
+    
+    def _calculate_optimization_metrics(self, quotas: Dict[str, Any]) -> Dict[str, Any]:
+        """最適化指標の計算"""
+        try:
+            growth_data = quotas.get('growth_investment', {})
+            accumulation_data = quotas.get('accumulation_investment', {})
+            
+            growth_utilization = growth_data.get('utilization_rate', 0)
+            accumulation_utilization = accumulation_data.get('utilization_rate', 0)
+            
+            # 総合利用率の計算
+            overall_utilization = (growth_utilization + accumulation_utilization) / 2
+            
+            # 効率スコアの計算
+            efficiency_score = self.optimization_engine.calculate_optimization_score(
+                NisaQuotaStatus(
+                    growth_investment=growth_data,
+                    accumulation_investment=accumulation_data,
+                    quota_reuse={},
+                    optimization={},
+                    last_updated=datetime.now().isoformat()
+                )
+            )
+            
+            # 最適化レベルの判定
+            if overall_utilization >= 90:
+                optimization_level = 'EXCELLENT'
+            elif overall_utilization >= 80:
+                optimization_level = 'GOOD'
+            elif overall_utilization >= 60:
+                optimization_level = 'FAIR'
+            else:
+                optimization_level = 'POOR'
+            
+            return {
+                'overall_utilization_rate': round(overall_utilization, 2),
+                'target_utilization_rate': self.target_utilization_rate,
+                'efficiency_score': efficiency_score,
+                'optimization_level': optimization_level,
+                'growth_utilization': growth_utilization,
+                'accumulation_utilization': accumulation_utilization,
+                'improvement_potential': max(0, self.target_utilization_rate - overall_utilization)
+            }
+            
+        except Exception as e:
+            self.logger.error(f"最適化指標計算エラー: {e}")
+            return {
+                'overall_utilization_rate': 0,
+                'target_utilization_rate': self.target_utilization_rate,
+                'efficiency_score': 0,
+                'optimization_level': 'UNKNOWN',
+                'growth_utilization': 0,
+                'accumulation_utilization': 0,
+                'improvement_potential': self.target_utilization_rate
+            }
     
     def add_transaction(self, transaction: NisaTransaction) -> Dict[str, Any]:
         """取引記録の追加"""
@@ -482,35 +734,21 @@ class NisaQuotaManager:
             quota_status = self.get_quota_status()
             portfolio = self.get_portfolio()
             
-            # 成長投資枠の最適化提案
-            growth_utilization = quota_status.growth_investment.get('utilization_rate', 0)
-            growth_available = quota_status.growth_investment.get('available_amount', 0)
-            
-            growth_recommendation = {
-                'suggested_amount': min(growth_available, 100000),  # 10万円単位での提案
-                'reason': '成長投資枠の効率的活用',
-                'priority': 'HIGH' if growth_utilization < 50 else 'MEDIUM'
-            }
-            
-            # つみたて投資枠の最適化提案
-            accumulation_utilization = quota_status.accumulation_investment.get('utilization_rate', 0)
-            accumulation_available = quota_status.accumulation_investment.get('available_amount', 0)
-            
-            accumulation_recommendation = {
-                'suggested_amount': min(accumulation_available, 10000),  # 1万円単位での提案
-                'reason': 'つみたて投資枠の効率的活用',
-                'priority': 'HIGH' if accumulation_utilization < 50 else 'MEDIUM'
-            }
+            # 最適化エンジンを使用した推奨事項の取得
+            optimization_recommendations = self.optimization_engine.get_optimization_recommendations(quota_status)
             
             # リスク分析
             risk_analysis = self._analyze_portfolio_risk(portfolio)
             
+            # 税務最適化
+            tax_optimization = self._calculate_tax_optimization(quota_status)
+            
             return {
-                'recommendations': {
-                    'growth_quota': growth_recommendation,
-                    'accumulation_quota': accumulation_recommendation
-                },
-                'risk_analysis': risk_analysis
+                'recommendations': optimization_recommendations,
+                'risk_analysis': risk_analysis,
+                'tax_optimization': tax_optimization,
+                'overall_score': quota_status.optimization.get('efficiency_score', 0),
+                'target_achievement': self._calculate_target_achievement(quota_status)
             }
             
         except Exception as e:
@@ -556,6 +794,122 @@ class NisaQuotaManager:
                 'sector_concentration': 0,
                 'risk_level': 'UNKNOWN'
             }
+    
+    def _calculate_tax_optimization(self, quota_status: NisaQuotaStatus) -> Dict[str, Any]:
+        """税務最適化の計算"""
+        try:
+            growth_used = quota_status.growth_investment.get('used_amount', 0)
+            accumulation_used = quota_status.accumulation_investment.get('used_amount', 0)
+            total_used = growth_used + accumulation_used
+            
+            # 現在の税務節約額
+            current_tax_savings = total_used * self.tax_rate
+            
+            # 潜在的な税務節約額
+            growth_available = quota_status.growth_investment.get('available_amount', 0)
+            accumulation_available = quota_status.accumulation_investment.get('available_amount', 0)
+            potential_tax_savings = (growth_available + accumulation_available) * self.tax_rate
+            
+            # 最適化スコア
+            total_limit = self.growth_annual_limit + self.accumulation_annual_limit
+            optimization_score = (total_used / total_limit) * 100 if total_limit > 0 else 0
+            
+            return {
+                'current_tax_savings': current_tax_savings,
+                'potential_tax_savings': potential_tax_savings,
+                'optimization_score': optimization_score,
+                'tax_rate': self.tax_rate,
+                'recommendations': self._get_tax_recommendations(quota_status)
+            }
+            
+        except Exception as e:
+            self.logger.error(f"税務最適化計算エラー: {e}")
+            return {
+                'current_tax_savings': 0,
+                'potential_tax_savings': 0,
+                'optimization_score': 0,
+                'tax_rate': self.tax_rate,
+                'recommendations': []
+            }
+    
+    def _get_tax_recommendations(self, quota_status: NisaQuotaStatus) -> List[str]:
+        """税務推奨事項の生成"""
+        try:
+            recommendations = []
+            
+            growth_utilization = quota_status.growth_investment.get('utilization_rate', 0)
+            accumulation_utilization = quota_status.accumulation_investment.get('utilization_rate', 0)
+            
+            if growth_utilization < 80:
+                recommendations.append('成長投資枠の活用を増やすことで、年間最大72万円の税務節約が可能です')
+            
+            if accumulation_utilization < 80:
+                recommendations.append('つみたて投資枠の活用を増やすことで、年間最大12万円の税務節約が可能です')
+            
+            if growth_utilization < 50 and accumulation_utilization < 50:
+                recommendations.append('両枠の活用率が低いため、積極的な投資戦略の見直しを推奨します')
+            
+            return recommendations
+            
+        except Exception as e:
+            self.logger.error(f"税務推奨事項生成エラー: {e}")
+            return []
+    
+    def _calculate_target_achievement(self, quota_status: NisaQuotaStatus) -> Dict[str, Any]:
+        """目標達成状況の計算"""
+        try:
+            overall_utilization = quota_status.optimization.get('overall_utilization_rate', 0)
+            target_utilization = quota_status.optimization.get('target_utilization_rate', 90)
+            
+            achievement_rate = (overall_utilization / target_utilization) * 100 if target_utilization > 0 else 0
+            
+            # 残り日数の計算
+            current_date = date.today()
+            year_end = date(current_date.year, 12, 31)
+            remaining_days = (year_end - current_date).days
+            
+            # 目標達成に必要な日次投資額
+            growth_available = quota_status.growth_investment.get('available_amount', 0)
+            accumulation_available = quota_status.accumulation_investment.get('available_amount', 0)
+            total_available = growth_available + accumulation_available
+            
+            daily_target = total_available / remaining_days if remaining_days > 0 else 0
+            
+            return {
+                'achievement_rate': round(achievement_rate, 2),
+                'remaining_days': remaining_days,
+                'daily_target': round(daily_target, 0),
+                'is_on_track': achievement_rate >= 80,
+                'completion_forecast': self._forecast_completion(quota_status, remaining_days)
+            }
+            
+        except Exception as e:
+            self.logger.error(f"目標達成状況計算エラー: {e}")
+            return {
+                'achievement_rate': 0,
+                'remaining_days': 0,
+                'daily_target': 0,
+                'is_on_track': False,
+                'completion_forecast': 'UNKNOWN'
+            }
+    
+    def _forecast_completion(self, quota_status: NisaQuotaStatus, remaining_days: int) -> str:
+        """完了予測の計算"""
+        try:
+            overall_utilization = quota_status.optimization.get('overall_utilization_rate', 0)
+            
+            if overall_utilization >= 90:
+                return 'EXCELLENT'
+            elif overall_utilization >= 80:
+                return 'GOOD'
+            elif overall_utilization >= 60:
+                return 'FAIR'
+            else:
+                return 'NEEDS_IMPROVEMENT'
+                
+        except Exception as e:
+            self.logger.error(f"完了予測計算エラー: {e}")
+            return 'UNKNOWN'
     
     def get_system_status(self) -> Dict[str, Any]:
         """システムステータスの取得"""
