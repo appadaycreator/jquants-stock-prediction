@@ -18,7 +18,7 @@ from queue import Queue, Empty
 import json
 import warnings
 from concurrent.futures import ThreadPoolExecutor
-import talib
+# talibの代わりにpandasとnumpyを使用
 warnings.filterwarnings('ignore')
 
 
@@ -113,12 +113,22 @@ class VolatilityCalculator:
             low_array = np.array(low[-period:])
             close_array = np.array(close[-period:])
             
-            # ATR計算
-            atr = talib.ATR(high_array, low_array, close_array, timeperiod=period)
+            # True Range計算
+            tr1 = high_array - low_array
+            tr2 = np.abs(high_array - np.roll(close_array, 1))
+            tr3 = np.abs(low_array - np.roll(close_array, 1))
             
-            # 最後の有効な値を返す
-            valid_atr = atr[~np.isnan(atr)]
-            return float(valid_atr[-1]) if len(valid_atr) > 0 else 0.0
+            # 最初の要素は前の終値がないため除外
+            tr2[0] = 0
+            tr3[0] = 0
+            
+            # True Rangeの最大値
+            true_range = np.maximum(tr1, np.maximum(tr2, tr3))
+            
+            # ATR計算（単純移動平均）
+            atr = np.mean(true_range)
+            
+            return float(atr)
             
         except Exception as e:
             self.logger.error(f"ATR計算エラー: {e}")

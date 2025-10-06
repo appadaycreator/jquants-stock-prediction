@@ -240,40 +240,63 @@ class AutomatedScheduler:
         return False
     
     def _call_routine_api(self) -> Dict[str, Any]:
-        """ルーティンAPI呼び出し"""
+        """ルーティンAPI呼び出し（完全自動化対応）"""
         try:
-            # ルーティンAPIのエンドポイント
-            api_url = "http://localhost:5057/routine/run-today"
+            # 複数のAPIエンドポイントを試行
+            api_endpoints = [
+                "http://localhost:5057/routine/run-today",
+                "http://localhost:3000/api/routine/run-today",
+                "http://localhost:8000/routine/run-today"
+            ]
             
-            # リクエストデータ
-            data = {
-                "client_token": f"automated_{int(time.time())}",
-                "automated": True
-            }
+            for api_url in api_endpoints:
+                try:
+                    # リクエストデータ
+                    data = {
+                        "client_token": f"automated_{int(time.time())}",
+                        "automated": True,
+                        "execution_time": datetime.now().isoformat(),
+                        "scheduler_version": "2.0"
+                    }
+                    
+                    # API呼び出し
+                    response = requests.post(
+                        api_url,
+                        json=data,
+                        timeout=self.scheduler_config.timeout,
+                        headers={
+                            "Content-Type": "application/json",
+                            "User-Agent": "AutomatedScheduler/2.0"
+                        }
+                    )
+                    
+                    if response.status_code == 200:
+                        result = response.json()
+                        job_id = result.get("job_id")
+                        
+                        if job_id:
+                            # ジョブ完了まで待機
+                            return self._wait_for_job_completion(job_id)
+                        else:
+                            # 直接結果が返された場合
+                            return {"success": True, "result": result}
+                    elif response.status_code == 404:
+                        # エンドポイントが見つからない場合は次のURLを試行
+                        continue
+                    else:
+                        self.logger.warning(f"API呼び出し失敗 {api_url}: {response.status_code}")
+                        continue
+                        
+                except requests.exceptions.ConnectionError:
+                    # 接続エラーの場合は次のURLを試行
+                    continue
+                except requests.exceptions.Timeout:
+                    # タイムアウトの場合は次のURLを試行
+                    continue
             
-            # API呼び出し
-            response = requests.post(
-                api_url,
-                json=data,
-                timeout=self.scheduler_config.timeout
-            )
-            
-            if response.status_code == 200:
-                result = response.json()
-                job_id = result.get("job_id")
+            # 全てのエンドポイントが失敗した場合
+            return {"success": False, "error": "全てのAPIエンドポイントに接続できませんでした"}
                 
-                if job_id:
-                    # ジョブ完了まで待機
-                    return self._wait_for_job_completion(job_id)
-                else:
-                    return {"success": False, "error": "ジョブIDが取得できませんでした"}
-            else:
-                return {"success": False, "error": f"API呼び出し失敗: {response.status_code}"}
-                
-        except requests.exceptions.Timeout:
-            return {"success": False, "error": "API呼び出しがタイムアウトしました"}
-        except requests.exceptions.ConnectionError:
-            return {"success": False, "error": "APIサーバーに接続できませんでした"}
         except Exception as e:
             return {"success": False, "error": f"API呼び出しエラー: {str(e)}"}
     
@@ -322,79 +345,244 @@ class AutomatedScheduler:
         return {"success": False, "error": "ジョブ完了待機がタイムアウトしました"}
     
     def _send_notifications(self, success: bool) -> None:
-        """結果通知の送信"""
+        """結果通知の送信（完全自動化対応）"""
         try:
             # 通知内容の準備
             subject, message = self._prepare_notification_content(success)
             
-            # 各通知方法で送信
+            # 並列で通知送信
+            notification_threads = []
+            
             if self.notification_config.email_enabled:
-                self._send_email_notification(subject, message)
+                email_thread = threading.Thread(
+                    target=self._send_email_notification,
+                    args=(subject, message),
+                    daemon=True
+                )
+                email_thread.start()
+                notification_threads.append(email_thread)
             
             if self.notification_config.slack_enabled:
-                self._send_slack_notification(subject, message)
+                slack_thread = threading.Thread(
+                    target=self._send_slack_notification,
+                    args=(subject, message),
+                    daemon=True
+                )
+                slack_thread.start()
+                notification_threads.append(slack_thread)
             
             if self.notification_config.browser_enabled:
-                self._send_browser_notification(subject, message)
+                browser_thread = threading.Thread(
+                    target=self._send_browser_notification,
+                    args=(subject, message),
+                    daemon=True
+                )
+                browser_thread.start()
+                notification_threads.append(browser_thread)
+            
+            # 通知完了まで待機（最大30秒）
+            for thread in notification_threads:
+                thread.join(timeout=30)
                 
         except Exception as e:
             self.logger.error(f"通知送信でエラー: {e}")
     
     def _prepare_notification_content(self, success: bool) -> tuple[str, str]:
-        """通知内容の準備"""
+        """通知内容の準備（完全自動化対応）"""
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        execution_time = self.last_execution.strftime("%Y-%m-%d %H:%M:%S") if self.last_execution else "未実行"
         
         if success:
             subject = f"✅ 5分ルーティン完了 - {timestamp}"
             message = f"""
-5分ルーティンが正常に完了しました。
+🎯 5分ルーティンが正常に完了しました！
 
-実行時刻: {timestamp}
-実行回数: {self.execution_count}
-エラー回数: {self.error_count}
+📊 実行結果:
+• 実行時刻: {timestamp}
+• 前回実行: {execution_time}
+• 総実行回数: {self.execution_count}
+• エラー回数: {self.error_count}
+• 成功率: {((self.execution_count - self.error_count) / max(self.execution_count, 1) * 100):.1f}%
 
-詳細はダッシュボードで確認してください。
+📱 モバイル対応:
+• ダッシュボード: http://localhost:3000
+• 分析結果: http://localhost:3000/analysis
+• ポートフォリオ: http://localhost:3000/portfolio
+
+🔔 次回実行予定: 明日 {self.scheduler_config.execution_time}
 """
         else:
             subject = f"❌ 5分ルーティン失敗 - {timestamp}"
             message = f"""
-5分ルーティンでエラーが発生しました。
+⚠️ 5分ルーティンでエラーが発生しました。
 
-実行時刻: {timestamp}
-実行回数: {self.execution_count}
-エラー回数: {self.error_count}
+📊 実行状況:
+• 実行時刻: {timestamp}
+• 前回実行: {execution_time}
+• 総実行回数: {self.execution_count}
+• エラー回数: {self.error_count}
+• 成功率: {((self.execution_count - self.error_count) / max(self.execution_count, 1) * 100):.1f}%
 
-詳細はログを確認してください。
+🔧 対処方法:
+• ログ確認: logs/automated_scheduler.log
+• 手動実行: スケジューラーを再起動
+• 設定確認: config_final.yaml
+
+🔔 次回実行予定: 明日 {self.scheduler_config.execution_time}
 """
         
         return subject, message
     
     def _send_email_notification(self, subject: str, message: str) -> None:
-        """メール通知の送信"""
+        """メール通知の送信（完全自動化対応）"""
         try:
             if not self.notification_config.email_user or not self.notification_config.email_to:
                 self.logger.warning("メール設定が不完全です")
                 return
             
+            # HTMLメール作成
+            html_message = self._create_html_email(message)
+            
             # メール作成
-            msg = MIMEMultipart()
+            msg = MIMEMultipart('alternative')
             msg['From'] = self.notification_config.email_user
             msg['To'] = self.notification_config.email_to
             msg['Subject'] = subject
+            msg['X-Priority'] = '1'  # 高優先度
             
-            msg.attach(MIMEText(message, 'plain', 'utf-8'))
+            # テキスト版
+            text_part = MIMEText(message, 'plain', 'utf-8')
+            msg.attach(text_part)
             
-            # SMTP送信
-            server = smtplib.SMTP(self.notification_config.email_smtp_server, self.notification_config.email_smtp_port)
-            server.starttls()
-            server.login(self.notification_config.email_user, self.notification_config.email_password)
-            server.send_message(msg)
-            server.quit()
+            # HTML版
+            html_part = MIMEText(html_message, 'html', 'utf-8')
+            msg.attach(html_part)
             
-            self.logger.info("メール通知を送信しました")
+            # SMTP送信（リトライ機能付き）
+            max_retries = 3
+            for attempt in range(max_retries):
+                try:
+                    server = smtplib.SMTP(self.notification_config.email_smtp_server, self.notification_config.email_smtp_port)
+                    server.starttls()
+                    server.login(self.notification_config.email_user, self.notification_config.email_password)
+                    server.send_message(msg)
+                    server.quit()
+                    
+                    self.logger.info("メール通知を送信しました")
+                    return
+                    
+                except Exception as e:
+                    if attempt < max_retries - 1:
+                        self.logger.warning(f"メール送信失敗 (試行 {attempt + 1}): {e}")
+                        time.sleep(5)  # 5秒待機
+                    else:
+                        raise e
             
         except Exception as e:
             self.logger.error(f"メール通知送信でエラー: {e}")
+    
+    def _create_html_email(self, message: str) -> str:
+        """HTMLメール作成"""
+        html_template = f"""
+        <!DOCTYPE html>
+        <html lang="ja">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>5分ルーティン通知</title>
+            <style>
+                body {{
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                }}
+                .header {{
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    text-align: center;
+                }}
+                .content {{
+                    background: #f8f9fa;
+                    padding: 20px;
+                    border-radius: 8px;
+                    margin: 20px 0;
+                }}
+                .stats {{
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                    gap: 15px;
+                    margin: 20px 0;
+                }}
+                .stat-card {{
+                    background: white;
+                    padding: 15px;
+                    border-radius: 6px;
+                    text-align: center;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                }}
+                .stat-value {{
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #667eea;
+                }}
+                .stat-label {{
+                    font-size: 12px;
+                    color: #666;
+                    margin-top: 5px;
+                }}
+                .mobile-links {{
+                    background: #e3f2fd;
+                    padding: 15px;
+                    border-radius: 6px;
+                    margin: 20px 0;
+                }}
+                .mobile-links a {{
+                    display: inline-block;
+                    background: #2196f3;
+                    color: white;
+                    padding: 10px 20px;
+                    text-decoration: none;
+                    border-radius: 4px;
+                    margin: 5px;
+                }}
+                .footer {{
+                    text-align: center;
+                    color: #666;
+                    font-size: 12px;
+                    margin-top: 30px;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>📊 5分ルーティン通知</h1>
+                <p>自動化された投資分析システム</p>
+            </div>
+            
+            <div class="content">
+                <pre style="white-space: pre-wrap; font-family: inherit;">{message}</pre>
+            </div>
+            
+            <div class="mobile-links">
+                <h3>📱 モバイルアクセス</h3>
+                <a href="http://localhost:3000">ダッシュボード</a>
+                <a href="http://localhost:3000/analysis">分析結果</a>
+                <a href="http://localhost:3000/portfolio">ポートフォリオ</a>
+            </div>
+            
+            <div class="footer">
+                <p>J-Quants株価予測システム - 完全自動化版 v2.0</p>
+                <p>このメールは自動送信されています</p>
+            </div>
+        </body>
+        </html>
+        """
+        return html_template
     
     def _send_slack_notification(self, subject: str, message: str) -> None:
         """Slack通知の送信"""
