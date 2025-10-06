@@ -92,7 +92,15 @@ class NisaIntegratedManager:
                 portfolio=NisaPortfolio(positions=[], total_value=0, total_cost=0, 
                                      unrealized_profit_loss=0, realized_profit_loss=0, 
                                      tax_free_profit_loss=0),
-                tax_calculation=TaxCalculation({}, {}, {}, 0, 0, {}, 0),
+                tax_calculation=TaxCalculation(
+                    current_year={},
+                    next_year={},
+                    tax_savings={},
+                    total_tax_free_amount=0.0,
+                    effective_tax_rate=0.0,
+                    optimization={},
+                    efficiency_score=0.0
+                ),
                 alerts=[],
                 opportunities=[],
                 system_status={},
@@ -217,10 +225,17 @@ class NisaIntegratedManager:
             self.logger.error(f"最適化提案取得エラー: {e}")
             return NisaOptimization(
                 quota_optimization={},
-                tax_optimization=TaxOptimization([], 0, 0, 'UNKNOWN', 0.0, {}),
+                tax_optimization=TaxOptimization(
+                    recommended_actions=[],
+                    potential_tax_savings=0.0,
+                    optimization_score=0.0,
+                    priority_level='UNKNOWN',
+                    efficiency_improvement=0.0,
+                    target_achievement={}
+                ),
                 alert_summary={},
                 recommendations=[],
-                priority_score=0
+                priority_score=0.0
             )
     
     def _generate_integrated_recommendations(self, quota_optimization: Dict[str, Any], 

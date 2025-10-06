@@ -19,8 +19,8 @@ class TaxCalculation:
     tax_savings: Dict[str, Any]
     total_tax_free_amount: float
     effective_tax_rate: float
-    optimization: Dict[str, Any]
-    efficiency_score: float
+    optimization: Dict[str, Any] = field(default_factory=dict)
+    efficiency_score: float = 0.0
 
 @dataclass
 class TaxOptimization:
