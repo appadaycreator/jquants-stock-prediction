@@ -477,7 +477,7 @@ class TestOptimalPositionSizingSystem:
         assert isinstance(recommendations['action_items'], list)
         assert isinstance(recommendations['warnings'], list)
     
-    def test_error_handling(self, sizing_system):
+    def test_error_handling(self, sizing_system, sample_market_conditions):
         """エラーハンドリングテスト"""
         # 空のデータでのテスト
         empty_stock_data = {}
@@ -491,7 +491,7 @@ class TestOptimalPositionSizingSystem:
         assert result.symbol == 'AAPL'
         assert result.recommended_quantity >= 0
     
-    def test_edge_cases(self, sizing_system):
+    def test_edge_cases(self, sizing_system, sample_stock_data):
         """エッジケーステスト"""
         # 極端な市場条件でのテスト
         extreme_market_conditions = MarketConditions(

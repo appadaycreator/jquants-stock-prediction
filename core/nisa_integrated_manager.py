@@ -92,7 +92,7 @@ class NisaIntegratedManager:
                 portfolio=NisaPortfolio(positions=[], total_value=0, total_cost=0, 
                                      unrealized_profit_loss=0, realized_profit_loss=0, 
                                      tax_free_profit_loss=0),
-                tax_calculation=TaxCalculation({}, {}, {}, 0, 0),
+                tax_calculation=TaxCalculation({}, {}, {}, 0, 0, {}, 0),
                 alerts=[],
                 opportunities=[],
                 system_status={},
@@ -217,7 +217,7 @@ class NisaIntegratedManager:
             self.logger.error(f"最適化提案取得エラー: {e}")
             return NisaOptimization(
                 quota_optimization={},
-                tax_optimization=TaxOptimization([], 0, 0, 'UNKNOWN'),
+                tax_optimization=TaxOptimization([], 0, 0, 'UNKNOWN', 0.0, {}),
                 alert_summary={},
                 recommendations=[],
                 priority_score=0

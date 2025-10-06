@@ -604,7 +604,7 @@ class TestEnhancedRecommendationSystem:
         assert hasattr(result, 'diversification_advice')
         assert hasattr(result, 'timestamp')
     
-    def test_edge_cases(self, recommendation_system):
+    def test_edge_cases(self, recommendation_system, sample_portfolio_data, sample_optimization_results, sample_risk_metrics, sample_diversification_metrics):
         """エッジケーステスト"""
         # 極端な市場条件でのテスト
         extreme_market_conditions = {

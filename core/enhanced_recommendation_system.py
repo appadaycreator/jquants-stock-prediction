@@ -83,6 +83,20 @@ class EnhancedRecommendationSystem:
         self.max_risk_per_trade = self.config.get('max_risk_per_trade', 0.02)
         self.target_sharpe_ratio = self.config.get('target_sharpe_ratio', 1.5)
         self.rebalancing_threshold = self.config.get('rebalancing_threshold', 0.05)
+        # テストで参照される追加しきい値をインスタンス属性として保持
+        self.diversification_threshold = self.config.get('diversification_threshold', 0.6)
+        self.correlation_threshold = self.config.get('correlation_threshold', 0.7)
+        self.volatility_threshold = self.config.get('volatility_threshold', 0.3)
+        self.liquidity_threshold = self.config.get('liquidity_threshold', 1000000)
+        self.max_position_weight = self.config.get('max_position_weight', 0.2)
+        self.min_position_weight = self.config.get('min_position_weight', 0.01)
+        # テストが要求するしきい値類（インスタンス属性として保持）
+        self.diversification_threshold = self.config.get('diversification_threshold', 0.6)
+        self.correlation_threshold = self.config.get('correlation_threshold', 0.7)
+        self.volatility_threshold = self.config.get('volatility_threshold', 0.3)
+        self.liquidity_threshold = self.config.get('liquidity_threshold', 1000000)
+        self.max_position_weight = self.config.get('max_position_weight', 0.2)
+        self.min_position_weight = self.config.get('min_position_weight', 0.01)
         
     def _get_default_config(self) -> Dict[str, Any]:
         """デフォルト設定取得"""
@@ -446,7 +460,7 @@ class EnhancedRecommendationSystem:
             # 信頼度による調整
             if confidence < 0.6:
                 return PriorityLevel.LOW
-            elif confidence > 0.8:
+            elif confidence >= 0.8:
                 return weight_priority
             else:
                 return PriorityLevel.MEDIUM
@@ -463,8 +477,10 @@ class EnhancedRecommendationSystem:
         """期待リターン計算"""
         try:
             base_return = position_data.get('expected_return', 0.05)
-            market_adjustment = 1.0 + market_conditions.get('trend_direction', 'SIDEWAYS') == 'BULL' * 0.1
-            volatility_adjustment = 1.0 - market_conditions.get('volatility_regime', 'NORMAL') == 'HIGH' * 0.1
+            trend = market_conditions.get('trend_direction', 'SIDEWAYS')
+            regime = market_conditions.get('volatility_regime', 'NORMAL')
+            market_adjustment = 1.0 + (0.1 if trend == 'BULL' else ( -0.1 if trend == 'BEAR' else 0.0))
+            volatility_adjustment = 1.0 + ( -0.1 if regime == 'HIGH' else ( -0.2 if regime == 'EXTREME' else 0.0))
             
             expected_return = base_return * market_adjustment * volatility_adjustment
             
@@ -537,6 +553,9 @@ class EnhancedRecommendationSystem:
             elif recommendation_type == RecommendationType.STOP_LOSS:
                 reasoning.append("損失限定のため売却を推奨します")
                 reasoning.append("リスク管理の観点から必要です")
+            else:
+                # HOLD 等でも最低1件は理由を提示
+                reasoning.append("現状維持が適切と判断されます（過度な乖離なし）")
             
             # 市場条件による追加理由
             if market_conditions.get('volatility_regime') == 'HIGH':
@@ -544,7 +563,10 @@ class EnhancedRecommendationSystem:
             
             if market_conditions.get('trend_direction') == 'BEAR':
                 reasoning.append("弱気市場のため慎重な判断が必要です")
-            
+            # フォールバック（空配列回避）
+            if not reasoning:
+                reasoning.append("分析結果に基づく推奨です")
+
             return reasoning
             
         except Exception as e:
@@ -567,6 +589,10 @@ class EnhancedRecommendationSystem:
             elif recommendation_type in [RecommendationType.SELL, RecommendationType.STOP_LOSS]:
                 conditions.append("損失を最小限に抑えること")
                 conditions.append("市場の流動性を確認すること")
+            else:
+                # HOLD などでも最低限の条件を提示
+                conditions.append("重要なニュースやイベントがないこと")
+                conditions.append("過度なボラティリティ上昇がないこと")
             
             # 市場条件による条件
             if market_conditions.get('volatility_regime') == 'HIGH':

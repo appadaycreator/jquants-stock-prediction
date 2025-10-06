@@ -8,7 +8,7 @@
 import logging
 from datetime import datetime, date, timedelta
 from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 import math
 
 @dataclass
@@ -29,8 +29,8 @@ class TaxOptimization:
     potential_tax_savings: float
     optimization_score: float
     priority_level: str
-    efficiency_improvement: float
-    target_achievement: Dict[str, Any]
+    efficiency_improvement: float = 0.0
+    target_achievement: Dict[str, Any] = field(default_factory=dict)
 
 class NisaTaxCalculator:
     """新NISA税務計算システム"""
