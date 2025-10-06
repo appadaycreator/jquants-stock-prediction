@@ -47,7 +47,7 @@ export class JQuantsAuthManager {
   /**
    * APIエンドポイントでトークンをテスト
    */
-  private async testTokenWithAPI(token: string): Promise<boolean> {
+  async testTokenWithAPI(token: string): Promise<boolean> {
     try {
       const response = await fetch(JQuantsAuthManager.TEST_URL, {
         headers: {
@@ -66,7 +66,8 @@ export class JQuantsAuthManager {
   /**
    * メールアドレスとパスワードで新しいトークンを取得
    */
-  private async getNewTokens(email: string, password: string): Promise<AuthTokens | null> {
+  // NOTE: PublicにしてAPIルートから利用可能にする
+  async getNewTokens(email: string, password: string): Promise<AuthTokens | null> {
     try {
       console.log("新しいトークンを取得中...");
 
@@ -133,7 +134,8 @@ export class JQuantsAuthManager {
   /**
    * リフレッシュトークンでIDトークンを更新
    */
-  private async refreshIdToken(refreshToken: string): Promise<string | null> {
+  // NOTE: PublicにしてAPIルートから利用可能にする
+  async refreshIdToken(refreshToken: string): Promise<string | null> {
     try {
       console.log("リフレッシュトークンでIDトークンを更新中...");
 
@@ -241,67 +243,12 @@ export class JQuantsAuthManager {
   /**
    * リフレッシュトークンでIDトークンを更新
    */
-  async refreshIdToken(refreshToken: string): Promise<string | null> {
-    try {
-      const response = await fetch(JQuantsAuthManager.REFRESH_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          refreshtoken: refreshToken,
-        }),
-      });
-
-      if (!response.ok) {
-        console.error("リフレッシュトークン更新失敗:", response.status, response.statusText);
-        return null;
-      }
-
-      const data: AuthResponse = await response.json();
-      return data.idToken || null;
-    } catch (error) {
-      console.error("リフレッシュトークン更新エラー:", error);
-      return null;
-    }
-  }
+  // 重複していた実装は上記の public refreshIdToken に統合
 
   /**
    * メール/パスワードで新しいトークンを取得
    */
-  async getNewTokens(email: string, password: string): Promise<AuthTokens | null> {
-    try {
-      const response = await fetch(JQuantsAuthManager.AUTH_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          mailaddress: email,
-          password: password,
-        }),
-      });
-
-      if (!response.ok) {
-        console.error("新規認証失敗:", response.status, response.statusText);
-        return null;
-      }
-
-      const data: AuthResponse = await response.json();
-      
-      if (data.idToken && data.refreshToken) {
-        return {
-          idToken: data.idToken,
-          refreshToken: data.refreshToken,
-        };
-      }
-
-      return null;
-    } catch (error) {
-      console.error("新規認証エラー:", error);
-      return null;
-    }
-  }
+  // 重複していた実装は上記の public getNewTokens に統合
 }
 
 export default JQuantsAuthManager;

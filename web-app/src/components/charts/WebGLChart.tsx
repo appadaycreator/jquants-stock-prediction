@@ -72,7 +72,7 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
     const canvas = canvasRef.current;
     if (!canvas) return false;
 
-    const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    const gl = (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")) as WebGLRenderingContext | null;
     if (!gl) return false;
 
     glRef.current = gl;
@@ -158,7 +158,7 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
     const canvas = canvasRef.current;
     if (!gl || !canvas || !data.length) return;
 
-    const startTime = performance.now();
+    const startTime = (window.performance && performance.now ? performance.now() : Date.now());
 
     // キャンバスサイズの設定
     const dpr = window.devicePixelRatio || 1;
@@ -246,7 +246,7 @@ export const WebGLChart: React.FC<WebGLChartProps> = ({
     gl.drawArrays(gl.LINES, 0, positions.length / 2);
     gl.drawArrays(gl.TRIANGLES, 0, positions.length / 2);
 
-    const endTime = performance.now();
+    const endTime = (window.performance && performance.now ? performance.now() : Date.now());
     const renderTime = endTime - startTime;
 
     // パフォーマンス情報の更新

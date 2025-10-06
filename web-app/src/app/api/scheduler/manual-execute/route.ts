@@ -1,5 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { AutomatedScheduler } from "../../../../../../automated_scheduler";
+
+// NOTE: 静的ホスティング環境ではサーバーサイド実行不可のためNO-OP応答
+export async function POST(_request: NextRequest) {
+  return NextResponse.json(
+    {
+      status: "unsupported",
+      message: "Static hosting environment does not support scheduler execution.",
+    },
+    { status: 400 },
+  );
+}
 
 // スケジューラーインスタンス（シングルトン）
 let scheduler: AutomatedScheduler | null = null;

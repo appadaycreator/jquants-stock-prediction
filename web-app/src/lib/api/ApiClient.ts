@@ -84,7 +84,7 @@ export class ApiClient {
     try {
       const response = await fetch(url, {
         ...options,
-        signal: controller.abortSignal,
+        signal: controller.signal,
         headers: {
           "Content-Type": "application/json",
           ...options.headers,

@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     }
 
     // メール送信設定
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       host: config.smtp_server,
       port: config.smtp_port,
       secure: false,
