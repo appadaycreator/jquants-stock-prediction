@@ -73,7 +73,8 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
         setError(null);
         
         // 全銘柄データから該当銘柄を検索
-        const response = await fetch("/data/listed_index.json");
+        const { resolveStaticPath } = await import("@/lib/path");
+        const response = await fetch(resolveStaticPath("/data/listed_index.json"));
         if (!response.ok) {
           throw new Error("銘柄データの取得に失敗しました");
         }

@@ -148,8 +148,9 @@ export function useStockSuggestions(options: UseStockSuggestionsOptions = {}) {
 
     try {
       // 静的データファイルから直接取得
+      const { resolveStaticPath } = await import("@/lib/path");
       const response = await fetch(
-        "/data/listed_index.json",
+        resolveStaticPath("/data/listed_index.json"),
         { signal: abortControllerRef.current.signal },
       );
 

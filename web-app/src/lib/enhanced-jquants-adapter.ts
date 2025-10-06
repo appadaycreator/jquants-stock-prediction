@@ -424,7 +424,8 @@ class EnhancedJQuantsAdapter {
       let dataUrl: string;
       
       if (url.includes("/markets/stock/list")) {
-        dataUrl = "/data/listed_index.json";
+        const { resolveStaticPath } = await import("@/lib/path");
+        dataUrl = resolveStaticPath("/data/listed_index.json");
       } else if (url.includes("/prices/daily_quotes")) {
         // 価格データは個別ファイルから取得する必要がある
         // ここでは基本的な構造を返す
@@ -433,7 +434,8 @@ class EnhancedJQuantsAdapter {
           message: "価格データは個別銘柄ファイルから取得してください",
         } as T;
       } else {
-        dataUrl = "/data/listed_index.json";
+        const { resolveStaticPath } = await import("@/lib/path");
+        dataUrl = resolveStaticPath("/data/listed_index.json");
       }
 
       const response = await fetch(dataUrl, {

@@ -41,6 +41,7 @@ export const dataClient = {
 export type DataClient = typeof dataClient;
 
 import { fetchJsonWithCache } from "@/lib/fetcher";
+import { resolveStaticPath } from "@/lib/path";
 
 export type LatestIndex = {
   latest: string; // YYYYMMDD
@@ -79,7 +80,7 @@ export async function getLatestIndex(): Promise<LatestIndex> {
   const cached = getLocal<LatestIndex>(cacheKey, 1000 * 60 * 60 * 6);
   if (cached) {
     // 裏で更新をキック（待たない）
-    fetchJsonWithCache<LatestIndex>("/data/latest/index.json", {
+    fetchJsonWithCache<LatestIndex>(resolveStaticPath("/data/latest/index.json"), {
       cacheKey,
       cacheTtlMs: 1000 * 60 * 10,
       timeout: SIX_SECONDS,
@@ -91,7 +92,7 @@ export async function getLatestIndex(): Promise<LatestIndex> {
     return cached;
   }
 
-  const { data, fromCache } = await fetchJsonWithCache<LatestIndex>("/data/latest/index.json", {
+  const { data, fromCache } = await fetchJsonWithCache<LatestIndex>(resolveStaticPath("/data/latest/index.json"), {
     cacheKey,
     cacheTtlMs: 1000 * 60 * 10,
     timeout: SIX_SECONDS,

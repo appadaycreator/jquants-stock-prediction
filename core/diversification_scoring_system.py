@@ -525,30 +525,41 @@ class DiversificationScoringSystem:
             volatilities = np.array(processed_data['volatilities'])
             correlation_matrix = correlation_analysis.correlation_matrix
             
-            # ポートフォリオボラティリティ計算
-            portfolio_variance = np.dot(weights, np.dot(correlation_matrix, weights * volatilities))
-            portfolio_volatility = np.sqrt(portfolio_variance)
-            
-            if portfolio_volatility == 0:
+            n = len(weights)
+            if n == 0:
                 return 0.0
-            
-            # 各銘柄のリスク寄与計算
-            risk_contributions = []
-            for i in range(len(weights)):
-                # 銘柄iのリスク寄与
-                risk_contribution = weights[i] * np.dot(correlation_matrix[i], weights * volatilities) / portfolio_volatility
-                risk_contributions.append(risk_contribution)
-            
-            # リスク寄与の分散度計算
-            risk_contributions_array = np.array(risk_contributions)
-            risk_contributions_normalized = risk_contributions_array / np.sum(risk_contributions_array)
-            
-            # エントロピー計算
-            risk_entropy = entropy(risk_contributions_normalized)
-            max_entropy = np.log(len(risk_contributions))
-            
-            return risk_entropy / max_entropy if max_entropy > 0 else 0.0
-            
+            # ボラティリティや相関のサイズが一致しない場合のフォールバック
+            if correlation_matrix.shape[0] != n or correlation_matrix.shape[1] != n:
+                correlation_matrix = np.eye(n)
+            # 負やゼロのボラティリティを微小値で置換
+            safe_vols = np.where(volatilities <= 0, 1e-8, volatilities)
+            # 共分散行列を構築: Sigma = D(vols) * Corr * D(vols)
+            sigma = np.diag(safe_vols) @ correlation_matrix @ np.diag(safe_vols)
+            # ポートフォリオ分散/ボラティリティ
+            portfolio_variance = float(weights.T @ sigma @ weights)
+            if portfolio_variance <= 0:
+                return 0.0
+            portfolio_volatility = np.sqrt(portfolio_variance)
+            # マージナルリスク寄与: Sigma w
+            marginal_contrib = sigma @ weights
+            # リスク寄与: w_i * (Sigma w)_i
+            risk_contributions = weights * marginal_contrib
+            # 非負かつ正規化（合計が0に近いときは均等配分）
+            risk_contributions = np.maximum(risk_contributions, 0.0)
+            total_rc = float(np.sum(risk_contributions))
+            if total_rc <= 1e-12:
+                rc_norm = np.ones(n) / n
+            else:
+                rc_norm = risk_contributions / total_rc
+            # エントロピー（0-1）
+            risk_entropy = entropy(rc_norm)
+            max_entropy = np.log(n) if n > 0 else 1.0
+            score = risk_entropy / max_entropy if max_entropy > 0 else 0.0
+            # NaN 回避
+            if not np.isfinite(score):
+                return 0.0
+            return float(np.clip(score, 0.0, 1.0))
+        
         except Exception as e:
             self.logger.error(f"リスク寄与分散分析エラー: {e}")
             return 0.0
