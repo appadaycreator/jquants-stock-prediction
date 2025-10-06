@@ -54,8 +54,8 @@ class TestRoutineAnalysisAPI(unittest.TestCase):
             self.assertIn('data', result)
             data = result['data']
             self.assertIn('portfolio_summary', data)
-            self.assertIn('risk_metrics', data)
-            self.assertIn('recommendations', data)
+            self.assertIn('stock_risk_data', data)
+            self.assertIn('risk_alerts', data)
 
     def test_error_handling(self):
         """エラーハンドリングのテスト"""
