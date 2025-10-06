@@ -1,79 +1,79 @@
 {
   "metadata": {
-    "generated_at": "2025-10-06T21:50:14.381096",
+    "generated_at": "2025-10-06T22:28:22.656042",
     "version": "1.0",
     "data_source": "sample_cache"
   },
   "summary": {
     "total_stocks": 5,
-    "gainers": 1,
-    "losers": 4,
+    "gainers": 2,
+    "losers": 3,
     "unchanged": 0,
     "market_status": "closed",
-    "last_updated": "2025-10-06T21:50:14.381100"
+    "last_updated": "2025-10-06T22:28:22.656047"
   },
   "top_gainers": [
     {
-      "code": "9432",
-      "name": "日本電信電話",
-      "change_percent": 1.44047162059768,
-      "last_price": 4589.947508073296
+      "code": "6758",
+      "name": "ソニーグループ",
+      "change_percent": 1.0141796369909168,
+      "last_price": 11760.98816033053
     },
     {
       "code": "9984",
       "name": "ソフトバンクグループ",
-      "change_percent": -0.013680702217190088,
-      "last_price": 7934.933548970305
+      "change_percent": 0.5010017476259034,
+      "last_price": 8130.695207257511
     },
     {
-      "code": "7203",
-      "name": "トヨタ自動車",
-      "change_percent": -0.29883289572995064,
-      "last_price": 2455.5401449302235
+      "code": "9432",
+      "name": "日本電信電話",
+      "change_percent": -0.4809092263167254,
+      "last_price": 4541.873603865242
     },
     {
       "code": "8306",
       "name": "三菱UFJフィナンシャル・グループ",
-      "change_percent": -0.5114070800218959,
-      "last_price": 1157.1490730395162
+      "change_percent": -0.7640067888723299,
+      "last_price": 1214.6358486974582
     },
     {
-      "code": "6758",
-      "name": "ソニーグループ",
-      "change_percent": -1.703813324856367,
-      "last_price": 11528.207331700614
+      "code": "7203",
+      "name": "トヨタ自動車",
+      "change_percent": -1.2758933069859495,
+      "last_price": 2593.7303190184143
     }
   ],
   "top_losers": [
     {
-      "code": "9432",
-      "name": "日本電信電話",
-      "change_percent": 1.44047162059768,
-      "last_price": 4589.947508073296
+      "code": "6758",
+      "name": "ソニーグループ",
+      "change_percent": 1.0141796369909168,
+      "last_price": 11760.98816033053
     },
     {
       "code": "9984",
       "name": "ソフトバンクグループ",
-      "change_percent": -0.013680702217190088,
-      "last_price": 7934.933548970305
+      "change_percent": 0.5010017476259034,
+      "last_price": 8130.695207257511
     },
     {
-      "code": "7203",
-      "name": "トヨタ自動車",
-      "change_percent": -0.29883289572995064,
-      "last_price": 2455.5401449302235
+      "code": "9432",
+      "name": "日本電信電話",
+      "change_percent": -0.4809092263167254,
+      "last_price": 4541.873603865242
     },
     {
       "code": "8306",
       "name": "三菱UFJフィナンシャル・グループ",
-      "change_percent": -0.5114070800218959,
-      "last_price": 1157.1490730395162
+      "change_percent": -0.7640067888723299,
+      "last_price": 1214.6358486974582
     },
     {
-      "code": "6758",
-      "name": "ソニーグループ",
-      "change_percent": -1.703813324856367,
-      "last_price": 11528.207331700614
+      "code": "7203",
+      "name": "トヨタ自動車",
+      "change_percent": -1.2758933069859495,
+      "last_price": 2593.7303190184143
     }
   ]
 }
