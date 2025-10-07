@@ -275,7 +275,8 @@ class TestFinalCoverageImprovement:
 
         # 無効なエラーメッセージ
         result = handler.handle_api_error(None)
-        assert result is None
+        assert result is not None
+        assert result["success"] is False
 
     def test_config_manager_edge_cases(self):
         """ConfigManagerのエッジケーステスト"""
