@@ -4,9 +4,7 @@
 曖昧な推奨を排除し、具体的なアクションを提示するシステム
 """
 
-import numpy as np
-import pandas as pd
-from typing import Dict, Any, List, Tuple, Optional, Union
+from typing import Dict, Any, List, Optional
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 from enum import Enum
@@ -355,7 +353,8 @@ class ClearInvestmentActions:
 
         # 新規購入判定
         if (
-            prediction >= current_price * 1.03 and confidence >= 0.75  # 3%以上の上昇予測
+            prediction >= current_price * 1.03
+            and confidence >= 0.75  # 3%以上の上昇予測
         ):  # 高信頼度
             quantity = self._calculate_new_purchase_quantity(
                 current_price, confidence, market_condition
@@ -396,7 +395,9 @@ class ClearInvestmentActions:
         try:
             # 信頼度に基づく買い増し率（強化版）
             if confidence >= self.ultra_high_confidence_threshold:
-                buy_more_ratio = min(0.8, (confidence - 0.5) * 1.5)  # 超高信頼度で最大80%
+                buy_more_ratio = min(
+                    0.8, (confidence - 0.5) * 1.5
+                )  # 超高信頼度で最大80%
             elif confidence >= self.high_confidence_threshold:
                 buy_more_ratio = min(0.6, (confidence - 0.5) * 1.2)  # 高信頼度で最大60%
             else:
@@ -636,7 +637,7 @@ class ClearInvestmentActions:
                                 + self.deadline_config["immediate"],
                                 deadline_type=DeadlineType.IMMEDIATE,
                                 confidence=confidence,
-                                reason=f"超高信頼度買い増し: {price_change_ratio*100:.1f}%上昇予測",
+                                reason=f"超高信頼度買い増し: {price_change_ratio * 100:.1f}%上昇予測",
                                 risk_level="MEDIUM",
                                 expected_return=(prediction - current_price)
                                 * additional_quantity,
@@ -665,7 +666,7 @@ class ClearInvestmentActions:
                                 + self.deadline_config["immediate"],
                                 deadline_type=DeadlineType.IMMEDIATE,
                                 confidence=confidence,
-                                reason=f"超高信頼度新規購入: {price_change_ratio*100:.1f}%上昇予測",
+                                reason=f"超高信頼度新規購入: {price_change_ratio * 100:.1f}%上昇予測",
                                 risk_level="MEDIUM",
                                 expected_return=(prediction - current_price) * quantity,
                                 max_loss=(current_price - prediction) * quantity,

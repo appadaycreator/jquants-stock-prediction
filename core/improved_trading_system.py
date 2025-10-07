@@ -5,9 +5,9 @@
 
 import pandas as pd
 import numpy as np
-from typing import Dict, List, Tuple, Optional, Union
+from typing import Dict, List, Tuple
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime
 import logging
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.linear_model import Ridge, Lasso
@@ -454,7 +454,9 @@ class ImprovedTradingSystem:
         """
         try:
             if not self.trained_models:
-                raise ValueError("モデルが学習されていません。train_models()を先に実行してください。")
+                raise ValueError(
+                    "モデルが学習されていません。train_models()を先に実行してください。"
+                )
 
             # 特徴量の作成
             features_data = self._create_features(data)

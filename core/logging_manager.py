@@ -9,7 +9,7 @@ import logging.handlers
 import sys
 import os
 import re
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 from enum import Enum
 
 

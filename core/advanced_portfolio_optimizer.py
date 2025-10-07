@@ -7,10 +7,9 @@ import numpy as np
 import pandas as pd
 from typing import Dict, List, Tuple, Optional, Any
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime
 import logging
 from scipy.optimize import minimize
-from scipy.stats import norm
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -311,7 +310,9 @@ class AdvancedPortfolioOptimizer:
             n_assets = len(expected_returns)
 
             # 制約条件
-            constraints = [{"type": "eq", "fun": lambda w: np.sum(w) - 1.0}]  # ウェイト合計=1
+            constraints = [
+                {"type": "eq", "fun": lambda w: np.sum(w) - 1.0}
+            ]  # ウェイト合計=1
 
             # 境界条件
             bounds = [
@@ -427,7 +428,9 @@ class AdvancedPortfolioOptimizer:
             )
 
             if not result.success:
-                self.logger.warning(f"平均分散最適化が収束しませんでした: {result.message}")
+                self.logger.warning(
+                    f"平均分散最適化が収束しませんでした: {result.message}"
+                )
 
             # 結果計算
             weights = result.x

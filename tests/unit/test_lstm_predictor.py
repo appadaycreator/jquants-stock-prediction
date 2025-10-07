@@ -7,7 +7,6 @@ import pytest
 import numpy as np
 import pandas as pd
 from unittest.mock import Mock, patch, MagicMock
-from datetime import datetime, timedelta
 from core.lstm_predictor import LSTMPredictor
 
 
@@ -18,7 +17,9 @@ class TestLSTMPredictor:
         """テスト前の準備"""
         self.logger = Mock()
         self.error_handler = Mock()
-        self.predictor = LSTMPredictor(logger=self.logger, error_handler=self.error_handler)
+        self.predictor = LSTMPredictor(
+            logger=self.logger, error_handler=self.error_handler
+        )
 
     def test_initialization(self):
         """初期化テスト"""
@@ -32,10 +33,8 @@ class TestLSTMPredictor:
         # テストデータの作成
         dates = pd.date_range(start='2023-01-01', periods=200, freq='D')
         prices = 100 + np.cumsum(np.random.randn(200) * 0.01)
-        
-        df = pd.DataFrame({
-            'Close': prices
-        }, index=dates)
+
+        df = pd.DataFrame({'Close': prices}, index=dates)
 
         X, y = self.predictor.prepare_data(df, 'Close')
 
@@ -49,10 +48,8 @@ class TestLSTMPredictor:
         """異なるターゲット列でのデータ準備テスト"""
         dates = pd.date_range(start='2023-01-01', periods=200, freq='D')
         prices = 100 + np.cumsum(np.random.randn(200) * 0.01)
-        
-        df = pd.DataFrame({
-            'Price': prices
-        }, index=dates)
+
+        df = pd.DataFrame({'Price': prices}, index=dates)
 
         X, y = self.predictor.prepare_data(df, 'Price')
 
@@ -66,10 +63,8 @@ class TestLSTMPredictor:
         # 120日未満のデータ
         dates = pd.date_range(start='2023-01-01', periods=50, freq='D')
         prices = 100 + np.cumsum(np.random.randn(50) * 0.01)
-        
-        df = pd.DataFrame({
-            'Close': prices
-        }, index=dates)
+
+        df = pd.DataFrame({'Close': prices}, index=dates)
 
         with pytest.raises(Exception):
             self.predictor.prepare_data(df, 'Close')
@@ -85,10 +80,8 @@ class TestLSTMPredictor:
         """存在しない列でのテスト"""
         dates = pd.date_range(start='2023-01-01', periods=200, freq='D')
         prices = 100 + np.cumsum(np.random.randn(200) * 0.01)
-        
-        df = pd.DataFrame({
-            'Open': prices
-        }, index=dates)
+
+        df = pd.DataFrame({'Open': prices}, index=dates)
 
         with pytest.raises(Exception):
             self.predictor.prepare_data(df, 'Close')
@@ -172,7 +165,7 @@ class TestLSTMPredictor:
 
         with patch.object(self.predictor.scaler, 'inverse_transform') as mock_inverse:
             mock_inverse.return_value = np.array([[100.0], [101.0], [102.0]])
-            
+
             predictions = self.predictor.predict_future(last_sequence, days=3)
 
             assert len(predictions) == 3
@@ -195,7 +188,7 @@ class TestLSTMPredictor:
 
         with patch.object(self.predictor.scaler, 'inverse_transform') as mock_inverse:
             mock_inverse.return_value = np.array([[100.0], [101.0]])
-            
+
             predictions = self.predictor.predict_future(last_sequence, days=2)
 
             assert len(predictions) == 2
@@ -205,7 +198,9 @@ class TestLSTMPredictor:
         predictions = [100.0, 101.0, 102.0, 103.0]
         historical_volatility = 0.02
 
-        result = self.predictor.get_prediction_confidence(predictions, historical_volatility)
+        result = self.predictor.get_prediction_confidence(
+            predictions, historical_volatility
+        )
 
         assert "confidence" in result
         assert "risk_level" in result
@@ -219,7 +214,9 @@ class TestLSTMPredictor:
         predictions = [100.0, 110.0, 90.0, 120.0]  # 高ボラティリティ
         historical_volatility = 0.01  # 低い履歴ボラティリティ
 
-        result = self.predictor.get_prediction_confidence(predictions, historical_volatility)
+        result = self.predictor.get_prediction_confidence(
+            predictions, historical_volatility
+        )
 
         assert result["confidence"] < 0.5  # 低い信頼度
         assert result["risk_level"] in ["中", "高"]
@@ -229,7 +226,9 @@ class TestLSTMPredictor:
         predictions = [100.0, 100.1, 100.2, 100.3]  # 低ボラティリティ
         historical_volatility = 0.05  # 高い履歴ボラティリティ
 
-        result = self.predictor.get_prediction_confidence(predictions, historical_volatility)
+        result = self.predictor.get_prediction_confidence(
+            predictions, historical_volatility
+        )
 
         assert result["confidence"] > 0.5  # 高い信頼度
         assert result["risk_level"] in ["低", "中"]
@@ -239,7 +238,9 @@ class TestLSTMPredictor:
         predictions = []
         historical_volatility = 0.02
 
-        result = self.predictor.get_prediction_confidence(predictions, historical_volatility)
+        result = self.predictor.get_prediction_confidence(
+            predictions, historical_volatility
+        )
 
         assert result["confidence"] == 1.0  # 空の場合はデフォルト値1.0
         assert result["risk_level"] == "低"  # 空の場合は低リスク
@@ -286,23 +287,31 @@ class TestLSTMPredictor:
         # テストデータの作成
         dates = pd.date_range(start='2023-01-01', periods=200, freq='D')
         prices = 100 + np.cumsum(np.random.randn(200) * 0.01)
-        
-        df = pd.DataFrame({
-            'Close': prices
-        }, index=dates)
 
-        with patch.object(self.predictor, 'prepare_data') as mock_prepare, \
-             patch.object(self.predictor, 'train_model') as mock_train, \
-             patch.object(self.predictor, 'predict_future') as mock_predict, \
-             patch.object(self.predictor, 'get_prediction_confidence') as mock_confidence, \
-             patch.object(self.predictor, 'create_visualization_data') as mock_viz:
+        df = pd.DataFrame({'Close': prices}, index=dates)
 
+        with (
+            patch.object(self.predictor, 'prepare_data') as mock_prepare,
+            patch.object(self.predictor, 'train_model') as mock_train,
+            patch.object(self.predictor, 'predict_future') as mock_predict,
+            patch.object(
+                self.predictor, 'get_prediction_confidence'
+            ) as mock_confidence,
+            patch.object(self.predictor, 'create_visualization_data') as mock_viz,
+        ):
             # モックの設定
-            mock_prepare.return_value = (np.random.randn(80, 120, 1), np.random.randn(80))
+            mock_prepare.return_value = (
+                np.random.randn(80, 120, 1),
+                np.random.randn(80),
+            )
             mock_train.return_value = {"model": MagicMock(), "history": {}}
             mock_predict.return_value = [101.0, 102.0, 103.0]
             mock_confidence.return_value = {"confidence": 0.8, "risk_level": "低"}
-            mock_viz.return_value = {"historical": {}, "predictions": {}, "metadata": {}}
+            mock_viz.return_value = {
+                "historical": {},
+                "predictions": {},
+                "metadata": {},
+            }
 
             result = self.predictor.run_complete_prediction(df, 'Close', 3)
 
@@ -349,10 +358,8 @@ class TestLSTMPredictor:
         # 最小限のデータ
         dates = pd.date_range(start='2023-01-01', periods=121, freq='D')
         prices = 100 + np.cumsum(np.random.randn(121) * 0.01)
-        
-        df = pd.DataFrame({
-            'Close': prices
-        }, index=dates)
+
+        df = pd.DataFrame({'Close': prices}, index=dates)
 
         X, y = self.predictor.prepare_data(df, 'Close')
 
@@ -367,7 +374,9 @@ class TestLSTMPredictor:
         predictions = [100.0]
         historical_volatility = 0.02
 
-        result = self.predictor.get_prediction_confidence(predictions, historical_volatility)
+        result = self.predictor.get_prediction_confidence(
+            predictions, historical_volatility
+        )
 
         assert "confidence" in result
         assert 0.0 <= result["confidence"] <= 1.0
@@ -376,7 +385,9 @@ class TestLSTMPredictor:
         predictions = [100.0, 100.0, 100.0, 100.0]
         historical_volatility = 0.0
 
-        result = self.predictor.get_prediction_confidence(predictions, historical_volatility)
+        result = self.predictor.get_prediction_confidence(
+            predictions, historical_volatility
+        )
 
         assert result["confidence"] == 1.0
         assert result["risk_level"] == "低"
@@ -422,7 +433,7 @@ class TestLSTMPredictor:
 
         with patch.object(self.predictor.scaler, 'inverse_transform') as mock_inverse:
             mock_inverse.return_value = np.array([[100.0], [101.0]])
-            
+
             predictions = self.predictor.predict_future(last_sequence, days=2)
 
             # モデルが2回呼ばれることを確認
@@ -458,10 +469,8 @@ class TestLSTMPredictor:
         # ロガーが正しく使用されることを確認
         dates = pd.date_range(start='2023-01-01', periods=200, freq='D')
         prices = 100 + np.cumsum(np.random.randn(200) * 0.01)
-        
-        df = pd.DataFrame({
-            'Close': prices
-        }, index=dates)
+
+        df = pd.DataFrame({'Close': prices}, index=dates)
 
         self.predictor.prepare_data(df, 'Close')
 

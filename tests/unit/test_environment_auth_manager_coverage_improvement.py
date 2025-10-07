@@ -3,10 +3,9 @@
 環境認証管理システムのカバレッジ向上テスト
 """
 
-import pytest
 import os
 import tempfile
-from unittest.mock import Mock, patch, mock_open
+from unittest.mock import patch, mock_open
 from core.environment_auth_manager import EnvironmentAuthManager
 
 

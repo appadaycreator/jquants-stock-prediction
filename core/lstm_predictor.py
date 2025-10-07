@@ -6,14 +6,12 @@ LSTM予測システム（個人投資用強化版）
 
 import pandas as pd
 import numpy as np
-import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
 from sklearn.preprocessing import MinMaxScaler
-from typing import Dict, Any, List, Tuple, Optional
+from typing import Dict, Any, List, Tuple
 from datetime import datetime, timedelta
-import logging
 
 
 class LSTMPredictor:
@@ -268,7 +266,9 @@ class LSTMPredictor:
 
         except Exception as e:
             if self.error_handler:
-                self.error_handler.handle_data_processing_error(e, "LSTM可視化データ作成", {})
+                self.error_handler.handle_data_processing_error(
+                    e, "LSTM可視化データ作成", {}
+                )
             return {}
 
     def run_complete_prediction(

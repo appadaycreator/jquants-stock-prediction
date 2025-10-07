@@ -5,7 +5,7 @@ Python 3.11対応の自作実装
 
 import pandas as pd
 import numpy as np
-from typing import Union, Tuple, Optional
+from typing import Tuple
 
 
 class TechnicalAnalysis:

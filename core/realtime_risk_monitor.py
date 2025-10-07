@@ -5,8 +5,7 @@
 """
 
 import numpy as np
-import pandas as pd
-from typing import Dict, Any, List, Tuple, Optional, Callable
+from typing import Dict, Any, List, Optional, Callable
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 from enum import Enum
@@ -14,7 +13,6 @@ import logging
 import threading
 import time
 from queue import Queue, Empty
-import json
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -221,9 +219,7 @@ class RealtimeRiskMonitor:
                 # 特定銘柄の状況
                 recent_snapshots = [
                     s for s in self.snapshot_history if s.symbol == symbol
-                ][
-                    -10:
-                ]  # 最近10件
+                ][-10:]  # 最近10件
             else:
                 # 全銘柄の状況
                 recent_snapshots = self.snapshot_history[-50:]  # 最近50件
@@ -569,13 +565,19 @@ class RealtimeRiskMonitor:
 
         # リスクレベルに基づく推奨事項
         if snapshot.risk_level == "HIGH":
-            recommendations.append("高リスク銘柄のため、ポジションサイズを削減することを検討してください")
+            recommendations.append(
+                "高リスク銘柄のため、ポジションサイズを削減することを検討してください"
+            )
         elif snapshot.risk_level == "VERY_HIGH":
-            recommendations.append("非常に高リスク銘柄のため、ポジションの見直しを強く推奨します")
+            recommendations.append(
+                "非常に高リスク銘柄のため、ポジションの見直しを強く推奨します"
+            )
 
         # ボラティリティに基づく推奨事項
         if snapshot.volatility > 0.3:
-            recommendations.append("高ボラティリティ環境のため、損切り設定を厳格にしてください")
+            recommendations.append(
+                "高ボラティリティ環境のため、損切り設定を厳格にしてください"
+            )
 
         # 相関に基づく推奨事項
         if snapshot.correlation > 0.8:

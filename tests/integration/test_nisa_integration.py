@@ -6,14 +6,9 @@ NISA統合システムの統合テスト
 import pytest
 import tempfile
 import os
-import json
 from datetime import datetime
-from unittest.mock import patch, MagicMock
 
 from core.nisa_integrated_manager import NisaIntegratedManager
-from core.nisa_quota_manager import NisaTransaction
-from core.nisa_tax_calculator import NisaTaxCalculator
-from core.nisa_alert_system import NisaAlertSystem
 
 
 class TestNisaIntegration:

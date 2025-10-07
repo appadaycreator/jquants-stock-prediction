@@ -9,7 +9,7 @@ import os
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 import logging
 import requests
 import time
@@ -204,7 +204,7 @@ class InitialDataFetcher:
             if not code:
                 continue
 
-            logger.info(f"処理中: {i+1}/{len(selected_stocks)} - {name} ({code})")
+            logger.info(f"処理中: {i + 1}/{len(selected_stocks)} - {name} ({code})")
 
             # 価格データの取得
             price_data = self.get_stock_prices(code, days=30)

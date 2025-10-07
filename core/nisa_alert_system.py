@@ -6,8 +6,8 @@
 
 import logging
 from datetime import datetime, timedelta
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, asdict
+from typing import Dict, List, Any
+from dataclasses import dataclass
 from enum import Enum
 
 
@@ -326,7 +326,7 @@ class NisaAlertSystem:
                     opportunity = InvestmentOpportunity(
                         symbol=data.get("symbol", ""),
                         symbol_name=data.get("symbol_name", ""),
-                        reason=f"低リスク・高配当でつみたて投資に適している",
+                        reason="低リスク・高配当でつみたて投資に適している",
                         expected_return=data.get("expected_return", 0),
                         risk_level="LOW",
                         quota_recommendation="ACCUMULATION",
@@ -406,7 +406,9 @@ class NisaAlertSystem:
             elif notification_type == "push" and self.notification_settings["push"]:
                 return self._send_push_notification(alert)
             else:
-                self.logger.warning(f"通知タイプ{notification_type}が無効または設定されていません")
+                self.logger.warning(
+                    f"通知タイプ{notification_type}が無効または設定されていません"
+                )
                 return False
 
         except Exception as e:

@@ -8,7 +8,7 @@ import requests
 import json
 import os
 from datetime import datetime
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Dict, List, Optional
 from dataclasses import dataclass
 from enum import Enum
 
@@ -173,8 +173,8 @@ class JQuantsTokenTester:
 
     def print_summary(self, results: List[JQuantsTestResultData]) -> None:
         """結果サマリーの表示"""
-        print(f"\n📊 テスト結果サマリー")
-        print(f"=" * 50)
+        print("\n📊 テスト結果サマリー")
+        print("=" * 50)
 
         successful_tests = [r for r in results if r.success]
         failed_tests = [r for r in results if not r.success]
@@ -183,12 +183,12 @@ class JQuantsTokenTester:
         print(f"❌ 失敗: {len(failed_tests)}/{len(results)}")
 
         if successful_tests:
-            print(f"\n✅ 成功したエンドポイント:")
+            print("\n✅ 成功したエンドポイント:")
             for result in successful_tests:
                 print(f"  - {result.name}: HTTP {result.status_code}")
 
         if failed_tests:
-            print(f"\n❌ 失敗したエンドポイント:")
+            print("\n❌ 失敗したエンドポイント:")
             for result in failed_tests:
                 print(f"  - {result.name}: {result.status_code}")
                 if result.error_message:
@@ -261,6 +261,6 @@ def test_jquants_token() -> bool:
 if __name__ == "__main__":
     test_jquants_token()
     if True:
-        print(f"\n🎉 トークンテスト完了: 一部または全てのエンドポイントが動作しています")
+        print("\n🎉 トークンテスト完了: 一部または全てのエンドポイントが動作しています")
     else:
-        print(f"\n💥 トークンテスト失敗: 全てのエンドポイントでエラーが発生しました")
+        print("\n💥 トークンテスト失敗: 全てのエンドポイントでエラーが発生しました")

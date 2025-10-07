@@ -5,12 +5,11 @@
 
 import numpy as np
 import pandas as pd
-from typing import Dict, List, Tuple, Optional, Any
+from typing import Dict, Optional, Any
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime
 import logging
 from scipy.optimize import minimize
-from scipy.stats import norm
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -173,9 +172,13 @@ class SharpeRatioOptimizer:
                 improvement_ratio=float(improvement_ratio),
                 target_achieved=target_achieved,
                 optimization_method=optimization_method,
-                portfolio_weights={k: float(v) for k, v in optimized_result["weights"].items()},
+                portfolio_weights={
+                    k: float(v) for k, v in optimized_result["weights"].items()
+                },
                 risk_metrics={k: float(v) for k, v in risk_metrics.items()},
-                performance_metrics={k: float(v) for k, v in performance_metrics.items()},
+                performance_metrics={
+                    k: float(v) for k, v in performance_metrics.items()
+                },
                 optimization_timestamp=datetime.now().isoformat(),
                 convergence_success=bool(optimized_result.get("convergence", False)),
                 iterations=int(optimized_result.get("iterations", 0)),
@@ -304,7 +307,9 @@ class SharpeRatioOptimizer:
             cov_matrix = self._calculate_covariance_matrix(processed_data)
 
             # 制約条件
-            constraints = [{"type": "eq", "fun": lambda w: np.sum(w) - 1.0}]  # ウェイト合計=1
+            constraints = [
+                {"type": "eq", "fun": lambda w: np.sum(w) - 1.0}
+            ]  # ウェイト合計=1
 
             # 境界条件
             bounds = [

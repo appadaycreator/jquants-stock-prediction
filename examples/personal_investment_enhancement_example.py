@@ -10,7 +10,6 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import numpy as np
-import pandas as pd
 from datetime import datetime, timedelta
 import yaml
 
@@ -110,7 +109,7 @@ def run_confidence_based_trading_example():
 
     # パフォーマンス指標の計算
     performance = confidence_trading.get_performance_metrics()
-    print(f"\nパフォーマンス指標:")
+    print("\nパフォーマンス指標:")
     print(f"総取引数: {performance['total_trades']}")
     print(f"平均信頼度: {performance['avg_confidence']:.3f}")
     print(f"リスク分布: {performance['risk_distribution']}")
@@ -166,7 +165,7 @@ def run_enhanced_risk_management_example():
 
     # リスクサマリーの取得
     risk_summary = risk_management.get_risk_summary()
-    print(f"\nリスクサマリー:")
+    print("\nリスクサマリー:")
     print(f"アクティブポジション: {risk_summary['active_positions']}")
     print(f"総未実現損益: {risk_summary['total_unrealized_pnl']:.2f}")
     print(f"平均信頼度: {risk_summary['avg_confidence']:.3f}")
@@ -224,7 +223,7 @@ def run_advanced_position_sizing_example():
     print(f"ポートフォリオ比率: {portfolio_result['portfolio_percent']:.1f}%")
     print(f"分散投資スコア: {portfolio_result['diversification_score']:.3f}")
 
-    print(f"\n各銘柄のポジション詳細:")
+    print("\n各銘柄のポジション詳細:")
     for symbol, position_info in portfolio_result["positions"].items():
         print(
             f"{symbol}: {position_info['position_size']}株, "
@@ -237,7 +236,7 @@ def run_advanced_position_sizing_example():
         account_balance, stock_data
     )
 
-    print(f"\n推奨事項:")
+    print("\n推奨事項:")
     for rec in recommendations["recommendations"]:
         print(f"{rec['symbol']}: {rec['message']}")
 
@@ -311,7 +310,7 @@ def run_article_inspired_backtest_example():
     )
     win_rate_improvement = enhanced_result["win_rate"] - article_result["win_rate"]
 
-    print(f"\n改善効果:")
+    print("\n改善効果:")
     print(f"リターン改善: {return_improvement:.2%}")
     print(f"勝率改善: {win_rate_improvement:.2%}")
 
@@ -353,8 +352,10 @@ def run_ensemble_prediction_example():
         prediction_result = ensemble_system.predict_ensemble(X_test)
 
         if "error" not in prediction_result:
-            print(f"\nアンサンブル予測結果:")
-            print(f"予測値: {prediction_result['ensemble_prediction'][:5]}")  # 最初の5つ
+            print("\nアンサンブル予測結果:")
+            print(
+                f"予測値: {prediction_result['ensemble_prediction'][:5]}"
+            )  # 最初の5つ
             print(f"信頼度: {prediction_result['confidence']:.3f}")
             print(f"不確実性: {prediction_result['uncertainty']:.3f}")
             print(f"手法: {prediction_result['method']}")
@@ -363,7 +364,7 @@ def run_ensemble_prediction_example():
         performance_eval = ensemble_system.evaluate_ensemble_performance(X_test, y_test)
 
         if "error" not in performance_eval:
-            print(f"\nアンサンブル性能評価:")
+            print("\nアンサンブル性能評価:")
             print(f"R²スコア: {performance_eval['ensemble_performance']['r2']:.3f}")
             print(f"MAE: {performance_eval['ensemble_performance']['mae']:.3f}")
             print(f"MSE: {performance_eval['ensemble_performance']['mse']:.3f}")
@@ -373,7 +374,7 @@ def run_ensemble_prediction_example():
 
         # モデル重要度
         importance = ensemble_system.get_model_importance()
-        print(f"\nモデル重要度:")
+        print("\nモデル重要度:")
         for model_name, weight in importance.items():
             print(f"{model_name}: {weight:.3f}")
 
@@ -399,7 +400,7 @@ def run_comprehensive_analysis_example():
 
         # パフォーマンス指標の表示
         performance = comprehensive_result["performance_metrics"]
-        print(f"\nパフォーマンス指標:")
+        print("\nパフォーマンス指標:")
         print(f"総取引数: {performance['total_trades']}")
         print(f"実行取引数: {performance['executed_trades']}")
         print(f"実行率: {performance['execution_rate']:.2%}")
@@ -414,13 +415,13 @@ def run_comprehensive_analysis_example():
 
         # サマリーの表示
         summary = comprehensive_result["summary"]
-        print(f"\n総合評価:")
+        print("\n総合評価:")
         print(f"総合評価: {summary['overall_rating']}")
         print(f"高優先度推奨事項: {summary['high_priority_recommendations']}件")
 
         # システムステータスの取得
         system_status = enhancement_system.get_system_status()
-        print(f"\nシステムステータス:")
+        print("\nシステムステータス:")
         print(f"システム健全性: {system_status['system_health']}")
     else:
         print(f"包括的分析エラー: {comprehensive_result['error']}")

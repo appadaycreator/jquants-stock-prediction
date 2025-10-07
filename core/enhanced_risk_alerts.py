@@ -4,9 +4,8 @@
 個人投資家向けの直感的で分かりやすいアラートシステム
 """
 
-import json
 import logging
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Dict, Any, List, Optional
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 from enum import Enum

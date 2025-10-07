@@ -5,8 +5,7 @@
 
 import pytest
 import time
-import threading
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 from core.performance_optimizer import PerformanceOptimizer
 
 
@@ -48,7 +47,9 @@ class TestPerformanceOptimizer:
         self.optimizer.start_monitoring()
 
         # ログが呼ばれることを確認
-        self.logger.log_info.assert_called_with("パフォーマンス監視は既に開始されています")
+        self.logger.log_info.assert_called_with(
+            "パフォーマンス監視は既に開始されています"
+        )
 
     def test_stop_monitoring(self):
         """監視停止テスト"""

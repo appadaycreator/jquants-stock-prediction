@@ -3,13 +3,11 @@
 可視化管理システムのテスト
 """
 
-import pytest
 import pandas as pd
 import numpy as np
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 import tempfile
 import os
-from pathlib import Path
 
 from core.visualization_manager import VisualizationManager
 

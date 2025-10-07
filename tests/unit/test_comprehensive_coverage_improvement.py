@@ -5,7 +5,6 @@
 
 import tempfile
 from unittest.mock import Mock, patch
-import pytest
 from core.differential_updater import DifferentialUpdater
 from core.json_data_manager import JSONDataManager
 from core.performance_optimizer import PerformanceOptimizer

@@ -5,9 +5,7 @@
 """
 
 import json
-import os
 from pathlib import Path
-from datetime import datetime
 
 
 def validate_stock_data():
@@ -23,7 +21,7 @@ def validate_stock_data():
     with open(stock_data_file, "r", encoding="utf-8") as f:
         stock_data = json.load(f)
 
-    print(f"✅ stock_data.json読み込み完了")
+    print("✅ stock_data.json読み込み完了")
     print(f"   銘柄数: {len(stock_data)}銘柄")
 
     # データ品質の確認
@@ -79,7 +77,7 @@ def validate_metadata():
         with open(metadata_file, "r", encoding="utf-8") as f:
             metadata = json.load(f)
 
-        print(f"✅ メタデータ読み込み完了")
+        print("✅ メタデータ読み込み完了")
         print(f"   生成日時: {metadata.get('generated_at', '不明')}")
         print(f"   バージョン: {metadata.get('version', '不明')}")
         print(f"   総銘柄数: {metadata.get('total_stocks', '不明')}")
@@ -121,7 +119,9 @@ def main():
 
         print("\n=== 推奨アクション ===")
         print("1. 現在の修正済みデータで予測システムを動作させることができます")
-        print("2. 実際のjQuants APIデータが必要な場合は、正しい認証情報を設定してください")
+        print(
+            "2. 実際のjQuants APIデータが必要な場合は、正しい認証情報を設定してください"
+        )
         print("3. システムの動作テスト: python routine_api.py")
 
         return 0

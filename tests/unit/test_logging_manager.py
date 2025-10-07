@@ -3,12 +3,11 @@
 LoggingManagerのユニットテスト
 """
 
-import pytest
 import tempfile
 import os
 import sys
 import logging
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 from core.logging_manager import LoggingManager, LogLevel, LogCategory
 
 
@@ -143,7 +142,9 @@ class TestLoggingManager:
         """トレースバック付きエラーログのテスト"""
         with patch.object(self.logging_manager.logger, "error") as mock_error:
             error = ValueError("テストエラー")
-            self.logging_manager.log_error(error, "テストコンテキスト", include_traceback=True)
+            self.logging_manager.log_error(
+                error, "テストコンテキスト", include_traceback=True
+            )
             # エラーメッセージとトレースバックの両方が呼ばれることを確認
             assert mock_error.call_count >= 2
 
@@ -151,7 +152,9 @@ class TestLoggingManager:
         """トレースバックなしエラーログのテスト"""
         with patch.object(self.logging_manager.logger, "error") as mock_error:
             error = ValueError("テストエラー")
-            self.logging_manager.log_error(error, "テストコンテキスト", include_traceback=False)
+            self.logging_manager.log_error(
+                error, "テストコンテキスト", include_traceback=False
+            )
             mock_error.assert_called()
 
     def test_log_error_with_additional_info(self):

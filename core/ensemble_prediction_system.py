@@ -5,8 +5,7 @@
 """
 
 import numpy as np
-import pandas as pd
-from typing import Dict, Any, List, Tuple, Optional
+from typing import Dict, Any
 from datetime import datetime
 import logging
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
@@ -44,7 +43,7 @@ class EnsemblePredictionSystem:
         if confidence_threshold < 0 or confidence_threshold > 1:
             confidence_threshold = 0.7
         self.confidence_threshold = confidence_threshold
-        
+
         uncertainty_threshold = self.config.get("uncertainty_threshold", 0.3)
         if uncertainty_threshold < 0 or uncertainty_threshold > 1:
             uncertainty_threshold = 0.3
@@ -461,7 +460,10 @@ class EnsemblePredictionSystem:
                     "optimization_successful": True,
                 }
             else:
-                return {"error": "最適化に失敗しました", "optimization_successful": False}
+                return {
+                    "error": "最適化に失敗しました",
+                    "optimization_successful": False,
+                }
 
         except Exception as e:
             self.logger.error(f"アンサンブル最適化エラー: {e}")

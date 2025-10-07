@@ -5,8 +5,7 @@
 """
 
 import numpy as np
-import pandas as pd
-from typing import Dict, Any, List, Tuple, Optional
+from typing import Dict, Any, List
 from datetime import datetime
 import logging
 
@@ -23,8 +22,12 @@ class AdvancedPositionSizing:
         self.max_position_percent = self.config.get(
             "max_position_percent", 0.2
         )  # 最大20%
-        self.base_position_size = self.config.get("base_position_size", 100)  # 基本100株
-        self.risk_per_trade = self.config.get("risk_per_trade", 0.02)  # 取引あたり2%リスク
+        self.base_position_size = self.config.get(
+            "base_position_size", 100
+        )  # 基本100株
+        self.risk_per_trade = self.config.get(
+            "risk_per_trade", 0.02
+        )  # 取引あたり2%リスク
 
         # 信頼度ベースの設定
         self.confidence_multiplier = self.config.get("confidence_multiplier", 2.0)
@@ -32,7 +35,9 @@ class AdvancedPositionSizing:
 
         # ボラティリティベースの設定
         self.volatility_adjustment = self.config.get("volatility_adjustment", True)
-        self.max_volatility = self.config.get("max_volatility", 0.05)  # 最大5%ボラティリティ
+        self.max_volatility = self.config.get(
+            "max_volatility", 0.05
+        )  # 最大5%ボラティリティ
 
         # 相関ベースの設定
         self.correlation_adjustment = self.config.get("correlation_adjustment", True)
@@ -748,7 +753,7 @@ class AdvancedPositionSizing:
                         {
                             "symbol": symbol,
                             "type": "LOW_CONFIDENCE",
-                            "message": f"信頼度が低いため取引を控えることを推奨",
+                            "message": "信頼度が低いため取引を控えることを推奨",
                             "confidence": confidence,
                         }
                     )
@@ -757,7 +762,7 @@ class AdvancedPositionSizing:
                         {
                             "symbol": symbol,
                             "type": "HIGH_VOLATILITY",
-                            "message": f"ボラティリティが高いためポジションサイズを削減",
+                            "message": "ボラティリティが高いためポジションサイズを削減",
                             "volatility": volatility,
                         }
                     )
@@ -766,7 +771,7 @@ class AdvancedPositionSizing:
                         {
                             "symbol": symbol,
                             "type": "HIGH_RISK",
-                            "message": f"リスクレベルが高いため注意深く監視",
+                            "message": "リスクレベルが高いため注意深く監視",
                             "risk_level": risk_level,
                         }
                     )
@@ -775,7 +780,7 @@ class AdvancedPositionSizing:
                         {
                             "symbol": symbol,
                             "type": "GOOD",
-                            "message": f"取引条件が良好",
+                            "message": "取引条件が良好",
                             "confidence": confidence,
                         }
                     )

@@ -4,9 +4,6 @@
 
 import pytest
 import numpy as np
-import pandas as pd
-from unittest.mock import Mock, patch
-from datetime import datetime, timedelta
 import sys
 import os
 
@@ -346,7 +343,12 @@ class TestEnhancedRecommendationSystem:
             assert recommendation.risk_amount >= 0.0
             assert len(recommendation.reasoning) > 0
             assert len(recommendation.conditions) > 0
-            assert recommendation.timeframe in ["即座実行", "今週中", "今月中", "来四半期"]
+            assert recommendation.timeframe in [
+                "即座実行",
+                "今週中",
+                "今月中",
+                "来四半期",
+            ]
 
     def test_determine_recommendation_type(self, recommendation_system):
         """推奨タイプ決定テスト"""

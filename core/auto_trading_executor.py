@@ -5,18 +5,14 @@
 """
 
 import numpy as np
-import pandas as pd
-from typing import Dict, Any, List, Tuple, Optional, Callable
+from typing import Dict, Any, Tuple, Callable
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 from enum import Enum
 import logging
 import threading
 import time
-import asyncio
 from queue import Queue, Empty
-import json
-import requests
 from concurrent.futures import ThreadPoolExecutor
 import warnings
 
@@ -455,7 +451,9 @@ class AutoTradingExecutor:
             self.logger.error(f"損切り注文作成エラー: {e}")
             # エラーハンドリングの改善
             if hasattr(self, 'error_handler') and self.error_handler:
-                self.error_handler.handle_error(e, "stop_loss_order_creation", {"symbol": symbol, "price": price})
+                self.error_handler.handle_error(
+                    e, "stop_loss_order_creation", {"symbol": symbol, "price": price}
+                )
 
     def _create_take_profit_order(self, symbol: str, price: float):
         """利確注文作成"""
@@ -490,7 +488,9 @@ class AutoTradingExecutor:
             self.logger.error(f"利確注文作成エラー: {e}")
             # エラーハンドリングの改善
             if hasattr(self, 'error_handler') and self.error_handler:
-                self.error_handler.handle_error(e, "take_profit_order_creation", {"symbol": symbol, "price": price})
+                self.error_handler.handle_error(
+                    e, "take_profit_order_creation", {"symbol": symbol, "price": price}
+                )
 
     def _create_partial_close_order(self, symbol: str, price: float, quantity: float):
         """部分決済注文作成"""
@@ -519,7 +519,9 @@ class AutoTradingExecutor:
             self.orders[order_id] = order
             self.execution_queue.put(order)
 
-            self.logger.info(f"部分決済注文作成: {order_id}, {symbol}, {quantity}@{price}")
+            self.logger.info(
+                f"部分決済注文作成: {order_id}, {symbol}, {quantity}@{price}"
+            )
 
         except Exception as e:
             self.logger.error(f"部分決済注文作成エラー: {e}")

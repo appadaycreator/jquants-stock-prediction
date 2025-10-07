@@ -5,8 +5,7 @@
 """
 
 import numpy as np
-import pandas as pd
-from typing import Dict, Any, Optional, List, Tuple
+from typing import Dict, Any, List
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -172,7 +171,9 @@ class ModelManager:
     def _create_fallback_result(self) -> Dict[str, Any]:
         """フォールバック結果の作成"""
         if self.logger:
-            self.logger.log_warning("有効なモデルが見つかりませんでした。デフォルトモデルを使用します。")
+            self.logger.log_warning(
+                "有効なモデルが見つかりませんでした。デフォルトモデルを使用します。"
+            )
         return {"best_model": "random_forest", "results": []}
 
     def get_supported_models(self) -> List[str]:

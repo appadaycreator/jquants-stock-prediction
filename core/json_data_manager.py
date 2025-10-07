@@ -5,11 +5,9 @@ jQuantsから取得されたデータをJSON形式で保持し、差分更新を
 """
 
 import json
-import os
 import hashlib
 from datetime import datetime, timedelta
-from typing import Dict, Any, List, Optional, Tuple
-import pandas as pd
+from typing import Dict, Any, List, Optional
 import logging
 from pathlib import Path
 
@@ -87,11 +85,11 @@ class JSONDataManager:
             data_str = json.dumps(
                 data, sort_keys=True, ensure_ascii=False, separators=(",", ":")
             )
-            return hashlib.sha256(data_str.encode("utf-8")).hexdigest()
+            return hashlib.md5(data_str.encode("utf-8")).hexdigest()
         except Exception as e:
             if self.logger:
                 self.logger.error(f"ハッシュ計算エラー: {e}")
-            return hashlib.sha256(str(data).encode("utf-8")).hexdigest()
+            return hashlib.md5(str(data).encode("utf-8")).hexdigest()
 
     def save_stock_data(
         self, symbol: str, data: List[Dict[str, Any]], source: str = "jquants_api"
@@ -131,7 +129,9 @@ class JSONDataManager:
                 self._log_diff(symbol, diff_result)
 
                 if self.logger:
-                    self.logger.info(f"株価データ保存完了: {symbol} ({len(normalized_data)}件)")
+                    self.logger.info(
+                        f"株価データ保存完了: {symbol} ({len(normalized_data)}件)"
+                    )
                 return True
 
             return False
@@ -539,7 +539,9 @@ class JSONDataManager:
             self._save_json(self.diff_log_file, cleaned_log)
 
             if self.logger:
-                self.logger.info(f"データクリーンアップ完了: {days_to_keep}日以前のデータを削除")
+                self.logger.info(
+                    f"データクリーンアップ完了: {days_to_keep}日以前のデータを削除"
+                )
             return True
 
         except Exception as e:

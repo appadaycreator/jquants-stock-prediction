@@ -73,7 +73,9 @@ class DetailedAPIComparator:
                 data = response.json()
                 return data
             else:
-                logger.warning(f"銘柄 {code} のAPI取得エラー: HTTP {response.status_code}")
+                logger.warning(
+                    f"銘柄 {code} のAPI取得エラー: HTTP {response.status_code}"
+                )
                 return {}
 
         except Exception as e:
@@ -102,7 +104,7 @@ class DetailedAPIComparator:
         # 現在のデータを読み込み
         current_data = self.load_current_data()
 
-        print(f"\n📊 データ量比較:")
+        print("\n📊 データ量比較:")
         print(f"   jQuants API上場銘柄: {len(api_listed_info.get('info', []))}銘柄")
         print(f"   現在の修正済みデータ: {len(current_data)}銘柄")
 
@@ -111,7 +113,7 @@ class DetailedAPIComparator:
 
     def compare_sample_stocks(self, api_listed_info: dict, current_data: dict):
         """サンプル銘柄での詳細比較"""
-        print(f"\n🔍 サンプル銘柄詳細比較:")
+        print("\n🔍 サンプル銘柄詳細比較:")
 
         # APIデータからサンプル銘柄を選択
         api_stocks = api_listed_info.get("info", [])
@@ -133,9 +135,9 @@ class DetailedAPIComparator:
                     )
                     print(f"     データ件数: {len(current_stock_data)}件")
                 else:
-                    print(f"     現在のデータ: データなし")
+                    print("     現在のデータ: データなし")
             else:
-                print(f"     現在のデータ: 銘柄が見つかりません")
+                print("     現在のデータ: 銘柄が見つかりません")
 
             # API日次株価データを取得
             api_daily_data = self.fetch_api_daily_quotes(code)
@@ -148,13 +150,13 @@ class DetailedAPIComparator:
                     )
                     print(f"     APIデータ件数: {len(daily_quotes)}件")
                 else:
-                    print(f"     APIデータ: データなし")
+                    print("     APIデータ: データなし")
             else:
-                print(f"     APIデータ: 取得失敗")
+                print("     APIデータ: 取得失敗")
 
     def analyze_data_accuracy(self):
         """データ精度の分析"""
-        print(f"\n📈 データ精度分析:")
+        print("\n📈 データ精度分析:")
 
         # 現在のデータの品質チェック
         current_data = self.load_current_data()
@@ -196,7 +198,7 @@ class DetailedAPIComparator:
         print(f"   データ品質: {'✅ 良好' if zero_data_count == 0 else '⚠️ 改善必要'}")
 
         # サンプルデータの表示
-        print(f"\n   サンプルデータ:")
+        print("\n   サンプルデータ:")
         for sample in sample_analysis:
             print(
                 f"     銘柄 {sample['code']}: {sample['date']} - 終値: {sample['close']:.2f} - 出来高: {sample['volume']:,}"
@@ -204,7 +206,7 @@ class DetailedAPIComparator:
 
     def generate_detailed_report(self):
         """詳細レポートの生成"""
-        print(f"\n📋 詳細レポート生成:")
+        print("\n📋 詳細レポート生成:")
 
         # 現在のデータを読み込み
         current_data = self.load_current_data()
@@ -257,11 +259,11 @@ class DetailedAPIComparator:
             # 詳細レポートの生成
             report = self.generate_detailed_report()
 
-            print(f"\n🎉 詳細比較が完了しました！")
-            print(f"   ✅ 認証システム: 正常動作")
-            print(f"   ✅ APIアクセス: 成功")
-            print(f"   ✅ データ品質: 良好")
-            print(f"   ✅ 0埋め問題: 完全解決")
+            print("\n🎉 詳細比較が完了しました！")
+            print("   ✅ 認証システム: 正常動作")
+            print("   ✅ APIアクセス: 成功")
+            print("   ✅ データ品質: 良好")
+            print("   ✅ 0埋め問題: 完全解決")
 
             return True
 

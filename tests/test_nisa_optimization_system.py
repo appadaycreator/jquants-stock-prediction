@@ -5,8 +5,8 @@
 """
 
 import unittest
-from unittest.mock import Mock, patch
-from datetime import datetime, date
+from unittest.mock import Mock
+from datetime import datetime
 import sys
 import os
 

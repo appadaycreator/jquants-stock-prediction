@@ -5,13 +5,11 @@
 
 import pandas as pd
 import numpy as np
-from typing import Dict, List, Tuple, Optional, Union
+from typing import Dict, List
 from dataclasses import dataclass, asdict
-from datetime import datetime, timedelta
+from datetime import datetime
 import logging
 import json
-import matplotlib.pyplot as plt
-import seaborn as sns
 from pathlib import Path
 
 from .article_method_analyzer import (
@@ -272,10 +270,14 @@ class MethodComparisonEngine:
             issues.append(f"低い精度: {article_result.accuracy:.1%}は実用性に疑問")
 
         if article_result.max_drawdown < -0.2:
-            issues.append(f"大きなドローダウン: {article_result.max_drawdown:.1%}はリスクが高い")
+            issues.append(
+                f"大きなドローダウン: {article_result.max_drawdown:.1%}はリスクが高い"
+            )
 
         if article_result.sharpe_ratio < 0.5:
-            issues.append(f"低いシャープレシオ: {article_result.sharpe_ratio:.2f}は効率が悪い")
+            issues.append(
+                f"低いシャープレシオ: {article_result.sharpe_ratio:.2f}は効率が悪い"
+            )
 
         return issues
 
@@ -290,10 +292,14 @@ class MethodComparisonEngine:
             advantages.append(f"高い精度: {improved_result.accuracy:.1%}の信頼性")
 
         if improved_result.max_drawdown > -0.15:
-            advantages.append(f"制御されたドローダウン: {improved_result.max_drawdown:.1%}のリスク管理")
+            advantages.append(
+                f"制御されたドローダウン: {improved_result.max_drawdown:.1%}のリスク管理"
+            )
 
         if improved_result.sharpe_ratio > 1.0:
-            advantages.append(f"高いシャープレシオ: {improved_result.sharpe_ratio:.2f}の効率性")
+            advantages.append(
+                f"高いシャープレシオ: {improved_result.sharpe_ratio:.2f}の効率性"
+            )
 
         return advantages
 
@@ -313,7 +319,9 @@ class MethodComparisonEngine:
             benefits.append(f"優秀なシャープレシオ: {backtest['sharpe_ratio']:.2f}")
 
         if backtest["max_drawdown"] > -0.1:
-            benefits.append(f"低いドローダウン: {backtest['max_drawdown']:.1%}のリスク制御")
+            benefits.append(
+                f"低いドローダウン: {backtest['max_drawdown']:.1%}のリスク制御"
+            )
 
         return benefits
 
@@ -437,22 +445,30 @@ class MethodComparisonEngine:
 
             # リターンの改善
             if improvement_metrics["return_improvement_vs_article"] > 0.05:
-                recommendations.append("改善された手法は記事の手法を大幅に上回るリターンを実現しています。")
+                recommendations.append(
+                    "改善された手法は記事の手法を大幅に上回るリターンを実現しています。"
+                )
 
             # 精度の改善
             if improvement_metrics["accuracy_improvement"] > 0.1:
-                recommendations.append("信頼度70%以上の取引判定により、精度が大幅に向上しています。")
+                recommendations.append(
+                    "信頼度70%以上の取引判定により、精度が大幅に向上しています。"
+                )
 
             # リスクの削減
             if improvement_metrics["risk_reduction"] > 0.05:
-                recommendations.append("動的損切り・利確機能により、リスクが大幅に削減されています。")
+                recommendations.append(
+                    "動的損切り・利確機能により、リスクが大幅に削減されています。"
+                )
 
             # シャープレシオの改善
             if improvement_metrics["sharpe_improvement"] > 0.5:
                 recommendations.append("リスク調整後リターンが大幅に改善されています。")
 
             if not recommendations:
-                recommendations.append("さらなる改善のため、パラメータの調整を検討してください。")
+                recommendations.append(
+                    "さらなる改善のため、パラメータの調整を検討してください。"
+                )
 
             return " ".join(recommendations)
 

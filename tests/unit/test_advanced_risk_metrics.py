@@ -7,14 +7,12 @@
 import pytest
 import numpy as np
 import pandas as pd
-from unittest.mock import Mock, patch, MagicMock
-from datetime import datetime, timedelta
+from unittest.mock import patch
+from datetime import datetime
 from core.advanced_risk_metrics import (
     AdvancedRiskMetrics,
-    RiskMetricType,
     RiskMetricsResult,
 )
-from core.dynamic_risk_management import RiskLevel
 
 
 class TestAdvancedRiskMetrics:
@@ -281,7 +279,6 @@ class TestAdvancedRiskMetrics:
     def test_concurrent_calculations(self, risk_metrics):
         """並行計算テスト"""
         import threading
-        import time
 
         results = []
         errors = []

@@ -6,7 +6,6 @@ JSONDataManagerの追加カバレッジ向上テスト
 import tempfile
 import json
 from unittest.mock import Mock, patch
-import pytest
 from core.json_data_manager import JSONDataManager
 
 

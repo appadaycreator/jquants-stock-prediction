@@ -1,21 +1,17 @@
 """
 コアモジュールの包括的テスト
 """
-import pytest
+
 import os
 import tempfile
 import shutil
 from unittest.mock import patch, MagicMock, mock_open
-from datetime import datetime, timedelta
 import pandas as pd
 import numpy as np
-import json
-import yaml
 
 # コアモジュールのインポート
 from core.config_manager import ConfigManager
 from core.data_validator import DataValidator
-from core.differential_updater import DifferentialUpdater
 from core.error_handler import ErrorHandler
 from core.json_data_manager import JSONDataManager
 from core.logging_manager import LoggingManager

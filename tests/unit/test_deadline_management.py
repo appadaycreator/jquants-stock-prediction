@@ -3,14 +3,11 @@
 期限管理機能のテスト
 """
 
-import pytest
 import time
 from datetime import datetime, timedelta
-from unittest.mock import Mock, patch
 
 from core.deadline_management import (
     DeadlineManager,
-    DeadlineInfo,
     DeadlineStatus,
     AlertLevel,
     AlertInfo,

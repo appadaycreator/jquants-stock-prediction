@@ -4,10 +4,8 @@
 """
 
 import unittest
-import numpy as np
-import pandas as pd
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
+from datetime import datetime
+from unittest.mock import Mock
 import sys
 import os
 
@@ -18,7 +16,6 @@ from core.auto_trading_executor import (
     AutoTradingExecutor,
     TradeType,
     ExecutionStatus,
-    OrderType,
     TrailingStopManager,
     PartialCloseManager,
 )
@@ -257,7 +254,6 @@ class TestAutoTradingExecutor(unittest.TestCase):
         from core.auto_trading_executor import (
             ExecutionResult,
             TradeType,
-            ExecutionStatus,
         )
 
         self.executor.execution_history = [

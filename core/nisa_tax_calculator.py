@@ -6,10 +6,9 @@
 """
 
 import logging
-from datetime import datetime, date, timedelta
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, asdict, field
-import math
+from datetime import datetime
+from typing import Dict, List, Any
+from dataclasses import dataclass, field
 
 
 @dataclass
@@ -47,7 +46,9 @@ class NisaTaxCalculator:
 
         # 税率設定
         self.income_tax_rate = self.config.get("income_tax_rate", 0.20)  # 所得税率20%
-        self.resident_tax_rate = self.config.get("resident_tax_rate", 0.10)  # 住民税率10%
+        self.resident_tax_rate = self.config.get(
+            "resident_tax_rate", 0.10
+        )  # 住民税率10%
         self.total_tax_rate = round(
             self.income_tax_rate + self.resident_tax_rate, 2
         )  # 合計税率30%

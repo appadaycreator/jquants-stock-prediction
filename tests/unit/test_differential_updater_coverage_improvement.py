@@ -3,12 +3,8 @@
 差分更新システムのカバレッジ向上テスト
 """
 
-import pytest
-import json
 import tempfile
-import os
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch
 from core.differential_updater import (
     DifferentialUpdater,
     UpdateStatus,
@@ -369,10 +365,13 @@ class TestDifferentialUpdaterCoverageImprovement:
             {"date": "2024-01-03", "close": 102, "volume": 1100000},
         ]
 
-        with patch.object(
-            self.updater.json_manager, "get_stock_data", return_value=data
-        ), patch.object(
-            self.updater.json_manager, "save_stock_data", return_value=True
+        with (
+            patch.object(
+                self.updater.json_manager, "get_stock_data", return_value=data
+            ),
+            patch.object(
+                self.updater.json_manager, "save_stock_data", return_value=True
+            ),
         ):
             result = self.updater.optimize_data_structure("7203")
             assert result["success"] is True
@@ -383,10 +382,13 @@ class TestDifferentialUpdaterCoverageImprovement:
         """データ構造最適化保存失敗テスト"""
         data = [{"date": "2024-01-01", "close": 100}]
 
-        with patch.object(
-            self.updater.json_manager, "get_stock_data", return_value=data
-        ), patch.object(
-            self.updater.json_manager, "save_stock_data", return_value=False
+        with (
+            patch.object(
+                self.updater.json_manager, "get_stock_data", return_value=data
+            ),
+            patch.object(
+                self.updater.json_manager, "save_stock_data", return_value=False
+            ),
         ):
             result = self.updater.optimize_data_structure("7203")
             assert result["success"] is False

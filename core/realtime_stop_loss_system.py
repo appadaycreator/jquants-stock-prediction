@@ -5,16 +5,14 @@
 """
 
 import numpy as np
-from typing import Dict, Any, List, Tuple, Optional, Callable
+from typing import Dict, Any, List, Callable
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 from enum import Enum
 import logging
 import threading
 import time
-import asyncio
 from queue import Queue, Empty
-import json
 import warnings
 from concurrent.futures import ThreadPoolExecutor
 
@@ -473,11 +471,15 @@ class RealtimeStopLossSystem:
             self.logger.error(f"損切り設定追加エラー: {e}")
             # エラーハンドリングの改善
             if hasattr(self, 'error_handler') and self.error_handler:
-                self.error_handler.handle_error(e, "stop_loss_setting_creation", {
-                    "symbol": symbol, 
-                    "entry_price": entry_price,
-                    "position_size": position_size
-                })
+                self.error_handler.handle_error(
+                    e,
+                    "stop_loss_setting_creation",
+                    {
+                        "symbol": symbol,
+                        "entry_price": entry_price,
+                        "position_size": position_size,
+                    },
+                )
             return False
 
     def update_price_data(self, symbol: str, price_data: Dict[str, Any]):
@@ -718,10 +720,10 @@ class RealtimeStopLossSystem:
             # アクティブポジション更新
             if symbol in self.active_positions:
                 self.active_positions[symbol]["current_price"] = current_price
-                self.active_positions[symbol][
-                    "unrealized_pnl"
-                ] = self._calculate_unrealized_pnl(
-                    current_price, self.active_positions[symbol]
+                self.active_positions[symbol]["unrealized_pnl"] = (
+                    self._calculate_unrealized_pnl(
+                        current_price, self.active_positions[symbol]
+                    )
                 )
 
             # 損切り条件チェック

@@ -4,7 +4,6 @@
 カバレッジ向上のための追加テスト
 """
 
-import pytest
 import pandas as pd
 import numpy as np
 from core.technical_analysis import TechnicalAnalysis, calculate_technical_indicators

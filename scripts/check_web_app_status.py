@@ -3,7 +3,6 @@
 Webアプリの状況確認スクリプト
 """
 
-import json
 from pathlib import Path
 
 

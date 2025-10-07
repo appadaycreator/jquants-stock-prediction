@@ -3,10 +3,8 @@
 パフォーマンス最適化システムのカバレッジ向上テスト
 """
 
-import pytest
 import time
-import threading
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 from core.performance_optimizer import PerformanceOptimizer
 
 

@@ -158,7 +158,9 @@ class AdditionalStocksFetcher:
             with open(self.data_dir / "listed_info.json", "w", encoding="utf-8") as f:
                 json.dump(existing_data, f, ensure_ascii=False, indent=2)
 
-            logger.info(f"データマージ完了: 総銘柄数 {existing_data['metadata']['total_stocks']}")
+            logger.info(
+                f"データマージ完了: 総銘柄数 {existing_data['metadata']['total_stocks']}"
+            )
             return existing_data
 
         except Exception as e:

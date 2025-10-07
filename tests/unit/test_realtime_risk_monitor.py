@@ -8,7 +8,6 @@ import unittest
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
 import sys
 import os
 import threading
@@ -506,7 +505,10 @@ class TestRealtimeRiskMonitor(unittest.TestCase):
         }
 
         self.monitor.update_risk_data(
-            "TEST", 100.0, 0.5, extreme_metrics  # 極端に大きなポジションサイズ
+            "TEST",
+            100.0,
+            0.5,
+            extreme_metrics,  # 極端に大きなポジションサイズ
         )
 
         # エラーが発生せずに処理されることを確認

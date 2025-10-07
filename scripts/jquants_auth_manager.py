@@ -5,12 +5,10 @@ IDトークンの有効性チェックと自動再取得機能（強化版）
 """
 
 import os
-import json
 import requests
 import logging
-import time
-from datetime import datetime, timedelta
-from typing import Optional, Dict, Any, Tuple
+from datetime import datetime
+from typing import Optional, Dict
 from pathlib import Path
 
 # ログ設定
@@ -115,7 +113,9 @@ class JQuantsAuthManager:
     def get_new_tokens(self) -> Optional[Dict[str, str]]:
         """メールアドレスとパスワードで新しいトークンを取得"""
         if not self.email or not self.password:
-            logger.error("認証情報が設定されていません (JQUANTS_EMAIL, JQUANTS_PASSWORD)")
+            logger.error(
+                "認証情報が設定されていません (JQUANTS_EMAIL, JQUANTS_PASSWORD)"
+            )
             return None
 
         try:
@@ -244,9 +244,9 @@ class JQuantsAuthManager:
                     env_content[i] = f"JQUANTS_ID_TOKEN={tokens['id_token']}\n"
                     token_updated = True
                 elif line.startswith("JQUANTS_REFRESH_TOKEN="):
-                    env_content[
-                        i
-                    ] = f"JQUANTS_REFRESH_TOKEN={tokens['refresh_token']}\n"
+                    env_content[i] = (
+                        f"JQUANTS_REFRESH_TOKEN={tokens['refresh_token']}\n"
+                    )
                     refresh_updated = True
 
             # 新しいトークンを追加

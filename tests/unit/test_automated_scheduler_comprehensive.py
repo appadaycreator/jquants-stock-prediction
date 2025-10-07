@@ -5,11 +5,8 @@
 """
 
 import pytest
-import time
-import json
-import threading
-from unittest.mock import Mock, patch, MagicMock, call
-from datetime import datetime, timedelta
+from unittest.mock import Mock, patch
+from datetime import datetime
 import tempfile
 import os
 
@@ -20,9 +17,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from automated_scheduler import (
     AutomatedScheduler,
-    NotificationConfig,
-    SchedulerConfig,
-    NotificationType,
 )
 
 

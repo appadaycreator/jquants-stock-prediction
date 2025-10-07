@@ -5,7 +5,6 @@ PerformanceOptimizerの追加カバレッジ向上テスト
 
 import tempfile
 from unittest.mock import Mock, patch
-import pytest
 from core.performance_optimizer import PerformanceOptimizer
 
 

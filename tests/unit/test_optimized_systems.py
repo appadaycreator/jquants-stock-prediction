@@ -5,10 +5,7 @@ TypeScriptファイルはPythonから直接テストできないため、モッ�
 
 import pytest
 import json
-import tempfile
-import os
-from unittest.mock import Mock, patch, MagicMock
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 class TestOptimizedErrorHandler:

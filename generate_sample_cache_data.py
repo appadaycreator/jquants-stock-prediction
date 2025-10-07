@@ -7,9 +7,9 @@ GitHub Actions用のサンプルデータ生成
 import json
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any
 import logging
 import random
 

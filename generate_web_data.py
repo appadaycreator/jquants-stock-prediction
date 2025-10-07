@@ -9,7 +9,7 @@ import os
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 import logging
 import requests
 import time
@@ -19,7 +19,6 @@ project_root = Path(__file__).parent
 sys.path.append(str(project_root))
 
 # ログ設定
-import os
 
 os.makedirs("logs", exist_ok=True)
 
@@ -540,21 +539,27 @@ class WebDataGenerator:
                     self.generate_sample_data()
                     return True
             else:
-                logger.info("認証情報が設定されていません。サンプルデータを生成します。")
+                logger.info(
+                    "認証情報が設定されていません。サンプルデータを生成します。"
+                )
                 self.generate_sample_data()
                 return True
 
             # 銘柄一覧の取得
             stock_list = self.get_stock_list()
             if not stock_list:
-                logger.warning("銘柄一覧の取得に失敗しました。サンプルデータを使用します。")
+                logger.warning(
+                    "銘柄一覧の取得に失敗しました。サンプルデータを使用します。"
+                )
                 self.generate_sample_data()
                 return True
 
             # 株価データの処理（主要銘柄のみ）
             processed_data = self.process_stock_data(stock_list, max_stocks=20)
             if not processed_data["stocks"]:
-                logger.warning("株価データの処理に失敗しました。サンプルデータを使用します。")
+                logger.warning(
+                    "株価データの処理に失敗しました。サンプルデータを使用します。"
+                )
                 self.generate_sample_data()
                 return True
 
@@ -711,7 +716,7 @@ class WebDataGenerator:
             if not code:
                 continue
 
-            logger.info(f"処理中: {i+1}/{len(selected_stocks)} - {name} ({code})")
+            logger.info(f"処理中: {i + 1}/{len(selected_stocks)} - {name} ({code})")
 
             # 価格データの取得
             price_data = self.get_stock_prices(code, days=30)

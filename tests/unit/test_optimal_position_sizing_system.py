@@ -4,9 +4,7 @@
 
 import pytest
 import numpy as np
-import pandas as pd
-from unittest.mock import Mock, patch
-from datetime import datetime, timedelta
+from datetime import datetime
 import sys
 import os
 
@@ -16,7 +14,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 from core.optimal_position_sizing_system import (
     OptimalPositionSizingSystem,
     PositionSizingResult,
-    RiskConstraints,
     MarketConditions,
 )
 

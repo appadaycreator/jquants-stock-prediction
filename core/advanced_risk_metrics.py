@@ -6,13 +6,12 @@ VaR・最大ドローダウン・シャープレシオの高度な計算機能�
 
 import numpy as np
 import pandas as pd
-from typing import Dict, Any, List, Tuple, Optional
-from datetime import datetime, timedelta
+from typing import Dict, Any, Tuple, Optional
+from datetime import datetime
 from dataclasses import dataclass
 from enum import Enum
 import logging
 from scipy import stats
-from scipy.optimize import minimize
 import warnings
 
 warnings.filterwarnings("ignore")

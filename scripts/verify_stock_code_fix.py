@@ -3,7 +3,6 @@
 銘柄コード表示修正の検証スクリプト
 """
 
-import json
 from pathlib import Path
 
 

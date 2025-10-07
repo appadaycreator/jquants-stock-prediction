@@ -6,10 +6,8 @@
 """
 
 import logging
-from datetime import datetime, date, timedelta
-from typing import Dict, List, Any, Optional, Tuple
+from typing import Dict, List, Any
 from dataclasses import dataclass, asdict
-import math
 
 
 @dataclass
@@ -421,7 +419,9 @@ class NisaOptimizationSystem:
 
             # 期待リターンスコア
             expected_return = strategy_data["expected_return"]
-            return_score = min(expected_return * 5, 100)  # 期待リターンを5倍してスコア化
+            return_score = min(
+                expected_return * 5, 100
+            )  # 期待リターンを5倍してスコア化
 
             # リスクスコア
             risk_level = strategy_data["risk_level"]
@@ -482,10 +482,14 @@ class NisaOptimizationSystem:
             recommendations = []
 
             if risk_level == "HIGH":
-                recommendations.append("ポートフォリオの分散を図ることで、リスクを軽減できます")
+                recommendations.append(
+                    "ポートフォリオの分散を図ることで、リスクを軽減できます"
+                )
                 recommendations.append("異なるセクターへの投資を検討してください")
             elif risk_level == "MEDIUM":
-                recommendations.append("さらなる分散投資を検討することで、リスクを軽減できます")
+                recommendations.append(
+                    "さらなる分散投資を検討することで、リスクを軽減できます"
+                )
             else:
                 recommendations.append("現在のポートフォリオは良好な分散状態です")
 
@@ -562,13 +566,19 @@ class NisaOptimizationSystem:
             ).get("utilization_rate", 0)
 
             if growth_utilization < 80:
-                recommendations.append("成長投資枠の活用を増やすことで、年間最大72万円の税務節約が可能です")
+                recommendations.append(
+                    "成長投資枠の活用を増やすことで、年間最大72万円の税務節約が可能です"
+                )
 
             if accumulation_utilization < 80:
-                recommendations.append("つみたて投資枠の活用を増やすことで、年間最大12万円の税務節約が可能です")
+                recommendations.append(
+                    "つみたて投資枠の活用を増やすことで、年間最大12万円の税務節約が可能です"
+                )
 
             if growth_utilization < 50 and accumulation_utilization < 50:
-                recommendations.append("両枠の活用率が低いため、積極的な投資戦略の見直しを推奨します")
+                recommendations.append(
+                    "両枠の活用率が低いため、積極的な投資戦略の見直しを推奨します"
+                )
 
             return recommendations
 

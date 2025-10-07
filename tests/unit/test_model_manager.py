@@ -4,10 +4,7 @@ ModelManagerのユニットテスト
 
 import pytest
 import pandas as pd
-import numpy as np
-from unittest.mock import Mock, patch
-import tempfile
-import os
+from unittest.mock import Mock
 
 from core.model_manager import ModelManager
 

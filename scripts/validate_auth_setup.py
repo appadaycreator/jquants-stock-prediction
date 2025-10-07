@@ -6,7 +6,6 @@
 import os
 import sys
 import requests
-import json
 from pathlib import Path
 from datetime import datetime
 

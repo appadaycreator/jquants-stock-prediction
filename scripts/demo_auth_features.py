@@ -4,7 +4,6 @@ jQuants認証管理機能デモスクリプト
 強化された認証管理クラスの機能をデモンストレーション
 """
 
-import os
 import sys
 from pathlib import Path
 
@@ -28,7 +27,9 @@ def demo_auth_features():
         print(f"   - メールアドレス: {auth_manager.email}")
         print(f"   - パスワード設定: {'あり' if auth_manager.password else 'なし'}")
         print(f"   - IDトークン設定: {'あり' if auth_manager.id_token else 'なし'}")
-        print(f"   - リフレッシュトークン設定: {'あり' if auth_manager.refresh_token else 'なし'}")
+        print(
+            f"   - リフレッシュトークン設定: {'あり' if auth_manager.refresh_token else 'なし'}"
+        )
         print("")
 
         # トークン有効性チェック

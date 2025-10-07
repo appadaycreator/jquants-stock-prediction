@@ -4,8 +4,6 @@
 """
 
 import pytest
-import numpy as np
-from unittest.mock import Mock, patch
 from core.advanced_position_sizing import AdvancedPositionSizing
 
 

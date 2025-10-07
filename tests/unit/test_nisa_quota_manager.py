@@ -4,19 +4,14 @@ NISA枠管理システムの単体テスト
 """
 
 import pytest
-import json
 import tempfile
 import os
 from datetime import datetime
-from unittest.mock import patch, MagicMock
 
 from core.nisa_quota_manager import (
     NisaQuotaManager,
     NisaTransaction,
-    NisaPosition,
     NisaPortfolio,
-    QuotaType,
-    TransactionType,
 )
 
 

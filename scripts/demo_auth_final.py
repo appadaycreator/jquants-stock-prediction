@@ -4,10 +4,6 @@ jQuants認証管理機能デモ（最終版）
 IDトークンを環境変数に設定せず、一時保存のみで管理
 """
 
-import os
-import json
-from pathlib import Path
-
 
 def demo_auth_final():
     """最終版認証管理機能のデモ"""
@@ -23,7 +19,7 @@ def demo_auth_final():
         print("✅ 認証管理クラスの初期化完了")
         print(f"   - メールアドレス: {auth_manager.email}")
         print(f"   - パスワード設定: {'あり' if auth_manager.password else 'なし'}")
-        print(f"   - IDトークン: 一時保存のみ（環境変数非依存）")
+        print("   - IDトークン: 一時保存のみ（環境変数非依存）")
 
         # 一時トークンキャッシュの確認
         print("\n=== 一時トークンキャッシュ機能 ===")

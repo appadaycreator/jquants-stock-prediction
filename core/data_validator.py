@@ -6,7 +6,7 @@
 
 import pandas as pd
 import numpy as np
-from typing import Dict, Any, Optional, List, Tuple
+from typing import Dict, Any, List
 from datetime import datetime
 
 
@@ -52,7 +52,9 @@ class DataValidator:
                 "data_shape": data.shape,
                 "data_quality_score": quality_score,
                 "validation_timestamp": datetime.now().isoformat(),
-                "message": ("データ検証成功" if len(issues) == 0 else "データ検証で問題を発見"),
+                "message": (
+                    "データ検証成功" if len(issues) == 0 else "データ検証で問題を発見"
+                ),
             }
 
         except Exception as e:
@@ -150,7 +152,11 @@ class DataValidator:
                 "is_valid": len(quality_issues) == 0,
                 "quality_issues": quality_issues,
                 "feature_count": len(features),
-                "message": ("特徴量検証成功" if len(quality_issues) == 0 else "特徴量に問題があります"),
+                "message": (
+                    "特徴量検証成功"
+                    if len(quality_issues) == 0
+                    else "特徴量に問題があります"
+                ),
             }
 
         except Exception as e:
@@ -285,7 +291,9 @@ class DataValidator:
 
             # 外れ値のチェック（簡易版）
             for col in price_columns:
-                if col in data.columns and len(data) > 3:  # データが少なすぎる場合はスキップ
+                if (
+                    col in data.columns and len(data) > 3
+                ):  # データが少なすぎる場合はスキップ
                     Q1 = data[col].quantile(0.25)
                     Q3 = data[col].quantile(0.75)
                     IQR = Q3 - Q1
@@ -294,7 +302,9 @@ class DataValidator:
                             (data[col] < Q1 - 1.5 * IQR) | (data[col] > Q3 + 1.5 * IQR)
                         ]
                         if len(outliers) > 0:
-                            warnings.append(f"外れ値が検出されました: {col} ({len(outliers)}件)")
+                            warnings.append(
+                                f"外れ値が検出されました: {col} ({len(outliers)}件)"
+                            )
                             quality_score -= 5
 
             # データ数が少ない場合の警告

@@ -1,19 +1,17 @@
 """
 テストカバレッジ向上のための追加テスト
 """
-import pytest
+
 import os
 import tempfile
 import shutil
-from unittest.mock import patch, MagicMock
-from datetime import datetime, timedelta
+from unittest.mock import patch
 import pandas as pd
 import numpy as np
 
 # コアモジュールのインポート
 from core.config_manager import ConfigManager
 from core.data_validator import DataValidator
-from core.differential_updater import DifferentialUpdater
 from core.error_handler import ErrorHandler
 from core.json_data_manager import JSONDataManager
 from core.logging_manager import LoggingManager

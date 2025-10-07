@@ -3,9 +3,7 @@
 EnvironmentAuthManagerのテスト
 """
 
-import pytest
 import os
-import tempfile
 from pathlib import Path
 from unittest.mock import patch, mock_open
 from core.environment_auth_manager import EnvironmentAuthManager

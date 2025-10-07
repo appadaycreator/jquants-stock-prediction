@@ -5,7 +5,7 @@ NISAアラートシステムの単体テスト
 
 import pytest
 from datetime import datetime, timedelta
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 from core.nisa_alert_system import (
     NisaAlertSystem,
@@ -195,7 +195,9 @@ class TestNisaAlertSystem:
 
     def test_generate_growth_opportunities(self, alert_system, sample_market_data):
         """成長投資枠投資機会生成テスト"""
-        quota_status = {"growth_investment": {"available_amount": 500000.0}}  # 十分な枠がある
+        quota_status = {
+            "growth_investment": {"available_amount": 500000.0}
+        }  # 十分な枠がある
 
         opportunities = alert_system._generate_growth_opportunities(
             sample_market_data, quota_status

@@ -4,9 +4,7 @@
 実行期限の管理とアラート機能
 """
 
-import numpy as np
-import pandas as pd
-from typing import Dict, Any, List, Tuple, Optional
+from typing import Dict, Any, List, Optional
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 from enum import Enum

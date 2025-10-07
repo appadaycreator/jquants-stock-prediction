@@ -4,11 +4,10 @@ scripts/test_jquants_token.py のテスト（リファクタリング版）
 """
 
 import unittest
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 import os
 import sys
 import json
-from datetime import datetime
 
 # テスト対象のインポート
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))

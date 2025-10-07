@@ -55,7 +55,9 @@ def test_authentication():
         if response.status_code == 200:
             auth_result = response.json()
             print("✅ 認証成功")
-            print(f"レスポンス: {json.dumps(auth_result, indent=2, ensure_ascii=False)}")
+            print(
+                f"レスポンス: {json.dumps(auth_result, indent=2, ensure_ascii=False)}"
+            )
 
             refresh_token = auth_result.get("refreshToken")
             if refresh_token:
@@ -88,7 +90,9 @@ def get_id_token(refresh_token):
         if response.status_code == 200:
             refresh_result = response.json()
             print("✅ IDトークン取得成功")
-            print(f"レスポンス: {json.dumps(refresh_result, indent=2, ensure_ascii=False)}")
+            print(
+                f"レスポンス: {json.dumps(refresh_result, indent=2, ensure_ascii=False)}"
+            )
 
             id_token = refresh_result.get("idToken")
             if id_token:

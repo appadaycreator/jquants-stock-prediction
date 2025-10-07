@@ -7,9 +7,9 @@ GitHub Actionsで定期実行され、既存データとの比較による効率
 import json
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 import logging
 
 # プロジェクトルートをパスに追加
@@ -79,7 +79,9 @@ class StockDataUpdater:
             # データファイルの存在チェック
             input_file = "processed_stock_data.csv"
             if not os.path.exists(input_file):
-                logger.warning(f"データファイル {input_file} が存在しません。サンプルデータを生成します。")
+                logger.warning(
+                    f"データファイル {input_file} が存在しません。サンプルデータを生成します。"
+                )
                 return self._generate_sample_data()
 
             # コアシステムの初期化
@@ -174,9 +176,9 @@ class StockDataUpdater:
                     if changes:
                         # 変更があった場合のみ更新
                         updated_data["stocks"][code].update(stock_info)
-                        updated_data["stocks"][code][
-                            "updated_at"
-                        ] = datetime.now().isoformat()
+                        updated_data["stocks"][code]["updated_at"] = (
+                            datetime.now().isoformat()
+                        )
                         updated_data["stocks"][code]["changes"] = changes
                         update_log["updated_stocks"].append(
                             {

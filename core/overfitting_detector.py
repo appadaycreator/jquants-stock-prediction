@@ -4,7 +4,7 @@
 モデルの過学習を検出し、リスク評価を行う
 """
 
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, List
 from datetime import datetime
 
 
@@ -158,7 +158,9 @@ class OverfittingDetector:
                 ]
             )
         elif detection_result["train_val_diff"] > 0.05:
-            recommendations.extend(["モデルの複雑さを減らしてください", "データ拡張を検討してください"])
+            recommendations.extend(
+                ["モデルの複雑さを減らしてください", "データ拡張を検討してください"]
+            )
 
         return recommendations
 

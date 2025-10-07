@@ -7,8 +7,7 @@
 import pytest
 import numpy as np
 import pandas as pd
-from unittest.mock import Mock, patch, MagicMock
-from datetime import datetime
+from unittest.mock import patch
 from core.dynamic_risk_management import (
     DynamicRiskManager,
     RiskLevel,
@@ -897,7 +896,6 @@ class TestDynamicRiskManagementComprehensive:
     def test_concurrent_calculations(self, risk_manager):
         """並行計算テスト"""
         import threading
-        import time
 
         results = []
         errors = []

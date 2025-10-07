@@ -3,11 +3,10 @@
 enhanced_risk_alerts.py のテスト
 """
 
-import pytest
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch
 import sys
 import os
 
@@ -19,7 +18,7 @@ from core.enhanced_risk_alerts import (
     AlertSeverity,
     AlertType,
     RiskAlert,
-    AlertSummary
+    AlertSummary,
 )
 
 
@@ -29,11 +28,13 @@ class TestEnhancedRiskAlerts:
     def setup_method(self):
         """テスト前の準備"""
         self.risk_alerts = EnhancedRiskAlerts()
-        self.sample_stock_data = pd.DataFrame({
-            'Date': pd.date_range('2023-01-01', periods=100, freq='D'),
-            'Close': np.random.normal(100, 10, 100).cumsum(),
-            'Volume': np.random.randint(1000, 10000, 100)
-        })
+        self.sample_stock_data = pd.DataFrame(
+            {
+                'Date': pd.date_range('2023-01-01', periods=100, freq='D'),
+                'Close': np.random.normal(100, 10, 100).cumsum(),
+                'Volume': np.random.randint(1000, 10000, 100),
+            }
+        )
 
     def test_initialization(self):
         """初期化テスト"""
@@ -62,10 +63,10 @@ class TestEnhancedRiskAlerts:
                 "stock_data": self.sample_stock_data,
                 "current_price": 100.0,
                 "position_size": 100,
-                "account_balance": 1000000.0
+                "account_balance": 1000000.0,
             }
         }
-        
+
         alerts = self.risk_alerts.generate_comprehensive_alerts(portfolio_data)
         assert isinstance(alerts, list)
 
@@ -95,12 +96,12 @@ class TestEnhancedRiskAlerts:
             expires_at=datetime.now() + timedelta(days=7),
             metadata={},
             color_code="#F44336",
-            icon="error"
+            icon="error",
         )
-        
+
         self.risk_alerts.alert_history.append(test_alert)
         summary = self.risk_alerts.get_alert_summary()
-        
+
         assert summary.total_alerts >= 1
         assert summary.critical_alerts >= 1
 
@@ -111,10 +112,10 @@ class TestEnhancedRiskAlerts:
                 "stock_data": self.sample_stock_data,
                 "current_price": 100.0,
                 "position_size": 100,
-                "account_balance": 1000000.0
+                "account_balance": 1000000.0,
             }
         }
-        
+
         recommendations = self.risk_alerts.get_personalized_recommendations(
             portfolio_data, "low"
         )
@@ -127,10 +128,10 @@ class TestEnhancedRiskAlerts:
                 "stock_data": self.sample_stock_data,
                 "current_price": 100.0,
                 "position_size": 100,
-                "account_balance": 1000000.0
+                "account_balance": 1000000.0,
             }
         }
-        
+
         recommendations = self.risk_alerts.get_personalized_recommendations(
             portfolio_data, "high"
         )
@@ -151,9 +152,9 @@ class TestEnhancedRiskAlerts:
             expires_at=datetime.now() + timedelta(days=7),
             metadata={},
             color_code="#F44336",
-            icon="error"
+            icon="error",
         )
-        
+
         notification = self.risk_alerts.create_alert_notification(test_alert)
         assert notification["success"] is True
         assert "data" in notification
@@ -173,9 +174,9 @@ class TestEnhancedRiskAlerts:
             expires_at=datetime.now() + timedelta(days=7),
             metadata={},
             color_code="#F44336",
-            icon="error"
+            icon="error",
         )
-        
+
         notification = self.risk_alerts.create_alert_notification(
             test_alert, ["email", "push"]
         )
@@ -194,9 +195,9 @@ class TestEnhancedRiskAlerts:
             "stock_data": self.sample_stock_data,
             "current_price": 100.0,
             "position_size": 100,
-            "account_balance": 1000000.0
+            "account_balance": 1000000.0,
         }
-        
+
         alerts = self.risk_alerts._generate_stock_alerts("7203", data)
         assert isinstance(alerts, list)
 
@@ -212,10 +213,10 @@ class TestEnhancedRiskAlerts:
                 "stock_data": self.sample_stock_data,
                 "current_price": 100.0,
                 "position_size": 100,
-                "account_balance": 1000000.0
+                "account_balance": 1000000.0,
             }
         }
-        
+
         alerts = self.risk_alerts._generate_portfolio_alerts(portfolio_data, None)
         assert isinstance(alerts, list)
 
@@ -226,11 +227,8 @@ class TestEnhancedRiskAlerts:
 
     def test_generate_market_alerts_with_data(self):
         """データ付きでの市場アラート生成テスト"""
-        market_data = {
-            "volatility": 0.4,
-            "market_stress": 0.3
-        }
-        
+        market_data = {"volatility": 0.4, "market_stress": 0.3}
+
         alerts = self.risk_alerts._generate_market_alerts(market_data)
         assert isinstance(alerts, list)
 
@@ -242,9 +240,9 @@ class TestEnhancedRiskAlerts:
             severity=AlertSeverity.CRITICAL,
             title="テストアラート",
             message="テストメッセージ",
-            recommendation="テスト推奨"
+            recommendation="テスト推奨",
         )
-        
+
         assert isinstance(alert, RiskAlert)
         assert alert.symbol == "7203"
         assert alert.type == AlertType.HIGH_RISK
@@ -266,7 +264,7 @@ class TestEnhancedRiskAlerts:
                 expires_at=datetime.now() + timedelta(days=7),
                 metadata={},
                 color_code="#F44336",
-                icon="error"
+                icon="error",
             ),
             RiskAlert(
                 id="alert_2",
@@ -281,10 +279,10 @@ class TestEnhancedRiskAlerts:
                 expires_at=datetime.now() + timedelta(days=7),
                 metadata={},
                 color_code="#FF9800",
-                icon="warning"
-            )
+                icon="warning",
+            ),
         ]
-        
+
         unique_alerts = self.risk_alerts._deduplicate_and_prioritize_alerts(alerts)
         assert isinstance(unique_alerts, list)
         assert len(unique_alerts) <= len(alerts)
@@ -304,9 +302,9 @@ class TestEnhancedRiskAlerts:
             expires_at=datetime.now() + timedelta(days=7),
             metadata={},
             color_code="#F44336",
-            icon="error"
+            icon="error",
         )
-        
+
         score = self.risk_alerts._get_alert_priority_score(alert)
         assert isinstance(score, int)
         assert score > 0
@@ -327,14 +325,14 @@ class TestEnhancedRiskAlerts:
             expires_at=datetime.now() - timedelta(days=28),
             metadata={},
             color_code="#F44336",
-            icon="error"
+            icon="error",
         )
-        
+
         self.risk_alerts.alert_history.append(old_alert)
         initial_count = len(self.risk_alerts.alert_history)
-        
+
         self.risk_alerts._cleanup_old_alerts()
-        
+
         # 古いアラートが削除されていることを確認
         assert len(self.risk_alerts.alert_history) < initial_count
 
@@ -353,9 +351,9 @@ class TestEnhancedRiskAlerts:
             expires_at=datetime.now() + timedelta(days=7),
             metadata={"test": "value"},
             color_code="#F44336",
-            icon="error"
+            icon="error",
         )
-        
+
         formatted = self.risk_alerts._format_alert_for_display(alert)
         assert isinstance(formatted, dict)
         assert "id" in formatted
@@ -386,10 +384,10 @@ class TestEnhancedRiskAlerts:
                 "stock_data": self.sample_stock_data,
                 "current_price": 100.0,
                 "position_size": 100,
-                "account_balance": 1000000.0
+                "account_balance": 1000000.0,
             }
         }
-        
+
         analysis = self.risk_alerts._analyze_portfolio_risk(portfolio_data)
         assert isinstance(analysis, dict)
         assert "high_risk_count" in analysis
@@ -442,7 +440,7 @@ class TestEnhancedRiskAlerts:
     def test_determine_risk_level(self):
         """リスクレベル決定テスト"""
         from core.dynamic_risk_management import RiskLevel
-        
+
         assert self.risk_alerts._determine_risk_level(20) == RiskLevel.LOW
         assert self.risk_alerts._determine_risk_level(50) == RiskLevel.MEDIUM
         assert self.risk_alerts._determine_risk_level(80) == RiskLevel.HIGH
@@ -464,7 +462,9 @@ class TestEnhancedRiskAlerts:
     def test_error_handling_in_personalized_recommendations(self):
         """個人化推奨事項でのエラーハンドリングテスト"""
         # 無効なデータでテスト
-        recommendations = self.risk_alerts.get_personalized_recommendations({}, "invalid")
+        recommendations = self.risk_alerts.get_personalized_recommendations(
+            {}, "invalid"
+        )
         assert isinstance(recommendations, list)
 
     def test_error_handling_in_create_alert_notification(self):
@@ -499,21 +499,23 @@ class TestEnhancedRiskAlerts:
     def test_performance_with_large_dataset(self):
         """大規模データセットでのパフォーマンステスト"""
         # 大規模データセットを作成
-        large_data = pd.DataFrame({
-            'Date': pd.date_range('2020-01-01', periods=1000, freq='D'),
-            'Close': np.random.normal(100, 10, 1000).cumsum(),
-            'Volume': np.random.randint(1000, 10000, 1000)
-        })
-        
+        large_data = pd.DataFrame(
+            {
+                'Date': pd.date_range('2020-01-01', periods=1000, freq='D'),
+                'Close': np.random.normal(100, 10, 1000).cumsum(),
+                'Volume': np.random.randint(1000, 10000, 1000),
+            }
+        )
+
         portfolio_data = {
             "7203": {
                 "stock_data": large_data,
                 "current_price": 100.0,
                 "position_size": 100,
-                "account_balance": 1000000.0
+                "account_balance": 1000000.0,
             }
         }
-        
+
         # パフォーマンステスト（タイムアウトなし）
         alerts = self.risk_alerts.generate_comprehensive_alerts(portfolio_data)
         assert isinstance(alerts, list)
@@ -536,12 +538,12 @@ class TestEnhancedRiskAlerts:
                 expires_at=datetime.now() - timedelta(days=28),
                 metadata={},
                 color_code="#F44336",
-                icon="error"
+                icon="error",
             )
             self.risk_alerts.alert_history.append(old_alert)
-        
+
         # 古いアラートの削除を実行
         self.risk_alerts._cleanup_old_alerts()
-        
+
         # 古いアラートが削除されていることを確認
         assert len(self.risk_alerts.alert_history) == 0

@@ -7,7 +7,7 @@ ConfigManagerのテストカバレッジ向上
 import pytest
 import tempfile
 import os
-from unittest.mock import patch, mock_open
+from unittest.mock import patch
 from core.config_manager import ConfigManager
 
 

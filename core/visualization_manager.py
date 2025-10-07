@@ -7,7 +7,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, List
 from datetime import datetime
 import warnings
 
@@ -26,8 +26,6 @@ class VisualizationManager:
     def _setup_matplotlib(self):
         """matplotlibの設定"""
         try:
-            import matplotlib.font_manager as fm
-
             # 日本語フォントの設定
             plt.rcParams["font.family"] = [
                 "DejaVu Sans",
@@ -59,7 +57,9 @@ class VisualizationManager:
 
             # メインプロット
             plt.subplot(2, 2, 1)
-            plt.plot(y_test.values, label="実際の株価", color="blue", alpha=0.7, linewidth=2)
+            plt.plot(
+                y_test.values, label="実際の株価", color="blue", alpha=0.7, linewidth=2
+            )
             plt.plot(y_pred, label="予測株価", color="red", alpha=0.7, linewidth=2)
             plt.legend()
             plt.title(f"{title} ({model_name})")
@@ -177,7 +177,9 @@ class VisualizationManager:
             plt.close()
 
             if self.logger:
-                self.logger.log_info(f"📊 モデル比較チャートを '{output_file}' に保存しました")
+                self.logger.log_info(
+                    f"📊 モデル比較チャートを '{output_file}' に保存しました"
+                )
 
             return True
 
@@ -220,13 +222,17 @@ class VisualizationManager:
             plt.close()
 
             if self.logger:
-                self.logger.log_info(f"📈 パフォーマンス指標を '{output_file}' に保存しました")
+                self.logger.log_info(
+                    f"📈 パフォーマンス指標を '{output_file}' に保存しました"
+                )
 
             return True
 
         except Exception as e:
             if self.error_handler:
-                self.error_handler.handle_file_error(e, output_file, "パフォーマンス指標可視化")
+                self.error_handler.handle_file_error(
+                    e, output_file, "パフォーマンス指標可視化"
+                )
             return False
 
     def create_time_series_plot(
@@ -252,7 +258,9 @@ class VisualizationManager:
             plt.close()
 
             if self.logger:
-                self.logger.log_info(f"📅 時系列プロットを '{output_file}' に保存しました")
+                self.logger.log_info(
+                    f"📅 時系列プロットを '{output_file}' に保存しました"
+                )
 
             return True
 

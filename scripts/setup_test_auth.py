@@ -4,7 +4,6 @@ jQuants認証情報設定スクリプト（テスト用）
 テスト用の認証情報を設定する
 """
 
-import os
 from pathlib import Path
 
 

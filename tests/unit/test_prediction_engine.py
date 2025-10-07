@@ -6,7 +6,7 @@ PredictionEngineのユニットテスト
 import pytest
 import pandas as pd
 import numpy as np
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 from core.prediction_engine import PredictionEngine
 
 
@@ -181,7 +181,9 @@ class TestPredictionEngine:
 
         predictions = engine.make_predictions(mock_model, data)
         assert predictions == [1, 2, 3]  # サンプル予測値
-        mock_logger.log_warning.assert_called_with("予測データが空です。サンプル予測値を返します。")
+        mock_logger.log_warning.assert_called_with(
+            "予測データが空です。サンプル予測値を返します。"
+        )
 
     def test_detect_overfitting_high_risk(self):
         """過学習検出テスト（高リスク）"""

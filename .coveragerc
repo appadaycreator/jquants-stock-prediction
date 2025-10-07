@@ -1,30 +1,21 @@
 [run]
-source = .
-omit = 
-    */tests/*
-    */venv/*
-    */__pycache__/*
-    */node_modules/*
-    */web-app/*
-    */docs/*
-    setup.py
-    run_tests.py
-    create_sample_data.py
-    generate_web_data.py
-    deploy.sh
+branch = True
+omit =
+    venv/*
+    web-app/*
+    node_modules/*
+    docs/*
+    htmlcov/*
+    tests/*
+    scripts/*
+    generate_*.
+    examples/*
+    routine_api.py
 
 [report]
 exclude_lines =
     pragma: no cover
-    def __repr__
-    if self.debug:
-    if settings.DEBUG
-    raise AssertionError
-    raise NotImplementedError
-    if 0:
-    if __name__ == .__main__.:
-    class .*\bProtocol\):
-    @(abc\.)?abstractmethod
+    if __name__ == .__main__.
 
 [html]
 directory = htmlcov

@@ -3,11 +3,9 @@
 ポートフォリオ最適化に基づく包括的な投資推奨システム
 """
 
-import numpy as np
-import pandas as pd
 from typing import Dict, List, Tuple, Optional, Any
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime
 import logging
 from enum import Enum
 import warnings
@@ -593,10 +591,14 @@ class EnhancedRecommendationSystem:
             reasoning = []
 
             if recommendation_type == RecommendationType.BUY_MORE:
-                reasoning.append(f"ポートフォリオ最適化により、{abs(weight_diff):.1%}の増量が推奨されています")
+                reasoning.append(
+                    f"ポートフォリオ最適化により、{abs(weight_diff):.1%}の増量が推奨されています"
+                )
                 reasoning.append("期待リターンがリスクを上回る状況です")
             elif recommendation_type == RecommendationType.SELL:
-                reasoning.append(f"ポートフォリオ最適化により、{abs(weight_diff):.1%}の減量が推奨されています")
+                reasoning.append(
+                    f"ポートフォリオ最適化により、{abs(weight_diff):.1%}の減量が推奨されています"
+                )
                 reasoning.append("リスク調整後のリターンが低下しています")
             elif recommendation_type == RecommendationType.TAKE_PROFIT:
                 reasoning.append("利益確定のタイミングです")
@@ -950,7 +952,11 @@ class EnhancedRecommendationSystem:
                         "description": "相関分散を改善してください",
                         "current_score": correlation_score,
                         "target_score": 0.7,
-                        "suggestions": ["低相関銘柄への投資を検討", "相関分析を定期的に実施", "市場指数との相関を監視"],
+                        "suggestions": [
+                            "低相関銘柄への投資を検討",
+                            "相関分析を定期的に実施",
+                            "市場指数との相関を監視",
+                        ],
                     }
                 )
 

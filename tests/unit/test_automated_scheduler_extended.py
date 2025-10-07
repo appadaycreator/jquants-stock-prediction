@@ -5,11 +5,8 @@
 """
 
 import pytest
-import time
-import json
-import threading
-from unittest.mock import Mock, patch, MagicMock, call
-from datetime import datetime, timedelta
+from unittest.mock import Mock, patch
+from datetime import datetime
 import tempfile
 import os
 
@@ -20,9 +17,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from automated_scheduler import (
     AutomatedScheduler,
-    NotificationConfig,
-    SchedulerConfig,
-    NotificationType,
 )
 
 
@@ -208,7 +202,10 @@ class TestAutomatedSchedulerExtended:
         # モック設定
         mock_config_instance = Mock()
         mock_config_instance.get_config.return_value = {
-            "automated_scheduler": {"max_retries": 3, "retry_delay": 1},  # テスト用に短縮
+            "automated_scheduler": {
+                "max_retries": 3,
+                "retry_delay": 1,
+            },  # テスト用に短縮
             "notifications": {},
         }
         mock_config.return_value = mock_config_instance
@@ -235,7 +232,10 @@ class TestAutomatedSchedulerExtended:
         # モック設定
         mock_config_instance = Mock()
         mock_config_instance.get_config.return_value = {
-            "automated_scheduler": {"max_retries": 2, "retry_delay": 1},  # テスト用に短縮
+            "automated_scheduler": {
+                "max_retries": 2,
+                "retry_delay": 1,
+            },  # テスト用に短縮
             "notifications": {},
         }
         mock_config.return_value = mock_config_instance
@@ -262,7 +262,10 @@ class TestAutomatedSchedulerExtended:
         # モック設定
         mock_config_instance = Mock()
         mock_config_instance.get_config.return_value = {
-            "automated_scheduler": {"max_retries": 2, "retry_delay": 1},  # テスト用に短縮
+            "automated_scheduler": {
+                "max_retries": 2,
+                "retry_delay": 1,
+            },  # テスト用に短縮
             "notifications": {},
         }
         mock_config.return_value = mock_config_instance
@@ -655,7 +658,11 @@ class TestAutomatedSchedulerExtended:
         mock_config_instance.get_config.return_value = {
             "automated_scheduler": {},
             "notifications": {
-                "email": {"enabled": True, "user": "", "to": ""}  # 空のユーザー  # 空の宛先
+                "email": {
+                    "enabled": True,
+                    "user": "",
+                    "to": "",
+                }  # 空のユーザー  # 空の宛先
             },
         }
         mock_config.return_value = mock_config_instance

@@ -4,13 +4,10 @@
 オフラインデータ管理のテストカバレッジ向上
 """
 
-import pytest
 import tempfile
 import json
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch
 from datetime import datetime, timedelta
-import sys
-import os
 
 
 class TestOfflineManager:
@@ -162,7 +159,11 @@ class TestOfflineManager:
                     "message": "オフライン中です。キャッシュデータを使用しています。",
                 }
         except Exception as e:
-            return {"data": None, "isOffline": True, "message": f"エラーが発生しました: {str(e)}"}
+            return {
+                "data": None,
+                "isOffline": True,
+                "message": f"エラーが発生しました: {str(e)}",
+            }
 
     def _is_data_fresh(self, data):
         """データの新鮮さチェック"""

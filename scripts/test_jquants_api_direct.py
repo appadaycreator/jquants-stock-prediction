@@ -103,7 +103,7 @@ def test_jquants_api():
 
 def test_api_with_token():
     """IDトークンでAPIをテスト"""
-    print(f"\n--- IDトークンでAPIテスト ---")
+    print("\n--- IDトークンでAPIテスト ---")
 
     # 環境変数からIDトークンを取得
     id_token = os.getenv("JQUANTS_ID_TOKEN")
@@ -128,7 +128,7 @@ def test_api_with_token():
 
         if response.status_code == 200:
             data = response.json()
-            print(f"✅ APIテスト成功")
+            print("✅ APIテスト成功")
             print(f"データ件数: {len(data.get('info', []))}")
             if data.get("info"):
                 print(
@@ -203,14 +203,14 @@ def test_api_limits():
         try:
             url = f"{base_url}/markets/calendar"
             response = requests.get(url, headers=headers, timeout=10)
-            print(f"リクエスト {i+1}: ステータス {response.status_code}")
+            print(f"リクエスト {i + 1}: ステータス {response.status_code}")
 
             if response.status_code == 429:
                 print("⚠️ レート制限に達しました")
                 break
 
         except Exception as e:
-            print(f"リクエスト {i+1}: エラー {e}")
+            print(f"リクエスト {i + 1}: エラー {e}")
 
         time.sleep(0.5)  # 0.5秒間隔
 

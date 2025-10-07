@@ -86,7 +86,9 @@ def test_id_token_validity(id_token=None):
         # メール/パスワードで取得を試みる
         email = os.getenv("JQUANTS_EMAIL")
         password = os.getenv("JQUANTS_PASSWORD")
-        id_token = perform_email_password_auth(email, password) if email and password else None
+        id_token = (
+            perform_email_password_auth(email, password) if email and password else None
+        )
         if not id_token:
             return False
     try:
@@ -405,7 +407,7 @@ def test_rate_limits():
 
     for i in range(5):
         try:
-            print(f"リクエスト {i+1}/5...")
+            print(f"リクエスト {i + 1}/5...")
             response = requests.get(url, headers=headers, timeout=10)
             print(f"  ステータス: {response.status_code}")
 

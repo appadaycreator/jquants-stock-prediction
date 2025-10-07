@@ -4,8 +4,6 @@ NISA税務計算システムの単体テスト
 """
 
 import pytest
-from datetime import datetime
-from unittest.mock import patch, MagicMock
 
 from core.nisa_tax_calculator import NisaTaxCalculator, TaxCalculation, TaxOptimization
 

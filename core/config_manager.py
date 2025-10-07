@@ -6,7 +6,7 @@
 
 import os
 import yaml
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 from datetime import datetime
 
 
@@ -40,7 +40,7 @@ class ConfigManager:
             # 環境別設定の適用
             self._apply_environment_config()
 
-        except Exception as e:
+        except Exception:
             # 設定ファイル読み込みエラー - デフォルト設定を使用
             self._create_default_config()
 
@@ -185,7 +185,7 @@ class ConfigManager:
 
             with open(file_path, "w", encoding="utf-8") as f:
                 yaml.dump(self.config, f, default_flow_style=False, allow_unicode=True)
-        except Exception as e:
+        except Exception:
             raise
 
     def update_configuration(self, new_config: Dict[str, Any]) -> None:
@@ -194,7 +194,7 @@ class ConfigManager:
             if new_config is None:
                 return
             self.config.update(new_config)
-        except Exception as e:
+        except Exception:
             raise
 
     def validate_config(self, config: Dict[str, Any] = None) -> Dict[str, Any]:
@@ -232,7 +232,7 @@ class ConfigManager:
                 "config_file": self.config_file,
             }
             return backup_data
-        except Exception as e:
+        except Exception:
             raise
 
     def restore_from_backup(self, backup_data: Dict[str, Any]) -> bool:
@@ -246,7 +246,7 @@ class ConfigManager:
                 self.config = backup_data["config"]
                 return True
             return False
-        except Exception as e:
+        except Exception:
             return False
 
     def get_nested_config(self, key: str) -> Any:
@@ -276,5 +276,5 @@ class ConfigManager:
                 config = config[k]
 
             config[keys[-1]] = value
-        except Exception as e:
+        except Exception:
             raise

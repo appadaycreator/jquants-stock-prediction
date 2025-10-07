@@ -5,8 +5,7 @@
 import pytest
 import pandas as pd
 import numpy as np
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock
 
 from core.article_method_analyzer import (
     ArticleMethodAnalyzer,

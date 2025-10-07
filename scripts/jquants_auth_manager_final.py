@@ -9,8 +9,8 @@ import json
 import requests
 import logging
 import time
-from datetime import datetime, timedelta
-from typing import Optional, Dict, Any, Tuple
+from datetime import datetime
+from typing import Optional, Dict, Any
 from pathlib import Path
 
 # 環境変数読み込み
@@ -195,7 +195,9 @@ class JQuantsAuthManagerFinal:
                     return False
 
             except requests.exceptions.RequestException as e:
-                logger.error(f"APIテストエラー (試行 {attempt + 1}/{self.max_retries}): {e}")
+                logger.error(
+                    f"APIテストエラー (試行 {attempt + 1}/{self.max_retries}): {e}"
+                )
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_delay)
                     continue
@@ -206,12 +208,16 @@ class JQuantsAuthManagerFinal:
     def get_new_tokens(self) -> Optional[Dict[str, str]]:
         """メールアドレスとパスワードで新しいトークンを取得"""
         if not self.email or not self.password:
-            logger.error("認証情報が設定されていません (JQUANTS_EMAIL, JQUANTS_PASSWORD)")
+            logger.error(
+                "認証情報が設定されていません (JQUANTS_EMAIL, JQUANTS_PASSWORD)"
+            )
             return None
 
         for attempt in range(self.max_retries):
             try:
-                logger.info(f"新しいトークンを取得中... (試行 {attempt + 1}/{self.max_retries})")
+                logger.info(
+                    f"新しいトークンを取得中... (試行 {attempt + 1}/{self.max_retries})"
+                )
 
                 # 認証リクエスト
                 auth_data = {"mailaddress": self.email, "password": self.password}
@@ -266,7 +272,9 @@ class JQuantsAuthManagerFinal:
                     time.sleep(self.retry_delay)
                     continue
             except Exception as e:
-                logger.error(f"予期しないエラー (試行 {attempt + 1}/{self.max_retries}): {e}")
+                logger.error(
+                    f"予期しないエラー (試行 {attempt + 1}/{self.max_retries}): {e}"
+                )
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_delay)
                     continue
@@ -307,12 +315,16 @@ class JQuantsAuthManagerFinal:
                     continue
 
             except requests.exceptions.RequestException as e:
-                logger.error(f"トークン更新エラー (試行 {attempt + 1}/{self.max_retries}): {e}")
+                logger.error(
+                    f"トークン更新エラー (試行 {attempt + 1}/{self.max_retries}): {e}"
+                )
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_delay)
                     continue
             except Exception as e:
-                logger.error(f"予期しないエラー (試行 {attempt + 1}/{self.max_retries}): {e}")
+                logger.error(
+                    f"予期しないエラー (試行 {attempt + 1}/{self.max_retries}): {e}"
+                )
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_delay)
                     continue

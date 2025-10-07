@@ -7,16 +7,16 @@ import pytest
 import tempfile
 import os
 from datetime import datetime
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 from core.nisa_integrated_manager import (
     NisaIntegratedManager,
     NisaDashboard,
     NisaOptimization,
 )
-from core.nisa_quota_manager import NisaTransaction, NisaPortfolio, NisaPosition
+from core.nisa_quota_manager import NisaPortfolio
 from core.nisa_tax_calculator import TaxCalculation, TaxOptimization
-from core.nisa_alert_system import QuotaAlert, InvestmentOpportunity
+from core.nisa_alert_system import QuotaAlert
 
 
 class TestNisaIntegratedManager:

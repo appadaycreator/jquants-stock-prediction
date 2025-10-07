@@ -6,7 +6,6 @@
 
 import unittest
 import sys
-import os
 from pathlib import Path
 
 # プロジェクトルートをパスに追加
@@ -33,7 +32,9 @@ class TestStockCodeOptimization(unittest.TestCase):
             with self.subTest(input_code=input_code):
                 result = normalize_security_code(input_code)
                 self.assertEqual(
-                    result, expected, f"入力: {input_code}, 期待値: {expected}, 実際: {result}"
+                    result,
+                    expected,
+                    f"入力: {input_code}, 期待値: {expected}, 実際: {result}",
                 )
 
     def test_new_format_normalization(self):
@@ -50,7 +51,9 @@ class TestStockCodeOptimization(unittest.TestCase):
             with self.subTest(input_code=input_code):
                 result = normalize_security_code(input_code)
                 self.assertEqual(
-                    result, expected, f"入力: {input_code}, 期待値: {expected}, 実際: {result}"
+                    result,
+                    expected,
+                    f"入力: {input_code}, 期待値: {expected}, 実際: {result}",
                 )
 
     def test_edge_cases(self):
@@ -68,7 +71,9 @@ class TestStockCodeOptimization(unittest.TestCase):
             with self.subTest(input_code=input_code):
                 result = normalize_security_code(input_code)
                 self.assertEqual(
-                    result, expected, f"入力: {input_code}, 期待値: {expected}, 実際: {result}"
+                    result,
+                    expected,
+                    f"入力: {input_code}, 期待値: {expected}, 実際: {result}",
                 )
 
     def test_mixed_format_handling(self):
@@ -84,7 +89,9 @@ class TestStockCodeOptimization(unittest.TestCase):
             with self.subTest(input_code=input_code):
                 result = normalize_security_code(input_code)
                 self.assertEqual(
-                    result, expected, f"入力: {input_code}, 期待値: {expected}, 実際: {result}"
+                    result,
+                    expected,
+                    f"入力: {input_code}, 期待値: {expected}, 実際: {result}",
                 )
 
     def test_invalid_formats(self):
@@ -114,7 +121,11 @@ class TestStockCodeOptimization(unittest.TestCase):
         for code in legacy_codes:
             with self.subTest(code=code):
                 result = normalize_security_code(code)
-                self.assertEqual(result, code, f"従来コード {code} の処理結果が一致しません: {result}")
+                self.assertEqual(
+                    result,
+                    code,
+                    f"従来コード {code} の処理結果が一致しません: {result}",
+                )
 
     def test_new_format_uppercase_conversion(self):
         """新形式の大文字変換テスト"""
@@ -129,7 +140,9 @@ class TestStockCodeOptimization(unittest.TestCase):
             with self.subTest(input_code=input_code):
                 result = normalize_security_code(input_code)
                 self.assertEqual(
-                    result, expected, f"入力: {input_code}, 期待値: {expected}, 実際: {result}"
+                    result,
+                    expected,
+                    f"入力: {input_code}, 期待値: {expected}, 実際: {result}",
                 )
 
 

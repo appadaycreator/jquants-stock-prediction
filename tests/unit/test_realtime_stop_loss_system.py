@@ -4,8 +4,8 @@
 """
 
 import unittest
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
+from datetime import datetime
+from unittest.mock import Mock
 import sys
 import os
 
@@ -15,9 +15,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from core.realtime_stop_loss_system import (
     RealtimeStopLossSystem,
     VolatilityCalculator,
-    StopLossType,
-    TakeProfitType,
-    AlertLevel,
 )
 
 
@@ -75,7 +72,9 @@ class TestVolatilityCalculator(unittest.TestCase):
         )
 
         self.assertIsInstance(stop_loss_price, float)
-        self.assertLess(stop_loss_price, entry_price)  # 買いポジションの場合、損切り価格は安い
+        self.assertLess(
+            stop_loss_price, entry_price
+        )  # 買いポジションの場合、損切り価格は安い
 
     def test_calculate_dynamic_take_profit(self):
         """動的利確価格計算テスト"""
@@ -89,7 +88,9 @@ class TestVolatilityCalculator(unittest.TestCase):
         )
 
         self.assertIsInstance(take_profit_price, float)
-        self.assertGreater(take_profit_price, entry_price)  # 買いポジションの場合、利確価格は高い
+        self.assertGreater(
+            take_profit_price, entry_price
+        )  # 買いポジションの場合、利確価格は高い
 
 
 class TestRealtimeStopLossSystem(unittest.TestCase):

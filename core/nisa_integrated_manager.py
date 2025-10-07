@@ -6,14 +6,13 @@
 
 import logging
 from datetime import datetime
-from typing import Dict, List, Any, Optional, Tuple
+from typing import Dict, List, Any
 from dataclasses import dataclass, asdict
 
 # 実装したモジュールのインポート
 from .nisa_quota_manager import (
     NisaQuotaManager,
     NisaTransaction,
-    NisaPosition,
     NisaPortfolio,
 )
 from .nisa_tax_calculator import NisaTaxCalculator, TaxCalculation, TaxOptimization
@@ -21,7 +20,6 @@ from .nisa_alert_system import (
     NisaAlertSystem,
     QuotaAlert,
     InvestmentOpportunity,
-    SystemAlert,
 )
 
 
@@ -191,14 +189,23 @@ class NisaIntegratedManager:
 
             for field in required_fields:
                 if field not in transaction_data:
-                    return {"valid": False, "error": f"必須フィールド{field}が不足しています"}
+                    return {
+                        "valid": False,
+                        "error": f"必須フィールド{field}が不足しています",
+                    }
 
             # データ型の検証
             if transaction_data["type"] not in ["BUY", "SELL"]:
-                return {"valid": False, "error": "取引タイプはBUYまたはSELLである必要があります"}
+                return {
+                    "valid": False,
+                    "error": "取引タイプはBUYまたはSELLである必要があります",
+                }
 
             if transaction_data["quota_type"] not in ["GROWTH", "ACCUMULATION"]:
-                return {"valid": False, "error": "枠タイプはGROWTHまたはACCUMULATIONである必要があります"}
+                return {
+                    "valid": False,
+                    "error": "枠タイプはGROWTHまたはACCUMULATIONである必要があります",
+                }
 
             if transaction_data["quantity"] <= 0:
                 return {"valid": False, "error": "数量は0より大きい必要があります"}

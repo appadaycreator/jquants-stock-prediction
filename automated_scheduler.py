@@ -19,8 +19,8 @@ import schedule
 import threading
 import smtplib
 import requests
-from datetime import datetime, timedelta
-from typing import Dict, Any, Optional, List
+from datetime import datetime
+from typing import Dict, Any
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dataclasses import dataclass
@@ -262,7 +262,9 @@ class AutomatedScheduler:
 
             # リトライ前の待機
             if attempt < self.scheduler_config.max_retries - 1:
-                self.logger.info(f"{self.scheduler_config.retry_delay}秒後にリトライします")
+                self.logger.info(
+                    f"{self.scheduler_config.retry_delay}秒後にリトライします"
+                )
                 time.sleep(self.scheduler_config.retry_delay)
 
         self.logger.error("最大リトライ回数に達しました")
@@ -326,7 +328,10 @@ class AutomatedScheduler:
                     continue
 
             # 全てのエンドポイントが失敗した場合
-            return {"success": False, "error": "全てのAPIエンドポイントに接続できませんでした"}
+            return {
+                "success": False,
+                "error": "全てのAPIエンドポイントに接続できませんでした",
+            }
 
         except Exception as e:
             return {"success": False, "error": f"API呼び出しエラー: {str(e)}"}

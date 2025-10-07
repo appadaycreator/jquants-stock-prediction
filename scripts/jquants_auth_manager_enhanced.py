@@ -9,8 +9,8 @@ import json
 import requests
 import logging
 import time
-from datetime import datetime, timedelta
-from typing import Optional, Dict, Any, Tuple
+from datetime import datetime
+from typing import Optional, Dict, Any
 from pathlib import Path
 
 # 環境変数読み込み
@@ -210,7 +210,9 @@ class JQuantsAuthManagerEnhanced:
                     return False
 
             except requests.exceptions.RequestException as e:
-                logger.error(f"APIテストエラー (試行 {attempt + 1}/{self.max_retries}): {e}")
+                logger.error(
+                    f"APIテストエラー (試行 {attempt + 1}/{self.max_retries}): {e}"
+                )
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_delay)
                     continue
@@ -221,12 +223,16 @@ class JQuantsAuthManagerEnhanced:
     def get_new_tokens(self) -> Optional[Dict[str, str]]:
         """メールアドレスとパスワードで新しいトークンを取得（強化版）"""
         if not self.email or not self.password:
-            logger.error("認証情報が設定されていません (JQUANTS_EMAIL, JQUANTS_PASSWORD)")
+            logger.error(
+                "認証情報が設定されていません (JQUANTS_EMAIL, JQUANTS_PASSWORD)"
+            )
             return None
 
         for attempt in range(self.max_retries):
             try:
-                logger.info(f"新しいトークンを取得中... (試行 {attempt + 1}/{self.max_retries})")
+                logger.info(
+                    f"新しいトークンを取得中... (試行 {attempt + 1}/{self.max_retries})"
+                )
 
                 # 認証リクエスト
                 auth_data = {"mailaddress": self.email, "password": self.password}
@@ -281,7 +287,9 @@ class JQuantsAuthManagerEnhanced:
                     time.sleep(self.retry_delay)
                     continue
             except Exception as e:
-                logger.error(f"予期しないエラー (試行 {attempt + 1}/{self.max_retries}): {e}")
+                logger.error(
+                    f"予期しないエラー (試行 {attempt + 1}/{self.max_retries}): {e}"
+                )
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_delay)
                     continue
@@ -322,12 +330,16 @@ class JQuantsAuthManagerEnhanced:
                     continue
 
             except requests.exceptions.RequestException as e:
-                logger.error(f"トークン更新エラー (試行 {attempt + 1}/{self.max_retries}): {e}")
+                logger.error(
+                    f"トークン更新エラー (試行 {attempt + 1}/{self.max_retries}): {e}"
+                )
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_delay)
                     continue
             except Exception as e:
-                logger.error(f"予期しないエラー (試行 {attempt + 1}/{self.max_retries}): {e}")
+                logger.error(
+                    f"予期しないエラー (試行 {attempt + 1}/{self.max_retries}): {e}"
+                )
                 if attempt < self.max_retries - 1:
                     time.sleep(self.retry_delay)
                     continue
@@ -399,9 +411,9 @@ class JQuantsAuthManagerEnhanced:
                     env_content[i] = f"JQUANTS_ID_TOKEN={tokens['id_token']}\n"
                     token_updated = True
                 elif line.startswith("JQUANTS_REFRESH_TOKEN="):
-                    env_content[
-                        i
-                    ] = f"JQUANTS_REFRESH_TOKEN={tokens['refresh_token']}\n"
+                    env_content[i] = (
+                        f"JQUANTS_REFRESH_TOKEN={tokens['refresh_token']}\n"
+                    )
                     refresh_updated = True
 
             # 新しいトークンを追加
@@ -447,10 +459,16 @@ def main():
 
         # ダミー認証情報のチェック
         if auth_manager.env_auth_manager.is_dummy_auth():
-            logger.warning("⚠️ ダミーの認証情報が設定されています。実際の認証情報を設定してください。")
+            logger.warning(
+                "⚠️ ダミーの認証情報が設定されています。実際の認証情報を設定してください。"
+            )
             logger.info("設定方法:")
-            logger.info("1. ローカル環境: .envファイルにJQUANTS_EMAILとJQUANTS_PASSWORDを設定")
-            logger.info("2. 本番環境: GitHub SecretsにJQUANTS_EMAILとJQUANTS_PASSWORDを設定")
+            logger.info(
+                "1. ローカル環境: .envファイルにJQUANTS_EMAILとJQUANTS_PASSWORDを設定"
+            )
+            logger.info(
+                "2. 本番環境: GitHub SecretsにJQUANTS_EMAILとJQUANTS_PASSWORDを設定"
+            )
             return 1
 
     # 有効なトークンを取得

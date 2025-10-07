@@ -8,7 +8,7 @@ import json
 import os
 import sys
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import datetime
 import requests
 import logging
 
@@ -39,7 +39,9 @@ class DataSourceComparator:
         self.id_token = self.auth_manager.get_valid_token()
 
         if not self.id_token:
-            logger.warning("有効なIDトークンが取得できません。テスト用データでの比較を行います。")
+            logger.warning(
+                "有効なIDトークンが取得できません。テスト用データでの比較を行います。"
+            )
             self.id_token = None
 
     def load_current_data(self) -> dict:
@@ -73,7 +75,9 @@ class DataSourceComparator:
     def fetch_jquants_listed_info(self) -> dict:
         """jQuants APIから上場銘柄情報を取得"""
         if not self.id_token:
-            logger.warning("IDトークンが利用できないため、APIデータの取得をスキップします")
+            logger.warning(
+                "IDトークンが利用できないため、APIデータの取得をスキップします"
+            )
             return {}
 
         try:
@@ -113,7 +117,7 @@ class DataSourceComparator:
         # 3. jQuants APIデータ（可能な場合）
         api_data = self.fetch_jquants_listed_info()
 
-        print(f"\n📊 データソース比較結果:")
+        print("\n📊 データソース比較結果:")
         print(f"   現在の修正済みデータ: {len(current_data)}銘柄")
         print(f"   上場銘柄インデックス: {len(listed_index)}銘柄")
         print(
@@ -132,7 +136,7 @@ class DataSourceComparator:
         self, current_data: dict, listed_index: dict, api_data: dict
     ):
         """データ品質の分析"""
-        print(f"\n🔍 データ品質分析:")
+        print("\n🔍 データ品質分析:")
 
         # 現在のデータの品質チェック
         valid_stocks = 0
@@ -158,13 +162,15 @@ class DataSourceComparator:
         print(f"   有効な銘柄数: {valid_stocks}銘柄")
         print(f"   0埋め銘柄数: {zero_filled_stocks}銘柄")
         print(f"   サンプルデータ件数: {sample_data_count}件")
-        print(f"   データ品質: {'✅ 良好' if zero_filled_stocks == 0 else '⚠️ 改善必要'}")
+        print(
+            f"   データ品質: {'✅ 良好' if zero_filled_stocks == 0 else '⚠️ 改善必要'}"
+        )
 
     def compare_sample_data(
         self, current_data: dict, listed_index: dict, api_data: dict
     ):
         """サンプルデータの比較"""
-        print(f"\n📈 サンプルデータ比較:")
+        print("\n📈 サンプルデータ比較:")
 
         # 現在のデータからサンプルを取得
         sample_codes = list(current_data.keys())[:5]
@@ -181,14 +187,14 @@ class DataSourceComparator:
                         f"     現在のデータ: {latest.get('date', 'N/A')} - 終値: {latest.get('close', 0):.2f}"
                     )
                 else:
-                    print(f"     現在のデータ: データなし")
+                    print("     現在のデータ: データなし")
 
             # 上場銘柄インデックス
             if code in listed_index:
                 info = listed_index[code]
                 print(f"     上場情報: {info.get('CompanyName', 'N/A')}")
             else:
-                print(f"     上場情報: 見つかりません")
+                print("     上場情報: 見つかりません")
 
             # jQuants APIデータ（可能な場合）
             if api_data and "info" in api_data:
@@ -199,11 +205,11 @@ class DataSourceComparator:
                 if api_info:
                     print(f"     APIデータ: {api_info.get('CompanyName', 'N/A')}")
                 else:
-                    print(f"     APIデータ: 見つかりません")
+                    print("     APIデータ: 見つかりません")
 
     def check_data_consistency(self):
         """データの一貫性チェック"""
-        print(f"\n🔍 データ一貫性チェック:")
+        print("\n🔍 データ一貫性チェック:")
 
         current_data = self.load_current_data()
         listed_index = self.load_listed_index()
@@ -225,13 +231,15 @@ class DataSourceComparator:
         print(f"   上場情報のみ: {len(only_listed)}銘柄")
 
         if len(common_codes) > 0:
-            print(f"   一貫性: ✅ 良好 ({len(common_codes)/len(current_codes)*100:.1f}%)")
+            print(
+                f"   一貫性: ✅ 良好 ({len(common_codes) / len(current_codes) * 100:.1f}%)"
+            )
         else:
-            print(f"   一貫性: ❌ 問題あり")
+            print("   一貫性: ❌ 問題あり")
 
     def generate_comparison_report(self):
         """比較レポートの生成"""
-        print(f"\n📋 比較レポート生成:")
+        print("\n📋 比較レポート生成:")
 
         report = {
             "comparison_date": datetime.now().isoformat(),
@@ -274,10 +282,10 @@ class DataSourceComparator:
         # 比較レポートの生成
         self.generate_comparison_report()
 
-        print(f"\n🎉 データ比較が完了しました！")
-        print(f"   0埋め問題: ✅ 解決済み")
-        print(f"   認証システム: ✅ 最終版実装済み")
-        print(f"   データ品質: ✅ 良好")
+        print("\n🎉 データ比較が完了しました！")
+        print("   0埋め問題: ✅ 解決済み")
+        print("   認証システム: ✅ 最終版実装済み")
+        print("   データ品質: ✅ 良好")
 
 
 def main():

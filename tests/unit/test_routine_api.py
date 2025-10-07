@@ -6,9 +6,7 @@ routine_apiのユニットテスト
 import unittest
 import sys
 import os
-import json
 import pandas as pd
-from unittest.mock import Mock, patch
 
 # パスの設定
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))

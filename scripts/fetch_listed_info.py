@@ -252,7 +252,9 @@ class ListedInfoFetcher:
         logger.info(f"全銘柄を処理します: {len(target_stocks)}銘柄")
         for i, stock in enumerate(target_stocks):
             code = stock["code"]
-            logger.info(f"処理中: {i+1}/{len(target_stocks)} - {stock['name']} ({code})")
+            logger.info(
+                f"処理中: {i + 1}/{len(target_stocks)} - {stock['name']} ({code})"
+            )
 
             # 価格データの取得（修正版）
             price_data = None

@@ -3,10 +3,7 @@
 投資判断の明確化機能のテスト
 """
 
-import pytest
-import numpy as np
 from datetime import datetime, timedelta
-from unittest.mock import Mock, patch
 
 from core.clear_investment_actions import (
     ClearInvestmentActions,

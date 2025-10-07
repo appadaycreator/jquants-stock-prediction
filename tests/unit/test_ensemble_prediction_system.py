@@ -3,10 +3,7 @@
 アンサンブル予測システムのテスト
 """
 
-import pytest
 import numpy as np
-import pandas as pd
-from unittest.mock import Mock, patch
 from core.ensemble_prediction_system import EnsemblePredictionSystem
 
 
@@ -35,7 +32,7 @@ class TestEnsemblePredictionSystem:
     def test_initialize_models(self):
         """モデル初期化テスト"""
         models = self.system._initialize_models()
-        
+
         assert "random_forest" in models
         assert "gradient_boosting" in models
         assert "linear_regression" in models
@@ -88,9 +85,9 @@ class TestEnsemblePredictionSystem:
         np.random.seed(42)
         X_train = np.random.randn(100, 5)
         y_train = np.random.randn(100)
-        
+
         training_result = self.system.train_ensemble_models(X_train, y_train)
-        
+
         if training_result["training_successful"]:
             X_test = np.random.randn(10, 5)
             result = self.system.predict_ensemble(X_test)
@@ -198,9 +195,9 @@ class TestEnsemblePredictionSystem:
         np.random.seed(42)
         X_train = np.random.randn(100, 5)
         y_train = np.random.randn(100)
-        
+
         training_result = self.system.train_ensemble_models(X_train, y_train)
-        
+
         if training_result["training_successful"]:
             X_test = np.random.randn(20, 5)
             y_test = np.random.randn(20)
@@ -281,9 +278,9 @@ class TestEnsemblePredictionSystem:
         np.random.seed(42)
         X_train = np.random.randn(100, 5)
         y_train = np.random.randn(100)
-        
+
         training_result = self.system.train_ensemble_models(X_train, y_train)
-        
+
         if training_result["training_successful"]:
             X_test = np.random.randn(10, 5)
 
@@ -303,7 +300,7 @@ class TestEnsemblePredictionSystem:
         }
 
         system = EnsemblePredictionSystem(invalid_config)
-        
+
         # デフォルト値が使用されることを確認
         assert system.default_ensemble_method == "weighted_average"
         assert system.confidence_threshold == 0.7
@@ -313,9 +310,9 @@ class TestEnsemblePredictionSystem:
         """性能ベース重みテスト"""
         # 性能ベース重みを無効化
         self.system.performance_based_weights = False
-        
+
         weights = self.system._calculate_model_weights()
-        
+
         # 均等重みが使用されることを確認
         expected_weight = 1.0 / len(self.system.models)
         for weight in weights.values():
@@ -324,9 +321,9 @@ class TestEnsemblePredictionSystem:
     def test_empty_predictions_handling(self):
         """空の予測処理テスト"""
         individual_predictions = {}
-        
+
         result = self.system._weighted_average_prediction(individual_predictions)
-        
+
         # エラーが発生しないことを確認（空の場合はNaNが返される）
         assert isinstance(result, np.ndarray) or np.isnan(result)
 
@@ -385,9 +382,9 @@ class TestEnsemblePredictionSystem:
         np.random.seed(42)
         X_train = np.random.randn(100, 5)
         y_train = np.random.randn(100)
-        
+
         training_result = self.system.train_ensemble_models(X_train, y_train)
-        
+
         if training_result["training_successful"]:
             X_test = np.random.randn(10, 5)
 
@@ -404,7 +401,9 @@ class TestEnsemblePredictionSystem:
             if len(results) > 1:
                 predictions = list(results.values())
                 # 少なくとも1つの手法で異なる結果が得られる
-                assert any(not np.array_equal(predictions[0], pred) for pred in predictions[1:])
+                assert any(
+                    not np.array_equal(predictions[0], pred) for pred in predictions[1:]
+                )
 
     def test_model_performance_tracking(self):
         """モデル性能追跡テスト"""
@@ -431,9 +430,9 @@ class TestEnsemblePredictionSystem:
         np.random.seed(42)
         X_train = np.random.randn(100, 5)
         y_train = np.random.randn(100)
-        
+
         training_result = self.system.train_ensemble_models(X_train, y_train)
-        
+
         if training_result["training_successful"]:
             X_test = np.random.randn(10, 5)
 
@@ -444,8 +443,7 @@ class TestEnsemblePredictionSystem:
             if "error" not in result1 and "error" not in result2:
                 # 結果が一貫していることを確認
                 assert np.allclose(
-                    result1["ensemble_prediction"], 
-                    result2["ensemble_prediction"]
+                    result1["ensemble_prediction"], result2["ensemble_prediction"]
                 )
 
     def test_confidence_threshold_validation(self):
@@ -457,9 +455,9 @@ class TestEnsemblePredictionSystem:
         np.random.seed(42)
         X_train = np.random.randn(100, 5)
         y_train = np.random.randn(100)
-        
+
         training_result = self.system.train_ensemble_models(X_train, y_train)
-        
+
         if training_result["training_successful"]:
             X_test = np.random.randn(10, 5)
             result = self.system.predict_ensemble(X_test)
@@ -477,9 +475,9 @@ class TestEnsemblePredictionSystem:
         np.random.seed(42)
         X_train = np.random.randn(100, 5)
         y_train = np.random.randn(100)
-        
+
         training_result = self.system.train_ensemble_models(X_train, y_train)
-        
+
         if training_result["training_successful"]:
             X_test = np.random.randn(10, 5)
             result = self.system.predict_ensemble(X_test)

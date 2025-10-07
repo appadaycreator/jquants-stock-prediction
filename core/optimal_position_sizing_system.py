@@ -4,13 +4,11 @@
 """
 
 import numpy as np
-import pandas as pd
-from typing import Dict, List, Tuple, Optional, Any
+from typing import Dict, Optional, Any
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime
 import logging
 from scipy.optimize import minimize
-from scipy.stats import norm
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -693,7 +691,9 @@ class OptimalPositionSizingSystem:
             volatility = risk_metrics.get("volatility", 0.2)
             sharpe_ratio = risk_metrics.get("sharpe_ratio", 0.5)
 
-            risk_confidence = min(1.0, sharpe_ratio / 2.0)  # シャープレシオ2.0を上限とする
+            risk_confidence = min(
+                1.0, sharpe_ratio / 2.0
+            )  # シャープレシオ2.0を上限とする
 
             # 市場調整ベース信頼度
             market_confidence = np.mean(list(market_adjustment.values()))

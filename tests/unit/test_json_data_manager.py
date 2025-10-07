@@ -3,13 +3,12 @@
 JSONデータ管理システムのテスト
 """
 
-import pytest
 import tempfile
 import shutil
 import os
 import json
 from pathlib import Path
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 from core.json_data_manager import JSONDataManager
 
 

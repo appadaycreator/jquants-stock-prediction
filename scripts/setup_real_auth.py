@@ -3,7 +3,6 @@
 実際のjQuants API認証情報を設定するスクリプト
 """
 
-import os
 import sys
 from pathlib import Path
 
@@ -200,7 +199,7 @@ def save_env_config(config):
         with open(env_file, "w", encoding="utf-8") as f:
             f.writelines(updated_lines)
 
-        print(f"✅ 認証情報を.envファイルに保存しました")
+        print("✅ 認証情報を.envファイルに保存しました")
         return True
 
     except Exception as e:

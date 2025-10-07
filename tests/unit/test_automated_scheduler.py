@@ -5,11 +5,9 @@
 """
 
 import pytest
-import time
 import json
-import threading
-from unittest.mock import Mock, patch, MagicMock
-from datetime import datetime, timedelta
+from unittest.mock import Mock, patch
+from datetime import datetime
 import tempfile
 import os
 
@@ -594,7 +592,10 @@ class TestAutomatedScheduler:
         # モック設定
         mock_config_instance = Mock()
         mock_config_instance.get_config.return_value = {
-            "automated_scheduler": {"max_retries": 3, "retry_delay": 1},  # テスト用に短縮
+            "automated_scheduler": {
+                "max_retries": 3,
+                "retry_delay": 1,
+            },  # テスト用に短縮
             "notifications": {},
         }
         mock_config.return_value = mock_config_instance

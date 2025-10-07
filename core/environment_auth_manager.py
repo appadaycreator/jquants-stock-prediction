@@ -263,20 +263,22 @@ def main():
 
     # 詳細情報を表示
     validation = auth_manager.validate_auth_info()
-    print(f"\n詳細情報:")
+    print("\n詳細情報:")
     for key, value in validation.items():
         print(f"  {key}: {value}")
 
     # 認証情報の概要を表示（セキュリティのため一部マスク）
     auth_info = auth_manager.get_auth_info()
-    print(f"\n認証情報:")
+    print("\n認証情報:")
     print(f"  メールアドレス: {auth_info['email'] or '未設定'}")
     print(f"  パスワード: {'設定済み' if auth_info['password'] else '未設定'}")
     print(f"  IDトークン: {'設定済み' if auth_info['id_token'] else '未設定'}")
-    print(f"  リフレッシュトークン: {'設定済み' if auth_info['refresh_token'] else '未設定'}")
+    print(
+        f"  リフレッシュトークン: {'設定済み' if auth_info['refresh_token'] else '未設定'}"
+    )
 
     # 設定テンプレートを表示
-    print(f"\n設定テンプレート:")
+    print("\n設定テンプレート:")
     print(auth_manager.create_env_template())
 
     return 0

@@ -5,13 +5,12 @@
 
 import numpy as np
 import pandas as pd
-from typing import Dict, List, Tuple, Optional, Any
+from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 from datetime import datetime
 import logging
 from scipy.stats import entropy
 from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -886,7 +885,9 @@ class DiversificationScoringSystem:
         elif score >= 0.6:
             return "セクター分散を改善する余地があります。"
         else:
-            return "セクター分散が不十分です。異なるセクターへの投資を検討してください。"
+            return (
+                "セクター分散が不十分です。異なるセクターへの投資を検討してください。"
+            )
 
     def _get_correlation_recommendation(self, score: float) -> str:
         """相関推奨事項取得"""

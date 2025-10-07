@@ -11,7 +11,7 @@ import requests
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 import logging
 
 # プロジェクトルートをパスに追加
@@ -71,7 +71,9 @@ class JQuantsAPISyncer:
         try:
             with open(self.listed_index_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
-            logger.info(f"listed_index.json読み込み完了: {len(data.get('stocks', []))}銘柄")
+            logger.info(
+                f"listed_index.json読み込み完了: {len(data.get('stocks', []))}銘柄"
+            )
             return data
         except Exception as e:
             logger.error(f"listed_index.json読み込みエラー: {e}")
@@ -117,7 +119,9 @@ class JQuantsAPISyncer:
                             }
                             formatted_quotes.append(formatted_quote)
 
-                        logger.info(f"銘柄 {code} のAPIデータ取得成功: {len(formatted_quotes)}件")
+                        logger.info(
+                            f"銘柄 {code} のAPIデータ取得成功: {len(formatted_quotes)}件"
+                        )
                         return formatted_quotes
 
                     elif response.status_code == 429:  # レート制限
@@ -127,7 +131,9 @@ class JQuantsAPISyncer:
                         continue
 
                     else:
-                        logger.warning(f"API呼び出しエラー: HTTP {response.status_code}")
+                        logger.warning(
+                            f"API呼び出しエラー: HTTP {response.status_code}"
+                        )
                         if attempt == self.max_retries - 1:
                             return []
                         continue
@@ -186,10 +192,14 @@ class JQuantsAPISyncer:
                 if api_data:
                     synced_data[code] = api_data
                     api_success_count += 1
-                    logger.info(f"銘柄 {code} ({name}) のAPIデータ同期成功: {len(api_data)}件")
+                    logger.info(
+                        f"銘柄 {code} ({name}) のAPIデータ同期成功: {len(api_data)}件"
+                    )
                 else:
                     # APIデータが取得できない場合は、既存のサンプルデータを使用
-                    logger.warning(f"銘柄 {code} ({name}) のAPIデータ取得失敗、スキップ")
+                    logger.warning(
+                        f"銘柄 {code} ({name}) のAPIデータ取得失敗、スキップ"
+                    )
                     error_count += 1
 
                 processed_count += 1
@@ -208,7 +218,7 @@ class JQuantsAPISyncer:
                 error_count += 1
                 continue
 
-        logger.info(f"=== API同期完了 ===")
+        logger.info("=== API同期完了 ===")
         logger.info(f"処理済み銘柄数: {processed_count}")
         logger.info(f"API成功銘柄数: {api_success_count}")
         logger.info(f"エラー数: {error_count}")
@@ -283,7 +293,9 @@ def main():
 
     parser = argparse.ArgumentParser(description="jQuants APIデータ同期スクリプト")
     parser.add_argument("--max-stocks", type=int, help="処理する最大銘柄数（テスト用）")
-    parser.add_argument("--test", action="store_true", help="テストモード（5銘柄のみ処理）")
+    parser.add_argument(
+        "--test", action="store_true", help="テストモード（5銘柄のみ処理）"
+    )
 
     args = parser.parse_args()
 

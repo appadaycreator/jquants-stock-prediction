@@ -5,7 +5,6 @@
 """
 
 import json
-import os
 import sys
 from pathlib import Path
 from datetime import datetime
@@ -28,7 +27,7 @@ def analyze_stock_code_issue():
     with open(stock_data_file, "r", encoding="utf-8") as f:
         stock_data = json.load(f)
 
-    print(f"📊 データ分析結果:")
+    print("📊 データ分析結果:")
     print(f"   総銘柄数: {len(stock_data)}銘柄")
 
     # 銘柄コードの長さを分析
@@ -113,7 +112,7 @@ def create_stock_code_mapping():
     with open(mapping_file, "w", encoding="utf-8") as f:
         json.dump(code_mapping, f, ensure_ascii=False, indent=2)
 
-    print(f"✅ 銘柄コードマッピングファイルを作成しました")
+    print("✅ 銘柄コードマッピングファイルを作成しました")
     print(f"   ファイル: {mapping_file}")
     print(f"   マッピング数: {len(code_mapping)}件")
 
@@ -196,7 +195,7 @@ export function isValidStockCode(code: string): boolean {
     with open(utility_file, "w", encoding="utf-8") as f:
         f.write(utility_content)
 
-    print(f"✅ 銘柄コード変換ユーティリティを作成しました")
+    print("✅ 銘柄コード変換ユーティリティを作成しました")
     print(f"   ファイル: {utility_file}")
 
     return True
@@ -301,7 +300,7 @@ def generate_fix_report():
     with open(report_file, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
 
-    print(f"✅ 修正レポートを生成しました")
+    print("✅ 修正レポートを生成しました")
     print(f"   ファイル: {report_file}")
 
     return report
@@ -340,15 +339,15 @@ def main():
     # 6. 修正レポート生成
     report = generate_fix_report()
 
-    print(f"\n🎉 銘柄コード表示問題の修正が完了しました！")
-    print(f"   問題: 9875が98750と表示される")
-    print(f"   修正: 銘柄コードを正しく4桁で表示")
-    print(f"   影響: 投資指示画面、銘柄一覧、全表示コンポーネント")
+    print("\n🎉 銘柄コード表示問題の修正が完了しました！")
+    print("   問題: 9875が98750と表示される")
+    print("   修正: 銘柄コードを正しく4桁で表示")
+    print("   影響: 投資指示画面、銘柄一覧、全表示コンポーネント")
 
-    print(f"\n📋 次のステップ:")
-    print(f"   1. Webアプリを再起動")
-    print(f"   2. 銘柄コード表示を確認")
-    print(f"   3. 投資指示画面で正しい銘柄コードが表示されることを確認")
+    print("\n📋 次のステップ:")
+    print("   1. Webアプリを再起動")
+    print("   2. 銘柄コード表示を確認")
+    print("   3. 投資指示画面で正しい銘柄コードが表示されることを確認")
 
     return 0
 

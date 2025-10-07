@@ -5,10 +5,7 @@
 """
 
 import pytest
-import numpy as np
-import pandas as pd
-from unittest.mock import Mock, patch, MagicMock
-from datetime import datetime
+from unittest.mock import patch
 from core.advanced_position_sizing import AdvancedPositionSizing
 
 
@@ -90,7 +87,9 @@ class TestAdvancedPositionSizingComprehensive:
         """基本ポジションサイズ計算（エラーハンドリング）"""
         with patch.object(position_sizing.logger, "error") as mock_logger:
             result = position_sizing._calculate_base_position_size(
-                account_balance=0.0, stock_price=0.0, confidence=0.5  # ゼロ残高  # ゼロ価格
+                account_balance=0.0,
+                stock_price=0.0,
+                confidence=0.5,  # ゼロ残高  # ゼロ価格
             )
 
             assert result == 0.0
@@ -140,7 +139,8 @@ class TestAdvancedPositionSizingComprehensive:
     def test_apply_volatility_adjustment_high_volatility(self, position_sizing):
         """ボラティリティ調整（高ボラティリティ）"""
         result = position_sizing._apply_volatility_adjustment(
-            base_size=100.0, volatility=0.1  # 高ボラティリティ
+            base_size=100.0,
+            volatility=0.1,  # 高ボラティリティ
         )
 
         assert result > 0
@@ -149,7 +149,8 @@ class TestAdvancedPositionSizingComprehensive:
     def test_apply_volatility_adjustment_low_volatility(self, position_sizing):
         """ボラティリティ調整（低ボラティリティ）"""
         result = position_sizing._apply_volatility_adjustment(
-            base_size=100.0, volatility=0.001  # 低ボラティリティ
+            base_size=100.0,
+            volatility=0.001,  # 低ボラティリティ
         )
 
         assert result > 0
@@ -177,7 +178,8 @@ class TestAdvancedPositionSizingComprehensive:
     def test_apply_correlation_adjustment_high_correlation(self, position_sizing):
         """相関調整（高相関）"""
         result = position_sizing._apply_correlation_adjustment(
-            base_size=100.0, correlation=0.9  # 高相関
+            base_size=100.0,
+            correlation=0.9,  # 高相関
         )
 
         assert result > 0
@@ -186,7 +188,8 @@ class TestAdvancedPositionSizingComprehensive:
     def test_apply_correlation_adjustment_low_correlation(self, position_sizing):
         """相関調整（低相関）"""
         result = position_sizing._apply_correlation_adjustment(
-            base_size=100.0, correlation=0.1  # 低相関
+            base_size=100.0,
+            correlation=0.1,  # 低相関
         )
 
         assert result == 100.0  # サイズ維持
@@ -260,7 +263,9 @@ class TestAdvancedPositionSizingComprehensive:
         """最大損失額制限（エラーハンドリング）"""
         with patch.object(position_sizing.logger, "error") as mock_logger:
             result = position_sizing._apply_max_loss_limit(
-                base_size=100.0, stock_price=0.0, max_loss_amount=50000.0  # ゼロ価格
+                base_size=100.0,
+                stock_price=0.0,
+                max_loss_amount=50000.0,  # ゼロ価格
             )
 
             assert result == 100.0  # 元の値
@@ -278,7 +283,9 @@ class TestAdvancedPositionSizingComprehensive:
     def test_apply_final_adjustments_small_balance(self, position_sizing):
         """最終調整（小さい残高）"""
         result = position_sizing._apply_final_adjustments(
-            base_size=1000.0, account_balance=1000.0, stock_price=1000.0  # 小さい残高
+            base_size=1000.0,
+            account_balance=1000.0,
+            stock_price=1000.0,  # 小さい残高
         )
 
         assert result >= 0
@@ -288,7 +295,9 @@ class TestAdvancedPositionSizingComprehensive:
         """最終調整（エラーハンドリング）"""
         with patch.object(position_sizing.logger, "error") as mock_logger:
             result = position_sizing._apply_final_adjustments(
-                base_size=100.0, account_balance=0.0, stock_price=1000.0  # ゼロ残高
+                base_size=100.0,
+                account_balance=0.0,
+                stock_price=1000.0,  # ゼロ残高
             )
 
             assert result == 1  # 最小値
@@ -622,7 +631,8 @@ class TestAdvancedPositionSizingComprehensive:
         """ポートフォリオポジションサイズ計算（エラーハンドリング）"""
         with patch.object(position_sizing.logger, "error") as mock_logger:
             result = position_sizing.calculate_portfolio_position_sizes(
-                account_balance=1000000.0, stock_data=None  # 無効なデータ
+                account_balance=1000000.0,
+                stock_data=None,  # 無効なデータ
             )
 
             assert "error" in result
@@ -674,7 +684,8 @@ class TestAdvancedPositionSizingComprehensive:
         """ポジションサイジング推奨事項（エラーハンドリング）"""
         with patch.object(position_sizing.logger, "error") as mock_logger:
             result = position_sizing.get_position_sizing_recommendations(
-                account_balance=1000000.0, stock_data=None  # 無効なデータ
+                account_balance=1000000.0,
+                stock_data=None,  # 無効なデータ
             )
 
             assert "error" in result
@@ -756,7 +767,6 @@ class TestAdvancedPositionSizingComprehensive:
     def test_concurrent_calculations(self, position_sizing):
         """並行計算テスト"""
         import threading
-        import time
 
         results = []
         errors = []

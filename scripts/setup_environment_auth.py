@@ -4,7 +4,6 @@
 ローカル環境と本番環境の認証情報を適切に設定
 """
 
-import os
 import sys
 from pathlib import Path
 
@@ -117,7 +116,7 @@ ALLOWED_ORIGINS=localhost:3000,*.github.io
         try:
             with open(env_file, "w", encoding="utf-8") as f:
                 f.write(env_content)
-            print(f"✅ .envファイルを作成しました")
+            print("✅ .envファイルを作成しました")
         except Exception as e:
             print(f"❌ .envファイル作成エラー: {e}")
             return False

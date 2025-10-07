@@ -7,8 +7,7 @@
 import unittest
 import numpy as np
 import pandas as pd
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock
 import sys
 import os
 import threading
@@ -249,7 +248,10 @@ class TestEnhancedTradingSystem(unittest.TestCase):
 
         # 2. リスクメトリクス計算
         risk_metrics = self.risk_manager.calculate_risk_metrics(
-            self.stock_data, self.market_data, current_price, 0.05  # 初期ポジションサイズ
+            self.stock_data,
+            self.market_data,
+            current_price,
+            0.05,  # 初期ポジションサイズ
         )
 
         # 3. 取引シグナル生成
@@ -400,8 +402,12 @@ class TestEnhancedTradingSystem(unittest.TestCase):
         )
 
         # 低信頼度であることを確認（現実的な期待値に調整）
-        self.assertLess(confidence_metrics.final_confidence, 1.0)  # より現実的な値に調整
-        self.assertLess(confidence_metrics.risk_adjusted_confidence, 1.0)  # より現実的な値に調整
+        self.assertLess(
+            confidence_metrics.final_confidence, 1.0
+        )  # より現実的な値に調整
+        self.assertLess(
+            confidence_metrics.risk_adjusted_confidence, 1.0
+        )  # より現実的な値に調整
         # 信頼度レベルは実際の計算結果に基づいて判定
         self.assertIsInstance(confidence_metrics.confidence_level, ConfidenceLevel)
 
@@ -472,7 +478,10 @@ class TestEnhancedTradingSystem(unittest.TestCase):
 
         # 高リスクデータ更新
         self.risk_monitor.update_risk_data(
-            symbol, current_price, 0.12, high_risk_metrics  # 制限超過ポジションサイズ
+            symbol,
+            current_price,
+            0.12,
+            high_risk_metrics,  # 制限超過ポジションサイズ
         )
 
         # アラート取得
@@ -489,7 +498,6 @@ class TestEnhancedTradingSystem(unittest.TestCase):
 
     def test_performance_under_load(self):
         """負荷下でのパフォーマンステスト"""
-        import time
 
         start_time = time.time()
 

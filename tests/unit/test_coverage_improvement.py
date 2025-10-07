@@ -4,17 +4,15 @@
 """
 
 import unittest
-import numpy as np
-import pandas as pd
-from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
+from datetime import datetime
+from unittest.mock import Mock, patch
 import sys
 import os
 
 # プロジェクトルートをパスに追加
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from core.auto_trading_executor import AutoTradingExecutor, TradeType, ExecutionStatus, OrderType
+from core.auto_trading_executor import AutoTradingExecutor, TradeType, ExecutionStatus
 from core.realtime_stop_loss_system import RealtimeStopLossSystem, VolatilityCalculator
 from core.enhanced_alert_system import EnhancedAlertSystem
 from core.overfitting_detector import OverfittingDetector
@@ -89,10 +87,7 @@ class TestCoverageImprovement(unittest.TestCase):
         """過学習検出器のエッジケーステスト"""
         # 極端な値でのテスト
         result = self.overfitting_detector.detect_overfitting(
-            train_r2=0.99,
-            val_r2=0.50,
-            test_r2=0.30,
-            max_r2_threshold=0.95
+            train_r2=0.99, val_r2=0.50, test_r2=0.30, max_r2_threshold=0.95
         )
 
         self.assertTrue(result["is_overfitting"])
@@ -101,10 +96,7 @@ class TestCoverageImprovement(unittest.TestCase):
 
         # 正常な値でのテスト
         result = self.overfitting_detector.detect_overfitting(
-            train_r2=0.80,
-            val_r2=0.75,
-            test_r2=0.70,
-            max_r2_threshold=0.95
+            train_r2=0.80, val_r2=0.75, test_r2=0.70, max_r2_threshold=0.95
         )
 
         self.assertFalse(result["is_overfitting"])
@@ -113,7 +105,7 @@ class TestCoverageImprovement(unittest.TestCase):
     def test_enhanced_alert_system_edge_cases(self):
         """強化アラートシステムのエッジケーステスト"""
         from core.enhanced_alert_system import AlertType, AlertLevel
-        
+
         # 正常なアラート作成
         result = self.alert_system.create_alert(
             symbol="TEST",
@@ -123,7 +115,7 @@ class TestCoverageImprovement(unittest.TestCase):
             message="価格が閾値を超えました",
             current_value=100.0,
             threshold_value=95.0,
-            recommendation="注意深く監視してください"
+            recommendation="注意深く監視してください",
         )
 
         self.assertTrue(result)
@@ -137,7 +129,7 @@ class TestCoverageImprovement(unittest.TestCase):
             entry_price=100.0,
             quantity=100.0,
             stop_loss_price=95.0,
-            take_profit_price=110.0
+            take_profit_price=110.0,
         )
 
         self.assertTrue(result)
@@ -165,10 +157,7 @@ class TestCoverageImprovement(unittest.TestCase):
 
         # 損切り設定追加
         result = self.stop_loss_system.add_stop_loss_setting(
-            symbol="TEST",
-            entry_price=100.0,
-            position_size=100.0,
-            direction="BUY"
+            symbol="TEST", entry_price=100.0, position_size=100.0, direction="BUY"
         )
 
         self.assertTrue(result)
@@ -223,12 +212,13 @@ class TestCoverageImprovement(unittest.TestCase):
     def test_error_recovery_mechanisms(self):
         """エラー回復メカニズムのテスト"""
         # リアルタイム損切りシステムのエラー回復
-        with patch.object(self.stop_loss_system.volatility_calculator, 'calculate_volatility', side_effect=Exception("Test error")):
+        with patch.object(
+            self.stop_loss_system.volatility_calculator,
+            'calculate_volatility',
+            side_effect=Exception("Test error"),
+        ):
             result = self.stop_loss_system.add_stop_loss_setting(
-                symbol="TEST",
-                entry_price=100.0,
-                position_size=100.0,
-                direction="BUY"
+                symbol="TEST", entry_price=100.0, position_size=100.0, direction="BUY"
             )
             self.assertFalse(result)
 
@@ -254,12 +244,15 @@ class TestCoverageImprovement(unittest.TestCase):
         # 複数スレッドでの同時実行テスト
         def update_price():
             for i in range(10):
-                self.stop_loss_system.update_price_data("TEST", {
-                    "price": 100 + i,
-                    "high": 102 + i,
-                    "low": 98 + i,
-                    "volume": 1000 + i
-                })
+                self.stop_loss_system.update_price_data(
+                    "TEST",
+                    {
+                        "price": 100 + i,
+                        "high": 102 + i,
+                        "low": 98 + i,
+                        "volume": 1000 + i,
+                    },
+                )
                 time.sleep(0.01)
 
         threads = []

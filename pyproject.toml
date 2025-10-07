@@ -23,3 +23,66 @@ extend-exclude = '''
 profile = "black"
 multi_line_output = 3
 line_length = 88
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+exclude = [
+  "venv",
+  "web-app",
+  "node_modules",
+  "htmlcov",
+  "docs",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501", "I001"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+  "E712",  # comparison to True/False
+  "F401",  # unused imports in tests
+  "F841",  # assigned but unused in tests
+  "F811",  # redefinition in tests
+  "E402",  # module import not at top for path hacks
+  "E722",  # bare except in tests/util
+  "E501",  # line too long in tests
+  "I001",  # import sorting in tests
+]
+"core/**/*.py" = [
+  "E501",  # long lines in core modules (logs/messages)
+  "I001",  # import sort flexibility in core
+  "E722",  # allow bare except temporarily in core
+  "F841",  # allow assigned but unused in core (logging/keep for clarity)
+  "F811",  # allow redefinitions if intentional for overloads/tests
+]
+"scripts/**/*.py" = [
+  "E501",
+  "I001",
+  "E402",
+  "F841",
+  "F811",
+]
+
+[tool.ruff.format]
+quote-style = "preserve"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.13"
+ignore_missing_imports = true
+ignore_errors = true
+no_implicit_optional = false
+warn_unused_ignores = true
+warn_redundant_casts = true
+show_error_codes = true
+exclude = [
+  "venv",
+  "web-app",
+  "node_modules",
+  "htmlcov",
+  "docs",
+  "scripts",
+  "tests",
+]

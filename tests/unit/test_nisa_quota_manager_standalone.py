@@ -5,11 +5,9 @@ NISA枠管理システムのスタンドアロンテスト
 """
 
 import pytest
-import json
 import tempfile
 import os
 from datetime import datetime
-from unittest.mock import patch, MagicMock
 
 # 直接インポート（依存関係を回避）
 import sys
@@ -19,10 +17,6 @@ sys.path.insert(0, "/Users/masayukitokunaga/workspace/jquants-stock-prediction")
 from core.nisa_quota_manager import (
     NisaQuotaManager,
     NisaTransaction,
-    NisaPosition,
-    NisaPortfolio,
-    QuotaType,
-    TransactionType,
 )
 
 

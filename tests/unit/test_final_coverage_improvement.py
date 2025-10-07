@@ -5,7 +5,6 @@
 
 import tempfile
 from unittest.mock import Mock, patch
-import pytest
 from core.differential_updater import DifferentialUpdater
 from core.json_data_manager import JSONDataManager
 from core.performance_optimizer import PerformanceOptimizer
@@ -127,7 +126,6 @@ class TestFinalCoverageImprovement:
     def test_concurrent_operations(self):
         """並行操作テスト"""
         import threading
-        import time
 
         manager = JSONDataManager(data_dir=self.temp_dir, logger=Mock())
         results = []

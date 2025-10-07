@@ -1,9 +1,6 @@
 import unittest
-from unittest.mock import patch, Mock
 import sys
 import os
-import json
-import tempfile
 from datetime import datetime, timedelta
 
 # パスを追加

@@ -3,10 +3,8 @@
 信頼度ベース取引システムのテスト
 """
 
-import pytest
 import numpy as np
 import pandas as pd
-from unittest.mock import Mock, patch
 import sys
 from pathlib import Path
 

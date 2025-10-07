@@ -7,11 +7,10 @@
 
 import json
 import logging
-from datetime import datetime, date, timedelta
-from typing import Dict, List, Any, Optional, Tuple
+from datetime import datetime, date
+from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, asdict
 from enum import Enum
-import math
 
 
 class QuotaType(Enum):
@@ -307,7 +306,9 @@ class NisaQuotaManager:
         self.growth_annual_limit = 2400000  # 成長投資枠年間240万円
         self.growth_tax_free_limit = 12000000  # 成長投資枠非課税保有限度額1200万円
         self.accumulation_annual_limit = 400000  # つみたて投資枠年間40万円
-        self.accumulation_tax_free_limit = 2000000  # つみたて投資枠非課税保有限度額200万円
+        self.accumulation_tax_free_limit = (
+            2000000  # つみたて投資枠非課税保有限度額200万円
+        )
 
         # 最適化設定
         self.target_utilization_rate = 90.0  # 目標利用率90%
@@ -529,13 +530,19 @@ class NisaQuotaManager:
                         "available_amount", 0
                     )
                     if transaction.amount > available:
-                        return {"valid": False, "error": "成長投資枠の利用可能額を超えています"}
+                        return {
+                            "valid": False,
+                            "error": "成長投資枠の利用可能額を超えています",
+                        }
                 elif transaction.quota_type == "ACCUMULATION":
                     available = quota_status.accumulation_investment.get(
                         "available_amount", 0
                     )
                     if transaction.amount > available:
-                        return {"valid": False, "error": "つみたて投資枠の利用可能額を超えています"}
+                        return {
+                            "valid": False,
+                            "error": "つみたて投資枠の利用可能額を超えています",
+                        }
 
             return {"valid": True}
 
@@ -548,9 +555,9 @@ class NisaQuotaManager:
         try:
             if transaction.type == "BUY":
                 if transaction.quota_type == "GROWTH":
-                    self.nisa_data["quotas"]["growth_investment"][
-                        "used_amount"
-                    ] += transaction.amount
+                    self.nisa_data["quotas"]["growth_investment"]["used_amount"] += (
+                        transaction.amount
+                    )
                     self.nisa_data["quotas"]["growth_investment"][
                         "available_amount"
                     ] -= transaction.amount
@@ -564,16 +571,16 @@ class NisaQuotaManager:
             elif transaction.type == "SELL":
                 # 売却時の枠解放
                 if transaction.quota_type == "GROWTH":
-                    self.nisa_data["quotas"]["growth_investment"][
-                        "used_amount"
-                    ] -= transaction.amount
+                    self.nisa_data["quotas"]["growth_investment"]["used_amount"] -= (
+                        transaction.amount
+                    )
                     self.nisa_data["quotas"]["growth_investment"][
                         "available_amount"
                     ] += transaction.amount
                     # 再利用可能枠の追加
-                    self.nisa_data["quota_reuse"][
-                        "growth_available"
-                    ] += transaction.amount
+                    self.nisa_data["quota_reuse"]["growth_available"] += (
+                        transaction.amount
+                    )
                 elif transaction.quota_type == "ACCUMULATION":
                     self.nisa_data["quotas"]["accumulation_investment"][
                         "used_amount"
@@ -582,9 +589,9 @@ class NisaQuotaManager:
                         "available_amount"
                     ] += transaction.amount
                     # 再利用可能枠の追加
-                    self.nisa_data["quota_reuse"][
-                        "accumulation_available"
-                    ] += transaction.amount
+                    self.nisa_data["quota_reuse"]["accumulation_available"] += (
+                        transaction.amount
+                    )
 
             # 利用率の更新
             self._update_utilization_rates()
@@ -932,13 +939,19 @@ class NisaQuotaManager:
             )
 
             if growth_utilization < 80:
-                recommendations.append("成長投資枠の活用を増やすことで、年間最大72万円の税務節約が可能です")
+                recommendations.append(
+                    "成長投資枠の活用を増やすことで、年間最大72万円の税務節約が可能です"
+                )
 
             if accumulation_utilization < 80:
-                recommendations.append("つみたて投資枠の活用を増やすことで、年間最大12万円の税務節約が可能です")
+                recommendations.append(
+                    "つみたて投資枠の活用を増やすことで、年間最大12万円の税務節約が可能です"
+                )
 
             if growth_utilization < 50 and accumulation_utilization < 50:
-                recommendations.append("両枠の活用率が低いため、積極的な投資戦略の見直しを推奨します")
+                recommendations.append(
+                    "両枠の活用率が低いため、積極的な投資戦略の見直しを推奨します"
+                )
 
             return recommendations
 

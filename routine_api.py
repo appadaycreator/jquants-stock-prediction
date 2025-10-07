@@ -5,12 +5,10 @@
 """
 
 import json
-import logging
 import traceback
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Dict, Any, List, Optional
 import pandas as pd
-import numpy as np
 
 # 既存のインポート
 from core.enhanced_investment_decision_system import EnhancedInvestmentDecisionSystem
@@ -22,7 +20,6 @@ from core.json_data_manager import JSONDataManager
 from core.logging_manager import LoggingManager
 from core.config_manager import ConfigManager
 from core.error_handler import ErrorHandler
-from core.utils import normalize_security_code
 
 # 新規追加: 簡素化されたリスク管理
 from core.dynamic_risk_management import DynamicRiskManager
@@ -53,7 +50,9 @@ class RoutineAnalysisAPI:
         self.simplified_risk_manager = DynamicRiskManager(self.config)
         # self.simplified_risk_api = SimplifiedRiskAPI(self.config)  # 削除されたモジュール
 
-        self.logger.info("ルーチン分析API（簡素化リスク管理機能付き）が初期化されました")
+        self.logger.info(
+            "ルーチン分析API（簡素化リスク管理機能付き）が初期化されました"
+        )
 
     def analyze_stocks_with_simplified_risk(
         self,
@@ -94,16 +93,20 @@ class RoutineAnalysisAPI:
             self.logger.info("簡素化リスクダッシュボードデータ取得開始")
 
             # 簡素化リスクマネージャーを使用してデータ取得
-            stock_data = portfolio_data.get("7203", {}).get("stock_data", pd.DataFrame())
+            stock_data = portfolio_data.get("7203", {}).get(
+                "stock_data", pd.DataFrame()
+            )
             current_price = portfolio_data.get("7203", {}).get("current_price", 100.0)
-            
+
             # データが空の場合はデフォルトデータを作成
             if stock_data.empty:
-                stock_data = pd.DataFrame({
-                    'close': [100, 105, 102, 108, 110],
-                    'volume': [1000, 1200, 900, 1300, 1100]
-                })
-            
+                stock_data = pd.DataFrame(
+                    {
+                        'close': [100, 105, 102, 108, 110],
+                        'volume': [1000, 1200, 900, 1300, 1100],
+                    }
+                )
+
             dashboard_data = self.simplified_risk_manager.calculate_risk_metrics(
                 stock_data, current_price
             )
@@ -115,14 +118,16 @@ class RoutineAnalysisAPI:
                     "risk_score": dashboard_data.risk_score,
                     "volatility": dashboard_data.volatility,
                     "var_95": dashboard_data.var_95,
-                    "max_drawdown": dashboard_data.max_drawdown
+                    "max_drawdown": dashboard_data.max_drawdown,
                 },
                 "timestamp": datetime.now().isoformat(),
             }
 
         except Exception as e:
             self.logger.error(f"簡素化リスクダッシュボードデータ取得エラー: {e}")
-            return self.error_handler.handle_api_error(e, "簡素化リスクダッシュボードデータ取得")
+            return self.error_handler.handle_api_error(
+                e, "簡素化リスクダッシュボードデータ取得"
+            )
 
     def get_portfolio_risk_summary(
         self, portfolio_data: Dict[str, Any], account_balance: float = 1000000.0
@@ -167,7 +172,9 @@ class RoutineAnalysisAPI:
 
         except Exception as e:
             self.logger.error(f"ポートフォリオリスクサマリー取得エラー: {e}")
-            return self.error_handler.handle_error(e, "ポートフォリオリスクサマリー取得")
+            return self.error_handler.handle_error(
+                e, "ポートフォリオリスクサマリー取得"
+            )
 
     def update_risk_settings(self, settings: Dict[str, Any]) -> Dict[str, Any]:
         """リスク設定更新"""
@@ -258,17 +265,17 @@ class RoutineAnalysisAPI:
                     investment_decision = self.investment_system.make_decision(
                         stock_data, prediction, confidence
                     )
-                    analysis_results["recommendations"][
-                        stock_code
-                    ] = investment_decision
+                    analysis_results["recommendations"][stock_code] = (
+                        investment_decision
+                    )
 
                     # テクニカル分析
                     technical_indicators = self.technical_analysis.calculate_indicators(
                         stock_data
                     )
-                    analysis_results["technical_indicators"][
-                        stock_code
-                    ] = technical_indicators
+                    analysis_results["technical_indicators"][stock_code] = (
+                        technical_indicators
+                    )
 
                 except Exception as e:
                     self.logger.error(f"株式分析エラー {stock_code}: {e}")

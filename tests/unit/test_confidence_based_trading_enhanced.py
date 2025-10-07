@@ -3,11 +3,9 @@
 confidence_based_trading.py の包括的テスト
 """
 
-import pytest
-import pandas as pd
 import numpy as np
 from datetime import datetime
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch
 import sys
 import os
 
@@ -27,14 +25,14 @@ class TestConfidenceBasedTrading:
             "min_confidence": 0.6,
             "max_confidence": 0.95,
             "risk_adjustment": True,
-            "volatility_threshold": 0.02
+            "volatility_threshold": 0.02,
         }
         self.trading_system = ConfidenceBasedTrading(self.config)
         self.sample_market_data = {
             "volatility": 0.15,
             "volume": 1000000,
             "price_change": 0.02,
-            "market_trend": "bullish"
+            "market_trend": "bullish",
         }
 
     def test_initialization(self):
@@ -56,7 +54,9 @@ class TestConfidenceBasedTrading:
     def test_calculate_confidence_basic(self):
         """基本信頼度計算テスト"""
         prediction = 0.8
-        confidence = self.trading_system.calculate_confidence(prediction, self.sample_market_data)
+        confidence = self.trading_system.calculate_confidence(
+            prediction, self.sample_market_data
+        )
         assert isinstance(confidence, float)
         assert 0 <= confidence <= 1
 
@@ -64,40 +64,52 @@ class TestConfidenceBasedTrading:
         """極値での信頼度計算テスト"""
         # 極端に高い予測値
         high_prediction = 0.95
-        confidence_high = self.trading_system.calculate_confidence(high_prediction, self.sample_market_data)
+        confidence_high = self.trading_system.calculate_confidence(
+            high_prediction, self.sample_market_data
+        )
         assert confidence_high > 0.5
 
         # 極端に低い予測値
         low_prediction = 0.05
-        confidence_low = self.trading_system.calculate_confidence(low_prediction, self.sample_market_data)
+        confidence_low = self.trading_system.calculate_confidence(
+            low_prediction, self.sample_market_data
+        )
         assert confidence_low > 0.5
 
     def test_calculate_confidence_with_different_market_data(self):
         """異なる市場データでの信頼度計算テスト"""
         prediction = 0.7
-        
+
         # 高ボラティリティ市場
         high_volatility_data = self.sample_market_data.copy()
         high_volatility_data["volatility"] = 0.5
-        confidence_high_vol = self.trading_system.calculate_confidence(prediction, high_volatility_data)
-        
+        confidence_high_vol = self.trading_system.calculate_confidence(
+            prediction, high_volatility_data
+        )
+
         # 低ボラティリティ市場
         low_volatility_data = self.sample_market_data.copy()
         low_volatility_data["volatility"] = 0.05
-        confidence_low_vol = self.trading_system.calculate_confidence(prediction, low_volatility_data)
-        
+        confidence_low_vol = self.trading_system.calculate_confidence(
+            prediction, low_volatility_data
+        )
+
         assert isinstance(confidence_high_vol, float)
         assert isinstance(confidence_low_vol, float)
 
     def test_calculate_market_adjustment(self):
         """市場調整計算テスト"""
-        adjustment = self.trading_system._calculate_market_adjustment(self.sample_market_data)
+        adjustment = self.trading_system._calculate_market_adjustment(
+            self.sample_market_data
+        )
         assert isinstance(adjustment, float)
         assert -1 <= adjustment <= 1
 
     def test_calculate_volatility_adjustment(self):
         """ボラティリティ調整計算テスト"""
-        adjustment = self.trading_system._calculate_volatility_adjustment(self.sample_market_data)
+        adjustment = self.trading_system._calculate_volatility_adjustment(
+            self.sample_market_data
+        )
         assert isinstance(adjustment, float)
         assert -1 <= adjustment <= 1
 
@@ -173,7 +185,7 @@ class TestConfidenceBasedTrading:
         low_risk_data = {"volatility": 0.01, "price_change": 0.005}
         low_risk = self.trading_system._calculate_risk_level(low_risk_data)
         assert low_risk == "LOW"
-        
+
         # 高リスクデータ
         high_risk_data = {"volatility": 0.5, "price_change": 0.1}
         high_risk = self.trading_system._calculate_risk_level(high_risk_data)
@@ -183,29 +195,37 @@ class TestConfidenceBasedTrading:
         """内部ポジションサイズ計算テスト"""
         confidence = 0.8
         risk_level = "MEDIUM"
-        
-        position_size = self.trading_system._calculate_position_size(confidence, risk_level)
+
+        position_size = self.trading_system._calculate_position_size(
+            confidence, risk_level
+        )
         assert isinstance(position_size, float)
         assert 0 <= position_size <= 100
 
     def test_calculate_position_size_with_different_risk_levels(self):
         """異なるリスクレベルでのポジションサイズ計算テスト"""
         confidence = 0.8
-        
+
         # 低リスク
-        low_risk_position = self.trading_system._calculate_position_size(confidence, "LOW")
-        
+        low_risk_position = self.trading_system._calculate_position_size(
+            confidence, "LOW"
+        )
+
         # 高リスク
-        high_risk_position = self.trading_system._calculate_position_size(confidence, "HIGH")
-        
+        high_risk_position = self.trading_system._calculate_position_size(
+            confidence, "HIGH"
+        )
+
         assert low_risk_position > high_risk_position
 
     def test_execute_trade_success(self):
         """取引実行成功テスト"""
         # 高信頼度の取引判定を実行
         trade_decision = self.trading_system.should_trade(0.9, self.sample_market_data)
-        
-        result = self.trading_system.execute_trade(trade_decision, self.sample_market_data)
+
+        result = self.trading_system.execute_trade(
+            trade_decision, self.sample_market_data
+        )
         assert isinstance(result, dict)
         assert "executed" in result
         # 取引が実行された場合のみdirectionをチェック
@@ -216,8 +236,10 @@ class TestConfidenceBasedTrading:
         """取引実行失敗テスト"""
         # 低信頼度の取引判定
         trade_decision = self.trading_system.should_trade(0.3, self.sample_market_data)
-        
-        result = self.trading_system.execute_trade(trade_decision, self.sample_market_data)
+
+        result = self.trading_system.execute_trade(
+            trade_decision, self.sample_market_data
+        )
         assert isinstance(result, dict)
         assert "executed" in result
 
@@ -227,9 +249,9 @@ class TestConfidenceBasedTrading:
         self.trading_system.trade_history = [
             {"confidence": 0.8, "risk_level": "LOW"},
             {"confidence": 0.6, "risk_level": "MEDIUM"},
-            {"confidence": 0.9, "risk_level": "HIGH"}
+            {"confidence": 0.9, "risk_level": "HIGH"},
         ]
-        
+
         metrics = self.trading_system.get_performance_metrics()
         assert isinstance(metrics, dict)
         assert "total_trades" in metrics
@@ -249,7 +271,7 @@ class TestConfidenceBasedTrading:
         valid_data = self.sample_market_data
         confidence = self.trading_system.calculate_confidence(0.8, valid_data)
         assert isinstance(confidence, float)
-        
+
         # 空のデータ
         empty_data = {}
         confidence = self.trading_system.calculate_confidence(0.8, empty_data)
@@ -262,7 +284,7 @@ class TestConfidenceBasedTrading:
             "volatility": 0.0,
             "volume": 0,
             "price_change": 0.0,
-            "market_trend": "neutral"
+            "market_trend": "neutral",
         }
         confidence = self.trading_system.calculate_confidence(0.8, extreme_data)
         assert isinstance(confidence, float)
@@ -271,7 +293,9 @@ class TestConfidenceBasedTrading:
         """信頼度計算でのエラーハンドリングテスト"""
         # 無効な予測値
         with patch.object(self.trading_system, 'logger') as mock_logger:
-            confidence = self.trading_system.calculate_confidence(None, self.sample_market_data)
+            confidence = self.trading_system.calculate_confidence(
+                None, self.sample_market_data
+            )
             assert confidence == self.trading_system.min_confidence
 
     def test_error_handling_in_should_trade(self):
@@ -293,7 +317,9 @@ class TestConfidenceBasedTrading:
         # 境界値テスト
         edge_cases = [0.0, 0.5, 1.0]
         for prediction in edge_cases:
-            confidence = self.trading_system.calculate_confidence(prediction, self.sample_market_data)
+            confidence = self.trading_system.calculate_confidence(
+                prediction, self.sample_market_data
+            )
             assert isinstance(confidence, float)
             assert 0 <= confidence <= 1
 
@@ -301,13 +327,15 @@ class TestConfidenceBasedTrading:
         """ポジションサイジングのエッジケーステスト"""
         # 極端な値でのテスト
         extreme_cases = [
-            (0.0, "LOW"),   # 最低信頼度
+            (0.0, "LOW"),  # 最低信頼度
             (1.0, "HIGH"),  # 最高信頼度
-            (0.5, "MEDIUM"), # 中信頼度
+            (0.5, "MEDIUM"),  # 中信頼度
         ]
-        
+
         for confidence, risk_level in extreme_cases:
-            position_size = self.trading_system._calculate_position_size(confidence, risk_level)
+            position_size = self.trading_system._calculate_position_size(
+                confidence, risk_level
+            )
             assert isinstance(position_size, (int, float))  # intまたはfloatを許可
             assert 0 <= position_size <= 100
 
@@ -318,12 +346,14 @@ class TestConfidenceBasedTrading:
             "volatility": 0.15,
             "volume": 10000000,
             "price_change": 0.02,
-            "market_trend": "bullish"
+            "market_trend": "bullish",
         }
-        
+
         # パフォーマンステスト（タイムアウトなし）
         for i in range(100):
-            confidence = self.trading_system.calculate_confidence(0.7, large_market_data)
+            confidence = self.trading_system.calculate_confidence(
+                0.7, large_market_data
+            )
             assert isinstance(confidence, float)
 
     def test_memory_usage_optimization(self):
@@ -333,13 +363,13 @@ class TestConfidenceBasedTrading:
             trade = {
                 "confidence": np.random.uniform(0.5, 0.95),
                 "risk_level": "MEDIUM",
-                "timestamp": datetime.now()
+                "timestamp": datetime.now(),
             }
             self.trading_system.trade_history.append(trade)
-        
+
         # パフォーマンス指標の取得
         metrics = self.trading_system.get_performance_metrics()
-        
+
         # メモリ使用量が適切に管理されていることを確認
         assert len(self.trading_system.trade_history) == 1000
         assert metrics["total_trades"] == 1000
@@ -347,25 +377,26 @@ class TestConfidenceBasedTrading:
     def test_concurrent_access_safety(self):
         """並行アクセス安全性テスト"""
         import threading
-        import time
-        
+
         results = []
-        
+
         def calculate_confidence_thread():
             for _ in range(10):
-                confidence = self.trading_system.calculate_confidence(0.7, self.sample_market_data)
+                confidence = self.trading_system.calculate_confidence(
+                    0.7, self.sample_market_data
+                )
                 results.append(confidence)
-        
+
         # 複数スレッドで同時実行
         threads = []
         for _ in range(5):
             thread = threading.Thread(target=calculate_confidence_thread)
             threads.append(thread)
             thread.start()
-        
+
         for thread in threads:
             thread.join()
-        
+
         # 結果が正しく計算されていることを確認
         assert len(results) == 50
         for result in results:
@@ -377,10 +408,10 @@ class TestConfidenceBasedTrading:
         # 無効な設定
         invalid_config = {
             "confidence_threshold": 1.5,  # 範囲外
-            "min_confidence": -0.1,       # 負の値
-            "max_confidence": 0.5,        # minより小さい
+            "min_confidence": -0.1,  # 負の値
+            "max_confidence": 0.5,  # minより小さい
         }
-        
+
         trading_system = ConfidenceBasedTrading(invalid_config)
         # 設定が適切に設定されることを確認
         assert trading_system.confidence_threshold == 1.5  # そのまま設定される
@@ -390,9 +421,11 @@ class TestConfidenceBasedTrading:
     def test_data_type_validation(self):
         """データ型検証テスト"""
         # 文字列型の予測値
-        confidence = self.trading_system.calculate_confidence("0.8", self.sample_market_data)
+        confidence = self.trading_system.calculate_confidence(
+            "0.8", self.sample_market_data
+        )
         assert isinstance(confidence, float)
-        
+
         # リスト型の市場データ
         list_market_data = [0.15, 1000000, 0.02, "bullish"]
         confidence = self.trading_system.calculate_confidence(0.8, list_market_data)
@@ -406,13 +439,15 @@ class TestConfidenceBasedTrading:
             "price_change": 0.015,
             "market_trend": "neutral",
             "rsi": 45.5,
-            "macd": 0.02
+            "macd": 0.02,
         }
-        
+
         prediction = 0.75
-        confidence = self.trading_system.calculate_confidence(prediction, real_market_data)
+        confidence = self.trading_system.calculate_confidence(
+            prediction, real_market_data
+        )
         trade_result = self.trading_system.should_trade(prediction, real_market_data)
-        
+
         assert isinstance(confidence, float)
         assert isinstance(trade_result, dict)
         assert "should_trade" in trade_result

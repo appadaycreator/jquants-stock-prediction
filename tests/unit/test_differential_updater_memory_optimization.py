@@ -3,13 +3,11 @@
 差分更新システムのメモリ最適化テスト
 """
 
-import pytest
 import tempfile
-import os
 import gc
 import psutil
-from unittest.mock import Mock, patch
-from core.differential_updater import DifferentialUpdater, DiffCalculator
+from unittest.mock import Mock
+from core.differential_updater import DifferentialUpdater
 
 
 class TestDifferentialUpdaterMemoryOptimization:
@@ -24,6 +22,7 @@ class TestDifferentialUpdaterMemoryOptimization:
     def teardown_method(self):
         """テスト後のクリーンアップ"""
         import shutil
+
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     def test_cache_size_limit(self):
@@ -78,7 +77,7 @@ class TestDifferentialUpdaterMemoryOptimization:
     def test_memory_usage_tracking(self):
         """メモリ使用量追跡のテスト"""
         memory_usage = self.updater.get_memory_usage()
-        
+
         # 必要なキーが存在することを確認
         required_keys = ["rss_mb", "vms_mb", "cache_size", "max_cache_size"]
         for key in required_keys:
@@ -109,7 +108,7 @@ class TestDifferentialUpdaterMemoryOptimization:
                 for j in range(1, 51)
             ]
             self.updater.diff_calculator.calculate_comprehensive_diff(data, data)
-            
+
             # 定期的なメモリ最適化
             if i % 10 == 0:
                 self.updater.optimize_memory_usage()
@@ -122,26 +121,30 @@ class TestDifferentialUpdaterMemoryOptimization:
         """ガベージコレクションの効果テスト"""
         # 初期ガベージコレクション
         initial_collected = gc.collect()
-        
+
         # 大量のオブジェクト作成
         large_data = []
         for i in range(1000):
-            large_data.append({
-                "date": f"2024-01-{i:02d}",
-                "code": f"123{i}",
-                "close": 100 + i,
-                "volume": 1000 + i
-            })
+            large_data.append(
+                {
+                    "date": f"2024-01-{i:02d}",
+                    "code": f"123{i}",
+                    "close": 100 + i,
+                    "volume": 1000 + i,
+                }
+            )
 
         # データ処理
-        self.updater.diff_calculator.calculate_comprehensive_diff(large_data, large_data)
-        
+        self.updater.diff_calculator.calculate_comprehensive_diff(
+            large_data, large_data
+        )
+
         # メモリ最適化実行
         self.updater.optimize_memory_usage()
-        
+
         # ガベージコレクション実行
         final_collected = gc.collect()
-        
+
         # ガベージコレクションが実行されたことを確認
         assert final_collected >= 0
 
@@ -149,19 +152,21 @@ class TestDifferentialUpdaterMemoryOptimization:
         """メモリ最適化設定のテスト"""
         # メモリ最適化が有効であることを確認
         assert self.updater.memory_optimization_enabled is True
-        
+
         # 最大メモリ使用量が設定されていることを確認
         assert self.updater.max_memory_usage_mb > 0
 
     def test_cache_access_counting(self):
         """キャッシュアクセス回数カウントのテスト"""
         data = [{"date": "2024-01-01", "code": "1234", "close": 100}]
-        
+
         # 同じデータで複数回アクセス
         for _ in range(5):
             self.updater.diff_calculator.calculate_comprehensive_diff(data, data)
 
         # アクセス回数がカウントされていることを確認
         cache_key = list(self.updater.diff_calculator._diff_cache.keys())[0]
-        access_count = self.updater.diff_calculator._cache_access_count.get(cache_key, 0)
+        access_count = self.updater.diff_calculator._cache_access_count.get(
+            cache_key, 0
+        )
         assert access_count >= 5

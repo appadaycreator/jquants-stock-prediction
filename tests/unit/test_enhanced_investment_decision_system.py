@@ -3,10 +3,8 @@
 強化された投資判断システムのテスト
 """
 
-import pytest
-import numpy as np
 from datetime import datetime, timedelta
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch, MagicMock
 
 from core.enhanced_investment_decision_system import (
     EnhancedInvestmentDecisionSystem,

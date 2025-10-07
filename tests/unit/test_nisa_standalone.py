@@ -5,12 +5,10 @@ NISAシステムのスタンドアロンテスト
 """
 
 import pytest
-import json
 import tempfile
 import os
 import sys
 from datetime import datetime
-from unittest.mock import patch, MagicMock
 
 # 依存関係を回避するために直接インポート
 current_dir = os.path.dirname(os.path.abspath(__file__))

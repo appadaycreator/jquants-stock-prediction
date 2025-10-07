@@ -11,7 +11,6 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 import logging
-import glob
 
 # プロジェクトルートをパスに追加
 project_root = Path(__file__).parent.parent
@@ -44,14 +43,18 @@ class StockDataFixer:
             self.data_dir.mkdir(parents=True, exist_ok=True)
 
         if not self.stocks_dir.exists():
-            raise FileNotFoundError(f"銘柄データディレクトリが見つかりません: {self.stocks_dir}")
+            raise FileNotFoundError(
+                f"銘柄データディレクトリが見つかりません: {self.stocks_dir}"
+            )
 
     def load_listed_index(self) -> Dict[str, Any]:
         """listed_index.jsonを読み込み"""
         try:
             with open(self.listed_index_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
-            logger.info(f"listed_index.json読み込み完了: {len(data.get('stocks', []))}銘柄")
+            logger.info(
+                f"listed_index.json読み込み完了: {len(data.get('stocks', []))}銘柄"
+            )
             return data
         except Exception as e:
             logger.error(f"listed_index.json読み込みエラー: {e}")
@@ -166,7 +169,9 @@ class StockDataFixer:
                     )
                     fixed_data[code] = price_data
 
-                    logger.info(f"銘柄 {code} ({name}) のデータを修正: {len(price_data)}件")
+                    logger.info(
+                        f"銘柄 {code} ({name}) のデータを修正: {len(price_data)}件"
+                    )
                 else:
                     # データがない場合はサンプルデータを生成
                     price_data = self.generate_sample_price_data(
@@ -174,7 +179,9 @@ class StockDataFixer:
                     )
                     fixed_data[code] = price_data
 
-                    logger.info(f"銘柄 {code} ({name}) のサンプルデータを生成: {len(price_data)}件")
+                    logger.info(
+                        f"銘柄 {code} ({name}) のサンプルデータを生成: {len(price_data)}件"
+                    )
 
                 processed_count += 1
 
@@ -187,7 +194,7 @@ class StockDataFixer:
                 error_count += 1
                 continue
 
-        logger.info(f"=== 修正完了 ===")
+        logger.info("=== 修正完了 ===")
         logger.info(f"処理済み銘柄数: {processed_count}")
         logger.info(f"エラー数: {error_count}")
         logger.info(f"修正後データ銘柄数: {len(fixed_data)}")
@@ -259,7 +266,9 @@ def main():
 
     parser = argparse.ArgumentParser(description="stock_data.json修正スクリプト")
     parser.add_argument("--max-stocks", type=int, help="処理する最大銘柄数（テスト用）")
-    parser.add_argument("--test", action="store_true", help="テストモード（10銘柄のみ処理）")
+    parser.add_argument(
+        "--test", action="store_true", help="テストモード（10銘柄のみ処理）"
+    )
 
     args = parser.parse_args()
 

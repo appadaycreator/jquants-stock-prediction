@@ -4,7 +4,6 @@ jQuants認証情報設定スクリプト
 認証情報の設定とテストを行う
 """
 
-import os
 import sys
 from pathlib import Path
 
@@ -125,7 +124,7 @@ def save_env_config(config: dict) -> bool:
         with open(env_file, "w", encoding="utf-8") as f:
             f.writelines(updated_lines)
 
-        print(f"✅ 認証情報を.envファイルに保存しました")
+        print("✅ 認証情報を.envファイルに保存しました")
         return True
 
     except Exception as e:

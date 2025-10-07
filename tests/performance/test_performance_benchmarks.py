@@ -4,7 +4,6 @@
 リファクタリング後のパフォーマンス検証
 """
 
-import pytest
 import time
 import psutil
 
@@ -13,7 +12,6 @@ from unittest.mock import patch, mock_open
 from core.differential_updater import DifferentialUpdater
 from core.json_data_manager import JSONDataManager
 from core.config_manager import ConfigManager
-from core.performance_optimizer import PerformanceOptimizer
 
 
 class TestPerformanceBenchmarks:
@@ -89,7 +87,9 @@ class TestPerformanceBenchmarks:
         processing_time = end_time - start_time
 
         # パフォーマンス要件: 設定作成を0.1秒以内で完了
-        assert processing_time < 0.1, f"設定作成時間が長すぎます: {processing_time:.3f}秒"
+        assert processing_time < 0.1, (
+            f"設定作成時間が長すぎます: {processing_time:.3f}秒"
+        )
 
     def test_memory_usage_optimization(self):
         """メモリ使用量の最適化テスト"""
@@ -112,12 +112,13 @@ class TestPerformanceBenchmarks:
         memory_increase = final_memory - initial_memory
 
         # メモリ使用量要件: 1000レコードで10MB以内の増加
-        assert memory_increase < 10, f"メモリ使用量が多すぎます: {memory_increase:.2f}MB"
+        assert memory_increase < 10, (
+            f"メモリ使用量が多すぎます: {memory_increase:.2f}MB"
+        )
 
     def test_concurrent_processing_performance(self):
         """並行処理のパフォーマンステスト"""
         import concurrent.futures
-        import threading
 
         def process_data_batch(batch_data):
             """データバッチの処理"""
@@ -150,7 +151,9 @@ class TestPerformanceBenchmarks:
         processing_time = end_time - start_time
 
         # 並行処理のパフォーマンス要件: 4スレッドで0.5秒以内
-        assert processing_time < 0.5, f"並行処理時間が長すぎます: {processing_time:.3f}秒"
+        assert processing_time < 0.5, (
+            f"並行処理時間が長すぎます: {processing_time:.3f}秒"
+        )
         assert len(results) == 10  # 10バッチ
 
     def test_caching_performance(self):
@@ -201,7 +204,9 @@ class TestPerformanceBenchmarks:
         processing_time = end_time - start_time
 
         # エラーハンドリングのパフォーマンス要件: 0.1秒以内
-        assert processing_time < 0.1, f"エラーハンドリング時間が長すぎます: {processing_time:.3f}秒"
+        assert processing_time < 0.1, (
+            f"エラーハンドリング時間が長すぎます: {processing_time:.3f}秒"
+        )
         assert result.is_valid is False
 
     def test_large_dataset_performance(self):
@@ -232,7 +237,9 @@ class TestPerformanceBenchmarks:
         processing_time = end_time - start_time
 
         # 大規模データのパフォーマンス要件: 10,000レコードを10秒以内で処理
-        assert processing_time < 10.0, f"大規模データ処理時間が長すぎます: {processing_time:.3f}秒"
+        assert processing_time < 10.0, (
+            f"大規模データ処理時間が長すぎます: {processing_time:.3f}秒"
+        )
         assert result.unchanged_count == 10000
 
     def test_memory_efficiency(self):
@@ -262,7 +269,6 @@ class TestPerformanceBenchmarks:
 
     def test_cpu_usage_optimization(self):
         """CPU使用率の最適化テスト"""
-        import os
 
         # CPU使用率の測定
         process = psutil.Process()
@@ -314,7 +320,9 @@ class TestPerformanceBenchmarks:
             processing_time = end_time - start_time
 
             # ネットワーク処理のパフォーマンス要件: 10リクエストを2秒以内で処理
-            assert processing_time < 2.0, f"ネットワーク処理時間が長すぎます: {processing_time:.3f}秒"
+            assert processing_time < 2.0, (
+                f"ネットワーク処理時間が長すぎます: {processing_time:.3f}秒"
+            )
 
     def test_database_operation_performance(self):
         """データベース操作のパフォーマンステスト"""
@@ -342,7 +350,9 @@ class TestPerformanceBenchmarks:
         processing_time = end_time - start_time
 
         # データベース操作のパフォーマンス要件: 1000レコードを0.2秒以内で保存
-        assert processing_time < 0.2, f"データ保存時間が長すぎます: {processing_time:.3f}秒"
+        assert processing_time < 0.2, (
+            f"データ保存時間が長すぎます: {processing_time:.3f}秒"
+        )
         assert result is True
 
     def test_algorithm_complexity(self):
@@ -382,9 +392,9 @@ class TestPerformanceBenchmarks:
             size_ratio = sizes[i] / sizes[i - 1]
 
             # 処理時間の増加率がデータサイズの増加率と比例することを確認（より緩い条件）
-            assert (
-                ratio <= size_ratio * 3.0
-            ), f"計算量が非線形です: {ratio:.2f} vs {size_ratio:.2f}"
+            assert ratio <= size_ratio * 3.0, (
+                f"計算量が非線形です: {ratio:.2f} vs {size_ratio:.2f}"
+            )
 
     def test_resource_cleanup_performance(self):
         """リソースクリーンアップのパフォーマンステスト（メモリ最適化版）"""
@@ -400,15 +410,16 @@ class TestPerformanceBenchmarks:
                 for j in range(1, 101)
             ]
             updater.diff_calculator.calculate_comprehensive_diff(data, data)
-            
+
             # 定期的なメモリ最適化
             if i % 20 == 0:
                 updater.optimize_memory_usage()
 
         # メモリクリーンアップの確認
         import gc
+
         gc.collect()
-        
+
         # 最終的なメモリ最適化
         updater.optimize_memory_usage()
 
@@ -465,7 +476,7 @@ class TestPerformanceBenchmarks:
 
         # 同時ユーザー処理のパフォーマンス要件: 全ユーザーが1秒以内で完了
         max_processing_time = max(result["processing_time"] for result in results)
-        assert (
-            max_processing_time < 1.0
-        ), f"同時ユーザー処理時間が長すぎます: {max_processing_time:.3f}秒"
+        assert max_processing_time < 1.0, (
+            f"同時ユーザー処理時間が長すぎます: {max_processing_time:.3f}秒"
+        )
         assert len(results) == 10

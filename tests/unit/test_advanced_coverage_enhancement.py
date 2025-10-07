@@ -1,10 +1,9 @@
 import unittest
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 import sys
 import os
 import json
-import tempfile
-from datetime import datetime, timedelta
+from datetime import datetime
 import pandas as pd
 import numpy as np
 
@@ -494,7 +493,7 @@ class TestAdvancedCoverageEnhancement(unittest.TestCase):
                 else:
                     # 成功
                     break
-            except Exception as e:
+            except Exception:
                 error_count += 1
                 if error_count >= max_errors:
                     # エラー復旧の試行

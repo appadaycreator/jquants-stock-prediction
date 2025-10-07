@@ -9,7 +9,7 @@ import os
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 import logging
 import random
 
@@ -138,7 +138,7 @@ class InitialDataFetcherWithSample:
             name = stock.get("CompanyName", "")
             sector = stock.get("Sector17Code", "")
 
-            logger.info(f"処理中: {i+1}/{len(selected_stocks)} - {name} ({code})")
+            logger.info(f"処理中: {i + 1}/{len(selected_stocks)} - {name} ({code})")
 
             # サンプル価格データの生成
             price_data = self.generate_sample_price_data(code, name, days=30)
@@ -261,7 +261,9 @@ class InitialDataFetcherWithSample:
             }
 
         processed_data["metadata"]["total_stocks"] = len(processed_data["stocks"])
-        logger.info(f"サンプル株価データの処理完了: {len(processed_data['stocks'])}銘柄")
+        logger.info(
+            f"サンプル株価データの処理完了: {len(processed_data['stocks'])}銘柄"
+        )
 
         return processed_data
 

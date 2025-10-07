@@ -5,9 +5,8 @@ jQuantsから取得されたデータの差分更新を管理
 """
 
 import json
-import os
 from datetime import datetime, timedelta
-from typing import Dict, Any, List, Optional, Tuple, Union
+from typing import Dict, Any, List, Optional, Union
 import logging
 from pathlib import Path
 import hashlib
@@ -166,7 +165,9 @@ class DiffCalculator:
         cached = self._diff_cache.get(cache_key)
         if cached:
             # アクセス回数を更新
-            self._cache_access_count[cache_key] = self._cache_access_count.get(cache_key, 0) + 1
+            self._cache_access_count[cache_key] = (
+                self._cache_access_count.get(cache_key, 0) + 1
+            )
             return cached
 
         # 差分計算の実行
@@ -191,10 +192,10 @@ class DiffCalculator:
         # キャッシュ保存（メモリ最適化版）
         self._diff_cache[cache_key] = result
         self._cache_access_count[cache_key] = 1
-        
+
         # キャッシュサイズ制限の適用
         self._enforce_cache_limit()
-        
+
         return result
 
     def _calculate_diff_counts(
@@ -266,13 +267,10 @@ class DiffCalculator:
         """キャッシュサイズ制限の適用（LRU方式）"""
         if len(self._diff_cache) <= self.max_cache_size:
             return
-            
+
         # アクセス回数が少ないエントリを削除
-        sorted_items = sorted(
-            self._cache_access_count.items(),
-            key=lambda x: x[1]
-        )
-        
+        sorted_items = sorted(self._cache_access_count.items(), key=lambda x: x[1])
+
         # 古いエントリの半分を削除
         items_to_remove = len(self._diff_cache) - self.max_cache_size
         for cache_key, _ in sorted_items[:items_to_remove]:
@@ -280,9 +278,11 @@ class DiffCalculator:
                 del self._diff_cache[cache_key]
             if cache_key in self._cache_access_count:
                 del self._cache_access_count[cache_key]
-                
+
         if self.logger:
-            self.logger.info(f"キャッシュサイズ制限適用: {len(self._diff_cache)}/{self.max_cache_size}")
+            self.logger.info(
+                f"キャッシュサイズ制限適用: {len(self._diff_cache)}/{self.max_cache_size}"
+            )
 
     def clear_cache(self):
         """キャッシュのクリア"""
@@ -360,7 +360,9 @@ class DataValidator:
                     try:
                         float(item[field])
                     except (ValueError, TypeError):
-                        warnings.append(f"数値フィールド '{field}' が無効: {item[field]}")
+                        warnings.append(
+                            f"数値フィールド '{field}' が無効: {item[field]}"
+                        )
         return warnings
 
 
@@ -378,12 +380,14 @@ class DifferentialUpdater:
 
         # コンポーネントの初期化（メモリ制限付き）
         self.hash_calculator = DataHashCalculator()
-        self.diff_calculator = DiffCalculator(self.logger, max_cache_size=50)  # キャッシュサイズ制限
+        self.diff_calculator = DiffCalculator(
+            self.logger, max_cache_size=50
+        )  # キャッシュサイズ制限
         self.validator = DataValidator(self.logger)
 
         # 統計情報の初期化
         self.update_stats = UpdateStats()
-        
+
         # メモリ最適化設定
         self.memory_optimization_enabled = True
         self.max_memory_usage_mb = 200  # 最大メモリ使用量
@@ -689,7 +693,9 @@ class DifferentialUpdater:
                             missing_fields.append(field)
 
                     if missing_fields:
-                        issues.append(f"アイテム{i}: 必須フィールドが不足: {missing_fields}")
+                        issues.append(
+                            f"アイテム{i}: 必須フィールドが不足: {missing_fields}"
+                        )
                         continue
 
                     # 日付の検証
@@ -749,9 +755,13 @@ class DifferentialUpdater:
                         if high_price < low_price:
                             issues.append(f"アイテム{i}: High価格がLow価格より低い")
                         if high_price < max(open_price, close_price):
-                            issues.append(f"アイテム{i}: High価格がOpen/Close価格より低い")
+                            issues.append(
+                                f"アイテム{i}: High価格がOpen/Close価格より低い"
+                            )
                         if low_price > min(open_price, close_price):
-                            issues.append(f"アイテム{i}: Low価格がOpen/Close価格より高い")
+                            issues.append(
+                                f"アイテム{i}: Low価格がOpen/Close価格より高い"
+                            )
 
                         # 極端な価格変動のチェック
                         if existing_data:
@@ -788,7 +798,7 @@ class DifferentialUpdater:
                         except (ValueError, TypeError):
                             issues.append(f"アイテム{i}: Volumeの解析エラー")
 
-                except (ValueError, TypeError) as e:
+                except (ValueError, TypeError):
                     issues.append(f"アイテム{i}: 価格データの解析エラー")
                 except Exception as e:
                     issues.append(f"アイテム{i}: 検証エラー: {e}")
@@ -1083,17 +1093,18 @@ class DifferentialUpdater:
         try:
             if not self.memory_optimization_enabled:
                 return
-                
+
             # キャッシュのクリア
             self.diff_calculator.clear_cache()
-            
+
             # ガベージコレクションの実行
             import gc
+
             collected = gc.collect()
-            
+
             if self.logger:
                 self.logger.info(f"メモリ最適化完了: {collected}個のオブジェクトを回収")
-                
+
         except Exception as e:
             if self.logger:
                 self.logger.error(f"メモリ最適化エラー: {e}")
@@ -1102,14 +1113,15 @@ class DifferentialUpdater:
         """メモリ使用量の取得"""
         try:
             import psutil
+
             process = psutil.Process()
             memory_info = process.memory_info()
-            
+
             return {
                 "rss_mb": memory_info.rss / 1024 / 1024,
                 "vms_mb": memory_info.vms / 1024 / 1024,
                 "cache_size": len(self.diff_calculator._diff_cache),
-                "max_cache_size": self.diff_calculator.max_cache_size
+                "max_cache_size": self.diff_calculator.max_cache_size,
             }
         except Exception as e:
             if self.logger:

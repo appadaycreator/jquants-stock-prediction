@@ -3,7 +3,6 @@
 OverfittingDetectorのユニットテスト
 """
 
-import pytest
 from unittest.mock import Mock
 from core.overfitting_detector import OverfittingDetector
 

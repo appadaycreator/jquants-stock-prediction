@@ -5,9 +5,6 @@
 """
 
 import pytest
-import json
-from unittest.mock import Mock, patch, MagicMock
-import tempfile
 import os
 
 # テスト対象のインポート

@@ -110,13 +110,13 @@ class PredictionEngine:
     ) -> Dict[str, Any]:
         """過学習検出の追加"""
         if config["overfitting_detection"]:
-            result[
-                "overfitting_detection"
-            ] = self.overfitting_detector.detect_overfitting(
-                result.get("model_results", [{}])[0].get("train_r2", 0),
-                result.get("model_results", [{}])[0].get("val_r2", 0),
-                result.get("model_results", [{}])[0].get("test_r2", 0),
-                config.get("max_r2_score", 0.95),
+            result["overfitting_detection"] = (
+                self.overfitting_detector.detect_overfitting(
+                    result.get("model_results", [{}])[0].get("train_r2", 0),
+                    result.get("model_results", [{}])[0].get("val_r2", 0),
+                    result.get("model_results", [{}])[0].get("test_r2", 0),
+                    config.get("max_r2_score", 0.95),
+                )
             )
         return result
 
@@ -319,7 +319,9 @@ class PredictionEngine:
         max_r2 = self.prediction_config.get("max_r2_score", 0.95)
         if test_r2 > max_r2:
             if self.logger:
-                self.logger.log_warning(f"R²が高すぎます（{test_r2:.3f}）。{max_r2}に制限します。")
+                self.logger.log_warning(
+                    f"R²が高すぎます（{test_r2:.3f}）。{max_r2}に制限します。"
+                )
             return max_r2
         return test_r2
 
@@ -364,7 +366,9 @@ class PredictionEngine:
             # データが空の場合はサンプル予測値を返す
             if len(data) == 0:
                 if self.logger:
-                    self.logger.log_warning("予測データが空です。サンプル予測値を返します。")
+                    self.logger.log_warning(
+                        "予測データが空です。サンプル予測値を返します。"
+                    )
                 return [1.0, 2.0, 3.0]  # サンプル予測値
 
             # 予測実行
@@ -373,7 +377,9 @@ class PredictionEngine:
             # 予測結果の検証
             if predictions is None or len(predictions) == 0:
                 if self.logger:
-                    self.logger.log_warning("予測結果が空です。デフォルト値を返します。")
+                    self.logger.log_warning(
+                        "予測結果が空です。デフォルト値を返します。"
+                    )
                 return [0.0] * len(data)
 
             return (
