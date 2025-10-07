@@ -385,8 +385,9 @@ class MarketVolatilityAdjustment:
             market_returns = market_data["Close"].pct_change().dropna()
             sector_returns = sector_df["Close"].pct_change().dropna()
 
-            market_aligned = market_returns.loc[common_dates]
-            sector_aligned = sector_returns.loc[common_dates]
+            # 共通日付でフィルタリング
+            market_aligned = market_returns[market_returns.index.isin(common_dates)]
+            sector_aligned = sector_returns[sector_returns.index.isin(common_dates)]
 
             if len(market_aligned) > 1 and len(sector_aligned) > 1:
                 correlation = np.corrcoef(market_aligned, sector_aligned)[0, 1]

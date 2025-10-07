@@ -27,9 +27,11 @@ class EnsemblePredictionSystem:
         # アンサンブル設定
         self.models = self._initialize_models()
         self.ensemble_methods = ["weighted_average", "stacking", "voting"]
-        self.default_ensemble_method = self.config.get(
-            "ensemble_method", "weighted_average"
-        )
+        # 設定検証
+        ensemble_method = self.config.get("ensemble_method", "weighted_average")
+        if ensemble_method not in self.ensemble_methods:
+            ensemble_method = "weighted_average"
+        self.default_ensemble_method = ensemble_method
 
         # 重み設定
         self.model_weights = self.config.get("model_weights", {})
@@ -37,9 +39,16 @@ class EnsemblePredictionSystem:
             "performance_based_weights", True
         )
 
-        # 信頼度設定
-        self.confidence_threshold = self.config.get("confidence_threshold", 0.7)
-        self.uncertainty_threshold = self.config.get("uncertainty_threshold", 0.3)
+        # 信頼度設定（検証付き）
+        confidence_threshold = self.config.get("confidence_threshold", 0.7)
+        if confidence_threshold < 0 or confidence_threshold > 1:
+            confidence_threshold = 0.7
+        self.confidence_threshold = confidence_threshold
+        
+        uncertainty_threshold = self.config.get("uncertainty_threshold", 0.3)
+        if uncertainty_threshold < 0 or uncertainty_threshold > 1:
+            uncertainty_threshold = 0.3
+        self.uncertainty_threshold = uncertainty_threshold
 
         # 予測履歴
         self.prediction_history = []
@@ -116,6 +125,7 @@ class EnsemblePredictionSystem:
 
             # モデル性能の保存
             self.model_performance = model_performance
+            self.trained_models = trained_models
 
             return {
                 "trained_models": trained_models,
@@ -279,7 +289,8 @@ class EnsemblePredictionSystem:
                 return weights
             else:
                 # 均等重み
-                return {name: 1.0 for name in self.models.keys()}
+                equal_weight = 1.0 / len(self.models)
+                return {name: equal_weight for name in self.models.keys()}
 
         except Exception as e:
             self.logger.error(f"モデル重み計算エラー: {e}")

@@ -140,6 +140,7 @@ class LSTMPredictor:
                 "val_loss": val_loss[0],
                 "train_mae": train_loss[1],
                 "val_mae": val_loss[1],
+                "training_successful": True,
             }
 
             if self.logger:
