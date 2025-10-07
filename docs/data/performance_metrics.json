@@ -1,27 +1,27 @@
 {
   "metadata": {
-    "generated_at": "2025-10-07T02:36:50.640388",
+    "generated_at": "2025-10-07T02:46:32.637450",
     "version": "1.0"
   },
   "metrics": {
     "overall": {
-      "accuracy": 0.804,
-      "precision": 0.848,
-      "recall": 0.827,
-      "f1_score": 0.856
+      "accuracy": 0.824,
+      "precision": 0.753,
+      "recall": 0.884,
+      "f1_score": 0.83
     },
     "regression": {
-      "mae": 0.167,
-      "rmse": 0.159,
-      "r2": 0.765,
-      "mape": 0.121
+      "mae": 0.117,
+      "rmse": 0.15,
+      "r2": 0.776,
+      "mape": 0.159
     },
     "classification": {
-      "accuracy": 0.806,
-      "precision": 0.751,
-      "recall": 0.9,
-      "f1_score": 0.818
+      "accuracy": 0.874,
+      "precision": 0.832,
+      "recall": 0.895,
+      "f1_score": 0.868
     }
   },
-  "evaluation_date": "2025-10-07T02:36:50.640391"
+  "evaluation_date": "2025-10-07T02:46:32.637453"
 }
