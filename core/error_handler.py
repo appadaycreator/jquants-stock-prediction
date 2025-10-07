@@ -268,6 +268,12 @@ class ErrorHandler:
         self.log_error(
             error, f"API Error in context: {context}", ErrorCategory.API_ERROR
         )
+        return {
+            "success": False,
+            "error": str(error),
+            "context": context,
+            "timestamp": datetime.now().isoformat()
+        }
 
     def handle_file_error(self, error: Exception, file_path: str, operation: str):
         """ファイルエラーの処理"""

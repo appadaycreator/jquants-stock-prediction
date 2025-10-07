@@ -270,7 +270,8 @@ class TestFinalCoverageImprovement:
 
         # 無効なエラータイプ
         result = handler.handle_api_error(Exception("test error"))
-        assert result is None
+        assert result is not None
+        assert result["success"] is False
 
         # 無効なエラーメッセージ
         result = handler.handle_api_error(None)
