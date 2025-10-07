@@ -471,6 +471,13 @@ class RealtimeStopLossSystem:
 
         except Exception as e:
             self.logger.error(f"損切り設定追加エラー: {e}")
+            # エラーハンドリングの改善
+            if hasattr(self, 'error_handler') and self.error_handler:
+                self.error_handler.handle_error(e, "stop_loss_setting_creation", {
+                    "symbol": symbol, 
+                    "entry_price": entry_price,
+                    "position_size": position_size
+                })
             return False
 
     def update_price_data(self, symbol: str, price_data: Dict[str, Any]):

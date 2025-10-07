@@ -296,6 +296,33 @@ class TestAutoTradingExecutor(unittest.TestCase):
             self.assertIn("total_pnl", metrics)
             self.assertIn("net_pnl", metrics)
 
+    def test_create_stop_loss_order_no_position(self):
+        """ポジションが存在しない場合の損切り注文作成テスト"""
+        # ポジションが存在しない状態で損切り注文作成
+        self.executor._create_stop_loss_order("NONEXISTENT", 95.0, TradeType.STOP_LOSS)
+
+        # 注文が作成されないことを確認
+        self.assertEqual(len(self.executor.orders), 0)
+        self.assertEqual(self.executor.execution_queue.qsize(), 0)
+
+    def test_create_take_profit_order_no_position(self):
+        """ポジションが存在しない場合の利確注文作成テスト"""
+        # ポジションが存在しない状態で利確注文作成
+        self.executor._create_take_profit_order("NONEXISTENT", 105.0)
+
+        # 注文が作成されないことを確認
+        self.assertEqual(len(self.executor.orders), 0)
+        self.assertEqual(self.executor.execution_queue.qsize(), 0)
+
+    def test_create_partial_close_order_no_position(self):
+        """ポジションが存在しない場合の部分決済注文作成テスト"""
+        # ポジションが存在しない状態で部分決済注文作成
+        self.executor._create_partial_close_order("NONEXISTENT", 105.0, 50.0)
+
+        # 注文が作成されないことを確認
+        self.assertEqual(len(self.executor.orders), 0)
+        self.assertEqual(self.executor.execution_queue.qsize(), 0)
+
 
 class TestIntegration(unittest.TestCase):
     """統合テスト"""

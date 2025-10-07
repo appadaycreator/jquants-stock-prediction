@@ -426,6 +426,7 @@ class AutoTradingExecutor:
         """損切り注文作成"""
         try:
             if symbol not in self.positions:
+                self.logger.warning(f"ポジションが見つかりません: {symbol}")
                 return
 
             position = self.positions[symbol]
@@ -452,11 +453,15 @@ class AutoTradingExecutor:
 
         except Exception as e:
             self.logger.error(f"損切り注文作成エラー: {e}")
+            # エラーハンドリングの改善
+            if hasattr(self, 'error_handler') and self.error_handler:
+                self.error_handler.handle_error(e, "stop_loss_order_creation", {"symbol": symbol, "price": price})
 
     def _create_take_profit_order(self, symbol: str, price: float):
         """利確注文作成"""
         try:
             if symbol not in self.positions:
+                self.logger.warning(f"ポジションが見つかりません: {symbol}")
                 return
 
             position = self.positions[symbol]
@@ -483,11 +488,15 @@ class AutoTradingExecutor:
 
         except Exception as e:
             self.logger.error(f"利確注文作成エラー: {e}")
+            # エラーハンドリングの改善
+            if hasattr(self, 'error_handler') and self.error_handler:
+                self.error_handler.handle_error(e, "take_profit_order_creation", {"symbol": symbol, "price": price})
 
     def _create_partial_close_order(self, symbol: str, price: float, quantity: float):
         """部分決済注文作成"""
         try:
             if symbol not in self.positions:
+                self.logger.warning(f"ポジションが見つかりません: {symbol}")
                 return
 
             position = self.positions[symbol]

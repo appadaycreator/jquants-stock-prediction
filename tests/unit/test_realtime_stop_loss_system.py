@@ -297,6 +297,39 @@ class TestIntegration(unittest.TestCase):
         status = self.system.get_monitoring_status()
         self.assertIsInstance(status, dict)
 
+    def test_add_stop_loss_setting_no_price_data(self):
+        """価格データが不足している場合の損切り設定追加テスト"""
+        # 価格データが不足している状態で損切り設定追加
+        result = self.system.add_stop_loss_setting(
+            symbol="TEST",
+            entry_price=100.0,
+            position_size=100.0,
+            direction="BUY",
+        )
+
+        self.assertFalse(result)
+        self.assertNotIn("TEST", self.system.stop_loss_settings)
+
+    def test_add_stop_loss_setting_insufficient_data(self):
+        """価格データが不十分な場合の損切り設定追加テスト"""
+        # 不十分な価格データを設定
+        price_data = [
+            {"price": 100, "high": 102, "low": 98, "volume": 1000},
+        ] * 5  # 5個のデータポイント（不十分）
+
+        self.system.price_data["TEST"] = price_data
+
+        # 損切り設定追加
+        result = self.system.add_stop_loss_setting(
+            symbol="TEST",
+            entry_price=100.0,
+            position_size=100.0,
+            direction="BUY",
+        )
+
+        self.assertFalse(result)
+        self.assertNotIn("TEST", self.system.stop_loss_settings)
+
         # 5. パフォーマンス指標確認
         metrics = self.system.get_performance_metrics()
         self.assertIsInstance(metrics, dict)
