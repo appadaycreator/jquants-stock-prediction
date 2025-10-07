@@ -1,25 +1,25 @@
 {
-  "update_time": "2025-10-06T15:04:14.075988",
+  "update_time": "2025-10-07T09:07:15.482759",
   "updated_stocks": [
     {
       "code": "7203",
       "name": "トヨタ自動車",
       "changes": [
-        "volume: {'current_volume': 508821, 'average_volume': 880838, 'volume_ratio': 1.8419983722356588} → 4675844"
+        "volume: {'current_volume': 876732, 'average_volume': 1025970, 'volume_ratio': 1.6494154684463} → 2076531"
       ]
     },
     {
       "code": "6758",
       "name": "ソニーグループ",
       "changes": [
-        "volume: {'current_volume': 747700, 'average_volume': 420626, 'volume_ratio': 1.465906826401612} → 940591"
+        "volume: {'current_volume': 707173, 'average_volume': 325941, 'volume_ratio': 1.4159225727886802} → 1190813"
       ]
     },
     {
       "code": "9984",
       "name": "ソフトバンクグループ",
       "changes": [
-        "volume: {'current_volume': 957960, 'average_volume': 656970, 'volume_ratio': 1.8411509985240673} → 1686836"
+        "volume: {'current_volume': 681630, 'average_volume': 621237, 'volume_ratio': 1.3941026335707334} → 2883229"
       ]
     }
   ],
