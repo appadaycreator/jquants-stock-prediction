@@ -87,11 +87,11 @@ class JSONDataManager:
             data_str = json.dumps(
                 data, sort_keys=True, ensure_ascii=False, separators=(",", ":")
             )
-            return hashlib.md5(data_str.encode("utf-8")).hexdigest()
+            return hashlib.sha256(data_str.encode("utf-8")).hexdigest()
         except Exception as e:
             if self.logger:
                 self.logger.error(f"ハッシュ計算エラー: {e}")
-            return hashlib.md5(str(data).encode("utf-8")).hexdigest()
+            return hashlib.sha256(str(data).encode("utf-8")).hexdigest()
 
     def save_stock_data(
         self, symbol: str, data: List[Dict[str, Any]], source: str = "jquants_api"

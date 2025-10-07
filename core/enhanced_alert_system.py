@@ -219,7 +219,7 @@ class SlackNotifier:
             }
 
             # Slack送信
-            response = requests.post(self.webhook_url, json=payload)
+            response = requests.post(self.webhook_url, json=payload, timeout=10)
             response.raise_for_status()
 
             self.logger.info(f"Slackアラート送信成功: {alert.symbol}")
@@ -257,7 +257,7 @@ class WebNotifier:
             }
 
             # Web送信
-            response = requests.post(self.webhook_url, json=payload)
+            response = requests.post(self.webhook_url, json=payload, timeout=10)
             response.raise_for_status()
 
             self.logger.info(f"Webアラート送信成功: {alert.symbol}")

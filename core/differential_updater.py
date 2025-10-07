@@ -123,7 +123,7 @@ class DataHashCalculator:
             # データを正規化してハッシュ計算
             normalized_data = DataHashCalculator._normalize_data(data)
             data_str = json.dumps(normalized_data, sort_keys=True, ensure_ascii=False)
-            return hashlib.md5(data_str.encode("utf-8")).hexdigest()
+            return hashlib.sha256(data_str.encode("utf-8")).hexdigest()
         except Exception:
             return ""
 
@@ -823,7 +823,7 @@ class DifferentialUpdater:
         """ハッシュ計算"""
         try:
             data_str = json.dumps(data, sort_keys=True, ensure_ascii=False)
-            return hashlib.md5(data_str.encode("utf-8")).hexdigest()
+            return hashlib.sha256(data_str.encode("utf-8")).hexdigest()
         except Exception:
             return ""
 

@@ -56,16 +56,16 @@ class PerformanceOptimizer:
         if self.monitoring_thread:
             try:
                 self.monitoring_thread.join(timeout=5)
-            except Exception:
-                # スレッド停止エラーは無視
-                pass
+            except Exception as e:
+                if self.logger:
+                    self.logger.log_warning(f"スレッド停止エラーを無視しました: {e}")
 
         try:
             if self.logger:
                 self.logger.log_info("パフォーマンス監視を停止しました")
-        except Exception:
-            # ロガーエラーは無視
-            pass
+        except Exception as e:
+            if self.logger:
+                self.logger.log_warning(f"ロガーエラーを無視しました: {e}")
 
     def _monitoring_loop(self, interval: int):
         """監視ループ（究極最適化版）"""
@@ -341,8 +341,9 @@ class PerformanceOptimizer:
                 ):
                     try:
                         os.remove(os.path.join(temp_dir, file))
-                    except:
-                        pass
+                    except Exception as e:
+                        if self.logger:
+                            self.logger.log_warning(f"一時ファイル削除エラーを無視しました: {e}")
 
             if self.logger:
                 self.logger.log_info("ディスク使用率最適化を実行しました")
@@ -382,8 +383,9 @@ class PerformanceOptimizer:
                     process = psutil.Process()
                     process.nice(10)  # 優先度を下げる
                     optimizations.append("プロセス優先度を調整")
-                except:
-                    pass
+                except Exception as e:
+                    if self.logger:
+                        self.logger.log_warning(f"優先度調整失敗を無視しました: {e}")
 
             # 未知の問題の場合
             if issue_type == "unknown_issue":
