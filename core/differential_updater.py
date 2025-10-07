@@ -143,11 +143,13 @@ class DataHashCalculator:
 
 
 class DiffCalculator:
-    """差分計算クラス"""
+    """差分計算クラス（メモリ最適化版）"""
 
-    def __init__(self, logger=None):
+    def __init__(self, logger=None, max_cache_size=100):
         self.logger = logger
         self._diff_cache = {}
+        self.max_cache_size = max_cache_size
+        self._cache_access_count = {}
 
     def calculate_comprehensive_diff(
         self, existing_data: List[Dict[str, Any]], new_data: List[Dict[str, Any]]
@@ -159,10 +161,12 @@ class DiffCalculator:
         existing_hash = DataHashCalculator.calculate_data_hash(existing_data)
         new_hash = DataHashCalculator.calculate_data_hash(new_data)
 
-        # キャッシュヒットなら即返却
+        # キャッシュヒットなら即返却（メモリ最適化版）
         cache_key = (existing_hash, new_hash)
         cached = self._diff_cache.get(cache_key)
         if cached:
+            # アクセス回数を更新
+            self._cache_access_count[cache_key] = self._cache_access_count.get(cache_key, 0) + 1
             return cached
 
         # 差分計算の実行
@@ -184,8 +188,13 @@ class DiffCalculator:
             is_significant_change=is_significant_change,
         )
 
-        # キャッシュ保存
+        # キャッシュ保存（メモリ最適化版）
         self._diff_cache[cache_key] = result
+        self._cache_access_count[cache_key] = 1
+        
+        # キャッシュサイズ制限の適用
+        self._enforce_cache_limit()
+        
         return result
 
     def _calculate_diff_counts(
@@ -252,6 +261,35 @@ class DiffCalculator:
             diff_counts["added"] + diff_counts["updated"] + diff_counts["removed"]
         )
         return total_changes > 0
+
+    def _enforce_cache_limit(self):
+        """キャッシュサイズ制限の適用（LRU方式）"""
+        if len(self._diff_cache) <= self.max_cache_size:
+            return
+            
+        # アクセス回数が少ないエントリを削除
+        sorted_items = sorted(
+            self._cache_access_count.items(),
+            key=lambda x: x[1]
+        )
+        
+        # 古いエントリの半分を削除
+        items_to_remove = len(self._diff_cache) - self.max_cache_size
+        for cache_key, _ in sorted_items[:items_to_remove]:
+            if cache_key in self._diff_cache:
+                del self._diff_cache[cache_key]
+            if cache_key in self._cache_access_count:
+                del self._cache_access_count[cache_key]
+                
+        if self.logger:
+            self.logger.info(f"キャッシュサイズ制限適用: {len(self._diff_cache)}/{self.max_cache_size}")
+
+    def clear_cache(self):
+        """キャッシュのクリア"""
+        self._diff_cache.clear()
+        self._cache_access_count.clear()
+        if self.logger:
+            self.logger.info("差分計算キャッシュをクリアしました")
 
 
 class DataValidator:
@@ -330,7 +368,7 @@ class DifferentialUpdater:
     """差分更新システム（リファクタリング版）"""
 
     def __init__(self, data_dir: str, logger=None, error_handler=None):
-        """初期化"""
+        """初期化（メモリ最適化版）"""
         self.data_dir = Path(data_dir)
         self.data_dir.mkdir(parents=True, exist_ok=True)
         self.logger = logger or logging.getLogger(__name__)
@@ -338,13 +376,17 @@ class DifferentialUpdater:
         self.json_manager = JSONDataManager(str(self.data_dir), self.logger)
         self.config = UpdateConfig()
 
-        # コンポーネントの初期化
+        # コンポーネントの初期化（メモリ制限付き）
         self.hash_calculator = DataHashCalculator()
-        self.diff_calculator = DiffCalculator(self.logger)
+        self.diff_calculator = DiffCalculator(self.logger, max_cache_size=50)  # キャッシュサイズ制限
         self.validator = DataValidator(self.logger)
 
         # 統計情報の初期化
         self.update_stats = UpdateStats()
+        
+        # メモリ最適化設定
+        self.memory_optimization_enabled = True
+        self.max_memory_usage_mb = 200  # 最大メモリ使用量
 
     def update_stock_data(
         self, symbol: str, new_data: List[Dict[str, Any]], source: str = "api"
@@ -1035,6 +1077,44 @@ class DifferentialUpdater:
     def _backup_data(self, symbol: str, data: List[Dict[str, Any]]) -> Dict[str, Any]:
         """データバックアップ（エイリアス）"""
         return self._create_backup(symbol, data)
+
+    def optimize_memory_usage(self):
+        """メモリ使用量の最適化"""
+        try:
+            if not self.memory_optimization_enabled:
+                return
+                
+            # キャッシュのクリア
+            self.diff_calculator.clear_cache()
+            
+            # ガベージコレクションの実行
+            import gc
+            collected = gc.collect()
+            
+            if self.logger:
+                self.logger.info(f"メモリ最適化完了: {collected}個のオブジェクトを回収")
+                
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"メモリ最適化エラー: {e}")
+
+    def get_memory_usage(self) -> Dict[str, Any]:
+        """メモリ使用量の取得"""
+        try:
+            import psutil
+            process = psutil.Process()
+            memory_info = process.memory_info()
+            
+            return {
+                "rss_mb": memory_info.rss / 1024 / 1024,
+                "vms_mb": memory_info.vms / 1024 / 1024,
+                "cache_size": len(self.diff_calculator._diff_cache),
+                "max_cache_size": self.diff_calculator.max_cache_size
+            }
+        except Exception as e:
+            if self.logger:
+                self.logger.error(f"メモリ使用量取得エラー: {e}")
+            return {}
 
 
 # 使用例

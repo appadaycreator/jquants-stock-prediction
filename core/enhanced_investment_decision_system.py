@@ -26,7 +26,7 @@ from .deadline_management import DeadlineManager, DeadlineInfo, AlertLevel
 from .confidence_based_trading import ConfidenceBasedTrading
 from .enhanced_confidence_system import EnhancedConfidenceSystem
 from .ensemble_prediction_system import EnsemblePredictionSystem
-from .enhanced_risk_management import EnhancedRiskManagement
+from .dynamic_risk_management import DynamicRiskManager
 
 
 @dataclass
@@ -70,7 +70,7 @@ class EnhancedInvestmentDecisionSystem:
         self.confidence_trading = ConfidenceBasedTrading(config)
         self.enhanced_confidence = EnhancedConfidenceSystem(config)
         self.ensemble_prediction = EnsemblePredictionSystem(config)
-        self.risk_management = EnhancedRiskManagement(config)
+        self.risk_management = DynamicRiskManager(config)
 
         # 統合設定
         self.integration_enabled = self.config.get("integration_enabled", True)

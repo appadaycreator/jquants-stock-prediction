@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from enum import Enum
 import pandas as pd
 import numpy as np
-from .simplified_risk_management import SimplifiedRiskLevel
+from .dynamic_risk_management import RiskLevel
 
 
 class AlertSeverity(Enum):
@@ -720,11 +720,11 @@ class EnhancedRiskAlerts:
 
         return min(100, volatility_score + var_score + drawdown_score)
 
-    def _determine_risk_level(self, risk_score: float) -> SimplifiedRiskLevel:
+    def _determine_risk_level(self, risk_score: float) -> RiskLevel:
         """リスクレベル決定"""
         if risk_score <= 30:
-            return SimplifiedRiskLevel.LOW
+            return RiskLevel.LOW
         elif risk_score <= 70:
-            return SimplifiedRiskLevel.MEDIUM
+            return RiskLevel.MEDIUM
         else:
-            return SimplifiedRiskLevel.HIGH
+            return RiskLevel.HIGH

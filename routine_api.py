@@ -25,8 +25,8 @@ from core.error_handler import ErrorHandler
 from core.utils import normalize_security_code
 
 # 新規追加: 簡素化されたリスク管理
-from core.simplified_risk_management import SimplifiedRiskManager
-from core.simplified_risk_api import SimplifiedRiskAPI
+from core.dynamic_risk_management import DynamicRiskManager
+# from core.simplified_risk_api import SimplifiedRiskAPI  # 削除されたモジュール
 
 
 # 既存のAPIクラス
@@ -50,8 +50,8 @@ class RoutineAnalysisAPI:
         self.json_manager = JSONDataManager("data")
 
         # 新規追加: 簡素化されたリスク管理
-        self.simplified_risk_manager = SimplifiedRiskManager(self.config)
-        self.simplified_risk_api = SimplifiedRiskAPI(self.config)
+        self.simplified_risk_manager = DynamicRiskManager(self.config)
+        # self.simplified_risk_api = SimplifiedRiskAPI(self.config)  # 削除されたモジュール
 
         self.logger.info("ルーチン分析API（簡素化リスク管理機能付き）が初期化されました")
 
