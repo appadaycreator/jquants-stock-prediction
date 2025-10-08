@@ -4,7 +4,7 @@
     "version": "1.0",
     "data_source": "sample_cache",
     "total_stocks": 3,
-    "last_updated": "2025-10-07T15:04:19.434117",
+    "last_updated": "2025-10-08T09:07:14.251808",
     "update_type": "incremental"
   },
   "stocks": {
@@ -18,7 +18,7 @@
         "change_percent": 1.847185197416307,
         "updated_at": "2025-10-07T08:14:50.319615"
       },
-      "volume": 3256026,
+      "volume": 2824000,
       "technical_indicators": {
         "sma_5": 2443.185298706294,
         "sma_25": 2461.1128386675186,
@@ -31,15 +31,15 @@
         "model_used": "Random Forest",
         "prediction_date": "2025-10-07T08:14:50.319630"
       },
-      "last_price": 2592,
-      "change": 3,
-      "change_percent": -0.38,
-      "updated_at": "2025-10-07T15:04:19.434137",
+      "last_price": 2580,
+      "change": -41,
+      "change_percent": 0.94,
+      "updated_at": "2025-10-08T09:07:14.251829",
       "changes": [
-        "last_price: 2469 → 2592",
-        "volume: 2076531 → 3256026",
-        "change: 4 → 3",
-        "change_percent: 1.77 → -0.38"
+        "last_price: 2592 → 2580",
+        "volume: 3256026 → 2824000",
+        "change: 3 → -41",
+        "change_percent: -0.38 → 0.94"
       ]
     },
     "6758": {
@@ -52,7 +52,7 @@
         "change_percent": -1.0851057969430609,
         "updated_at": "2025-10-07T08:14:50.319635"
       },
-      "volume": 1564087,
+      "volume": 1706151,
       "technical_indicators": {
         "sma_5": 12040.767765654888,
         "sma_25": 12157.353055673884,
@@ -65,15 +65,15 @@
         "model_used": "XGBoost",
         "prediction_date": "2025-10-07T08:14:50.319644"
       },
-      "last_price": 12447,
-      "change": -148,
-      "change_percent": -1.24,
-      "updated_at": "2025-10-07T15:04:19.434222",
+      "last_price": 12134,
+      "change": 65,
+      "change_percent": 0.09,
+      "updated_at": "2025-10-08T09:07:14.251912",
       "changes": [
-        "last_price: 12053 → 12447",
-        "volume: 1190813 → 1564087",
-        "change: 89 → -148",
-        "change_percent: 0.71 → -1.24"
+        "last_price: 12447 → 12134",
+        "volume: 1564087 → 1706151",
+        "change: -148 → 65",
+        "change_percent: -1.24 → 0.09"
       ]
     },
     "9984": {
@@ -86,7 +86,7 @@
         "change_percent": -1.429358269404935,
         "updated_at": "2025-10-07T08:14:50.319647"
       },
-      "volume": 1989147,
+      "volume": 2577736,
       "technical_indicators": {
         "sma_5": 8078.595391763381,
         "sma_25": 8106.55301816867,
@@ -99,15 +99,15 @@
         "model_used": "Linear Regression",
         "prediction_date": "2025-10-07T08:14:50.319654"
       },
-      "last_price": 6247,
-      "change": 22,
-      "change_percent": -0.49,
-      "updated_at": "2025-10-07T15:04:19.434332",
+      "last_price": 5958,
+      "change": 80,
+      "change_percent": -0.44,
+      "updated_at": "2025-10-08T09:07:14.252030",
       "changes": [
-        "last_price: 6148 → 6247",
-        "volume: 2883229 → 1989147",
-        "change: 63 → 22",
-        "change_percent: -1.44 → -0.49"
+        "last_price: 6247 → 5958",
+        "volume: 1989147 → 2577736",
+        "change: 22 → 80",
+        "change_percent: -0.49 → -0.44"
       ]
     },
     "9432": {
