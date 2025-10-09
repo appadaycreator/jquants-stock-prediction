@@ -5,11 +5,12 @@ const isProd = process.env.NODE_ENV === "production";
 const nextConfig = {
   // 開発環境ではAPIルートを有効にする
   output: isProd ? "export" : undefined,
-  basePath: isProd ? `/${repo}` : "",
-  assetPrefix: isProd ? `/${repo}/` : "",
+  // GitHub Pagesでは basePath を設定しない（リポジトリ名が自動的にURLパスになる）
+  basePath: "",
+  assetPrefix: "",
   // クライアント側で basePath を解決するために公開環境変数を注入
   env: {
-    NEXT_PUBLIC_BASE_PATH: isProd ? `/${repo}` : "",
+    NEXT_PUBLIC_BASE_PATH: "",
   },
   images: { 
     unoptimized: true, 
