@@ -547,6 +547,14 @@ DoD（受け入れ基準）:
 - **GitHub Actions lintテスト**: フォーマットエラーを完全解決
 
 ### 8. **GitHub Pagesデプロイ問題の完全解決**
+#### basePath/assetPrefixと静的アセット参照（2025-10-09 追記）
+GitHub Pages（`https://<username>.github.io/<repo>`）配信のため、本番では `basePath` と `assetPrefix` を `/<repo>` に設定し、クライアント側には `NEXT_PUBLIC_BASE_PATH` を注入しています。静的ファイル参照は必ず `@/lib/path` の `resolveStaticPath()` を用いてください。
+
+要点:
+- `web-app/next.config.js`: `basePath`, `assetPrefix`, `env.NEXT_PUBLIC_BASE_PATH` を設定済み
+- 参照例: `fetch(resolveStaticPath("/data/listed_index.json"))`
+- `favicon.ico` は `metadata.icons` で `NEXT_PUBLIC_BASE_PATH` を考慮したパスに統一済み
+- データは `web-app/public/data/` 配下に配置（例: `listed_index.json`）
 - **js-yaml型定義エラー修正**: `js-yaml`パッケージと`@types/js-yaml`型定義を追加
 - **TypeScript型エラー修正**: `NotificationSettings.tsx`の型安全性を改善
 - **APIルート静的エクスポート対応**: 必要なAPIルートに`export const dynamic = 'force-static'`を追加

@@ -93,7 +93,8 @@ export function useEnhancedPersonalInvestment(): UseEnhancedPersonalInvestmentRe
       
       try {
         // 全銘柄データを取得
-        const response = await fetch("/data/listed_index.json");
+        const { resolveStaticPath } = await import("@/lib/path");
+        const response = await fetch(resolveStaticPath("/data/listed_index.json"));
         if (response.ok) {
           const allStocksData = await response.json();
           const stocks = allStocksData.stocks || [];

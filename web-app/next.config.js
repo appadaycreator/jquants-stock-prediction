@@ -7,6 +7,10 @@ const nextConfig = {
   output: isProd ? "export" : undefined,
   basePath: isProd ? `/${repo}` : "",
   assetPrefix: isProd ? `/${repo}/` : "",
+  // クライアント側で basePath を解決するために公開環境変数を注入
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isProd ? `/${repo}` : "",
+  },
   images: { 
     unoptimized: true, 
   },

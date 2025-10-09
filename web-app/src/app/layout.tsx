@@ -16,12 +16,17 @@ export const metadata = {
   title: "J-Quants株価予測システム",
   description: "J-Quants APIを使用した株価予測システム - モバイル最適化された投資判断支援ツール",
   keywords: ["株価","予測","J-Quants","機械学習","データ分析","投資"],
-  icons: {
-    // basePath 対応
-    icon: process.env.NEXT_PUBLIC_BASE_PATH ? `${process.env.NEXT_PUBLIC_BASE_PATH}/favicon.ico` : "/favicon.ico",
-    shortcut: process.env.NEXT_PUBLIC_BASE_PATH ? `${process.env.NEXT_PUBLIC_BASE_PATH}/favicon.ico` : "/favicon.ico",
-    apple: process.env.NEXT_PUBLIC_BASE_PATH ? `${process.env.NEXT_PUBLIC_BASE_PATH}/favicon.ico` : "/favicon.ico",
-  },
+  icons: (() => {
+    // クライアント・サーバ共通のパス解決
+    const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+    const prefix = base ? `${base}` : "";
+    const iconPath = `${prefix}/icon.svg`;
+    return {
+      icon: iconPath,
+      shortcut: iconPath,
+      apple: iconPath,
+    } as const;
+  })(),
   openGraph: {
     title: "J-Quants株価予測システム",
     description: "J-Quants APIを使用した株価予測システム - モバイル最適化された投資判断支援ツール",

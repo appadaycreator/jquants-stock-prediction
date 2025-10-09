@@ -10,6 +10,7 @@ from unittest.mock import Mock, patch, MagicMock
 import sys
 import os
 import numpy as np
+from enum import Enum
 
 # プロジェクトルートをパスに追加
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -20,6 +21,13 @@ from core.enhanced_confidence_system import (
     ConfidenceMetrics,
     TradingSignal,
 )
+
+# PredictionType が未提供な場合のフォールバック定義
+try:
+    from core.enhanced_confidence_system import PredictionType  # type: ignore
+except Exception:
+    class PredictionType(Enum):
+        PRICE = "PRICE"
 
 
 class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):

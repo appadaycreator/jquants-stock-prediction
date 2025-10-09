@@ -16,7 +16,8 @@ export interface ConnectionResult {
 export async function testConnection(): Promise<ConnectionResult> {
   try {
     // 静的データファイルから接続テスト用のデータを取得
-    const response = await fetch("/data/listed_index.json", {
+    const { resolveStaticPath } = await import("@/lib/path");
+    const response = await fetch(resolveStaticPath("/data/listed_index.json"), {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -58,8 +59,9 @@ export async function testConnection(): Promise<ConnectionResult> {
  */
 export async function getStockData(symbol: string, startDate: string, endDate: string): Promise<any[]> {
   try {
-    // 静的データファイルから株価データを取得
-    const response = await fetch(`/data/stock_${symbol}.json`, {
+    // 静的データファイルから株価データを取得（basePath対応）
+    const { resolveStaticPath } = await import("@/lib/path");
+    const response = await fetch(resolveStaticPath(`/data/stock_${symbol}.json`), {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +85,8 @@ export async function getStockData(symbol: string, startDate: string, endDate: s
  */
 export async function getAllSymbols(): Promise<Array<{ code: string; name: string; sector?: string }>> {
   try {
-    const response = await fetch("/data/listed_index.json", {
+    const { resolveStaticPath } = await import("@/lib/path");
+    const response = await fetch(resolveStaticPath("/data/listed_index.json"), {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
