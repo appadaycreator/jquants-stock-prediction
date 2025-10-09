@@ -188,7 +188,7 @@ class TestAdvancedRiskMetricsEnhanced(unittest.TestCase):
 
     def test_calculate_cvar_historical_exception(self):
         """CVaR計算（ヒストリカル法）例外処理テスト"""
-        returns = np.array([0.01, 0.02])
+        returns = np.random.normal(0.001, 0.02, 100)  # 十分なデータポイント
         
         with patch('numpy.percentile', side_effect=Exception("Percentile error")):
             with patch.object(self.risk_metrics.logger, 'error') as mock_error:
@@ -344,7 +344,7 @@ class TestAdvancedRiskMetricsEnhanced(unittest.TestCase):
         """カルマーレシオ計算例外処理テスト"""
         import pandas as pd
         
-        returns = pd.Series([0.01, 0.02])
+        returns = pd.Series(np.random.normal(0.001, 0.02, 100))  # 十分なデータポイント
         
         with patch('numpy.mean', side_effect=Exception("Mean error")):
             with patch.object(self.risk_metrics.logger, 'error') as mock_error:
@@ -491,8 +491,10 @@ class TestAdvancedRiskMetricsEnhanced(unittest.TestCase):
 
     def test_calculate_correlation_success(self):
         """相関係数計算成功テスト"""
-        returns = np.random.normal(0.001, 0.02, 1000)
-        benchmark_returns = np.random.normal(0.0008, 0.015, 1000)
+        import pandas as pd
+        
+        returns = pd.Series(np.random.normal(0.001, 0.02, 1000))
+        benchmark_returns = pd.Series(np.random.normal(0.0008, 0.015, 1000))
         
         correlation = self.risk_metrics._calculate_correlation(returns, benchmark_returns)
         
@@ -502,8 +504,10 @@ class TestAdvancedRiskMetricsEnhanced(unittest.TestCase):
 
     def test_calculate_correlation_insufficient_data(self):
         """相関係数計算データ不足テスト"""
-        returns = np.array([0.01, 0.02])  # データ不足
-        benchmark_returns = np.array([0.008, 0.015])
+        import pandas as pd
+        
+        returns = pd.Series([0.01, 0.02])  # データ不足
+        benchmark_returns = pd.Series([0.008, 0.015])
         
         with patch.object(self.risk_metrics.logger, 'warning') as mock_warning:
             result = self.risk_metrics._calculate_correlation(returns, benchmark_returns)
@@ -513,8 +517,10 @@ class TestAdvancedRiskMetricsEnhanced(unittest.TestCase):
 
     def test_calculate_correlation_exception(self):
         """相関係数計算例外処理テスト"""
-        returns = np.array([0.01, 0.02])
-        benchmark_returns = np.array([0.008, 0.015])
+        import pandas as pd
+        
+        returns = pd.Series(np.random.normal(0.001, 0.02, 100))  # 十分なデータポイント
+        benchmark_returns = pd.Series(np.random.normal(0.0008, 0.015, 100))
         
         with patch('numpy.corrcoef', side_effect=Exception("Correlation error")):
             with patch.object(self.risk_metrics.logger, 'error') as mock_error:
@@ -723,9 +729,9 @@ class TestAdvancedRiskMetricsEnhanced(unittest.TestCase):
         """信頼区間計算例外処理テスト"""
         import pandas as pd
         
-        returns = pd.Series([0.01, 0.02])
+        returns = pd.Series(np.random.normal(0.001, 0.02, 100))  # 十分なデータポイント
         
-        with patch('numpy.percentile', side_effect=Exception("Percentile error")):
+        with patch('scipy.stats.t.ppf', side_effect=Exception("t distribution error")):
             with patch.object(self.risk_metrics.logger, 'error') as mock_error:
                 result = self.risk_metrics._calculate_confidence_interval(returns)
                 

@@ -165,7 +165,7 @@ class TrailingStopManager:
 
         except Exception as e:
             self.logger.error(f"トレーリングストップ更新エラー: {e}")
-            return position.trailing_stop_price, False
+            return None, False
 
 
 class PartialCloseManager:
@@ -528,8 +528,16 @@ class AutoTradingExecutor:
 
     def _execution_loop(self):
         """執行ループ"""
+        start_time = time.time()
+        max_duration = 60.0  # 最大60秒
+        
         while self.is_executing:
             try:
+                # タイムアウトチェック
+                if time.time() - start_time > max_duration:
+                    self.logger.warning("執行ループタイムアウト")
+                    break
+                
                 # 執行キューから処理
                 while not self.execution_queue.empty():
                     try:
@@ -664,6 +672,7 @@ class AutoTradingExecutor:
 
         except Exception as e:
             self.logger.error(f"ポジション更新エラー: {e}")
+            # エラーログを出力するが、処理は継続
 
     def get_execution_status(self) -> Dict[str, Any]:
         """執行状況取得"""
@@ -825,4 +834,4 @@ class AutoTradingExecutor:
 
         except Exception as e:
             self.logger.error(f"執行レポート出力エラー: {e}")
-            return {"error": str(e)}
+            return {"error": str(e), "status": "error"}

@@ -125,11 +125,8 @@ class TestTrailingStopManagerEnhanced(unittest.TestCase):
         position.max_profit_price = None
         position.trailing_stop_price = None
         
-        # 例外を発生させる
-        position.max_profit_price = None
-        position.trailing_stop_price = None
-        
-        with patch.object(position, 'direction', side_effect=Exception("Test error")):
+        # 例外を発生させる - max_profit_priceの設定で例外を発生
+        with patch.object(position, 'max_profit_price', side_effect=Exception("Test error")):
             new_trailing_stop, should_execute = self.manager.update_trailing_stop(
                 position, 100.0
             )
