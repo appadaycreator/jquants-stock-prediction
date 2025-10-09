@@ -1,16 +1,17 @@
 /** @type {import('next').NextConfig} */
 const repo = "jquants-stock-prediction";
 const isProd = process.env.NODE_ENV === "production";
+const isGitHubPages = process.env.GITHUB_ACTIONS === "true";
 
 const nextConfig = {
   // 開発環境ではAPIルートを有効にする
   output: isProd ? "export" : undefined,
-  // GitHub Pagesでは basePath を設定しない（リポジトリ名が自動的にURLパスになる）
-  basePath: "",
-  assetPrefix: "",
+  // GitHub Pages用の設定
+  basePath: isGitHubPages ? `/${repo}` : "",
+  assetPrefix: isGitHubPages ? `/${repo}/` : "",
   // クライアント側で basePath を解決するために公開環境変数を注入
   env: {
-    NEXT_PUBLIC_BASE_PATH: "",
+    NEXT_PUBLIC_BASE_PATH: isGitHubPages ? `/${repo}` : "",
   },
   images: { 
     unoptimized: true, 

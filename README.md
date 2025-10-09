@@ -547,11 +547,17 @@ DoD（受け入れ基準）:
 - **GitHub Actions lintテスト**: フォーマットエラーを完全解決
 
 ### 8. **GitHub Pagesデプロイ問題の完全解決**
-#### basePath/assetPrefixと静的アセット参照（2025-10-09 追記）
+#### basePath/assetPrefixと静的アセット参照（2025-10-09 追記・2025-01-09 修正）
 GitHub Pages（`https://<username>.github.io/<repo>`）配信のため、本番では `basePath` と `assetPrefix` を `/<repo>` に設定し、クライアント側には `NEXT_PUBLIC_BASE_PATH` を注入しています。静的ファイル参照は必ず `@/lib/path` の `resolveStaticPath()` を用いてください。
 
+**✅ 2025-01-09 修正内容:**
+- **GitHub Actions環境変数対応**: `GITHUB_ACTIONS=true`環境でのbasePath/assetPrefix自動設定
+- **静的ファイル404エラー解決**: `_next/static/`ファイルの正しいパス設定
+- **リダイレクト設定改善**: `_redirects`ファイルでbasePath対応のリダイレクト設定
+- **デプロイワークフロー最適化**: 環境変数を適切に設定してビルドプロセス改善
+
 要点:
-- `web-app/next.config.js`: `basePath`, `assetPrefix`, `env.NEXT_PUBLIC_BASE_PATH` を設定済み
+- `web-app/next.config.js`: `basePath`, `assetPrefix`, `env.NEXT_PUBLIC_BASE_PATH` を設定済み（GitHub Actions環境で自動切り替え）
 - 参照例: `fetch(resolveStaticPath("/data/listed_index.json"))`
 - `favicon.ico` は `metadata.icons` で `NEXT_PUBLIC_BASE_PATH` を考慮したパスに統一済み
 - データは `web-app/public/data/` 配下に配置（例: `listed_index.json`）

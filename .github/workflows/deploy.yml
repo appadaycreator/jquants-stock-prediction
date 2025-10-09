@@ -76,6 +76,8 @@ jobs:
         fi
         
     - name: Build web application
+      env:
+        GITHUB_ACTIONS: "true"
       run: |
         cd web-app
         NODE_ENV=production npm run build

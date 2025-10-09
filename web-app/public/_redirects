@@ -1,14 +1,22 @@
 # GitHub Pages用リダイレクト設定
 # SPAルーティング対応
 
-# 静的アセットのリダイレクト
+# 静的アセットのリダイレクト（basePathを考慮）
+/jquants-stock-prediction/_next/static/* /jquants-stock-prediction/_next/static/:splat 200
 /_next/static/* /_next/static/:splat 200
 
 # favicon.icoのリダイレクト
+/jquants-stock-prediction/favicon.ico /jquants-stock-prediction/favicon.ico 200
 /favicon.ico /favicon.ico 200
 
+# icon.svgのリダイレクト
+/jquants-stock-prediction/icon.svg /jquants-stock-prediction/icon.svg 200
+/icon.svg /icon.svg 200
+
 # APIルートのリダイレクト（静的サイトでは動作しない）
+/jquants-stock-prediction/api/* /jquants-stock-prediction/404.html 404
 /api/* /404.html 404
 
 # SPAルーティング
+/jquants-stock-prediction/* /jquants-stock-prediction/index.html 200
 /* /index.html 200
