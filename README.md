@@ -1334,6 +1334,82 @@ except Exception as e:
 
 - 横展開の確認: 既存の `RoutineDashboard`, `JudgmentPanel`, `ScreenerTop5`, `StockMonitoringManager` による導線で実現済み。APIは `trading-signals`/`analyze`/`routine` を流用し、追加のコード変更は不要。
 
+### 🧭 日次ルーティン運用ガイド（実運用テンプレート）
+
+> 目的: 朝の5分で「EV>0かつ許容リスク内」のみ実行し、期待値の積み上げで収益最大化。引け後に差分検証と翌日の準備を自動化します。
+
+1) 朝（9:00 JST 自動）
+- `automated_scheduler.py` が `/api/routine/run-today` を起動（差分取得→予測→推奨作成）
+- 通知（メール/Slack/ブラウザ）で完了を受信→`/` の「5分ルーティン」を開く
+- `RoutineDashboard` で以下を確認し実行:
+  - **モデル健全性** バッジがOK以外なら取引を見送り（`/analysis`で再実行）
+  - **Top5** 候補を上から確認→判断パネルで「EV>0」「RR>1.2」「流動性OK」のみチェック
+  - 推奨カードの「数量」「想定損切り」を確認し、証券会社で発注
+
+2) 引け後（15:00 JST 自動）
+- 自動分析→「本日の結果サマリ」を通知
+- `保有銘柄ヘルスチェック` でリスク逸脱（VaR/MDD/ボラ）とイベント（決算/ギャップ/出来高異常）を再確認
+- ウォッチリストを必要に応じ更新（入替・タグ付け）
+
+3) 週次（日曜 10:00 目安）
+- 勝ちパターン/負けパターンを`/analysis-history`で振り返り→「EVの根拠」「RR」「コスト」を中心に見直し
+- `settings` で固定リスク割合（例: 残高×1%）と同時最大保持数（例: 5）を見直し
+
+4) 月次（1日 09:30 目安）
+- `config_final.yaml` のモデル比較・閾値を点検（過学習検出のログも参照）
+- 税制/NISA枠の進捗を `nisa_*` シリーズで確認し、資金配分を最適化
+
+#### 自動実行の設定（ローカル）
+
+1. 設定ファイル（通知・時刻）
+```yaml
+automated_scheduler:
+  execution_time: "09:00"     # 朝の自動実行（JST）
+  timezone: "Asia/Tokyo"
+  max_retries: 3
+  retry_delay: 300            # 秒
+  timeout: 1800               # 秒
+  enable_weekend: false
+notifications:
+  email:
+    enabled: false
+    smtp_server: "smtp.example.com"
+    smtp_port: 587
+    username: "your@email"
+    password: "app_password"
+    from: "noreply@example.com"
+    to: ["you@example.com"]
+  slack:
+    enabled: true
+    webhook_url: "https://hooks.slack.com/services/XXXX/XXXX/XXXX"
+  browser:
+    enabled: true
+```
+
+2. 起動コマンド（開発中は端末で常駐）
+```bash
+source venv/bin/activate
+python3 automated_scheduler.py
+```
+
+3. macOSでの常駐（launchd 概略）
+- `~/Library/LaunchAgents/com.jquants.scheduler.plist` に `ProgramArguments` と `KeepAlive` を設定
+- `launchctl load ~/Library/LaunchAgents/com.jquants.scheduler.plist`
+
+> 補足: スケジューラは `http://localhost:3000/api/routine/run-today` 等を順に試行し、失敗時はリトライ・フォールバックします。
+
+#### 実行ルール（短期売買の基本）
+- **実行条件**: EV>0 かつ RR>1.2 かつ 流動性閾値クリア
+- **数量**: 口座残高×1%を最大損失とし、想定損切り幅で算出（単元丸め）
+- **同時最大**: 5銘柄（設定で調整）
+- **見送り条件**: モデル健全性が警告/停止、ニュース・決算サプライズ直後、異常ボラ局面
+
+#### 横展開の確認（既存機能の再利用）
+- UI: `RoutineDashboard`/`JudgmentPanel`/`ScreenerTop5`/`StockMonitoringManager` を利用
+- API: `/api/analyze`・`/api/routine/run-today`・`/api/trading-signals` を利用（冪等キー・フォールバック実装済）
+- コア: `EnhancedInvestmentDecisionSystem`/`ClearInvestmentActions`/`DynamicRiskManager`/`PredictionEngine` を利用
+
+
 ### 完全統合システム - 単一責任原則に基づく設計
 
 **✅ 推奨システム（リファクタリング済みアーキテクチャ）:**

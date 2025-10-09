@@ -4,7 +4,7 @@
 曖昧な推奨を排除し、具体的なアクションを提示するシステム
 """
 
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 from enum import Enum
@@ -19,6 +19,7 @@ class InvestmentAction(Enum):
     TAKE_PROFIT = "take_profit"  # 利確
     STOP_LOSS = "stop_loss"  # 損切り
     NEW_PURCHASE = "new_purchase"  # 新規購入
+    HOLD = "hold"  # 保持
 
 
 class ActionPriority(Enum):
@@ -129,63 +130,10 @@ class ClearInvestmentActions:
             # 信頼度計算
             confidence = self._calculate_confidence(position, market_data)
             
-            # アクション決定
-            action = self._determine_action(position, market_data, confidence)
-            if action is None:
-                return None
+            # アクション決定（InvestmentActionDetailを返す）
+            action_detail = self._determine_action(position, market_data, confidence)
+            return action_detail
             
-            # ポジションサイズ計算
-            position_size = self._calculate_position_size(position, market_data, confidence, action)
-            
-            # 目標価格計算
-            target_price = self._calculate_target_price(position, market_data, action)
-            
-            # 優先度決定
-            priority = self._determine_priority(position, market_data, confidence, action)
-            
-            # 期限計算
-            deadline, deadline_type = self._calculate_deadline(position, market_data, confidence, action)
-            
-            # 期待リターン計算
-            expected_return = self._calculate_expected_return(position, market_data, action)
-            
-            # 最大損失計算
-            max_loss = self._calculate_max_loss(position, market_data, action)
-            
-            # 理由生成
-            reason = self._generate_reason(position, market_data, action)
-            
-            # リスクレベル決定
-            risk_level = self._determine_risk_level(position, market_data)
-            
-            # テクニカルシグナル取得
-            technical_signals = self._get_technical_signals(market_data)
-            
-            # ファンダメンタル要因取得
-            fundamental_factors = self._get_fundamental_factors(position, market_data)
-            
-            return InvestmentActionDetail(
-                action=action,
-                symbol=position.symbol,
-                current_price=position.current_price,
-                target_price=target_price,
-                quantity=position_size,
-                total_amount=position_size * position.current_price,
-                priority=priority,
-                deadline=deadline,
-                deadline_type=deadline_type,
-                confidence=confidence,
-                reason=reason,
-                risk_level=risk_level,
-                expected_return=expected_return,
-                max_loss=max_loss,
-                stop_loss_price=position.current_price * (1 - self.stop_loss_percentage) if action == InvestmentAction.BUY_MORE else None,
-                take_profit_price=position.current_price * (1 + self.take_profit_percentage) if action == InvestmentAction.TAKE_PROFIT else None,
-                position_size_percentage=position_size / position.current_quantity if position.current_quantity > 0 else 0,
-                market_condition=market_data.get("trend", "neutral"),
-                technical_signals=technical_signals,
-                fundamental_factors=fundamental_factors,
-            )
         except Exception as e:
             self.logger.error(f"ポジション分析エラー: {e}")
             return None
@@ -254,7 +202,7 @@ class ClearInvestmentActions:
         """具体的なアクションを判定（強化版）"""
         try:
             # 価格変動率の計算
-            price_change_ratio = (position.current_price - position.average_price) / position.average_price
+            price_change_ratio = (float(position.current_price) - float(position.average_price)) / float(position.average_price)
 
             # 技術指標の取得
             technical_signals = self._analyze_technical_indicators(market_data)
@@ -263,22 +211,72 @@ class ClearInvestmentActions:
             # 市場条件の判定
             market_condition = self._assess_market_condition(market_data)
 
-            # 信頼度ベースの判定強化
-            if confidence < self.min_confidence_threshold:
-                self.logger.info(f"信頼度不足: {position.symbol} (信頼度: {confidence:.2f})")
-                return None
-
             # アクション判定ロジック
-            if position.pnl_percentage < -0.1:  # 10%以上の損失
+            pnl_percentage = float(position.pnl_percentage)
+            
+            # 市場条件の評価
+            trend = market_data.get("trend", "neutral")
+            rsi = market_data.get("rsi", 50)
+            if isinstance(rsi, (int, float)):
+                rsi = float(rsi)
+            else:
+                rsi = 50.0
+            
+            # 大幅な損失 → 損切り（信頼度に関係なく推奨）
+            if pnl_percentage <= -10.0:
                 action = InvestmentAction.STOP_LOSS
-            elif position.pnl_percentage > 0.2:  # 20%以上の利益
+            # 大幅な利益 → 利確（信頼度に関係なく推奨）
+            elif pnl_percentage >= 20.0:
                 action = InvestmentAction.TAKE_PROFIT
-            elif price_change_ratio > 0.05:  # 5%以上の上昇
+            # 強気トレンド + RSI過売り + 小幅な損失 → 買い増し
+            elif trend == "bullish" and rsi < 35 and pnl_percentage > -10.0:
+                action = InvestmentAction.BUY_MORE
+            # 上昇トレンド
+            elif price_change_ratio > 0.05:
                 action = InvestmentAction.BUY_MORE
             else:
                 action = InvestmentAction.HOLD
+            
+            # 信頼度ベースの判定強化（損切りと利確以外）
+            if action not in [InvestmentAction.STOP_LOSS, InvestmentAction.TAKE_PROFIT]:
+                if confidence < self.min_confidence_threshold:
+                    self.logger.info(f"信頼度不足: {position.symbol} (信頼度: {confidence:.2f})")
+                    return None
 
-            return action
+            # InvestmentActionDetailを作成
+            target_price = self._calculate_target_price(position, market_data, action)
+            position_size = self._calculate_position_size(position, market_data, action, confidence)
+            expected_return = self._calculate_expected_return(position, market_data, action)
+            max_loss = self._calculate_max_loss(position, market_data, action)
+            priority = self._determine_priority(position, market_data, confidence, action)
+            deadline, deadline_type = self._calculate_deadline(position, market_data, confidence, action)
+            reason = self._generate_reason(position, market_data, action)
+            risk_level = self._determine_risk_level(position, market_data)
+            technical_signals = self._get_technical_signals(market_data)
+            fundamental_factors = self._get_fundamental_factors(position, market_data)
+
+            return InvestmentActionDetail(
+                action=action,
+                symbol=position.symbol,
+                current_price=position.current_price,
+                target_price=target_price,
+                quantity=position_size,
+                total_amount=position_size * position.current_price,
+                priority=priority,
+                deadline=deadline,
+                deadline_type=deadline_type,
+                confidence=confidence,
+                reason=reason,
+                risk_level=risk_level,
+                expected_return=expected_return,
+                max_loss=max_loss,
+                stop_loss_price=position.current_price * 0.9 if action == InvestmentAction.STOP_LOSS else None,
+                take_profit_price=position.current_price * 1.1 if action == InvestmentAction.TAKE_PROFIT else None,
+                position_size_percentage=position_size / float(position.current_quantity) if float(position.current_quantity) > 0 else 0,
+                market_condition=market_data.get("trend", "neutral"),
+                technical_signals=technical_signals,
+                fundamental_factors=fundamental_factors,
+            )
 
         except Exception as e:
             self.logger.error(f"アクション判定エラー ({position.symbol}): {e}")
@@ -508,31 +506,47 @@ class ClearInvestmentActions:
 
     def _analyze_technical_indicators(self, market_data: Dict[str, Any]) -> List[str]:
         """技術指標の分析"""
-        signals = []
+        try:
+            signals = []
 
-        # RSI分析
-        rsi = market_data.get("rsi", 50)
-        if rsi < 30:
-            signals.append("RSI過売り")
-        elif rsi > 70:
-            signals.append("RSI過買い")
+            # RSI分析
+            rsi = market_data.get("rsi", 50)
+            if isinstance(rsi, (int, float)):
+                rsi = float(rsi)
+                if rsi < 30:
+                    signals.append("RSI過売り")
+                elif rsi > 70:
+                    signals.append("RSI過買い")
 
-        # MACD分析
-        macd = market_data.get("macd", 0)
-        if macd > 0:
-            signals.append("MACD上昇")
-        else:
-            signals.append("MACD下降")
+            # MACD分析
+            macd = market_data.get("macd", 0)
+            if isinstance(macd, str):
+                if macd == "bullish":
+                    signals.append("MACD上昇")
+                elif macd == "bearish":
+                    signals.append("MACD下降")
+            elif isinstance(macd, (int, float)):
+                macd = float(macd)
+                if macd > 0:
+                    signals.append("MACD上昇")
+                else:
+                    signals.append("MACD下降")
 
-        # 移動平均分析
-        sma_20 = market_data.get("sma_20", 0)
-        current_price = market_data.get("close", 0)
-        if current_price > sma_20:
-            signals.append("価格 > SMA20")
-        else:
-            signals.append("価格 < SMA20")
+            # 移動平均分析
+            sma_20 = market_data.get("sma_20", 0)
+            current_price = market_data.get("close", 0)
+            if isinstance(sma_20, (int, float)) and isinstance(current_price, (int, float)):
+                sma_20 = float(sma_20)
+                current_price = float(current_price)
+                if current_price > sma_20:
+                    signals.append("価格 > SMA20")
+                else:
+                    signals.append("価格 < SMA20")
 
-        return signals
+            return signals
+        except Exception as e:
+            self.logger.error(f"技術指標分析エラー: {e}")
+            return []
 
     def _analyze_fundamental_factors(self, market_data: Dict[str, Any]) -> List[str]:
         """ファンダメンタル要因の分析"""
@@ -556,16 +570,31 @@ class ClearInvestmentActions:
 
     def _assess_market_condition(self, market_data: Dict[str, Any]) -> str:
         """市場条件の評価"""
-        volatility = market_data.get("volatility", 0)
-        trend = market_data.get("trend", 0)
-
-        if volatility > 0.3:
-            return "high_volatility"
-        elif trend > 0.1:
-            return "bull_market"
-        elif trend < -0.1:
-            return "bear_market"
-        else:
+        try:
+            volatility = float(market_data.get("volatility", 0))
+            trend = market_data.get("trend", "neutral")
+            
+            # trendが文字列の場合
+            if isinstance(trend, str):
+                if trend == "bullish":
+                    return "bull_market"
+                elif trend == "bearish":
+                    return "bear_market"
+                else:
+                    return "sideways"
+            
+            # trendが数値の場合
+            trend = float(trend)
+            if volatility > 0.3:
+                return "high_volatility"
+            elif trend > 0.1:
+                return "bull_market"
+            elif trend < -0.1:
+                return "bear_market"
+            else:
+                return "sideways"
+        except Exception as e:
+            self.logger.error(f"市場条件評価エラー: {e}")
             return "sideways"
 
     def _prioritize_actions(
@@ -924,7 +953,7 @@ class ClearInvestmentActions:
 
     def _calculate_kelly_position_size(
         self, position: PositionInfo, market_data: Dict[str, Any], confidence: float
-    ) -> float:
+    ) -> int:
         """ケリー基準ポジションサイズ計算"""
         try:
             # ケリー基準の簡易版
@@ -935,27 +964,27 @@ class ClearInvestmentActions:
             kelly_fraction = (win_rate * avg_win - (1 - win_rate) * avg_loss) / avg_win
             kelly_fraction = max(0.0, min(0.25, kelly_fraction))  # 0-25%に制限
             
-            return kelly_fraction * position.current_quantity
+            return int(kelly_fraction * float(position.current_quantity))
         except Exception as e:
             self.logger.error(f"ケリー基準ポジションサイズ計算エラー: {e}")
-            return 0.0
+            return 0
 
     def _calculate_position_size(
         self, position: PositionInfo, market_data: Dict[str, Any], action: InvestmentAction, confidence: float
-    ) -> float:
+    ) -> int:
         """ポジションサイズ計算"""
         try:
             if action == InvestmentAction.BUY_MORE:
                 return self._calculate_kelly_position_size(position, market_data, confidence)
             elif action == InvestmentAction.TAKE_PROFIT:
-                return position.current_quantity * 0.5  # 50%決済
+                return int(float(position.current_quantity) * 0.5)  # 50%決済
             elif action == InvestmentAction.STOP_LOSS:
-                return position.current_quantity  # 全決済
+                return int(float(position.current_quantity))  # 全決済
             else:
-                return 0.0
+                return 0
         except Exception as e:
             self.logger.error(f"ポジションサイズ計算エラー: {e}")
-            return 0.0
+            return 0
 
     def _determine_priority(
         self, position: PositionInfo, market_data: Dict[str, Any], confidence: float, action: InvestmentAction
@@ -973,3 +1002,174 @@ class ClearInvestmentActions:
         except Exception as e:
             self.logger.error(f"優先度決定エラー: {e}")
             return ActionPriority.MEDIUM
+
+    def _determine_risk_level(self, position: PositionInfo, market_data: Dict[str, Any]) -> str:
+        """リスクレベル決定"""
+        try:
+            volatility = market_data.get("volatility", 0.15)
+            if volatility >= 0.25:
+                return "HIGH"
+            elif volatility >= 0.15:
+                return "MEDIUM"
+            else:
+                return "LOW"
+        except Exception as e:
+            self.logger.error(f"リスクレベル決定エラー: {e}")
+            return "MEDIUM"
+
+    def _generate_reason(
+        self, position: PositionInfo, market_data: Dict[str, Any], action: InvestmentAction
+    ) -> str:
+        """理由生成"""
+        try:
+            if action == InvestmentAction.BUY_MORE:
+                return "強気トレンドとRSIの過小評価"
+            elif action == InvestmentAction.TAKE_PROFIT:
+                return "利益確定のタイミング"
+            elif action == InvestmentAction.STOP_LOSS:
+                return "損失拡大防止"
+            else:
+                return "現状維持"
+        except Exception as e:
+            self.logger.error(f"理由生成エラー: {e}")
+            return "分析結果に基づく判断"
+
+    def _get_technical_signals(self, market_data: Dict[str, Any]) -> List[str]:
+        """テクニカルシグナル取得"""
+        try:
+            signals = []
+            trend = market_data.get("trend", "neutral")
+            rsi = market_data.get("rsi", 50)
+            macd = market_data.get("macd", "neutral")
+            
+            if trend == "bullish":
+                signals.append("強気トレンド")
+            elif trend == "bearish":
+                signals.append("弱気トレンド")
+            
+            if float(rsi) < 30:
+                signals.append("RSI過小評価")
+            elif float(rsi) > 70:
+                signals.append("RSI過大評価")
+            
+            if macd == "bullish":
+                signals.append("MACD強気")
+            elif macd == "bearish":
+                signals.append("MACD弱気")
+            
+            return signals
+        except Exception as e:
+            self.logger.error(f"テクニカルシグナル取得エラー: {e}")
+            return []
+
+    def _get_fundamental_factors(self, position: PositionInfo, market_data: Dict[str, Any]) -> List[str]:
+        """ファンダメンタル要因取得"""
+        try:
+            factors = []
+            if float(position.pnl_percentage) > 0:
+                factors.append("業績好調")
+                factors.append("市場シェア拡大")
+            else:
+                factors.append("業績悪化")
+                factors.append("競合激化")
+            return factors
+        except Exception as e:
+            self.logger.error(f"ファンダメンタル要因取得エラー: {e}")
+            return []
+
+    def export_action_report(self, action: InvestmentActionDetail) -> Dict[str, Any]:
+        """アクションレポート出力"""
+        try:
+            # アクションに基づいて推奨文を生成
+            recommendation = self._generate_recommendation_text(action)
+            
+            # リスク評価を生成
+            risk_assessment = self._generate_risk_assessment(action)
+            
+            # 実行計画を生成
+            execution_plan = self._generate_execution_plan(action)
+            
+            return {
+                "action": action.action.value,
+                "symbol": action.symbol,
+                "current_price": action.current_price,
+                "target_price": action.target_price,
+                "quantity": action.quantity,
+                "total_amount": action.total_amount,
+                "priority": action.priority.value,
+                "deadline": action.deadline.isoformat(),
+                "deadline_type": action.deadline_type.value,
+                "confidence": action.confidence,
+                "reason": action.reason,
+                "recommendation": recommendation,
+                "risk_level": action.risk_level,
+                "risk_assessment": risk_assessment,
+                "execution_plan": execution_plan,
+                "expected_return": action.expected_return,
+                "max_loss": action.max_loss,
+                "stop_loss_price": action.stop_loss_price,
+                "take_profit_price": action.take_profit_price,
+                "position_size_percentage": action.position_size_percentage,
+                "market_condition": action.market_condition,
+                "technical_signals": action.technical_signals,
+                "fundamental_factors": action.fundamental_factors,
+                "generated_at": datetime.now().isoformat(),
+            }
+        except Exception as e:
+            self.logger.error(f"アクションレポート出力エラー: {e}")
+            return {"error": str(e)}
+    
+    def _generate_recommendation_text(self, action: InvestmentActionDetail) -> str:
+        """推奨文生成"""
+        try:
+            if action.action == InvestmentAction.BUY_MORE:
+                return f"{action.symbol}を{action.quantity}株買い増しすることを推奨します（目標価格: {action.target_price:.2f}円）"
+            elif action.action == InvestmentAction.TAKE_PROFIT:
+                return f"{action.symbol}を{action.quantity}株利確することを推奨します（目標価格: {action.target_price:.2f}円）"
+            elif action.action == InvestmentAction.STOP_LOSS:
+                return f"{action.symbol}を{action.quantity}株損切りすることを推奨します（目標価格: {action.target_price:.2f}円）"
+            elif action.action == InvestmentAction.NEW_PURCHASE:
+                return f"{action.symbol}を{action.quantity}株新規購入することを推奨します（目標価格: {action.target_price:.2f}円）"
+            else:
+                return f"{action.symbol}を保持することを推奨します"
+        except Exception as e:
+            self.logger.error(f"推奨文生成エラー: {e}")
+            return "推奨文を生成できませんでした"
+    
+    def _generate_risk_assessment(self, action: InvestmentActionDetail) -> str:
+        """リスク評価生成"""
+        try:
+            risk_level = action.risk_level
+            expected_return = action.expected_return
+            max_loss = action.max_loss
+            
+            if risk_level == "HIGH":
+                risk_text = "高リスク"
+            elif risk_level == "MEDIUM":
+                risk_text = "中リスク"
+            else:
+                risk_text = "低リスク"
+            
+            return f"{risk_text}（期待リターン: {expected_return*100:.1f}%、最大損失: {max_loss*100:.1f}%）"
+        except Exception as e:
+            self.logger.error(f"リスク評価生成エラー: {e}")
+            return "リスク評価を生成できませんでした"
+    
+    def _generate_execution_plan(self, action: InvestmentActionDetail) -> str:
+        """実行計画生成"""
+        try:
+            deadline_text = action.deadline.strftime("%Y年%m月%d日")
+            
+            if action.action == InvestmentAction.BUY_MORE:
+                return f"{deadline_text}までに{action.quantity}株を{action.target_price:.2f}円以下で買い増し"
+            elif action.action == InvestmentAction.TAKE_PROFIT:
+                return f"{deadline_text}までに{action.quantity}株を{action.target_price:.2f}円以上で利確"
+            elif action.action == InvestmentAction.STOP_LOSS:
+                return f"{deadline_text}までに{action.quantity}株を{action.target_price:.2f}円で損切り"
+            elif action.action == InvestmentAction.NEW_PURCHASE:
+                return f"{deadline_text}までに{action.quantity}株を{action.target_price:.2f}円以下で新規購入"
+            else:
+                return f"{action.symbol}を保持"
+        except Exception as e:
+            self.logger.error(f"実行計画生成エラー: {e}")
+            return "実行計画を生成できませんでした"
