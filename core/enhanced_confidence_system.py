@@ -13,6 +13,7 @@ from dataclasses import dataclass
 from enum import Enum
 import logging
 import warnings
+from datetime import datetime
 
 warnings.filterwarnings("ignore")
 
@@ -66,9 +67,15 @@ class EnhancedConfidenceSystem:
         """初期化"""
         self.config = config or self._get_default_config()
         self.logger = logging.getLogger(__name__)
-        self.confidence_history = []
+        self.confidence_history = {}
         self.market_regime = "normal"
         self.volatility_regime = "normal"
+        
+        # テストで使用される属性を追加
+        self.min_threshold = self.config.get("confidence", {}).get("min_threshold", 0.6)
+        self.high_threshold = self.config.get("confidence", {}).get("high_threshold", 0.8)
+        self.update_interval = self.config.get("confidence", {}).get("update_interval", 1.0)
+        self.decay_factor = self.config.get("confidence", {}).get("decay_factor", 0.95)
 
     def _get_default_config(self) -> Dict[str, Any]:
         """デフォルト設定"""
@@ -1180,6 +1187,440 @@ class EnhancedConfidenceSystem:
             confidence_level=ConfidenceLevel.MEDIUM,
             risk_adjusted_confidence=0.5,
         )
+
+    def calculate_ensemble_confidence(
+        self, model_predictions: Dict[str, List[float]], actual_values: List[float]
+    ) -> Optional[float]:
+        """アンサンブル信頼度計算"""
+        try:
+            if not model_predictions or len(model_predictions) < 3:
+                self.logger.warning("アンサンブル信頼度計算: モデル数が不足")
+                return None
+
+            if not actual_values or len(actual_values) < 3:
+                self.logger.warning("アンサンブル信頼度計算: 実測値が不足")
+                return None
+
+            # 各モデルの予測精度を計算
+            model_accuracies = []
+            for model_name, predictions in model_predictions.items():
+                if len(predictions) != len(actual_values):
+                    continue
+                
+                # 予測精度を計算（1 - 平均絶対誤差）
+                mae = np.mean([abs(p - a) for p, a in zip(predictions, actual_values)])
+                accuracy = max(0.0, 1.0 - mae)
+                model_accuracies.append(accuracy)
+
+            if not model_accuracies:
+                return None
+
+            # アンサンブル信頼度（重み付き平均）
+            ensemble_confidence = np.mean(model_accuracies)
+            
+            # モデル間の一貫性ボーナス
+            consistency_bonus = 0.0
+            if len(model_accuracies) > 1:
+                std_dev = np.std(model_accuracies)
+                consistency_bonus = max(0.0, 0.1 - std_dev * 0.2)
+
+            return max(0.0, min(1.0, ensemble_confidence + consistency_bonus))
+
+        except Exception as e:
+            self.logger.error(f"アンサンブル信頼度計算エラー: {e}")
+            return None
+
+    def calculate_fundamental_confidence(self, fundamental_data: Dict[str, float]) -> Optional[float]:
+        """ファンダメンタル信頼度計算"""
+        try:
+            if not fundamental_data:
+                self.logger.warning("ファンダメンタル信頼度計算: データが不足")
+                return None
+
+            # 財務健全性
+            financial_health = self._calculate_financial_health(fundamental_data)
+
+            # 成長性
+            growth_potential = self._calculate_growth_potential(fundamental_data)
+
+            # バリュエーション
+            valuation_attractiveness = self._calculate_valuation_attractiveness(fundamental_data)
+
+            # 業界地位
+            industry_position = self._calculate_industry_position(fundamental_data)
+
+            fundamental_confidence = (
+                financial_health * 0.3
+                + growth_potential * 0.3
+                + valuation_attractiveness * 0.2
+                + industry_position * 0.2
+            )
+
+            return max(0.0, min(1.0, fundamental_confidence))
+
+        except Exception as e:
+            self.logger.error(f"ファンダメンタル信頼度計算エラー: {e}")
+            return None
+
+    def calculate_historical_accuracy(
+        self, predictions: List[float], actual_values: List[float]
+    ) -> Optional[float]:
+        """履歴精度信頼度計算"""
+        try:
+            if not predictions or not actual_values:
+                self.logger.warning("履歴精度信頼度計算: データが不足")
+                return None
+
+            if len(predictions) != len(actual_values):
+                self.logger.warning("履歴精度信頼度計算: 予測値と実測値の長さが一致しない")
+                return None
+
+            if len(predictions) < 3:
+                self.logger.warning("履歴精度信頼度計算: データ数が不足")
+                return None
+
+            # 平均絶対誤差を計算
+            mae = np.mean([abs(p - a) for p, a in zip(predictions, actual_values)])
+            
+            # 平均絶対誤差率を計算
+            mape = np.mean([abs(p - a) / abs(a) if a != 0 else 0 for p, a in zip(predictions, actual_values)])
+            
+            # 決定係数（R²）を計算
+            ss_res = np.sum([(a - p) ** 2 for p, a in zip(predictions, actual_values)])
+            ss_tot = np.sum([(a - np.mean(actual_values)) ** 2 for a in actual_values])
+            r_squared = 1 - (ss_res / ss_tot) if ss_tot != 0 else 0
+
+            # 信頼度スコアを計算（0-1の範囲）
+            accuracy_score = max(0.0, min(1.0, r_squared))
+            
+            # 誤差率による調整
+            error_penalty = min(0.3, mape * 0.1)
+            final_accuracy = max(0.0, accuracy_score - error_penalty)
+
+            return final_accuracy
+
+        except Exception as e:
+            self.logger.error(f"履歴精度信頼度計算エラー: {e}")
+            return None
+
+    def calculate_prediction_confidence(
+        self, predictions: List[float], actual_values: List[float]
+    ) -> Optional[float]:
+        """予測信頼度計算"""
+        try:
+            if not predictions or not actual_values:
+                self.logger.warning("予測信頼度計算: データが不足")
+                return None
+
+            if len(predictions) != len(actual_values):
+                self.logger.warning("予測信頼度計算: 予測値と実測値の長さが一致しない")
+                return None
+
+            if len(predictions) < 3:
+                self.logger.warning("予測信頼度計算: データ数が不足")
+                return None
+
+            # 平均絶対誤差を計算
+            mae = np.mean([abs(p - a) for p, a in zip(predictions, actual_values)])
+            
+            # 信頼度スコアを計算（誤差が小さいほど高い信頼度）
+            confidence = max(0.0, min(1.0, 1.0 - mae))
+
+            return confidence
+
+        except Exception as e:
+            self.logger.error(f"予測信頼度計算エラー: {e}")
+            return None
+
+    def calculate_volatility_confidence(self, predictions: List[float]) -> Optional[float]:
+        """ボラティリティ信頼度計算"""
+        try:
+            if not predictions or len(predictions) < 3:
+                self.logger.warning("ボラティリティ信頼度計算: データが不足")
+                return None
+
+            # 予測値の標準偏差を計算
+            std_dev = np.std(predictions)
+            
+            # 平均値を計算
+            mean_value = np.mean(predictions)
+            
+            # 変動係数を計算
+            cv = std_dev / mean_value if mean_value != 0 else 1.0
+            
+            # 信頼度スコアを計算（変動係数が小さいほど高い信頼度）
+            confidence = max(0.0, min(1.0, 1.0 - cv))
+
+            return confidence
+
+        except Exception as e:
+            self.logger.error(f"ボラティリティ信頼度計算エラー: {e}")
+            return None
+
+    def calculate_market_condition_confidence(self, market_data: Dict[str, Any]) -> Optional[float]:
+        """市場条件信頼度計算"""
+        try:
+            if not market_data:
+                self.logger.warning("市場条件信頼度計算: データが不足")
+                return None
+
+            confidence = 0.5  # デフォルト値
+
+            # トレンド分析
+            trend = market_data.get("trend", "neutral")
+            if trend == "bullish":
+                confidence += 0.2
+            elif trend == "bearish":
+                confidence -= 0.1
+
+            # ボラティリティ分析
+            volatility = market_data.get("volatility", 0.2)
+            if volatility < 0.15:
+                confidence += 0.1
+            elif volatility > 0.25:
+                confidence -= 0.1
+
+            # ボリューム分析
+            volume = market_data.get("volume", 0)
+            if volume > 1000000:
+                confidence += 0.1
+            elif volume < 500000:
+                confidence -= 0.1
+
+            # センチメント分析
+            sentiment = market_data.get("sentiment", 0.5)
+            if sentiment > 0.7:
+                confidence += 0.1
+            elif sentiment < 0.3:
+                confidence -= 0.1
+
+            return max(0.0, min(1.0, confidence))
+
+        except Exception as e:
+            self.logger.error(f"市場条件信頼度計算エラー: {e}")
+            return None
+
+    def calculate_technical_confidence(self, technical_data: Dict[str, Any]) -> Optional[float]:
+        """テクニカル信頼度計算"""
+        try:
+            if not technical_data:
+                self.logger.warning("テクニカル信頼度計算: データが不足")
+                return None
+
+            confidence = 0.5  # デフォルト値
+
+            # RSI分析
+            rsi = technical_data.get("rsi", 50)
+            if rsi < 30 or rsi > 70:
+                confidence += 0.1
+
+            # MACD分析
+            macd = technical_data.get("macd", "neutral")
+            if macd == "bullish":
+                confidence += 0.1
+            elif macd == "bearish":
+                confidence -= 0.1
+
+            # ボリンジャーバンド分析
+            bollinger = technical_data.get("bollinger", "neutral")
+            if bollinger == "oversold" or bollinger == "overbought":
+                confidence += 0.1
+
+            # 移動平均分析
+            moving_average = technical_data.get("moving_average", "neutral")
+            if moving_average == "bullish":
+                confidence += 0.1
+            elif moving_average == "bearish":
+                confidence -= 0.1
+
+            # ボリューム分析
+            volume = technical_data.get("volume", "normal")
+            if volume == "high":
+                confidence += 0.1
+            elif volume == "low":
+                confidence -= 0.1
+
+            return max(0.0, min(1.0, confidence))
+
+        except Exception as e:
+            self.logger.error(f"テクニカル信頼度計算エラー: {e}")
+            return None
+
+    def combine_confidence_scores(self, confidence_scores: Dict[str, float]) -> Optional[float]:
+        """信頼度スコア結合"""
+        try:
+            if not confidence_scores or len(confidence_scores) < 2:
+                self.logger.warning("信頼度スコア結合: スコアが不足")
+                return None
+
+            # 重み付き平均を計算
+            weights = {
+                "prediction": 0.2,
+                "ensemble": 0.2,
+                "volatility": 0.15,
+                "consensus": 0.15,
+                "historical": 0.15,
+                "market": 0.1,
+                "technical": 0.1,
+                "fundamental": 0.1,
+            }
+
+            weighted_sum = 0.0
+            total_weight = 0.0
+
+            for score_type, score in confidence_scores.items():
+                if score_type in weights and score is not None:
+                    weighted_sum += score * weights[score_type]
+                    total_weight += weights[score_type]
+
+            if total_weight == 0:
+                return None
+
+            combined_confidence = weighted_sum / total_weight
+            return max(0.0, min(1.0, combined_confidence))
+
+        except Exception as e:
+            self.logger.error(f"信頼度スコア結合エラー: {e}")
+            return None
+
+    def determine_confidence_level(self, confidence_score: float) -> ConfidenceLevel:
+        """信頼度レベル決定"""
+        try:
+            if confidence_score < 0 or confidence_score > 1:
+                self.logger.warning(f"無効な信頼度スコア: {confidence_score}")
+                return ConfidenceLevel.LOW
+
+            if confidence_score >= 0.9:
+                return ConfidenceLevel.VERY_HIGH
+            elif confidence_score >= 0.8:
+                return ConfidenceLevel.HIGH
+            elif confidence_score >= 0.7:
+                return ConfidenceLevel.MEDIUM
+            elif confidence_score >= 0.6:
+                return ConfidenceLevel.LOW
+            else:
+                return ConfidenceLevel.VERY_LOW
+
+        except Exception as e:
+            self.logger.error(f"信頼度レベル決定エラー: {e}")
+            return ConfidenceLevel.LOW
+
+    def update_confidence_history(
+        self, symbol: str, confidence_score: float, prediction_type: str
+    ) -> None:
+        """信頼度履歴更新"""
+        try:
+            if symbol not in self.confidence_history:
+                self.confidence_history[symbol] = []
+
+            history_entry = {
+                "confidence": confidence_score,
+                "timestamp": datetime.now(),
+                "type": prediction_type,
+            }
+
+            self.confidence_history[symbol].append(history_entry)
+
+            # 履歴の最大数を制限
+            if len(self.confidence_history[symbol]) > 1000:
+                self.confidence_history[symbol] = self.confidence_history[symbol][-1000:]
+
+        except Exception as e:
+            self.logger.error(f"信頼度履歴更新エラー: {e}")
+
+    def get_confidence_metrics(self, symbol: str) -> Optional[ConfidenceMetrics]:
+        """信頼度メトリクス取得"""
+        try:
+            if symbol not in self.confidence_history or not self.confidence_history[symbol]:
+                return None
+
+            history = self.confidence_history[symbol]
+            confidences = [entry["confidence"] for entry in history]
+
+            if not confidences:
+                return None
+
+            # 平均信頼度
+            average_confidence = np.mean(confidences)
+
+            # 信頼度トレンド
+            if len(confidences) >= 2:
+                recent_avg = np.mean(confidences[-5:]) if len(confidences) >= 5 else confidences[-1]
+                older_avg = np.mean(confidences[:-5]) if len(confidences) >= 10 else confidences[0]
+                if recent_avg > older_avg * 1.05:
+                    confidence_trend = "improving"
+                elif recent_avg < older_avg * 0.95:
+                    confidence_trend = "declining"
+                else:
+                    confidence_trend = "stable"
+            else:
+                confidence_trend = "insufficient_data"
+
+            # ボラティリティ
+            volatility = np.std(confidences) if len(confidences) > 1 else 0.0
+
+            # 安定性スコア
+            stability_score = max(0.0, 1.0 - volatility)
+
+            return ConfidenceMetrics(
+                base_confidence=average_confidence,
+                market_confidence=average_confidence,
+                volatility_confidence=1.0 - volatility,
+                technical_confidence=average_confidence,
+                fundamental_confidence=average_confidence,
+                ensemble_confidence=average_confidence,
+                final_confidence=average_confidence,
+                confidence_level=self.determine_confidence_level(average_confidence),
+                risk_adjusted_confidence=average_confidence * stability_score,
+            )
+
+        except Exception as e:
+            self.logger.error(f"信頼度メトリクス取得エラー: {e}")
+            return None
+
+    def export_confidence_report(self, symbol: str) -> Dict[str, Any]:
+        """信頼度レポート出力"""
+        try:
+            metrics = self.get_confidence_metrics(symbol)
+            
+            if metrics is None:
+                return {
+                    "symbol": symbol,
+                    "status": "no_data",
+                    "message": "信頼度履歴がありません",
+                    "generated_at": datetime.now().isoformat(),
+                }
+
+            # 推奨事項を生成
+            recommendations = []
+            if metrics.final_confidence >= 0.8:
+                recommendations.append("高信頼度: 積極的な取引を推奨")
+            elif metrics.final_confidence >= 0.7:
+                recommendations.append("中信頼度: 慎重な取引を推奨")
+            elif metrics.final_confidence >= 0.6:
+                recommendations.append("低信頼度: 取引を控えることを推奨")
+            else:
+                recommendations.append("非常に低信頼度: 取引を避けることを推奨")
+
+            return {
+                "symbol": symbol,
+                "confidence_metrics": {
+                    "final_confidence": metrics.final_confidence,
+                    "confidence_level": metrics.confidence_level.value,
+                    "risk_adjusted_confidence": metrics.risk_adjusted_confidence,
+                    "stability_score": 1.0 - metrics.volatility_confidence,
+                },
+                "recommendations": recommendations,
+                "generated_at": datetime.now().isoformat(),
+            }
+
+        except Exception as e:
+            self.logger.error(f"信頼度レポート出力エラー: {e}")
+            return {
+                "symbol": symbol,
+                "error": str(e),
+                "generated_at": datetime.now().isoformat(),
+            }
 
     def get_confidence_statistics(self) -> Dict[str, Any]:
         """信頼度統計情報取得"""

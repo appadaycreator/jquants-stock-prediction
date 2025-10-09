@@ -11,6 +11,7 @@ import sys
 import os
 import threading
 import time
+from queue import Empty
 
 # プロジェクトルートをパスに追加
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -512,20 +513,20 @@ class TestAutoTradingExecutorEnhanced(unittest.TestCase):
             price=95.0,
             created_at=datetime.now(),
         )
-        self.executor.execution_queue.put(order)
 
         # 執行ループを短時間実行
         self.executor.is_executing = True
         
         with patch.object(self.executor, '_execute_order') as mock_execute:
-            # ループを1回だけ実行
-            self.executor._execution_loop()
-            
-            # 注文が処理されるまで待機
-            time.sleep(0.1)
-            
-            # 注文が処理されたことを確認
-            self.assertEqual(self.executor.execution_queue.qsize(), 0)
+            with patch.object(self.executor.execution_queue, 'get_nowait') as mock_get:
+                # 最初の呼び出しで注文を返し、2回目の呼び出しでEmpty例外を発生させる
+                mock_get.side_effect = [order, Empty()]
+                
+                # ループを1回だけ実行
+                self.executor._execution_loop()
+                
+                # 注文が処理されたことを確認
+                mock_execute.assert_called_once_with(order)
 
     def test_execution_loop_exception(self):
         """執行ループ例外処理テスト"""
