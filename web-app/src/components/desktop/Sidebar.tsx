@@ -77,6 +77,8 @@ export default function Sidebar() {
       <button
         onClick={toggleMobile}
         className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white rounded-lg shadow-md border border-gray-200"
+        aria-label="メニューを開く"
+        data-help="メニューを開きます。ナビゲーション項目へアクセスできます。"
       >
         {isMobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </button>
@@ -105,6 +107,8 @@ export default function Sidebar() {
               onClick={toggleCollapse}
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
               title={isCollapsed ? "サイドバーを展開" : "サイドバーを折りたたむ"}
+              aria-label={isCollapsed ? "サイドバーを展開" : "サイドバーを折りたたむ"}
+              data-help={isCollapsed ? "サイドバーを展開します。" : "サイドバーを折りたたみます。"}
             >
               {isCollapsed ? (
                 <ChevronRight className="h-5 w-5 text-gray-600" />
@@ -122,6 +126,7 @@ export default function Sidebar() {
                 className="w-full flex items-center justify-between px-3 pb-2 text-xs font-semibold text-gray-500 hover:text-gray-700 transition-colors"
                 aria-expanded={isMainOpen}
                 aria-controls="sidebar-section-main"
+                data-help="メインセクションの表示を切り替えます。"
               >
                 <span>メイン</span>
                 <span className={`transition-transform ${isMainOpen ? "rotate-0" : "-rotate-90"}`}>▾</span>
@@ -151,6 +156,8 @@ export default function Sidebar() {
                         : "text-gray-700 hover:bg-gray-50"
                     }`}
                     title={isCollapsed ? item.name : undefined}
+                    aria-label={item.name}
+                    data-help={`${item.name} へ移動します。`}
                   >
                     <span className="text-lg flex-shrink-0">{item.icon}</span>
                     {!isCollapsed && (
@@ -175,6 +182,7 @@ export default function Sidebar() {
                 className="w-full flex items-center justify-between px-3 pb-2 text-xs font-semibold text-gray-500 hover:text-gray-700 transition-colors"
                 aria-expanded={isAdvancedOpen}
                 aria-controls="sidebar-section-advanced"
+                data-help="分析・設定セクションの表示を切り替えます。"
               >
                 <span>分析・設定</span>
                 <span className={`transition-transform ${isAdvancedOpen ? "rotate-0" : "-rotate-90"}`}>▾</span>
@@ -204,6 +212,8 @@ export default function Sidebar() {
                         : "text-gray-700 hover:bg-gray-50"
                     }`}
                     title={isCollapsed ? item.name : undefined}
+                    aria-label={item.name}
+                    data-help={`${item.name} へ移動します。`}
                   >
                     <span className="text-lg flex-shrink-0">{item.icon}</span>
                     {!isCollapsed && (

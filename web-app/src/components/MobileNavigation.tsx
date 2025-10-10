@@ -131,6 +131,7 @@ export default function MobileNavigation({
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
             aria-label="メニューを開く"
+            data-help="メニューを開きます。ページ一覧やクイックアクションにアクセスできます。"
           >
             {isMenuOpen ? (
               <X className="h-6 w-6 text-gray-600" />
@@ -145,6 +146,7 @@ export default function MobileNavigation({
           <button
             onClick={() => setIsQuickActionsOpen(!isQuickActionsOpen)}
             className="flex items-center justify-between w-full px-3 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+            data-help="よく使う操作へのショートカットを開きます。"
           >
             <span>クイックアクション</span>
             <ChevronDown className={`h-4 w-4 transition-transform ${isQuickActionsOpen ? "rotate-180" : ""}`} />
@@ -162,6 +164,8 @@ export default function MobileNavigation({
                       setIsQuickActionsOpen(false);
                     }}
                     className={`flex flex-col items-center space-y-1 px-3 py-2 rounded-lg text-white text-xs font-medium transition-colors ${action.color}`}
+                    aria-label={action.label}
+                    data-help={`${action.label} を実行します。`}
                   >
                     <Icon className="h-4 w-4" />
                     <span>{action.label}</span>

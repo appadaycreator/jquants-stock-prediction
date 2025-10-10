@@ -45,6 +45,8 @@ export default function BottomNav() {
                   ? "text-blue-600 bg-blue-50"
                   : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
               }`}
+              aria-label={item.label}
+              data-help={`${item.label} へ移動します。`}
             >
               <span className="text-xl mb-1 leading-none">{item.icon}</span>
               <span className="text-[13px] font-medium leading-tight text-center">
@@ -61,6 +63,7 @@ export default function BottomNav() {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="bg-white shadow-lg rounded-full p-3 border border-gray-200 min-h-[48px] min-w-[48px] flex items-center justify-center touch-target"
           aria-label="メニューを開く"
+          data-help="メニューを開きます。メインや分析・設定に素早くアクセスできます。"
         >
           <span className="text-lg">☰</span>
         </button>

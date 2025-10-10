@@ -78,6 +78,8 @@ export default function Navigation({
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   }`}
                   title={item.description}
+                  aria-label={item.label}
+                  data-help={item.description}
                 >
                   <Icon className="h-4 w-4" />
                   <span>{item.label}</span>
@@ -91,6 +93,8 @@ export default function Navigation({
                 onClick={onMonitoringClick}
                 className="flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
                 title="銘柄監視管理"
+                aria-label="銘柄監視管理"
+                data-help="ウォッチリストや監視銘柄の管理画面を開きます。"
               >
                 <Eye className="h-4 w-4" />
                 <span>銘柄監視</span>
