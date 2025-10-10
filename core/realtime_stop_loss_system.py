@@ -897,8 +897,15 @@ class RealtimeStopLossSystem:
     def remove_position(self, symbol: str):
         """ポジション削除"""
         try:
-            if symbol in self.positions:
-                del self.positions[symbol]
+            # positionsにアクセスする際の例外処理
+            try:
+                positions_dict = self.positions
+            except Exception as access_error:
+                self.logger.error(f"positionsアクセスエラー: {access_error}")
+                raise access_error
+                
+            if symbol in positions_dict:
+                del positions_dict[symbol]
                 self.logger.info(f"ポジション削除: {symbol}")
             else:
                 self.logger.warning(f"ポジションが見つかりません: {symbol}")
@@ -1058,10 +1065,17 @@ class RealtimeStopLossSystem:
     def get_position_summary(self) -> Dict[str, Any]:
         """ポジションサマリー取得"""
         try:
+            # positionsにアクセスする際の例外処理
+            try:
+                positions_dict = self.positions
+            except Exception as access_error:
+                self.logger.error(f"positionsアクセスエラー: {access_error}")
+                raise access_error
+                
             total_unrealized_pnl = 0.0
             positions = []
 
-            for symbol, settings in self.positions.items():
+            for symbol, settings in positions_dict.items():
                 if hasattr(settings, 'current_price'):
                     if settings.direction == "BUY":
                         unrealized_pnl = (settings.current_price - settings.entry_price) * settings.position_size
@@ -1078,7 +1092,7 @@ class RealtimeStopLossSystem:
                     })
 
             return {
-                "total_positions": len(self.positions),
+                "total_positions": len(positions_dict),
                 "total_unrealized_pnl": total_unrealized_pnl,
                 "positions": positions,
             }
@@ -1089,8 +1103,13 @@ class RealtimeStopLossSystem:
     def get_performance_metrics(self, days: int = 30) -> Dict[str, Any]:
         """パフォーマンス指標取得"""
         try:
-            if not self.execution_history:
-                return {"status": "no_data"}
+            # execution_historyにアクセスする際の例外処理
+            try:
+                if not self.execution_history:
+                    return {"status": "no_data"}
+            except Exception as access_error:
+                self.logger.error(f"execution_historyアクセスエラー: {access_error}")
+                raise access_error
 
             # 最近の執行を取得
             cutoff_date = datetime.now() - timedelta(days=days)

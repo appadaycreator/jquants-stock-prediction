@@ -362,7 +362,10 @@ class TestEnhancedConfidenceSystem(unittest.TestCase):
                 confidence_level=ConfidenceLevel.MEDIUM,
                 risk_adjusted_confidence=0.5 + i * 0.02,
             )
-            self.system.confidence_history.append(metrics)
+            # グローバル履歴に追加
+            if not hasattr(self.system, '_global_confidence_history'):
+                self.system._global_confidence_history = []
+            self.system._global_confidence_history.append(metrics)
 
         stats = self.system.get_confidence_statistics()
 
@@ -464,7 +467,10 @@ class TestEnhancedConfidenceSystem(unittest.TestCase):
                 confidence_level=ConfidenceLevel.MEDIUM,
                 risk_adjusted_confidence=0.5,
             )
-            self.system.confidence_history.append(metrics)
+            # グローバル履歴に追加
+            if not hasattr(self.system, '_global_confidence_history'):
+                self.system._global_confidence_history = []
+            self.system._global_confidence_history.append(metrics)
 
         final_memory = process.memory_info().rss
         memory_increase = final_memory - initial_memory
