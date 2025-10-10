@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { TrendingUp, BarChart3, Target, AlertTriangle, CheckCircle, Clock } from "lucide-react";
+import EnhancedTooltip from "./EnhancedTooltip";
 import { staticApiClient } from "@/lib/api/StaticApiClient";
 
 interface PerformanceSummary {
@@ -107,9 +108,14 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">モデル精度</p>
-              <p className="text-2xl font-bold text-green-600">
-                {performanceData?.modelAccuracy?.toFixed(1) || "--"}%
-              </p>
+              <EnhancedTooltip
+                content="AIモデルの予測精度です。過去のデータに対する予測の正確性を示し、投資判断の信頼性の指標となります。90%以上が優秀、80-90%が良好、70-80%が普通、70%未満が要注意とされます。例：精度85%の場合、85%の確率で正しい予測をすることを示します。"
+                type="info"
+              >
+                <p className="text-2xl font-bold text-green-600 cursor-help">
+                  {performanceData?.modelAccuracy?.toFixed(1) || "--"}%
+                </p>
+              </EnhancedTooltip>
             </div>
             <Target className="w-8 h-8 text-green-500" />
           </div>
@@ -119,9 +125,14 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">平均利回り</p>
-              <p className="text-2xl font-bold text-blue-600">
-                {performanceData?.averageReturn?.toFixed(2) || "--"}%
-              </p>
+              <EnhancedTooltip
+                content="平均利回りです。過去の投資実績の平均収益率で、投資戦略の収益性を示します。10%以上が優秀、5-10%が良好、0-5%が普通、マイナスが要注意とされます。例：平均利回り8%の場合、過去の投資で平均8%の収益を上げていることを示します。"
+                type="info"
+              >
+                <p className="text-2xl font-bold text-blue-600 cursor-help">
+                  {performanceData?.averageReturn?.toFixed(2) || "--"}%
+                </p>
+              </EnhancedTooltip>
             </div>
             <TrendingUp className="w-8 h-8 text-blue-500" />
           </div>
@@ -131,9 +142,14 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">成功率</p>
-              <p className="text-2xl font-bold text-purple-600">
-                {performanceData?.successRate?.toFixed(1) || "--"}%
-              </p>
+              <EnhancedTooltip
+                content="投資成功率です。利益を上げた取引の割合で、投資戦略の有効性を示します。70%以上が優秀、60-70%が良好、50-60%が普通、50%未満が要注意とされます。例：成功率65%の場合、10回の取引中6.5回が利益を上げていることを示します。"
+                type="info"
+              >
+                <p className="text-2xl font-bold text-purple-600 cursor-help">
+                  {performanceData?.successRate?.toFixed(1) || "--"}%
+                </p>
+              </EnhancedTooltip>
             </div>
             <CheckCircle className="w-8 h-8 text-purple-500" />
           </div>
@@ -143,9 +159,14 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">総取引数</p>
-              <p className="text-2xl font-bold text-orange-600">
-                {performanceData?.totalTrades || "--"}
-              </p>
+              <EnhancedTooltip
+                content="総取引数です。これまでに実行された投資取引の総数で、投資活動の活発さを示します。取引数が多いほど、より多くの投資機会を捉えていることを示します。例：総取引数150回の場合、150回の投資取引を実行したことを示します。"
+                type="info"
+              >
+                <p className="text-2xl font-bold text-orange-600 cursor-help">
+                  {performanceData?.totalTrades || "--"}
+                </p>
+              </EnhancedTooltip>
             </div>
             <BarChart3 className="w-8 h-8 text-orange-500" />
           </div>
@@ -159,19 +180,29 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
           <div>
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm font-medium text-gray-600">日経平均</span>
-              <span className={`text-lg font-bold ${
-                (marketData?.nikkeiChange || 0) >= 0 ? "text-green-600" : "text-red-600"
-              }`}>
-                {(marketData?.nikkeiChange || 0) >= 0 ? "+" : ""}{marketData?.nikkeiChange?.toFixed(2) || "--"}%
-              </span>
+              <EnhancedTooltip
+                content="日経平均株価の前日比変動率です。日本株式市場全体の動向を示す重要な指標で、プラスは上昇、マイナスは下落を示します。例：+2.5%の場合、日経平均が前日比で2.5%上昇したことを示します。"
+                type={marketData?.nikkeiChange >= 0 ? "success" : "warning"}
+              >
+                <span className={`text-lg font-bold cursor-help ${
+                  (marketData?.nikkeiChange || 0) >= 0 ? "text-green-600" : "text-red-600"
+                }`}>
+                  {(marketData?.nikkeiChange || 0) >= 0 ? "+" : ""}{marketData?.nikkeiChange?.toFixed(2) || "--"}%
+                </span>
+              </EnhancedTooltip>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-sm font-medium text-gray-600">TOPIX</span>
-              <span className={`text-lg font-bold ${
-                (marketData?.topixChange || 0) >= 0 ? "text-green-600" : "text-red-600"
-              }`}>
-                {(marketData?.topixChange || 0) >= 0 ? "+" : ""}{marketData?.topixChange?.toFixed(2) || "--"}%
-              </span>
+              <EnhancedTooltip
+                content="TOPIX（東証株価指数）の前日比変動率です。東証プライム市場全体の動向を示す重要な指標で、プラスは上昇、マイナスは下落を示します。例：+1.8%の場合、TOPIXが前日比で1.8%上昇したことを示します。"
+                type={marketData?.topixChange >= 0 ? "success" : "warning"}
+              >
+                <span className={`text-lg font-bold cursor-help ${
+                  (marketData?.topixChange || 0) >= 0 ? "text-green-600" : "text-red-600"
+                }`}>
+                  {(marketData?.topixChange || 0) >= 0 ? "+" : ""}{marketData?.topixChange?.toFixed(2) || "--"}%
+                </span>
+              </EnhancedTooltip>
             </div>
           </div>
           
@@ -181,11 +212,16 @@ export const DashboardWidgets: React.FC<DashboardWidgetsProps> = ({
               {Object.entries(marketData?.sectorPerformance || {}).slice(0, 3).map(([sector, performance]) => (
                 <div key={sector} className="flex justify-between items-center">
                   <span className="text-xs text-gray-600">{sector}</span>
-                  <span className={`text-xs font-medium ${
-                    performance >= 0 ? "text-green-600" : "text-red-600"
-                  }`}>
-                    {performance >= 0 ? "+" : ""}{performance.toFixed(1)}%
-                  </span>
+                  <EnhancedTooltip
+                    content={`${sector}セクターのパフォーマンスです。該当セクターの平均的な株価変動率を示し、セクター別の投資機会を把握する指標となります。例：+3.2%の場合、このセクターが3.2%上昇したことを示します。`}
+                    type={performance >= 0 ? "success" : "warning"}
+                  >
+                    <span className={`text-xs font-medium cursor-help ${
+                      performance >= 0 ? "text-green-600" : "text-red-600"
+                    }`}>
+                      {performance >= 0 ? "+" : ""}{performance.toFixed(1)}%
+                    </span>
+                  </EnhancedTooltip>
                 </div>
               ))}
             </div>

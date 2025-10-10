@@ -21,6 +21,7 @@ import {
   Loader2,
   Play,
 } from "lucide-react";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 interface YesterdaySummary {
   date: string;
@@ -685,30 +686,45 @@ export default function RoutineDashboard({
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">総リターン</span>
-                    <span className={`text-lg font-semibold ${
-                      (yesterdaySummary?.totalReturn || 0) >= 0 ? "text-green-600" : "text-red-600"
-                    }`}>
-                      {yesterdaySummary?.totalReturn ? 
-                        `${yesterdaySummary.totalReturn > 0 ? "+" : ""}${yesterdaySummary.totalReturn}%` : 
-                        "N/A"
-                      }
-                    </span>
+                    <EnhancedTooltip
+                      content="前日の投資分析による総リターンです。分析対象銘柄の平均的な収益率を示し、投資戦略の有効性を評価する指標となります。例：+5.2%の場合、前日の分析で5.2%の平均リターンを上げたことを示します。"
+                      type={yesterdaySummary?.totalReturn >= 0 ? "success" : "warning"}
+                    >
+                      <span className={`text-lg font-semibold cursor-help ${
+                        (yesterdaySummary?.totalReturn || 0) >= 0 ? "text-green-600" : "text-red-600"
+                      }`}>
+                        {yesterdaySummary?.totalReturn ? 
+                          `${yesterdaySummary.totalReturn > 0 ? "+" : ""}${yesterdaySummary.totalReturn}%` : 
+                          "N/A"
+                        }
+                      </span>
+                    </EnhancedTooltip>
                   </div>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">分析銘柄数</span>
-                    <span className="text-lg font-semibold text-gray-900">
-                      {yesterdaySummary?.topPerformers?.length || 0}
-                    </span>
+                    <EnhancedTooltip
+                      content="前日に分析対象となった銘柄の数です。AI分析により投資判断を行った銘柄の数を示し、分析活動の規模を示します。例：15銘柄の場合、15つの銘柄について前日に分析を実行したことを示します。"
+                      type="info"
+                    >
+                      <span className="text-lg font-semibold text-gray-900 cursor-help">
+                        {yesterdaySummary?.topPerformers?.length || 0}
+                      </span>
+                    </EnhancedTooltip>
                   </div>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">アラート数</span>
-                    <span className="text-lg font-semibold text-gray-900">
-                      {yesterdaySummary?.alerts?.length || 0}
-                    </span>
+                    <EnhancedTooltip
+                      content="前日に発生したアラートの数です。市場の異常値、重要なニュース、技術的なシグナルなど、投資判断に影響する重要な情報の数を示します。例：3件の場合、前日に3つの重要なアラートが発生したことを示します。"
+                      type="info"
+                    >
+                      <span className="text-lg font-semibold text-gray-900 cursor-help">
+                        {yesterdaySummary?.alerts?.length || 0}
+                      </span>
+                    </EnhancedTooltip>
                   </div>
                 </div>
               </div>
@@ -731,11 +747,16 @@ export default function RoutineDashboard({
                         </div>
                       </div>
                       <div className="text-right">
-                        <span className={`font-semibold ${
-                          stock.return >= 0 ? "text-green-600" : "text-red-600"
-                        }`}>
-                          {stock.return > 0 ? "+" : ""}{stock.return}%
-                        </span>
+                        <EnhancedTooltip
+                          content={`${stock.symbol}の前日のリターンです。AI分析による推奨アクション（買い/売り/ホールド）に基づく予想収益率を示します。例：+8.5%の場合、この銘柄で8.5%のリターンが期待できることを示します。`}
+                          type={stock.return >= 0 ? "success" : "warning"}
+                        >
+                          <span className={`font-semibold cursor-help ${
+                            stock.return >= 0 ? "text-green-600" : "text-red-600"
+                          }`}>
+                            {stock.return > 0 ? "+" : ""}{stock.return}%
+                          </span>
+                        </EnhancedTooltip>
                       </div>
                     </div>
                   ))}

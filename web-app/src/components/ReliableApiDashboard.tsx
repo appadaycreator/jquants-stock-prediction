@@ -13,6 +13,7 @@ import {
   Settings,
   Download,
 } from "lucide-react";
+import EnhancedTooltip from "./EnhancedTooltip";
 import ReliableApiSystem, { SystemHealth } from "@/lib/reliable-api-system";
 import DataQualityMonitor, { QualityReport } from "@/lib/data-quality-monitor";
 
@@ -270,15 +271,30 @@ export default function ReliableApiDashboard({ system, onSystemUpdate }: Reliabl
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl font-bold text-gray-900">{qualityReport.overallQualityScore}%</div>
+                  <EnhancedTooltip
+                    content="データ品質の総合評価スコアです。データの完全性、正確性、一貫性を総合的に評価した数値で、0-100%で表示されます。90%以上が優秀、80-90%が良好、70-80%が普通、70%未満が要注意とされます。例：スコア85%の場合、データ品質が良好であることを示します。"
+                    type="info"
+                  >
+                    <div className="text-2xl font-bold text-gray-900 cursor-help">{qualityReport.overallQualityScore}%</div>
+                  </EnhancedTooltip>
                   <div className="text-sm text-gray-600">全体品質スコア</div>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl font-bold text-gray-900">{qualityReport.totalRecords}</div>
+                  <EnhancedTooltip
+                    content="データベースに保存されている総レコード数です。株価データ、財務データ、分析結果などの全データの件数を示します。例：10,000レコードの場合、10,000件のデータが保存されていることを示します。"
+                    type="info"
+                  >
+                    <div className="text-2xl font-bold text-gray-900 cursor-help">{qualityReport.totalRecords}</div>
+                  </EnhancedTooltip>
                   <div className="text-sm text-gray-600">総レコード数</div>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl font-bold text-gray-900">{qualityReport.anomalies.length}</div>
+                  <EnhancedTooltip
+                    content="データ品質監視により検出された異常データの件数です。欠損値、異常値、不整合データなどの問題のあるデータの数を示します。例：5件の場合、5つの異常データが検出されたことを示します。"
+                    type="warning"
+                  >
+                    <div className="text-2xl font-bold text-gray-900 cursor-help">{qualityReport.anomalies.length}</div>
+                  </EnhancedTooltip>
                   <div className="text-sm text-gray-600">検出異常数</div>
                 </div>
               </div>
