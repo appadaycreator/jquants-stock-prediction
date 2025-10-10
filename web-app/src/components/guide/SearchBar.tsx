@@ -178,6 +178,8 @@ export default function SearchBar({
             }
           }}
           placeholder={placeholder}
+          aria-label="ヘルプ・用語集を検索"
+          data-help="ヘルプ・用語集を検索します。Enterで検索、候補から選べます。"
           className="w-full pl-10 pr-20 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
         />
             </TooltipTrigger>
@@ -191,6 +193,8 @@ export default function SearchBar({
           <button
             onClick={handleClear}
             className="absolute right-12 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            aria-label="検索語をクリア"
+            data-help="入力中の検索語をクリアします。"
           >
             <X size={16} />
           </button>
@@ -200,6 +204,8 @@ export default function SearchBar({
           onClick={handleSearch}
           disabled={!query.trim() || isSearching}
           className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-600 hover:text-blue-800 disabled:text-gray-400 disabled:cursor-not-allowed"
+          aria-label="検索を実行"
+          data-help="検索を実行します。Enterキーでも実行できます。"
         >
           {isSearching ? (
             <div className="animate-spin rounded-full h-4 w-4 border-2 border-blue-600 border-t-transparent" />

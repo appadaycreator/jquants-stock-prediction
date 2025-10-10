@@ -194,6 +194,8 @@ export default function StockSearchInput({
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
           autoComplete="off"
           autoFocus={true}
+          aria-label="銘柄名またはコードを入力"
+          data-help="銘柄名または証券コードを入力すると候補が表示されます。Enterで検索、↑↓で選択できます。"
         />
             </TooltipTrigger>
             <TooltipContent side="bottom">
@@ -209,6 +211,7 @@ export default function StockSearchInput({
             onClick={handleClear}
             className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
             aria-label="検索をクリア"
+            data-help="入力した銘柄名やコードをクリアします。"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

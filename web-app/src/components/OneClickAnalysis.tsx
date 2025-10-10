@@ -269,6 +269,8 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
             onClick={() => setShowHistory(!showHistory)}
             className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
             title="分析履歴"
+            aria-label="分析履歴を開く"
+            data-help="過去の分析結果を確認します。"
           >
             <History className="w-5 h-5" />
           </button>
@@ -276,6 +278,8 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
             onClick={() => setShowConfig(!showConfig)}
             className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
             title="設定"
+            aria-label="分析設定を開く"
+            data-help="分析タイプや実行設定を変更します。"
           >
             <Settings className="w-5 h-5" />
           </button>
@@ -431,6 +435,8 @@ export default function OneClickAnalysis({ onAnalysisComplete, onAnalysisStart }
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-blue-600 hover:bg-blue-700 text-white"
             }`}
+            aria-label="分析を実行"
+            data-help="選択した方式で分析を実行します。"
           >
             {isAnalyzing ? (
               <div className="flex items-center gap-2">

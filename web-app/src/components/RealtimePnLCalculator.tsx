@@ -149,6 +149,8 @@ export default function RealtimePnLCalculator({
                 onClick={handleManualRefresh}
                 disabled={isRefreshing}
                 title="手動で価格を更新"
+                aria-label="手動で価格を更新"
+                data-help="リアルタイム接続が不安定な時に手動で更新します。"
               >
                 <RefreshCw className={`h-4 w-4 mr-1 ${isRefreshing ? "animate-spin" : ""}`} />
                 更新

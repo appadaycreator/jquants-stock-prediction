@@ -129,6 +129,8 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
             isRefreshing || isLoading ? "opacity-50 cursor-not-allowed" : ""
           }`}
           title="データを更新"
+          aria-label="データを更新"
+          data-help="最新のデータを取得します。"
         >
           <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
         </button>
@@ -166,6 +168,8 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
               className={`flex items-center space-x-2 px-4 py-2 rounded-lg bg-yellow-600 text-white hover:bg-yellow-700 transition-colors duration-200 ${
                 isForceRefreshing || isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
+              aria-label="強制更新"
+              data-help="キャッシュを無視して強制的に更新します。"
             >
               <Zap className={`h-4 w-4 ${isForceRefreshing ? "animate-pulse" : ""}`} />
               <span>{isForceRefreshing ? "強制更新中..." : "強制更新"}</span>
@@ -179,6 +183,8 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
               className={`flex items-center space-x-2 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors duration-200 ${
                 isRecalculating || isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
+              aria-label="再計算"
+              data-help="指標や推奨を再計算します。"
             >
               <RotateCcw className={`h-4 w-4 ${isRecalculating ? "animate-spin" : ""}`} />
               <span>{isRecalculating ? "再計算中..." : "再計算"}</span>
@@ -215,6 +221,8 @@ const EnhancedRefreshButton: React.FC<EnhancedRefreshButtonProps> = ({
         className={`flex items-center space-x-2 px-3 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200 ${
           isRefreshing || isLoading ? "opacity-50 cursor-not-allowed" : ""
         }`}
+        aria-label="データを更新"
+        data-help="最新のデータを取得します。"
       >
         <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
         <span>{isRefreshing ? "更新中..." : "更新"}</span>

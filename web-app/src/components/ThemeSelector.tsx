@@ -36,6 +36,7 @@ const ThemeSelector: React.FC = () => {
             `}
             aria-pressed={theme === id}
             aria-label={`${name}テーマを選択`}
+            data-help={`${name} テーマを適用します。${description}`}
           >
             <div className="flex items-center space-x-3">
               <div className={`

@@ -14,6 +14,8 @@ export const ThemeToggle: React.FC = () => {
         onClick={() => toggleTheme?.()}
         className="flex items-center space-x-2 px-3 py-1.5 rounded-md text-sm font-medium bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
         title="テーマを切り替え"
+        aria-label="テーマを切り替え"
+        data-help="ライト/ダーク/自動を切り替えます。"
       >
         <span className="text-base">{icon}</span>
         <span>{label}</span>
