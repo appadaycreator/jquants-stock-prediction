@@ -182,6 +182,8 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
             size="sm"
             onClick={handleReset}
             disabled={!hasChanges}
+            aria-label="変更を破棄"
+            data-help="未保存の変更を破棄して、前回保存した設定に戻します。誤って変更してしまった設定を元に戻す際に使用します。この操作は取り消しできません。"
           >
             <RotateCcw className="h-4 w-4 mr-1" />
             変更を破棄
@@ -190,6 +192,8 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
             size="sm"
             onClick={handleSave}
             disabled={!hasChanges || isLoading}
+            aria-label="リスク設定を保存"
+            data-help="現在のリスク管理設定を保存します。リスク許容度、目標リターン、通知設定、表示設定がローカルストレージに保存され、次回アクセス時に自動的に復元されます。保存後は、新しい設定が投資推奨とリスク評価に反映されます。"
           >
             <Save className="h-4 w-4 mr-1" />
             保存
@@ -460,6 +464,8 @@ export function RiskSettingsPanel({ onClose }: RiskSettingsPanelProps) {
           variant="outline"
           onClick={handleResetToDefault}
           disabled={isLoading}
+          aria-label="デフォルト設定にリセット"
+          data-help="すべてのリスク管理設定をデフォルト値にリセットします。カスタマイズした設定がうまく機能しない場合や、初期状態からやり直したい場合に使用します。この操作は取り消しできませんので、注意して使用してください。"
         >
           デフォルトに戻す
         </Button>

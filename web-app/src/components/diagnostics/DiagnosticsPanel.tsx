@@ -174,6 +174,8 @@ export function DiagnosticsPanel({
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600"
+              aria-label="診断パネルを閉じる"
+              data-help="システム診断パネルを閉じてメイン画面に戻ります。診断情報は保持され、次回開いたときに再度確認できます。"
             >
               <XCircle className="w-6 h-6" />
             </button>
@@ -290,6 +292,8 @@ export function DiagnosticsPanel({
               onClick={handleRefresh}
               disabled={isRefreshing}
               className="flex-1 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              aria-label="診断情報を更新"
+              data-help="システム診断情報を最新に更新します。ネットワーク状態、API残呼数、トークン期限、システム状態、統計情報を再取得します。システムの健全性を確認し、問題があれば早期に発見できます。パフォーマンスの最適化やトラブルシューティングに役立ちます。"
             >
               {isRefreshing ? (
                 <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
@@ -301,6 +305,8 @@ export function DiagnosticsPanel({
             <button
               onClick={onGoToSettings}
               className="flex-1 flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              aria-label="設定ページへ移動"
+              data-help="システム設定ページに移動します。J-Quants API設定、予測パラメータ、特徴量選択、モデル選択などをカスタマイズできます。設定のエクスポート・インポート機能で、設定をバックアップしたり他の環境で再利用できます。"
             >
               <Settings className="w-4 h-4 mr-2" />
               設定

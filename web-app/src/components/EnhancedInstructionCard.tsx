@@ -161,6 +161,8 @@ export default function InstructionCard({
             <button
               onClick={() => setExpanded(!expanded)}
               className="text-blue-600 hover:text-blue-800 text-sm"
+              aria-label={expanded ? "詳細を閉じる" : "詳細を表示"}
+              data-help={expanded ? "投資判断の詳細情報を閉じます。テクニカル指標、ファンダメンタル分析、センチメント分析の詳細が非表示になります。" : "投資判断の詳細情報を表示します。テクニカル指標、ファンダメンタル分析、センチメント分析、過去の的中率などの詳細な根拠を確認できます。投資判断の信頼性を評価するための重要な情報が表示されます。"}
             >
               {expanded ? "詳細を閉じる" : "詳細を表示"}
             </button>
@@ -218,6 +220,8 @@ export default function InstructionCard({
           <button 
             className="text-blue-600 hover:text-blue-800 text-sm flex items-center transition-colors duration-200"
             onClick={() => handleChartDisplay(symbol)}
+            aria-label={`${symbol}のチャートを表示`}
+            data-help="この銘柄の詳細なチャートを新しいウィンドウで表示します。価格推移、テクニカル指標、出来高などを視覚的に確認できます。移動平均線、RSI、MACD、ボリンジャーバンドなどの技術分析指標を確認して、投資判断の精度を高めることができます。インタラクティブなチャートで、期間の変更やズーム操作が可能です。"
           >
             <ExternalLink className="h-4 w-4 mr-1" />
             チャート表示

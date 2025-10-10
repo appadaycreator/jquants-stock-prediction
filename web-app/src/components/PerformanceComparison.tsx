@@ -226,6 +226,8 @@ export function PerformanceComparison({
                 variant={viewMode === "table" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("table")}
+                aria-label="テーブル表示に切り替え"
+                data-help="パフォーマンスをテーブル形式で表示します。銘柄別の詳細な損益情報、リスクレベル、推奨アクションを一覧表示し、比較や並び替えが簡単にできます。数値データの詳細な確認に適しています。"
               >
                 <BarChart3 className="h-4 w-4 mr-1" />
                 テーブル
@@ -234,6 +236,8 @@ export function PerformanceComparison({
                 variant={viewMode === "chart" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("chart")}
+                aria-label="チャート表示に切り替え"
+                data-help="パフォーマンスをチャート形式で視覚化します。銘柄別の損益率やパフォーマンスをグラフで表示し、直感的に比較できます。トレンドやパターンの把握に適しています。"
               >
                 <Activity className="h-4 w-4 mr-1" />
                 チャート
@@ -242,6 +246,8 @@ export function PerformanceComparison({
                 variant={viewMode === "sector" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("sector")}
+                aria-label="セクター分析表示に切り替え"
+                data-help="セクター別のパフォーマンスを分析します。業種別の損益状況、配分比率、銘柄数を確認できます。ポートフォリオの多様化状況やセクター集中リスクを評価するのに役立ちます。"
               >
                 <PieChartIcon className="h-4 w-4 mr-1" />
                 セクター

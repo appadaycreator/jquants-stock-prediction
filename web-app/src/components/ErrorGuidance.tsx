@@ -85,6 +85,8 @@ export default function ErrorGuidance({
           <button
             onClick={() => window.location.href = "/"}
             className="bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 flex items-center gap-1"
+            aria-label="分析実行ページへ移動"
+            data-help="ダッシュボードに移動して分析を実行します。機械学習モデルによる株価予測分析を開始し、最新の投資判断情報を取得できます。分析完了後に推奨アクションと信頼度が表示されます。"
           >
             <ExternalLink className="h-4 w-4" />
             分析実行へ
@@ -92,6 +94,8 @@ export default function ErrorGuidance({
           <button
             onClick={() => window.location.href = "/reports"}
             className="bg-gray-600 text-white px-3 py-2 rounded text-sm hover:bg-gray-700 flex items-center gap-1"
+            aria-label="過去の分析結果を確認"
+            data-help="過去の分析結果とレポートを確認します。以前の予測結果、精度評価、パフォーマンス指標を参照できます。過去の分析結果から学び、投資戦略の改善に役立てることができます。"
           >
             過去の結果を確認
           </button>
