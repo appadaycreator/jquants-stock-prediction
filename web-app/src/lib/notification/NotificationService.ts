@@ -154,8 +154,54 @@ export class NotificationService {
         return defaultConfig;
       }
 
-      // 本番では明示的に未設定エラーとする
-      throw new Error("設定が見つかりません");
+      // 本番では安全なデフォルトにフォールバック（通知無効）
+      const productionSafeConfig: NotificationConfig = {
+        email: {
+          enabled: false,
+          smtp_server: "",
+          smtp_port: 587,
+          email_user: "",
+          email_password: "",
+          email_to: "",
+        },
+        slack: {
+          enabled: false,
+          webhook_url: "",
+          channel: "",
+          username: "",
+          icon_emoji: ":bell:",
+        },
+        push: {
+          enabled: false,
+          vapid_public_key: "",
+          vapid_private_key: "",
+          vapid_subject: "",
+        },
+        schedule: {
+          morning_analysis: "09:00",
+          evening_analysis: "15:00",
+          timezone: "Asia/Tokyo",
+        },
+        content: {
+          include_analysis_summary: true,
+          include_performance_metrics: true,
+          include_recommendations: true,
+          include_risk_alerts: true,
+        },
+        filters: {
+          min_confidence_threshold: 0.7,
+          include_errors: true,
+          include_success: true,
+        },
+        rate_limiting: {
+          max_notifications_per_hour: 5,
+          cooldown_minutes: 30,
+        },
+      };
+
+      console.warn("通知設定が未設定のため、安全なデフォルト（全チャンネル無効）で継続します。");
+      this.config = productionSafeConfig;
+      return productionSafeConfig;
     } catch (error) {
       console.error("設定読み込みエラー:", error);
       throw error;

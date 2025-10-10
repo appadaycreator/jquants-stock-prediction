@@ -145,57 +145,7 @@ export default function BottomNav() {
         </>
       )}
 
-      {/* PC用サイドバーナビゲーション */}
-      <nav className="hidden md:block fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-40">
-        <div className="p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">J-Quants株価予測</h2>
-          <div className="space-y-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
-                  isActive(item.href)
-                    ? "bg-blue-50 text-blue-700 border border-blue-200"
-                    : "text-gray-700 hover:bg-gray-50"
-                }`}
-              >
-                <span className="text-lg">{item.icon}</span>
-                <span className="font-medium">{item.label}</span>
-              </Link>
-            ))}
-            <div className="border-t border-gray-200 my-4" />
-            <Link
-              href="/personal-investment"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-            >
-              <span className="text-lg">💼</span>
-              <span className="font-medium">個人投資</span>
-            </Link>
-            <Link
-              href="/reports"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-            >
-              <span className="text-lg">📈</span>
-              <span className="font-medium">レポート</span>
-            </Link>
-            <Link
-              href="/analysis-progress"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-            >
-              <span className="text-lg">🔄</span>
-              <span className="font-medium">分析状況</span>
-            </Link>
-            <Link
-              href="/test-coverage"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-            >
-              <span className="text-lg">🧪</span>
-              <span className="font-medium">テストカバレッジ</span>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      {/* デスクトップのサイドバーは `components/desktop/Sidebar.tsx` を使用（重複実装を排除） */}
     </>
   );
 }
