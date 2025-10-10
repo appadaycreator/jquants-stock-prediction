@@ -14,6 +14,7 @@ import {
   CheckCircle,
   Clock,
 } from "lucide-react";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 interface Position {
   symbol: string;
@@ -161,24 +162,44 @@ export default function RealtimePnLCalculator({
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-900">
-                ¥{totalValue.toLocaleString()}
-              </div>
+              <EnhancedTooltip
+                content="現在の市場価格で評価した保有株式の総額です。リアルタイムで更新され、実際の売却価値の目安となります。"
+                type="info"
+              >
+                <div className="text-2xl font-bold text-blue-900 cursor-help">
+                  ¥{totalValue.toLocaleString()}
+                </div>
+              </EnhancedTooltip>
               <div className="text-sm text-blue-700">現在価値</div>
             </div>
             <div className="text-center">
-              <div className={`text-3xl font-bold ${totalPnL >= 0 ? "text-green-600" : "text-red-600"}`}>
-                {totalPnL >= 0 ? "+" : ""}¥{totalPnL.toLocaleString()}
-              </div>
-              <div className={`text-sm font-medium ${totalPnL >= 0 ? "text-green-700" : "text-red-700"}`}>
-                {totalPnL >= 0 ? "+" : ""}{totalPnLPercentage.toFixed(2)}%
-              </div>
+              <EnhancedTooltip
+                content="現在価値から投資額を引いた未実現損益です。プラスは利益、マイナスは損失を示します。リアルタイムで変動します。"
+                type={totalPnL >= 0 ? "success" : "warning"}
+              >
+                <div className={`text-3xl font-bold cursor-help ${totalPnL >= 0 ? "text-green-600" : "text-red-600"}`}>
+                  {totalPnL >= 0 ? "+" : ""}¥{totalPnL.toLocaleString()}
+                </div>
+              </EnhancedTooltip>
+              <EnhancedTooltip
+                content="投資額に対する損益の割合です。投資効率を測る重要な指標で、年率換算で比較することが一般的です。"
+                type={totalPnL >= 0 ? "success" : "warning"}
+              >
+                <div className={`text-sm font-medium cursor-help ${totalPnL >= 0 ? "text-green-700" : "text-red-700"}`}>
+                  {totalPnL >= 0 ? "+" : ""}{totalPnLPercentage.toFixed(2)}%
+                </div>
+              </EnhancedTooltip>
             </div>
             <div className="text-center">
               <div className="text-sm text-gray-600">最終更新</div>
-              <div className="text-sm font-medium text-gray-800">
-                {lastUpdate.toLocaleTimeString()}
-              </div>
+              <EnhancedTooltip
+                content="データが最後に更新された時刻です。リアルタイム更新の間隔は設定により調整可能です。"
+                type="info"
+              >
+                <div className="text-sm font-medium text-gray-800 cursor-help">
+                  {lastUpdate.toLocaleTimeString()}
+                </div>
+              </EnhancedTooltip>
             </div>
           </div>
         </CardContent>

@@ -28,6 +28,7 @@ import {
   AlertTriangle,
   Settings,
 } from "lucide-react";
+import EnhancedTooltip from "@/components/EnhancedTooltip";
 import { RiskSettingsPanel } from "@/components/risk-customization/RiskSettingsPanel";
 import { PersonalInvestmentLSTM } from "@/components/PersonalInvestmentLSTM";
 import RealtimePnLCalculator from "@/components/RealtimePnLCalculator";
@@ -350,9 +351,14 @@ export default function PersonalInvestmentDashboard() {
             <DollarSign className="h-4 w-4 text-blue-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-900">
-              ¥{pnl_summary.total_investment.toLocaleString()}
-            </div>
+            <EnhancedTooltip
+              content="これまでに投資した総金額です。株式の購入代金、手数料、税金などを含む実際の投資コストの合計です。"
+              type="info"
+            >
+              <div className="text-2xl font-bold text-blue-900 cursor-help">
+                ¥{pnl_summary.total_investment.toLocaleString()}
+              </div>
+            </EnhancedTooltip>
           </CardContent>
         </Card>
 
@@ -363,9 +369,14 @@ export default function PersonalInvestmentDashboard() {
             <TrendingUp className="h-4 w-4 text-green-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-900">
-              ¥{pnl_summary.current_value.toLocaleString()}
-            </div>
+            <EnhancedTooltip
+              content="現在の市場価格で評価した保有株式の総額です。実際に売却した場合の概算価値となります。"
+              type="success"
+            >
+              <div className="text-2xl font-bold text-green-900 cursor-help">
+                ¥{pnl_summary.current_value.toLocaleString()}
+              </div>
+            </EnhancedTooltip>
           </CardContent>
         </Card>
 
@@ -382,12 +393,22 @@ export default function PersonalInvestmentDashboard() {
             )}
           </CardHeader>
           <CardContent>
-            <div className={`text-3xl font-bold ${pnl_summary.unrealized_pnl >= 0 ? "text-green-900" : "text-red-900"}`}>
-              {pnl_summary.unrealized_pnl >= 0 ? "+" : ""}¥{pnl_summary.unrealized_pnl.toLocaleString()}
-            </div>
-            <p className={`text-sm font-medium ${pnl_summary.unrealized_pnl >= 0 ? "text-green-700" : "text-red-700"}`}>
-              {pnl_summary.unrealized_pnl >= 0 ? "+" : ""}{pnl_summary.pnl_percentage.toFixed(2)}%
-            </p>
+            <EnhancedTooltip
+              content="現在価値から総投資額を引いた未実現損益です。プラスは利益、マイナスは損失を示します。実際に売却するまで確定しません。"
+              type={pnl_summary.unrealized_pnl >= 0 ? "success" : "warning"}
+            >
+              <div className={`text-3xl font-bold cursor-help ${pnl_summary.unrealized_pnl >= 0 ? "text-green-900" : "text-red-900"}`}>
+                {pnl_summary.unrealized_pnl >= 0 ? "+" : ""}¥{pnl_summary.unrealized_pnl.toLocaleString()}
+              </div>
+            </EnhancedTooltip>
+            <EnhancedTooltip
+              content="総投資額に対する損益の割合です。投資効率を測る重要な指標で、年率換算で比較することが一般的です。"
+              type={pnl_summary.unrealized_pnl >= 0 ? "success" : "warning"}
+            >
+              <p className={`text-sm font-medium cursor-help ${pnl_summary.unrealized_pnl >= 0 ? "text-green-700" : "text-red-700"}`}>
+                {pnl_summary.unrealized_pnl >= 0 ? "+" : ""}{pnl_summary.pnl_percentage.toFixed(2)}%
+              </p>
+            </EnhancedTooltip>
           </CardContent>
         </Card>
 

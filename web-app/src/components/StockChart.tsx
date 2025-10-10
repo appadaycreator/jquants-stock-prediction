@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { X, TrendingUp, Calendar, BarChart3 } from "lucide-react";
 import UltimateChart from "./charts/UltimateChart";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 interface CandleData {
   time: string;
@@ -453,27 +454,47 @@ export const StockChart: React.FC<StockChartProps> = ({
               {/* 統計情報 */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <div className="text-lg font-bold text-gray-900">
-                    ¥{chartData[chartData.length - 1]?.close.toLocaleString() || "--"}
-                  </div>
+                  <EnhancedTooltip
+                    content="最新の取引終値です。この価格は最新の市場取引で確定した価格で、現在の株価の基準となります。"
+                    type="info"
+                  >
+                    <div className="text-lg font-bold text-gray-900 cursor-help">
+                      ¥{chartData[chartData.length - 1]?.close.toLocaleString() || "--"}
+                    </div>
+                  </EnhancedTooltip>
                   <div className="text-sm text-gray-600">現在価格</div>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <div className="text-lg font-bold text-gray-900">
-                    {chartData.length}日
-                  </div>
+                  <EnhancedTooltip
+                    content="表示されているチャートデータの期間（日数）です。期間が長いほど、より長期的なトレンドを把握できます。"
+                    type="info"
+                  >
+                    <div className="text-lg font-bold text-gray-900 cursor-help">
+                      {chartData.length}日
+                    </div>
+                  </EnhancedTooltip>
                   <div className="text-sm text-gray-600">データ期間</div>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <div className="text-lg font-bold text-gray-900">
-                    ¥{Math.max(...chartData.map(d => d.high)).toLocaleString()}
-                  </div>
+                  <EnhancedTooltip
+                    content="表示期間中の最高値です。この価格は抵抗線として機能することが多く、今後の価格動向の重要な指標となります。"
+                    type="success"
+                  >
+                    <div className="text-lg font-bold text-gray-900 cursor-help">
+                      ¥{Math.max(...chartData.map(d => d.high)).toLocaleString()}
+                    </div>
+                  </EnhancedTooltip>
                   <div className="text-sm text-gray-600">期間最高値</div>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <div className="text-lg font-bold text-gray-900">
-                    ¥{Math.min(...chartData.map(d => d.low)).toLocaleString()}
-                  </div>
+                  <EnhancedTooltip
+                    content="表示期間中の最安値です。この価格は支持線として機能することが多く、今後の価格動向の重要な指標となります。"
+                    type="warning"
+                  >
+                    <div className="text-lg font-bold text-gray-900 cursor-help">
+                      ¥{Math.min(...chartData.map(d => d.low)).toLocaleString()}
+                    </div>
+                  </EnhancedTooltip>
                   <div className="text-sm text-gray-600">期間最安値</div>
                 </div>
               </div>

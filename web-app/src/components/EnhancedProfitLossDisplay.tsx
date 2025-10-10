@@ -26,6 +26,7 @@ import {
   Zap,
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 // データ型定義
 interface EnhancedPnLSummary {
@@ -229,9 +230,14 @@ export function EnhancedProfitLossDisplay({
             <DollarSign className="h-5 w-5 text-blue-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-blue-900">
-              ¥{pnlSummary.total_investment.toLocaleString()}
-            </div>
+            <EnhancedTooltip
+              content="これまでに投資した総金額です。株式の購入代金、手数料、税金などを含む実際の投資コストの合計です。"
+              type="info"
+            >
+              <div className="text-3xl font-bold text-blue-900 cursor-help">
+                ¥{pnlSummary.total_investment.toLocaleString()}
+              </div>
+            </EnhancedTooltip>
             <p className="text-xs text-blue-700 mt-1">累計投資金額</p>
           </CardContent>
         </Card>
@@ -243,9 +249,14 @@ export function EnhancedProfitLossDisplay({
             <TrendingUp className="h-5 w-5 text-green-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-green-900">
-              ¥{pnlSummary.current_value.toLocaleString()}
-            </div>
+            <EnhancedTooltip
+              content="現在の市場価格で評価した保有株式の総額です。実際に売却した場合の概算価値となります。"
+              type="success"
+            >
+              <div className="text-3xl font-bold text-green-900 cursor-help">
+                ¥{pnlSummary.current_value.toLocaleString()}
+              </div>
+            </EnhancedTooltip>
             <p className="text-xs text-green-700 mt-1">現在の評価額</p>
           </CardContent>
         </Card>
@@ -269,16 +280,26 @@ export function EnhancedProfitLossDisplay({
             )}
           </CardHeader>
           <CardContent>
-            <div className={`text-4xl font-bold ${
-              pnlSummary.unrealized_pnl >= 0 ? "text-green-900" : "text-red-900"
-            }`}>
-              {pnlSummary.unrealized_pnl >= 0 ? "+" : ""}¥{pnlSummary.unrealized_pnl.toLocaleString()}
-            </div>
-            <p className={`text-lg font-semibold ${
-              pnlSummary.unrealized_pnl >= 0 ? "text-green-700" : "text-red-700"
-            }`}>
-              {pnlSummary.unrealized_pnl >= 0 ? "+" : ""}{pnlSummary.pnl_percentage.toFixed(2)}%
-            </p>
+            <EnhancedTooltip
+              content="現在価値から総投資額を引いた未実現損益です。プラスは利益、マイナスは損失を示します。実際に売却するまで確定しません。"
+              type={pnlSummary.unrealized_pnl >= 0 ? "success" : "warning"}
+            >
+              <div className={`text-4xl font-bold cursor-help ${
+                pnlSummary.unrealized_pnl >= 0 ? "text-green-900" : "text-red-900"
+              }`}>
+                {pnlSummary.unrealized_pnl >= 0 ? "+" : ""}¥{pnlSummary.unrealized_pnl.toLocaleString()}
+              </div>
+            </EnhancedTooltip>
+            <EnhancedTooltip
+              content="総投資額に対する損益の割合です。投資効率を測る重要な指標で、年率換算で比較することが一般的です。"
+              type={pnlSummary.unrealized_pnl >= 0 ? "success" : "warning"}
+            >
+              <p className={`text-lg font-semibold cursor-help ${
+                pnlSummary.unrealized_pnl >= 0 ? "text-green-700" : "text-red-700"
+              }`}>
+                {pnlSummary.unrealized_pnl >= 0 ? "+" : ""}{pnlSummary.pnl_percentage.toFixed(2)}%
+              </p>
+            </EnhancedTooltip>
           </CardContent>
         </Card>
 

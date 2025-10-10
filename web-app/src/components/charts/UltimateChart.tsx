@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 
 import ProfessionalChart from "./ProfessionalChart";
+import EnhancedTooltip from "../EnhancedTooltip";
 import AnimatedChart from "./AnimatedChart";
 import WebGLChart from "./WebGLChart";
 import "../../styles/ultimate-chart.css";
@@ -220,16 +221,31 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
             <div className="flex items-center space-x-4 text-sm text-gray-600">
               <div className="flex items-center space-x-1">
                 <TrendingUp className="w-4 h-4 text-green-500" />
-                <span>高値: ¥{chartStats.maxPrice.toLocaleString()}</span>
+                <EnhancedTooltip
+                  content="表示期間中の最高値です。この価格は抵抗線として機能することが多く、今後の価格動向の重要な指標となります。"
+                  type="success"
+                >
+                  <span className="cursor-help">高値: ¥{chartStats.maxPrice.toLocaleString()}</span>
+                </EnhancedTooltip>
               </div>
               <div className="flex items-center space-x-1">
                 <TrendingDown className="w-4 h-4 text-red-500" />
-                <span>安値: ¥{chartStats.minPrice.toLocaleString()}</span>
+                <EnhancedTooltip
+                  content="表示期間中の最安値です。この価格は支持線として機能することが多く、今後の価格動向の重要な指標となります。"
+                  type="warning"
+                >
+                  <span className="cursor-help">安値: ¥{chartStats.minPrice.toLocaleString()}</span>
+                </EnhancedTooltip>
               </div>
               <div className={`flex items-center space-x-1 ${
                 chartStats.priceChange >= 0 ? "text-green-600" : "text-red-600"
               }`}>
-                <span>{chartStats.priceChange >= 0 ? "+" : ""}{chartStats.priceChangePercent.toFixed(2)}%</span>
+                <EnhancedTooltip
+                  content="期間開始時からの価格変動率です。プラスは上昇、マイナスは下落を示し、投資判断の重要な指標となります。"
+                  type={chartStats.priceChange >= 0 ? "success" : "warning"}
+                >
+                  <span className="cursor-help">{chartStats.priceChange >= 0 ? "+" : ""}{chartStats.priceChangePercent.toFixed(2)}%</span>
+                </EnhancedTooltip>
               </div>
             </div>
           )}

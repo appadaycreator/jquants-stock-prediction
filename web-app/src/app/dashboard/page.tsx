@@ -9,6 +9,7 @@ import dynamicImport from "next/dynamic";
 import { SettingsProvider } from "../../contexts/SettingsContext";
 import { useRealDashboardData } from "@/hooks/useRealDashboardData";
 import { TrendingUp, BarChart3, Database, CheckCircle, AlertTriangle, X, Cpu, Target } from "lucide-react";
+import EnhancedTooltip from "@/components/EnhancedTooltip";
 import { getCacheMeta } from "@/lib/fetcher";
 import { freshnessManager, DataFreshnessInfo } from "@/lib/data-freshness-manager";
 import { DataFreshnessSummary } from "@/components/DataFreshnessBadge";
@@ -663,14 +664,19 @@ function DashboardContent() {
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-900">分析銘柄数</p>
-                          <p className="text-sm text-gray-600">
-                            {marketAnalysis 
-                              ? `${marketAnalysis.analyzedStocks}/${marketAnalysis.totalStocks}件`
-                              : useRealData && realDashboard.marketSummary 
-                              ? `${realDashboard.marketSummary.analyzedSymbols}/${realDashboard.marketSummary.totalSymbols}件`
-                              : "学習済み"
-                            }
-                          </p>
+                          <EnhancedTooltip
+                            content="AI分析が完了した銘柄数と全銘柄数の比率を表示します。分析済み銘柄が多いほど、より多くの投資機会を発見できます。"
+                            type="info"
+                          >
+                            <p className="text-sm text-gray-600 cursor-help">
+                              {marketAnalysis 
+                                ? `${marketAnalysis.analyzedStocks}/${marketAnalysis.totalStocks}件`
+                                : useRealData && realDashboard.marketSummary 
+                                ? `${realDashboard.marketSummary.analyzedSymbols}/${realDashboard.marketSummary.totalSymbols}件`
+                                : "学習済み"
+                              }
+                            </p>
+                          </EnhancedTooltip>
                         </div>
                       </div>
                     </div>
@@ -679,33 +685,58 @@ function DashboardContent() {
                     {marketAnalysis && (
                       <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-4">
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-green-600">
-                            {marketAnalysis.recommendations.STRONG_BUY + marketAnalysis.recommendations.BUY}
-                          </div>
+                          <EnhancedTooltip
+                            content="AI分析により買い推奨（BUY）または強力な買い推奨（STRONG_BUY）と判定された銘柄数です。これらの銘柄は上昇の可能性が高いと予測されています。"
+                            type="success"
+                          >
+                            <div className="text-2xl font-bold text-green-600 cursor-help">
+                              {marketAnalysis.recommendations.STRONG_BUY + marketAnalysis.recommendations.BUY}
+                            </div>
+                          </EnhancedTooltip>
                           <div className="text-sm text-gray-600">買い推奨</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-blue-600">
-                            {marketAnalysis.recommendations.HOLD}
-                          </div>
+                          <EnhancedTooltip
+                            content="AI分析により現状維持（HOLD）と判定された銘柄数です。これらの銘柄は現在の価格で保有を続けることが推奨されています。"
+                            type="info"
+                          >
+                            <div className="text-2xl font-bold text-blue-600 cursor-help">
+                              {marketAnalysis.recommendations.HOLD}
+                            </div>
+                          </EnhancedTooltip>
                           <div className="text-sm text-gray-600">ホールド</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-red-600">
-                            {marketAnalysis.recommendations.SELL + marketAnalysis.recommendations.STRONG_SELL}
-                          </div>
+                          <EnhancedTooltip
+                            content="AI分析により売り推奨（SELL）または強力な売り推奨（STRONG_SELL）と判定された銘柄数です。これらの銘柄は下落の可能性が高いと予測されています。"
+                            type="warning"
+                          >
+                            <div className="text-2xl font-bold text-red-600 cursor-help">
+                              {marketAnalysis.recommendations.SELL + marketAnalysis.recommendations.STRONG_SELL}
+                            </div>
+                          </EnhancedTooltip>
                           <div className="text-sm text-gray-600">売り推奨</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-green-600">
-                            {marketAnalysis.topGainers.length}
-                          </div>
+                          <EnhancedTooltip
+                            content="分析期間中に最も価格が上昇した銘柄数です。これらの銘柄は強い上昇トレンドを示しており、今後の動向に注目すべき銘柄です。"
+                            type="success"
+                          >
+                            <div className="text-2xl font-bold text-green-600 cursor-help">
+                              {marketAnalysis.topGainers.length}
+                            </div>
+                          </EnhancedTooltip>
                           <div className="text-sm text-gray-600">上昇銘柄</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-red-600">
-                            {marketAnalysis.topLosers.length}
-                          </div>
+                          <EnhancedTooltip
+                            content="分析期間中に最も価格が下落した銘柄数です。これらの銘柄は下落リスクが高く、投資判断を慎重に行う必要があります。"
+                            type="warning"
+                          >
+                            <div className="text-2xl font-bold text-red-600 cursor-help">
+                              {marketAnalysis.topLosers.length}
+                            </div>
+                          </EnhancedTooltip>
                           <div className="text-sm text-gray-600">下落銘柄</div>
                         </div>
                       </div>
