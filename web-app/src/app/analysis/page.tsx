@@ -20,7 +20,7 @@ function AnalysisInner() {
     <div className="max-w-7xl mx-auto p-4 space-y-6">
       <div className="flex items-baseline justify-between">
         <h1 className="text-2xl font-bold text-gray-900">詳細分析</h1>
-        <a href="/analysis-history" className="text-sm text-blue-700 underline">分析履歴</a>
+        <a href="/analysis-history" className="text-sm text-blue-700 underline" aria-label="分析履歴を表示" data-help="過去の分析結果と予測精度の履歴を確認できます。">分析履歴</a>
       </div>
 
       {selectedSymbols.length === 0 && (

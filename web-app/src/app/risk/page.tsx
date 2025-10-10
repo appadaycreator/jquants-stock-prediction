@@ -287,6 +287,8 @@ export default function RiskDashboard() {
               <button 
                 onClick={loadRiskData}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                aria-label="リスクデータを再読み込み"
+                data-help="リスク管理データを再取得して表示を更新します。"
               >
                 再読み込み
               </button>
@@ -388,10 +390,10 @@ export default function RiskDashboard() {
 
         <Tabs defaultValue="overview" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="overview">概要</TabsTrigger>
-            <TabsTrigger value="positions">ポジション</TabsTrigger>
-            <TabsTrigger value="risk-metrics">リスク指標</TabsTrigger>
-            <TabsTrigger value="recommendations">推奨事項</TabsTrigger>
+            <TabsTrigger value="overview" aria-label="概要タブ" data-help="ポートフォリオの概要とリスク指標を表示します。">概要</TabsTrigger>
+            <TabsTrigger value="positions" aria-label="ポジションタブ" data-help="現在のポジション詳細と損切りラインを確認できます。">ポジション</TabsTrigger>
+            <TabsTrigger value="risk-metrics" aria-label="リスク指標タブ" data-help="リスクメトリクスとドローダウン分析を表示します。">リスク指標</TabsTrigger>
+            <TabsTrigger value="recommendations" aria-label="推奨事項タブ" data-help="リスク管理の推奨事項とアクションプランを確認できます。">推奨事項</TabsTrigger>
           </TabsList>
 
           {/* 概要タブ */}

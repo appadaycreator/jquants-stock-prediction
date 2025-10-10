@@ -171,6 +171,8 @@ export default function ReportsPage() {
                 value={selectedPeriod}
                 onChange={(e) => setSelectedPeriod(e.target.value)}
                 className="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                aria-label="レポート期間を選択"
+                data-help="表示するレポートの期間を選択します。"
               >
                 <option value="2024-Q1">2024年 Q1</option>
                 <option value="2024-Q2">2024年 Q2</option>
@@ -179,6 +181,8 @@ export default function ReportsPage() {
               <button
                 onClick={() => exportReport()}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                aria-label="レポートをエクスポート"
+                data-help="現在のレポートをJSONファイルとしてダウンロードします。"
               >
                 <Download className="h-4 w-4 mr-2" />
                 エクスポート

@@ -14,24 +14,24 @@ export default function Sidebar() {
 
   // メインセクション
   const navigation = [
-    { name: "ダッシュボード", href: "/", icon: "📊" },
-    { name: "今日の指示", href: "/today", icon: "🎯" },
-    { name: "シンプル投資判断", href: "/simple-dashboard", icon: "🎯" },
-    { name: "個人投資", href: "/personal-investment", icon: "💼" },
+    { name: "ダッシュボード", href: "/", icon: "📊", description: "全体の投資状況と主要指標を一覧表示します。" },
+    { name: "今日の指示", href: "/today", icon: "🎯", description: "今日の投資判断と推奨アクションを確認できます。" },
+    { name: "シンプル投資判断", href: "/simple-dashboard", icon: "🎯", description: "初心者向けの分かりやすい投資判断画面です。" },
+    { name: "個人投資", href: "/personal-investment", icon: "💼", description: "個人の投資戦略とポートフォリオ管理を行います。" },
   ];
 
   // 分析/データ/設定セクション
   const additionalFeatures = [
-    { name: "詳細分析", href: "/dashboard", icon: "📈" },
-    { name: "銘柄一覧", href: "/listed-data", icon: "📋" },
-    { name: "ポートフォリオ", href: "/portfolio", icon: "💼" },
-    { name: "ウォッチリスト", href: "/watchlist", icon: "👁️" },
-    { name: "レポート", href: "/reports", icon: "📑" },
-    { name: "分析履歴", href: "/analysis-history", icon: "📜" },
-    { name: "分析状況", href: "/analysis-progress", icon: "🔄" },
-    { name: "リスク管理", href: "/risk", icon: "🛡️" },
-    { name: "設定", href: "/settings", icon: "⚙️" },
-    { name: "使い方", href: "/usage", icon: "📖" },
+    { name: "詳細分析", href: "/dashboard", icon: "📈", description: "銘柄の詳細な技術分析とチャートを表示します。" },
+    { name: "銘柄一覧", href: "/listed-data", icon: "📋", description: "上場銘柄の一覧と検索・フィルタリング機能です。" },
+    { name: "ポートフォリオ", href: "/portfolio", icon: "💼", description: "保有銘柄の管理とパフォーマンス分析を行います。" },
+    { name: "ウォッチリスト", href: "/watchlist", icon: "👁️", description: "注目銘柄の監視と価格アラートを設定できます。" },
+    { name: "レポート", href: "/reports", icon: "📑", description: "詳細な分析レポートとパフォーマンス評価を確認します。" },
+    { name: "分析履歴", href: "/analysis-history", icon: "📜", description: "過去の分析結果と予測精度の履歴を表示します。" },
+    { name: "分析状況", href: "/analysis-progress", icon: "🔄", description: "現在実行中の分析の進捗状況を確認できます。" },
+    { name: "リスク管理", href: "/risk", icon: "🛡️", description: "リスク評価と損切りラインの管理を行います。" },
+    { name: "設定", href: "/settings", icon: "⚙️", description: "システム設定と予測パラメータを変更します。" },
+    { name: "使い方", href: "/usage", icon: "📖", description: "システムの使い方と機能説明を確認できます。" },
   ];
 
   // ローカルストレージから状態を復元
@@ -157,7 +157,7 @@ export default function Sidebar() {
                     }`}
                     title={isCollapsed ? item.name : undefined}
                     aria-label={item.name}
-                    data-help={`${item.name} へ移動します。`}
+                    data-help={item.description}
                   >
                     <span className="text-lg flex-shrink-0">{item.icon}</span>
                     {!isCollapsed && (
@@ -213,7 +213,7 @@ export default function Sidebar() {
                     }`}
                     title={isCollapsed ? item.name : undefined}
                     aria-label={item.name}
-                    data-help={`${item.name} へ移動します。`}
+                    data-help={item.description}
                   >
                     <span className="text-lg flex-shrink-0">{item.icon}</span>
                     {!isCollapsed && (
