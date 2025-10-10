@@ -116,7 +116,7 @@ export default function WatchlistPage() {
             onClick={loadWatchlist}
             disabled={loading}
             aria-label="ウォッチリストを更新"
-            data-help="ウォッチリストのデータを最新に更新します。銘柄の現在価格、推奨アクション、信頼度などの情報を再取得します。"
+            data-help="ウォッチリストのデータを最新に更新します。銘柄の現在価格、推奨アクション、信頼度、リスクレベル、目標価格などの情報を再取得します。市場の最新動向に基づいて監視対象銘柄の状況を確認できます。"
           >
             <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             更新
@@ -196,7 +196,7 @@ export default function WatchlistPage() {
                 onClick={() => window.location.href = "/listed-data"}
                 className="bg-blue-600 text-white hover:bg-blue-700"
                 aria-label="銘柄一覧ページへ移動"
-                data-help="上場銘柄の一覧ページに移動して銘柄を選択できます。セクター別、市場別、価格帯別の詳細フィルタリングが可能です。"
+                data-help="上場銘柄の一覧ページに移動して銘柄を選択できます。セクター別、市場別、価格帯別の詳細フィルタリングが可能です。投資対象となる銘柄を効率的に発見し、ウォッチリストに追加できます。"
               >
                 銘柄一覧を見る
               </Button>
@@ -228,7 +228,7 @@ export default function WatchlistPage() {
                       }}
                       className="text-green-600 hover:text-green-800 hover:bg-green-50"
                       aria-label={`${item.symbol}のチャートを表示`}
-                      data-help="この銘柄の詳細なチャートと分析を表示します。テクニカル指標、価格予測、機械学習分析結果を確認できます。"
+                      data-help="この銘柄の詳細なチャートと分析を表示します。テクニカル指標、価格予測、機械学習分析結果を確認できます。移動平均線、RSI、MACD、ボリンジャーバンドなどの技術分析指標と、AIによる価格予測を詳細に分析できます。"
                     >
                       <TrendingUp className="h-4 w-4 mr-1" />
                       チャート
@@ -239,7 +239,7 @@ export default function WatchlistPage() {
                       onClick={() => openMinkabuLink(item.symbol)}
                       className="text-orange-600 hover:text-orange-800 hover:bg-orange-50"
                       aria-label={`${item.symbol}のみんかぶページを開く`}
-                      data-help="みんかぶの詳細ページを新しいタブで開きます。投資家の意見、財務情報、ニュースなどの詳細情報を確認できます。"
+                      data-help="みんかぶの詳細ページを新しいタブで開きます。投資家の意見、財務情報、ニュース、決算情報、業績予想などの詳細情報を確認できます。投資判断の参考となる外部情報を効率的に収集できます。"
                     >
                       <ExternalLink className="h-4 w-4 mr-1" />
                       みんかぶ
@@ -250,7 +250,7 @@ export default function WatchlistPage() {
                       onClick={() => removeFromWatchlist(item.symbol)}
                       className="text-red-600 hover:text-red-800 hover:bg-red-50"
                       aria-label={`${item.symbol}をウォッチリストから削除`}
-                      data-help="この銘柄をウォッチリストから削除します。削除後は監視対象から外れ、アラートも停止されます。"
+                      data-help="この銘柄をウォッチリストから削除します。削除後は監視対象から外れ、アラートも停止されます。投資対象から除外する際や、監視を終了する際に使用します。削除した銘柄は後から再度追加できます。"
                     >
                       <Trash2 className="h-4 w-4 mr-1" />
                       削除

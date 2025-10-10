@@ -310,7 +310,7 @@ export default function PersonalInvestmentDashboard() {
             onClick={() => setShowRiskSettings(true)}
             title="リスク管理設定を開く"
             aria-label="リスク管理設定を開く"
-            data-help="リスク管理設定パネルを開きます。リスク許容度、投資期間、セクター設定などをカスタマイズできます。"
+            data-help="リスク管理設定パネルを開きます。リスク許容度、投資期間、セクター設定などをカスタマイズできます。個人の投資方針に合わせてシステムの動作を最適化し、より精度の高い投資判断を実現できます。"
           >
             <Settings className="h-4 w-4 mr-1" />
             設定
@@ -322,7 +322,7 @@ export default function PersonalInvestmentDashboard() {
             disabled={loading}
             title="最新のダッシュボードデータを取得します"
             aria-label="ダッシュボードを更新"
-            data-help="最新のダッシュボードデータを取得します。損益状況、保有銘柄、投資推奨、市場概況などの情報を再取得します。"
+            data-help="最新のダッシュボードデータを取得します。損益状況、保有銘柄、投資推奨、市場概況などの情報を再取得します。リアルタイムで投資状況を監視し、重要な投資判断に必要な最新情報を確認できます。"
           >
             <RefreshCw className={`h-4 w-4 mr-1 ${loading ? "animate-spin" : ""}`} />
             更新
@@ -333,7 +333,7 @@ export default function PersonalInvestmentDashboard() {
             onClick={() => setAutoRefresh(!autoRefresh)}
             title="30秒ごとに自動更新。再クリックで切替"
             aria-label={autoRefresh ? "自動更新を停止" : "自動更新を開始"}
-            data-help={autoRefresh ? "30秒ごとの自動更新を停止します。手動更新に切り替わります。" : "30秒ごとに自動更新を開始します。リアルタイムで投資状況を監視できます。"}
+            data-help={autoRefresh ? "30秒ごとの自動更新を停止します。手動更新に切り替わります。バッテリー消費を抑えたい場合や、更新頻度を制御したい場合に使用します。" : "30秒ごとに自動更新を開始します。リアルタイムで投資状況を監視できます。市場の急激な変動や重要な投資判断が必要な状況を継続的に監視できます。"}
           >
             <Activity className="h-4 w-4 mr-1" />
             自動更新
@@ -775,7 +775,7 @@ export default function PersonalInvestmentDashboard() {
                       onClick={() => setShowRecommendationDetails(recommendation.symbol)}
                       className="flex-1"
                       aria-label="詳細理由を表示"
-                      data-help="この推奨の詳細理由を表示します。AI分析の根拠、テクニカル指標、ファンダメンタル分析の詳細を確認できます。"
+                      data-help="この推奨の詳細理由を表示します。AI分析の根拠、テクニカル指標、ファンダメンタル分析の詳細を確認できます。投資判断の信頼性を高めるため、推奨アクションの根拠となる分析結果を詳細に確認できます。"
                     >
                       <Info className="h-4 w-4 mr-1" />
                       詳細理由
@@ -786,7 +786,7 @@ export default function PersonalInvestmentDashboard() {
                       onClick={() => setShowIndividualStockSettings(recommendation.symbol)}
                       className="flex-1"
                       aria-label="個別設定を開く"
-                      data-help="この銘柄の個別設定を開きます。リスク設定、目標価格、損切り価格、投資比率などをカスタマイズできます。"
+                      data-help="この銘柄の個別設定を開きます。リスク設定、目標価格、損切り価格、投資比率などをカスタマイズできます。個人の投資方針に合わせて銘柄ごとの投資戦略を最適化できます。"
                     >
                       <Settings className="h-4 w-4 mr-1" />
                       個別設定

@@ -183,7 +183,7 @@ export default function AnalysisProgressPage() {
             variant="outline"
             size="sm"
             aria-label="分析状況を更新"
-            data-help="分析状況のデータを手動で更新します。実行中の分析の進捗状況、完了した分析の結果、システム統計を最新に取得します。"
+            data-help="分析状況のデータを手動で更新します。実行中の分析の進捗状況、完了した分析の結果、システム統計を最新に取得します。リアルタイムで分析プロセスの状況を確認できます。"
           >
             <RefreshCw className="h-4 w-4 mr-2" />
             更新
@@ -193,7 +193,7 @@ export default function AnalysisProgressPage() {
             variant={autoRefresh ? "default" : "outline"}
             size="sm"
             aria-label={autoRefresh ? "自動更新を停止" : "自動更新を開始"}
-            data-help={autoRefresh ? "5秒ごとの自動更新を停止します。手動更新に切り替わります。" : "5秒ごとに分析状況を自動更新します。リアルタイムで分析の進捗を監視できます。"}
+            data-help={autoRefresh ? "5秒ごとの自動更新を停止します。手動更新に切り替わります。バッテリー消費を抑えたい場合や、更新頻度を制御したい場合に使用します。" : "5秒ごとに分析状況を自動更新します。リアルタイムで分析の進捗を監視できます。長時間の分析プロセスを継続的に監視する際に便利です。"}
           >
             {autoRefresh ? <Pause className="h-4 w-4 mr-2" /> : <Play className="h-4 w-4 mr-2" />}
             {autoRefresh ? "自動更新停止" : "自動更新開始"}

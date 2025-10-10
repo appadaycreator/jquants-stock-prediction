@@ -77,7 +77,7 @@ export default function LandingPage() {
                 onClick={() => setShowDiagnostics(true)}
                 className="text-gray-600 hover:text-gray-900 flex items-center space-x-2"
                 aria-label="システム診断を開く"
-                data-help="システムの状態とパフォーマンスを診断します。CPU使用率、メモリ使用量、接続状況などを確認できます。"
+                data-help="システムの状態とパフォーマンスを診断します。CPU使用率、メモリ使用量、接続状況、エラー状況、キャッシュ状態などを詳細に確認できます。問題が発生した際の最初の確認ポイントです。"
               >
                 <Shield className="h-5 w-5" />
                 <span>診断</span>
@@ -86,7 +86,7 @@ export default function LandingPage() {
                 href="/today"
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
                 aria-label="今日のタスクを開始"
-                data-help="今日の投資判断タスクを開始します。5分で完了する効率的な投資判断フローを実行できます。"
+                data-help="今日の投資判断タスクを開始します。5分で完了する効率的な投資判断フローで、重要なアクションを素早く実行できます。データ更新状況の確認、上位候補銘柄の分析、保有銘柄の提案、メモ記録まで一連の流れを実行します。"
               >
                 <Play className="h-4 w-4" />
                 <span>今すぐ開始</span>
@@ -112,7 +112,7 @@ export default function LandingPage() {
               href="/today"
               className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 flex items-center justify-center space-x-2 text-lg font-semibold"
               aria-label="今日のタスクを開始"
-              data-help="今日の投資判断タスクを開始します。5分で完了する効率的な投資判断フローで、重要なアクションを素早く実行できます。"
+              data-help="今日の投資判断タスクを開始します。5分で完了する効率的な投資判断フローで、重要なアクションを素早く実行できます。データ更新状況の確認、上位候補銘柄の分析、保有銘柄の提案、メモ記録まで一連の流れを実行します。初心者でも迷わずに投資判断を行えるよう設計されています。"
             >
               <Target className="h-5 w-5" />
               <span>今日のタスクを開始</span>
@@ -122,7 +122,7 @@ export default function LandingPage() {
               href="/dashboard"
               className="bg-white text-gray-700 px-8 py-4 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center space-x-2 text-lg font-semibold"
               aria-label="詳細分析ダッシュボードを表示"
-              data-help="詳細な分析結果とダッシュボードを表示します。機械学習モデルの比較、パフォーマンス指標、市場インサイトなど、深い分析機能を提供します。"
+              data-help="詳細な分析結果とダッシュボードを表示します。機械学習モデルの比較、パフォーマンス指標、市場インサイトなど、深い分析機能を提供します。複数の予測モデルの精度比較、特徴量重要度分析、予測誤差の詳細分析、モデル性能の可視化など、高度な分析機能を利用できます。"
             >
               <BarChart3 className="h-5 w-5" />
               <span>詳細分析を見る</span>
