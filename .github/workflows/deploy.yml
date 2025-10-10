@@ -42,16 +42,8 @@ jobs:
         
     - name: Create required directories
       run: |
-        mkdir -p logs data docs/data
+        mkdir -p docs/data
         echo "Required directories created"
-        
-    - name: Generate web data
-      env:
-        JQUANTS_EMAIL: ${{ secrets.JQUANTS_EMAIL }}
-        JQUANTS_PASSWORD: ${{ secrets.JQUANTS_PASSWORD }}
-        JQUANTS_ID_TOKEN: ${{ secrets.JQUANTS_ID_TOKEN }}
-      run: |
-        echo "Web data generation skipped - using static data for deployment"
         
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -63,7 +55,7 @@ jobs:
     - name: Install Node.js dependencies
       run: |
         cd web-app
-        npm ci --legacy-peer-deps --prefer-offline
+        npm ci --legacy-peer-deps --prefer-offline --no-audit --no-fund
         
     - name: Prepare for static build
       run: |
@@ -77,9 +69,11 @@ jobs:
     - name: Build web application
       env:
         GITHUB_ACTIONS: "true"
+        NODE_ENV: "production"
+        NEXT_TELEMETRY_DISABLED: "1"
       run: |
         cd web-app
-        NODE_ENV=production npm run build
+        npm run build
         
     - name: Copy build output to docs directory
       run: |

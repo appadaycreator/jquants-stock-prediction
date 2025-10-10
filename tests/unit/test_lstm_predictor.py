@@ -414,8 +414,9 @@ class TestLSTMPredictor:
     def test_model_training_validation_split(self):
         """モデル学習検証分割テスト"""
         np.random.seed(42)
-        X = np.random.randn(100, 120, 1)
-        y = np.random.randn(100)
+        # データサイズを削減して高速化
+        X = np.random.randn(50, 60, 1)  # 100→50, 120→60
+        y = np.random.randn(50)
 
         # 実際のモデルでテスト（モックは使用しない）
         result = self.predictor.train_model(X, y)

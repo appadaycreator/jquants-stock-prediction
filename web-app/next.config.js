@@ -22,7 +22,6 @@ const nextConfig = {
     // Next.js 15互換性のための設定
     serverComponentsExternalPackages: [],
     // ビルド最適化
-    optimizeCss: true,
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
   eslint: {
@@ -31,6 +30,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // ビルド最適化
+  swcMinify: true,
+  compress: true,
   // 静的エクスポート時の設定
   distDir: isProd ? "docs" : ".next",
   // 静的エクスポート時の出力ディレクトリを設定

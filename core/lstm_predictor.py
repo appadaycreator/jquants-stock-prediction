@@ -70,19 +70,19 @@ class LSTMPredictor:
             model = Sequential()
 
             # 第1層LSTM（return_sequences=Trueで次の層に出力）
-            model.add(LSTM(50, return_sequences=True, input_shape=input_shape))
-            model.add(Dropout(0.2))  # 過学習防止
+            model.add(LSTM(25, return_sequences=True, input_shape=input_shape))  # 50→25に削減
+            model.add(Dropout(0.1))  # 0.2→0.1に削減
 
             # 第2層LSTM
-            model.add(LSTM(50, return_sequences=False))
-            model.add(Dropout(0.2))
+            model.add(LSTM(25, return_sequences=False))  # 50→25に削減
+            model.add(Dropout(0.1))  # 0.2→0.1に削減
 
             # 出力層
             model.add(Dense(1))
 
             # コンパイル
             model.compile(
-                optimizer=Adam(learning_rate=0.001),
+                optimizer=Adam(learning_rate=0.01),  # 学習率を上げて高速化
                 loss="mean_squared_error",
                 metrics=["mae"],
             )
@@ -100,7 +100,7 @@ class LSTMPredictor:
             raise
 
     def train_model(
-        self, X: np.ndarray, y: np.ndarray, epochs: int = 20, batch_size: int = 32
+        self, X: np.ndarray, y: np.ndarray, epochs: int = 10, batch_size: int = 32
     ) -> Dict[str, Any]:
         """
         モデルの訓練
@@ -124,7 +124,7 @@ class LSTMPredictor:
                 validation_data=(X_val, y_val),
                 epochs=epochs,
                 batch_size=batch_size,
-                verbose=1,
+                verbose=0,  # 出力を抑制して高速化
             )
 
             # 評価

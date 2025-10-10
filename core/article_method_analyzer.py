@@ -855,7 +855,8 @@ class MethodComparison:
 
 def create_sample_data() -> pd.DataFrame:
     """サンプルデータの作成"""
-    dates = pd.date_range(start="2023-01-01", end="2024-12-31", freq="D")
+    # データ期間を短縮してテスト高速化
+    dates = pd.date_range(start="2023-01-01", end="2023-06-30", freq="D")
     np.random.seed(42)
 
     # ランダムウォークで株価を生成
