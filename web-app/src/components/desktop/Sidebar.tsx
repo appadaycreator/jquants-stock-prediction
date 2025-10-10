@@ -29,7 +29,6 @@ export default function Sidebar() {
     { name: "レポート", href: "/reports", icon: "📑" },
     { name: "分析履歴", href: "/analysis-history", icon: "📜" },
     { name: "分析状況", href: "/analysis-progress", icon: "🔄" },
-    { name: "テストカバレッジ", href: "/test-coverage", icon: "🧪" },
     { name: "リスク管理", href: "/risk", icon: "🛡️" },
     { name: "設定", href: "/settings", icon: "⚙️" },
     { name: "使い方", href: "/usage", icon: "📖" },

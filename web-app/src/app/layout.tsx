@@ -9,6 +9,7 @@ import { UserProfileProvider } from "@/contexts/UserProfileContext";
 import GlobalErrorBoundary from "@/components/GlobalErrorBoundary";
 import UnifiedErrorBoundary from "@/components/UnifiedErrorBoundary";
 import ResponsiveLayout from "@/components/ResponsiveLayout";
+import GlobalHoverHelp from "@/components/GlobalHoverHelp";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -65,6 +66,7 @@ export default function RootLayout({
                       </ResponsiveLayout>
                       <Sidebar />
                       <BottomNav />
+                      <GlobalHoverHelp />
                     </div>
                   </GlobalErrorBoundary>
                 </UnifiedErrorBoundary>

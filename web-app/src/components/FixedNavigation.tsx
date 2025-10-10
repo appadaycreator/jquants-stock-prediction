@@ -41,7 +41,6 @@ const navigationItems: NavigationItem[] = [
   { href: "/reports", label: "レポート", icon: FileText, description: "詳細レポート", status: "active" },
   { href: "/analysis-history", label: "分析履歴", icon: FileText, description: "詳細分析の履歴一覧", status: "active" },
   { href: "/analysis-progress", label: "分析状況", icon: FileText, description: "分析状況と進捗", status: "active" },
-  { href: "/test-coverage", label: "テストカバレッジ", icon: FileText, description: "テストカバレッジ", status: "active" },
   { href: "/risk", label: "リスク管理", icon: Shield, description: "リスク管理と設定", status: "active" },
   { href: "/settings", label: "設定", icon: Settings, description: "システム設定", status: "active" },
 ];

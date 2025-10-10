@@ -2,6 +2,19 @@
 
 このドキュメントは、本リポジトリのセットアップから日次運用（1日5分ルーティン）までを一気通貫で案内します。Web配信の使い方ページ（`/usage`）と内容を整合させています。
 
+### 共有ホバー説明（全画面）
+画面内の任意の要素に `data-help` / `data-tooltip` / `aria-label` / `title` のいずれかを付与すると、ホバー（またはキーボードフォーカス）で説明がポップ表示されます。追加のラップや特定コンポーネントの導入は不要です。
+
+- 優先順位: `data-help` > `data-tooltip` > `aria-label` > `title`
+- 実装箇所: `web-app/src/components/GlobalHoverHelp.tsx`（`app/layout.tsx` に常時マウント）
+- 設計意図: 既存の `EnhancedTooltip` など個別ツールチップの邪魔をせず、属性を付けるだけで最低限の説明を即時提供
+- サンプル:
+  ```tsx
+  <button data-help="次の分析を再実行します">再実行</button>
+  <input aria-label="銘柄コードを入力" />
+  <span title="予測スコアの詳細">スコア</span>
+  ```
+
 ## クイックスタート（最短3分）
 
 1) 仮想環境と依存導入（Python）
