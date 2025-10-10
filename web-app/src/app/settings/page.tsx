@@ -11,7 +11,6 @@ import HelpTooltip, { default as Tooltip } from "@/components/Tooltip";
 import FeatureCategories from "@/components/FeatureCategories";
 import ModelComparison from "@/components/ModelComparison";
 import ValidationInput, { validationPresets } from "@/components/ValidationInput";
-import ThemeToggle from "@/components/ThemeToggle";
 
 export default function SettingsPage() {
   const { settings, updateSettings, saveSettings, resetSettings, isLoading, isSaving } = useSettings();
@@ -307,7 +306,6 @@ export default function SettingsPage() {
               <p className="text-gray-600">予測システムの動作を設定</p>
             </div>
             <div className="flex items-center space-x-4">
-              <ThemeToggle />
               <button
                 onClick={runAnalysis}
                 disabled={isAnalyzing}
@@ -1282,9 +1280,6 @@ export default function SettingsPage() {
                     <p className="text-xs text-gray-500 mt-1">
                       推奨：ライト（視認性が良い）
                     </p>
-                  </div>
-                  <div className="flex-shrink-0">
-                    <ThemeToggle />
                   </div>
                 </div>
               </div>

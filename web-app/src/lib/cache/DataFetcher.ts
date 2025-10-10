@@ -292,20 +292,28 @@ export class DataFetcher {
    */
   static async initialize(): Promise<void> {
     try {
-      console.log("🚀 データキャッシュ初期化開始");
+      if (process.env.NODE_ENV === 'development') {
+        console.log("🚀 データキャッシュ初期化開始");
+      }
       
       // 期限切れデータのクリーンアップ
       const deletedCount = await cacheService.cleanup();
-      console.log(`🧹 期限切れデータ削除: ${deletedCount}件`);
+      if (process.env.NODE_ENV === 'development' && deletedCount > 0) {
+        console.log(`🧹 期限切れデータ削除: ${deletedCount}件`);
+      }
 
       // キャッシュサイズの確認
       const cacheSize = await cacheService.getSize();
-      console.log(`📦 キャッシュサイズ: ${cacheSize}件`);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`📦 キャッシュサイズ: ${cacheSize}件`);
+      }
 
       // メトリクスの出力
       cacheService.logMetrics();
 
-      console.log("✅ データキャッシュ初期化完了");
+      if (process.env.NODE_ENV === 'development') {
+        console.log("✅ データキャッシュ初期化完了");
+      }
     } catch (error: unknown) {
       console.error("❌ データキャッシュ初期化エラー:", error instanceof Error ? error.message : String(error));
     }

@@ -116,8 +116,8 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
     const baseClasses = `
       flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200
       ${isActive 
-        ? "bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300" 
-        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+        ? "bg-blue-100 text-blue-700" 
+        : "text-gray-700 hover:bg-gray-100"
       }
       ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
       ${isLoading ? "opacity-50" : ""}
@@ -132,7 +132,7 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
             {isActive && <ChevronRight className="h-4 w-4" />}
           </div>
           {variant !== "sidebar" && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+            <p className="text-xs text-gray-500 truncate">
               {item.description}
             </p>
           )}
@@ -179,8 +179,8 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
               className={`
                 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200
                 ${isActive
-                  ? "bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300"
-                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100"
+                  ? "bg-blue-100 text-blue-700"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                 }
                 ${isLoading ? "opacity-50" : ""}
               `}
@@ -216,7 +216,7 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
       {/* ハンバーガーメニューボタン */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+        className="lg:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
         aria-label="メニューを開く"
       >
         {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -224,7 +224,7 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
 
       {/* モバイルメニュー */}
       {isOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg z-50">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
           <nav className="px-4 py-2 space-y-1">
             {navigationItems.map((item) => (
               <div key={item.href}>

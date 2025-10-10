@@ -39,7 +39,7 @@ const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
   }, []);
 
   return (
-    <div className={`min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300 ${
+    <div className={`min-h-screen bg-gray-50 transition-colors duration-300 ${
       sidebarCollapsed ? "sidebar-collapsed" : ""
     }`}>
       <ResponsiveHeader />

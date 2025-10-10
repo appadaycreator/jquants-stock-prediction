@@ -35,19 +35,23 @@ export class CacheInitializer {
 
   private async _performInitialization(): Promise<void> {
     try {
-      console.log("🚀 キャッシュシステム初期化開始");
+      if (process.env.NODE_ENV === 'development') {
+        console.log("🚀 キャッシュシステム初期化開始");
+      }
 
       // 1. キャッシュサービスの初期化
       await DataFetcher.initialize();
 
       // 2. ネットワーク状態の確認
       const isOffline = DataFetcher.isOffline();
-      console.log(`🌐 ネットワーク状態: ${isOffline ? "オフライン" : "オンライン"}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`🌐 ネットワーク状態: ${isOffline ? "オフライン" : "オンライン"}`);
+      }
 
       // 3. 期限切れデータのみ差分取得
       if (!isOffline) {
         await this._refreshExpiredData();
-      } else {
+      } else if (process.env.NODE_ENV === 'development') {
         console.log("📱 オフライン状態: キャッシュデータを使用");
       }
 
@@ -55,7 +59,9 @@ export class CacheInitializer {
       this._startNetworkMonitoring();
 
       this.isInitialized = true;
-      console.log("✅ キャッシュシステム初期化完了");
+      if (process.env.NODE_ENV === 'development') {
+        console.log("✅ キャッシュシステム初期化完了");
+      }
     } catch (error) {
       console.error("❌ キャッシュシステム初期化エラー:", error);
       throw error;

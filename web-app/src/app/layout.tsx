@@ -1,7 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SettingsProvider } from "@/contexts/SettingsContext";
-import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AccessibilityProvider } from "@/components/AccessibilityProvider";
 import BottomNav from "@/components/mobile/BottomNav";
 import Sidebar from "@/components/desktop/Sidebar";
@@ -52,28 +51,26 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body className={`${inter.className} theme-base`}>
-        <ThemeProvider>
-          <AccessibilityProvider>
-            <SettingsProvider>
-              <UserProfileProvider>
-                <UnifiedErrorBoundary>
-                  <GlobalErrorBoundary>
-                    <div id="root">
-                      {/* レスポンシブレイアウト */}
-                      <ResponsiveLayout>
-                        {children}
-                      </ResponsiveLayout>
-                      <Sidebar />
-                      <BottomNav />
-                      <GlobalHoverHelp />
-                    </div>
-                  </GlobalErrorBoundary>
-                </UnifiedErrorBoundary>
-              </UserProfileProvider>
-            </SettingsProvider>
-          </AccessibilityProvider>
-        </ThemeProvider>
+      <body className={inter.className}>
+        <AccessibilityProvider>
+          <SettingsProvider>
+            <UserProfileProvider>
+              <UnifiedErrorBoundary>
+                <GlobalErrorBoundary>
+                  <div id="root">
+                    {/* レスポンシブレイアウト */}
+                    <ResponsiveLayout>
+                      {children}
+                    </ResponsiveLayout>
+                    <Sidebar />
+                    <BottomNav />
+                    <GlobalHoverHelp />
+                  </div>
+                </GlobalErrorBoundary>
+              </UnifiedErrorBoundary>
+            </UserProfileProvider>
+          </SettingsProvider>
+        </AccessibilityProvider>
       </body>
     </html>
   );

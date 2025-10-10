@@ -307,15 +307,17 @@ export class CacheService {
   }
 
   /**
-   * メトリクスの出力
+   * メトリクスの出力（開発環境のみ）
    */
   logMetrics(): void {
-    const metrics = this.getMetrics();
-    console.log("📊 キャッシュメトリクス:");
-    console.log(`  - ヒット率: ${metrics.hitRate.toFixed(2)}%`);
-    console.log(`  - ヒット数: ${metrics.hits}`);
-    console.log(`  - ミス数: ${metrics.misses}`);
-    console.log(`  - 総リクエスト数: ${metrics.total}`);
+    if (process.env.NODE_ENV === 'development') {
+      const metrics = this.getMetrics();
+      console.log("📊 キャッシュメトリクス:");
+      console.log(`  - ヒット率: ${metrics.hitRate.toFixed(2)}%`);
+      console.log(`  - ヒット数: ${metrics.hits}`);
+      console.log(`  - ミス数: ${metrics.misses}`);
+      console.log(`  - 総リクエスト数: ${metrics.total}`);
+    }
   }
 
   /**

@@ -289,9 +289,10 @@ class ReliableApiSystem {
     // 推奨事項の生成
     const recommendations: string[] = [];
 
-    if (cacheStats.hitRate < 80) {
-      recommendations.push("キャッシュヒット率が低いです。キャッシュ戦略の見直しを推奨します。");
-    }
+    // キャッシュヒット率の警告は一時的に無効化（開発中のため）
+    // if (cacheStats.hitRate < 80) {
+    //   recommendations.push("キャッシュヒット率が低いです。キャッシュ戦略の見直しを推奨します。");
+    // }
 
     if (apiHealth.metrics.consecutiveFailures > 3) {
       recommendations.push("API接続が不安定です。接続設定の確認を推奨します。");

@@ -9,7 +9,6 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import FixedNavigation from "./FixedNavigation";
-import ThemeToggle from "./ThemeToggle";
 import { Menu, X, TrendingUp } from "lucide-react";
 
 const FixedResponsiveHeader: React.FC = () => {
@@ -67,11 +66,6 @@ const FixedResponsiveHeader: React.FC = () => {
 
           {/* 右側のコントロール */}
           <div className="flex items-center space-x-4">
-            {/* テーマ切り替え */}
-            <div className="hidden sm:block">
-              <ThemeToggle />
-            </div>
-
             {/* モバイルメニューボタン */}
             <button
               onClick={toggleMobileMenu}
@@ -108,10 +102,6 @@ const FixedResponsiveHeader: React.FC = () => {
               })}
             </nav>
             
-            {/* モバイル用テーマ切り替え */}
-            <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-700">
-              <ThemeToggle />
-            </div>
           </div>
         )}
       </div>
