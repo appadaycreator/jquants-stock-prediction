@@ -11,15 +11,79 @@ interface TooltipState {
   left: number;
 }
 
+function getAssociatedLabelText(el: HTMLElement): string | null {
+  // 1) ラベルで囲まれているケース: <label>...<input/></label>
+  const closestLabel = el.closest("label");
+  if (closestLabel && closestLabel.textContent) {
+    const txt = closestLabel.textContent.trim();
+    if (txt) return txt;
+  }
+  // 2) for属性で関連付けられているケース: <label for="id">テキスト</label>
+  const id = el.getAttribute("id");
+  if (id) {
+    const byFor = document.querySelector(`label[for="${CSS.escape(id)}"]`);
+    if (byFor && byFor.textContent) {
+      const txt = byFor.textContent.trim();
+      if (txt) return txt;
+    }
+  }
+  return null;
+}
+
+function getByAriaRefs(el: HTMLElement, attr: string): string | null {
+  const ref = el.getAttribute(attr);
+  if (!ref) return null;
+  const ids = ref.split(/\s+/).filter(Boolean);
+  const parts: string[] = [];
+  for (const refId of ids) {
+    const node = document.getElementById(refId);
+    if (node && node.textContent) {
+      const txt = node.textContent.trim();
+      if (txt) parts.push(txt);
+    }
+  }
+  if (parts.length > 0) return parts.join(" \u00B7 ");
+  return null;
+}
+
 function getHelpText(element: HTMLElement | null): string | null {
   let current: HTMLElement | null = element;
   while (current) {
-    const help =
-      current.getAttribute("data-help") ||
-      current.getAttribute("data-tooltip") ||
-      current.getAttribute("aria-label") ||
-      current.getAttribute("title");
-    if (help && help.trim().length > 0) return help.trim();
+    // 優先: data-help / data-tooltip
+    const fromData =
+      current.getAttribute("data-help") || current.getAttribute("data-tooltip");
+    if (fromData && fromData.trim()) return fromData.trim();
+
+    // ARIA: aria-label（既存）/ aria-description / aria-labelledby / aria-describedby
+    const ariaLabel = current.getAttribute("aria-label");
+    if (ariaLabel && ariaLabel.trim()) return ariaLabel.trim();
+
+    const ariaDescription =
+      current.getAttribute("aria-description") ||
+      current.getAttribute("aria-description" as any);
+    if (ariaDescription && ariaDescription.trim()) return ariaDescription.trim();
+
+    const viaLabelledby = getByAriaRefs(current, "aria-labelledby");
+    if (viaLabelledby) return viaLabelledby;
+    const viaDescribedby = getByAriaRefs(current, "aria-describedby");
+    if (viaDescribedby) return viaDescribedby;
+
+    // placeholder（入力系）
+    const placeholder = current.getAttribute("placeholder");
+    if (placeholder && placeholder.trim()) return placeholder.trim();
+
+    // alt（画像/アイコン）
+    const alt = current.getAttribute("alt");
+    if (alt && alt.trim()) return alt.trim();
+
+    // 関連ラベル（label要素）
+    const labelText = getAssociatedLabelText(current);
+    if (labelText) return labelText;
+
+    // title（最後のフォールバック: ネイティブtitleツールチップ重複の可能性あり）
+    const title = current.getAttribute("title");
+    if (title && title.trim()) return title.trim();
+
     current = current.parentElement;
   }
   return null;

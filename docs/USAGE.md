@@ -3,15 +3,17 @@
 このドキュメントは、本リポジトリのセットアップから日次運用（1日5分ルーティン）までを一気通貫で案内します。Web配信の使い方ページ（`/usage`）と内容を整合させています。
 
 ### 共有ホバー説明（全画面）
-画面内の任意の要素に `data-help` / `data-tooltip` / `aria-label` / `title` のいずれかを付与すると、ホバー（またはキーボードフォーカス）で説明がポップ表示されます。追加のラップや特定コンポーネントの導入は不要です。
+画面内の任意の要素に以下の属性のいずれかを付与すると、ホバー（またはキーボードフォーカス）で説明が表示されます。追加のラップや特定コンポーネントの導入は不要です。
 
-- 優先順位: `data-help` > `data-tooltip` > `aria-label` > `title`
+- 対応属性: `data-help`, `data-tooltip`, `aria-label`, `aria-description`, `aria-labelledby`, `aria-describedby`, `placeholder`, `alt`, `title`
+- 優先順位（上ほど優先）: `data-help` → `data-tooltip` → `aria-label` → `aria-description` → `aria-labelledby` → `aria-describedby` → `placeholder` → `alt` → `title`
 - 実装箇所: `web-app/src/components/GlobalHoverHelp.tsx`（`app/layout.tsx` に常時マウント）
-- 設計意図: 既存の `EnhancedTooltip` など個別ツールチップの邪魔をせず、属性を付けるだけで最低限の説明を即時提供
+- 設計意図: 既存の個別ツールチップを阻害せず、属性を付けるだけで説明を即時提供
 - サンプル:
   ```tsx
   <button data-help="次の分析を再実行します">再実行</button>
-  <input aria-label="銘柄コードを入力" />
+  <input aria-label="銘柄コードを入力" placeholder="例: 7203" />
+  <img alt="トヨタ自動車のロゴ" src="/logos/7203.svg" />
   <span title="予測スコアの詳細">スコア</span>
   ```
 

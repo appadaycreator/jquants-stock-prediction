@@ -8,18 +8,25 @@
 React/Next.jsベースのインタラクティブな株価予測ダッシュボードです。
 
 ### 🛈 共有ホバー説明（ツールチップ）
-全ページで、要素に `data-help` / `data-tooltip` / `aria-label` / `title` のいずれかが付与されている場合、カーソルホバー（またはキーボードフォーカス）で説明が表示されます。
+全ページで、要素に以下のいずれかが付与されている場合、カーソルホバー（またはキーボードフォーカス）で説明が表示されます。
 
-- 優先順位: `data-help` > `data-tooltip` > `aria-label` > `title`
+- 対応属性: `data-help`, `data-tooltip`, `aria-label`, `aria-description`, `aria-labelledby`, `aria-describedby`, `placeholder`, `alt`, `title`
+- 優先順位（上ほど優先）:
+  1) `data-help`
+  2) `data-tooltip`
+  3) `aria-label`
+  4) `aria-description`
+  5) `aria-labelledby`
+  6) `aria-describedby`
+  7) `placeholder`
+  8) `alt`
+  9) `title`
 - 実装: `src/components/GlobalHoverHelp.tsx` を `app/layout.tsx` に組み込み済み
 - 使用例:
   ```tsx
   <button data-help="次の分析を再実行します">再実行</button>
-  ```
-  ```tsx
-  <input aria-label="銘柄コードを入力" />
-  ```
-  ```tsx
+  <input aria-label="銘柄コードを入力" placeholder="例: 7203" />
+  <img alt="トヨタ自動車のロゴ" src="/logos/7203.svg" />
   <span title="予測スコアの詳細">スコア</span>
   ```
 
