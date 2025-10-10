@@ -205,8 +205,31 @@ async function handleProxyRequest(
     try {
       jsonData = JSON.parse(responseData);
     } catch (parseError) {
-      console.warn("JSON解析エラー:", parseError, "Response:", responseData.substring(0, 200));
-      jsonData = { data: responseData };
+      console.error("JSON解析エラー:", {
+        error: parseError,
+        position: (parseError as any)?.pos || 'unknown',
+        responseLength: responseData.length,
+        responsePreview: responseData.substring(0, 500),
+        url: fullUrl,
+        method,
+        status: response.status,
+        timestamp: new Date().toISOString(),
+      });
+      
+      // JSONパースエラーの場合は適切なエラーレスポンスを返す
+      return NextResponse.json(
+        { 
+          error: "Invalid JSON response",
+          message: "APIからのレスポンスが無効なJSON形式です。",
+          details: {
+            parseError: parseError.message,
+            position: (parseError as any)?.pos || 'unknown',
+            responsePreview: responseData.substring(0, 200),
+          },
+          retry_hint: "check_api_response",
+        },
+        { status: 502 },
+      );
     }
 
     // エラーハンドリング

@@ -162,10 +162,25 @@ export class DataFetcher {
             },
           });
 
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(`API Error ${response.status}: ${errorData.message || response.statusText}`);
+          }
+
           const data = await response.json();
+          
+          // データの妥当性チェック
+          if (!data || typeof data !== 'object') {
+            throw new Error("Invalid response format: expected object");
+          }
+          
           return data.listed_info || [];
         } catch (error) {
-          console.error("上場銘柄データ取得エラー:", error);
+          console.error("上場銘柄データ取得エラー:", {
+            error: error.message,
+            stack: error.stack,
+            timestamp: new Date().toISOString(),
+          });
           // フォールバック: サンプルデータを使用
           return this.getSampleListedData();
         }

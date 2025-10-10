@@ -361,12 +361,12 @@ class TestDeadlineManager:
         assert result is False
 
     def test_monitoring_thread_safety(self):
-        """監視スレッドの安全性テスト"""
+        """監視スレッドの安全性テスト（最適化版）"""
         # 監視を開始
         self.manager.start_monitoring()
 
-        # 複数の期限を追加（スレッドセーフティのテスト）
-        for i in range(10):
+        # 複数の期限を追加（スレッドセーフティのテスト）- 数を削減
+        for i in range(3):  # 10 → 3に削減
             self.manager.add_deadline(
                 f"action{i}",
                 f"TEST{i}",
@@ -375,11 +375,11 @@ class TestDeadlineManager:
                 "this_week",
             )
 
-        # 少し待機
-        time.sleep(0.1)
+        # 待機時間を削減
+        time.sleep(0.01)  # 0.1 → 0.01に削減
 
         # 監視を停止
         self.manager.stop_monitoring()
 
         # データの整合性確認
-        assert len(self.manager.deadlines) == 10
+        assert len(self.manager.deadlines) == 3

@@ -97,7 +97,22 @@ export async function getAllSymbols(): Promise<Array<{ code: string; name: strin
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
-    const data = await response.json();
+    const responseText = await response.text();
+    let data;
+    
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error("JSON解析エラー:", {
+        error: parseError,
+        position: (parseError as any)?.pos || 'unknown',
+        responseLength: responseText.length,
+        responsePreview: responseText.substring(0, 500),
+        timestamp: new Date().toISOString(),
+      });
+      throw new Error(`JSON解析エラー: ${parseError.message}`);
+    }
+    
     const list: any[] = data?.stocks || data?.data || [];
     
     return list.map((item: any) => ({
@@ -106,7 +121,11 @@ export async function getAllSymbols(): Promise<Array<{ code: string; name: strin
       sector: item?.sector || item?.Sector33 || item?.SectorName,
     })).filter((s: any) => !!s.code && !!s.name);
   } catch (error) {
-    console.error("全銘柄一覧取得エラー:", error);
+    console.error("全銘柄一覧取得エラー:", {
+      error: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString(),
+    });
     return [];
   }
 }

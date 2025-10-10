@@ -784,8 +784,9 @@ class ImprovedTradingSystem:
 
 
 def create_sample_trading_data() -> pd.DataFrame:
-    """サンプル取引データの作成"""
-    dates = pd.date_range(start="2023-01-01", end="2024-12-31", freq="D")
+    """サンプル取引データの作成（最適化版）"""
+    # データ期間を短縮（2年 → 3ヶ月）
+    dates = pd.date_range(start="2023-01-01", end="2023-03-31", freq="D")
     np.random.seed(42)
 
     # ランダムウォークで株価を生成
