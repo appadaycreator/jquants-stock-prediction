@@ -135,6 +135,8 @@ export default function SimpleDashboard() {
                 variant="outline"
                 size="sm"
                 disabled={loading}
+                aria-label="ダッシュボードを更新"
+                data-help="ダッシュボードのデータを最新に更新します。"
               >
                 <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
                 更新

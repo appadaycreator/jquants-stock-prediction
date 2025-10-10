@@ -309,6 +309,8 @@ export default function PersonalInvestmentDashboard() {
             size="sm"
             onClick={() => setShowRiskSettings(true)}
             title="リスク管理設定を開く"
+            aria-label="リスク管理設定を開く"
+            data-help="リスク管理設定パネルを開きます。"
           >
             <Settings className="h-4 w-4 mr-1" />
             設定
@@ -319,6 +321,8 @@ export default function PersonalInvestmentDashboard() {
             onClick={loadDashboardData}
             disabled={loading}
             title="最新のダッシュボードデータを取得します"
+            aria-label="ダッシュボードを更新"
+            data-help="最新のダッシュボードデータを取得します。"
           >
             <RefreshCw className={`h-4 w-4 mr-1 ${loading ? "animate-spin" : ""}`} />
             更新
@@ -328,6 +332,8 @@ export default function PersonalInvestmentDashboard() {
             size="sm"
             onClick={() => setAutoRefresh(!autoRefresh)}
             title="30秒ごとに自動更新。再クリックで切替"
+            aria-label={autoRefresh ? "自動更新を停止" : "自動更新を開始"}
+            data-help={autoRefresh ? "30秒ごとの自動更新を停止します。" : "30秒ごとに自動更新を開始します。"}
           >
             <Activity className="h-4 w-4 mr-1" />
             自動更新
@@ -485,16 +491,16 @@ export default function PersonalInvestmentDashboard() {
 
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="overview" title="投資成果を3秒で把握">投資成果</TabsTrigger>
-          <TabsTrigger value="positions" title="保有銘柄の損益・推奨アクションを確認">ポジション一覧</TabsTrigger>
-          <TabsTrigger value="performance" title="パフォーマンス比較とランキング">パフォーマンス</TabsTrigger>
-          <TabsTrigger value="charts" title="損益推移グラフとチャート分析">チャート分析</TabsTrigger>
-          <TabsTrigger value="realtime" title="リアルタイム損益計算と価格更新">リアルタイム損益</TabsTrigger>
-          <TabsTrigger value="recommendations" title="AI/ルールベースによる投資提案">投資推奨</TabsTrigger>
-          <TabsTrigger value="engine" title="自動投資推奨エンジン">推奨エンジン</TabsTrigger>
-          <TabsTrigger value="lstm" title="LSTM深層学習による株価予測">LSTM予測</TabsTrigger>
-          <TabsTrigger value="market" title="市場全体のトレンドやボラティリティを確認">市場概況</TabsTrigger>
-          <TabsTrigger value="personalize" title="プロフィールに応じた推奨配分を作成">パーソナライズ</TabsTrigger>
+          <TabsTrigger value="overview" title="投資成果を3秒で把握" aria-label="投資成果タブ" data-help="投資成果を3秒で把握できます。">投資成果</TabsTrigger>
+          <TabsTrigger value="positions" title="保有銘柄の損益・推奨アクションを確認" aria-label="ポジション一覧タブ" data-help="保有銘柄の損益・推奨アクションを確認できます。">ポジション一覧</TabsTrigger>
+          <TabsTrigger value="performance" title="パフォーマンス比較とランキング" aria-label="パフォーマンスタブ" data-help="パフォーマンス比較とランキングを表示します。">パフォーマンス</TabsTrigger>
+          <TabsTrigger value="charts" title="損益推移グラフとチャート分析" aria-label="チャート分析タブ" data-help="損益推移グラフとチャート分析を表示します。">チャート分析</TabsTrigger>
+          <TabsTrigger value="realtime" title="リアルタイム損益計算と価格更新" aria-label="リアルタイム損益タブ" data-help="リアルタイム損益計算と価格更新を行います。">リアルタイム損益</TabsTrigger>
+          <TabsTrigger value="recommendations" title="AI/ルールベースによる投資提案" aria-label="投資推奨タブ" data-help="AI/ルールベースによる投資提案を表示します。">投資推奨</TabsTrigger>
+          <TabsTrigger value="engine" title="自動投資推奨エンジン" aria-label="推奨エンジンタブ" data-help="自動投資推奨エンジンを表示します。">推奨エンジン</TabsTrigger>
+          <TabsTrigger value="lstm" title="LSTM深層学習による株価予測" aria-label="LSTM予測タブ" data-help="LSTM深層学習による株価予測を表示します。">LSTM予測</TabsTrigger>
+          <TabsTrigger value="market" title="市場全体のトレンドやボラティリティを確認" aria-label="市場概況タブ" data-help="市場全体のトレンドやボラティリティを確認できます。">市場概況</TabsTrigger>
+          <TabsTrigger value="personalize" title="プロフィールに応じた推奨配分を作成" aria-label="パーソナライズタブ" data-help="プロフィールに応じた推奨配分を作成できます。">パーソナライズ</TabsTrigger>
         </TabsList>
 
         {/* 投資成果 - 強化された損益表示 */}
@@ -768,6 +774,8 @@ export default function PersonalInvestmentDashboard() {
                       size="sm"
                       onClick={() => setShowRecommendationDetails(recommendation.symbol)}
                       className="flex-1"
+                      aria-label="詳細理由を表示"
+                      data-help="この推奨の詳細理由を表示します。"
                     >
                       <Info className="h-4 w-4 mr-1" />
                       詳細理由
@@ -777,6 +785,8 @@ export default function PersonalInvestmentDashboard() {
                       size="sm"
                       onClick={() => setShowIndividualStockSettings(recommendation.symbol)}
                       className="flex-1"
+                      aria-label="個別設定を開く"
+                      data-help="この銘柄の個別設定を開きます。"
                     >
                       <Settings className="h-4 w-4 mr-1" />
                       個別設定

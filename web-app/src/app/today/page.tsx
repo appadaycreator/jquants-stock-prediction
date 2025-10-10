@@ -257,6 +257,8 @@ export default function TodayPage() {
                 className="bg-blue-600 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-700 flex items-center space-x-1"
                 onClick={currentData.actions.refresh}
                 disabled={currentData.isLoading}
+                aria-label="データを更新"
+                data-help="最新のデータを取得して表示を更新します。"
               >
                 <RefreshCw className={`h-4 w-4 ${currentData.isLoading ? "animate-spin" : ""}`} />
                 <span>{currentData.isLoading ? "更新中" : "更新"}</span>
@@ -383,6 +385,8 @@ export default function TodayPage() {
             <button
               className="bg-blue-600 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-700"
               onClick={() => currentData.actions.saveMemo(currentData.memo)}
+              aria-label="メモを保存"
+              data-help="今日のメモをローカルストレージに保存します。"
             >
               保存
             </button>
