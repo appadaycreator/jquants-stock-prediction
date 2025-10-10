@@ -20,28 +20,17 @@ export default function TodayPage() {
   const realData = useRealTodayData(); // 実際のJQuantsデータを使用
   const [startTime] = useState(Date.now());
   const [completedTasks, setCompletedTasks] = useState<string[]>([]);
-  const [useRealData, setUseRealData] = useState(true); // 実データ使用フラグ
+  // 実データ使用を固定（デモ/サンプル切替は廃止）
+  const isRealData = true;
 
-  // URLクエリのforceReal/forceSampleで初期状態を上書き
-  useEffect(() => {
-    try {
-      const params = new URLSearchParams(window.location.search);
-      const forceReal = params.get("forceReal");
-      const forceSample = params.get("forceSample");
-      if (forceReal && ["1", "true", "on", "yes"].includes(forceReal.toLowerCase())) {
-        setUseRealData(true);
-      } else if (forceSample && ["1", "true", "on", "yes"].includes(forceSample.toLowerCase())) {
-        setUseRealData(false);
-      }
-    } catch (_) {}
-  }, []);
+  // 切替UIは廃止。URL/LocalStorageによる強制は無効化。
   
   // 強化された今日の指示データ取得（フォールバック用）
-  const todayData = useEnhancedTodayData(useRealData);
+  const todayData = useEnhancedTodayData(isRealData);
   const { fallbackData, fallbackTimestamp, saveFallbackData } = useTodayDataFallback();
   
   // 使用するデータソースを決定
-  const currentData = useRealData ? realData : routine;
+  const currentData = realData;
   
   // シンボル配列をメモ化して無限ループを防ぐ
   const symbols = useMemo(() => 
@@ -81,7 +70,7 @@ export default function TodayPage() {
             state={{
               isLoading: true,
               progress: 50,
-              message: useRealData ? "JQuantsデータを分析中..." : "今日の指示を取得中...",
+              message: "JQuantsデータを分析中...",
               canRetry: false,
               retryCount: 0,
               maxRetries: 3,
@@ -89,6 +78,16 @@ export default function TodayPage() {
             variant="default"
             showProgress={true}
           />
+          {/* スケルトンUI */}
+          <div className="mt-6 space-y-3">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="bg-white rounded-xl border p-4 animate-pulse">
+                <div className="h-4 bg-gray-200 rounded w-1/3 mb-3" />
+                <div className="h-3 bg-gray-200 rounded w-2/3 mb-2" />
+                <div className="h-3 bg-gray-200 rounded w-1/2" />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
@@ -188,45 +187,15 @@ export default function TodayPage() {
       </div>
 
       <div className="w-full max-w-md mx-auto px-4 py-4 md:max-w-3xl">
-        {/* データソース切り替えボタン */}
-        <div className="mb-4 flex justify-center">
-          <div className="bg-white rounded-lg p-2 shadow-sm border flex">
-            <button
-              onClick={() => {
-                setUseRealData(true);
-                // キャッシュ影響を避けるため実データに切替時は明示的にリフレッシュ
-                if (realData.actions?.refresh) realData.actions.refresh();
-              }}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                useRealData 
-                  ? "bg-blue-600 text-white" 
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              実データ (JQuants)
-            </button>
-            <button
-              onClick={() => {
-                setUseRealData(false);
-              }}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                !useRealData 
-                  ? "bg-blue-600 text-white" 
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              サンプルデータ
-            </button>
-          </div>
-        </div>
+        {/* データソース切替UIは削除（個人利用向けに実データ固定） */}
 
         {/* 接続ステータス表示（実データモード時） */}
-        {useRealData && realData.connectionStatus && (
+        {realData.connectionStatus && (
           <div className={`mb-4 p-3 rounded-lg border ${
             realData.connectionStatus.success 
               ? "bg-green-50 border-green-200 text-green-800" 
               : "bg-red-50 border-red-200 text-red-800"
-          }`}>
+          }`} role="status" aria-live="polite">
             <div className="flex items-center">
               {realData.connectionStatus.success ? (
                 <CheckCircle className="w-4 h-4 mr-2" />
@@ -237,6 +206,14 @@ export default function TodayPage() {
                 JQuants API: {realData.connectionStatus.message}
               </span>
             </div>
+          </div>
+        )}
+
+        {/* 静的モードガイダンス */}
+        {realData.connectionStatus?.message?.includes("静的サイトモード") && (
+          <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md text-blue-800 text-sm">
+            実データに切り替えるには、URL に <code>?forceReal=1</code> を付与するか、
+            <code>NEXT_PUBLIC_FORCE_REAL_API=true</code> を <code>.env.local</code> に設定してください。
           </div>
         )}
 
@@ -295,9 +272,7 @@ export default function TodayPage() {
             <div className="flex items-center space-x-2">
               <TrendingUp className="h-5 w-5 text-green-600" />
               <span className="text-sm text-gray-600">{currentData.topCandidates.length}件の候補</span>
-              {useRealData && (
-                <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">実データ</span>
-              )}
+              <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">実データ</span>
             </div>
           </div>
           {currentData.topCandidates.length === 0 ? (
@@ -313,10 +288,10 @@ export default function TodayPage() {
                   name={c.name}
                   recommendation={c.recommendation}
                   confidence={c.confidence ?? 0.5}
-                  price={useRealData && "currentPrice" in c ? c.currentPrice : 1000}
+                  price={"currentPrice" in c ? c.currentPrice : 1000}
                   reason={c.routine_reasons.join(", ") || "スコア上位"}
                   expectedHoldingPeriod={30}
-                  riskLevel={useRealData && "riskLevel" in c ? c.riskLevel : "MEDIUM"}
+                  riskLevel={"riskLevel" in c ? c.riskLevel : "MEDIUM"}
                   category="テクニカル分析"
                   historicalAccuracy={0.0}
                   evidence={{
@@ -365,8 +340,8 @@ export default function TodayPage() {
                         )}
                       </div>
                       <div className="text-xs text-gray-600">{h.reason}</div>
-                      {/* 実データ使用時は価格情報も表示 */}
-                      {useRealData && "currentPrice" in h && h.currentPrice > 0 && (
+                      {/* 実データの価格情報を表示 */}
+                      {"currentPrice" in h && h.currentPrice > 0 && (
                         <div className="text-xs text-gray-500 mt-1">
                           現在価格: ¥{h.currentPrice.toLocaleString()}
                           {h.priceChange !== 0 && (
