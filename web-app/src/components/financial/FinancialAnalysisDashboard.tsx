@@ -8,6 +8,7 @@ import { useFinancialAnalysis } from "@/hooks/useFinancialAnalysis";
 import { FinancialMetricsCard } from "./FinancialMetricsCard";
 import { FinancialHealthScoreCard } from "./FinancialHealthScoreCard";
 import { IndustryComparisonCard } from "./IndustryComparisonCard";
+import EnhancedTooltip from "../EnhancedTooltip";
 
 interface FinancialAnalysisDashboardProps {
   symbol: string;
@@ -93,9 +94,24 @@ export function FinancialAnalysisDashboard({
             <p className="text-gray-600">銘柄: {symbol}</p>
           </div>
           <div className="text-right">
-            <div className="text-3xl font-bold text-gray-900">{statistics.overallScore.toFixed(1)}</div>
-            <div className="text-lg font-semibold text-blue-600">{statistics.grade}</div>
-            <div className="text-sm text-gray-600">{statistics.recommendation}</div>
+            <EnhancedTooltip
+              content="財務分析の総合スコアです。収益性、安全性、成長性、効率性を総合的に評価した数値で、0-100点で表示されます。80点以上が優秀、60-80点が良好、40-60点が普通、40点未満が要注意とされます。例：スコア85点の場合、財務的に優秀な企業であることを示します。"
+              type="info"
+            >
+              <div className="text-3xl font-bold text-gray-900 cursor-help">{statistics.overallScore.toFixed(1)}</div>
+            </EnhancedTooltip>
+            <EnhancedTooltip
+              content="財務分析の総合評価グレードです。A+からDまで5段階で評価され、投資判断の重要な指標となります。A+が最高評価、Dが最低評価です。例：A評価の場合、財務的に優秀で投資価値が高いことを示します。"
+              type="info"
+            >
+              <div className="text-lg font-semibold text-blue-600 cursor-help">{statistics.grade}</div>
+            </EnhancedTooltip>
+            <EnhancedTooltip
+              content="財務分析に基づく投資推奨です。BUY（買い）、HOLD（ホールド）、SELL（売り）の3段階で表示されます。財務指標の総合評価に基づいて推奨される投資行動を示します。例：BUY推奨の場合、財務的に良好で投資価値が高いことを示します。"
+              type="info"
+            >
+              <div className="text-sm text-gray-600 cursor-help">{statistics.recommendation}</div>
+            </EnhancedTooltip>
           </div>
         </div>
       </div>

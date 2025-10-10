@@ -28,6 +28,7 @@ import {
   Target,
   Zap,
 } from "lucide-react";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 // データ型定義
 interface ProfitLossData {
@@ -352,31 +353,51 @@ export function ProfitLossChart({
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 p-4 bg-gray-50 rounded-lg">
             <div className="text-center">
               <div className="text-sm text-gray-600">総リターン</div>
-              <div className={`text-lg font-bold ${
-                performanceStats.totalReturn >= 0 ? "text-green-600" : "text-red-600"
-              }`}>
-                {performanceStats.totalReturn >= 0 ? "+" : ""}{performanceStats.totalReturn.toFixed(2)}%
-              </div>
+              <EnhancedTooltip
+                content="投資開始時からの総合的なリターンです。投資額に対する総合的な収益率を示し、投資戦略の成功度を測る最も重要な指標です。例：100万円の投資で120万円になった場合、総リターンは+20%となります。"
+                type={performanceStats.totalReturn >= 0 ? "success" : "warning"}
+              >
+                <div className={`text-lg font-bold cursor-help ${
+                  performanceStats.totalReturn >= 0 ? "text-green-600" : "text-red-600"
+                }`}>
+                  {performanceStats.totalReturn >= 0 ? "+" : ""}{performanceStats.totalReturn.toFixed(2)}%
+                </div>
+              </EnhancedTooltip>
             </div>
             <div className="text-center">
               <div className="text-sm text-gray-600">平均日次リターン</div>
-              <div className={`text-lg font-bold ${
-                performanceStats.avgDailyReturn >= 0 ? "text-green-600" : "text-red-600"
-              }`}>
-                {performanceStats.avgDailyReturn >= 0 ? "+" : ""}{performanceStats.avgDailyReturn.toFixed(3)}%
-              </div>
+              <EnhancedTooltip
+                content="1日あたりの平均リターンです。投資の安定性と成長性を測る指標で、年率換算の目安としても使用されます。例：平均日次リターン0.1%の場合、年率換算で約36%のリターンが期待できます。"
+                type={performanceStats.avgDailyReturn >= 0 ? "success" : "warning"}
+              >
+                <div className={`text-lg font-bold cursor-help ${
+                  performanceStats.avgDailyReturn >= 0 ? "text-green-600" : "text-red-600"
+                }`}>
+                  {performanceStats.avgDailyReturn >= 0 ? "+" : ""}{performanceStats.avgDailyReturn.toFixed(3)}%
+                </div>
+              </EnhancedTooltip>
             </div>
             <div className="text-center">
               <div className="text-sm text-gray-600">ボラティリティ</div>
-              <div className="text-lg font-bold text-gray-700">
-                {performanceStats.volatility.toFixed(2)}%
-              </div>
+              <EnhancedTooltip
+                content="価格変動の激しさを示す指標です。高いほど価格変動が激しく、リスクが高いことを示します。一般的に20%以下が低リスク、20-40%が中リスク、40%以上が高リスクとされます。例：ボラティリティ25%の場合、中程度のリスクを示します。"
+                type="info"
+              >
+                <div className="text-lg font-bold text-gray-700 cursor-help">
+                  {performanceStats.volatility.toFixed(2)}%
+                </div>
+              </EnhancedTooltip>
             </div>
             <div className="text-center">
               <div className="text-sm text-gray-600">シャープレシオ</div>
-              <div className="text-lg font-bold text-gray-700">
-                {performanceStats.sharpeRatio.toFixed(2)}
-              </div>
+              <EnhancedTooltip
+                content="リスクを考慮した投資効率を測る指標です。1.0以上が良好、2.0以上が優秀とされています。リスクに対するリターンの効率性を示し、投資戦略の質を評価する重要な指標です。例：シャープレシオ1.5の場合、良好な投資効率を示します。"
+                type="info"
+              >
+                <div className="text-lg font-bold text-gray-700 cursor-help">
+                  {performanceStats.sharpeRatio.toFixed(2)}
+                </div>
+              </EnhancedTooltip>
             </div>
           </div>
         )}

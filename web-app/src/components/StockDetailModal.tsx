@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { X, TrendingUp, TrendingDown, BarChart3, DollarSign, Calendar } from "lucide-react";
 import { formatStockCode, normalizeStockCode } from "@/lib/stock-code-utils";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 interface StockData {
   code: string;
@@ -334,34 +335,54 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div>
                         <p className="text-sm text-gray-600">現在価格</p>
-                        <p className="text-2xl font-bold text-gray-900">
-                          ¥{analysisResult.currentPrice.toLocaleString()}
-                        </p>
+                        <EnhancedTooltip
+                          content="最新の取引終値です。この価格は最新の市場取引で確定した価格で、現在の株価の基準となります。例：トヨタ自動車の株価が3,000円の場合、1株あたり3,000円で取引されていることを示します。"
+                          type="info"
+                        >
+                          <p className="text-2xl font-bold text-gray-900 cursor-help">
+                            ¥{analysisResult.currentPrice.toLocaleString()}
+                          </p>
+                        </EnhancedTooltip>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">前日比</p>
-                        <div className={`flex items-center ${analysisResult.priceChange >= 0 ? "text-red-600" : "text-green-600"}`}>
-                          {analysisResult.priceChange >= 0 ? (
-                            <TrendingUp className="w-4 h-4 mr-1" />
-                          ) : (
-                            <TrendingDown className="w-4 h-4 mr-1" />
-                          )}
-                          <span className="text-lg font-semibold">
-                            {analysisResult.priceChange >= 0 ? "+" : ""}{analysisResult.priceChange.toLocaleString()}
-                          </span>
-                        </div>
+                        <EnhancedTooltip
+                          content="前日終値からの価格変動額です。プラスは上昇、マイナスは下落を示します。例：前日3,000円から3,100円に上昇した場合、+100円と表示されます。"
+                          type={analysisResult.priceChange >= 0 ? "success" : "warning"}
+                        >
+                          <div className={`flex items-center cursor-help ${analysisResult.priceChange >= 0 ? "text-red-600" : "text-green-600"}`}>
+                            {analysisResult.priceChange >= 0 ? (
+                              <TrendingUp className="w-4 h-4 mr-1" />
+                            ) : (
+                              <TrendingDown className="w-4 h-4 mr-1" />
+                            )}
+                            <span className="text-lg font-semibold">
+                              {analysisResult.priceChange >= 0 ? "+" : ""}{analysisResult.priceChange.toLocaleString()}
+                            </span>
+                          </div>
+                        </EnhancedTooltip>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">前日比率</p>
-                        <p className={`text-lg font-semibold ${analysisResult.priceChangePercent >= 0 ? "text-red-600" : "text-green-600"}`}>
-                          {analysisResult.priceChangePercent >= 0 ? "+" : ""}{analysisResult.priceChangePercent.toFixed(2)}%
-                        </p>
+                        <EnhancedTooltip
+                          content="前日終値からの価格変動率です。プラスは上昇、マイナスは下落を示します。例：前日3,000円から3,100円に上昇した場合、+3.33%と表示されます。"
+                          type={analysisResult.priceChangePercent >= 0 ? "success" : "warning"}
+                        >
+                          <p className={`text-lg font-semibold cursor-help ${analysisResult.priceChangePercent >= 0 ? "text-red-600" : "text-green-600"}`}>
+                            {analysisResult.priceChangePercent >= 0 ? "+" : ""}{analysisResult.priceChangePercent.toFixed(2)}%
+                          </p>
+                        </EnhancedTooltip>
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">出来高</p>
-                        <p className="text-lg font-semibold text-gray-900">
-                          {stockData.volume ? stockData.volume.toLocaleString() : "N/A"}
-                        </p>
+                        <EnhancedTooltip
+                          content="出来高は、一定期間内に取引された株式の数量です。取引の活発さを示し、流動性の指標となります。例：1日で100万株が取引された場合、出来高は100万株となります。"
+                          type="info"
+                        >
+                          <p className="text-lg font-semibold text-gray-900 cursor-help">
+                            {stockData.volume ? stockData.volume.toLocaleString() : "N/A"}
+                          </p>
+                        </EnhancedTooltip>
                       </div>
                     </div>
                   </div>

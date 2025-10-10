@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 import { TrendingUp, TrendingDown, AlertTriangle, Target, Shield } from "lucide-react";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 interface LSTMPrediction {
   predictions: number[];
@@ -204,21 +205,36 @@ export function PersonalInvestmentLSTM({
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="text-center p-4 bg-blue-50 rounded-lg">
                     <p className="text-sm text-gray-600">最終予測価格</p>
-                    <p className="text-2xl font-bold text-blue-600">
-                      {formatPrice(prediction.predictions[prediction.predictions.length - 1])}
-                    </p>
+                    <EnhancedTooltip
+                      content="LSTMモデルによる予測期間の最終日の予測価格です。AIが過去の価格パターンを学習して予測した価格で、投資判断の参考となります。例：現在価格3,000円から3,200円に予測される場合、+200円の上昇が予測されます。"
+                      type="info"
+                    >
+                      <p className="text-2xl font-bold text-blue-600 cursor-help">
+                        {formatPrice(prediction.predictions[prediction.predictions.length - 1])}
+                      </p>
+                    </EnhancedTooltip>
                   </div>
                   <div className="text-center p-4 bg-green-50 rounded-lg">
                     <p className="text-sm text-gray-600">予想上昇率</p>
-                    <p className="text-2xl font-bold text-green-600">
-                      {formatPercent((prediction.predictions[prediction.predictions.length - 1] / currentPrice) - 1)}
-                    </p>
+                    <EnhancedTooltip
+                      content="現在価格から予測価格への上昇率です。プラスは上昇予測、マイナスは下落予測を示します。AI予測による投資リターンの期待値を示し、投資判断の重要な指標となります。例：現在価格3,000円から3,200円に予測される場合、+6.67%の上昇率となります。"
+                      type="success"
+                    >
+                      <p className="text-2xl font-bold text-green-600 cursor-help">
+                        {formatPercent((prediction.predictions[prediction.predictions.length - 1] / currentPrice) - 1)}
+                      </p>
+                    </EnhancedTooltip>
                   </div>
                   <div className="text-center p-4 bg-purple-50 rounded-lg">
                     <p className="text-sm text-gray-600">信頼度</p>
-                    <p className={`text-2xl font-bold ${getConfidenceColor(prediction.confidence.confidence)}`}>
-                      {formatPercent(prediction.confidence.confidence)}
-                    </p>
+                    <EnhancedTooltip
+                      content="LSTMモデルの予測信頼度です。複数の技術指標と過去の価格パターンを総合的に評価した結果の確信度を示します。80%以上が高信頼度、60-80%が中信頼度、60%未満が低信頼度とされます。例：信頼度85%の場合、予測結果が高い確率で正しいことを示します。"
+                      type="info"
+                    >
+                      <p className={`text-2xl font-bold cursor-help ${getConfidenceColor(prediction.confidence.confidence)}`}>
+                        {formatPercent(prediction.confidence.confidence)}
+                      </p>
+                    </EnhancedTooltip>
                   </div>
                 </div>
 

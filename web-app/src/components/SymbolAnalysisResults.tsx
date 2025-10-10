@@ -188,26 +188,46 @@ export default function SymbolAnalysisResults({ selectedSymbols }: SymbolAnalysi
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">現在価格:</span>
-                  <span className="font-medium">¥{result.stats.current_price.toLocaleString()}</span>
+                  <EnhancedTooltip
+                    content="最新の取引終値です。この価格は最新の市場取引で確定した価格で、現在の株価の基準となります。例：トヨタ自動車の株価が3,000円の場合、1株あたり3,000円で取引されていることを示します。"
+                    type="info"
+                  >
+                    <span className="font-medium cursor-help">¥{result.stats.current_price.toLocaleString()}</span>
+                  </EnhancedTooltip>
                 </div>
                 
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">変化率:</span>
-                  <span className={`font-medium ${result.stats.change_percent >= 0 ? "text-green-600" : "text-red-600"}`}>
-                    {result.stats.change_percent >= 0 ? "+" : ""}{result.stats.change_percent.toFixed(2)}%
-                  </span>
+                  <EnhancedTooltip
+                    content="前日終値からの価格変動率です。プラスは上昇、マイナスは下落を示します。例：前日3,000円から3,100円に上昇した場合、+3.33%と表示されます。"
+                    type={result.stats.change_percent >= 0 ? "success" : "warning"}
+                  >
+                    <span className={`font-medium cursor-help ${result.stats.change_percent >= 0 ? "text-green-600" : "text-red-600"}`}>
+                      {result.stats.change_percent >= 0 ? "+" : ""}{result.stats.change_percent.toFixed(2)}%
+                    </span>
+                  </EnhancedTooltip>
                 </div>
                 
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">信頼度:</span>
-                  <span className={`font-medium ${getConfidenceColor(result.signals.confidence)}`}>
-                    {(result.signals.confidence * 100).toFixed(0)}%
-                  </span>
+                  <EnhancedTooltip
+                    content="AI分析結果の信頼度です。複数の技術指標を総合的に評価した結果の確信度を示します。80%以上が高信頼度、60-80%が中信頼度、60%未満が低信頼度とされます。例：信頼度85%の場合、分析結果が高い確率で正しいことを示します。"
+                    type="info"
+                  >
+                    <span className={`font-medium cursor-help ${getConfidenceColor(result.signals.confidence)}`}>
+                      {(result.signals.confidence * 100).toFixed(0)}%
+                    </span>
+                  </EnhancedTooltip>
                 </div>
                 
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">ボラティリティ:</span>
-                  <span className="font-medium">{(result.stats.volatility * 100).toFixed(1)}%</span>
+                  <EnhancedTooltip
+                    content="価格変動の激しさを示す指標です。高いほど価格変動が激しく、リスクが高いことを示します。一般的に20%以下が低リスク、20-40%が中リスク、40%以上が高リスクとされます。例：ボラティリティ25%の場合、中程度のリスクを示します。"
+                    type="info"
+                  >
+                    <span className="font-medium cursor-help">{(result.stats.volatility * 100).toFixed(1)}%</span>
+                  </EnhancedTooltip>
                 </div>
               </div>
               
