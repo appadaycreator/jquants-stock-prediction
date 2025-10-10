@@ -3,6 +3,26 @@
 J-Quants APIを使用して株価データを取得し、機械学習で株価予測を行う**完全統合システム**です。
 新NISA制度（2024年1月開始）に対応した非課税枠利用率90%以上を目標とした効率的活用システムを統合しました。
 
+## 🚀 v2.22（GitHub Pagesデプロイメント修正版）実装完了
+
+### 🔧 GitHub Pagesデプロイメント修正
+
+**✅ パス解決問題の修正:**
+- URL重複問題の解決（`/jquants-stock-prediction/jquants-stock-prediction/` → `/jquants-stock-prediction/`）
+- JSONパースエラーの修正
+- 静的ファイルアクセス問題の解決
+- basePath重複チェック機能の追加
+
+**✅ デプロイメント設定の改善:**
+- GitHub Actions設定の修正（`publish_dir`を`./web-app/docs`に変更）
+- 環境変数`GITHUB_ACTIONS=true`の追加
+- データファイルの正しい配置確認
+
+**✅ 修正されたファイル:**
+- `web-app/src/lib/path.ts`: パス解決ロジックの改善
+- `web-app/.github/workflows/deploy.yml`: デプロイメント設定の修正
+- データファイルの同期と配置確認
+
 ## 🚀 v2.21（完全リファクタリング版）実装完了
 
 ### 🔧 完全リファクタリング実装

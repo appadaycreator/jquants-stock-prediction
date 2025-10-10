@@ -10,9 +10,13 @@ export function getBasePath(): string {
 export function resolveStaticPath(path: string): string {
   // 絶対URL(http/https)や data: はそのまま返す
   if (/^(?:https?:)?\/\//i.test(path) || path.startsWith("data:")) return path;
-  // すでに basePath が付いていればそのまま
+  
   const base = getBasePath();
   if (!base) return path;
+  
+  // 既に basePath が付いているかチェック
+  if (path.startsWith(base)) return path;
+  
   // 先頭スラッシュを必須とし、重複しないよう結合
   const normalized = path.startsWith("/") ? path : `/${path}`;
   return `${base}${normalized}`;
