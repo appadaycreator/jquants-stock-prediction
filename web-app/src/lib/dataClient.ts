@@ -92,43 +92,63 @@ export async function getLatestIndex(): Promise<LatestIndex> {
 }
 
 async function fetchLatestIndexWithFallback(): Promise<LatestIndex> {
-  const primaryUrl = resolveStaticPath("/data/latest/index.json");
+  // 複数のURLを順次試行
+  const urls = [
+    "/data/latest/index.json", // 直接パス（最優先）
+    resolveStaticPath("/data/latest/index.json"), // resolveStaticPath経由
+  ];
   
-  try {
-    const { data, fromCache } = await fetchJsonWithCache<LatestIndex>(primaryUrl, {
-      cacheKey: "latest:index:primary",
-      cacheTtlMs: 1000 * 60 * 10,
-      timeout: SIX_SECONDS,
-      retries: 2,
-      retryDelay: 800,
-    });
-    return data;
-  } catch (error) {
-    console.warn("Primary URL failed, trying fallback:", error);
+  // 重複を除去
+  const uniqueUrls = [...new Set(urls)];
+  
+  for (let i = 0; i < uniqueUrls.length; i++) {
+    const url = uniqueUrls[i];
+    console.log(`Trying URL ${i + 1}/${uniqueUrls.length}: ${url}`);
     
-    // フォールバック: 直接的なパスを試行
-    const fallbackUrl = "/data/latest/index.json";
     try {
-      const { data } = await fetchJsonWithCache<LatestIndex>(fallbackUrl, {
-        cacheKey: "latest:index:fallback",
+      const { data, fromCache } = await fetchJsonWithCache<LatestIndex>(url, {
+        cacheKey: `latest:index:attempt_${i}`,
         cacheTtlMs: 1000 * 60 * 10,
         timeout: SIX_SECONDS,
         retries: 1,
-        retryDelay: 800,
+        retryDelay: 500,
       });
+      console.log(`Success with URL: ${url}`);
       return data;
-    } catch (fallbackError) {
-      console.error("Both primary and fallback URLs failed:", fallbackError);
-      throw new Error("Failed to fetch latest index from both primary and fallback URLs");
+    } catch (error) {
+      console.warn(`URL ${i + 1} failed: ${url}`, error);
+      if (i === uniqueUrls.length - 1) {
+        // 最後のURLも失敗した場合
+        console.error("All URLs failed, returning fallback data");
+        return {
+          latest: "20250930",
+          dates: ["20250930"]
+        };
+      }
     }
   }
+  
+  // この行には到達しないはずだが、TypeScriptのため
+  throw new Error("Unexpected error in fetchLatestIndexWithFallback");
 }
 
 export function resolveBusinessDate(target: string | null, index: LatestIndex): string {
-  if (target && index.dates.includes(target)) return target;
+  // 入力値の検証
+  if (!index || !index.latest || !Array.isArray(index.dates)) {
+    console.warn("Invalid index data, using fallback date");
+    return "20250930";
+  }
+  
+  if (target && typeof target === 'string' && target !== 'undefined' && index.dates.includes(target)) {
+    return target;
+  }
+  
   // 市場休場日の場合は直近過去にフォールバック
-  const candidate = target ? index.dates.find(d => d <= target) : index.latest;
-  return candidate || index.latest;
+  const candidate = target && target !== 'undefined' ? index.dates.find(d => d <= target) : index.latest;
+  const result = candidate || index.latest;
+  
+  console.log(`resolveBusinessDate: target=${target}, result=${result}`);
+  return result;
 }
 
 export async function swrJson<T>(
@@ -175,14 +195,36 @@ export function clearDataCache(): void {
       "latest:index",
       "latest:index:primary", 
       "latest:index:fallback",
+      "latest:index:attempt_0",
+      "latest:index:attempt_1",
       "today:summary",
       "personal:dashboard",
     ];
     
+    // パターンマッチングでキャッシュキーをクリア
+    const allKeys = Object.keys(localStorage);
+    const patternsToRemove = [
+      /^latest:index/,
+      /^swr:latest:index/,
+      /^today:summary/,
+      /^personal:dashboard/,
+    ];
+    
+    // 特定のキーを削除
     keysToRemove.forEach(key => {
       localStorage.removeItem(key);
       localStorage.removeItem(`swr:${key}`);
     });
+    
+    // パターンマッチングでキーを削除
+    allKeys.forEach(key => {
+      if (patternsToRemove.some(pattern => pattern.test(key))) {
+        localStorage.removeItem(key);
+      }
+    });
+    
+    // キャッシュクリアのタイムスタンプを記録
+    localStorage.setItem("cache_cleared_at", new Date().toISOString());
     
     console.log("Data cache cleared successfully");
   } catch (error) {
@@ -190,11 +232,23 @@ export function clearDataCache(): void {
   }
 }
 
-// デバッグ用: グローバルに公開
+// アプリケーション起動時の自動キャッシュクリア
 if (typeof window !== 'undefined') {
+  // バージョン管理による自動キャッシュクリア
+  const APP_VERSION = "2.24.1";
+  const lastVersion = localStorage.getItem("app_version");
+  
+  if (lastVersion !== APP_VERSION) {
+    console.log(`App version changed from ${lastVersion} to ${APP_VERSION}, clearing cache`);
+    clearDataCache();
+    localStorage.setItem("app_version", APP_VERSION);
+  }
+  
+  // デバッグ用: グローバルに公開
   (window as any).clearDataCache = clearDataCache;
   (window as any).getLatestIndex = getLatestIndex;
   (window as any).resolveStaticPath = require('./path').resolveStaticPath;
+  (window as any).APP_VERSION = APP_VERSION;
 }
 
 

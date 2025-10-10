@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[3268],{73268:function(t,e,n){n.d(e,{resolveStaticPath:function(){return s}});function s(t){return/^(?:https?:)?\/\//i.test(t)||t.startsWith("data:")?(console.debug("resolveStaticPath: Absolute URL, returning as-is: ".concat(t)),t):(console.debug("resolveStaticPath: No base path, returning: ".concat(t)),t)}}}]);

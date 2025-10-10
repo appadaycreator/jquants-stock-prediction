@@ -9,13 +9,19 @@ export function getBasePath(): string {
 
 export function resolveStaticPath(path: string): string {
   // 絶対URL(http/https)や data: はそのまま返す
-  if (/^(?:https?:)?\/\//i.test(path) || path.startsWith("data:")) return path;
+  if (/^(?:https?:)?\/\//i.test(path) || path.startsWith("data:")) {
+    console.debug(`resolveStaticPath: Absolute URL, returning as-is: ${path}`);
+    return path;
+  }
   
   const base = getBasePath();
-  if (!base) return path;
+  if (!base) {
+    console.debug(`resolveStaticPath: No base path, returning: ${path}`);
+    return path;
+  }
   
-  // 既に basePath が付いているかチェック
-  if (path.startsWith(base)) {
+  // 既に basePath が付いているかチェック（より厳密に）
+  if (path.startsWith(base + "/") || path === base) {
     console.debug(`resolveStaticPath: Path already has basePath: ${path}`);
     return path;
   }
