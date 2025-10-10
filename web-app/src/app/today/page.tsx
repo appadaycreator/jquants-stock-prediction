@@ -258,7 +258,7 @@ export default function TodayPage() {
                 onClick={currentData.actions.refresh}
                 disabled={currentData.isLoading}
                 aria-label="データを更新"
-                data-help="最新のデータを取得して表示を更新します。J-Quants APIからリアルタイムの株価データと分析結果を再取得します。市場の最新動向、銘柄の価格変動、分析結果の最新版を確認できます。更新には数秒かかる場合があります。投資判断に必要な最新情報を常に最新の状態に保つことができます。データの鮮度（Fresh/Stale）も同時に更新され、投資判断の信頼性を高めます。"
+                data-help="最新のデータを取得して表示を更新します。J-Quants APIからリアルタイムの株価データと分析結果を再取得します。市場の最新動向、銘柄の価格変動、分析結果の最新版を確認できます。更新には数秒かかる場合があります。投資判断に必要な最新情報を常に最新の状態に保つことができます。データの鮮度（Fresh/Stale）も同時に更新され、投資判断の信頼性を高めます。市場の急激な変動や重要な投資判断が必要な状況を継続的に監視できます。"
               >
                 <RefreshCw className={`h-4 w-4 ${currentData.isLoading ? "animate-spin" : ""}`} />
                 <span>{currentData.isLoading ? "更新中" : "更新"}</span>
@@ -386,7 +386,7 @@ export default function TodayPage() {
               className="bg-blue-600 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-700"
               onClick={() => currentData.actions.saveMemo(currentData.memo)}
               aria-label="メモを保存"
-              data-help="今日のメモをローカルストレージに保存します。投資判断の記録として後から参照できます。重要な投資決定、市場の動向、銘柄の分析結果などを記録して、投資履歴として活用できます。投資の学習効果を高め、過去の判断を振り返って投資スキルの向上に役立てることができます。メモは自動的に保存され、次回アクセス時に復元されます。"
+              data-help="今日のメモをローカルストレージに保存します。投資判断の記録として後から参照できます。重要な投資決定、市場の動向、銘柄の分析結果などを記録して、投資履歴として活用できます。投資の学習効果を高め、過去の判断を振り返って投資スキルの向上に役立てることができます。メモは自動的に保存され、次回アクセス時に復元されます。投資戦略の検証と改善、投資パフォーマンスの分析、投資判断の精度向上に役立つ貴重な記録として活用できます。"
             >
               保存
             </button>
