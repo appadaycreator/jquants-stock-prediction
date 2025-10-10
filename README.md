@@ -1869,11 +1869,12 @@ npm install
 npm run dev
 ```
 
-### 2. 本番ビルド
+### 2. 本番ビルド（最適化済み）
 
 ```bash
 cd web-app
-npm run build
+# ビルド高速化用の環境変数を付与
+NEXT_TELEMETRY_DISABLED=1 NEXT_DISABLE_SOURCEMAP=1 NEXT_BUILD_WORKERS=2 npm run build
 npm run start
 ```
 
