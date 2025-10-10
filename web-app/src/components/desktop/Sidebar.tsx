@@ -9,6 +9,8 @@ export default function Sidebar() {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isMainOpen, setIsMainOpen] = useState(true);
+  const [isAdvancedOpen, setIsAdvancedOpen] = useState(true);
 
   // メインセクション
   const navigation = [
@@ -31,6 +33,7 @@ export default function Sidebar() {
     { name: "テストカバレッジ", href: "/test-coverage", icon: "🧪" },
     { name: "リスク管理", href: "/risk", icon: "🛡️" },
     { name: "設定", href: "/settings", icon: "⚙️" },
+    { name: "使い方", href: "/usage", icon: "📖" },
   ];
 
   // ローカルストレージから状態を復元
@@ -39,6 +42,10 @@ export default function Sidebar() {
     if (savedState !== null) {
       setIsCollapsed(JSON.parse(savedState));
     }
+    const savedMain = localStorage.getItem("sidebar-main-open");
+    const savedAdv = localStorage.getItem("sidebar-advanced-open");
+    if (savedMain !== null) setIsMainOpen(JSON.parse(savedMain));
+    if (savedAdv !== null) setIsAdvancedOpen(JSON.parse(savedAdv));
   }, []);
 
   // 状態をローカルストレージに保存
@@ -48,6 +55,18 @@ export default function Sidebar() {
     localStorage.setItem("sidebar-collapsed", JSON.stringify(newState));
     // カスタムイベントを発火して他のコンポーネントに通知
     window.dispatchEvent(new CustomEvent("sidebar-toggle"));
+  };
+
+  const toggleMain = () => {
+    const next = !isMainOpen;
+    setIsMainOpen(next);
+    localStorage.setItem("sidebar-main-open", JSON.stringify(next));
+  };
+
+  const toggleAdvanced = () => {
+    const next = !isAdvancedOpen;
+    setIsAdvancedOpen(next);
+    localStorage.setItem("sidebar-advanced-open", JSON.stringify(next));
   };
 
   const toggleMobile = () => {
@@ -98,70 +117,109 @@ export default function Sidebar() {
           </div>
           
           <div className="space-y-2">
+            {/* メイン: アコーディオンヘッダー */}
             {!isCollapsed && (
-              <div className="px-3 pb-2 text-xs font-semibold text-gray-500">メイン</div>
+              <button
+                onClick={toggleMain}
+                className="w-full flex items-center justify-between px-3 pb-2 text-xs font-semibold text-gray-500 hover:text-gray-700 transition-colors"
+                aria-expanded={isMainOpen}
+                aria-controls="sidebar-section-main"
+              >
+                <span>メイン</span>
+                <span className={`transition-transform ${isMainOpen ? "rotate-0" : "-rotate-90"}`}>▾</span>
+              </button>
             )}
-            {navigation.map((item) => {
-              const isRoot = item.href === "/";
-              const isActive = isRoot
-                ? pathname === "/"
-                : pathname === item.href || pathname.startsWith(`${item.href}/`);
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors group ${
-                    isActive
-                      ? "bg-blue-50 text-blue-700 border border-blue-200"
-                      : "text-gray-700 hover:bg-gray-50"
-                  }`}
-                  title={isCollapsed ? item.name : undefined}
-                >
-                  <span className="text-lg flex-shrink-0">{item.icon}</span>
-                  {!isCollapsed && (
-                    <span className="font-medium truncate">{item.name}</span>
-                  )}
-                  {isCollapsed && (
-                    <div className="absolute left-16 bg-gray-900 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
-                      {item.name}
-                    </div>
-                  )}
-                </Link>
-              );
-            })}
+            {/* メイン: リスト */}
+            <div
+              id="sidebar-section-main"
+              role="region"
+              aria-hidden={!isMainOpen && !isCollapsed}
+              className={`overflow-hidden transition-all duration-300 ${
+                isCollapsed ? "" : isMainOpen ? "max-h-[800px]" : "max-h-0"
+              }`}
+            >
+              {navigation.map((item) => {
+                const isRoot = item.href === "/";
+                const isActive = isRoot
+                  ? pathname === "/"
+                  : pathname === item.href || pathname.startsWith(`${item.href}/`);
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors group ${
+                      isActive
+                        ? "bg-blue-50 text-blue-700 border border-blue-200"
+                        : "text-gray-700 hover:bg-gray-50"
+                    }`}
+                    title={isCollapsed ? item.name : undefined}
+                  >
+                    <span className="text-lg flex-shrink-0">{item.icon}</span>
+                    {!isCollapsed && (
+                      <span className="font-medium truncate">{item.name}</span>
+                    )}
+                    {isCollapsed && (
+                      <div className="absolute left-16 bg-gray-900 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                        {item.name}
+                      </div>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
             
             <div className="border-t border-gray-200 my-4"></div>
+
+            {/* 分析・設定: アコーディオンヘッダー */}
             {!isCollapsed && (
-              <div className="px-3 pb-2 text-xs font-semibold text-gray-500">分析・設定</div>
+              <button
+                onClick={toggleAdvanced}
+                className="w-full flex items-center justify-between px-3 pb-2 text-xs font-semibold text-gray-500 hover:text-gray-700 transition-colors"
+                aria-expanded={isAdvancedOpen}
+                aria-controls="sidebar-section-advanced"
+              >
+                <span>分析・設定</span>
+                <span className={`transition-transform ${isAdvancedOpen ? "rotate-0" : "-rotate-90"}`}>▾</span>
+              </button>
             )}
-            {additionalFeatures.map((item) => {
-              const isRoot = item.href === "/";
-              const isActive = isRoot
-                ? pathname === "/"
-                : pathname === item.href || pathname.startsWith(`${item.href}/`);
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors group ${
-                    isActive
-                      ? "bg-blue-50 text-blue-700 border border-blue-200"
-                      : "text-gray-700 hover:bg-gray-50"
-                  }`}
-                  title={isCollapsed ? item.name : undefined}
-                >
-                  <span className="text-lg flex-shrink-0">{item.icon}</span>
-                  {!isCollapsed && (
-                    <span className="font-medium truncate">{item.name}</span>
-                  )}
-                  {isCollapsed && (
-                    <div className="absolute left-16 bg-gray-900 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
-                      {item.name}
-                    </div>
-                  )}
-                </Link>
-              );
-            })}
+            {/* 分析・設定: リスト */}
+            <div
+              id="sidebar-section-advanced"
+              role="region"
+              aria-hidden={!isAdvancedOpen && !isCollapsed}
+              className={`overflow-hidden transition-all duration-300 ${
+                isCollapsed ? "" : isAdvancedOpen ? "max-h-[1200px]" : "max-h-0"
+              }`}
+            >
+              {additionalFeatures.map((item) => {
+                const isRoot = item.href === "/";
+                const isActive = isRoot
+                  ? pathname === "/"
+                  : pathname === item.href || pathname.startsWith(`${item.href}/`);
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors group ${
+                      isActive
+                        ? "bg-blue-50 text-blue-700 border border-blue-200"
+                        : "text-gray-700 hover:bg-gray-50"
+                    }`}
+                    title={isCollapsed ? item.name : undefined}
+                  >
+                    <span className="text-lg flex-shrink-0">{item.icon}</span>
+                    {!isCollapsed && (
+                      <span className="font-medium truncate">{item.name}</span>
+                    )}
+                    {isCollapsed && (
+                      <div className="absolute left-16 bg-gray-900 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                        {item.name}
+                      </div>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
       </nav>
@@ -184,6 +242,7 @@ export default function Sidebar() {
           </div>
           
           <div className="space-y-2">
+            {/* モバイル: メイン */}
             <div className="px-3 pb-2 text-xs font-semibold text-gray-500">メイン</div>
             {navigation.map((item) => {
               const isRoot = item.href === "/";
@@ -208,6 +267,7 @@ export default function Sidebar() {
             })}
             
             <div className="border-t border-gray-200 my-4"></div>
+            {/* モバイル: 分析・設定 */}
             <div className="px-3 pb-2 text-xs font-semibold text-gray-500">分析・設定</div>
             {additionalFeatures.map((item) => {
               const isRoot = item.href === "/";

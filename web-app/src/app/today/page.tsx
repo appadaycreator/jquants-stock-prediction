@@ -21,6 +21,20 @@ export default function TodayPage() {
   const [startTime] = useState(Date.now());
   const [completedTasks, setCompletedTasks] = useState<string[]>([]);
   const [useRealData, setUseRealData] = useState(true); // 実データ使用フラグ
+
+  // URLクエリのforceReal/forceSampleで初期状態を上書き
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const forceReal = params.get("forceReal");
+      const forceSample = params.get("forceSample");
+      if (forceReal && ["1", "true", "on", "yes"].includes(forceReal.toLowerCase())) {
+        setUseRealData(true);
+      } else if (forceSample && ["1", "true", "on", "yes"].includes(forceSample.toLowerCase())) {
+        setUseRealData(false);
+      }
+    } catch (_) {}
+  }, []);
   
   // 強化された今日の指示データ取得（フォールバック用）
   const todayData = useEnhancedTodayData(useRealData);
@@ -178,7 +192,11 @@ export default function TodayPage() {
         <div className="mb-4 flex justify-center">
           <div className="bg-white rounded-lg p-2 shadow-sm border flex">
             <button
-              onClick={() => setUseRealData(true)}
+              onClick={() => {
+                setUseRealData(true);
+                // キャッシュ影響を避けるため実データに切替時は明示的にリフレッシュ
+                if (realData.actions?.refresh) realData.actions.refresh();
+              }}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 useRealData 
                   ? "bg-blue-600 text-white" 
@@ -188,7 +206,9 @@ export default function TodayPage() {
               実データ (JQuants)
             </button>
             <button
-              onClick={() => setUseRealData(false)}
+              onClick={() => {
+                setUseRealData(false);
+              }}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 !useRealData 
                   ? "bg-blue-600 text-white" 

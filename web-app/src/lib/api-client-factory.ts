@@ -21,17 +21,19 @@ export class ApiClientFactory {
    * 環境に応じて適切なAPIクライアントを取得
    */
   getClient(): StaticApiClient | UnifiedApiClient {
+    // SSR中に生成したクライアントをクライアント側へ持ち込まないように、
+    // ブラウザ環境で初回アクセス時に再判定して固定化する。
+    if (typeof window === "undefined") {
+      // サーバー側では常にStaticを返すが、キャッシュはしない
+      return new StaticApiClient();
+    }
+
     if (this.client) {
       return this.client;
     }
 
-    // 静的サイトかどうかを判定
-    if (this.isStaticSite()) {
-      this.client = new StaticApiClient();
-    } else {
-      this.client = new UnifiedApiClient();
-    }
-
+    // 静的サイトかどうかを判定（ブラウザでのみ実行）
+    this.client = this.isStaticSite() ? new StaticApiClient() : new UnifiedApiClient();
     return this.client;
   }
 
@@ -40,6 +42,21 @@ export class ApiClientFactory {
    */
   private isStaticSite(): boolean {
     if (typeof window === "undefined") return true;
+
+    // 実データ強制オーバーライド（環境変数）
+    // NEXT_PUBLIC_FORCE_REAL_API=true で常に UnifiedApiClient を使う
+    if (process.env.NEXT_PUBLIC_FORCE_REAL_API === "true") {
+      return false;
+    }
+
+    // 実データ強制オーバーライド（URLクエリ）例: ?forceReal=1 / ?forceReal=true
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const forceReal = params.get("forceReal");
+      if (forceReal && ["1", "true", "on", "yes"].includes(forceReal.toLowerCase())) {
+        return false;
+      }
+    } catch (_) {}
     
     // GitHub Pages のドメインパターンをチェック
     const hostname = window.location.hostname;

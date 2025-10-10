@@ -1973,6 +1973,12 @@ npm run start
   - `web-app/src/app/watchlist/page.tsx`
 - **空のとき**: 空の場合はガイダンスと「銘柄一覧を見る」ボタンが表示されます。
 
+#### シンプル投資判断の保有表示仕様（重要・2025-10-10 追記）
+- 保有未設定時は、`/simple-dashboard` の「保有銘柄」は空状態で表示されます（サンプルの保有は自動挿入しません）。
+- サーバ側はクッキー `user_portfolio` が存在する場合のみ保有を反映します（JSON配列: `[{ symbol, symbolName, quantity, averagePrice, currentPrice? }]`）。
+- フロントの`/portfolio`ページはブラウザの`localStorage:user_portfolio`を使用しており、今後の連携までは「ポートフォリオに追加」→必要に応じクッキーへ同期することで`/simple-dashboard`に反映できます。
+- 静的配信環境（GitHub Pages）ではAPIが限定されるため、未設定時は常に空表示となります。
+
 #### みんかぶリンクの仕様（2025-10-06 更新）
 **目的**: みんかぶ銘柄ページ（`https://minkabu.jp/stock/{code}`）遷移の完全性を保証します。
 
@@ -2514,7 +2520,7 @@ tail -f application.log
 
 - **目的**: PCサイドバー/モバイル/ヘッダーの並び・ラベルを完全同期し、迷いを減らす。
 - **メイン（上段）**: `ダッシュボード / 今日の指示 / シンプル投資判断 / 5分ルーティン / 個人投資`
-- **分析・設定（下段）**: `詳細分析 / 銘柄一覧 / ポートフォリオ / ウォッチリスト / レポート / 分析履歴 / 分析状況 / テストカバレッジ / リスク管理 / 設定`
+- **分析・設定（下段）**: `詳細分析 / 銘柄一覧 / ポートフォリオ / ウォッチリスト / レポート / 分析履歴 / 分析状況 / テストカバレッジ / リスク管理 / 設定 / 使い方`
 - **アクティブ判定**: ルート`/`のみ完全一致、他は前方一致（`/path` と `/path/...`）。
 - **適用箇所**:
   - デスクトップ: `web-app/src/components/desktop/Sidebar.tsx`
@@ -2522,3 +2528,8 @@ tail -f application.log
   - 固定ナビ: `web-app/src/components/FixedNavigation.tsx`
   - ヘッダー: `web-app/src/components/Navigation.tsx`
 - **横展開の注意**: 新規ページを追加する際は上記4箇所の配列へ同順で追加。`docs/` の静的サイト側リンクは自動では変わらないため必要に応じ手動更新。
+
+### アクセシビリティ/A11y
+- セクション見出しは`button`で`aria-expanded`/`aria-controls`を付与、リスト領域は`role="region"`。
+- 状態永続: `localStorage`に `sidebar-main-open` / `sidebar-advanced-open` を保存・復元。
+- アニメーション: `max-height`＋`overflow-hidden`＋`transition-all`でスムーズ開閉。

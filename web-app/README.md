@@ -243,6 +243,10 @@ web-app/public/data/
 
 - データ取得:
   - 開発環境/本番共通: `src/lib/today/fetchTodaySummary.ts` が `public/data/today_summary.json` を安全取得（キャッシュ・フォールバック）
+  - 実データ/サンプル切替: 画面内トグルに加え、以下のオーバーライドが可能
+    - 環境変数: `NEXT_PUBLIC_FORCE_REAL_API=true` で実データを強制
+    - URLクエリ: `?forceReal=1`（または `true`/`on`/`yes`）で実データ、`?forceSample=1` でサンプルを強制
+    - 備考: 静的ホスティング（GitHub Pages等）でも上記クエリで実データ取得ロジックへ切替可能（API接続に必要なプロキシ/認証が別途必要）
 
 - 実装参照:
   - フック: `src/hooks/useFiveMinRoutine.ts`（候補選定ロジック＋UI状態）
@@ -391,6 +395,50 @@ MIT License
 - 症状: `invalid "GET" export: Type "{ params: Record<string,string> }" is not a valid type`。
 - 対応: 2引数目の型を厳密にせず `{ params }: any` を受ける、または `export async function GET(request: Request, { params }: { params: { id: string } })` など Next.js 仕様に整合する形へ更新してください。
 
+
+### データソース切替（実データ vs サンプルデータ）
+
+#### 問題: 「静的サイトモード: モックデータを使用中」が表示される
+- **原因**: アプリが静的サイトモード（GitHub Pages等）と判定され、サンプルデータを使用している状態
+- **解決方法**: 以下のいずれかで実データに切り替え可能
+
+#### 1. URLクエリによる一時的な切替
+```
+# 実データを強制使用
+http://localhost:3000/today?forceReal=1
+http://localhost:3000/today?forceReal=true
+http://localhost:3000/today?forceReal=on
+http://localhost:3000/today?forceReal=yes
+
+# サンプルデータを強制使用
+http://localhost:3000/today?forceSample=1
+http://localhost:3000/today?forceSample=true
+```
+
+#### 2. 環境変数による恒久的な切替
+```bash
+# web-app/.env.local ファイルを作成/編集
+echo "NEXT_PUBLIC_FORCE_REAL_API=true" > web-app/.env.local
+
+# 開発サーバーを再起動
+npm run dev
+```
+
+#### 3. 静的サイト判定の条件
+以下のホスト名でアクセスすると自動的に静的サイトモードになります：
+- `github.io` (GitHub Pages)
+- `netlify.app` (Netlify)
+- `vercel.app` (Vercel)
+- `appadaycreator.github.io`
+
+#### 4. 実データ使用の前提条件
+- J-Quants API認証情報の設定
+- ネットワーク接続とAPI疎通
+- 必要に応じてプロキシ設定
+
+#### 5. フォールバック動作
+- 実データ取得に失敗した場合、自動的にサンプルデータにフォールバック
+- エラーメッセージと共にサンプルデータが表示される
 
 ### 学習コンテンツへの導線
 - 使い方ガイド（Web）: `/usage`（サイドバーに「機械学習モデルの仕組み」「予測指標の読み方」「J‑Quants API 概要」「FAQ/動画」）

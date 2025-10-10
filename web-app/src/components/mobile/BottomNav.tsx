@@ -22,6 +22,8 @@ const navItems: NavItem[] = [
 export default function BottomNav() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMainOpen, setIsMainOpen] = useState(true);
+  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
 
   const isActive = (href: string) => {
     if (href === "/") {
@@ -76,6 +78,37 @@ export default function BottomNav() {
             <div className="p-4">
               <h3 className="text-sm font-semibold text-gray-700 mb-3">メニュー</h3>
               <div className="space-y-2">
+                <button
+                  onClick={() => setIsMainOpen(!isMainOpen)}
+                  className="w-full flex items-center justify-between px-2 py-1 text-xs font-semibold text-gray-600 hover:text-gray-800"
+                  aria-expanded={isMainOpen}
+                >
+                  <span>メイン</span>
+                  <span className={`transition-transform ${isMainOpen ? "rotate-0" : "-rotate-90"}`}>▾</span>
+                </button>
+                <div className={`overflow-hidden transition-all duration-200 ${isMainOpen ? "max-h-[600px]" : "max-h-0"}`}>
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <span>{item.icon}</span>
+                      <span>{item.label}</span>
+                    </Link>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
+                  className="w-full flex items-center justify-between px-2 py-1 text-xs font-semibold text-gray-600 hover:text-gray-800"
+                  aria-expanded={isAdvancedOpen}
+                >
+                  <span>分析・設定</span>
+                  <span className={`transition-transform ${isAdvancedOpen ? "rotate-0" : "-rotate-90"}`}>▾</span>
+                </button>
+                <div className={`overflow-hidden transition-all duration-200 ${isAdvancedOpen ? "max-h-[1000px]" : "max-h-0"}`}>
                 <Link href="/listed-data" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
                   <span>📋</span>
                   <span>銘柄一覧</span>
@@ -116,6 +149,11 @@ export default function BottomNav() {
                   <span>⚙️</span>
                   <span>設定</span>
                 </Link>
+                <Link href="/usage" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
+                  <span>📖</span>
+                  <span>使い方</span>
+                </Link>
+                </div>
               </div>
             </div>
           </div>

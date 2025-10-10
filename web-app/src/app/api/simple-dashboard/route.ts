@@ -56,7 +56,42 @@ interface SimpleDashboardData {
 }
 
 // サンプルデータ生成関数
-function generateSampleData(): SimpleDashboardData {
+function computePortfolioSummary(positions: SimplePosition[]): SimplePortfolioSummary {
+  if (!positions || positions.length === 0) {
+    return {
+      totalInvestment: 0,
+      currentValue: 0,
+      unrealizedPnL: 0,
+      unrealizedPnLPercent: 0,
+      bestPerformer: { symbol: "", symbolName: "", return: 0 },
+      worstPerformer: { symbol: "", symbolName: "", return: 0 },
+    };
+  }
+
+  const totalInvestment = positions.reduce((sum, p) => sum + p.cost, 0);
+  const currentValue = positions.reduce((sum, p) => sum + p.currentValue, 0);
+  const unrealizedPnL = positions.reduce((sum, p) => sum + p.unrealizedPnL, 0);
+  const unrealizedPnLPercent = totalInvestment > 0 ? (unrealizedPnL / totalInvestment) * 100 : 0;
+
+  const best = [...positions].sort((a, b) => b.unrealizedPnLPercent - a.unrealizedPnLPercent)[0];
+  const worst = [...positions].sort((a, b) => a.unrealizedPnLPercent - b.unrealizedPnLPercent)[0];
+
+  return {
+    totalInvestment,
+    currentValue,
+    unrealizedPnL,
+    unrealizedPnLPercent: Number(unrealizedPnLPercent.toFixed(2)),
+    bestPerformer: best
+      ? { symbol: best.symbol, symbolName: best.symbolName, return: Number(best.unrealizedPnLPercent.toFixed(1)) }
+      : { symbol: "", symbolName: "", return: 0 },
+    worstPerformer: worst
+      ? { symbol: worst.symbol, symbolName: worst.symbolName, return: Number(worst.unrealizedPnLPercent.toFixed(1)) }
+      : { symbol: "", symbolName: "", return: 0 },
+  };
+}
+
+// サンプルデータ生成関数（保有銘柄は外部入力に応じて可変）
+function generateSampleData(positions: SimplePosition[] = []): SimpleDashboardData {
   const now = new Date();
   const isMarketOpen = now.getHours() >= 9 && now.getHours() < 15 && now.getDay() >= 1 && now.getDay() <= 5;
   
@@ -97,63 +132,8 @@ function generateSampleData(): SimpleDashboardData {
         timeframe: "1ヶ月",
       },
     ],
-    portfolioSummary: {
-      totalInvestment: 1000000,
-      currentValue: 1050000,
-      unrealizedPnL: 50000,
-      unrealizedPnLPercent: 5.0,
-      bestPerformer: {
-        symbol: "7203",
-        symbolName: "トヨタ自動車",
-        return: 15.2,
-      },
-      worstPerformer: {
-        symbol: "9984",
-        symbolName: "ソフトバンクグループ",
-        return: -12.8,
-      },
-    },
-    positions: [
-      {
-        symbol: "7203",
-        symbolName: "トヨタ自動車",
-        quantity: 100,
-        averagePrice: 2500,
-        currentPrice: 2800,
-        cost: 250000,
-        currentValue: 280000,
-        unrealizedPnL: 30000,
-        unrealizedPnLPercent: 12.0,
-        action: "BUY_MORE",
-        confidence: 85,
-      },
-      {
-        symbol: "6758",
-        symbolName: "ソニーグループ",
-        quantity: 50,
-        averagePrice: 12000,
-        currentPrice: 11500,
-        cost: 600000,
-        currentValue: 575000,
-        unrealizedPnL: -25000,
-        unrealizedPnLPercent: -4.2,
-        action: "HOLD",
-        confidence: 70,
-      },
-      {
-        symbol: "9984",
-        symbolName: "ソフトバンクグループ",
-        quantity: 30,
-        averagePrice: 8000,
-        currentPrice: 7200,
-        cost: 240000,
-        currentValue: 216000,
-        unrealizedPnL: -24000,
-        unrealizedPnLPercent: -10.0,
-        action: "SELL",
-        confidence: 75,
-      },
-    ],
+    portfolioSummary: computePortfolioSummary(positions),
+    positions,
     marketStatus: {
       isOpen: isMarketOpen,
       nextOpen: isMarketOpen ? "" : "2025-01-06T09:00:00Z",
@@ -167,9 +147,39 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const refresh = searchParams.get("refresh") === "true";
     
-    // 実際の実装では、ここでデータベースやAPIからデータを取得
-    // 現在はサンプルデータを返す
-    const data = generateSampleData();
+    // クッキーに保存されたユーザーポートフォリオがあれば使用
+    // 形式: JSON.stringify([{ symbol, symbolName, quantity, averagePrice }])
+    let userPositions: SimplePosition[] = [];
+    try {
+      const cookie = request.cookies.get("user_portfolio");
+      if (cookie && cookie.value) {
+        const raw = JSON.parse(cookie.value);
+        if (Array.isArray(raw) && raw.length > 0) {
+          // サーバー側では現在価格などは未知のため、保守的にゼロで初期化
+          userPositions = raw.map((item: any) => ({
+            symbol: String(item.symbol || item.code || ""),
+            symbolName: String(item.symbolName || item.name || ""),
+            quantity: Number(item.quantity || item.shares || 0),
+            averagePrice: Number(item.averagePrice || 0),
+            currentPrice: Number(item.currentPrice || item.price || 0),
+            cost: Number(item.averagePrice || 0) * Number(item.quantity || item.shares || 0),
+            currentValue: Number(item.currentPrice || item.price || 0) * Number(item.quantity || item.shares || 0),
+            unrealizedPnL: (Number(item.currentPrice || item.price || 0) - Number(item.averagePrice || 0)) * Number(item.quantity || item.shares || 0),
+            unrealizedPnLPercent: Number(item.averagePrice || 0) > 0
+              ? ((Number(item.currentPrice || item.price || 0) - Number(item.averagePrice || 0)) / Number(item.averagePrice || 0)) * 100
+              : 0,
+            action: "HOLD",
+            confidence: 0,
+          }));
+        }
+      }
+    } catch {
+      // クッキーが不正でも画面は壊さない
+      userPositions = [];
+    }
+
+    // 保有未設定なら空配列のまま返す（これによりフロントは空状態を表示）
+    const data = generateSampleData(userPositions);
     
     return NextResponse.json({
       success: true,
