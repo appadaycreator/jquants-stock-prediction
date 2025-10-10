@@ -95,6 +95,9 @@ class DeadlineManager:
         # 監視スレッド
         self.monitoring_active = False
         self.monitor_thread = None
+        self._stop_event = threading.Event()
+        # テスト/本番双方で調整可能なスリープ間隔（秒）
+        self._monitor_sleep_seconds = float(self.config.get("monitor_sleep_seconds", 30.0))
 
         # コールバック関数
         self.alert_callbacks = []
@@ -206,6 +209,7 @@ class DeadlineManager:
                 return False
 
             self.monitoring_active = True
+            self._stop_event.clear()
             self.monitor_thread = threading.Thread(target=self._monitor_deadlines)
             self.monitor_thread.daemon = True
             self.monitor_thread.start()
@@ -221,6 +225,8 @@ class DeadlineManager:
         """期限監視の停止"""
         try:
             self.monitoring_active = False
+            # 即時にスリープを解除して停止させる
+            self._stop_event.set()
             if self.monitor_thread:
                 self.monitor_thread.join(timeout=5)
 
@@ -266,12 +272,15 @@ class DeadlineManager:
                         )
                         deadline.alert_sent = True
 
-                # 30秒間隔でチェック
-                time.sleep(30)
+                # 指定間隔でチェック（停止イベントで即時解除可能）
+                # デフォルトは30秒だが、テストではstop_monitoringで即時解除される
+                self._stop_event.wait(self._monitor_sleep_seconds)
 
             except Exception as e:
                 self.logger.error(f"期限監視エラー: {e}")
-                time.sleep(60)  # エラー時は1分待機
+                # エラー時待機も停止イベントで解除可能
+                if not self._stop_event.wait(60):
+                    continue
 
     def _create_alert(self, action_id: str, level: AlertLevel, message: str) -> str:
         """アラートの作成"""

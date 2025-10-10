@@ -2,8 +2,8 @@
 # デプロイ時に最小限のパッケージのみインストール
 
 # 設定管理（最小限）
-python-dotenv>=1.0.0
-pyyaml>=6.0.0
+python-dotenv==1.1.1
+pyyaml==6.0.3
 
 # 軽量APIサーバ
-Flask>=3.0.0
+Flask==3.1.2

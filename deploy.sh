@@ -18,14 +18,14 @@ echo "🏗️ Webアプリケーションをビルド中..."
 cd web-app
 
 # 依存関係のインストール
-npm ci --legacy-peer-deps --prefer-offline --no-audit --no-fund
+npm ci --legacy-peer-deps --prefer-offline --no-audit --no-fund --no-progress
 npm install react-is --save
 
 # クリーンアップ
 npm run clean
 
 # 本番ビルド
-NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 NEXT_BUILD_WORKERS=2 npm run build
+NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 NEXT_DISABLE_SOURCEMAP=1 NEXT_BUILD_WORKERS=2 npm run build
 
 # 3. ビルド成果物をdocsディレクトリにコピー
 echo "📁 ビルド成果物をコピー中..."

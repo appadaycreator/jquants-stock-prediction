@@ -57,7 +57,7 @@ jobs:
       with:
         path: |
           web-app/.next/cache
-        key: ${{ runner.os }}-nextjs-${{ hashFiles('web-app/package-lock.json') }}-${{ hashFiles('web-app/**/*.js', 'web-app/**/*.jsx', 'web-app/**/*.ts', 'web-app/**/*.tsx') }}
+        key: ${{ runner.os }}-nextjs-${{ hashFiles('web-app/package-lock.json') }}-${{ hashFiles('web-app/**/*.js', 'web-app/**/*.jsx', 'web-app/**/*.ts', 'web-app/**/*.tsx') }}-${{ hashFiles('web-app/tsconfig.json', 'web-app/next.config.js') }}
         restore-keys: |
           ${{ runner.os }}-nextjs-${{ hashFiles('web-app/package-lock.json') }}-
           ${{ runner.os }}-nextjs-
@@ -65,7 +65,7 @@ jobs:
     - name: Install Node.js dependencies
       run: |
         cd web-app
-        npm ci --legacy-peer-deps --prefer-offline --no-audit --no-fund
+        npm ci --legacy-peer-deps --prefer-offline --no-audit --no-fund --no-progress
         
     - name: Prepare for static build
       run: |
@@ -81,6 +81,7 @@ jobs:
         GITHUB_ACTIONS: "true"
         NODE_ENV: "production"
         NEXT_TELEMETRY_DISABLED: "1"
+        NEXT_DISABLE_SOURCEMAP: "1"
         NEXT_BUILD_WORKERS: "2"
       run: |
         cd web-app
