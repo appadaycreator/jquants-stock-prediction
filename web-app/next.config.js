@@ -23,6 +23,15 @@ const nextConfig = {
     serverComponentsExternalPackages: [],
     // ビルド最適化
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+    // ビルド時間短縮
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
   eslint: {
     ignoreDuringBuilds: true,

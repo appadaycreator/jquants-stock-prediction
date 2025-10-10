@@ -25,7 +25,7 @@ npm install react-is --save
 npm run clean
 
 # 本番ビルド
-NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 npm run build
+NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 NEXT_BUILD_WORKERS=2 npm run build
 
 # 3. ビルド成果物をdocsディレクトリにコピー
 echo "📁 ビルド成果物をコピー中..."
