@@ -12,42 +12,11 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  {
-    href: "/",
-    label: "ホーム",
-    icon: "🏠",
-    shortLabel: "ホーム",
-  },
-  {
-    href: "/today",
-    label: "今日のタスク",
-    icon: "🎯",
-    shortLabel: "今日",
-  },
-  {
-    href: "/dashboard",
-    label: "詳細分析",
-    icon: "📊",
-    shortLabel: "分析",
-  },
-  {
-    href: "/listed-data",
-    label: "銘柄一覧",
-    icon: "📋",
-    shortLabel: "銘柄",
-  },
-  {
-    href: "/portfolio",
-    label: "ポートフォリオ",
-    icon: "💼",
-    shortLabel: "ポート",
-  },
-  {
-    href: "/watchlist",
-    label: "ウォッチリスト",
-    icon: "👁️",
-    shortLabel: "ウォッチ",
-  },
+  { href: "/", label: "ダッシュボード", icon: "📊", shortLabel: "ホーム" },
+  { href: "/today", label: "今日の指示", icon: "🎯", shortLabel: "今日" },
+  { href: "/simple-dashboard", label: "シンプル投資判断", icon: "🎯", shortLabel: "判断" },
+  { href: "/five-min-routine", label: "5分ルーティン", icon: "⏱️", shortLabel: "5分" },
+  { href: "/personal-investment", label: "個人投資", icon: "💼", shortLabel: "投資" },
 ];
 
 export default function BottomNav() {
@@ -107,37 +76,45 @@ export default function BottomNav() {
             <div className="p-4">
               <h3 className="text-sm font-semibold text-gray-700 mb-3">メニュー</h3>
               <div className="space-y-2">
-                <Link
-                  href="/personal-investment"
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <span>💼</span>
-                  <span>個人投資</span>
+                <Link href="/listed-data" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
+                  <span>📋</span>
+                  <span>銘柄一覧</span>
                 </Link>
-                <Link
-                  href="/reports"
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm"
-                  onClick={() => setIsMenuOpen(false)}
-                >
+                <Link href="/portfolio" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
+                  <span>💼</span>
+                  <span>ポートフォリオ</span>
+                </Link>
+                <Link href="/watchlist" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
+                  <span>👁️</span>
+                  <span>ウォッチリスト</span>
+                </Link>
+                <Link href="/dashboard" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
                   <span>📈</span>
+                  <span>詳細分析</span>
+                </Link>
+                <Link href="/reports" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
+                  <span>📑</span>
                   <span>レポート</span>
                 </Link>
-                <Link
-                  href="/analysis-progress"
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm"
-                  onClick={() => setIsMenuOpen(false)}
-                >
+                <Link href="/analysis-history" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
+                  <span>📜</span>
+                  <span>分析履歴</span>
+                </Link>
+                <Link href="/analysis-progress" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
                   <span>🔄</span>
                   <span>分析状況</span>
                 </Link>
-                <Link
-                  href="/test-coverage"
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm"
-                  onClick={() => setIsMenuOpen(false)}
-                >
+                <Link href="/test-coverage" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
                   <span>🧪</span>
                   <span>テストカバレッジ</span>
+                </Link>
+                <Link href="/risk" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
+                  <span>🛡️</span>
+                  <span>リスク管理</span>
+                </Link>
+                <Link href="/settings" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
+                  <span>⚙️</span>
+                  <span>設定</span>
                 </Link>
               </div>
             </div>

@@ -10,22 +10,27 @@ export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
+  // メインセクション
   const navigation = [
-    { name: "ホーム", href: "/", icon: "🏠" },
-    { name: "今日のタスク", href: "/today", icon: "🎯" },
-    { name: "詳細分析", href: "/dashboard", icon: "📊" },
+    { name: "ダッシュボード", href: "/", icon: "📊" },
+    { name: "今日の指示", href: "/today", icon: "🎯" },
+    { name: "シンプル投資判断", href: "/simple-dashboard", icon: "🎯" },
+    { name: "5分ルーティン", href: "/five-min-routine", icon: "⏱️" },
+    { name: "個人投資", href: "/personal-investment", icon: "💼" },
+  ];
+
+  // 分析/データ/設定セクション
+  const additionalFeatures = [
+    { name: "詳細分析", href: "/dashboard", icon: "📈" },
     { name: "銘柄一覧", href: "/listed-data", icon: "📋" },
     { name: "ポートフォリオ", href: "/portfolio", icon: "💼" },
     { name: "ウォッチリスト", href: "/watchlist", icon: "👁️" },
-    { name: "リスク管理", href: "/risk", icon: "🛡️" },
-    { name: "設定", href: "/settings", icon: "⚙️" },
-  ];
-
-  const additionalFeatures = [
-    { name: "個人投資", href: "/personal-investment", icon: "💼" },
-    { name: "レポート", href: "/reports", icon: "📈" },
+    { name: "レポート", href: "/reports", icon: "📑" },
+    { name: "分析履歴", href: "/analysis-history", icon: "📜" },
     { name: "分析状況", href: "/analysis-progress", icon: "🔄" },
     { name: "テストカバレッジ", href: "/test-coverage", icon: "🧪" },
+    { name: "リスク管理", href: "/risk", icon: "🛡️" },
+    { name: "設定", href: "/settings", icon: "⚙️" },
   ];
 
   // ローカルストレージから状態を復元
@@ -93,6 +98,9 @@ export default function Sidebar() {
           </div>
           
           <div className="space-y-2">
+            {!isCollapsed && (
+              <div className="px-3 pb-2 text-xs font-semibold text-gray-500">メイン</div>
+            )}
             {navigation.map((item) => {
               const isRoot = item.href === "/";
               const isActive = isRoot
@@ -123,7 +131,9 @@ export default function Sidebar() {
             })}
             
             <div className="border-t border-gray-200 my-4"></div>
-            
+            {!isCollapsed && (
+              <div className="px-3 pb-2 text-xs font-semibold text-gray-500">分析・設定</div>
+            )}
             {additionalFeatures.map((item) => {
               const isRoot = item.href === "/";
               const isActive = isRoot
@@ -174,6 +184,7 @@ export default function Sidebar() {
           </div>
           
           <div className="space-y-2">
+            <div className="px-3 pb-2 text-xs font-semibold text-gray-500">メイン</div>
             {navigation.map((item) => {
               const isRoot = item.href === "/";
               const isActive = isRoot
@@ -197,7 +208,7 @@ export default function Sidebar() {
             })}
             
             <div className="border-t border-gray-200 my-4"></div>
-            
+            <div className="px-3 pb-2 text-xs font-semibold text-gray-500">分析・設定</div>
             {additionalFeatures.map((item) => {
               const isRoot = item.href === "/";
               const isActive = isRoot

@@ -30,55 +30,21 @@ interface NavigationItem {
 }
 
 const navigationItems: NavigationItem[] = [
-  {
-    href: "/",
-    label: "ダッシュボード",
-    icon: Home,
-    description: "メインダッシュボード",
-    status: "active",
-  },
-  {
-    href: "/today",
-    label: "今日の指示",
-    icon: Calendar,
-    description: "本日の売買候補と指示",
-    status: "active",
-  },
-  {
-    href: "/personal-investment",
-    label: "個人投資",
-    icon: TrendingUp,
-    description: "個人投資ポートフォリオ管理",
-    status: "active",
-  },
-  {
-    href: "/risk",
-    label: "リスク管理",
-    icon: Shield,
-    description: "リスク管理と設定",
-    status: "active",
-  },
-  {
-    href: "/reports",
-    label: "レポート",
-    icon: FileText,
-    description: "詳細レポート",
-    status: "active",
-  },
-  {
-    href: "/settings",
-    label: "設定",
-    icon: Settings,
-    description: "システム設定",
-    status: "active",
-  },
-  {
-    href: "/usage",
-    label: "使い方",
-    icon: HelpCircle,
-    description: "使用方法ガイド",
-    status: "active",
-  },
+  { href: "/", label: "ダッシュボード", icon: Home, description: "メインダッシュボード", status: "active" },
+  { href: "/today", label: "今日の指示", icon: Calendar, description: "本日の売買候補と指示", status: "active" },
+  { href: "/simple-dashboard", label: "シンプル投資判断", icon: TrendingUp, description: "1日5分で投資判断を完結", status: "active" },
+  { href: "/five-min-routine", label: "5分ルーティン", icon: ChevronRight, description: "効率的な投資分析ルーティン", status: "active" },
+  { href: "/personal-investment", label: "個人投資", icon: TrendingUp, description: "個人投資ポートフォリオ管理", status: "active" },
+  { href: "/dashboard", label: "詳細分析", icon: FileText, description: "詳細レポート/分析", status: "active" },
+  { href: "/listed-data", label: "銘柄一覧", icon: FileText, description: "上場銘柄検索・分析", status: "active" },
+  { href: "/portfolio", label: "ポートフォリオ", icon: FileText, description: "ポートフォリオ管理", status: "active" },
+  { href: "/watchlist", label: "ウォッチリスト", icon: FileText, description: "監視銘柄一覧", status: "active" },
+  { href: "/reports", label: "レポート", icon: FileText, description: "詳細レポート", status: "active" },
+  { href: "/analysis-history", label: "分析履歴", icon: FileText, description: "詳細分析の履歴一覧", status: "active" },
+  { href: "/analysis-progress", label: "分析状況", icon: FileText, description: "分析状況と進捗", status: "active" },
+  { href: "/test-coverage", label: "テストカバレッジ", icon: FileText, description: "テストカバレッジ", status: "active" },
+  { href: "/risk", label: "リスク管理", icon: Shield, description: "リスク管理と設定", status: "active" },
+  { href: "/settings", label: "設定", icon: Settings, description: "システム設定", status: "active" },
 ];
 
 interface FixedNavigationProps {

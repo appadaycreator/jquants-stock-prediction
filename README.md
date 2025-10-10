@@ -1,5 +1,10 @@
 # J-Quants株価予測システム v2.20 - 新NISA枠効率的活用システム統合版
 
+> ドキュメント整合性注記（2025-10-10）
+> - Webアプリは Next.js 14.2.18 / React 18.3.1 を前提としています（`web-app/package.json` を参照）。
+> - 認証方針の最終版に合わせ、`env.example` では ID トークンを環境変数に保存しない運用へ更新済みです。詳細は `docs/AUTH_FINAL_GUIDE.md` を参照してください。
+> - 使い方ガイドは Web配信 `/usage` と `docs/USAGE.md` に統一しました。まずは最短手順（下記クイックスタート）をご利用ください。
+
 J-Quants APIを使用して株価データを取得し、機械学習で株価予測を行う**完全統合システム**です。
 新NISA制度（2024年1月開始）に対応した非課税枠利用率90%以上を目標とした効率的活用システムを統合しました。
 
@@ -2317,7 +2322,7 @@ python3 config_loader.py
 
 ## 🚀 使用方法
 
-> 📖 **詳細な使い方ガイド**: [USAGE.md](./USAGE.md) をご覧ください
+> 📖 **詳細な使い方ガイド**: `docs/USAGE.md` および Web版 `/usage` をご覧ください
 
 ### クイックスタート
 
@@ -2342,7 +2347,7 @@ JQUANTS_PASSWORD=your_password
 # Webアプリ用の環境変数設定
 cd web-app
 cp env.sample .env.local
-# .env.localファイルを編集して認証情報を設定
+# .env.localファイルを編集して認証情報を設定（静的環境のためAPIは最小限。必要データはpublic/dataへ事前生成）
 ```
 
 #### 3. 認証テスト
@@ -2370,7 +2375,7 @@ python3 unified_system.py
 
 # または個別処理
 python3 unified_jquants_system.py  # データ取得・前処理・予測
-python3 generate_web_data.py      # Web表示用データ生成
+python3 generate_web_data.py      # Web表示用データ生成（/usage と整合）
 ```
 
 #### 3. 統合システムの設定
@@ -2504,3 +2509,16 @@ tail -f application.log
 - Web: `RoutineDashboard`, `JudgmentPanel`, 新設 `ScreenerTop5`
 - ライブラリ: 新設 `@/lib/trading/{decision,cost,position}.ts`
 - 既存`fetcher.ts`/`evidence`スキーマにEV/RR/Costを追加（後方互換維持）
+
+### ナビゲーション構成ポリシー（2025-10-10 追記）
+
+- **目的**: PCサイドバー/モバイル/ヘッダーの並び・ラベルを完全同期し、迷いを減らす。
+- **メイン（上段）**: `ダッシュボード / 今日の指示 / シンプル投資判断 / 5分ルーティン / 個人投資`
+- **分析・設定（下段）**: `詳細分析 / 銘柄一覧 / ポートフォリオ / ウォッチリスト / レポート / 分析履歴 / 分析状況 / テストカバレッジ / リスク管理 / 設定`
+- **アクティブ判定**: ルート`/`のみ完全一致、他は前方一致（`/path` と `/path/...`）。
+- **適用箇所**:
+  - デスクトップ: `web-app/src/components/desktop/Sidebar.tsx`
+  - モバイル: `web-app/src/components/mobile/BottomNav.tsx`
+  - 固定ナビ: `web-app/src/components/FixedNavigation.tsx`
+  - ヘッダー: `web-app/src/components/Navigation.tsx`
+- **横展開の注意**: 新規ページを追加する際は上記4箇所の配列へ同順で追加。`docs/` の静的サイト側リンクは自動では変わらないため必要に応じ手動更新。
