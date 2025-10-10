@@ -310,7 +310,7 @@ export default function PersonalInvestmentDashboard() {
             onClick={() => setShowRiskSettings(true)}
             title="リスク管理設定を開く"
             aria-label="リスク管理設定を開く"
-            data-help="リスク管理設定パネルを開きます。リスク許容度、投資期間、セクター設定などをカスタマイズできます。個人の投資方針に合わせてシステムの動作を最適化し、より精度の高い投資判断を実現できます。投資戦略の個別化により、リスクとリターンのバランスを最適化できます。"
+            data-help="リスク管理設定パネルを開きます。リスク許容度、投資期間、セクター設定などをカスタマイズできます。個人の投資方針に合わせてシステムの動作を最適化し、より精度の高い投資判断を実現できます。投資戦略の個別化により、リスクとリターンのバランスを最適化できます。設定は自動的に保存され、次回アクセス時に復元されます。"
           >
             <Settings className="h-4 w-4 mr-1" />
             設定
@@ -322,7 +322,7 @@ export default function PersonalInvestmentDashboard() {
             disabled={loading}
             title="最新のダッシュボードデータを取得します"
             aria-label="ダッシュボードを更新"
-            data-help="最新のダッシュボードデータを取得します。損益状況、保有銘柄、投資推奨、市場概況などの情報を再取得します。リアルタイムで投資状況を監視し、重要な投資判断に必要な最新情報を確認できます。市場の急激な変動や重要な投資判断が必要な状況を継続的に監視できます。"
+            data-help="最新のダッシュボードデータを取得します。損益状況、保有銘柄、投資推奨、市場概況などの情報を再取得します。リアルタイムで投資状況を監視し、重要な投資判断に必要な最新情報を確認できます。市場の急激な変動や重要な投資判断が必要な状況を継続的に監視できます。データの鮮度も同時に更新され、投資判断の信頼性を高めます。"
           >
             <RefreshCw className={`h-4 w-4 mr-1 ${loading ? "animate-spin" : ""}`} />
             更新
@@ -333,7 +333,7 @@ export default function PersonalInvestmentDashboard() {
             onClick={() => setAutoRefresh(!autoRefresh)}
             title="30秒ごとに自動更新。再クリックで切替"
             aria-label={autoRefresh ? "自動更新を停止" : "自動更新を開始"}
-            data-help={autoRefresh ? "30秒ごとの自動更新を停止します。手動更新に切り替わります。バッテリー消費を抑えたい場合や、更新頻度を制御したい場合に使用します。システムリソースの節約にも役立ちます。" : "30秒ごとに自動更新を開始します。リアルタイムで投資状況を監視できます。市場の急激な変動や重要な投資判断が必要な状況を継続的に監視できます。投資機会を見逃さないようサポートします。"}
+            data-help={autoRefresh ? "30秒ごとの自動更新を停止します。手動更新に切り替わります。バッテリー消費を抑えたい場合や、更新頻度を制御したい場合に使用します。システムリソースの節約にも役立ちます。長時間の監視を一時停止したい場合にも便利です。" : "30秒ごとに自動更新を開始します。リアルタイムで投資状況を監視できます。市場の急激な変動や重要な投資判断が必要な状況を継続的に監視できます。投資機会を見逃さないようサポートします。システムのパフォーマンス指標も自動的に更新されます。"}
           >
             <Activity className="h-4 w-4 mr-1" />
             自動更新
@@ -491,16 +491,16 @@ export default function PersonalInvestmentDashboard() {
 
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="overview" title="投資成果を3秒で把握" aria-label="投資成果タブ" data-help="投資成果を3秒で把握できます。総投資額、現在価値、損益、リスク調整後リターンなどの重要指標を一覧表示します。">投資成果</TabsTrigger>
-          <TabsTrigger value="positions" title="保有銘柄の損益・推奨アクションを確認" aria-label="ポジション一覧タブ" data-help="保有銘柄の損益・推奨アクションを確認できます。各銘柄の現在価格、損益率、次のアクション、目標価格・損切り価格を表示します。">ポジション一覧</TabsTrigger>
-          <TabsTrigger value="performance" title="パフォーマンス比較とランキング" aria-label="パフォーマンスタブ" data-help="パフォーマンス比較とランキングを表示します。銘柄別のパフォーマンス、セクター別分析、リスク指標の比較が可能です。">パフォーマンス</TabsTrigger>
-          <TabsTrigger value="charts" title="損益推移グラフとチャート分析" aria-label="チャート分析タブ" data-help="損益推移グラフとチャート分析を表示します。時系列での損益推移、ベンチマーク比較、ボラティリティ分析を確認できます。">チャート分析</TabsTrigger>
-          <TabsTrigger value="realtime" title="リアルタイム損益計算と価格更新" aria-label="リアルタイム損益タブ" data-help="リアルタイム損益計算と価格更新を行います。最新の株価データに基づいて損益を自動計算し、価格変動を監視できます。">リアルタイム損益</TabsTrigger>
-          <TabsTrigger value="recommendations" title="AI/ルールベースによる投資提案" aria-label="投資推奨タブ" data-help="AI/ルールベースによる投資提案を表示します。機械学習とルールベースの分析に基づく投資判断とアクションプランを確認できます。">投資推奨</TabsTrigger>
-          <TabsTrigger value="engine" title="自動投資推奨エンジン" aria-label="推奨エンジンタブ" data-help="自動投資推奨エンジンを表示します。リアルタイムで市場データを分析し、最適な投資判断を自動生成します。">推奨エンジン</TabsTrigger>
-          <TabsTrigger value="lstm" title="LSTM深層学習による株価予測" aria-label="LSTM予測タブ" data-help="LSTM深層学習による株価予測を表示します。時系列データを学習した深層学習モデルによる高精度な株価予測を確認できます。">LSTM予測</TabsTrigger>
-          <TabsTrigger value="market" title="市場全体のトレンドやボラティリティを確認" aria-label="市場概況タブ" data-help="市場全体のトレンドやボラティリティを確認できます。市場トレンド、セクター別パフォーマンス、重要イベントなどの市場情報を表示します。">市場概況</TabsTrigger>
-          <TabsTrigger value="personalize" title="プロフィールに応じた推奨配分を作成" aria-label="パーソナライズタブ" data-help="プロフィールに応じた推奨配分を作成できます。リスク許容度、投資期間、好みのセクターに基づいて最適な投資配分を提案します。">パーソナライズ</TabsTrigger>
+          <TabsTrigger value="overview" title="投資成果を3秒で把握" aria-label="投資成果タブ" data-help="投資成果を3秒で把握できます。総投資額、現在価値、損益、リスク調整後リターンなどの重要指標を一覧表示します。投資のパフォーマンスを一目で確認でき、重要な投資判断に必要な情報を素早く把握できます。">投資成果</TabsTrigger>
+          <TabsTrigger value="positions" title="保有銘柄の損益・推奨アクションを確認" aria-label="ポジション一覧タブ" data-help="保有銘柄の損益・推奨アクションを確認できます。各銘柄の現在価格、損益率、次のアクション、目標価格・損切り価格を表示します。投資判断に直結する重要な情報を優先表示し、緊急アクションが必要な銘柄を強調表示します。">ポジション一覧</TabsTrigger>
+          <TabsTrigger value="performance" title="パフォーマンス比較とランキング" aria-label="パフォーマンスタブ" data-help="パフォーマンス比較とランキングを表示します。銘柄別のパフォーマンス、セクター別分析、リスク指標の比較が可能です。投資戦略の検証と改善に役立つ詳細な分析結果を確認できます。">パフォーマンス</TabsTrigger>
+          <TabsTrigger value="charts" title="損益推移グラフとチャート分析" aria-label="チャート分析タブ" data-help="損益推移グラフとチャート分析を表示します。時系列での損益推移、ベンチマーク比較、ボラティリティ分析を確認できます。インタラクティブなチャートで、ズーム、パン、指標の追加・削除が可能です。">チャート分析</TabsTrigger>
+          <TabsTrigger value="realtime" title="リアルタイム損益計算と価格更新" aria-label="リアルタイム損益タブ" data-help="リアルタイム損益計算と価格更新を行います。最新の株価データに基づいて損益を自動計算し、価格変動を監視できます。投資機会を見逃さないよう、重要な価格変動をリアルタイムで監視できます。">リアルタイム損益</TabsTrigger>
+          <TabsTrigger value="recommendations" title="AI/ルールベースによる投資提案" aria-label="投資推奨タブ" data-help="AI/ルールベースによる投資提案を表示します。機械学習とルールベースの分析に基づく投資判断とアクションプランを確認できます。投資判断の信頼性を高めるため、推奨アクションの根拠となる分析結果を詳細に確認できます。">投資推奨</TabsTrigger>
+          <TabsTrigger value="engine" title="自動投資推奨エンジン" aria-label="推奨エンジンタブ" data-help="自動投資推奨エンジンを表示します。リアルタイムで市場データを分析し、最適な投資判断を自動生成します。機械学習とルールベースの分析を組み合わせて、高精度な投資判断を提供します。">推奨エンジン</TabsTrigger>
+          <TabsTrigger value="lstm" title="LSTM深層学習による株価予測" aria-label="LSTM予測タブ" data-help="LSTM深層学習による株価予測を表示します。時系列データを学習した深層学習モデルによる高精度な株価予測を確認できます。長期の価格トレンドを学習し、より正確な予測を提供します。">LSTM予測</TabsTrigger>
+          <TabsTrigger value="market" title="市場全体のトレンドやボラティリティを確認" aria-label="市場概況タブ" data-help="市場全体のトレンドやボラティリティを確認できます。市場トレンド、セクター別パフォーマンス、重要イベントなどの市場情報を表示します。投資判断に必要な市場環境の理解を深めることができます。">市場概況</TabsTrigger>
+          <TabsTrigger value="personalize" title="プロフィールに応じた推奨配分を作成" aria-label="パーソナライズタブ" data-help="プロフィールに応じた推奨配分を作成できます。リスク許容度、投資期間、好みのセクターに基づいて最適な投資配分を提案します。個人の投資方針に合わせてシステムの動作を最適化し、より精度の高い投資判断を実現できます。">パーソナライズ</TabsTrigger>
         </TabsList>
 
         {/* 投資成果 - 強化された損益表示 */}
@@ -775,7 +775,7 @@ export default function PersonalInvestmentDashboard() {
                       onClick={() => setShowRecommendationDetails(recommendation.symbol)}
                       className="flex-1"
                       aria-label="詳細理由を表示"
-                      data-help="この推奨の詳細理由を表示します。AI分析の根拠、テクニカル指標、ファンダメンタル分析の詳細を確認できます。投資判断の信頼性を高めるため、推奨アクションの根拠となる分析結果を詳細に確認できます。"
+                      data-help="この推奨の詳細理由を表示します。AI分析の根拠、テクニカル指標、ファンダメンタル分析の詳細を確認できます。投資判断の信頼性を高めるため、推奨アクションの根拠となる分析結果を詳細に確認できます。機械学習モデルの予測精度と信頼度も表示されます。"
                     >
                       <Info className="h-4 w-4 mr-1" />
                       詳細理由
@@ -786,7 +786,7 @@ export default function PersonalInvestmentDashboard() {
                       onClick={() => setShowIndividualStockSettings(recommendation.symbol)}
                       className="flex-1"
                       aria-label="個別設定を開く"
-                      data-help="この銘柄の個別設定を開きます。リスク設定、目標価格、損切り価格、投資比率などをカスタマイズできます。個人の投資方針に合わせて銘柄ごとの投資戦略を最適化できます。"
+                      data-help="この銘柄の個別設定を開きます。リスク設定、目標価格、損切り価格、投資比率などをカスタマイズできます。個人の投資方針に合わせて銘柄ごとの投資戦略を最適化できます。設定は自動的に保存され、次回アクセス時に復元されます。"
                     >
                       <Settings className="h-4 w-4 mr-1" />
                       個別設定

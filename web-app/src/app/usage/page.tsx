@@ -74,7 +74,7 @@ export default function UsagePage() {
                           : "text-gray-600 hover:bg-gray-50"
                       }`}
                       aria-label={`${section.label}セクションを表示`}
-                      data-help={`${section.label}の詳細な説明を表示します。システムの使い方、機能の詳細、操作手順などを学習できます。初心者から上級者まで、段階的にシステムの機能を理解できるよう設計されています。機械学習モデルの仕組み、予測指標の読み方、J-Quants APIの活用方法など、投資判断に必要な知識を体系的に学習できます。`}
+                      data-help={`${section.label}の詳細な説明を表示します。システムの使い方、機能の詳細、操作手順などを学習できます。初心者から上級者まで、段階的にシステムの機能を理解できるよう設計されています。機械学習モデルの仕組み、予測指標の読み方、J-Quants APIの活用方法など、投資判断に必要な知識を体系的に学習できます。各セクションは独立しており、必要な部分だけを学習することも可能です。`}
                     >
                       <Icon className="h-4 w-4" />
                       <span className="text-sm font-medium">{section.label}</span>
