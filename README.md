@@ -510,6 +510,64 @@ APP_VERSION       // 現在のアプリバージョン確認
 - **ユーザビリティ向上**: フィルター変更時の自動ページリセット、直感的なページネーション
 - **エラーハンドリング強化**: 詳細なエラー情報とリトライ機能
 
+### データ仕様と検証手順（listed_index.json）
+
+`listed_index.json` はフロント全体で共通参照される銘柄インデックスです。JSONは単一のオブジェクトであり、先頭/末尾に余計なオブジェクトやテキストが混入していないことが前提です。
+
+- 仕様:
+  - ルート: 単一のJSONオブジェクト
+  - フィールド:
+    - `metadata`: 生成日時などのメタ情報
+    - `stocks`: 銘柄配列（`code`, `name`, `sector` など）
+- 配置場所:
+  - 本番/開発参照元: `web-app/public/data/listed_index.json`
+  - 静的配信（GitHub Pages）: `web-app/docs/data/listed_index.json` に同期
+- 参照方法（必須）: `@/lib/path` の `resolveStaticPath()` を経由
+  - 例: `fetch(resolveStaticPath("/data/listed_index.json"))`
+
+検証手順（混入対策）:
+
+1) 先頭と末尾の検査
+```bash
+head -n 20 web-app/public/data/listed_index.json
+tail -n 20 web-app/public/data/listed_index.json
+```
+
+2) JSON構文チェック
+```bash
+python - << 'PY'
+import json,sys
+for p in [
+  'web-app/public/data/listed_index.json',
+  'web-app/docs/data/listed_index.json'
+]:
+  with open(p, 'r', encoding='utf-8') as f:
+    try:
+      json.load(f)
+      print(p+': OK')
+    except Exception as e:
+      print(p+': NG ->', e)
+      sys.exit(1)
+PY
+```
+
+3) フロントのフェッチ確認（ブラウザコンソール）
+```javascript
+fetch(resolveStaticPath('/data/listed_index.json'))
+  .then(r => r.text())
+  .then(t => JSON.parse(t))
+  .then(j => console.info('listed_index OK', j?.stocks?.length))
+  .catch(e => console.error('listed_index JSON error', e))
+```
+
+4) 混入の典型例と対処
+- 典型例: JSONオブジェクトが2つ連続で並ぶ（`}{`）
+- 対処: 先頭のダミー/旧オブジェクトを削除し、単一のオブジェクトに統一
+
+横展開（影響範囲）:
+- 参照している箇所（代表）: `web-app/src/lib/jquants-adapter.ts`, `web-app/src/app/listed-data/page.tsx`, `web-app/src/components/StockDetailModal.tsx`
+- 上記全て `resolveStaticPath('/data/listed_index.json')` を通しており、JSONが単一オブジェクトであれば後方互換で動作します
+
 ## 🎯 最高優先度問題解決完了
 
 **✅ アーキテクチャの複雑性と重複コード問題を完全解決:**
