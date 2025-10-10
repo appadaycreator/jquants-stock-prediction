@@ -76,6 +76,8 @@ export default function LandingPage() {
               <button
                 onClick={() => setShowDiagnostics(true)}
                 className="text-gray-600 hover:text-gray-900 flex items-center space-x-2"
+                aria-label="システム診断を開く"
+                data-help="システムの状態とパフォーマンスを診断します。"
               >
                 <Shield className="h-5 w-5" />
                 <span>診断</span>
@@ -83,6 +85,8 @@ export default function LandingPage() {
               <Link
                 href="/today"
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
+                aria-label="今日のタスクを開始"
+                data-help="今日の投資判断タスクを開始します。"
               >
                 <Play className="h-4 w-4" />
                 <span>今すぐ開始</span>
@@ -107,6 +111,8 @@ export default function LandingPage() {
             <Link
               href="/today"
               className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 flex items-center justify-center space-x-2 text-lg font-semibold"
+              aria-label="今日のタスクを開始"
+              data-help="今日の投資判断タスクを開始します。"
             >
               <Target className="h-5 w-5" />
               <span>今日のタスクを開始</span>
@@ -115,6 +121,8 @@ export default function LandingPage() {
             <Link
               href="/dashboard"
               className="bg-white text-gray-700 px-8 py-4 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center space-x-2 text-lg font-semibold"
+              aria-label="詳細分析ダッシュボードを表示"
+              data-help="詳細な分析結果とダッシュボードを表示します。"
             >
               <BarChart3 className="h-5 w-5" />
               <span>詳細分析を見る</span>
@@ -162,6 +170,8 @@ export default function LandingPage() {
             <Link
               href="/today"
               className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+              aria-label="今日のタスクページへ移動"
+              data-help="今日の投資判断タスクを確認・実行できます。"
             >
               <Target className="h-6 w-6 text-blue-600" />
               <div>
@@ -173,6 +183,8 @@ export default function LandingPage() {
             <Link
               href="/dashboard"
               className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+              aria-label="詳細分析ダッシュボードへ移動"
+              data-help="詳細な分析結果とダッシュボードを表示します。"
             >
               <BarChart3 className="h-6 w-6 text-green-600" />
               <div>
@@ -184,6 +196,8 @@ export default function LandingPage() {
             <Link
               href="/listed-data"
               className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+              aria-label="銘柄一覧ページへ移動"
+              data-help="上場銘柄の一覧と検索・フィルタリング機能です。"
             >
               <List className="h-6 w-6 text-purple-600" />
               <div>
@@ -195,6 +209,8 @@ export default function LandingPage() {
             <Link
               href="/risk"
               className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+              aria-label="リスク管理ページへ移動"
+              data-help="リスク評価と損切りラインの管理を行います。"
             >
               <Shield className="h-6 w-6 text-red-600" />
               <div>
@@ -206,6 +222,8 @@ export default function LandingPage() {
             <Link
               href="/settings"
               className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+              aria-label="設定ページへ移動"
+              data-help="システム設定と予測パラメータを変更します。"
             >
               <Settings className="h-6 w-6 text-gray-600" />
               <div>
@@ -251,11 +269,11 @@ export default function LandingPage() {
               <span className="text-lg font-semibold text-gray-900">J-Quants 株価予測システム</span>
             </div>
             <div className="flex items-center space-x-6">
-              <Link href="/usage" className="text-sm text-gray-600 hover:text-gray-900 flex items-center space-x-1">
+              <Link href="/usage" className="text-sm text-gray-600 hover:text-gray-900 flex items-center space-x-1" aria-label="使い方ガイドを表示" data-help="システムの使い方と機能説明を確認できます。">
                 <BookOpen className="h-4 w-4" />
                 <span>使い方</span>
               </Link>
-              <Link href="/troubleshooting" className="text-sm text-gray-600 hover:text-gray-900">
+              <Link href="/troubleshooting" className="text-sm text-gray-600 hover:text-gray-900" aria-label="トラブルシューティングページを表示" data-help="よくある問題と解決方法を確認できます。">
                 トラブルシューティング
               </Link>
             </div>

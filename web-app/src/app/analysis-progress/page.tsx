@@ -182,6 +182,8 @@ export default function AnalysisProgressPage() {
             onClick={loadAnalysisData}
             variant="outline"
             size="sm"
+            aria-label="分析状況を更新"
+            data-help="分析状況のデータを手動で更新します。"
           >
             <RefreshCw className="h-4 w-4 mr-2" />
             更新
@@ -190,6 +192,8 @@ export default function AnalysisProgressPage() {
             onClick={() => setAutoRefresh(!autoRefresh)}
             variant={autoRefresh ? "default" : "outline"}
             size="sm"
+            aria-label={autoRefresh ? "自動更新を停止" : "自動更新を開始"}
+            data-help={autoRefresh ? "5秒ごとの自動更新を停止します。" : "5秒ごとに分析状況を自動更新します。"}
           >
             {autoRefresh ? <Pause className="h-4 w-4 mr-2" /> : <Play className="h-4 w-4 mr-2" />}
             {autoRefresh ? "自動更新停止" : "自動更新開始"}

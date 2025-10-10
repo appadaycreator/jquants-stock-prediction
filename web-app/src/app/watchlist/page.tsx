@@ -115,6 +115,8 @@ export default function WatchlistPage() {
             variant="outline"
             onClick={loadWatchlist}
             disabled={loading}
+            aria-label="ウォッチリストを更新"
+            data-help="ウォッチリストのデータを最新に更新します。"
           >
             <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             更新
@@ -193,6 +195,8 @@ export default function WatchlistPage() {
               <Button 
                 onClick={() => window.location.href = "/listed-data"}
                 className="bg-blue-600 text-white hover:bg-blue-700"
+                aria-label="銘柄一覧ページへ移動"
+                data-help="上場銘柄の一覧ページに移動して銘柄を選択できます。"
               >
                 銘柄一覧を見る
               </Button>
@@ -223,6 +227,8 @@ export default function WatchlistPage() {
                         window.location.href = `/analysis?symbol=${item.symbol}`;
                       }}
                       className="text-green-600 hover:text-green-800 hover:bg-green-50"
+                      aria-label={`${item.symbol}のチャートを表示`}
+                      data-help="この銘柄の詳細なチャートと分析を表示します。"
                     >
                       <TrendingUp className="h-4 w-4 mr-1" />
                       チャート
@@ -232,6 +238,8 @@ export default function WatchlistPage() {
                       size="sm"
                       onClick={() => openMinkabuLink(item.symbol)}
                       className="text-orange-600 hover:text-orange-800 hover:bg-orange-50"
+                      aria-label={`${item.symbol}のみんかぶページを開く`}
+                      data-help="みんかぶの詳細ページを新しいタブで開きます。"
                     >
                       <ExternalLink className="h-4 w-4 mr-1" />
                       みんかぶ
@@ -241,6 +249,8 @@ export default function WatchlistPage() {
                       size="sm"
                       onClick={() => removeFromWatchlist(item.symbol)}
                       className="text-red-600 hover:text-red-800 hover:bg-red-50"
+                      aria-label={`${item.symbol}をウォッチリストから削除`}
+                      data-help="この銘柄をウォッチリストから削除します。"
                     >
                       <Trash2 className="h-4 w-4 mr-1" />
                       削除

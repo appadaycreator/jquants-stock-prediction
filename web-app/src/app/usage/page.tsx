@@ -73,6 +73,8 @@ export default function UsagePage() {
                           ? "bg-blue-50 text-blue-700 border-l-4 border-blue-500"
                           : "text-gray-600 hover:bg-gray-50"
                       }`}
+                      aria-label={`${section.label}セクションを表示`}
+                      data-help={`${section.label}の詳細な説明を表示します。`}
                     >
                       <Icon className="h-4 w-4" />
                       <span className="text-sm font-medium">{section.label}</span>
