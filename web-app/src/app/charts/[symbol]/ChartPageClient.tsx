@@ -6,6 +6,7 @@ import Link from "next/link";
 import StockChart from "@/components/StockChart";
 import { Button } from "@/components/ui/button";
 import { formatStockCode } from "@/lib/stock-code-utils";
+import EnhancedTooltip from "@/components/EnhancedTooltip";
 
 interface ChartData {
   timestamp: number;
@@ -249,19 +250,39 @@ export default function ChartPageClient({ symbol }: ChartPageClientProps) {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-6">
                 <div>
-                  <span className="text-2xl font-bold text-gray-900">
-                    ¥{stockInfo.price.toLocaleString()}
-                  </span>
-                  <span className={`ml-2 text-sm font-medium ${
-                    stockInfo.change >= 0 ? "text-green-600" : "text-red-600"
-                  }`}>
-                    {stockInfo.change >= 0 ? "+" : ""}{stockInfo.change.toFixed(2)} 
-                    ({stockInfo.changePercent >= 0 ? "+" : ""}{stockInfo.changePercent.toFixed(2)}%)
-                  </span>
+                  <EnhancedTooltip
+                    content="最新の取引終値です。この価格は最新の市場取引で確定した価格で、現在の株価の基準となります。例：トヨタ自動車の株価が3,000円の場合、1株あたり3,000円で取引されていることを示します。"
+                    type="info"
+                  >
+                    <span className="text-2xl font-bold text-gray-900 cursor-help">
+                      ¥{stockInfo.price.toLocaleString()}
+                    </span>
+                  </EnhancedTooltip>
+                  <EnhancedTooltip
+                    content="前日終値からの価格変動額と変動率です。プラスは上昇、マイナスは下落を示します。例：前日3,000円から3,100円に上昇した場合、+100円（+3.33%）と表示されます。"
+                    type={stockInfo.change >= 0 ? "success" : "warning"}
+                  >
+                    <span className={`ml-2 text-sm font-medium cursor-help ${
+                      stockInfo.change >= 0 ? "text-green-600" : "text-red-600"
+                    }`}>
+                      {stockInfo.change >= 0 ? "+" : ""}{stockInfo.change.toFixed(2)} 
+                      ({stockInfo.changePercent >= 0 ? "+" : ""}{stockInfo.changePercent.toFixed(2)}%)
+                    </span>
+                  </EnhancedTooltip>
                 </div>
                 <div className="text-sm text-gray-600">
-                  <div>時価総額: {stockInfo.marketCap}</div>
-                  <div>出来高: {stockInfo.volume}</div>
+                  <EnhancedTooltip
+                    content="時価総額は、現在の株価×発行済み株式数で計算される企業の市場での評価額です。企業の規模や投資価値を測る重要な指標です。例：株価3,000円、発行済み株式数10億株の場合、時価総額は3兆円となります。"
+                    type="info"
+                  >
+                    <div className="cursor-help">時価総額: {stockInfo.marketCap}</div>
+                  </EnhancedTooltip>
+                  <EnhancedTooltip
+                    content="出来高は、一定期間内に取引された株式の数量です。取引の活発さを示し、流動性の指標となります。例：1日で100万株が取引された場合、出来高は100万株となります。"
+                    type="info"
+                  >
+                    <div className="cursor-help">出来高: {stockInfo.volume}</div>
+                  </EnhancedTooltip>
                 </div>
               </div>
             </div>

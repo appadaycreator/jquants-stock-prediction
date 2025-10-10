@@ -11,6 +11,7 @@ import {
   Target,
   Shield,
 } from "lucide-react";
+import EnhancedTooltip from "../EnhancedTooltip";
 
 interface SimpleDashboardCardProps {
   title: string;
@@ -180,9 +181,14 @@ export const PortfolioSummaryCard: React.FC<PortfolioSummaryCardProps> = ({
             <DollarSign className="h-8 w-8 text-blue-600" />
             <div className="ml-4">
               <p className="text-sm text-gray-600">総投資額</p>
-              <p className="text-2xl font-bold">
-                {formatCurrency(summary.totalInvestment)}
-              </p>
+              <EnhancedTooltip
+                content="これまでに投資した総金額です。株式の購入代金、手数料、税金などを含む実際の投資コストの合計です。例：100万円の株式を購入した場合、手数料1,000円、税金500円を含めて1,001,500円が総投資額となります。"
+                type="info"
+              >
+                <p className="text-2xl font-bold cursor-help">
+                  {formatCurrency(summary.totalInvestment)}
+                </p>
+              </EnhancedTooltip>
             </div>
           </div>
         </CardContent>
@@ -194,9 +200,14 @@ export const PortfolioSummaryCard: React.FC<PortfolioSummaryCardProps> = ({
             <Target className="h-8 w-8 text-green-600" />
             <div className="ml-4">
               <p className="text-sm text-gray-600">現在価値</p>
-              <p className="text-2xl font-bold">
-                {formatCurrency(summary.currentValue)}
-              </p>
+              <EnhancedTooltip
+                content="現在の市場価格で評価した保有株式の総額です。実際に売却した場合の概算価値となります。例：100万円で購入した株式が現在120万円の価値になっている場合、現在価値は120万円となります。"
+                type="success"
+              >
+                <p className="text-2xl font-bold cursor-help">
+                  {formatCurrency(summary.currentValue)}
+                </p>
+              </EnhancedTooltip>
             </div>
           </div>
         </CardContent>
@@ -212,16 +223,26 @@ export const PortfolioSummaryCard: React.FC<PortfolioSummaryCardProps> = ({
             )}
             <div className="ml-4">
               <p className="text-sm text-gray-600">未実現損益</p>
-              <p className={`text-2xl font-bold ${
-                summary.unrealizedPnL >= 0 ? "text-green-600" : "text-red-600"
-              }`}>
-                {formatCurrency(summary.unrealizedPnL)}
-              </p>
-              <p className={`text-sm ${
-                summary.unrealizedPnLPercent >= 0 ? "text-green-600" : "text-red-600"
-              }`}>
-                {formatPercent(summary.unrealizedPnLPercent)}
-              </p>
+              <EnhancedTooltip
+                content="現在価値から総投資額を引いた未実現損益です。プラスは利益、マイナスは損失を示します。実際に売却するまで確定しません。例：100万円で購入した株式が現在120万円の価値の場合、未実現損益は+20万円となります。"
+                type={summary.unrealizedPnL >= 0 ? "success" : "warning"}
+              >
+                <p className={`text-2xl font-bold cursor-help ${
+                  summary.unrealizedPnL >= 0 ? "text-green-600" : "text-red-600"
+                }`}>
+                  {formatCurrency(summary.unrealizedPnL)}
+                </p>
+              </EnhancedTooltip>
+              <EnhancedTooltip
+                content="総投資額に対する損益の割合です。投資効率を測る重要な指標で、年率換算で比較することが一般的です。例：100万円の投資で20万円の利益の場合、損益率は+20%となります。"
+                type={summary.unrealizedPnLPercent >= 0 ? "success" : "warning"}
+              >
+                <p className={`text-sm cursor-help ${
+                  summary.unrealizedPnLPercent >= 0 ? "text-green-600" : "text-red-600"
+                }`}>
+                  {formatPercent(summary.unrealizedPnLPercent)}
+                </p>
+              </EnhancedTooltip>
             </div>
           </div>
         </CardContent>

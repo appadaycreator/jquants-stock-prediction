@@ -665,7 +665,7 @@ function DashboardContent() {
                         <div>
                           <p className="text-sm font-medium text-gray-900">分析銘柄数</p>
                           <EnhancedTooltip
-                            content="AI分析が完了した銘柄数と全銘柄数の比率を表示します。分析済み銘柄が多いほど、より多くの投資機会を発見できます。"
+                            content="AI分析が完了した銘柄数と全銘柄数の比率を表示します。分析済み銘柄が多いほど、より多くの投資機会を発見できます。例：東証プライム市場の2,000銘柄中1,500銘柄が分析済みの場合、75%の銘柄で投資判断が可能です。"
                             type="info"
                           >
                             <p className="text-sm text-gray-600 cursor-help">
@@ -686,7 +686,7 @@ function DashboardContent() {
                       <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-4">
                         <div className="text-center">
                           <EnhancedTooltip
-                            content="AI分析により買い推奨（BUY）または強力な買い推奨（STRONG_BUY）と判定された銘柄数です。これらの銘柄は上昇の可能性が高いと予測されています。"
+                            content="AI分析により買い推奨（BUY）または強力な買い推奨（STRONG_BUY）と判定された銘柄数です。これらの銘柄は上昇の可能性が高いと予測されています。例：技術分析、ファンダメンタル分析、市場トレンドを総合的に評価し、50銘柄が買い推奨と判定された場合、投資候補として検討できます。"
                             type="success"
                           >
                             <div className="text-2xl font-bold text-green-600 cursor-help">
@@ -697,7 +697,7 @@ function DashboardContent() {
                         </div>
                         <div className="text-center">
                           <EnhancedTooltip
-                            content="AI分析により現状維持（HOLD）と判定された銘柄数です。これらの銘柄は現在の価格で保有を続けることが推奨されています。"
+                            content="AI分析により現状維持（HOLD）と判定された銘柄数です。これらの銘柄は現在の価格で保有を続けることが推奨されています。例：価格変動が予想範囲内で、特別な買い増しや売却の理由がない銘柄が該当します。"
                             type="info"
                           >
                             <div className="text-2xl font-bold text-blue-600 cursor-help">
@@ -708,7 +708,7 @@ function DashboardContent() {
                         </div>
                         <div className="text-center">
                           <EnhancedTooltip
-                            content="AI分析により売り推奨（SELL）または強力な売り推奨（STRONG_SELL）と判定された銘柄数です。これらの銘柄は下落の可能性が高いと予測されています。"
+                            content="AI分析により売り推奨（SELL）または強力な売り推奨（STRONG_SELL）と判定された銘柄数です。これらの銘柄は下落の可能性が高いと予測されています。例：業績悪化、技術的弱さ、市場環境の悪化などの要因により、10銘柄が売り推奨と判定された場合、損失回避のため売却を検討すべきです。"
                             type="warning"
                           >
                             <div className="text-2xl font-bold text-red-600 cursor-help">
@@ -719,7 +719,7 @@ function DashboardContent() {
                         </div>
                         <div className="text-center">
                           <EnhancedTooltip
-                            content="分析期間中に最も価格が上昇した銘柄数です。これらの銘柄は強い上昇トレンドを示しており、今後の動向に注目すべき銘柄です。"
+                            content="分析期間中に最も価格が上昇した銘柄数です。これらの銘柄は強い上昇トレンドを示しており、今後の動向に注目すべき銘柄です。例：過去1週間でトヨタ自動車が5%上昇、ソニーが8%上昇した場合、これらの銘柄は上昇銘柄として分類されます。"
                             type="success"
                           >
                             <div className="text-2xl font-bold text-green-600 cursor-help">
@@ -730,7 +730,7 @@ function DashboardContent() {
                         </div>
                         <div className="text-center">
                           <EnhancedTooltip
-                            content="分析期間中に最も価格が下落した銘柄数です。これらの銘柄は下落リスクが高く、投資判断を慎重に行う必要があります。"
+                            content="分析期間中に最も価格が下落した銘柄数です。これらの銘柄は下落リスクが高く、投資判断を慎重に行う必要があります。例：過去1週間で某IT企業が10%下落、某製薬会社が7%下落した場合、これらの銘柄は下落銘柄として分類され、追加投資は避けるべきです。"
                             type="warning"
                           >
                             <div className="text-2xl font-bold text-red-600 cursor-help">

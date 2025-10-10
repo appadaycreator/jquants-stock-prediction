@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import { useStockData } from "@/hooks/useStockData";
 import type { StockDataResponse } from "@/hooks/useStockData";
 import { formatStockCode } from "@/lib/stock-code-utils";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 interface StockDataDisplayProps {
   symbol?: string;
@@ -190,24 +191,39 @@ export default function StockDataDisplay({
                 </div>
                 <div>
                   <span className="text-gray-600">現在価格:</span>
-                  <span className="ml-2 font-medium">
-                    ¥{(data.stocks[symbol] as any)?.current_price?.last_price?.toLocaleString() || "N/A"}
-                  </span>
+                  <EnhancedTooltip
+                    content="最新の取引終値です。この価格は最新の市場取引で確定した価格で、現在の株価の基準となります。例：トヨタ自動車の株価が3,000円の場合、1株あたり3,000円で取引されていることを示します。"
+                    type="info"
+                  >
+                    <span className="ml-2 font-medium cursor-help">
+                      ¥{(data.stocks[symbol] as any)?.current_price?.last_price?.toLocaleString() || "N/A"}
+                    </span>
+                  </EnhancedTooltip>
                 </div>
                 <div>
                   <span className="text-gray-600">変動:</span>
-                  <span className={`ml-2 font-medium ${
-                    ((data.stocks[symbol] as any)?.current_price?.change_percent || 0) >= 0 
-                      ? "text-red-600" : "text-blue-600"
-                  }`}>
-                    {((data.stocks[symbol] as any)?.current_price?.change_percent || 0).toFixed(2)}%
-                  </span>
+                  <EnhancedTooltip
+                    content="前日終値からの価格変動率です。プラスは上昇、マイナスは下落を示します。例：前日3,000円から3,100円に上昇した場合、+3.33%と表示されます。"
+                    type={((data.stocks[symbol] as any)?.current_price?.change_percent || 0) >= 0 ? "success" : "warning"}
+                  >
+                    <span className={`ml-2 font-medium cursor-help ${
+                      ((data.stocks[symbol] as any)?.current_price?.change_percent || 0) >= 0 
+                        ? "text-red-600" : "text-blue-600"
+                    }`}>
+                      {((data.stocks[symbol] as any)?.current_price?.change_percent || 0).toFixed(2)}%
+                    </span>
+                  </EnhancedTooltip>
                 </div>
                 <div>
                   <span className="text-gray-600">出来高:</span>
-                  <span className="ml-2 font-medium">
-                    {((data.stocks[symbol] as any)?.volume?.current_volume || 0).toLocaleString()}
-                  </span>
+                  <EnhancedTooltip
+                    content="出来高は、一定期間内に取引された株式の数量です。取引の活発さを示し、流動性の指標となります。例：1日で100万株が取引された場合、出来高は100万株となります。"
+                    type="info"
+                  >
+                    <span className="ml-2 font-medium cursor-help">
+                      {((data.stocks[symbol] as any)?.volume?.current_volume || 0).toLocaleString()}
+                    </span>
+                  </EnhancedTooltip>
                 </div>
               </div>
             ) : (

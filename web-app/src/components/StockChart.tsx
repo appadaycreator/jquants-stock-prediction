@@ -455,7 +455,7 @@ export const StockChart: React.FC<StockChartProps> = ({
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
                   <EnhancedTooltip
-                    content="最新の取引終値です。この価格は最新の市場取引で確定した価格で、現在の株価の基準となります。"
+                    content="最新の取引終値です。この価格は最新の市場取引で確定した価格で、現在の株価の基準となります。例：トヨタ自動車の株価が3,000円の場合、1株あたり3,000円で取引されていることを示し、次の取引の基準価格となります。"
                     type="info"
                   >
                     <div className="text-lg font-bold text-gray-900 cursor-help">
@@ -466,7 +466,7 @@ export const StockChart: React.FC<StockChartProps> = ({
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
                   <EnhancedTooltip
-                    content="表示されているチャートデータの期間（日数）です。期間が長いほど、より長期的なトレンドを把握できます。"
+                    content="表示されているチャートデータの期間（日数）です。期間が長いほど、より長期的なトレンドを把握できます。例：30日間のデータがある場合、1ヶ月間の価格変動パターンを分析でき、短期トレンドと長期トレンドの両方を確認できます。"
                     type="info"
                   >
                     <div className="text-lg font-bold text-gray-900 cursor-help">
@@ -477,7 +477,7 @@ export const StockChart: React.FC<StockChartProps> = ({
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
                   <EnhancedTooltip
-                    content="表示期間中の最高値です。この価格は抵抗線として機能することが多く、今後の価格動向の重要な指標となります。"
+                    content="表示期間中の最高値です。この価格は抵抗線として機能することが多く、今後の価格動向の重要な指標となります。例：過去30日間で3,500円が最高値の場合、この価格帯は売り圧力が強く、上昇の障害となる可能性があります。"
                     type="success"
                   >
                     <div className="text-lg font-bold text-gray-900 cursor-help">
@@ -488,7 +488,7 @@ export const StockChart: React.FC<StockChartProps> = ({
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
                   <EnhancedTooltip
-                    content="表示期間中の最安値です。この価格は支持線として機能することが多く、今後の価格動向の重要な指標となります。"
+                    content="表示期間中の最安値です。この価格は支持線として機能することが多く、今後の価格動向の重要な指標となります。例：過去30日間で2,800円が最安値の場合、この価格帯は買い支えが強く、下落の底値となる可能性があります。"
                     type="warning"
                   >
                     <div className="text-lg font-bold text-gray-900 cursor-help">
