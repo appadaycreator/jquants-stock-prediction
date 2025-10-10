@@ -562,7 +562,7 @@ function ListedDataInner(): JSX.Element {
             <thead className="bg-gray-50">
               <tr>
                 <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 sticky left-0 z-10 bg-gray-50"
                   onClick={() => handleSort("code")}
                   tabIndex={0}
                   onKeyDown={(e) => {
@@ -578,7 +578,7 @@ function ListedDataInner(): JSX.Element {
                   )}
                 </th>
                 <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 sticky left-[10rem] z-10 bg-gray-50"
                   onClick={() => handleSort("name")}
                   tabIndex={0}
                   onKeyDown={(e) => {
@@ -664,10 +664,10 @@ function ListedDataInner(): JSX.Element {
             <tbody className="bg-white divide-y divide-gray-200">
               {paginatedStocks.map((stock) => (
                 <tr key={stock.code} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 sticky left-0 bg-white">
                     {formatStockCode(stock.code)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 sticky left-[10rem] bg-white">
                     <div className="max-w-xs truncate" title={stock.name}>
                       {stock.name}
                     </div>

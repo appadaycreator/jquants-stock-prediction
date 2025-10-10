@@ -360,6 +360,11 @@ web-app/public/data/
 ### スタイリングの変更
 Tailwind CSSクラスを使用してスタイリング
 
+#### テーブル列固定（銘柄一覧）
+- 銘柄一覧系テーブル（`src/app/listed-data/page.tsx` と `src/components/StockList.tsx`）では、左側の2列（銘柄コード・会社名）をスクロール時に固定しています。
+- 実装: `th`/`td` に `sticky left-0`（1列目）、`sticky left-[10rem]`（2列目）を付与。背景透過を防ぐため `bg-white`（ボディ）/`bg-gray-50`（ヘッダ）を併用しています。
+- 列幅の微調整: `left-[10rem]` はコード列の実幅に合わせて変更可能です。必要に応じて `w-24` などの幅クラスをコード列に追加し、隣の会社名列の `left-[]` を同じ合計幅に揃えてください。
+
 ## パフォーマンス
 
 - **バンドルサイズ**: 約226KB (First Load JS)

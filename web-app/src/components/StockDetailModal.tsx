@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { X, TrendingUp, TrendingDown, BarChart3, DollarSign, Calendar } from "lucide-react";
-import { formatStockCode } from "@/lib/stock-code-utils";
+import { formatStockCode, normalizeStockCode } from "@/lib/stock-code-utils";
 
 interface StockData {
   code: string;
@@ -80,13 +80,15 @@ export default function StockDetailModal({ symbol, isOpen, onClose }: StockDetai
         }
         
         const data = await response.json();
-        const stock = data.stocks?.find((s: any) => s.code === symbol);
+        const normalizedSymbol = normalizeStockCode(symbol);
+        const stock = data.stocks?.find((s: any) => normalizeStockCode(s.code) === normalizedSymbol);
         
         if (!stock) {
           throw new Error(`銘柄コード ${symbol} が見つかりません`);
         }
         
-        setStockData(stock);
+        // 正規化したコードで保存（UIや他機能と整合）
+        setStockData({ ...stock, code: normalizeStockCode(stock.code) });
         
         // 分析結果を生成（実際の運用では分析APIを呼び出し）
         const mockAnalysis: AnalysisResult = {
