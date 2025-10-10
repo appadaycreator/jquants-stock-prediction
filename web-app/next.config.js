@@ -22,13 +22,13 @@ const nextConfig = {
     // Next.js 15互換性のための設定
     serverComponentsExternalPackages: [],
     // ビルド最適化
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+    optimizePackageImports: ["lucide-react", "@radix-ui/react-icons"],
     // ビルド時間短縮
     turbo: {
       rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
         },
       },
     },
@@ -92,12 +92,12 @@ const nextConfig = {
       config.optimization = {
         ...config.optimization,
         splitChunks: {
-          chunks: 'all',
+          chunks: "all",
           cacheGroups: {
             vendor: {
               test: /[\\/]node_modules[\\/]/,
-              name: 'vendors',
-              chunks: 'all',
+              name: "vendors",
+              chunks: "all",
             },
           },
         },

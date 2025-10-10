@@ -26,6 +26,7 @@ from core.enhanced_confidence_system import (
 try:
     from core.enhanced_confidence_system import PredictionType  # type: ignore
 except Exception:
+
     class PredictionType(Enum):
         PRICE = "PRICE"
 
@@ -70,7 +71,7 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
     def test_initialization_without_config(self):
         """設定なし初期化テスト"""
         confidence_system = EnhancedConfidenceSystem()
-        
+
         self.assertEqual(confidence_system.min_threshold, 0.6)
         self.assertEqual(confidence_system.high_threshold, 0.8)
         self.assertEqual(confidence_system.update_interval, 1.0)
@@ -80,11 +81,11 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
         """予測信頼度計算成功テスト"""
         predictions = [0.1, 0.2, 0.15, 0.18, 0.12]
         actual_values = [0.11, 0.19, 0.16, 0.17, 0.13]
-        
+
         confidence = self.confidence_system.calculate_prediction_confidence(
             predictions, actual_values
         )
-        
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -93,12 +94,12 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
         """予測信頼度計算データ不足テスト"""
         predictions = [0.1, 0.2]  # データ不足
         actual_values = [0.11, 0.19]
-        
-        with patch.object(self.confidence_system.logger, 'warning') as mock_warning:
+
+        with patch.object(self.confidence_system.logger, "warning") as mock_warning:
             confidence = self.confidence_system.calculate_prediction_confidence(
                 predictions, actual_values
             )
-            
+
             self.assertIsNone(confidence)
             mock_warning.assert_called_once()
 
@@ -106,13 +107,13 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
         """予測信頼度計算例外処理テスト"""
         predictions = [0.1, 0.2, 0.15, 0.18, 0.12]
         actual_values = [0.11, 0.19, 0.16, 0.17, 0.13]
-        
-        with patch('numpy.mean', side_effect=Exception("Mean error")):
-            with patch.object(self.confidence_system.logger, 'error') as mock_error:
+
+        with patch("numpy.mean", side_effect=Exception("Mean error")):
+            with patch.object(self.confidence_system.logger, "error") as mock_error:
                 confidence = self.confidence_system.calculate_prediction_confidence(
                     predictions, actual_values
                 )
-                
+
                 self.assertIsNone(confidence)
                 mock_error.assert_called_once()
 
@@ -124,11 +125,11 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "model3": [0.11, 0.19, 0.14],
         }
         actual_values = [0.11, 0.19, 0.15]
-        
+
         confidence = self.confidence_system.calculate_ensemble_confidence(
             model_predictions, actual_values
         )
-        
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -139,12 +140,12 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "model1": [0.1, 0.2, 0.15],
         }  # モデル不足
         actual_values = [0.11, 0.19, 0.15]
-        
-        with patch.object(self.confidence_system.logger, 'warning') as mock_warning:
+
+        with patch.object(self.confidence_system.logger, "warning") as mock_warning:
             confidence = self.confidence_system.calculate_ensemble_confidence(
                 model_predictions, actual_values
             )
-            
+
             self.assertIsNone(confidence)
             mock_warning.assert_called_once()
 
@@ -156,22 +157,22 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "model3": [0.11, 0.19, 0.14],
         }
         actual_values = [0.11, 0.19, 0.15]
-        
-        with patch('numpy.mean', side_effect=Exception("Mean error")):
-            with patch.object(self.confidence_system.logger, 'error') as mock_error:
+
+        with patch("numpy.mean", side_effect=Exception("Mean error")):
+            with patch.object(self.confidence_system.logger, "error") as mock_error:
                 confidence = self.confidence_system.calculate_ensemble_confidence(
                     model_predictions, actual_values
                 )
-                
+
                 self.assertIsNone(confidence)
                 mock_error.assert_called_once()
 
     def test_calculate_volatility_confidence_low_volatility(self):
         """低ボラティリティ信頼度計算テスト"""
         predictions = [0.1, 0.11, 0.12, 0.13, 0.14]  # 低ボラティリティ
-        
+
         confidence = self.confidence_system.calculate_volatility_confidence(predictions)
-        
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -179,9 +180,9 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
     def test_calculate_volatility_confidence_high_volatility(self):
         """高ボラティリティ信頼度計算テスト"""
         predictions = [0.1, 0.5, 0.2, 0.8, 0.3]  # 高ボラティリティ
-        
+
         confidence = self.confidence_system.calculate_volatility_confidence(predictions)
-        
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -189,30 +190,34 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
     def test_calculate_volatility_confidence_insufficient_data(self):
         """ボラティリティ信頼度計算データ不足テスト"""
         predictions = [0.1, 0.2]  # データ不足
-        
-        with patch.object(self.confidence_system.logger, 'warning') as mock_warning:
-            confidence = self.confidence_system.calculate_volatility_confidence(predictions)
-            
+
+        with patch.object(self.confidence_system.logger, "warning") as mock_warning:
+            confidence = self.confidence_system.calculate_volatility_confidence(
+                predictions
+            )
+
             self.assertIsNone(confidence)
             mock_warning.assert_called_once()
 
     def test_calculate_volatility_confidence_exception(self):
         """ボラティリティ信頼度計算例外処理テスト"""
         predictions = [0.1, 0.2, 0.15, 0.18, 0.12]
-        
-        with patch('numpy.std', side_effect=Exception("Std error")):
-            with patch.object(self.confidence_system.logger, 'error') as mock_error:
-                confidence = self.confidence_system.calculate_volatility_confidence(predictions)
-                
+
+        with patch("numpy.std", side_effect=Exception("Std error")):
+            with patch.object(self.confidence_system.logger, "error") as mock_error:
+                confidence = self.confidence_system.calculate_volatility_confidence(
+                    predictions
+                )
+
                 self.assertIsNone(confidence)
                 mock_error.assert_called_once()
 
     def test_calculate_consensus_confidence_high_consensus(self):
         """高コンセンサス信頼度計算テスト"""
         predictions = [0.1, 0.11, 0.12, 0.13, 0.14]  # 高コンセンサス
-        
+
         confidence = self.confidence_system._calculate_ensemble_confidence({}, None)
-        
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -220,9 +225,9 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
     def test_calculate_consensus_confidence_low_consensus(self):
         """低コンセンサス信頼度計算テスト"""
         predictions = [0.1, 0.5, 0.2, 0.8, 0.3]  # 低コンセンサス
-        
+
         confidence = self.confidence_system._calculate_ensemble_confidence({}, None)
-        
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -230,31 +235,31 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
     def test_calculate_consensus_confidence_insufficient_data(self):
         """コンセンサス信頼度計算データ不足テスト"""
         predictions = [0.1, 0.2]  # データ不足
-        
-        with patch.object(self.confidence_system.logger, 'warning') as mock_warning:
+
+        with patch.object(self.confidence_system.logger, "warning") as mock_warning:
             confidence = self.confidence_system._calculate_ensemble_confidence({}, None)
-            
+
             self.assertIsNotNone(confidence)  # 実装ではデフォルト値0.7を返す
             # mock_warning.assert_called_once()  # 警告は呼ばれない
 
     def test_calculate_consensus_confidence_exception(self):
         """コンセンサス信頼度計算例外処理テスト"""
         predictions = [0.1, 0.2, 0.15, 0.18, 0.12]
-        
+
         # 実装ではnumpy.stdを呼んでいないので、正常に動作する
         confidence = self.confidence_system._calculate_ensemble_confidence({}, None)
-        
+
         self.assertIsNotNone(confidence)  # 実装ではデフォルト値0.7を返す
 
     def test_calculate_historical_accuracy_high_accuracy(self):
         """高精度履歴信頼度計算テスト"""
         predictions = [0.1, 0.2, 0.15, 0.18, 0.12]
         actual_values = [0.11, 0.19, 0.16, 0.17, 0.13]  # 高精度
-        
+
         confidence = self.confidence_system.calculate_historical_accuracy(
             predictions, actual_values
         )
-        
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -263,11 +268,11 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
         """低精度履歴信頼度計算テスト"""
         predictions = [0.1, 0.2, 0.15, 0.18, 0.12]
         actual_values = [0.5, 0.8, 0.3, 0.9, 0.2]  # 低精度
-        
+
         confidence = self.confidence_system.calculate_historical_accuracy(
             predictions, actual_values
         )
-        
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -276,12 +281,12 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
         """履歴精度信頼度計算データ不足テスト"""
         predictions = [0.1, 0.2]  # データ不足
         actual_values = [0.11, 0.19]
-        
-        with patch.object(self.confidence_system.logger, 'warning') as mock_warning:
+
+        with patch.object(self.confidence_system.logger, "warning") as mock_warning:
             confidence = self.confidence_system.calculate_historical_accuracy(
                 predictions, actual_values
             )
-            
+
             self.assertIsNone(confidence)
             mock_warning.assert_called_once()
 
@@ -289,13 +294,13 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
         """履歴精度信頼度計算例外処理テスト"""
         predictions = [0.1, 0.2, 0.15, 0.18, 0.12]
         actual_values = [0.11, 0.19, 0.16, 0.17, 0.13]
-        
-        with patch('numpy.mean', side_effect=Exception("Mean error")):
-            with patch.object(self.confidence_system.logger, 'error') as mock_error:
+
+        with patch("numpy.mean", side_effect=Exception("Mean error")):
+            with patch.object(self.confidence_system.logger, "error") as mock_error:
                 confidence = self.confidence_system.calculate_historical_accuracy(
                     predictions, actual_values
                 )
-                
+
                 self.assertIsNone(confidence)
                 mock_error.assert_called_once()
 
@@ -307,9 +312,11 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "volume": 1000000,
             "sentiment": 0.8,
         }
-        
-        confidence = self.confidence_system.calculate_market_condition_confidence(market_data)
-        
+
+        confidence = self.confidence_system.calculate_market_condition_confidence(
+            market_data
+        )
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -322,9 +329,11 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "volume": 800000,
             "sentiment": 0.3,
         }
-        
-        confidence = self.confidence_system.calculate_market_condition_confidence(market_data)
-        
+
+        confidence = self.confidence_system.calculate_market_condition_confidence(
+            market_data
+        )
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -337,9 +346,11 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "volume": 900000,
             "sentiment": 0.5,
         }
-        
-        confidence = self.confidence_system.calculate_market_condition_confidence(market_data)
-        
+
+        confidence = self.confidence_system.calculate_market_condition_confidence(
+            market_data
+        )
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -347,10 +358,12 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
     def test_calculate_market_condition_confidence_insufficient_data(self):
         """市場条件信頼度計算データ不足テスト"""
         market_data = {}  # データ不足
-        
-        with patch.object(self.confidence_system.logger, 'warning') as mock_warning:
-            confidence = self.confidence_system.calculate_market_condition_confidence(market_data)
-            
+
+        with patch.object(self.confidence_system.logger, "warning") as mock_warning:
+            confidence = self.confidence_system.calculate_market_condition_confidence(
+                market_data
+            )
+
             self.assertIsNone(confidence)
             mock_warning.assert_called_once()
 
@@ -362,10 +375,12 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "volume": 1000000,
             "sentiment": 0.8,
         }
-        
+
         # 正常な動作をテスト（例外処理は実装で適切に処理される）
-        confidence = self.confidence_system.calculate_market_condition_confidence(market_data)
-        
+        confidence = self.confidence_system.calculate_market_condition_confidence(
+            market_data
+        )
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -379,9 +394,11 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "moving_average": "bullish",
             "volume": "high",
         }
-        
-        confidence = self.confidence_system.calculate_technical_confidence(technical_data)
-        
+
+        confidence = self.confidence_system.calculate_technical_confidence(
+            technical_data
+        )
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -395,9 +412,11 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "moving_average": "neutral",
             "volume": "normal",
         }
-        
-        confidence = self.confidence_system.calculate_technical_confidence(technical_data)
-        
+
+        confidence = self.confidence_system.calculate_technical_confidence(
+            technical_data
+        )
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -405,10 +424,12 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
     def test_calculate_technical_confidence_insufficient_data(self):
         """テクニカル信頼度計算データ不足テスト"""
         technical_data = {}  # データ不足
-        
-        with patch.object(self.confidence_system.logger, 'warning') as mock_warning:
-            confidence = self.confidence_system.calculate_technical_confidence(technical_data)
-            
+
+        with patch.object(self.confidence_system.logger, "warning") as mock_warning:
+            confidence = self.confidence_system.calculate_technical_confidence(
+                technical_data
+            )
+
             self.assertIsNone(confidence)
             mock_warning.assert_called_once()
 
@@ -421,10 +442,12 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "moving_average": "bullish",
             "volume": "high",
         }
-        
+
         # 正常な動作をテスト（例外処理は実装で適切に処理される）
-        confidence = self.confidence_system.calculate_technical_confidence(technical_data)
-        
+        confidence = self.confidence_system.calculate_technical_confidence(
+            technical_data
+        )
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -438,9 +461,11 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "roe": 0.15,
             "revenue_growth": 0.1,
         }
-        
-        confidence = self.confidence_system.calculate_fundamental_confidence(fundamental_data)
-        
+
+        confidence = self.confidence_system.calculate_fundamental_confidence(
+            fundamental_data
+        )
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -454,9 +479,11 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "roe": 0.05,
             "revenue_growth": -0.05,
         }
-        
-        confidence = self.confidence_system.calculate_fundamental_confidence(fundamental_data)
-        
+
+        confidence = self.confidence_system.calculate_fundamental_confidence(
+            fundamental_data
+        )
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -464,10 +491,12 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
     def test_calculate_fundamental_confidence_insufficient_data(self):
         """ファンダメンタル信頼度計算データ不足テスト"""
         fundamental_data = {}  # データ不足
-        
-        with patch.object(self.confidence_system.logger, 'warning') as mock_warning:
-            confidence = self.confidence_system.calculate_fundamental_confidence(fundamental_data)
-            
+
+        with patch.object(self.confidence_system.logger, "warning") as mock_warning:
+            confidence = self.confidence_system.calculate_fundamental_confidence(
+                fundamental_data
+            )
+
             self.assertIsNone(confidence)
             mock_warning.assert_called_once()
 
@@ -480,11 +509,17 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "roe": 0.15,
             "revenue_growth": 0.1,
         }
-        
-        with patch.object(self.confidence_system, '_calculate_financial_health', side_effect=Exception("Health error")):
-            with patch.object(self.confidence_system.logger, 'error') as mock_error:
-                confidence = self.confidence_system.calculate_fundamental_confidence(fundamental_data)
-                
+
+        with patch.object(
+            self.confidence_system,
+            "_calculate_financial_health",
+            side_effect=Exception("Health error"),
+        ):
+            with patch.object(self.confidence_system.logger, "error") as mock_error:
+                confidence = self.confidence_system.calculate_fundamental_confidence(
+                    fundamental_data
+                )
+
                 self.assertIsNone(confidence)
                 mock_error.assert_called_once()
 
@@ -500,9 +535,11 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "technical": 0.8,
             "fundamental": 0.7,
         }
-        
-        combined_confidence = self.confidence_system.combine_confidence_scores(confidence_scores)
-        
+
+        combined_confidence = self.confidence_system.combine_confidence_scores(
+            confidence_scores
+        )
+
         self.assertIsInstance(combined_confidence, float)
         self.assertGreaterEqual(combined_confidence, 0.0)
         self.assertLessEqual(combined_confidence, 1.0)
@@ -512,10 +549,12 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
         confidence_scores = {
             "prediction": 0.8,
         }  # スコア不足
-        
-        with patch.object(self.confidence_system.logger, 'warning') as mock_warning:
-            combined_confidence = self.confidence_system.combine_confidence_scores(confidence_scores)
-            
+
+        with patch.object(self.confidence_system.logger, "warning") as mock_warning:
+            combined_confidence = self.confidence_system.combine_confidence_scores(
+                confidence_scores
+            )
+
             self.assertIsNone(combined_confidence)
             mock_warning.assert_called_once()
 
@@ -531,10 +570,12 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
             "technical": 0.8,
             "fundamental": 0.7,
         }
-        
+
         # 正常な動作をテスト（例外処理は実装で適切に処理される）
-        combined_confidence = self.confidence_system.combine_confidence_scores(confidence_scores)
-        
+        combined_confidence = self.confidence_system.combine_confidence_scores(
+            confidence_scores
+        )
+
         self.assertIsInstance(combined_confidence, float)
         self.assertGreaterEqual(combined_confidence, 0.0)
         self.assertLessEqual(combined_confidence, 1.0)
@@ -542,34 +583,34 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
     def test_determine_confidence_level_high(self):
         """高信頼度レベル判定テスト"""
         confidence_score = 0.85  # 0.8-0.9の範囲でHIGHレベル
-        
+
         level = self.confidence_system.determine_confidence_level(confidence_score)
-        
+
         self.assertEqual(level, ConfidenceLevel.HIGH)
 
     def test_determine_confidence_level_medium(self):
         """中信頼度レベル判定テスト"""
         confidence_score = 0.7
-        
+
         level = self.confidence_system.determine_confidence_level(confidence_score)
-        
+
         self.assertEqual(level, ConfidenceLevel.MEDIUM)
 
     def test_determine_confidence_level_low(self):
         """低信頼度レベル判定テスト"""
         confidence_score = 0.65  # 0.6-0.7の範囲でLOWレベル
-        
+
         level = self.confidence_system.determine_confidence_level(confidence_score)
-        
+
         self.assertEqual(level, ConfidenceLevel.LOW)
 
     def test_determine_confidence_level_invalid(self):
         """無効信頼度レベル判定テスト"""
         confidence_score = -0.1  # 無効な値
-        
-        with patch.object(self.confidence_system.logger, 'warning') as mock_warning:
+
+        with patch.object(self.confidence_system.logger, "warning") as mock_warning:
             level = self.confidence_system.determine_confidence_level(confidence_score)
-            
+
             self.assertEqual(level, ConfidenceLevel.LOW)
             mock_warning.assert_called_once()
 
@@ -578,45 +619,53 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
         symbol = "TEST"
         confidence_score = 0.8
         prediction_type = "PRICE"
-        
+
         self.confidence_system.update_confidence_history(
             symbol, confidence_score, prediction_type
         )
-        
+
         self.assertIn(symbol, self.confidence_system.confidence_history)
-        self.assertEqual(
-            len(self.confidence_system.confidence_history[symbol]), 1
-        )
+        self.assertEqual(len(self.confidence_system.confidence_history[symbol]), 1)
 
     def test_update_confidence_history_exception(self):
         """信頼度履歴更新例外処理テスト"""
         symbol = "TEST"
         confidence_score = 0.8
         prediction_type = "PRICE"
-        
+
         # 正常な動作をテスト（例外処理は実装で適切に処理される）
         self.confidence_system.update_confidence_history(
             symbol, confidence_score, prediction_type
         )
-        
+
         self.assertIn(symbol, self.confidence_system.confidence_history)
-        self.assertEqual(
-            len(self.confidence_system.confidence_history[symbol]), 1
-        )
+        self.assertEqual(len(self.confidence_system.confidence_history[symbol]), 1)
 
     def test_get_confidence_metrics_success(self):
         """信頼度メトリクス取得成功テスト"""
         symbol = "TEST"
-        
+
         # 履歴を追加
         self.confidence_system.confidence_history[symbol] = [
-            {"confidence": 0.8, "timestamp": datetime.now(), "type": PredictionType.PRICE},
-            {"confidence": 0.75, "timestamp": datetime.now(), "type": PredictionType.PRICE},
-            {"confidence": 0.85, "timestamp": datetime.now(), "type": PredictionType.PRICE},
+            {
+                "confidence": 0.8,
+                "timestamp": datetime.now(),
+                "type": PredictionType.PRICE,
+            },
+            {
+                "confidence": 0.75,
+                "timestamp": datetime.now(),
+                "type": PredictionType.PRICE,
+            },
+            {
+                "confidence": 0.85,
+                "timestamp": datetime.now(),
+                "type": PredictionType.PRICE,
+            },
         ]
-        
+
         metrics = self.confidence_system.get_confidence_metrics(symbol)
-        
+
         self.assertIsInstance(metrics, ConfidenceMetrics)
         self.assertIsInstance(metrics.base_confidence, float)
         self.assertIsInstance(metrics.final_confidence, float)
@@ -626,40 +675,56 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
     def test_get_confidence_metrics_no_history(self):
         """信頼度メトリクス取得履歴なしテスト"""
         symbol = "TEST"
-        
+
         metrics = self.confidence_system.get_confidence_metrics(symbol)
-        
+
         self.assertIsNone(metrics)
 
     def test_get_confidence_metrics_exception(self):
         """信頼度メトリクス取得例外処理テスト"""
         symbol = "TEST"
-        
+
         # 履歴を追加
         self.confidence_system.confidence_history[symbol] = [
-            {"confidence": 0.8, "timestamp": datetime.now(), "type": PredictionType.PRICE},
+            {
+                "confidence": 0.8,
+                "timestamp": datetime.now(),
+                "type": PredictionType.PRICE,
+            },
         ]
-        
-        with patch('numpy.mean', side_effect=Exception("Mean error")):
-            with patch.object(self.confidence_system.logger, 'error') as mock_error:
+
+        with patch("numpy.mean", side_effect=Exception("Mean error")):
+            with patch.object(self.confidence_system.logger, "error") as mock_error:
                 metrics = self.confidence_system.get_confidence_metrics(symbol)
-                
+
                 self.assertIsNone(metrics)
                 mock_error.assert_called_once()
 
     def test_export_confidence_report_success(self):
         """信頼度レポート出力成功テスト"""
         symbol = "TEST"
-        
+
         # 履歴を追加
         self.confidence_system.confidence_history[symbol] = [
-            {"confidence": 0.8, "timestamp": datetime.now(), "type": PredictionType.PRICE},
-            {"confidence": 0.75, "timestamp": datetime.now(), "type": PredictionType.PRICE},
-            {"confidence": 0.85, "timestamp": datetime.now(), "type": PredictionType.PRICE},
+            {
+                "confidence": 0.8,
+                "timestamp": datetime.now(),
+                "type": PredictionType.PRICE,
+            },
+            {
+                "confidence": 0.75,
+                "timestamp": datetime.now(),
+                "type": PredictionType.PRICE,
+            },
+            {
+                "confidence": 0.85,
+                "timestamp": datetime.now(),
+                "type": PredictionType.PRICE,
+            },
         ]
-        
+
         report = self.confidence_system.export_confidence_report(symbol)
-        
+
         self.assertIsInstance(report, dict)
         self.assertIn("symbol", report)
         self.assertIn("confidence_metrics", report)
@@ -669,9 +734,9 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
     def test_export_confidence_report_no_history(self):
         """信頼度レポート出力履歴なしテスト"""
         symbol = "TEST"
-        
+
         report = self.confidence_system.export_confidence_report(symbol)
-        
+
         self.assertIsInstance(report, dict)
         self.assertIn("symbol", report)
         self.assertIn("status", report)
@@ -680,11 +745,15 @@ class TestEnhancedConfidenceSystemEnhanced(unittest.TestCase):
     def test_export_confidence_report_exception(self):
         """信頼度レポート出力例外処理テスト"""
         symbol = "TEST"
-        
-        with patch.object(self.confidence_system, 'get_confidence_metrics', side_effect=Exception("Report error")):
-            with patch.object(self.confidence_system.logger, 'error') as mock_error:
+
+        with patch.object(
+            self.confidence_system,
+            "get_confidence_metrics",
+            side_effect=Exception("Report error"),
+        ):
+            with patch.object(self.confidence_system.logger, "error") as mock_error:
                 report = self.confidence_system.export_confidence_report(symbol)
-                
+
                 self.assertIn("error", report)
                 mock_error.assert_called_once()
 

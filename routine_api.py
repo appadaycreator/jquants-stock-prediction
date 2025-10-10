@@ -23,6 +23,7 @@ from core.error_handler import ErrorHandler
 
 # 新規追加: 簡素化されたリスク管理
 from core.dynamic_risk_management import DynamicRiskManager
+
 # from core.simplified_risk_api import SimplifiedRiskAPI  # 削除されたモジュール
 
 
@@ -102,8 +103,8 @@ class RoutineAnalysisAPI:
             if stock_data.empty:
                 stock_data = pd.DataFrame(
                     {
-                        'close': [100, 105, 102, 108, 110],
-                        'volume': [1000, 1200, 900, 1300, 1100],
+                        "close": [100, 105, 102, 108, 110],
+                        "volume": [1000, 1200, 900, 1300, 1100],
                     }
                 )
 
@@ -150,17 +151,21 @@ class RoutineAnalysisAPI:
             # サマリーデータ構築
             summary_data = {
                 "portfolio_balance": balance_response["data"],
-                "risk_alerts": alerts_response["data"]
-                if alerts_response["success"]
-                else {"alerts": []},
+                "risk_alerts": (
+                    alerts_response["data"]
+                    if alerts_response["success"]
+                    else {"alerts": []}
+                ),
                 "risk_statistics": self.simplified_risk_api.get_risk_statistics()[
                     "data"
                 ],
                 "recommendations": self._generate_risk_recommendations(
                     balance_response["data"],
-                    alerts_response["data"]
-                    if alerts_response["success"]
-                    else {"alerts": []},
+                    (
+                        alerts_response["data"]
+                        if alerts_response["success"]
+                        else {"alerts": []}
+                    ),
                 ),
             }
 
@@ -265,17 +270,17 @@ class RoutineAnalysisAPI:
                     investment_decision = self.investment_system.make_decision(
                         stock_data, prediction, confidence
                     )
-                    analysis_results["recommendations"][stock_code] = (
-                        investment_decision
-                    )
+                    analysis_results["recommendations"][
+                        stock_code
+                    ] = investment_decision
 
                     # テクニカル分析
                     technical_indicators = self.technical_analysis.calculate_indicators(
                         stock_data
                     )
-                    analysis_results["technical_indicators"][stock_code] = (
-                        technical_indicators
-                    )
+                    analysis_results["technical_indicators"][
+                        stock_code
+                    ] = technical_indicators
 
                 except Exception as e:
                     self.logger.error(f"株式分析エラー {stock_code}: {e}")
@@ -340,11 +345,13 @@ class RoutineAnalysisAPI:
                 portfolio_data = {
                     stock_code: {
                         "stock_data": self.json_manager.get_stock_data(stock_code),
-                        "current_price": self.json_manager.get_stock_data(stock_code)[
-                            "Close"
-                        ].iloc[-1]
-                        if not self.json_manager.get_stock_data(stock_code).empty
-                        else 0,
+                        "current_price": (
+                            self.json_manager.get_stock_data(stock_code)["Close"].iloc[
+                                -1
+                            ]
+                            if not self.json_manager.get_stock_data(stock_code).empty
+                            else 0
+                        ),
                         "position_size": 1.0,  # 仮のポジションサイズ
                         "account_balance": 1000000.0,
                     }

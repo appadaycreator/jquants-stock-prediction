@@ -10,7 +10,7 @@ import sys
 import os
 
 # パスを追加
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from core.confidence_based_trading import ConfidenceBasedTrading
 
@@ -292,7 +292,7 @@ class TestConfidenceBasedTrading:
     def test_error_handling_in_calculate_confidence(self):
         """信頼度計算でのエラーハンドリングテスト"""
         # 無効な予測値
-        with patch.object(self.trading_system, 'logger') as mock_logger:
+        with patch.object(self.trading_system, "logger") as mock_logger:
             confidence = self.trading_system.calculate_confidence(
                 None, self.sample_market_data
             )
@@ -301,14 +301,14 @@ class TestConfidenceBasedTrading:
     def test_error_handling_in_should_trade(self):
         """取引判定でのエラーハンドリングテスト"""
         # 無効なデータ
-        with patch.object(self.trading_system, 'logger') as mock_logger:
+        with patch.object(self.trading_system, "logger") as mock_logger:
             result = self.trading_system.should_trade(None, None)
             assert result["should_trade"] is False
 
     def test_error_handling_in_execute_trade(self):
         """取引実行でのエラーハンドリングテスト"""
         # 無効なデータ
-        with patch.object(self.trading_system, 'logger') as mock_logger:
+        with patch.object(self.trading_system, "logger") as mock_logger:
             result = self.trading_system.execute_trade(None, None)
             assert result["executed"] is False
 

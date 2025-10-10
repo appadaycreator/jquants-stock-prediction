@@ -153,9 +153,9 @@ class ArticleInspiredBacktest:
                 "win_rate": performance["win_rate"],
                 "max_drawdown": performance["max_drawdown"],
                 "sharpe_ratio": performance["sharpe_ratio"],
-                "avg_confidence": np.mean(confidence_scores)
-                if confidence_scores
-                else 0,
+                "avg_confidence": (
+                    np.mean(confidence_scores) if confidence_scores else 0
+                ),
                 "trades": self.trades,
                 "equity_curve": self.equity_curve,
             }

@@ -56,9 +56,9 @@ class TestIntegration:
 
         # ログディレクトリが存在することを確認
         assert logs_dir.exists(), f"ログディレクトリが存在しません: {logs_dir}"
-        assert logs_dir.is_dir(), (
-            f"ログディレクトリがディレクトリではありません: {logs_dir}"
-        )
+        assert (
+            logs_dir.is_dir()
+        ), f"ログディレクトリがディレクトリではありません: {logs_dir}"
 
         # ログディレクトリが作成されたことを確認
         assert logs_dir.exists(), f"ログディレクトリの作成に失敗しました: {logs_dir}"

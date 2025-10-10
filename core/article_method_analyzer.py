@@ -221,9 +221,9 @@ class ArticleMethodAnalyzer:
             "losing_trades": int(losing_trades),
             "max_drawdown": 0.0,
             "sharpe_ratio": 0.0,
-            "profit_factor": 1.0
-            if losing_trades == 0
-            else winning_trades / max(losing_trades, 1),
+            "profit_factor": (
+                1.0 if losing_trades == 0 else winning_trades / max(losing_trades, 1)
+            ),
         }
 
     def _calculate_accuracy(self, y_true: pd.Series, y_pred: np.ndarray) -> float:

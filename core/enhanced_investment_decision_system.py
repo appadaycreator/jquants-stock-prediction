@@ -368,9 +368,11 @@ class EnhancedInvestmentDecisionSystem:
                 "action_counts": action_counts,
                 "total_risk": total_risk,
                 "avg_expected_return": avg_expected_return,
-                "risk_return_ratio": total_risk / abs(avg_expected_return)
-                if avg_expected_return != 0
-                else 0,
+                "risk_return_ratio": (
+                    total_risk / abs(avg_expected_return)
+                    if avg_expected_return != 0
+                    else 0
+                ),
             }
 
         except Exception as e:

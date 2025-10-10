@@ -214,7 +214,7 @@ class TestCoverageImprovement(unittest.TestCase):
         # リアルタイム損切りシステムのエラー回復
         with patch.object(
             self.stop_loss_system.volatility_calculator,
-            'calculate_volatility',
+            "calculate_volatility",
             side_effect=Exception("Test error"),
         ):
             result = self.stop_loss_system.add_stop_loss_setting(

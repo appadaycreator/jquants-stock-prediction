@@ -701,9 +701,9 @@ class AutomatedScheduler:
         """スケジューラー状態の取得"""
         return {
             "is_running": self.is_running,
-            "last_execution": self.last_execution.isoformat()
-            if self.last_execution
-            else None,
+            "last_execution": (
+                self.last_execution.isoformat() if self.last_execution else None
+            ),
             "execution_count": self.execution_count,
             "error_count": self.error_count,
             "execution_time": self.scheduler_config.execution_time,

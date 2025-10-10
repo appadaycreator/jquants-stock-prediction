@@ -706,9 +706,9 @@ class AdvancedPositionSizing:
                 "individual_limits": individual_limits,
                 "total_allocated": total_allocated,
                 "max_total_loss": max_total_loss,
-                "utilization_rate": total_allocated / max_total_loss
-                if max_total_loss > 0
-                else 0,
+                "utilization_rate": (
+                    total_allocated / max_total_loss if max_total_loss > 0 else 0
+                ),
             }
 
         except Exception as e:

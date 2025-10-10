@@ -166,16 +166,12 @@ class InitialDataFetcherWithSample:
             sma_5 = (
                 sum(prices[-5:]) / 5
                 if len(prices) >= 5
-                else prices[-1]
-                if prices
-                else 0
+                else prices[-1] if prices else 0
             )
             sma_25 = (
                 sum(prices[-25:]) / 25
                 if len(prices) >= 25
-                else prices[-1]
-                if prices
-                else 0
+                else prices[-1] if prices else 0
             )
             sma_75 = sum(prices[-75:]) / 75 if len(prices) >= 75 else sma_25
 

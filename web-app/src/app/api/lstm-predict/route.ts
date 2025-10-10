@@ -8,7 +8,7 @@ interface LSTMPredictionRequest {
   prediction_days?: number;
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body: LSTMPredictionRequest = await request.json();
     const { symbol, prediction_days = 22 } = body;
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     // 仮想環境のPythonが存在するかチェック
     const pythonPath = fs.existsSync(venvPython) ? venvPython : "python3";
 
-    return new Promise((resolve) => {
+    return new Promise<NextResponse>((resolve) => {
       const pythonProcess = spawn(pythonPath, [
         "-c",
         `

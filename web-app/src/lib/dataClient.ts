@@ -122,7 +122,7 @@ async function fetchLatestIndexWithFallback(): Promise<LatestIndex> {
         console.error("All URLs failed, returning fallback data");
         return {
           latest: "20250930",
-          dates: ["20250930"]
+          dates: ["20250930"],
         };
       }
     }
@@ -139,12 +139,12 @@ export function resolveBusinessDate(target: string | null, index: LatestIndex): 
     return "20250930";
   }
   
-  if (target && typeof target === 'string' && target !== 'undefined' && index.dates.includes(target)) {
+  if (target && typeof target === "string" && target !== "undefined" && index.dates.includes(target)) {
     return target;
   }
   
   // 市場休場日の場合は直近過去にフォールバック
-  const candidate = target && target !== 'undefined' ? index.dates.find(d => d <= target) : index.latest;
+  const candidate = target && target !== "undefined" ? index.dates.find(d => d <= target) : index.latest;
   const result = candidate || index.latest;
   
   console.log(`resolveBusinessDate: target=${target}, result=${result}`);
@@ -233,7 +233,7 @@ export function clearDataCache(): void {
 }
 
 // アプリケーション起動時の自動キャッシュクリア
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   // バージョン管理による自動キャッシュクリア
   const APP_VERSION = "2.24.1";
   const lastVersion = localStorage.getItem("app_version");
@@ -247,7 +247,7 @@ if (typeof window !== 'undefined') {
   // デバッグ用: グローバルに公開
   (window as any).clearDataCache = clearDataCache;
   (window as any).getLatestIndex = getLatestIndex;
-  (window as any).resolveStaticPath = require('./path').resolveStaticPath;
+  (window as any).resolveStaticPath = require("./path").resolveStaticPath;
   (window as any).APP_VERSION = APP_VERSION;
 }
 

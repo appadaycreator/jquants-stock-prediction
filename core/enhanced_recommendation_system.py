@@ -319,9 +319,9 @@ class EnhancedRecommendationSystem:
                 "portfolio_summary": {
                     "total_value": total_value,
                     "num_positions": num_positions,
-                    "avg_position_size": total_value / num_positions
-                    if num_positions > 0
-                    else 0,
+                    "avg_position_size": (
+                        total_value / num_positions if num_positions > 0 else 0
+                    ),
                 },
             }
 

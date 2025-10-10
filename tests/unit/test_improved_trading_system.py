@@ -328,9 +328,9 @@ class TestImprovedTradingSystem:
         """異なる初期資本でのバックテストテスト（最適化版）"""
         # モデル訓練を簡略化
         with pytest.MonkeyPatch().context() as m:
-            m.setattr(self.trading_system, 'train_models', lambda x: None)
-            m.setattr(self.trading_system, 'trained_models', {'model1': 'mock'})
-            
+            m.setattr(self.trading_system, "train_models", lambda x: None)
+            m.setattr(self.trading_system, "trained_models", {"model1": "mock"})
+
             # 初期資本を1つに削減（網羅性は維持）
             initial_capital = 100000
             result = self.trading_system.run_backtest(self.sample_data, initial_capital)

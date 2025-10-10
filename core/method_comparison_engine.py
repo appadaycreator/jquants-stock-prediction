@@ -248,15 +248,23 @@ class MethodComparisonEngine:
         """統計的有意性の計算（簡略化）"""
         # 実際の実装では、適切な統計検定を実行
         return {
-            "return_significance": "p < 0.05"
-            if abs(improved_result.total_return - article_result.total_return) > 0.01
-            else "p > 0.05",
-            "accuracy_significance": "p < 0.05"
-            if abs(improved_result.accuracy - article_result.accuracy) > 0.05
-            else "p > 0.05",
-            "risk_significance": "p < 0.05"
-            if abs(article_result.max_drawdown - improved_result.max_drawdown) > 0.01
-            else "p > 0.05",
+            "return_significance": (
+                "p < 0.05"
+                if abs(improved_result.total_return - article_result.total_return)
+                > 0.01
+                else "p > 0.05"
+            ),
+            "accuracy_significance": (
+                "p < 0.05"
+                if abs(improved_result.accuracy - article_result.accuracy) > 0.05
+                else "p > 0.05"
+            ),
+            "risk_significance": (
+                "p < 0.05"
+                if abs(article_result.max_drawdown - improved_result.max_drawdown)
+                > 0.01
+                else "p > 0.05"
+            ),
         }
 
     def _identify_article_method_issues(self, article_result) -> List[str]:

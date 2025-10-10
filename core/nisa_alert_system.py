@@ -474,9 +474,9 @@ class NisaAlertSystem:
                 "warning_alerts": warning_alerts,
                 "info_alerts": info_alerts,
                 "recent_alerts": len(recent_alerts),
-                "alert_rate": len(recent_alerts) / 24
-                if recent_alerts
-                else 0,  # 時間あたりのアラート数
+                "alert_rate": (
+                    len(recent_alerts) / 24 if recent_alerts else 0
+                ),  # 時間あたりのアラート数
                 "last_updated": datetime.now().isoformat(),
             }
 

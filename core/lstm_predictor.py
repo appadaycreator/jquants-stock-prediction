@@ -70,7 +70,9 @@ class LSTMPredictor:
             model = Sequential()
 
             # 第1層LSTM（return_sequences=Trueで次の層に出力）
-            model.add(LSTM(25, return_sequences=True, input_shape=input_shape))  # 50→25に削減
+            model.add(
+                LSTM(25, return_sequences=True, input_shape=input_shape)
+            )  # 50→25に削減
             model.add(Dropout(0.1))  # 0.2→0.1に削減
 
             # 第2層LSTM

@@ -220,14 +220,14 @@ class AdvancedRiskMetrics:
         try:
             if data is None or data.empty:
                 return pd.Series(dtype=float)
-                
+
             # 複数のカラム名パターンに対応
             price_column = None
             for col in ["Close", "close", "price", "Price"]:
                 if col in data.columns:
                     price_column = col
                     break
-                    
+
             if price_column is None:
                 # 最後の数値カラムを使用
                 numeric_cols = data.select_dtypes(include=[np.number]).columns
@@ -242,7 +242,7 @@ class AdvancedRiskMetrics:
 
             returns = prices.pct_change().dropna()
             return returns
-            
+
         except Exception as e:
             self.logger.error(f"リターン計算エラー: {e}")
             return pd.Series(dtype=float)
@@ -260,12 +260,16 @@ class AdvancedRiskMetrics:
 
         return abs(var_95), abs(var_99)
 
-    def _calculate_var_historical(self, returns: np.ndarray, confidence_level: float) -> Optional[float]:
+    def _calculate_var_historical(
+        self, returns: np.ndarray, confidence_level: float
+    ) -> Optional[float]:
         """VaR計算（ヒストリカル法）"""
         try:
             insufficient_samples = len(returns) < 3
             if insufficient_samples:
-                self.logger.warning(f"VaR計算に十分なデータがありません: {len(returns)} < 3")
+                self.logger.warning(
+                    f"VaR計算に十分なデータがありません: {len(returns)} < 3"
+                )
 
             var_percentile = (1 - confidence_level) * 100
             var_value = np.percentile(returns, var_percentile)
@@ -275,51 +279,57 @@ class AdvancedRiskMetrics:
             self.logger.error(f"VaR計算エラー: {e}")
             return None
 
-    def _calculate_var_parametric(self, returns: np.ndarray, confidence_level: float) -> Optional[float]:
+    def _calculate_var_parametric(
+        self, returns: np.ndarray, confidence_level: float
+    ) -> Optional[float]:
         """VaR計算（パラメトリック法）"""
         try:
             insufficient_samples = len(returns) < 3
             if insufficient_samples:
-                self.logger.warning(f"VaR計算に十分なデータがありません: {len(returns)} < 3")
+                self.logger.warning(
+                    f"VaR計算に十分なデータがありません: {len(returns)} < 3"
+                )
 
             mean_return = np.mean(returns)
             std_return = np.std(returns)
-            
+
             # 正規分布の分位点
             z_score = stats.norm.ppf(1 - confidence_level)
             var_value = mean_return + z_score * std_return
-            
+
             return None if insufficient_samples else var_value
 
         except Exception as e:
             self.logger.error(f"VaR計算エラー: {e}")
             return None
 
-    def _calculate_var_monte_carlo(self, returns: np.ndarray, confidence_level: float) -> Optional[float]:
+    def _calculate_var_monte_carlo(
+        self, returns: np.ndarray, confidence_level: float
+    ) -> Optional[float]:
         """VaR計算（モンテカルロ法）"""
         try:
             insufficient_samples = len(returns) < 3
             if insufficient_samples:
-                self.logger.warning(f"VaR計算に十分なデータがありません: {len(returns)} < 3")
+                self.logger.warning(
+                    f"VaR計算に十分なデータがありません: {len(returns)} < 3"
+                )
 
             # パラメータ推定
             mean_return = np.mean(returns)
             std_return = np.std(returns)
-            
+
             # モンテカルロシミュレーション
             n_simulations = 10000
             simulated_returns = np.random.normal(mean_return, std_return, n_simulations)
-            
+
             var_percentile = (1 - confidence_level) * 100
             var_value = np.percentile(simulated_returns, var_percentile)
-            
+
             return None if insufficient_samples else var_value
 
         except Exception as e:
             self.logger.error(f"VaR計算エラー: {e}")
             return None
-
-
 
     def _calculate_cvar(self, returns: pd.Series) -> Tuple[float, float]:
         """CVaR計算"""
@@ -336,13 +346,15 @@ class AdvancedRiskMetrics:
 
         return abs(cvar_95), abs(cvar_99)
 
-    def _calculate_cvar_historical(self, returns: np.ndarray, confidence_level: float) -> Optional[float]:
+    def _calculate_cvar_historical(
+        self, returns: np.ndarray, confidence_level: float
+    ) -> Optional[float]:
         """CVaR計算（ヒストリカル法）"""
         try:
             if len(returns) < 3:
                 self.logger.warning("データ不足のためCVaR計算をスキップ")
                 return None
-            
+
             percentile = (1 - confidence_level) * 100
             var = np.percentile(returns, percentile)
             cvar = np.mean(returns[returns <= var])
@@ -368,7 +380,9 @@ class AdvancedRiskMetrics:
 
         return abs(drawdown.min())
 
-    def _calculate_max_drawdown_peak_to_trough(self, cumulative_returns: np.ndarray) -> Optional[float]:
+    def _calculate_max_drawdown_peak_to_trough(
+        self, cumulative_returns: np.ndarray
+    ) -> Optional[float]:
         """最大ドローダウン計算（ピーク・トゥ・トラフ法）"""
         try:
             if len(cumulative_returns) < 2:
@@ -377,17 +391,19 @@ class AdvancedRiskMetrics:
 
             # ピーク価格の計算
             peak = np.maximum.accumulate(cumulative_returns)
-            
+
             # ドローダウンの計算
             drawdown = (cumulative_returns - peak) / peak
-            
+
             return np.min(drawdown)
 
         except Exception as e:
             self.logger.error(f"最大ドローダウン計算エラー: {e}")
             return None
 
-    def _calculate_max_drawdown_rolling(self, cumulative_returns: np.ndarray) -> Optional[float]:
+    def _calculate_max_drawdown_rolling(
+        self, cumulative_returns: np.ndarray
+    ) -> Optional[float]:
         """最大ドローダウン計算（ローリング法）"""
         try:
             if len(cumulative_returns) < 2:
@@ -396,16 +412,20 @@ class AdvancedRiskMetrics:
 
             # ローリングウィンドウでドローダウンを計算
             series = pd.Series(cumulative_returns)
-            rolling_max = series.rolling(window=min(252, len(series)), min_periods=1).max()
+            rolling_max = series.rolling(
+                window=min(252, len(series)), min_periods=1
+            ).max()
             drawdown = (series - rolling_max) / rolling_max
-            
+
             return drawdown.min()
 
         except Exception as e:
             self.logger.error(f"最大ドローダウン計算エラー: {e}")
             return None
 
-    def _calculate_volatility_annualized(self, returns: np.ndarray | pd.Series) -> Optional[float]:
+    def _calculate_volatility_annualized(
+        self, returns: np.ndarray | pd.Series
+    ) -> Optional[float]:
         """ボラティリティ計算（年率化）"""
         try:
             if isinstance(returns, pd.Series):
@@ -425,7 +445,9 @@ class AdvancedRiskMetrics:
             self.logger.error(f"ボラティリティ計算エラー: {e}")
             return None
 
-    def _calculate_volatility_rolling(self, returns: np.ndarray | pd.Series) -> Optional[float]:
+    def _calculate_volatility_rolling(
+        self, returns: np.ndarray | pd.Series
+    ) -> Optional[float]:
         """ボラティリティ計算（ローリング）"""
         try:
             if isinstance(returns, pd.Series):
@@ -440,16 +462,20 @@ class AdvancedRiskMetrics:
 
             # ローリングボラティリティ
             series = pd.Series(returns)
-            rolling_vol = series.rolling(window=min(252, len(series)), min_periods=1).std()
+            rolling_vol = series.rolling(
+                window=min(252, len(series)), min_periods=1
+            ).std()
             annualized_vol = rolling_vol.iloc[-1] * np.sqrt(252)
-            
+
             return None if insufficient_samples else float(annualized_vol)
 
         except Exception as e:
             self.logger.error(f"ボラティリティ計算エラー: {e}")
             return None
 
-    def _calculate_sharpe_ratio(self, returns: pd.Series | np.ndarray, risk_free_rate: float = None) -> Optional[float]:
+    def _calculate_sharpe_ratio(
+        self, returns: pd.Series | np.ndarray, risk_free_rate: float = None
+    ) -> Optional[float]:
         """シャープレシオ計算"""
         try:
             if isinstance(returns, np.ndarray):
@@ -480,24 +506,28 @@ class AdvancedRiskMetrics:
             self.logger.error(f"シャープレシオ計算エラー: {e}")
             return None
 
-    def _calculate_sharpe_ratio_enhanced(self, returns: np.ndarray, risk_free_rate: float) -> Optional[float]:
+    def _calculate_sharpe_ratio_enhanced(
+        self, returns: np.ndarray, risk_free_rate: float
+    ) -> Optional[float]:
         """シャープレシオ計算（拡張版）"""
         try:
             if len(returns) < 2:
                 self.logger.warning("データ不足のためシャープレシオ計算をスキップ")
                 return None
-            
+
             excess_returns = returns - risk_free_rate
             if np.std(returns) == 0:
                 return 0.0
-            
+
             sharpe = np.mean(excess_returns) / np.std(returns) * np.sqrt(252)
             return sharpe
         except Exception as e:
             self.logger.error(f"シャープレシオ計算エラー: {e}")
             return None
 
-    def _calculate_sortino_ratio(self, returns: pd.Series | np.ndarray, risk_free_rate: float = None) -> Optional[float]:
+    def _calculate_sortino_ratio(
+        self, returns: pd.Series | np.ndarray, risk_free_rate: float = None
+    ) -> Optional[float]:
         """ソルティノレシオ計算"""
         try:
             if isinstance(returns, np.ndarray):
@@ -523,11 +553,19 @@ class AdvancedRiskMetrics:
             if insufficient_samples:
                 _ = np.mean(excess_returns.values)
             if len(negative_returns) == 0:
-                return None if insufficient_samples else (float("inf") if np.mean(excess_returns.values) > 0 else 0.0)
+                return (
+                    None
+                    if insufficient_samples
+                    else (float("inf") if np.mean(excess_returns.values) > 0 else 0.0)
+                )
 
             downside_deviation = np.std(negative_returns.values)
             if downside_deviation == 0:
-                return None if insufficient_samples else (float("inf") if np.mean(excess_returns.values) > 0 else 0.0)
+                return (
+                    None
+                    if insufficient_samples
+                    else (float("inf") if np.mean(excess_returns.values) > 0 else 0.0)
+                )
 
             sortino = np.mean(excess_returns.values) / downside_deviation * np.sqrt(252)
 
@@ -536,24 +574,26 @@ class AdvancedRiskMetrics:
             self.logger.error(f"ソルティノレシオ計算エラー: {e}")
             return None
 
-    def _calculate_sortino_ratio_enhanced(self, returns: np.ndarray, risk_free_rate: float) -> Optional[float]:
+    def _calculate_sortino_ratio_enhanced(
+        self, returns: np.ndarray, risk_free_rate: float
+    ) -> Optional[float]:
         """ソルティノレシオ計算（拡張版）"""
         try:
             if len(returns) < 2:
                 self.logger.warning("データ不足のためソルティノレシオ計算をスキップ")
                 return None
-            
+
             excess_returns = returns - risk_free_rate
-            
+
             # 下方偏差計算
             negative_returns = excess_returns[excess_returns < 0]
             if len(negative_returns) == 0:
                 return float("inf") if np.mean(excess_returns) > 0 else 0.0
-            
+
             downside_deviation = np.std(negative_returns)
             if downside_deviation == 0:
                 return float("inf") if np.mean(excess_returns) > 0 else 0.0
-            
+
             sortino = np.mean(excess_returns) / downside_deviation * np.sqrt(252)
             return sortino
         except Exception as e:
@@ -573,7 +613,9 @@ class AdvancedRiskMetrics:
             self.logger.error(f"カルマーレシオ計算エラー: {e}")
             return 0.0
 
-    def _calculate_calmar_ratio_enhanced(self, returns: pd.Series, max_drawdown: float) -> float:
+    def _calculate_calmar_ratio_enhanced(
+        self, returns: pd.Series, max_drawdown: float
+    ) -> float:
         """カルマーレシオ計算（拡張版）"""
         try:
             if returns.empty or len(returns) < 2 or max_drawdown == 0:
@@ -597,14 +639,18 @@ class AdvancedRiskMetrics:
                 benchmark_returns = pd.Series(benchmark_returns)
 
             if returns.empty or benchmark_returns.empty:
-                self.logger.warning("データ不足のためインフォメーションレシオ計算をスキップ")
+                self.logger.warning(
+                    "データ不足のためインフォメーションレシオ計算をスキップ"
+                )
                 return None
 
             # 共通の日付で結合
             common_dates = returns.index.intersection(benchmark_returns.index)
             insufficient_samples = len(common_dates) < 3
             if insufficient_samples:
-                self.logger.warning("データ不足のためインフォメーションレシオ計算をスキップ")
+                self.logger.warning(
+                    "データ不足のためインフォメーションレシオ計算をスキップ"
+                )
 
             returns_aligned = returns.loc[common_dates]
             benchmark_aligned = benchmark_returns.loc[common_dates]
@@ -630,23 +676,30 @@ class AdvancedRiskMetrics:
         """インフォメーションレシオ計算（拡張版）"""
         try:
             if len(returns) < 2 or len(benchmark_returns) < 2:
-                self.logger.warning("データ不足のためインフォメーションレシオ計算をスキップ")
+                self.logger.warning(
+                    "データ不足のためインフォメーションレシオ計算をスキップ"
+                )
                 return None
-            
+
             # アクティブリターン
             active_returns = returns - benchmark_returns
-            
+
             if np.std(active_returns) == 0:
                 return 0.0
-            
-            information_ratio = np.mean(active_returns) / np.std(active_returns) * np.sqrt(252)
+
+            information_ratio = (
+                np.mean(active_returns) / np.std(active_returns) * np.sqrt(252)
+            )
             return information_ratio
         except Exception as e:
             self.logger.error(f"インフォメーションレシオ計算エラー: {e}")
             return None
 
     def _calculate_treynor_ratio(
-        self, returns: pd.Series | np.ndarray, market_returns: pd.Series | np.ndarray, risk_free_rate: float = None
+        self,
+        returns: pd.Series | np.ndarray,
+        market_returns: pd.Series | np.ndarray,
+        risk_free_rate: float = None,
     ) -> Optional[float]:
         """トレイナーレシオ計算"""
         try:
@@ -691,12 +744,12 @@ class AdvancedRiskMetrics:
             if len(returns) < 2 or len(benchmark_returns) < 2:
                 self.logger.warning("データ不足のためトレイナーレシオ計算をスキップ")
                 return None
-            
+
             # ベータ計算
             beta = self._calculate_beta_enhanced(returns, benchmark_returns)
             if beta == 0:
                 return 0.0
-            
+
             excess_return = np.mean(returns) - risk_free_rate
             treynor = excess_return / beta * 252
             return treynor
@@ -705,7 +758,10 @@ class AdvancedRiskMetrics:
             return None
 
     def _calculate_jensen_alpha(
-        self, returns: pd.Series | np.ndarray, market_returns: pd.Series | np.ndarray, risk_free_rate: float = None
+        self,
+        returns: pd.Series | np.ndarray,
+        market_returns: pd.Series | np.ndarray,
+        risk_free_rate: float = None,
     ) -> Optional[float]:
         """ジェンセンのアルファ計算"""
         try:
@@ -716,14 +772,18 @@ class AdvancedRiskMetrics:
                 market_returns = pd.Series(market_returns)
 
             if returns.empty or market_returns.empty:
-                self.logger.warning("データ不足のためジェンセンのアルファ計算をスキップ")
+                self.logger.warning(
+                    "データ不足のためジェンセンのアルファ計算をスキップ"
+                )
                 return None
 
             # 共通の日付で結合
             common_dates = returns.index.intersection(market_returns.index)
             insufficient_samples = len(common_dates) < 3
             if insufficient_samples:
-                self.logger.warning("データ不足のためジェンセンのアルファ計算をスキップ")
+                self.logger.warning(
+                    "データ不足のためジェンセンのアルファ計算をスキップ"
+                )
 
             returns_aligned = returns.loc[common_dates]
             market_aligned = market_returns.loc[common_dates]
@@ -739,7 +799,9 @@ class AdvancedRiskMetrics:
             # アルファ計算（NumPyで明示的に計算）
             mean_returns = np.mean(returns_aligned.values)
             mean_market = np.mean(market_aligned.values)
-            alpha = mean_returns - (risk_free_rate + beta * (mean_market - risk_free_rate))
+            alpha = mean_returns - (
+                risk_free_rate + beta * (mean_market - risk_free_rate)
+            )
 
             return None if insufficient_samples else alpha * 252  # 年率化
         except Exception as e:
@@ -752,17 +814,19 @@ class AdvancedRiskMetrics:
         """ジェンセンのアルファ計算（拡張版）"""
         try:
             if len(returns) < 2 or len(benchmark_returns) < 2:
-                self.logger.warning("データ不足のためジェンセンのアルファ計算をスキップ")
+                self.logger.warning(
+                    "データ不足のためジェンセンのアルファ計算をスキップ"
+                )
                 return None
-            
+
             # ベータ計算
             beta = self._calculate_beta_enhanced(returns, benchmark_returns)
-            
+
             # アルファ計算
             alpha = np.mean(returns) - (
                 risk_free_rate + beta * (np.mean(benchmark_returns) - risk_free_rate)
             )
-            
+
             return alpha * 252  # 年率化
         except Exception as e:
             self.logger.error(f"ジェンセンのアルファ計算エラー: {e}")
@@ -800,19 +864,21 @@ class AdvancedRiskMetrics:
             self.logger.error(f"ベータ計算エラー: {e}")
             return 1.0
 
-    def _calculate_beta_enhanced(self, returns: np.ndarray, benchmark_returns: np.ndarray) -> float:
+    def _calculate_beta_enhanced(
+        self, returns: np.ndarray, benchmark_returns: np.ndarray
+    ) -> float:
         """ベータ計算（拡張版）"""
         try:
             if len(returns) < 2 or len(benchmark_returns) < 2:
                 return 1.0
-            
+
             # 共分散と分散の計算
             covariance = np.cov(returns, benchmark_returns)[0, 1]
             market_variance = np.var(benchmark_returns)
-            
+
             if market_variance == 0:
                 return 1.0
-            
+
             beta = covariance / market_variance
             return beta
         except Exception as e:
@@ -852,7 +918,7 @@ class AdvancedRiskMetrics:
             if len(returns) < 2 or len(benchmark_returns) < 2:
                 self.logger.warning("データ不足のため相関計算をスキップ")
                 return None
-            
+
             correlation = np.corrcoef(returns, benchmark_returns)[0, 1]
             return correlation if not np.isnan(correlation) else 0.0
         except Exception as e:
@@ -871,7 +937,6 @@ class AdvancedRiskMetrics:
         except Exception as e:
             self.logger.error(f"ボラティリティ計算エラー: {e}")
             return 0.2
-
 
     def _calculate_skewness(self, returns: pd.Series | np.ndarray) -> Optional[float]:
         """歪度計算"""
@@ -903,7 +968,7 @@ class AdvancedRiskMetrics:
             if len(returns) < 3:
                 self.logger.warning("データ不足のため歪度計算をスキップ")
                 return None
-            
+
             skewness = stats.skew(returns)
             return skewness if not np.isnan(skewness) else 0.0
         except Exception as e:
@@ -941,7 +1006,7 @@ class AdvancedRiskMetrics:
             if len(returns) < 4:
                 self.logger.warning("データ不足のため尖度計算をスキップ")
                 return None
-            
+
             kurtosis = stats.kurtosis(returns)
             return kurtosis if not np.isnan(kurtosis) else 3.0
         except Exception as e:
@@ -983,17 +1048,19 @@ class AdvancedRiskMetrics:
         """リスクスコア計算（拡張版）"""
         try:
             # テストでの例外経路検証のため、NumPyのmeanを一度呼ぶ
-            _ = np.mean([
-                metrics.get('var_95', 0.05),
-                metrics.get('max_drawdown', 0.1),
-                metrics.get('volatility', 0.2)
-            ])
+            _ = np.mean(
+                [
+                    metrics.get("var_95", 0.05),
+                    metrics.get("max_drawdown", 0.1),
+                    metrics.get("volatility", 0.2),
+                ]
+            )
             # 各リスク指標の重み付きスコア
-            var_score = min(abs(metrics.get('var_95', 0.05)) * 20, 1.0)
-            drawdown_score = min(abs(metrics.get('max_drawdown', 0.1)) * 5, 1.0)
-            volatility_score = min(abs(metrics.get('volatility', 0.2)) * 2, 1.0)
-            beta_score = min(abs(metrics.get('beta', 1.0) - 1.0) * 2, 1.0)
-            correlation_score = min(abs(metrics.get('correlation', 0.5)) * 1.25, 1.0)
+            var_score = min(abs(metrics.get("var_95", 0.05)) * 20, 1.0)
+            drawdown_score = min(abs(metrics.get("max_drawdown", 0.1)) * 5, 1.0)
+            volatility_score = min(abs(metrics.get("volatility", 0.2)) * 2, 1.0)
+            beta_score = min(abs(metrics.get("beta", 1.0) - 1.0) * 2, 1.0)
+            correlation_score = min(abs(metrics.get("correlation", 0.5)) * 1.25, 1.0)
 
             # 重み付き平均
             risk_score = (
@@ -1027,7 +1094,9 @@ class AdvancedRiskMetrics:
         else:
             return "VERY_LOW"
 
-    def _calculate_confidence_interval(self, returns: pd.Series) -> Optional[Tuple[float, float]]:
+    def _calculate_confidence_interval(
+        self, returns: pd.Series
+    ) -> Optional[Tuple[float, float]]:
         """信頼区間計算"""
         try:
             if returns.empty or len(returns) < 10:
@@ -1049,23 +1118,25 @@ class AdvancedRiskMetrics:
             self.logger.error(f"信頼区間計算エラー: {e}")
             return None
 
-    def _calculate_confidence_interval_enhanced(self, returns: pd.Series) -> Optional[Tuple[float, float]]:
+    def _calculate_confidence_interval_enhanced(
+        self, returns: pd.Series
+    ) -> Optional[Tuple[float, float]]:
         """信頼区間計算（拡張版）"""
         try:
             if returns.empty or len(returns) < 10:
                 self.logger.warning("データ不足のため信頼区間計算をスキップ")
                 return None
-            
+
             # 95%信頼区間
             mean_return = returns.mean()
             std_error = returns.std() / np.sqrt(len(returns))
-            
+
             # t分布を使用
             t_value = stats.t.ppf(0.975, len(returns) - 1)
-            
+
             lower_bound = mean_return - t_value * std_error
             upper_bound = mean_return + t_value * std_error
-            
+
             return (lower_bound, upper_bound)
         except Exception as e:
             self.logger.error(f"信頼区間計算エラー: {e}")
@@ -1181,7 +1252,7 @@ class AdvancedRiskMetrics:
         """リスクサマリー取得"""
         try:
             risk_level = self._determine_risk_level(result.risk_score)
-            
+
             key_metrics = {
                 "var_95": result.var_95,
                 "max_drawdown": result.max_drawdown,
@@ -1189,32 +1260,31 @@ class AdvancedRiskMetrics:
                 "sharpe_ratio": result.sharpe_ratio,
                 "beta": result.beta,
             }
-            
+
             recommendations = []
             if result.risk_score > 0.7:
-                recommendations.append("リスクが高いため、投資額を減らすことを検討してください")
+                recommendations.append(
+                    "リスクが高いため、投資額を減らすことを検討してください"
+                )
             elif result.risk_score < 0.3:
                 recommendations.append("リスクが低いため、投資機会を検討してください")
-            
+
             return {
                 "risk_level": risk_level,
                 "risk_score": result.risk_score,
                 "key_metrics": key_metrics,
                 "recommendations": recommendations,
-                "status": "success"
+                "status": "success",
             }
         except Exception as e:
             self.logger.error(f"リスクサマリー取得エラー: {e}")
-            return {
-                "status": "error",
-                "error": str(e)
-            }
+            return {"status": "error", "error": str(e)}
 
     def export_risk_report(self, result: RiskMetricsResult) -> Dict[str, Any]:
         """リスクレポート出力"""
         try:
             risk_summary = self.get_risk_summary(result)
-            
+
             return {
                 "report_type": "risk_analysis",
                 "calculation_date": result.calculation_date.isoformat(),
@@ -1241,12 +1311,8 @@ class AdvancedRiskMetrics:
                 },
                 "risk_summary": risk_summary,
                 "recommendations": risk_summary.get("recommendations", []),
-                "status": "success"
+                "status": "success",
             }
         except Exception as e:
             self.logger.error(f"リスクレポート出力エラー: {e}")
-            return {
-                "status": "error",
-                "error": str(e)
-            }
-
+            return {"status": "error", "error": str(e)}

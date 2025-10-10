@@ -70,11 +70,15 @@ class EnhancedConfidenceSystem:
         self.confidence_history = {}
         self.market_regime = "normal"
         self.volatility_regime = "normal"
-        
+
         # テストで使用される属性を追加
         self.min_threshold = self.config.get("confidence", {}).get("min_threshold", 0.6)
-        self.high_threshold = self.config.get("confidence", {}).get("high_threshold", 0.8)
-        self.update_interval = self.config.get("confidence", {}).get("update_interval", 1.0)
+        self.high_threshold = self.config.get("confidence", {}).get(
+            "high_threshold", 0.8
+        )
+        self.update_interval = self.config.get("confidence", {}).get(
+            "update_interval", 1.0
+        )
         self.decay_factor = self.config.get("confidence", {}).get("decay_factor", 0.95)
 
     def _get_default_config(self) -> Dict[str, Any]:
@@ -182,7 +186,7 @@ class EnhancedConfidenceSystem:
             )
 
             # 履歴に追加（グローバル履歴）
-            if not hasattr(self, '_global_confidence_history'):
+            if not hasattr(self, "_global_confidence_history"):
                 self._global_confidence_history = []
             self._global_confidence_history.append(metrics)
             if len(self._global_confidence_history) > 1000:
@@ -979,11 +983,16 @@ class EnhancedConfidenceSystem:
 
     def _calculate_historical_adjustment(self) -> float:
         """履歴調整係数計算"""
-        if not hasattr(self, '_global_confidence_history') or len(self._global_confidence_history) < 10:
+        if (
+            not hasattr(self, "_global_confidence_history")
+            or len(self._global_confidence_history) < 10
+        ):
             return 1.0
 
         # 最近の信頼度の平均
-        recent_confidences = [m.final_confidence for m in self._global_confidence_history[-10:]]
+        recent_confidences = [
+            m.final_confidence for m in self._global_confidence_history[-10:]
+        ]
         avg_confidence = np.mean(recent_confidences)
 
         # 履歴に基づく調整
@@ -996,7 +1005,10 @@ class EnhancedConfidenceSystem:
 
     def _calculate_historical_risk_adjustment(self) -> float:
         """履歴リスク調整係数計算"""
-        if not hasattr(self, '_global_confidence_history') or len(self._global_confidence_history) < 5:
+        if (
+            not hasattr(self, "_global_confidence_history")
+            or len(self._global_confidence_history) < 5
+        ):
             return 1.0
 
         # 最近のリスク調整信頼度の平均
@@ -1208,7 +1220,7 @@ class EnhancedConfidenceSystem:
             for model_name, predictions in model_predictions.items():
                 if len(predictions) != len(actual_values):
                     continue
-                
+
                 # 予測精度を計算（1 - 平均絶対誤差）
                 mae = np.mean([abs(p - a) for p, a in zip(predictions, actual_values)])
                 accuracy = max(0.0, 1.0 - mae)
@@ -1219,7 +1231,7 @@ class EnhancedConfidenceSystem:
 
             # アンサンブル信頼度（重み付き平均）
             ensemble_confidence = np.mean(model_accuracies)
-            
+
             # モデル間の一貫性ボーナス
             consistency_bonus = 0.0
             if len(model_accuracies) > 1:
@@ -1232,7 +1244,9 @@ class EnhancedConfidenceSystem:
             self.logger.error(f"アンサンブル信頼度計算エラー: {e}")
             return None
 
-    def calculate_fundamental_confidence(self, fundamental_data: Dict[str, float]) -> Optional[float]:
+    def calculate_fundamental_confidence(
+        self, fundamental_data: Dict[str, float]
+    ) -> Optional[float]:
         """ファンダメンタル信頼度計算"""
         try:
             if not fundamental_data:
@@ -1246,7 +1260,9 @@ class EnhancedConfidenceSystem:
             growth_potential = self._calculate_growth_potential(fundamental_data)
 
             # バリュエーション
-            valuation_attractiveness = self._calculate_valuation_attractiveness(fundamental_data)
+            valuation_attractiveness = self._calculate_valuation_attractiveness(
+                fundamental_data
+            )
 
             # 業界地位
             industry_position = self._calculate_industry_position(fundamental_data)
@@ -1274,7 +1290,9 @@ class EnhancedConfidenceSystem:
                 return None
 
             if len(predictions) != len(actual_values):
-                self.logger.warning("履歴精度信頼度計算: 予測値と実測値の長さが一致しない")
+                self.logger.warning(
+                    "履歴精度信頼度計算: 予測値と実測値の長さが一致しない"
+                )
                 return None
 
             if len(predictions) < 3:
@@ -1283,10 +1301,15 @@ class EnhancedConfidenceSystem:
 
             # 平均絶対誤差を計算
             mae = np.mean([abs(p - a) for p, a in zip(predictions, actual_values)])
-            
+
             # 平均絶対誤差率を計算
-            mape = np.mean([abs(p - a) / abs(a) if a != 0 else 0 for p, a in zip(predictions, actual_values)])
-            
+            mape = np.mean(
+                [
+                    abs(p - a) / abs(a) if a != 0 else 0
+                    for p, a in zip(predictions, actual_values)
+                ]
+            )
+
             # 決定係数（R²）を計算
             ss_res = np.sum([(a - p) ** 2 for p, a in zip(predictions, actual_values)])
             ss_tot = np.sum([(a - np.mean(actual_values)) ** 2 for a in actual_values])
@@ -1294,7 +1317,7 @@ class EnhancedConfidenceSystem:
 
             # 信頼度スコアを計算（0-1の範囲）
             accuracy_score = max(0.0, min(1.0, r_squared))
-            
+
             # 誤差率による調整
             error_penalty = min(0.3, mape * 0.1)
             final_accuracy = max(0.0, accuracy_score - error_penalty)
@@ -1324,7 +1347,7 @@ class EnhancedConfidenceSystem:
 
             # 平均絶対誤差を計算
             mae = np.mean([abs(p - a) for p, a in zip(predictions, actual_values)])
-            
+
             # 信頼度スコアを計算（誤差が小さいほど高い信頼度）
             confidence = max(0.0, min(1.0, 1.0 - mae))
 
@@ -1334,7 +1357,9 @@ class EnhancedConfidenceSystem:
             self.logger.error(f"予測信頼度計算エラー: {e}")
             return None
 
-    def calculate_volatility_confidence(self, predictions: List[float]) -> Optional[float]:
+    def calculate_volatility_confidence(
+        self, predictions: List[float]
+    ) -> Optional[float]:
         """ボラティリティ信頼度計算"""
         try:
             if not predictions or len(predictions) < 3:
@@ -1343,13 +1368,13 @@ class EnhancedConfidenceSystem:
 
             # 予測値の標準偏差を計算
             std_dev = np.std(predictions)
-            
+
             # 平均値を計算
             mean_value = np.mean(predictions)
-            
+
             # 変動係数を計算
             cv = std_dev / mean_value if mean_value != 0 else 1.0
-            
+
             # 信頼度スコアを計算（変動係数が小さいほど高い信頼度）
             confidence = max(0.0, min(1.0, 1.0 - cv))
 
@@ -1359,7 +1384,9 @@ class EnhancedConfidenceSystem:
             self.logger.error(f"ボラティリティ信頼度計算エラー: {e}")
             return None
 
-    def calculate_market_condition_confidence(self, market_data: Dict[str, Any]) -> Optional[float]:
+    def calculate_market_condition_confidence(
+        self, market_data: Dict[str, Any]
+    ) -> Optional[float]:
         """市場条件信頼度計算"""
         try:
             if not market_data:
@@ -1402,7 +1429,9 @@ class EnhancedConfidenceSystem:
             self.logger.error(f"市場条件信頼度計算エラー: {e}")
             return None
 
-    def calculate_technical_confidence(self, technical_data: Dict[str, Any]) -> Optional[float]:
+    def calculate_technical_confidence(
+        self, technical_data: Dict[str, Any]
+    ) -> Optional[float]:
         """テクニカル信頼度計算"""
         try:
             if not technical_data:
@@ -1448,7 +1477,9 @@ class EnhancedConfidenceSystem:
             self.logger.error(f"テクニカル信頼度計算エラー: {e}")
             return None
 
-    def combine_confidence_scores(self, confidence_scores: Dict[str, float]) -> Optional[float]:
+    def combine_confidence_scores(
+        self, confidence_scores: Dict[str, float]
+    ) -> Optional[float]:
         """信頼度スコア結合"""
         try:
             if not confidence_scores or len(confidence_scores) < 2:
@@ -1525,7 +1556,9 @@ class EnhancedConfidenceSystem:
 
             # 履歴の最大数を制限
             if len(self.confidence_history[symbol]) > 1000:
-                self.confidence_history[symbol] = self.confidence_history[symbol][-1000:]
+                self.confidence_history[symbol] = self.confidence_history[symbol][
+                    -1000:
+                ]
 
         except Exception as e:
             self.logger.error(f"信頼度履歴更新エラー: {e}")
@@ -1533,7 +1566,10 @@ class EnhancedConfidenceSystem:
     def get_confidence_metrics(self, symbol: str) -> Optional[ConfidenceMetrics]:
         """信頼度メトリクス取得"""
         try:
-            if symbol not in self.confidence_history or not self.confidence_history[symbol]:
+            if (
+                symbol not in self.confidence_history
+                or not self.confidence_history[symbol]
+            ):
                 return None
 
             history = self.confidence_history[symbol]
@@ -1547,8 +1583,16 @@ class EnhancedConfidenceSystem:
 
             # 信頼度トレンド
             if len(confidences) >= 2:
-                recent_avg = np.mean(confidences[-5:]) if len(confidences) >= 5 else confidences[-1]
-                older_avg = np.mean(confidences[:-5]) if len(confidences) >= 10 else confidences[0]
+                recent_avg = (
+                    np.mean(confidences[-5:])
+                    if len(confidences) >= 5
+                    else confidences[-1]
+                )
+                older_avg = (
+                    np.mean(confidences[:-5])
+                    if len(confidences) >= 10
+                    else confidences[0]
+                )
                 if recent_avg > older_avg * 1.05:
                     confidence_trend = "improving"
                 elif recent_avg < older_avg * 0.95:
@@ -1584,7 +1628,7 @@ class EnhancedConfidenceSystem:
         """信頼度レポート出力"""
         try:
             metrics = self.get_confidence_metrics(symbol)
-            
+
             if metrics is None:
                 return {
                     "symbol": symbol,
@@ -1626,7 +1670,10 @@ class EnhancedConfidenceSystem:
 
     def get_confidence_statistics(self) -> Dict[str, Any]:
         """信頼度統計情報取得"""
-        if not hasattr(self, '_global_confidence_history') or not self._global_confidence_history:
+        if (
+            not hasattr(self, "_global_confidence_history")
+            or not self._global_confidence_history
+        ):
             return {}
 
         confidences = [m.final_confidence for m in self._global_confidence_history]

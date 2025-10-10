@@ -17,11 +17,11 @@ type ListedIndex = {
 };
 
 // 静的エクスポート対応
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
 export async function GET(request: NextRequest) {
   // 静的エクスポート時は固定レスポンスを返す
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === "production") {
     return NextResponse.json(
       { suggestions: [], total: 0, query: "", message: "Static export mode - suggestions not available" },
       { status: 200 },

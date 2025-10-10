@@ -51,7 +51,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
     def test_initialization_without_config(self):
         """設定なし初期化テスト"""
         clear_actions = ClearInvestmentActions()
-        
+
         self.assertEqual(clear_actions.min_confidence_threshold, 0.7)
         self.assertEqual(clear_actions.max_position_size, 0.1)
         self.assertEqual(clear_actions.risk_tolerance, 0.05)
@@ -70,7 +70,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -78,12 +78,15 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 30,
             "macd": "bullish",
         }
-        
+
         recommendation = self.clear_actions.analyze_position(position, market_data)
-        
+
         self.assertIsInstance(recommendation, InvestmentActionDetail)
         self.assertEqual(recommendation.symbol, "TEST")
-        self.assertIn(recommendation.action, [InvestmentAction.BUY_MORE, InvestmentAction.STOP_LOSS])
+        self.assertIn(
+            recommendation.action,
+            [InvestmentAction.BUY_MORE, InvestmentAction.STOP_LOSS],
+        )
 
     def test_analyze_position_take_profit_recommendation(self):
         """利確推奨分析テスト"""
@@ -97,7 +100,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=12000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.20,
@@ -105,12 +108,15 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 70,
             "macd": "bearish",
         }
-        
+
         recommendation = self.clear_actions.analyze_position(position, market_data)
-        
+
         self.assertIsInstance(recommendation, InvestmentActionDetail)
         self.assertEqual(recommendation.symbol, "TEST")
-        self.assertIn(recommendation.action, [InvestmentAction.TAKE_PROFIT, InvestmentAction.BUY_MORE])
+        self.assertIn(
+            recommendation.action,
+            [InvestmentAction.TAKE_PROFIT, InvestmentAction.BUY_MORE],
+        )
 
     def test_analyze_position_stop_loss_recommendation(self):
         """損切り推奨分析テスト"""
@@ -124,7 +130,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.25,
@@ -132,12 +138,15 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 25,
             "macd": "bearish",
         }
-        
+
         recommendation = self.clear_actions.analyze_position(position, market_data)
-        
+
         self.assertIsInstance(recommendation, InvestmentActionDetail)
         self.assertEqual(recommendation.symbol, "TEST")
-        self.assertIn(recommendation.action, [InvestmentAction.STOP_LOSS, InvestmentAction.BUY_MORE])
+        self.assertIn(
+            recommendation.action,
+            [InvestmentAction.STOP_LOSS, InvestmentAction.BUY_MORE],
+        )
 
     def test_analyze_position_insufficient_data(self):
         """データ不足の分析テスト"""
@@ -151,12 +160,12 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {}  # データ不足
-        
-        with patch.object(self.clear_actions.logger, 'warning') as mock_warning:
+
+        with patch.object(self.clear_actions.logger, "warning") as mock_warning:
             recommendation = self.clear_actions.analyze_position(position, market_data)
-            
+
             self.assertIsNone(recommendation)
             mock_warning.assert_called_once()
 
@@ -172,7 +181,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -180,11 +189,17 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 50,
             "macd": "neutral",
         }
-        
-        with patch.object(self.clear_actions, '_calculate_confidence', side_effect=Exception("Confidence error")):
-            with patch.object(self.clear_actions.logger, 'error') as mock_error:
-                recommendation = self.clear_actions.analyze_position(position, market_data)
-                
+
+        with patch.object(
+            self.clear_actions,
+            "_calculate_confidence",
+            side_effect=Exception("Confidence error"),
+        ):
+            with patch.object(self.clear_actions.logger, "error") as mock_error:
+                recommendation = self.clear_actions.analyze_position(
+                    position, market_data
+                )
+
                 self.assertIsNone(recommendation)
                 mock_error.assert_called_once()
 
@@ -200,7 +215,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.10,
@@ -208,9 +223,9 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 45,
             "macd": "bullish",
         }
-        
+
         confidence = self.clear_actions._calculate_confidence(position, market_data)
-        
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -227,7 +242,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.30,
@@ -235,9 +250,9 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 75,
             "macd": "bearish",
         }
-        
+
         confidence = self.clear_actions._calculate_confidence(position, market_data)
-        
+
         self.assertIsInstance(confidence, float)
         self.assertGreaterEqual(confidence, 0.0)
         self.assertLessEqual(confidence, 1.0)
@@ -254,7 +269,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -262,11 +277,13 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 50,
             "macd": "neutral",
         }
-        
-        with patch('numpy.mean', side_effect=Exception("Mean error")):
-            with patch.object(self.clear_actions.logger, 'error') as mock_error:
-                confidence = self.clear_actions._calculate_confidence(position, market_data)
-                
+
+        with patch("numpy.mean", side_effect=Exception("Mean error")):
+            with patch.object(self.clear_actions.logger, "error") as mock_error:
+                confidence = self.clear_actions._calculate_confidence(
+                    position, market_data
+                )
+
                 self.assertEqual(confidence, 0.5)  # デフォルト値
                 mock_error.assert_called_once()
 
@@ -282,7 +299,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.10,
@@ -290,13 +307,18 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 30,
             "macd": "bullish",
         }
-        
+
         confidence = 0.8
-        
-        action_detail = self.clear_actions._determine_action(position, market_data, confidence)
-        
+
+        action_detail = self.clear_actions._determine_action(
+            position, market_data, confidence
+        )
+
         self.assertIsNotNone(action_detail)
-        self.assertIn(action_detail.action, [InvestmentAction.BUY_MORE, InvestmentAction.STOP_LOSS])
+        self.assertIn(
+            action_detail.action,
+            [InvestmentAction.BUY_MORE, InvestmentAction.STOP_LOSS],
+        )
 
     def test_determine_action_take_profit(self):
         """利確アクション決定テスト"""
@@ -310,7 +332,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=12000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.20,
@@ -318,13 +340,18 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 70,
             "macd": "bearish",
         }
-        
+
         confidence = 0.8
-        
-        action_detail = self.clear_actions._determine_action(position, market_data, confidence)
-        
+
+        action_detail = self.clear_actions._determine_action(
+            position, market_data, confidence
+        )
+
         self.assertIsNotNone(action_detail)
-        self.assertIn(action_detail.action, [InvestmentAction.TAKE_PROFIT, InvestmentAction.BUY_MORE])
+        self.assertIn(
+            action_detail.action,
+            [InvestmentAction.TAKE_PROFIT, InvestmentAction.BUY_MORE],
+        )
 
     def test_determine_action_stop_loss(self):
         """損切りアクション決定テスト"""
@@ -338,7 +365,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.25,
@@ -346,13 +373,18 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 25,
             "macd": "bearish",
         }
-        
+
         confidence = 0.8
-        
-        action_detail = self.clear_actions._determine_action(position, market_data, confidence)
-        
+
+        action_detail = self.clear_actions._determine_action(
+            position, market_data, confidence
+        )
+
         self.assertIsNotNone(action_detail)
-        self.assertIn(action_detail.action, [InvestmentAction.STOP_LOSS, InvestmentAction.BUY_MORE])
+        self.assertIn(
+            action_detail.action,
+            [InvestmentAction.STOP_LOSS, InvestmentAction.BUY_MORE],
+        )
 
     def test_determine_action_low_confidence(self):
         """低信頼度アクション決定テスト"""
@@ -366,7 +398,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "neutral",
             "volatility": 0.15,
@@ -374,11 +406,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 50,
             "macd": "neutral",
         }
-        
+
         confidence = 0.3  # 低信頼度
-        
+
         action = self.clear_actions._determine_action(position, market_data, confidence)
-        
+
         self.assertIsNone(action)
 
     def test_calculate_position_size_kelly_criterion(self):
@@ -393,7 +425,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -401,13 +433,13 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 45,
             "macd": "bullish",
         }
-        
+
         confidence = 0.8
-        
+
         position_size = self.clear_actions._calculate_position_size(
             position, market_data, confidence, InvestmentAction.BUY_MORE
         )
-        
+
         self.assertIsInstance(position_size, int)
         self.assertGreaterEqual(position_size, 0)
 
@@ -416,7 +448,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
         # 固定割合設定に変更
         self.clear_actions.config["position_sizing_method"] = "fixed_percentage"
         self.clear_actions.position_sizing_method = "fixed_percentage"
-        
+
         position = PositionInfo(
             symbol="TEST",
             current_quantity=100,
@@ -427,7 +459,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -435,13 +467,13 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 45,
             "macd": "bullish",
         }
-        
+
         confidence = 0.8
-        
+
         position_size = self.clear_actions._calculate_position_size(
             position, market_data, confidence, InvestmentAction.BUY_MORE
         )
-        
+
         self.assertIsInstance(position_size, int)
         self.assertGreaterEqual(position_size, 0)
 
@@ -450,7 +482,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
         # ボラティリティベース設定に変更
         self.clear_actions.config["position_sizing_method"] = "volatility_based"
         self.clear_actions.position_sizing_method = "volatility_based"
-        
+
         position = PositionInfo(
             symbol="TEST",
             current_quantity=100,
@@ -461,7 +493,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -469,13 +501,13 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 45,
             "macd": "bullish",
         }
-        
+
         confidence = 0.8
-        
+
         position_size = self.clear_actions._calculate_position_size(
             position, market_data, confidence, InvestmentAction.BUY_MORE
         )
-        
+
         self.assertIsInstance(position_size, int)
         self.assertGreaterEqual(position_size, 0)
 
@@ -491,7 +523,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -499,15 +531,19 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 45,
             "macd": "bullish",
         }
-        
+
         confidence = 0.8
-        
-        with patch.object(self.clear_actions, '_calculate_kelly_position_size', side_effect=Exception("Kelly error")):
-            with patch.object(self.clear_actions.logger, 'error') as mock_error:
+
+        with patch.object(
+            self.clear_actions,
+            "_calculate_kelly_position_size",
+            side_effect=Exception("Kelly error"),
+        ):
+            with patch.object(self.clear_actions.logger, "error") as mock_error:
                 position_size = self.clear_actions._calculate_position_size(
                     position, market_data, InvestmentAction.BUY_MORE, confidence
                 )
-                
+
                 self.assertEqual(position_size, 0)
                 mock_error.assert_called_once()
 
@@ -523,7 +559,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -531,13 +567,13 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 45,
             "macd": "bullish",
         }
-        
+
         confidence = 0.8
-        
+
         kelly_size = self.clear_actions._calculate_kelly_position_size(
             position, market_data, confidence
         )
-        
+
         self.assertIsInstance(kelly_size, int)
         self.assertGreaterEqual(kelly_size, 0)
 
@@ -553,7 +589,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -561,15 +597,15 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 45,
             "macd": "bullish",
         }
-        
+
         confidence = 0.8
-        
-        with patch('numpy.sqrt', side_effect=Exception("Sqrt error")):
-            with patch.object(self.clear_actions.logger, 'error') as mock_error:
+
+        with patch("numpy.sqrt", side_effect=Exception("Sqrt error")):
+            with patch.object(self.clear_actions.logger, "error") as mock_error:
                 kelly_size = self.clear_actions._calculate_kelly_position_size(
                     position, market_data, confidence
                 )
-                
+
                 self.assertEqual(kelly_size, 0)
                 mock_error.assert_called_once()
 
@@ -585,7 +621,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -593,11 +629,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 30,
             "macd": "bullish",
         }
-        
+
         target_price = self.clear_actions._calculate_target_price(
             position, market_data, InvestmentAction.BUY_MORE
         )
-        
+
         self.assertIsInstance(target_price, float)
         self.assertGreater(target_price, 0)
 
@@ -613,7 +649,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=12000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.20,
@@ -621,11 +657,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 70,
             "macd": "bearish",
         }
-        
+
         target_price = self.clear_actions._calculate_target_price(
             position, market_data, InvestmentAction.TAKE_PROFIT
         )
-        
+
         self.assertIsInstance(target_price, float)
         self.assertGreater(target_price, 0)
 
@@ -641,7 +677,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.25,
@@ -649,11 +685,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 25,
             "macd": "bearish",
         }
-        
+
         target_price = self.clear_actions._calculate_target_price(
             position, market_data, InvestmentAction.STOP_LOSS
         )
-        
+
         self.assertIsInstance(target_price, float)
         self.assertGreater(target_price, 0)
 
@@ -669,7 +705,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -677,13 +713,15 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 50,
             "macd": "neutral",
         }
-        
+
         # 実装では例外処理でnumpy.meanを呼んでいないので、正常に動作する
         target_price = self.clear_actions._calculate_target_price(
             position, market_data, InvestmentAction.BUY_MORE
         )
-        
-        self.assertAlmostEqual(target_price, 115.0, places=1)  # 実際の実装では1.15倍を返す
+
+        self.assertAlmostEqual(
+            target_price, 115.0, places=1
+        )  # 実際の実装では1.15倍を返す
 
     def test_determine_priority_high_priority(self):
         """高優先度決定テスト"""
@@ -697,7 +735,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.25,
@@ -705,14 +743,16 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 25,
             "macd": "bearish",
         }
-        
+
         confidence = 0.9
-        
+
         priority = self.clear_actions._determine_priority(
             position, market_data, confidence, InvestmentAction.STOP_LOSS
         )
-        
-        self.assertIn(priority, [ActionPriority.HIGH, ActionPriority.MEDIUM, ActionPriority.LOW])
+
+        self.assertIn(
+            priority, [ActionPriority.HIGH, ActionPriority.MEDIUM, ActionPriority.LOW]
+        )
 
     def test_determine_priority_medium_priority(self):
         """中優先度決定テスト"""
@@ -726,7 +766,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -734,14 +774,16 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 45,
             "macd": "bullish",
         }
-        
+
         confidence = 0.7
-        
+
         priority = self.clear_actions._determine_priority(
             position, market_data, confidence, InvestmentAction.BUY_MORE
         )
-        
-        self.assertIn(priority, [ActionPriority.HIGH, ActionPriority.MEDIUM, ActionPriority.LOW])
+
+        self.assertIn(
+            priority, [ActionPriority.HIGH, ActionPriority.MEDIUM, ActionPriority.LOW]
+        )
 
     def test_determine_priority_low_priority(self):
         """低優先度決定テスト"""
@@ -755,7 +797,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "neutral",
             "volatility": 0.10,
@@ -763,14 +805,16 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 50,
             "macd": "neutral",
         }
-        
+
         confidence = 0.5
-        
+
         priority = self.clear_actions._determine_priority(
             position, market_data, confidence, InvestmentAction.BUY_MORE
         )
-        
-        self.assertIn(priority, [ActionPriority.HIGH, ActionPriority.MEDIUM, ActionPriority.LOW])
+
+        self.assertIn(
+            priority, [ActionPriority.HIGH, ActionPriority.MEDIUM, ActionPriority.LOW]
+        )
 
     def test_calculate_deadline_immediate(self):
         """即座実行期限計算テスト"""
@@ -784,7 +828,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.25,
@@ -792,15 +836,23 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 25,
             "macd": "bearish",
         }
-        
+
         confidence = 0.9
-        
+
         deadline, deadline_type = self.clear_actions._calculate_deadline(
             position, market_data, confidence, InvestmentAction.STOP_LOSS
         )
-        
+
         self.assertIsInstance(deadline, datetime)
-        self.assertIn(deadline_type, [DeadlineType.IMMEDIATE, DeadlineType.THIS_WEEK, DeadlineType.THIS_MONTH, DeadlineType.NEXT_QUARTER])
+        self.assertIn(
+            deadline_type,
+            [
+                DeadlineType.IMMEDIATE,
+                DeadlineType.THIS_WEEK,
+                DeadlineType.THIS_MONTH,
+                DeadlineType.NEXT_QUARTER,
+            ],
+        )
 
     def test_calculate_deadline_this_week(self):
         """今週中期限計算テスト"""
@@ -814,7 +866,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -822,15 +874,23 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 45,
             "macd": "bullish",
         }
-        
+
         confidence = 0.7
-        
+
         deadline, deadline_type = self.clear_actions._calculate_deadline(
             position, market_data, confidence, InvestmentAction.BUY_MORE
         )
-        
+
         self.assertIsInstance(deadline, datetime)
-        self.assertIn(deadline_type, [DeadlineType.IMMEDIATE, DeadlineType.THIS_WEEK, DeadlineType.THIS_MONTH, DeadlineType.NEXT_QUARTER])
+        self.assertIn(
+            deadline_type,
+            [
+                DeadlineType.IMMEDIATE,
+                DeadlineType.THIS_WEEK,
+                DeadlineType.THIS_MONTH,
+                DeadlineType.NEXT_QUARTER,
+            ],
+        )
 
     def test_calculate_deadline_this_month(self):
         """今月中期限計算テスト"""
@@ -844,7 +904,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "neutral",
             "volatility": 0.10,
@@ -852,15 +912,23 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 50,
             "macd": "neutral",
         }
-        
+
         confidence = 0.5
-        
+
         deadline, deadline_type = self.clear_actions._calculate_deadline(
             position, market_data, confidence, InvestmentAction.BUY_MORE
         )
-        
+
         self.assertIsInstance(deadline, datetime)
-        self.assertIn(deadline_type, [DeadlineType.IMMEDIATE, DeadlineType.THIS_WEEK, DeadlineType.THIS_MONTH, DeadlineType.NEXT_QUARTER])
+        self.assertIn(
+            deadline_type,
+            [
+                DeadlineType.IMMEDIATE,
+                DeadlineType.THIS_WEEK,
+                DeadlineType.THIS_MONTH,
+                DeadlineType.NEXT_QUARTER,
+            ],
+        )
 
     def test_calculate_deadline_next_quarter(self):
         """来四半期限計算テスト"""
@@ -874,7 +942,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "neutral",
             "volatility": 0.05,
@@ -882,15 +950,23 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 50,
             "macd": "neutral",
         }
-        
+
         confidence = 0.3
-        
+
         deadline, deadline_type = self.clear_actions._calculate_deadline(
             position, market_data, confidence, InvestmentAction.BUY_MORE
         )
-        
+
         self.assertIsInstance(deadline, datetime)
-        self.assertIn(deadline_type, [DeadlineType.IMMEDIATE, DeadlineType.THIS_WEEK, DeadlineType.THIS_MONTH, DeadlineType.NEXT_QUARTER])
+        self.assertIn(
+            deadline_type,
+            [
+                DeadlineType.IMMEDIATE,
+                DeadlineType.THIS_WEEK,
+                DeadlineType.THIS_MONTH,
+                DeadlineType.NEXT_QUARTER,
+            ],
+        )
 
     def test_calculate_expected_return_buy_more(self):
         """買い増し期待リターン計算テスト"""
@@ -904,7 +980,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -912,11 +988,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 30,
             "macd": "bullish",
         }
-        
+
         expected_return = self.clear_actions._calculate_expected_return(
             position, market_data, InvestmentAction.BUY_MORE
         )
-        
+
         self.assertIsInstance(expected_return, float)
 
     def test_calculate_expected_return_take_profit(self):
@@ -931,7 +1007,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=12000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.20,
@@ -939,11 +1015,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 70,
             "macd": "bearish",
         }
-        
+
         expected_return = self.clear_actions._calculate_expected_return(
             position, market_data, InvestmentAction.TAKE_PROFIT
         )
-        
+
         self.assertIsInstance(expected_return, float)
 
     def test_calculate_expected_return_stop_loss(self):
@@ -958,7 +1034,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.25,
@@ -966,11 +1042,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 25,
             "macd": "bearish",
         }
-        
+
         expected_return = self.clear_actions._calculate_expected_return(
             position, market_data, InvestmentAction.STOP_LOSS
         )
-        
+
         self.assertIsInstance(expected_return, float)
 
     def test_calculate_expected_return_exception(self):
@@ -985,7 +1061,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -993,13 +1069,13 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 50,
             "macd": "neutral",
         }
-        
-        with patch('numpy.mean', side_effect=Exception("Mean error")):
-            with patch.object(self.clear_actions.logger, 'error') as mock_error:
+
+        with patch("numpy.mean", side_effect=Exception("Mean error")):
+            with patch.object(self.clear_actions.logger, "error") as mock_error:
                 expected_return = self.clear_actions._calculate_expected_return(
                     position, market_data, InvestmentAction.BUY_MORE
                 )
-                
+
                 self.assertEqual(expected_return, 0.0)
                 mock_error.assert_called_once()
 
@@ -1015,7 +1091,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -1023,11 +1099,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 30,
             "macd": "bullish",
         }
-        
+
         max_loss = self.clear_actions._calculate_max_loss(
             position, market_data, InvestmentAction.BUY_MORE
         )
-        
+
         self.assertIsInstance(max_loss, float)
         self.assertLessEqual(max_loss, 0.0)
 
@@ -1043,7 +1119,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=12000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.20,
@@ -1051,11 +1127,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 70,
             "macd": "bearish",
         }
-        
+
         max_loss = self.clear_actions._calculate_max_loss(
             position, market_data, InvestmentAction.TAKE_PROFIT
         )
-        
+
         self.assertIsInstance(max_loss, float)
         self.assertLessEqual(max_loss, 0.0)
 
@@ -1071,7 +1147,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.25,
@@ -1079,11 +1155,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 25,
             "macd": "bearish",
         }
-        
+
         max_loss = self.clear_actions._calculate_max_loss(
             position, market_data, InvestmentAction.STOP_LOSS
         )
-        
+
         self.assertIsInstance(max_loss, float)
         self.assertLessEqual(max_loss, 0.0)
 
@@ -1099,7 +1175,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -1107,12 +1183,12 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 50,
             "macd": "neutral",
         }
-        
+
         # 実装では例外処理でnumpy.meanを呼んでいないので、正常に動作する
         max_loss = self.clear_actions._calculate_max_loss(
             position, market_data, InvestmentAction.BUY_MORE
         )
-        
+
         self.assertEqual(max_loss, -0.05)  # 実際の実装では-0.05を返す
 
     def test_generate_reason_buy_more(self):
@@ -1127,7 +1203,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -1135,11 +1211,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 30,
             "macd": "bullish",
         }
-        
+
         reason = self.clear_actions._generate_reason(
             position, market_data, InvestmentAction.BUY_MORE
         )
-        
+
         self.assertIsInstance(reason, str)
         self.assertGreater(len(reason), 0)
 
@@ -1155,7 +1231,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=12000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.20,
@@ -1163,11 +1239,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 70,
             "macd": "bearish",
         }
-        
+
         reason = self.clear_actions._generate_reason(
             position, market_data, InvestmentAction.TAKE_PROFIT
         )
-        
+
         self.assertIsInstance(reason, str)
         self.assertGreater(len(reason), 0)
 
@@ -1183,7 +1259,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.25,
@@ -1191,11 +1267,11 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 25,
             "macd": "bearish",
         }
-        
+
         reason = self.clear_actions._generate_reason(
             position, market_data, InvestmentAction.STOP_LOSS
         )
-        
+
         self.assertIsInstance(reason, str)
         self.assertGreater(len(reason), 0)
 
@@ -1211,7 +1287,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.10,
@@ -1219,9 +1295,9 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 45,
             "macd": "bullish",
         }
-        
+
         risk_level = self.clear_actions._determine_risk_level(position, market_data)
-        
+
         self.assertIn(risk_level, ["LOW", "MEDIUM", "HIGH"])
 
     def test_determine_risk_level_medium_risk(self):
@@ -1236,7 +1312,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "neutral",
             "volatility": 0.15,
@@ -1244,9 +1320,9 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 50,
             "macd": "neutral",
         }
-        
+
         risk_level = self.clear_actions._determine_risk_level(position, market_data)
-        
+
         self.assertIn(risk_level, ["LOW", "MEDIUM", "HIGH"])
 
     def test_determine_risk_level_high_risk(self):
@@ -1261,7 +1337,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.25,
@@ -1269,9 +1345,9 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 25,
             "macd": "bearish",
         }
-        
+
         risk_level = self.clear_actions._determine_risk_level(position, market_data)
-        
+
         self.assertIn(risk_level, ["LOW", "MEDIUM", "HIGH"])
 
     def test_get_technical_signals_bullish(self):
@@ -1283,9 +1359,9 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 30,
             "macd": "bullish",
         }
-        
+
         signals = self.clear_actions._get_technical_signals(market_data)
-        
+
         self.assertIsInstance(signals, list)
         self.assertGreaterEqual(len(signals), 0)
 
@@ -1298,9 +1374,9 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 70,
             "macd": "bearish",
         }
-        
+
         signals = self.clear_actions._get_technical_signals(market_data)
-        
+
         self.assertIsInstance(signals, list)
         self.assertGreaterEqual(len(signals), 0)
 
@@ -1313,9 +1389,9 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 50,
             "macd": "neutral",
         }
-        
+
         signals = self.clear_actions._get_technical_signals(market_data)
-        
+
         self.assertIsInstance(signals, list)
         self.assertGreaterEqual(len(signals), 0)
 
@@ -1331,7 +1407,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=10500.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bullish",
             "volatility": 0.15,
@@ -1339,9 +1415,9 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 45,
             "macd": "bullish",
         }
-        
+
         factors = self.clear_actions._get_fundamental_factors(position, market_data)
-        
+
         self.assertIsInstance(factors, list)
         self.assertGreaterEqual(len(factors), 0)
 
@@ -1357,7 +1433,7 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             market_value=9000.0,
             cost_basis=10000.0,
         )
-        
+
         market_data = {
             "trend": "bearish",
             "volatility": 0.25,
@@ -1365,9 +1441,9 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             "rsi": 25,
             "macd": "bearish",
         }
-        
+
         factors = self.clear_actions._get_fundamental_factors(position, market_data)
-        
+
         self.assertIsInstance(factors, list)
         self.assertGreaterEqual(len(factors), 0)
 
@@ -1395,9 +1471,9 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             technical_signals=["RSI過小評価", "MACD強気"],
             fundamental_factors=["業績好調", "市場シェア拡大"],
         )
-        
+
         report = self.clear_actions.export_action_report(action)
-        
+
         self.assertIsInstance(report, dict)
         self.assertIn("action", report)
         self.assertIn("symbol", report)
@@ -1430,11 +1506,15 @@ class TestClearInvestmentActionsEnhanced(unittest.TestCase):
             technical_signals=["RSI過小評価", "MACD強気"],
             fundamental_factors=["業績好調", "市場シェア拡大"],
         )
-        
-        with patch.object(self.clear_actions, '_generate_recommendation_text', side_effect=Exception("Recommendation error")):
-            with patch.object(self.clear_actions.logger, 'error') as mock_error:
+
+        with patch.object(
+            self.clear_actions,
+            "_generate_recommendation_text",
+            side_effect=Exception("Recommendation error"),
+        ):
+            with patch.object(self.clear_actions.logger, "error") as mock_error:
                 result = self.clear_actions.export_action_report(action)
-                
+
                 self.assertIn("error", result)
                 mock_error.assert_called_once()
 

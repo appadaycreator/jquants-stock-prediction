@@ -660,9 +660,9 @@ class EnhancedRiskAlerts:
                 "high_risk_count": high_risk_count,
                 "high_risk_ratio": high_risk_count / total_positions,
                 "diversification_score": diversification_score,
-                "max_position_ratio": max_position_value / total_value
-                if total_value > 0
-                else 0.0,
+                "max_position_ratio": (
+                    max_position_value / total_value if total_value > 0 else 0.0
+                ),
             }
 
         except Exception as e:

@@ -31,12 +31,12 @@ class TestLSTMPredictor:
     def test_prepare_data_success(self):
         """データ準備成功テスト"""
         # テストデータの作成
-        dates = pd.date_range(start='2023-01-01', periods=200, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=200, freq="D")
         prices = 100 + np.cumsum(np.random.randn(200) * 0.01)
 
-        df = pd.DataFrame({'Close': prices}, index=dates)
+        df = pd.DataFrame({"Close": prices}, index=dates)
 
-        X, y = self.predictor.prepare_data(df, 'Close')
+        X, y = self.predictor.prepare_data(df, "Close")
 
         assert X.shape[0] == 80  # 200 - 120
         assert X.shape[1] == 120  # sequence_length
@@ -46,12 +46,12 @@ class TestLSTMPredictor:
 
     def test_prepare_data_with_different_target_column(self):
         """異なるターゲット列でのデータ準備テスト"""
-        dates = pd.date_range(start='2023-01-01', periods=200, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=200, freq="D")
         prices = 100 + np.cumsum(np.random.randn(200) * 0.01)
 
-        df = pd.DataFrame({'Price': prices}, index=dates)
+        df = pd.DataFrame({"Price": prices}, index=dates)
 
-        X, y = self.predictor.prepare_data(df, 'Price')
+        X, y = self.predictor.prepare_data(df, "Price")
 
         assert X.shape[0] == 80
         assert X.shape[1] == 120
@@ -61,30 +61,30 @@ class TestLSTMPredictor:
     def test_prepare_data_insufficient_data(self):
         """データ不足時のテスト"""
         # 120日未満のデータ
-        dates = pd.date_range(start='2023-01-01', periods=50, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=50, freq="D")
         prices = 100 + np.cumsum(np.random.randn(50) * 0.01)
 
-        df = pd.DataFrame({'Close': prices}, index=dates)
+        df = pd.DataFrame({"Close": prices}, index=dates)
 
         with pytest.raises(Exception):
-            self.predictor.prepare_data(df, 'Close')
+            self.predictor.prepare_data(df, "Close")
 
     def test_prepare_data_empty_dataframe(self):
         """空のデータフレームでのテスト"""
         df = pd.DataFrame()
 
         with pytest.raises(Exception):
-            self.predictor.prepare_data(df, 'Close')
+            self.predictor.prepare_data(df, "Close")
 
     def test_prepare_data_missing_column(self):
         """存在しない列でのテスト"""
-        dates = pd.date_range(start='2023-01-01', periods=200, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=200, freq="D")
         prices = 100 + np.cumsum(np.random.randn(200) * 0.01)
 
-        df = pd.DataFrame({'Open': prices}, index=dates)
+        df = pd.DataFrame({"Open": prices}, index=dates)
 
         with pytest.raises(Exception):
-            self.predictor.prepare_data(df, 'Close')
+            self.predictor.prepare_data(df, "Close")
 
     def test_build_model(self):
         """モデル構築テスト"""
@@ -109,10 +109,10 @@ class TestLSTMPredictor:
         X = np.random.randn(100, 120, 1)
         y = np.random.randn(100)
 
-        with patch('tensorflow.keras.models.Sequential') as mock_sequential:
+        with patch("tensorflow.keras.models.Sequential") as mock_sequential:
             mock_model = MagicMock()
             mock_history = MagicMock()
-            mock_history.history = {'loss': [0.5, 0.4], 'val_loss': [0.6, 0.5]}
+            mock_history.history = {"loss": [0.5, 0.4], "val_loss": [0.6, 0.5]}
             mock_model.fit.return_value = mock_history
             mock_model.evaluate.return_value = [0.4, 0.3]
             mock_sequential.return_value = mock_model
@@ -132,10 +132,10 @@ class TestLSTMPredictor:
         X = np.random.randn(50, 120, 1)
         y = np.random.randn(50)
 
-        with patch('tensorflow.keras.models.Sequential') as mock_sequential:
+        with patch("tensorflow.keras.models.Sequential") as mock_sequential:
             mock_model = MagicMock()
             mock_history = MagicMock()
-            mock_history.history = {'loss': [0.5], 'val_loss': [0.6]}
+            mock_history.history = {"loss": [0.5], "val_loss": [0.6]}
             mock_model.fit.return_value = mock_history
             mock_model.evaluate.return_value = [0.4, 0.3]
             mock_sequential.return_value = mock_model
@@ -163,7 +163,7 @@ class TestLSTMPredictor:
         # 最後のシーケンス
         last_sequence = np.random.randn(120)
 
-        with patch.object(self.predictor.scaler, 'inverse_transform') as mock_inverse:
+        with patch.object(self.predictor.scaler, "inverse_transform") as mock_inverse:
             mock_inverse.return_value = np.array([[100.0], [101.0], [102.0]])
 
             predictions = self.predictor.predict_future(last_sequence, days=3)
@@ -186,7 +186,7 @@ class TestLSTMPredictor:
 
         last_sequence = np.random.randn(120)
 
-        with patch.object(self.predictor.scaler, 'inverse_transform') as mock_inverse:
+        with patch.object(self.predictor.scaler, "inverse_transform") as mock_inverse:
             mock_inverse.return_value = np.array([[100.0], [101.0]])
 
             predictions = self.predictor.predict_future(last_sequence, days=2)
@@ -248,13 +248,13 @@ class TestLSTMPredictor:
     def test_create_visualization_data_success(self):
         """可視化データ作成成功テスト"""
         # 履歴データ
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01)
-        historical_data = pd.DataFrame({'Close': prices}, index=dates)
+        historical_data = pd.DataFrame({"Close": prices}, index=dates)
 
         # 予測データ
         predictions = [101.0, 102.0, 103.0]
-        prediction_dates = ['2023-04-10', '2023-04-11', '2023-04-12']
+        prediction_dates = ["2023-04-10", "2023-04-11", "2023-04-12"]
 
         result = self.predictor.create_visualization_data(
             historical_data, predictions, prediction_dates
@@ -285,19 +285,19 @@ class TestLSTMPredictor:
     def test_run_complete_prediction_success(self):
         """完全予測パイプライン成功テスト"""
         # テストデータの作成
-        dates = pd.date_range(start='2023-01-01', periods=200, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=200, freq="D")
         prices = 100 + np.cumsum(np.random.randn(200) * 0.01)
 
-        df = pd.DataFrame({'Close': prices}, index=dates)
+        df = pd.DataFrame({"Close": prices}, index=dates)
 
         with (
-            patch.object(self.predictor, 'prepare_data') as mock_prepare,
-            patch.object(self.predictor, 'train_model') as mock_train,
-            patch.object(self.predictor, 'predict_future') as mock_predict,
+            patch.object(self.predictor, "prepare_data") as mock_prepare,
+            patch.object(self.predictor, "train_model") as mock_train,
+            patch.object(self.predictor, "predict_future") as mock_predict,
             patch.object(
-                self.predictor, 'get_prediction_confidence'
+                self.predictor, "get_prediction_confidence"
             ) as mock_confidence,
-            patch.object(self.predictor, 'create_visualization_data') as mock_viz,
+            patch.object(self.predictor, "create_visualization_data") as mock_viz,
         ):
             # モックの設定
             mock_prepare.return_value = (
@@ -313,7 +313,7 @@ class TestLSTMPredictor:
                 "metadata": {},
             }
 
-            result = self.predictor.run_complete_prediction(df, 'Close', 3)
+            result = self.predictor.run_complete_prediction(df, "Close", 3)
 
             assert "predictions" in result
             assert "prediction_dates" in result
@@ -328,7 +328,7 @@ class TestLSTMPredictor:
         df = pd.DataFrame()
 
         with pytest.raises(Exception):
-            self.predictor.run_complete_prediction(df, 'Close', 3)
+            self.predictor.run_complete_prediction(df, "Close", 3)
 
     def test_sequence_length_property(self):
         """シーケンス長プロパティテスト"""
@@ -341,8 +341,8 @@ class TestLSTMPredictor:
     def test_scaler_property(self):
         """スケーラープロパティテスト"""
         assert self.predictor.scaler is not None
-        assert hasattr(self.predictor.scaler, 'fit_transform')
-        assert hasattr(self.predictor.scaler, 'inverse_transform')
+        assert hasattr(self.predictor.scaler, "fit_transform")
+        assert hasattr(self.predictor.scaler, "inverse_transform")
 
     def test_model_property(self):
         """モデルプロパティテスト"""
@@ -356,12 +356,12 @@ class TestLSTMPredictor:
     def test_data_preprocessing_edge_cases(self):
         """データ前処理エッジケーステスト"""
         # 最小限のデータ
-        dates = pd.date_range(start='2023-01-01', periods=121, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=121, freq="D")
         prices = 100 + np.cumsum(np.random.randn(121) * 0.01)
 
-        df = pd.DataFrame({'Close': prices}, index=dates)
+        df = pd.DataFrame({"Close": prices}, index=dates)
 
-        X, y = self.predictor.prepare_data(df, 'Close')
+        X, y = self.predictor.prepare_data(df, "Close")
 
         assert X.shape[0] == 1  # 121 - 120 = 1
         assert X.shape[1] == 120
@@ -394,12 +394,12 @@ class TestLSTMPredictor:
 
     def test_visualization_data_metadata(self):
         """可視化データメタデータテスト"""
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01)
-        historical_data = pd.DataFrame({'Close': prices}, index=dates)
+        historical_data = pd.DataFrame({"Close": prices}, index=dates)
 
         predictions = [101.0, 102.0]
-        prediction_dates = ['2023-04-10', '2023-04-11']
+        prediction_dates = ["2023-04-10", "2023-04-11"]
 
         result = self.predictor.create_visualization_data(
             historical_data, predictions, prediction_dates
@@ -432,7 +432,7 @@ class TestLSTMPredictor:
 
         last_sequence = np.random.randn(120)
 
-        with patch.object(self.predictor.scaler, 'inverse_transform') as mock_inverse:
+        with patch.object(self.predictor.scaler, "inverse_transform") as mock_inverse:
             mock_inverse.return_value = np.array([[100.0], [101.0]])
 
             predictions = self.predictor.predict_future(last_sequence, days=2)
@@ -446,7 +446,7 @@ class TestLSTMPredictor:
         df = None
 
         with pytest.raises(Exception):
-            self.predictor.prepare_data(df, 'Close')
+            self.predictor.prepare_data(df, "Close")
 
     def test_error_handling_in_train_model(self):
         """モデル学習時のエラーハンドリングテスト"""
@@ -468,12 +468,12 @@ class TestLSTMPredictor:
     def test_logger_integration(self):
         """ロガー統合テスト"""
         # ロガーが正しく使用されることを確認
-        dates = pd.date_range(start='2023-01-01', periods=200, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=200, freq="D")
         prices = 100 + np.cumsum(np.random.randn(200) * 0.01)
 
-        df = pd.DataFrame({'Close': prices}, index=dates)
+        df = pd.DataFrame({"Close": prices}, index=dates)
 
-        self.predictor.prepare_data(df, 'Close')
+        self.predictor.prepare_data(df, "Close")
 
         # ロガーが呼ばれることを確認
         self.logger.log_info.assert_called()
@@ -484,7 +484,7 @@ class TestLSTMPredictor:
         df = pd.DataFrame()  # 空のデータフレーム
 
         with pytest.raises(Exception):
-            self.predictor.prepare_data(df, 'Close')
+            self.predictor.prepare_data(df, "Close")
 
         # エラーハンドラーが呼ばれることを確認
         self.error_handler.handle_data_processing_error.assert_called()

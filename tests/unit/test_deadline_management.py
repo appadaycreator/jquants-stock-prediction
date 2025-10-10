@@ -206,7 +206,7 @@ class TestDeadlineManager:
         """期限監視の停止テスト"""
         # 監視を開始
         self.manager.start_monitoring()
-        
+
         # 短時間待機
         time.sleep(0.01)
 

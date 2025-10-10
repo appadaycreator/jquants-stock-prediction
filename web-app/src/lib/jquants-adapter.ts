@@ -40,7 +40,7 @@ export async function testConnection(): Promise<ConnectionResult> {
         averageResponseTime: 100,
       },
     };
-  } catch (error) {
+  } catch (error: unknown) {
     return {
       success: false,
       message: `接続失敗: ${error instanceof Error ? error.message : "不明なエラー"}`,
@@ -74,7 +74,7 @@ export async function getStockData(symbol: string, startDate: string, endDate: s
 
     const data = await response.json();
     return data?.data || [];
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("株価データ取得エラー:", error);
     return [];
   }
@@ -102,15 +102,16 @@ export async function getAllSymbols(): Promise<Array<{ code: string; name: strin
     
     try {
       data = JSON.parse(responseText);
-    } catch (parseError) {
+    } catch (parseError: unknown) {
       console.error("JSON解析エラー:", {
         error: parseError,
-        position: (parseError as any)?.pos || 'unknown',
+        position: (parseError as any)?.pos || "unknown",
         responseLength: responseText.length,
         responsePreview: responseText.substring(0, 500),
         timestamp: new Date().toISOString(),
       });
-      throw new Error(`JSON解析エラー: ${parseError.message}`);
+      const msg = parseError instanceof Error ? parseError.message : String(parseError);
+      throw new Error(`JSON解析エラー: ${msg}`);
     }
     
     const list: any[] = data?.stocks || data?.data || [];
@@ -120,10 +121,10 @@ export async function getAllSymbols(): Promise<Array<{ code: string; name: strin
       name: item?.name || item?.CompanyName || item?.CompanyNameJa || item?.CompanyNameJp || item?.CompanyNameJPN,
       sector: item?.sector || item?.Sector33 || item?.SectorName,
     })).filter((s: any) => !!s.code && !!s.name);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("全銘柄一覧取得エラー:", {
-      error: error.message,
-      stack: error.stack,
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
       timestamp: new Date().toISOString(),
     });
     return [];

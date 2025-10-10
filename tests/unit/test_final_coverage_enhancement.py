@@ -64,7 +64,7 @@ class TestFinalCoverageEnhancement(unittest.TestCase):
 
         # 損切り・利確チェック（正しいメソッド名を使用）
         # メソッドが存在しない場合はスキップ
-        if hasattr(self.executor, 'check_stop_loss_and_take_profit'):
+        if hasattr(self.executor, "check_stop_loss_and_take_profit"):
             self.executor.check_stop_loss_and_take_profit("TEST", 105.0)
 
         # 執行状況取得
@@ -172,18 +172,18 @@ class TestFinalCoverageEnhancement(unittest.TestCase):
         result = self.article_backtest.run_article_method_backtest(predictions, prices)
 
         self.assertIsInstance(result, dict)
-        self.assertIn('method', result)
+        self.assertIn("method", result)
 
     def test_article_method_analyzer_comprehensive(self):
         """記事手法分析器の包括的テスト"""
         # テストデータ作成（High, Low列も含める）
         data = pd.DataFrame(
             {
-                'Date': pd.date_range('2024-01-01', periods=100),
-                'Close': np.random.randn(100).cumsum() + 100,
-                'High': np.random.randn(100).cumsum() + 102,
-                'Low': np.random.randn(100).cumsum() + 98,
-                'Volume': np.random.randint(1000, 10000, 100),
+                "Date": pd.date_range("2024-01-01", periods=100),
+                "Close": np.random.randn(100).cumsum() + 100,
+                "High": np.random.randn(100).cumsum() + 102,
+                "Low": np.random.randn(100).cumsum() + 98,
+                "Volume": np.random.randint(1000, 10000, 100),
             }
         )
 
@@ -252,7 +252,7 @@ class TestFinalCoverageEnhancement(unittest.TestCase):
         # 自動取引執行システムのエラーハンドリング
         with patch.object(
             self.executor,
-            '_simulate_order_execution',
+            "_simulate_order_execution",
             side_effect=Exception("Test error"),
         ):
             order = Mock()
@@ -271,7 +271,7 @@ class TestFinalCoverageEnhancement(unittest.TestCase):
         # リアルタイム損切りシステムのエラーハンドリング
         with patch.object(
             self.stop_loss_system.volatility_calculator,
-            'calculate_volatility',
+            "calculate_volatility",
             side_effect=Exception("Test error"),
         ):
             result = self.stop_loss_system.add_stop_loss_setting(

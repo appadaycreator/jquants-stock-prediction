@@ -746,9 +746,11 @@ class EnhancedAlertSystem:
                     "threshold_value": alert.threshold_value,
                     "recommendation": alert.recommendation,
                     "acknowledged": alert.acknowledged,
-                    "acknowledged_at": alert.acknowledged_at.isoformat()
-                    if alert.acknowledged_at
-                    else None,
+                    "acknowledged_at": (
+                        alert.acknowledged_at.isoformat()
+                        if alert.acknowledged_at
+                        else None
+                    ),
                     "metadata": alert.metadata,
                 }
                 for alert in recent_alerts
@@ -805,10 +807,12 @@ class EnhancedAlertSystem:
                 "alert_counts": alert_counts,
                 "level_counts": level_counts,
                 "type_counts": type_counts,
-                "acknowledged_rate": len([a for a in recent_alerts if a.acknowledged])
-                / len(recent_alerts)
-                if recent_alerts
-                else 0,
+                "acknowledged_rate": (
+                    len([a for a in recent_alerts if a.acknowledged])
+                    / len(recent_alerts)
+                    if recent_alerts
+                    else 0
+                ),
                 "generated_at": datetime.now().isoformat(),
             }
 

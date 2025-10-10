@@ -363,7 +363,7 @@ class TestEnhancedConfidenceSystem(unittest.TestCase):
                 risk_adjusted_confidence=0.5 + i * 0.02,
             )
             # グローバル履歴に追加
-            if not hasattr(self.system, '_global_confidence_history'):
+            if not hasattr(self.system, "_global_confidence_history"):
                 self.system._global_confidence_history = []
             self.system._global_confidence_history.append(metrics)
 
@@ -468,7 +468,7 @@ class TestEnhancedConfidenceSystem(unittest.TestCase):
                 risk_adjusted_confidence=0.5,
             )
             # グローバル履歴に追加
-            if not hasattr(self.system, '_global_confidence_history'):
+            if not hasattr(self.system, "_global_confidence_history"):
                 self.system._global_confidence_history = []
             self.system._global_confidence_history.append(metrics)
 

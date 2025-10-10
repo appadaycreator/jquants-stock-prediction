@@ -86,11 +86,11 @@ export class DataFetcher {
         } else {
           throw new Error(`API呼び出し失敗: ${response.status}`);
         }
-      } catch (error) {
+      } catch (error: unknown) {
         if (attempt === retries) {
-          throw error;
+          throw (error instanceof Error) ? error : new Error(String(error));
         }
-        console.warn(`API呼び出しエラー: ${url}, リトライ ${attempt}/${retries}`, error);
+        console.warn(`API呼び出しエラー: ${url}, リトライ ${attempt}/${retries}`, error instanceof Error ? error.message : String(error));
         await this.delay(this.RETRY_DELAY * attempt);
       }
     }
@@ -170,15 +170,15 @@ export class DataFetcher {
           const data = await response.json();
           
           // データの妥当性チェック
-          if (!data || typeof data !== 'object') {
+          if (!data || typeof data !== "object") {
             throw new Error("Invalid response format: expected object");
           }
           
           return data.listed_info || [];
-        } catch (error) {
+        } catch (error: unknown) {
           console.error("上場銘柄データ取得エラー:", {
-            error: error.message,
-            stack: error.stack,
+            error: error instanceof Error ? error.message : String(error),
+            stack: error instanceof Error ? error.stack : undefined,
             timestamp: new Date().toISOString(),
           });
           // フォールバック: サンプルデータを使用
@@ -216,8 +216,8 @@ export class DataFetcher {
         volume: quote.volume,
         timestamp: quote.timestamp,
       }));
-    } catch (error) {
-      console.error("サンプル日足データ取得エラー:", error);
+    } catch (error: unknown) {
+      console.error("サンプル日足データ取得エラー:", error instanceof Error ? error.message : String(error));
       
       // 最終フォールバック: ハードコードされたサンプルデータ
       return [
@@ -264,8 +264,8 @@ export class DataFetcher {
         sector: stock.sector17_name,
         listingDate: stock.listing_date,
       }));
-    } catch (error) {
-      console.error("サンプル上場銘柄データ取得エラー:", error);
+    } catch (error: unknown) {
+      console.error("サンプル上場銘柄データ取得エラー:", error instanceof Error ? error.message : String(error));
       
       // 最終フォールバック: ハードコードされたサンプルデータ
       return [
@@ -306,8 +306,8 @@ export class DataFetcher {
       cacheService.logMetrics();
 
       console.log("✅ データキャッシュ初期化完了");
-    } catch (error) {
-      console.error("❌ データキャッシュ初期化エラー:", error);
+    } catch (error: unknown) {
+      console.error("❌ データキャッシュ初期化エラー:", error instanceof Error ? error.message : String(error));
     }
   }
 

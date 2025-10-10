@@ -176,9 +176,9 @@ class StockDataUpdater:
                     if changes:
                         # 変更があった場合のみ更新
                         updated_data["stocks"][code].update(stock_info)
-                        updated_data["stocks"][code]["updated_at"] = (
-                            datetime.now().isoformat()
-                        )
+                        updated_data["stocks"][code][
+                            "updated_at"
+                        ] = datetime.now().isoformat()
                         updated_data["stocks"][code]["changes"] = changes
                         update_log["updated_stocks"].append(
                             {

@@ -605,9 +605,9 @@ class NisaOptimizationSystem:
                 "high_priority_actions": [asdict(r) for r in high_priority],
                 "medium_priority_actions": [asdict(r) for r in medium_priority],
                 "low_priority_actions": [asdict(r) for r in low_priority],
-                "recommended_strategy": asdict(recommended_strategy)
-                if recommended_strategy
-                else None,
+                "recommended_strategy": (
+                    asdict(recommended_strategy) if recommended_strategy else None
+                ),
                 "implementation_timeline": self._create_timeline(recommendations),
                 "success_metrics": self._define_success_metrics(),
             }

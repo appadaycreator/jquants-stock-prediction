@@ -219,7 +219,9 @@ class RealtimeRiskMonitor:
                 # 特定銘柄の状況
                 recent_snapshots = [
                     s for s in self.snapshot_history if s.symbol == symbol
-                ][-10:]  # 最近10件
+                ][
+                    -10:
+                ]  # 最近10件
             else:
                 # 全銘柄の状況
                 recent_snapshots = self.snapshot_history[-50:]  # 最近50件
@@ -260,9 +262,11 @@ class RealtimeRiskMonitor:
                     "avg_volatility": avg_volatility,
                     "avg_var_95": avg_var_95,
                     "max_drawdown": max_drawdown,
-                    "last_update": recent_snapshots[-1].timestamp.isoformat()
-                    if recent_snapshots
-                    else None,
+                    "last_update": (
+                        recent_snapshots[-1].timestamp.isoformat()
+                        if recent_snapshots
+                        else None
+                    ),
                 }
             else:
                 return {"status": "no_data"}

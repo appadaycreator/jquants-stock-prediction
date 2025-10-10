@@ -474,9 +474,9 @@ class AdvancedQuantityCalculator:
                 "total_risk": total_risk,
                 "portfolio_volatility": portfolio_volatility,
                 "max_single_position_risk": max_single_position_risk,
-                "risk_concentration": max_single_position_risk / total_risk
-                if total_risk > 0
-                else 0,
+                "risk_concentration": (
+                    max_single_position_risk / total_risk if total_risk > 0 else 0
+                ),
             }
 
         except Exception as e:

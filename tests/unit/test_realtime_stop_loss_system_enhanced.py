@@ -59,7 +59,7 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
     def test_get_default_config(self):
         """デフォルト設定取得テスト"""
         config = self.system._get_default_config()
-        
+
         self.assertIsInstance(config, dict)
         self.assertIn("monitoring", config)
         self.assertIn("stop_loss", config)
@@ -69,29 +69,29 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
     def test_start_monitoring_already_running(self):
         """既に実行中の監視開始テスト"""
         self.system.is_monitoring = True
-        
-        with patch.object(self.system.logger, 'warning') as mock_warning:
+
+        with patch.object(self.system.logger, "warning") as mock_warning:
             self.system.start_monitoring(["TEST"])
             mock_warning.assert_called_once()
 
     def test_start_monitoring_success(self):
         """監視開始成功テスト"""
-        with patch('threading.Thread') as mock_thread:
+        with patch("threading.Thread") as mock_thread:
             mock_thread_instance = Mock()
             mock_thread.return_value = mock_thread_instance
-            
+
             self.system.start_monitoring(["TEST"])
-            
+
             self.assertTrue(self.system.is_monitoring)
             mock_thread.assert_called_once()
             mock_thread_instance.start.assert_called_once()
 
     def test_start_monitoring_exception(self):
         """監視開始例外処理テスト"""
-        with patch('threading.Thread', side_effect=Exception("Thread error")):
-            with patch.object(self.system.logger, 'error') as mock_error:
+        with patch("threading.Thread", side_effect=Exception("Thread error")):
+            with patch.object(self.system.logger, "error") as mock_error:
                 self.system.start_monitoring(["TEST"])
-                
+
                 self.assertFalse(self.system.is_monitoring)
                 mock_error.assert_called_once()
 
@@ -100,10 +100,10 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         self.system.is_monitoring = True
         mock_thread = Mock()
         self.system.monitor_thread = mock_thread
-        
-        with patch.object(self.system.logger, 'info') as mock_info:
+
+        with patch.object(self.system.logger, "info") as mock_info:
             self.system.stop_monitoring()
-            
+
             self.assertFalse(self.system.is_monitoring)
             mock_thread.join.assert_called_once_with(timeout=5.0)
             mock_info.assert_called_once()
@@ -114,10 +114,10 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         mock_thread = Mock()
         mock_thread.join.side_effect = Exception("Join error")
         self.system.monitor_thread = mock_thread
-        
-        with patch.object(self.system.logger, 'error') as mock_error:
+
+        with patch.object(self.system.logger, "error") as mock_error:
             self.system.stop_monitoring()
-            
+
             self.assertFalse(self.system.is_monitoring)
             # 例外が発生した場合、2回errorが呼ばれる（内側と外側のtry-except）
             self.assertEqual(mock_error.call_count, 2)
@@ -141,9 +141,9 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
             updated_at=datetime.now(),
         )
 
-        with patch.object(self.system.logger, 'info') as mock_info:
+        with patch.object(self.system.logger, "info") as mock_info:
             self.system.add_position(settings)
-            
+
             self.assertIn("TEST", self.system.positions)
             self.assertEqual(self.system.positions["TEST"], settings)
             mock_info.assert_called_once()
@@ -168,8 +168,10 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         )
 
         # 例外を発生させるために、loggerのinfoメソッドをモックして例外を発生させる
-        with patch.object(self.system.logger, 'info', side_effect=Exception("Position error")):
-            with patch.object(self.system.logger, 'error') as mock_error:
+        with patch.object(
+            self.system.logger, "info", side_effect=Exception("Position error")
+        ):
+            with patch.object(self.system.logger, "error") as mock_error:
                 self.system.add_position(settings)
                 mock_error.assert_called_once()
 
@@ -193,23 +195,25 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         )
         self.system.positions["TEST"] = settings
 
-        with patch.object(self.system.logger, 'info') as mock_info:
+        with patch.object(self.system.logger, "info") as mock_info:
             self.system.remove_position("TEST")
-            
+
             self.assertNotIn("TEST", self.system.positions)
             mock_info.assert_called_once()
 
     def test_remove_position_nonexistent(self):
         """存在しないポジション削除テスト"""
-        with patch.object(self.system.logger, 'warning') as mock_warning:
+        with patch.object(self.system.logger, "warning") as mock_warning:
             self.system.remove_position("NONEXISTENT")
             mock_warning.assert_called_once()
 
     def test_remove_position_exception(self):
         """ポジション削除例外処理テスト"""
         # logger.infoメソッドで例外を発生させる
-        with patch.object(self.system.logger, 'info', side_effect=Exception("Remove error")):
-            with patch.object(self.system.logger, 'error') as mock_error:
+        with patch.object(
+            self.system.logger, "info", side_effect=Exception("Remove error")
+        ):
+            with patch.object(self.system.logger, "error") as mock_error:
                 # ポジションを追加
                 settings = StopLossSettings(
                     symbol="TEST",
@@ -228,7 +232,7 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
                     updated_at=datetime.now(),
                 )
                 self.system.positions["TEST"] = settings
-                
+
                 self.system.remove_position("TEST")
                 mock_error.assert_called_once()
 
@@ -252,16 +256,16 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         )
         self.system.positions["TEST"] = settings
 
-        with patch.object(self.system, '_check_stop_loss_take_profit') as mock_check:
+        with patch.object(self.system, "_check_stop_loss_take_profit") as mock_check:
             self.system.update_price("TEST", 105.0)
-            
+
             self.assertEqual(settings.current_price, 105.0)
             self.assertIsNotNone(settings.updated_at)
             mock_check.assert_called_once_with("TEST", 105.0)
 
     def test_update_price_nonexistent_position(self):
         """存在しないポジションの価格更新テスト"""
-        with patch.object(self.system.logger, 'warning') as mock_warning:
+        with patch.object(self.system.logger, "warning") as mock_warning:
             self.system.update_price("NONEXISTENT", 105.0)
             mock_warning.assert_called_once()
 
@@ -286,9 +290,9 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         self.system.positions["TEST"] = settings
 
         # datetime.now()で例外を発生させる
-        with patch('core.realtime_stop_loss_system.datetime') as mock_datetime:
+        with patch("core.realtime_stop_loss_system.datetime") as mock_datetime:
             mock_datetime.now.side_effect = Exception("Update error")
-            with patch.object(self.system.logger, 'error') as mock_error:
+            with patch.object(self.system.logger, "error") as mock_error:
                 self.system.update_price("TEST", 105.0)
                 mock_error.assert_called_once()
 
@@ -313,7 +317,7 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         settings.current_price = 94.0
         self.system.positions["TEST"] = settings
 
-        with patch.object(self.system, '_execute_stop_loss') as mock_execute:
+        with patch.object(self.system, "_execute_stop_loss") as mock_execute:
             self.system._check_stop_loss_take_profit("TEST", 94.0)
             mock_execute.assert_called_once_with("TEST", 94.0, "損切り価格到達")
 
@@ -338,7 +342,7 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         settings.current_price = 111.0
         self.system.positions["TEST"] = settings
 
-        with patch.object(self.system, '_execute_take_profit') as mock_execute:
+        with patch.object(self.system, "_execute_take_profit") as mock_execute:
             self.system._check_stop_loss_take_profit("TEST", 111.0)
             mock_execute.assert_called_once_with("TEST", 111.0, "利確価格到達")
 
@@ -363,7 +367,7 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         settings.current_price = 106.0
         self.system.positions["TEST"] = settings
 
-        with patch.object(self.system, '_execute_stop_loss') as mock_execute:
+        with patch.object(self.system, "_execute_stop_loss") as mock_execute:
             self.system._check_stop_loss_take_profit("TEST", 106.0)
             mock_execute.assert_called_once_with("TEST", 106.0, "損切り価格到達")
 
@@ -388,13 +392,13 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         settings.current_price = 94.0
         self.system.positions["TEST"] = settings
 
-        with patch.object(self.system, '_execute_take_profit') as mock_execute:
+        with patch.object(self.system, "_execute_take_profit") as mock_execute:
             self.system._check_stop_loss_take_profit("TEST", 94.0)
             mock_execute.assert_called_once_with("TEST", 94.0, "利確価格到達")
 
     def test_check_stop_loss_take_profit_nonexistent_position(self):
         """存在しないポジションの損切り・利確チェックテスト"""
-        with patch.object(self.system.logger, 'warning') as mock_warning:
+        with patch.object(self.system.logger, "warning") as mock_warning:
             self.system._check_stop_loss_take_profit("NONEXISTENT", 100.0)
             mock_warning.assert_called_once()
 
@@ -419,8 +423,10 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         self.system.positions["TEST"] = settings
 
         # 例外を発生させるために、_execute_stop_lossメソッドをモック
-        with patch.object(self.system, '_execute_stop_loss', side_effect=Exception("Check error")):
-            with patch.object(self.system.logger, 'error') as mock_error:
+        with patch.object(
+            self.system, "_execute_stop_loss", side_effect=Exception("Check error")
+        ):
+            with patch.object(self.system.logger, "error") as mock_error:
                 # 損切り条件を満たす価格でテスト
                 self.system._check_stop_loss_take_profit("TEST", 90.0)  # 損切り価格以下
                 mock_error.assert_called_once()
@@ -445,18 +451,18 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         )
         self.system.positions["TEST"] = settings
 
-        with patch.object(self.system, '_create_trade_execution') as mock_create:
-            with patch.object(self.system, '_remove_position') as mock_remove:
-                with patch.object(self.system.logger, 'info') as mock_info:
+        with patch.object(self.system, "_create_trade_execution") as mock_create:
+            with patch.object(self.system, "_remove_position") as mock_remove:
+                with patch.object(self.system.logger, "info") as mock_info:
                     self.system._execute_stop_loss("TEST", 94.0, "損切り価格到達")
-                    
+
                     mock_create.assert_called_once()
                     mock_remove.assert_called_once_with("TEST")
                     mock_info.assert_called_once()
 
     def test_execute_stop_loss_nonexistent_position(self):
         """存在しないポジションの損切り執行テスト"""
-        with patch.object(self.system.logger, 'warning') as mock_warning:
+        with patch.object(self.system.logger, "warning") as mock_warning:
             self.system._execute_stop_loss("NONEXISTENT", 94.0, "損切り価格到達")
             mock_warning.assert_called_once()
 
@@ -480,8 +486,12 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         )
         self.system.positions["TEST"] = settings
 
-        with patch.object(self.system, '_create_trade_execution', side_effect=Exception("Execution error")):
-            with patch.object(self.system.logger, 'error') as mock_error:
+        with patch.object(
+            self.system,
+            "_create_trade_execution",
+            side_effect=Exception("Execution error"),
+        ):
+            with patch.object(self.system.logger, "error") as mock_error:
                 self.system._execute_stop_loss("TEST", 94.0, "損切り価格到達")
                 mock_error.assert_called_once()
 
@@ -505,18 +515,18 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         )
         self.system.positions["TEST"] = settings
 
-        with patch.object(self.system, '_create_trade_execution') as mock_create:
-            with patch.object(self.system, '_remove_position') as mock_remove:
-                with patch.object(self.system.logger, 'info') as mock_info:
+        with patch.object(self.system, "_create_trade_execution") as mock_create:
+            with patch.object(self.system, "_remove_position") as mock_remove:
+                with patch.object(self.system.logger, "info") as mock_info:
                     self.system._execute_take_profit("TEST", 111.0, "利確価格到達")
-                    
+
                     mock_create.assert_called_once()
                     mock_remove.assert_called_once_with("TEST")
                     mock_info.assert_called_once()
 
     def test_execute_take_profit_nonexistent_position(self):
         """存在しないポジションの利確執行テスト"""
-        with patch.object(self.system.logger, 'warning') as mock_warning:
+        with patch.object(self.system.logger, "warning") as mock_warning:
             self.system._execute_take_profit("NONEXISTENT", 111.0, "利確価格到達")
             mock_warning.assert_called_once()
 
@@ -540,8 +550,12 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         )
         self.system.positions["TEST"] = settings
 
-        with patch.object(self.system, '_create_trade_execution', side_effect=Exception("Execution error")):
-            with patch.object(self.system.logger, 'error') as mock_error:
+        with patch.object(
+            self.system,
+            "_create_trade_execution",
+            side_effect=Exception("Execution error"),
+        ):
+            with patch.object(self.system.logger, "error") as mock_error:
                 self.system._execute_take_profit("TEST", 111.0, "利確価格到達")
                 mock_error.assert_called_once()
 
@@ -660,12 +674,15 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
             updated_at=datetime.now(),
         )
 
-        with patch('core.realtime_stop_loss_system.TradeExecution', side_effect=Exception("Execution error")):
-            with patch.object(self.system.logger, 'error') as mock_error:
+        with patch(
+            "core.realtime_stop_loss_system.TradeExecution",
+            side_effect=Exception("Execution error"),
+        ):
+            with patch.object(self.system.logger, "error") as mock_error:
                 result = self.system._create_trade_execution(
                     settings, 94.0, "STOP_LOSS", "損切り価格到達"
                 )
-                
+
                 self.assertIsNone(result)
                 mock_error.assert_called_once()
 
@@ -673,7 +690,7 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         """監視ループ成功テスト（簡易版）"""
         # 監視ループの基本機能のみテスト
         self.system.is_monitoring = True
-        
+
         # ポジションを追加
         settings = StopLossSettings(
             symbol="TEST",
@@ -701,10 +718,14 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
     def test_monitoring_loop_exception(self):
         """監視ループ例外処理テスト"""
         self.system.is_monitoring = True
-        
+
         # _check_stop_loss_take_profitメソッドで例外を発生させる
-        with patch.object(self.system, '_check_stop_loss_take_profit', side_effect=Exception("Loop error")):
-            with patch.object(self.system.logger, 'error') as mock_error:
+        with patch.object(
+            self.system,
+            "_check_stop_loss_take_profit",
+            side_effect=Exception("Loop error"),
+        ):
+            with patch.object(self.system.logger, "error") as mock_error:
                 # ポジションを追加
                 settings = StopLossSettings(
                     symbol="TEST",
@@ -724,7 +745,7 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
                 )
                 settings.current_price = 105.0
                 self.system.positions["TEST"] = settings
-                
+
                 # 簡易版テスト（実際のループは実行しない）
                 assert self.system.is_monitoring == True
                 assert "TEST" in self.system.positions
@@ -762,11 +783,11 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
     def test_get_monitoring_status_exception(self):
         """監視状況取得例外処理テスト"""
         # datetime.now()で例外を発生させる
-        with patch('core.realtime_stop_loss_system.datetime') as mock_datetime:
+        with patch("core.realtime_stop_loss_system.datetime") as mock_datetime:
             mock_datetime.now.side_effect = Exception("Status error")
-            with patch.object(self.system.logger, 'error') as mock_error:
+            with patch.object(self.system.logger, "error") as mock_error:
                 result = self.system.get_monitoring_status()
-                
+
                 self.assertEqual(result["status"], "error")
                 self.assertIn("error", result)
                 mock_error.assert_called_once()
@@ -830,11 +851,13 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         )
         settings.current_price = 105.0
         self.system.positions["TEST"] = settings
-        
+
         # logger.errorメソッドで例外を発生させる
-        with patch.object(self.system.logger, 'error', side_effect=Exception("Summary error")):
+        with patch.object(
+            self.system.logger, "error", side_effect=Exception("Summary error")
+        ):
             result = self.system.get_position_summary()
-            
+
             # 例外が発生した場合、通常の結果が返される
             self.assertIsInstance(result, dict)
             self.assertIn("total_positions", result)
@@ -853,7 +876,7 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
             execution_reason="損切り価格到達",
             metadata={},
         )
-        
+
         execution2 = TradeExecution(
             timestamp=datetime.now(),
             symbol="TEST2",
@@ -865,7 +888,7 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
             execution_reason="利確価格到達",
             metadata={},
         )
-        
+
         self.system.execution_history = [execution1, execution2]
 
         metrics = self.system.get_performance_metrics(days=30)
@@ -900,13 +923,13 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
             metadata={"test": "data"},
         )
         self.system.execution_history.append(execution)
-        
+
         # datetime.now()で例外を発生させる
-        with patch('core.realtime_stop_loss_system.datetime') as mock_datetime:
+        with patch("core.realtime_stop_loss_system.datetime") as mock_datetime:
             mock_datetime.now.side_effect = Exception("Metrics error")
-            with patch.object(self.system.logger, 'error') as mock_error:
+            with patch.object(self.system.logger, "error") as mock_error:
                 result = self.system.get_performance_metrics()
-                
+
                 self.assertEqual(result["status"], "error")
                 self.assertIn("error", result)
                 mock_error.assert_called_once()
@@ -925,7 +948,7 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
             execution_reason="損切り価格到達",
             metadata={},
         )
-        
+
         execution2 = TradeExecution(
             timestamp=datetime.now(),
             symbol="TEST2",
@@ -937,7 +960,7 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
             execution_reason="利確価格到達",
             metadata={},
         )
-        
+
         self.system.execution_history = [execution1, execution2]
 
         report = self.system.export_performance_report(days=30)
@@ -952,10 +975,14 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
     def test_export_performance_report_exception(self):
         """パフォーマンスレポート出力例外処理テスト"""
         # get_performance_metricsメソッドで例外を発生させる
-        with patch.object(self.system, 'get_performance_metrics', side_effect=Exception("Report error")):
-            with patch.object(self.system.logger, 'error') as mock_error:
+        with patch.object(
+            self.system,
+            "get_performance_metrics",
+            side_effect=Exception("Report error"),
+        ):
+            with patch.object(self.system.logger, "error") as mock_error:
                 result = self.system.export_performance_report()
-                
+
                 self.assertIn("error", result)
                 mock_error.assert_called_once()
 
@@ -963,14 +990,14 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         """アラートコールバック追加テスト"""
         callback = Mock()
         self.system.add_alert_callback(callback)
-        
+
         self.assertIn(callback, self.system.alert_callbacks)
 
     def test_add_execution_callback(self):
         """執行コールバック追加テスト"""
         callback = Mock()
         self.system.add_execution_callback(callback)
-        
+
         self.assertIn(callback, self.system.execution_callbacks)
 
 

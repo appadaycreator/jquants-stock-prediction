@@ -11,7 +11,7 @@ import sys
 import os
 
 # パスを追加
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from core.enhanced_risk_alerts import (
     EnhancedRiskAlerts,
@@ -30,9 +30,9 @@ class TestEnhancedRiskAlerts:
         self.risk_alerts = EnhancedRiskAlerts()
         self.sample_stock_data = pd.DataFrame(
             {
-                'Date': pd.date_range('2023-01-01', periods=100, freq='D'),
-                'Close': np.random.normal(100, 10, 100).cumsum(),
-                'Volume': np.random.randint(1000, 10000, 100),
+                "Date": pd.date_range("2023-01-01", periods=100, freq="D"),
+                "Close": np.random.normal(100, 10, 100).cumsum(),
+                "Volume": np.random.randint(1000, 10000, 100),
             }
         )
 
@@ -470,7 +470,7 @@ class TestEnhancedRiskAlerts:
     def test_error_handling_in_create_alert_notification(self):
         """アラート通知作成でのエラーハンドリングテスト"""
         # 無効なアラートでテスト
-        with patch.object(self.risk_alerts, 'logger') as mock_logger:
+        with patch.object(self.risk_alerts, "logger") as mock_logger:
             result = self.risk_alerts.create_alert_notification(None)
             assert result["success"] is False
             assert "error" in result
@@ -478,21 +478,21 @@ class TestEnhancedRiskAlerts:
     def test_edge_cases_in_volatility_calculation(self):
         """ボラティリティ計算のエッジケーステスト"""
         # 単一データポイント
-        single_data = pd.DataFrame({'Close': [100]})
+        single_data = pd.DataFrame({"Close": [100]})
         volatility = self.risk_alerts._calculate_volatility(single_data)
         assert volatility == 0.2  # デフォルト値
 
     def test_edge_cases_in_var_calculation(self):
         """VaR計算のエッジケーステスト"""
         # 単一データポイント
-        single_data = pd.DataFrame({'Close': [100]})
+        single_data = pd.DataFrame({"Close": [100]})
         var_95 = self.risk_alerts._calculate_var_95(single_data)
         assert var_95 == 0.05  # デフォルト値
 
     def test_edge_cases_in_drawdown_calculation(self):
         """ドローダウン計算のエッジケーステスト"""
         # 単一データポイント
-        single_data = pd.DataFrame({'Close': [100]})
+        single_data = pd.DataFrame({"Close": [100]})
         drawdown = self.risk_alerts._calculate_max_drawdown(single_data)
         assert drawdown == 0.0
 
@@ -501,9 +501,9 @@ class TestEnhancedRiskAlerts:
         # 大規模データセットを作成
         large_data = pd.DataFrame(
             {
-                'Date': pd.date_range('2020-01-01', periods=1000, freq='D'),
-                'Close': np.random.normal(100, 10, 1000).cumsum(),
-                'Volume': np.random.randint(1000, 10000, 1000),
+                "Date": pd.date_range("2020-01-01", periods=1000, freq="D"),
+                "Close": np.random.normal(100, 10, 1000).cumsum(),
+                "Volume": np.random.randint(1000, 10000, 1000),
             }
         )
 

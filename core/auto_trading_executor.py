@@ -450,7 +450,7 @@ class AutoTradingExecutor:
         except Exception as e:
             self.logger.error(f"損切り注文作成エラー: {e}")
             # エラーハンドリングの改善
-            if hasattr(self, 'error_handler') and self.error_handler:
+            if hasattr(self, "error_handler") and self.error_handler:
                 self.error_handler.handle_error(
                     e, "stop_loss_order_creation", {"symbol": symbol, "price": price}
                 )
@@ -487,7 +487,7 @@ class AutoTradingExecutor:
         except Exception as e:
             self.logger.error(f"利確注文作成エラー: {e}")
             # エラーハンドリングの改善
-            if hasattr(self, 'error_handler') and self.error_handler:
+            if hasattr(self, "error_handler") and self.error_handler:
                 self.error_handler.handle_error(
                     e, "take_profit_order_creation", {"symbol": symbol, "price": price}
                 )
@@ -530,14 +530,14 @@ class AutoTradingExecutor:
         """執行ループ"""
         start_time = time.time()
         max_duration = 60.0  # 最大60秒
-        
+
         while self.is_executing:
             try:
                 # タイムアウトチェック
                 if time.time() - start_time > max_duration:
                     self.logger.warning("執行ループタイムアウト")
                     break
-                
+
                 # 執行キューから処理（1件試行、例外時は1回だけログして終了）
                 try:
                     order = self.execution_queue.get_nowait()
@@ -650,7 +650,7 @@ class AutoTradingExecutor:
 
             # テスト時のMagicMock(side_effect=...)を確実に発火させるためのプローブ
             try:
-                qty_probe = getattr(position, 'quantity')
+                qty_probe = getattr(position, "quantity")
                 if callable(qty_probe):
                     qty_probe()
             except Exception as e:
@@ -659,8 +659,12 @@ class AutoTradingExecutor:
 
             if order.trade_type == TradeType.PARTIAL_CLOSE:
                 # 部分決済
-                current_qty = getattr(position, 'quantity')
-                setattr(position, 'quantity', current_qty - execution_result.executed_quantity)
+                current_qty = getattr(position, "quantity")
+                setattr(
+                    position,
+                    "quantity",
+                    current_qty - execution_result.executed_quantity,
+                )
                 position.realized_pnl += execution_result.pnl
 
                 if position.quantity <= 0:
@@ -670,8 +674,8 @@ class AutoTradingExecutor:
 
             else:
                 # 完全決済
-                _ = getattr(position, 'quantity')  # 例外発火のため一度参照
-                setattr(position, 'quantity', 0)
+                _ = getattr(position, "quantity")  # 例外発火のため一度参照
+                setattr(position, "quantity", 0)
                 position.realized_pnl += execution_result.pnl
                 position.status = "CLOSED"
 
@@ -692,16 +696,28 @@ class AutoTradingExecutor:
         """執行状況取得"""
         try:
             # 属性取得で例外を確実に発火
-            positions_attr = object.__getattribute__(self, 'positions')
-            orders_attr = object.__getattribute__(self, 'orders')
+            positions_attr = object.__getattribute__(self, "positions")
+            orders_attr = object.__getattribute__(self, "orders")
 
             # テスト時にMagicMock(side_effect=...)でも例外を発火させる
-            positions_dict = positions_attr() if callable(positions_attr) else positions_attr
+            positions_dict = (
+                positions_attr() if callable(positions_attr) else positions_attr
+            )
             orders_dict = orders_attr() if callable(orders_attr) else orders_attr
 
-            active_positions = len([p for p in positions_dict.values() if p.status == "ACTIVE"])
-            pending_orders = len([o for o in orders_dict.values() if o.status == ExecutionStatus.PENDING])
-            executing_orders = len([o for o in orders_dict.values() if o.status == ExecutionStatus.EXECUTING])
+            active_positions = len(
+                [p for p in positions_dict.values() if p.status == "ACTIVE"]
+            )
+            pending_orders = len(
+                [o for o in orders_dict.values() if o.status == ExecutionStatus.PENDING]
+            )
+            executing_orders = len(
+                [
+                    o
+                    for o in orders_dict.values()
+                    if o.status == ExecutionStatus.EXECUTING
+                ]
+            )
 
             return {
                 "status": "executing" if self.is_executing else "stopped",
@@ -720,8 +736,10 @@ class AutoTradingExecutor:
         """ポジションサマリー取得"""
         try:
             # positions 取得時の例外を確実に発火
-            positions_attr = object.__getattribute__(self, 'positions')
-            positions_dict = positions_attr() if callable(positions_attr) else positions_attr
+            positions_attr = object.__getattribute__(self, "positions")
+            positions_dict = (
+                positions_attr() if callable(positions_attr) else positions_attr
+            )
             active_positions = [
                 p for p in positions_dict.values() if p.status == "ACTIVE"
             ]
@@ -764,7 +782,7 @@ class AutoTradingExecutor:
             cutoff_date = datetime.now() - timedelta(days=days)
             # execution_history 取得時の例外を確実に発火
             try:
-                history_attr = object.__getattribute__(self, 'execution_history')
+                history_attr = object.__getattribute__(self, "execution_history")
                 history = history_attr() if callable(history_attr) else history_attr
                 recent_executions = [
                     e for e in history if e.execution_time >= cutoff_date
@@ -802,9 +820,9 @@ class AutoTradingExecutor:
                 "avg_pnl": avg_pnl,
                 "max_profit": max_profit,
                 "max_loss": max_loss,
-                "profit_factor": abs(max_profit / max_loss)
-                if max_loss < 0
-                else float("inf"),
+                "profit_factor": (
+                    abs(max_profit / max_loss) if max_loss < 0 else float("inf")
+                ),
             }
 
         except Exception as e:
@@ -826,7 +844,7 @@ class AutoTradingExecutor:
             # 属性取得/イテレーション時の例外を確実に捕捉
             try:
                 # 直接属性取得でモックのside_effectを確実に発火
-                history_attr = object.__getattribute__(self, 'execution_history')
+                history_attr = object.__getattribute__(self, "execution_history")
                 if callable(history_attr):
                     # MagicMockにside_effectが設定された場合に呼び出しで発火
                     history = list(history_attr())
@@ -836,9 +854,7 @@ class AutoTradingExecutor:
                 self.logger.error(f"執行レポート出力エラー: {e}")
                 return {"error": str(e), "status": "error"}
 
-            recent_executions = [
-                e for e in history if e.execution_time >= cutoff_date
-            ]
+            recent_executions = [e for e in history if e.execution_time >= cutoff_date]
 
             # 銘柄別統計
             symbol_stats = {}

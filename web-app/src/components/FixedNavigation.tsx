@@ -142,10 +142,16 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
     }
   };
 
+  // アクティブ判定（ルートは完全一致、それ以外は前方一致）
+  const isActiveHref = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
   // ナビゲーションアイテムのレンダリング
   const renderNavigationItem = (item: NavigationItem) => {
     const Icon = item.icon;
-    const isActive = pathname === item.href;
+    const isActive = isActiveHref(item.href);
     const isDisabled = item.status === "inactive" || item.status === "coming-soon";
 
     const baseClasses = `
@@ -203,7 +209,7 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
       <nav className={`hidden lg:flex items-center space-x-1 ${className}`}>
         {navigationItems.slice(0, 5).map((item) => {
           const Icon = item.icon;
-          const isActive = pathname === item.href;
+          const isActive = isActiveHref(item.href);
           
           return (
             <button

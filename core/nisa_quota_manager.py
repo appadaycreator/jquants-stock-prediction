@@ -555,9 +555,9 @@ class NisaQuotaManager:
         try:
             if transaction.type == "BUY":
                 if transaction.quota_type == "GROWTH":
-                    self.nisa_data["quotas"]["growth_investment"]["used_amount"] += (
-                        transaction.amount
-                    )
+                    self.nisa_data["quotas"]["growth_investment"][
+                        "used_amount"
+                    ] += transaction.amount
                     self.nisa_data["quotas"]["growth_investment"][
                         "available_amount"
                     ] -= transaction.amount
@@ -571,16 +571,16 @@ class NisaQuotaManager:
             elif transaction.type == "SELL":
                 # 売却時の枠解放
                 if transaction.quota_type == "GROWTH":
-                    self.nisa_data["quotas"]["growth_investment"]["used_amount"] -= (
-                        transaction.amount
-                    )
+                    self.nisa_data["quotas"]["growth_investment"][
+                        "used_amount"
+                    ] -= transaction.amount
                     self.nisa_data["quotas"]["growth_investment"][
                         "available_amount"
                     ] += transaction.amount
                     # 再利用可能枠の追加
-                    self.nisa_data["quota_reuse"]["growth_available"] += (
-                        transaction.amount
-                    )
+                    self.nisa_data["quota_reuse"][
+                        "growth_available"
+                    ] += transaction.amount
                 elif transaction.quota_type == "ACCUMULATION":
                     self.nisa_data["quotas"]["accumulation_investment"][
                         "used_amount"
@@ -589,9 +589,9 @@ class NisaQuotaManager:
                         "available_amount"
                     ] += transaction.amount
                     # 再利用可能枠の追加
-                    self.nisa_data["quota_reuse"]["accumulation_available"] += (
-                        transaction.amount
-                    )
+                    self.nisa_data["quota_reuse"][
+                        "accumulation_available"
+                    ] += transaction.amount
 
             # 利用率の更新
             self._update_utilization_rates()

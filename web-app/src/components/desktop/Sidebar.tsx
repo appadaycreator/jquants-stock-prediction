@@ -94,7 +94,10 @@ export default function Sidebar() {
           
           <div className="space-y-2">
             {navigation.map((item) => {
-              const isActive = pathname === item.href;
+              const isRoot = item.href === "/";
+              const isActive = isRoot
+                ? pathname === "/"
+                : pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <Link
                   key={item.name}
@@ -122,13 +125,18 @@ export default function Sidebar() {
             <div className="border-t border-gray-200 my-4"></div>
             
             {additionalFeatures.map((item) => {
-              const isActive = pathname === item.href;
+              const isRoot = item.href === "/";
+              const isActive = isRoot
+                ? pathname === "/"
+                : pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors group ${
-                    isActive ? "bg-gray-50" : ""
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors group ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border border-blue-200"
+                      : "text-gray-700 hover:bg-gray-50"
                   }`}
                   title={isCollapsed ? item.name : undefined}
                 >
@@ -167,7 +175,10 @@ export default function Sidebar() {
           
           <div className="space-y-2">
             {navigation.map((item) => {
-              const isActive = pathname === item.href;
+              const isRoot = item.href === "/";
+              const isActive = isRoot
+                ? pathname === "/"
+                : pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <Link
                   key={item.name}
@@ -188,14 +199,19 @@ export default function Sidebar() {
             <div className="border-t border-gray-200 my-4"></div>
             
             {additionalFeatures.map((item) => {
-              const isActive = pathname === item.href;
+              const isRoot = item.href === "/";
+              const isActive = isRoot
+                ? pathname === "/"
+                : pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <Link
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsMobileOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors ${
-                    isActive ? "bg-gray-50" : ""
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+                    isActive
+                      ? "bg-blue-50 text-blue-700 border border-blue-200"
+                      : "text-gray-700 hover:bg-gray-50"
                   }`}
                 >
                   <span className="text-lg">{item.icon}</span>

@@ -97,7 +97,9 @@ class DeadlineManager:
         self.monitor_thread = None
         self._stop_event = threading.Event()
         # テスト/本番双方で調整可能なスリープ間隔（秒）
-        self._monitor_sleep_seconds = float(self.config.get("monitor_sleep_seconds", 30.0))
+        self._monitor_sleep_seconds = float(
+            self.config.get("monitor_sleep_seconds", 30.0)
+        )
 
         # コールバック関数
         self.alert_callbacks = []

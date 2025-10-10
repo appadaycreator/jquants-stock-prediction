@@ -372,7 +372,7 @@ class RealtimeStopLossSystem:
         """監視停止"""
         try:
             self.is_monitoring = False
-            if hasattr(self, 'monitor_thread') and self.monitor_thread:
+            if hasattr(self, "monitor_thread") and self.monitor_thread:
                 try:
                     self.monitor_thread.join(timeout=5.0)
                 except Exception as join_error:
@@ -489,7 +489,7 @@ class RealtimeStopLossSystem:
         except Exception as e:
             self.logger.error(f"損切り設定追加エラー: {e}")
             # エラーハンドリングの改善
-            if hasattr(self, 'error_handler') and self.error_handler:
+            if hasattr(self, "error_handler") and self.error_handler:
                 self.error_handler.handle_error(
                     e,
                     "stop_loss_setting_creation",
@@ -866,9 +866,9 @@ class RealtimeStopLossSystem:
                 "avg_pnl": avg_pnl,
                 "max_profit": max_profit,
                 "max_loss": max_loss,
-                "profit_factor": abs(max_profit / max_loss)
-                if max_loss < 0
-                else float("inf"),
+                "profit_factor": (
+                    abs(max_profit / max_loss) if max_loss < 0 else float("inf")
+                ),
             }
 
         except Exception as e:
@@ -908,7 +908,7 @@ class RealtimeStopLossSystem:
             except Exception as access_error:
                 self.logger.error(f"positionsアクセスエラー: {access_error}")
                 raise access_error
-                
+
             if symbol in positions_dict:
                 del positions_dict[symbol]
                 self.logger.info(f"ポジション削除: {symbol}")
@@ -939,15 +939,27 @@ class RealtimeStopLossSystem:
             settings = self.positions[symbol]
 
             # 損切りチェック
-            if settings.direction == "BUY" and current_price <= settings.stop_loss_price:
+            if (
+                settings.direction == "BUY"
+                and current_price <= settings.stop_loss_price
+            ):
                 self._execute_stop_loss(symbol, current_price, "損切り価格到達")
-            elif settings.direction == "SELL" and current_price >= settings.stop_loss_price:
+            elif (
+                settings.direction == "SELL"
+                and current_price >= settings.stop_loss_price
+            ):
                 self._execute_stop_loss(symbol, current_price, "損切り価格到達")
 
             # 利確チェック
-            if settings.direction == "BUY" and current_price >= settings.take_profit_price:
+            if (
+                settings.direction == "BUY"
+                and current_price >= settings.take_profit_price
+            ):
                 self._execute_take_profit(symbol, current_price, "利確価格到達")
-            elif settings.direction == "SELL" and current_price <= settings.take_profit_price:
+            elif (
+                settings.direction == "SELL"
+                and current_price <= settings.take_profit_price
+            ):
                 self._execute_take_profit(symbol, current_price, "利確価格到達")
 
         except Exception as e:
@@ -961,7 +973,9 @@ class RealtimeStopLossSystem:
                 return
 
             settings = self.positions[symbol]
-            execution = self._create_trade_execution(settings, price, "STOP_LOSS", reason)
+            execution = self._create_trade_execution(
+                settings, price, "STOP_LOSS", reason
+            )
             if execution:
                 self.execution_history.append(execution)
                 self._remove_position(symbol)
@@ -977,7 +991,9 @@ class RealtimeStopLossSystem:
                 return
 
             settings = self.positions[symbol]
-            execution = self._create_trade_execution(settings, price, "TAKE_PROFIT", reason)
+            execution = self._create_trade_execution(
+                settings, price, "TAKE_PROFIT", reason
+            )
             if execution:
                 self.execution_history.append(execution)
                 self._remove_position(symbol)
@@ -985,7 +1001,13 @@ class RealtimeStopLossSystem:
         except Exception as e:
             self.logger.error(f"利確執行エラー: {e}")
 
-    def _create_trade_execution(self, settings: StopLossSettings, exit_price: float, trade_type: str, reason: str) -> TradeExecution:
+    def _create_trade_execution(
+        self,
+        settings: StopLossSettings,
+        exit_price: float,
+        trade_type: str,
+        reason: str,
+    ) -> TradeExecution:
         """取引執行作成"""
         try:
             # PnL計算
@@ -1026,7 +1048,7 @@ class RealtimeStopLossSystem:
         """監視ループ（テスト用簡易版）"""
         try:
             for symbol, settings in self.positions.items():
-                if hasattr(settings, 'current_price'):
+                if hasattr(settings, "current_price"):
                     self._check_stop_loss_take_profit(symbol, settings.current_price)
         except Exception as e:
             self.logger.error(f"監視ループエラー: {e}")
@@ -1040,21 +1062,21 @@ class RealtimeStopLossSystem:
             except Exception as access_error:
                 self.logger.error(f"positionsアクセスエラー: {access_error}")
                 raise access_error
-                
+
             # alert_historyにアクセスする際の例外処理
             try:
                 total_alerts = len(self.alert_history)
             except Exception as access_error:
                 self.logger.error(f"alert_historyアクセスエラー: {access_error}")
                 raise access_error
-                
+
             # execution_historyにアクセスする際の例外処理
             try:
                 total_executions = len(self.execution_history)
             except Exception as access_error:
                 self.logger.error(f"execution_historyアクセスエラー: {access_error}")
                 raise access_error
-                
+
             return {
                 "status": "monitoring" if self.is_monitoring else "stopped",
                 "is_monitoring": self.is_monitoring,
@@ -1076,25 +1098,31 @@ class RealtimeStopLossSystem:
             except Exception as access_error:
                 self.logger.error(f"positionsアクセスエラー: {access_error}")
                 raise access_error
-                
+
             total_unrealized_pnl = 0.0
             positions = []
 
             for symbol, settings in positions_dict.items():
-                if hasattr(settings, 'current_price'):
+                if hasattr(settings, "current_price"):
                     if settings.direction == "BUY":
-                        unrealized_pnl = (settings.current_price - settings.entry_price) * settings.position_size
+                        unrealized_pnl = (
+                            settings.current_price - settings.entry_price
+                        ) * settings.position_size
                     else:
-                        unrealized_pnl = (settings.entry_price - settings.current_price) * settings.position_size
-                    
+                        unrealized_pnl = (
+                            settings.entry_price - settings.current_price
+                        ) * settings.position_size
+
                     total_unrealized_pnl += unrealized_pnl
-                    positions.append({
-                        "symbol": symbol,
-                        "direction": settings.direction,
-                        "entry_price": settings.entry_price,
-                        "current_price": settings.current_price,
-                        "unrealized_pnl": unrealized_pnl,
-                    })
+                    positions.append(
+                        {
+                            "symbol": symbol,
+                            "direction": settings.direction,
+                            "entry_price": settings.entry_price,
+                            "current_price": settings.current_price,
+                            "unrealized_pnl": unrealized_pnl,
+                        }
+                    )
 
             return {
                 "total_positions": len(positions_dict),
@@ -1118,7 +1146,9 @@ class RealtimeStopLossSystem:
 
             # 最近の執行を取得
             cutoff_date = datetime.now() - timedelta(days=days)
-            recent_executions = [e for e in self.execution_history if e.timestamp >= cutoff_date]
+            recent_executions = [
+                e for e in self.execution_history if e.timestamp >= cutoff_date
+            ]
 
             if not recent_executions:
                 return {"status": "no_data"}
@@ -1146,7 +1176,9 @@ class RealtimeStopLossSystem:
             cutoff_date = datetime.now() - timedelta(days=days)
             # execution_historyにアクセスする際の例外処理
             try:
-                recent_executions = [e for e in self.execution_history if e.timestamp >= cutoff_date]
+                recent_executions = [
+                    e for e in self.execution_history if e.timestamp >= cutoff_date
+                ]
             except Exception as access_error:
                 self.logger.error(f"execution_historyアクセスエラー: {access_error}")
                 raise access_error
@@ -1185,7 +1217,7 @@ class RealtimeStopLossSystem:
                 "symbol_statistics": {},
                 "performance_metrics": {"status": "no_data"},
                 "generated_at": datetime.now().isoformat(),
-                "error": str(e)
+                "error": str(e),
             }
 
     def export_trade_report(self, days: int = 30) -> Dict[str, Any]:

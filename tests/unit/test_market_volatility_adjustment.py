@@ -85,11 +85,11 @@ class TestMarketVolatilityAdjustment:
     def test_analyze_market_conditions_success(self):
         """市場条件分析成功テスト"""
         # テストデータの作成
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01)
 
         market_data = pd.DataFrame(
-            {'Close': prices, 'Volume': np.random.randint(1000000, 10000000, 100)},
+            {"Close": prices, "Volume": np.random.randint(1000000, 10000000, 100)},
             index=dates,
         )
 
@@ -118,26 +118,26 @@ class TestMarketVolatilityAdjustment:
 
     def test_analyze_market_conditions_with_sector_data(self):
         """セクターデータ付きでの市場条件分析テスト"""
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01)
 
         market_data = pd.DataFrame(
-            {'Close': prices, 'Volume': np.random.randint(1000000, 10000000, 100)},
+            {"Close": prices, "Volume": np.random.randint(1000000, 10000000, 100)},
             index=dates,
         )
 
         sector_data = {
-            'technology': pd.DataFrame(
+            "technology": pd.DataFrame(
                 {
-                    'Close': prices * 1.1,
-                    'Volume': np.random.randint(1000000, 10000000, 100),
+                    "Close": prices * 1.1,
+                    "Volume": np.random.randint(1000000, 10000000, 100),
                 },
                 index=dates,
             ),
-            'finance': pd.DataFrame(
+            "finance": pd.DataFrame(
                 {
-                    'Close': prices * 0.9,
-                    'Volume': np.random.randint(1000000, 10000000, 100),
+                    "Close": prices * 0.9,
+                    "Volume": np.random.randint(1000000, 10000000, 100),
                 },
                 index=dates,
             ),
@@ -150,15 +150,15 @@ class TestMarketVolatilityAdjustment:
 
     def test_analyze_market_conditions_with_economic_indicators(self):
         """経済指標付きでの市場条件分析テスト"""
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01)
 
         market_data = pd.DataFrame(
-            {'Close': prices, 'Volume': np.random.randint(1000000, 10000000, 100)},
+            {"Close": prices, "Volume": np.random.randint(1000000, 10000000, 100)},
             index=dates,
         )
 
-        economic_indicators = {'vix': 25.0, 'rate_change': 0.01}
+        economic_indicators = {"vix": 25.0, "rate_change": 0.01}
 
         conditions = self.adjustment.analyze_market_conditions(
             market_data, economic_indicators=economic_indicators
@@ -181,9 +181,9 @@ class TestMarketVolatilityAdjustment:
             market_stress=0.3,
             regime_confidence=0.8,
             adjustment_factors={
-                'confidence_multiplier': 1.1,
-                'position_size_multiplier': 1.05,
-                'risk_tolerance_multiplier': 1.02,
+                "confidence_multiplier": 1.1,
+                "position_size_multiplier": 1.05,
+                "risk_tolerance_multiplier": 1.02,
             },
         )
 
@@ -219,13 +219,13 @@ class TestMarketVolatilityAdjustment:
             market_stress=0.7,
             regime_confidence=0.6,
             adjustment_factors={
-                'confidence_multiplier': 0.8,
-                'position_size_multiplier': 0.7,
-                'risk_tolerance_multiplier': 0.6,
+                "confidence_multiplier": 0.8,
+                "position_size_multiplier": 0.7,
+                "risk_tolerance_multiplier": 0.6,
             },
         )
 
-        stock_specific_factors = {'beta': 1.5, 'volatility': 0.3, 'liquidity': 0.6}
+        stock_specific_factors = {"beta": 1.5, "volatility": 0.3, "liquidity": 0.6}
 
         adjustment = self.adjustment.calculate_dynamic_adjustment(
             0.7, 0.08, 0.12, conditions, stock_specific_factors
@@ -238,10 +238,10 @@ class TestMarketVolatilityAdjustment:
     def test_detect_market_regime_bull(self):
         """強気市場レジーム検出テスト"""
         # 上昇トレンドのデータ
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01) + np.arange(100) * 0.1
 
-        market_data = pd.DataFrame({'Close': prices}, index=dates)
+        market_data = pd.DataFrame({"Close": prices}, index=dates)
 
         regime = self.adjustment._detect_market_regime(market_data)
 
@@ -250,10 +250,10 @@ class TestMarketVolatilityAdjustment:
     def test_detect_market_regime_bear(self):
         """弱気市場レジーム検出テスト"""
         # 下降トレンドのデータ
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01) - np.arange(100) * 0.1
 
-        market_data = pd.DataFrame({'Close': prices}, index=dates)
+        market_data = pd.DataFrame({"Close": prices}, index=dates)
 
         regime = self.adjustment._detect_market_regime(market_data)
 
@@ -262,10 +262,10 @@ class TestMarketVolatilityAdjustment:
     def test_detect_market_regime_volatile(self):
         """高ボラティリティ市場レジーム検出テスト"""
         # 高ボラティリティのデータ
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.05)  # 高ボラティリティ
 
-        market_data = pd.DataFrame({'Close': prices}, index=dates)
+        market_data = pd.DataFrame({"Close": prices}, index=dates)
 
         regime = self.adjustment._detect_market_regime(market_data)
 
@@ -274,10 +274,10 @@ class TestMarketVolatilityAdjustment:
     def test_detect_volatility_regime_low(self):
         """低ボラティリティレジーム検出テスト"""
         # 低ボラティリティのデータ
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.005)  # 低ボラティリティ
 
-        market_data = pd.DataFrame({'Close': prices}, index=dates)
+        market_data = pd.DataFrame({"Close": prices}, index=dates)
 
         regime = self.adjustment._detect_volatility_regime(market_data)
 
@@ -286,10 +286,10 @@ class TestMarketVolatilityAdjustment:
     def test_detect_volatility_regime_high(self):
         """高ボラティリティレジーム検出テスト"""
         # 高ボラティリティのデータ
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.05)  # 高ボラティリティ
 
-        market_data = pd.DataFrame({'Close': prices}, index=dates)
+        market_data = pd.DataFrame({"Close": prices}, index=dates)
 
         regime = self.adjustment._detect_volatility_regime(market_data)
 
@@ -297,10 +297,10 @@ class TestMarketVolatilityAdjustment:
 
     def test_calculate_trend_strength(self):
         """トレンド強度計算テスト"""
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01)
 
-        market_data = pd.DataFrame({'Close': prices}, index=dates)
+        market_data = pd.DataFrame({"Close": prices}, index=dates)
 
         trend_strength = self.adjustment._calculate_trend_strength(market_data)
 
@@ -308,10 +308,10 @@ class TestMarketVolatilityAdjustment:
 
     def test_calculate_momentum(self):
         """モメンタム計算テスト"""
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01)
 
-        market_data = pd.DataFrame({'Close': prices}, index=dates)
+        market_data = pd.DataFrame({"Close": prices}, index=dates)
 
         momentum = self.adjustment._calculate_momentum(market_data)
 
@@ -319,10 +319,10 @@ class TestMarketVolatilityAdjustment:
 
     def test_calculate_market_volatility(self):
         """市場ボラティリティ計算テスト"""
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01)
 
-        market_data = pd.DataFrame({'Close': prices}, index=dates)
+        market_data = pd.DataFrame({"Close": prices}, index=dates)
 
         volatility = self.adjustment._calculate_market_volatility(market_data)
 
@@ -330,14 +330,14 @@ class TestMarketVolatilityAdjustment:
 
     def test_calculate_market_correlation(self):
         """市場相関計算テスト"""
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01)
 
-        market_data = pd.DataFrame({'Close': prices}, index=dates)
+        market_data = pd.DataFrame({"Close": prices}, index=dates)
 
         sector_data = {
-            'sector1': pd.DataFrame({'Close': prices * 1.1}, index=dates),
-            'sector2': pd.DataFrame({'Close': prices * 0.9}, index=dates),
+            "sector1": pd.DataFrame({"Close": prices * 1.1}, index=dates),
+            "sector2": pd.DataFrame({"Close": prices * 0.9}, index=dates),
         }
 
         correlation = self.adjustment._calculate_market_correlation(
@@ -348,11 +348,11 @@ class TestMarketVolatilityAdjustment:
 
     def test_calculate_market_liquidity(self):
         """市場流動性計算テスト"""
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01)
         volumes = np.random.randint(1000000, 10000000, 100)
 
-        market_data = pd.DataFrame({'Close': prices, 'Volume': volumes}, index=dates)
+        market_data = pd.DataFrame({"Close": prices, "Volume": volumes}, index=dates)
 
         liquidity = self.adjustment._calculate_market_liquidity(market_data)
 
@@ -360,12 +360,12 @@ class TestMarketVolatilityAdjustment:
 
     def test_calculate_market_stress(self):
         """市場ストレス計算テスト"""
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01)
 
-        market_data = pd.DataFrame({'Close': prices}, index=dates)
+        market_data = pd.DataFrame({"Close": prices}, index=dates)
 
-        economic_indicators = {'vix': 30.0, 'rate_change': 0.02}
+        economic_indicators = {"vix": 30.0, "rate_change": 0.02}
 
         stress = self.adjustment._calculate_market_stress(
             market_data, economic_indicators
@@ -375,10 +375,10 @@ class TestMarketVolatilityAdjustment:
 
     def test_calculate_regime_confidence(self):
         """レジーム信頼度計算テスト"""
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
         prices = 100 + np.cumsum(np.random.randn(100) * 0.01)
 
-        market_data = pd.DataFrame({'Close': prices}, index=dates)
+        market_data = pd.DataFrame({"Close": prices}, index=dates)
 
         confidence = self.adjustment._calculate_regime_confidence(
             market_data, MarketRegime.BULL, VolatilityRegime.NORMAL
@@ -437,10 +437,10 @@ class TestMarketVolatilityAdjustment:
     def test_edge_cases_insufficient_data(self):
         """データ不足のエッジケーステスト"""
         # 最小限のデータ
-        dates = pd.date_range(start='2023-01-01', periods=5, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=5, freq="D")
         prices = [100, 101, 102, 103, 104]
 
-        market_data = pd.DataFrame({'Close': prices}, index=dates)
+        market_data = pd.DataFrame({"Close": prices}, index=dates)
 
         # 各メソッドがエラーなく動作することを確認
         conditions = self.adjustment.analyze_market_conditions(market_data)
@@ -448,14 +448,14 @@ class TestMarketVolatilityAdjustment:
 
     def test_edge_cases_missing_columns(self):
         """列不足のエッジケーステスト"""
-        dates = pd.date_range(start='2023-01-01', periods=100, freq='D')
+        dates = pd.date_range(start="2023-01-01", periods=100, freq="D")
 
         # Close列がない
         market_data = pd.DataFrame(
             {
-                'Open': np.random.randn(100),
-                'High': np.random.randn(100),
-                'Low': np.random.randn(100),
+                "Open": np.random.randn(100),
+                "High": np.random.randn(100),
+                "Low": np.random.randn(100),
             },
             index=dates,
         )
@@ -486,11 +486,11 @@ class TestMarketVolatilityAdjustment:
             liquidity=0.7,
             market_stress=0.3,
             regime_confidence=0.8,
-            adjustment_factors={'confidence_multiplier': 1.1},
+            adjustment_factors={"confidence_multiplier": 1.1},
         )
 
         adjustment = self.adjustment._calculate_confidence_adjustment(
-            0.8, conditions, {'confidence_multiplier': 1.1}
+            0.8, conditions, {"confidence_multiplier": 1.1}
         )
 
         assert 0.0 <= adjustment <= 1.0
@@ -507,11 +507,11 @@ class TestMarketVolatilityAdjustment:
             liquidity=0.4,
             market_stress=0.7,
             regime_confidence=0.6,
-            adjustment_factors={'position_size_multiplier': 0.7},
+            adjustment_factors={"position_size_multiplier": 0.7},
         )
 
         adjustment = self.adjustment._calculate_position_size_adjustment(
-            0.1, conditions, {'position_size_multiplier': 0.7}
+            0.1, conditions, {"position_size_multiplier": 0.7}
         )
 
         assert 0.0 <= adjustment <= 1.0
@@ -528,11 +528,11 @@ class TestMarketVolatilityAdjustment:
             liquidity=0.3,
             market_stress=0.8,
             regime_confidence=0.4,
-            adjustment_factors={'risk_tolerance_multiplier': 0.6},
+            adjustment_factors={"risk_tolerance_multiplier": 0.6},
         )
 
         adjustment = self.adjustment._calculate_risk_tolerance_adjustment(
-            0.15, conditions, {'risk_tolerance_multiplier': 0.6}
+            0.15, conditions, {"risk_tolerance_multiplier": 0.6}
         )
 
         assert 0.0 <= adjustment <= 1.0
@@ -552,7 +552,7 @@ class TestMarketVolatilityAdjustment:
             adjustment_factors={},
         )
 
-        stock_factors = {'beta': 1.5, 'volatility': 0.3}
+        stock_factors = {"beta": 1.5, "volatility": 0.3}
 
         adjustment = self.adjustment._calculate_stop_loss_adjustment(
             conditions, stock_factors
@@ -575,7 +575,7 @@ class TestMarketVolatilityAdjustment:
             adjustment_factors={},
         )
 
-        stock_factors = {'beta': 0.8, 'volatility': 0.2}
+        stock_factors = {"beta": 0.8, "volatility": 0.2}
 
         adjustment = self.adjustment._calculate_take_profit_adjustment(
             conditions, stock_factors
