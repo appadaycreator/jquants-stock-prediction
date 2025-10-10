@@ -15,6 +15,7 @@ import {
   Users,
   DollarSign,
 } from "lucide-react";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 interface PlaceholderProps {
   title: string;
@@ -114,7 +115,12 @@ export function MetricPlaceholder({
             <Icon className="h-5 w-5 text-gray-400" />
             <span className="text-sm text-gray-600">{label}</span>
           </div>
-          <span className="text-lg font-semibold text-gray-900">{value}</span>
+          <EnhancedTooltip
+            content="分析結果の数値です。AI分析により算出された指標で、投資判断の参考となる重要な数値です。例：収益率15%の場合、15%の収益が期待できることを示します。"
+            type="info"
+          >
+            <span className="text-lg font-semibold text-gray-900 cursor-help">{value}</span>
+          </EnhancedTooltip>
         </div>
       </div>
     );
@@ -128,7 +134,12 @@ export function MetricPlaceholder({
           <span className="text-sm text-gray-600">{label}</span>
         </div>
         <div className="text-center">
-          <div className="text-lg font-semibold text-gray-400">-</div>
+          <EnhancedTooltip
+            content="データが不足している状態です。分析を実行することで、この指標の数値が表示されるようになります。例：分析実行後、収益率やリスク指標などの具体的な数値が表示されます。"
+            type="info"
+          >
+            <div className="text-lg font-semibold text-gray-400 cursor-help">-</div>
+          </EnhancedTooltip>
           {onAction && (
             <button
               onClick={onAction}

@@ -16,6 +16,7 @@ import {
   Eye,
   ExternalLink,
 } from "lucide-react";
+import EnhancedTooltip from "@/components/EnhancedTooltip";
 import { openMinkabuLink } from "@/lib/minkabu-utils";
 import { formatStockCode } from "@/lib/stock-code-utils";
 
@@ -143,7 +144,12 @@ export default function WatchlistPage() {
             <Eye className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{watchlist.length}</div>
+            <EnhancedTooltip
+              content="ウォッチリストに登録されている銘柄の総数です。監視対象として設定した銘柄の数で、投資判断の参考となる銘柄の数を示します。例：10銘柄の場合、10つの銘柄がウォッチリストに登録されています。"
+              type="info"
+            >
+              <div className="text-2xl font-bold cursor-help">{watchlist.length}</div>
+            </EnhancedTooltip>
           </CardContent>
         </Card>
 
@@ -153,9 +159,14 @@ export default function WatchlistPage() {
             <TrendingUp className="h-4 w-4 text-green-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
-              {watchlist.filter(item => item.recommendation === "BUY").length}
-            </div>
+            <EnhancedTooltip
+              content="買い推奨の銘柄数です。AI分析により買い推奨される銘柄の数で、上昇期待値を持つ銘柄を示します。例：5銘柄の場合、5つの銘柄が買い推奨されています。"
+              type="success"
+            >
+              <div className="text-2xl font-bold text-green-600 cursor-help">
+                {watchlist.filter(item => item.recommendation === "BUY").length}
+              </div>
+            </EnhancedTooltip>
           </CardContent>
         </Card>
 
@@ -165,9 +176,14 @@ export default function WatchlistPage() {
             <TrendingDown className="h-4 w-4 text-yellow-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-yellow-600">
-              {watchlist.filter(item => item.recommendation === "HOLD").length}
-            </div>
+            <EnhancedTooltip
+              content="ホールド推奨の銘柄数です。AI分析により現状維持が推奨される銘柄の数で、大きな変動が予想されない銘柄を示します。例：3銘柄の場合、3つの銘柄がホールド推奨されています。"
+              type="info"
+            >
+              <div className="text-2xl font-bold text-yellow-600 cursor-help">
+                {watchlist.filter(item => item.recommendation === "HOLD").length}
+              </div>
+            </EnhancedTooltip>
           </CardContent>
         </Card>
 
@@ -177,9 +193,14 @@ export default function WatchlistPage() {
             <TrendingDown className="h-4 w-4 text-red-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-red-600">
-              {watchlist.filter(item => item.recommendation === "SELL").length}
-            </div>
+            <EnhancedTooltip
+              content="売り推奨の銘柄数です。AI分析により売り推奨される銘柄の数で、下落リスクを持つ銘柄を示します。例：2銘柄の場合、2つの銘柄が売り推奨されています。"
+              type="warning"
+            >
+              <div className="text-2xl font-bold text-red-600 cursor-help">
+                {watchlist.filter(item => item.recommendation === "SELL").length}
+              </div>
+            </EnhancedTooltip>
           </CardContent>
         </Card>
       </div>
@@ -262,7 +283,12 @@ export default function WatchlistPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   <div>
                     <p className="text-gray-600">現在価格</p>
-                    <p className="font-medium">¥{item.currentPrice.toLocaleString()}</p>
+                    <EnhancedTooltip
+                      content="最新の取引終値です。この価格は最新の市場取引で確定した価格で、現在の株価の基準となります。例：トヨタ自動車の株価が3,000円の場合、1株あたり3,000円で取引されていることを示します。"
+                      type="info"
+                    >
+                      <p className="font-medium cursor-help">¥{item.currentPrice.toLocaleString()}</p>
+                    </EnhancedTooltip>
                   </div>
                   <div>
                     <p className="text-gray-600">セクター</p>
@@ -276,7 +302,12 @@ export default function WatchlistPage() {
                   </div>
                   <div>
                     <p className="text-gray-600">信頼度</p>
-                    <p className="font-medium">{(item.confidence * 100).toFixed(1)}%</p>
+                    <EnhancedTooltip
+                      content="AI分析結果の信頼度です。複数の技術指標を総合的に評価した結果の確信度を示します。80%以上が高信頼度、60-80%が中信頼度、60%未満が低信頼度とされます。例：信頼度85%の場合、分析結果が高い確率で正しいことを示します。"
+                      type="info"
+                    >
+                      <p className="font-medium cursor-help">{(item.confidence * 100).toFixed(1)}%</p>
+                    </EnhancedTooltip>
                   </div>
                 </div>
                 
@@ -284,9 +315,14 @@ export default function WatchlistPage() {
                   <div className="mt-4 p-3 bg-blue-50 rounded-lg">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600">目標価格</span>
-                      <span className="text-sm font-semibold text-blue-800">
-                        ¥{item.targetPrice.toLocaleString()}
-                      </span>
+                      <EnhancedTooltip
+                        content="AI分析による目標価格です。技術分析とファンダメンタル分析を総合して算出された期待価格で、投資判断の参考となります。例：目標価格3,500円の場合、この価格まで上昇する可能性が高いことを示します。"
+                        type="info"
+                      >
+                        <span className="text-sm font-semibold text-blue-800 cursor-help">
+                          ¥{item.targetPrice.toLocaleString()}
+                        </span>
+                      </EnhancedTooltip>
                     </div>
                   </div>
                 )}

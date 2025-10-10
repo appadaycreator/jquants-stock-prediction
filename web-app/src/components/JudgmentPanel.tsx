@@ -17,6 +17,7 @@ import {
   DollarSign,
   BarChart3,
 } from "lucide-react";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 interface JudgmentCard {
   id: string;
@@ -316,13 +317,23 @@ export default function JudgmentPanel({
                   <div className="mb-3">
                     <div className="flex items-center space-x-2">
                       <DollarSign className="h-4 w-4 text-gray-500" />
-                      <span className="text-lg font-bold">
-                        {card.value > 0 ? "+" : ""}{card.value}%
-                      </span>
-                      {card.change !== undefined && (
-                        <span className={`text-sm ${card.change >= 0 ? "text-green-600" : "text-red-600"}`}>
-                          ({card.change >= 0 ? "+" : ""}{card.change}%)
+                      <EnhancedTooltip
+                        content="AI分析による予測値や推奨値です。プラスは上昇予測、マイナスは下落予測を示します。例：+5%の場合、5%の上昇が予測されることを示します。"
+                        type={card.value >= 0 ? "success" : "warning"}
+                      >
+                        <span className="text-lg font-bold cursor-help">
+                          {card.value > 0 ? "+" : ""}{card.value}%
                         </span>
+                      </EnhancedTooltip>
+                      {card.change !== undefined && (
+                        <EnhancedTooltip
+                          content="前回の分析結果からの変化率です。プラスは改善、マイナスは悪化を示します。例：+2%の場合、前回から2%改善したことを示します。"
+                          type={card.change >= 0 ? "success" : "warning"}
+                        >
+                          <span className={`text-sm cursor-help ${card.change >= 0 ? "text-green-600" : "text-red-600"}`}>
+                            ({card.change >= 0 ? "+" : ""}{card.change}%)
+                          </span>
+                        </EnhancedTooltip>
                       )}
                     </div>
                   </div>
@@ -339,17 +350,36 @@ export default function JudgmentPanel({
                     {getActionIcon(card.action)}
                     <span>{getActionLabel(card.action)}</span>
                   </button>
-                  <span className="text-xs text-gray-500">
-                    {formatTime(card.timestamp)}
-                  </span>
+                  <EnhancedTooltip
+                    content="この分析結果が生成された時刻です。リアルタイム分析により、市場の変化に応じて継続的に更新されます。例：14:30の場合、午後2時30分に分析されたことを示します。"
+                    type="info"
+                  >
+                    <span className="text-xs text-gray-500 cursor-help">
+                      {formatTime(card.timestamp)}
+                    </span>
+                  </EnhancedTooltip>
                 </div>
                 {card.evidence && (
                   <div className="mt-2 flex items-center justify-between text-xs text-gray-600">
                     <div>
-                      的中率(30日): {Math.round((card.evidence.historical_accuracy_30d || 0) * 100)}%
+                      <EnhancedTooltip
+                        content="過去30日間のAI分析の的中率です。高いほど信頼性が高く、投資判断の参考となります。例：85%の場合、過去30日間で85%の確率で正しい分析をしたことを示します。"
+                        type="info"
+                      >
+                        <span className="cursor-help">
+                          的中率(30日): {Math.round((card.evidence.historical_accuracy_30d || 0) * 100)}%
+                        </span>
+                      </EnhancedTooltip>
                     </div>
                     <div>
-                      モデル: {card.evidence.short_model_note}
+                      <EnhancedTooltip
+                        content="この分析に使用されたAIモデルの種類です。異なるモデルは異なる分析手法を使用し、それぞれの特徴があります。例：LSTMモデルの場合、時系列データの分析に特化したモデルです。"
+                        type="info"
+                      >
+                        <span className="cursor-help">
+                          モデル: {card.evidence.short_model_note}
+                        </span>
+                      </EnhancedTooltip>
                     </div>
                   </div>
                 )}

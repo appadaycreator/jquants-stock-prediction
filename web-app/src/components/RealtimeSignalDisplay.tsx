@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { TrendingUp, TrendingDown, Minus, AlertCircle, CheckCircle, RefreshCw, Zap, Target, Shield } from "lucide-react";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 interface TradingSignal {
   symbol: string;
@@ -268,7 +269,12 @@ export default function RealtimeSignalDisplay({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-green-600">強気買い</p>
-              <p className="text-2xl font-bold text-green-700">{signalSummary.strong_buy}</p>
+              <EnhancedTooltip
+                content="強気買いシグナルの銘柄数です。AI分析により強く買い推奨される銘柄の数で、高い上昇期待値を持つ銘柄を示します。例：5銘柄の場合、5つの銘柄が強気買いシグナルを示しています。"
+                type="success"
+              >
+                <p className="text-2xl font-bold text-green-700 cursor-help">{signalSummary.strong_buy}</p>
+              </EnhancedTooltip>
             </div>
             <TrendingUp className="h-6 w-6 text-green-600" />
           </div>
@@ -278,7 +284,12 @@ export default function RealtimeSignalDisplay({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-green-600">買い</p>
-              <p className="text-2xl font-bold text-green-700">{signalSummary.buy}</p>
+              <EnhancedTooltip
+                content="買いシグナルの銘柄数です。AI分析により買い推奨される銘柄の数で、上昇期待値を持つ銘柄を示します。例：8銘柄の場合、8つの銘柄が買いシグナルを示しています。"
+                type="success"
+              >
+                <p className="text-2xl font-bold text-green-700 cursor-help">{signalSummary.buy}</p>
+              </EnhancedTooltip>
             </div>
             <TrendingUp className="h-5 w-5 text-green-600" />
           </div>
@@ -288,7 +299,12 @@ export default function RealtimeSignalDisplay({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">ホールド</p>
-              <p className="text-2xl font-bold text-gray-700">{signalSummary.hold}</p>
+              <EnhancedTooltip
+                content="ホールドシグナルの銘柄数です。AI分析により現状維持が推奨される銘柄の数で、大きな変動が予想されない銘柄を示します。例：3銘柄の場合、3つの銘柄がホールドシグナルを示しています。"
+                type="info"
+              >
+                <p className="text-2xl font-bold text-gray-700 cursor-help">{signalSummary.hold}</p>
+              </EnhancedTooltip>
             </div>
             <Minus className="h-5 w-5 text-gray-600" />
           </div>
@@ -298,7 +314,12 @@ export default function RealtimeSignalDisplay({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-red-600">売り</p>
-              <p className="text-2xl font-bold text-red-700">{signalSummary.sell}</p>
+              <EnhancedTooltip
+                content="売りシグナルの銘柄数です。AI分析により売り推奨される銘柄の数で、下落リスクを持つ銘柄を示します。例：2銘柄の場合、2つの銘柄が売りシグナルを示しています。"
+                type="warning"
+              >
+                <p className="text-2xl font-bold text-red-700 cursor-help">{signalSummary.sell}</p>
+              </EnhancedTooltip>
             </div>
             <TrendingDown className="h-5 w-5 text-red-600" />
           </div>
@@ -308,7 +329,12 @@ export default function RealtimeSignalDisplay({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-red-600">強気売り</p>
-              <p className="text-2xl font-bold text-red-700">{signalSummary.strong_sell}</p>
+              <EnhancedTooltip
+                content="強気売りシグナルの銘柄数です。AI分析により強く売り推奨される銘柄の数で、高い下落リスクを持つ銘柄を示します。例：1銘柄の場合、1つの銘柄が強気売りシグナルを示しています。"
+                type="warning"
+              >
+                <p className="text-2xl font-bold text-red-700 cursor-help">{signalSummary.strong_sell}</p>
+              </EnhancedTooltip>
             </div>
             <TrendingDown className="h-6 w-6 text-red-600" />
           </div>
@@ -353,19 +379,34 @@ export default function RealtimeSignalDisplay({
                   <div className="flex items-center space-x-6">
                     <div className="text-right">
                       <p className="text-sm text-gray-600">現在価格</p>
-                      <p className="text-lg font-semibold">{formatCurrency(signal.price)}</p>
+                      <EnhancedTooltip
+                        content="最新の取引終値です。この価格は最新の市場取引で確定した価格で、現在の株価の基準となります。例：トヨタ自動車の株価が3,000円の場合、1株あたり3,000円で取引されていることを示します。"
+                        type="info"
+                      >
+                        <p className="text-lg font-semibold cursor-help">{formatCurrency(signal.price)}</p>
+                      </EnhancedTooltip>
                     </div>
                     
                     <div className="text-right">
                       <p className="text-sm text-gray-600">信頼度</p>
-                      <p className={`text-lg font-semibold ${getConfidenceColor(signal.confidence)}`}>
-                        {(signal.confidence * 100).toFixed(0)}%
-                      </p>
+                      <EnhancedTooltip
+                        content="AI分析結果の信頼度です。複数の技術指標を総合的に評価した結果の確信度を示します。80%以上が高信頼度、60-80%が中信頼度、60%未満が低信頼度とされます。例：信頼度85%の場合、分析結果が高い確率で正しいことを示します。"
+                        type="info"
+                      >
+                        <p className={`text-lg font-semibold cursor-help ${getConfidenceColor(signal.confidence)}`}>
+                          {(signal.confidence * 100).toFixed(0)}%
+                        </p>
+                      </EnhancedTooltip>
                     </div>
                     
                     <div className="text-right">
                       <p className="text-sm text-gray-600">推奨ポジション</p>
-                      <p className="text-lg font-semibold">{formatCurrency(signal.position_size)}</p>
+                      <EnhancedTooltip
+                        content="AI分析に基づく推奨投資金額です。リスク管理を考慮した適切な投資金額で、ポートフォリオ全体のバランスを保つための指標となります。例：100万円の場合、この銘柄に100万円の投資を推奨することを示します。"
+                        type="info"
+                      >
+                        <p className="text-lg font-semibold cursor-help">{formatCurrency(signal.position_size)}</p>
+                      </EnhancedTooltip>
                     </div>
                     
                     <div className={`px-2 py-1 rounded text-xs ${getRiskColor(signal.risk_level)}`}>
