@@ -220,7 +220,7 @@ export default function WatchlistPage() {
                       size="sm"
                       onClick={() => {
                         // チャートページに遷移
-                        window.location.href = `/analysis?code=${item.symbol}`;
+                        window.location.href = `/analysis?symbol=${item.symbol}`;
                       }}
                       className="text-green-600 hover:text-green-800 hover:bg-green-50"
                     >

@@ -15,7 +15,6 @@ const navItems: NavItem[] = [
   { href: "/", label: "ダッシュボード", icon: "📊", shortLabel: "ホーム" },
   { href: "/today", label: "今日の指示", icon: "🎯", shortLabel: "今日" },
   { href: "/simple-dashboard", label: "シンプル投資判断", icon: "🎯", shortLabel: "判断" },
-  { href: "/five-min-routine", label: "5分ルーティン", icon: "⏱️", shortLabel: "5分" },
   { href: "/personal-investment", label: "個人投資", icon: "💼", shortLabel: "投資" },
 ];
 

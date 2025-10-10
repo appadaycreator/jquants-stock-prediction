@@ -17,7 +17,6 @@ export default function Sidebar() {
     { name: "ダッシュボード", href: "/", icon: "📊" },
     { name: "今日の指示", href: "/today", icon: "🎯" },
     { name: "シンプル投資判断", href: "/simple-dashboard", icon: "🎯" },
-    { name: "5分ルーティン", href: "/five-min-routine", icon: "⏱️" },
     { name: "個人投資", href: "/personal-investment", icon: "💼" },
   ];
 

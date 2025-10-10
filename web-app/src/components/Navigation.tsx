@@ -37,7 +37,6 @@ export default function Navigation({
   const navigationItems = [
     { href: "/", label: "ダッシュボード", icon: Home, description: "メインダッシュボード" },
     { href: "/simple-dashboard", label: "シンプル投資判断", icon: Target, description: "1日5分で投資判断を完結" },
-    { href: "/five-min-routine", label: "5分ルーティン", icon: Clock, description: "効率的な投資分析ルーティン" },
     { href: "/today", label: "今日の投資指示", icon: Calendar, description: "本日の売買候補と指示" },
     { href: "/listed-data", label: "銘柄一覧", icon: List, description: "上場銘柄検索・分析" },
     { href: "/reports", label: "レポート", icon: FileText, description: "詳細レポート" },

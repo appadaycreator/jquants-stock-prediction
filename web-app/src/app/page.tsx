@@ -128,9 +128,9 @@ export default function LandingPage() {
             <div className="bg-green-100 p-3 rounded-lg w-fit mx-auto mb-4">
               <Clock className="h-8 w-8 text-green-600" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-3">5分ルーティン</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">今日のタスク</h3>
             <p className="text-gray-600">
-              毎日の投資判断を5分で完了。データ更新、候補銘柄の確認、保有銘柄の判断を効率的に実行。
+              重要なアクションを集約し、分析実行と結果確認を素早く行えます。
             </p>
           </div>
 
@@ -166,7 +166,7 @@ export default function LandingPage() {
               <Target className="h-6 w-6 text-blue-600" />
               <div>
                 <div className="font-medium text-gray-900">今日のタスク</div>
-                <div className="text-sm text-gray-600">5分ルーティン</div>
+                <div className="text-sm text-gray-600">今日のタスク</div>
               </div>
             </Link>
 

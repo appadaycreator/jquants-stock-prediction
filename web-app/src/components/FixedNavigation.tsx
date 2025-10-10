@@ -33,7 +33,6 @@ const navigationItems: NavigationItem[] = [
   { href: "/", label: "ダッシュボード", icon: Home, description: "メインダッシュボード", status: "active" },
   { href: "/today", label: "今日の指示", icon: Calendar, description: "本日の売買候補と指示", status: "active" },
   { href: "/simple-dashboard", label: "シンプル投資判断", icon: TrendingUp, description: "1日5分で投資判断を完結", status: "active" },
-  { href: "/five-min-routine", label: "5分ルーティン", icon: ChevronRight, description: "効率的な投資分析ルーティン", status: "active" },
   { href: "/personal-investment", label: "個人投資", icon: TrendingUp, description: "個人投資ポートフォリオ管理", status: "active" },
   { href: "/dashboard", label: "詳細分析", icon: FileText, description: "詳細レポート/分析", status: "active" },
   { href: "/listed-data", label: "銘柄一覧", icon: FileText, description: "上場銘柄検索・分析", status: "active" },

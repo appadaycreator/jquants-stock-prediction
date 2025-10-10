@@ -183,7 +183,7 @@ export const StockList: React.FC<StockListProps> = ({
             <thead className="bg-gray-50">
               <tr>
                 <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 sticky left-0 z-10 bg-gray-50"
+                  className="w-[8rem] px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 sticky left-0 z-10 bg-gray-50"
                   onClick={() => handleSort("code")}
                 >
                   <div className="flex items-center space-x-1">
@@ -194,7 +194,7 @@ export const StockList: React.FC<StockListProps> = ({
                   </div>
                 </th>
                 <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 sticky left-[10rem] z-10 bg-gray-50"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 sticky left-[11rem] z-10 bg-gray-50"
                   onClick={() => handleSort("name")}
                 >
                   <div className="flex items-center space-x-1">
@@ -259,10 +259,10 @@ export const StockList: React.FC<StockListProps> = ({
             <tbody className="bg-white divide-y divide-gray-200">
               {paginatedStocks.map((stock) => (
                 <tr key={normalizeStockCode(stock.code)} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 sticky left-0 bg-white">
+                  <td className="w-[8rem] px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 sticky left-0 bg-white z-10">
                     {formatStockCode(stock.code)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 sticky left-[10rem] bg-white">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 sticky left-[11rem] bg-white z-10">
                     <div className="flex items-center space-x-2">
                       <span>{stock.name}</span>
                       {isMinkabuLinkAvailable(stock.code) && (
@@ -305,7 +305,7 @@ export const StockList: React.FC<StockListProps> = ({
                     <button
                       onClick={() => {
                         // チャートページに遷移
-                        window.location.href = `/analysis?code=${stock.code}`;
+                        window.location.href = `/analysis?symbol=${stock.code}`;
                       }}
                       className="text-green-600 hover:text-green-900 flex items-center space-x-1"
                       title="チャートを表示"
