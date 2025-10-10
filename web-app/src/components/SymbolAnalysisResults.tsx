@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { TrendingUp, TrendingDown, Minus, AlertCircle, CheckCircle } from "lucide-react";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 interface SymbolAnalysisResult {
   symbol: string;
@@ -260,19 +261,54 @@ export default function SymbolAnalysisResults({ selectedSymbols }: SymbolAnalysi
                     {result.symbol}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {result.technical.rsi ? result.technical.rsi.toFixed(2) : "N/A"}
+                    <EnhancedTooltip
+                      content="RSI（相対力指数）は、株価の買われすぎ・売られすぎを判断する指標です。70以上で買われすぎ、30以下で売られすぎとされます。例：RSI 75の場合、買われすぎの状態で、価格下落の可能性が高いことを示します。"
+                      type="info"
+                    >
+                      <span className="cursor-help">
+                        {result.technical.rsi ? result.technical.rsi.toFixed(2) : "N/A"}
+                      </span>
+                    </EnhancedTooltip>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {result.technical.macd ? result.technical.macd.toFixed(4) : "N/A"}
+                    <EnhancedTooltip
+                      content="MACD（移動平均収束発散）は、トレンドの変化を捉える指標です。0より上で上昇トレンド、0より下で下降トレンドを示します。例：MACD 0.5の場合、上昇トレンドが継続していることを示します。"
+                      type="info"
+                    >
+                      <span className="cursor-help">
+                        {result.technical.macd ? result.technical.macd.toFixed(4) : "N/A"}
+                      </span>
+                    </EnhancedTooltip>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {result.technical.bb_percent ? (result.technical.bb_percent * 100).toFixed(1) + "%" : "N/A"}
+                    <EnhancedTooltip
+                      content="ボリンジャーバンド％は、現在価格がボリンジャーバンド内のどの位置にあるかを示します。100%で上限、0%で下限、50%で中央線を示します。例：85%の場合、価格が上限に近く、下落の可能性が高いことを示します。"
+                      type="info"
+                    >
+                      <span className="cursor-help">
+                        {result.technical.bb_percent ? (result.technical.bb_percent * 100).toFixed(1) + "%" : "N/A"}
+                      </span>
+                    </EnhancedTooltip>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {result.technical.sma_5 ? "¥" + result.technical.sma_5.toLocaleString() : "N/A"}
+                    <EnhancedTooltip
+                      content="SMA5（5日移動平均）は、過去5日間の平均価格です。短期トレンドを判断する指標で、現在価格が上回れば上昇トレンド、下回れば下降トレンドとされます。例：SMA5が3,000円の場合、過去5日間の平均価格が3,000円であることを示します。"
+                      type="info"
+                    >
+                      <span className="cursor-help">
+                        {result.technical.sma_5 ? "¥" + result.technical.sma_5.toLocaleString() : "N/A"}
+                      </span>
+                    </EnhancedTooltip>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {result.technical.sma_25 ? "¥" + result.technical.sma_25.toLocaleString() : "N/A"}
+                    <EnhancedTooltip
+                      content="SMA25（25日移動平均）は、過去25日間の平均価格です。中期トレンドを判断する指標で、現在価格が上回れば上昇トレンド、下回れば下降トレンドとされます。例：SMA25が2,800円の場合、過去25日間の平均価格が2,800円であることを示します。"
+                      type="info"
+                    >
+                      <span className="cursor-help">
+                        {result.technical.sma_25 ? "¥" + result.technical.sma_25.toLocaleString() : "N/A"}
+                      </span>
+                    </EnhancedTooltip>
                   </td>
                 </tr>
               ))}

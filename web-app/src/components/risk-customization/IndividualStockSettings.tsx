@@ -23,6 +23,7 @@ import {
   Shield,
 } from "lucide-react";
 import { useRiskCustomization } from "@/hooks/useRiskCustomization";
+import EnhancedTooltip from "../EnhancedTooltip";
 
 interface IndividualStockSettingsProps {
   symbol: string;
@@ -157,9 +158,14 @@ export function IndividualStockSettings({
               placeholder="例: 5000"
             />
             {currentPrice > 0 && localSettings.targetPrice && (
-              <p className="text-sm text-gray-600">
-                上昇率: {(((localSettings.targetPrice - currentPrice) / currentPrice) * 100).toFixed(2)}%
-              </p>
+              <EnhancedTooltip
+                content="目標価格に対する現在価格からの上昇率です。投資の期待リターンを示し、リスクとリターンのバランスを判断する指標となります。例：現在価格3,000円、目標価格3,300円の場合、上昇率は10%となります。"
+                type="info"
+              >
+                <p className="text-sm text-gray-600 cursor-help">
+                  上昇率: {(((localSettings.targetPrice - currentPrice) / currentPrice) * 100).toFixed(2)}%
+                </p>
+              </EnhancedTooltip>
             )}
           </div>
 
@@ -203,9 +209,14 @@ export function IndividualStockSettings({
               placeholder="例: 4000"
             />
             {currentPrice > 0 && localSettings.stopLossPrice && (
-              <p className="text-sm text-gray-600">
-                下落率: {(((currentPrice - localSettings.stopLossPrice) / currentPrice) * 100).toFixed(2)}%
-              </p>
+              <EnhancedTooltip
+                content="損切価格に対する現在価格からの下落率です。最大損失許容度を示し、リスク管理の重要な指標となります。例：現在価格3,000円、損切価格2,700円の場合、下落率は10%となり、10%の損失で損切りを実行します。"
+                type="warning"
+              >
+                <p className="text-sm text-gray-600 cursor-help">
+                  下落率: {(((currentPrice - localSettings.stopLossPrice) / currentPrice) * 100).toFixed(2)}%
+                </p>
+              </EnhancedTooltip>
             )}
           </div>
 
@@ -240,7 +251,12 @@ export function IndividualStockSettings({
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="max-position-size">最大ポジションサイズ (株数)</Label>
+            <EnhancedTooltip
+              content="最大ポジションサイズは、この銘柄に投資できる最大株数です。リスク管理の重要な指標で、一つの銘柄に集中投資しすぎることを防ぎます。例：最大ポジションサイズ100株の場合、この銘柄には最大100株までしか投資できません。"
+              type="info"
+            >
+              <Label htmlFor="max-position-size" className="cursor-help">最大ポジションサイズ (株数)</Label>
+            </EnhancedTooltip>
             <Input
               id="max-position-size"
               type="number"

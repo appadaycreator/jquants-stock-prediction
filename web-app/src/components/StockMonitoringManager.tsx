@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { computeHistoricalVaR95, computeMaxDrawdown, computeAnnualizedVolatility, toPercent } from "@/lib/risk";
 import { NotificationService } from "@/lib/notification/NotificationService";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 // 主要日本株の銘柄データ
 const JAPANESE_STOCKS = [
@@ -490,20 +491,35 @@ export default function StockMonitoringManager({
                     {/* 価格情報 */}
                     {stock.currentPrice && (
                       <div className="mt-2 flex items-center space-x-4 text-sm">
-                        <span className="text-gray-600">
-                          価格: ¥{stock.currentPrice.toLocaleString()}
-                        </span>
-                        {stock.changePercent && (
-                          <span className={`font-medium ${
-                            stock.changePercent >= 0 ? "text-green-600" : "text-red-600"
-                          }`}>
-                            {stock.changePercent >= 0 ? "+" : ""}{stock.changePercent.toFixed(2)}%
+                        <EnhancedTooltip
+                          content="最新の取引終値です。この価格は最新の市場取引で確定した価格で、現在の株価の基準となります。例：トヨタ自動車の株価が3,000円の場合、1株あたり3,000円で取引されていることを示します。"
+                          type="info"
+                        >
+                          <span className="text-gray-600 cursor-help">
+                            価格: ¥{stock.currentPrice.toLocaleString()}
                           </span>
+                        </EnhancedTooltip>
+                        {stock.changePercent && (
+                          <EnhancedTooltip
+                            content="前日終値からの価格変動率です。プラスは上昇、マイナスは下落を示します。例：前日3,000円から3,100円に上昇した場合、+3.33%と表示されます。"
+                            type={stock.changePercent >= 0 ? "success" : "warning"}
+                          >
+                            <span className={`font-medium cursor-help ${
+                              stock.changePercent >= 0 ? "text-green-600" : "text-red-600"
+                            }`}>
+                              {stock.changePercent >= 0 ? "+" : ""}{stock.changePercent.toFixed(2)}%
+                            </span>
+                          </EnhancedTooltip>
                         )}
                         {stock.volume && (
-                          <span className="text-gray-600">
-                            出来高: {stock.volume.toLocaleString()}
-                          </span>
+                          <EnhancedTooltip
+                            content="出来高は、一定期間内に取引された株式の数量です。取引の活発さを示し、流動性の指標となります。例：1日で100万株が取引された場合、出来高は100万株となります。"
+                            type="info"
+                          >
+                            <span className="text-gray-600 cursor-help">
+                              出来高: {stock.volume.toLocaleString()}
+                            </span>
+                          </EnhancedTooltip>
                         )}
                       </div>
                     )}

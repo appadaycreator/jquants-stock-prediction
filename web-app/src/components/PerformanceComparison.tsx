@@ -32,6 +32,7 @@ import {
   LineChart,
   Line,
 } from "recharts";
+import EnhancedTooltip from "./EnhancedTooltip";
 
 // データ型定義
 interface PositionPerformance {
@@ -329,17 +330,32 @@ export function PerformanceComparison({
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className={`text-lg font-bold ${
-                        position.pnl_percentage >= 0 ? "text-green-600" : "text-red-600"
-                      }`}>
-                        {position.pnl_percentage >= 0 ? "+" : ""}{position.pnl_percentage.toFixed(2)}%
-                      </div>
-                      <div className="text-sm text-gray-600">
-                        ¥{position.unrealized_pnl.toLocaleString()}
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        配分: {(position.weight * 100).toFixed(1)}%
-                      </div>
+                      <EnhancedTooltip
+                        content="投資額に対する損益の割合です。投資効率を測る重要な指標で、年率換算で比較することが一般的です。例：100万円の投資で20万円の利益の場合、損益率は+20%となります。"
+                        type={position.pnl_percentage >= 0 ? "success" : "warning"}
+                      >
+                        <div className={`text-lg font-bold cursor-help ${
+                          position.pnl_percentage >= 0 ? "text-green-600" : "text-red-600"
+                        }`}>
+                          {position.pnl_percentage >= 0 ? "+" : ""}{position.pnl_percentage.toFixed(2)}%
+                        </div>
+                      </EnhancedTooltip>
+                      <EnhancedTooltip
+                        content="現在価値から投資額を引いた未実現損益です。プラスは利益、マイナスは損失を示します。実際に売却するまで確定しません。例：100万円で購入した株式が現在120万円の価値の場合、未実現損益は+20万円となります。"
+                        type={position.unrealized_pnl >= 0 ? "success" : "warning"}
+                      >
+                        <div className="text-sm text-gray-600 cursor-help">
+                          ¥{position.unrealized_pnl.toLocaleString()}
+                        </div>
+                      </EnhancedTooltip>
+                      <EnhancedTooltip
+                        content="ポートフォリオ全体に対するこの銘柄の投資配分比率です。リスク分散の指標となり、一つの銘柄に集中投資しすぎていないかを確認できます。例：ポートフォリオ全体が100万円で、この銘柄が20万円の場合、配分は20%となります。"
+                        type="info"
+                      >
+                        <div className="text-xs text-gray-500 cursor-help">
+                          配分: {(position.weight * 100).toFixed(1)}%
+                        </div>
+                      </EnhancedTooltip>
                     </div>
                     <Badge className={getPerformanceBadgeColor(position.pnl_percentage)}>
                       {position.pnl_percentage >= 0 ? "利益" : "損失"}

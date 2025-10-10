@@ -310,9 +310,14 @@ export function EnhancedProfitLossDisplay({
             <Shield className="h-5 w-5 text-purple-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-purple-900">
-              {pnlSummary.sharpe_ratio.toFixed(2)}
-            </div>
+            <EnhancedTooltip
+              content="シャープレシオは、リスクを考慮した投資効率を測る指標です。1.0以上が良好、2.0以上が優秀とされています。例：リターン10%、リスク5%の場合、シャープレシオは2.0となり、優秀な投資効率を示します。"
+              type="info"
+            >
+              <div className="text-3xl font-bold text-purple-900 cursor-help">
+                {pnlSummary.sharpe_ratio.toFixed(2)}
+              </div>
+            </EnhancedTooltip>
             <p className="text-xs text-purple-700 mt-1">リスク調整後リターン</p>
           </CardContent>
         </Card>
@@ -336,11 +341,19 @@ export function EnhancedProfitLossDisplay({
                    period === "monthly" ? "月次" : 
                    period === "yearly" ? "年次" : "総合"}
                 </div>
-                <div className={`text-2xl font-bold ${
-                  value >= 0 ? "text-green-600" : "text-red-600"
-                }`}>
-                  {value >= 0 ? "+" : ""}¥{value.toLocaleString()}
-                </div>
+                <EnhancedTooltip
+                  content={`${period === "daily" ? "1日" : 
+                   period === "weekly" ? "1週間" : 
+                   period === "monthly" ? "1ヶ月" : 
+                   period === "yearly" ? "1年" : "全体"}の損益です。短期・中期・長期の投資パフォーマンスを把握できます。例：月次で+5万円の場合、この1ヶ月間で5万円の利益を上げたことを示します。`}
+                  type={value >= 0 ? "success" : "warning"}
+                >
+                  <div className={`text-2xl font-bold cursor-help ${
+                    value >= 0 ? "text-green-600" : "text-red-600"
+                  }`}>
+                    {value >= 0 ? "+" : ""}¥{value.toLocaleString()}
+                  </div>
+                </EnhancedTooltip>
               </div>
             ))}
           </div>
@@ -570,9 +583,14 @@ export function EnhancedProfitLossDisplay({
                   <CardTitle className="text-sm font-medium text-gray-600">勝率</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className={`text-2xl font-bold ${getRiskColor(pnlSummary.win_rate, "positive")}`}>
-                    {pnlSummary.win_rate.toFixed(1)}%
-                  </div>
+                  <EnhancedTooltip
+                    content="勝率は、利益を上げた取引の割合です。50%以上が良好、60%以上が優秀とされています。例：10回の取引中6回が利益の場合、勝率は60%となり、優秀な投資判断を示します。"
+                    type="info"
+                  >
+                    <div className={`text-2xl font-bold cursor-help ${getRiskColor(pnlSummary.win_rate, "positive")}`}>
+                      {pnlSummary.win_rate.toFixed(1)}%
+                    </div>
+                  </EnhancedTooltip>
                   <p className="text-xs text-gray-600 mt-1">利益確定率</p>
                 </CardContent>
               </Card>
@@ -582,9 +600,14 @@ export function EnhancedProfitLossDisplay({
                   <CardTitle className="text-sm font-medium text-gray-600">プロフィットファクター</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className={`text-2xl font-bold ${getRiskColor(pnlSummary.profit_factor, "positive")}`}>
-                    {pnlSummary.profit_factor.toFixed(2)}
-                  </div>
+                  <EnhancedTooltip
+                    content="プロフィットファクターは、総利益を総損失で割った比率です。1.0以上が利益、2.0以上が優秀とされています。例：総利益100万円、総損失50万円の場合、プロフィットファクターは2.0となり、優秀な投資効率を示します。"
+                    type="info"
+                  >
+                    <div className={`text-2xl font-bold cursor-help ${getRiskColor(pnlSummary.profit_factor, "positive")}`}>
+                      {pnlSummary.profit_factor.toFixed(2)}
+                    </div>
+                  </EnhancedTooltip>
                   <p className="text-xs text-gray-600 mt-1">利益/損失比率</p>
                 </CardContent>
               </Card>
