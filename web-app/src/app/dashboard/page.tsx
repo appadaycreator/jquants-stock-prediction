@@ -513,23 +513,25 @@ function DashboardContent() {
                     </div>
                     
                     {/* 更新ボタン群 */}
-                    <div className="flex items-center gap-2">
-                      <EnhancedRefreshButton
-                        onRefresh={useRealData ? realDashboard.actions.refresh : handleRefresh}
-                        onForceRefresh={useRealData ? realDashboard.actions.refresh : handleForceRefresh}
-                        onRecompute={useRealData ? realDashboard.actions.refresh : handleRecompute}
-                        isLoading={useRealData ? realDashboard.isLoading : isRefreshing}
-                        lastRefresh={useRealData 
-                          ? (realDashboard.lastUpdated ? new Date(realDashboard.lastUpdated) : undefined)
-                          : (lastUpdateTime ? new Date(lastUpdateTime) : undefined)
-                        }
-                        refreshInterval={5} // 5分間隔で自動更新
-                        variant="default"
-                        size="md"
-                        showProgress={true}
-                        showLastRefresh={true}
-                      />
-                    </div>
+                  <div className="flex items-center gap-2">
+                    <EnhancedRefreshButton
+                      onRefresh={useRealData ? realDashboard.actions.refresh : handleRefresh}
+                      onForceRefresh={useRealData ? realDashboard.actions.refresh : handleForceRefresh}
+                      onRecompute={useRealData ? realDashboard.actions.refresh : handleRecompute}
+                      isLoading={useRealData ? realDashboard.isLoading : isRefreshing}
+                      lastRefresh={useRealData 
+                        ? (realDashboard.lastUpdated ? new Date(realDashboard.lastUpdated) : undefined)
+                        : (lastUpdateTime ? new Date(lastUpdateTime) : undefined)
+                      }
+                      refreshInterval={5} // 5分間隔で自動更新
+                      variant="default"
+                      size="md"
+                      showProgress={true}
+                      showLastRefresh={true}
+                      aria-label="ダッシュボードデータを更新"
+                      data-help="詳細な分析結果とダッシュボードのデータを最新に更新します。機械学習モデルの比較、パフォーマンス指標、市場インサイトなど、深い分析機能を提供します。複数の予測モデルの精度比較、特徴量重要度分析、予測誤差の詳細分析、モデル性能の可視化など、高度な分析機能を利用できます。プロの投資家向けの詳細な分析ツールとして、投資判断の精度向上に役立ちます。"
+                    />
+                  </div>
                   </div>
                 </div>
               </div>
@@ -541,10 +543,10 @@ function DashboardContent() {
               <div className="mb-8">
                 <nav className="flex space-x-8" aria-label="Tabs">
                   {[
-                    { id: "overview", name: "概要", icon: BarChart3 },
-                    { id: "analysis", name: "分析", icon: Target },
-                    { id: "models", name: "モデル", icon: Cpu },
-                    { id: "predictions", name: "予測", icon: TrendingUp },
+                    { id: "overview", name: "概要", icon: BarChart3, description: "システムの概要と主要指標を表示します。" },
+                    { id: "analysis", name: "分析", icon: Target, description: "銘柄の詳細分析と投資判断を実行します。" },
+                    { id: "models", name: "モデル", icon: Cpu, description: "機械学習モデルの比較と性能を確認します。" },
+                    { id: "predictions", name: "予測", icon: TrendingUp, description: "株価予測結果とトレンド分析を表示します。" },
                   ].map((tab) => {
                     const Icon = tab.icon;
                     return (
@@ -556,6 +558,8 @@ function DashboardContent() {
                             ? "border-blue-500 text-blue-600"
                             : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
+                        aria-label={`${tab.name}タブを選択`}
+                        data-help={tab.description}
                       >
                         <Icon className="h-4 w-4" />
                         <span>{tab.name}</span>
@@ -575,6 +579,8 @@ function DashboardContent() {
                         ? "bg-blue-600 text-white" 
                         : "text-gray-600 hover:text-gray-900"
                     }`}
+                    aria-label="実データモードに切り替え"
+                    data-help="J-Quants APIから取得した実データを使用します。リアルタイムの株価データ、分析結果、市場情報を表示できます。最新の市場動向に基づいた投資判断が可能です。データの鮮度が高く、投資判断の精度向上に役立ちます。"
                   >
                     実データ (JQuants)
                   </button>
@@ -585,6 +591,8 @@ function DashboardContent() {
                         ? "bg-blue-600 text-white" 
                         : "text-gray-600 hover:text-gray-900"
                     }`}
+                    aria-label="サンプルデータモードに切り替え"
+                    data-help="サンプルデータを使用します。システムの機能を確認したり、デモンストレーションを行う際に便利です。実データにアクセスできない環境でも、システムの動作を確認できます。"
                   >
                     サンプルデータ
                   </button>
