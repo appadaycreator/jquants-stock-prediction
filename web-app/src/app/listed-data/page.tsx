@@ -525,6 +525,8 @@ function ListedDataInner(): JSX.Element {
               key={m}
               onClick={() => { setSelectedMarket(cur => cur === m ? "" : m); setCurrentPage(1); }}
               className={`px-3 py-1 text-sm rounded border ${selectedMarket === m ? "bg-purple-50 border-purple-500 text-purple-700" : "bg-white border-gray-300 text-gray-700"}`}
+              aria-label={`${m}市場の銘柄のみ表示`}
+              data-help={`${m}市場の銘柄のみを表示します。市場別に銘柄を絞り込んで、投資対象を効率的に発見できます。${m === 'プライム' ? 'プライム市場は大型で流動性の高い銘柄が中心です。' : m === 'スタンダード' ? 'スタンダード市場は中堅企業の銘柄が中心です。' : 'グロース市場は成長企業の銘柄が中心です。'}投資戦略に応じた銘柄選別に活用できます。`}
             >
               {m}
             </button>
@@ -810,6 +812,7 @@ function ListedDataInner(): JSX.Element {
                 disabled={currentPage === 1}
                 className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 aria-label="最初のページへ"
+                data-help="銘柄一覧の最初のページに移動します。ページネーションの効率化をサポートします。"
               >
                 最初
               </button>
@@ -818,6 +821,7 @@ function ListedDataInner(): JSX.Element {
                 disabled={currentPage === 1}
                 className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 aria-label="前のページへ"
+                data-help="銘柄一覧の前のページに移動します。ページネーションの効率化をサポートします。"
               >
                 前へ
               </button>
@@ -829,6 +833,7 @@ function ListedDataInner(): JSX.Element {
                 disabled={currentPage === totalPages}
                 className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 aria-label="次のページへ"
+                data-help="銘柄一覧の次のページに移動します。ページネーションの効率化をサポートします。"
               >
                 次へ
               </button>
@@ -837,6 +842,7 @@ function ListedDataInner(): JSX.Element {
                 disabled={currentPage === totalPages}
                 className="px-3 py-1 text-sm border border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 aria-label="最後のページへ"
+                data-help="銘柄一覧の最後のページに移動します。ページネーションの効率化をサポートします。"
               >
                 最後
               </button>

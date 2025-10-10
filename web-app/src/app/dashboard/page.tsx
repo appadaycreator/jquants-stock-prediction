@@ -556,6 +556,8 @@ function DashboardContent() {
                             ? "border-blue-500 text-blue-600"
                             : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
+                        aria-label={`${tab.name}タブを表示`}
+                        data-help={`${tab.name}セクションを表示します。${tab.id === 'overview' ? 'システムの概要と主要指標を確認できます。機械学習モデルの比較、パフォーマンス指標、市場インサイトなど、深い分析機能を提供します。' : tab.id === 'analysis' ? '詳細な分析結果とチャートを表示します。テクニカル指標、価格予測、機械学習分析結果を確認できます。' : tab.id === 'models' ? '複数の機械学習モデルの性能を比較できます。総合評価から詳細指標まで確認できます。' : '予測結果と推奨アクションを確認できます。投資判断に直結する重要な情報を表示します。'}投資判断の精度向上に役立つ包括的な分析機能を利用できます。`}
                       >
                         <Icon className="h-4 w-4" />
                         <span>{tab.name}</span>
@@ -575,6 +577,8 @@ function DashboardContent() {
                         ? "bg-blue-600 text-white" 
                         : "text-gray-600 hover:text-gray-900"
                     }`}
+                    aria-label="実データモードに切り替え"
+                    data-help="J-Quants APIから取得した実データを使用します。リアルタイムの株価データと分析結果を表示し、実際の市場データに基づいた投資判断をサポートします。最新の市場動向と機械学習による予測結果を確認できます。"
                   >
                     実データ (JQuants)
                   </button>
@@ -585,6 +589,8 @@ function DashboardContent() {
                         ? "bg-blue-600 text-white" 
                         : "text-gray-600 hover:text-gray-900"
                     }`}
+                    aria-label="サンプルデータモードに切り替え"
+                    data-help="サンプルデータを使用してシステムの機能を確認できます。実際のAPI接続なしでシステムの動作を体験し、機能の理解を深めることができます。学習目的やシステムの動作確認に適しています。"
                   >
                     サンプルデータ
                   </button>
@@ -906,6 +912,8 @@ function DashboardContent() {
                     <button
                       onClick={() => setShowAnalysisModal(false)}
                       className="text-gray-400 hover:text-gray-600"
+                      aria-label="分析モーダルを閉じる"
+                      data-help="分析実行モーダルを閉じます。モーダルを閉じても分析は継続され、結果はダッシュボードに表示されます。"
                     >
                       <X className="h-6 w-6" />
                     </button>
