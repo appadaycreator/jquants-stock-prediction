@@ -32,18 +32,17 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.12'
+        cache: 'pip'
+        cache-dependency-path: 'requirements-deploy.txt'
         
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        pip cache purge || echo "Cache purge completed"
-        pip install --no-cache-dir -r requirements.txt
+        pip install -r requirements-deploy.txt
         
     - name: Create required directories
       run: |
-        mkdir -p logs
-        mkdir -p data
-        mkdir -p docs/data
+        mkdir -p logs data docs/data
         echo "Required directories created"
         
     - name: Generate web data
@@ -52,7 +51,7 @@ jobs:
         JQUANTS_PASSWORD: ${{ secrets.JQUANTS_PASSWORD }}
         JQUANTS_ID_TOKEN: ${{ secrets.JQUANTS_ID_TOKEN }}
       run: |
-        echo "Web data generation skipped - file removed for test coverage improvement"
+        echo "Web data generation skipped - using static data for deployment"
         
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -64,7 +63,7 @@ jobs:
     - name: Install Node.js dependencies
       run: |
         cd web-app
-        npm ci --legacy-peer-deps
+        npm ci --legacy-peer-deps --prefer-offline
         
     - name: Prepare for static build
       run: |

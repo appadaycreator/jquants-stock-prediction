@@ -21,6 +21,9 @@ const nextConfig = {
     instrumentationHook: false,
     // Next.js 15互換性のための設定
     serverComponentsExternalPackages: [],
+    // ビルド最適化
+    optimizeCss: true,
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -63,7 +66,7 @@ const nextConfig = {
     return [];
   },
   // Next.js 15互換性のための設定
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, dev }) => {
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -72,6 +75,24 @@ const nextConfig = {
         tls: false,
       };
     }
+    
+    // 本番ビルド時の最適化
+    if (!dev) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+            },
+          },
+        },
+      };
+    }
+    
     return config;
   },
 };

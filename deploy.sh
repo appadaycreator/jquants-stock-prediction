@@ -10,15 +10,15 @@ echo "🚀 J-Quants株価予測システム デプロイメント開始"
 # 1. Python環境のセットアップとデータ生成
 echo "📊 データ生成中..."
 python -m pip install --upgrade pip
-pip install -r requirements.txt
-python generate_web_data.py
+pip install -r requirements-deploy.txt
+echo "Web data generation skipped - using static data for deployment"
 
 # 2. Webアプリケーションのビルド
 echo "🏗️ Webアプリケーションをビルド中..."
 cd web-app
 
 # 依存関係のインストール
-npm ci --legacy-peer-deps
+npm ci --legacy-peer-deps --prefer-offline
 npm install react-is --save
 
 # クリーンアップ
