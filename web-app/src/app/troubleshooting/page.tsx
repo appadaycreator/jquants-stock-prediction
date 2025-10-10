@@ -286,6 +286,8 @@ export default function TroubleshootingPage() {
                         ? "bg-blue-50 text-blue-700 border border-blue-200"
                         : "bg-gray-50 text-gray-700 hover:bg-gray-100"
                     }`}
+                    aria-label={`${category.label}カテゴリを選択`}
+                    data-help={`${category.label}に関する問題を表示します。該当する問題の症状と解決方法を確認できます。`}
                   >
                     <Icon className="h-4 w-4" />
                     <span>{category.label}</span>
@@ -302,6 +304,8 @@ export default function TroubleshootingPage() {
                 <button
                   onClick={() => setExpandedItem(expandedItem === item.id ? null : item.id)}
                   className="w-full p-6 text-left hover:bg-gray-50 transition-colors"
+                  aria-label={`${item.title}の詳細を${expandedItem === item.id ? '閉じる' : '開く'}`}
+                  data-help={`${item.title}の詳細情報を${expandedItem === item.id ? '閉じます' : '開きます'}。症状と解決方法を確認できます。`}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
@@ -355,6 +359,8 @@ export default function TroubleshootingPage() {
                                   <button
                                     onClick={solution.action}
                                     className="inline-flex items-center px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-colors"
+                                    aria-label="解決手順を実行"
+                                    data-help="この解決手順を実行します。該当するページに移動して問題を解決できます。"
                                   >
                                     <ExternalLink className="h-3 w-3 mr-1" />
                                     実行
@@ -385,6 +391,8 @@ export default function TroubleshootingPage() {
               <Link
                 href="/usage"
                 className="flex items-center space-x-3 p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors"
+                aria-label="使い方ガイドページへ移動"
+                data-help="使い方ガイドページに移動します。システムの詳細な使用方法、操作手順、機能説明を確認できます。"
               >
                 <BookOpen className="h-5 w-5 text-blue-600" />
                 <div>
@@ -395,6 +403,8 @@ export default function TroubleshootingPage() {
               <Link
                 href="/five-min-routine"
                 className="flex items-center space-x-3 p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors"
+                aria-label="5分ルーティンページへ移動"
+                data-help="5分ルーティンページに移動します。正しい操作手順と効率的な投資判断フローを確認できます。"
               >
                 <Clock className="h-5 w-5 text-green-600" />
                 <div>

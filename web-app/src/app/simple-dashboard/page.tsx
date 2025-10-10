@@ -136,7 +136,7 @@ export default function SimpleDashboard() {
                 size="sm"
                 disabled={loading}
                 aria-label="ダッシュボードを更新"
-                data-help="ダッシュボードのデータを最新に更新します。"
+                data-help="ダッシュボードのデータを最新に更新します。推奨アクション、損益状況、保有銘柄の情報を再取得します。"
               >
                 <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
                 更新

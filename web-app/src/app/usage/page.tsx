@@ -74,7 +74,7 @@ export default function UsagePage() {
                           : "text-gray-600 hover:bg-gray-50"
                       }`}
                       aria-label={`${section.label}セクションを表示`}
-                      data-help={`${section.label}の詳細な説明を表示します。`}
+                      data-help={`${section.label}の詳細な説明を表示します。システムの使い方、機能の詳細、操作手順などを学習できます。`}
                     >
                       <Icon className="h-4 w-4" />
                       <span className="text-sm font-medium">{section.label}</span>

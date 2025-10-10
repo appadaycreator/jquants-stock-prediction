@@ -77,7 +77,7 @@ export default function LandingPage() {
                 onClick={() => setShowDiagnostics(true)}
                 className="text-gray-600 hover:text-gray-900 flex items-center space-x-2"
                 aria-label="システム診断を開く"
-                data-help="システムの状態とパフォーマンスを診断します。"
+                data-help="システムの状態とパフォーマンスを診断します。CPU使用率、メモリ使用量、接続状況などを確認できます。"
               >
                 <Shield className="h-5 w-5" />
                 <span>診断</span>
@@ -86,7 +86,7 @@ export default function LandingPage() {
                 href="/today"
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
                 aria-label="今日のタスクを開始"
-                data-help="今日の投資判断タスクを開始します。"
+                data-help="今日の投資判断タスクを開始します。5分で完了する効率的な投資判断フローを実行できます。"
               >
                 <Play className="h-4 w-4" />
                 <span>今すぐ開始</span>
@@ -112,7 +112,7 @@ export default function LandingPage() {
               href="/today"
               className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 flex items-center justify-center space-x-2 text-lg font-semibold"
               aria-label="今日のタスクを開始"
-              data-help="今日の投資判断タスクを開始します。"
+              data-help="今日の投資判断タスクを開始します。5分で完了する効率的な投資判断フローで、重要なアクションを素早く実行できます。"
             >
               <Target className="h-5 w-5" />
               <span>今日のタスクを開始</span>
@@ -122,7 +122,7 @@ export default function LandingPage() {
               href="/dashboard"
               className="bg-white text-gray-700 px-8 py-4 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center space-x-2 text-lg font-semibold"
               aria-label="詳細分析ダッシュボードを表示"
-              data-help="詳細な分析結果とダッシュボードを表示します。"
+              data-help="詳細な分析結果とダッシュボードを表示します。機械学習モデルの比較、パフォーマンス指標、市場インサイトなど、深い分析機能を提供します。"
             >
               <BarChart3 className="h-5 w-5" />
               <span>詳細分析を見る</span>
@@ -171,7 +171,7 @@ export default function LandingPage() {
               href="/today"
               className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
               aria-label="今日のタスクページへ移動"
-              data-help="今日の投資判断タスクを確認・実行できます。"
+              data-help="今日の投資判断タスクを確認・実行できます。5分で完了する効率的な投資判断フローで、重要なアクションを素早く実行できます。"
             >
               <Target className="h-6 w-6 text-blue-600" />
               <div>
@@ -184,7 +184,7 @@ export default function LandingPage() {
               href="/dashboard"
               className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
               aria-label="詳細分析ダッシュボードへ移動"
-              data-help="詳細な分析結果とダッシュボードを表示します。"
+              data-help="詳細な分析結果とダッシュボードを表示します。機械学習モデルの比較、パフォーマンス指標、市場インサイトなど、深い分析機能を提供します。"
             >
               <BarChart3 className="h-6 w-6 text-green-600" />
               <div>
@@ -197,7 +197,7 @@ export default function LandingPage() {
               href="/listed-data"
               className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
               aria-label="銘柄一覧ページへ移動"
-              data-help="上場銘柄の一覧と検索・フィルタリング機能です。"
+              data-help="上場銘柄の一覧と検索・フィルタリング機能です。セクター別、市場別、価格帯別の詳細フィルタリングが可能で、投資対象銘柄を効率的に発見できます。"
             >
               <List className="h-6 w-6 text-purple-600" />
               <div>
@@ -210,7 +210,7 @@ export default function LandingPage() {
               href="/risk"
               className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
               aria-label="リスク管理ページへ移動"
-              data-help="リスク評価と損切りラインの管理を行います。"
+              data-help="リスク評価と損切りラインの管理を行います。ポートフォリオのリスク分析、ドローダウン監視、自動アラート機能で投資を安全にサポートします。"
             >
               <Shield className="h-6 w-6 text-red-600" />
               <div>
@@ -223,7 +223,7 @@ export default function LandingPage() {
               href="/settings"
               className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
               aria-label="設定ページへ移動"
-              data-help="システム設定と予測パラメータを変更します。"
+              data-help="システム設定と予測パラメータを変更します。予測期間、使用モデル、特徴量選択、J-Quants API設定などをカスタマイズできます。"
             >
               <Settings className="h-6 w-6 text-gray-600" />
               <div>
@@ -269,11 +269,11 @@ export default function LandingPage() {
               <span className="text-lg font-semibold text-gray-900">J-Quants 株価予測システム</span>
             </div>
             <div className="flex items-center space-x-6">
-              <Link href="/usage" className="text-sm text-gray-600 hover:text-gray-900 flex items-center space-x-1" aria-label="使い方ガイドを表示" data-help="システムの使い方と機能説明を確認できます。">
+              <Link href="/usage" className="text-sm text-gray-600 hover:text-gray-900 flex items-center space-x-1" aria-label="使い方ガイドを表示" data-help="システムの使い方と機能説明を確認できます。詳細な操作手順、機械学習モデルの仕組み、予測指標の読み方などを学習できます。">
                 <BookOpen className="h-4 w-4" />
                 <span>使い方</span>
               </Link>
-              <Link href="/troubleshooting" className="text-sm text-gray-600 hover:text-gray-900" aria-label="トラブルシューティングページを表示" data-help="よくある問題と解決方法を確認できます。">
+              <Link href="/troubleshooting" className="text-sm text-gray-600 hover:text-gray-900" aria-label="トラブルシューティングページを表示" data-help="よくある問題と解決方法を確認できます。データ表示、分析実行、接続エラーなどの問題を段階的に解決できます。">
                 トラブルシューティング
               </Link>
             </div>
