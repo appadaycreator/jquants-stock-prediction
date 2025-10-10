@@ -16,6 +16,7 @@ import {
   Target,
   AlertCircle,
 } from "lucide-react";
+import EnhancedTooltip from "../EnhancedTooltip";
 
 interface CandleData {
   time: number;
@@ -461,31 +462,61 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-green-50 rounded-lg p-2">
                 <div className="text-xs text-green-600 font-medium">始値</div>
-                <div className="text-sm font-bold text-green-800">¥{hoveredData.open.toLocaleString()}</div>
+                <EnhancedTooltip
+                  content="その日の最初の取引価格です。前日の終値から大きく乖離することがあり、市場の期待やニュースの影響を反映します。例：前日終値3,000円から始値3,100円で始まった場合、+100円の高値スタートとなります。"
+                  type="info"
+                >
+                  <div className="text-sm font-bold text-green-800 cursor-help">¥{hoveredData.open.toLocaleString()}</div>
+                </EnhancedTooltip>
               </div>
               <div className="bg-red-50 rounded-lg p-2">
                 <div className="text-xs text-red-600 font-medium">終値</div>
-                <div className="text-sm font-bold text-red-800">¥{hoveredData.close.toLocaleString()}</div>
+                <EnhancedTooltip
+                  content="その日の最後の取引価格です。翌日の始値の基準となる重要な価格で、投資家の最終的な評価を反映します。例：終値3,200円の場合、翌日の始値は3,200円前後から始まることが多いです。"
+                  type="info"
+                >
+                  <div className="text-sm font-bold text-red-800 cursor-help">¥{hoveredData.close.toLocaleString()}</div>
+                </EnhancedTooltip>
               </div>
               <div className="bg-blue-50 rounded-lg p-2">
                 <div className="text-xs text-blue-600 font-medium">高値</div>
-                <div className="text-sm font-bold text-blue-800">¥{hoveredData.high.toLocaleString()}</div>
+                <EnhancedTooltip
+                  content="その日の最高取引価格です。上昇の勢いや抵抗線の位置を示し、今後の価格動向の重要な指標となります。例：高値3,500円の場合、3,500円付近が抵抗線として機能することが多いです。"
+                  type="success"
+                >
+                  <div className="text-sm font-bold text-blue-800 cursor-help">¥{hoveredData.high.toLocaleString()}</div>
+                </EnhancedTooltip>
               </div>
               <div className="bg-purple-50 rounded-lg p-2">
                 <div className="text-xs text-purple-600 font-medium">安値</div>
-                <div className="text-sm font-bold text-purple-800">¥{hoveredData.low.toLocaleString()}</div>
+                <EnhancedTooltip
+                  content="その日の最低取引価格です。下落の勢いや支持線の位置を示し、今後の価格動向の重要な指標となります。例：安値2,800円の場合、2,800円付近が支持線として機能することが多いです。"
+                  type="warning"
+                >
+                  <div className="text-sm font-bold text-purple-800 cursor-help">¥{hoveredData.low.toLocaleString()}</div>
+                </EnhancedTooltip>
               </div>
             </div>
             <div className="mt-3 pt-3 border-t border-gray-200">
               <div className="flex justify-between items-center">
                 <span className="text-xs text-gray-600">出来高</span>
-                <span className="text-sm font-semibold text-gray-900">{hoveredData.volume.toLocaleString()}</span>
+                <EnhancedTooltip
+                  content="その日の取引された株式の数量です。取引の活発さを示し、流動性の指標となります。例：出来高100万株の場合、その日100万株が取引されたことを示します。"
+                  type="info"
+                >
+                  <span className="text-sm font-semibold text-gray-900 cursor-help">{hoveredData.volume.toLocaleString()}</span>
+                </EnhancedTooltip>
               </div>
               <div className="flex justify-between items-center mt-1">
                 <span className="text-xs text-gray-600">変動率</span>
-                <span className={`text-sm font-semibold ${hoveredData.close > hoveredData.open ? "text-green-600" : "text-red-600"}`}>
-                  {((hoveredData.close - hoveredData.open) / hoveredData.open * 100).toFixed(2)}%
-                </span>
+                <EnhancedTooltip
+                  content="始値から終値への価格変動率です。プラスは上昇、マイナスは下落を示します。例：始値3,000円から終値3,100円の場合、+3.33%の上昇となります。"
+                  type={hoveredData.close > hoveredData.open ? "success" : "warning"}
+                >
+                  <span className={`text-sm font-semibold cursor-help ${hoveredData.close > hoveredData.open ? "text-green-600" : "text-red-600"}`}>
+                    {((hoveredData.close - hoveredData.open) / hoveredData.open * 100).toFixed(2)}%
+                  </span>
+                </EnhancedTooltip>
               </div>
             </div>
           </div>

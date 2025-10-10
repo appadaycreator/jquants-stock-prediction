@@ -458,7 +458,12 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
           </div>
           <div className="flex items-center space-x-2">
             <Filter className="w-4 h-4" />
-            <span>データ数: {data.length}</span>
+            <EnhancedTooltip
+              content="チャートに表示されているデータポイントの数です。データ数が多いほど、より詳細な価格推移を確認できます。例：データ数100の場合、100日分の価格データが表示されています。"
+              type="info"
+            >
+              <span className="cursor-help">データ数: {data.length}</span>
+            </EnhancedTooltip>
           </div>
         </div>
         

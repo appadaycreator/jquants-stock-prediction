@@ -216,12 +216,22 @@ export default function RealtimePnLCalculator({
                   <p className="text-sm text-gray-600">{position.company_name}</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-xl font-bold">
-                    ¥{position.current_price.toLocaleString()}
-                  </div>
-                  <div className={`text-lg font-semibold ${position.pnl_percentage >= 0 ? "text-green-600" : "text-red-600"}`}>
-                    {position.pnl_percentage >= 0 ? "+" : ""}{position.pnl_percentage.toFixed(2)}%
-                  </div>
+                  <EnhancedTooltip
+                    content="最新の取引終値です。この価格は最新の市場取引で確定した価格で、現在の株価の基準となります。例：トヨタ自動車の株価が3,000円の場合、1株あたり3,000円で取引されていることを示します。"
+                    type="info"
+                  >
+                    <div className="text-xl font-bold cursor-help">
+                      ¥{position.current_price.toLocaleString()}
+                    </div>
+                  </EnhancedTooltip>
+                  <EnhancedTooltip
+                    content="投資額に対する損益の割合です。投資効率を測る重要な指標で、年率換算で比較することが一般的です。例：100万円の投資で20万円の利益の場合、損益率は+20%となります。"
+                    type={position.pnl_percentage >= 0 ? "success" : "warning"}
+                  >
+                    <div className={`text-lg font-semibold cursor-help ${position.pnl_percentage >= 0 ? "text-green-600" : "text-red-600"}`}>
+                      {position.pnl_percentage >= 0 ? "+" : ""}{position.pnl_percentage.toFixed(2)}%
+                    </div>
+                  </EnhancedTooltip>
                 </div>
               </div>
             </CardHeader>
@@ -229,23 +239,43 @@ export default function RealtimePnLCalculator({
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div>
                   <p className="text-gray-600">数量</p>
-                  <p className="font-medium">{position.quantity.toLocaleString()}株</p>
+                  <EnhancedTooltip
+                    content="保有している株式の数量です。投資額を現在価格で割った値で、実際に保有している株数を示します。例：100株保有している場合、100株と表示されます。"
+                    type="info"
+                  >
+                    <p className="font-medium cursor-help">{position.quantity.toLocaleString()}株</p>
+                  </EnhancedTooltip>
                 </div>
                 <div>
                   <p className="text-gray-600">評価額</p>
-                  <p className="font-medium">¥{position.total_value.toLocaleString()}</p>
+                  <EnhancedTooltip
+                    content="現在の市場価格で評価した保有株式の総額です。数量×現在価格で計算され、実際に売却した場合の概算価値となります。例：100株×3,000円=30万円の評価額となります。"
+                    type="info"
+                  >
+                    <p className="font-medium cursor-help">¥{position.total_value.toLocaleString()}</p>
+                  </EnhancedTooltip>
                 </div>
                 <div>
                   <p className="text-gray-600">損益</p>
-                  <p className={`font-medium ${position.unrealized_pnl >= 0 ? "text-green-600" : "text-red-600"}`}>
-                    ¥{position.unrealized_pnl.toLocaleString()}
-                  </p>
+                  <EnhancedTooltip
+                    content="現在価値から投資額を引いた未実現損益です。プラスは利益、マイナスは損失を示します。実際に売却するまで確定しません。例：100万円で購入した株式が現在120万円の価値の場合、未実現損益は+20万円となります。"
+                    type={position.unrealized_pnl >= 0 ? "success" : "warning"}
+                  >
+                    <p className={`font-medium cursor-help ${position.unrealized_pnl >= 0 ? "text-green-600" : "text-red-600"}`}>
+                      ¥{position.unrealized_pnl.toLocaleString()}
+                    </p>
+                  </EnhancedTooltip>
                 </div>
                 <div>
                   <p className="text-gray-600">更新時刻</p>
-                  <p className="font-medium text-xs">
-                    {new Date(position.last_updated).toLocaleTimeString()}
-                  </p>
+                  <EnhancedTooltip
+                    content="このポジションのデータが最後に更新された時刻です。リアルタイム更新により、市場価格の変動に応じて自動的に更新されます。例：14:30:15の場合、午後2時30分15秒に更新されたことを示します。"
+                    type="info"
+                  >
+                    <p className="font-medium text-xs cursor-help">
+                      {new Date(position.last_updated).toLocaleTimeString()}
+                    </p>
+                  </EnhancedTooltip>
                 </div>
               </div>
             </CardContent>
