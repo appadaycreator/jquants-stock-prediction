@@ -67,7 +67,7 @@ class EnhancedConfidenceSystem:
         """初期化"""
         self.config = config or self._get_default_config()
         self.logger = logging.getLogger(__name__)
-        self.confidence_history = {}
+        self.confidence_history = []
         self.market_regime = "normal"
         self.volatility_regime = "normal"
         

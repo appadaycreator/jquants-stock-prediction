@@ -166,7 +166,8 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
             updated_at=datetime.now(),
         )
 
-        with patch.object(self.system, 'positions', side_effect=Exception("Position error")):
+        # 例外を発生させるために、loggerのinfoメソッドをモックして例外を発生させる
+        with patch.object(self.system.logger, 'info', side_effect=Exception("Position error")):
             with patch.object(self.system.logger, 'error') as mock_error:
                 self.system.add_position(settings)
                 mock_error.assert_called_once()
@@ -394,9 +395,11 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
         )
         self.system.positions["TEST"] = settings
 
-        with patch.object(settings, 'direction', side_effect=Exception("Check error")):
+        # 例外を発生させるために、_execute_stop_lossメソッドをモック
+        with patch.object(self.system, '_execute_stop_loss', side_effect=Exception("Check error")):
             with patch.object(self.system.logger, 'error') as mock_error:
-                self.system._check_stop_loss_take_profit("TEST", 100.0)
+                # 損切り条件を満たす価格でテスト
+                self.system._check_stop_loss_take_profit("TEST", 90.0)  # 損切り価格以下
                 mock_error.assert_called_once()
 
     def test_execute_stop_loss_success(self):

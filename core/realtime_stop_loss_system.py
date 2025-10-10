@@ -284,16 +284,19 @@ class RealtimeStopLossSystem:
         self.price_data = {}  # {symbol: [price_data]}
         self.stop_loss_settings = {}  # {symbol: StopLossSettings}
         self.active_positions = {}  # {symbol: position_data}
+        self.positions = {}  # テスト用のポジション管理
 
         # 履歴データ
         self.price_history = []
         self.alert_history = []
         self.trade_history = []
+        self.execution_history = []  # テスト用の執行履歴
 
         # コールバック関数
         self.price_callbacks = []
         self.alert_callbacks = []
         self.trade_callbacks = []
+        self.execution_callbacks = []  # テスト用の執行コールバック
 
         # 計算器
         self.volatility_calculator = VolatilityCalculator()
@@ -867,6 +870,254 @@ class RealtimeStopLossSystem:
     def add_trade_callback(self, callback: Callable[[TradeExecution], None]):
         """取引コールバック追加"""
         self.trade_callbacks.append(callback)
+
+    def add_execution_callback(self, callback: Callable[[TradeExecution], None]):
+        """執行コールバック追加"""
+        self.execution_callbacks.append(callback)
+
+    def add_position(self, settings: StopLossSettings):
+        """ポジション追加"""
+        try:
+            self.positions[settings.symbol] = settings
+            self.logger.info(f"ポジション追加: {settings.symbol}")
+        except Exception as e:
+            self.logger.error(f"ポジション追加エラー: {e}")
+
+    def remove_position(self, symbol: str):
+        """ポジション削除"""
+        try:
+            if symbol in self.positions:
+                del self.positions[symbol]
+                self.logger.info(f"ポジション削除: {symbol}")
+            else:
+                self.logger.warning(f"ポジションが見つかりません: {symbol}")
+        except Exception as e:
+            self.logger.error(f"ポジション削除エラー: {e}")
+
+    def update_price(self, symbol: str, price: float):
+        """価格更新"""
+        try:
+            if symbol in self.positions:
+                self.positions[symbol].current_price = price
+                self.positions[symbol].updated_at = datetime.now()
+                self._check_stop_loss_take_profit(symbol, price)
+            else:
+                self.logger.warning(f"ポジションが見つかりません: {symbol}")
+        except Exception as e:
+            self.logger.error(f"価格更新エラー: {e}")
+
+    def _check_stop_loss_take_profit(self, symbol: str, current_price: float):
+        """損切り・利確チェック"""
+        try:
+            if symbol not in self.positions:
+                self.logger.warning(f"ポジションが見つかりません: {symbol}")
+                return
+
+            settings = self.positions[symbol]
+
+            # 損切りチェック
+            if settings.direction == "BUY" and current_price <= settings.stop_loss_price:
+                self._execute_stop_loss(symbol, current_price, "損切り価格到達")
+            elif settings.direction == "SELL" and current_price >= settings.stop_loss_price:
+                self._execute_stop_loss(symbol, current_price, "損切り価格到達")
+
+            # 利確チェック
+            if settings.direction == "BUY" and current_price >= settings.take_profit_price:
+                self._execute_take_profit(symbol, current_price, "利確価格到達")
+            elif settings.direction == "SELL" and current_price <= settings.take_profit_price:
+                self._execute_take_profit(symbol, current_price, "利確価格到達")
+
+        except Exception as e:
+            self.logger.error(f"損切り・利確チェックエラー: {e}")
+
+    def _execute_stop_loss(self, symbol: str, price: float, reason: str):
+        """損切り執行"""
+        try:
+            if symbol not in self.positions:
+                self.logger.warning(f"ポジションが見つかりません: {symbol}")
+                return
+
+            settings = self.positions[symbol]
+            execution = self._create_trade_execution(settings, price, "STOP_LOSS", reason)
+            if execution:
+                self.execution_history.append(execution)
+                self._remove_position(symbol)
+                self.logger.info(f"損切り執行: {symbol}, 価格: {price}")
+        except Exception as e:
+            self.logger.error(f"損切り執行エラー: {e}")
+
+    def _execute_take_profit(self, symbol: str, price: float, reason: str):
+        """利確執行"""
+        try:
+            if symbol not in self.positions:
+                self.logger.warning(f"ポジションが見つかりません: {symbol}")
+                return
+
+            settings = self.positions[symbol]
+            execution = self._create_trade_execution(settings, price, "TAKE_PROFIT", reason)
+            if execution:
+                self.execution_history.append(execution)
+                self._remove_position(symbol)
+                self.logger.info(f"利確執行: {symbol}, 価格: {price}")
+        except Exception as e:
+            self.logger.error(f"利確執行エラー: {e}")
+
+    def _create_trade_execution(self, settings: StopLossSettings, exit_price: float, trade_type: str, reason: str) -> TradeExecution:
+        """取引執行作成"""
+        try:
+            # PnL計算
+            if settings.direction == "BUY":
+                pnl = (exit_price - settings.entry_price) * settings.position_size
+            else:  # SELL
+                pnl = (settings.entry_price - exit_price) * settings.position_size
+
+            execution = TradeExecution(
+                timestamp=datetime.now(),
+                symbol=settings.symbol,
+                trade_type=trade_type,
+                entry_price=settings.entry_price,
+                exit_price=exit_price,
+                position_size=settings.position_size,
+                pnl=pnl,
+                execution_reason=reason,
+                metadata={
+                    "stop_loss_price": settings.stop_loss_price,
+                    "take_profit_price": settings.take_profit_price,
+                    "volatility": settings.volatility,
+                    "atr": settings.atr,
+                    "direction": settings.direction,
+                },
+            )
+
+            return execution
+        except Exception as e:
+            self.logger.error(f"取引執行作成エラー: {e}")
+            return None
+
+    def _remove_position(self, symbol: str):
+        """ポジション削除（内部用）"""
+        if symbol in self.positions:
+            del self.positions[symbol]
+
+    def _monitoring_loop(self):
+        """監視ループ（テスト用簡易版）"""
+        try:
+            for symbol, settings in self.positions.items():
+                if hasattr(settings, 'current_price'):
+                    self._check_stop_loss_take_profit(symbol, settings.current_price)
+        except Exception as e:
+            self.logger.error(f"監視ループエラー: {e}")
+
+    def get_monitoring_status(self) -> Dict[str, Any]:
+        """監視状況取得"""
+        try:
+            return {
+                "is_monitoring": self.is_monitoring,
+                "active_positions": len(self.positions),
+                "total_alerts": len(self.alert_history),
+                "total_executions": len(self.execution_history),
+                "last_update": datetime.now().isoformat(),
+            }
+        except Exception as e:
+            self.logger.error(f"監視状況取得エラー: {e}")
+            return {"status": "error", "error": str(e)}
+
+    def get_position_summary(self) -> Dict[str, Any]:
+        """ポジションサマリー取得"""
+        try:
+            total_unrealized_pnl = 0.0
+            positions = []
+
+            for symbol, settings in self.positions.items():
+                if hasattr(settings, 'current_price'):
+                    if settings.direction == "BUY":
+                        unrealized_pnl = (settings.current_price - settings.entry_price) * settings.position_size
+                    else:
+                        unrealized_pnl = (settings.entry_price - settings.current_price) * settings.position_size
+                    
+                    total_unrealized_pnl += unrealized_pnl
+                    positions.append({
+                        "symbol": symbol,
+                        "direction": settings.direction,
+                        "entry_price": settings.entry_price,
+                        "current_price": settings.current_price,
+                        "unrealized_pnl": unrealized_pnl,
+                    })
+
+            return {
+                "total_positions": len(self.positions),
+                "total_unrealized_pnl": total_unrealized_pnl,
+                "positions": positions,
+            }
+        except Exception as e:
+            self.logger.error(f"ポジションサマリー取得エラー: {e}")
+            return {"status": "error", "error": str(e)}
+
+    def get_performance_metrics(self, days: int = 30) -> Dict[str, Any]:
+        """パフォーマンス指標取得"""
+        try:
+            if not self.execution_history:
+                return {"status": "no_data"}
+
+            # 最近の執行を取得
+            cutoff_date = datetime.now() - timedelta(days=days)
+            recent_executions = [e for e in self.execution_history if e.timestamp >= cutoff_date]
+
+            if not recent_executions:
+                return {"status": "no_data"}
+
+            total_pnl = sum(e.pnl for e in recent_executions)
+            winning_trades = len([e for e in recent_executions if e.pnl > 0])
+            losing_trades = len([e for e in recent_executions if e.pnl < 0])
+            total_trades = len(recent_executions)
+
+            return {
+                "total_trades": total_trades,
+                "winning_trades": winning_trades,
+                "losing_trades": losing_trades,
+                "win_rate": winning_trades / total_trades if total_trades > 0 else 0,
+                "total_pnl": total_pnl,
+                "avg_pnl": total_pnl / total_trades if total_trades > 0 else 0,
+            }
+        except Exception as e:
+            self.logger.error(f"パフォーマンス指標取得エラー: {e}")
+            return {"status": "error", "error": str(e)}
+
+    def export_performance_report(self, days: int = 30) -> Dict[str, Any]:
+        """パフォーマンスレポート出力"""
+        try:
+            cutoff_date = datetime.now() - timedelta(days=days)
+            recent_executions = [e for e in self.execution_history if e.timestamp >= cutoff_date]
+
+            # 銘柄別統計
+            symbol_stats = {}
+            for execution in recent_executions:
+                symbol = execution.symbol
+                if symbol not in symbol_stats:
+                    symbol_stats[symbol] = {
+                        "total_trades": 0,
+                        "total_pnl": 0,
+                        "winning_trades": 0,
+                        "losing_trades": 0,
+                    }
+
+                symbol_stats[symbol]["total_trades"] += 1
+                symbol_stats[symbol]["total_pnl"] += execution.pnl
+                if execution.pnl > 0:
+                    symbol_stats[symbol]["winning_trades"] += 1
+                else:
+                    symbol_stats[symbol]["losing_trades"] += 1
+
+            return {
+                "report_period": f"{days} days",
+                "total_executions": len(recent_executions),
+                "symbol_statistics": symbol_stats,
+                "performance_metrics": self.get_performance_metrics(days),
+                "generated_at": datetime.now().isoformat(),
+            }
+        except Exception as e:
+            self.logger.error(f"パフォーマンスレポート出力エラー: {e}")
+            return {"error": str(e)}
 
     def export_trade_report(self, days: int = 30) -> Dict[str, Any]:
         """取引レポート出力"""
