@@ -66,6 +66,7 @@ class StopLossSettings:
     max_loss_amount: float
     created_at: datetime
     updated_at: datetime
+    current_price: float = None  # 現在価格
 
 
 @dataclass
@@ -371,8 +372,12 @@ class RealtimeStopLossSystem:
         """監視停止"""
         try:
             self.is_monitoring = False
-            if self.monitor_thread:
-                self.monitor_thread.join(timeout=5.0)
+            if hasattr(self, 'monitor_thread') and self.monitor_thread:
+                try:
+                    self.monitor_thread.join(timeout=5.0)
+                except Exception as join_error:
+                    self.logger.error(f"スレッド終了エラー: {join_error}")
+                    raise join_error
 
             self.logger.info("リアルタイム損切り監視を停止")
 
