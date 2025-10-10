@@ -217,15 +217,35 @@ class AdvancedRiskMetrics:
 
     def _calculate_returns(self, data: pd.DataFrame) -> pd.Series:
         """リターン計算"""
-        if "Close" not in data.columns or data.empty:
-            return pd.Series(dtype=float)
+        try:
+            if data is None or data.empty:
+                return pd.Series(dtype=float)
+                
+            # 複数のカラム名パターンに対応
+            price_column = None
+            for col in ["Close", "close", "price", "Price"]:
+                if col in data.columns:
+                    price_column = col
+                    break
+                    
+            if price_column is None:
+                # 最後の数値カラムを使用
+                numeric_cols = data.select_dtypes(include=[np.number]).columns
+                if len(numeric_cols) > 0:
+                    price_column = numeric_cols[-1]
+                else:
+                    return pd.Series(dtype=float)
 
-        prices = data["Close"].dropna()
-        if len(prices) < 2:
-            return pd.Series(dtype=float)
+            prices = data[price_column].dropna()
+            if len(prices) < 2:
+                return pd.Series(dtype=float)
 
-        returns = prices.pct_change().dropna()
-        return returns
+            returns = prices.pct_change().dropna()
+            return returns
+            
+        except Exception as e:
+            self.logger.error(f"リターン計算エラー: {e}")
+            return pd.Series(dtype=float)
 
     def _calculate_var(self, returns: pd.Series) -> Tuple[float, float]:
         """VaR計算"""

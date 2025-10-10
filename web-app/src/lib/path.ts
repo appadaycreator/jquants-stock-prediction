@@ -15,11 +15,17 @@ export function resolveStaticPath(path: string): string {
   if (!base) return path;
   
   // 既に basePath が付いているかチェック
-  if (path.startsWith(base)) return path;
+  if (path.startsWith(base)) {
+    console.debug(`resolveStaticPath: Path already has basePath: ${path}`);
+    return path;
+  }
   
   // 先頭スラッシュを必須とし、重複しないよう結合
   const normalized = path.startsWith("/") ? path : `/${path}`;
-  return `${base}${normalized}`;
+  const resolved = `${base}${normalized}`;
+  
+  console.debug(`resolveStaticPath: ${path} -> ${resolved} (base: ${base})`);
+  return resolved;
 }
 
 export function resolveApiPath(path: string): string {

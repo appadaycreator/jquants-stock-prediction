@@ -80,27 +80,48 @@ export async function getLatestIndex(): Promise<LatestIndex> {
   const cached = getLocal<LatestIndex>(cacheKey, 1000 * 60 * 60 * 6);
   if (cached) {
     // 裏で更新をキック（待たない）
-    fetchJsonWithCache<LatestIndex>(resolveStaticPath("/data/latest/index.json"), {
-      cacheKey,
-      cacheTtlMs: 1000 * 60 * 10,
-      timeout: SIX_SECONDS,
-      retries: 2,
-      retryDelay: 800,
-    }).then(({ data, fromCache }) => {
-      if (!fromCache) setLocal(cacheKey, data);
+    fetchLatestIndexWithFallback().then((data) => {
+      if (data) setLocal(cacheKey, data);
     }).catch(() => {});
     return cached;
   }
 
-  const { data, fromCache } = await fetchJsonWithCache<LatestIndex>(resolveStaticPath("/data/latest/index.json"), {
-    cacheKey,
-    cacheTtlMs: 1000 * 60 * 10,
-    timeout: SIX_SECONDS,
-    retries: 2,
-    retryDelay: 800,
-  });
-  if (!fromCache) setLocal(cacheKey, data);
+  const data = await fetchLatestIndexWithFallback();
+  if (data) setLocal(cacheKey, data);
   return data;
+}
+
+async function fetchLatestIndexWithFallback(): Promise<LatestIndex> {
+  const primaryUrl = resolveStaticPath("/data/latest/index.json");
+  
+  try {
+    const { data, fromCache } = await fetchJsonWithCache<LatestIndex>(primaryUrl, {
+      cacheKey: "latest:index:primary",
+      cacheTtlMs: 1000 * 60 * 10,
+      timeout: SIX_SECONDS,
+      retries: 2,
+      retryDelay: 800,
+    });
+    return data;
+  } catch (error) {
+    console.warn("Primary URL failed, trying fallback:", error);
+    
+    // フォールバック: 直接的なパスを試行
+    const fallbackUrl = "/data/latest/index.json";
+    try {
+      const { data } = await fetchJsonWithCache<LatestIndex>(fallbackUrl, {
+        cacheKey: "latest:index:fallback",
+        cacheTtlMs: 1000 * 60 * 10,
+        timeout: SIX_SECONDS,
+        retries: 1,
+        retryDelay: 800,
+      });
+      return data;
+    } catch (fallbackError) {
+      console.error("Both primary and fallback URLs failed:", fallbackError);
+      throw new Error("Failed to fetch latest index from both primary and fallback URLs");
+    }
+  }
 }
 
 export function resolveBusinessDate(target: string | null, index: LatestIndex): string {
@@ -145,6 +166,35 @@ export async function swrJson<T>(
 
 export function computeMissingCount<T>(items: Array<T | null | undefined>): number {
   return items.filter(v => v == null).length;
+}
+
+export function clearDataCache(): void {
+  try {
+    // 関連するキャッシュキーをクリア
+    const keysToRemove = [
+      "latest:index",
+      "latest:index:primary", 
+      "latest:index:fallback",
+      "today:summary",
+      "personal:dashboard",
+    ];
+    
+    keysToRemove.forEach(key => {
+      localStorage.removeItem(key);
+      localStorage.removeItem(`swr:${key}`);
+    });
+    
+    console.log("Data cache cleared successfully");
+  } catch (error) {
+    console.warn("Failed to clear data cache:", error);
+  }
+}
+
+// デバッグ用: グローバルに公開
+if (typeof window !== 'undefined') {
+  (window as any).clearDataCache = clearDataCache;
+  (window as any).getLatestIndex = getLatestIndex;
+  (window as any).resolveStaticPath = require('./path').resolveStaticPath;
 }
 
 

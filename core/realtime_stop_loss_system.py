@@ -704,7 +704,7 @@ class RealtimeStopLossSystem:
             self.logger.error(f"取引執行エラー: {e}")
             raise
 
-    def _monitoring_loop(self, update_interval: float):
+    def _monitoring_loop(self, update_interval: float = 1.0):
         """監視ループ"""
         while self.is_monitoring:
             try:
@@ -1022,7 +1022,7 @@ class RealtimeStopLossSystem:
         if symbol in self.positions:
             del self.positions[symbol]
 
-    def _monitoring_loop(self):
+    def _monitoring_loop_simple(self):
         """監視ループ（テスト用簡易版）"""
         try:
             for symbol, settings in self.positions.items():
