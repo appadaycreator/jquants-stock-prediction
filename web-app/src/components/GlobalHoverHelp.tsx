@@ -49,7 +49,7 @@ function getByAriaRefs(el: HTMLElement, attr: string): string | null {
 function getHelpText(element: HTMLElement | null): string | null {
   let current: HTMLElement | null = element;
   while (current) {
-    // 優先: data-help / data-tooltip
+    // 優先: data-help / data-tooltip（最も詳細な説明）
     const fromData =
       current.getAttribute("data-help") || current.getAttribute("data-tooltip");
     if (fromData && fromData.trim()) return fromData.trim();
