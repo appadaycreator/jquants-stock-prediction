@@ -21,11 +21,21 @@ export function normalizeStockCode(code: string): string {
     return trimmed.toUpperCase();
   }
 
+  // パターン: 3桁 + アルファベット + 0（例: 131A0 → 131A）
+  if (/^\d{3}[A-Za-z]0$/.test(trimmed)) {
+    return (trimmed.substring(0, 3) + trimmed.charAt(3).toUpperCase());
+  }
+
   // 数字のみ（従来形式想定）
   if (/^\d+$/.test(trimmed)) {
     // 5桁かつ先頭0 → 4桁に正規化
     if (trimmed.length === 5 && trimmed.startsWith("0")) {
       return trimmed.substring(1);
+    }
+    // 5桁かつ末尾0 → 末尾0を除去して4桁に正規化（例: 30760 → 3076）
+    if (trimmed.length === 5 && trimmed.endsWith("0")) {
+      const candidate = trimmed.substring(0, 4);
+      if (/^\d{4}$/.test(candidate)) return candidate;
     }
     // それ以外はそのまま（4桁が想定の中心）
     return trimmed;
@@ -61,24 +71,26 @@ export function toFiveDigitCode(code: string): string {
 export function formatStockCode(code: string): string {
   if (!code) return "";
   const trimmed = code.trim();
+  const normalized = normalizeStockCode(trimmed);
 
   // 新形式はそのまま大文字表記
-  if (/^[A-Za-z]\d{4}$/.test(trimmed)) {
-    return trimmed.toUpperCase();
+  if (/^[A-Za-z]\d{4}$/.test(normalized)) {
+    return normalized.toUpperCase();
   }
 
-  // 5桁0埋めは4桁で表示
-  if (/^\d{5}$/.test(trimmed) && trimmed.startsWith("0")) {
-    return trimmed.substring(1);
+  // 4桁数字ならそのまま
+  if (/^\d{4}$/.test(normalized)) {
+    return normalized;
   }
 
-  // 4桁はそのまま
-  if (/^\d{4}$/.test(trimmed)) {
-    return trimmed;
+  // 5桁（先頭0/末尾0）などは normalize 済みのため normalized を返却
+  if (/^\d{5}$/.test(trimmed)) {
+    return normalized;
   }
+
 
   // その他はそのまま返却（未知形式）
-  return trimmed;
+  return normalized;
 }
 
 /**
