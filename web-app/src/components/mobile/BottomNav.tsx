@@ -111,11 +111,7 @@ export default function BottomNav() {
                   <span className={`transition-transform ${isAdvancedOpen ? "rotate-0" : "-rotate-90"}`}>▾</span>
                 </button>
                 <div className={`overflow-hidden transition-all duration-200 ${isAdvancedOpen ? "max-h-[1000px]" : "max-h-0"}`}>
-                <Link href="/listed-data" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
-                  <span>📋</span>
-                  <span>銘柄一覧</span>
-                </Link>
-                <Link href="/portfolio" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
+                <Link href="/personal-investment" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
                   <span>💼</span>
                   <span>ポートフォリオ</span>
                 </Link>
@@ -127,9 +123,9 @@ export default function BottomNav() {
                   <span>📈</span>
                   <span>詳細分析</span>
                 </Link>
-                <Link href="/reports" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
-                  <span>📑</span>
-                  <span>レポート</span>
+                <Link href="/risk" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
+                  <span>⚠️</span>
+                  <span>リスク管理</span>
                 </Link>
                 <Link href="/analysis-history" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 text-sm" onClick={() => setIsMenuOpen(false)}>
                   <span>📜</span>

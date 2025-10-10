@@ -13,8 +13,9 @@ import {
   Calendar, 
   TrendingUp, 
   Shield, 
-  FileText, 
   Settings, 
+  BarChart3,
+  Eye,
   HelpCircle,
   Menu,
   X,
@@ -31,16 +32,10 @@ interface NavigationItem {
 
 const navigationItems: NavigationItem[] = [
   { href: "/", label: "ダッシュボード", icon: Home, description: "メインダッシュボード", status: "active" },
-  { href: "/today", label: "今日の指示", icon: Calendar, description: "本日の売買候補と指示", status: "active" },
-  { href: "/simple-dashboard", label: "シンプル投資判断", icon: TrendingUp, description: "1日5分で投資判断を完結", status: "active" },
-  { href: "/personal-investment", label: "個人投資", icon: TrendingUp, description: "個人投資ポートフォリオ管理", status: "active" },
-  { href: "/dashboard", label: "詳細分析", icon: FileText, description: "詳細レポート/分析", status: "active" },
-  { href: "/listed-data", label: "銘柄一覧", icon: FileText, description: "上場銘柄検索・分析", status: "active" },
-  { href: "/portfolio", label: "ポートフォリオ", icon: FileText, description: "ポートフォリオ管理", status: "active" },
-  { href: "/watchlist", label: "ウォッチリスト", icon: FileText, description: "監視銘柄一覧", status: "active" },
-  { href: "/reports", label: "レポート", icon: FileText, description: "詳細レポート", status: "active" },
-  { href: "/analysis-history", label: "分析履歴", icon: FileText, description: "詳細分析の履歴一覧", status: "active" },
-  { href: "/analysis-progress", label: "分析状況", icon: FileText, description: "分析状況と進捗", status: "active" },
+  { href: "/today", label: "今日の投資指示", icon: Calendar, description: "本日の売買候補と指示", status: "active" },
+  { href: "/personal-investment", label: "ポートフォリオ", icon: TrendingUp, description: "投資ポートフォリオ管理", status: "active" },
+  { href: "/dashboard", label: "詳細分析", icon: BarChart3, description: "詳細レポート・分析", status: "active" },
+  { href: "/watchlist", label: "ウォッチリスト", icon: Eye, description: "監視銘柄一覧", status: "active" },
   { href: "/risk", label: "リスク管理", icon: Shield, description: "リスク管理と設定", status: "active" },
   { href: "/settings", label: "設定", icon: Settings, description: "システム設定", status: "active" },
 ];
@@ -136,9 +131,11 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
             <span className="text-sm font-medium truncate">{item.label}</span>
             {isActive && <ChevronRight className="h-4 w-4" />}
           </div>
-          <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-            {item.description}
-          </p>
+          {variant !== "sidebar" && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+              {item.description}
+            </p>
+          )}
         </div>
         {item.status === "coming-soon" && (
           <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
@@ -167,11 +164,11 @@ const FixedNavigation: React.FC<FixedNavigationProps> = ({
     );
   };
 
-  // ヘッダーバリアント
+  // ヘッダーバリアント（PC表示時はサイドバーがあるため非表示）
   if (variant === "header") {
     return (
-      <nav className={`hidden lg:flex items-center space-x-1 ${className}`}>
-        {navigationItems.slice(0, 5).map((item) => {
+      <nav className={`hidden lg:hidden items-center space-x-1 ${className}`}>
+        {navigationItems.map((item) => {
           const Icon = item.icon;
           const isActive = isActiveHref(item.href);
           

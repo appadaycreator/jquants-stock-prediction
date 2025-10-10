@@ -36,14 +36,12 @@ export default function Navigation({
 
   const navigationItems = [
     { href: "/", label: "ダッシュボード", icon: Home, description: "メインダッシュボード" },
-    { href: "/simple-dashboard", label: "シンプル投資判断", icon: Target, description: "1日5分で投資判断を完結" },
     { href: "/today", label: "今日の投資指示", icon: Calendar, description: "本日の売買候補と指示" },
-    { href: "/listed-data", label: "銘柄一覧", icon: List, description: "上場銘柄検索・分析" },
-    { href: "/reports", label: "レポート", icon: FileText, description: "詳細レポート" },
-    { href: "/analysis-history", label: "分析履歴", icon: BarChart3, description: "詳細分析の履歴一覧" },
+    { href: "/personal-investment", label: "ポートフォリオ", icon: Target, description: "投資ポートフォリオ管理" },
+    { href: "/dashboard", label: "詳細分析", icon: BarChart3, description: "詳細レポート・分析" },
+    { href: "/watchlist", label: "ウォッチリスト", icon: List, description: "監視銘柄一覧" },
+    { href: "/risk", label: "リスク管理", icon: AlertCircle, description: "リスク管理と設定" },
     { href: "/settings", label: "設定", icon: Settings, description: "システム設定" },
-    { href: "/usage", label: "使い方", icon: BookOpen, description: "使用方法ガイド" },
-    { href: "/troubleshooting", label: "トラブルシューティング", icon: AlertCircle, description: "問題解決ガイド" },
   ];
 
   return (

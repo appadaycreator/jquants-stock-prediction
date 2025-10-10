@@ -32,15 +32,11 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ className = "" }) => {
 
   const menuItems = [
     { href: "/", label: "ダッシュボード", icon: "📊" },
-    { href: "/today", label: "今日の分析", icon: "📈" },
-    { href: "/personal-investment", label: "個人投資", icon: "💰" },
+    { href: "/today", label: "今日の投資指示", icon: "📈" },
+    { href: "/personal-investment", label: "ポートフォリオ", icon: "💼" },
+    { href: "/dashboard", label: "詳細分析", icon: "📊" },
+    { href: "/watchlist", label: "ウォッチリスト", icon: "👁️" },
     { href: "/risk", label: "リスク管理", icon: "⚠️" },
-    { href: "/reports", label: "レポート", icon: "📋" },
-    { href: "/five-min-routine", label: "5分ルーチン", icon: "⚡" },
-    { href: "/analysis-progress", label: "分析進捗", icon: "🔄" },
-    { href: "/logs", label: "ログ", icon: "📝" },
-    { href: "/troubleshooting", label: "トラブルシューティング", icon: "🔧" },
-    { href: "/usage", label: "使用方法", icon: "❓" },
     { href: "/settings", label: "設定", icon: "⚙️" },
   ];
 

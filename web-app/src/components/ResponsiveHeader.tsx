@@ -11,10 +11,12 @@ const ResponsiveHeader: React.FC = () => {
 
   const menuItems = [
     { href: "/", label: "ダッシュボード" },
-    { href: "/today", label: "今日の分析" },
-    { href: "/personal-investment", label: "個人投資" },
+    { href: "/today", label: "今日の投資指示" },
+    { href: "/personal-investment", label: "ポートフォリオ" },
+    { href: "/dashboard", label: "詳細分析" },
+    { href: "/watchlist", label: "ウォッチリスト" },
     { href: "/risk", label: "リスク管理" },
-    { href: "/reports", label: "レポート" },
+    { href: "/settings", label: "設定" },
   ];
 
   return (
@@ -32,8 +34,8 @@ const ResponsiveHeader: React.FC = () => {
             </Link>
           </div>
 
-          {/* デスクトップナビゲーション */}
-          <nav className="hidden lg:flex items-center space-x-1">
+          {/* デスクトップナビゲーション（PC表示時はサイドバーがあるため非表示） */}
+          <nav className="hidden lg:hidden items-center space-x-1">
             {menuItems.map((item) => (
               <Link
                 key={item.href}
