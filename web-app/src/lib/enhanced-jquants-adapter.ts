@@ -330,6 +330,8 @@ class QualityMonitor {
   }
 }
 
+import { normalizeStockCode } from "@/lib/stock-code-utils";
+
 class EnhancedJQuantsAdapter {
   private config: JQuantsConfig;
   private db: IDBDatabase | null = null;
@@ -490,7 +492,7 @@ class EnhancedJQuantsAdapter {
       // 静的データの構造に合わせて処理
       const list: any[] = data?.stocks || data?.data || [];
       const symbols = list.map((item: any) => ({
-        code: item?.code || item?.Code,
+        code: normalizeStockCode(item?.code || item?.Code || ""),
         name: item?.name || item?.CompanyName || item?.CompanyNameJa || item?.CompanyNameJp || item?.CompanyNameJPN,
         sector: item?.sector || item?.Sector33 || item?.SectorName,
       })).filter((s: any) => !!s.code && !!s.name);

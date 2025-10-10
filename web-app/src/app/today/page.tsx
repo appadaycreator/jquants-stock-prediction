@@ -240,8 +240,8 @@ export default function TodayPage() {
             <div>
               <p className="text-sm text-gray-500">最終更新</p>
               <p className="text-base font-semibold text-gray-900">{currentData.lastUpdated ? new Date(currentData.lastUpdated).toLocaleString("ja-JP") : "—"}</p>
-              {/* 実データ使用時は銘柄数も表示 */}
-              {useRealData && realData.availableSymbols.length > 0 && (
+              {/* 実データの銘柄数を表示 */}
+              {realData.availableSymbols.length > 0 && (
                 <p className="text-xs text-gray-500 mt-1">利用可能銘柄: {realData.availableSymbols.length}件</p>
               )}
             </div>
@@ -298,7 +298,7 @@ export default function TodayPage() {
                     technical: [
                       { name: "推奨", value: c.recommendation === "STRONG_BUY" ? 100 : c.recommendation === "BUY" ? 80 : 50, signal: "買い" },
                       { name: "信頼度", value: Math.round(c.confidence * 100), signal: "中立" },
-                      ...(useRealData && "priceChangePercent" in c ? [
+                      ...("priceChangePercent" in c ? [
                         { name: "前日比", value: c.priceChangePercent, signal: c.priceChangePercent > 0 ? "買い" : "売り" },
                       ] : []),
                     ],

@@ -189,7 +189,7 @@ export default function FiveMinRoutine({
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 pb-24 md:pb-6 space-y-6">
+    <div className="relative z-30 max-w-4xl mx-auto p-6 pb-24 md:pb-6 space-y-6">
       {/* ヘッダー */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-2">
@@ -315,7 +315,7 @@ export default function FiveMinRoutine({
                   </p>
 
                   {/* アクションボタン */}
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-3 relative z-50">
                     {step.action && (
                       <button
                         onClick={step.action}

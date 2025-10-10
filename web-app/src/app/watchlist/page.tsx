@@ -17,6 +17,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { openMinkabuLink } from "@/lib/minkabu-utils";
+import { formatStockCode } from "@/lib/stock-code-utils";
 
 interface WatchlistItem {
   symbol: string;
@@ -206,7 +207,7 @@ export default function WatchlistPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <div>
-                      <h3 className="font-semibold">{item.symbol}</h3>
+                      <h3 className="font-semibold">{formatStockCode(item.symbol)}</h3>
                       <p className="text-sm text-gray-600">{item.name}</p>
                     </div>
                     <Badge className={getRecommendationColor(item.recommendation)}>

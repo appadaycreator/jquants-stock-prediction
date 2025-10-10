@@ -522,8 +522,12 @@ APP_VERSION       // 現在のアプリバージョン確認
 ### 13. **銘柄一覧ページ（最適化版）**
 - **リアルタイムデータ取得**: J-Quants APIから最新の銘柄情報を取得・表示
 - **高度な検索・フィルター**: 銘柄名・コード検索、セクター・市場フィルター、価格・出来高範囲指定
-- **ソート機能**: 銘柄コード、会社名、セクター、市場、価格、出来高でのソート
-- **ページネーション**: 50件ずつのページ分割表示で大量データを効率的に表示
+- **クイックフィルタ（新）**: 上昇/下落/高出来高/市場ショートカット（プライム/スタンダード/グロース）
+- **ソート機能**: 銘柄コード、会社名、セクター、市場、価格、出来高に加え、騰落率（新）
+- **URLクエリ同期（新）**: 検索・フィルタ・ソート・ページをURLに同期（例: `?q=トヨタ&sector=自動車&sortBy=changePercent&sortOrder=desc`）
+- **CSVエクスポート（新）**: フィルタ・ソート後の一覧をCSVでダウンロード
+- **ウォッチリスト追加（新）**: 一覧からワンクリックで`user_watchlist`へ保存
+- **ページネーション**: 200件単位で効率表示（UIは件数/ページも表示）
 - **銘柄詳細リンク**: 各銘柄から詳細分析ページへの直接リンク
 - **レスポンシブデザイン**: モバイル・デスクトップ両対応の最適化された表示
 - **データ更新機能**: ワンクリックで最新データを取得・更新
@@ -589,6 +593,8 @@ fetch(resolveStaticPath('/data/listed_index.json'))
 横展開（影響範囲）:
 - 参照している箇所（代表）: `web-app/src/lib/jquants-adapter.ts`, `web-app/src/app/listed-data/page.tsx`, `web-app/src/components/StockDetailModal.tsx`
 - 上記全て `resolveStaticPath('/data/listed_index.json')` を通しており、JSONが単一オブジェクトであれば後方互換で動作します
+- 新規依存: `next/navigation` の `useSearchParams/useRouter/usePathname` を `listed-data` で使用（他ページへ影響なし）
+- ウォッチリスト保存形式は既存の `localStorage:user_watchlist`（後方互換）
 
 ## 🎯 最高優先度問題解決完了
 

@@ -47,68 +47,34 @@ export default function EnhancedFiveMinRoutine({
 }: EnhancedFiveMinRoutineProps) {
   const [steps, setSteps] = useState<RoutineStep[]>([
     {
-      id: "symbol_selection",
-      title: "銘柄選択",
-      description: "分析したい銘柄を選択します",
+      id: "choose",
+      title: "銘柄を選ぶ",
+      description: "ウォッチ銘柄から今日の候補を1つ選択",
       estimatedTime: "1分",
       completed: false,
       required: true,
       category: "setup",
       action: () => {
-        console.log("銘柄選択を開始");
+        console.log("銘柄選択");
       },
     },
     {
-      id: "data_validation",
-      title: "データ確認",
-      description: "選択した銘柄のデータが最新か確認します",
-      estimatedTime: "30秒",
-      completed: false,
-      required: true,
-      category: "setup",
-      action: () => {
-        console.log("データ確認を開始");
-      },
-    },
-    {
-      id: "analysis_execution",
-      title: "分析実行",
-      description: "AI予測分析を実行します",
-      estimatedTime: "2分",
+      id: "analyze",
+      title: "AIで分析",
+      description: "最新データで予測・リスクを自動分析",
+      estimatedTime: "3分",
       completed: false,
       required: true,
       category: "analysis",
       action: onAnalysisClick,
     },
     {
-      id: "prediction_review",
-      title: "予測結果確認",
-      description: "分析結果と予測値を確認します",
+      id: "decide",
+      title: "行動を決める",
+      description: "買い/保留/売りの判断を1つ選ぶ",
       estimatedTime: "1分",
       completed: false,
       required: true,
-      category: "review",
-      action: onReportClick,
-    },
-    {
-      id: "risk_assessment",
-      title: "リスク評価",
-      description: "投資リスクと推奨アクションを確認します",
-      estimatedTime: "30秒",
-      completed: false,
-      required: true,
-      category: "review",
-      action: () => {
-        console.log("リスク評価を開始");
-      },
-    },
-    {
-      id: "investment_decision",
-      title: "投資判断",
-      description: "個人投資ダッシュボードで最終判断を行います",
-      estimatedTime: "1分",
-      completed: false,
-      required: false,
       category: "action",
       action: onTradeClick,
     },
@@ -119,6 +85,7 @@ export default function EnhancedFiveMinRoutine({
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   // モバイル判定
   useEffect(() => {
@@ -149,7 +116,8 @@ export default function EnhancedFiveMinRoutine({
     if (onStepComplete) {
       onStepComplete(stepId);
     }
-  }, [onStepComplete]);
+    setActiveIndex(prev => Math.min(prev + 1, steps.length - 1));
+  }, [onStepComplete, steps.length]);
 
   // 全ステップ完了
   const handleCompleteAll = useCallback(() => {
@@ -161,6 +129,7 @@ export default function EnhancedFiveMinRoutine({
     setStartTime(new Date());
     setIsRunning(true);
     setIsPaused(false);
+    setActiveIndex(0);
   }, []);
 
   // ルーティン一時停止
@@ -208,16 +177,15 @@ export default function EnhancedFiveMinRoutine({
   }, [steps]);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 pb-24 md:pb-6 space-y-6">
+    <div className="relative z-30 max-w-4xl mx-auto p-6 pb-24 md:pb-6 space-y-6">
       {/* ヘッダー */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-2">
           <Clock className="h-8 w-8 text-blue-600" />
           <h1 className="text-3xl font-bold text-gray-900">5分ルーティン</h1>
         </div>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          毎日の投資分析を効率的に行うための5分間のルーティンです。
-          各ステップを順番に実行して、確実に分析結果を取得しましょう。
+        <p className="text-gray-700 max-w-2xl mx-auto">
+          今日すべきことだけ。<span className="font-semibold">銘柄を選ぶ → AIで分析 → 行動を決める</span>の3ステップ。
         </p>
       </div>
 
@@ -274,52 +242,43 @@ export default function EnhancedFiveMinRoutine({
           </div>
         </div>
         
-        <div className="flex flex-wrap gap-3">
-          {!isRunning && !isPaused && (
+        <div className="flex flex-wrap gap-3 relative z-50">
+          {!isRunning ? (
             <button
               onClick={handleStart}
-              className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 flex items-center space-x-2 transition-colors"
-            >
-              <Play className="h-5 w-5" />
-              <span>開始</span>
-            </button>
-          )}
-          
-          {isRunning && !isPaused && (
-            <button
-              onClick={handlePause}
-              className="bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 flex items-center space-x-2 transition-colors"
-            >
-              <Pause className="h-5 w-5" />
-              <span>一時停止</span>
-            </button>
-          )}
-          
-          {isPaused && (
-            <button
-              onClick={handleResume}
               className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 flex items-center space-x-2 transition-colors"
             >
               <Play className="h-5 w-5" />
-              <span>再開</span>
+              <span>3ステップを開始</span>
             </button>
+          ) : (
+            <>
+              <button
+                onClick={() => {
+                  const step = steps[activeIndex];
+                  if (step?.action) step.action();
+                  handleStepComplete(step.id);
+                }}
+                className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 flex items-center space-x-2 transition-colors"
+              >
+                <Play className="h-5 w-5" />
+                <span>{activeIndex === 0 ? "銘柄を選ぶ" : activeIndex === 1 ? "AIで分析" : "行動を決める"}</span>
+              </button>
+              <button
+                onClick={() => handleStepComplete(steps[activeIndex].id)}
+                className="bg-gray-100 text-gray-800 px-4 py-3 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                スキップ
+              </button>
+              {!isPaused ? (
+                <button onClick={handlePause} className="bg-yellow-600 text-white px-4 py-3 rounded-lg hover:bg-yellow-700 transition-colors">一時停止</button>
+              ) : (
+                <button onClick={handleResume} className="bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors">再開</button>
+              )}
+              <button onClick={handleReset} className="bg-gray-600 text-white px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors">リセット</button>
+              <button onClick={handleCompleteAll} className="bg-blue-100 text-blue-800 px-4 py-3 rounded-lg hover:bg-blue-200 transition-colors">一括完了</button>
+            </>
           )}
-          
-          <button
-            onClick={handleReset}
-            className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 flex items-center space-x-2 transition-colors"
-          >
-            <RotateCcw className="h-5 w-5" />
-            <span>リセット</span>
-          </button>
-          
-          <button
-            onClick={handleCompleteAll}
-            className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 flex items-center space-x-2 transition-colors"
-          >
-            <Zap className="h-5 w-5" />
-            <span>全完了</span>
-          </button>
         </div>
       </div>
 
@@ -330,7 +289,7 @@ export default function EnhancedFiveMinRoutine({
             key={step.id}
             className={`bg-white rounded-lg border p-6 transition-all duration-300 ${
               step.completed ? "border-green-200 bg-green-50" : 
-              index === currentStep ? "border-blue-200 bg-blue-50" : 
+              index === activeIndex ? "border-blue-200 bg-blue-50" : 
               "border-gray-200"
             }`}
           >
@@ -338,7 +297,7 @@ export default function EnhancedFiveMinRoutine({
               <div className="flex items-center space-x-4">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                   step.completed ? "bg-green-600 text-white" :
-                  index === currentStep ? "bg-blue-600 text-white" :
+                  index === activeIndex ? "bg-blue-600 text-white" :
                   "bg-gray-200 text-gray-600"
                 }`}>
                   {step.completed ? <CheckCircle className="h-5 w-5" /> : index + 1}
@@ -368,22 +327,14 @@ export default function EnhancedFiveMinRoutine({
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 relative z-50">
                 {step.completed ? (
                   <div className="flex items-center space-x-1 text-green-600">
                     <CheckCircle className="h-5 w-5" />
                     <span className="text-sm font-medium">完了</span>
                   </div>
                 ) : (
-                  <button
-                    onClick={() => {
-                      if (step.action) step.action();
-                      handleStepComplete(step.id);
-                    }}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2 transition-colors"
-                  >
-                    <span>実行</span>
-                  </button>
+                  <div className="text-sm text-gray-500">上のボタンで進めます</div>
                 )}
               </div>
             </div>

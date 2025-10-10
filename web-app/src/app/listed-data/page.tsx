@@ -3,10 +3,11 @@
 export const dynamic = "force-dynamic";
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import EnhancedJQuantsAdapter from "@/lib/enhanced-jquants-adapter";
 import StockDetailModal from "@/components/StockDetailModal";
 import StockSearchInput from "@/components/StockSearchInput";
-import { formatStockCode } from "@/lib/stock-code-utils";
+import { formatStockCode, normalizeStockCode } from "@/lib/stock-code-utils";
 import { openMinkabuLink } from "@/lib/minkabu-utils";
 
 interface ListedStock {
@@ -33,7 +34,7 @@ interface ListedData {
   stocks: ListedStock[];
 }
 
-type SortField = "code" | "name" | "sector" | "market" | "currentPrice" | "change" | "volume";
+type SortField = "code" | "name" | "sector" | "market" | "currentPrice" | "change" | "changePercent" | "volume";
 type SortDirection = "asc" | "desc";
 
 const ListedDataPage: React.FC = () => {
@@ -53,6 +54,14 @@ const ListedDataPage: React.FC = () => {
   const [selectedStock, setSelectedStock] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [jquantsAdapter, setJquantsAdapter] = useState<EnhancedJQuantsAdapter | null>(null);
+  // クイックフィルタ
+  const [onlyUp, setOnlyUp] = useState(false);
+  const [onlyDown, setOnlyDown] = useState(false);
+  const [highVolume, setHighVolume] = useState(false);
+  // URLクエリ同期
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const fetchListedData = useCallback(async () => {
     try {
@@ -66,6 +75,13 @@ const ListedDataPage: React.FC = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const listedData = await response.json();
+      // 受領データのコードを正規化（5桁0埋め→4桁、新形式は大文字）
+      if (listedData?.stocks?.length) {
+        listedData.stocks = listedData.stocks.map((s: ListedStock) => ({
+          ...s,
+          code: normalizeStockCode(s.code),
+        }));
+      }
       
       // J-Quants APIから最新の銘柄一覧を取得
       try {
@@ -114,6 +130,56 @@ const ListedDataPage: React.FC = () => {
   useEffect(() => {
     fetchListedData();
   }, [fetchListedData]);
+
+  // 初期化時にURLクエリから状態復元
+  useEffect(() => {
+    if (!searchParams) return;
+    const q = searchParams.get("q") || "";
+    const sector = searchParams.get("sector") || "";
+    const market = searchParams.get("market") || "";
+    const sortBy = (searchParams.get("sortBy") as SortField) || "code";
+    const sortOrder = (searchParams.get("sortOrder") as SortDirection) || "asc";
+    const page = parseInt(searchParams.get("page") || "1", 10);
+    const up = searchParams.get("up") === "1";
+    const down = searchParams.get("down") === "1";
+    const hv = searchParams.get("hv") === "1";
+    setSearchTerm(q);
+    setSelectedSector(sector);
+    setSelectedMarket(market);
+    setSortField(sortBy);
+    setSortDirection(sortOrder);
+    setCurrentPage(isNaN(page) ? 1 : page);
+    setOnlyUp(up);
+    setOnlyDown(down);
+    setHighVolume(hv);
+    const pmin = searchParams.get("pmin");
+    const pmax = searchParams.get("pmax");
+    const vmin = searchParams.get("vmin");
+    const vmax = searchParams.get("vmax");
+    setPriceRange({ min: pmin || "", max: pmax || "" });
+    setVolumeRange({ min: vmin || "", max: vmax || "" });
+  }, [searchParams]);
+
+  // 状態をURLクエリへ反映
+  useEffect(() => {
+    if (!router || !pathname) return;
+    const params = new URLSearchParams();
+    if (searchTerm) params.set("q", searchTerm);
+    if (selectedSector) params.set("sector", selectedSector);
+    if (selectedMarket) params.set("market", selectedMarket);
+    if (sortField) params.set("sortBy", sortField);
+    if (sortDirection) params.set("sortOrder", sortDirection);
+    if (currentPage > 1) params.set("page", String(currentPage));
+    if (priceRange.min) params.set("pmin", priceRange.min);
+    if (priceRange.max) params.set("pmax", priceRange.max);
+    if (volumeRange.min) params.set("vmin", volumeRange.min);
+    if (volumeRange.max) params.set("vmax", volumeRange.max);
+    if (onlyUp) params.set("up", "1");
+    if (onlyDown) params.set("down", "1");
+    if (highVolume) params.set("hv", "1");
+    const q = params.toString();
+    router.replace(q ? `${pathname}?${q}` : pathname);
+  }, [searchTerm, selectedSector, selectedMarket, sortField, sortDirection, currentPage, priceRange, volumeRange, onlyUp, onlyDown, highVolume, router, pathname]);
 
   const getUniqueSectors = useMemo(() => {
     if (!data) return [];
@@ -180,15 +246,30 @@ const ListedDataPage: React.FC = () => {
          stock.volume >= minVolume && 
          stock.volume <= maxVolume);
 
-      return matchesSearch && matchesSector && matchesMarket && matchesPrice && matchesVolume;
+      // クイックフィルタ（上昇/下落）
+      const matchesUpDown = (
+        (!onlyUp && !onlyDown) ||
+        (onlyUp && (stock.change ?? 0) >= 0) ||
+        (onlyDown && (stock.change ?? 0) < 0)
+      );
+
+      return matchesSearch && matchesSector && matchesMarket && matchesPrice && matchesVolume && matchesUpDown;
     });
+
+    // 高出来高（上位25%目安）
+    if (highVolume) {
+      const volumes = filtered.map(s => s.volume || 0).sort((a, b) => a - b);
+      const thresholdIndex = Math.floor(volumes.length * 0.75);
+      const threshold = volumes[thresholdIndex] || 0;
+      filtered = filtered.filter(s => (s.volume || 0) >= threshold);
+    }
 
     // ソート
     filtered.sort((a, b) => {
       let aValue: any = a[sortField];
       let bValue: any = b[sortField];
 
-      if (sortField === "currentPrice" || sortField === "change" || sortField === "volume") {
+      if (sortField === "currentPrice" || sortField === "change" || sortField === "changePercent" || sortField === "volume") {
         aValue = aValue || 0;
         bValue = bValue || 0;
       }
@@ -204,7 +285,7 @@ const ListedDataPage: React.FC = () => {
     });
 
     return filtered;
-  }, [data, searchTerm, selectedSector, selectedMarket, sortField, sortDirection, priceRange, volumeRange]);
+  }, [data, searchTerm, selectedSector, selectedMarket, sortField, sortDirection, priceRange, volumeRange, onlyUp, onlyDown, highVolume]);
 
   // フィルター変更時にページをリセット
   useEffect(() => {
@@ -397,6 +478,39 @@ const ListedDataPage: React.FC = () => {
         )}
       </div>
 
+      {/* クイックフィルタ */}
+      <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => { setOnlyUp(prev => !prev); if (!onlyUp && onlyDown) setOnlyDown(false); setCurrentPage(1); }}
+            className={`px-3 py-1 text-sm rounded border ${onlyUp ? "bg-green-50 border-green-500 text-green-700" : "bg-white border-gray-300 text-gray-700"}`}
+          >
+            上昇
+          </button>
+          <button
+            onClick={() => { setOnlyDown(prev => !prev); if (!onlyDown && onlyUp) setOnlyUp(false); setCurrentPage(1); }}
+            className={`px-3 py-1 text-sm rounded border ${onlyDown ? "bg-red-50 border-red-500 text-red-700" : "bg-white border-gray-300 text-gray-700"}`}
+          >
+            下落
+          </button>
+          <button
+            onClick={() => { setHighVolume(prev => !prev); setCurrentPage(1); }}
+            className={`px-3 py-1 text-sm rounded border ${highVolume ? "bg-blue-50 border-blue-500 text-blue-700" : "bg-white border-gray-300 text-gray-700"}`}
+          >
+            高出来高
+          </button>
+          {["プライム", "スタンダード", "グロース"].map(m => (
+            <button
+              key={m}
+              onClick={() => { setSelectedMarket(cur => cur === m ? "" : m); setCurrentPage(1); }}
+              className={`px-3 py-1 text-sm rounded border ${selectedMarket === m ? "bg-purple-50 border-purple-500 text-purple-700" : "bg-white border-gray-300 text-gray-700"}`}
+            >
+              {m}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* 銘柄一覧 */}
       <div className="bg-white rounded-lg shadow-md">
         <div className="px-4 py-3 border-b border-gray-200 flex justify-between items-center">
@@ -407,6 +521,33 @@ const ListedDataPage: React.FC = () => {
             <span className="text-sm text-gray-500">
               {currentPage} / {totalPages} ページ
             </span>
+            <button
+              onClick={() => {
+                const rows = filteredAndSortedStocks.map(s => ({
+                  code: s.code,
+                  name: s.name,
+                  sector: s.sector,
+                  market: s.market,
+                  currentPrice: s.currentPrice ?? "",
+                  change: s.change ?? "",
+                  changePercent: s.changePercent ?? "",
+                  volume: s.volume ?? "",
+                  updated_at: s.updated_at,
+                }));
+                const header = Object.keys(rows[0] || { code: "", name: "" });
+                const csv = [header.join(","), ...rows.map(r => header.map(h => `${(r as any)[h]}`.replace(/"/g, '""')).map(v => /[",\n]/.test(v) ? `"${v}"` : v).join(","))].join("\n");
+                const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `listed_stocks_${new Date().toISOString().slice(0,10)}.csv`;
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+              className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50"
+            >
+              CSVエクスポート
+            </button>
             <button
               onClick={fetchListedData}
               className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -480,6 +621,22 @@ const ListedDataPage: React.FC = () => {
                 >
                   市場
                   {sortField === "market" && (
+                    <span className="ml-1" aria-hidden="true">{sortDirection === "asc" ? "↑" : "↓"}</span>
+                  )}
+                </th>
+                <th 
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onClick={() => handleSort("changePercent")}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleSort("changePercent");
+                    }
+                  }}
+                >
+                  騰落率
+                  {sortField === "changePercent" && (
                     <span className="ml-1" aria-hidden="true">{sortDirection === "asc" ? "↑" : "↓"}</span>
                   )}
                 </th>
@@ -569,16 +726,44 @@ const ListedDataPage: React.FC = () => {
                     </button>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <button
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => {
+                          setSelectedStock(stock.code);
+                          setIsModalOpen(true);
+                        }}
+                        className="text-blue-600 hover:text-blue-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
+                        aria-label={`${stock.name} (${formatStockCode(stock.code)}) の詳細を表示`}
+                      >
+                        詳細
+                      </button>
+                      <button
                       onClick={() => {
-                        setSelectedStock(stock.code);
-                        setIsModalOpen(true);
-                      }}
-                      className="text-blue-600 hover:text-blue-800 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
-                      aria-label={`${stock.name} (${formatStockCode(stock.code)}) の詳細を表示`}
-                    >
-                      詳細
-                    </button>
+                          try {
+                            const list = JSON.parse(localStorage.getItem("user_watchlist") || "[]");
+                          const normalized = normalizeStockCode(stock.code);
+                          if (!list.some((i: any) => i.symbol === normalized)) {
+                              list.push({
+                              symbol: normalized,
+                                name: stock.name,
+                                sector: stock.sector,
+                                market: stock.market,
+                                currentPrice: stock.currentPrice || 0,
+                                change: stock.change || 0,
+                                changePercent: stock.changePercent || 0,
+                                addedAt: new Date().toISOString(),
+                              });
+                              localStorage.setItem("user_watchlist", JSON.stringify(list));
+                            }
+                          } catch (e) {
+                            console.error("ウォッチリスト追加失敗", e);
+                          }
+                        }}
+                        className="text-purple-600 hover:text-purple-800 font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 rounded px-2 py-1"
+                      >
+                        ウォッチ追加
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
