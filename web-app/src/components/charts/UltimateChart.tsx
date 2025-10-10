@@ -203,6 +203,8 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
                       ? "bg-blue-500 text-white shadow-lg"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
+                  aria-label={`${mode.name}モードに切り替え`}
+                  data-help={mode.description}
                 >
                   {mode.icon}
                   <span>{mode.name}</span>
@@ -240,6 +242,8 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
               onClick={() => setShowSettings(!showSettings)}
               className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
               title="設定"
+              aria-label="チャート設定"
+              data-help="表示・パフォーマンス・テーマなどの設定を変更します。"
             >
               <Settings className="w-4 h-4" />
             </motion.button>
@@ -250,6 +254,8 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
               onClick={toggleFullscreen}
               className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
               title="フルスクリーン"
+              aria-label="フルスクリーン表示"
+              data-help="チャートを画面いっぱいに表示します。"
             >
               <Maximize2 className="w-4 h-4" />
             </motion.button>
@@ -260,6 +266,8 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
               onClick={() => handleExport("png")}
               className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
               title="エクスポート"
+              aria-label="チャートをエクスポート"
+              data-help="現在のチャートを画像などで保存します。"
             >
               <Download className="w-4 h-4" />
             </motion.button>
@@ -270,6 +278,8 @@ export const UltimateChart: React.FC<UltimateChartProps> = ({
               onClick={handleShare}
               className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
               title="シェア"
+              aria-label="チャートを共有"
+              data-help="チャートのリンクを共有します。"
             >
               <Share2 className="w-4 h-4" />
             </motion.button>

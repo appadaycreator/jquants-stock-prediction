@@ -391,6 +391,8 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
             onClick={() => setZoom(1)}
             className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
             title="リセット"
+            aria-label="ズームとパンをリセット"
+            data-help="ズーム倍率とスクロール位置を初期状態に戻します。"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
@@ -398,6 +400,8 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
             onClick={() => setZoom(prev => Math.min(3, prev * 1.2))}
             className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
             title="ズームイン"
+            aria-label="ズームイン"
+            data-help="チャートを拡大します。ホイールでも操作できます。"
           >
             <ZoomIn className="w-4 h-4" />
           </button>
@@ -405,6 +409,8 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
             onClick={() => setZoom(prev => Math.max(0.5, prev * 0.8))}
             className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
             title="ズームアウト"
+            aria-label="ズームアウト"
+            data-help="チャートを縮小します。ホイールでも操作できます。"
           >
             <ZoomOut className="w-4 h-4" />
           </button>
@@ -412,6 +418,8 @@ export const ProfessionalChart: React.FC<ProfessionalChartProps> = ({
             onClick={() => setShowSettings(!showSettings)}
             className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
             title="設定"
+            aria-label="チャート設定"
+            data-help="表示する指標などのチャート設定を変更します。"
           >
             <Settings className="w-4 h-4" />
           </button>

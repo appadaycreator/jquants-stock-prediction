@@ -380,6 +380,8 @@ function ListedDataInner(): JSX.Element {
               className="text-blue-600 hover:text-blue-800 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
               aria-expanded={showAdvancedFilters}
               aria-controls="advanced-filters"
+            aria-label="詳細フィルターの開閉"
+            data-help="価格や出来高などの詳細な条件で絞り込みます。"
             >
               {showAdvancedFilters ? "詳細フィルターを閉じる" : "詳細フィルターを開く"}
             </button>
@@ -405,6 +407,8 @@ function ListedDataInner(): JSX.Element {
               value={selectedSector}
               onChange={(e) => setSelectedSector(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              aria-label="セクターを選択"
+              data-help="表示するセクターを絞り込みます。"
             >
               <option value="">すべてのセクター</option>
               {getUniqueSectors.map(sector => (
@@ -420,6 +424,8 @@ function ListedDataInner(): JSX.Element {
               value={selectedMarket}
               onChange={(e) => setSelectedMarket(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              aria-label="市場を選択"
+              data-help="表示する市場区分を絞り込みます。"
             >
               <option value="">すべての市場</option>
               {getUniqueMarkets.map(market => (
@@ -443,6 +449,8 @@ function ListedDataInner(): JSX.Element {
                     onChange={(e) => setPriceRange(prev => ({ ...prev, min: e.target.value }))}
                     placeholder="最小価格"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    aria-label="最小価格"
+                    data-help="この価格以上の銘柄に絞り込みます。"
                   />
                   <input
                     type="number"
@@ -450,6 +458,8 @@ function ListedDataInner(): JSX.Element {
                     onChange={(e) => setPriceRange(prev => ({ ...prev, max: e.target.value }))}
                     placeholder="最大価格"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    aria-label="最大価格"
+                    data-help="この価格以下の銘柄に絞り込みます。"
                   />
                 </div>
               </div>
@@ -464,6 +474,8 @@ function ListedDataInner(): JSX.Element {
                     onChange={(e) => setVolumeRange(prev => ({ ...prev, min: e.target.value }))}
                     placeholder="最小出来高"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    aria-label="最小出来高"
+                    data-help="この出来高以上の銘柄に絞り込みます。"
                   />
                   <input
                     type="number"
@@ -471,6 +483,8 @@ function ListedDataInner(): JSX.Element {
                     onChange={(e) => setVolumeRange(prev => ({ ...prev, max: e.target.value }))}
                     placeholder="最大出来高"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    aria-label="最大出来高"
+                    data-help="この出来高以下の銘柄に絞り込みます。"
                   />
                 </div>
               </div>
@@ -485,18 +499,24 @@ function ListedDataInner(): JSX.Element {
           <button
             onClick={() => { setOnlyUp(prev => !prev); if (!onlyUp && onlyDown) setOnlyDown(false); setCurrentPage(1); }}
             className={`px-3 py-1 text-sm rounded border ${onlyUp ? "bg-green-50 border-green-500 text-green-700" : "bg-white border-gray-300 text-gray-700"}`}
+            aria-label="上昇銘柄のみ"
+            data-help="当日上昇した銘柄のみを表示します。"
           >
             上昇
           </button>
           <button
             onClick={() => { setOnlyDown(prev => !prev); if (!onlyDown && onlyUp) setOnlyUp(false); setCurrentPage(1); }}
             className={`px-3 py-1 text-sm rounded border ${onlyDown ? "bg-red-50 border-red-500 text-red-700" : "bg-white border-gray-300 text-gray-700"}`}
+            aria-label="下落銘柄のみ"
+            data-help="当日下落した銘柄のみを表示します。"
           >
             下落
           </button>
           <button
             onClick={() => { setHighVolume(prev => !prev); setCurrentPage(1); }}
             className={`px-3 py-1 text-sm rounded border ${highVolume ? "bg-blue-50 border-blue-500 text-blue-700" : "bg-white border-gray-300 text-gray-700"}`}
+            aria-label="高出来高のみ"
+            data-help="出来高が上位の銘柄のみを表示します。"
           >
             高出来高
           </button>
@@ -546,12 +566,16 @@ function ListedDataInner(): JSX.Element {
                 URL.revokeObjectURL(url);
               }}
               className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50"
+              aria-label="CSVエクスポート"
+              data-help="現在の一覧をCSVとしてダウンロードします。"
             >
               CSVエクスポート
             </button>
             <button
               onClick={fetchListedData}
               className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+              aria-label="一覧を更新"
+              data-help="最新の一覧データを取得します。"
             >
               更新
             </button>

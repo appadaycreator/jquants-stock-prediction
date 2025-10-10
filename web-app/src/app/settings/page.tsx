@@ -312,6 +312,8 @@ export default function SettingsPage() {
                 onClick={runAnalysis}
                 disabled={isAnalyzing}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 disabled:opacity-50"
+                aria-label="設定に基づいて分析を実行"
+                data-help="現在の設定内容で分析を実行します。"
               >
                 {isAnalyzing ? (
                   <>
@@ -328,6 +330,8 @@ export default function SettingsPage() {
               <button
                 onClick={handleReset}
                 className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                aria-label="設定をリセット"
+                data-help="設定を初期状態に戻します。"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 リセット
@@ -336,6 +340,8 @@ export default function SettingsPage() {
                 onClick={handleSave}
                 disabled={isSaving}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
+                aria-label="設定を保存"
+                data-help="現在の設定を保存します。"
               >
                 <Save className="h-4 w-4 mr-2" />
                 {isSaving ? "保存中..." : "保存"}
@@ -343,6 +349,8 @@ export default function SettingsPage() {
               <button
                 onClick={exportConfig}
                 className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                aria-label="設定をエクスポート"
+                data-help="設定をJSONとしてダウンロードします。"
               >
                 <Download className="h-4 w-4 mr-2" />
                 エクスポート
@@ -359,6 +367,8 @@ export default function SettingsPage() {
                 onClick={validateCurrentConfig}
                 disabled={isValidating}
                 className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                aria-label="設定を検証"
+                data-help="現在の設定の妥当性をチェックします。"
               >
                 <Eye className="h-4 w-4 mr-2" />
                 {isValidating ? "検証中..." : "検証"}
