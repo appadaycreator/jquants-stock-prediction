@@ -384,6 +384,13 @@ MIT License
 - 使用箇所: `src/components/GlobalErrorBoundary.tsx`
 
 ### `output: "export"` 使用時に API ルートでビルドが失敗する
+### `useSearchParams()` 利用時に `missing-suspense-with-csr-bailout`
+- 症状: ビルド/エクスポート中に「useSearchParams() should be wrapped in a suspense boundary ...」が発生
+- 原因: クライアントフック `useSearchParams()` を使用するページが `Suspense` で囲われていない
+- 対応: ページ本体を内側コンポーネント（例: `ListedDataInner`）に分離し、既定エクスポートで `ErrorBoundary` + `Suspense` でラップしてください
+  - 例: `src/app/listed-data/page.tsx` は `Suspense` で包む対応済み
+  - ガイドライン: `useSearchParams/usePathname/useRouter` を直に使うページは原則 `Suspense` で包む
+
 - 症状: `Page "/api/..." is missing "generateStaticParams()"` や `export const dynamic = "force-static"/export const revalidate not configured` など。
 - 原因: 動的パラメータ付きの API ルートは静的エクスポート非対応です。
 - 対応:

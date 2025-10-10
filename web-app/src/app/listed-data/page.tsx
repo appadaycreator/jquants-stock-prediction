@@ -2,13 +2,14 @@
 
 export const dynamic = "force-dynamic";
 
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { Suspense, useState, useEffect, useMemo, useCallback } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import EnhancedJQuantsAdapter from "@/lib/enhanced-jquants-adapter";
 import StockDetailModal from "@/components/StockDetailModal";
 import StockSearchInput from "@/components/StockSearchInput";
 import { formatStockCode, normalizeStockCode } from "@/lib/stock-code-utils";
 import { openMinkabuLink } from "@/lib/minkabu-utils";
+import ErrorBoundaryComponent from "@/components/ErrorBoundary";
 
 interface ListedStock {
   code: string;
@@ -37,7 +38,7 @@ interface ListedData {
 type SortField = "code" | "name" | "sector" | "market" | "currentPrice" | "change" | "changePercent" | "volume";
 type SortDirection = "asc" | "desc";
 
-const ListedDataPage: React.FC = () => {
+function ListedDataInner(): JSX.Element {
   const [data, setData] = useState<ListedData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -835,4 +836,27 @@ const ListedDataPage: React.FC = () => {
   );
 };
 
-export default ListedDataPage;
+export default function ListedDataPage() {
+  return (
+    <ErrorBoundaryComponent
+      onError={(error, errorInfo) => {
+        console.error("listed-data page error:", error, errorInfo);
+      }}
+    >
+      <Suspense
+        fallback={
+          <div className="container mx-auto p-4">
+            <div className="flex items-center justify-center min-h-screen">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                <p className="text-gray-600">上場銘柄一覧を読み込み中...</p>
+              </div>
+            </div>
+          </div>
+        }
+      >
+        <ListedDataInner />
+      </Suspense>
+    </ErrorBoundaryComponent>
+  );
+}
