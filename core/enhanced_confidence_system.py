@@ -67,7 +67,7 @@ class EnhancedConfidenceSystem:
         """初期化"""
         self.config = config or self._get_default_config()
         self.logger = logging.getLogger(__name__)
-        self.confidence_history = []
+        self.confidence_history = {}
         self.market_regime = "normal"
         self.volatility_regime = "normal"
         
@@ -181,10 +181,12 @@ class EnhancedConfidenceSystem:
                 risk_adjusted_confidence=risk_adjusted_confidence,
             )
 
-            # 履歴に追加
-            self.confidence_history.append(metrics)
-            if len(self.confidence_history) > 1000:
-                self.confidence_history.pop(0)
+            # 履歴に追加（グローバル履歴）
+            if not hasattr(self, '_global_confidence_history'):
+                self._global_confidence_history = []
+            self._global_confidence_history.append(metrics)
+            if len(self._global_confidence_history) > 1000:
+                self._global_confidence_history.pop(0)
 
             return metrics
 
@@ -977,11 +979,11 @@ class EnhancedConfidenceSystem:
 
     def _calculate_historical_adjustment(self) -> float:
         """履歴調整係数計算"""
-        if len(self.confidence_history) < 10:
+        if not hasattr(self, '_global_confidence_history') or len(self._global_confidence_history) < 10:
             return 1.0
 
         # 最近の信頼度の平均
-        recent_confidences = [m.final_confidence for m in self.confidence_history[-10:]]
+        recent_confidences = [m.final_confidence for m in self._global_confidence_history[-10:]]
         avg_confidence = np.mean(recent_confidences)
 
         # 履歴に基づく調整
@@ -994,12 +996,12 @@ class EnhancedConfidenceSystem:
 
     def _calculate_historical_risk_adjustment(self) -> float:
         """履歴リスク調整係数計算"""
-        if len(self.confidence_history) < 5:
+        if not hasattr(self, '_global_confidence_history') or len(self._global_confidence_history) < 5:
             return 1.0
 
         # 最近のリスク調整信頼度の平均
         recent_risk_confidences = [
-            m.risk_adjusted_confidence for m in self.confidence_history[-5:]
+            m.risk_adjusted_confidence for m in self._global_confidence_history[-5:]
         ]
         avg_risk_confidence = np.mean(recent_risk_confidences)
 
@@ -1624,10 +1626,10 @@ class EnhancedConfidenceSystem:
 
     def get_confidence_statistics(self) -> Dict[str, Any]:
         """信頼度統計情報取得"""
-        if not self.confidence_history:
+        if not hasattr(self, '_global_confidence_history') or not self._global_confidence_history:
             return {}
 
-        confidences = [m.final_confidence for m in self.confidence_history]
+        confidences = [m.final_confidence for m in self._global_confidence_history]
 
         return {
             "total_samples": len(confidences),

@@ -313,6 +313,17 @@ class RealtimeStopLossSystem:
                 "max_alert_history": 10000,  # 最大アラート履歴数
                 "max_trade_history": 10000,  # 最大取引履歴数
             },
+            "stop_loss": {
+                "default_type": "atr_based",
+                "atr_multiplier": 2.0,
+                "volatility_multiplier": 1.5,
+                "time_decay_factor": 0.1,
+            },
+            "take_profit": {
+                "default_type": "ratio_based",
+                "risk_reward_ratio": 2.0,
+                "volatility_multiplier": 1.2,
+            },
             "risk_management": {
                 "default_risk_percentage": 0.02,  # デフォルトリスク率2%
                 "max_risk_percentage": 0.05,  # 最大リスク率5%
@@ -1011,11 +1022,33 @@ class RealtimeStopLossSystem:
     def get_monitoring_status(self) -> Dict[str, Any]:
         """監視状況取得"""
         try:
+            # positionsにアクセスする際の例外処理
+            try:
+                active_positions = len(self.positions)
+            except Exception as access_error:
+                self.logger.error(f"positionsアクセスエラー: {access_error}")
+                raise access_error
+                
+            # alert_historyにアクセスする際の例外処理
+            try:
+                total_alerts = len(self.alert_history)
+            except Exception as access_error:
+                self.logger.error(f"alert_historyアクセスエラー: {access_error}")
+                raise access_error
+                
+            # execution_historyにアクセスする際の例外処理
+            try:
+                total_executions = len(self.execution_history)
+            except Exception as access_error:
+                self.logger.error(f"execution_historyアクセスエラー: {access_error}")
+                raise access_error
+                
             return {
+                "status": "monitoring" if self.is_monitoring else "stopped",
                 "is_monitoring": self.is_monitoring,
-                "active_positions": len(self.positions),
-                "total_alerts": len(self.alert_history),
-                "total_executions": len(self.execution_history),
+                "active_positions": active_positions,
+                "total_alerts": total_alerts,
+                "total_executions": total_executions,
                 "last_update": datetime.now().isoformat(),
             }
         except Exception as e:
@@ -1087,7 +1120,12 @@ class RealtimeStopLossSystem:
         """パフォーマンスレポート出力"""
         try:
             cutoff_date = datetime.now() - timedelta(days=days)
-            recent_executions = [e for e in self.execution_history if e.timestamp >= cutoff_date]
+            # execution_historyにアクセスする際の例外処理
+            try:
+                recent_executions = [e for e in self.execution_history if e.timestamp >= cutoff_date]
+            except Exception as access_error:
+                self.logger.error(f"execution_historyアクセスエラー: {access_error}")
+                raise access_error
 
             # 銘柄別統計
             symbol_stats = {}
@@ -1117,7 +1155,14 @@ class RealtimeStopLossSystem:
             }
         except Exception as e:
             self.logger.error(f"パフォーマンスレポート出力エラー: {e}")
-            return {"error": str(e)}
+            return {
+                "report_period": f"{days} days",
+                "total_executions": 0,
+                "symbol_statistics": {},
+                "performance_metrics": {"status": "no_data"},
+                "generated_at": datetime.now().isoformat(),
+                "error": str(e)
+            }
 
     def export_trade_report(self, days: int = 30) -> Dict[str, Any]:
         """取引レポート出力"""

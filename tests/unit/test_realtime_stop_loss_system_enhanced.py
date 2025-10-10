@@ -721,7 +721,9 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
 
     def test_get_monitoring_status_exception(self):
         """監視状況取得例外処理テスト"""
-        with patch.object(self.system, 'positions', side_effect=Exception("Status error")):
+        # datetime.now()で例外を発生させる
+        with patch('core.realtime_stop_loss_system.datetime') as mock_datetime:
+            mock_datetime.now.side_effect = Exception("Status error")
             with patch.object(self.system.logger, 'error') as mock_error:
                 result = self.system.get_monitoring_status()
                 
@@ -873,7 +875,8 @@ class TestRealtimeStopLossSystemEnhanced(unittest.TestCase):
 
     def test_export_performance_report_exception(self):
         """パフォーマンスレポート出力例外処理テスト"""
-        with patch.object(self.system, 'execution_history', side_effect=Exception("Report error")):
+        # get_performance_metricsメソッドで例外を発生させる
+        with patch.object(self.system, 'get_performance_metrics', side_effect=Exception("Report error")):
             with patch.object(self.system.logger, 'error') as mock_error:
                 result = self.system.export_performance_report()
                 
